@@ -75,7 +75,7 @@ export interface RuntimeShutdownDependencies {
 /**
  * Options for a shutdown operation.
  */
-export interface RuntimeShutdownOptions {
+export interface RuntimeShutdownConfig {
   /**
    * Whether modules should be stopped.
    *
@@ -129,7 +129,7 @@ export type RuntimeShutdownPhase =
 /**
  * Error captured during shutdown.
  */
-export interface RuntimeShutdownError {
+export interface RuntimeShutdownErrorInfo {
   /**
    * Shutdown phase where the error occurred.
    */
@@ -181,7 +181,7 @@ export interface RuntimeShutdownResult {
    * Errors encountered during shutdown.
    */
   readonly errors:
-    readonly RuntimeShutdownError[];
+    readonly RuntimeShutdownErrorInfo[];
 
   /**
    * Shutdown start time.
@@ -223,7 +223,7 @@ export interface RuntimeShutdown {
    */
   shutdown(
     options?:
-      RuntimeShutdownOptions,
+      RuntimeShutdownConfig,
   ):
     Promise<RuntimeShutdownResult>;
 
@@ -337,7 +337,7 @@ export class DefaultRuntimeShutdown
    */
   public async shutdown(
     options:
-      RuntimeShutdownOptions = {},
+      RuntimeShutdownConfig = {},
   ):
     Promise<RuntimeShutdownResult> {
     if (
@@ -369,7 +369,7 @@ export class DefaultRuntimeShutdown
       new Date();
 
     const errors:
-      RuntimeShutdownError[] =
+      RuntimeShutdownErrorInfo[] =
       [];
 
     let stoppedModules =
@@ -514,7 +514,7 @@ export class DefaultRuntimeShutdown
     options:
       ResolvedShutdownOptions,
     errors:
-      RuntimeShutdownError[],
+      RuntimeShutdownErrorInfo[],
     counters: {
       incrementStopped():
         void;
@@ -569,7 +569,7 @@ export class DefaultRuntimeShutdown
    */
   private async stopModules(
     errors:
-      RuntimeShutdownError[],
+      RuntimeShutdownErrorInfo[],
     counters: {
       incrementStopped():
         void;
@@ -631,7 +631,7 @@ export class DefaultRuntimeShutdown
    */
   private async destroyModules(
     errors:
-      RuntimeShutdownError[],
+      RuntimeShutdownErrorInfo[],
     counters: {
       incrementDestroyed():
         void;
@@ -802,7 +802,7 @@ export class DefaultRuntimeShutdown
    */
   private resolveOptions(
     options:
-      RuntimeShutdownOptions,
+      RuntimeShutdownConfig,
   ):
     ResolvedShutdownOptions {
     return {
@@ -906,7 +906,7 @@ export class DefaultRuntimeShutdown
     destroyedModules:
       number,
     errors:
-      readonly RuntimeShutdownError[],
+      readonly RuntimeShutdownErrorInfo[],
     startedAt:
       Date,
     completedAt:
@@ -1079,8 +1079,6 @@ export class RuntimeShutdownError
   public readonly code:
     string;
 
-  public readonly cause?:
-    unknown;
 
   public constructor(
     message:
@@ -1092,8 +1090,6 @@ export class RuntimeShutdownError
   ) {
     super(message);
 
-    this.name =
-      "RuntimeShutdownError";
 
     this.code =
       code;
