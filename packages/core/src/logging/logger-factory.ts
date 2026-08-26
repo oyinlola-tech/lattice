@@ -2,7 +2,7 @@ import type { LoggerContext } from "./logger-context.js";
 import {
   ConsoleLogger,
 } from "./console-logger.js";
-import type { Logger } from "./logger.js";
+import type { Logger, LogContext } from "./logger.js";
 import type { LoggerOptions } from "./logger-options.js";
 
 /**
@@ -68,7 +68,7 @@ export class LoggerFactory {
     logger: Logger,
     context: LoggerContext,
   ): Logger {
-    return logger.child(context);
+    return logger.child(context as LogContext);
   }
 
   /**
