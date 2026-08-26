@@ -164,7 +164,7 @@ export {
 
 export type {
   RuntimeShutdownDependencies,
-  RuntimeShutdownOptions,
+  RuntimeShutdownConfig,
   RuntimeShutdownPhase,
   RuntimeShutdownResult,
   RuntimeShutdownError as RuntimeShutdownErrorInfo,
