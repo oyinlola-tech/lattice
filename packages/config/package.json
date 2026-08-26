@@ -1,0 +1,33 @@
+{
+  "name": "@lattice/config",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Configuration management for the Lattice platform.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "@lattice/core": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}
