@@ -18,7 +18,15 @@ export {
   // with the module contract as it evolves.
 } from "./module.js";
 
-export * from "./module.js";
+export {
+  type ModuleId,
+  type ModuleOptions,
+  type ModuleLifecycle,
+  type Module,
+  BaseModule,
+  isModule,
+  createModule,
+} from "./module.js";
 
 /*
  * Module definition
