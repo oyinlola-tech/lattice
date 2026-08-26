@@ -267,7 +267,7 @@ export class ConfigurationSchemaRegistry {
 
     this.schemas.set(
       schema.path,
-      schema,
+      schema as ConfigurationSchema,
     );
   }
 

@@ -9,7 +9,7 @@ export {
 export type {
   ConfigurationOptions,
   ConfigurationValue,
-  ConfigurationSource,
+  ConfigurationSource as ConfigurationValueSource,
   ConfigurationEntry,
 } from "./configuration.js";
 

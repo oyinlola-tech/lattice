@@ -18,6 +18,7 @@ export type ConfigurationSource =
   | "environment"
   | "file"
   | "secret"
+  | "remote"
   | "runtime"
   | "custom";
 
@@ -591,7 +592,7 @@ export class Configuration {
       index += 1
     ) {
       const part =
-        parts[index];
+        parts[index]!;
 
       const existing =
         current[part];
@@ -608,7 +609,7 @@ export class Configuration {
             }
           : {};
 
-      current[part] =
+      current[part!] =
         nested;
 
       current =
@@ -616,7 +617,7 @@ export class Configuration {
     }
 
     current[
-      parts[parts.length - 1]
+      parts[parts.length - 1]!
     ] = value;
 
     return result;
@@ -653,7 +654,7 @@ export class Configuration {
       index += 1
     ) {
       const part =
-        parts[index];
+        parts[index]!;
 
       const next =
         current[part];
@@ -674,7 +675,7 @@ export class Configuration {
     }
 
     delete current[
-      parts[parts.length - 1]
+      parts[parts.length - 1]!
     ];
 
     return result;

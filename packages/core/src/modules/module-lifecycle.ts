@@ -158,6 +158,8 @@ export class ModuleLifecycleError
   public readonly cause:
     unknown;
 
+  public override readonly name: string = "ModuleLifecycleError";
+
   public constructor(
     moduleId: ModuleId,
     phase: ModuleLifecyclePhase,

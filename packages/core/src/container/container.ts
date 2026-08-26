@@ -59,7 +59,7 @@ export class Container {
       return registration.instance as T;
     }
 
-    const instance = this.createInstance<T>(registration.provider);
+    const instance = this.createInstance<T>(registration.provider as Provider<T>);
 
     if (registration.scope === "singleton") {
       registration.instance = instance;

@@ -306,7 +306,6 @@ export class ConfigurationLoadError
 {
   public readonly source: ConfigurationSource;
 
-  public readonly cause: unknown;
 
   public constructor(
     source: ConfigurationSource,
@@ -321,8 +320,6 @@ export class ConfigurationLoadError
       `Failed to load configuration source "${source.name}": ${message}`,
     );
 
-    this.name =
-      "ConfigurationLoadError";
 
     this.source =
       source;
