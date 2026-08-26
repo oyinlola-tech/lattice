@@ -1,0 +1,28 @@
+{
+  "name": "@lattice/container",
+  "version": "0.1.0",
+  "description": "Dependency injection container and service resolution system for Lattice.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "tsc -p tsconfig.json --clean"
+  },
+  "dependencies": {
+    "@lattice/core": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
