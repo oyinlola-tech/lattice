@@ -155,7 +155,7 @@ export class ModuleLifecycleError
   public readonly phase:
     ModuleLifecyclePhase;
 
-  public readonly cause:
+  public override readonly cause:
     unknown;
 
   public override readonly name: string = "ModuleLifecycleError";
