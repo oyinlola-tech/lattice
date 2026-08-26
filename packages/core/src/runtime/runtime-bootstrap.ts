@@ -1210,8 +1210,7 @@ export class RuntimeBootstrapError
   public readonly code:
     string;
 
-  public readonly cause?:
-    unknown;
+  public override readonly name: string = "RuntimeBootstrapError";
 
   public constructor(
     message:

@@ -114,8 +114,6 @@ export class ModuleLoadError
   /**
    * Original error.
    */
-  public readonly cause:
-    unknown;
 
   public constructor(
     moduleId: ModuleId,
@@ -128,16 +126,12 @@ export class ModuleLoadError
 
     super(
       `Failed to load module "${moduleId}": ${message}`,
+      { cause },
     );
 
-    this.name =
-      "ModuleLoadError";
 
     this.moduleId =
       moduleId;
-
-    this.cause =
-      cause;
   }
 }
 
