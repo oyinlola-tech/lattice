@@ -3,3 +3,6 @@ node_modules/
 dist/
 coverage
 .DS_Store
+.claude
+skills-lock.json
+.agents
