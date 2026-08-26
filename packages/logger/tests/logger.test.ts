@@ -58,39 +58,22 @@ describe("LoggerLevel", () => {
   });
 
   it("converts level to name", () => {
-    expect(loggerLevelToName(LoggerLevel.DEBUG)).toBe(
-      "debug",
-    );
-    expect(loggerLevelToName(LoggerLevel.INFO)).toBe(
-      "info",
-    );
-    expect(loggerLevelToName(LoggerLevel.WARN)).toBe(
-      "warn",
-    );
-    expect(loggerLevelToName(LoggerLevel.ERROR)).toBe(
-      "error",
-    );
-    expect(loggerLevelToName(LoggerLevel.FATAL)).toBe(
-      "fatal",
-    );
-    expect(loggerLevelToName(LoggerLevel.TRACE)).toBe(
-      "trace",
-    );
+    expect(loggerLevelToName(LoggerLevel.DEBUG)).toBe("debug");
+    expect(loggerLevelToName(LoggerLevel.INFO)).toBe("info");
+    expect(loggerLevelToName(LoggerLevel.WARN)).toBe("warn");
+    expect(loggerLevelToName(LoggerLevel.ERROR)).toBe("error");
+    expect(loggerLevelToName(LoggerLevel.FATAL)).toBe("fatal");
+    expect(loggerLevelToName(LoggerLevel.TRACE)).toBe("trace");
   });
 
   it("converts name to level", () => {
-    expect(loggerLevelFromName("debug")).toBe(
-      LoggerLevel.DEBUG,
-    );
-    expect(loggerLevelFromName("info")).toBe(
-      LoggerLevel.INFO,
-    );
+    expect(loggerLevelFromName("debug")).toBe(LoggerLevel.DEBUG);
+    expect(loggerLevelFromName("info")).toBe(LoggerLevel.INFO);
   });
 
   it("shouldLog respects level hierarchy", () => {
     // FATAL=0, ERROR=1, WARN=2, INFO=3, DEBUG=4, TRACE=5
     // shouldLog(threshold, messageLevel) = messageLevel <= threshold
-    // threshold=INFO(3) allows FATAL(0), ERROR(1), WARN(2), INFO(3)
     expect(shouldLog(LoggerLevel.INFO, LoggerLevel.ERROR)).toBe(true);
     expect(shouldLog(LoggerLevel.INFO, LoggerLevel.WARN)).toBe(true);
     expect(shouldLog(LoggerLevel.INFO, LoggerLevel.DEBUG)).toBe(false);
@@ -131,10 +114,7 @@ describe("LoggerEntry", () => {
 
   it("creates an error log entry", () => {
     const error = new Error("boom");
-    const entry = createErrorLoggerEntry(
-      error,
-      LoggerLevel.ERROR,
-    );
+    const entry = createErrorLoggerEntry(error, LoggerLevel.ERROR);
 
     expect(entry.level).toBe(LoggerLevel.ERROR);
     expect(entry.error).toBe(error);
@@ -159,21 +139,21 @@ describe("LoggerEntry", () => {
 // ---------------------------------------------------------------------------
 
 describe("LoggerContext", () => {
-  it("creates a logger context", () => {
+  it("creates a logger context with identifiers", () => {
     const ctx = createLoggerContext({
       correlationId: "corr-1",
       requestId: "req-1",
     });
 
-    expect(ctx.correlationId).toBe("corr-1");
-    expect(ctx.requestId).toBe("req-1");
+    expect(ctx.identifiers.correlationId).toBe("corr-1");
+    expect(ctx.identifiers.requestId).toBe("req-1");
     expect(isLoggerContext(ctx)).toBe(true);
   });
 
   it("creates an empty context", () => {
     const ctx = createEmptyLoggerContext();
     expect(isLoggerContext(ctx)).toBe(true);
-    expect(ctx.correlationId).toBeUndefined();
+    expect(ctx.identifiers.correlationId).toBeUndefined();
   });
 
   it("merges contexts", () => {
@@ -185,8 +165,8 @@ describe("LoggerContext", () => {
     });
 
     const merged = mergeLoggerContexts(base, override);
-    expect(merged.correlationId).toBe("c1");
-    expect(merged.requestId).toBe("r1");
+    expect(merged.identifiers.correlationId).toBe("c1");
+    expect(merged.identifiers.requestId).toBe("r1");
   });
 
   it("override replaces base values", () => {
@@ -198,7 +178,7 @@ describe("LoggerContext", () => {
     });
 
     const merged = mergeLoggerContexts(base, override);
-    expect(merged.correlationId).toBe("c2");
+    expect(merged.identifiers.correlationId).toBe("c2");
   });
 });
 
@@ -239,17 +219,17 @@ describe("LoggerFormatters", () => {
 // ---------------------------------------------------------------------------
 
 describe("LoggerTransports", () => {
-  it("creates a console transport with id", () => {
+  it("creates a console transport", () => {
     const transport = createConsoleLoggerTransport();
-    expect(transport.id).toBeTruthy();
+    expect(transport.name).toBeTruthy();
     expect(typeof transport.write).toBe("function");
   });
 
-  it("creates a multi-transport with id", () => {
+  it("creates a multi-transport", () => {
     const t1 = createConsoleLoggerTransport();
     const t2 = createConsoleLoggerTransport();
     const multi = createMultiLoggerTransport([t1, t2]);
-    expect(multi.id).toBeTruthy();
+    expect(multi.name).toBeTruthy();
   });
 
   it("creates a conditional transport", () => {
@@ -313,9 +293,7 @@ describe("LoggerOptions", () => {
   });
 
   it("rejects empty name", () => {
-    expect(() =>
-      validateLoggerOptions({ name: "" }),
-    ).toThrow();
+    expect(() => validateLoggerOptions({ name: "" })).toThrow();
   });
 
   it("rejects negative transportTimeout", () => {
