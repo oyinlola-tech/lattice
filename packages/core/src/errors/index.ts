@@ -18,6 +18,5 @@ export {
   ProviderAlreadyRegisteredError,
   ConfigurationNotFoundError,
   ExecutionContextNotFoundError,
-  ModuleNotFoundError,
   AdapterNotFoundError,
 } from "./exceptions.js";
