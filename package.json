@@ -15,8 +15,8 @@
     "typecheck:core": "npm run typecheck --workspace=@lattice/core"
   },
   "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "node": ">=24.0.0",
+    "npm": ">=11.0.0"
   },
   "packageManager": "npm@11"
 }
