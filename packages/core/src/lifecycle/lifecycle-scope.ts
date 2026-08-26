@@ -364,7 +364,7 @@ export class LifecycleScope {
       index -= 1
     ) {
       try {
-        await this.children[index].stop();
+        await this.children[index]!.stop();
       } catch (error) {
         errors.push(error);
 
@@ -451,7 +451,7 @@ export class LifecycleScope {
       index -= 1
     ) {
       try {
-        await this.children[index].destroy();
+        await this.children[index]!.destroy();
       } catch (error) {
         errors.push(error);
 
