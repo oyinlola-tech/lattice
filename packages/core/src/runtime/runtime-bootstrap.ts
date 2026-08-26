@@ -186,7 +186,7 @@ export interface RuntimeBootstrapResult {
    * Errors encountered during bootstrap.
    */
   readonly errors:
-    readonly RuntimeBootstrapError[];
+    readonly RuntimeBootstrapErrorInfo[];
 
   /**
    * Bootstrap start time.
@@ -210,7 +210,7 @@ export interface RuntimeBootstrapResult {
 /**
  * Represents an error produced by a bootstrap phase.
  */
-export interface RuntimeBootstrapError {
+export interface RuntimeBootstrapErrorInfo {
   /**
    * Bootstrap phase in which the error occurred.
    */
@@ -401,7 +401,7 @@ export class DefaultRuntimeBootstrap
       new Date();
 
     const errors:
-      RuntimeBootstrapError[] =
+      RuntimeBootstrapErrorInfo[] =
       [];
 
     let loadedModules =
@@ -559,7 +559,7 @@ export class DefaultRuntimeBootstrap
     options:
       ResolvedBootstrapOptions,
     errors:
-      RuntimeBootstrapError[],
+      RuntimeBootstrapErrorInfo[],
     counters: {
       incrementLoaded():
         void;
@@ -619,7 +619,7 @@ export class DefaultRuntimeBootstrap
    */
   private async loadModules(
     errors:
-      RuntimeBootstrapError[],
+      RuntimeBootstrapErrorInfo[],
     counters: {
       incrementLoaded():
         void;
@@ -648,7 +648,7 @@ export class DefaultRuntimeBootstrap
       );
     } catch (error) {
       const bootstrapError:
-        RuntimeBootstrapError =
+        RuntimeBootstrapErrorInfo =
         {
           phase:
             "loading",
@@ -673,7 +673,7 @@ export class DefaultRuntimeBootstrap
    */
   private async initializeModules(
     errors:
-      RuntimeBootstrapError[],
+      RuntimeBootstrapErrorInfo[],
     counters: {
       incrementInitialized():
         void;
@@ -735,7 +735,7 @@ export class DefaultRuntimeBootstrap
    */
   private async startModules(
     errors:
-      RuntimeBootstrapError[],
+      RuntimeBootstrapErrorInfo[],
     counters: {
       incrementStarted():
         void;
@@ -1032,7 +1032,7 @@ export class DefaultRuntimeBootstrap
     startedModules:
       number,
     errors:
-      readonly RuntimeBootstrapError[],
+      readonly RuntimeBootstrapErrorInfo[],
     startedAt:
       Date,
     completedAt:
@@ -1221,8 +1221,6 @@ export class RuntimeBootstrapError
       unknown,
   ) {
     super(message);
-
-    this.name =
       "RuntimeBootstrapError";
 
     this.code =
