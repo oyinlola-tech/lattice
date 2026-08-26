@@ -118,6 +118,14 @@ export interface Module
    * should live.
    */
   readonly scope?: LifecycleScope;
+
+  /**
+   * Called when the module is attached to an application.
+   *
+   * Optional. Modules that need access to the application context
+   * can implement this method.
+   */
+  attach?(application: unknown): void;
 }
 
 /**
@@ -288,7 +296,7 @@ export function isModule(
  *
  * Useful for modules that do not require a class.
  */
-export function defineModule(
+export function createModule(
   definition: Module,
 ): Module {
   return definition;
