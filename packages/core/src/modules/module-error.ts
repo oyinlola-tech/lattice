@@ -265,9 +265,7 @@ export class ModuleError
   /**
    * Converts the error to a structured representation.
    */
-  public override toJSON(): Readonly<
-    Record<string, unknown>
-  > {
+  public override toJSON() {
     return {
       ...super.toJSON(),
 
@@ -453,9 +451,7 @@ export class ModuleVersionMismatchError
       actualVersion;
   }
 
-  public override toJSON(): Readonly<
-    Record<string, unknown>
-  > {
+  public override toJSON() {
     return {
       ...super.toJSON(),
       requiredVersion:
@@ -599,9 +595,7 @@ export class InvalidModuleStateError
       ]);
   }
 
-  public override toJSON(): Readonly<
-    Record<string, unknown>
-  > {
+  public override toJSON() {
     return {
       ...super.toJSON(),
       currentState:
