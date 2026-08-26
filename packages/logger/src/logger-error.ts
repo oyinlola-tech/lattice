@@ -1,0 +1,387 @@
+/**
+ * Errors produced by the Lattice logger.
+ *
+ * Logger errors are deliberately separated from application errors so
+ * consumers can distinguish failures in the logging infrastructure from
+ * failures being reported by the application.
+ */
+
+/**
+ * Base error for all logger failures.
+ */
+export class LoggerError extends Error {
+  readonly code: string;
+
+  readonly cause?: unknown;
+
+  constructor(
+    message: string,
+    code = "LOGGER_ERROR",
+    options?: {
+      readonly cause?: unknown;
+    },
+  ) {
+    super(message);
+
+    this.name = "LoggerError";
+    this.code = code;
+    this.cause = options?.cause;
+
+    Object.setPrototypeOf(
+      this,
+      new.target.prototype,
+    );
+  }
+}
+
+/**
+ * Raised when logger configuration is invalid.
+ */
+export class LoggerConfigurationError extends LoggerError {
+  constructor(
+    message: string,
+    options?: {
+      readonly cause?: unknown;
+    },
+  ) {
+    super(
+      message,
+      "LOGGER_CONFIGURATION_ERROR",
+      options,
+    );
+
+    this.name =
+      "LoggerConfigurationError";
+  }
+}
+
+/**
+ * Raised when a logger has already been disposed.
+ */
+export class LoggerDisposedError extends LoggerError {
+  constructor(
+    loggerName?: string,
+  ) {
+    super(
+      loggerName
+        ? `Logger "${loggerName}" has been disposed.`
+        : "Logger has been disposed.",
+      "LOGGER_DISPOSED",
+    );
+
+    this.name =
+      "LoggerDisposedError";
+  }
+}
+
+/**
+ * Raised when a logger transport fails.
+ */
+export class LoggerTransportError extends LoggerError {
+  readonly transportName?: string;
+
+  constructor(
+    message: string,
+    options?: {
+      readonly transportName?: string;
+      readonly cause?: unknown;
+    },
+  ) {
+    super(
+      message,
+      "LOGGER_TRANSPORT_ERROR",
+      options,
+    );
+
+    this.name =
+      "LoggerTransportError";
+
+    this.transportName =
+      options?.transportName;
+  }
+}
+
+/**
+ * Raised when a logger formatter fails.
+ */
+export class LoggerFormatterError extends LoggerError {
+  readonly formatterName?: string;
+
+  constructor(
+    message: string,
+    options?: {
+      readonly formatterName?: string;
+      readonly cause?: unknown;
+    },
+  ) {
+    super(
+      message,
+      "LOGGER_FORMATTER_ERROR",
+      options,
+    );
+
+    this.name =
+      "LoggerFormatterError";
+
+    this.formatterName =
+      options?.formatterName;
+  }
+}
+
+/**
+ * Raised when a log entry is invalid.
+ */
+export class InvalidLoggerEntryError extends LoggerError {
+  constructor(
+    message: string,
+    options?: {
+      readonly cause?: unknown;
+    },
+  ) {
+    super(
+      message,
+      "INVALID_LOGGER_ENTRY",
+      options,
+    );
+
+    this.name =
+      "InvalidLoggerEntryError";
+  }
+}
+
+/**
+ * Raised when an invalid logger level is supplied.
+ */
+export class InvalidLoggerLevelError extends LoggerError {
+  readonly level?: unknown;
+
+  constructor(
+    level: unknown,
+  ) {
+    super(
+      `Invalid logger level: ${String(level)}.`,
+      "INVALID_LOGGER_LEVEL",
+    );
+
+    this.name =
+      "InvalidLoggerLevelError";
+
+    this.level = level;
+  }
+}
+
+/**
+ * Raised when a logger transport times out.
+ */
+export class LoggerTimeoutError extends LoggerTransportError {
+  readonly timeout: number;
+
+  constructor(
+    transportName: string,
+    timeout: number,
+  ) {
+    super(
+      `Logger transport "${transportName}" timed out after ${timeout}ms.`,
+      {
+        transportName,
+      },
+    );
+
+    this.name =
+      "LoggerTimeoutError";
+
+    this.timeout = timeout;
+  }
+}
+
+/**
+ * Raised when an operation is attempted on a closed transport.
+ */
+export class LoggerTransportClosedError extends LoggerTransportError {
+  constructor(
+    transportName: string,
+  ) {
+    super(
+      `Logger transport "${transportName}" is closed.`,
+      {
+        transportName,
+      },
+    );
+
+    this.name =
+      "LoggerTransportClosedError";
+  }
+}
+
+/**
+ * Raised when a formatter is missing.
+ */
+export class LoggerFormatterNotFoundError extends LoggerError {
+  readonly formatterName?: string;
+
+  constructor(
+    formatterName?: string,
+  ) {
+    super(
+      formatterName
+        ? `Logger formatter "${formatterName}" was not found.`
+        : "Logger formatter was not found.",
+      "LOGGER_FORMATTER_NOT_FOUND",
+    );
+
+    this.name =
+      "LoggerFormatterNotFoundError";
+
+    this.formatterName =
+      formatterName;
+  }
+}
+
+/**
+ * Raised when a transport is missing.
+ */
+export class LoggerTransportNotFoundError extends LoggerError {
+  readonly transportName?: string;
+
+  constructor(
+    transportName?: string,
+  ) {
+    super(
+      transportName
+        ? `Logger transport "${transportName}" was not found.`
+        : "Logger transport was not found.",
+      "LOGGER_TRANSPORT_NOT_FOUND",
+    );
+
+    this.name =
+      "LoggerTransportNotFoundError";
+
+    this.transportName =
+      transportName;
+  }
+}
+
+/**
+ * Converts an unknown thrown value into a LoggerError.
+ */
+export function toLoggerError(
+  error: unknown,
+  message?: string,
+): LoggerError {
+  if (
+    error instanceof LoggerError
+  ) {
+    return error;
+  }
+
+  if (
+    error instanceof Error
+  ) {
+    return new LoggerError(
+      message ??
+        error.message,
+      "LOGGER_ERROR",
+      {
+        cause: error,
+      },
+    );
+  }
+
+  return new LoggerError(
+    message ??
+      String(error),
+    "LOGGER_ERROR",
+    {
+      cause: error,
+    },
+  );
+}
+
+/**
+ * Checks whether a value is a LoggerError.
+ */
+export function isLoggerError(
+  value: unknown,
+): value is LoggerError {
+  return (
+    value instanceof LoggerError
+  );
+}
+
+/**
+ * Safely extracts the cause from an error.
+ */
+export function getLoggerErrorCause(
+  error: unknown,
+): unknown {
+  if (
+    error instanceof LoggerError
+  ) {
+    return error.cause;
+  }
+
+  if (
+    error instanceof Error &&
+    "cause" in error
+  ) {
+    return (
+      error as Error & {
+        cause?: unknown;
+      }
+    ).cause;
+  }
+
+  return undefined;
+}
+
+/**
+ * Creates a transport error while preserving the original failure.
+ */
+export function createLoggerTransportError(
+  transportName: string,
+  error: unknown,
+): LoggerTransportError {
+  const cause =
+    error instanceof Error
+      ? error
+      : undefined;
+
+  const message =
+    error instanceof Error
+      ? error.message
+      : String(error);
+
+  return new LoggerTransportError(
+    `Logger transport "${transportName}" failed: ${message}`,
+    {
+      transportName,
+      cause,
+    },
+  );
+}
+
+/**
+ * Creates a formatter error while preserving the original failure.
+ */
+export function createLoggerFormatterError(
+  formatterName: string,
+  error: unknown,
+): LoggerFormatterError {
+  const cause =
+    error instanceof Error
+      ? error
+      : undefined;
+
+  const message =
+    error instanceof Error
+      ? error.message
+      : String(error);
+
+  return new LoggerFormatterError(
+    `Logger formatter "${formatterName}" failed: ${message}`,
+    {
+      formatterName,
+      cause,
+    },
+  );
+}

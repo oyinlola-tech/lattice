@@ -1,0 +1,373 @@
+import type { Logger } from "./logger";
+import {
+  createDefaultLogger,
+  createLogger,
+} from "./logger";
+
+import type {
+  LoggerFactory,
+} from "./logger-factory";
+
+import {
+  createLoggerFactory,
+} from "./logger-factory";
+
+import type {
+  LoggerOptions,
+} from "./logger-options";
+
+/**
+ * Manages application-wide loggers.
+ *
+ * LoggerFactory handles logger creation and registry operations.
+ * LoggerManager provides the higher-level lifecycle and global
+ * application logger behavior.
+ */
+export class LoggerManager {
+  private readonly factory: LoggerFactory;
+
+  private defaultLogger?: Logger;
+
+  private initialized = false;
+
+  private closed = false;
+
+  constructor(
+    options: LoggerOptions = {},
+  ) {
+    this.factory =
+      createLoggerFactory(
+        options,
+      );
+  }
+
+  /**
+   * Initializes the logger manager.
+   *
+   * Initialization is idempotent.
+   */
+  initialize(
+    options: LoggerOptions = {},
+  ): Logger {
+    if (
+      this.closed
+    ) {
+      throw new Error(
+        "LoggerManager has been closed.",
+      );
+    }
+
+    if (
+      this.initialized &&
+      this.defaultLogger
+    ) {
+      return this.defaultLogger;
+    }
+
+    const logger =
+      this.factory.create(
+        options.name ??
+          "lattice",
+        options,
+      );
+
+    this.defaultLogger =
+      logger;
+
+    this.initialized =
+      true;
+
+    return logger;
+  }
+
+  /**
+   * Returns the default application logger.
+   *
+   * Lazily initializes the manager when necessary.
+   */
+  getLogger(): Logger {
+    if (
+      this.closed
+    ) {
+      throw new Error(
+        "LoggerManager has been closed.",
+      );
+    }
+
+    if (
+      !this.defaultLogger
+    ) {
+      return this.initialize();
+    }
+
+    return this.defaultLogger;
+  }
+
+  /**
+   * Returns a named logger.
+   *
+   * Named loggers are managed by the underlying factory.
+   */
+  get(
+    name: string,
+    options: LoggerOptions = {},
+  ): Logger {
+    if (
+      this.closed
+    ) {
+      throw new Error(
+        "LoggerManager has been closed.",
+      );
+    }
+
+    return this.factory.getOrCreate(
+      name,
+      options,
+    );
+  }
+
+  /**
+   * Creates a new logger even when another logger with the same
+   * name already exists.
+   */
+  create(
+    name: string,
+    options: LoggerOptions = {},
+  ): Logger {
+    if (
+      this.closed
+    ) {
+      throw new Error(
+        "LoggerManager has been closed.",
+      );
+    }
+
+    return this.factory.create(
+      name,
+      options,
+      true,
+    );
+  }
+
+  /**
+   * Checks whether a named logger exists.
+   */
+  has(
+    name: string,
+  ): boolean {
+    if (
+      this.closed
+    ) {
+      return false;
+    }
+
+    return this.factory.has(
+      name,
+    );
+  }
+
+  /**
+   * Removes a named logger without closing it.
+   */
+  remove(
+    name: string,
+  ): boolean {
+    if (
+      this.closed
+    ) {
+      return false;
+    }
+
+    if (
+      this.defaultLogger?.name ===
+      name
+    ) {
+      this.defaultLogger =
+        undefined;
+    }
+
+    return this.factory.remove(
+      name,
+    );
+  }
+
+  /**
+   * Flushes all managed loggers.
+   */
+  async flush(): Promise<void> {
+    if (
+      this.closed
+    ) {
+      return;
+    }
+
+    await this.factory.flushAll();
+  }
+
+  /**
+   * Closes all managed loggers.
+   */
+  async close(): Promise<void> {
+    if (
+      this.closed
+    ) {
+      return;
+    }
+
+    this.closed =
+      true;
+
+    this.initialized =
+      false;
+
+    this.defaultLogger =
+      undefined;
+
+    await this.factory.disposeAll();
+  }
+
+  /**
+   * Returns all managed loggers.
+   */
+  getAll(): readonly Logger[] {
+    if (
+      this.closed
+    ) {
+      return [];
+    }
+
+    return this.factory.getAll();
+  }
+
+  /**
+   * Returns the number of managed loggers.
+   */
+  get size(): number {
+    if (
+      this.closed
+    ) {
+      return 0;
+    }
+
+    return this.factory.size;
+  }
+
+  /**
+   * Returns whether the manager has been initialized.
+   */
+  get isInitialized(): boolean {
+    return (
+      this.initialized &&
+      !this.closed
+    );
+  }
+
+  /**
+   * Returns whether the manager has been closed.
+   */
+  get isClosed(): boolean {
+    return this.closed;
+  }
+
+  /**
+   * Provides direct access to the underlying factory.
+   *
+   * This is useful for infrastructure code that needs more
+   * advanced logger registration behavior.
+   */
+  getFactory(): LoggerFactory {
+    if (
+      this.closed
+    ) {
+      throw new Error(
+        "LoggerManager has been closed.",
+      );
+    }
+
+    return this.factory;
+  }
+}
+
+/**
+ * Creates a LoggerManager.
+ */
+export function createLoggerManager(
+  options: LoggerOptions = {},
+): LoggerManager {
+  return new LoggerManager(
+    options,
+  );
+}
+
+/**
+ * Creates and initializes a LoggerManager.
+ */
+export function initializeLoggerManager(
+  options: LoggerOptions = {},
+): LoggerManager {
+  const manager =
+    createLoggerManager(
+      options,
+    );
+
+  manager.initialize(
+    options,
+  );
+
+  return manager;
+}
+
+/**
+ * Creates the default application logger.
+ *
+ * This helper intentionally remains independent of the manager so
+ * low-level packages can use a logger without creating a manager.
+ */
+export function createManagedDefaultLogger(
+  name = "lattice",
+): Logger {
+  return createDefaultLogger(
+    name,
+  );
+}
+
+/**
+ * Creates a logger manager from an existing logger.
+ *
+ * The supplied logger becomes the manager's default logger.
+ */
+export function createLoggerManagerFromLogger(
+  logger: Logger,
+): LoggerManager {
+  const manager =
+    new LoggerManager();
+
+  manager["defaultLogger"] =
+    logger;
+
+  manager["initialized"] =
+    true;
+
+  return manager;
+}
+
+/**
+ * Returns a logger from a manager or creates a fallback logger when
+ * no manager is supplied.
+ */
+export function resolveManagedLogger(
+  manager?: LoggerManager,
+  name = "lattice",
+): Logger {
+  if (
+    manager
+  ) {
+    return manager.get(
+      name,
+    );
+  }
+
+  return createLogger({
+    name,
+  });
+}
