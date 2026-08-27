@@ -1,5 +1,5 @@
-import { FrameworkError } from "./framework-error.js";
-import { ErrorCode } from "./error-code.js";
+import { FrameworkError } from "./frameworkError.error.js";
+import { ErrorCode } from "./errorCode.code.js";
 
 /**
  * Thrown when an invalid argument is supplied to a framework operation.
