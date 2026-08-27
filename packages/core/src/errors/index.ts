@@ -1,15 +1,21 @@
+/**
+ * @lattice/core/errors
+ *
+ * Core error types and error handling utilities.
+ */
+
 export {
   ErrorCode,
-} from "./error-code.js";
+} from "./errorCode.code.js";
 
 export type {
   ErrorCode as ErrorCodeType,
-} from "./error-code.js";
+} from "./errorCode.code.js";
 
 export {
   FrameworkError,
   type FrameworkErrorJSON,
-} from "./framework-error.js";
+} from "./frameworkError.error.js";
 
 export {
   InvalidArgumentError,
