@@ -1,14 +1,14 @@
 import type {
   ApplicationContext,
-} from "../application/application-context.js";
+} from "../application/applicationContext.context.js";
 
 import type {
   ConfigurationManager,
-} from "../configuration/configuration-manager.js";
+} from "../configuration/configurationManager.manager.js";
 
 import type {
   Logger,
-} from "../logging/logger.js";
+} from "../logging/core/logger.js";
 
 import type {
   Module,
@@ -16,15 +16,15 @@ import type {
 
 import type {
   ModuleLoader,
-} from "../modules/module-loader.js";
+} from "../modules/moduleLoader/index.js";
 
 import type {
   ModuleLifecycleManager,
-} from "../modules/module-lifecycle.js";
+} from "../modules/moduleLifecycle/index.js";
 
 import type {
   ModuleRegistry,
-} from "../modules/module-registry.js";
+} from "../modules/moduleRegistry/index.js";
 
 /**
  * Runtime lifecycle state.
