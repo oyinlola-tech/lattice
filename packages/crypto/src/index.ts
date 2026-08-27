@@ -1,15 +1,23 @@
-export * from "./crypto-algorithm";
-export * from "./crypto-key";
-export * from "./crypto-hash";
-export * from "./crypto-random";
-export * from "./crypto-encoding";
-export * from "./crypto-cipher";
-export * from "./crypto-password";
-export * from "./crypto-signature";
-export * from "./crypto-key-derivation";
-export * from "./crypto-token";
-export * from "./crypto-error";
-export * from "./crypto-constants";
-export * from "./crypto-utils";
-export * from "./crypto-service";
-export * from "./crypto-factory";
+/**
+ * @lattice/crypto
+ *
+ * Cryptographic primitives for the Lattice framework.
+ * Provides symmetric/asymmetric encryption, hashing, password hashing,
+ * digital signatures, key derivation, and secure random generation.
+ */
+
+export * from "./cryptoAlgorithm/index.js";
+export * from "./cryptoCipher/index.js";
+export * from "./cryptoConstants/index.js";
+export * from "./cryptoEncoding/index.js";
+export * from "./cryptoErrors/index.js";
+export * from "./cryptoFactory/index.js";
+export * from "./cryptoHash/index.js";
+export * from "./cryptoKey/index.js";
+export * from "./cryptoKeyDerivation/index.js";
+export * from "./cryptoPassword/index.js";
+export * from "./cryptoRandom/index.js";
+export * from "./cryptoService/index.js";
+export * from "./cryptoSignature/index.js";
+export * from "./cryptoToken/index.js";
+export * from "./cryptoUtils/index.js";
