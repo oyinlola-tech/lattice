@@ -20,9 +20,10 @@
     "clean": "tsc -p tsconfig.json --clean"
   },
   "dependencies": {
-    "@lattice/core": "0.1.0"
+    "@lattice/errors": "0.1.0"
   },
   "devDependencies": {
     "typescript": "^7.0.2"
-  }
+  },
+  "license": "MIT"
 }
