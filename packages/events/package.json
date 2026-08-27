@@ -24,13 +24,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@lattice/container": "0.1.0",
-    "@lattice/core": "0.1.0"
+    "@lattice/errors": "0.1.0"
   },
   "engines": {
     "node": ">=24.0.0"
   },
   "devDependencies": {
     "vitest": "^4.1.11"
-  }
+  },
+  "license": "MIT"
 }
