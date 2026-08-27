@@ -2,7 +2,9 @@
 node_modules/
 dist/
 coverage
+*.tsbuildinfo
 .DS_Store
 .claude
 skills-lock.json
 .agents
+AGENTS.md
