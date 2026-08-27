@@ -1,0 +1,119 @@
+import type {
+  Logger,
+} from "../../logging/core/logger.js";
+
+import type {
+  ApplicationContext,
+} from "../../application/applicationContext.context.js";
+
+import type {
+  ModuleLoader,
+} from "../../modules/moduleLoader/index.js";
+
+import type {
+  ModuleLifecycleManager,
+} from "../../modules/moduleLifecycle/index.js";
+
+import type {
+  ModuleRegistry,
+} from "../../modules/moduleRegistry/index.js";
+
+import type {
+  RuntimeContext,
+} from "../runtimeContext/index.js";
+
+import type {
+  RuntimeEnvironment,
+} from "../runtimeEnvironment/index.js";
+
+import type {
+  ResolvedRuntimeOptions,
+} from "../runtimeOptions/index.js";
+
+/**
+ * Dependencies required by RuntimeBootstrap.
+ */
+export interface RuntimeBootstrapDependencies {
+  readonly context: RuntimeContext;
+  readonly environment: RuntimeEnvironment;
+  readonly application: ApplicationContext;
+  readonly moduleLoader: ModuleLoader;
+  readonly moduleRegistry: ModuleRegistry;
+  readonly moduleLifecycle: ModuleLifecycleManager;
+  readonly logger: Logger;
+}
+
+/**
+ * Options for a bootstrap operation.
+ */
+export interface RuntimeBootstrapOptions {
+  readonly loadModules?: boolean;
+  readonly initializeModules?: boolean;
+  readonly startModules?: boolean;
+  readonly continueOnInitializeError?: boolean;
+  readonly continueOnStartError?: boolean;
+  readonly timeoutMs?: number;
+}
+
+/**
+ * Individual bootstrap phase.
+ */
+export type RuntimeBootstrapPhase =
+  | "created"
+  | "loading"
+  | "loaded"
+  | "initializing"
+  | "initialized"
+  | "starting"
+  | "started"
+  | "completed"
+  | "failed";
+
+/**
+ * Represents an error produced by a bootstrap phase.
+ */
+export interface RuntimeBootstrapErrorInfo {
+  readonly phase: RuntimeBootstrapPhase;
+  readonly error: unknown;
+  readonly moduleName?: string;
+}
+
+/**
+ * Result of a bootstrap operation.
+ */
+export interface RuntimeBootstrapResult {
+  readonly success: boolean;
+  readonly phase: RuntimeBootstrapPhase;
+  readonly loadedModules: number;
+  readonly initializedModules: number;
+  readonly startedModules: number;
+  readonly errors: readonly RuntimeBootstrapErrorInfo[];
+  readonly startedAt: Date;
+  readonly completedAt: Date;
+  readonly durationMs: number;
+}
+
+/**
+ * Runtime bootstrap contract.
+ */
+export interface RuntimeBootstrap {
+  readonly running: boolean;
+  readonly phase: RuntimeBootstrapPhase;
+  bootstrap(
+    options?: RuntimeBootstrapOptions,
+  ): Promise<RuntimeBootstrapResult>;
+  getLastResult(): RuntimeBootstrapResult | undefined;
+  reset(): void;
+}
+
+/**
+ * Internal resolved bootstrap configuration.
+ */
+export interface ResolvedBootstrapOptions {
+  readonly loadModules: boolean;
+  readonly initializeModules: boolean;
+  readonly startModules: boolean;
+  readonly continueOnInitializeError: boolean;
+  readonly continueOnStartError: boolean;
+  readonly timeoutMs: number;
+}
