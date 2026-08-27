@@ -9,7 +9,7 @@ import {
   describeEvent,
   getEventType,
   getEventPayload,
-} from "../src/event.js";
+} from "../src/eventTypes/eventDefinition.type.js";
 import {
   isValidEventType,
   isValidEventTypePattern,
@@ -23,7 +23,7 @@ import {
   assertEventType,
   tryNormalizeEventType,
   filterEventsByType,
-} from "../src/event-type.js";
+} from "../src/eventTypes/eventType.type.js";
 import {
   isPrimitiveEventPayload,
   isObjectEventPayload,
@@ -32,7 +32,7 @@ import {
   deepFreeze,
   stripUndefinedValues,
   describeEventPayload,
-} from "../src/event-payload.js";
+} from "../src/eventTypes/eventPayload.type.js";
 
 // ─── Event creation ─────────────────────────────────────
 
