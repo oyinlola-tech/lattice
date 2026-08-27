@@ -1,6 +1,6 @@
-import type { ApplicationContext } from "./application-context.js";
-import type { ApplicationState } from "./application-state.js";
-import type { Lifecycle } from "../lifecycle/lifecycle.js";
+import type { ApplicationContext } from "./applicationContext.context.js";
+import type { ApplicationState } from "./applicationState.state.js";
+import type { Lifecycle } from "../lifecycle/core/lifecycle.js";
 import type { Runtime } from "../runtime/runtime.js";
 
 export interface ApplicationOptions {
