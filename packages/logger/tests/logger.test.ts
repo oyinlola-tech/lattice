@@ -7,32 +7,35 @@ import {
   shouldLog,
   getLoggerLevels,
   getLoggerLevelNames,
-} from "../src/logger-level.js";
+} from "../src/loggerLevel/loggerLevel.type.js";
 
 import {
   createLoggerEntry,
   createErrorLoggerEntry,
+} from "../src/loggerEntry/loggerEntry.core.js";
+
+import {
   serializeLoggerEntry,
-} from "../src/logger-entry.js";
+} from "../src/loggerEntry/loggerEntrySerialize.js";
 
 import {
   createLoggerContext,
   createEmptyLoggerContext,
   mergeLoggerContexts,
   isLoggerContext,
-} from "../src/logger-context.js";
+} from "../src/loggerContext/loggerContext.core.js";
 
 import {
   createJsonLoggerFormatter,
   createTextLoggerFormatter,
   createCompactLoggerFormatter,
-} from "../src/logger-formatter.js";
+} from "../src/loggerFormatter/loggerFormatterFormatters/index.js";
 
 import {
   createConsoleLoggerTransport,
   createMultiLoggerTransport,
   createConditionalLoggerTransport,
-} from "../src/logger-transport.js";
+} from "../src/loggerTransport/loggerTransport.registry.js";
 
 import {
   LoggerError,
@@ -40,12 +43,12 @@ import {
   LoggerDisposedError,
   isLoggerError,
   toLoggerError,
-} from "../src/logger-error.js";
+} from "../src/loggerErrors/loggerError.base.js";
 
 import {
   validateLoggerOptions,
   DEFAULT_LOGGER_OPTIONS,
-} from "../src/logger-options.js";
+} from "../src/loggerOptions/loggerOptions.type.js";
 
 // ---------------------------------------------------------------------------
 // LoggerLevel
