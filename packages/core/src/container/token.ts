@@ -11,7 +11,7 @@ export type Token<T = unknown> =
 /**
  * A class that can be used as a dependency token.
  */
-export type ConstructorToken<T> = new (...args: any[]) => T;
+export type ConstructorToken<T> = new (...args: unknown[]) => T;
 
 /**
  * Creates a unique symbol token.
