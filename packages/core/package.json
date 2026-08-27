@@ -57,5 +57,9 @@
     "@types/node": "^26.3.0",
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
-  }
+  },
+  "dependencies": {
+    "@lattice/errors": "0.1.0"
+  },
+  "license": "MIT"
 }
