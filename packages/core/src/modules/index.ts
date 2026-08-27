@@ -31,39 +31,39 @@ export {
 /*
  * Module definition
  */
-export * from "./module-definition.js";
+export * from "./moduleDefinition.definition.js";
 
 /*
  * Module metadata
  */
-export * from "./module-metadata.js";
+export * from "./moduleMetadata.metadata.js";
 
 /*
  * Module context
  */
-export * from "./module-context.js";
+export * from "./moduleContext.context.js";
 
 /*
  * Module dependency graph and dependency utilities
  */
-export * from "./module-dependency.js";
+export * from "./moduleDependency/index.js";
 
 /*
  * Module registry
  */
-export * from "./module-registry.js";
+export * from "./moduleRegistry/index.js";
 
 /*
  * Module loading
  */
-export * from "./module-loader.js";
+export * from "./moduleLoader/index.js";
 
 /*
  * Module lifecycle
  */
-export * from "./module-lifecycle.js";
+export * from "./moduleLifecycle/index.js";
 
 /*
  * Module errors
  */
-export * from "./module-error.js";
+export * from "./moduleError/index.js";
