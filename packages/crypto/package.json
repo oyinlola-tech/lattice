@@ -23,5 +23,9 @@
   },
   "engines": {
     "node": ">=24.0.0"
-  }
+  },
+  "dependencies": {
+    "@lattice/errors": "0.1.0"
+  },
+  "license": "MIT"
 }
