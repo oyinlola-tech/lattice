@@ -1,192 +1,43 @@
 /**
  * @lattice/logger
  *
- * Structured logging infrastructure for the Lattice platform.
- *
- * Public API for logger creation, configuration, contexts,
- * formatters, transports, errors, and lifecycle management.
+ * Structured logging with transports, formatters, and context for the Lattice framework.
  */
 
-// Logger
+// Core logger
+export * from "./loggerCore/index.js";
+
+// Formatter
+export * from "./loggerFormatter/index.js";
+
+// Transport
+export * from "./loggerTransport/index.js";
+
+// Entry types
+export * from "./loggerEntry/index.js";
+
+// Context (withLoggerContext is re-exported from loggerCore)
 export {
-  LatticeLogger,
-  createLogger,
-  createChildLogger,
-  createDefaultLogger,
-  logError,
-  withLoggerContext,
-} from "./logger";
-
-export type {
-  Logger,
-} from "./logger";
-
-// Logger levels
-export {
-  LoggerLevel,
-  loggerLevelToName,
-  loggerLevelFromName,
-  isLoggerLevel,
-  isLoggerLevelName,
-  shouldLog,
-  getLoggerLevels,
-  getLoggerLevelNames,
-} from "./logger-level";
-
-export type {
-  LoggerLevelName,
-} from "./logger-level";
-
-// Logger entries
-export {
-  createLoggerEntry,
-  createLoggerEntryId,
-  createErrorLoggerEntry,
-  normalizeLogMetadata,
-  serializeLoggerEntry,
-  serializeLoggerError,
-  serializeLoggerValue,
-} from "./logger-entry";
-
-export type {
-  LogValue,
-  LogMetadata,
-  LoggerSource,
-  LoggerEntryContext,
-  LoggerEntry,
-  LoggerEntryInput,
-} from "./logger-entry";
-
-// Logger context
-export {
+  type LoggerContext,
+  type LoggerContextData,
+  type LoggerContextIdentifiers,
+  type LoggerContextOptions,
   createLoggerContext,
-  createEmptyLoggerContext,
-  mergeLoggerContexts,
-  withLoggerContext as withLoggerContextData,
-  withLoggerIdentifiers,
-  contextToLogMetadata,
-  serializeLoggerContext,
   isLoggerContext,
-  createLoggerContextId,
-  createLoggerContextStorage,
-  getCurrentLoggerContextMetadata,
-} from "./logger-context";
+  mergeLoggerContexts,
+} from "./loggerContext/index.js";
 
-export type {
-  LoggerContextValue,
-  LoggerContextData,
-  LoggerContextIdentifiers,
-  LoggerContext,
-  LoggerContextOptions,
-  LoggerContextStorage,
-} from "./logger-context";
+// Options
+export * from "./loggerOptions/index.js";
 
-// Logger formatters
-export {
-  createLoggerFormatter,
-  formatLoggerEntry,
-  isLoggerFormatter,
-  isLoggerFormatterFunction,
-  isLoggerFormatterObject,
-  createJsonLoggerFormatter,
-  createTextLoggerFormatter,
-  createCompactLoggerFormatter,
-  createDevelopmentLoggerFormatter,
-  createProductionLoggerFormatter,
-  createStructuredLoggerFormatter,
-  createLoggerFormatterId,
-} from "./logger-formatter";
+// Errors
+export * from "./loggerErrors/index.js";
 
-export type {
-  LoggerFormattedOutput,
-  LoggerFormatterContext,
-  LoggerFormatter,
-  LoggerFormatterFunction,
-  LoggerFormatterLike,
-  LoggerFormatterOptions,
-  JsonLoggerFormatterOptions,
-  TextLoggerFormatterOptions,
-} from "./logger-formatter";
+// Manager
+export * from "./loggerManager/index.js";
 
-// Logger transports
-export {
-  createLoggerTransport,
-  writeLoggerTransport,
-  isLoggerTransport,
-  isLoggerTransportFunction,
-  isLoggerTransportObject,
-  createConsoleLoggerTransport,
-  createConditionalLoggerTransport,
-  createMultiLoggerTransport,
-  createBufferedLoggerTransport,
-  enableLoggerTransport,
-  disableLoggerTransport,
-  closeLoggerTransport,
-  flushLoggerTransport,
-  serializeTransportEntry,
-  createLoggerTransportId,
-} from "./logger-transport";
+// Factory
+export * from "./loggerFactory/index.js";
 
-export type {
-  LoggerTransport,
-  LoggerTransportContext,
-  LoggerTransportFunction,
-  LoggerTransportLike,
-  LoggerTransportOptions,
-  RegisteredLoggerTransport,
-  LoggerBufferedTransportOptions,
-} from "./logger-transport";
-
-// Logger options
-export {
-  DEFAULT_LOGGER_OPTIONS,
-  validateLoggerOptions,
-  resolveLoggerOptions,
-  mergeLoggerOptions,
-  createChildLoggerOptions,
-} from "./logger-options";
-
-export type {
-  LoggerOptions,
-  ChildLoggerOptions,
-  LogOptions,
-  LoggerConfiguration,
-} from "./logger-options";
-
-// Logger factory
-export {
-  LoggerFactory,
-  createLoggerFactory,
-  createFactoryLogger,
-  getFactoryLogger,
-} from "./logger-factory";
-
-// Logger manager
-export {
-  LoggerManager,
-  createLoggerManager,
-  initializeLoggerManager,
-  createManagedDefaultLogger,
-  createLoggerManagerFromLogger,
-  resolveManagedLogger,
-} from "./logger-manager";
-
-// Logger errors
-export {
-  LoggerError,
-  LoggerConfigurationError,
-  LoggerDisposedError,
-  LoggerTransportError,
-  LoggerFormatterError,
-  InvalidLoggerEntryError,
-  InvalidLoggerLevelError,
-  LoggerTimeoutError,
-  LoggerTransportClosedError,
-  LoggerFormatterNotFoundError,
-  LoggerTransportNotFoundError,
-  toLoggerError,
-  isLoggerError,
-  getLoggerErrorCause,
-  createLoggerTransportError,
-  createLoggerFormatterError,
-} from "./logger-error";
+// Level
+export * from "./loggerLevel/index.js";
