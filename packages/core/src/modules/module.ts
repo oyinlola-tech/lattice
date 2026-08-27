@@ -1,14 +1,14 @@
 import type {
   ApplicationContext,
-} from "../application/application-context.js";
+} from "../application/applicationContext.context.js";
 
 import type {
   LifecycleScope,
-} from "../lifecycle/lifecycle-scope.js";
+} from "../lifecycle/scope/lifecycleScope.scope.js";
 
 import type {
   ModuleContext,
-} from "./module-context.js";
+} from "./moduleContext.context.js";
 
 /**
  * Unique identifier for a module.
