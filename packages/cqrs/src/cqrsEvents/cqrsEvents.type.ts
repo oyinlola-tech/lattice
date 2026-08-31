@@ -1,6 +1,8 @@
 import type {
   Event,
+  EventId,
   EventType,
+  EventCorrelationId,
 } from "@lattice/events";
 
 import {
@@ -39,11 +41,11 @@ export interface CreateCqrsEventInput<
 > {
   readonly type: EventType;
   readonly payload: TPayload;
-  readonly id?: string;
+  readonly id?: EventId;
   readonly timestamp?: Date | number;
   readonly source?: string;
-  readonly correlationId?: string;
-  readonly causationId?: string;
+  readonly correlationId?: EventCorrelationId;
+  readonly causationId?: EventCorrelationId;
   readonly metadata?: Readonly<Record<string, unknown>>;
   readonly aggregateId?: string;
   readonly aggregateType?: string;
