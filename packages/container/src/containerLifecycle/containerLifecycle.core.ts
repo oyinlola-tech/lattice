@@ -17,6 +17,10 @@ import {
   describeToken,
 } from "../containerToken/containerToken.type.js";
 
+import {
+  ContainerLifecycleError,
+} from "@lattice/errors";
+
 /**
  * An object that can synchronously dispose itself.
  */
@@ -109,10 +113,7 @@ export interface ContainerLifecycleOptions {
  * Error thrown when one or more instances fail to dispose.
  */
 export class ContainerDisposalError
-  extends Error {
-  readonly code =
-    "CONTAINER_DISPOSAL_FAILED";
-
+  extends ContainerLifecycleError {
   readonly errors:
     readonly unknown[];
 
@@ -133,22 +134,15 @@ export class ContainerDisposalError
         .join(", ");
 
     super(
+      "disposal",
       `Failed to dispose ${errors.length} container instance(s): ${tokenNames}.`,
     );
-
-    this.name =
-      "ContainerDisposalError";
 
     this.errors =
       errors;
 
     this.tokens =
       tokens;
-
-    Object.setPrototypeOf(
-      this,
-      new.target.prototype,
-    );
   }
 }
 
