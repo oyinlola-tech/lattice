@@ -4,4 +4,5 @@
  * Input normalization before validation.
  */
 
-export * from './validationNormalizer.core.js';
+export * from "./validationNormalizer.core.js";
+export * from "./validationNormalizer.helpers.js";

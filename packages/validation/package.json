@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "zod": "^4.4.3",
-    "@lattice/errors": "0.1.0"
+    "@lattice/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

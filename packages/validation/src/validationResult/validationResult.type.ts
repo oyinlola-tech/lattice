@@ -1,265 +1,126 @@
 /**
- * @lattice/validation/validationResult/validationResult.type
- *
  * Validation result types and helpers.
  */
 
-import {
-  BaseError,
-  ErrorCode,
-  ErrorCategory,
-  ErrorSeverity,
-} from "@lattice/errors";
+import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "@lattice/errors";
 
-/**
- * A single validation issue.
- */
+/** A single validation issue. */
 export interface ValidationIssue {
-  readonly path: readonly (
-    | string
-    | number
-  )[];
+  readonly path: readonly (string | number)[];
   readonly code: string;
   readonly message: string;
   readonly expected?: unknown;
   readonly received?: unknown;
 }
 
-/**
- * Formats validation issues into a human-readable string.
- */
-export function formatIssues(
-  issues: readonly ValidationIssue[],
-): string {
+/** Formats validation issues into a human-readable string. */
+export function formatIssues(issues: readonly ValidationIssue[]): string {
   if (issues.length === 0) return "";
-  return issues
-    .map(
-      (i) =>
-        `${i.path.join(".")}: ${i.message}`,
-    )
-    .join("; ");
+  return issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("; ");
 }
 
-/**
- * Groups validation issues by their first path segment.
- */
-export function toFieldErrors(
-  issues: readonly ValidationIssue[],
-): Readonly<Record<string, string>> {
+/** Groups validation issues by their first path segment. */
+export function toFieldErrors(issues: readonly ValidationIssue[]): Readonly<Record<string, string>> {
   const result: Record<string, string> = {};
   for (const issue of issues) {
     const field = issue.path[0];
-    if (
-      typeof field === "string" &&
-      !(field in result)
-    ) {
-      result[field] = issue.message;
-    }
+    if (typeof field === "string" && !(field in result)) result[field] = issue.message;
   }
   return result;
 }
 
-/**
- * A successful validation result.
- */
+/** A successful validation result. */
 export interface ValidationSuccess<T> {
   readonly success: true;
   readonly data: T;
   readonly issues?: readonly ValidationIssue[];
 }
 
-/**
- * A failed validation result.
- */
+/** A failed validation result. */
 export interface ValidationFailure {
   readonly success: false;
   readonly data?: unknown;
   readonly issues: readonly ValidationIssue[];
 }
 
-/**
- * Union type for validation results.
- */
-export type ValidationResult<T> =
-  | ValidationSuccess<T>
-  | ValidationFailure;
+/** Union type for validation results. */
+export type ValidationResult<T> = ValidationSuccess<T> | ValidationFailure;
 
-/**
- * Creates a successful validation result.
- */
-export function success<T>(
-  data: T,
-): ValidationSuccess<T> {
-  return Object.freeze({
-    success: true as const,
-    data,
-    issues: [] as readonly ValidationIssue[],
-  } as ValidationSuccess<T>);
+/** Creates a successful validation result. */
+export function success<T>(data: T): ValidationSuccess<T> {
+  return Object.freeze({ success: true as const, data, issues: [] as readonly ValidationIssue[] } as ValidationSuccess<T>);
 }
 
-/**
- * Creates a failed validation result.
- */
-export function failure(
-  issues: readonly ValidationIssue[],
-): ValidationFailure {
-  if (issues.length === 0) {
-    throw new Error("A failure must contain at least one issue.");
-  }
-  return Object.freeze({
-    success: false as const,
-    issues: Object.freeze([...issues]),
-  });
-}
-
-/**
- * Checks whether a result is successful.
- */
-export function isValidationSuccess<T>(
-  result: ValidationResult<T>,
-): result is ValidationSuccess<T> {
-  return result.success;
+/** Creates a failed validation result. */
+export function failure(issues: readonly ValidationIssue[]): ValidationFailure {
+  if (issues.length === 0) throw new Error("A failure must contain at least one issue.");
+  return Object.freeze({ success: false as const, issues: Object.freeze([...issues]) });
 }
 
 /** Checks whether a result is successful. */
-export { isValidationSuccess as isSuccess };
-
-/**
- * Checks whether a result is a failure.
- */
-export function isValidationFailure<T>(
-  result: ValidationResult<T>,
-): result is ValidationFailure {
-  return !result.success;
+export function isValidationSuccess<T>(result: ValidationResult<T>): result is ValidationSuccess<T> {
+  return result.success;
 }
 
 /** Checks whether a result is a failure. */
-export { isValidationFailure as isFailure };
+export function isValidationFailure<T>(result: ValidationResult<T>): result is ValidationFailure {
+  return !result.success;
+}
 
-/**
- * Unwraps a successful result or throws a
- * ValidationResultError.
- */
-export function unwrapValidation<T>(
-  result: ValidationResult<T>,
-): T {
-  if (result.success) {
-    return result.data;
-  }
-
+/** Unwraps a successful result or throws a ValidationResultError. */
+export function unwrapValidation<T>(result: ValidationResult<T>): T {
+  if (result.success) return result.data;
   throw new ValidationResultError(result.issues);
 }
 
-/** Unwraps a successful result or throws. */
-export { unwrapValidation as unwrap };
-
-/**
- * Creates a single validation issue.
- *
- * Supports two call signatures:
- *   issue(message)
- *   issue(message, { path, code, expected, received })
- */
-export function issue(
-  message: string,
-  options?: {
-    readonly path?: readonly (string | number)[];
-    readonly code?: string;
-    readonly expected?: unknown;
-    readonly received?: unknown;
-  },
-): ValidationIssue {
+/** Creates a single validation issue. */
+export function issue(message: string, options?: { readonly path?: readonly (string | number)[]; readonly code?: string; readonly expected?: unknown; readonly received?: unknown }): ValidationIssue {
   return Object.freeze({
     path: options?.path ?? [],
     code: options?.code ?? "VALIDATION_ERROR",
     message,
-    ...(options?.expected !== undefined
-      ? { expected: options.expected }
-      : {}),
-    ...(options?.received !== undefined
-      ? { received: options.received }
-      : {}),
+    ...(options?.expected !== undefined ? { expected: options.expected } : {}),
+    ...(options?.received !== undefined ? { received: options.received } : {}),
   });
 }
 
-/**
- * Transforms the data in a successful result.
- */
-export function map<T, U>(
-  result: ValidationResult<T>,
-  fn: (data: T) => U,
-): ValidationResult<U> {
-  if (result.success) {
-    return success(fn(result.data));
-  }
+/** Transforms the data in a successful result. */
+export function map<T, U>(result: ValidationResult<T>, fn: (data: T) => U): ValidationResult<U> {
+  if (result.success) return success(fn(result.data));
   return result;
 }
 
-/**
- * Combines multiple validation results.
- * Returns the first failure, or a success with all data.
- */
-export function combine<T extends readonly unknown[]>(
-  results: { [K in keyof T]: ValidationResult<T[K]> },
-): ValidationResult<T> {
+/** Combines multiple validation results. Returns the first failure, or a success with all data. */
+export function combine<T extends readonly unknown[]>(results: { [K in keyof T]: ValidationResult<T[K]> }): ValidationResult<T> {
   const failures: ValidationIssue[] = [];
   const data: unknown[] = [];
 
   for (const result of results) {
-    if (result.success) {
-      data.push(result.data);
-    } else {
-      failures.push(...result.issues);
-    }
+    if (result.success) { data.push(result.data); } else { failures.push(...result.issues); }
   }
 
-  if (failures.length > 0) {
-    return failure(failures);
-  }
-
-  return success(data as unknown as T);
+  return failures.length > 0 ? failure(failures) : success(data as unknown as T);
 }
 
-/**
- * Error thrown when attempting to unwrap a failed
- * validation result.
- */
-export class ValidationResultError
-  extends BaseError {
+/** Error thrown when attempting to unwrap a failed validation result. */
+export class ValidationResultError extends BaseError {
   public readonly issues: readonly ValidationIssue[];
 
-  constructor(
-    issues: readonly ValidationIssue[],
-  ) {
-    super(
-      formatIssues(issues) ||
-        "Validation failed.",
-      {
-        code: ErrorCode.VALIDATION_FAILED,
-        category: ErrorCategory.VALIDATION,
-        severity: ErrorSeverity.WARNING,
-        statusCode: 400,
-        expose: true,
-        metadata: {
-          issueCount: issues.length,
-        },
-      },
-    );
+  constructor(issues: readonly ValidationIssue[]) {
+    super(formatIssues(issues) || "Validation failed.", {
+      code: ErrorCode.VALIDATION_FAILED,
+      category: ErrorCategory.VALIDATION,
+      severity: ErrorSeverity.WARNING,
+      statusCode: 400,
+      expose: true,
+      metadata: { issueCount: issues.length },
+    });
 
     this.name = "ValidationResultError";
     this.issues = Object.freeze([...issues]);
   }
 
-  /**
-   * Returns a safe serializable representation.
-   */
-  public override toJSON(): any {
-    return {
-      ...super.toJSON(),
-      name: this.name,
-      message: this.message,
-      issues: this.issues,
-    };
+  public override toJSON() {
+    return { ...super.toJSON(), name: this.name, message: this.message, issues: this.issues };
   }
 }
-

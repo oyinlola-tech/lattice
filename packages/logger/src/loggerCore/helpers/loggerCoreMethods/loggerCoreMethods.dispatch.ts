@@ -19,11 +19,8 @@ import {
   isLoggerTransport,
 } from "../../../loggerTransport/loggerTransportGuard.js";
 
-import {
-  LoggerFormatterError,
-  LoggerTransportError,
-  toLoggerError,
-} from "../../../loggerErrors/loggerError.base.js";
+import { LoggerFormatterError, LoggerTransportError } from "../../../loggerErrors/loggerError.base.js";
+import { toLoggerError } from "../../../loggerErrors/loggerError.helpers.js";
 
 import type {
   LoggerConfiguration,

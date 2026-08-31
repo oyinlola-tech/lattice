@@ -12,6 +12,7 @@ import { OptionalModifierSchema } from "../schemaModifiers/schemaOptionalNullabl
 import { NullableModifierSchema } from "../schemaModifiers/schemaOptionalNullable.core.js";
 import { DefaultSchema } from "../schemaModifiers/schemaDefault.core.js";
 import { RefineSchema } from "../schemaModifiers/schemaRefine.core.js";
+import { TransformSchema } from "./schemaTransform.core.js";
 
 /** Configuration for string schema constraints. */
 interface StringSchemaConfig {
@@ -243,34 +244,6 @@ export class StringSchema extends Schema<string> {
   /** Transforms the string value. */
   public transform<TOutput>(fn: (value: string) => TOutput): TransformSchema<string, TOutput> {
     return new TransformSchema(this, fn);
-  }
-}
-
-/**
- * Schema that applies a transform function to the output of another schema.
- */
-export class TransformSchema<TInput, TOutput> extends Schema<TOutput> {
-  public readonly _type = "transform";
-
-  constructor(
-    private readonly _base: Schema<TInput>,
-    private readonly _fn: (value: TInput) => TOutput,
-  ) {
-    super();
-  }
-
-  public _parse(ctx: SchemaParseContext, input: unknown): TOutput {
-    const value = this._base._parse(ctx, input);
-    try {
-      return this._fn(value);
-    } catch (error) {
-      addIssue(ctx, {
-        code: SchemaIssueCode.TRANSFORM_FAILED,
-        path: [...ctx.path],
-        message: `Transform failed: ${String(error)}`,
-      });
-      throw new Error("Validation failed");
-    }
   }
 }
 

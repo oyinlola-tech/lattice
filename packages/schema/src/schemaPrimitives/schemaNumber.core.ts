@@ -8,7 +8,7 @@ import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
 import { SchemaIssueCode } from "@lattice/constants";
-import { TransformSchema } from "./schemaString.core.js";
+import { TransformSchema } from "./schemaTransform.core.js";
 import { OptionalModifierSchema } from "../schemaModifiers/schemaOptionalNullable.core.js";
 import { NullableModifierSchema } from "../schemaModifiers/schemaOptionalNullable.core.js";
 import { DefaultSchema } from "../schemaModifiers/schemaDefault.core.js";

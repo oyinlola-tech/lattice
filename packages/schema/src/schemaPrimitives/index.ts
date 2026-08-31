@@ -4,7 +4,8 @@
  * Primitive schema types: string, number, boolean, null, undefined, literal, any, unknown, never.
  */
 
-export { StringSchema, TransformSchema, stringSchema } from "./schemaString.core.js";
+export { StringSchema, stringSchema } from "./schemaString.core.js";
+export { TransformSchema } from "./schemaTransform.core.js";
 export { NumberSchema, numberSchema } from "./schemaNumber.core.js";
 export { BooleanSchema, booleanSchema } from "./schemaBoolean.core.js";
 export { LiteralSchema, literalSchema } from "./schemaLiteral.core.js";
