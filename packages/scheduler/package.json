@@ -1,0 +1,39 @@
+{
+  "name": "@lattice/scheduler",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Time and recurring execution engine for Lattice — job definitions, schedules, triggers, priority queue, cron support, and persistence.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "@lattice/errors": "0.1.0",
+    "@lattice/constants": "0.1.0",
+    "@lattice/types": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  }
+}
