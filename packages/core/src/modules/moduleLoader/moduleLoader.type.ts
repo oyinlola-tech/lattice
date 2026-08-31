@@ -74,21 +74,15 @@ export interface ModuleLoadResult {
     readonly ModuleId[];
 }
 
+import {
+  ModuleLoadError as BaseModuleLoadError,
+} from "@lattice/errors";
+
 /**
  * Error thrown when one or more modules cannot be loaded.
  */
 export class ModuleLoadError
-  extends Error {
-  /**
-   * Module that failed to load.
-   */
-  public readonly moduleId:
-    ModuleId;
-
-  /**
-   * Original error.
-   */
-
+  extends BaseModuleLoadError {
   public constructor(
     moduleId: ModuleId,
     cause: unknown,
@@ -99,12 +93,9 @@ export class ModuleLoadError
         : String(cause);
 
     super(
+      moduleId,
       `Failed to load module "${moduleId}": ${message}`,
-      { cause },
+      cause,
     );
-
-
-    this.moduleId =
-      moduleId;
   }
 }
