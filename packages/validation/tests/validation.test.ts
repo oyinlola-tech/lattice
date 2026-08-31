@@ -163,7 +163,7 @@ describe("ValidationError", () => {
     expect(err).toBeInstanceOf(Error);
     expect(err.message).toBe("invalid");
     expect(err.issues).toHaveLength(1);
-    expect(err.code).toBe(ValidationErrorCode.UNKNOWN);
+    expect(err.validationCode).toBe(ValidationErrorCode.UNKNOWN);
   });
 
   it("isValidationError type guard", () => {
@@ -180,13 +180,13 @@ describe("ValidationError", () => {
   it("SchemaValidationError extends ValidationError", () => {
     const err = new SchemaValidationError("schema", [issue("bad")]);
     expect(err).toBeInstanceOf(ValidationError);
-    expect(err.code).toBe(ValidationErrorCode.SCHEMA_FAILED);
+    expect(err.validationCode).toBe(ValidationErrorCode.SCHEMA_FAILED);
   });
 
   it("ConstraintValidationError extends ValidationError", () => {
     const err = new ConstraintValidationError("constraint", [issue("bad")]);
     expect(err).toBeInstanceOf(ValidationError);
-    expect(err.code).toBe(ValidationErrorCode.CONSTRAINT_FAILED);
+    expect(err.validationCode).toBe(ValidationErrorCode.CONSTRAINT_FAILED);
   });
 
   it("has fieldErrors getter", () => {
