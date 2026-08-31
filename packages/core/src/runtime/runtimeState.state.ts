@@ -454,13 +454,15 @@ export function getNextRuntimeStates(
     default:
       return Object.freeze([]);
   }
-}
+}import {
+  RuntimeStateError,
+} from "@lattice/errors";
 
 /**
  * Error thrown when an invalid runtime state is encountered.
  */
 export class InvalidRuntimeStateError
-  extends Error {
+  extends RuntimeStateError {
   public readonly state:
     string;
 
@@ -470,16 +472,7 @@ export class InvalidRuntimeStateError
   ) {
     super(message);
 
-    this.name =
-      "InvalidRuntimeStateError";
-
-    this.state =
-      message;
-
-    Object.setPrototypeOf(
-      this,
-      new.target.prototype,
-    );
+    this.state = message;
   }
 }
 
@@ -488,7 +481,7 @@ export class InvalidRuntimeStateError
  * is attempted.
  */
 export class InvalidRuntimeTransitionError
-  extends Error {
+  extends RuntimeStateError {
   public readonly from:
     RuntimeState;
 
@@ -497,26 +490,15 @@ export class InvalidRuntimeTransitionError
 
   public constructor(
     from:
-      RuntimeState,
+    RuntimeState,
     to:
-      RuntimeState,
+    RuntimeState,
   ) {
     super(
       `Invalid runtime state transition from "${from}" to "${to}".`,
     );
 
-    this.name =
-      "InvalidRuntimeTransitionError";
-
-    this.from =
-      from;
-
-    this.to =
-      to;
-
-    Object.setPrototypeOf(
-      this,
-      new.target.prototype,
-    );
+    this.from = from;
+    this.to = to;
   }
 }
