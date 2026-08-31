@@ -7,11 +7,16 @@
  * This module intentionally contains no dispatching logic.
  */
 
+import type {
+  EventId as BaseEventId,
+  CorrelationId as BaseCorrelationId,
+} from "@lattice/constants";
+
 /**
  * Unique identifier for an event instance.
+ * Re-exported from @lattice/constants for type safety.
  */
-export type EventId =
-  string;
+export type EventId = BaseEventId;
 
 /**
  * Event type identifier.
@@ -44,9 +49,9 @@ export type EventSource =
  *
  * Useful for connecting multiple events belonging to the
  * same operation/request/workflow.
+ * Re-exported from @lattice/constants for type safety.
  */
-export type EventCorrelationId =
-  string;
+export type EventCorrelationId = BaseCorrelationId;
 
 /**
  * Causation identifier.
@@ -241,13 +246,14 @@ export function isEvent(
 
 /**
  * Creates a unique event identifier.
+ * Returns a branded EventId type from @lattice/constants.
  */
 export function createEventId():
   EventId {
   const uuid =
     createUuid();
 
-  return `event:${uuid}`;
+  return `event:${uuid}` as EventId;
 }
 
 /**
@@ -494,7 +500,7 @@ export function createDerivedEvent<
     correlationId:
       input.correlationId ??
       sourceEvent.correlationId ??
-      sourceEvent.id,
+      (sourceEvent.id as unknown as BaseCorrelationId),
 
     causationId:
       input.causationId ??
