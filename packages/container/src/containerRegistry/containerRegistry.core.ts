@@ -43,6 +43,9 @@ import {
 import {
   DuplicateRegistrationError,
   RegistrationNotFoundError,
+} from "@lattice/errors";
+import {
+  describeRegistryToken,
 } from "./containerRegistry.error.js";
 
 export class ContainerRegistry {
@@ -56,7 +59,7 @@ export class ContainerRegistry {
 
   register<T>(token: RegistrationToken<T>, provider: ContainerProvider<T>, options: CreateRegistrationOptions = {}): ContainerRegistration<T> {
     const t = unwrapToken(token);
-    if (this.registrations.has(t) && !this.allowDuplicates) throw new DuplicateRegistrationError(t);
+    if (this.registrations.has(t) && !this.allowDuplicates) throw new DuplicateRegistrationError(describeRegistryToken(t));
     const prev = this.registrations.get(t);
     const reg = defineRegistration(t, provider, options);
     this.registrations.set(t, reg as ContainerRegistration<unknown>);
@@ -66,7 +69,7 @@ export class ContainerRegistry {
 
   registerRegistration<T>(registration: ContainerRegistration<T>): ContainerRegistration<T> {
     const t = getRegistrationToken(registration);
-    if (this.registrations.has(t) && !this.allowDuplicates) throw new DuplicateRegistrationError(t);
+    if (this.registrations.has(t) && !this.allowDuplicates) throw new DuplicateRegistrationError(describeRegistryToken(t));
     const prev = this.registrations.get(t);
     this.registrations.set(t, registration as ContainerRegistration<unknown>);
     this.emit({ operation: prev ? RegistryOperation.REPLACE : RegistryOperation.REGISTER, token: t, registration, previous: prev, timestamp: new Date() });
@@ -75,7 +78,7 @@ export class ContainerRegistry {
 
   replace<T>(token: RegistrationToken<T>, provider: ContainerProvider<T>, options: CreateRegistrationOptions = {}): ContainerRegistration<T> {
     const t = unwrapToken(token);
-    if (!this.registrations.has(t)) throw new RegistrationNotFoundError(t);
+    if (!this.registrations.has(t)) throw new RegistrationNotFoundError(describeRegistryToken(t));
     const prev = this.registrations.get(t);
     const reg = defineRegistration(t, provider, options);
     this.registrations.set(t, reg as ContainerRegistration<unknown>);
@@ -89,7 +92,7 @@ export class ContainerRegistry {
 
   getOrThrow<T>(token: RegistrationToken<T>): ContainerRegistration<T> {
     const r = this.get(token);
-    if (!r) throw new RegistrationNotFoundError(unwrapToken(token));
+    if (!r) throw new RegistrationNotFoundError(describeRegistryToken(unwrapToken(token)));
     return r;
   }
 
@@ -107,7 +110,7 @@ export class ContainerRegistry {
   }
 
   removeOrThrow<T>(token: RegistrationToken<T>): void {
-    if (!this.remove(unwrapToken(token))) throw new RegistrationNotFoundError(unwrapToken(token));
+    if (!this.remove(unwrapToken(token))) throw new RegistrationNotFoundError(describeRegistryToken(unwrapToken(token)));
   }
 
   get size(): number { return this.registrations.size; }
