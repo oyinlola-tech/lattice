@@ -14,7 +14,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const packagesDir = join(__dirname, "packages");
+const packagesDir = join(__dirname, "..", "packages");
 
 // Tier definitions: each package maps to its allowed dependency tiers.
 // Tier 0 = leaf, Tier 1 = foundation, Tier 2 = application, Tier 3 = transport, Tier 4 = dev experience
