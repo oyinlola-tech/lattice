@@ -1,0 +1,20 @@
+{
+  "name": "examples-hello-world",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Minimal Lattice HTTP server example",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@lattice/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "tsx": "^4.7.0"
+  }
+}
