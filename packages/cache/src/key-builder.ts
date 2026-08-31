@@ -1,0 +1,116 @@
+/**
+ * @lattice/cache — Key Builder
+ *
+ * Builds fully qualified cache keys from key parts, namespaces,
+ * and prefixes. Ensures keys are well-formed and consistently formatted.
+ */
+
+import type {
+  CacheKey,
+  CacheKeyBuilder,
+  CacheKeyOptions,
+  CacheNamespace,
+} from "./types.js";
+import {
+  CACHE_KEY_PATTERN,
+  DEFAULT_PREFIX,
+  DEFAULT_SEPARATOR,
+  MAX_KEY_LENGTH,
+} from "./constants.js";
+import { cacheInvalidKeyError } from "./errors.js";
+
+/* -------------------------------------------------------------------------- */
+/* Default Key Builder                                                        */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Default implementation of the `CacheKeyBuilder` contract.
+ *
+ * Keys are built as: `[prefix:][namespace:]key`
+ */
+export class DefaultKeyBuilder
+  implements CacheKeyBuilder
+{
+  private readonly globalPrefix: string;
+  private readonly globalSeparator: string;
+  private readonly currentNamespace?: CacheNamespace;
+
+  constructor(options?: {
+    readonly prefix?: string;
+    readonly separator?: string;
+    readonly namespace?: CacheNamespace;
+  }) {
+    this.globalPrefix =
+      options?.prefix ?? DEFAULT_PREFIX;
+    this.globalSeparator =
+      options?.separator ?? DEFAULT_SEPARATOR;
+    this.currentNamespace = options?.namespace;
+  }
+
+  build(
+    key: string,
+    options?: CacheKeyOptions,
+  ): CacheKey {
+    const separator =
+      options?.separator ?? this.globalSeparator;
+    const namespace =
+      options?.namespace ?? this.currentNamespace;
+    const prefix =
+      options?.prefix ?? this.globalPrefix;
+
+    const parts: string[] = [];
+
+    if (prefix) {
+      parts.push(prefix);
+    }
+
+    if (namespace) {
+      parts.push(namespace);
+    }
+
+    parts.push(key);
+
+    const fullKey = parts.join(separator);
+
+    if (fullKey.length > MAX_KEY_LENGTH) {
+      throw cacheInvalidKeyError(
+        fullKey,
+        `Cache key exceeds maximum length of ${MAX_KEY_LENGTH} characters.`,
+      );
+    }
+
+    if (!CACHE_KEY_PATTERN.test(fullKey)) {
+      throw cacheInvalidKeyError(fullKey);
+    }
+
+    return fullKey;
+  }
+
+  namespace(
+    namespace: CacheNamespace,
+  ): CacheKeyBuilder {
+    return new DefaultKeyBuilder({
+      prefix: this.globalPrefix,
+      separator: this.globalSeparator,
+      namespace,
+    });
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Factory                                                                    */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Creates a new `DefaultKeyBuilder` with the given options.
+ */
+export function createKeyBuilder(options?: {
+  readonly prefix?: string;
+  readonly separator?: string;
+  readonly namespace?: CacheNamespace;
+}): DefaultKeyBuilder {
+  return new DefaultKeyBuilder(options);
+}
+
+/** Default key builder singleton. */
+export const defaultKeyBuilder = new DefaultKeyBuilder();
