@@ -52,6 +52,7 @@ When working in a package and you need functionality that exists in another `@la
 | Transactions | `@lattice/transactions` (lifecycle, context propagation, savepoints, hooks, adapter abstraction) | Custom transaction management |
 | Tenancy | `@lattice/tenancy` (tenant resolution, context propagation, resolver chains, guard middleware) | Custom multi-tenant logic |
 | Feature Flags | `@lattice/feature-flags` (flag evaluation, deterministic rollouts, rule engine, providers) | Custom feature flag logic |
+| Documentation | `@lattice/docs` (document model, registry, validation, navigation, frontmatter, generation) | Custom documentation infrastructure |
 | HTTP | `@lattice/http` (request handling, routing, middleware) | Custom HTTP abstractions |
 | Observability | `@lattice/observability` (metrics, tracing, context propagation) | Custom telemetry |
 | Storage | `@lattice/storage` (database, cache, object storage abstractions) | Custom storage abstractions |
@@ -367,6 +368,7 @@ This table defines which package OWNS each type. All consuming packages must imp
 | `Transaction`, `TransactionManager`, `TransactionState`, `TransactionOptions`, `TransactionAdapter` | `@lattice/transactions` | `import { createTransactionManager } from "@lattice/transactions"` |
 | `Tenant`, `TenantId`, `TenantContext`, `TenantResolver`, `TenantRepository`, `TenantContextStorage` | `@lattice/tenancy` | `import { createTenantContextManager } from "@lattice/tenancy"` |
 | `FeatureFlag`, `FeatureFlagContext`, `FeatureFlagProvider`, `FeatureFlagEvaluation`, `FeatureFlagRule` | `@lattice/feature-flags` | `import { createFeatureFlags } from "@lattice/feature-flags"` |
+| `DocumentationDocument`, `DocumentationContent`, `DocumentationNavigationItem`, `DocumentRegistry`, `DocumentationExample`, `ValidationResult` | `@lattice/docs` | `import { createDocumentRegistry } from "@lattice/docs"` |
 
 ### Type Import Decision Tree
 
@@ -504,3 +506,4 @@ import { createEventBus } from "./eventBus/index.js";
 | `@lattice/transactions` | Transaction lifecycle and coordination — state machine, AsyncLocalStorage context, propagation, savepoints, hooks, adapter abstraction | 0.1.0 | ✅ Built |
 | `@lattice/tenancy` | Multi-tenant context and isolation — tenant resolution, AsyncLocalStorage propagation, resolver chains, trust levels, guard middleware | 0.1.0 | ✅ Built |
 | `@lattice/feature-flags` | Feature flag system — deterministic rollouts, rule engine, providers, variants, snapshots, evaluation context | 0.1.0 | ✅ Built |
+| `@lattice/docs` | Documentation infrastructure — structured document model, registry, validation, navigation, frontmatter parsing, and markdown/JSON generation | 0.1.0 | ✅ Built |
