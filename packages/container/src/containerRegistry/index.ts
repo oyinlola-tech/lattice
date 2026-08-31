@@ -5,5 +5,5 @@
  */
 
 export * from './containerRegistry.type.js';
-export * from './containerRegistry.error.js';
+export { describeRegistryToken } from './containerRegistry.error.js';
 export * from './containerRegistry.core.js';
