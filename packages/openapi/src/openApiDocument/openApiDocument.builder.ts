@@ -1,10 +1,6 @@
 import type { OpenAPIDocument } from "../openApiTypes/openApiTypes.core.js";
 import { DEFAULT_OPENAPI_VERSION } from "../openApiConstants/openApiConstants.core.js";
-import { OpenAPIDocumentError } from "../openApiErrors/openApiError.core.js";
 
-/**
- * Options for creating an OpenAPI document.
- */
 export interface OpenAPIDocumentOptions {
   readonly info: {
     readonly title: string;
@@ -12,44 +8,18 @@ export interface OpenAPIDocumentOptions {
     readonly description?: string;
     readonly summary?: string;
     readonly termsOfService?: string;
-    readonly contact?: {
-      readonly name?: string;
-      readonly url?: string;
-      readonly email?: string;
-    };
-    readonly license?: {
-      readonly name: string;
-      readonly url?: string;
-    };
+    readonly contact?: { readonly name?: string; readonly url?: string; readonly email?: string };
+    readonly license?: { readonly name: string; readonly url?: string };
   };
-
   readonly openapi?: string;
-
-  readonly servers?: readonly {
-    readonly url: string;
-    readonly description?: string;
-    readonly variables?: Readonly<Record<string, { readonly enum?: readonly string[]; readonly default: string; readonly description?: string }>>;
-  }[];
-
-  readonly tags?: readonly {
-    readonly name: string;
-    readonly description?: string;
-  }[];
-
+  readonly servers?: readonly { readonly url: string; readonly description?: string; readonly variables?: Readonly<Record<string, { readonly enum?: readonly string[]; readonly default: string; readonly description?: string }>> }[];
+  readonly tags?: readonly { readonly name: string; readonly description?: string }[];
   readonly security?: readonly Record<string, readonly string[]>[];
 }
 
 interface MutableDocument {
   openapi: string;
-  info: {
-    title: string;
-    version: string;
-    description?: string;
-    summary?: string;
-    termsOfService?: string;
-    contact?: { name?: string; url?: string; email?: string };
-    license?: { name: string; url?: string };
-  };
+  info: { title: string; version: string; description?: string; summary?: string; termsOfService?: string; contact?: { name?: string; url?: string; email?: string }; license?: { name: string; url?: string } };
   servers?: { url: string; description?: string; variables?: Record<string, { enum?: readonly string[]; default: string; description?: string }> }[];
   paths: Record<string, unknown>;
   components?: Record<string, unknown>;
@@ -57,38 +27,13 @@ interface MutableDocument {
   tags?: { name: string; description?: string }[];
 }
 
-/**
- * Fluent builder for OpenAPI documents.
- */
 export class OpenAPIDocumentBuilder {
   private readonly document: MutableDocument;
 
-  constructor(options: {
-    readonly info: {
-      readonly title: string;
-      readonly version: string;
-      readonly description?: string;
-      readonly summary?: string;
-      readonly termsOfService?: string;
-      readonly contact?: { readonly name?: string; readonly url?: string; readonly email?: string };
-      readonly license?: { readonly name: string; readonly url?: string };
-    };
-    readonly openapi?: string;
-    readonly servers?: readonly { readonly url: string; readonly description?: string; readonly variables?: Readonly<Record<string, { readonly enum?: readonly string[]; readonly default: string; readonly description?: string }>> }[];
-    readonly tags?: readonly { readonly name: string; readonly description?: string }[];
-    readonly security?: readonly Record<string, readonly string[]>[];
-  }) {
+  constructor(options: OpenAPIDocumentOptions) {
     this.document = {
       openapi: options.openapi ?? DEFAULT_OPENAPI_VERSION,
-      info: {
-        title: options.info.title,
-        version: options.info.version,
-        description: options.info.description,
-        summary: options.info.summary,
-        termsOfService: options.info.termsOfService,
-        contact: options.info.contact,
-        license: options.info.license,
-      },
+      info: { ...options.info },
       servers: options.servers?.map((s) => ({ ...s })),
       paths: {},
       components: {},
@@ -102,19 +47,12 @@ export class OpenAPIDocumentBuilder {
     return this;
   }
 
-  public addServer(server: {
-    readonly url: string;
-    readonly description?: string;
-    readonly variables?: Readonly<Record<string, { readonly enum?: readonly string[]; readonly default: string; readonly description?: string }>>;
-  }): this {
+  public addServer(server: { readonly url: string; readonly description?: string; readonly variables?: Readonly<Record<string, { readonly enum?: readonly string[]; readonly default: string; readonly description?: string }>> }): this {
     this.document.servers = [...(this.document.servers ?? []), { ...server }];
     return this;
   }
 
-  public addTag(tag: {
-    readonly name: string;
-    readonly description?: string;
-  }): this {
+  public addTag(tag: { readonly name: string; readonly description?: string }): this {
     this.document.tags = [...(this.document.tags ?? []), { ...tag }];
     return this;
   }
@@ -124,49 +62,38 @@ export class OpenAPIDocumentBuilder {
     return this;
   }
 
-  public addPath(
-    path: string,
-    pathItem: Record<string, unknown>,
-  ): this {
+  public addPath(path: string, pathItem: Record<string, unknown>): this {
     this.document.paths[path] = pathItem;
     return this;
   }
 
   public addSchema(name: string, schema: unknown): this {
     const components = this.document.components ?? {};
-    const schemas = { ...(components.schemas ?? {}), [name]: schema };
-    this.document.components = { ...components, schemas };
+    this.document.components = { ...components, schemas: { ...(components.schemas ?? {}), [name]: schema } };
     return this;
   }
 
   public addResponse(name: string, response: unknown): this {
     const components = this.document.components ?? {};
-    const responses = { ...(components.responses ?? {}), [name]: response };
-    this.document.components = { ...components, responses };
+    this.document.components = { ...components, responses: { ...(components.responses ?? {}), [name]: response } };
     return this;
   }
 
   public addParameter(name: string, parameter: unknown): this {
     const components = this.document.components ?? {};
-    const parameters = { ...(components.parameters ?? {}), [name]: parameter };
-    this.document.components = { ...components, parameters };
+    this.document.components = { ...components, parameters: { ...(components.parameters ?? {}), [name]: parameter } };
     return this;
   }
 
   public addSecurityScheme(name: string, scheme: unknown): this {
     const components = this.document.components ?? {};
-    const securitySchemes = { ...(components.securitySchemes ?? {}), [name]: scheme };
-    this.document.components = { ...components, securitySchemes };
+    this.document.components = { ...components, securitySchemes: { ...(components.securitySchemes ?? {}), [name]: scheme } };
     return this;
   }
 
   public build(): Readonly<OpenAPIDocument> {
-    const paths = Object.keys(this.document.paths).length === 0
-      ? {}
-      : (this.document.paths as OpenAPIDocument["paths"]);
-
+    const paths = Object.keys(this.document.paths).length === 0 ? {} : (this.document.paths as OpenAPIDocument["paths"]);
     const components: Record<string, unknown> = {};
-
     if (this.document.components) {
       for (const [key, value] of Object.entries(this.document.components)) {
         if (value && typeof value === "object" && Object.keys(value).length > 0) {
@@ -174,7 +101,6 @@ export class OpenAPIDocumentBuilder {
         }
       }
     }
-
     return Object.freeze({
       openapi: this.document.openapi,
       info: Object.freeze(this.document.info) as OpenAPIDocument["info"],
