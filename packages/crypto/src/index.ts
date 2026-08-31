@@ -6,6 +6,10 @@
  * digital signatures, key derivation, and secure random generation.
  */
 
+export * from "./compare/index.js";
+export * from "./cryptoProvider/index.js";
+export * from "./node/index.js";
+
 export * from "./cryptoAlgorithm/index.js";
 export * from "./cryptoCipher/index.js";
 export * from "./cryptoConstants/index.js";
