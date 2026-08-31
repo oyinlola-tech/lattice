@@ -5,5 +5,4 @@
  */
 
 export * from './containerResolution.type.js';
-export * from './containerResolution.error.js';
 export * from './containerResolution.core.js';
