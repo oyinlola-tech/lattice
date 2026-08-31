@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { Lifecycle, LifecycleState, type LifecycleParticipant } from "../src/lifecycle/lifecycle.js";
+import { Lifecycle, LifecycleState, type LifecycleParticipant } from "../src/lifecycle/core/lifecycle.js";
 
 // ─── Helpers ────────────────────────────────────────────
 
