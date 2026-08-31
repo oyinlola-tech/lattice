@@ -2,6 +2,10 @@ import type { RuntimeMode } from "../runtimeOptions/index.js";
 import type { RuntimeEnvironmentInfo, RuntimeEnvironment, RuntimeEnvironmentOptions } from "./runtimeEnvironment.type.js";
 import { detectRuntimeEngine, detectPlatform, detectProcessInfo, detectHostInfo, readProcessEnvironment, detectCI, detectContainer } from "./detection/index.js";
 
+import {
+  RuntimeError,
+} from "@lattice/errors";
+
 /**
  * Environment error codes.
  */
@@ -13,8 +17,8 @@ export type RuntimeEnvironmentErrorCode =
 /**
  * Error thrown during environment operations.
  */
-export class RuntimeEnvironmentError extends Error {
-  public readonly code: RuntimeEnvironmentErrorCode;
+export class RuntimeEnvironmentError extends RuntimeError {
+  public readonly envCode: RuntimeEnvironmentErrorCode;
   public readonly variableName?: string;
 
   public constructor(
@@ -22,9 +26,12 @@ export class RuntimeEnvironmentError extends Error {
     code: RuntimeEnvironmentErrorCode,
     variableName?: string,
   ) {
-    super(message);
+    super(message, {
+      code: "RUNTIME_ENVIRONMENT" as any,
+      phase: "environment",
+    });
     this.name = "RuntimeEnvironmentError";
-    this.code = code;
+    this.envCode = code;
     this.variableName = variableName;
   }
 }
