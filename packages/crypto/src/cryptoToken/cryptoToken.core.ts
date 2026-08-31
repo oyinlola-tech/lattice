@@ -1,9 +1,24 @@
-import {
-  createHash,
-  randomBytes,
-  timingSafeEqual,
-} from "node:crypto";
+import { createNodeCryptoProvider } from "../node/index.js";
+
 import { randomInteger } from "../cryptoRandom/cryptoRandom.core.js";
+
+import type { CryptoProvider } from "../cryptoProvider/index.js";
+
+let defaultProvider: CryptoProvider | undefined;
+
+/**
+ * Returns a lazily created default crypto provider.
+ *
+ * The provider abstraction keeps token generation free of direct
+ * `node:crypto` usage while still allowing callers to inject their own.
+ */
+function getDefaultProvider(): CryptoProvider {
+  if (defaultProvider === undefined) {
+    defaultProvider = createNodeCryptoProvider();
+  }
+
+  return defaultProvider;
+}
 
 /**
  * Supported token encodings.
@@ -25,125 +40,74 @@ export interface TokenOptions {
 /**
  * Creates a cryptographically secure opaque token.
  */
-export function generateToken(
+export async function generateToken(
   options: TokenOptions = {},
-): string {
-  const bytes =
-    options.bytes ?? 32;
+): Promise<string> {
+  const bytes = options.bytes ?? 32;
+  const encoding = options.encoding ?? "base64url";
 
-  const encoding =
-    options.encoding ??
-    "base64url";
-
-  if (
-    !Number.isInteger(bytes) ||
-    bytes < 16
-  ) {
+  if (!Number.isInteger(bytes) || bytes < 16) {
     throw new RangeError(
       "Token byte length must be an integer of at least 16.",
     );
   }
 
-  const token =
-    randomBytes(
-      bytes,
-    ).toString(
-      encoding,
-    );
+  const raw = await getDefaultProvider().randomBytes(bytes);
+  const token = Buffer.from(raw).toString(encoding);
 
-  return options.prefix
-    ? `${options.prefix}${token}`
-    : token;
+  return options.prefix ? `${options.prefix}${token}` : token;
 }
 
 /**
  * Generates a secure API key.
  */
-export function generateApiKey(
-  prefix = "lat_",
-  bytes = 32,
-): string {
-  return generateToken({
-    bytes,
-    encoding:
-      "base64url",
-    prefix,
-  });
+export async function generateApiKey(prefix = "lat_", bytes = 32): Promise<string> {
+  return generateToken({ bytes, encoding: "base64url", prefix });
 }
 
 /**
  * Generates a secure session token.
  */
-export function generateSessionToken(
+export async function generateSessionToken(
   bytes = 32,
-): string {
-  return generateToken({
-    bytes,
-    encoding:
-      "base64url",
-    prefix:
-      "sess_",
-  });
+): Promise<string> {
+  return generateToken({ bytes, encoding: "base64url", prefix: "sess_" });
 }
 
 /**
  * Generates a secure refresh token.
  */
-export function generateRefreshToken(
+export async function generateRefreshToken(
   bytes = 48,
-): string {
-  return generateToken({
-    bytes,
-    encoding:
-      "base64url",
-    prefix:
-      "ref_",
-  });
+): Promise<string> {
+  return generateToken({ bytes, encoding: "base64url", prefix: "ref_" });
 }
 
 /**
  * Generates a secure verification token.
  */
-export function generateVerificationToken(
+export async function generateVerificationToken(
   bytes = 32,
-): string {
-  return generateToken({
-    bytes,
-    encoding:
-      "base64url",
-    prefix:
-      "verify_",
-  });
+): Promise<string> {
+  return generateToken({ bytes, encoding: "base64url", prefix: "verify_" });
 }
 
 /**
  * Generates a secure password-reset token.
  */
-export function generatePasswordResetToken(
+export async function generatePasswordResetToken(
   bytes = 32,
-): string {
-  return generateToken({
-    bytes,
-    encoding:
-      "base64url",
-    prefix:
-      "reset_",
-  });
+): Promise<string> {
+  return generateToken({ bytes, encoding: "base64url", prefix: "reset_" });
 }
 
 /**
  * Generates a secure CSRF token.
  */
-export function generateCsrfToken(
+export async function generateCsrfToken(
   bytes = 32,
-): string {
-  return generateToken({
-    bytes,
-    encoding:
-      "base64url",
-    prefix:
-      "csrf_",
-  });
+): Promise<string> {
+  return generateToken({ bytes, encoding: "base64url", prefix: "csrf_" });
 }
 
 /**
@@ -151,216 +115,35 @@ export function generateCsrfToken(
  *
  * Leading zeroes are preserved.
  */
-export function generateOtp(
+export async function generateOtp(
   digits = 6,
-): string {
-  if (
-    !Number.isInteger(digits) ||
-    digits < 4 ||
-    digits > 12
-  ) {
+): Promise<string> {
+  if (!Number.isInteger(digits) || digits < 4 || digits > 12) {
     throw new RangeError(
       "OTP digits must be an integer between 4 and 12.",
     );
   }
 
-  const max =
-    10 ** digits;
+  const max = 10 ** digits;
+  const value = await randomInteger(0, max);
 
-  const value =
-    randomInteger(
-      0,
-      max,
-    );
-
-  return String(
-    value,
-  ).padStart(
-    digits,
-    "0",
-  );
+  return String(value).padStart(digits, "0");
 }
 
 /**
  * Generates a short-lived email verification code.
  */
-export function generateEmailVerificationCode(
+export async function generateEmailVerificationCode(
   digits = 6,
-): string {
-  return generateOtp(
-    digits,
-  );
+): Promise<string> {
+  return generateOtp(digits);
 }
 
 /**
  * Generates a short-lived login verification code.
  */
-export function generateLoginCode(
+export async function generateLoginCode(
   digits = 6,
-): string {
-  return generateOtp(
-    digits,
-  );
-}
-
-/**
- * Creates a deterministic SHA-256 identifier from a token.
- *
- * The returned value does not expose the original token.
- */
-export function hashToken(
-  token: string,
-): string {
-  assertToken(
-    token,
-  );
-
-  return createHash(
-    "sha256",
-  )
-    .update(
-      token,
-      "utf8",
-    )
-    .digest(
-      "hex",
-    );
-}
-
-/**
- * Creates a Base64URL SHA-256 digest of a token.
- */
-export function hashTokenBase64Url(
-  token: string,
-): string {
-  assertToken(
-    token,
-  );
-
-  return createHash(
-    "sha256",
-  )
-    .update(
-      token,
-      "utf8",
-    )
-    .digest(
-      "base64url",
-    );
-}
-
-/**
- * Compares a token with a stored hash.
- */
-export function verifyTokenHash(
-  token: string,
-  expectedHash: string,
-): boolean {
-  try {
-    const actual =
-      Buffer.from(
-        hashToken(token),
-        "hex",
-      );
-
-    const expected =
-      Buffer.from(
-        expectedHash,
-        "hex",
-      );
-
-    if (
-      actual.byteLength !==
-      expected.byteLength
-    ) {
-      return false;
-    }
-
-    return timingSafeEqual(
-      actual,
-      expected,
-    );
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Hashes a token using SHA-256 before storage.
- *
- * This is useful when a raw bearer token must never be persisted.
- */
-export function hashTokenForStorage(
-  token: string,
-): string {
-  return hashToken(
-    token,
-  );
-}
-
-/**
- * Removes a known token prefix.
- */
-export function removeTokenPrefix(
-  token: string,
-  prefix: string,
-): string {
-  assertToken(
-    token,
-  );
-
-  if (
-    token.startsWith(prefix)
-  ) {
-    return token.slice(
-      prefix.length,
-    );
-  }
-
-  return token;
-}
-
-/**
- * Checks whether a token has the expected prefix.
- */
-export function hasTokenPrefix(
-  token: string,
-  prefix: string,
-): boolean {
-  return (
-    typeof token ===
-      "string" &&
-    typeof prefix ===
-      "string" &&
-    token.startsWith(prefix)
-  );
-}
-
-/**
- * Validates the basic shape of an opaque token.
- */
-export function isValidToken(
-  token: string,
-  minimumLength = 16,
-): boolean {
-  return (
-    typeof token ===
-      "string" &&
-    token.length >=
-      minimumLength
-  );
-}
-
-function assertToken(
-  token: string,
-): void {
-  if (
-    typeof token !==
-      "string" ||
-    token.length === 0
-  ) {
-    throw new TypeError(
-      "Token must be a non-empty string.",
-    );
-  }
+): Promise<string> {
+  return generateOtp(digits);
 }
