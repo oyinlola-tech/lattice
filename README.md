@@ -1,0 +1,296 @@
+# Lattice
+
+A modular TypeScript framework for building scalable, maintainable, and production-ready applications.
+
+---
+
+## What is Lattice?
+
+Lattice is a modular TypeScript application framework designed to provide a consistent foundation for building backend services, APIs, distributed systems, and large-scale applications.
+
+Instead of forcing applications into a single architecture, Lattice provides independent packages for common infrastructure concerns such as dependency injection, configuration, HTTP, events, messaging, database access, queues, security, observability, and runtime lifecycle management.
+
+Applications can use only the packages they need while maintaining consistent contracts across the ecosystem.
+
+---
+
+## Why Lattice?
+
+Modern applications often need more than an HTTP server.
+
+As systems grow, concerns such as configuration, dependency injection, background jobs, events, messaging, transactions, observability, security, storage, multi-tenancy, and feature flags need to work together consistently.
+
+Lattice provides a modular foundation for these concerns without requiring every application to adopt the same runtime or deployment model.
+
+---
+
+## Core Philosophy
+
+### Modular
+
+Use only what the application needs. Every package is independent.
+
+```
+Application
+     |
+     +-- @lattice/core
+     +-- @lattice/http
+     +-- @lattice/database
+     +-- @lattice/events
+```
+
+No need to install everything.
+
+### Explicit
+
+Dependencies and lifecycle behavior should be visible. Avoid invisible magic.
+
+### Composable
+
+Packages work independently but integrate naturally.
+
+```
+HTTP
+ |
+ v
+Runtime
+ |
+ +-- Container
+ +-- Configuration
+ +-- Logger
+ +-- Events
+ +-- Observability
+```
+
+### Infrastructure-Neutral
+
+The application is not tightly coupled to a specific database, queue, cloud provider, or storage backend. The `@lattice/adapters` package defines the boundary between Lattice and external platforms.
+
+---
+
+## Features
+
+- Modular package architecture
+- Dependency injection container
+- Application lifecycle management
+- Type-safe configuration
+- Structured logging
+- HTTP primitives and routing
+- Event-driven architecture
+- CQRS primitives
+- Database abstractions
+- Background jobs and queues
+- Messaging infrastructure
+- Storage adapters
+- Cryptographic utilities
+- Serialization
+- Schema contracts
+- Security primitives
+- Observability and tracing
+- Multi-tenancy
+- Feature flags
+
+---
+
+## Architecture
+
+```
+                          Application
+                               |
+                               v
+                           Runtime
+                               |
+            +------------------+------------------+
+            |                  |                  |
+            v                  v                  v
+        Container          Lifecycle           Config
+            |                  |                  |
+            +------------------+------------------+
+                               |
+           +-------------------+-------------------+
+           |                   |                   |
+           v                   v                   v
+          HTTP              Database             Queue
+           |                   |                   |
+           v                   v                   v
+         Router             Storage           Messaging
+```
+
+Lattice is organized as an npm workspaces monorepo. Each package has a focused responsibility and a clear dependency boundary.
+
+---
+
+## Packages
+
+### Foundation
+
+| Package | Description |
+|---------|-------------|
+| `@lattice/core` | Lifecycle, context, runtime, modules |
+| `@lattice/runtime` | Application lifecycle orchestrator |
+| `@lattice/container` | DI container with token-based registration |
+| `@lattice/config` | Layered configuration with sources |
+| `@lattice/errors` | Shared error base class and utilities |
+| `@lattice/validation` | Schema validation with Zod |
+| `@lattice/logger` | Structured logging with transports |
+| `@lattice/lifecycle` | State machine, dependency ordering, graceful shutdown |
+| `@lattice/constants` | Shared constants, enums, and type-safe literals |
+| `@lattice/types` | Shared type guards and utility types |
+| `@lattice/middleware` | Composable middleware pipeline |
+
+### Application
+
+| Package | Description |
+|---------|-------------|
+| `@lattice/http` | HTTP primitives, request handling, routing |
+| `@lattice/schema` | Schema definition and parsing engine |
+| `@lattice/serialization` | Data translation layer |
+| `@lattice/cqrs` | Command query responsibility segregation |
+| `@lattice/cli` | Command-line interface |
+
+### Data and Infrastructure
+
+| Package | Description |
+|---------|-------------|
+| `@lattice/database` | Database clients, repositories, transactions |
+| `@lattice/storage` | Storage abstractions and lifecycle |
+| `@lattice/queue` | Background job infrastructure |
+| `@lattice/messaging` | In-process message bus |
+| `@lattice/transactions` | Transaction lifecycle and coordination |
+| `@lattice/cache` | Cache abstraction with adapters |
+
+### Security
+
+| Package | Description |
+|---------|-------------|
+| `@lattice/security` | Input validation, CORS, CSRF, rate limiting |
+| `@lattice/crypto` | Cryptographic primitives |
+| `@lattice/auth` | JWT, sessions, password hashing |
+| `@lattice/permissions` | RBAC, ABAC, resource authorization |
+
+### Platform
+
+| Package | Description |
+|---------|-------------|
+| `@lattice/observability` | Metrics, tracing, context propagation |
+| `@lattice/tenancy` | Multi-tenant context and isolation |
+| `@lattice/feature-flags` | Feature flag evaluation and rollouts |
+| `@lattice/adapters` | Boundary layer for external platforms |
+
+### Development
+
+| Package | Description |
+|---------|-------------|
+| `@lattice/testing` | Test helpers, fixtures, mocks |
+| `@lattice/docs` | Documentation infrastructure |
+
+---
+
+## Installation
+
+Lattice packages can be installed individually.
+
+```bash
+npm install @lattice/core
+```
+
+Install additional packages depending on the application requirements.
+
+```bash
+npm install @lattice/http @lattice/config @lattice/logger
+```
+
+---
+
+## Quick Start
+
+```ts
+import { createApplication } from "@lattice/runtime";
+import { createHTTPServer } from "@lattice/http";
+
+const app = await createApplication();
+
+const server = createHTTPServer({ app });
+
+server.get("/", () => {
+  return { message: "Hello from Lattice" };
+});
+
+await app.start();
+```
+
+---
+
+## Project Status
+
+Lattice is currently under active development.
+
+The public API may change before the first stable release. Use packages with caution in production.
+
+| Status | Description |
+|--------|-------------|
+| Built | Package implementation complete |
+| Beta | API may change |
+| Experimental | Not recommended for production |
+
+All packages are currently at version `0.1.0` and marked as **Built**.
+
+---
+
+## Development
+
+### Prerequisites
+
+- Node.js >= 24
+- npm >= 11
+
+### Setup
+
+```bash
+git clone https://github.com/lattice-oss/lattice.git
+cd lattice
+npm install
+npm run build
+```
+
+### Useful Commands
+
+```bash
+npm run build          # Build all packages
+npm run typecheck      # Typecheck all packages
+npm run format         # Format code with Prettier
+npm run test           # Run architect tests
+```
+
+### Per-Package Commands
+
+```bash
+npm run --workspace=@lattice/http typecheck
+npm run --workspace=@lattice/http build
+```
+
+---
+
+## Contributing
+
+Contributions are welcome.
+
+Before submitting a contribution, please read the contribution guidelines.
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+---
+
+## Security
+
+If you discover a security vulnerability, please do not open a public issue.
+
+See [SECURITY.md](./SECURITY.md) for instructions on responsible vulnerability disclosure.
+
+---
+
+## License
+
+Lattice is licensed under the MIT License.
+
+See [LICENSE](./LICENSE) for details.

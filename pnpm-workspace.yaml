@@ -4,6 +4,11 @@ packages:
   - "examples/*"
   - "tools/*"
 
+allowBuilds:
+  '@prisma/engines': set this to true or false
+  esbuild: set this to true or false
+  prisma: set this to true or false
+
 catalog:
   typescript: ^7.0.2
   "@types/node": ^26.4.0
