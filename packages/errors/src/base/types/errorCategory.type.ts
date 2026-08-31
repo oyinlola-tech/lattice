@@ -40,6 +40,23 @@ export enum ErrorCategory {
   SYSTEM = "system",
   INTERNAL = "internal",
   SERVICE = "service",
+  CONTAINER = "container",
+  MODULE = "module",
+  RUNTIME = "runtime",
+  EVENT = "event",
+  LOGGING = "logging",
+  MIDDLEWARE = "middleware",
+  CQRS = "cqrs",
+  MESSAGE = "message",
+  QUEUE = "queue",
+  JOB = "job",
+  WORKER = "worker",
+  API = "api",
+  RPC = "rpc",
+  SCHEDULER = "scheduler",
+  OPENAPI = "openapi",
+  PLUGIN = "plugin",
+  DOCUMENTATION = "documentation",
 }
 
 /**
