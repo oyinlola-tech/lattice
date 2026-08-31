@@ -775,13 +775,15 @@ export class ConfigResolver {
 
     return fallback;
   }
-}
+}import {
+  ConfigurationError,
+} from "@lattice/errors";
 
 /**
  * Error thrown when configuration resolution fails.
  */
 export class ConfigResolutionError
-  extends Error {
+  extends ConfigurationError {
   readonly key: string;
 
   readonly issues:
@@ -793,22 +795,17 @@ export class ConfigResolutionError
   ) {
     super(
       `Failed to resolve configuration "${key}".`,
+      {
+        configKey: key,
+        component: "ConfigurationResolver",
+      },
     );
 
-    this.name =
-      "ConfigResolutionError";
-
-    this.key =
-      key;
+    this.key = key;
 
     this.issues =
       Object.freeze([
         ...issues,
       ]);
-
-    Object.setPrototypeOf(
-      this,
-      new.target.prototype,
-    );
   }
 }
