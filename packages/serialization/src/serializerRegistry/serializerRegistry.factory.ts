@@ -1,0 +1,49 @@
+/**
+ * @lattice/serialization — Serializer factory.
+ *
+ * Factory function for creating serializer instances by format name.
+ * Provides a clean public API for creating serializers without
+ * exposing concrete class constructors.
+ */
+
+import type { Serializer, SerializationFormat } from "../serializerTypes/index.js";
+import { JSONSerializer } from "../serializerJson/index.js";
+import { UnsupportedSerializationFormatError } from "@lattice/errors";
+import { SerializationFormat as Format } from "@lattice/constants";
+import { TransformerRegistry } from "../serializerTransforms/index.js";
+import { SerializerRegistry } from "./serializerRegistry.core.js";
+
+/**
+ * Create a serializer for the given format.
+ *
+ * @param format - The serialization format (e.g., "json").
+ * @param options - Optional configuration for the serializer.
+ * @returns A Serializer instance.
+ * @throws {UnsupportedSerializationFormatError} when the format is not supported.
+ */
+export function createSerializer(
+  format: SerializationFormat,
+  options?: {
+    readonly transformers?: TransformerRegistry;
+    readonly pretty?: boolean;
+    readonly preserveTypes?: boolean;
+  },
+): Serializer {
+  switch (format) {
+    case Format.JSON:
+      return new JSONSerializer({ transformers: options?.transformers });
+    default:
+      throw new UnsupportedSerializationFormatError(format);
+  }
+}
+
+/**
+ * Create a default serializer registry pre-populated with built-in serializers.
+ *
+ * @returns A SerializerRegistry with "json" registered.
+ */
+export function createDefaultRegistry(): SerializerRegistry {
+  const registry = new SerializerRegistry();
+  registry.register(createSerializer(Format.JSON));
+  return registry;
+}

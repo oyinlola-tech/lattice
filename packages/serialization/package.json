@@ -1,0 +1,43 @@
+{
+  "name": "@lattice/serialization",
+  "version": "0.1.0",
+  "description": "Serialization framework for Lattice — multiple format support, type preservation, and streaming",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@lattice/constants": "0.1.0",
+    "@lattice/errors": "0.1.0",
+    "@lattice/types": "0.1.0",
+    "@lattice/validation": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.11"
+  },
+  "license": "MIT",
+  "keywords": [
+    "lattice",
+    "serialization",
+    "json",
+    "binary",
+    "messagepack",
+    "type-preservation"
+  ]
+}
