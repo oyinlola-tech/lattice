@@ -1,3 +1,10 @@
+/**
+ * @lattice/validation/validationErrors/validationError.base
+ *
+ * All validation errors extend BaseError from @lattice/errors.
+ * This file retains the validation-specific error codes and subclasses.
+ */
+
 import type {
   ValidationIssue,
 } from "../validationResult/validationResult.type.js";
@@ -6,6 +13,14 @@ import {
   formatIssues,
   toFieldErrors,
 } from "../validationResult/validationResult.type.js";
+
+import {
+  BaseError,
+  ErrorCode,
+  ErrorCategory,
+  ErrorSeverity,
+  type ErrorMetadata,
+} from "@lattice/errors";
 
 /**
  * Error codes used by the validation package.
@@ -34,13 +49,12 @@ export interface ValidationErrorOptions {
 
 /**
  * Base error for validation failures.
+ * Extends BaseError from @lattice/errors.
  */
-export class ValidationError extends Error {
-  public readonly code: ValidationErrorCode;
+export class ValidationError extends BaseError {
+  public readonly validationCode: ValidationErrorCode;
 
   public readonly issues: readonly ValidationIssue[];
-
-  public override readonly cause?: unknown;
 
   public readonly context?: Readonly<
     Record<string, unknown>
@@ -53,33 +67,26 @@ export class ValidationError extends Error {
     issues: readonly ValidationIssue[] = [],
     options: ValidationErrorOptions = {},
   ) {
-    super(message);
+    super(message, {
+      code:
+        (options.code as unknown as ErrorCode) ??
+        ErrorCode.VALIDATION_FAILED,
+      category: ErrorCategory.VALIDATION,
+      severity: ErrorSeverity.WARNING,
+      statusCode: 400,
+      expose: true,
+      cause: options.cause,
+      metadata: {
+        ...(options.context as ErrorMetadata | undefined),
+      },
+    });
 
-    this.name =
-      "ValidationError";
-
-    this.code =
-      options.code ??
-      ValidationErrorCode.UNKNOWN;
-
-    this.issues =
-      Object.freeze([
-        ...issues,
-      ]);
-
-    this.cause =
-      options.cause;
-
-    this.context =
-      options.context;
-
-    this.timestamp =
-      Date.now();
-
-    Object.setPrototypeOf(
-      this,
-      new.target.prototype,
-    );
+    this.name = "ValidationError";
+    this.validationCode =
+      options.code ?? ValidationErrorCode.UNKNOWN;
+    this.issues = Object.freeze([...issues]);
+    this.context = options.context;
+    this.timestamp = Date.now();
   }
 
   /**
@@ -88,46 +95,30 @@ export class ValidationError extends Error {
   public get fieldErrors(): Readonly<
     Record<string, string>
   > {
-    return toFieldErrors(
-      this.issues,
-    );
+    return toFieldErrors(this.issues);
   }
 
   /**
    * Returns a formatted representation of all issues.
    */
   public get formattedIssues(): string {
-    return formatIssues(
-      this.issues,
-    );
+    return formatIssues(this.issues);
   }
 
   /**
    * Returns a safe serializable representation.
    */
-  public toJSON(): {
-    readonly name: string;
-    readonly code: ValidationErrorCode;
-    readonly message: string;
-    readonly issues: readonly ValidationIssue[];
-    readonly context?: Readonly<
-      Record<string, unknown>
-    >;
-    readonly timestamp: number;
-  } {
+  public override toJSON(): any {
     return {
+      ...super.toJSON(),
       name: this.name,
-      code: this.code,
+      validationCode: this.validationCode,
       message: this.message,
       issues: this.issues,
       ...(this.context
-        ? {
-            context:
-              this.context,
-          }
+        ? { context: this.context }
         : {}),
-      timestamp:
-        this.timestamp,
+      timestamp: this.timestamp,
     };
   }
 }
@@ -139,23 +130,13 @@ export class RequiredValidationError extends ValidationError {
   constructor(
     message = "Required value is missing.",
     issues: readonly ValidationIssue[] = [],
-    options: Omit<
-      ValidationErrorOptions,
-      "code"
-    > = {},
+    options: Omit<ValidationErrorOptions, "code"> = {},
   ) {
-    super(
-      message,
-      issues,
-      {
-        ...options,
-        code:
-          ValidationErrorCode.REQUIRED,
-      },
-    );
-
-    this.name =
-      "RequiredValidationError";
+    super(message, issues, {
+      ...options,
+      code: ValidationErrorCode.REQUIRED,
+    });
+    this.name = "RequiredValidationError";
   }
 }
 
@@ -166,23 +147,13 @@ export class InvalidTypeValidationError extends ValidationError {
   constructor(
     message = "Invalid value type.",
     issues: readonly ValidationIssue[] = [],
-    options: Omit<
-      ValidationErrorOptions,
-      "code"
-    > = {},
+    options: Omit<ValidationErrorOptions, "code"> = {},
   ) {
-    super(
-      message,
-      issues,
-      {
-        ...options,
-        code:
-          ValidationErrorCode.INVALID_TYPE,
-      },
-    );
-
-    this.name =
-      "InvalidTypeValidationError";
+    super(message, issues, {
+      ...options,
+      code: ValidationErrorCode.INVALID_TYPE,
+    });
+    this.name = "InvalidTypeValidationError";
   }
 }
 
@@ -193,23 +164,13 @@ export class InvalidFormatValidationError extends ValidationError {
   constructor(
     message = "Invalid value format.",
     issues: readonly ValidationIssue[] = [],
-    options: Omit<
-      ValidationErrorOptions,
-      "code"
-    > = {},
+    options: Omit<ValidationErrorOptions, "code"> = {},
   ) {
-    super(
-      message,
-      issues,
-      {
-        ...options,
-        code:
-          ValidationErrorCode.INVALID_FORMAT,
-      },
-    );
-
-    this.name =
-      "InvalidFormatValidationError";
+    super(message, issues, {
+      ...options,
+      code: ValidationErrorCode.INVALID_FORMAT,
+    });
+    this.name = "InvalidFormatValidationError";
   }
 }
 
@@ -220,23 +181,13 @@ export class InvalidValueValidationError extends ValidationError {
   constructor(
     message = "Invalid value.",
     issues: readonly ValidationIssue[] = [],
-    options: Omit<
-      ValidationErrorOptions,
-      "code"
-    > = {},
+    options: Omit<ValidationErrorOptions, "code"> = {},
   ) {
-    super(
-      message,
-      issues,
-      {
-        ...options,
-        code:
-          ValidationErrorCode.INVALID_VALUE,
-      },
-    );
-
-    this.name =
-      "InvalidValueValidationError";
+    super(message, issues, {
+      ...options,
+      code: ValidationErrorCode.INVALID_VALUE,
+    });
+    this.name = "InvalidValueValidationError";
   }
 }
 
@@ -247,23 +198,13 @@ export class ConstraintValidationError extends ValidationError {
   constructor(
     message = "Validation constraint failed.",
     issues: readonly ValidationIssue[] = [],
-    options: Omit<
-      ValidationErrorOptions,
-      "code"
-    > = {},
+    options: Omit<ValidationErrorOptions, "code"> = {},
   ) {
-    super(
-      message,
-      issues,
-      {
-        ...options,
-        code:
-          ValidationErrorCode.CONSTRAINT_FAILED,
-      },
-    );
-
-    this.name =
-      "ConstraintValidationError";
+    super(message, issues, {
+      ...options,
+      code: ValidationErrorCode.CONSTRAINT_FAILED,
+    });
+    this.name = "ConstraintValidationError";
   }
 }
 
@@ -274,23 +215,13 @@ export class SchemaValidationError extends ValidationError {
   constructor(
     message = "Schema validation failed.",
     issues: readonly ValidationIssue[] = [],
-    options: Omit<
-      ValidationErrorOptions,
-      "code"
-    > = {},
+    options: Omit<ValidationErrorOptions, "code"> = {},
   ) {
-    super(
-      message,
-      issues,
-      {
-        ...options,
-        code:
-          ValidationErrorCode.SCHEMA_FAILED,
-      },
-    );
-
-    this.name =
-      "SchemaValidationError";
+    super(message, issues, {
+      ...options,
+      code: ValidationErrorCode.SCHEMA_FAILED,
+    });
+    this.name = "SchemaValidationError";
   }
 }
 
@@ -302,34 +233,22 @@ export function toValidationError(
   fallbackMessage = "Validation failed.",
   options: ValidationErrorOptions = {},
 ): ValidationError {
-  if (
-    error instanceof ValidationError
-  ) {
+  if (error instanceof ValidationError) {
     return error;
   }
 
-  if (
-    error instanceof Error
-  ) {
+  if (error instanceof Error) {
     return new ValidationError(
-      error.message ||
-        fallbackMessage,
+      error.message || fallbackMessage,
       [],
-      {
-        ...options,
-        cause: error,
-      },
+      { ...options, cause: error },
     );
   }
 
-  return new ValidationError(
-    fallbackMessage,
-    [],
-    {
-      ...options,
-      cause: error,
-    },
-  );
+  return new ValidationError(fallbackMessage, [], {
+    ...options,
+    cause: error,
+  });
 }
 
 /**
@@ -338,10 +257,7 @@ export function toValidationError(
 export function isValidationError(
   error: unknown,
 ): error is ValidationError {
-  return (
-    error instanceof
-    ValidationError
-  );
+  return error instanceof ValidationError;
 }
 
 /**
@@ -351,10 +267,7 @@ export function hasValidationErrorCode(
   error: unknown,
   code: ValidationErrorCode,
 ): boolean {
-  return (
-    isValidationError(error) &&
-    error.code === code
-  );
+  return isValidationError(error) && error.validationCode === code;
 }
 
 /**
@@ -365,8 +278,7 @@ export function createValidationError(
   options: ValidationErrorOptions = {},
 ): ValidationError {
   return new ValidationError(
-    formatIssues(issues) ||
-      "Validation failed.",
+    formatIssues(issues) || "Validation failed.",
     issues,
     options,
   );
