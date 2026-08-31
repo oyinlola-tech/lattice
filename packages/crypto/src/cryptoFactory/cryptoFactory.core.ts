@@ -1,269 +1,88 @@
-import {
-  CryptoService,
-  createCryptoService,
-} from "../cryptoService/cryptoService.core.js";
-
-import {
-  CryptoAlgorithm,
-} from "../cryptoAlgorithm/cryptoAlgorithm.type.js";
-
-import type {
-  CryptoKey,
-} from "../cryptoKey/cryptoKey.type.js";
-
-import {
-  generateCryptoKey,
-} from "../cryptoKey/cryptoKey.type.js";
-
-import type {
-  PasswordHashOptions,
-} from "../cryptoPassword/cryptoPassword.core.js";
-
-import {
-  hashPassword,
-  verifyPassword,
-} from "../cryptoPassword/cryptoPassword.core.js";
-
-import {
-  generateToken,
-  generateOtp,
-  generateApiKey,
-  generateSessionToken,
-  generateRefreshToken,
-  generateVerificationToken,
-  generatePasswordResetToken,
-  generateCsrfToken,
-} from "../cryptoToken/cryptoToken.core.js";
-
-import {
-  encode,
-  decode,
-} from "../cryptoEncoding/cryptoEncoding.core.js";
-
-import type {
-  CryptoEncoding,
-} from "../cryptoEncoding/cryptoEncoding.core.js";
+import { CryptoService, createCryptoService } from "../cryptoService/cryptoService.core.js";
+import { CryptoAlgorithm } from "../cryptoConstants/cryptoConstants.type.js";
+import { generateCryptoKey } from "../cryptoKey/cryptoKey.factory.js";
+import { factoryCreateToken, factoryCreateApiKey, factoryCreateSessionToken, factoryCreateRefreshToken, factoryCreateVerificationToken, factoryCreatePasswordResetToken, factoryCreateCsrfToken, factoryCreateOtp } from "./cryptoFactory.token.js";
+import { factoryCreatePasswordHash, factoryVerifyPassword } from "./cryptoFactory.password.js";
+import { factoryEncode, factoryDecode } from "./cryptoFactory.encoding.js";
+import type { CryptoKey } from "../cryptoKey/cryptoKey.type.js";
+import type { PasswordHashOptions } from "./cryptoFactory.password.js";
+import type { CryptoEncoding } from "./cryptoFactory.encoding.js";
 
 /**
  * Configuration used to create a CryptoFactory.
  */
 export interface CryptoFactoryOptions {
-  /**
-   * Optional default key algorithm.
-   */
   readonly defaultKeyAlgorithm?: CryptoAlgorithm;
-
-  /**
-   * Optional password hashing configuration.
-   */
   readonly password?: PasswordHashOptions;
-
-  /**
-   * Default encoding for binary values.
-   */
   readonly encoding?: CryptoEncoding;
 }
 
 /**
  * Central factory for constructing and accessing crypto services.
- *
- * The factory keeps application-level crypto configuration in one place
- * while allowing lower-level primitives to remain independently usable.
  */
 export class CryptoFactory {
-  private readonly options: Readonly<
-    Required<
-      Pick<
-        CryptoFactoryOptions,
-        "defaultKeyAlgorithm" | "encoding"
-      >
-    >
-  > &
-    Omit<
-      CryptoFactoryOptions,
-      "defaultKeyAlgorithm" | "encoding"
-    >
-;
-
+  private readonly options: Readonly<Required<Pick<CryptoFactoryOptions, "defaultKeyAlgorithm" | "encoding">>> & Omit<CryptoFactoryOptions, "defaultKeyAlgorithm" | "encoding">;
   private readonly service: CryptoService;
 
-  constructor(
-    options: CryptoFactoryOptions = {},
-  ) {
-    this.options =
-      Object.freeze({
-        ...options,
-        defaultKeyAlgorithm:
-          options.defaultKeyAlgorithm ??
-          CryptoAlgorithm.AES_256_GCM,
-        encoding:
-          options.encoding ??
-          "base64url",
-      });
-
-    this.service =
-      createCryptoService();
-  }
-
-  /**
-   * Returns the configured crypto service.
-   */
-  public getService(): CryptoService {
-    return this.service;
-  }
-
-  /**
-   * Generates a key using the configured default algorithm.
-   */
-  public createKey(
-    algorithm = this.options.defaultKeyAlgorithm,
-  ): CryptoKey {
-    const length =
-      algorithm.includes("256") ? 32 :
-      algorithm.includes("384") ? 48 :
-      algorithm.includes("512") ? 64 : 32;
-
-    return generateCryptoKey(length, {
-      algorithm,
-      extractable: true,
+  constructor(options: CryptoFactoryOptions = {}) {
+    this.options = Object.freeze({
+      ...options,
+      defaultKeyAlgorithm: options.defaultKeyAlgorithm ?? CryptoAlgorithm.AES_256_GCM,
+      encoding: options.encoding ?? "base64url",
     });
+    this.service = createCryptoService();
   }
 
-  /**
-   * Generates a secure opaque token.
-   */
-  public createToken(
-    bytes = 32,
-    prefix?: string,
-  ): string {
-    return generateToken({
-      bytes,
-      encoding:
-        this.options.encoding as import("../cryptoToken/cryptoToken.core.js").TokenEncoding,
-      prefix,
-    });
+  /** Returns the configured crypto service. */
+  getService(): CryptoService { return this.service; }
+
+  /** Generates a key using the configured default algorithm. */
+  async createKey(algorithm = this.options.defaultKeyAlgorithm): Promise<CryptoKey> {
+    const length = algorithm.includes("256") ? 32 : algorithm.includes("384") ? 48 : algorithm.includes("512") ? 64 : 32;
+    return generateCryptoKey(length, { algorithm, extractable: true });
   }
 
-  /**
-   * Generates an API key.
-   */
-  public createApiKey(): string {
-    return generateApiKey();
-  }
+  /** Generates a secure opaque token. */
+  async createToken(bytes = 32, prefix?: string): Promise<string> { return factoryCreateToken(bytes, prefix, this.options.encoding as import("../cryptoToken/cryptoToken.core.js").TokenEncoding); }
 
-  /**
-   * Generates a session token.
-   */
-  public createSessionToken(): string {
-    return generateSessionToken();
-  }
+  /** Generates an API key. */
+  async createApiKey(): Promise<string> { return factoryCreateApiKey(); }
 
-  /**
-   * Generates a refresh token.
-   */
-  public createRefreshToken(): string {
-    return generateRefreshToken();
-  }
+  /** Generates a session token. */
+  async createSessionToken(): Promise<string> { return factoryCreateSessionToken(); }
 
-  /**
-   * Generates an email or account verification token.
-   */
-  public createVerificationToken(): string {
-    return generateVerificationToken();
-  }
+  /** Generates a refresh token. */
+  async createRefreshToken(): Promise<string> { return factoryCreateRefreshToken(); }
 
-  /**
-   * Generates a password reset token.
-   */
-  public createPasswordResetToken(): string {
-    return generatePasswordResetToken();
-  }
+  /** Generates an email or account verification token. */
+  async createVerificationToken(): Promise<string> { return factoryCreateVerificationToken(); }
 
-  /**
-   * Generates a CSRF token.
-   */
-  public createCsrfToken(): string {
-    return generateCsrfToken();
-  }
+  /** Generates a password reset token. */
+  async createPasswordResetToken(): Promise<string> { return factoryCreatePasswordResetToken(); }
 
-  /**
-   * Generates a numeric one-time password.
-   */
-  public createOtp(
-    digits = 6,
-  ): string {
-    return generateOtp(
-      digits,
-    );
-  }
+  /** Generates a CSRF token. */
+  async createCsrfToken(): Promise<string> { return factoryCreateCsrfToken(); }
 
-  /**
-   * Hashes a password using the configured password options.
-   */
-  public async createPasswordHash(
-    password: string,
-    options?: PasswordHashOptions,
-  ) {
-    return hashPassword(
-      password,
-      options ??
-        this.options.password,
-    );
-  }
+  /** Generates a numeric one-time password. */
+  async createOtp(digits = 6): Promise<string> { return factoryCreateOtp(digits); }
 
-  /**
-   * Verifies a password against a stored hash.
-   */
-  public async verifyPassword(
-    password: string,
-    encodedHash: string,
-  ): Promise<boolean> {
-    return verifyPassword(
-      password,
-      encodedHash,
-    );
-  }
+  /** Hashes a password using the configured password options. */
+  async createPasswordHash(password: string, options?: PasswordHashOptions) { return factoryCreatePasswordHash(password, options ?? this.options.password); }
 
-  /**
-   * Encodes bytes using the configured default encoding.
-   */
-  public encode(
-    value: Uint8Array,
-    encoding = this.options.encoding,
-  ): string {
-    return encode(
-      value,
-      encoding,
-    );
-  }
+  /** Verifies a password against a stored hash. */
+  async verifyPassword(password: string, encodedHash: string): Promise<boolean> { return factoryVerifyPassword(password, encodedHash); }
 
-  /**
-   * Decodes binary data using the configured default encoding.
-   */
-  public decode(
-    value: string,
-    encoding = this.options.encoding,
-  ): Uint8Array {
-    return decode(
-      value,
-      encoding,
-    );
-  }
+  /** Encodes bytes using the configured default encoding. */
+  encode(value: Uint8Array, encoding = this.options.encoding): string { return factoryEncode(value, encoding); }
 
-  /**
-   * Returns the factory configuration.
-   *
-   * Password options are returned as-is and should not contain
-   * plaintext passwords or secret key material.
-   */
-  public getOptions(): Readonly<CryptoFactoryOptions> {
+  /** Decodes binary data using the configured default encoding. */
+  decode(value: string, encoding = this.options.encoding): Uint8Array { return factoryDecode(value, encoding); }
+
+  /** Returns the factory configuration. */
+  getOptions(): Readonly<CryptoFactoryOptions> {
     return Object.freeze({
       ...this.options,
-      password: this.options.password
-        ? Object.freeze({
-            ...this.options.password,
-          })
-        : undefined,
+      password: this.options.password ? Object.freeze({ ...this.options.password }) : undefined,
     });
   }
 }
@@ -271,16 +90,11 @@ export class CryptoFactory {
 /**
  * Creates a configured CryptoFactory.
  */
-export function createCryptoFactory(
-  options: CryptoFactoryOptions = {},
-): CryptoFactory {
-  return new CryptoFactory(
-    options,
-  );
+export function createCryptoFactory(options: CryptoFactoryOptions = {}): CryptoFactory {
+  return new CryptoFactory(options);
 }
 
 /**
  * Default application crypto factory.
  */
-export const cryptoFactory =
-  createCryptoFactory();
+export const cryptoFactory = createCryptoFactory();
