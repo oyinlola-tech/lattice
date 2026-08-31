@@ -1,0 +1,47 @@
+{
+  "name": "@lattice/tenancy",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Multi-tenant context and isolation for the Lattice framework — tenant resolution, context propagation, resolver chains, and isolation strategies.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@lattice/errors": "0.1.0",
+    "@lattice/constants": "0.1.0"
+  },
+  "peerDependencies": {
+    "@lattice/http": "0.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@lattice/http": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  }
+}
