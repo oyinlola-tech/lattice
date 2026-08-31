@@ -1,0 +1,30 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "composite": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ],
+  "references": [
+    { "path": "../constants" },
+    { "path": "../container" },
+    { "path": "../errors" },
+    { "path": "../events" },
+    { "path": "../http" },
+    { "path": "../logger" },
+    { "path": "../messaging" },
+    { "path": "../middleware" },
+    { "path": "../queue" },
+    { "path": "../types" }
+  ]
+}
