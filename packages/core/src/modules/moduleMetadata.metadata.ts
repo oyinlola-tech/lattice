@@ -1,15 +1,13 @@
 import type {
   ModuleId,
 } from "./module.js";
+import type { Environment } from "@lattice/constants";
 
 /**
  * Environment in which a module is intended to run.
+ * Re-exports Environment from @lattice/constants for backwards compatibility.
  */
-export type ModuleEnvironment =
-  | "development"
-  | "test"
-  | "staging"
-  | "production";
+export type ModuleEnvironment = Environment;
 
 /**
  * Category describing the role of a module.
