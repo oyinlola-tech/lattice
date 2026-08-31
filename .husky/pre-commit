@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+set -e
+
+echo "Running Lattice pre-commit checks..."
+
+npm run format:check
+npm run lint
+npm run typecheck
+
+echo "Pre-commit checks passed."
