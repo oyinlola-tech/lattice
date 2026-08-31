@@ -1,9 +1,68 @@
+import { TimeMs } from "@lattice/constants";
+
 /**
- * Cryptographic package constants.
- *
- * Keep security-sensitive defaults centralized so that consumers
- * do not independently choose incompatible parameters.
+ * Supported cryptographic algorithms used by Lattice.
  */
+export enum CryptoAlgorithm {
+  AES_256_GCM = "aes-256-gcm",
+  AES_256_CBC = "aes-256-cbc",
+  CHACHA20_POLY1305 = "chacha20-poly1305",
+  SHA_256 = "sha256",
+  SHA_384 = "sha384",
+  SHA_512 = "sha512",
+  SHA3_256 = "sha3-256",
+  SHA3_384 = "sha3-384",
+  SHA3_512 = "sha3-512",
+  HMAC_SHA256 = "hmac-sha256",
+  HMAC_SHA384 = "hmac-sha384",
+  HMAC_SHA512 = "hmac-sha512",
+  PBKDF2_SHA256 = "pbkdf2-sha256",
+  PBKDF2_SHA512 = "pbkdf2-sha512",
+  SCRYPT = "scrypt",
+  ARGON2ID = "argon2id",
+  ED25519 = "ed25519",
+  X25519 = "x25519",
+}
+
+/**
+ * Algorithms that provide authenticated encryption.
+ */
+export const AEAD_ALGORITHMS = Object.freeze([
+  CryptoAlgorithm.AES_256_GCM,
+  CryptoAlgorithm.CHACHA20_POLY1305,
+] as const);
+
+/**
+ * Algorithms intended for hashing.
+ */
+export const HASH_ALGORITHMS = Object.freeze([
+  CryptoAlgorithm.SHA_256,
+  CryptoAlgorithm.SHA_384,
+  CryptoAlgorithm.SHA_512,
+  CryptoAlgorithm.SHA3_256,
+  CryptoAlgorithm.SHA3_384,
+  CryptoAlgorithm.SHA3_512,
+] as const);
+
+/**
+ * Algorithms intended for password/key derivation.
+ */
+export const KEY_DERIVATION_ALGORITHMS =
+  Object.freeze([
+    CryptoAlgorithm.PBKDF2_SHA256,
+    CryptoAlgorithm.PBKDF2_SHA512,
+    CryptoAlgorithm.SCRYPT,
+    CryptoAlgorithm.ARGON2ID,
+  ] as const);
+
+/**
+ * Algorithms intended for message authentication.
+ */
+export const MAC_ALGORITHMS = Object.freeze([
+  CryptoAlgorithm.HMAC_SHA256,
+  CryptoAlgorithm.HMAC_SHA384,
+  CryptoAlgorithm.HMAC_SHA512,
+] as const);
 
 /**
  * AES-GCM constants.
@@ -13,51 +72,6 @@ export const AES_GCM = Object.freeze({
   KEY_BITS: 256,
   IV_BYTES: 12,
   AUTH_TAG_BYTES: 16,
-} as const);
-
-/**
- * Password hashing constants.
- */
-export const PASSWORD_HASH = Object.freeze({
-  SALT_BYTES: 16,
-  KEY_BYTES: 32,
-
-  SCRYPT: Object.freeze({
-    COST: 16_384,
-    BLOCK_SIZE: 8,
-    PARALLELIZATION: 1,
-  }),
-
-  PBKDF2: Object.freeze({
-    ITERATIONS: 310_000,
-    DIGEST: "sha256",
-  }),
-} as const);
-
-/**
- * Token constants.
- */
-export const TOKEN = Object.freeze({
-  DEFAULT_BYTES: 32,
-
-  API_KEY_BYTES: 32,
-  SESSION_BYTES: 32,
-  REFRESH_BYTES: 48,
-  VERIFICATION_BYTES: 32,
-  PASSWORD_RESET_BYTES: 32,
-  CSRF_BYTES: 32,
-
-  OTP_DIGITS: 6,
-  OTP_MIN_DIGITS: 4,
-  OTP_MAX_DIGITS: 12,
-} as const);
-
-/**
- * Random value constraints.
- */
-export const RANDOM = Object.freeze({
-  MIN_BYTES: 16,
-  DEFAULT_BYTES: 32,
 } as const);
 
 /**
@@ -97,69 +111,6 @@ export const ENCODING = Object.freeze({
 } as const);
 
 /**
- * Password policy defaults.
- *
- * These values are intentionally conservative defaults.
- * Applications may impose stricter requirements.
- */
-export const PASSWORD_POLICY = Object.freeze({
-  MIN_LENGTH: 8,
-  RECOMMENDED_MIN_LENGTH: 12,
-  MAX_LENGTH: 1024,
-} as const);
-
-/**
- * Password reset and verification token lifetime defaults.
- *
- * Values are expressed in milliseconds.
- */
-export const TOKEN_TTL = Object.freeze({
-  EMAIL_VERIFICATION_MS:
-    15 * 60 * 1000,
-
-  PASSWORD_RESET_MS:
-    15 * 60 * 1000,
-
-  LOGIN_VERIFICATION_MS:
-    10 * 60 * 1000,
-
-  CSRF_MS:
-    60 * 60 * 1000,
-
-  SESSION_MS:
-    24 * 60 * 60 * 1000,
-
-  REFRESH_TOKEN_MS:
-    30 * 24 * 60 * 60 * 1000,
-} as const);
-
-/**
- * Cryptographic protocol versions.
- */
-export const CRYPTO_VERSION = Object.freeze({
-  CURRENT: "v1",
-  PASSWORD_HASH: "v1",
-  ENCRYPTION_ENVELOPE: "v1",
-  TOKEN: "v1",
-} as const);
-
-/**
- * Common token prefixes.
- *
- * Prefixes make opaque credentials easier to identify during
- * logging, debugging, and secret scanning without exposing
- * their underlying value.
- */
-export const TOKEN_PREFIX = Object.freeze({
-  API_KEY: "lat_",
-  SESSION: "sess_",
-  REFRESH: "ref_",
-  VERIFICATION: "verify_",
-  PASSWORD_RESET: "reset_",
-  CSRF: "csrf_",
-} as const);
-
-/**
  * Cryptographic algorithm identifiers.
  */
 export const CRYPTO_ALGORITHM = Object.freeze({
@@ -180,78 +131,3 @@ export const CRYPTO_ALGORITHM = Object.freeze({
 
   SCRYPT: "scrypt",
 } as const);
-
-/**
- * Type-safe union of supported crypto algorithm identifiers.
- */
-export type CryptoAlgorithmName =
-  (typeof CRYPTO_ALGORITHM)[keyof typeof CRYPTO_ALGORITHM];
-
-/**
- * Type-safe union of supported token prefixes.
- */
-export type TokenPrefix =
-  (typeof TOKEN_PREFIX)[keyof typeof TOKEN_PREFIX];
-
-/**
- * Type-safe union of supported encodings.
- */
-export type CryptoEncodingName =
-  (typeof ENCODING)[keyof typeof ENCODING];
-
-/**
- * Returns the default AES-GCM configuration.
- */
-export function getDefaultAesGcmConfig(): {
-  readonly keyBytes: number;
-  readonly keyBits: number;
-  readonly ivBytes: number;
-  readonly authTagBytes: number;
-} {
-  return {
-    keyBytes:
-      AES_GCM.KEY_BYTES,
-    keyBits:
-      AES_GCM.KEY_BITS,
-    ivBytes:
-      AES_GCM.IV_BYTES,
-    authTagBytes:
-      AES_GCM.AUTH_TAG_BYTES,
-  };
-}
-
-/**
- * Returns the default password hashing configuration.
- */
-export function getDefaultPasswordHashConfig(): {
-  readonly saltBytes: number;
-  readonly keyBytes: number;
-  readonly scryptCost: number;
-  readonly scryptBlockSize: number;
-  readonly scryptParallelization: number;
-  readonly pbkdf2Iterations: number;
-  readonly pbkdf2Digest: string;
-} {
-  return {
-    saltBytes:
-      PASSWORD_HASH.SALT_BYTES,
-
-    keyBytes:
-      PASSWORD_HASH.KEY_BYTES,
-
-    scryptCost:
-      PASSWORD_HASH.SCRYPT.COST,
-
-    scryptBlockSize:
-      PASSWORD_HASH.SCRYPT.BLOCK_SIZE,
-
-    scryptParallelization:
-      PASSWORD_HASH.SCRYPT.PARALLELIZATION,
-
-    pbkdf2Iterations:
-      PASSWORD_HASH.PBKDF2.ITERATIONS,
-
-    pbkdf2Digest:
-      PASSWORD_HASH.PBKDF2.DIGEST,
-  };
-}
