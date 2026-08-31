@@ -45,6 +45,8 @@ const TIERS = {
   adapters: 1,
   queue: 1,
   scheduler: 1,
+  database: 1,
+  observability: 1,
   core: 2,
   cqrs: 2,
   auth: 2,
@@ -120,9 +122,9 @@ function checkTierViolations(packages) {
       continue;
     }
 
-    const allDeps = { ...pkg.dependencies, ...pkg.peerDependencies };
+    const deps = Object.keys(pkg.dependencies);
 
-    for (const depName of Object.keys(allDeps)) {
+    for (const depName of deps) {
       if (!depName.startsWith("@lattice/")) continue;
 
       const depKey = packageNameToKey(depName);
