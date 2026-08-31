@@ -1,0 +1,41 @@
+{
+  "name": "@lattice/http",
+  "version": "0.1.0",
+  "private": true,
+  "description": "HTTP primitives, request handling, routing, middleware, and server abstractions for the Lattice framework.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@lattice/core": "0.1.0",
+    "@lattice/errors": "0.1.0",
+    "@lattice/logger": "0.1.0",
+    "@lattice/security": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}
