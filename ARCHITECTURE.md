@@ -1,15 +1,41 @@
-# Lattice Framework — Architecture & Package Dependencies
+# Lattice Architecture
 
-> This document defines the canonical package dependency map for the Lattice framework.
-> It is the single source of truth for allowed cross-package imports.
+> This document describes the conceptual architecture of the Lattice framework.
+> It explains how the major components fit together, the design principles that guide the system,
+> and the lifecycle of a Lattice application from startup to shutdown.
 
 ---
 
-## 1. Design Principle
+## 1. Overview
 
-**Dependencies flow inward.**
+Lattice is a modular TypeScript application framework designed for building scalable, maintainable backend systems.
 
-Foundation packages have no @lattice dependencies.
+It provides:
+
+- A **dependency injection container** for managing service lifetimes and dependencies.
+- A **module system** for organizing applications into cohesive, reusable units.
+- A **lifecycle orchestrator** that coordinates startup, shutdown, and health checks.
+- **Application architecture patterns** including CQRS, event-driven messaging, and transactional boundaries.
+- **Transport abstractions** for HTTP, RPC, and CLI interfaces.
+- **Infrastructure integrations** for databases, queues, caches, and schedulers.
+- **Cross-cutting concerns** including observability, security, permissions, multi-tenancy, and feature flags.
+- A **plugin system** for controlled extensibility.
+
+Lattice is built on three core beliefs:
+
+1. **Explicit over implicit** — dependencies, boundaries, and lifecycles should be visible and enforceable.
+2. **Composition over inheritance** — behavior is assembled through composition, not class hierarchies.
+3. **Type safety end-to-end** — from request input to database output, types should flow through the entire stack.
+
+---
+
+## 2. Design Principles
+
+### 2.1 Dependency Direction
+
+Dependencies flow inward.
+
+Foundation packages have no `@lattice/*` dependencies.
 Higher-level packages may depend on lower-level packages.
 No package may depend on a package in a higher tier.
 
@@ -17,206 +43,829 @@ No package may depend on a package in a higher tier.
 Foundation → Runtime Primitives → Application Architecture → Infrastructure Abstractions → Transport → Developer Experience
 ```
 
----
+This prevents circular dependencies and ensures that changes to higher-level packages never break foundation code.
 
-## 2. Package Tiers
+### 2.2 Interface-First Design
 
-### Tier 0 — Leaf (no @lattice dependencies)
+Interfaces are defined before implementations.
+Consumers depend on abstractions, not concrete classes.
 
-These packages depend on nothing except Node.js built-ins and external libraries.
+This allows:
+- Swapping implementations without changing consumers.
+- Testing with fakes and mocks.
+- Clear contracts between modules.
 
-| Package | Purpose |
-|---------|---------|
-| `@lattice/errors` | Shared error base class, error codes, error categories |
-| `@lattice/types` | Type guards, utility types, converters |
+### 2.3 Single Responsibility
 
-**Rules:**
-- Must not import from any other `@lattice/*` package.
-- External dependencies only.
+Each package has exactly one reason to change.
+Packages should be small, focused, and independently testable.
 
----
+If a package starts doing too many things, it should be split.
 
-### Tier 1 — Foundation
+### 2.4 Explicit Lifecycle
 
-Depends only on Tier 0.
-
-| Package | Depends On | Purpose |
-|---------|-----------|---------|
-| `@lattice/constants` | errors | Branded IDs, enums, serialization constants |
-| `@lattice/container` | errors | DI container with token-based registration |
-| `@lattice/logger` | errors | Structured logging with transports |
-| `@lattice/crypto` | errors | Hashing, encryption, tokens |
-| `@lattice/validation` | errors | Schema validation with Zod |
-| `@lattice/schema` | errors, constants, types | Schema definition, parsing, type inference |
-| `@lattice/config` | errors | Layered configuration with sources |
-| `@lattice/middleware` | errors | Composable middleware pipeline |
-| `@lattice/serialization` | errors, constants, types, validation | JSON serializer, type transformers, envelopes |
-| `@lattice/events` | errors, constants | Event bus, emitter, middleware, registry |
-| `@lattice/messaging` | errors, constants | In-process message bus |
-| `@lattice/lifecycle` | errors, constants | State machine, dependency ordering, graceful shutdown |
-| `@lattice/transactions` | errors | Transaction lifecycle, AsyncLocalStorage context |
-| `@lattice/permissions` | errors, constants | RBAC, ABAC, resource authorization |
-| `@lattice/feature-flags` | errors | Feature flag evaluation, rule engine |
-| `@lattice/plugins` | errors, constants, types | Plugin registration, lifecycle, orchestration |
-| `@lattice/security` | errors, constants | Input validation, CORS, CSRF, rate limiting |
-| `@lattice/tenancy` | errors, constants | Multi-tenant context and isolation |
-| `@lattice/docs` | errors | Documentation infrastructure |
-| `@lattice/cache` | errors, types, serialization | Cache abstraction with memory adapter |
-| `@lattice/storage` | errors, constants, types, serialization | Database, object storage, repository abstractions |
-| `@lattice/adapters` | errors, constants, types, lifecycle | Adapter contracts, registry, transport abstractions |
-| `@lattice/queue` | errors, constants, serialization | Background job and async task infrastructure |
-| `@lattice/scheduler` | errors, constants, types | Job scheduling, cron, triggers |
-
-**Rules:**
-- May import from Tier 0 only.
-- Must not import from any Tier 2+ package.
-- Peer dependencies on higher-tier packages are allowed only when explicitly documented.
-
----
-
-### Tier 2 — Application Architecture
-
-Depends on Tier 0 + Tier 1.
-
-| Package | Depends On | Purpose |
-|---------|-----------|---------|
-| `@lattice/core` | errors, constants, messaging | Lifecycle, context, runtime, modules |
-| `@lattice/cqrs` | errors, events, messaging | Commands, queries, handlers |
-| `@lattice/auth` | errors, constants, permissions | JWT, sessions, password hashing |
-| `@lattice/runtime` | errors, constants, container, config, logger, events, core | Application lifecycle orchestrator |
-| `@lattice/openapi` | errors, constants, schema | OpenAPI document generation |
-| `@lattice/rpc` | errors, constants, types, schema | RPC primitives |
-| `@lattice/api` | errors, constants, types, schema | API abstraction layer |
-
-**Rules:**
-- May import from Tier 0 and Tier 1 only.
-- Must not import from Tier 3+ packages.
-- Must not import from transport packages (`http`, `rpc`, `api`, `openapi`) unless explicitly documented.
-
----
-
-### Tier 3 — Transport
-
-Depends on Tier 0 + Tier 1 + Tier 2.
-
-| Package | Depends On | Purpose |
-|---------|-----------|---------|
-| `@lattice/http` | core, errors, logger, security | HTTP request handling, routing, middleware |
-| `@lattice/cli` | config, core, errors, logger | Command-line interface |
-
-**Rules:**
-- May import from Tier 0, Tier 1, and Tier 2 only.
-- Must not import from other transport packages (`http` must not import from `rpc`, `api`, `openapi`).
-- Transport packages translate external requests into internal application calls.
-
----
-
-### Tier 4 — Developer Experience
-
-Depends on any tier.
-
-| Package | Depends On | Purpose |
-|---------|-----------|---------|
-| `@lattice/testing` | many | Test helpers, fixtures, mocks |
-| `@lattice/docs` | errors | Documentation generation |
-
-**Rules:**
-- May import from any package.
-- Must not be imported by production runtime packages (testing only).
-
----
-
-## 3. Complete Dependency Graph
+Every major component has a well-defined lifecycle:
 
 ```
-Tier 0: errors, types
-    │
-    ▼
-Tier 1: constants, container, logger, crypto, validation, schema,
-        config, middleware, serialization, events, messaging,
-        lifecycle, transactions, permissions, feature-flags,
-        plugins, security, tenancy, docs, cache, storage,
-        adapters, queue, scheduler
-    │
-    ▼
-Tier 2: core, cqrs, auth, runtime, openapi, rpc, api
-    │
-    ▼
-Tier 3: http, cli
-    │
-    ▼
-Tier 4: testing, docs
+register
+  → install
+    → initialize
+      → start
+        → running
+          → stop
+            → dispose
+```
+
+Lifecycles are coordinated by the runtime, not left to chance.
+
+### 2.5 Controlled Context
+
+Plugins, modules, and middleware receive a controlled context.
+They do not receive the entire application object.
+
+This enforces architectural boundaries and prevents hidden coupling.
+
+### 2.6 Errors as Values
+
+Errors are first-class citizens.
+Every package defines its own error hierarchy rooted in `@lattice/errors`.
+
+Errors carry:
+- A machine-readable code.
+- A human-readable message.
+- Operational metadata (plugin name, dependency name, etc.).
+- A severity level.
+
+### 2.7 Observability by Default
+
+Every lifecycle transition, request, and error is observable.
+Logging, metrics, and tracing are built into the framework, not bolted on.
+
+### 2.8 Security in the Foundation
+
+Input validation, CORS, CSRF protection, rate limiting, and security headers are provided by `@lattice/security`.
+Application code should never reimplement these primitives.
+
+---
+
+## 3. Architectural Layers
+
+Lattice is organized into five conceptual layers.
+
+### 3.1 Foundation Layer
+
+The base of the framework.
+
+Provides:
+- Error handling (`@lattice/errors`)
+- Type utilities (`@lattice/types`)
+- Constants and branded types (`@lattice/constants`)
+- Dependency injection (`@lattice/container`)
+- Configuration (`@lattice/config`)
+- Logging (`@lattice/logger`)
+- Validation (`@lattice/validation`)
+- Serialization (`@lattice/serialization`)
+
+These packages have no `@lattice/*` dependencies (except `@lattice/errors`).
+
+### 3.2 Runtime Primitives Layer
+
+Provides the runtime building blocks.
+
+- **Lifecycle** (`@lattice/lifecycle`) — state machines, dependency ordering, graceful shutdown.
+- **Events** (`@lattice/events`) — event bus, emitter, middleware, registry.
+- **Messaging** (`@lattice/messaging`) — in-process message bus with handlers and middleware.
+- **Transactions** (`@lattice/transactions`) — transaction lifecycle, context propagation, savepoints.
+- **Schema** (`@lattice/schema`) — type-safe data contracts with validation.
+- **Crypto** (`@lattice/crypto`) — hashing, encryption, tokens.
+- **Cache** (`@lattice/cache`) — cache abstraction with adapters, tags, locking.
+- **Storage** (`@lattice/storage`) — database and object storage abstractions.
+- **Queue** (`@lattice/queue`) — background job infrastructure.
+- **Scheduler** (`@lattice/scheduler`) — job scheduling, cron, triggers.
+
+### 3.3 Application Architecture Layer
+
+Provides patterns for structuring applications.
+
+- **Core** (`@lattice/core`) — application context, modules, lifecycle integration.
+- **CQRS** (`@lattice/cqrs`) — command/query separation, handlers, bus integration.
+- **Auth** (`@lattice/auth`) — JWT, sessions, password hashing.
+- **Permissions** (`@lattice/permissions`) — RBAC, ABAC, resource authorization.
+- **Runtime** (`@lattice/runtime`) — application lifecycle orchestrator.
+- **Plugins** (`@lattice/plugins`) — plugin registration, lifecycle, orchestration.
+- **Feature Flags** (`@lattice/feature-flags`) — feature flag evaluation, rule engine.
+- **Tenancy** (`@lattice/tenancy`) — multi-tenant context and isolation.
+- **Security** (`@lattice/security`) — input validation, CORS, CSRF, rate limiting.
+- **Adapters** (`@lattice/adapters`) — boundary layer between Lattice and external platforms.
+
+### 3.4 Transport Layer
+
+Translates external requests into internal application calls.
+
+- **HTTP** (`@lattice/http`) — request handling, routing, middleware.
+- **RPC** (`@lattice/rpc`) — RPC primitives.
+- **API** (`@lattice/api`) — API abstraction layer.
+- **OpenAPI** (`@lattice/openapi`) — OpenAPI document generation.
+- **CLI** (`@lattice/cli`) — command-line interface.
+
+### 3.5 Developer Experience Layer
+
+Tools for building, testing, and documenting Lattice applications.
+
+- **Testing** (`@lattice/testing`) — test helpers, fixtures, mocks.
+- **Docs** (`@lattice/docs`) — documentation infrastructure.
+- **Observability** (`@lattice/observability`) — structured logging, metrics, tracing, exporters.
+
+---
+
+## 4. Application Lifecycle
+
+A Lattice application follows a strict lifecycle managed by `@lattice/runtime`.
+
+### 4.1 Startup
+
+```
+1. Bootstrap
+   - Load configuration from layered sources.
+   - Initialize the DI container.
+   - Create the event bus.
+   - Initialize the logger.
+
+2. Module Registration
+   - Register modules with the container.
+   - Validate module dependencies.
+   - Resolve module import order.
+
+3. Plugin Registration
+   - Register plugins.
+   - Validate plugin dependencies.
+   - Resolve plugin start order.
+
+4. Initialization
+   - Initialize all modules in dependency order.
+   - Connect to infrastructure (database, cache, queue).
+   - Load feature flags.
+   - Establish tenant resolvers.
+
+5. Start
+   - Start all modules in dependency order.
+   - Begin accepting requests.
+   - Start background workers.
+   - Emit `application:started` event.
+
+6. Ready
+   - Application is now accepting traffic.
+```
+
+### 4.2 Running
+
+During the running phase:
+
+- Requests flow through the transport layer into the application layer.
+- CQRS commands and queries are dispatched.
+- Events are published and consumed.
+- Transactions are coordinated.
+- Background jobs are processed.
+- Metrics and logs are emitted.
+
+### 4.3 Shutdown
+
+```
+1. Stop Accepting Requests
+   - Mark the application as draining.
+   - Finish in-flight requests up to a deadline.
+
+2. Stop Modules
+   - Stop modules in reverse dependency order.
+   - Flush pending events.
+   - Stop background workers.
+
+3. Dispose
+   - Close database connections.
+   - Dispose plugins in reverse order.
+   - Release resources.
+
+4. Shutdown Complete
+   - Emit `application:stopped` event.
+   - Exit process (or await restart).
 ```
 
 ---
 
-## 4. Forbidden Dependency Patterns
+## 5. Request Lifecycle
 
-These patterns must **never** occur:
+A typical request flows through Lattice as follows:
 
-| Pattern | Reason |
-|---------|--------|
-| `errors → @lattice/*` | Leaf package must stay leaf |
-| `constants → @lattice/*` | Leaf package must stay leaf |
-| `types → @lattice/*` | Leaf package must stay leaf |
-| `core → http` | Core must not know about transport |
-| `core → rpc` | Core must not know about transport |
-| `cqrs → http` | CQRS must not know about transport |
-| `events → http` | Events must not know about transport |
-| `http → rpc` | Transport packages must not depend on each other |
-| `http → api` | Transport packages must not depend on each other |
-| `rpc → http` | Transport packages must not depend on each other |
-| `runtime → http` | Runtime must not know about specific transports |
+```
+Incoming Request
+       │
+       ▼
+Transport Layer (HTTP / RPC / CLI)
+       │
+       ▼
+Middleware Pipeline
+   - Security headers
+   - CORS
+   - Rate limiting
+   - Authentication
+   - Tenancy resolution
+   - Logging / tracing
+       │
+       ▼
+Router
+       │
+       ▼
+Controller / Handler
+       │
+       ▼
+CQRS Bus
+   │
+   ├── Command → CommandHandler → Repository → Database
+   │
+   └── Query → QueryHandler → Read Model → Cache / Database
+       │
+       ▼
+Response
+   - Serialization
+   - Error handling
+   - Observability
+       │
+       ▼
+Outgoing Response
+```
 
----
+Key principles:
 
-## 5. Peer Dependencies
-
-Peer dependencies are allowed only when:
-1. The dependency is in a higher or equal tier.
-2. The dependency is truly optional (the package functions without it).
-3. The peer dependency is explicitly documented.
-
-Current peer dependencies:
-- `@lattice/permissions` → peer `@lattice/http` (optional)
-- `@lattice/tenancy` → peer `@lattice/http` (optional)
-
----
-
-## 6. Package Versioning
-
-All packages use `0.1.0`.
-Internal `@lattice/*` dependencies must use exact versions (`0.1.0`), not wildcards (`*`).
-
----
-
-## 7. Enforcement
-
-This document is enforced by:
-- `npm run architect:check` — runs a script that validates no forbidden dependencies exist.
-- CI must pass `architect:check` before merging.
-
----
-
-## 8. Implementation Order
-
-Packages should be built and tested in tier order:
-
-1. Tier 0: `errors`, `types`
-2. Tier 1: `constants`, `container`, `logger`, `crypto`, `validation`, `schema`, `config`, `middleware`, `serialization`, `events`, `messaging`, `lifecycle`, `transactions`, `permissions`, `feature-flags`, `plugins`, `security`, `tenancy`, `docs`, `cache`, `storage`, `adapters`, `queue`, `scheduler`
-3. Tier 2: `core`, `cqrs`, `auth`, `runtime`, `openapi`, `rpc`, `api`
-4. Tier 3: `http`, `cli`
-5. Tier 4: `testing`
+- **Separation of concerns**: each layer has a single responsibility.
+- **Explicit flow**: the request path is predictable and debuggable.
+- **Type safety**: request/response types flow through the entire stack.
+- **Observability**: every stage is instrumented.
 
 ---
 
-## 9. Vertical Slices
+## 6. Module System
 
-After Tier 0-1 are stable, build integration examples:
-- `examples/hello-world` — minimal HTTP server
-- `examples/basic-api` — CRUD with CQRS, database, events
-- `examples/cqrs` — command/query separation
-- `examples/events` — event-driven architecture
-- `examples/modules` — modular monolith
+Lattice applications are composed of modules.
 
-These examples validate that packages work together correctly.
+### 6.1 Module Definition
+
+A module is a self-contained unit of functionality.
+
+```ts
+@Module({
+  imports: [DatabaseModule, EventsModule],
+  providers: [UserRepository, UserService],
+  controllers: [UserController],
+})
+export class UsersModule {}
+```
+
+### 6.2 Module Boundaries
+
+Modules define explicit boundaries:
+
+- **Imports**: other modules this module depends on.
+- **Exports**: services this module exposes to other modules.
+- **Providers**: services scoped to this module.
+- **Controllers**: request handlers scoped to this module.
+
+### 6.3 Module Lifecycle
+
+Modules participate in the application lifecycle:
+
+```
+Module Registration
+    ↓
+Module Initialization
+    ↓
+Module Start
+    ↓
+Module Running
+    ↓
+Module Stop
+    ↓
+Module Dispose
+```
+
+### 6.4 Module Composition
+
+Modules compose into applications:
+
+```
+Application
+├── UsersModule
+│   ├── imports: DatabaseModule, EventsModule
+│   └── exports: UserService
+├── OrdersModule
+│   ├── imports: UsersModule, PaymentsModule
+│   └── exports: OrderService
+└── PaymentsModule
+    ├── imports: DatabaseModule
+    └── exports: PaymentService
+```
+
+---
+
+## 7. Dependency Injection
+
+Lattice uses a token-based DI container (`@lattice/container`).
+
+### 7.1 Registration
+
+Services are registered with tokens:
+
+```ts
+container.register(UserRepositoryToken, () => new UserRepository());
+container.register(UserServiceToken, (ctx) => new UserService(ctx.resolve(UserRepositoryToken)));
+```
+
+### 7.2 Resolution
+
+Dependencies are resolved at runtime:
+
+```ts
+const userService = container.resolve(UserServiceToken);
+```
+
+### 7.3 Scopes
+
+The container supports scoped lifecycles:
+
+- **Singleton** — one instance for the application lifetime.
+- **Scoped** — one instance per request/operation.
+- **Transient** — a new instance for every resolution.
+
+### 7.4 Circular Dependency Prevention
+
+The container detects circular dependencies at resolution time and throws a clear error.
+
+---
+
+## 8. Runtime Model
+
+The runtime (`@lattice/runtime`) orchestrates the entire application.
+
+### 8.1 Responsibilities
+
+- Bootstrap the application from configuration.
+- Coordinate module and plugin lifecycles.
+- Manage the dependency container.
+- Handle signals (SIGINT, SIGTERM) for graceful shutdown.
+- Expose health checks and diagnostics.
+
+### 8.2 Runtime States
+
+```
+Created → Initializing → Ready → Running → Draining → Stopped
+```
+
+### 8.3 Runtime Events
+
+The runtime emits events for observability:
+
+- `runtime:creating`
+- `runtime:initializing`
+- `runtime:ready`
+- `runtime:running`
+- `runtime:draining`
+- `runtime:stopped`
+- `runtime:error`
+
+---
+
+## 9. Transport Layer
+
+The transport layer is the boundary between the outside world and the Lattice application.
+
+### 9.1 Principle
+
+Transport packages translate external requests into internal application calls.
+
+They should:
+- Parse incoming requests.
+- Apply transport-specific middleware.
+- Route to the appropriate handler.
+- Serialize responses.
+
+They should NOT:
+- Contain business logic.
+- Directly access the database.
+- Know about other transport packages.
+
+### 9.2 HTTP Transport
+
+- Request parsing and validation.
+- Routing with path parameters.
+- Middleware pipeline.
+- Response serialization.
+- Error mapping to HTTP status codes.
+
+### 9.3 RPC Transport
+
+- Request/response envelope.
+- Method dispatch.
+- Error mapping to RPC error codes.
+
+### 9.4 CLI Transport
+
+- Command parsing.
+- Argument validation.
+- Output formatting.
+
+---
+
+## 10. Infrastructure Layer
+
+Infrastructure packages provide integrations with external systems.
+
+### 10.1 Database
+
+- Connection management.
+- Transaction coordination.
+- Repository pattern support.
+- Query building.
+
+### 10.2 Cache
+
+- Key-value storage.
+- Tag-based invalidation.
+- Distributed locking.
+- Metrics.
+
+### 10.3 Queue
+
+- Background job definitions.
+- Worker lifecycle.
+- Retry and backoff.
+- Dead-letter queues.
+
+### 10.4 Scheduler
+
+- Cron-based scheduling.
+- Trigger management.
+- Job store.
+- Distributed locking.
+
+### 10.5 Storage
+
+- Object storage abstraction.
+- Multipart upload.
+- Presigned URLs.
+
+---
+
+## 11. Extensibility
+
+Lattice provides multiple extension points.
+
+### 11.1 Modules
+
+The primary extension mechanism.
+Modules encapsulate features and compose into applications.
+
+### 11.2 Plugins
+
+A controlled extension system (`@lattice/plugins`).
+
+Plugins:
+- Register with the plugin manager.
+- Declare dependencies on other plugins.
+- Receive a controlled context (container, config, logger, events).
+- Participate in the lifecycle (install, initialize, start, stop, dispose).
+
+### 11.3 Middleware
+
+Transport-agnostic middleware pipelines.
+
+### 11.4 Events
+
+Event-driven extensibility through the event bus.
+
+### 11.5 Hooks
+
+Lifecycle hooks allow code to run at specific points:
+
+- `onModuleInit`
+- `onModuleDestroy`
+- `onApplicationStart`
+- `onApplicationStop`
+
+---
+
+## 12. Error Handling
+
+### 12.1 Error Hierarchy
+
+All errors extend `BaseError` from `@lattice/errors`.
+
+```
+BaseError
+├── ApplicationError
+├── DomainError
+├── ValidationError
+├── ConfigurationError
+├── AuthenticationError
+├── AuthorizationError
+├── NetworkError
+├── DatabaseError
+├── StorageError
+├── TimeoutError
+└── ... (domain-specific errors)
+```
+
+### 12.2 Error Properties
+
+Every error carries:
+- `code` — machine-readable error code.
+- `message` — human-readable description.
+- `cause` — underlying error.
+- `statusCode` — HTTP status code (for transport errors).
+- `expose` — whether the error is safe to expose to clients.
+- `metadata` — additional structured data.
+
+### 12.3 Error Propagation
+
+Errors propagate up through the call stack.
+At the transport boundary, errors are mapped to appropriate responses.
+Internal errors are never exposed to clients.
+
+### 12.4 Domain Errors
+
+Each package defines domain-specific errors.
+
+```ts
+// @lattice/database
+DatabaseConnectionError
+QueryExecutionError
+TransactionError
+
+// @lattice/auth
+AuthenticationError
+InvalidTokenError
+SessionExpiredError
+```
+
+---
+
+## 13. Observability
+
+### 13.1 Logging
+
+- Structured JSON logs.
+- Context propagation (request ID, user ID, tenant ID).
+- Transports: console, file, external.
+- Log levels: debug, info, warn, error.
+
+### 13.2 Metrics
+
+- Counter, gauge, histogram metrics.
+- Built-in metrics for framework internals.
+- Custom metrics for application code.
+
+### 13.3 Tracing
+
+- OpenTelemetry-compatible distributed tracing.
+- Automatic span creation for requests.
+- Manual spans for custom operations.
+
+### 13.4 Health Checks
+
+- Liveness probe.
+- Readiness probe.
+- Plugin health status.
+
+### 13.5 Diagnostics
+
+The plugin manager and runtime expose diagnostic information:
+
+```ts
+app.plugins.diagnostics();
+app.runtime.diagnostics();
+```
+
+---
+
+## 14. Security Model
+
+### 14.1 Input Validation
+
+All external input is validated at the boundary using `@lattice/security`.
+
+### 14.2 Authentication
+
+- JWT tokens.
+- Session cookies.
+- API keys.
+
+### 14.3 Authorization
+
+- Role-based access control (RBAC).
+- Attribute-based access control (ABAC).
+- Resource-level policies.
+
+### 14.4 Transport Security
+
+- CORS configuration.
+- CSRF protection.
+- Security headers (CSP, HSTS, etc.).
+- Rate limiting.
+
+### 14.5 Secrets Management
+
+- Secrets loaded from environment variables.
+- Auto-redaction in logs and diagnostics.
+- No hardcoded credentials.
+
+---
+
+## 15. Performance Principles
+
+### 15.1 Minimize Allocations
+
+- Prefer object pools for high-frequency allocations.
+- Avoid unnecessary object creation in hot paths.
+
+### 15.2 Avoid Reflection
+
+- Minimal use of decorators and metadata reflection.
+- Prefer compile-time code generation.
+
+### 15.3 Lazy Initialization
+
+- Defer expensive operations until needed.
+- Use async initialization for background resources.
+
+### 15.4 Concurrency
+
+- Use worker pools for CPU-bound work.
+- Use async I/O for I/O-bound work.
+- Limit concurrency to prevent resource exhaustion.
+
+### 15.5 Caching
+
+- Cache frequently accessed data.
+- Invalidate caches explicitly.
+- Use tag-based invalidation.
+
+---
+
+## 16. Package Structure
+
+Every Lattice package follows a consistent structure.
+
+```
+packages/<package-name>/
+├── src/
+│   ├── index.ts                    # Barrel exports (public API only)
+│   ├── <domain>/
+│   │   ├── index.ts                # Barrel for subfolder
+│   │   ├── <domain>.<concern>.ts   # Implementation files
+│   │   └── ...
+│   ├── <domain>Errors/
+│   │   ├── index.ts
+│   │   └── <domain>Error.core.ts
+│   └── ...
+├── tests/
+│   └── <package-name>.test.ts
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+Rules:
+- Maximum 5 files per folder (excluding `index.ts`).
+- Maximum 150 lines per file.
+- Barrel `index.ts` files re-export the public API only.
+- No business logic in barrel files.
+- Dot notation for file names: `pluginState.type.ts`, `pluginLifecycle.core.ts`.
+
+---
+
+## 17. Architectural Decisions
+
+### 17.1 Why ESM?
+
+Lattice uses ECMAScript modules (ESM) for:
+- Native browser compatibility.
+- Better tree-shaking.
+- Clearer module boundaries.
+- Future-proofing.
+
+### 17.2 Why TypeScript?
+
+TypeScript provides:
+- Compile-time type safety.
+- Better IDE support.
+- Self-documenting code.
+- Early error detection.
+
+### 17.3 Why npm Workspaces?
+
+npm workspaces provide:
+- Native monorepo support.
+- Simple dependency management.
+- No external tooling required.
+
+### 17.4 Why Vitest?
+
+Vitest provides:
+- Fast test execution.
+- Native ESM support.
+- Simple configuration.
+- Compatible with Jest API.
+
+### 17.5 Why Not NestJS?
+
+Lattice differs from NestJS in:
+- No decorator-heavy configuration.
+- Explicit dependency direction.
+- Lighter runtime overhead.
+- Stronger architectural boundaries.
+- Plugin system over modules as the primary extension mechanism.
+
+---
+
+## 18. Cross-Cutting Concerns
+
+### 18.1 AsyncLocalStorage
+
+Lattice uses `AsyncLocalStorage` for context propagation:
+
+- Execution context.
+- Tenant context.
+- Transaction context.
+- Logger context.
+
+Context flows automatically through async call chains.
+Application code never passes context manually.
+
+### 18.2 AbortController
+
+Long-running operations accept `AbortSignal` for cancellation:
+
+- Plugin lifecycle operations.
+- Database queries.
+- HTTP requests.
+- Background jobs.
+
+This enables graceful shutdown and timeout handling.
+
+### 18.3 State Machines
+
+Complex state transitions use state machines:
+
+- Plugin lifecycle.
+- Application lifecycle.
+- Transaction lifecycle.
+- Container lifecycle.
+
+State machines prevent invalid transitions and make debugging easier.
+
+---
+
+## 19. Future Directions
+
+### 19.1 Edge Runtime Support
+
+Lattice aims to support edge runtimes (Vercel Edge, Cloudflare Workers) through adapter abstractions.
+
+### 19.2 Plugin Marketplace
+
+The plugin system could evolve into a marketplace with:
+- Version compatibility checks.
+- Capability declarations.
+- Permission enforcement.
+- Isolated execution (worker threads or separate processes).
+
+### 19.3 Distributed Tracing
+
+Full OpenTelemetry integration for distributed tracing across:
+- HTTP requests.
+- CQRS commands.
+- Events.
+- Database queries.
+- External API calls.
+
+### 19.4 Horizontal Scaling
+
+Support for multi-instance deployments:
+- Distributed cache.
+- Distributed lock.
+- Message queue.
+- Shared session store.
+
+---
+
+## 20. Glossary
+
+| Term | Definition |
+|------|-----------|
+| Module | A self-contained unit of functionality with explicit imports and exports. |
+| Plugin | A controlled extension that participates in the application lifecycle. |
+| Transport | The boundary layer that translates external requests into internal calls. |
+| Infrastructure | External system integrations (database, cache, queue, scheduler). |
+| Context | Controlled environment provided to plugins, middleware, and handlers. |
+| State Machine | A formal model of valid state transitions for lifecycle management. |
+| Lifecycle | The sequence of states a component goes through from creation to disposal. |
+| Tier | A dependency level in the package hierarchy (0 = leaf, 4 = DX). |
+| Dependency Direction | The rule that dependencies flow from higher-level to lower-level packages. |
