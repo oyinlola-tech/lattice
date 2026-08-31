@@ -128,22 +128,15 @@ export interface ModuleLifecycleOptions {
   readonly continueOnDestroyError?: boolean;
 }
 
+import {
+  ModuleLifecycleError as BaseModuleLifecycleError,
+} from "@lattice/errors";
+
 /**
  * Error thrown when a module lifecycle operation fails.
  */
 export class ModuleLifecycleError
-  extends Error {
-  public readonly moduleId:
-    ModuleId;
-
-  public readonly phase:
-    ModuleLifecyclePhase;
-
-  public override readonly cause:
-    unknown;
-
-  public override readonly name: string = "ModuleLifecycleError";
-
+  extends BaseModuleLifecycleError {
   public constructor(
     moduleId: ModuleId,
     phase: ModuleLifecyclePhase,
@@ -155,20 +148,11 @@ export class ModuleLifecycleError
         : String(cause);
 
     super(
+      moduleId,
+      phase,
       `Module "${moduleId}" failed during ${phase}: ${message}`,
+      cause,
     );
-
-    this.name =
-      "ModuleLifecycleError";
-
-    this.moduleId =
-      moduleId;
-
-    this.phase =
-      phase;
-
-    this.cause =
-      cause;
   }
 }
 
