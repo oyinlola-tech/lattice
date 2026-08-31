@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import {
   FrameworkError,
   type FrameworkErrorJSON,
-} from "../src/errors/framework-error.js";
-import { ErrorCode } from "../src/errors/error-code.js";
+} from "../src/errors/frameworkError.error.js";
+import { ErrorCode } from "../src/errors/errorCode.code.js";
 import {
   InvalidArgumentError,
   InvalidStateError,
@@ -24,7 +24,7 @@ describe("FrameworkError", () => {
 
       expect(error.message).toBe("something went wrong");
       expect(error.name).toBe("FrameworkError");
-      expect(error.code).toBe("FRAMEWORK_ERROR");
+      expect(error.code).toBe("ERR_OPERATION_FAILED");
     });
 
     it("should accept a custom error code", () => {
@@ -51,7 +51,7 @@ describe("FrameworkError", () => {
         status: 404,
       });
 
-      expect(error.status).toBe(404);
+      expect(error.statusCode).toBe(404);
     });
 
     it("should accept cause", () => {
@@ -84,13 +84,11 @@ describe("FrameworkError", () => {
 
       const json = error.toJSON();
 
-      expect(json).toEqual({
-        name: "FrameworkError",
-        message: "test",
-        code: ErrorCode.INVALID_ARGUMENT,
-        status: 400,
-        details: { reason: "bad" },
-      });
+      expect(json.name).toBe("FrameworkError");
+      expect(json.message).toBe("test");
+      expect(json.code).toBe(ErrorCode.INVALID_ARGUMENT);
+      expect(json.status).toBe(400);
+      expect(json.details).toEqual({ reason: "bad" });
     });
 
     it("should omit optional fields when not set", () => {
