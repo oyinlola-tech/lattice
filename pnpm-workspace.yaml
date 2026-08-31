@@ -1,0 +1,9 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+  - "examples/*"
+  - "tools/*"
+
+catalog:
+  typescript: ^7.0.2
+  "@types/node": ^26.4.0

@@ -5,7 +5,8 @@
   "description": "Lattice framework monorepo.",
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
@@ -13,14 +14,21 @@
     "clean": "npm run clean --workspaces",
     "build:core": "npm run build --workspace=@lattice/core",
     "typecheck:core": "npm run typecheck --workspace=@lattice/core",
-    "architect:check": "node architect-check.js"
+    "architect:check": "node scripts/architect-check.js",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
+    "format": "prettier --write \"**/*.{ts,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,json,md,yml,yaml}\"",
+    "lint": "echo 'Lint: no linter configured yet'",
+    "test": "npx vitest run tests/architect"
   },
   "engines": {
     "node": ">=24.0.0",
-    "npm": ">=11.0.0"
+    "pnpm": ">=11.0.0"
   },
-  "packageManager": "npm@11",
+  "packageManager": "pnpm@11",
   "devDependencies": {
+    "prettier": "^3.9.6",
     "vitest": "^4.1.11"
   }
 }
