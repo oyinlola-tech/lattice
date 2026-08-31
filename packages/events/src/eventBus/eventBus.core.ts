@@ -505,7 +505,8 @@ export class EventBus {
     return toEventError(
       error,
       {
-        event,
+        eventType: event?.type,
+        eventId: event?.id,
       },
     );
   }
