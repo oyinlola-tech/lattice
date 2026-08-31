@@ -18,5 +18,8 @@
     "node": ">=24.0.0",
     "npm": ">=11.0.0"
   },
-  "packageManager": "npm@11"
+  "packageManager": "npm@11",
+  "devDependencies": {
+    "vitest": "^4.1.11"
+  }
 }
