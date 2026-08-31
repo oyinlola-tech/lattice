@@ -4,16 +4,22 @@ import { Context, createContext } from "../../context/core/context.js";
 import { executeShutdownPipeline } from "./pipeline/index.js";
 import { logRuntimeEvent } from "../runtimeLogger.js";
 
+import {
+  RuntimeError,
+} from "@lattice/errors";
+
 export type RuntimeShutdownErrorCode = "SHUTDOWN_ALREADY_RUNNING" | "SHUTDOWN_ALREADY_COMPLETED" | "SHUTDOWN_FAILED" | "SHUTDOWN_TIMEOUT" | "SHUTDOWN_MODULE_ERRORS" | "SHUTDOWN_RESET_WHILE_RUNNING" | "MODULE_STOP_FAILED" | "MODULE_DESTROY_FAILED" | "MODULE_STOP_METHOD_NOT_FOUND" | "MODULE_DESTROY_METHOD_NOT_FOUND";
 
-export class RuntimeShutdownError extends Error {
+export class RuntimeShutdownError extends RuntimeError {
   public override readonly name = "RuntimeShutdownError";
-  public readonly code: RuntimeShutdownErrorCode;
-  public override readonly cause?: unknown;
+  public readonly shutdownCode: RuntimeShutdownErrorCode;
   public constructor(message: string, code: RuntimeShutdownErrorCode, cause?: unknown) {
-    super(message);
-    this.code = code;
-    this.cause = cause;
+    super(message, {
+      code: "RUNTIME_SHUTDOWN" as any,
+      phase: "shutdown",
+      cause,
+    });
+    this.shutdownCode = code;
   }
 }
 
