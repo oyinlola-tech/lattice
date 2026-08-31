@@ -1,0 +1,23 @@
+{
+  "name": "@lattice/example-worker",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --import tsx --watch src/main.ts",
+    "start": "node --import tsx src/main.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lattice/core": "workspace:*",
+    "@lattice/errors": "workspace:*",
+    "@lattice/queue": "workspace:*",
+    "@lattice/lifecycle": "workspace:*",
+    "@lattice/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "@types/node": "^24.0.0"
+  }
+}

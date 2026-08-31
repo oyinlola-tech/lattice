@@ -1,0 +1,34 @@
+{
+  "name": "@lattice/example-monolith",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node --import tsx --watch src/main.ts",
+    "start": "node --import tsx src/main.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@lattice/core": "workspace:*",
+    "@lattice/container": "workspace:*",
+    "@lattice/cqrs": "workspace:*",
+    "@lattice/events": "workspace:*",
+    "@lattice/messaging": "workspace:*",
+    "@lattice/http": "workspace:*",
+    "@lattice/config": "workspace:*",
+    "@lattice/logger": "workspace:*",
+    "@lattice/errors": "workspace:*",
+    "@lattice/validation": "workspace:*",
+    "@lattice/schema": "workspace:*",
+    "@lattice/constants": "workspace:*",
+    "@lattice/types": "workspace:*",
+    "@lattice/queue": "workspace:*",
+    "@lattice/lifecycle": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.7.0"
+  }
+}
