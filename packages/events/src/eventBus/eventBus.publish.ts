@@ -88,9 +88,10 @@ export async function busPublish<
   if (
     options.signal?.aborted
   ) {
-    throw new EventDispatchAbortedError(
-      event,
-    );
+    throw new EventDispatchAbortedError("Event dispatch was aborted.", {
+      eventType: event?.type,
+      eventId: event?.id,
+    });
   }
 
   if (
@@ -102,10 +103,8 @@ export async function busPublish<
     throw new EventError(
       `Event type "${event.type}" is not registered.`,
       {
-        code:
-          "EVENT_TYPE_NOT_REGISTERED",
-
-        event,
+        eventType: event.type,
+        eventId: event.id,
       },
     );
   }
