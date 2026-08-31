@@ -858,11 +858,15 @@ export function assertValidConfig(
   );
 }
 
+import {
+  ConfigurationError,
+} from "@lattice/errors";
+
 /**
  * Error thrown when schema validation fails.
  */
 export class ConfigSchemaValidationError
-  extends Error {
+  extends ConfigurationError {
   readonly issues:
     readonly ConfigValidationIssue[];
 
@@ -876,19 +880,15 @@ export class ConfigSchemaValidationError
           ? ""
           : "s"
       }.`,
+      {
+        configKey: "schema",
+        component: "ConfigSchemaValidator",
+      },
     );
-
-    this.name =
-      "ConfigSchemaValidationError";
 
     this.issues =
       Object.freeze([
         ...issues,
       ]);
-
-    Object.setPrototypeOf(
-      this,
-      new.target.prototype,
-    );
   }
 }
