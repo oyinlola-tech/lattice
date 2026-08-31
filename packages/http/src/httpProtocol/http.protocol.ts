@@ -249,7 +249,7 @@ export function parseStatusLine(
   line: string,
 ): HTTPStatusLine {
   const match =
-    /^(HTTP\/\d+\.\d+)\s+(\d{3})(?:\s+(.*))?$/.exec(
+    /^(HTTP\/\d+\.\d+)[ \t]+(\d{3})(?:[ \t]+(.*))?$/.exec(
       line.trim(),
     );
 

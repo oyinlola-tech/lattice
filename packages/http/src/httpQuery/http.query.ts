@@ -776,6 +776,9 @@ function mergeQueryObject(
       source,
     )
   ) {
+    if (key === "__proto__" || key === "constructor") {
+      continue;
+    }
     const existing =
       target[key];
 

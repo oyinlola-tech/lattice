@@ -18,7 +18,7 @@ export function validateLinks(
     return { valid: true, issues: [] };
   }
 
-  const linkPattern = /\[([^\]]*)\]\(([^)]+)\)/g;
+  const linkPattern = /\[([^\]\[]*)\]\(([^)]+)\)/g;
   const content = document.content.value;
   let match: RegExpExecArray | null;
 

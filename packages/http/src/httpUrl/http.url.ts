@@ -488,19 +488,21 @@ export function removeTrailingSlash(
     return path;
   }
 
-  return path.replace(
-    /\/+$/,
-    "",
-  );
+  let end = path.length;
+  while (end > 0 && path.charCodeAt(end - 1) === 47) {
+    end--;
+  }
+  return path.slice(0, end);
 }
 
 export function removeLeadingSlash(
   path: string,
 ): string {
-  return path.replace(
-    /^\/+/,
-    "",
-  );
+  let start = 0;
+  while (start < path.length && path.charCodeAt(start) === 47) {
+    start++;
+  }
+  return path.slice(start);
 }
 
 /* -------------------------------------------------------------------------- */

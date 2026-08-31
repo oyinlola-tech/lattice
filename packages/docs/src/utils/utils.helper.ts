@@ -70,7 +70,7 @@ export function extractHeadings(
   markdown: string,
 ): readonly { level: number; text: string }[] {
   const results: { level: number; text: string }[] = [];
-  const pattern = /^(#{1,6})\s+(.+)$/gm;
+  const pattern = /^(#{1,6})[ \t]+(.+)$/gm;
   let match: RegExpExecArray | null;
 
   while ((match = pattern.exec(markdown)) !== null) {

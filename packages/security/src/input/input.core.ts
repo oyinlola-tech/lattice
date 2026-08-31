@@ -212,5 +212,11 @@ export function escapeHtml(input: string): string {
  * @returns The string with HTML tags removed.
  */
 export function stripHtml(input: string): string {
-  return input.replace(/<[^>]*>/g, "");
+  let result = input;
+  let previous: string;
+  do {
+    previous = result;
+    result = result.replace(/<[^>]*>/g, "");
+  } while (result !== previous);
+  return result;
 }

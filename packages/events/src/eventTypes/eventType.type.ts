@@ -163,26 +163,36 @@ export function normalizeEventType(
     string,
 ):
   EventType {
-  const normalized =
-    type
-      .trim()
-      .toLowerCase()
-      .replace(
-        /[\/\\:]+/g,
-        ".",
-      )
-      .replace(
-        /\.{2,}/g,
-        ".",
-      )
-      .replace(
-        /^\.+|\.+$/g,
-        "",
-      );
+  const lower = type.trim().toLowerCase();
+
+  let result = "";
+  let lastWasDot = false;
+  let leadingDots = true;
+
+  for (let i = 0; i < lower.length; i++) {
+    const ch = lower[i]!;
+    if (ch === "/" || ch === "\\" || ch === ":") {
+      if (!lastWasDot) {
+        result += ".";
+        lastWasDot = true;
+      }
+    } else if (ch === ".") {
+      if (!lastWasDot) {
+        result += ".";
+        lastWasDot = true;
+      }
+    } else {
+      leadingDots = false;
+      result += ch;
+      lastWasDot = false;
+    }
+  }
+
+  const trimmed = result.replace(/^\.+|\.+$/g, "");
 
   if (
     !isValidEventType(
-      normalized,
+      trimmed,
     )
   ) {
     throw new TypeError(
@@ -190,7 +200,7 @@ export function normalizeEventType(
     );
   }
 
-  return normalized;
+  return trimmed;
 }
 
 /**

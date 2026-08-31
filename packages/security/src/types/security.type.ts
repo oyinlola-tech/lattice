@@ -249,7 +249,7 @@ export const SQL_INJECTION_PATTERNS = [
 
 /** Common XSS patterns. */
 export const XSS_PATTERNS = [
-  /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+  /<script\b[^<]*(?:(?!<\/script[\s>])<[^<]*)*<\/script\s*>/gi,
   /javascript:/gi,
   /on\w+\s*=/gi,
   /data:text\/html/gi,
