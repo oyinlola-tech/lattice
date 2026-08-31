@@ -98,8 +98,8 @@ export async function executeEventMiddlewarePipeline<
         throw new EventMiddlewareError(
           "Event middleware called next() more than once.",
           {
-            event:
-              context.event,
+            eventType: context.event?.type,
+            eventId: context.event?.id,
           },
         );
       }
@@ -135,8 +135,8 @@ export async function executeEventMiddlewarePipeline<
                 middlewareId:
                   current.id,
 
-                event:
-                  context.event,
+                eventType: context.event?.type,
+            eventId: context.event?.id,
               },
             );
           }
@@ -185,15 +185,15 @@ export async function executeEventMiddlewarePipeline<
             middlewareId:
               current.id,
 
-            event:
-              context.event,
+            eventType: context.event?.type,
+            eventId: context.event?.id,
 
             cause:
               toEventError(
                 error,
                 {
-                  event:
-                    context.event,
+                  eventType: context.event?.type,
+            eventId: context.event?.id,
                 },
               ),
           },
@@ -224,9 +224,6 @@ function createAbortError():
   return new EventMiddlewareError(
     "Event middleware execution was aborted.",
     {
-      code:
-        "EVENT_MIDDLEWARE_ABORTED",
-
       cause:
         new Error(
           "AbortSignal was aborted.",
