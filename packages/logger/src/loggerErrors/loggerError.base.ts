@@ -1,18 +1,20 @@
 /**
  * Errors produced by the Lattice logger.
  *
- * Logger errors are deliberately separated from application errors so
- * consumers can distinguish failures in the logging infrastructure from
- * failures being reported by the application.
+ * LoggerError extends LoggingError from @lattice/errors so all
+ * logger failures inherit the shared error infrastructure
+ * (code, category, severity, statusCode, metadata, serialization).
  */
+
+import {
+  LoggingError,
+} from "@lattice/errors";
 
 /**
  * Base error for all logger failures.
  */
-export class LoggerError extends Error {
-  readonly code: string;
-
-  override readonly cause?: unknown;
+export class LoggerError extends LoggingError {
+  readonly loggerCode: string;
 
   constructor(
     message: string,
@@ -21,16 +23,12 @@ export class LoggerError extends Error {
       readonly cause?: unknown;
     },
   ) {
-    super(message);
+    super(message, {
+      cause: options?.cause,
+    });
 
     this.name = "LoggerError";
-    this.code = code;
-    this.cause = options?.cause;
-
-    Object.setPrototypeOf(
-      this,
-      new.target.prototype,
-    );
+    this.loggerCode = code;
   }
 }
 
