@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 
 import {
   validateConfigObject,
-} from "../src/configSchema/configSchema.core.js";
+} from "../src/configSchema/configSchema.validator.js";
 
 import {
   ConfigSourceType,
@@ -11,7 +11,7 @@ import {
 
 import {
   createConfigStore,
-} from "../src/configStore/configStore.core.js";
+} from "../src/configStore/configStore.factory.js";
 
 import {
   createConfigEntry,
@@ -27,13 +27,14 @@ import {
 } from "../src/configValue/configValue.core.js";
 
 import {
-  ConfigManagerState,
   createConfigManager,
-} from "../src/configManager/configManager.core.js";
+} from "../src/configManager/configManager.factory.js";
+
+import { ConfigManagerState } from "../src/configManager/configManager.type.js";
 
 import {
   createConfigResolver,
-} from "../src/configResolver/configResolver.core.js";
+} from "../src/configResolver/core/configResolver.factory.js";
 
 // ---------------------------------------------------------------------------
 // ConfigValue
