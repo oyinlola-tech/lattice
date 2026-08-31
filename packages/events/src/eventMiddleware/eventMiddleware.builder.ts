@@ -30,9 +30,6 @@ function createAbortError():
   return new EventMiddlewareError(
     "Event middleware execution was aborted.",
     {
-      code:
-        "EVENT_MIDDLEWARE_ABORTED",
-
       cause:
         new Error(
           "AbortSignal was aborted.",
@@ -164,8 +161,8 @@ export function validateEventMiddleware<
         throw new EventMiddlewareError(
           `Event "${context.event.type}" failed middleware validation.`,
           {
-            event:
-              context.event,
+            eventType: context.event?.type,
+            eventId: context.event?.id,
           },
         );
       }
