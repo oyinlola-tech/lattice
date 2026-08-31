@@ -12,7 +12,8 @@
     "typecheck": "npm run typecheck --workspaces",
     "clean": "npm run clean --workspaces",
     "build:core": "npm run build --workspace=@lattice/core",
-    "typecheck:core": "npm run typecheck --workspace=@lattice/core"
+    "typecheck:core": "npm run typecheck --workspace=@lattice/core",
+    "architect:check": "node architect-check.js"
   },
   "engines": {
     "node": ">=24.0.0",
