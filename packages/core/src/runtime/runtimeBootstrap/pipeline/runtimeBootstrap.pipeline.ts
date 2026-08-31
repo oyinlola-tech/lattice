@@ -5,14 +5,15 @@ import { invokeModuleLoader, invokeInitializeModules, invokeStartModules } from 
 
 export type RuntimeBootstrapErrorCode = "BOOTSTRAP_ALREADY_RUNNING" | "BOOTSTRAP_ALREADY_COMPLETED" | "BOOTSTRAP_FAILED" | "BOOTSTRAP_TIMEOUT" | "BOOTSTRAP_MODULE_ERRORS" | "BOOTSTRAP_RESET_WHILE_RUNNING" | "MODULE_LOAD_FAILED" | "MODULE_INITIALIZATION_FAILED" | "MODULE_START_FAILED" | "MODULE_LOADER_METHOD_NOT_FOUND" | "MODULE_INITIALIZE_METHOD_NOT_FOUND" | "MODULE_START_METHOD_NOT_FOUND";
 
-export class RuntimeBootstrapError extends Error {
-  public override readonly name = "RuntimeBootstrapError";
-  public readonly code: RuntimeBootstrapErrorCode;
-  public override readonly cause?: unknown;
+import {
+  RuntimeBootstrapError as BaseRuntimeBootstrapError,
+} from "@lattice/errors";
+
+export class RuntimeBootstrapError extends BaseRuntimeBootstrapError {
+  public readonly bootstrapCode: RuntimeBootstrapErrorCode;
   public constructor(message: string, code: RuntimeBootstrapErrorCode, cause?: unknown) {
-    super(message);
-    this.code = code;
-    this.cause = cause;
+    super(message, { cause });
+    this.bootstrapCode = code;
   }
 }
 
