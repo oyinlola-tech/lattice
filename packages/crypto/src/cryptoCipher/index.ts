@@ -5,3 +5,5 @@
  */
 
 export * from './cryptoCipher.core.js';
+export * from './cryptoCipher.string.js';
+export * from './cryptoCipher.envelope.js';
