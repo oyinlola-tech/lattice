@@ -1,6 +1,6 @@
 import type {
   ValidationConstraint,
-} from "../validationConstraints/validationConstraints.core.js";
+} from "../validationConstraints/index.js";
 
 import type {
   ValidationIssue,
@@ -8,7 +8,7 @@ import type {
 
 import {
   checkConstraints,
-} from "../validationConstraints/validationConstraints.core.js";
+} from "../validationConstraints/index.js";
 
 import type {
   ValidationResult,
