@@ -11,7 +11,7 @@ Lattice is a TypeScript modular application framework (npm workspaces monorepo) 
 
 ## Stack
 
-- **Language:** TypeScript 5.x (strict mode)
+- **Language:** TypeScript 7.x (strict mode)
 - **Runtime:** Node.js ≥ 24
 - **Package Manager:** npm ≥ 11 (workspaces)
 - **Build:** `tsc` per package
@@ -31,12 +31,74 @@ When working in a package and you need functionality that exists in another `@la
 | Need | Use | Never |
 |------|-----|-------|
 | Error handling | `@lattice/errors` (`BaseError`, `ErrorCode`, etc.) | Writing error classes from scratch |
-| Validation schemas | `@lattice/validation` (constraints, parsers, composers) | Creating ad-hoc validation logic |
+| Validation schemas | `@lattice/validation` (constraints, parsers, composers, circular detection, depth/size checks) | Creating ad-hoc validation logic |
 | Logging | `@lattice/logger` (createLogger, transports) | `console.log` or custom loggers |
 | Crypto | `@lattice/crypto` (hashing, encryption, tokens) | Using `crypto` directly without wrappers |
+| Auth | `@lattice/auth` (JWT, sessions, RBAC, passwords) | Re-implementing auth logic |
+| Middleware | `@lattice/middleware` (composition, pipelines) | Custom middleware chaining |
+| Constants & enums | `@lattice/constants` (HTTP, env, time, branded types, serialization tags, patterns) | Re-defining constants locally |
+| Type guards & utilities | `@lattice/types` (`isPlainObject`, `isDate`, `isEmail`, `DeepReadonly`, `Maybe`, converters) | Creating ad-hoc type utilities |
 | Events | `@lattice/events` (EventBus, middleware) | Custom event emitters |
+| Messaging | `@lattice/messaging` (MessageBus, handlers, middleware) | Custom message buses |
+| Background jobs | `@lattice/queue` (Queue, Worker, Processor, Job) | Custom job infrastructure |
 | Config | `@lattice/config` (sources, resolvers) | Hardcoding configuration |
 | DI | `@lattice/container` (tokens, registration) | Manual dependency wiring |
+| Serialization | `@lattice/serialization` (JSON serializer, type transformers, envelopes, registry) | `JSON.stringify`/`JSON.parse` directly, custom serialization logic |
+| Schema | `@lattice/schema` (schema definition, parsing, type inference, validation contracts) | Creating ad-hoc schema definitions or validation logic |
+| Lifecycle | `@lattice/lifecycle` (state machine, dependency ordering, graceful shutdown, rollback, signals) | Custom startup/shutdown logic |
+
+| Security | `@lattice/security` (input validation, header security, CORS, CSRF, rate limiting) | Custom security logic |
+| Permissions | `@lattice/permissions` (RBAC, ABAC, resource authorization, wildcards, policies, abilities) | Re-implementing authorization logic |
+| Transactions | `@lattice/transactions` (lifecycle, context propagation, savepoints, hooks, adapter abstraction) | Custom transaction management |
+| Tenancy | `@lattice/tenancy` (tenant resolution, context propagation, resolver chains, guard middleware) | Custom multi-tenant logic |
+| Feature Flags | `@lattice/feature-flags` (flag evaluation, deterministic rollouts, rule engine, providers) | Custom feature flag logic |
+| HTTP | `@lattice/http` (request handling, routing, middleware) | Custom HTTP abstractions |
+| Observability | `@lattice/observability` (metrics, tracing, context propagation) | Custom telemetry |
+| Storage | `@lattice/storage` (database, cache, object storage abstractions) | Custom storage abstractions |
+| Runtime | `@lattice/runtime` (lifecycle, dependency ordering, signals) | Custom startup/shutdown logic |
+| CQRS | `@lattice/cqrs` (commands, queries, handlers) | Custom command/query infrastructure |
+| Database | `@lattice/database` (clients, repositories, transactions) | Direct database driver usage |
+| Cache | `@lattice/cache` (adapters, tags, locking) | Custom caching logic |
+| Testing | `@lattice/testing` (helpers, fixtures, mocks) | Ad-hoc test utilities |
+
+### Rule: Types Must Be Imported From the Owning Package
+
+**CRITICAL: Before defining ANY type, interface, or type alias in a new package, check if it already exists in a shared package.**
+
+| Type Need | Import From | Never |
+|-----------|-------------|-------|
+| ID types (`EventId`, `UserId`, `CorrelationId`, etc.) | `@lattice/constants` (branded types) | Redefining `type EventId = string` |
+| Timestamp types | `@lattice/constants` (`Timestamp`) | Creating local `type MessageTimestamp = Date` |
+| Error types | `@lattice/errors` | Creating `class MyError extends Error` |
+| Cache-related types | `@lattice/cache` (if published) | Redefining `CacheOperation` |
+| Logger context types | `@lattice/logger` | Re-defining logger context interfaces |
+| Middleware types | `@lattice/middleware` | Re-defining middleware signatures |
+| Event types | `@lattice/events` | Re-defining event handler interfaces |
+| Validation types | `@lattice/validation` | Re-defining schema types |
+| Type guards | `@lattice/types` | Writing ad-hoc `isXxx()` functions |
+| Utility types (`Maybe`, `DeepReadonly`, etc.) | `@lattice/types` | Redefining `type Maybe<T> = T | null | undefined` |
+
+**When a type already exists in a shared package, ALL consuming packages must import it from there.**
+
+Example of WRONG (duplicated):
+```typescript
+// ❌ In messaging package
+export type MessageId = string;
+
+// ❌ In events package  
+export type EventId = string; // Already exists in @lattice/constants!
+```
+
+Example of CORRECT:
+```typescript
+// ✅ In messaging package
+import type { EntityId } from "@lattice/constants";
+export type MessageId = EntityId; // Or re-export if needed
+
+// ✅ In events package
+import type { EventId } from "@lattice/constants";
+// Use EventId from constants, don't redefine it
+```
 
 ### Rule: If Missing, Add to the Shared Package
 
@@ -50,9 +112,11 @@ If you need functionality that **should** exist in a shared package but doesn't:
 ### Rule: Package Dependency Direction
 
 ```
-errors ← (all packages depend on this)
+errors, constants ← (leaf packages, no internal dependencies)
     ↑
-container, logger, events, crypto, validation, config
+container, logger, events, crypto, validation, schema, config, messaging, types, middleware, queue
+    ↑
+cqrs (depends on messaging, events)
     ↑
 core (depends on all above)
 ```
@@ -259,8 +323,12 @@ Layered source pattern with priority ordering. Never hardcode configuration valu
 Uses `AsyncLocalStorage`. Never pass context manually through deep call chains — use `ContextProvider`.
 
 ### Errors
-- Use the shared `@lattice/errors` package (`BaseError`, error codes, error categories).
-- Domain-specific error classes may live in their package but should extend `BaseError`.
+- **ALL error types MUST live in `@lattice/errors`.** No package should create its own error classes that extend `BaseError` or `Error`.
+- `@lattice/errors` already has errors for every domain: `ContainerError`, `ModuleError`, `RuntimeError`, `EventError`, `LoggingError`, `MiddlewareError`, `ConfigurationError`, `AuthenticationError`, `AuthorizationError`, `CryptoError`, `DatabaseError`, `StorageError`, `NetworkError`, `ServiceError`, `ExternalServiceError`, `TimeoutError`, `HttpError`, `RateLimitError`, `ValidationError`, `ConflictError`, `NotFoundError`, `ApplicationError`, `DomainError`, etc.
+- When a package needs an error, **check `@lattice/errors` first** — it likely already exists.
+- If the error genuinely doesn't exist in `@lattice/errors`, **add it there** (in the appropriate subfolder), then import from `@lattice/errors` in your package.
+- **Never** create a local error class that extends `Error` or `BaseError` inside a consuming package.
+- Packages may keep lightweight wrapper classes (e.g. `ConfigManagerValidationError extends ConfigurationError`) for package-specific context, but the base error must come from `@lattice/errors`.
 - Never expose internal error details (stack traces, codes) in user-facing responses.
 
 ### Lifecycle
@@ -268,6 +336,56 @@ State machine pattern. Never mutate lifecycle state directly — use the provide
 
 ### Events
 Middleware pipeline pattern. Handlers are registered on the emitter (not the registry). The bus wraps publish with middleware execution.
+
+---
+
+## Type Ownership Table
+
+This table defines which package OWNS each type. All consuming packages must import from the owner.
+
+| Type | Owner Package | Consumers Import From |
+|------|---------------|----------------------|
+| `EntityId`, `UserId`, `EventId`, `RequestId`, `CorrelationId`, `SessionId`, `TenantId` | `@lattice/constants` | `import type { EventId } from "@lattice/constants"` |
+| `Timestamp`, `Brand<>` | `@lattice/constants` | `import type { Timestamp } from "@lattice/constants"` |
+| `BaseError`, `ApplicationError`, `DomainError`, all error classes | `@lattice/errors` | `import { ApplicationError } from "@lattice/errors"` |
+| `ErrorCode`, `ErrorCategory` | `@lattice/errors` | `import { ErrorCode } from "@lattice/errors"` |
+| `Logger`, `LogRecord`, `LogLevel`, `LogTransport` | `@lattice/logger` | `import type { Logger } from "@lattice/logger"` |
+| `EventBus`, `EventHandler`, `EventPayload` | `@lattice/events` | `import type { EventBus } from "@lattice/events"` |
+| `MessageBus`, `MessageHandler`, `MessageId` | `@lattice/messaging` | `import type { MessageBus } from "@lattice/messaging"` |
+| `Middleware`, `MiddlewareContext` | `@lattice/middleware` | `import type { Middleware } from "@lattice/middleware"` |
+| `Container`, `Token`, `Provider` | `@lattice/container` | `import type { Container } from "@lattice/container"` |
+| `ConfigSource`, `ConfigResolver` | `@lattice/config` | `import type { ConfigSource } from "@lattice/config"` |
+| `CacheAdapter`, `CacheStore`, `CacheKey` | `@lattice/cache` | `import type { CacheAdapter } from "@lattice/cache"` |
+| `Observability`, `Tracer`, `Span`, `MetricsRegistry` | `@lattice/observability` | `import type { Tracer } from "@lattice/observability"` |
+| `Schema`, `SchemaResult`, `SchemaIssue`, `SchemaParseOptions` | `@lattice/schema` | `import type { Schema } from "@lattice/schema"` |
+| `ValidationResult` | `@lattice/validation` | `import type { ValidationResult } from "@lattice/validation"` |
+| `Maybe`, `DeepReadonly`, `Prettify`, type guards (`isPlainObject`, `isDate`), converters | `@lattice/types` | `import { isPlainObject } from "@lattice/types"` |
+| `Serializer`, `TypeTransformer`, `TransformerRegistry`, `SerializationFormat`, `SerializedEnvelope` | `@lattice/serialization` | `import type { Serializer } from "@lattice/serialization"` |
+| `LifecycleComponent`, `LifecycleManager`, `LifecycleState`, `LifecyclePhase`, `LifecycleContext`, `LifecycleRegistry` | `@lattice/lifecycle` | `import type { LifecycleComponent } from "@lattice/lifecycle"` |
+| `SerializationTags`, `SerializationLimits`, `SerializationFormat` (constants) | `@lattice/constants` | `import { SerializationTags } from "@lattice/constants"` |
+| `PermissionEngine`, `PermissionRule`, `PermissionActor`, `RoleDefinition`, `PermissionDecision`, `PermissionString` | `@lattice/permissions` | `import { createPermissionEngine } from "@lattice/permissions"` |
+| `Transaction`, `TransactionManager`, `TransactionState`, `TransactionOptions`, `TransactionAdapter` | `@lattice/transactions` | `import { createTransactionManager } from "@lattice/transactions"` |
+| `Tenant`, `TenantId`, `TenantContext`, `TenantResolver`, `TenantRepository`, `TenantContextStorage` | `@lattice/tenancy` | `import { createTenantContextManager } from "@lattice/tenancy"` |
+| `FeatureFlag`, `FeatureFlagContext`, `FeatureFlagProvider`, `FeatureFlagEvaluation`, `FeatureFlagRule` | `@lattice/feature-flags` | `import { createFeatureFlags } from "@lattice/feature-flags"` |
+
+### Type Import Decision Tree
+
+When you need a type:
+
+1. **Is it an error type?** → Import from `@lattice/errors`
+2. **Is it an ID type (UserId, EventId, etc.)?** → Import from `@lattice/constants`
+3. **Is it a logger/transport type?** → Import from `@lattice/logger`
+4. **Is it an event type?** → Import from `@lattice/events`
+5. **Is it a message type?** → Import from `@lattice/messaging`
+6. **Is it a middleware type?** → Import from `@lattice/middleware`
+7. **Is it a type guard or utility type?** → Import from `@lattice/types`
+8. **Is it a validation type (circular, depth, size)?** → Import from `@lattice/validation`
+9. **Is it a serialization type?** → Import from `@lattice/serialization`
+10. **Is it a constant or enum?** → Import from `@lattice/constants`
+11. **Is it a security primitive?** → Import from `@lattice/security`
+12. **Is it a lifecycle type?** → Import from `@lattice/lifecycle`
+13. **Is it package-specific?** → Define it in that package
+14. **Still unsure?** → Check with `grep -r "type.*YourType" packages/*/src`
 
 ---
 
@@ -286,6 +404,11 @@ Middleware pipeline pattern. Handlers are registered on the emitter (not the reg
 - Use environment variables for all sensitive configuration.
 - Configuration values matching sensitive patterns (password, secret, token, api_key) are auto-redacted.
 - Flag any auth-adjacent code changes immediately.
+- **Use `@lattice/security`** for all security primitives: input validation, header security, URL normalization, CORS, CSRF, rate limiting, and security headers.
+- **Never implement custom security logic** when `@lattice/security` provides it.
+- **Always use secure defaults**: HttpOnly, Secure, SameSite=Lax for cookies; DENY for X-Frame-Options; nosniff for X-Content-Type-Options.
+- **Rate limit all public endpoints** using `createRateLimiter` from `@lattice/security`.
+- **Validate all external input** using `sanitizeString`, `sanitizeObject`, `containsSqlInjection`, `containsXss` from `@lattice/security`.
 
 ---
 
@@ -320,6 +443,8 @@ import { createEventBus } from "./eventBus/index.js";
 ## Agent-Specific Instructions
 
 ### Refactoring Agent
+- **BEFORE refactoring a large file:** Read and understand the entire file first. Create the new split files while keeping the original file intact. Only delete the original file AFTER all new files are created, verified, and the barrel `index.ts` is updated to export from the new locations.
+- **Refactoring safety order:** (1) Read and understand the full file, (2) Create new split files with correct content, (3) Update barrel `index.ts` to export from new locations, (4) Verify typecheck passes, (5) Verify tests pass, (6) THEN delete the original file.
 - When splitting files, keep the public API surface in the barrel `index.ts`.
 - Ensure all imports across the monorepo are updated after a rename/move.
 - Run `npm run build` after every structural change.
@@ -332,7 +457,10 @@ import { createEventBus } from "./eventBus/index.js";
 - Always use dot notation for new file names.
 - Always add `index.ts` barrel with JSDoc when creating a new folder.
 - Always run typecheck before committing: `npm run --workspace=@lattice/<pkg> typecheck`
-- **Before writing new code**, check if `@lattice/errors`, `@lattice/validation`, or other shared packages already have what you need.
+- **Before writing new code**, check if `@lattice/errors`, `@lattice/validation`, `@lattice/types`, `@lattice/constants`, or other shared packages already have what you need.
+- **Before defining a type**, search ALL shared packages for existing types: `grep -r "type.*TypeName\|interface.*TypeName" packages/*/src --include="*.type.ts"`
+- **Never create a local type that duplicates a shared type.** Import from the owning package instead.
+- **When unsure about type ownership**, check the Type Ownership Table below.
 
 ### PR Reviewer
 - 🔴 Critical: Changes to error hierarchy, DI container, lifecycle state machine.
@@ -354,3 +482,25 @@ import { createEventBus } from "./eventBus/index.js";
 | `@lattice/core` | Lifecycle, context, runtime, modules | 0.1.0 | ✅ Built |
 | `@lattice/validation` | Schema validation with Zod | 0.1.0 | ✅ Built |
 | `@lattice/cqrs` | Command query responsibility segregation | 0.1.0 | ✅ Built |
+| `@lattice/auth` | Authentication — JWT, sessions, password hashing; delegates RBAC to `@lattice/permissions` | 0.1.0 | ✅ Built |
+| `@lattice/middleware` | Composable middleware pipeline (composition, timing, error handling) | 0.1.0 | ✅ Built |
+| `@lattice/constants` | Shared constants, enums, and type-safe literals | 0.1.0 | ✅ Built |
+| `@lattice/types` | Shared type guards, utility types, and type converters | 0.1.0 | ✅ Built |
+| `@lattice/messaging` | In-process message bus infrastructure | 0.1.0 | ✅ Built |
+| `@lattice/queue` | Background job and asynchronous task infrastructure | 0.1.0 | ✅ Built |
+| `@lattice/cli` | Command-line interface for the Lattice framework | 0.1.0 | ✅ Built |
+| `@lattice/database` | Database infrastructure, clients, repositories, transactions | 0.1.0 | ✅ Built |
+| `@lattice/http` | HTTP primitives, request handling, routing, middleware | 0.1.0 | ✅ Built |
+| `@lattice/cache` | Cache abstraction with memory adapter, tags, locking, metrics | 0.1.0 | ✅ Built |
+| `@lattice/observability` | Structured logging, metrics, tracing, context propagation, exporters | 0.1.0 | ✅ Built |
+| `@lattice/security` | Input validation, header security, URL normalization, CORS, CSRF, rate limiting, security headers | 0.1.0 | ✅ Built |
+| `@lattice/storage` | Database, object storage, repository, serialization, locking, and lifecycle abstractions | 0.1.0 | ✅ Built |
+| `@lattice/runtime` | Application lifecycle orchestrator with dependency ordering, rollback, signals, and readiness | 0.1.0 | ✅ Built |
+| `@lattice/serialization` | Data translation layer — JSON serializer, type transformers, envelopes, registry | 0.1.0 | ✅ Built |
+| `@lattice/schema` | Schema definition and parsing engine — type-safe data contracts with validation, transformation, type inference | 0.1.0 | ✅ Built |
+| `@lattice/lifecycle` | Application and component lifecycle orchestration — state machine, dependency ordering, graceful shutdown, rollback, signals | 0.1.0 | ✅ Built |
+| `@lattice/adapters` | Boundary layer between Lattice and external platforms — adapter contracts, registry, capabilities, transport abstractions | 0.1.0 | ✅ Built |
+| `@lattice/permissions` | Generic authorization engine — RBAC, ABAC, resource authorization, wildcards, role hierarchy, policies, abilities, caching, explain mode | 0.1.0 | ✅ Built |
+| `@lattice/transactions` | Transaction lifecycle and coordination — state machine, AsyncLocalStorage context, propagation, savepoints, hooks, adapter abstraction | 0.1.0 | ✅ Built |
+| `@lattice/tenancy` | Multi-tenant context and isolation — tenant resolution, AsyncLocalStorage propagation, resolver chains, trust levels, guard middleware | 0.1.0 | ✅ Built |
+| `@lattice/feature-flags` | Feature flag system — deterministic rollouts, rule engine, providers, variants, snapshots, evaluation context | 0.1.0 | ✅ Built |
