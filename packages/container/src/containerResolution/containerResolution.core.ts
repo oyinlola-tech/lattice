@@ -33,6 +33,9 @@ import type {
 
 import {
   RegistrationNotFoundError,
+} from "@lattice/errors";
+import {
+  describeRegistryToken,
 } from "../containerRegistry/containerRegistry.error.js";
 
 import {
@@ -53,7 +56,10 @@ import type {
 import {
   CircularDependencyError,
   ProviderResolutionError,
-} from "./containerResolution.error.js";
+} from "@lattice/errors";
+import {
+  describeToken,
+} from "../containerToken/containerToken.type.js";
 
 export class ContainerResolver {
   private readonly registry: ContainerRegistry;
@@ -76,7 +82,7 @@ export class ContainerResolver {
   }
 
   private resolveInternal<T>(token: Token<T>, cache: ResolutionCache, path: ResolutionPath, options: ResolutionOptions): ResolutionResult<T> {
-    if (path.includes(token)) throw new CircularDependencyError([...path, token]);
+    if (path.includes(token)) throw new CircularDependencyError([...path, token].map((t) => describeToken(t)));
 
     const registration = this.registry.get(token);
     if (!registration) {
@@ -84,7 +90,7 @@ export class ContainerResolver {
         this.registry.register(token, { useClass: token }, { scope: Scope.TRANSIENT });
         return this.resolveInternal(token, cache, path, { ...options, autoRegisterClasses: false });
       }
-      throw new RegistrationNotFoundError(token);
+      throw new RegistrationNotFoundError(describeRegistryToken(token));
     }
 
     const currentPath: ResolutionPath = [...path, token];
@@ -112,7 +118,7 @@ export class ContainerResolver {
       throw new Error("Unsupported container provider.");
     } catch (error) {
       if (error instanceof CircularDependencyError || error instanceof ProviderResolutionError) throw error;
-      throw new ProviderResolutionError(getRegistrationToken(registration), error);
+      throw new ProviderResolutionError(describeRegistryToken(getRegistrationToken(registration)), error);
     }
   }
 
