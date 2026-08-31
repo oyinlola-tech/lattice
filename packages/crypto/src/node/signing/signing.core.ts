@@ -1,0 +1,62 @@
+import type { SignatureAlgorithm } from "../../cryptoProvider/index.js";
+import { generateKeyPairSync, createPrivateKey, createPublicKey, type KeyObject } from "node:crypto";
+import type { CryptoKey } from "../../cryptoKey/cryptoKey.type.js";
+import { CryptoAlgorithm } from "../../cryptoConstants/cryptoConstants.type.js";
+
+import { cryptoKeyToPrivateKey, toPrivateKey } from "./signing.conversion.js";
+import { assertKeyObject } from "./signing.utils.js";
+
+/**
+ * Generates an Ed25519 key pair.
+ */
+export function generateEd25519KeyPair(): {
+  readonly privateKey: KeyObject;
+  readonly publicKey: KeyObject;
+} {
+  const {
+    privateKey,
+    publicKey,
+  } = generateKeyPairSync("ed25519");
+
+  return Object.freeze({
+    privateKey,
+    publicKey,
+  });
+}
+
+/**
+ * Exports a private key as PEM.
+ */
+export function exportPrivateKeyPem(
+  privateKey: KeyObject,
+): string {
+  assertKeyObject(privateKey);
+
+  return privateKey.export({
+    type: "pkcs8",
+    format: "pem",
+  }).toString();
+}
+
+/**
+ * Exports a public key as PEM.
+ */
+export function exportPublicKeyPem(
+  publicKey: KeyObject,
+): string {
+  assertKeyObject(publicKey);
+
+  return publicKey.export({
+    type: "spki",
+    format: "pem",
+  }).toString();
+}
+
+/**
+ * Creates a public key from a private key.
+ */
+export function derivePublicKey(
+  privateKey: KeyObject | string | Uint8Array,
+): KeyObject {
+  return createPublicKey(toPrivateKey(privateKey));
+}
