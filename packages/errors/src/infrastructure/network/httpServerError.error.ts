@@ -7,7 +7,7 @@
  */
 
 import { HttpError } from "./http.error.js";
-import type { ErrorMetadata } from "../../base/core/errorMetadata.core.js";
+import type { ErrorMetadata } from "../../base/core/errorMetadata.type.js";
 
 /**
  * Options for creating an HTTP server error.

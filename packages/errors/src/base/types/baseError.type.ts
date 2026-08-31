@@ -1,7 +1,7 @@
 import type { ErrorCategory } from "./errorCategory.type.js";
 import type { ErrorCode } from "./errorCode.type.js";
 import type { ErrorSeverity } from "./errorSeverity.type.js";
-import type { ErrorMetadata } from "../core/errorMetadata.core.js";
+import type { ErrorMetadata } from "../core/errorMetadata.type.js";
 
 /**
  * Options used to construct a Lattice application error.

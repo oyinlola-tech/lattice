@@ -1,11 +1,8 @@
 import { ErrorCategory } from "../types/errorCategory.type.js";
 import { ErrorCode } from "../types/errorCode.type.js";
 import { ErrorSeverity } from "../types/errorSeverity.type.js";
-import type { ErrorMetadata } from "./errorMetadata.core.js";
-import {
-  createErrorMetadata,
-  serializeErrorMetadata,
-} from "./errorMetadata.core.js";
+import type { ErrorMetadata } from "./errorMetadata.type.js";
+import { createErrorMetadata, serializeErrorMetadata } from "./errorMetadata.core.js";
 import type {
   BaseErrorOptions,
   SerializedBaseError,

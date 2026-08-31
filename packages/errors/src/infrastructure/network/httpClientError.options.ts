@@ -2,7 +2,7 @@
  * Options for creating HTTP client errors.
  */
 
-import type { ErrorMetadata } from "../../base/core/errorMetadata.core.js";
+import type { ErrorMetadata } from "../../base/core/errorMetadata.type.js";
 
 export interface HttpClientErrorOptions {
   readonly cause?: unknown;
