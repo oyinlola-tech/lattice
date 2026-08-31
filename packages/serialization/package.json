@@ -22,10 +22,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/constants": "0.1.0",
-    "@lattice/errors": "0.1.0",
-    "@lattice/types": "0.1.0",
-    "@lattice/validation": "0.1.0"
+    "@lattice/constants": "workspace:*",
+    "@lattice/errors": "workspace:*",
+    "@lattice/types": "workspace:*",
+    "@lattice/validation": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.0",
