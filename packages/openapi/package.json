@@ -25,9 +25,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/errors": "0.1.0",
-    "@lattice/constants": "0.1.0",
-    "@lattice/schema": "0.1.0"
+    "@lattice/errors": "workspace:*",
+    "@lattice/constants": "workspace:*",
+    "@lattice/schema": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.0",

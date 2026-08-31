@@ -24,8 +24,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@lattice/errors": "0.1.0",
-    "@lattice/constants": "0.1.0"
+    "@lattice/errors": "workspace:*",
+    "@lattice/constants": "workspace:*"
   },
   "engines": {
     "node": ">=24.0.0"

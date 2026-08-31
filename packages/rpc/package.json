@@ -28,10 +28,10 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@lattice/errors": "0.1.0",
-    "@lattice/constants": "0.1.0",
-    "@lattice/types": "0.1.0",
-    "@lattice/schema": "0.1.0"
+    "@lattice/errors": "workspace:*",
+    "@lattice/constants": "workspace:*",
+    "@lattice/types": "workspace:*",
+    "@lattice/schema": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

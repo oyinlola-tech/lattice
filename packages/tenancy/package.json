@@ -26,11 +26,11 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/errors": "0.1.0",
-    "@lattice/constants": "0.1.0"
+    "@lattice/errors": "workspace:*",
+    "@lattice/constants": "workspace:*"
   },
   "peerDependencies": {
-    "@lattice/http": "0.1.0"
+    "@lattice/http": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@lattice/http": {

@@ -20,7 +20,7 @@
     "clean": "tsc -p tsconfig.json --clean"
   },
   "dependencies": {
-    "@lattice/errors": "0.1.0"
+    "@lattice/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2"

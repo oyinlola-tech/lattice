@@ -31,13 +31,13 @@
     "vitest": "^4.1.11"
   },
   "dependencies": {
-    "@lattice/errors": "0.1.0",
-    "@lattice/constants": "0.1.0",
-    "@lattice/container": "0.1.0",
-    "@lattice/config": "0.1.0",
-    "@lattice/logger": "0.1.0",
-    "@lattice/events": "0.1.0",
-    "@lattice/core": "0.1.0"
+    "@lattice/errors": "workspace:*",
+    "@lattice/constants": "workspace:*",
+    "@lattice/container": "workspace:*",
+    "@lattice/config": "workspace:*",
+    "@lattice/logger": "workspace:*",
+    "@lattice/events": "workspace:*",
+    "@lattice/core": "workspace:*"
   },
   "license": "MIT"
 }

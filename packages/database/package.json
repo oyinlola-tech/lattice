@@ -39,7 +39,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@lattice/errors": "0.1.0",
+    "@lattice/errors": "workspace:*",
     "@prisma/client": "^7.10.0"
   },
   "devDependencies": {

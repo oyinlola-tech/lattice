@@ -29,10 +29,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/config": "0.1.0",
-    "@lattice/core": "0.1.0",
-    "@lattice/errors": "0.1.0",
-    "@lattice/logger": "0.1.0"
+    "@lattice/config": "workspace:*",
+    "@lattice/core": "workspace:*",
+    "@lattice/errors": "workspace:*",
+    "@lattice/logger": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.0",

@@ -17,7 +17,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/errors": "0.1.0"
+    "@lattice/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.0",
