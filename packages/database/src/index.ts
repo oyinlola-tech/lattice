@@ -17,243 +17,173 @@
  *   • Health and readiness checks
  */
 
-/*
- * Core database types.
- */
+// Types
 export type {
-  DatabaseConfig,
   DatabaseOperationOptions,
-  DatabaseResult,
-  DatabaseRow,
-  DatabaseTransactionOptions,
-} from "./types";
+  DatabaseStatus,
+  TransactionIsolationLevel,
+  DatabaseOperation,
+  DatabaseConnectionOptions,
+  DatabaseHealth as DatabaseHealthInfo,
+  DatabaseMetrics,
+  TransactionOptions,
+  TransactionCallback,
+  Repository,
+  PaginationInput,
+  PaginationMeta,
+  PaginatedResult,
+  SortDirection,
+  SortInput,
+  QueryOptions,
+  DatabaseEntity,
+  SoftDeletableEntity,
+  AuditableEntity,
+  DatabaseErrorInfo,
+  DatabaseLogger,
+} from "./databaseType/index.js";
 
-/*
- * Database client and connection infrastructure.
- */
+export { noopDatabaseLogger } from "./databaseType/index.js";
+
+// Client
 export {
   DatabaseClient,
   createDatabaseClient,
-} from "./client";
+  type DatabaseClientOptions,
+  type DatabaseTransactionContext,
+} from "./databaseClient/index.js";
 
+// Connection
+export {
+  DatabaseConnectionManager,
+  createConnectionManager,
+  type DatabaseConnectionEvent,
+  type DatabaseConnectionListener,
+  type DatabaseConnectionEventDetails,
+  type DatabaseConnectionManagerOptions,
+} from "./databaseConnection/index.js";
+
+// Database facade
 export {
   Database,
   createDatabase,
-} from "./database";
+  getDatabase,
+  connectDatabase,
+  disconnectDatabase,
+  resetDatabase,
+} from "./database/index.js";
 
+// Repository
 export {
-  DatabaseConnection,
-  createDatabaseConnection,
-} from "./connection";
-
-/*
- * Repository infrastructure.
- */
-export {
-  Repository,
   BaseRepository,
-} from "./repository";
+  type RepositoryDelegate,
+  type BaseRepositoryOptions,
+} from "./repository/index.js";
 
-/*
- * Transaction infrastructure.
- */
+// Transactions
 export {
-  UnitOfWork,
+  TransactionManager,
+  createTransactionManager,
+  withTransaction,
+  withTransactionRetry,
+  createTransactionContext,
+  createTransactionId,
+  isTransactionActive,
+  isTransactionCommitted,
+  isTransactionFailed,
+  type TransactionStatus,
+  type TransactionContext,
+  type ManagedTransactionOptions,
+} from "./transaction/index.js";
+
+// Unit of Work
+export {
+  DatabaseUnitOfWork,
   createUnitOfWork,
-} from "./unit-of-work";
+  executeUnitOfWork,
+  type UnitOfWork,
+  type UnitOfWorkOptions,
+} from "./unitOfWork/index.js";
 
-export {
-  Transaction,
-  createTransaction,
-} from "./transaction";
-
-/*
- * Query infrastructure.
- */
+// Query Builder
 export {
   QueryBuilder,
   createQueryBuilder,
-} from "./query-builder";
+  type QueryCondition,
+  type QueryFilter,
+  type QueryOperator,
+  type QueryBuilderState,
+} from "./queryBuilder/index.js";
 
-export type {
-  QueryCondition,
-  QueryFilter,
-  QueryOperator,
-  QueryOrder,
-  QueryOptions,
-} from "./query-builder";
-
-/*
- * Pagination.
- */
 export {
-  DEFAULT_PAGE_SIZE,
-  MAX_PAGE_SIZE,
-  createPagination,
-  normalizePagination,
-  getPaginationOffset,
-  getTotalPages,
-  hasNextPage,
-  hasPreviousPage,
-} from "./pagination";
+  equals, notEquals, inList, notInList, lessThan, lessThanOrEqual,
+  greaterThan, greaterThanOrEqual, contains, startsWith, endsWith,
+  isNull, isNotNull, and, or, not, condition, allOf, anyOf,
+  fromObject, dateRange, oneOf, noneOf, optionalEquals, optionalContains,
+  hasConditions, flattenAnd, cloneFilter,
+} from "./queryBuilder/index.js";
 
-export type {
-  PaginationInput,
-  PaginationMeta,
-  PaginationResult,
-} from "./pagination";
-
-/*
- * Filter helpers.
- */
+// Pagination
 export {
-  equals,
-  notEquals,
-  inList,
-  notInList,
-  lessThan,
-  lessThanOrEqual,
-  greaterThan,
-  greaterThanOrEqual,
-  contains,
-  startsWith,
-  endsWith,
-  isNull,
-  isNotNull,
-  and,
-  or,
-  not,
-  condition,
-  allOf,
-  anyOf,
-  fromObject,
-  dateRange,
-  oneOf,
-  noneOf,
-  optionalEquals,
-  optionalContains,
-  hasConditions,
-  flattenAnd,
-  cloneFilter,
-} from "./filters";
+  normalizePagination, normalizePage, normalizeLimit, calculateOffset,
+  calculateTotalPages, createPaginationMeta, createPaginatedResult,
+  getNextPage, getPreviousPage, isValidPage, getItemRange,
+  paginateCollection, encodeCursor, decodeCursor,
+  normalizeCursorPagination, createCursorPaginationMeta,
+  createCursorPaginatedResult,
+  DEFAULT_PAGE, DEFAULT_LIMIT, MAX_LIMIT,
+  type NormalizedPagination, type CursorPaginationInput,
+  type CursorPaginationMeta, type CursorPaginatedResult,
+} from "./pagination/index.js";
 
-/*
- * Relations.
- */
+// Relations
 export {
-  oneToOne,
-  oneToMany,
-  manyToOne,
-  manyToMany,
-  includeRelation,
-  includeRelations,
-  RelationRegistry,
-  createRelationRegistry,
-  validateRelation,
-  isRelationType,
-  isCollectionRelation,
-  isSingleRelation,
-} from "./relations";
+  oneToOne, oneToMany, manyToOne, manyToMany,
+  includeRelation, includeRelations,
+  RelationRegistry, createRelationRegistry,
+  validateRelation, isRelationType, isCollectionRelation, isSingleRelation,
+  type RelationDefinition, type RelationType,
+  type RelationLoadOptions, type RelationInclude,
+} from "./relations/index.js";
 
-export type {
-  RelationDefinition,
-  RelationType,
-  RelationLoadOptions,
-  RelationInclude,
-} from "./relations";
-
-/*
- * Database locks.
- */
+// Locks
 export {
-  DatabaseLockManager,
-  createLockManager,
-  acquireAdvisoryLock,
-  lockRow,
-  buildLockClause,
-  normalizeAdvisoryKey,
-} from "./locks";
+  DatabaseLockManager, createLockManager,
+  acquireAdvisoryLock, lockRow, buildLockClause, normalizeAdvisoryKey,
+  type DatabaseLockMode, type DatabaseLockOptions, type DatabaseLockResult,
+} from "./locks/index.js";
 
-export type {
-  DatabaseLockMode,
-  DatabaseLockOptions,
-  DatabaseLockResult,
-} from "./locks";
-
-/*
- * Cache.
- */
+// Cache
 export {
-  MemoryDatabaseCache,
-  createDatabaseCache,
-  createCacheKey,
-  serializeCachePart,
-  getOrSet,
-  invalidateByPrefix,
-} from "./cache";
+  MemoryDatabaseCache, createDatabaseCache,
+  createCacheKey, serializeCachePart, getOrSet, invalidateByPrefix,
+  type CacheEntry, type CacheOptions, type CacheStats, type DatabaseCache,
+} from "./cache/index.js";
 
-export type {
-  CacheEntry,
-  CacheOptions,
-  CacheStats,
-  DatabaseCache,
-} from "./cache";
-
-/*
- * Migrations.
- */
+// Migrations
 export {
-  MigrationRunner,
-  createMigrationRunner,
-  normalizeMigrations,
-  validateMigration,
-  getLatestVersion,
-  getCurrentVersion,
-  DEFAULT_MIGRATION_TABLE,
-  DEFAULT_MIGRATION_LOCK,
-} from "./migrations";
+  MigrationRunner, createMigrationRunner,
+  normalizeMigrations, validateMigration,
+  getLatestVersion, getCurrentVersion,
+  DEFAULT_MIGRATION_TABLE, DEFAULT_MIGRATION_LOCK,
+  type Migration, type MigrationRecord, type MigrationResult,
+  type MigrationStatus, type MigrationRunnerOptions,
+} from "./migration/index.js";
 
-export type {
-  Migration,
-  MigrationRecord,
-  MigrationResult,
-  MigrationStatus,
-  MigrationRunnerOptions,
-} from "./migrations";
-
-/*
- * Seeds.
- */
+// Seeds
 export {
-  SeedRunner,
-  createSeedRunner,
-  normalizeSeeds,
-  validateSeed,
-  DEFAULT_SEED_TABLE,
-  DEFAULT_SEED_LOCK,
-} from "./seed";
+  SeedRunner, createSeedRunner,
+  normalizeSeeds, validateSeed,
+  DEFAULT_SEED_TABLE, DEFAULT_SEED_LOCK,
+  type Seed, type SeedRecord, type SeedResult, type SeedRunnerOptions,
+} from "./seed/index.js";
 
-export type {
-  Seed,
-  SeedRecord,
-  SeedResult,
-  SeedRunnerOptions,
-} from "./seed";
-
-/*
- * Database health.
- */
+// Health
 export {
-  checkDatabaseHealth,
-  checkDatabaseReadiness,
-  assertDatabaseHealth,
-  isDatabaseHealthy,
+  checkDatabaseHealth, checkDatabaseReadiness,
+  assertDatabaseHealth, isDatabaseHealthy,
   DEFAULT_HEALTH_TIMEOUT_MS,
-} from "./health";
-
-export type {
-  DatabaseHealthStatus,
-  DatabaseHealth,
-  DatabaseHealthOptions,
-  DatabaseReadiness,
-} from "./health";
+  type DatabaseHealthStatus,
+  type DatabaseHealth,
+  type DatabaseHealthOptions,
+  type DatabaseReadiness,
+} from "./health/index.js";
