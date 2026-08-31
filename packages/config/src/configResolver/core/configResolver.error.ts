@@ -1,8 +1,13 @@
 /**
  * @lattice/config/configResolver/configResolver.error
  *
- * Re-exports ConfigResolutionError from core for barrel compatibility.
+ * Configuration resolution error types.
  */
+
+export {
+  ConfigurationError,
+  isConfigurationError,
+} from "@lattice/errors";
 
 export {
   ConfigResolutionError,
