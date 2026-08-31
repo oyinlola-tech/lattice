@@ -636,25 +636,20 @@ export class DefaultRuntime
 
     return module;
   }
-}
+}import {
+  RuntimeError as BaseRuntimeError,
+  RuntimeStateError as BaseRuntimeStateError,
+} from "@lattice/errors";
 
 /**
  * Error thrown for invalid runtime operations.
  */
 export class RuntimeStateError
-  extends Error {
+  extends BaseRuntimeStateError {
   public constructor(
     message: string,
   ) {
     super(message);
-
-    this.name =
-      "RuntimeStateError";
-
-    Object.setPrototypeOf(
-      this,
-      new.target.prototype,
-    );
   }
 }
 
@@ -662,7 +657,7 @@ export class RuntimeStateError
  * Error thrown when runtime startup/shutdown fails.
  */
 export class RuntimeError
-  extends Error {
+  extends BaseRuntimeError {
   public readonly moduleIds:
     readonly string[];
 
@@ -671,20 +666,14 @@ export class RuntimeError
     moduleIds:
       readonly string[] = [],
   ) {
-    super(message);
-
-    this.name =
-      "RuntimeError";
+    super(message, {
+      phase: "runtime",
+    });
 
     this.moduleIds =
       Object.freeze([
         ...moduleIds,
       ]);
-
-    Object.setPrototypeOf(
-      this,
-      new.target.prototype,
-    );
   }
 }
 
