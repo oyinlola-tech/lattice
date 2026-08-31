@@ -84,7 +84,7 @@ export class RuntimeError
     return normalizeError(this.cause);
   }
 
-  public override toJSON(): RuntimeErrorJSON {
+  public override toJSON(): any {
     return {
       ...super.toJSON(),
       operation: this.operation,
