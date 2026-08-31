@@ -1,0 +1,131 @@
+name: Feature Request
+description: Suggest an idea or improvement for Lattice
+title: "[Feature]: "
+labels:
+  - enhancement
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement to Lattice.
+
+        Before submitting, please check whether a similar feature request or
+        discussion already exists.
+
+        Focus on the problem first. A proposed implementation is helpful, but
+        understanding the underlying use case is more important.
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Related Package
+      description: Which Lattice package would this feature affect?
+      options:
+        - "@lattice/core"
+        - "@lattice/config"
+        - "@lattice/container"
+        - "@lattice/logger"
+        - "@lattice/errors"
+        - "@lattice/validation"
+        - "@lattice/cqrs"
+        - "@lattice/events"
+        - "@lattice/database"
+        - "@lattice/http"
+        - "@lattice/runtime"
+        - "@lattice/messaging"
+        - "@lattice/queue"
+        - "@lattice/storage"
+        - "@lattice/security"
+        - "@lattice/observability"
+        - Multiple packages
+        - New package
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem does this feature solve? Who experiences it?
+      placeholder: |
+        Describe the current limitation or pain point.
+
+        Explain what is difficult or impossible with the current API.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you would like to see.
+      placeholder: |
+        Explain the proposed API, behavior, or architecture.
+
+        Code examples are welcome.
+      render: typescript
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Usage
+      description: Show how the feature could look from a user's perspective.
+      placeholder: |
+        ```ts
+        // Example API usage
+        ```
+
+      render: typescript
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: What alternatives, workarounds, or existing APIs have you considered?
+
+  - type: textarea
+    id: architecture
+    attributes:
+      label: Architecture Considerations
+      description: |
+        If applicable, explain how this affects package boundaries,
+        dependencies, performance, or backward compatibility.
+
+      placeholder: |
+        Package impact:
+        Dependencies:
+        Performance:
+        Backward compatibility:
+
+  - type: dropdown
+    id: breaking-change
+    attributes:
+      label: Breaking Change
+      description: Would this feature require breaking changes?
+      options:
+        - "No"
+        - "Possibly"
+        - "Yes"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add links, screenshots, benchmarks, prior art, or other useful context.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues and discussions.
+          required: true
+        - label: I have explained the problem this feature would solve.
+          required: true
+        - label: I understand that API design may differ from the proposed solution.
+          required: true

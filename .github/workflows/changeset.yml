@@ -1,0 +1,43 @@
+name: Changeset Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: changeset-validation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  validate:
+    name: Validate Changeset
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Changeset
+        run: |
+          if [ -z "$(ls -A .changeset/*.md 2>/dev/null)" ]; then
+            echo "::warning::No changeset files found. Please add a changeset for your changes."
+            exit 1
+          fi

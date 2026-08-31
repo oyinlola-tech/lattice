@@ -1,0 +1,141 @@
+name: Bug Report
+description: Report a reproducible problem in Lattice
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug in Lattice.
+
+        Please provide enough information for us to reproduce and investigate
+        the issue. Before submitting, check whether a similar issue already
+        exists.
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Affected Package
+      description: Which Lattice package is affected?
+      options:
+        - "@lattice/core"
+        - "@lattice/config"
+        - "@lattice/container"
+        - "@lattice/logger"
+        - "@lattice/errors"
+        - "@lattice/validation"
+        - "@lattice/cqrs"
+        - "@lattice/events"
+        - "@lattice/database"
+        - "@lattice/http"
+        - "@lattice/runtime"
+        - "@lattice/messaging"
+        - "@lattice/queue"
+        - "@lattice/storage"
+        - "@lattice/security"
+        - "@lattice/observability"
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Lattice Version
+      description: Which version of Lattice are you using?
+      placeholder: "e.g. 0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      description: Which JavaScript runtime are you using?
+      options:
+        - Node.js
+        - Bun
+        - Deno
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: runtime-version
+    attributes:
+      label: Runtime Version
+      placeholder: "e.g. Node.js 22.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating System
+      placeholder: "e.g. Ubuntu 24.04"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Bug
+      description: Clearly describe what happened.
+      placeholder: Tell us what you expected and what happened instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal Reproduction
+      description: Provide the smallest code example that reproduces the problem.
+      placeholder: |
+        ```ts
+        // Minimal reproducible example
+        ```
+      render: typescript
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Output or Logs
+      description: Paste relevant error messages, stack traces, or logs.
+      render: shell
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other information that might help investigate the issue.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues before submitting this report.
+          required: true
+        - label: I have provided a minimal reproducible example.
+          required: true
+        - label: I have removed secrets and sensitive information from logs and examples.
+          required: true
