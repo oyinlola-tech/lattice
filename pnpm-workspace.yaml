@@ -5,6 +5,9 @@ packages:
   - "examples/micro-service/*"
   - "tools/*"
 
+overrides:
+  "deepmerge-ts": "8.0.2"
+
 allowBuilds:
   '@prisma/engines': true
   better-sqlite3: true
