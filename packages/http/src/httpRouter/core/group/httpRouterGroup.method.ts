@@ -1,4 +1,30 @@
-    );
+/**
+ * HTTP router group — additional methods and private helpers.
+ *
+ * Continuation of the HttpRouterGroup class defined in
+ * httpRouterGroup.core.ts. Contains the all(), group(),
+ * resolve(), and mergeOptions() methods.
+ */
+
+import type {
+  HttpMethod,
+  RouterHandler,
+  RouteOptions,
+} from "../types/httpRouter.type.js";
+
+import type {
+  HttpRouter,
+} from "../manage/httpRouter.manage.js";
+
+import type {
+  HttpRouterGroup,
+} from "./httpRouterGroup.core.js";
+
+/* -------------------------------------------------------------------------- */
+/* Method Continuation                                                        */
+/* -------------------------------------------------------------------------- */
+
+  );
   }
 
   all(
@@ -106,8 +132,3 @@
     };
   }
 }
-
-/* -------------------------------------------------------------------------- */
-/* Route Compilation                                                          */
-/* -------------------------------------------------------------------------- */
-

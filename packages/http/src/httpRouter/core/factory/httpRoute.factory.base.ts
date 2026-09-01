@@ -1,3 +1,49 @@
+/**
+ * HTTP route factory base helpers.
+ *
+ * Internal normalization, validation, and response utilities for route
+ * creation and management.
+ */
+
+import type {
+  HttpMethod,
+  MatchedRoute,
+  CompiledRoute,
+} from "../types/httpRouter.type.js";
+
+import {
+  HttpRouterError,
+} from "../error/httpRouter.error.js";
+
+import {
+  matchCompiledRoute,
+} from "../../matching/httpRoute.matcher.core.js";
+
+import type {
+  HttpResponseContext as ResponseContext,
+} from "../../httpResponse/httpResponse.context.js";
+
+import {
+  isResponseContext,
+} from "../../httpRouter.context.js";
+
+/* -------------------------------------------------------------------------- */
+/* Method Helpers                                                             */
+/* -------------------------------------------------------------------------- */
+
+function normalizeMethod(
+  method:
+    | string,
+):
+  | HttpMethod
+  | "*" {
+  const normalized =
+    method.toUpperCase();
+
+  if (
+    normalized ===
+    "*"
+  ) {
     return "*";
   }
 
@@ -148,3 +194,32 @@ function normalizeResponse(
   ) {
     return {
       response:
+        value,
+      status:
+        value.status,
+      headers:
+        Object.fromEntries(
+          value.headers.entries(),
+        ),
+    } as ResponseContext;
+  }
+
+  return {
+    response:
+      new Response(
+        null,
+        {
+          status:
+            204,
+        },
+      ),
+  } as ResponseContext;
+}
+
+export {
+  normalizeMethod,
+  normalizeMethods,
+  isHttpMethod,
+  collectAllowedMethods,
+  normalizeResponse,
+};

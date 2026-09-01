@@ -62,6 +62,7 @@ const TIERS = {
 // Convert package name to key used in TIERS
 function packageNameToKey(name) {
   return name
+    .replace(/^@oyinlola141\/lattice-/, "")
     .replace(/^@lattice\//, "")
     .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 }

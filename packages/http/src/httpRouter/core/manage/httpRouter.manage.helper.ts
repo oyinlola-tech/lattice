@@ -1,3 +1,27 @@
+/**
+ * HTTP router management — additional route management helpers.
+ *
+ * Continuation of the HttpRouter class from httpRouter.manage.ts.
+ * Contains the remove(), clear(), count(), list(), and find() methods.
+ */
+
+import type {
+  HttpMethod,
+  MatchedRoute,
+} from "../types/httpRouter.type.js";
+
+import {
+  normalizeMethod,
+} from "../util/httpRoute.util.helper.js";
+
+import {
+  normalizePath,
+} from "../util/httpRoute.util.js";
+
+/* -------------------------------------------------------------------------- */
+/* Method Continuation                                                        */
+/* -------------------------------------------------------------------------- */
+
   ):
     | boolean {
     const normalizedMethod =
@@ -63,3 +87,11 @@
     | MatchedRoute
     | undefined {
     return this.routes.find(
+      (
+        route,
+      ) =>
+        route.definition.id ===
+        id,
+    )?.definition;
+  }
+}
