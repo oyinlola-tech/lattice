@@ -1,4 +1,29 @@
 ---
+"@oyinlola141/lattice-core": patch
+"@oyinlola141/lattice-errors": patch
+"@oyinlola141/lattice-types": patch
+"@oyinlola141/lattice-constants": patch
+"@oyinlola141/lattice-config": patch
+"@oyinlola141/lattice-logger": patch
+"@oyinlola141/lattice-crypto": patch
+"@oyinlola141/lattice-container": patch
+"@oyinlola141/lattice-events": patch
+"@oyinlola141/lattice-messaging": patch
+"@oyinlola141/lattice-middleware": patch
+"@oyinlola141/lattice-validation": patch
+"@oyinlola141/lattice-schema": patch
+"@oyinlola141/lattice-serialization": patch
+"@oyinlola141/lattice-cqrs": patch
+"@oyinlola141/lattice-database": patch
+"@oyinlola141/lattice-auth": patch
+"@oyinlola141/lattice-http": patch
+"@oyinlola141/lattice-cache": patch
+"@oyinlola141/lattice-queue": patch
+"@oyinlola141/lattice-tenancy": patch
+"@oyinlola141/lattice-permissions": patch
+"@oyinlola141/lattice-feature-flags": patch
+"@oyinlola141/lattice-lifecycle": patch
+"@oyinlola141/lattice-observability": patch
 "@oyinlola141/lattice-security": patch
 "@oyinlola141/lattice-transactions": patch
 "@oyinlola141/lattice-storage": patch
@@ -14,4 +39,4 @@
 "@oyinlola141/lattice-testing": patch
 ---
 
-Initial publication of remaining Lattice packages.
+Initial publication of all Lattice packages with namespace migration, new middleware, and fixes.
