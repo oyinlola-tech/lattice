@@ -46,7 +46,7 @@ jobs:
         run: pnpm run build
 
       - name: Version packages
-        run: pnpm changeset version
+        run: pnpm changeset version || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
