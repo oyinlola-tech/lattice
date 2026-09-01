@@ -60,22 +60,20 @@ jobs:
 
       - name: Publish packages
         run: |
-          # Publish packages one by one with delays to avoid npm rate limits (429)
-          PACKAGES=$(pnpm -r --json 2>/dev/null | python3 -c "
-          import json, sys
-          data = json.load(sys.stdin)
-          for pkg in data:
-              name = pkg.get('name', '')
-              if name.startswith('@oyinlola141/'):
-                  path = pkg.get('path', '')
-                  if path:
-                      print(f'{name}\t{path}')
-          ")
-          
-          while IFS=$'\t' read -r name path; do
-            echo "Publishing $name from $path"
-            (cd "$path" && npm publish --access public 2>&1) || echo "Failed to publish $name (may already exist or rate limited)"
-            sleep 3
-          done <<< "$PACKAGES"
+          # Publish packages one at a time with delay to avoid npm 429 rate limits
+          for dir in packages/*/; do
+            pkg_json="$dir/package.json"
+            if [ -f "$pkg_json" ]; then
+              name=$(python3 -c "import json; print(json.load(open('$pkg_json')).get('name',''))" 2>/dev/null)
+              if [ -n "$name" ] && [ "$name" != "lattice" ]; then
+                private=$(python3 -c "import json; print(json.load(open('$pkg_json')).get('private',False))" 2>/dev/null)
+                if [ "$private" = "False" ] || [ "$private" = "false" ]; then
+                  echo "Publishing $name from $dir"
+                  (cd "$dir" && npm publish --access public 2>&1) || echo "Skip: $name (already published or rate limited)"
+                  sleep 5
+                fi
+              fi
+            fi
+          done
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
