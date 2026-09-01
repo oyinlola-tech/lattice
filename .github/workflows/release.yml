@@ -19,7 +19,7 @@ jobs:
     name: Version and Publish
     runs-on: ubuntu-latest
 
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
@@ -60,19 +60,14 @@ jobs:
 
       - name: Publish packages
         run: |
-          # Publish packages one at a time with delay to avoid npm 429 rate limits
-          for dir in packages/*/; do
-            pkg_json="$dir/package.json"
-            if [ -f "$pkg_json" ]; then
-              name=$(python3 -c "import json; print(json.load(open('$pkg_json')).get('name',''))" 2>/dev/null)
-              if [ -n "$name" ] && [ "$name" != "lattice" ]; then
-                private=$(python3 -c "import json; print(json.load(open('$pkg_json')).get('private',False))" 2>/dev/null)
-                if [ "$private" = "False" ] || [ "$private" = "false" ]; then
-                  echo "Publishing $name from $dir"
-                  (cd "$dir" && npm publish --access public 2>&1) || echo "Skip: $name (already published or rate limited)"
-                  sleep 5
-                fi
-              fi
+          for attempt in 1 2 3 4 5; do
+            echo "Publish attempt $attempt"
+            if pnpm changeset publish; then
+              echo "All packages published successfully"
+              break
+            else
+              echo "Some packages failed, waiting 60s before retry..."
+              sleep 60
             fi
           done
         env:
