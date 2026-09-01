@@ -1,0 +1,31 @@
+{
+  "name": "@lattice/campusflow-assessment",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node --import tsx --watch src/server.ts",
+    "start": "node --import tsx src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@lattice/cqrs": "workspace:*",
+    "@lattice/events": "workspace:*",
+    "@lattice/http": "workspace:*",
+    "@lattice/config": "workspace:*",
+    "@lattice/logger": "workspace:*",
+    "@lattice/errors": "workspace:*",
+    "@lattice/validation": "workspace:*",
+    "@lattice/constants": "workspace:*",
+    "@lattice/types": "workspace:*",
+    "better-sqlite3": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.7.0"
+  }
+}

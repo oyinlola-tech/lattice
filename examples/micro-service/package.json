@@ -1,0 +1,22 @@
+{
+  "name": "@lattice/example-micro-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "CampusFlow - University Learning & Assessment Platform demonstrating Lattice microservice architecture",
+  "scripts": {
+    "dev:gateway": "pnpm --filter @lattice/campusflow-gateway dev",
+    "dev:identity": "pnpm --filter @lattice/campusflow-identity dev",
+    "dev:enrollment": "pnpm --filter @lattice/campusflow-enrollment dev",
+    "dev:assessment": "pnpm --filter @lattice/campusflow-assessment dev",
+    "dev:notification": "pnpm --filter @lattice/campusflow-notification dev",
+    "dev": "concurrently \"pnpm dev:gateway\" \"pnpm dev:identity\" \"pnpm dev:enrollment\" \"pnpm dev:assessment\" \"pnpm dev:notification\"",
+    "typecheck": "pnpm -r run typecheck",
+    "build": "pnpm -r run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "prettier": "^3.9.6"
+  }
+}
