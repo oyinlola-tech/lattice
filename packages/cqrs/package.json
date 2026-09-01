@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-cqrs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CQRS primitives, buses, handlers, middleware, and execution infrastructure for Lattice.",
   "license": "MIT",
   "type": "module",

@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-docs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Documentation infrastructure — structured document model, registry, validation, navigation, and generation for the Lattice framework",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

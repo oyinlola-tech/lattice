@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-tenancy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Multi-tenant context and isolation for the Lattice framework — tenant resolution, context propagation, resolver chains, and isolation strategies.",
   "license": "MIT",
   "type": "module",

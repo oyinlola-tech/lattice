@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-transactions",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generic transaction abstraction for the Lattice framework — lifecycle management, async context propagation, adapter contracts, savepoints, and hooks.",
   "license": "MIT",
   "type": "module",

@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-http",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "HTTP primitives, request handling, routing, middleware, and server abstractions for the Lattice framework.",
   "license": "MIT",
   "type": "module",

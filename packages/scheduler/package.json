@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-scheduler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Time and recurring execution engine for Lattice — job definitions, schedules, triggers, priority queue, cron support, and persistence.",
   "license": "MIT",
   "type": "module",

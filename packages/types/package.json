@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-types",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shared TypeScript type guards, utility types, and type conversion helpers for the Lattice framework.",
   "license": "MIT",
   "type": "module",
