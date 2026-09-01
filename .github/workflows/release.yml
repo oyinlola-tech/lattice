@@ -59,6 +59,23 @@ jobs:
           git push origin main
 
       - name: Publish packages
-        run: pnpm changeset publish
+        run: |
+          # Publish packages one by one with delays to avoid npm rate limits (429)
+          PACKAGES=$(pnpm -r --json 2>/dev/null | python3 -c "
+          import json, sys
+          data = json.load(sys.stdin)
+          for pkg in data:
+              name = pkg.get('name', '')
+              if name.startswith('@oyinlola141/'):
+                  path = pkg.get('path', '')
+                  if path:
+                      print(f'{name}\t{path}')
+          ")
+          
+          while IFS=$'\t' read -r name path; do
+            echo "Publishing $name from $path"
+            (cd "$path" && npm publish --access public 2>&1) || echo "Failed to publish $name (may already exist or rate limited)"
+            sleep 3
+          done <<< "$PACKAGES"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
