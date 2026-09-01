@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-validation",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Shared validation, parsing, normalization, and schema utilities for the Lattice platform.",
   "license": "MIT",
   "type": "module",

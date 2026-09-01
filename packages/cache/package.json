@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-cache",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Caching primitives, abstractions, and adapters for the Lattice framework.",
   "license": "MIT",
   "type": "module",

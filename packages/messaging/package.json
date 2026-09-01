@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-messaging",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "In-process message bus infrastructure for the Lattice framework.",
   "type": "module",
   "main": "./dist/index.js",

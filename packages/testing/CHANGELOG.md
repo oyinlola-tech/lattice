@@ -1,5 +1,27 @@
 # @oyinlola141/lattice-testing
 
+## 0.1.2
+
+### Patch Changes
+
+- [`8b4c2fe`](https://github.com/oyinlola-tech/lattice/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Fix changeset validation workflow and publish all packages to npm.
+- Updated dependencies [[`8b4c2fe`](https://github.com/oyinlola-tech/lattice/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908)]:
+  - @oyinlola141/lattice-errors@0.1.2
+  - @oyinlola141/lattice-types@0.1.2
+  - @oyinlola141/lattice-constants@0.1.2
+  - @oyinlola141/lattice-config@0.1.2
+  - @oyinlola141/lattice-logger@0.1.2
+  - @oyinlola141/lattice-container@0.1.2
+  - @oyinlola141/lattice-events@0.1.2
+  - @oyinlola141/lattice-messaging@0.1.2
+  - @oyinlola141/lattice-middleware@0.1.2
+  - @oyinlola141/lattice-validation@0.1.2
+  - @oyinlola141/lattice-serialization@0.1.2
+  - @oyinlola141/lattice-http@0.1.2
+  - @oyinlola141/lattice-queue@0.1.2
+  - @oyinlola141/lattice-security@0.1.2
+  - @oyinlola141/lattice-storage@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes

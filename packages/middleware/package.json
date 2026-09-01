@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-middleware",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Composable middleware pipeline for the Lattice framework — chaining, composition, error handling, and timing.",
   "license": "MIT",
   "type": "module",
