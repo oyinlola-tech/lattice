@@ -1,0 +1,37 @@
+{
+  "name": "@lattice/example-modular-monolith",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node --import tsx --watch src/server.ts",
+    "start": "node --import tsx src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@lattice/cqrs": "workspace:*",
+    "@lattice/events": "workspace:*",
+    "@lattice/container": "workspace:*",
+    "@lattice/http": "workspace:*",
+    "@lattice/config": "workspace:*",
+    "@lattice/logger": "workspace:*",
+    "@lattice/errors": "workspace:*",
+    "@lattice/validation": "workspace:*",
+    "@lattice/constants": "workspace:*",
+    "@lattice/types": "workspace:*",
+    "@lattice/queue": "workspace:*",
+    "@lattice/lifecycle": "workspace:*",
+    "@lattice/permissions": "workspace:*",
+    "better-sqlite3": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.11"
+  }
+}

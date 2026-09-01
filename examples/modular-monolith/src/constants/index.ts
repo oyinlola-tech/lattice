@@ -1,0 +1,11 @@
+export const APP_NAME = "community-knowledge-platform" as const;
+export const APP_VERSION = "0.1.0" as const;
+export const DEFAULT_PAGE_SIZE = 20 as const;
+export const MAX_PAGE_SIZE = 100 as const;
+export const MAX_ARTICLE_LENGTH = 50_000 as const;
+export const MAX_COMMENT_LENGTH = 5_000 as const;
+export const MAX_TITLE_LENGTH = 200 as const;
+export const MIN_TITLE_LENGTH = 5 as const;
+export const MIN_ARTICLE_LENGTH = 50 as const;
+export const MIN_COMMENT_LENGTH = 1 as const;
+export const DEFAULT_AUTHOR_AVATAR = "/avatars/default.png" as const;
