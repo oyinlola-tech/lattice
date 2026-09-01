@@ -5,7 +5,11 @@
  */
 
 export { CLIParser, type CLIParserOptions } from "./cliParser.core.js";
-export { parseLongOption, findOption, assignOptionValue } from "./cliParser.longOption.js";
+export {
+  parseLongOption,
+  findOption,
+  assignOptionValue,
+} from "./cliParser.longOption.js";
 export { parseShortOption } from "./cliParser.shortOption.js";
 export {
   parseCLIArguments,

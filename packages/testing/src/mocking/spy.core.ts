@@ -7,7 +7,10 @@
 /**
  * A spy that wraps an existing function.
  */
-export interface SpyFn<TArgs extends readonly unknown[] = unknown[], TResult = unknown> {
+export interface SpyFn<
+  TArgs extends readonly unknown[] = unknown[],
+  TResult = unknown,
+> {
   (...args: TArgs): TResult;
   readonly original: (...args: TArgs) => TResult;
   readonly calls: readonly TArgs[];
@@ -120,12 +123,12 @@ export function createSpyMethod<TObj, TMethod extends keyof TObj>(
 
   const originalFn = original as (...args: unknown[]) => unknown;
 
-  (object as Record<string | symbol, unknown>)[property as string] = (
-    (...args: unknown[]) => {
-      calls.push(args);
-      return originalFn(...args);
-    }
-  ) as unknown as TMethod;
+  (object as Record<string | symbol, unknown>)[property as string] = ((
+    ...args: unknown[]
+  ) => {
+    calls.push(args);
+    return originalFn(...args);
+  }) as unknown as TMethod;
 
   return {
     object,
@@ -135,7 +138,8 @@ export function createSpyMethod<TObj, TMethod extends keyof TObj>(
       return calls.length;
     },
     restore: (): void => {
-      (object as Record<string | symbol, unknown>)[property as string] = original;
+      (object as Record<string | symbol, unknown>)[property as string] =
+        original;
       calls.length = 0;
     },
   };

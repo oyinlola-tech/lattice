@@ -5,9 +5,19 @@
  */
 
 import type { TenantId } from "../tenancyTypes/tenantIdentity.js";
-import type { Tenant, TenantResource } from "../tenancyTypes/tenantInterface.js";
-import type { TenantResolutionSource, TenantTrustLevel } from "../tenancyTypes/tenantInterface.js";
-import { TenantAccessDeniedError, TenantIsolationError, TenantUnavailableError } from "../tenancyErrors/tenancyError.types.js";
+import type {
+  Tenant,
+  TenantResource,
+} from "../tenancyTypes/tenantInterface.js";
+import type {
+  TenantResolutionSource,
+  TenantTrustLevel,
+} from "../tenancyTypes/tenantInterface.js";
+import {
+  TenantAccessDeniedError,
+  TenantIsolationError,
+  TenantUnavailableError,
+} from "../tenancyErrors/tenancyError.types.js";
 
 /** Trust levels for resolution sources. */
 const TRUST_MAP: Record<TenantResolutionSource, TenantTrustLevel> = {
@@ -25,7 +35,9 @@ const TRUST_MAP: Record<TenantResolutionSource, TenantTrustLevel> = {
 /**
  * Get the default trust level for a resolution source.
  */
-export function getDefaultTrust(source: TenantResolutionSource): TenantTrustLevel {
+export function getDefaultTrust(
+  source: TenantResolutionSource,
+): TenantTrustLevel {
   return TRUST_MAP[source] ?? "untrusted";
 }
 
@@ -41,7 +53,10 @@ export function assertTenantUsable(tenant: Tenant): void {
 /**
  * Validate tenant ownership of a resource.
  */
-export function assertTenantOwnership(resource: TenantResource, tenantId: TenantId): void {
+export function assertTenantOwnership(
+  resource: TenantResource,
+  tenantId: TenantId,
+): void {
   if (resource.tenantId !== tenantId) {
     throw new TenantIsolationError(tenantId, resource.tenantId);
   }
@@ -69,7 +84,11 @@ export function assertTrustLevel(
 /**
  * Create a tenant key for scoped resources.
  */
-export function tenantKey(tenantId: TenantId, key: string, separator: string = ":"): string {
+export function tenantKey(
+  tenantId: TenantId,
+  key: string,
+  separator: string = ":",
+): string {
   return `tenant${separator}${tenantId}${separator}${key}`;
 }
 

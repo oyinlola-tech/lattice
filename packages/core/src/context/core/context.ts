@@ -4,13 +4,7 @@ import type { ApplicationContext } from "../../application/applicationContext.co
  * Represents the source through which an execution was initiated.
  */
 export type ContextType =
-  | "http"
-  | "rpc"
-  | "message"
-  | "job"
-  | "cli"
-  | "worker"
-  | "unknown";
+  "http" | "rpc" | "message" | "job" | "cli" | "worker" | "unknown";
 
 /**
  * Metadata describing a single execution.
@@ -141,9 +135,7 @@ export interface CreateContextOptions {
 /**
  * Creates a new execution Context.
  */
-export function createContext(
-  options: CreateContextOptions,
-): Context {
+export function createContext(options: CreateContextOptions): Context {
   const metadata: ExecutionMetadata = {
     id: options.id ?? createExecutionId(),
     type: options.type,

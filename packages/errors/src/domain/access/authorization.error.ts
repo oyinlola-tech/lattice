@@ -7,7 +7,10 @@ import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 /**
  * Options for creating an authorization error.
  */
-export interface AuthorizationErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface AuthorizationErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
 }
 
@@ -16,7 +19,10 @@ export interface AuthorizationErrorOptions extends Omit<BaseErrorOptions, "categ
  * to perform an operation or access a resource.
  */
 export class AuthorizationError extends BaseError {
-  constructor(message = "You are not authorized to perform this operation.", options: AuthorizationErrorOptions = {}) {
+  constructor(
+    message = "You are not authorized to perform this operation.",
+    options: AuthorizationErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.FORBIDDEN,
@@ -38,12 +44,16 @@ export function createAuthorizationError(
 }
 
 /** Determines whether an unknown value is an AuthorizationError. */
-export function isAuthorizationError(value: unknown): value is AuthorizationError {
+export function isAuthorizationError(
+  value: unknown,
+): value is AuthorizationError {
   return value instanceof AuthorizationError;
 }
 
 /** Creates an authorization error for denied access. */
-export function accessDeniedError(message = "Access denied."): AuthorizationError {
+export function accessDeniedError(
+  message = "Access denied.",
+): AuthorizationError {
   return new AuthorizationError(message, {
     code: ErrorCode.ACCESS_DENIED,
     category: ErrorCategory.AUTHORIZATION,
@@ -54,7 +64,9 @@ export function accessDeniedError(message = "Access denied."): AuthorizationErro
 
 /** Creates an authorization error for a missing permission. */
 export function permissionDeniedError(permission?: string): AuthorizationError {
-  const message = permission ? `Permission denied: ${permission}.` : "Permission denied.";
+  const message = permission
+    ? `Permission denied: ${permission}.`
+    : "Permission denied.";
 
   return new AuthorizationError(message, {
     code: ErrorCode.PERMISSION,
@@ -66,8 +78,12 @@ export function permissionDeniedError(permission?: string): AuthorizationError {
 }
 
 /** Creates an authorization error for a protected resource. */
-export function resourceAccessDeniedError(resource?: string): AuthorizationError {
-  const message = resource ? `Access to ${resource} is denied.` : "Access to this resource is denied.";
+export function resourceAccessDeniedError(
+  resource?: string,
+): AuthorizationError {
+  const message = resource
+    ? `Access to ${resource} is denied.`
+    : "Access to this resource is denied.";
 
   return new AuthorizationError(message, {
     code: ErrorCode.ACCESS_DENIED,

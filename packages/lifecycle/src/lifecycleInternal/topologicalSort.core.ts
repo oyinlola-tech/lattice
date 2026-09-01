@@ -31,9 +31,7 @@ export function topologicalSort(
   const remaining = new Set(nodes);
 
   while (remaining.size > 0) {
-    const ready = [...remaining].filter(
-      (node) => inDegree.get(node) === 0,
-    );
+    const ready = [...remaining].filter((node) => inDegree.get(node) === 0);
 
     if (ready.length === 0 && remaining.size > 0) {
       throw new LifecycleDependencyError([...remaining]);

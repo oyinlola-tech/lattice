@@ -17,136 +17,78 @@ export type HttpMethod =
   | "TRACE"
   | string;
 
-export type RequestHeaders =
-  Readonly<
-    Record<string, string>
-  >;
+export type RequestHeaders = Readonly<Record<string, string>>;
 
-export type RequestQuery =
-  Readonly<
-    Record<
-      string,
-      string |
-        readonly string[] |
-        undefined
-    >
-  >;
+export type RequestQuery = Readonly<
+  Record<string, string | readonly string[] | undefined>
+>;
 
-export type RequestParams =
-  Readonly<
-    Record<
-      string,
-      string | undefined
-    >
-  >;
+export type RequestParams = Readonly<Record<string, string | undefined>>;
 
-export type RequestBody =
-  | unknown;
+export type RequestBody = unknown;
 
-export type RequestState =
-  Record<
-    string | symbol,
-    unknown
-  >;
+export type RequestState = Record<string | symbol, unknown>;
 
 export interface RequestContextInit {
-  readonly id?:
-    | string;
+  readonly id?: string;
 
-  readonly method:
-    | HttpMethod;
+  readonly method: HttpMethod;
 
-  readonly url:
-    | string;
+  readonly url: string;
 
-  readonly headers?:
-    | RequestHeaders;
+  readonly headers?: RequestHeaders;
 
-  readonly query?:
-    | RequestQuery;
+  readonly query?: RequestQuery;
 
-  readonly params?:
-    | RequestParams;
+  readonly params?: RequestParams;
 
-  readonly body?:
-    | RequestBody;
+  readonly body?: RequestBody;
 
-  readonly remoteAddress?:
-    | string;
+  readonly remoteAddress?: string;
 
-  readonly protocol?:
-    | string;
+  readonly protocol?: string;
 
-  readonly hostname?:
-    | string;
+  readonly hostname?: string;
 
-  readonly port?:
-    | number;
+  readonly port?: number;
 
-  readonly path?:
-    | string;
+  readonly path?: string;
 
-  readonly signal?:
-    | AbortSignal;
+  readonly signal?: AbortSignal;
 
-  readonly state?:
-    | RequestState;
+  readonly state?: RequestState;
 
-  readonly metadata?:
-    | Readonly<
-        Record<string, unknown>
-      >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 export interface RequestContextSnapshot {
-  readonly id:
-    | string;
+  readonly id: string;
 
-  readonly method:
-    | HttpMethod;
+  readonly method: HttpMethod;
 
-  readonly url:
-    | string;
+  readonly url: string;
 
-  readonly path:
-    | string;
+  readonly path: string;
 
-  readonly headers:
-    | RequestHeaders;
+  readonly headers: RequestHeaders;
 
-  readonly query:
-    | RequestQuery;
+  readonly query: RequestQuery;
 
-  readonly params:
-    | RequestParams;
+  readonly params: RequestParams;
 
-  readonly body:
-    | RequestBody;
+  readonly body: RequestBody;
 
-  readonly remoteAddress:
-    | string
-    | undefined;
+  readonly remoteAddress: string | undefined;
 
-  readonly protocol:
-    | string
-    | undefined;
+  readonly protocol: string | undefined;
 
-  readonly hostname:
-    | string
-    | undefined;
+  readonly hostname: string | undefined;
 
-  readonly port:
-    | number
-    | undefined;
+  readonly port: number | undefined;
 
-  readonly state:
-    | Readonly<RequestState>;
+  readonly state: Readonly<RequestState>;
 
-  readonly metadata:
-    | Readonly<
-        Record<string, unknown>
-      >;
+  readonly metadata: Readonly<Record<string, unknown>>;
 
-  readonly createdAt:
-    | number;
+  readonly createdAt: number;
 }

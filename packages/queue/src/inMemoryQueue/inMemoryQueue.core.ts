@@ -26,21 +26,40 @@ import type { JobResult } from "../jobResult/jobResult.type.js";
 
 import type { DeadLetterStore } from "../deadLetter/deadLetter.type.js";
 
-import { createJob, updateJobState, incrementJobAttempt } from "../job/job.core.js";
+import {
+  createJob,
+  updateJobState,
+  incrementJobAttempt,
+} from "../job/job.core.js";
 
-import { createJobName, JobState as JobStateEnum } from "../jobTypes/jobTypes.type.js";
+import {
+  createJobName,
+  JobState as JobStateEnum,
+} from "../jobTypes/jobTypes.type.js";
 
 import { JsonSerializer } from "../serializer/serializer.core.js";
 
-import { createMiddlewareChain, createTimeoutMiddleware } from "../middleware/middleware.core.js";
+import {
+  createMiddlewareChain,
+  createTimeoutMiddleware,
+} from "../middleware/middleware.core.js";
 
 import { createJobContext } from "../jobContext/jobContext.core.js";
 
-import { createJobResult, createJobProgress } from "../jobResult/jobResult.core.js";
+import {
+  createJobResult,
+  createJobProgress,
+} from "../jobResult/jobResult.core.js";
 
-import { calculateRetryDelay, shouldRetry } from "../retryPolicy/retryPolicy.core.js";
+import {
+  calculateRetryDelay,
+  shouldRetry,
+} from "../retryPolicy/retryPolicy.core.js";
 
-import { createInMemoryDeadLetterStore, moveToDeadLetter } from "../deadLetter/deadLetter.core.js";
+import {
+  createInMemoryDeadLetterStore,
+  moveToDeadLetter,
+} from "../deadLetter/deadLetter.core.js";
 
 import { createNoopQueueEventEmitter } from "../queueEmitter/queueEmitter.core.js";
 
@@ -52,13 +71,10 @@ import type { QueueEventEmitter } from "../queueEmitter/queueEmitter.type.js";
  * Good for testing, development, and simple applications.
  * Jobs are lost when the application crashes.
  */
-export class InMemoryQueue<TData = unknown>
-  implements Queue<TData>
-{
+export class InMemoryQueue<TData = unknown> implements Queue<TData> {
   readonly name: QueueName;
   private readonly jobs: Map<JobId, Job<TData>> = new Map();
-  private readonly processors: Map<string, Processor<TData>> =
-    new Map();
+  private readonly processors: Map<string, Processor<TData>> = new Map();
   private readonly options: QueueOptions;
   private readonly serializer: Serializer;
   private readonly middleware: QueueMiddleware[];
@@ -66,9 +82,11 @@ export class InMemoryQueue<TData = unknown>
   private disposed = false;
   private activeCount = 0;
   private pollTimer: ReturnType<typeof setTimeout> | null = null;
-  private scheduledTimers: Map<JobId, ReturnType<typeof setTimeout>> = new Map();
+  private scheduledTimers: Map<JobId, ReturnType<typeof setTimeout>> =
+    new Map();
   private readonly deduplicationIndex: Map<string, JobId> = new Map();
-  private readonly deadLetterStore: DeadLetterStore<TData> = createInMemoryDeadLetterStore<TData>();
+  private readonly deadLetterStore: DeadLetterStore<TData> =
+    createInMemoryDeadLetterStore<TData>();
   private processedCount = 0;
   private succeededCount = 0;
   private failedCount = 0;
@@ -92,10 +110,9 @@ export class InMemoryQueue<TData = unknown>
     }
 
     if (this.paused) {
-      throw new QueueError(
-        `Queue "${this.name}" is paused.`,
-        { queueName: this.name },
-      );
+      throw new QueueError(`Queue "${this.name}" is paused.`, {
+        queueName: this.name,
+      });
     }
 
     const mergedOptions = {
@@ -104,7 +121,9 @@ export class InMemoryQueue<TData = unknown>
     };
 
     if (mergedOptions.deduplicationKey) {
-      const existing = this.deduplicationIndex.get(mergedOptions.deduplicationKey);
+      const existing = this.deduplicationIndex.get(
+        mergedOptions.deduplicationKey,
+      );
       if (existing && this.jobs.has(existing)) {
         throw new JobDuplicateError(existing, mergedOptions.deduplicationKey, {
           queueName: this.name,
@@ -112,7 +131,8 @@ export class InMemoryQueue<TData = unknown>
       }
     }
 
-    const jobId = `job_${Date.now()}_${Math.random().toString(36).slice(2)}` as JobId;
+    const jobId =
+      `job_${Date.now()}_${Math.random().toString(36).slice(2)}` as JobId;
 
     const job = createJob<TData>(
       {
@@ -197,8 +217,13 @@ export class InMemoryQueue<TData = unknown>
     return {
       waiting: allJobs.filter((j) => j.state === JobStateEnum.WAITING).length,
       active: allJobs.filter((j) => j.state === JobStateEnum.ACTIVE).length,
-      completed: allJobs.filter((j) => j.state === JobStateEnum.COMPLETED).length,
-      failed: allJobs.filter((j) => j.state === JobStateEnum.FAILED || j.state === JobStateEnum.DEAD_LETTER).length,
+      completed: allJobs.filter((j) => j.state === JobStateEnum.COMPLETED)
+        .length,
+      failed: allJobs.filter(
+        (j) =>
+          j.state === JobStateEnum.FAILED ||
+          j.state === JobStateEnum.DEAD_LETTER,
+      ).length,
       delayed: allJobs.filter((j) => j.state === JobStateEnum.SCHEDULED).length,
       retrying: allJobs.filter((j) => j.state === JobStateEnum.RETRYING).length,
     };
@@ -299,12 +324,16 @@ export class InMemoryQueue<TData = unknown>
     this.emitter.emit("job:started", { job: updatedJob });
 
     const abortController = new AbortController();
-    const context = createJobContext<TData>(updatedJob, abortController.signal, {
-      onProgress: async () => {
-        const progressJob = updateJobState(updatedJob, JobStateEnum.ACTIVE);
-        this.jobs.set(updatedJob.id, progressJob);
+    const context = createJobContext<TData>(
+      updatedJob,
+      abortController.signal,
+      {
+        onProgress: async () => {
+          const progressJob = updateJobState(updatedJob, JobStateEnum.ACTIVE);
+          this.jobs.set(updatedJob.id, progressJob);
+        },
       },
-    });
+    );
 
     const timeoutMs = updatedJob.timeoutMs ?? 30_000;
     const timeoutMiddleware = createTimeoutMiddleware(timeoutMs);
@@ -323,25 +352,50 @@ export class InMemoryQueue<TData = unknown>
       });
 
       if (result && "success" in result && result.success) {
-        const completedJob = updateJobState(updatedJob, JobStateEnum.COMPLETED, {
-          completedAt: new Date().toISOString() as never,
-        });
+        const completedJob = updateJobState(
+          updatedJob,
+          JobStateEnum.COMPLETED,
+          {
+            completedAt: new Date().toISOString() as never,
+          },
+        );
         this.jobs.set(updatedJob.id, completedJob);
         this.succeededCount++;
-        this.emitter.emit("job:completed", { job: completedJob, result: result.data });
+        this.emitter.emit("job:completed", {
+          job: completedJob,
+          result: result.data,
+        });
       } else if (result && "success" in result && !result.success) {
-        await this.handleJobFailure(updatedJob, result.error ?? "Job failed", processor, abortController);
+        await this.handleJobFailure(
+          updatedJob,
+          result.error ?? "Job failed",
+          processor,
+          abortController,
+        );
       } else {
-        const completedJob = updateJobState(updatedJob, JobStateEnum.COMPLETED, {
-          completedAt: new Date().toISOString() as never,
-        });
+        const completedJob = updateJobState(
+          updatedJob,
+          JobStateEnum.COMPLETED,
+          {
+            completedAt: new Date().toISOString() as never,
+          },
+        );
         this.jobs.set(updatedJob.id, completedJob);
         this.succeededCount++;
-        this.emitter.emit("job:completed", { job: completedJob, result: undefined });
+        this.emitter.emit("job:completed", {
+          job: completedJob,
+          result: undefined,
+        });
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      await this.handleJobFailure(updatedJob, errorMessage, processor, abortController);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      await this.handleJobFailure(
+        updatedJob,
+        errorMessage,
+        processor,
+        abortController,
+      );
     } finally {
       this.processedCount++;
       this.cleanupDeduplication(updatedJob);
@@ -361,7 +415,10 @@ export class InMemoryQueue<TData = unknown>
     this.jobs.set(job.id, failedJob);
     this.failedCount++;
 
-    this.emitter.emit("job:failed", { job: failedJob, error: new Error(errorMessage) });
+    this.emitter.emit("job:failed", {
+      job: failedJob,
+      error: new Error(errorMessage),
+    });
 
     const incrementedJob = incrementJobAttempt(failedJob);
     this.jobs.set(job.id, incrementedJob);
@@ -370,7 +427,10 @@ export class InMemoryQueue<TData = unknown>
       const retryingJob = updateJobState(incrementedJob, JobStateEnum.RETRYING);
       this.jobs.set(job.id, retryingJob);
 
-      this.emitter.emit("job:retrying", { job: retryingJob, attempt: incrementedJob.attempt });
+      this.emitter.emit("job:retrying", {
+        job: retryingJob,
+        attempt: incrementedJob.attempt,
+      });
 
       const backoff = incrementedJob.backoff;
       const delay = calculateRetryDelay(incrementedJob.attempt, backoff);
@@ -392,10 +452,18 @@ export class InMemoryQueue<TData = unknown>
         incrementedJob.maxAttempts,
         { queueName: job.queueName },
       );
-      await moveToDeadLetter(this.deadLetterStore, incrementedJob, maxAttemptsError);
-      const deadLetterJob = updateJobState(incrementedJob, JobStateEnum.DEAD_LETTER, {
-        error: maxAttemptsError.message,
-      });
+      await moveToDeadLetter(
+        this.deadLetterStore,
+        incrementedJob,
+        maxAttemptsError,
+      );
+      const deadLetterJob = updateJobState(
+        incrementedJob,
+        JobStateEnum.DEAD_LETTER,
+        {
+          error: maxAttemptsError.message,
+        },
+      );
       this.jobs.set(job.id, deadLetterJob);
     }
   }

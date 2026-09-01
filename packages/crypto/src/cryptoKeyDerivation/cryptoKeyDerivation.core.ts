@@ -31,9 +31,7 @@ export async function derivePbkdf2(
   const keyLength = options.keyLength ?? 32;
   const salt =
     options.salt ??
-    new Uint8Array(
-      await provider.randomBytes(options.saltLength ?? 16),
-    );
+    new Uint8Array(await provider.randomBytes(options.saltLength ?? 16));
   const digest = options.digest ?? "sha256";
 
   validatePbkdf2Options(iterations, keyLength, salt);
@@ -49,8 +47,8 @@ export async function derivePbkdf2(
   return Object.freeze({
     algorithm:
       digest === "sha512"
-        ? CryptoAlgorithm.PBKDF2_SHA512 as KeyDerivationAlgorithm
-        : CryptoAlgorithm.PBKDF2_SHA256 as KeyDerivationAlgorithm,
+        ? (CryptoAlgorithm.PBKDF2_SHA512 as KeyDerivationAlgorithm)
+        : (CryptoAlgorithm.PBKDF2_SHA256 as KeyDerivationAlgorithm),
     key,
     salt: new Uint8Array(salt),
   });
@@ -69,20 +67,13 @@ export async function deriveScrypt(
   const parallelization = options.parallelization ?? 1;
   const salt =
     options.salt ??
-    new Uint8Array(
-      await provider.randomBytes(options.saltLength ?? 16),
-    );
+    new Uint8Array(await provider.randomBytes(options.saltLength ?? 16));
 
-  validateScryptOptions(
-    keyLength,
-    cost,
-    blockSize,
-    parallelization,
-    salt,
-  );
+  validateScryptOptions(keyLength, cost, blockSize, parallelization, salt);
 
   const key = await provider.deriveKey({
-    password: password instanceof Uint8Array ? password : Buffer.from(password, "utf8"),
+    password:
+      password instanceof Uint8Array ? password : Buffer.from(password, "utf8"),
     salt,
     algorithm: "scrypt",
     keyLength,

@@ -4,11 +4,7 @@
  * Core logger types, levels, entries, context, and options.
  */
 
-export {
-  BaseLogger,
-  type Logger,
-  type LogContext,
-} from "./logger.js";
+export { BaseLogger, type Logger, type LogContext } from "./logger.js";
 
 export {
   LogLevel,

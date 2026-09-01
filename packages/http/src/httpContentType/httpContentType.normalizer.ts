@@ -2,27 +2,14 @@
  * HTTP Content-Type normalization utilities.
  */
 
-import type {
-  ContentType,
-} from "./httpContentType.type.js";
-import {
-  parseContentType,
-} from "./httpContentType.parser.js";
-import {
-  formatContentType,
-} from "./httpContentType.formatter.js";
+import type { ContentType } from "./httpContentType.type.js";
+import { parseContentType } from "./httpContentType.parser.js";
+import { formatContentType } from "./httpContentType.formatter.js";
 
 export function normalizeContentType(
-  value:
-    | string
-    | ContentType
-    | undefined
-    | null,
+  value: string | ContentType | undefined | null,
 ): string | undefined {
-  if (
-    value === undefined ||
-    value === null
-  ) {
+  if (value === undefined || value === null) {
     return undefined;
   }
 
@@ -30,8 +17,7 @@ export function normalizeContentType(
     return formatContentType(value);
   }
 
-  const parsed =
-    parseContentType(value);
+  const parsed = parseContentType(value);
 
   if (!parsed) {
     return undefined;
@@ -41,23 +27,13 @@ export function normalizeContentType(
 }
 
 export function getMediaType(
-  value:
-    | string
-    | ContentType
-    | undefined
-    | null,
+  value: string | ContentType | undefined | null,
 ): string | undefined {
-  if (
-    value === undefined ||
-    value === null
-  ) {
+  if (value === undefined || value === null) {
     return undefined;
   }
 
-  const parsed =
-    typeof value === "string"
-      ? parseContentType(value)
-      : value;
+  const parsed = typeof value === "string" ? parseContentType(value) : value;
 
   if (!parsed) {
     return undefined;

@@ -5,7 +5,10 @@ import type { EventBus } from "@oyinlola141/lattice-events";
 import { NotFoundError, ForbiddenError } from "../../../../errors/index.js";
 import { ArticleDeletedEvent } from "../../../../events/index.js";
 
-export class DeleteArticleHandler extends CommandHandler<DeleteArticleCommand, void> {
+export class DeleteArticleHandler extends CommandHandler<
+  DeleteArticleCommand,
+  void
+> {
   public readonly commandType = "articles.delete" as const;
 
   private readonly articles: ArticleRepository;

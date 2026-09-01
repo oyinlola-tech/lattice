@@ -1,20 +1,13 @@
-import type {
-  RuntimeErrorOptions,
-} from "./runtimeError.type.js";
+import type { RuntimeErrorOptions } from "./runtimeError.type.js";
 
-import {
-  RuntimeErrorCode,
-} from "./runtimeError.type.js";
+import { RuntimeErrorCode } from "./runtimeError.type.js";
 
-import {
-  RuntimeError,
-} from "./runtimeError.base.js";
+import { RuntimeError } from "./runtimeError.base.js";
 
 /**
  * Error thrown when a runtime operation times out.
  */
-export class RuntimeTimeoutError
-  extends RuntimeError {
+export class RuntimeTimeoutError extends RuntimeError {
   public readonly timeoutMs: number;
 
   public constructor(
@@ -39,25 +32,21 @@ export class RuntimeTimeoutError
 /**
  * Error thrown when a runtime dependency is unavailable.
  */
-export class RuntimeDependencyError
-  extends RuntimeError {
+export class RuntimeDependencyError extends RuntimeError {
   public readonly dependency: string;
 
   public constructor(
     dependency: string,
     options: Omit<RuntimeErrorOptions, "code"> = {},
   ) {
-    super(
-      `Required runtime dependency "${dependency}" is not available.`,
-      {
-        ...options,
-        code: RuntimeErrorCode.MISSING_DEPENDENCY,
-        metadata: {
-          ...(options.metadata ?? {}),
-          dependency,
-        },
+    super(`Required runtime dependency "${dependency}" is not available.`, {
+      ...options,
+      code: RuntimeErrorCode.MISSING_DEPENDENCY,
+      metadata: {
+        ...(options.metadata ?? {}),
+        dependency,
       },
-    );
+    });
 
     this.name = "RuntimeDependencyError";
     this.dependency = dependency;
@@ -67,8 +56,7 @@ export class RuntimeDependencyError
 /**
  * Error thrown when the runtime is not ready.
  */
-export class RuntimeNotReadyError
-  extends RuntimeError {
+export class RuntimeNotReadyError extends RuntimeError {
   public constructor(
     message: string = "Runtime is not ready.",
     options: Omit<RuntimeErrorOptions, "code"> = {},
@@ -85,23 +73,19 @@ export class RuntimeNotReadyError
 /**
  * Error thrown when a runtime operation is unsupported.
  */
-export class RuntimeUnsupportedOperationError
-  extends RuntimeError {
+export class RuntimeUnsupportedOperationError extends RuntimeError {
   public constructor(
     operation: string,
     options: Omit<RuntimeErrorOptions, "code"> = {},
   ) {
-    super(
-      `Runtime operation "${operation}" is not supported.`,
-      {
-        ...options,
-        code: RuntimeErrorCode.UNSUPPORTED_OPERATION,
-        metadata: {
-          ...(options.metadata ?? {}),
-          operation,
-        },
+    super(`Runtime operation "${operation}" is not supported.`, {
+      ...options,
+      code: RuntimeErrorCode.UNSUPPORTED_OPERATION,
+      metadata: {
+        ...(options.metadata ?? {}),
+        operation,
       },
-    );
+    });
 
     this.name = "RuntimeUnsupportedOperationError";
   }
@@ -110,8 +94,7 @@ export class RuntimeUnsupportedOperationError
 /**
  * Error thrown when a runtime operation is cancelled.
  */
-export class RuntimeCancellationError
-  extends RuntimeError {
+export class RuntimeCancellationError extends RuntimeError {
   public constructor(
     message: string = "Runtime operation was cancelled.",
     options: Omit<RuntimeErrorOptions, "code"> = {},

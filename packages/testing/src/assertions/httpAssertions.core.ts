@@ -18,9 +18,7 @@ export function assertResponseStatus(
   expected: HTTPStatusCode,
 ): void {
   if (response.status !== expected) {
-    throw new Error(
-      `Expected status ${expected}, got ${response.status}.`,
-    );
+    throw new Error(`Expected status ${expected}, got ${response.status}.`);
   }
 }
 
@@ -59,9 +57,7 @@ export function assertResponseBody(
   const expectedJson = JSON.stringify(expected);
 
   if (actualJson !== expectedJson) {
-    throw new Error(
-      `Expected body ${expectedJson}, got ${actualJson}.`,
-    );
+    throw new Error(`Expected body ${expectedJson}, got ${actualJson}.`);
   }
 }
 

@@ -1,7 +1,5 @@
 import type { LoggerContext } from "../core/loggerContext.context.js";
-import {
-  ConsoleLogger,
-} from "./consoleLogger.logger.js";
+import { ConsoleLogger } from "./consoleLogger.logger.js";
 import type { Logger, LogContext } from "../core/logger.js";
 import type { LoggerOptions } from "../core/loggerOptions.options.js";
 
@@ -11,14 +9,12 @@ import type { LoggerOptions } from "../core/loggerOptions.options.js";
  * Additional implementations can be added later without changing
  * the Logger contract.
  */
-export type LoggerImplementation =
-  | "console";
+export type LoggerImplementation = "console";
 
 /**
  * Configuration used when creating a logger.
  */
-export interface LoggerFactoryOptions
-  extends LoggerOptions {
+export interface LoggerFactoryOptions extends LoggerOptions {
   /**
    * Logger implementation to use.
    *
@@ -41,20 +37,14 @@ export class LoggerFactory {
     options: LoggerFactoryOptions = {},
     context: LoggerContext = {},
   ): Logger {
-    const implementation =
-      options.implementation ?? "console";
+    const implementation = options.implementation ?? "console";
 
     switch (implementation) {
       case "console":
-        return new ConsoleLogger(
-          options,
-          context,
-        );
+        return new ConsoleLogger(options, context);
 
       default:
-        return this.unsupportedImplementation(
-          implementation,
-        );
+        return this.unsupportedImplementation(implementation);
     }
   }
 
@@ -64,23 +54,16 @@ export class LoggerFactory {
    * This is useful when framework components need to add
    * module-specific or operation-specific context.
    */
-  public child(
-    logger: Logger,
-    context: LoggerContext,
-  ): Logger {
+  public child(logger: Logger, context: LoggerContext): Logger {
     return logger.child(context as LogContext);
   }
 
   /**
    * Handles unsupported logger implementations.
    */
-  private unsupportedImplementation(
-    implementation: never,
-  ): never {
+  private unsupportedImplementation(implementation: never): never {
     throw new Error(
-      `Unsupported logger implementation: ${String(
-        implementation,
-      )}`,
+      `Unsupported logger implementation: ${String(implementation)}`,
     );
   }
 }

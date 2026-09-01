@@ -8,9 +8,7 @@ export {
   createRuntimeOptions,
 } from "./runtimeOptions.core.js";
 
-export {
-  DEFAULT_RUNTIME_OPTIONS,
-} from "./runtimeOptions.type.js";
+export { DEFAULT_RUNTIME_OPTIONS } from "./runtimeOptions.type.js";
 
 export type {
   RuntimeOptions,

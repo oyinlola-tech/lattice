@@ -74,14 +74,21 @@ export class CLIHelpGenerator {
   }
 
   /** Generates command-level help text. */
-  public generateCommand(command: CLICommand, options: CLIHelpOptions = {}): string {
+  public generateCommand(
+    command: CLICommand,
+    options: CLIHelpOptions = {},
+  ): string {
     const lines: string[] = [];
     const name = options.name ?? this.name;
 
     lines.push(formatTitle(`${name} ${command.name}`));
     if (command.description) lines.push(command.description);
 
-    lines.push("", CLI_HELP.USAGE, `  ${name} ${command.name}${formatUsageSuffix(command)}`);
+    lines.push(
+      "",
+      CLI_HELP.USAGE,
+      `  ${name} ${command.name}${formatUsageSuffix(command)}`,
+    );
 
     if (command.aliases?.length) {
       lines.push("", CLI_HELP.ALIASES, formatAliases(command.aliases));
@@ -108,7 +115,9 @@ export class CLIHelpGenerator {
 /* -------------------------------------------------------------------------- */
 
 /** Creates a help generator. */
-export function createHelpGenerator(options: CLIHelpOptions = {}): CLIHelpGenerator {
+export function createHelpGenerator(
+  options: CLIHelpOptions = {},
+): CLIHelpGenerator {
   return new CLIHelpGenerator(options);
 }
 

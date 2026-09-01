@@ -35,5 +35,7 @@ export function loadModules(config: ModuleLoaderConfig): void {
   });
   logger.info("  - enrollment module registered");
 
-  logger.info(`All modules registered (${config.commandBus.size()} command handlers)`);
+  logger.info(
+    `All modules registered (${config.commandBus.size()} command handlers)`,
+  );
 }

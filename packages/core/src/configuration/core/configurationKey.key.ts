@@ -41,16 +41,11 @@ export interface ConfigurationKey<T> {
  * It only describes where that value can be found and what
  * type the caller expects it to have.
  */
-export function createConfigurationKey<T>(
-  path: string,
-): ConfigurationKey<T> {
-  const normalizedPath =
-    normalizeConfigurationPath(path);
+export function createConfigurationKey<T>(path: string): ConfigurationKey<T> {
+  const normalizedPath = normalizeConfigurationPath(path);
 
   if (!normalizedPath) {
-    throw new Error(
-      "Configuration key path cannot be empty.",
-    );
+    throw new Error("Configuration key path cannot be empty.");
   }
 
   return Object.freeze({
@@ -62,16 +57,10 @@ export function createConfigurationKey<T>(
 /**
  * Normalizes a configuration path.
  */
-function normalizeConfigurationPath(
-  path: string,
-): string {
+function normalizeConfigurationPath(path: string): string {
   if (typeof path !== "string") {
-    throw new TypeError(
-      "Configuration key path must be a string.",
-    );
+    throw new TypeError("Configuration key path must be a string.");
   }
 
-  return path
-    .trim()
-    .replace(/\s+/g, "");
+  return path.trim().replace(/\s+/g, "");
 }

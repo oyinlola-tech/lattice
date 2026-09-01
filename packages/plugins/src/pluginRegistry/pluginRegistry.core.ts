@@ -2,7 +2,11 @@ import type { Plugin } from "../pluginTypes/plugin.type.js";
 import type { PluginMetadata } from "../pluginTypes/pluginMetadata.type.js";
 import type { PluginDependency } from "../pluginTypes/pluginDependency.type.js";
 import type { PluginState } from "../pluginTypes/pluginState.type.js";
-import { PluginAlreadyRegisteredError, PluginNotFoundError, PluginStateError } from "@oyinlola141/lattice-errors";
+import {
+  PluginAlreadyRegisteredError,
+  PluginNotFoundError,
+  PluginStateError,
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Internal representation of a registered plugin.
@@ -25,9 +29,14 @@ export interface RegisteredPlugin<TPlugin extends Plugin = Plugin> {
  * Plugin registry interface.
  */
 export interface PluginRegistry {
-  register<TPlugin extends Plugin>(plugin: TPlugin, options?: TPlugin extends Plugin<infer TOptions> ? TOptions : unknown): void;
+  register<TPlugin extends Plugin>(
+    plugin: TPlugin,
+    options?: TPlugin extends Plugin<infer TOptions> ? TOptions : unknown,
+  ): void;
 
-  get<TPlugin extends Plugin>(name: string): RegisteredPlugin<TPlugin> | undefined;
+  get<TPlugin extends Plugin>(
+    name: string,
+  ): RegisteredPlugin<TPlugin> | undefined;
 
   has(name: string): boolean;
 
@@ -72,7 +81,9 @@ export class PluginRegistryImpl implements PluginRegistry {
     this.plugins.set(name, registered);
   }
 
-  public get<TPlugin extends Plugin>(name: string): RegisteredPlugin<TPlugin> | undefined {
+  public get<TPlugin extends Plugin>(
+    name: string,
+  ): RegisteredPlugin<TPlugin> | undefined {
     return this.plugins.get(name) as RegisteredPlugin<TPlugin> | undefined;
   }
 

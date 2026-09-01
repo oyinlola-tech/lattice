@@ -2,17 +2,11 @@
  * Types for dependency resolution.
  */
 
-import type {
-  ContainerRegistration,
-} from "../containerRegistration/containerRegistration.core.js";
+import type { ContainerRegistration } from "../containerRegistration/containerRegistration.core.js";
 
-import type {
-  ContainerScope,
-} from "../containerScope/containerScope.type.js";
+import type { ContainerScope } from "../containerScope/containerScope.type.js";
 
-import type {
-  Token,
-} from "../containerToken/containerToken.type.js";
+import type { Token } from "../containerToken/containerToken.type.js";
 
 /**
  * A cache containing resolved dependency instances.

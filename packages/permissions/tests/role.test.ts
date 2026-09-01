@@ -1,8 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  createRoleRegistry,
-  resolveRolePermissions,
-} from "../src/index.js";
+import { createRoleRegistry, resolveRolePermissions } from "../src/index.js";
 
 describe("createRoleRegistry", () => {
   it("registers and retrieves roles", () => {
@@ -14,18 +11,24 @@ describe("createRoleRegistry", () => {
 
   it("throws on empty name", () => {
     const registry = createRoleRegistry();
-    expect(() => registry.define({ name: "", permissions: ["post:read"] })).toThrow("Role name cannot be empty");
+    expect(() =>
+      registry.define({ name: "", permissions: ["post:read"] }),
+    ).toThrow("Role name cannot be empty");
   });
 
   it("throws on empty permissions", () => {
     const registry = createRoleRegistry();
-    expect(() => registry.define({ name: "admin", permissions: [] })).toThrow("must have at least one permission");
+    expect(() => registry.define({ name: "admin", permissions: [] })).toThrow(
+      "must have at least one permission",
+    );
   });
 
   it("throws on duplicate", () => {
     const registry = createRoleRegistry();
     registry.define({ name: "admin", permissions: ["*:*"] });
-    expect(() => registry.define({ name: "admin", permissions: ["post:read"] })).toThrow("Duplicate role");
+    expect(() =>
+      registry.define({ name: "admin", permissions: ["post:read"] }),
+    ).toThrow("Duplicate role");
   });
 
   it("allows override when configured", () => {
@@ -67,7 +70,14 @@ describe("createRoleRegistry", () => {
 describe("resolveRolePermissions", () => {
   const roles = new Map([
     ["admin", { name: "admin", permissions: ["*:*"], inherits: ["editor"] }],
-    ["editor", { name: "editor", permissions: ["post:read", "post:update"], inherits: ["reader"] }],
+    [
+      "editor",
+      {
+        name: "editor",
+        permissions: ["post:read", "post:update"],
+        inherits: ["reader"],
+      },
+    ],
     ["reader", { name: "reader", permissions: ["post:read"] }],
   ]);
 
@@ -98,7 +108,9 @@ describe("resolveRolePermissions", () => {
   });
 
   it("throws on missing role", () => {
-    expect(() => resolveRolePermissions(["nonexistent"], getRole)).toThrow("Role not found");
+    expect(() => resolveRolePermissions(["nonexistent"], getRole)).toThrow(
+      "Role not found",
+    );
   });
 
   it("throws on circular inheritance", () => {
@@ -106,7 +118,9 @@ describe("resolveRolePermissions", () => {
       ["a", { name: "a", permissions: ["a:read"], inherits: ["b"] }],
       ["b", { name: "b", permissions: ["b:read"], inherits: ["a"] }],
     ]);
-    expect(() => resolveRolePermissions(["a"], (n) => circular.get(n))).toThrow("Circular role inheritance");
+    expect(() => resolveRolePermissions(["a"], (n) => circular.get(n))).toThrow(
+      "Circular role inheritance",
+    );
   });
 
   it("returns empty for empty input", () => {

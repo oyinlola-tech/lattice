@@ -4,7 +4,9 @@ export interface CleanupDraftsJobConfig {
   readonly logger: Logger;
 }
 
-export async function cleanupDraftsJob(config: CleanupDraftsJobConfig): Promise<void> {
+export async function cleanupDraftsJob(
+  config: CleanupDraftsJobConfig,
+): Promise<void> {
   const { logger } = config;
   logger.info("[Job] Cleaning up old draft articles...");
   // In a real application, this would query the database

@@ -5,7 +5,16 @@
  */
 
 /** Type-safe HTTP method string. */
-export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD" | "OPTIONS" | "TRACE" | "CONNECT";
+export type HttpMethod =
+  | "GET"
+  | "POST"
+  | "PUT"
+  | "PATCH"
+  | "DELETE"
+  | "HEAD"
+  | "OPTIONS"
+  | "TRACE"
+  | "CONNECT";
 
 /**
  * All supported HTTP methods as an object map for runtime use.
@@ -35,11 +44,12 @@ export const SAFE_HTTP_METHODS: ReadonlySet<HttpMethod> = new Set<HttpMethod>([
 ]);
 
 /** HTTP methods that are idempotent. */
-export const IDEMPOTENT_HTTP_METHODS: ReadonlySet<HttpMethod> = new Set<HttpMethod>([
-  HttpMethods.GET as HttpMethod,
-  HttpMethods.HEAD as HttpMethod,
-  HttpMethods.PUT as HttpMethod,
-  HttpMethods.DELETE as HttpMethod,
-  HttpMethods.OPTIONS as HttpMethod,
-  HttpMethods.TRACE as HttpMethod,
-]);
+export const IDEMPOTENT_HTTP_METHODS: ReadonlySet<HttpMethod> =
+  new Set<HttpMethod>([
+    HttpMethods.GET as HttpMethod,
+    HttpMethods.HEAD as HttpMethod,
+    HttpMethods.PUT as HttpMethod,
+    HttpMethods.DELETE as HttpMethod,
+    HttpMethods.OPTIONS as HttpMethod,
+    HttpMethods.TRACE as HttpMethod,
+  ]);

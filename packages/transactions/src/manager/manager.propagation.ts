@@ -31,7 +31,9 @@ export async function handlePropagation(
       const newTxn = createTransaction(opts);
       if (hooks?.beforeBegin) await hooks.beforeBegin({ transaction: newTxn });
       const handle = await adapter.begin(opts);
-      (newTxn as unknown as { _setHandle: (h: unknown) => void })._setHandle(handle);
+      (newTxn as unknown as { _setHandle: (h: unknown) => void })._setHandle(
+        handle,
+      );
       if (hooks?.afterBegin) await hooks.afterBegin({ transaction: newTxn });
       return newTxn;
     }
@@ -46,13 +48,17 @@ export async function handlePropagation(
       return current;
 
     case "never":
-      throw new TransactionPropagationError("Transaction exists but propagation is 'never'");
+      throw new TransactionPropagationError(
+        "Transaction exists but propagation is 'never'",
+      );
 
     case "nested":
       return createNestedTransaction(current, opts, adapter);
 
     default:
-      throw new TransactionPropagationError(`Unknown propagation: ${propagation}`);
+      throw new TransactionPropagationError(
+        `Unknown propagation: ${propagation}`,
+      );
   }
 }
 
@@ -65,15 +71,22 @@ async function createNestedTransaction(
   adapter: TransactionAdapter,
 ): Promise<Transaction> {
   if (!adapter.capabilities.savepoints || !adapter.createSavepoint) {
-    throw new TransactionPropagationError("Nested transactions require savepoint support");
+    throw new TransactionPropagationError(
+      "Nested transactions require savepoint support",
+    );
   }
 
   const child = createTransaction(opts, parent.id);
   const savepointName = `sp_${child.id}`;
 
-  const handle = (parent as unknown as { _getHandle: () => unknown })._getHandle();
+  const handle = (
+    parent as unknown as { _getHandle: () => unknown }
+  )._getHandle();
   await adapter.createSavepoint(handle, savepointName);
-  (child as unknown as { _setHandle: (h: unknown) => void })._setHandle({ parent: handle, savepoint: savepointName });
+  (child as unknown as { _setHandle: (h: unknown) => void })._setHandle({
+    parent: handle,
+    savepoint: savepointName,
+  });
 
   return child;
 }

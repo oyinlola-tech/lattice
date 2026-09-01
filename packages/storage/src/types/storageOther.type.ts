@@ -48,7 +48,13 @@ export interface LockManager {
 }
 
 /** Storage lifecycle phases. */
-export type StorageLifecyclePhase = "uninitialized" | "initializing" | "ready" | "draining" | "drained" | "shutdown";
+export type StorageLifecyclePhase =
+  | "uninitialized"
+  | "initializing"
+  | "ready"
+  | "draining"
+  | "drained"
+  | "shutdown";
 
 /** Lifecycle hooks for storage components. */
 export interface StorageLifecycle {

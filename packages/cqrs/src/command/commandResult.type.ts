@@ -1,13 +1,9 @@
-import type {
-  Command,
-} from "../cqrsTypes/cqrsTypes.type.js";
+import type { Command } from "../cqrsTypes/cqrsTypes.type.js";
 
 /**
  * Status of a command execution.
  */
-export type CommandResultStatus =
-  | "success"
-  | "failure";
+export type CommandResultStatus = "success" | "failure";
 
 /**
  * Result returned after command execution.
@@ -25,9 +21,7 @@ export interface CommandResult<
   readonly commandType: TCommand["type"];
   readonly executedAt: Date;
   readonly durationMs?: number;
-  readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -39,56 +33,34 @@ export interface CreateCommandResultOptions<
   readonly command: TCommand;
   readonly executedAt?: Date;
   readonly durationMs?: number;
-  readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
  * Creates a successful command result.
  */
-export function createCommandResult<
-  TResult,
-  TCommand extends Command,
->(
+export function createCommandResult<TResult, TCommand extends Command>(
   result: TResult,
   options: CreateCommandResultOptions<TCommand>,
-): CommandResult<
-  TResult,
-  TCommand
-> {
-  const command =
-    options.command;
+): CommandResult<TResult, TCommand> {
+  const command = options.command;
 
-  validateCommand(
-    command,
-  );
+  validateCommand(command);
 
-  const commandResult:
-    CommandResult<
-      TResult,
-      TCommand
-    > = {
+  const commandResult: CommandResult<TResult, TCommand> = {
     status: "success",
     result,
-    commandType:
-      command.type,
-    executedAt:
-      options.executedAt ??
-      new Date(),
-    durationMs:
-      options.durationMs,
-    metadata:
-      options.metadata
-        ? Object.freeze({
-            ...options.metadata,
-          })
-        : undefined,
+    commandType: command.type,
+    executedAt: options.executedAt ?? new Date(),
+    durationMs: options.durationMs,
+    metadata: options.metadata
+      ? Object.freeze({
+          ...options.metadata,
+        })
+      : undefined,
   };
 
-  return Object.freeze(
-    commandResult,
-  );
+  return Object.freeze(commandResult);
 }
 
 /**
@@ -103,42 +75,25 @@ export function createFailedCommandResult<
 >(
   result: TResult,
   options: CreateCommandResultOptions<TCommand>,
-): CommandResult<
-  TResult,
-  TCommand
-> {
-  const command =
-    options.command;
+): CommandResult<TResult, TCommand> {
+  const command = options.command;
 
-  validateCommand(
-    command,
-  );
+  validateCommand(command);
 
-  const commandResult:
-    CommandResult<
-      TResult,
-      TCommand
-    > = {
+  const commandResult: CommandResult<TResult, TCommand> = {
     status: "failure",
     result,
-    commandType:
-      command.type,
-    executedAt:
-      options.executedAt ??
-      new Date(),
-    durationMs:
-      options.durationMs,
-    metadata:
-      options.metadata
-        ? Object.freeze({
-            ...options.metadata,
-          })
-        : undefined,
+    commandType: command.type,
+    executedAt: options.executedAt ?? new Date(),
+    durationMs: options.durationMs,
+    metadata: options.metadata
+      ? Object.freeze({
+          ...options.metadata,
+        })
+      : undefined,
   };
 
-  return Object.freeze(
-    commandResult,
-  );
+  return Object.freeze(commandResult);
 }
 
 /**
@@ -147,14 +102,8 @@ export function createFailedCommandResult<
 export function isSuccessfulCommandResult<
   TResult,
   TCommand extends Command = Command,
->(
-  result: CommandResult<
-    TResult,
-    TCommand
-  >,
-): boolean {
-  return result.status ===
-    "success";
+>(result: CommandResult<TResult, TCommand>): boolean {
+  return result.status === "success";
 }
 
 /**
@@ -163,14 +112,8 @@ export function isSuccessfulCommandResult<
 export function isFailedCommandResult<
   TResult,
   TCommand extends Command = Command,
->(
-  result: CommandResult<
-    TResult,
-    TCommand
-  >,
-): boolean {
-  return result.status ===
-    "failure";
+>(result: CommandResult<TResult, TCommand>): boolean {
+  return result.status === "failure";
 }
 
 /**
@@ -179,12 +122,7 @@ export function isFailedCommandResult<
 export function unwrapCommandResult<
   TResult,
   TCommand extends Command = Command,
->(
-  result: CommandResult<
-    TResult,
-    TCommand
-  >,
-): TResult {
+>(result: CommandResult<TResult, TCommand>): TResult {
   return result.result;
 }
 
@@ -195,59 +133,31 @@ export function withCommandResultMetadata<
   TResult,
   TCommand extends Command = Command,
 >(
-  result: CommandResult<
-    TResult,
-    TCommand
-  >,
-  metadata: Readonly<
-    Record<string, unknown>
-  >,
-): CommandResult<
-  TResult,
-  TCommand
-> {
-  const merged:
-    CommandResult<
-      TResult,
-      TCommand
-    > = {
+  result: CommandResult<TResult, TCommand>,
+  metadata: Readonly<Record<string, unknown>>,
+): CommandResult<TResult, TCommand> {
+  const merged: CommandResult<TResult, TCommand> = {
     ...result,
     metadata: Object.freeze({
-      ...(result.metadata ??
-        {}),
+      ...(result.metadata ?? {}),
       ...metadata,
     }),
   };
 
-  return Object.freeze(
-    merged,
-  );
+  return Object.freeze(merged);
 }
 
 /**
  * Validates the command portion of a command result.
  */
-function validateCommand(
-  command: Command,
-): void {
-  if (
-    !command ||
-    typeof command !==
-      "object"
-  ) {
+function validateCommand(command: Command): void {
+  if (!command || typeof command !== "object") {
     throw new TypeError(
       "A valid command is required to create a command result.",
     );
   }
 
-  if (
-    typeof command.type !==
-      "string" ||
-    command.type.trim()
-      .length === 0
-  ) {
-    throw new TypeError(
-      "Command type is required to create a command result.",
-    );
+  if (typeof command.type !== "string" || command.type.trim().length === 0) {
+    throw new TypeError("Command type is required to create a command result.");
   }
 }

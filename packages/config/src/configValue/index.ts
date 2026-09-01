@@ -4,4 +4,4 @@
  * Configuration value types, paths, and accessors.
  */
 
-export * from './configValue.core.js';
+export * from "./configValue.core.js";

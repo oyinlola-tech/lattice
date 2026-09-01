@@ -10,7 +10,11 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import { MemoryCacheAdapter, createMemoryCacheAdapter } from "../src/memory.js";
 import { DefaultCacheStore, createCacheStore } from "../src/store.js";
 import { createCacheMetrics } from "../src/metrics.js";
-import type { CacheMiddleware, CacheEvent, CacheEventHandler } from "../src/types.js";
+import type {
+  CacheMiddleware,
+  CacheEvent,
+  CacheEventHandler,
+} from "../src/types.js";
 
 let adapter: MemoryCacheAdapter;
 let store: DefaultCacheStore;
@@ -93,7 +97,10 @@ describe("DefaultCacheStore — getMany", () => {
 
 describe("DefaultCacheStore — setMany", () => {
   it("sets multiple entries", async () => {
-    const entries = new Map([["a", 1], ["b", 2]]);
+    const entries = new Map([
+      ["a", 1],
+      ["b", 2],
+    ]);
     const results = await store.setMany(entries, { ttl: 5000 });
     expect(results).toHaveLength(2);
     expect(results.every((r) => r.success)).toBe(true);

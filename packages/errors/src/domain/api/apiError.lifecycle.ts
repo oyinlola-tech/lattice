@@ -15,8 +15,12 @@ export class APIRateLimitError extends APIError {
     options: { endpoint?: string; method?: string } = {},
   ) {
     super(message, {
-      code: ErrorCode.RATE_LIMITED, endpoint: options.endpoint, method: options.method,
-      metadata: { retryAfter }, statusCode: 429, expose: true,
+      code: ErrorCode.RATE_LIMITED,
+      endpoint: options.endpoint,
+      method: options.method,
+      metadata: { retryAfter },
+      statusCode: 429,
+      expose: true,
     });
     this.retryAfter = retryAfter;
   }
@@ -31,8 +35,12 @@ export class APITimeoutError extends APIError {
     options: { endpoint?: string; method?: string } = {},
   ) {
     super(`API operation timed out after ${timeoutMs}ms.`, {
-      code: ErrorCode.TIMEOUT, endpoint: options.endpoint, method: options.method,
-      metadata: { timeoutMs }, statusCode: 504, expose: false,
+      code: ErrorCode.TIMEOUT,
+      endpoint: options.endpoint,
+      method: options.method,
+      metadata: { timeoutMs },
+      statusCode: 504,
+      expose: false,
     });
     this.timeoutMs = timeoutMs;
   }
@@ -45,8 +53,11 @@ export class APIUnavailableError extends APIError {
     options: { endpoint?: string; method?: string } = {},
   ) {
     super(message, {
-      code: ErrorCode.SERVICE_UNAVAILABLE, endpoint: options.endpoint, method: options.method,
-      statusCode: 503, expose: true,
+      code: ErrorCode.SERVICE_UNAVAILABLE,
+      endpoint: options.endpoint,
+      method: options.method,
+      statusCode: 503,
+      expose: true,
     });
   }
 }
@@ -58,19 +69,28 @@ export class APIInternalError extends APIError {
     options: { endpoint?: string; method?: string } = {},
   ) {
     super(message, {
-      code: ErrorCode.INTERNAL_ERROR, endpoint: options.endpoint, method: options.method,
-      statusCode: 500, expose: false, isOperational: false,
+      code: ErrorCode.INTERNAL_ERROR,
+      endpoint: options.endpoint,
+      method: options.method,
+      statusCode: 500,
+      expose: false,
+      isOperational: false,
     });
   }
 }
 
 /** Error thrown when an API idempotency check fails. */
 export class APIIdempotencyError extends APIError {
-  constructor(message: string, options: { endpoint?: string; method?: string } = {}) {
+  constructor(
+    message: string,
+    options: { endpoint?: string; method?: string } = {},
+  ) {
     super(message, {
       code: ErrorCode.API_IDEMPOTENCY,
-      endpoint: options.endpoint, method: options.method,
-      statusCode: 409, expose: true,
+      endpoint: options.endpoint,
+      method: options.method,
+      statusCode: 409,
+      expose: true,
     });
   }
 }

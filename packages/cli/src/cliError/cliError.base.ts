@@ -8,7 +8,10 @@
 
 import { ApplicationError } from "@oyinlola141/lattice-errors";
 import type { BaseErrorOptions } from "@oyinlola141/lattice-errors";
-import { CLI_ERROR_CODES, CLI_EXIT_CODES } from "../cliConstant/cliConstant.value.js";
+import {
+  CLI_ERROR_CODES,
+  CLI_EXIT_CODES,
+} from "../cliConstant/cliConstant.value.js";
 import type { CLIErrorCode } from "../cliConstant/cliConstant.value.js";
 
 /* -------------------------------------------------------------------------- */

@@ -7,7 +7,10 @@ export interface Route {
   readonly handler: (body: any, params: any) => Promise<unknown>;
 }
 
-export function createTopicRoutes(commandBus: CommandBus, queryBus: QueryBus): readonly Route[] {
+export function createTopicRoutes(
+  commandBus: CommandBus,
+  queryBus: QueryBus,
+): readonly Route[] {
   const controller = new TopicController(commandBus, queryBus);
 
   return [
@@ -29,7 +32,8 @@ export function createTopicRoutes(commandBus: CommandBus, queryBus: QueryBus): r
     {
       method: "POST",
       path: "/topics/:id/follow",
-      handler: async (body: any, params: any) => controller.follow({ userId: body.userId, topicId: params.id }),
+      handler: async (body: any, params: any) =>
+        controller.follow({ userId: body.userId, topicId: params.id }),
     },
   ];
 }

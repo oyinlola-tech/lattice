@@ -27,22 +27,19 @@ export type EventId = BaseEventId;
  * "module.loaded"
  * "runtime.started"
  */
-export type EventType =
-  string;
+export type EventType = string;
 
 /**
  * Event timestamp.
  */
-export type EventTimestamp =
-  Date;
+export type EventTimestamp = Date;
 
 /**
  * Event source identifier.
  *
  * Identifies the subsystem that produced the event.
  */
-export type EventSource =
-  string;
+export type EventSource = string;
 
 /**
  * Correlation identifier.
@@ -58,14 +55,12 @@ export type EventCorrelationId = BaseCorrelationId;
  *
  * Identifies the event or operation that caused this event.
  */
-export type EventCausationId =
-  string;
+export type EventCausationId = string;
 
 /**
  * Generic event payload.
  */
-export type EventPayload =
-  unknown;
+export type EventPayload = unknown;
 
 /**
  * Base event contract.
@@ -73,116 +68,91 @@ export type EventPayload =
  * Every Lattice event must contain a type, unique identifier,
  * timestamp, and payload.
  */
-export interface Event<
-  TPayload = EventPayload,
-> {
+export interface Event<TPayload = EventPayload> {
   /**
    * Unique event identifier.
    */
-  readonly id:
-    EventId;
+  readonly id: EventId;
 
   /**
    * Event type.
    */
-  readonly type:
-    EventType;
+  readonly type: EventType;
 
   /**
    * Event payload.
    */
-  readonly payload:
-    TPayload;
+  readonly payload: TPayload;
 
   /**
    * Time at which the event was created.
    */
-  readonly timestamp:
-    EventTimestamp;
+  readonly timestamp: EventTimestamp;
 
   /**
    * Optional source subsystem.
    */
-  readonly source?:
-    EventSource;
+  readonly source?: EventSource;
 
   /**
    * Optional correlation identifier.
    */
-  readonly correlationId?:
-    EventCorrelationId;
+  readonly correlationId?: EventCorrelationId;
 
   /**
    * Optional causation identifier.
    */
-  readonly causationId?:
-    EventCausationId;
+  readonly causationId?: EventCausationId;
 
   /**
    * Optional event metadata.
    */
-  readonly metadata?:
-    Readonly<
-      Record<string, unknown>
-    >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
  * Input used to create an event.
  */
-export interface EventInput<
-  TPayload = EventPayload,
-> {
+export interface EventInput<TPayload = EventPayload> {
   /**
    * Optional event identifier.
    */
-  readonly id?:
-    EventId;
+  readonly id?: EventId;
 
   /**
    * Event type.
    */
-  readonly type:
-    EventType;
+  readonly type: EventType;
 
   /**
    * Event payload.
    */
-  readonly payload:
-    TPayload;
+  readonly payload: TPayload;
 
   /**
    * Optional timestamp.
    */
-  readonly timestamp?:
-    EventTimestamp |
-    number;
+  readonly timestamp?: EventTimestamp | number;
 
   /**
    * Optional source subsystem.
    */
-  readonly source?:
-    EventSource;
+  readonly source?: EventSource;
 
   /**
    * Optional correlation identifier.
    */
-  readonly correlationId?:
-    EventCorrelationId;
+  readonly correlationId?: EventCorrelationId;
 
   /**
    * Optional causation identifier.
    */
-  readonly causationId?:
-    EventCausationId;
+  readonly causationId?: EventCausationId;
 
   /**
    * Optional event metadata.
    */
-  readonly metadata?:
-    Readonly<
-      Record<string, unknown>
-    >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -194,52 +164,29 @@ export interface EventDefinition<
   TType extends EventType = EventType,
   TPayload = EventPayload,
 > {
-  readonly type:
-    TType;
+  readonly type: TType;
 
-  readonly create:
-    (
-      payload:
-        TPayload,
-      options?:
-        Omit<
-          EventInput<TPayload>,
-          "type" | "payload"
-        >,
-    ) =>
-      Event<TPayload>;
+  readonly create: (
+    payload: TPayload,
+    options?: Omit<EventInput<TPayload>, "type" | "payload">,
+  ) => Event<TPayload>;
 }
 
 /**
  * Determines whether an unknown value satisfies the Event
  * contract.
  */
-export function isEvent(
-  value:
-    unknown,
-):
-  value is Event {
-  if (
-    typeof value !==
-      "object" ||
-    value === null
-  ) {
+export function isEvent(value: unknown): value is Event {
+  if (typeof value !== "object" || value === null) {
     return false;
   }
 
-  const candidate =
-    value as Record<
-      string,
-      unknown
-    >;
+  const candidate = value as Record<string, unknown>;
 
   return (
-    typeof candidate.id ===
-      "string" &&
-    typeof candidate.type ===
-      "string" &&
-    candidate.timestamp instanceof
-      Date &&
+    typeof candidate.id === "string" &&
+    typeof candidate.type === "string" &&
+    candidate.timestamp instanceof Date &&
     "payload" in candidate
   );
 }
@@ -248,10 +195,8 @@ export function isEvent(
  * Creates a unique event identifier.
  * Returns a branded EventId type from @oyinlola141/lattice-constants.
  */
-export function createEventId():
-  EventId {
-  const uuid =
-    createUuid();
+export function createEventId(): EventId {
+  const uuid = createUuid();
 
   return `event:${uuid}` as EventId;
 }
@@ -259,65 +204,36 @@ export function createEventId():
 /**
  * Generates a UUID when available.
  */
-function createUuid():
-  string {
+function createUuid(): string {
   if (
-    typeof crypto !==
-      "undefined" &&
-    typeof crypto.randomUUID ===
-      "function"
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
   ) {
     return crypto.randomUUID();
   }
 
   return [
-    Date.now()
-      .toString(36),
+    Date.now().toString(36),
 
-    Math.random()
-      .toString(36)
-      .slice(2),
+    Math.random().toString(36).slice(2),
 
-    Math.random()
-      .toString(36)
-      .slice(2),
+    Math.random().toString(36).slice(2),
   ].join("-");
 }
 
 /**
  * Normalizes an event timestamp.
  */
-function normalizeTimestamp(
-  timestamp:
-    EventInput["timestamp"],
-):
-  Date {
-  if (
-    timestamp instanceof
-      Date
-  ) {
-    return new Date(
-      timestamp.getTime(),
-    );
+function normalizeTimestamp(timestamp: EventInput["timestamp"]): Date {
+  if (timestamp instanceof Date) {
+    return new Date(timestamp.getTime());
   }
 
-  if (
-    typeof timestamp ===
-      "number"
-  ) {
-    const date =
-      new Date(
-        timestamp,
-      );
+  if (typeof timestamp === "number") {
+    const date = new Date(timestamp);
 
-    if (
-      Number.isNaN(
-        date.getTime(),
-      )
-    ) {
-      throw new TypeError(
-        "Invalid event timestamp.",
-      );
+    if (Number.isNaN(date.getTime())) {
+      throw new TypeError("Invalid event timestamp.");
     }
 
     return date;
@@ -330,17 +246,9 @@ function normalizeTimestamp(
  * Freezes event metadata.
  */
 function normalizeMetadata(
-  metadata:
-    EventInput["metadata"],
-):
-  Readonly<
-    Record<string, unknown>
-  > |
-  undefined {
-  if (
-    metadata ===
-      undefined
-  ) {
+  metadata: EventInput["metadata"],
+): Readonly<Record<string, unknown>> | undefined {
+  if (metadata === undefined) {
     return undefined;
   }
 
@@ -352,97 +260,51 @@ function normalizeMetadata(
 /**
  * Creates an immutable event.
  */
-export function createEvent<
-  TPayload = EventPayload,
->(
-  input:
-    EventInput<TPayload>,
-):
-  Event<TPayload> {
-  if (
-    typeof input.type !==
-      "string" ||
-    input.type.trim()
-      .length === 0
-  ) {
-    throw new TypeError(
-      "Event type must be a non-empty string.",
-    );
+export function createEvent<TPayload = EventPayload>(
+  input: EventInput<TPayload>,
+): Event<TPayload> {
+  if (typeof input.type !== "string" || input.type.trim().length === 0) {
+    throw new TypeError("Event type must be a non-empty string.");
   }
 
-  const event:
-    Event<TPayload> = {
-    id:
-      input.id ??
-      createEventId(),
+  const event: Event<TPayload> = {
+    id: input.id ?? createEventId(),
 
-    type:
-      input.type,
+    type: input.type,
 
-    payload:
-      input.payload,
+    payload: input.payload,
 
-    timestamp:
-      normalizeTimestamp(
-        input.timestamp,
-      ),
+    timestamp: normalizeTimestamp(input.timestamp),
 
-    source:
-      input.source,
+    source: input.source,
 
-    correlationId:
-      input.correlationId,
+    correlationId: input.correlationId,
 
-    causationId:
-      input.causationId,
+    causationId: input.causationId,
 
-    metadata:
-      normalizeMetadata(
-        input.metadata,
-      ),
+    metadata: normalizeMetadata(input.metadata),
   };
 
-  return Object.freeze(
-    event,
-  );
+  return Object.freeze(event);
 }
 
 /**
  * Creates a typed event definition.
  */
-export function defineEvent<
-  TType extends EventType,
-  TPayload,
->(
-  type:
-    TType,
-):
-  EventDefinition<
-    TType,
-    TPayload
-  > {
-  if (
-    type.trim()
-      .length === 0
-  ) {
-    throw new TypeError(
-      "Event type must be a non-empty string.",
-    );
+export function defineEvent<TType extends EventType, TPayload>(
+  type: TType,
+): EventDefinition<TType, TPayload> {
+  if (type.trim().length === 0) {
+    throw new TypeError("Event type must be a non-empty string.");
   }
 
   return Object.freeze({
     type,
 
     create(
-      payload:
-        TPayload,
-      options:
-        Omit<
-          EventInput<TPayload>,
-          "type" | "payload"
-        > = {},
-    ):
-      Event<TPayload> {
+      payload: TPayload,
+      options: Omit<EventInput<TPayload>, "type" | "payload"> = {},
+    ): Event<TPayload> {
       return createEvent({
         ...options,
 
@@ -459,23 +321,15 @@ export function defineEvent<
  *
  * The original event remains immutable.
  */
-export function withEventMetadata<
-  TPayload,
->(
-  event:
-    Event<TPayload>,
-  metadata:
-    Readonly<
-      Record<string, unknown>
-    >,
-):
-  Event<TPayload> {
+export function withEventMetadata<TPayload>(
+  event: Event<TPayload>,
+  metadata: Readonly<Record<string, unknown>>,
+): Event<TPayload> {
   return createEvent({
     ...event,
 
     metadata: {
-      ...(event.metadata ??
-        {}),
+      ...(event.metadata ?? {}),
       ...metadata,
     },
   });
@@ -485,15 +339,10 @@ export function withEventMetadata<
  * Creates a derived event while preserving correlation
  * information from the original event.
  */
-export function createDerivedEvent<
-  TPayload,
->(
-  sourceEvent:
-    Event,
-  input:
-    EventInput<TPayload>,
-):
-  Event<TPayload> {
+export function createDerivedEvent<TPayload>(
+  sourceEvent: Event,
+  input: EventInput<TPayload>,
+): Event<TPayload> {
   return createEvent({
     ...input,
 
@@ -502,45 +351,27 @@ export function createDerivedEvent<
       sourceEvent.correlationId ??
       (sourceEvent.id as unknown as BaseCorrelationId),
 
-    causationId:
-      input.causationId ??
-      sourceEvent.id,
+    causationId: input.causationId ?? sourceEvent.id,
   });
 }
 
 /**
  * Returns the event type.
  */
-export function getEventType<
-  TPayload,
->(
-  event:
-    Event<TPayload>,
-):
-  EventType {
+export function getEventType<TPayload>(event: Event<TPayload>): EventType {
   return event.type;
 }
 
 /**
  * Returns the event payload.
  */
-export function getEventPayload<
-  TPayload,
->(
-  event:
-    Event<TPayload>,
-):
-  TPayload {
+export function getEventPayload<TPayload>(event: Event<TPayload>): TPayload {
   return event.payload;
 }
 
 /**
  * Returns a human-readable event description.
  */
-export function describeEvent(
-  event:
-    Event,
-):
-  string {
+export function describeEvent(event: Event): string {
   return `${event.type} (${event.id})`;
 }

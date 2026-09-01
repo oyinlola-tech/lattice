@@ -17,9 +17,9 @@ type InferTuple<T extends readonly Schema<unknown>[]> = {
 /**
  * Schema for fixed-length tuples.
  */
-export class TupleSchema<TSchemas extends readonly Schema<unknown>[]> extends Schema<
-  InferTuple<TSchemas>
-> {
+export class TupleSchema<
+  TSchemas extends readonly Schema<unknown>[],
+> extends Schema<InferTuple<TSchemas>> {
   public readonly _type = "tuple";
 
   constructor(private readonly _schemas: TSchemas) {

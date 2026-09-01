@@ -1,6 +1,4 @@
-import {
-  DatabaseError,
-} from "@oyinlola141/lattice-errors";
+import { DatabaseError } from "@oyinlola141/lattice-errors";
 
 import type {
   DatabaseTransactionContext,
@@ -20,10 +18,7 @@ import type {
  */
 export interface UnitOfWork {
   execute<TResult>(
-    callback: TransactionCallback<
-      DatabaseTransactionContext,
-      TResult
-    >,
+    callback: TransactionCallback<DatabaseTransactionContext, TResult>,
     options?: TransactionOptions,
   ): Promise<TResult>;
 }
@@ -38,73 +33,49 @@ export interface UnitOfWorkOptions {
 /**
  * Prisma-backed unit of work.
  */
-export class DatabaseUnitOfWork
-  implements UnitOfWork {
-  private readonly client:
-    DatabaseClient;
+export class DatabaseUnitOfWork implements UnitOfWork {
+  private readonly client: DatabaseClient;
 
-  constructor(
-    options: UnitOfWorkOptions,
-  ) {
+  constructor(options: UnitOfWorkOptions) {
     if (!options?.client) {
-      throw new TypeError(
-        "A database client is required.",
-      );
+      throw new TypeError("A database client is required.");
     }
 
-    this.client =
-      options.client;
+    this.client = options.client;
   }
 
   /**
    * Executes a callback inside a transaction.
    */
   public async execute<TResult>(
-    callback: TransactionCallback<
-      DatabaseTransactionContext,
-      TResult
-    >,
+    callback: TransactionCallback<DatabaseTransactionContext, TResult>,
     options?: TransactionOptions,
   ): Promise<TResult> {
-    if (
-      typeof callback !==
-      "function"
-    ) {
-      throw new DatabaseError(
-        "A unit of work callback is required.",
-      );
+    if (typeof callback !== "function") {
+      throw new DatabaseError("A unit of work callback is required.");
     }
 
-    return this.client.transaction(
-      async (transaction) => {
-        try {
-          return await callback(
-            transaction,
-          );
-        } catch (error) {
-          if (
-            error instanceof
-            DatabaseError
-          ) {
-            throw error;
-          }
-
-          throw new DatabaseError(
-            error instanceof Error
-              ? error.message
-              : "Unit of work execution failed.",
-            {
-              cause: error,
-              metadata: {
-                operation:
-                  "unit-of-work",
-              },
-            },
-          );
+    return this.client.transaction(async (transaction) => {
+      try {
+        return await callback(transaction);
+      } catch (error) {
+        if (error instanceof DatabaseError) {
+          throw error;
         }
-      },
-      options,
-    );
+
+        throw new DatabaseError(
+          error instanceof Error
+            ? error.message
+            : "Unit of work execution failed.",
+          {
+            cause: error,
+            metadata: {
+              operation: "unit-of-work",
+            },
+          },
+        );
+      }
+    }, options);
   }
 
   /**
@@ -118,9 +89,7 @@ export class DatabaseUnitOfWork
 /**
  * Creates a database unit of work.
  */
-export function createUnitOfWork(
-  client: DatabaseClient,
-): DatabaseUnitOfWork {
+export function createUnitOfWork(client: DatabaseClient): DatabaseUnitOfWork {
   return new DatabaseUnitOfWork({
     client,
   });
@@ -134,19 +103,10 @@ export function createUnitOfWork(
  */
 export async function executeUnitOfWork<TResult>(
   client: DatabaseClient,
-  callback: TransactionCallback<
-    DatabaseTransactionContext,
-    TResult
-  >,
+  callback: TransactionCallback<DatabaseTransactionContext, TResult>,
   options?: TransactionOptions,
 ): Promise<TResult> {
-  const unitOfWork =
-    createUnitOfWork(
-      client,
-    );
+  const unitOfWork = createUnitOfWork(client);
 
-  return unitOfWork.execute(
-    callback,
-    options,
-  );
+  return unitOfWork.execute(callback, options);
 }

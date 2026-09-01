@@ -73,11 +73,18 @@ export {
 } from "./rpc/errors/index.js";
 
 // Procedures
-export type { RPCHandler, RPCProcedure, RPCProcedureOptions } from "./rpc/procedure/index.js";
+export type {
+  RPCHandler,
+  RPCProcedure,
+  RPCProcedureOptions,
+} from "./rpc/procedure/index.js";
 
 export { createRPCProcedure } from "./rpc/procedure/index.js";
 
-export { RPCProcedureRegistry, RPCProcedureRouter } from "./rpc/procedure/index.js";
+export {
+  RPCProcedureRegistry,
+  RPCProcedureRouter,
+} from "./rpc/procedure/index.js";
 
 // Context
 export type { RPCContext } from "./rpc/context/index.js";
@@ -96,7 +103,10 @@ export { RPCDispatcher } from "./rpc/dispatcher/index.js";
 export { RPCServer } from "./rpc/server/index.js";
 
 // Transport
-export type { RPCTransport, RPCTransportRequestOptions } from "./rpc/transport/index.js";
+export type {
+  RPCTransport,
+  RPCTransportRequestOptions,
+} from "./rpc/transport/index.js";
 
 // Client
 export type { RPCCallOptions } from "./rpc/client/index.js";
@@ -125,6 +135,9 @@ export type { RPCInterceptor } from "./rpc/interceptor/index.js";
 export { createNoopRPCInterceptor } from "./rpc/interceptor/index.js";
 
 // Streaming
-export type { RPCStreamingHandler, RPCStreamingProcedure } from "./rpc/streaming/index.js";
+export type {
+  RPCStreamingHandler,
+  RPCStreamingProcedure,
+} from "./rpc/streaming/index.js";
 
 export { createRPCStreamingProcedure } from "./rpc/streaming/index.js";

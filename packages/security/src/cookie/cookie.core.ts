@@ -45,7 +45,9 @@ export function parseCookieHeader(
   const parts = cookieHeader.split(";");
 
   if (parts.length > maxCount) {
-    errors.push(`Too many cookies: ${parts.length} exceeds maximum ${maxCount}`);
+    errors.push(
+      `Too many cookies: ${parts.length} exceeds maximum ${maxCount}`,
+    );
   }
 
   const cookies: ParsedCookie[] = [];
@@ -69,7 +71,9 @@ export function parseCookieHeader(
     }
 
     if (Buffer.byteLength(value, "utf8") > maxSize) {
-      errors.push(`Cookie "${name}" value size exceeds maximum ${maxSize} bytes`);
+      errors.push(
+        `Cookie "${name}" value size exceeds maximum ${maxSize} bytes`,
+      );
       continue;
     }
 
@@ -120,7 +124,9 @@ export function serializeCookie(
   }
 
   const sameSite = cookie.sameSite ?? config?.sameSite ?? "lax";
-  parts.push(`SameSite=${sameSite.charAt(0).toUpperCase() + sameSite.slice(1)}`);
+  parts.push(
+    `SameSite=${sameSite.charAt(0).toUpperCase() + sameSite.slice(1)}`,
+  );
 
   if (cookie.partitioned) {
     parts.push("Partitioned");
@@ -144,10 +150,7 @@ export function createSecureCookie(
   options?: Partial<Omit<ParsedCookie, "name" | "value">>,
   config?: CookieSecurityConfig,
 ): string {
-  return serializeCookie(
-    { name, value, ...options },
-    config,
-  );
+  return serializeCookie({ name, value, ...options }, config);
 }
 
 /**

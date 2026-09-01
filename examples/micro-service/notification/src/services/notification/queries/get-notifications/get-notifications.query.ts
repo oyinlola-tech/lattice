@@ -2,7 +2,9 @@ import { Query } from "@oyinlola141/lattice-cqrs";
 
 export const GET_NOTIFICATIONS_QUERY = "notification.list" as const;
 
-export class GetNotificationsQuery extends Query<typeof GET_NOTIFICATIONS_QUERY> {
+export class GetNotificationsQuery extends Query<
+  typeof GET_NOTIFICATIONS_QUERY
+> {
   public readonly userId?: string;
 
   constructor(payload?: { readonly userId?: string }) {

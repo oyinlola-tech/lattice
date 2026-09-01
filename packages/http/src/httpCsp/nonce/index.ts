@@ -7,4 +7,4 @@ export {
   createNonceSource,
   createHashSource,
   isValidNonce,
-} from './httpCsp.nonce.js';
+} from "./httpCsp.nonce.js";

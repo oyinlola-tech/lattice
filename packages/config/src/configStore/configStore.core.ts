@@ -1,6 +1,4 @@
-import type {
-  ConfigValue,
-} from "../configValue/configValue.core.js";
+import type { ConfigValue } from "../configValue/configValue.core.js";
 
 import {
   cloneConfigValue,
@@ -8,17 +6,11 @@ import {
   freezeConfigValue,
 } from "../configValue/configValue.core.js";
 
-import type {
-  ConfigEntry,
-} from "../configEntry/configEntry.type.js";
+import type { ConfigEntry } from "../configEntry/configEntry.type.js";
 
-import {
-  createConfigEntry,
-} from "../configEntry/configEntry.type.js";
+import { createConfigEntry } from "../configEntry/configEntry.type.js";
 
-import type {
-  ConfigSourceType,
-} from "../configSource/configSource.core.js";
+import type { ConfigSourceType } from "../configSource/configSource.core.js";
 
 import type {
   ConfigChangeEvent,
@@ -29,28 +21,15 @@ import type {
 /**
  * Normalizes a configuration key.
  */
-export function normalizeKey(
-  key: string,
-): string {
-  if (
-    typeof key !==
-      "string"
-  ) {
-    throw new TypeError(
-      "Configuration key must be a string.",
-    );
+export function normalizeKey(key: string): string {
+  if (typeof key !== "string") {
+    throw new TypeError("Configuration key must be a string.");
   }
 
-  const normalized =
-    key.trim();
+  const normalized = key.trim();
 
-  if (
-    normalized.length ===
-      0
-  ) {
-    throw new TypeError(
-      "Configuration key cannot be empty.",
-    );
+  if (normalized.length === 0) {
+    throw new TypeError("Configuration key cannot be empty.");
   }
 
   return normalized;
@@ -63,57 +42,26 @@ export function normalizeKey(
  * consumers can inspect where a value originated from.
  */
 export class ConfigStore {
-  private readonly entries =
-    new Map<
-      string,
-      ConfigEntry
-    >();
+  private readonly entries = new Map<string, ConfigEntry>();
 
-  private readonly listeners =
-    new Set<
-      ConfigChangeListener
-    >();
+  private readonly listeners = new Set<ConfigChangeListener>();
 
-  private readonly shouldFreeze:
-    boolean;
+  private readonly shouldFreeze: boolean;
 
   private disposed = false;
 
-  constructor(
-    options: ConfigStoreOptions = {},
-  ) {
-    this.shouldFreeze =
-      options.freeze ??
-      true;
+  constructor(options: ConfigStoreOptions = {}) {
+    this.shouldFreeze = options.freeze ?? true;
 
-    if (
-      options.initialValues
-    ) {
-      for (
-        const [
-          key,
-          value,
-        ] of Object.entries(
-          options.initialValues,
-        )
-      ) {
-        this.set(
-          key,
-          value,
-        );
+    if (options.initialValues) {
+      for (const [key, value] of Object.entries(options.initialValues)) {
+        this.set(key, value);
       }
     }
 
-    if (
-      options.entries
-    ) {
-      for (
-        const entry of
-          options.entries
-      ) {
-        this.setEntry(
-          entry,
-        );
+    if (options.entries) {
+      for (const entry of options.entries) {
+        this.setEntry(entry);
       }
     }
   }
@@ -135,32 +83,21 @@ export class ConfigStore {
   /**
    * Checks whether a key exists.
    */
-  has(
-    key: string,
-  ): boolean {
+  has(key: string): boolean {
     this.assertActive();
 
-    return this.entries.has(
-      normalizeKey(key),
-    );
+    return this.entries.has(normalizeKey(key));
   }
 
   /**
    * Gets a configuration value.
    */
-  get<T extends ConfigValue = ConfigValue>(
-    key: string,
-  ): T | undefined {
+  get<T extends ConfigValue = ConfigValue>(key: string): T | undefined {
     this.assertActive();
 
-    const entry =
-      this.entries.get(
-        normalizeKey(key),
-      );
+    const entry = this.entries.get(normalizeKey(key));
 
-    if (
-      !entry
-    ) {
+    if (!entry) {
       return undefined;
     }
 
@@ -170,33 +107,19 @@ export class ConfigStore {
   /**
    * Gets a configuration entry.
    */
-  getEntry(
-    key: string,
-  ): ConfigEntry | undefined {
+  getEntry(key: string): ConfigEntry | undefined {
     this.assertActive();
 
-    return this.entries.get(
-      normalizeKey(key),
-    );
+    return this.entries.get(normalizeKey(key));
   }
 
   /**
    * Gets a value or returns the supplied fallback.
    */
-  getOrDefault<
-    T extends ConfigValue,
-  >(
-    key: string,
-    fallback: T,
-  ): T {
-    const value =
-      this.get<T>(
-        key,
-      );
+  getOrDefault<T extends ConfigValue>(key: string, fallback: T): T {
+    const value = this.get<T>(key);
 
-    return value === undefined
-      ? fallback
-      : value;
+    return value === undefined ? fallback : value;
   }
 
   /**
@@ -215,75 +138,43 @@ export class ConfigStore {
   ): ConfigEntry<T> {
     this.assertActive();
 
-    const normalizedKey =
-      normalizeKey(key);
+    const normalizedKey = normalizeKey(key);
 
-    const previous =
-      this.entries.get(
-        normalizedKey,
-      );
+    const previous = this.entries.get(normalizedKey);
 
-    const normalizedValue =
-      this.shouldFreeze
-        ? freezeConfigValue(
-            cloneConfigValue(value),
-          )
-        : value;
+    const normalizedValue = this.shouldFreeze
+      ? freezeConfigValue(cloneConfigValue(value))
+      : value;
 
-    const entry =
-      createConfigEntry({
-        key: normalizedKey,
-        value:
-          normalizedValue,
-        source:
-          options.source ??
-          "runtime",
-        sourceType:
-          options.sourceType,
-        priority:
-          options.priority ??
-          0,
-        sensitive:
-          options.sensitive ??
-          false,
-        resolved:
-          options.resolved ??
-          true,
-      });
+    const entry = createConfigEntry({
+      key: normalizedKey,
+      value: normalizedValue,
+      source: options.source ?? "runtime",
+      sourceType: options.sourceType,
+      priority: options.priority ?? 0,
+      sensitive: options.sensitive ?? false,
+      resolved: options.resolved ?? true,
+    });
 
     if (
       previous &&
-      configValuesEqual(
-        previous.value,
-        entry.value,
-      ) &&
-      previous.source ===
-        entry.source &&
-      previous.sourceType ===
-        entry.sourceType &&
-      previous.priority ===
-        entry.priority &&
-      previous.sensitive ===
-        entry.sensitive &&
-      previous.resolved ===
-        entry.resolved
+      configValuesEqual(previous.value, entry.value) &&
+      previous.source === entry.source &&
+      previous.sourceType === entry.sourceType &&
+      previous.priority === entry.priority &&
+      previous.sensitive === entry.sensitive &&
+      previous.resolved === entry.resolved
     ) {
       return entry;
     }
 
-    this.entries.set(
-      normalizedKey,
-      entry,
-    );
+    this.entries.set(normalizedKey, entry);
 
     this.emitChange({
-      key:
-        normalizedKey,
+      key: normalizedKey,
       previous,
-      current:
-        entry,
-      timestamp:
-        Date.now(),
+      current: entry,
+      timestamp: Date.now(),
     });
 
     return entry;
@@ -292,37 +183,23 @@ export class ConfigStore {
   /**
    * Stores an existing configuration entry.
    */
-  setEntry(
-    entry: ConfigEntry,
-  ): void {
+  setEntry(entry: ConfigEntry): void {
     this.assertActive();
 
-    this.set(
-      entry.key,
-      entry.value,
-      {
-        source:
-          entry.source,
-        sourceType:
-          entry.sourceType,
-        priority:
-          entry.priority,
-        sensitive:
-          entry.sensitive,
-        resolved:
-          entry.resolved,
-      },
-    );
+    this.set(entry.key, entry.value, {
+      source: entry.source,
+      sourceType: entry.sourceType,
+      priority: entry.priority,
+      sensitive: entry.sensitive,
+      resolved: entry.resolved,
+    });
   }
 
   /**
    * Sets multiple configuration values.
    */
   setMany(
-    values:
-      Readonly<
-        Record<string, ConfigValue>
-      >,
+    values: Readonly<Record<string, ConfigValue>>,
     options: {
       readonly source?: string;
       readonly sourceType?: ConfigSourceType;
@@ -332,54 +209,32 @@ export class ConfigStore {
   ): void {
     this.assertActive();
 
-    for (
-      const [
-        key,
-        value,
-      ] of Object.entries(values)
-    ) {
-      this.set(
-        key,
-        value,
-        options,
-      );
+    for (const [key, value] of Object.entries(values)) {
+      this.set(key, value, options);
     }
   }
 
   /**
    * Removes a configuration value.
    */
-  delete(
-    key: string,
-  ): boolean {
+  delete(key: string): boolean {
     this.assertActive();
 
-    const normalizedKey =
-      normalizeKey(key);
+    const normalizedKey = normalizeKey(key);
 
-    const previous =
-      this.entries.get(
-        normalizedKey,
-      );
+    const previous = this.entries.get(normalizedKey);
 
-    if (
-      !previous
-    ) {
+    if (!previous) {
       return false;
     }
 
-    this.entries.delete(
-      normalizedKey,
-    );
+    this.entries.delete(normalizedKey);
 
     this.emitChange({
-      key:
-        normalizedKey,
+      key: normalizedKey,
       previous,
-      current:
-        undefined,
-      timestamp:
-        Date.now(),
+      current: undefined,
+      timestamp: Date.now(),
     });
 
     return true;
@@ -391,25 +246,17 @@ export class ConfigStore {
   clear(): void {
     this.assertActive();
 
-    const entries =
-      Array.from(
-        this.entries.values(),
-      );
+    const entries = Array.from(this.entries.values());
 
     this.entries.clear();
 
-    const timestamp =
-      Date.now();
+    const timestamp = Date.now();
 
-    for (
-      const previous of entries
-    ) {
+    for (const previous of entries) {
       this.emitChange({
-        key:
-          previous.key,
+        key: previous.key,
         previous,
-        current:
-          undefined,
+        current: undefined,
         timestamp,
       });
     }
@@ -421,9 +268,7 @@ export class ConfigStore {
   getEntries(): readonly ConfigEntry[] {
     this.assertActive();
 
-    return Array.from(
-      this.entries.values(),
-    );
+    return Array.from(this.entries.values());
   }
 
   /**
@@ -432,9 +277,7 @@ export class ConfigStore {
   keys(): readonly string[] {
     this.assertActive();
 
-    return Array.from(
-      this.entries.keys(),
-    );
+    return Array.from(this.entries.keys());
   }
 
   /**
@@ -443,39 +286,23 @@ export class ConfigStore {
   values(): readonly ConfigValue[] {
     this.assertActive();
 
-    return Array.from(
-      this.entries.values(),
-      (entry) =>
-        entry.value,
-    );
+    return Array.from(this.entries.values(), (entry) => entry.value);
   }
 
   /**
    * Returns a plain object containing all configuration values.
    */
-  toObject(): Readonly<
-    Record<string, ConfigValue>
-  > {
+  toObject(): Readonly<Record<string, ConfigValue>> {
     this.assertActive();
 
-    const result:
-      Record<string, ConfigValue> =
-      {};
+    const result: Record<string, ConfigValue> = {};
 
-    for (
-      const entry of
-      this.entries.values()
-    ) {
-      result[entry.key] =
-        entry.value;
+    for (const entry of this.entries.values()) {
+      result[entry.key] = entry.value;
     }
 
-    if (
-      this.shouldFreeze
-    ) {
-      freezeConfigValue(
-        result,
-      );
+    if (this.shouldFreeze) {
+      freezeConfigValue(result);
     }
 
     return result;
@@ -484,72 +311,41 @@ export class ConfigStore {
   /**
    * Returns entries matching a prefix.
    */
-  getByPrefix(
-    prefix: string,
-  ): readonly ConfigEntry[] {
+  getByPrefix(prefix: string): readonly ConfigEntry[] {
     this.assertActive();
 
-    const normalizedPrefix =
-      normalizeKey(prefix);
+    const normalizedPrefix = normalizeKey(prefix);
 
-    return Array.from(
-      this.entries.values(),
-    ).filter(
+    return Array.from(this.entries.values()).filter(
       (entry) =>
-        entry.key ===
-          normalizedPrefix ||
-        entry.key.startsWith(
-          `${normalizedPrefix}.`,
-        ),
+        entry.key === normalizedPrefix ||
+        entry.key.startsWith(`${normalizedPrefix}.`),
     );
   }
 
   /**
    * Returns configuration values matching a prefix.
    */
-  getObjectByPrefix(
-    prefix: string,
-  ): Readonly<
-    Record<string, ConfigValue>
-  > {
-    const entries =
-      this.getByPrefix(
-        prefix,
-      );
+  getObjectByPrefix(prefix: string): Readonly<Record<string, ConfigValue>> {
+    const entries = this.getByPrefix(prefix);
 
-    const normalizedPrefix =
-      normalizeKey(prefix);
+    const normalizedPrefix = normalizeKey(prefix);
 
-    const result:
-      Record<string, ConfigValue> =
-      {};
+    const result: Record<string, ConfigValue> = {};
 
-    for (
-      const entry of entries
-    ) {
+    for (const entry of entries) {
       const key =
-        entry.key ===
-          normalizedPrefix
+        entry.key === normalizedPrefix
           ? ""
-          : entry.key.slice(
-              normalizedPrefix.length +
-                1,
-            );
+          : entry.key.slice(normalizedPrefix.length + 1);
 
-      if (
-        key.length > 0
-      ) {
-        result[key] =
-          entry.value;
+      if (key.length > 0) {
+        result[key] = entry.value;
       }
     }
 
-    if (
-      this.shouldFreeze
-    ) {
-      freezeConfigValue(
-        result,
-      );
+    if (this.shouldFreeze) {
+      freezeConfigValue(result);
     }
 
     return result;
@@ -558,28 +354,17 @@ export class ConfigStore {
   /**
    * Subscribes to configuration changes.
    */
-  subscribe(
-    listener: ConfigChangeListener,
-  ): () => void {
+  subscribe(listener: ConfigChangeListener): () => void {
     this.assertActive();
 
-    if (
-      typeof listener !==
-        "function"
-    ) {
-      throw new TypeError(
-        "Configuration change listener must be a function.",
-      );
+    if (typeof listener !== "function") {
+      throw new TypeError("Configuration change listener must be a function.");
     }
 
-    this.listeners.add(
-      listener,
-    );
+    this.listeners.add(listener);
 
     return () => {
-      this.listeners.delete(
-        listener,
-      );
+      this.listeners.delete(listener);
     };
   }
 
@@ -590,10 +375,8 @@ export class ConfigStore {
     this.assertActive();
 
     return new ConfigStore({
-      entries:
-        this.getEntries(),
-      freeze:
-        this.shouldFreeze,
+      entries: this.getEntries(),
+      freeze: this.shouldFreeze,
     });
   }
 
@@ -601,10 +384,7 @@ export class ConfigStore {
    * Replaces the current store contents.
    */
   replace(
-    values:
-      Readonly<
-        Record<string, ConfigValue>
-      >,
+    values: Readonly<Record<string, ConfigValue>>,
     options: {
       readonly source?: string;
       readonly sourceType?: ConfigSourceType;
@@ -614,36 +394,22 @@ export class ConfigStore {
   ): void {
     this.assertActive();
 
-    const incomingKeys =
-      new Set(
-        Object.keys(values).map(
-          normalizeKey,
-        ),
-      );
+    const incomingKeys = new Set(Object.keys(values).map(normalizeKey));
 
-    for (
-      const key of this.keys()
-    ) {
-      if (
-        !incomingKeys.has(key)
-      ) {
+    for (const key of this.keys()) {
+      if (!incomingKeys.has(key)) {
         this.delete(key);
       }
     }
 
-    this.setMany(
-      values,
-      options,
-    );
+    this.setMany(values, options);
   }
 
   /**
    * Disposes the store and removes listeners.
    */
   dispose(): void {
-    if (
-      this.disposed
-    ) {
+    if (this.disposed) {
       return;
     }
 
@@ -652,13 +418,8 @@ export class ConfigStore {
     this.disposed = true;
   }
 
-  private emitChange(
-    event: ConfigChangeEvent,
-  ): void {
-    for (
-      const listener of
-      this.listeners
-    ) {
+  private emitChange(event: ConfigChangeEvent): void {
+    for (const listener of this.listeners) {
       try {
         listener(event);
       } catch {
@@ -668,12 +429,8 @@ export class ConfigStore {
   }
 
   private assertActive(): void {
-    if (
-      this.disposed
-    ) {
-      throw new Error(
-        "ConfigStore has been disposed.",
-      );
+    if (this.disposed) {
+      throw new Error("ConfigStore has been disposed.");
     }
   }
 }

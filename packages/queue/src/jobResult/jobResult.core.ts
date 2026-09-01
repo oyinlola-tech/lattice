@@ -5,10 +5,7 @@ import type { JobResult, JobProgress } from "./jobResult.type.js";
 /**
  * Creates a successful job result.
  */
-export function createJobResult<T>(
-  data: T,
-  durationMs: number,
-): JobResult<T> {
+export function createJobResult<T>(data: T, durationMs: number): JobResult<T> {
   return {
     success: true,
     data,

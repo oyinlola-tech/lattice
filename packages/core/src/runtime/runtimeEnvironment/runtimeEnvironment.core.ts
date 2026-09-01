@@ -1,10 +1,20 @@
 import type { RuntimeMode } from "../runtimeOptions/index.js";
-import type { RuntimeEnvironmentInfo, RuntimeEnvironment, RuntimeEnvironmentOptions } from "./runtimeEnvironment.type.js";
-import { detectRuntimeEngine, detectPlatform, detectProcessInfo, detectHostInfo, readProcessEnvironment, detectCI, detectContainer } from "./detection/index.js";
-
+import type {
+  RuntimeEnvironmentInfo,
+  RuntimeEnvironment,
+  RuntimeEnvironmentOptions,
+} from "./runtimeEnvironment.type.js";
 import {
-  RuntimeError,
-} from "@oyinlola141/lattice-errors";
+  detectRuntimeEngine,
+  detectPlatform,
+  detectProcessInfo,
+  detectHostInfo,
+  readProcessEnvironment,
+  detectCI,
+  detectContainer,
+} from "./detection/index.js";
+
+import { RuntimeError } from "@oyinlola141/lattice-errors";
 
 /**
  * Environment error codes.
@@ -48,13 +58,10 @@ export function createRuntimeEnvironment(
 /**
  * Default RuntimeEnvironment implementation.
  */
-export class DefaultRuntimeEnvironment
-  implements RuntimeEnvironment {
+export class DefaultRuntimeEnvironment implements RuntimeEnvironment {
   private readonly _info: RuntimeEnvironmentInfo;
 
-  public constructor(
-    options: RuntimeEnvironmentOptions,
-  ) {
+  public constructor(options: RuntimeEnvironmentOptions) {
     const variables = options.variables ?? readProcessEnvironment();
     const engine = detectRuntimeEngine();
     const platform = detectPlatform();

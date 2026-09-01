@@ -17,7 +17,10 @@ describe("Serializer", () => {
 
     it("should deserialize JSON string to data", () => {
       const json = '{"userId":"123","name":"Test User"}';
-      const deserialized = JsonSerializer.deserialize<{ userId: string; name: string }>(json);
+      const deserialized = JsonSerializer.deserialize<{
+        userId: string;
+        name: string;
+      }>(json);
 
       expect(deserialized).toEqual({ userId: "123", name: "Test User" });
     });
@@ -80,14 +83,17 @@ describe("Serializer", () => {
 
     it("should deserialize valid JSON", () => {
       const json = '{"userId":"123"}';
-      const deserialized = PassthroughSerializer.deserialize<{ userId: string }>(json);
+      const deserialized = PassthroughSerializer.deserialize<{
+        userId: string;
+      }>(json);
 
       expect(deserialized).toEqual({ userId: "123" });
     });
 
     it("should return raw string for invalid JSON", () => {
       const invalidJson = "not-valid-json";
-      const deserialized = PassthroughSerializer.deserialize<string>(invalidJson);
+      const deserialized =
+        PassthroughSerializer.deserialize<string>(invalidJson);
 
       expect(deserialized).toBe("not-valid-json");
     });

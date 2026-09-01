@@ -61,9 +61,7 @@ export const LIFECYCLE_VALID_TRANSITIONS: Readonly<
     LifecycleState.STOPPED,
     LifecycleState.FAILED,
   ]),
-  [LifecycleState.STOPPED]: Object.freeze([
-    LifecycleState.DISPOSED,
-  ]),
+  [LifecycleState.STOPPED]: Object.freeze([LifecycleState.DISPOSED]),
   [LifecycleState.FAILED]: Object.freeze([
     LifecycleState.STOPPING,
     LifecycleState.DISPOSED,

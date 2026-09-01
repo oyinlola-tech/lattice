@@ -1,6 +1,4 @@
-import type {
-  ModuleId,
-} from "../module.js";
+import type { ModuleId } from "../module.js";
 
 import type {
   ModuleDependency,
@@ -16,17 +14,11 @@ import type {
 export function normalizeModuleDependency(
   dependency: ModuleDependencyInput,
 ): ModuleDependency {
-  if (
-    typeof dependency ===
-    "string"
-  ) {
-    const id =
-      dependency.trim();
+  if (typeof dependency === "string") {
+    const id = dependency.trim();
 
     if (!id) {
-      throw new TypeError(
-        "Module dependency id cannot be empty.",
-      );
+      throw new TypeError("Module dependency id cannot be empty.");
     }
 
     return Object.freeze({
@@ -35,24 +27,16 @@ export function normalizeModuleDependency(
     });
   }
 
-  const id =
-    dependency.id?.trim();
+  const id = dependency.id?.trim();
 
   if (!id) {
-    throw new TypeError(
-      "Module dependency id cannot be empty.",
-    );
+    throw new TypeError("Module dependency id cannot be empty.");
   }
 
   return Object.freeze({
     id,
-    optional:
-      dependency.optional ??
-      false,
-    version:
-      normalizeVersionConstraint(
-        dependency.version,
-      ),
+    optional: dependency.optional ?? false,
+    version: normalizeVersionConstraint(dependency.version),
   });
 }
 
@@ -60,30 +44,18 @@ export function normalizeModuleDependency(
  * Normalizes a list of dependency declarations.
  */
 export function normalizeModuleDependencies(
-  dependencies:
-    | readonly ModuleDependencyInput[]
-    | undefined,
+  dependencies: readonly ModuleDependencyInput[] | undefined,
 ): ModuleDependencies {
-  if (
-    !dependencies ||
-    dependencies.length === 0
-  ) {
+  if (!dependencies || dependencies.length === 0) {
     return [];
   }
 
-  const normalized: ModuleDependency[] =
-    [];
+  const normalized: ModuleDependency[] = [];
 
-  const seen =
-    new Set<ModuleId>();
+  const seen = new Set<ModuleId>();
 
-  for (
-    const dependency of dependencies
-  ) {
-    const item =
-      normalizeModuleDependency(
-        dependency,
-      );
+  for (const dependency of dependencies) {
+    const item = normalizeModuleDependency(dependency);
 
     if (seen.has(item.id)) {
       throw new TypeError(
@@ -95,9 +67,7 @@ export function normalizeModuleDependencies(
     normalized.push(item);
   }
 
-  return Object.freeze(
-    normalized,
-  );
+  return Object.freeze(normalized);
 }
 
 /**
@@ -105,36 +75,24 @@ export function normalizeModuleDependencies(
  */
 export function validateModuleDependencies(
   moduleId: ModuleId,
-  dependencies:
-    ModuleDependencies,
+  dependencies: ModuleDependencies,
 ): void {
-  const normalizedModuleId =
-    moduleId.trim();
+  const normalizedModuleId = moduleId.trim();
 
   if (!normalizedModuleId) {
-    throw new TypeError(
-      "Module id cannot be empty.",
-    );
+    throw new TypeError("Module id cannot be empty.");
   }
 
-  for (
-    const dependency of dependencies
-  ) {
-    if (
-      dependency.id ===
-      normalizedModuleId
-    ) {
+  for (const dependency of dependencies) {
+    if (dependency.id === normalizedModuleId) {
       throw new TypeError(
         `Module "${normalizedModuleId}" cannot depend on itself.`,
       );
     }
 
     if (
-      dependency.version !==
-      undefined &&
-      !isValidVersionConstraint(
-        dependency.version,
-      )
+      dependency.version !== undefined &&
+      !isValidVersionConstraint(dependency.version)
     ) {
       throw new TypeError(
         `Invalid version constraint "${dependency.version}" for module dependency "${dependency.id}".`,
@@ -150,18 +108,12 @@ export function validateModuleDependencies(
  * but deliberately does not perform topological sorting.
  */
 export function createModuleDependencyGraph(
-  nodes:
-    readonly ModuleDependencyNode[],
+  nodes: readonly ModuleDependencyNode[],
 ): ModuleDependencyGraph {
-  const nodeMap =
-    new Map<
-      ModuleId,
-      ModuleDependencyNode
-    >();
+  const nodeMap = new Map<ModuleId, ModuleDependencyNode>();
 
   for (const node of nodes) {
-    const id =
-      node.id.trim();
+    const id = node.id.trim();
 
     if (!id) {
       throw new TypeError(
@@ -175,15 +127,9 @@ export function createModuleDependencyGraph(
       );
     }
 
-    const dependencies =
-      normalizeModuleDependencies(
-        node.dependencies,
-      );
+    const dependencies = normalizeModuleDependencies(node.dependencies);
 
-    validateModuleDependencies(
-      id,
-      dependencies,
-    );
+    validateModuleDependencies(id, dependencies);
 
     nodeMap.set(
       id,
@@ -194,49 +140,27 @@ export function createModuleDependencyGraph(
     );
   }
 
-  const readonlyNodes =
-    new Map(nodeMap);
+  const readonlyNodes = new Map(nodeMap);
 
   return {
     nodes: readonlyNodes,
 
-    getDependencies(
-      moduleId: ModuleId,
-    ): ModuleDependencies {
-      return (
-        readonlyNodes.get(
-          moduleId,
-        )?.dependencies ?? []
-      );
+    getDependencies(moduleId: ModuleId): ModuleDependencies {
+      return readonlyNodes.get(moduleId)?.dependencies ?? [];
     },
 
-    hasModule(
-      moduleId: ModuleId,
-    ): boolean {
-      return readonlyNodes.has(
-        moduleId,
-      );
+    hasModule(moduleId: ModuleId): boolean {
+      return readonlyNodes.has(moduleId);
     },
 
-    getDependents(
-      moduleId: ModuleId,
-    ): readonly ModuleId[] {
-      const dependents: ModuleId[] =
-        [];
+    getDependents(moduleId: ModuleId): readonly ModuleId[] {
+      const dependents: ModuleId[] = [];
 
-      for (
-        const node of readonlyNodes.values()
-      ) {
+      for (const node of readonlyNodes.values()) {
         if (
-          node.dependencies.some(
-            (dependency) =>
-              dependency.id ===
-              moduleId,
-          )
+          node.dependencies.some((dependency) => dependency.id === moduleId)
         ) {
-          dependents.push(
-            node.id,
-          );
+          dependents.push(node.id);
         }
       }
 
@@ -253,36 +177,21 @@ export function createModuleDependencyGraph(
 export function validateModuleDependencyGraph(
   graph: ModuleDependencyGraph,
 ): readonly ModuleId[] {
-  const missing: ModuleId[] =
-    [];
+  const missing: ModuleId[] = [];
 
-  for (
-    const node of graph.nodes.values()
-  ) {
-    for (
-      const dependency of node.dependencies
-    ) {
-      if (
-        dependency.optional
-      ) {
+  for (const node of graph.nodes.values()) {
+    for (const dependency of node.dependencies) {
+      if (dependency.optional) {
         continue;
       }
 
-      if (
-        !graph.hasModule(
-          dependency.id,
-        )
-      ) {
-        missing.push(
-          dependency.id,
-        );
+      if (!graph.hasModule(dependency.id)) {
+        missing.push(dependency.id);
       }
     }
   }
 
-  return Object.freeze([
-    ...new Set(missing),
-  ]);
+  return Object.freeze([...new Set(missing)]);
 }
 
 /**
@@ -297,11 +206,8 @@ export function createModuleDependency(
 ): ModuleDependency {
   return normalizeModuleDependency({
     id,
-    optional:
-      options.optional ??
-      false,
-    version:
-      options.version,
+    optional: options.optional ?? false,
+    version: options.version,
   });
 }
 
@@ -320,10 +226,7 @@ export function isOptionalModuleDependency(
 export function hasModuleVersionConstraint(
   dependency: ModuleDependency,
 ): boolean {
-  return (
-    dependency.version !==
-    undefined
-  );
+  return dependency.version !== undefined;
 }
 
 /**
@@ -333,22 +236,15 @@ export function hasModuleVersionConstraint(
  * resolution belongs to a higher-level package.
  */
 function normalizeVersionConstraint(
-  value:
-    | string
-    | undefined,
+  value: string | undefined,
 ): string | undefined {
-  if (
-    value === undefined
-  ) {
+  if (value === undefined) {
     return undefined;
   }
 
-  const normalized =
-    value.trim();
+  const normalized = value.trim();
 
-  return normalized.length > 0
-    ? normalized
-    : undefined;
+  return normalized.length > 0 ? normalized : undefined;
 }
 
 /**
@@ -364,9 +260,7 @@ function normalizeVersionConstraint(
  * >1.0.0
  * <2.0.0
  */
-function isValidVersionConstraint(
-  value: string,
-): boolean {
+function isValidVersionConstraint(value: string): boolean {
   return /^(?:[<>=~^]*\s*)?\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\s*)$/.test(
     value,
   );

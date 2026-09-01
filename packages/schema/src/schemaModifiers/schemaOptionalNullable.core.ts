@@ -40,11 +40,15 @@ export class NullableModifierSchema<T> extends Schema<T | null> {
 }
 
 /** Makes a schema optional. */
-export function optionalSchema<T>(schema: Schema<T>): OptionalModifierSchema<T> {
+export function optionalSchema<T>(
+  schema: Schema<T>,
+): OptionalModifierSchema<T> {
   return new OptionalModifierSchema(schema);
 }
 
 /** Makes a schema nullable. */
-export function nullableSchema<T>(schema: Schema<T>): NullableModifierSchema<T> {
+export function nullableSchema<T>(
+  schema: Schema<T>,
+): NullableModifierSchema<T> {
   return new NullableModifierSchema(schema);
 }

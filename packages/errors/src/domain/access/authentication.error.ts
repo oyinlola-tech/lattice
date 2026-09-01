@@ -7,7 +7,10 @@ import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 /**
  * Options for creating an authentication error.
  */
-export interface AuthenticationErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface AuthenticationErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
 }
 
@@ -15,7 +18,10 @@ export interface AuthenticationErrorOptions extends Omit<BaseErrorOptions, "cate
  * Error raised when authentication fails.
  */
 export class AuthenticationError extends BaseError {
-  constructor(message = "Authentication failed.", options: AuthenticationErrorOptions = {}) {
+  constructor(
+    message = "Authentication failed.",
+    options: AuthenticationErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.AUTHENTICATION_FAILED,
@@ -29,12 +35,17 @@ export class AuthenticationError extends BaseError {
 }
 
 /** Creates an authentication error. */
-export function createAuthenticationError(message = "Authentication failed.", options: AuthenticationErrorOptions = {}): AuthenticationError {
+export function createAuthenticationError(
+  message = "Authentication failed.",
+  options: AuthenticationErrorOptions = {},
+): AuthenticationError {
   return new AuthenticationError(message, options);
 }
 
 /** Determines whether an unknown value is an AuthenticationError. */
-export function isAuthenticationError(value: unknown): value is AuthenticationError {
+export function isAuthenticationError(
+  value: unknown,
+): value is AuthenticationError {
   return value instanceof AuthenticationError;
 }
 
@@ -44,7 +55,9 @@ export function isAuthenticationError(value: unknown): value is AuthenticationEr
  * The default message intentionally does not reveal whether a username,
  * email address, or password was incorrect.
  */
-export function invalidCredentialsError(message = "Invalid credentials."): AuthenticationError {
+export function invalidCredentialsError(
+  message = "Invalid credentials.",
+): AuthenticationError {
   return new AuthenticationError(message, {
     code: ErrorCode.INVALID_CREDENTIALS,
     category: ErrorCategory.AUTHENTICATION,
@@ -54,7 +67,9 @@ export function invalidCredentialsError(message = "Invalid credentials."): Authe
 }
 
 /** Creates an authentication error for an expired session. */
-export function sessionExpiredError(message = "Your session has expired."): AuthenticationError {
+export function sessionExpiredError(
+  message = "Your session has expired.",
+): AuthenticationError {
   return new AuthenticationError(message, {
     code: ErrorCode.SESSION_EXPIRED,
     category: ErrorCategory.AUTHENTICATION,
@@ -64,7 +79,9 @@ export function sessionExpiredError(message = "Your session has expired."): Auth
 }
 
 /** Creates an authentication error for an invalid token. */
-export function invalidTokenError(message = "The authentication token is invalid."): AuthenticationError {
+export function invalidTokenError(
+  message = "The authentication token is invalid.",
+): AuthenticationError {
   return new AuthenticationError(message, {
     code: ErrorCode.TOKEN_INVALID,
     category: ErrorCategory.AUTHENTICATION,
@@ -74,7 +91,9 @@ export function invalidTokenError(message = "The authentication token is invalid
 }
 
 /** Creates an authentication error for an expired token. */
-export function expiredTokenError(message = "The authentication token has expired."): AuthenticationError {
+export function expiredTokenError(
+  message = "The authentication token has expired.",
+): AuthenticationError {
   return new AuthenticationError(message, {
     code: ErrorCode.TOKEN_EXPIRED,
     category: ErrorCategory.AUTHENTICATION,

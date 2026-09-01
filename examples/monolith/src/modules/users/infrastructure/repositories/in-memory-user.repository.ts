@@ -26,10 +26,18 @@ class InMemoryUserStore {
 export class InMemoryUserRepository implements UserRepository {
   private readonly store = new InMemoryUserStore();
 
-  public async findById(id: UserId): Promise<User | null> { return this.store.findById(id); }
-  public async findAll(): Promise<readonly User[]> { return this.store.findAll(); }
-  public async save(entity: User): Promise<void> { await this.store.save(entity); }
-  public async delete(id: UserId): Promise<void> { await this.store.delete(id); }
+  public async findById(id: UserId): Promise<User | null> {
+    return this.store.findById(id);
+  }
+  public async findAll(): Promise<readonly User[]> {
+    return this.store.findAll();
+  }
+  public async save(entity: User): Promise<void> {
+    await this.store.save(entity);
+  }
+  public async delete(id: UserId): Promise<void> {
+    await this.store.delete(id);
+  }
   public async findByEmail(email: string): Promise<User | null> {
     const all = await this.findAll();
     return all.find((u) => u.email === email) ?? null;

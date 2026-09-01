@@ -9,7 +9,12 @@ import { MessageError } from "./messageError.base.js";
 export class MessageHandlerError extends MessageError {
   constructor(
     message: string,
-    options: { handlerId: string; messageType?: string; messageId?: string; cause?: unknown },
+    options: {
+      handlerId: string;
+      messageType?: string;
+      messageId?: string;
+      cause?: unknown;
+    },
   ) {
     super(message, {
       code: ErrorCode.MESSAGE_HANDLER_NOT_FOUND,
@@ -23,7 +28,10 @@ export class MessageHandlerError extends MessageError {
 
 /** Creates a message handler error from an unknown failure. */
 export function createMessageHandlerError(
-  handlerId: string, messageType: string, messageId: string, cause: unknown,
+  handlerId: string,
+  messageType: string,
+  messageId: string,
+  cause: unknown,
 ): MessageHandlerError {
   return new MessageHandlerError(
     `Message handler "${handlerId}" failed while processing "${messageType}".`,
@@ -35,7 +43,10 @@ export function createMessageHandlerError(
 export class MessageHandlerNotFoundError extends MessageError {
   constructor(handlerId: string) {
     super(`Message handler "${handlerId}" was not found.`, {
-      code: ErrorCode.RESOURCE_NOT_FOUND as ErrorCode | string, handlerId, statusCode: 404, expose: true,
+      code: ErrorCode.RESOURCE_NOT_FOUND as ErrorCode | string,
+      handlerId,
+      statusCode: 404,
+      expose: true,
     });
   }
 }
@@ -44,7 +55,10 @@ export class MessageHandlerNotFoundError extends MessageError {
 export class DuplicateMessageHandlerError extends MessageError {
   constructor(handlerId: string) {
     super(`Message handler "${handlerId}" is already registered.`, {
-      code: ErrorCode.CONFLICT, handlerId, statusCode: 409, expose: true,
+      code: ErrorCode.CONFLICT,
+      handlerId,
+      statusCode: 409,
+      expose: true,
     });
   }
 }
@@ -55,7 +69,12 @@ export class MessageMiddlewareError extends MessageError {
 
   constructor(
     message: string,
-    options: { middlewareId?: string; messageType?: string; messageId?: string; cause?: unknown } = {},
+    options: {
+      middlewareId?: string;
+      messageType?: string;
+      messageId?: string;
+      cause?: unknown;
+    } = {},
   ) {
     super(message, {
       code: ErrorCode.MIDDLEWARE_EXECUTION as ErrorCode | string,

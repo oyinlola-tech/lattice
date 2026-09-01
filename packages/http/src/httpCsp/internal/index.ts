@@ -9,4 +9,4 @@ export {
   addOptionalDirective,
   mergeDirectives,
   sourceMatchesHost,
-} from './httpCsp.internal.js';
+} from "./httpCsp.internal.js";

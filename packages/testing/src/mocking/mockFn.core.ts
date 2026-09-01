@@ -7,7 +7,10 @@
 /**
  * A mock function that records calls and returns configured values.
  */
-export interface MockFn<TArgs extends readonly unknown[] = unknown[], TResult = unknown> {
+export interface MockFn<
+  TArgs extends readonly unknown[] = unknown[],
+  TResult = unknown,
+> {
   (...args: TArgs): TResult;
   readonly calls: readonly TArgs[];
   readonly results: readonly TResult[];

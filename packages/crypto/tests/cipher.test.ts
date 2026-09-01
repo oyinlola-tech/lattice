@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { encrypt, decrypt, encryptString, decryptString, encryptEnvelope, decryptEnvelope } from "../src/cryptoCipher/index.js";
+import {
+  encrypt,
+  decrypt,
+  encryptString,
+  decryptString,
+  encryptEnvelope,
+  decryptEnvelope,
+} from "../src/cryptoCipher/index.js";
 
 const TEST_KEY = new Uint8Array(32).fill(42);
 
@@ -7,13 +14,23 @@ describe("encrypt / decrypt", () => {
   it("round-trips binary data", async () => {
     const plaintext = new Uint8Array([1, 2, 3, 4, 5]);
     const encrypted = await encrypt(plaintext, TEST_KEY);
-    const decrypted = await decrypt(encrypted.ciphertext, TEST_KEY, encrypted.iv, encrypted.authTag);
+    const decrypted = await decrypt(
+      encrypted.ciphertext,
+      TEST_KEY,
+      encrypted.iv,
+      encrypted.authTag,
+    );
     expect(decrypted).toEqual(plaintext);
   });
 
   it("round-trips string data", async () => {
     const result = await encryptString("hello world", TEST_KEY);
-    const decrypted = await decryptString(result.ciphertext, TEST_KEY, result.iv, result.authTag);
+    const decrypted = await decryptString(
+      result.ciphertext,
+      TEST_KEY,
+      result.iv,
+      result.authTag,
+    );
     expect(decrypted).toBe("hello world");
   });
 
@@ -22,7 +39,13 @@ describe("encrypt / decrypt", () => {
     const aad = new Uint8Array([9, 9, 9]);
     const encrypted = await encrypt(plaintext, TEST_KEY, { aad });
     expect(encrypted.ciphertext.length).toBeGreaterThan(0);
-    const decrypted = await decrypt(encrypted.ciphertext, TEST_KEY, encrypted.iv, encrypted.authTag, aad);
+    const decrypted = await decrypt(
+      encrypted.ciphertext,
+      TEST_KEY,
+      encrypted.iv,
+      encrypted.authTag,
+      aad,
+    );
     expect(decrypted).toEqual(plaintext);
   });
 
@@ -38,13 +61,25 @@ describe("encrypt / decrypt", () => {
     const plaintext = new Uint8Array([1, 2, 3]);
     const encrypted = await encrypt(plaintext, TEST_KEY);
     const wrongKey = new Uint8Array(32).fill(99);
-    await expect(decrypt(encrypted.ciphertext, wrongKey, encrypted.iv, encrypted.authTag)).rejects.toThrow();
+    await expect(
+      decrypt(encrypted.ciphertext, wrongKey, encrypted.iv, encrypted.authTag),
+    ).rejects.toThrow();
   });
 
   it("fails decryption with wrong AAD", async () => {
     const plaintext = new Uint8Array([1, 2, 3]);
-    const encrypted = await encrypt(plaintext, TEST_KEY, { aad: new Uint8Array([1]) });
-    await expect(decrypt(encrypted.ciphertext, TEST_KEY, encrypted.iv, encrypted.authTag, new Uint8Array([2]))).rejects.toThrow();
+    const encrypted = await encrypt(plaintext, TEST_KEY, {
+      aad: new Uint8Array([1]),
+    });
+    await expect(
+      decrypt(
+        encrypted.ciphertext,
+        TEST_KEY,
+        encrypted.iv,
+        encrypted.authTag,
+        new Uint8Array([2]),
+      ),
+    ).rejects.toThrow();
   });
 });
 
@@ -66,6 +101,8 @@ describe("encryptEnvelope / decryptEnvelope", () => {
 
   it("rejects invalid envelope", async () => {
     await expect(decryptEnvelope("invalid", TEST_KEY)).rejects.toThrow();
-    await expect(decryptEnvelope("v1.aes-256-gcm.abc", TEST_KEY)).rejects.toThrow();
+    await expect(
+      decryptEnvelope("v1.aes-256-gcm.abc", TEST_KEY),
+    ).rejects.toThrow();
   });
 });

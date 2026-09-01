@@ -5,9 +5,7 @@
  * and starting runtime modules.
  */
 
-export {
-  DefaultRuntimeBootstrap,
-} from "./runtimeBootstrap.core.js";
+export { DefaultRuntimeBootstrap } from "./runtimeBootstrap.core.js";
 
 export {
   RuntimeBootstrapError,

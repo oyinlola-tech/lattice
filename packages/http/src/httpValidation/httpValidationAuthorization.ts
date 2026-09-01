@@ -5,54 +5,28 @@
  */
 
 import { isHTTPToken } from "./httpValidationToken.js";
-import {
-  isValidHeaderValue,
-} from "./httpValidationHeader.js";
+import { isValidHeaderValue } from "./httpValidationHeader.js";
 
 export function isValidAuthorization(
-  value:
-    | string
-    | undefined
-    | null,
+  value: string | undefined | null,
 ): boolean {
-  if (
-    !value
-  ) {
+  if (!value) {
     return false;
   }
 
-  const separator =
-    value.indexOf(
-      " ",
-    );
+  const separator = value.indexOf(" ");
 
-  if (
-    separator <=
-      0
-  ) {
+  if (separator <= 0) {
     return false;
   }
 
-  const scheme =
-    value.slice(
-      0,
-      separator,
-    );
+  const scheme = value.slice(0, separator);
 
-  const credentials =
-    value.slice(
-      separator + 1,
-    );
+  const credentials = value.slice(separator + 1);
 
   return (
-    isHTTPToken(
-      scheme,
-    ) &&
-    credentials.trim()
-      .length >
-      0 &&
-    isValidHeaderValue(
-      value,
-    )
+    isHTTPToken(scheme) &&
+    credentials.trim().length > 0 &&
+    isValidHeaderValue(value)
   );
 }

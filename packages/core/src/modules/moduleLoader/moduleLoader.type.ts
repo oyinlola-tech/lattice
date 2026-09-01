@@ -1,18 +1,10 @@
-import type {
-  ApplicationContext,
-} from "../../application/applicationContext.context.js";
+import type { ApplicationContext } from "../../application/applicationContext.context.js";
 
-import type {
-  ConfigurationManager,
-} from "../../configuration/configurationManager.manager.js";
+import type { ConfigurationManager } from "../../configuration/configurationManager.manager.js";
 
-import type {
-  Logger,
-} from "../../logging/core/logger.js";
+import type { Logger } from "../../logging/core/logger.js";
 
-import type {
-  ModuleId,
-} from "../module.js";
+import type { ModuleId } from "../module.js";
 
 /**
  * Options used by the module loader.
@@ -21,20 +13,17 @@ export interface ModuleLoaderOptions {
   /**
    * Application context supplied to modules.
    */
-  readonly application:
-    ApplicationContext;
+  readonly application: ApplicationContext;
 
   /**
    * Configuration manager.
    */
-  readonly configuration:
-    ConfigurationManager;
+  readonly configuration: ConfigurationManager;
 
   /**
    * Base logger used to create module-scoped loggers.
    */
-  readonly logger:
-    Logger;
+  readonly logger: Logger;
 
   /**
    * Whether modules marked `autoLoad: false` should
@@ -52,50 +41,33 @@ export interface ModuleLoadResult {
   /**
    * Modules successfully loaded.
    */
-  readonly loaded:
-    readonly import("../module.js").Module[];
+  readonly loaded: readonly import("../module.js").Module[];
 
   /**
    * Modules that were already loaded.
    */
-  readonly alreadyLoaded:
-    readonly import("../module.js").Module[];
+  readonly alreadyLoaded: readonly import("../module.js").Module[];
 
   /**
    * Modules skipped because auto loading was disabled.
    */
-  readonly skipped:
-    readonly ModuleId[];
+  readonly skipped: readonly ModuleId[];
 
   /**
    * Startup order used by the loader.
    */
-  readonly order:
-    readonly ModuleId[];
+  readonly order: readonly ModuleId[];
 }
 
-import {
-  ModuleLoadError as BaseModuleLoadError,
-} from "@oyinlola141/lattice-errors";
+import { ModuleLoadError as BaseModuleLoadError } from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when one or more modules cannot be loaded.
  */
-export class ModuleLoadError
-  extends BaseModuleLoadError {
-  public constructor(
-    moduleId: ModuleId,
-    cause: unknown,
-  ) {
-    const message =
-      cause instanceof Error
-        ? cause.message
-        : String(cause);
+export class ModuleLoadError extends BaseModuleLoadError {
+  public constructor(moduleId: ModuleId, cause: unknown) {
+    const message = cause instanceof Error ? cause.message : String(cause);
 
-    super(
-      moduleId,
-      `Failed to load module "${moduleId}": ${message}`,
-      cause,
-    );
+    super(moduleId, `Failed to load module "${moduleId}": ${message}`, cause);
   }
 }

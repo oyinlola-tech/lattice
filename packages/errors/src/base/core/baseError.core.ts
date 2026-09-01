@@ -2,7 +2,10 @@ import { ErrorCategory } from "../types/errorCategory.type.js";
 import { ErrorCode } from "../types/errorCode.type.js";
 import { ErrorSeverity } from "../types/errorSeverity.type.js";
 import type { ErrorMetadata } from "./errorMetadata.type.js";
-import { createErrorMetadata, serializeErrorMetadata } from "./errorMetadata.core.js";
+import {
+  createErrorMetadata,
+  serializeErrorMetadata,
+} from "./errorMetadata.core.js";
 import type {
   BaseErrorOptions,
   SerializedBaseError,
@@ -115,11 +118,7 @@ export class BaseError extends Error {
  */
 function normalizeStatusCode(statusCode: number | undefined): number {
   if (statusCode === undefined) return 500;
-  if (
-    !Number.isInteger(statusCode) ||
-    statusCode < 100 ||
-    statusCode > 599
-  ) {
+  if (!Number.isInteger(statusCode) || statusCode < 100 || statusCode > 599) {
     throw new RangeError(
       "Error statusCode must be an integer between 100 and 599.",
     );
@@ -130,9 +129,7 @@ function normalizeStatusCode(statusCode: number | undefined): number {
 /**
  * Serializes nested Error causes while avoiding recursive failures.
  */
-function serializeErrorCause(
-  cause: unknown,
-): SerializedBaseError | unknown {
+function serializeErrorCause(cause: unknown): SerializedBaseError | unknown {
   if (cause instanceof BaseError) return cause.toJSON();
   if (cause instanceof Error) {
     return {

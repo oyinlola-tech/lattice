@@ -11,7 +11,7 @@ npm install @latticejs/schema
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/schema";
+import {} from /* add usage here */ "@latticejs/schema";
 ```
 
 ## License

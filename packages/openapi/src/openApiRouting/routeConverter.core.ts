@@ -56,18 +56,39 @@ export function convertRouteToOpenAPI(
   const openApiMetadata = metadata?.openapi;
 
   const operation: OpenAPIOperation = {
-      responses: openApiMetadata?.responses
-        ? { "200": { description: "OK", ...(openApiMetadata.responses["200"] as object ?? {}) } }
-        : { "200": { description: "OK" } },
-    ...(openApiMetadata?.operationId ? { operationId: openApiMetadata.operationId } : {}),
+    responses: openApiMetadata?.responses
+      ? {
+          "200": {
+            description: "OK",
+            ...((openApiMetadata.responses["200"] as object) ?? {}),
+          },
+        }
+      : { "200": { description: "OK" } },
+    ...(openApiMetadata?.operationId
+      ? { operationId: openApiMetadata.operationId }
+      : {}),
     ...(openApiMetadata?.summary ? { summary: openApiMetadata.summary } : {}),
-    ...(openApiMetadata?.description ? { description: openApiMetadata.description } : {}),
-    ...(openApiMetadata?.tags?.length ? { tags: [...openApiMetadata.tags] } : {}),
-    ...(openApiMetadata?.deprecated !== undefined ? { deprecated: openApiMetadata.deprecated } : {}),
-    ...(openApiMetadata?.parameters?.length ? { parameters: [...openApiMetadata.parameters] } : {}),
-    ...(openApiMetadata?.requestBody ? { requestBody: openApiMetadata.requestBody } : {}),
-    ...(openApiMetadata?.security?.length ? { security: [...openApiMetadata.security] } : {}),
-    ...(openApiMetadata?.servers?.length ? { servers: [...openApiMetadata.servers] } : {}),
+    ...(openApiMetadata?.description
+      ? { description: openApiMetadata.description }
+      : {}),
+    ...(openApiMetadata?.tags?.length
+      ? { tags: [...openApiMetadata.tags] }
+      : {}),
+    ...(openApiMetadata?.deprecated !== undefined
+      ? { deprecated: openApiMetadata.deprecated }
+      : {}),
+    ...(openApiMetadata?.parameters?.length
+      ? { parameters: [...openApiMetadata.parameters] }
+      : {}),
+    ...(openApiMetadata?.requestBody
+      ? { requestBody: openApiMetadata.requestBody }
+      : {}),
+    ...(openApiMetadata?.security?.length
+      ? { security: [...openApiMetadata.security] }
+      : {}),
+    ...(openApiMetadata?.servers?.length
+      ? { servers: [...openApiMetadata.servers] }
+      : {}),
   };
 
   return {

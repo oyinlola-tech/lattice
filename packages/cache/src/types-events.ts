@@ -1,7 +1,13 @@
 import type { CacheKey } from "./types-keys.js";
 import type { CacheTTL } from "./types-values.js";
 
-export type CacheEventType = "cache.hit" | "cache.miss" | "cache.set" | "cache.delete" | "cache.clear" | "cache.error";
+export type CacheEventType =
+  | "cache.hit"
+  | "cache.miss"
+  | "cache.set"
+  | "cache.delete"
+  | "cache.clear"
+  | "cache.error";
 
 export interface BaseCacheEvent {
   readonly type: CacheEventType;
@@ -39,9 +45,17 @@ export interface CacheErrorEvent extends BaseCacheEvent {
   readonly error: unknown;
 }
 
-export type CacheEvent = CacheHitEvent | CacheMissEvent | CacheSetEvent | CacheDeleteEvent | CacheClearEvent | CacheErrorEvent;
+export type CacheEvent =
+  | CacheHitEvent
+  | CacheMissEvent
+  | CacheSetEvent
+  | CacheDeleteEvent
+  | CacheClearEvent
+  | CacheErrorEvent;
 
-export type CacheEventHandler<TEvent extends CacheEvent = CacheEvent> = (event: TEvent) => void | Promise<void>;
+export type CacheEventHandler<TEvent extends CacheEvent = CacheEvent> = (
+  event: TEvent,
+) => void | Promise<void>;
 
 export interface CacheEventSubscription {
   readonly unsubscribe: () => void;

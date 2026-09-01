@@ -5,4 +5,7 @@
  */
 
 export { DefaultSpan, createSpan } from "./span.core.js";
-export { createSpanContext, createChildSpanContext } from "./spanContext.type.js";
+export {
+  createSpanContext,
+  createChildSpanContext,
+} from "./spanContext.type.js";

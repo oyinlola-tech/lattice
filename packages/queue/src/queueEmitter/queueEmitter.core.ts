@@ -17,7 +17,8 @@ interface Subscription {
  * Stores handlers in memory and emits events synchronously.
  */
 export class InMemoryQueueEventEmitter implements QueueEventEmitter {
-  private readonly handlers: Map<EventName, Set<Handler<EventName>>> = new Map();
+  private readonly handlers: Map<EventName, Set<Handler<EventName>>> =
+    new Map();
 
   emit<K extends EventName>(event: K, data: QueueEventMap[K]): void {
     const handlers = this.handlers.get(event);

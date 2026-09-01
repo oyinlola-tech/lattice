@@ -18,9 +18,7 @@ export interface APIContextKey<T> {
 /**
  * Creates a typed context key.
  */
-export function createContextKey<T>(
-  name: string,
-): APIContextKey<T> {
+export function createContextKey<T>(name: string): APIContextKey<T> {
   return Object.freeze({
     name,
     type: undefined as unknown as T,
@@ -30,12 +28,17 @@ export function createContextKey<T>(
 /**
  * Well-known context keys for common cross-cutting concerns.
  */
-export const RequestIdContextKey = /* #__PURE__ */ createContextKey<string>("requestId");
+export const RequestIdContextKey =
+  /* #__PURE__ */ createContextKey<string>("requestId");
 
-export const CorrelationIdContextKey = /* #__PURE__ */ createContextKey<string>("correlationId");
+export const CorrelationIdContextKey =
+  /* #__PURE__ */ createContextKey<string>("correlationId");
 
-export const TenantIdContextKey = /* #__PURE__ */ createContextKey<string>("tenantId");
+export const TenantIdContextKey =
+  /* #__PURE__ */ createContextKey<string>("tenantId");
 
-export const UserIdContextKey = /* #__PURE__ */ createContextKey<string>("userId");
+export const UserIdContextKey =
+  /* #__PURE__ */ createContextKey<string>("userId");
 
-export const StartTimeContextKey = /* #__PURE__ */ createContextKey<number>("startTime");
+export const StartTimeContextKey =
+  /* #__PURE__ */ createContextKey<number>("startTime");

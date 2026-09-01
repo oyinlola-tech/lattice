@@ -29,7 +29,10 @@ export interface AsyncValidationNormalizer<T> {
 }
 
 /** Creates a reusable synchronous normalizer. */
-export function createNormalizer<T>(normalizer: Normalizer<T>, options: NormalizerOptions = {}): ValidationNormalizer<T> {
+export function createNormalizer<T>(
+  normalizer: Normalizer<T>,
+  options: NormalizerOptions = {},
+): ValidationNormalizer<T> {
   const name = options.name ?? "ValidationNormalizer";
 
   return Object.freeze({
@@ -38,21 +41,35 @@ export function createNormalizer<T>(normalizer: Normalizer<T>, options: Normaliz
       try {
         return normalizer(value);
       } catch (error) {
-        throw new ConstraintValidationError(options.errorMessage ?? "Value normalization failed.", [], { cause: error });
+        throw new ConstraintValidationError(
+          options.errorMessage ?? "Value normalization failed.",
+          [],
+          { cause: error },
+        );
       }
     },
     safeNormalize(value: T): ValidationResult<T> {
       try {
         return success(normalizer(value));
       } catch (error) {
-        return failure([{ path: [], code: "normalization_failed", message: options.errorMessage ?? "Value normalization failed.", received: error instanceof Error ? error.message : error }]);
+        return failure([
+          {
+            path: [],
+            code: "normalization_failed",
+            message: options.errorMessage ?? "Value normalization failed.",
+            received: error instanceof Error ? error.message : error,
+          },
+        ]);
       }
     },
   });
 }
 
 /** Creates a reusable asynchronous normalizer. */
-export function createAsyncNormalizer<T>(normalizer: AsyncNormalizer<T>, options: NormalizerOptions = {}): AsyncValidationNormalizer<T> {
+export function createAsyncNormalizer<T>(
+  normalizer: AsyncNormalizer<T>,
+  options: NormalizerOptions = {},
+): AsyncValidationNormalizer<T> {
   const name = options.name ?? "AsyncValidationNormalizer";
 
   return Object.freeze({
@@ -61,14 +78,25 @@ export function createAsyncNormalizer<T>(normalizer: AsyncNormalizer<T>, options
       try {
         return await normalizer(value);
       } catch (error) {
-        throw new ConstraintValidationError(options.errorMessage ?? "Value normalization failed.", [], { cause: error });
+        throw new ConstraintValidationError(
+          options.errorMessage ?? "Value normalization failed.",
+          [],
+          { cause: error },
+        );
       }
     },
     async safeNormalize(value: T): Promise<ValidationResult<T>> {
       try {
         return success(await normalizer(value));
       } catch (error) {
-        return failure([{ path: [], code: "normalization_failed", message: options.errorMessage ?? "Value normalization failed.", received: error instanceof Error ? error.message : error }]);
+        return failure([
+          {
+            path: [],
+            code: "normalization_failed",
+            message: options.errorMessage ?? "Value normalization failed.",
+            received: error instanceof Error ? error.message : error,
+          },
+        ]);
       }
     },
   });

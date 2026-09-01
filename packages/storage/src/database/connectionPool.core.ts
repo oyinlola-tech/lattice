@@ -2,7 +2,11 @@
  * Connection pool that manages database connections with backpressure.
  */
 
-import type { Connection, ConnectionPoolOptions, PoolStats } from "../types/storage.type.js";
+import type {
+  Connection,
+  ConnectionPoolOptions,
+  PoolStats,
+} from "../types/storage.type.js";
 
 /** Default pool options. */
 const DEFAULT_POOL_OPTIONS: ConnectionPoolOptions = {
@@ -26,7 +30,10 @@ export class ConnectionPool {
   private connectionIdCounter = 0;
   private closed = false;
 
-  constructor(private readonly factory: () => Promise<Connection>, options?: Partial<ConnectionPoolOptions>) {
+  constructor(
+    private readonly factory: () => Promise<Connection>,
+    options?: Partial<ConnectionPoolOptions>,
+  ) {
     this.options = { ...DEFAULT_POOL_OPTIONS, ...options };
   }
 
@@ -156,11 +163,19 @@ export class ConnectionPool {
   }
 
   private async isConnectionAlive(conn: Connection): Promise<boolean> {
-    try { return await conn.ping(); } catch { return false; }
+    try {
+      return await conn.ping();
+    } catch {
+      return false;
+    }
   }
 
   private async safeClose(conn: Connection): Promise<void> {
-    try { await conn.close(); } catch { /* Ignore close errors */ }
+    try {
+      await conn.close();
+    } catch {
+      /* Ignore close errors */
+    }
   }
 
   private waitForConnection(): Promise<Connection> {

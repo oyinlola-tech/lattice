@@ -4,15 +4,9 @@
  * @module httpHeaders/type
  */
 
-import type {
-  IncomingHttpHeaders,
-  OutgoingHttpHeaders,
-} from "node:http";
+import type { IncomingHttpHeaders, OutgoingHttpHeaders } from "node:http";
 
-import type {
-  HTTPHeaders,
-  HTTPHeadersInit,
-} from "../http.headers.js";
+import type { HTTPHeaders, HTTPHeadersInit } from "../http.headers.js";
 
 /**
  * A union of all supported header input formats.
@@ -36,103 +30,66 @@ export interface HeaderMatchOptions {
  * The result of parsing a header value.
  */
 export interface HeaderParseResult<T> {
-  readonly value:
-    | T
-    | undefined;
+  readonly value: T | undefined;
 
-  readonly valid:
-    | boolean;
+  readonly valid: boolean;
 
-  readonly raw:
-    | string
-    | undefined;
+  readonly raw: string | undefined;
 }
 
 /**
  * Parsed Cache-Control directives.
  */
 export interface CacheControlDirectives {
-  readonly noCache:
-    | boolean;
+  readonly noCache: boolean;
 
-  readonly noStore:
-    | boolean;
+  readonly noStore: boolean;
 
-  readonly noTransform:
-    | boolean;
+  readonly noTransform: boolean;
 
-  readonly onlyIfCached:
-    | boolean;
+  readonly onlyIfCached: boolean;
 
-  readonly public:
-    | boolean;
+  readonly public: boolean;
 
-  readonly private:
-    | boolean;
+  readonly private: boolean;
 
-  readonly mustRevalidate:
-    | boolean;
+  readonly mustRevalidate: boolean;
 
-  readonly proxyRevalidate:
-    | boolean;
+  readonly proxyRevalidate: boolean;
 
-  readonly immutable:
-    | boolean;
+  readonly immutable: boolean;
 
-  readonly maxAge:
-    | number
-    | undefined;
+  readonly maxAge: number | undefined;
 
-  readonly sMaxAge:
-    | number
-    | undefined;
+  readonly sMaxAge: number | undefined;
 
-  readonly staleWhileRevalidate:
-    | number
-    | undefined;
+  readonly staleWhileRevalidate: number | undefined;
 
-  readonly staleIfError:
-    | number
-    | undefined;
+  readonly staleIfError: number | undefined;
 
-  readonly mustUnderstand:
-    | boolean;
+  readonly mustUnderstand: boolean;
 
-  readonly directives:
-    | Readonly<
-        Record<
-          string,
-          string | true
-        >
-      >;
+  readonly directives: Readonly<Record<string, string | true>>;
 }
 
 /**
  * A parsed Content-Range header value.
  */
 export interface ContentRange {
-  readonly unit:
-    | string;
+  readonly unit: string;
 
-  readonly start:
-    | number;
+  readonly start: number;
 
-  readonly end:
-    | number;
+  readonly end: number;
 
-  readonly total:
-    | number
-    | undefined;
+  readonly total: number | undefined;
 }
 
 /**
  * A parsed byte range (e.g. from a Range header).
  */
 export interface ByteRange {
-  readonly start:
-    | number;
+  readonly start: number;
 
-  readonly end:
-    | number
-    | undefined;
+  readonly end: number | undefined;
 }

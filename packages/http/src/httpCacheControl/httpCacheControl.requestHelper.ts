@@ -4,9 +4,7 @@
  * @module httpCacheControl/requestHelpers
  */
 
-import type {
-  CacheControlDirectives,
-} from "./core/httpCacheControl.type.js";
+import type { CacheControlDirectives } from "./core/httpCacheControl.type.js";
 
 import { parseCacheControl } from "./core/httpCacheControl.parse.js";
 
@@ -43,9 +41,7 @@ export function requestRequiresRevalidation(
 /**
  * Determines if a request only uses cached responses.
  */
-export function requestOnlyIfCached(
-  header: string | undefined,
-): boolean {
+export function requestOnlyIfCached(header: string | undefined): boolean {
   const directives = parseCacheControl(header);
   return directives.onlyIfCached === true;
 }

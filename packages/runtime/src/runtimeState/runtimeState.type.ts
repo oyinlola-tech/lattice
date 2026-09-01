@@ -1,10 +1,6 @@
-import type {
-  EntityId,
-} from "@oyinlola141/lattice-constants";
+import type { EntityId } from "@oyinlola141/lattice-constants";
 
-import type {
-  RuntimeError,
-} from "@oyinlola141/lattice-errors";
+import type { RuntimeError } from "@oyinlola141/lattice-errors";
 
 /**
  * Extended runtime lifecycle states.
@@ -26,16 +22,12 @@ export type RuntimeState =
  * Failure-specific runtime states.
  */
 export type RuntimeFailureState =
-  | "initialization_failed"
-  | "startup_failed"
-  | "shutdown_failed";
+  "initialization_failed" | "startup_failed" | "shutdown_failed";
 
 /**
  * All possible runtime states including failure variants.
  */
-export type RuntimeStateFull =
-  | RuntimeState
-  | RuntimeFailureState;
+export type RuntimeStateFull = RuntimeState | RuntimeFailureState;
 
 /**
  * Unique runtime identifier.
@@ -76,12 +68,7 @@ export type RuntimeStateTransitions = {
  * Runtime health state.
  */
 export type RuntimeHealthState =
-  | "healthy"
-  | "degraded"
-  | "unhealthy"
-  | "starting"
-  | "stopping"
-  | "unknown";
+  "healthy" | "degraded" | "unhealthy" | "starting" | "stopping" | "unknown";
 
 /**
  * Runtime health status with details.

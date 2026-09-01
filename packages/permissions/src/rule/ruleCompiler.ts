@@ -64,7 +64,10 @@ export function compileRules(rules: readonly PermissionRule[]): RuleIndex {
 /**
  * Find all rules from the compiled index that match a target permission.
  */
-export function findMatchingRules(index: RuleIndex, target: Permission): readonly PermissionRule[] {
+export function findMatchingRules(
+  index: RuleIndex,
+  target: Permission,
+): readonly PermissionRule[] {
   const results: PermissionRule[] = [];
   const key = `${target.resource}:${target.action}`;
 

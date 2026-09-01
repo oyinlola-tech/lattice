@@ -13,7 +13,10 @@ import type {
 
 import { extractSequence } from "../httpInterceptor.helper.js";
 
-function comparePriority(a: InterceptorPriority, b: InterceptorPriority): number {
+function comparePriority(
+  a: InterceptorPriority,
+  b: InterceptorPriority,
+): number {
   const order: Record<InterceptorPriority, number> = {
     first: 0,
     high: 1,

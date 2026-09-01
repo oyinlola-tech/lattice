@@ -10,14 +10,11 @@ export function min(minimum: number): ValidationConstraint<number> {
     throw new RangeError("minimum must be a finite number.");
   }
 
-  return createConstraint(
-    (value) => value >= minimum,
-    {
-      name: `min_${minimum}`,
-      code: "min_value",
-      message: `Value must be greater than or equal to ${minimum}.`,
-    },
-  );
+  return createConstraint((value) => value >= minimum, {
+    name: `min_${minimum}`,
+    code: "min_value",
+    message: `Value must be greater than or equal to ${minimum}.`,
+  });
 }
 
 /**
@@ -28,14 +25,11 @@ export function max(maximum: number): ValidationConstraint<number> {
     throw new RangeError("maximum must be a finite number.");
   }
 
-  return createConstraint(
-    (value) => value <= maximum,
-    {
-      name: `max_${maximum}`,
-      code: "max_value",
-      message: `Value must be less than or equal to ${maximum}.`,
-    },
-  );
+  return createConstraint((value) => value <= maximum, {
+    name: `max_${maximum}`,
+    code: "max_value",
+    message: `Value must be less than or equal to ${maximum}.`,
+  });
 }
 
 /**
@@ -53,14 +47,11 @@ export function between(
     throw new RangeError("minimum cannot be greater than maximum.");
   }
 
-  return createConstraint(
-    (value) => value >= minimum && value <= maximum,
-    {
-      name: `between_${minimum}_${maximum}`,
-      code: "value_out_of_range",
-      message: `Value must be between ${minimum} and ${maximum}.`,
-    },
-  );
+  return createConstraint((value) => value >= minimum && value <= maximum, {
+    name: `between_${minimum}_${maximum}`,
+    code: "value_out_of_range",
+    message: `Value must be between ${minimum} and ${maximum}.`,
+  });
 }
 
 /**
@@ -90,26 +81,20 @@ export const integer = createConstraint<number>(
 /**
  * Requires a positive number.
  */
-export const positive = createConstraint<number>(
-  (value) => value > 0,
-  {
-    name: "positive",
-    code: "invalid_positive",
-    message: "Value must be greater than zero.",
-  },
-);
+export const positive = createConstraint<number>((value) => value > 0, {
+  name: "positive",
+  code: "invalid_positive",
+  message: "Value must be greater than zero.",
+});
 
 /**
  * Requires a non-negative number.
  */
-export const nonNegative = createConstraint<number>(
-  (value) => value >= 0,
-  {
-    name: "non_negative",
-    code: "invalid_non_negative",
-    message: "Value must be zero or greater.",
-  },
-);
+export const nonNegative = createConstraint<number>((value) => value >= 0, {
+  name: "non_negative",
+  code: "invalid_non_negative",
+  message: "Value must be zero or greater.",
+});
 
 /**
  * Requires a number to be even.

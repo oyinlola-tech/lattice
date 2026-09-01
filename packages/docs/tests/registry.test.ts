@@ -36,11 +36,7 @@ describe("DocumentRegistry", () => {
 
   it("registers multiple documents", () => {
     const registry = createDocumentRegistry();
-    registry.registerAll([
-      makeDoc("a"),
-      makeDoc("b"),
-      makeDoc("c"),
-    ]);
+    registry.registerAll([makeDoc("a"), makeDoc("b"), makeDoc("c")]);
 
     expect(registry.size).toBe(3);
     expect(registry.getAll()).toHaveLength(3);

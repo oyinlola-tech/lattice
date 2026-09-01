@@ -4,7 +4,11 @@
  * HTTP adapter contracts — request/response translation and server lifecycle.
  */
 
-import type { Adapter, AdapterCapabilities, AdapterOperationOptions } from "../index.js";
+import type {
+  Adapter,
+  AdapterCapabilities,
+  AdapterOperationOptions,
+} from "../index.js";
 
 /**
  * Minimal HTTP request shape.
@@ -88,7 +92,10 @@ export interface HTTPResponseAdapter {
   readonly name: string;
   readonly capabilities: AdapterCapabilities;
 
-  adaptResponse(response: HTTPResponseLike, target: unknown): Promise<void> | void;
+  adaptResponse(
+    response: HTTPResponseLike,
+    target: unknown,
+  ): Promise<void> | void;
 }
 
 /**

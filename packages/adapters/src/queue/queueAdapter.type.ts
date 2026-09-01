@@ -6,7 +6,11 @@
  * Examples: BullMQ, RabbitMQ, AWS SQS, Redis, Kafka.
  */
 
-import type { Adapter, AdapterCapabilities, AdapterOperationOptions } from "../index.js";
+import type {
+  Adapter,
+  AdapterCapabilities,
+  AdapterOperationOptions,
+} from "../index.js";
 
 /**
  * Queue adapter — connects Lattice queue abstractions to external providers.
@@ -22,7 +26,11 @@ export interface QueueAdapter extends Adapter {
   acknowledge(jobId: string, options?: AdapterOperationOptions): Promise<void>;
 
   /** Rejects a job, optionally requeuing it. */
-  reject(jobId: string, requeue?: boolean, options?: AdapterOperationOptions): Promise<void>;
+  reject(
+    jobId: string,
+    requeue?: boolean,
+    options?: AdapterOperationOptions,
+  ): Promise<void>;
 
   /** Returns queue statistics. */
   stats(options?: AdapterOperationOptions): Promise<QueueStats>;

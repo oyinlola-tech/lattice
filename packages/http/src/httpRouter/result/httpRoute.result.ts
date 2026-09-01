@@ -29,9 +29,7 @@ export {
 /* Class                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export {
-  HttpRouteResult,
-} from "./httpRoute.result.class.js";
+export { HttpRouteResult } from "./httpRoute.result.class.js";
 
 /* -------------------------------------------------------------------------- */
 /* Factory Functions                                                          */

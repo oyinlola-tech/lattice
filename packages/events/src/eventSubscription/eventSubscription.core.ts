@@ -1,4 +1,3 @@
-
 /**
  * Event subscription primitives for Lattice.
  *
@@ -12,8 +11,7 @@
 /**
  * Unique identifier assigned to a subscription.
  */
-export type EventSubscriptionId =
-  string;
+export type EventSubscriptionId = string;
 
 /**
  * Subscription state.
@@ -39,14 +37,12 @@ export interface EventSubscriptionOptions {
    *
    * If omitted, an identifier is generated.
    */
-  readonly id?:
-    EventSubscriptionId;
+  readonly id?: EventSubscriptionId;
 
   /**
    * Optional human-readable description.
    */
-  readonly description?:
-    string;
+  readonly description?: string;
 }
 
 /**
@@ -56,93 +52,70 @@ export interface EventSubscription {
   /**
    * Unique subscription identifier.
    */
-  readonly id:
-    EventSubscriptionId;
+  readonly id: EventSubscriptionId;
 
   /**
    * Optional description.
    */
-  readonly description?:
-    string;
+  readonly description?: string;
 
   /**
    * Current subscription state.
    */
-  readonly state:
-    EventSubscriptionState;
+  readonly state: EventSubscriptionState;
 
   /**
    * Whether the subscription is currently active.
    */
-  readonly active:
-    boolean;
+  readonly active: boolean;
 
   /**
    * Cancels the subscription.
    *
    * Cancellation is idempotent.
    */
-  unsubscribe():
-    void;
+  unsubscribe(): void;
 }
 
 /**
  * Internal subscription implementation.
  */
-export class EventSubscriptionHandle
-  implements EventSubscription {
-  readonly id:
-    EventSubscriptionId;
+export class EventSubscriptionHandle implements EventSubscription {
+  readonly id: EventSubscriptionId;
 
-  readonly description?:
-    string;
+  readonly description?: string;
 
-  private currentState:
-    EventSubscriptionState;
+  private currentState: EventSubscriptionState;
 
-  private readonly onUnsubscribe:
-    () => void;
+  private readonly onUnsubscribe: () => void;
 
-  private unsubscribeCalled =
-    false;
+  private unsubscribeCalled = false;
 
   constructor(
-    onUnsubscribe:
-      () => void,
-    options:
-      EventSubscriptionOptions = {},
+    onUnsubscribe: () => void,
+    options: EventSubscriptionOptions = {},
   ) {
-    this.id =
-      options.id ??
-      createEventSubscriptionId();
+    this.id = options.id ?? createEventSubscriptionId();
 
-    this.description =
-      options.description;
+    this.description = options.description;
 
-    this.currentState =
-      EventSubscriptionState.ACTIVE;
+    this.currentState = EventSubscriptionState.ACTIVE;
 
-    this.onUnsubscribe =
-      onUnsubscribe;
+    this.onUnsubscribe = onUnsubscribe;
   }
 
   /**
    * Returns the current subscription state.
    */
-  get state():
-    EventSubscriptionState {
+  get state(): EventSubscriptionState {
     return this.currentState;
   }
 
   /**
    * Returns whether the subscription is active.
    */
-  get active():
-    boolean {
-    return (
-      this.currentState ===
-      EventSubscriptionState.ACTIVE
-    );
+  get active(): boolean {
+    return this.currentState === EventSubscriptionState.ACTIVE;
   }
 
   /**
@@ -150,19 +123,14 @@ export class EventSubscriptionHandle
    *
    * Calling unsubscribe multiple times has no effect.
    */
-  unsubscribe():
-    void {
-    if (
-      this.unsubscribeCalled
-    ) {
+  unsubscribe(): void {
+    if (this.unsubscribeCalled) {
       return;
     }
 
-    this.unsubscribeCalled =
-      true;
+    this.unsubscribeCalled = true;
 
-    this.currentState =
-      EventSubscriptionState.CANCELLED;
+    this.currentState = EventSubscriptionState.CANCELLED;
 
     this.onUnsubscribe();
   }
@@ -171,160 +139,113 @@ export class EventSubscriptionHandle
 /**
  * Creates a unique event subscription identifier.
  */
-export function createEventSubscriptionId():
-  EventSubscriptionId {
+export function createEventSubscriptionId(): EventSubscriptionId {
   return `subscription:${Date.now()}:${randomId()}`;
 }
 
 /**
  * Generates the random portion of a subscription identifier.
  */
-function randomId():
-  string {
+function randomId(): string {
   if (
-    typeof crypto !==
-      "undefined" &&
-    typeof crypto.randomUUID ===
-      "function"
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
   ) {
     return crypto.randomUUID();
   }
 
-  return Math.random()
-    .toString(36)
-    .slice(2, 12);
+  return Math.random().toString(36).slice(2, 12);
 }
 
 /**
  * Creates an already active subscription handle.
  */
 export function createEventSubscription(
-  onUnsubscribe:
-    () => void,
-  options:
-    EventSubscriptionOptions = {},
-):
-  EventSubscription {
-  return new EventSubscriptionHandle(
-    onUnsubscribe,
-    options,
-  );
+  onUnsubscribe: () => void,
+  options: EventSubscriptionOptions = {},
+): EventSubscription {
+  return new EventSubscriptionHandle(onUnsubscribe, options);
 }
 
 /**
  * Determines whether a value is an event subscription.
  */
 export function isEventSubscription(
-  value:
-    unknown,
-):
-  value is EventSubscription {
+  value: unknown,
+): value is EventSubscription {
   return (
-    typeof value ===
-      "object" &&
+    typeof value === "object" &&
     value !== null &&
     typeof (
       value as {
-        unsubscribe?:
-          unknown;
+        unsubscribe?: unknown;
       }
-    ).unsubscribe ===
-      "function" &&
+    ).unsubscribe === "function" &&
     typeof (
       value as {
-        active?:
-          unknown;
+        active?: unknown;
       }
-    ).active ===
-      "boolean"
+    ).active === "boolean"
   );
 }
 
 /**
  * A collection of subscriptions that can be disposed together.
  */
-export class EventSubscriptionGroup
-  implements EventSubscription {
-  readonly id:
-    EventSubscriptionId;
+export class EventSubscriptionGroup implements EventSubscription {
+  readonly id: EventSubscriptionId;
 
-  readonly description?:
-    string;
+  readonly description?: string;
 
-  private readonly subscriptions:
-    Set<EventSubscription>;
+  private readonly subscriptions: Set<EventSubscription>;
 
-  private currentState:
-    EventSubscriptionState;
+  private currentState: EventSubscriptionState;
 
   constructor(
-    subscriptions:
-      readonly EventSubscription[] = [],
-    options:
-      EventSubscriptionOptions = {},
+    subscriptions: readonly EventSubscription[] = [],
+    options: EventSubscriptionOptions = {},
   ) {
-    this.id =
-      options.id ??
-      createEventSubscriptionId();
+    this.id = options.id ?? createEventSubscriptionId();
 
-    this.description =
-      options.description;
+    this.description = options.description;
 
-    this.subscriptions =
-      new Set(
-        subscriptions,
-      );
+    this.subscriptions = new Set(subscriptions);
 
-    this.currentState =
-      EventSubscriptionState.ACTIVE;
+    this.currentState = EventSubscriptionState.ACTIVE;
   }
 
   /**
    * Returns the current state.
    */
-  get state():
-    EventSubscriptionState {
+  get state(): EventSubscriptionState {
     return this.currentState;
   }
 
   /**
    * Returns whether the group is active.
    */
-  get active():
-    boolean {
-    return (
-      this.currentState ===
-      EventSubscriptionState.ACTIVE
-    );
+  get active(): boolean {
+    return this.currentState === EventSubscriptionState.ACTIVE;
   }
 
   /**
    * Number of subscriptions in the group.
    */
-  get size():
-    number {
+  get size(): number {
     return this.subscriptions.size;
   }
 
   /**
    * Adds a subscription to the group.
    */
-  add(
-    subscription:
-      EventSubscription,
-  ):
-    this {
-    if (
-      !this.active
-    ) {
+  add(subscription: EventSubscription): this {
+    if (!this.active) {
       subscription.unsubscribe();
 
       return this;
     }
 
-    this.subscriptions.add(
-      subscription,
-    );
+    this.subscriptions.add(subscription);
 
     return this;
   }
@@ -333,40 +254,25 @@ export class EventSubscriptionGroup
    * Removes a subscription from the group without
    * unsubscribing it.
    */
-  remove(
-    subscription:
-      EventSubscription,
-  ):
-    boolean {
-    return this.subscriptions.delete(
-      subscription,
-    );
+  remove(subscription: EventSubscription): boolean {
+    return this.subscriptions.delete(subscription);
   }
 
   /**
    * Unsubscribes every subscription in the group.
    */
-  unsubscribe():
-    void {
-    if (
-      !this.active
-    ) {
+  unsubscribe(): void {
+    if (!this.active) {
       return;
     }
 
-    this.currentState =
-      EventSubscriptionState.CANCELLED;
+    this.currentState = EventSubscriptionState.CANCELLED;
 
-    const subscriptions = [
-      ...this.subscriptions,
-    ];
+    const subscriptions = [...this.subscriptions];
 
     this.subscriptions.clear();
 
-    for (
-      const subscription of
-      subscriptions
-    ) {
+    for (const subscription of subscriptions) {
       subscription.unsubscribe();
     }
   }
@@ -374,11 +280,8 @@ export class EventSubscriptionGroup
   /**
    * Returns all subscriptions in the group.
    */
-  getAll():
-    readonly EventSubscription[] {
-    return [
-      ...this.subscriptions,
-    ];
+  getAll(): readonly EventSubscription[] {
+    return [...this.subscriptions];
   }
 }
 
@@ -386,12 +289,7 @@ export class EventSubscriptionGroup
  * Creates an empty subscription group.
  */
 export function createEventSubscriptionGroup(
-  options:
-    EventSubscriptionOptions = {},
-):
-  EventSubscriptionGroup {
-  return new EventSubscriptionGroup(
-    [],
-    options,
-  );
+  options: EventSubscriptionOptions = {},
+): EventSubscriptionGroup {
+  return new EventSubscriptionGroup([], options);
 }

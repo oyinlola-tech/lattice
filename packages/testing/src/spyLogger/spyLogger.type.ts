@@ -4,7 +4,11 @@
  * Types for the spy logger used in testing.
  */
 
-import type { Logger, LoggerLevel, LogMetadata } from "@oyinlola141/lattice-logger";
+import type {
+  Logger,
+  LoggerLevel,
+  LogMetadata,
+} from "@oyinlola141/lattice-logger";
 
 /** A recorded log call. */
 export interface LogCall {

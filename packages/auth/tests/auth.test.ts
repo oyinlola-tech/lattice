@@ -95,7 +95,9 @@ describe("JWT Tokens", () => {
   });
 
   it("should verify a valid access token", () => {
-    const tokens = createTokenPair("user-123", TEST_TOKEN_CONFIG, { roles: ["admin"] });
+    const tokens = createTokenPair("user-123", TEST_TOKEN_CONFIG, {
+      roles: ["admin"],
+    });
     const result = verifyAccessToken(tokens.accessToken, TEST_TOKEN_CONFIG);
     expect(result.valid).toBe(true);
     expect(result.payload?.sub).toBe("user-123");
@@ -135,8 +137,14 @@ describe("JWT Tokens", () => {
   });
 
   it("should refresh an access token", () => {
-    const tokens = createTokenPair("user-123", TEST_TOKEN_CONFIG, { roles: ["user"] });
-    const newTokens = refreshAccessToken(tokens.refreshToken, TEST_TOKEN_CONFIG, { roles: ["user"] });
+    const tokens = createTokenPair("user-123", TEST_TOKEN_CONFIG, {
+      roles: ["user"],
+    });
+    const newTokens = refreshAccessToken(
+      tokens.refreshToken,
+      TEST_TOKEN_CONFIG,
+      { roles: ["user"] },
+    );
     expect(newTokens).not.toBeNull();
     expect(newTokens!.accessToken).not.toBe(tokens.accessToken);
   });
@@ -178,7 +186,9 @@ describe("Session Management", () => {
     const before = session.lastActivityAt;
     await store.touch(session.id);
     const after = await store.get(session.id);
-    expect(after!.lastActivityAt.getTime()).toBeGreaterThanOrEqual(before.getTime());
+    expect(after!.lastActivityAt.getTime()).toBeGreaterThanOrEqual(
+      before.getTime(),
+    );
   });
 
   it("should destroy a session", async () => {
@@ -195,7 +205,9 @@ describe("Session Management", () => {
     await store.create({ userId: "user-123" });
     await store.create({ userId: "user-456" });
     await store.destroyAllForUser("user-123");
-    expect(await store.get((await store.create({ userId: "user-123" })).id)).not.toBeNull();
+    expect(
+      await store.get((await store.create({ userId: "user-123" })).id),
+    ).not.toBeNull();
   });
 });
 
@@ -204,32 +216,43 @@ describe("Session Management", () => {
 describe("Permissions Engine", () => {
   const engine = createPermissionEngine({
     roles: [
-      { name: "admin", permissions: ["users:read", "users:write", "posts:*", "*:*"] },
+      {
+        name: "admin",
+        permissions: ["users:read", "users:write", "posts:*", "*:*"],
+      },
       { name: "viewer", permissions: ["users:read", "posts:read"] },
     ],
   });
 
   it("should check exact permissions", async () => {
-    expect(await engine.can({ id: "u1", roles: ["viewer"] }, "users:read")).toBe(true);
-    expect(await engine.can({ id: "u1", roles: ["viewer"] }, "users:write")).toBe(false);
+    expect(
+      await engine.can({ id: "u1", roles: ["viewer"] }, "users:read"),
+    ).toBe(true);
+    expect(
+      await engine.can({ id: "u1", roles: ["viewer"] }, "users:write"),
+    ).toBe(false);
   });
 
   it("should check wildcard permissions", async () => {
-    expect(await engine.can({ id: "u1", roles: ["admin"] }, "posts:delete")).toBe(true);
-    expect(await engine.can({ id: "u1", roles: ["admin"] }, "anything:here")).toBe(true);
+    expect(
+      await engine.can({ id: "u1", roles: ["admin"] }, "posts:delete"),
+    ).toBe(true);
+    expect(
+      await engine.can({ id: "u1", roles: ["admin"] }, "anything:here"),
+    ).toBe(true);
   });
 
   it("should support ownership via policy", async () => {
     const engineWithPolicy = createPermissionEngine({
-      roles: [
-        { name: "viewer", permissions: ["posts:read"] },
-      ],
+      roles: [{ name: "viewer", permissions: ["posts:read"] }],
       policies: [
         {
           name: "owner",
           permissions: ["posts:write"],
           evaluate: (ctx) => ({
-            allowed: ctx.actor.id === (ctx.resource as Record<string, unknown>)?.ownerId,
+            allowed:
+              ctx.actor.id ===
+              (ctx.resource as Record<string, unknown>)?.ownerId,
           }),
         },
       ],
@@ -245,15 +268,15 @@ describe("Permissions Engine", () => {
 
   it("should deny without ownership", async () => {
     const engineWithPolicy = createPermissionEngine({
-      roles: [
-        { name: "viewer", permissions: ["posts:read"] },
-      ],
+      roles: [{ name: "viewer", permissions: ["posts:read"] }],
       policies: [
         {
           name: "owner",
           permissions: ["posts:write"],
           evaluate: (ctx) => ({
-            allowed: ctx.actor.id === (ctx.resource as Record<string, unknown>)?.ownerId,
+            allowed:
+              ctx.actor.id ===
+              (ctx.resource as Record<string, unknown>)?.ownerId,
           }),
         },
       ],
@@ -361,7 +384,11 @@ describe("Auth Service", () => {
 
   it("should deny access via engine", async () => {
     const auth = await setup();
-    const result = await auth.checkAccess("user-123", ["viewer"], "users:write");
+    const result = await auth.checkAccess(
+      "user-123",
+      ["viewer"],
+      "users:write",
+    );
     expect(result.allowed).toBe(false);
   });
 });

@@ -1,11 +1,9 @@
 /**
  * Converts bytes into Base64.
  */
-export function bytesToBase64(
-  value: Uint8Array,
-): string {
+export function bytesToBase64(value: Uint8Array): string {
   const binary = Array.from(value)
-    .map(b => String.fromCharCode(b))
+    .map((b) => String.fromCharCode(b))
     .join("");
 
   return btoa(binary);
@@ -14,15 +12,9 @@ export function bytesToBase64(
 /**
  * Converts Base64 into bytes.
  */
-export function base64ToBytes(
-  value: string,
-): Uint8Array {
-  if (
-    typeof value !== "string"
-  ) {
-    throw new TypeError(
-      "Base64 value must be a string.",
-    );
+export function base64ToBytes(value: string): Uint8Array {
+  if (typeof value !== "string") {
+    throw new TypeError("Base64 value must be a string.");
   }
 
   if (
@@ -31,26 +23,15 @@ export function base64ToBytes(
       value,
     )
   ) {
-    throw new TypeError(
-      "Invalid Base64 value.",
-    );
+    throw new TypeError("Invalid Base64 value.");
   }
 
-  const binary =
-    atob(value);
+  const binary = atob(value);
 
-  const result =
-    new Uint8Array(
-      binary.length,
-    );
+  const result = new Uint8Array(binary.length);
 
-  for (
-    let i = 0;
-    i < binary.length;
-    i += 1
-  ) {
-    result[i] =
-      binary.charCodeAt(i);
+  for (let i = 0; i < binary.length; i += 1) {
+    result[i] = binary.charCodeAt(i);
   }
 
   return result;

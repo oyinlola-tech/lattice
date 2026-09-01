@@ -99,7 +99,4 @@ export interface StructuredContent {
  * A document can use any of these formats.
  */
 export type DocumentationContent =
-  | MarkdownContent
-  | MDXContent
-  | HTMLContent
-  | StructuredContent;
+  MarkdownContent | MDXContent | HTMLContent | StructuredContent;

@@ -1,26 +1,14 @@
-import type {
-  Logger,
-} from "@oyinlola141/lattice-logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
-import type {
-  EventBus,
-} from "@oyinlola141/lattice-events";
+import type { EventBus } from "@oyinlola141/lattice-events";
 
-import {
-  createEvent,
-} from "@oyinlola141/lattice-events";
+import { createEvent } from "@oyinlola141/lattice-events";
 
-import {
-  LifecycleManager,
-} from "../lifecycle/index.js";
+import { LifecycleManager } from "../lifecycle/index.js";
 
-import type {
-  LifecycleResult,
-} from "../lifecycle/lifecycle.type.js";
+import type { LifecycleResult } from "../lifecycle/lifecycle.type.js";
 
-import {
-  RuntimeStartError,
-} from "../runtimeError/index.js";
+import { RuntimeStartError } from "../runtimeError/index.js";
 
 /**
  * Executes the startup sequence.
@@ -34,14 +22,16 @@ export async function executeStartup(
 ): Promise<void> {
   // Initialize modules
   if (emitEvents && eventBus) {
-    eventBus.publish(createEvent({
-      type: "runtime.module.initializing",
-      payload: {
-        runtimeId,
-        timestamp: new Date(),
-        state: "initializing",
-      },
-    }));
+    eventBus.publish(
+      createEvent({
+        type: "runtime.module.initializing",
+        payload: {
+          runtimeId,
+          timestamp: new Date(),
+          state: "initializing",
+        },
+      }),
+    );
   }
 
   const initResult = await lifecycle.initialize();
@@ -50,17 +40,19 @@ export async function executeStartup(
     const failure = initResult.failed[0]!;
 
     if (emitEvents && eventBus) {
-      eventBus.publish(createEvent({
-        type: "runtime.module.failed",
-        payload: {
-          runtimeId,
-          state: "initialization_failed",
-          timestamp: new Date(),
-          error: failure.error,
-          phase: "initialize",
-          failedModuleId: failure.moduleId,
-        },
-      }));
+      eventBus.publish(
+        createEvent({
+          type: "runtime.module.failed",
+          payload: {
+            runtimeId,
+            state: "initialization_failed",
+            timestamp: new Date(),
+            error: failure.error,
+            phase: "initialize",
+            failedModuleId: failure.moduleId,
+          },
+        }),
+      );
     }
 
     throw new RuntimeStartError(
@@ -80,14 +72,16 @@ export async function executeStartup(
 
   // Start modules
   if (emitEvents && eventBus) {
-    eventBus.publish(createEvent({
-      type: "runtime.module.starting",
-      payload: {
-        runtimeId,
-        timestamp: new Date(),
-        state: "starting",
-      },
-    }));
+    eventBus.publish(
+      createEvent({
+        type: "runtime.module.starting",
+        payload: {
+          runtimeId,
+          timestamp: new Date(),
+          state: "starting",
+        },
+      }),
+    );
   }
 
   const startResult = await lifecycle.start();
@@ -96,17 +90,19 @@ export async function executeStartup(
     const failure = startResult.failed[0]!;
 
     if (emitEvents && eventBus) {
-      eventBus.publish(createEvent({
-        type: "runtime.module.failed",
-        payload: {
-          runtimeId,
-          state: "startup_failed",
-          timestamp: new Date(),
-          error: failure.error,
-          phase: "start",
-          failedModuleId: failure.moduleId,
-        },
-      }));
+      eventBus.publish(
+        createEvent({
+          type: "runtime.module.failed",
+          payload: {
+            runtimeId,
+            state: "startup_failed",
+            timestamp: new Date(),
+            error: failure.error,
+            phase: "start",
+            failedModuleId: failure.moduleId,
+          },
+        }),
+      );
     }
 
     throw new RuntimeStartError(

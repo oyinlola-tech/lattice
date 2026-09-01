@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { resolvePath, matchAttribute } from "../src/evaluator/evaluatorAttribute.js";
+import {
+  resolvePath,
+  matchAttribute,
+} from "../src/evaluator/evaluatorAttribute.js";
 import { evaluateRule } from "../src/evaluator/evaluatorRule.core.js";
 import { evaluateFlag } from "../src/evaluator/evaluator.core.js";
 import type { FeatureFlag } from "../src/featureFlagTypes/featureFlag.interface.js";
@@ -116,7 +119,12 @@ describe("evaluateRule", () => {
 
   it("attribute rule matches", () => {
     const result = evaluateRule(
-      { type: "attribute", attribute: "plan", operator: "equals", value: "pro" },
+      {
+        type: "attribute",
+        attribute: "plan",
+        operator: "equals",
+        value: "pro",
+      },
       { attributes: { plan: "pro" } },
       "flag",
     );

@@ -1,18 +1,10 @@
-import type {
-  Logger,
-} from "@oyinlola141/lattice-logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
-import type {
-  EventBus,
-} from "@oyinlola141/lattice-events";
+import type { EventBus } from "@oyinlola141/lattice-events";
 
-import {
-  createEvent,
-} from "@oyinlola141/lattice-events";
+import { createEvent } from "@oyinlola141/lattice-events";
 
-import {
-  LifecycleManager,
-} from "../lifecycle/index.js";
+import { LifecycleManager } from "../lifecycle/index.js";
 
 import {
   RuntimeStopError,
@@ -31,14 +23,16 @@ export async function executeShutdown(
   emitEvents: boolean,
 ): Promise<void> {
   if (emitEvents && eventBus) {
-    eventBus.publish(createEvent({
-      type: "runtime.shutdown.drain",
-      payload: {
-        runtimeId,
-        timestamp: new Date(),
-        state: "stopping",
-      },
-    }));
+    eventBus.publish(
+      createEvent({
+        type: "runtime.shutdown.drain",
+        payload: {
+          runtimeId,
+          timestamp: new Date(),
+          state: "stopping",
+        },
+      }),
+    );
   }
 
   logger.info("Initiating graceful shutdown.", { timeoutMs: shutdownTimeout });
@@ -55,14 +49,16 @@ export async function executeShutdown(
     await Promise.race([stopPromise, timeoutPromise]);
 
     if (emitEvents && eventBus) {
-      eventBus.publish(createEvent({
-        type: "runtime.shutdown.complete",
-        payload: {
-          runtimeId,
-          timestamp: new Date(),
-          state: "stopped",
-        },
-      }));
+      eventBus.publish(
+        createEvent({
+          type: "runtime.shutdown.complete",
+          payload: {
+            runtimeId,
+            timestamp: new Date(),
+            state: "stopped",
+          },
+        }),
+      );
     }
 
     logger.info("Graceful shutdown complete.");
@@ -72,25 +68,24 @@ export async function executeShutdown(
     }
 
     if (emitEvents && eventBus) {
-      eventBus.publish(createEvent({
-        type: "runtime.failed",
-        payload: {
-          runtimeId,
-          timestamp: new Date(),
-          state: "shutdown_failed",
-          error: error instanceof Error ? error : new Error(String(error)),
-          phase: "stop",
-        },
-      }));
+      eventBus.publish(
+        createEvent({
+          type: "runtime.failed",
+          payload: {
+            runtimeId,
+            timestamp: new Date(),
+            state: "shutdown_failed",
+            error: error instanceof Error ? error : new Error(String(error)),
+            phase: "stop",
+          },
+        }),
+      );
     }
 
-    throw new RuntimeStopError(
-      "Runtime shutdown failed.",
-      {
-        phase: "stop",
-        cause: error instanceof Error ? error : undefined,
-      },
-    );
+    throw new RuntimeStopError("Runtime shutdown failed.", {
+      phase: "stop",
+      cause: error instanceof Error ? error : undefined,
+    });
   }
 }
 
@@ -106,7 +101,7 @@ async function performShutdown(
 
   if (stopResult.failed.length > 0) {
     logger.warn("Some modules failed during shutdown.", {
-      failedModules: stopResult.failed.map(f => f.moduleId),
+      failedModules: stopResult.failed.map((f) => f.moduleId),
     });
   }
 
@@ -120,7 +115,7 @@ async function performShutdown(
 
   if (destroyResult.failed.length > 0) {
     logger.warn("Some modules failed during destruction.", {
-      failedModules: destroyResult.failed.map(f => f.moduleId),
+      failedModules: destroyResult.failed.map((f) => f.moduleId),
     });
   }
 

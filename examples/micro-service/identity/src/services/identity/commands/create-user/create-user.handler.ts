@@ -26,7 +26,10 @@ export interface CreateUserResult {
  * Handles the CreateUserCommand.
  * Validates uniqueness, hashes password, persists user, and emits an event.
  */
-export class CreateUserHandler extends CommandHandler<CreateUserCommand, CreateUserResult> {
+export class CreateUserHandler extends CommandHandler<
+  CreateUserCommand,
+  CreateUserResult
+> {
   public static readonly TYPE = "CreateUser" as const;
   public readonly commandType = CreateUserHandler.TYPE;
 
@@ -39,13 +42,19 @@ export class CreateUserHandler extends CommandHandler<CreateUserCommand, CreateU
     this.eventBus = eventBus;
   }
 
-  public async execute(command: CreateUserCommand, _context?: CqrsContext): Promise<CreateUserResult> {
+  public async execute(
+    command: CreateUserCommand,
+    _context?: CqrsContext,
+  ): Promise<CreateUserResult> {
     const existing = this.userRepository.findByEmail(command.email);
 
     if (existing) {
-      throw new ConflictError(`A user with email "${command.email}" already exists.`, {
-        metadata: { email: command.email },
-      });
+      throw new ConflictError(
+        `A user with email "${command.email}" already exists.`,
+        {
+          metadata: { email: command.email },
+        },
+      );
     }
 
     const id = createUserId(generateId());

@@ -4,9 +4,7 @@
  * Registers and executes resource cleanup functions in reverse order.
  */
 
-export {
-  createCleanupManager,
-} from "./cleanupManager.core.js";
+export { createCleanupManager } from "./cleanupManager.core.js";
 
 export type {
   CleanupEntry,

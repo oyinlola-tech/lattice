@@ -49,21 +49,25 @@ async function bootstrap(): Promise<void> {
   });
 
   // Queue report job with retry configuration
-  await reportQueue.add("generate-report", {
-    userId: "user-123",
-    reportType: "sales",
-    dateRange: {
-      start: "2026-01-01",
-      end: "2026-08-31",
+  await reportQueue.add(
+    "generate-report",
+    {
+      userId: "user-123",
+      reportType: "sales",
+      dateRange: {
+        start: "2026-01-01",
+        end: "2026-08-31",
+      },
     },
-  }, {
-    attempts: 3,
-    backoff: {
-      type: BackoffType.EXPONENTIAL,
-      delay: 1000,
-      maxDelay: 10_000,
+    {
+      attempts: 3,
+      backoff: {
+        type: BackoffType.EXPONENTIAL,
+        delay: 1000,
+        maxDelay: 10_000,
+      },
     },
-  });
+  );
 
   // Queue cleanup job
   await cleanupQueue.add("cleanup", {
@@ -82,9 +86,15 @@ async function bootstrap(): Promise<void> {
   const cleanupStats = await cleanupQueue.getStats();
 
   console.log("\n--- Queue Statistics ---");
-  console.log(`Emails:   ${emailStats.completed} completed, ${emailStats.failed} failed`);
-  console.log(`Reports:  ${reportStats.completed} completed, ${reportStats.failed} failed`);
-  console.log(`Cleanup:  ${cleanupStats.completed} completed, ${cleanupStats.failed} failed`);
+  console.log(
+    `Emails:   ${emailStats.completed} completed, ${emailStats.failed} failed`,
+  );
+  console.log(
+    `Reports:  ${reportStats.completed} completed, ${reportStats.failed} failed`,
+  );
+  console.log(
+    `Cleanup:  ${cleanupStats.completed} completed, ${cleanupStats.failed} failed`,
+  );
 
   // Graceful shutdown
   console.log("\nShutting down...");

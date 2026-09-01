@@ -20,7 +20,11 @@ const DEFAULT_BUCKETS = 10_000;
  * @param buckets - Total number of buckets (default 10,000).
  * @returns A bucket number in [0, buckets).
  */
-export function getBucket(key: string, subject: string, buckets: number = DEFAULT_BUCKETS): number {
+export function getBucket(
+  key: string,
+  subject: string,
+  buckets: number = DEFAULT_BUCKETS,
+): number {
   const hash = hashString(`${key}:${subject}`);
   return hash % buckets;
 }
@@ -33,7 +37,11 @@ export function getBucket(key: string, subject: string, buckets: number = DEFAUL
  * @param percentage - Percentage from 0 to 100 (supports decimals like 25.5).
  * @returns Whether the subject is in the rollout.
  */
-export function isInRollout(key: string, subject: string, percentage: number): boolean {
+export function isInRollout(
+  key: string,
+  subject: string,
+  percentage: number,
+): boolean {
   if (percentage <= 0) return false;
   if (percentage >= 100) return true;
 

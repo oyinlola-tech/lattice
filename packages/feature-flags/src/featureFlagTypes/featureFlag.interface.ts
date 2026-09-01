@@ -6,8 +6,15 @@
  * @module featureFlagTypes/featureFlag
  */
 
-import type { FeatureFlagValue, FeatureFlagState, FeatureFlagVisibility } from "./featureFlagRule/featureFlagValue.type.js";
-import type { FeatureFlagRule, FeatureFlagVariant } from "./featureFlagRule/featureFlagRule.type.js";
+import type {
+  FeatureFlagValue,
+  FeatureFlagState,
+  FeatureFlagVisibility,
+} from "./featureFlagRule/featureFlagValue.type.js";
+import type {
+  FeatureFlagRule,
+  FeatureFlagVariant,
+} from "./featureFlagRule/featureFlagRule.type.js";
 
 /** Metadata about a feature flag. */
 export interface FeatureFlagMetadata {

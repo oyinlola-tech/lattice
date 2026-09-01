@@ -13,9 +13,7 @@ export {
   ConfigurationConflictError,
 } from "./configurationError.error.js";
 
-export type {
-  ConfigurationErrorIssue,
-} from "./configurationError.error.js";
+export type { ConfigurationErrorIssue } from "./configurationError.error.js";
 
 export {
   ConfigurationRedactor,

@@ -24,7 +24,7 @@ describe("validateHeaders", () => {
   it("allows valid headers", () => {
     const result = validateHeaders({
       "content-type": "application/json",
-      "authorization": "Bearer token",
+      authorization: "Bearer token",
     });
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
@@ -207,7 +207,9 @@ describe("validateTransferEncoding", () => {
   it("rejects both Transfer-Encoding and Content-Length", () => {
     const result = validateTransferEncoding("chunked", "100");
     expect(result.valid).toBe(false);
-    expect(result.errors[0]).toContain("both Transfer-Encoding and Content-Length");
+    expect(result.errors[0]).toContain(
+      "both Transfer-Encoding and Content-Length",
+    );
   });
 
   it("rejects non-chunked transfer encoding", () => {

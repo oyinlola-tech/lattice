@@ -5,9 +5,7 @@
  */
 
 export type RouteSegment =
-  | StaticRouteSegment
-  | ParameterRouteSegment
-  | WildcardRouteSegment;
+  StaticRouteSegment | ParameterRouteSegment | WildcardRouteSegment;
 
 export interface StaticRouteSegment {
   readonly type: "static";

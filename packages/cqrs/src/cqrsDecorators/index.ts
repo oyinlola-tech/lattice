@@ -4,4 +4,4 @@
  * TypeScript decorators for CQRS handler metadata.
  */
 
-export * from './cqrsDecorators.core.js';
+export * from "./cqrsDecorators.core.js";

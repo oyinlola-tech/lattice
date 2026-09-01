@@ -4,7 +4,10 @@ import { randomUUID } from "node:crypto";
 import { SubmitAssessmentCommand } from "./submit-assessment.command.js";
 import type { AssessmentRepository } from "../../../../interfaces/index.js";
 import { AssessmentSubmittedEvent } from "../../../../events/index.js";
-import { AssessmentNotFoundError, DuplicateSubmissionError } from "../../../../errors/index.js";
+import {
+  AssessmentNotFoundError,
+  DuplicateSubmissionError,
+} from "../../../../errors/index.js";
 
 export interface SubmitAssessmentResult {
   readonly id: string;
@@ -15,30 +18,48 @@ export interface SubmitAssessmentResult {
   readonly submittedAt: Date;
 }
 
-export class SubmitAssessmentHandler extends CommandHandler<SubmitAssessmentCommand, SubmitAssessmentResult> {
+export class SubmitAssessmentHandler extends CommandHandler<
+  SubmitAssessmentCommand,
+  SubmitAssessmentResult
+> {
   public readonly commandType = SUBMIT_ASSESSMENT_COMMAND;
 
   private readonly repository: AssessmentRepository;
-  private readonly publishEvent: (event: { readonly type: string; readonly payload: unknown }) => Promise<void>;
+  private readonly publishEvent: (event: {
+    readonly type: string;
+    readonly payload: unknown;
+  }) => Promise<void>;
 
   constructor(
     repository: AssessmentRepository,
-    publishEvent: (event: { readonly type: string; readonly payload: unknown }) => Promise<void>,
+    publishEvent: (event: {
+      readonly type: string;
+      readonly payload: unknown;
+    }) => Promise<void>,
   ) {
     super();
     this.repository = repository;
     this.publishEvent = publishEvent;
   }
 
-  async execute(command: SubmitAssessmentCommand, _context?: CqrsContext): Promise<SubmitAssessmentResult> {
+  async execute(
+    command: SubmitAssessmentCommand,
+    _context?: CqrsContext,
+  ): Promise<SubmitAssessmentResult> {
     const assessment = await this.repository.findById(command.assessmentId);
     if (!assessment) {
       throw new AssessmentNotFoundError(command.assessmentId);
     }
 
-    const existing = await this.repository.findSubmissionByStudentAndAssessment(command.studentId, command.assessmentId);
+    const existing = await this.repository.findSubmissionByStudentAndAssessment(
+      command.studentId,
+      command.assessmentId,
+    );
     if (existing) {
-      throw new DuplicateSubmissionError(command.studentId, command.assessmentId);
+      throw new DuplicateSubmissionError(
+        command.studentId,
+        command.assessmentId,
+      );
     }
 
     const id = randomUUID();

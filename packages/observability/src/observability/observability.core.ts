@@ -19,7 +19,11 @@ import { StructuredLogger } from "../logger/index.js";
 import { DefaultMetricsRegistry } from "../metrics/index.js";
 import { DefaultTracer } from "../tracing/index.js";
 import { AsyncPropagationManager } from "../propagation/index.js";
-import { ConsoleLogExporter, ConsoleSpanExporter, ConsoleMetricExporter } from "../exporter/index.js";
+import {
+  ConsoleLogExporter,
+  ConsoleSpanExporter,
+  ConsoleMetricExporter,
+} from "../exporter/index.js";
 import { BatchSpanProcessor } from "../processor/index.js";
 
 /**
@@ -39,8 +43,12 @@ export class DefaultObservability implements Observability {
   constructor(config: ObservabilityConfig) {
     this.resourceAttributes = {
       "service.name": config.serviceName,
-      ...(config.serviceVersion ? { "service.version": config.serviceVersion } : {}),
-      ...(config.environment ? { "deployment.environment": config.environment } : {}),
+      ...(config.serviceVersion
+        ? { "service.version": config.serviceVersion }
+        : {}),
+      ...(config.environment
+        ? { "deployment.environment": config.environment }
+        : {}),
       ...(config.resource ?? {}),
     };
 
@@ -82,7 +90,8 @@ export class DefaultObservability implements Observability {
 
   resource(attributes: Record<string, unknown>): Observability {
     const child = new DefaultObservability({
-      serviceName: (this.resourceAttributes["service.name"] as string) ?? "unknown",
+      serviceName:
+        (this.resourceAttributes["service.name"] as string) ?? "unknown",
       resource: { ...this.resourceAttributes, ...attributes },
     });
     return child;
@@ -99,6 +108,8 @@ export class DefaultObservability implements Observability {
 }
 
 /** Creates an observability instance. */
-export function createObservability(config: ObservabilityConfig): DefaultObservability {
+export function createObservability(
+  config: ObservabilityConfig,
+): DefaultObservability {
   return new DefaultObservability(config);
 }

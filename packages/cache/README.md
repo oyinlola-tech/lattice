@@ -11,7 +11,7 @@ npm install @latticejs/cache
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/cache";
+import {} from /* add usage here */ "@latticejs/cache";
 ```
 
 ## License

@@ -9,7 +9,10 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating a network error. */
-export interface NetworkErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface NetworkErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly endpoint?: string;
   readonly method?: string;
@@ -24,7 +27,10 @@ export class NetworkError extends BaseError {
   public readonly responseStatus?: number;
   public readonly service?: string;
 
-  constructor(message = "A network operation failed.", options: NetworkErrorOptions = {}) {
+  constructor(
+    message = "A network operation failed.",
+    options: NetworkErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.NETWORK,
@@ -35,9 +41,15 @@ export class NetworkError extends BaseError {
       isOperational: options.isOperational ?? true,
       metadata: {
         ...options.metadata,
-        ...(options.endpoint !== undefined ? { endpoint: options.endpoint } : {}),
-        ...(options.method !== undefined ? { method: options.method.toUpperCase() } : {}),
-        ...(options.responseStatus !== undefined ? { responseStatus: options.responseStatus } : {}),
+        ...(options.endpoint !== undefined
+          ? { endpoint: options.endpoint }
+          : {}),
+        ...(options.method !== undefined
+          ? { method: options.method.toUpperCase() }
+          : {}),
+        ...(options.responseStatus !== undefined
+          ? { responseStatus: options.responseStatus }
+          : {}),
         ...(options.service !== undefined ? { service: options.service } : {}),
       },
     });
@@ -52,7 +64,9 @@ export class NetworkError extends BaseError {
       ...super.toJSON(),
       ...(this.endpoint !== undefined ? { endpoint: this.endpoint } : {}),
       ...(this.method !== undefined ? { method: this.method } : {}),
-      ...(this.responseStatus !== undefined ? { responseStatus: this.responseStatus } : {}),
+      ...(this.responseStatus !== undefined
+        ? { responseStatus: this.responseStatus }
+        : {}),
       ...(this.service !== undefined ? { service: this.service } : {}),
     };
   }

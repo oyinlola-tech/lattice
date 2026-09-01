@@ -7,7 +7,10 @@ export interface Route {
   readonly handler: (body: any, params: any, query: any) => Promise<unknown>;
 }
 
-export function createArticleRoutes(commandBus: CommandBus, queryBus: QueryBus): readonly Route[] {
+export function createArticleRoutes(
+  commandBus: CommandBus,
+  queryBus: QueryBus,
+): readonly Route[] {
   const controller = new ArticleController(commandBus, queryBus);
 
   return [
@@ -19,12 +22,14 @@ export function createArticleRoutes(commandBus: CommandBus, queryBus: QueryBus):
     {
       method: "GET",
       path: "/articles",
-      handler: async (_body: any, _params: any, query: any) => controller.list(query),
+      handler: async (_body: any, _params: any, query: any) =>
+        controller.list(query),
     },
     {
       method: "GET",
       path: "/articles/search",
-      handler: async (_body: any, _params: any, query: any) => controller.search(query.q),
+      handler: async (_body: any, _params: any, query: any) =>
+        controller.search(query.q),
     },
     {
       method: "GET",
@@ -34,17 +39,20 @@ export function createArticleRoutes(commandBus: CommandBus, queryBus: QueryBus):
     {
       method: "PATCH",
       path: "/articles/:id",
-      handler: async (body: any, params: any) => controller.update(params.id, body.userId, body),
+      handler: async (body: any, params: any) =>
+        controller.update(params.id, body.userId, body),
     },
     {
       method: "POST",
       path: "/articles/:id/publish",
-      handler: async (body: any, params: any) => controller.publish(params.id, body.userId),
+      handler: async (body: any, params: any) =>
+        controller.publish(params.id, body.userId),
     },
     {
       method: "DELETE",
       path: "/articles/:id",
-      handler: async (body: any, params: any) => controller.delete(params.id, body.userId),
+      handler: async (body: any, params: any) =>
+        controller.delete(params.id, body.userId),
     },
   ];
 }

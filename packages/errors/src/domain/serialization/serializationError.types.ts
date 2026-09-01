@@ -7,15 +7,29 @@ import { SerializationError } from "./serializationError.base.js";
 
 /** Error thrown when serialization fails. */
 export class SerializeError extends SerializationError {
-  constructor(message: string, options: { format?: string; cause?: unknown } = {}) {
-    super(message, { code: ErrorCode.SERIALIZATION_FAILED, format: options.format, cause: options.cause });
+  constructor(
+    message: string,
+    options: { format?: string; cause?: unknown } = {},
+  ) {
+    super(message, {
+      code: ErrorCode.SERIALIZATION_FAILED,
+      format: options.format,
+      cause: options.cause,
+    });
   }
 }
 
 /** Error thrown when deserialization fails. */
 export class DeserializeError extends SerializationError {
-  constructor(message: string, options: { format?: string; cause?: unknown } = {}) {
-    super(message, { code: ErrorCode.DESERIALIZATION_FAILED, format: options.format, cause: options.cause });
+  constructor(
+    message: string,
+    options: { format?: string; cause?: unknown } = {},
+  ) {
+    super(message, {
+      code: ErrorCode.DESERIALIZATION_FAILED,
+      format: options.format,
+      cause: options.cause,
+    });
   }
 }
 
@@ -23,7 +37,10 @@ export class DeserializeError extends SerializationError {
 export class UnsupportedSerializationFormatError extends SerializationError {
   constructor(format: string) {
     super(`Unsupported serialization format: "${format}"`, {
-      code: ErrorCode.UNSUPPORTED_FORMAT, format, statusCode: 400, expose: true,
+      code: ErrorCode.UNSUPPORTED_FORMAT,
+      format,
+      statusCode: 400,
+      expose: true,
     });
   }
 }
@@ -34,7 +51,10 @@ export class SerializerNotFoundError extends SerializationError {
 
   constructor(name: string) {
     super(`No serializer registered with name: "${name}"`, {
-      code: ErrorCode.SERIALIZER_NOT_FOUND, serializerName: name, statusCode: 404, expose: true,
+      code: ErrorCode.SERIALIZER_NOT_FOUND,
+      serializerName: name,
+      statusCode: 404,
+      expose: true,
     });
     this.serializerName = name;
   }
@@ -46,7 +66,9 @@ export class CircularReferenceError extends SerializationError {
 
   constructor(path = "root") {
     super(`Circular reference detected at "${path}"`, {
-      code: ErrorCode.CIRCULAR_REFERENCE, statusCode: 400, expose: false,
+      code: ErrorCode.CIRCULAR_REFERENCE,
+      statusCode: 400,
+      expose: false,
     });
     this.circularPath = path;
   }
@@ -59,7 +81,11 @@ export class SerializationDepthError extends SerializationError {
 
   constructor(depth: number, maxDepth: number) {
     super(`Maximum serialization depth exceeded: ${depth} > ${maxDepth}`, {
-      code: ErrorCode.MAX_DEPTH_EXCEEDED, depth, maxDepth, statusCode: 400, expose: false,
+      code: ErrorCode.MAX_DEPTH_EXCEEDED,
+      depth,
+      maxDepth,
+      statusCode: 400,
+      expose: false,
     });
     this.depth = depth;
     this.maxDepthValue = maxDepth;
@@ -73,7 +99,11 @@ export class SerializationPayloadTooLargeError extends SerializationError {
 
   constructor(size: number, maxSize: number) {
     super(`Serialized payload too large: ${size} bytes (max: ${maxSize})`, {
-      code: ErrorCode.PAYLOAD_TOO_LARGE, size, maxSize, statusCode: 413, expose: false,
+      code: ErrorCode.PAYLOAD_TOO_LARGE,
+      size,
+      maxSize,
+      statusCode: 413,
+      expose: false,
     });
     this.payloadSize = size;
     this.maxSizeValue = maxSize;
@@ -82,10 +112,16 @@ export class SerializationPayloadTooLargeError extends SerializationError {
 
 /** Error thrown when serialized data is invalid or malformed. */
 export class InvalidSerializedDataError extends SerializationError {
-  constructor(message: string, options: { format?: string; cause?: unknown } = {}) {
+  constructor(
+    message: string,
+    options: { format?: string; cause?: unknown } = {},
+  ) {
     super(message, {
-      code: ErrorCode.INVALID_SERIALIZED_DATA, format: options.format, cause: options.cause,
-      statusCode: 400, expose: true,
+      code: ErrorCode.INVALID_SERIALIZED_DATA,
+      format: options.format,
+      cause: options.cause,
+      statusCode: 400,
+      expose: true,
     });
   }
 }
@@ -94,9 +130,15 @@ export class InvalidSerializedDataError extends SerializationError {
 export class TransformerError extends SerializationError {
   public readonly transformerType: string;
 
-  constructor(type: string, message: string, options: { cause?: unknown } = {}) {
+  constructor(
+    type: string,
+    message: string,
+    options: { cause?: unknown } = {},
+  ) {
     super(`Transformer error (${type}): ${message}`, {
-      code: ErrorCode.TRANSFORMER_ERROR, transformerType: type, cause: options.cause,
+      code: ErrorCode.TRANSFORMER_ERROR,
+      transformerType: type,
+      cause: options.cause,
     });
     this.transformerType = type;
   }
@@ -108,7 +150,10 @@ export class TransformerNotFoundError extends SerializationError {
 
   constructor(type: string) {
     super(`No transformer registered for type: "${type}"`, {
-      code: ErrorCode.TRANSFORMER_NOT_FOUND, transformerType: type, statusCode: 404, expose: true,
+      code: ErrorCode.TRANSFORMER_NOT_FOUND,
+      transformerType: type,
+      statusCode: 404,
+      expose: true,
     });
     this.transformerType = type;
   }

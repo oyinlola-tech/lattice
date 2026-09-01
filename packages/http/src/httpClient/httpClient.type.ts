@@ -5,21 +5,10 @@
  */
 
 export type HttpClientMethod =
-  | "GET"
-  | "POST"
-  | "PUT"
-  | "PATCH"
-  | "DELETE"
-  | "HEAD"
-  | "OPTIONS"
-  | "TRACE";
+  "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD" | "OPTIONS" | "TRACE";
 
 export type HttpClientBody =
-  | BodyInit
-  | Record<string, unknown>
-  | readonly unknown[]
-  | null
-  | undefined;
+  BodyInit | Record<string, unknown> | readonly unknown[] | null | undefined;
 
 export type HttpClientQueryValue =
   | string
@@ -31,16 +20,10 @@ export type HttpClientQueryValue =
   | readonly (string | number | boolean | bigint)[];
 
 export type HttpClientQuery =
-  | Readonly<Record<string, HttpClientQueryValue>>
-  | URLSearchParams;
+  Readonly<Record<string, HttpClientQueryValue>> | URLSearchParams;
 
 export type HttpResponseType =
-  | "auto"
-  | "json"
-  | "text"
-  | "arrayBuffer"
-  | "blob"
-  | "response";
+  "auto" | "json" | "text" | "arrayBuffer" | "blob" | "response";
 
 export interface HttpRetryOptions {
   readonly retries?: number;

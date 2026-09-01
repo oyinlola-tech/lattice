@@ -12,30 +12,47 @@ export interface PublishResultResult {
   readonly gradedAt: Date;
 }
 
-export class PublishResultHandler extends CommandHandler<PublishResultCommand, PublishResultResult> {
+export class PublishResultHandler extends CommandHandler<
+  PublishResultCommand,
+  PublishResultResult
+> {
   public static readonly TYPE = "result.publish" as const;
   public readonly commandType = PublishResultHandler.TYPE;
 
   private readonly repository: AssessmentRepository;
-  private readonly publishEvent: (event: { readonly type: string; readonly payload: unknown }) => Promise<void>;
+  private readonly publishEvent: (event: {
+    readonly type: string;
+    readonly payload: unknown;
+  }) => Promise<void>;
 
   constructor(
     repository: AssessmentRepository,
-    publishEvent: (event: { readonly type: string; readonly payload: unknown }) => Promise<void>,
+    publishEvent: (event: {
+      readonly type: string;
+      readonly payload: unknown;
+    }) => Promise<void>,
   ) {
     super();
     this.repository = repository;
     this.publishEvent = publishEvent;
   }
 
-  async execute(command: PublishResultCommand, _context?: CqrsContext): Promise<PublishResultResult> {
-    const submission = await this.repository.findSubmissionById(command.submissionId);
+  async execute(
+    command: PublishResultCommand,
+    _context?: CqrsContext,
+  ): Promise<PublishResultResult> {
+    const submission = await this.repository.findSubmissionById(
+      command.submissionId,
+    );
     if (!submission) {
       throw new SubmissionNotFoundError(command.submissionId);
     }
 
     const gradedAt = new Date();
-    await this.repository.updateSubmissionScore(command.submissionId, command.score);
+    await this.repository.updateSubmissionScore(
+      command.submissionId,
+      command.score,
+    );
 
     const event = ResultPublishedEvent.create({
       submissionId: command.submissionId,

@@ -11,7 +11,7 @@ npm install @latticejs/auth
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/auth";
+import {} from /* add usage here */ "@latticejs/auth";
 ```
 
 ## License

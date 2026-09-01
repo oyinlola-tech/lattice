@@ -4,24 +4,16 @@
  * @module messageBus/messageBusCore
  */
 
-import type {
-  Message,
-  MessageInput,
-} from "../message/messageType.type.js";
+import type { Message, MessageInput } from "../message/messageType.type.js";
 
 import type {
   MessageHandler,
   NamedMessageHandler,
 } from "../messageHandler/messageHandlerType.type.js";
 
-import type {
-  MessageMiddlewareLike,
-} from "../messageMiddleware/messageMiddlewareType.type.js";
+import type { MessageMiddlewareLike } from "../messageMiddleware/messageMiddlewareType.type.js";
 
-import type {
-  MessageBus,
-  MessageBusOptions,
-} from "./messageBusType.type.js";
+import type { MessageBus, MessageBusOptions } from "./messageBusType.type.js";
 
 import type {
   DispatchResult,
@@ -50,7 +42,9 @@ export class InMemoryMessageBus implements MessageBus {
     this.registerGlobalMiddleware(options.middleware);
   }
 
-  private registerGlobalMiddleware(middleware?: readonly MessageMiddlewareLike[]): void {
+  private registerGlobalMiddleware(
+    middleware?: readonly MessageMiddlewareLike[],
+  ): void {
     if (middleware !== undefined) {
       for (const mw of middleware) this.dispatcher.use(mw);
     }
@@ -68,12 +62,17 @@ export class InMemoryMessageBus implements MessageBus {
       return this.dispatchWithTimeout(message, dispatchOptions);
     }
 
-    return this.dispatcher.dispatch(message, dispatchOptions) as Promise<DispatchResult<TResult>>;
+    return this.dispatcher.dispatch(message, dispatchOptions) as Promise<
+      DispatchResult<TResult>
+    >;
   }
 
   private validateNotDisposed(message: Message): void {
     if (this._disposed) {
-      throw new MessageDispatchError(message.type, "Message bus has been disposed.");
+      throw new MessageDispatchError(
+        message.type,
+        "Message bus has been disposed.",
+      );
     }
   }
 
@@ -82,9 +81,15 @@ export class InMemoryMessageBus implements MessageBus {
     options: DispatchOptions<TResult>,
   ): Promise<DispatchResult<TResult>> {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), options.timeout ?? 0);
+    const timeoutId = setTimeout(
+      () => controller.abort(),
+      options.timeout ?? 0,
+    );
     try {
-      const result = await this.dispatcher.dispatch(message, { ...options, signal: controller.signal });
+      const result = await this.dispatcher.dispatch(message, {
+        ...options,
+        signal: controller.signal,
+      });
       return result as DispatchResult<TResult>;
     } finally {
       clearTimeout(timeoutId);
@@ -105,8 +110,12 @@ export class InMemoryMessageBus implements MessageBus {
   ): void {
     const id = options.id ?? `handler:${messageType}:${Date.now()}`;
     const namedHandler: NamedMessageHandler<Message<TPayload>, TResult> = {
-      id, name: id, handler, messageTypes: [messageType],
-      priority: options.priority ?? 100, enabled: true,
+      id,
+      name: id,
+      handler,
+      messageTypes: [messageType],
+      priority: options.priority ?? 100,
+      enabled: true,
     };
     this.registry.register(namedHandler);
   }

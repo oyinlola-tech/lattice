@@ -2,9 +2,7 @@
  * Core logger entry creation functions.
  */
 
-import type {
-  LoggerLevel,
-} from "../loggerLevel/loggerLevel.type.js";
+import type { LoggerLevel } from "../loggerLevel/loggerLevel.type.js";
 
 import type {
   LogMetadata,
@@ -12,13 +10,9 @@ import type {
   LoggerEntryInput,
 } from "./loggerEntry.type.js";
 
-import {
-  loggerLevelNameFallback,
-} from "./loggerEntryHelpers/loggerEntryHelpers.serialize.js";
+import { loggerLevelNameFallback } from "./loggerEntryHelpers/loggerEntryHelpers.serialize.js";
 
-import {
-  createLoggerEntry,
-} from "./loggerEntryCreate.js";
+import { createLoggerEntry } from "./loggerEntryCreate.js";
 
 /**
  * Creates a unique log entry identifier.
@@ -43,9 +37,7 @@ export { createLoggerEntry } from "./loggerEntryCreate.js";
 /**
  * Converts an unknown value into logger metadata.
  */
-export function normalizeLogMetadata(
-  value: unknown,
-): LogMetadata {
+export function normalizeLogMetadata(value: unknown): LogMetadata {
   if (value === null || value === undefined) {
     return {};
   }
@@ -55,7 +47,7 @@ export function normalizeLogMetadata(
   }
 
   return {
-    ...value as Record<string, import("./loggerEntry.type.js").LogValue>,
+    ...(value as Record<string, import("./loggerEntry.type.js").LogValue>),
   };
 }
 

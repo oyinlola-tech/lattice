@@ -16,10 +16,6 @@ export {
   createMessages,
 } from "./messageFixtures.core.js";
 
-export type {
-  CreateEventOptions,
-} from "./eventFixtures.core.js";
+export type { CreateEventOptions } from "./eventFixtures.core.js";
 
-export type {
-  CreateMessageOptions,
-} from "./messageFixtures.core.js";
+export type { CreateMessageOptions } from "./messageFixtures.core.js";

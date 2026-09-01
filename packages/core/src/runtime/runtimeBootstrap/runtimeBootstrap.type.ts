@@ -1,34 +1,18 @@
-import type {
-  Logger,
-} from "../../logging/core/logger.js";
+import type { Logger } from "../../logging/core/logger.js";
 
-import type {
-  ApplicationContext,
-} from "../../application/applicationContext.context.js";
+import type { ApplicationContext } from "../../application/applicationContext.context.js";
 
-import type {
-  ModuleLoader,
-} from "../../modules/moduleLoader/index.js";
+import type { ModuleLoader } from "../../modules/moduleLoader/index.js";
 
-import type {
-  ModuleLifecycleManager,
-} from "../../modules/moduleLifecycle/index.js";
+import type { ModuleLifecycleManager } from "../../modules/moduleLifecycle/index.js";
 
-import type {
-  ModuleRegistry,
-} from "../../modules/moduleRegistry/index.js";
+import type { ModuleRegistry } from "../../modules/moduleRegistry/index.js";
 
-import type {
-  RuntimeContext,
-} from "../runtimeContext/index.js";
+import type { RuntimeContext } from "../runtimeContext/index.js";
 
-import type {
-  RuntimeEnvironment,
-} from "../runtimeEnvironment/index.js";
+import type { RuntimeEnvironment } from "../runtimeEnvironment/index.js";
 
-import type {
-  ResolvedRuntimeOptions,
-} from "../runtimeOptions/index.js";
+import type { ResolvedRuntimeOptions } from "../runtimeOptions/index.js";
 
 /**
  * Dependencies required by RuntimeBootstrap.
@@ -99,9 +83,7 @@ export interface RuntimeBootstrapResult {
 export interface RuntimeBootstrap {
   readonly running: boolean;
   readonly phase: RuntimeBootstrapPhase;
-  bootstrap(
-    options?: RuntimeBootstrapOptions,
-  ): Promise<RuntimeBootstrapResult>;
+  bootstrap(options?: RuntimeBootstrapOptions): Promise<RuntimeBootstrapResult>;
   getLastResult(): RuntimeBootstrapResult | undefined;
   reset(): void;
 }

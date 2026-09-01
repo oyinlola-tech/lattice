@@ -4,9 +4,7 @@
  * @module httpInterceptors/builtin/request
  */
 
-import type {
-  HttpInterceptorOptions,
-} from "../httpInterceptor.type.js";
+import type { HttpInterceptorOptions } from "../httpInterceptor.type.js";
 
 import { defaultRequestId } from "../httpInterceptor.helper.js";
 
@@ -25,7 +23,9 @@ export function createRequestIdInterceptor(
     phase: "request" as const,
     priority: options.priority ?? "first",
     name: options.name ?? "request-id",
-    handler: (request: { readonly headers: Record<string, string | undefined> }) => {
+    handler: (request: {
+      readonly headers: Record<string, string | undefined>;
+    }) => {
       const id = generator();
       return {
         ...request,
@@ -53,7 +53,9 @@ export function createUserAgentInterceptor(
     phase: "request" as const,
     priority: options.priority ?? "normal",
     name: options.name ?? "user-agent",
-    handler: (request: { readonly headers: Record<string, string | undefined> }) => {
+    handler: (request: {
+      readonly headers: Record<string, string | undefined>;
+    }) => {
       return {
         ...request,
         headers: {
@@ -79,10 +81,11 @@ export function createBearerTokenInterceptor(
     phase: "request" as const,
     priority: options.priority ?? "normal",
     name: options.name ?? "bearer-token",
-    handler: (request: { readonly headers: Record<string, string | undefined> }) => {
-      const token = typeof options.token === "function"
-        ? options.token()
-        : options.token;
+    handler: (request: {
+      readonly headers: Record<string, string | undefined>;
+    }) => {
+      const token =
+        typeof options.token === "function" ? options.token() : options.token;
 
       return {
         ...request,
@@ -108,7 +111,9 @@ export function createJsonAcceptInterceptor(
     phase: "request" as const,
     priority: options.priority ?? "normal",
     name: options.name ?? "json-accept",
-    handler: (request: { readonly headers: Record<string, string | undefined> }) => {
+    handler: (request: {
+      readonly headers: Record<string, string | undefined>;
+    }) => {
       return {
         ...request,
         headers: {

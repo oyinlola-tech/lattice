@@ -15,22 +15,34 @@ export interface CreateAssessmentResult {
   readonly createdAt: Date;
 }
 
-export class CreateAssessmentHandler extends CommandHandler<CreateAssessmentCommand, CreateAssessmentResult> {
+export class CreateAssessmentHandler extends CommandHandler<
+  CreateAssessmentCommand,
+  CreateAssessmentResult
+> {
   public readonly commandType = CREATE_ASSESSMENT_COMMAND;
 
   private readonly repository: AssessmentRepository;
-  private readonly publishEvent: (event: { readonly type: string; readonly payload: unknown }) => Promise<void>;
+  private readonly publishEvent: (event: {
+    readonly type: string;
+    readonly payload: unknown;
+  }) => Promise<void>;
 
   constructor(
     repository: AssessmentRepository,
-    publishEvent: (event: { readonly type: string; readonly payload: unknown }) => Promise<void>,
+    publishEvent: (event: {
+      readonly type: string;
+      readonly payload: unknown;
+    }) => Promise<void>,
   ) {
     super();
     this.repository = repository;
     this.publishEvent = publishEvent;
   }
 
-  async execute(command: CreateAssessmentCommand, _context?: CqrsContext): Promise<CreateAssessmentResult> {
+  async execute(
+    command: CreateAssessmentCommand,
+    _context?: CqrsContext,
+  ): Promise<CreateAssessmentResult> {
     const id = randomUUID();
     const now = new Date();
 

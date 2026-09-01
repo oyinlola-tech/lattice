@@ -119,7 +119,8 @@ export function getMissingSecurityHeaders(
  * @returns The base64-encoded nonce.
  */
 export function generateCspNonce(nonceLength?: number): string {
-  const { randomBytes } = require("node:crypto") as typeof import("node:crypto");
+  const { randomBytes } =
+    require("node:crypto") as typeof import("node:crypto");
   const length = nonceLength ?? 16;
   return randomBytes(length).toString("base64");
 }

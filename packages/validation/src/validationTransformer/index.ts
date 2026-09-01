@@ -4,4 +4,4 @@
  * Data transformation after validation.
  */
 
-export * from './validationTransformer.core.js';
+export * from "./validationTransformer.core.js";

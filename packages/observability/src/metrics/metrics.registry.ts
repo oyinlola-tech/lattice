@@ -4,18 +4,32 @@
  * Central registry for all metrics. Creates and caches metrics by name+labels.
  */
 
-import type { Counter, Gauge, Histogram, MetricsRegistry, MetricSnapshot } from "../types.js";
+import type {
+  Counter,
+  Gauge,
+  Histogram,
+  MetricsRegistry,
+  MetricSnapshot,
+} from "../types.js";
 import { DefaultCounter } from "./counter/counter.core.js";
 import { DefaultGauge } from "./gauge/gauge.core.js";
 import { DefaultHistogram } from "./histogram/histogram.core.js";
 
-type MetricEntry = { type: "counter"; metric: DefaultCounter }
+type MetricEntry =
+  | { type: "counter"; metric: DefaultCounter }
   | { type: "gauge"; metric: DefaultGauge }
   | { type: "histogram"; metric: DefaultHistogram };
 
-function metricKey(type: string, name: string, labels?: Record<string, string>): string {
+function metricKey(
+  type: string,
+  name: string,
+  labels?: Record<string, string>,
+): string {
   const labelStr = labels
-    ? Object.entries(labels).sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => `${k}=${v}`).join(",")
+    ? Object.entries(labels)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([k, v]) => `${k}=${v}`)
+        .join(",")
     : "";
   return `${type}:${name}:${labelStr}`;
 }
@@ -58,21 +72,24 @@ export class DefaultMetricsRegistry implements MetricsRegistry {
 
   getCounter(name: string): Counter | undefined {
     for (const entry of this.metrics.values()) {
-      if (entry.type === "counter" && entry.metric.name === name) return entry.metric;
+      if (entry.type === "counter" && entry.metric.name === name)
+        return entry.metric;
     }
     return undefined;
   }
 
   getGauge(name: string): Gauge | undefined {
     for (const entry of this.metrics.values()) {
-      if (entry.type === "gauge" && entry.metric.name === name) return entry.metric;
+      if (entry.type === "gauge" && entry.metric.name === name)
+        return entry.metric;
     }
     return undefined;
   }
 
   getHistogram(name: string): Histogram | undefined {
     for (const entry of this.metrics.values()) {
-      if (entry.type === "histogram" && entry.metric.name === name) return entry.metric;
+      if (entry.type === "histogram" && entry.metric.name === name)
+        return entry.metric;
     }
     return undefined;
   }

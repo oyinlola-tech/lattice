@@ -7,11 +7,7 @@
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-import {
-  LogLevel,
-  SpanStatus,
-  SpanKind,
-} from "../src/types.js";
+import { LogLevel, SpanStatus, SpanKind } from "../src/types.js";
 
 import {
   logLevelToName,
@@ -20,15 +16,30 @@ import {
   getLogLevelNames,
 } from "../src/logLevel/index.js";
 
-import { createLogRecord, createErrorLogRecord } from "../src/logRecord/index.js";
-import { StructuredLogger, createStructuredLogger } from "../src/logger/index.js";
+import {
+  createLogRecord,
+  createErrorLogRecord,
+} from "../src/logRecord/index.js";
+import {
+  StructuredLogger,
+  createStructuredLogger,
+} from "../src/logger/index.js";
 import {
   createPropagationContext,
   derivePropagationContext,
   AsyncPropagationManager,
 } from "../src/propagation/index.js";
-import { createCounter, createGauge, createHistogram, createMetricsRegistry } from "../src/metrics/index.js";
-import { createSpan, createSpanContext, createChildSpanContext } from "../src/tracing/span/index.js";
+import {
+  createCounter,
+  createGauge,
+  createHistogram,
+  createMetricsRegistry,
+} from "../src/metrics/index.js";
+import {
+  createSpan,
+  createSpanContext,
+  createChildSpanContext,
+} from "../src/tracing/span/index.js";
 import { createTracer } from "../src/tracing/tracer/index.js";
 import {
   AlwaysOnSampler,
@@ -42,8 +53,15 @@ import {
   ConsoleMetricExporter,
 } from "../src/exporter/index.js";
 import { createBatchSpanProcessor } from "../src/processor/index.js";
-import { createRedactor, redactObject, isSensitiveField } from "../src/redaction/index.js";
-import { NoopObservability, createNoopObservability } from "../src/noop/index.js";
+import {
+  createRedactor,
+  redactObject,
+  isSensitiveField,
+} from "../src/redaction/index.js";
+import {
+  NoopObservability,
+  createNoopObservability,
+} from "../src/noop/index.js";
 import { createObservability } from "../src/observability/index.js";
 
 // ─── Log Level ──────────────────────────────────────────────────────────
@@ -130,13 +148,20 @@ describe("StructuredLogger", () => {
   });
 
   it("creates a logger with custom level", () => {
-    const logger = createStructuredLogger({ name: "test", level: LogLevel.DEBUG });
+    const logger = createStructuredLogger({
+      name: "test",
+      level: LogLevel.DEBUG,
+    });
     expect(logger.level).toBe(LogLevel.DEBUG);
   });
 
   it("logs messages at or above threshold", () => {
     const transport = { name: "test", write: vi.fn() };
-    const logger = createStructuredLogger({ name: "test", level: LogLevel.WARN, transport });
+    const logger = createStructuredLogger({
+      name: "test",
+      level: LogLevel.WARN,
+      transport,
+    });
 
     logger.debug("should not appear");
     logger.info("should not appear");
@@ -147,7 +172,10 @@ describe("StructuredLogger", () => {
   });
 
   it("isLevelEnabled checks threshold", () => {
-    const logger = createStructuredLogger({ name: "test", level: LogLevel.INFO });
+    const logger = createStructuredLogger({
+      name: "test",
+      level: LogLevel.INFO,
+    });
     expect(logger.isLevelEnabled(LogLevel.INFO)).toBe(true);
     expect(logger.isLevelEnabled(LogLevel.DEBUG)).toBe(false);
     expect(logger.isLevelEnabled(LogLevel.ERROR)).toBe(true);
@@ -166,7 +194,10 @@ describe("StructuredLogger", () => {
   });
 
   it("child logger inherits parent level", () => {
-    const logger = createStructuredLogger({ name: "app", level: LogLevel.ERROR });
+    const logger = createStructuredLogger({
+      name: "app",
+      level: LogLevel.ERROR,
+    });
     const child = logger.child("sub");
     expect(child.isLevelEnabled(LogLevel.WARN)).toBe(false);
     expect(child.isLevelEnabled(LogLevel.ERROR)).toBe(true);
@@ -427,7 +458,9 @@ describe("Span", () => {
     const error = new Error("boom");
     span.recordError(error);
     expect(span.toReadableSpan().status).toBe(SpanStatus.ERROR);
-    expect(span.toReadableSpan().events.some((e) => e.name === "exception")).toBe(true);
+    expect(
+      span.toReadableSpan().events.some((e) => e.name === "exception"),
+    ).toBe(true);
   });
 
   it("sets status", () => {
@@ -492,10 +525,14 @@ describe("Sampling", () => {
 
   it("ProbabilitySampler samples based on traceId", () => {
     const sampler = new ProbabilitySampler(1);
-    expect(sampler.shouldSample(undefined, "abc123").decision).toBe("RECORD_AND_SAMPLE");
+    expect(sampler.shouldSample(undefined, "abc123").decision).toBe(
+      "RECORD_AND_SAMPLE",
+    );
 
     const offSampler = new ProbabilitySampler(0);
-    expect(offSampler.shouldSample(undefined, "abc123").decision).toBe("DO_NOT_RECORD");
+    expect(offSampler.shouldSample(undefined, "abc123").decision).toBe(
+      "DO_NOT_RECORD",
+    );
   });
 
   it("ParentBasedSampler delegates to root for root spans", () => {
@@ -505,10 +542,18 @@ describe("Sampling", () => {
 
   it("ParentBasedSampler follows parent decision", () => {
     const sampler = new ParentBasedSampler();
-    const sampled = sampler.shouldSample({ traceId: "t", spanId: "s", traceFlags: 1 });
+    const sampled = sampler.shouldSample({
+      traceId: "t",
+      spanId: "s",
+      traceFlags: 1,
+    });
     expect(sampled.decision).toBe("RECORD_AND_SAMPLE");
 
-    const notSampled = sampler.shouldSample({ traceId: "t", spanId: "s", traceFlags: 0 });
+    const notSampled = sampler.shouldSample({
+      traceId: "t",
+      spanId: "s",
+      traceFlags: 0,
+    });
     expect(notSampled.decision).toBe("DO_NOT_RECORD");
   });
 });
@@ -519,18 +564,20 @@ describe("Console Exporters", () => {
   it("ConsoleSpanExporter exports spans", async () => {
     const exporter = new ConsoleSpanExporter();
     const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-    await exporter.export([{
-      name: "test",
-      context: { traceId: "t", spanId: "s" },
-      kind: SpanKind.INTERNAL,
-      startTime: new Date(),
-      endTime: new Date(),
-      duration: 10,
-      status: SpanStatus.OK,
-      attributes: {},
-      events: [],
-      resource: {},
-    }]);
+    await exporter.export([
+      {
+        name: "test",
+        context: { traceId: "t", spanId: "s" },
+        kind: SpanKind.INTERNAL,
+        startTime: new Date(),
+        endTime: new Date(),
+        duration: 10,
+        status: SpanStatus.OK,
+        attributes: {},
+        events: [],
+        resource: {},
+      },
+    ]);
     expect(logSpy).toHaveBeenCalled();
     logSpy.mockRestore();
   });
@@ -538,13 +585,15 @@ describe("Console Exporters", () => {
   it("ConsoleLogExporter exports logs", async () => {
     const exporter = new ConsoleLogExporter();
     const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-    await exporter.export([{
-      level: LogLevel.INFO,
-      levelName: "info",
-      message: "test",
-      timestamp: new Date(),
-      loggerName: "test",
-    }]);
+    await exporter.export([
+      {
+        level: LogLevel.INFO,
+        levelName: "info",
+        message: "test",
+        timestamp: new Date(),
+        loggerName: "test",
+      },
+    ]);
     expect(logSpy).toHaveBeenCalled();
     logSpy.mockRestore();
   });
@@ -552,11 +601,13 @@ describe("Console Exporters", () => {
   it("ConsoleMetricExporter exports metrics", async () => {
     const exporter = new ConsoleMetricExporter();
     const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-    await exporter.export([{
-      name: "test",
-      type: "counter",
-      value: 42,
-    }]);
+    await exporter.export([
+      {
+        name: "test",
+        type: "counter",
+        value: 42,
+      },
+    ]);
     expect(logSpy).toHaveBeenCalled();
     logSpy.mockRestore();
   });
@@ -592,7 +643,12 @@ describe("BatchSpanProcessor", () => {
   });
 
   it("handles export errors gracefully", async () => {
-    const exporter = { export: async () => { throw new Error("fail"); }, shutdown: async () => {} };
+    const exporter = {
+      export: async () => {
+        throw new Error("fail");
+      },
+      shutdown: async () => {},
+    };
     const processor = createBatchSpanProcessor({ exporter });
     const span = createSpan("s1");
     processor.onEnd(span.toReadableSpan());
@@ -617,7 +673,10 @@ describe("Redaction", () => {
   });
 
   it("redacts with custom config", () => {
-    const redactor = createRedactor({ fields: ["custom_field"], replacement: "***" });
+    const redactor = createRedactor({
+      fields: ["custom_field"],
+      replacement: "***",
+    });
     expect(redactor("custom_field", "value")).toBe("***");
     expect(redactor("password", "value")).toBe("value");
   });
@@ -689,7 +748,10 @@ describe("Observability", () => {
   });
 
   it("logger works end-to-end", () => {
-    const obs = createObservability({ serviceName: "test", logLevel: LogLevel.DEBUG });
+    const obs = createObservability({
+      serviceName: "test",
+      logLevel: LogLevel.DEBUG,
+    });
     expect(() => obs.logger.info("hello")).not.toThrow();
     expect(() => obs.logger.error("oops")).not.toThrow();
   });

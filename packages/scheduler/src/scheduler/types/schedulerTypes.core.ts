@@ -32,7 +32,8 @@ export type ScheduleState = "active" | "paused" | "cancelled" | "completed";
 /**
  * State of a job execution.
  */
-export type JobState = "pending" | "running" | "completed" | "failed" | "cancelled" | "timed_out";
+export type JobState =
+  "pending" | "running" | "completed" | "failed" | "cancelled" | "timed_out";
 
 /**
  * Policy for handling overlapping executions.

@@ -15,8 +15,7 @@ export const LogLevel = {
 /**
  * Union of all supported Lattice log levels.
  */
-export type LogLevel =
-  (typeof LogLevel)[keyof typeof LogLevel];
+export type LogLevel = (typeof LogLevel)[keyof typeof LogLevel];
 
 /**
  * Numeric severity used when comparing log levels.
@@ -36,12 +35,6 @@ export const LogLevelPriority: Record<LogLevel, number> = {
  * Determines whether a log level should be emitted when
  * the configured minimum level is applied.
  */
-export function shouldLog(
-  level: LogLevel,
-  minimumLevel: LogLevel,
-): boolean {
-  return (
-    LogLevelPriority[level] >=
-    LogLevelPriority[minimumLevel]
-  );
+export function shouldLog(level: LogLevel, minimumLevel: LogLevel): boolean {
+  return LogLevelPriority[level] >= LogLevelPriority[minimumLevel];
 }

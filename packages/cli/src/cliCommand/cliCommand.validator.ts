@@ -28,8 +28,13 @@ export function validateCommand(command: CLICommand): void {
     throw new InvalidCommandNameError(command.name);
   }
 
-  if (command.description !== undefined && typeof command.description !== "string") {
-    throw new TypeError(`Description for command "${command.name}" must be a string.`);
+  if (
+    command.description !== undefined &&
+    typeof command.description !== "string"
+  ) {
+    throw new TypeError(
+      `Description for command "${command.name}" must be a string.`,
+    );
   }
 
   if (command.aliases) {
@@ -55,7 +60,9 @@ export function validateCommand(command: CLICommand): void {
   }
 
   if (typeof command.execute !== "function") {
-    throw new TypeError(`Command "${command.name}" must define an execute function.`);
+    throw new TypeError(
+      `Command "${command.name}" must define an execute function.`,
+    );
   }
 }
 
@@ -67,7 +74,10 @@ export function validateCommand(command: CLICommand): void {
 export function isCLICommand(value: unknown): value is CLICommand {
   if (!value || typeof value !== "object") return false;
   const candidate = value as Partial<CLICommand>;
-  return typeof candidate.name === "string" && typeof candidate.execute === "function";
+  return (
+    typeof candidate.name === "string" &&
+    typeof candidate.execute === "function"
+  );
 }
 
 /** Returns a sorted copy of the commands array. */

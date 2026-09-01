@@ -36,8 +36,5 @@ export function isValidPassword(
   password: string,
   minimumLength = PASSWORD_MINIMUM_DEFAULT_LENGTH,
 ): boolean {
-  return (
-    typeof password === "string" &&
-    password.length >= minimumLength
-  );
+  return typeof password === "string" && password.length >= minimumLength;
 }

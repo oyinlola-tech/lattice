@@ -4,4 +4,10 @@
  * @module authUtils
  */
 
-export { parseBearerToken, parseCookies, isTokenExpired, extractUserId, generateCsrfToken } from "./authUtils.helper.js";
+export {
+  parseBearerToken,
+  parseCookies,
+  isTokenExpired,
+  extractUserId,
+  generateCsrfToken,
+} from "./authUtils.helper.js";

@@ -10,7 +10,7 @@ const validExample: DocumentationExample = {
   id: "basic-router",
   title: "Basic Router",
   language: "typescript",
-  code: 'const router = createRouter();',
+  code: "const router = createRouter();",
   description: "Creates a simple router.",
 };
 

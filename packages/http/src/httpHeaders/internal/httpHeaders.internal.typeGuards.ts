@@ -11,20 +11,9 @@
  * @returns `true` if the value is an iterable of `[string, string | number | boolean]` tuples.
  */
 export function isIterableHeaders(
-  value:
-    | unknown,
-): value is Iterable<
-  readonly [
-    string,
-    string | number | boolean,
-  ]
-> {
+  value: unknown,
+): value is Iterable<readonly [string, string | number | boolean]> {
   return (
-    typeof value ===
-      "object" &&
-    value !==
-      null &&
-    Symbol.iterator in
-      value
+    typeof value === "object" && value !== null && Symbol.iterator in value
   );
 }

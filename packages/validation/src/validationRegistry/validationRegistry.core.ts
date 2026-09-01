@@ -21,7 +21,8 @@ export interface ValidationRuleOptions {
 /** Normalizes registry keys. */
 function normalizeRuleName(name: string): string {
   const normalized = name.trim();
-  if (normalized.length === 0) throw new TypeError("Validation rule name cannot be empty.");
+  if (normalized.length === 0)
+    throw new TypeError("Validation rule name cannot be empty.");
   return normalized;
 }
 
@@ -29,26 +30,53 @@ function normalizeRuleName(name: string): string {
 export class ValidationRegistry {
   private readonly rules = new Map<string, ValidationRule>();
 
-  public register<T>(rule: ValidationRule<T>, options: ValidationRuleOptions = {}): this {
+  public register<T>(
+    rule: ValidationRule<T>,
+    options: ValidationRuleOptions = {},
+  ): this {
     const name = normalizeRuleName(rule.name);
-    if (!options.overwrite && this.rules.has(name)) throw new Error(`Validation rule "${name}" is already registered.`);
+    if (!options.overwrite && this.rules.has(name))
+      throw new Error(`Validation rule "${name}" is already registered.`);
     if (!rule.schema && (!rule.constraints || rule.constraints.length === 0)) {
-      throw new TypeError(`Validation rule "${name}" must define a schema or at least one constraint.`);
+      throw new TypeError(
+        `Validation rule "${name}" must define a schema or at least one constraint.`,
+      );
     }
     this.rules.set(name, Object.freeze({ ...rule, name }) as ValidationRule);
     return this;
   }
 
-  public registerSchema<T>(name: string, schema: ValidationSchema<T>, options: { readonly description?: string; readonly overwrite?: boolean } = {}): this {
-    return this.register({ name, description: options.description, schema }, options);
+  public registerSchema<T>(
+    name: string,
+    schema: ValidationSchema<T>,
+    options: {
+      readonly description?: string;
+      readonly overwrite?: boolean;
+    } = {},
+  ): this {
+    return this.register(
+      { name, description: options.description, schema },
+      options,
+    );
   }
 
-  public registerConstraints<T>(name: string, constraints: readonly ValidationConstraint<T>[], options: { readonly description?: string; readonly overwrite?: boolean } = {}): this {
-    return this.register({ name, description: options.description, constraints }, options);
+  public registerConstraints<T>(
+    name: string,
+    constraints: readonly ValidationConstraint<T>[],
+    options: {
+      readonly description?: string;
+      readonly overwrite?: boolean;
+    } = {},
+  ): this {
+    return this.register(
+      { name, description: options.description, constraints },
+      options,
+    );
   }
 
   public get<T = unknown>(name: string): ValidationRule<T> | undefined {
-    return this.rules.get(normalizeRuleName(name)) as ValidationRule<T> | undefined;
+    return this.rules.get(normalizeRuleName(name)) as
+      ValidationRule<T> | undefined;
   }
 
   public require<T = unknown>(name: string): ValidationRule<T> {
@@ -84,8 +112,11 @@ export class ValidationRegistry {
   public validate<T>(name: string, value: unknown): ValidationResult<T> {
     const rule = this.require<T>(name);
     if (rule.schema) return validate(rule.schema, value);
-    if (rule.constraints && rule.constraints.length > 0) return checkConstraints(rule.constraints, value as T);
-    throw new TypeError(`Validation rule "${name}" has no validation implementation.`);
+    if (rule.constraints && rule.constraints.length > 0)
+      return checkConstraints(rule.constraints, value as T);
+    throw new TypeError(
+      `Validation rule "${name}" has no validation implementation.`,
+    );
   }
 
   public clone(): ValidationRegistry {
@@ -94,7 +125,10 @@ export class ValidationRegistry {
     return registry;
   }
 
-  public extend(source: ValidationRegistry, options: ValidationRuleOptions = {}): this {
+  public extend(
+    source: ValidationRegistry,
+    options: ValidationRuleOptions = {},
+  ): this {
     for (const rule of source.entries()) this.register(rule, options);
     return this;
   }
@@ -110,7 +144,9 @@ export function createValidationRegistry(): ValidationRegistry {
 }
 
 /** Creates a registry from an initial collection of rules. */
-export function createRegistryFromRules(rules: readonly ValidationRule[]): ValidationRegistry {
+export function createRegistryFromRules(
+  rules: readonly ValidationRule[],
+): ValidationRegistry {
   const registry = new ValidationRegistry();
   for (const rule of rules) registry.register(rule);
   return registry;

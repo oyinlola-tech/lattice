@@ -7,7 +7,10 @@ export interface Route {
   readonly handler: (body: any, params: any) => Promise<unknown>;
 }
 
-export function createCommentRoutes(commandBus: CommandBus, queryBus: QueryBus): readonly Route[] {
+export function createCommentRoutes(
+  commandBus: CommandBus,
+  queryBus: QueryBus,
+): readonly Route[] {
   const controller = new CommentController(commandBus, queryBus);
 
   return [
@@ -19,17 +22,20 @@ export function createCommentRoutes(commandBus: CommandBus, queryBus: QueryBus):
     {
       method: "GET",
       path: "/articles/:articleId/comments",
-      handler: async (_body: any, params: any) => controller.list(params.articleId),
+      handler: async (_body: any, params: any) =>
+        controller.list(params.articleId),
     },
     {
       method: "PATCH",
       path: "/comments/:id",
-      handler: async (body: any, params: any) => controller.update(params.id, body.userId, body),
+      handler: async (body: any, params: any) =>
+        controller.update(params.id, body.userId, body),
     },
     {
       method: "DELETE",
       path: "/comments/:id",
-      handler: async (body: any, params: any) => controller.delete(params.id, body.userId),
+      handler: async (body: any, params: any) =>
+        controller.delete(params.id, body.userId),
     },
   ];
 }

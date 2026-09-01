@@ -100,17 +100,13 @@ export function isJobId(value: unknown): value is JobId {
 /**
  * Checks if a value is a valid QueueName.
  */
-export function isQueueName(
-  value: unknown,
-): value is QueueName {
+export function isQueueName(value: unknown): value is QueueName {
   return typeof value === "string" && value.length > 0;
 }
 
 /**
  * Checks if a value is a valid JobName.
  */
-export function isJobName(
-  value: unknown,
-): value is JobName {
+export function isJobName(value: unknown): value is JobName {
   return typeof value === "string" && value.length > 0;
 }

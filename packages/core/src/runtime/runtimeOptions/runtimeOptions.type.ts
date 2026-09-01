@@ -1,44 +1,25 @@
-import type {
-  ApplicationContext,
-} from "../../application/applicationContext.context.js";
+import type { ApplicationContext } from "../../application/applicationContext.context.js";
 
-import type {
-  ConfigurationManager,
-} from "../../configuration/configurationManager.manager.js";
+import type { ConfigurationManager } from "../../configuration/configurationManager.manager.js";
 
-import type {
-  Logger,
-} from "../../logging/core/logger.js";
+import type { Logger } from "../../logging/core/logger.js";
 
-import type {
-  ModuleLoader,
-} from "../../modules/moduleLoader/index.js";
+import type { ModuleLoader } from "../../modules/moduleLoader/index.js";
 
-import type {
-  ModuleLifecycleManager,
-} from "../../modules/moduleLifecycle/index.js";
+import type { ModuleLifecycleManager } from "../../modules/moduleLifecycle/index.js";
 
-import type {
-  ModuleRegistry,
-} from "../../modules/moduleRegistry/index.js";
+import type { ModuleRegistry } from "../../modules/moduleRegistry/index.js";
 
 /**
  * Runtime execution mode.
  */
-export type RuntimeMode =
-  | "development"
-  | "test"
-  | "production";
+export type RuntimeMode = "development" | "test" | "production";
 
 /**
  * Runtime role.
  */
 export type RuntimeRole =
-  | "application"
-  | "api"
-  | "worker"
-  | "scheduler"
-  | "cli";
+  "application" | "api" | "worker" | "scheduler" | "cli";
 
 /**
  * Options controlling runtime startup behavior.

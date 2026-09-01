@@ -4,4 +4,4 @@
  * HTTP httpProtocol module.
  */
 
-export * from './http.protocol.js';
+export * from "./http.protocol.js";

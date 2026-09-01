@@ -81,7 +81,8 @@ export async function createApp(): Promise<App> {
     },
     stop: async () => {
       logger.info("Shutting down...");
-      const { closeDatabase } = await import("./databases/enrollment.database.js");
+      const { closeDatabase } =
+        await import("./databases/enrollment.database.js");
       closeDatabase();
       logger.info("Database closed");
     },

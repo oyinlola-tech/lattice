@@ -18,27 +18,15 @@ import { headerContains } from "../basic/httpHeaders.basicMatch.js";
  * @returns The modified headers instance.
  */
 export function appendUniqueHeaderValue(
-  headers:
-    | HTTPHeaders,
-  name:
-    | string,
-  value:
-    | string,
+  headers: HTTPHeaders,
+  name: string,
+  value: string,
 ): HTTPHeaders {
-  if (
-    headerContains(
-      headers,
-      name,
-      value,
-    )
-  ) {
+  if (headerContains(headers, name, value)) {
     return headers;
   }
 
-  return headers.append(
-    name,
-    value,
-  );
+  return headers.append(name, value);
 }
 
 /**
@@ -50,47 +38,23 @@ export function appendUniqueHeaderValue(
  * @returns The modified headers instance.
  */
 export function removeHeaderValue(
-  headers:
-    | HTTPHeaders,
-  name:
-    | string,
-  value:
-    | string,
+  headers: HTTPHeaders,
+  name: string,
+  value: string,
 ): HTTPHeaders {
-  const existing =
-    getHeaderValues(
-      headers,
-      name,
-    );
+  const existing = getHeaderValues(headers, name);
 
-  const filtered =
-    existing.filter(
-      (
-        item,
-      ) =>
-        item.toLowerCase() !==
-        value
-          .trim()
-          .toLowerCase(),
-    );
+  const filtered = existing.filter(
+    (item) => item.toLowerCase() !== value.trim().toLowerCase(),
+  );
 
-  if (
-    filtered.length ===
-      0
-  ) {
-    headers.delete(
-      name,
-    );
+  if (filtered.length === 0) {
+    headers.delete(name);
 
     return headers;
   }
 
-  headers.set(
-    name,
-    filtered.join(
-      ", ",
-    ),
-  );
+  headers.set(name, filtered.join(", "));
 
   return headers;
 }

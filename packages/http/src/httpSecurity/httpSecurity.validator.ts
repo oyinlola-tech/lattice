@@ -39,9 +39,15 @@ export function validateHeaders(
 
   for (const [key, value] of entries) {
     if (typeof value === "string" && value.length > cfg.maxHeaderValueSize) {
-      errors.push(`Header "${key}" value too large: ${value.length} > ${cfg.maxHeaderValueSize}`);
+      errors.push(
+        `Header "${key}" value too large: ${value.length} > ${cfg.maxHeaderValueSize}`,
+      );
     }
-    if (cfg.enableCrlfProtection && typeof value === "string" && /[\r\n]/.test(value)) {
+    if (
+      cfg.enableCrlfProtection &&
+      typeof value === "string" &&
+      /[\r\n]/.test(value)
+    ) {
       errors.push(`Header "${key}" contains CRLF characters`);
     }
   }
@@ -66,9 +72,7 @@ export function validateHost(
   }
 
   const hostname = host.split(":")[0] ?? host;
-  const allowed = cfg.allowedHosts.some(
-    (h) => h === hostname || h === host,
-  );
+  const allowed = cfg.allowedHosts.some((h) => h === hostname || h === host);
 
   return allowed
     ? { valid: true, errors: [] }
@@ -103,7 +107,9 @@ export function validateQuery(
   if (query.length > cfg.maxQueryLength) {
     return {
       valid: false,
-      errors: [`Query string too long: ${query.length} > ${cfg.maxQueryLength}`],
+      errors: [
+        `Query string too long: ${query.length} > ${cfg.maxQueryLength}`,
+      ],
     };
   }
   return { valid: true, errors: [] };
@@ -134,7 +140,9 @@ export function validateContentLength(
   if (length > cfg.maxBodySize) {
     return {
       valid: false,
-      errors: [`Content-Length exceeds body limit: ${length} > ${cfg.maxBodySize}`],
+      errors: [
+        `Content-Length exceeds body limit: ${length} > ${cfg.maxBodySize}`,
+      ],
     };
   }
 
@@ -157,7 +165,9 @@ export function validateRequestId(
   if (requestId.length > cfg.maxRequestIdLength) {
     return {
       valid: false,
-      errors: [`Request ID too long: ${requestId.length} > ${cfg.maxRequestIdLength}`],
+      errors: [
+        `Request ID too long: ${requestId.length} > ${cfg.maxRequestIdLength}`,
+      ],
     };
   }
 

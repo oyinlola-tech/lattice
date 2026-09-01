@@ -13,9 +13,7 @@ import {
   verify as verifyImpl,
 } from "./primitives/nodeCryptoProvider.signing.js";
 
-import {
-  deriveKey as deriveKeyImpl,
-} from "./operations/nodeCryptoProvider.derivation.js";
+import { deriveKey as deriveKeyImpl } from "./operations/nodeCryptoProvider.derivation.js";
 
 import {
   hashPassword as hashPasswordImpl,
@@ -77,7 +75,11 @@ export class NodeCryptoProvider implements CryptoProvider {
     return hashImpl(algorithm, data);
   }
 
-  async hmac(algorithm: HmacAlgorithm, key: CryptoInput, data: CryptoInput): Promise<Uint8Array> {
+  async hmac(
+    algorithm: HmacAlgorithm,
+    key: CryptoInput,
+    data: CryptoInput,
+  ): Promise<Uint8Array> {
     return hmacImpl(algorithm, key, data);
   }
 

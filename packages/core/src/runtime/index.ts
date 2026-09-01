@@ -7,10 +7,7 @@
 /*
  * Runtime
  */
-export {
-  DefaultRuntime,
-  createRuntime,
-} from "./runtime.js";
+export { DefaultRuntime, createRuntime } from "./runtime.js";
 
 export type {
   RuntimeState as RuntimeLifecycleState,

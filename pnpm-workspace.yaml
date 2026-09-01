@@ -9,7 +9,7 @@ overrides:
   "deepmerge-ts": "8.0.2"
 
 allowBuilds:
-  '@prisma/engines': true
+  "@prisma/engines": true
   better-sqlite3: true
   esbuild: true
   prisma: true

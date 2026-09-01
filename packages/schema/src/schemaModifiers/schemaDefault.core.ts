@@ -33,6 +33,9 @@ export class DefaultSchema<TOutput> extends Schema<TOutput> {
 }
 
 /** Applies a default value when input is undefined. */
-export function defaultSchema<T>(schema: Schema<T>, defaultValue: T | (() => T)): DefaultSchema<T> {
+export function defaultSchema<T>(
+  schema: Schema<T>,
+  defaultValue: T | (() => T),
+): DefaultSchema<T> {
   return new DefaultSchema(schema, defaultValue);
 }

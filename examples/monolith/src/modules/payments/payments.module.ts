@@ -18,6 +18,10 @@ export class PaymentsModule {
     this.commandBus.register("payments.process", handler.execute.bind(handler));
   }
 
-  public getCommandBus(): CommandBus { return this.commandBus; }
-  public getPaymentRepository(): PaymentRepository { return this.payments; }
+  public getCommandBus(): CommandBus {
+    return this.commandBus;
+  }
+  public getPaymentRepository(): PaymentRepository {
+    return this.payments;
+  }
 }

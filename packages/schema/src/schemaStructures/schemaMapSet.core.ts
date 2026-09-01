@@ -85,6 +85,8 @@ export function mapSchema<TKey, TValue>(
 }
 
 /** Creates a set schema from a value schema. */
-export function setSchema<TValue>(valueSchema: Schema<TValue>): SetSchema<TValue> {
+export function setSchema<TValue>(
+  valueSchema: Schema<TValue>,
+): SetSchema<TValue> {
   return new SetSchema(valueSchema);
 }

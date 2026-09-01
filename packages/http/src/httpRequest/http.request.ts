@@ -1,15 +1,8 @@
-import type {
-  IncomingHttpHeaders,
-  IncomingMessage,
-} from "node:http";
+import type { IncomingHttpHeaders, IncomingMessage } from "node:http";
 
-import {
-  HTTP_HEADERS,
-} from "../httpConstants/http.constants.js";
+import { HTTP_HEADERS } from "../httpConstants/http.constants.js";
 
-import {
-  InvalidJSONError,
-} from "../httpErrors/httpError.helper.js";
+import { InvalidJSONError } from "../httpErrors/httpError.helper.js";
 
 import type {
   HTTPHeaders,
@@ -24,129 +17,60 @@ import type {
 /* Request Headers                                                            */
 /* -------------------------------------------------------------------------- */
 
-export class NodeHTTPHeaders
-  implements HTTPHeaders {
-  private readonly headers:
-    Headers;
+export class NodeHTTPHeaders implements HTTPHeaders {
+  private readonly headers: Headers;
 
-  constructor(
-    source?: IncomingHttpHeaders | Headers,
-  ) {
-    this.headers =
-      new Headers();
+  constructor(source?: IncomingHttpHeaders | Headers) {
+    this.headers = new Headers();
 
-    if (
-      source instanceof Headers
-    ) {
-      source.forEach(
-        (
-          value,
-          name,
-        ) => {
-          this.headers.set(
-            name,
-            value,
-          );
-        },
-      );
+    if (source instanceof Headers) {
+      source.forEach((value, name) => {
+        this.headers.set(name, value);
+      });
 
       return;
     }
 
-    if (
-      source
-    ) {
-      for (
-        const [
-          name,
-          value,
-        ] of Object.entries(
-          source,
-        )
-      ) {
-        if (
-          Array.isArray(
-            value,
-          )
-        ) {
-          this.headers.set(
-            name,
-            value.join(
-              ", ",
-            ),
-          );
-        } else if (
-          value !==
-          undefined
-        ) {
-          this.headers.set(
-            name,
-            value,
-          );
+    if (source) {
+      for (const [name, value] of Object.entries(source)) {
+        if (Array.isArray(value)) {
+          this.headers.set(name, value.join(", "));
+        } else if (value !== undefined) {
+          this.headers.set(name, value);
         }
       }
     }
   }
 
-  public get(
-    name: string,
-  ): string | null {
-    return this.headers.get(
-      name,
-    );
+  public get(name: string): string | null {
+    return this.headers.get(name);
   }
 
-  public set(
-    name: string,
-    value: string,
-  ): void {
-    this.headers.set(
-      name,
-      value,
-    );
+  public set(name: string, value: string): void {
+    this.headers.set(name, value);
   }
 
-  public append(
-    name: string,
-    value: string,
-  ): void {
-    this.headers.append(
-      name,
-      value,
-    );
+  public append(name: string, value: string): void {
+    this.headers.append(name, value);
   }
 
-  public has(
-    name: string,
-  ): boolean {
-    return this.headers.has(
-      name,
-    );
+  public has(name: string): boolean {
+    return this.headers.has(name);
   }
 
-  public delete(
-    name: string,
-  ): void {
-    this.headers.delete(
-      name,
-    );
+  public delete(name: string): void {
+    this.headers.delete(name);
   }
 
-  public entries(): IterableIterator<
-    [string, string]
-  > {
+  public entries(): IterableIterator<[string, string]> {
     return this.headers.entries();
   }
 
-  public keys(): IterableIterator<
-    string
-  > {
+  public keys(): IterableIterator<string> {
     return this.headers.keys();
   }
 
-  public values(): IterableIterator<
-    string
-  > {
+  public values(): IterableIterator<string> {
     return this.headers.values();
   }
 }
@@ -169,8 +93,7 @@ export interface HTTPRequestOptions {
 /* Node Request                                                               */
 /* -------------------------------------------------------------------------- */
 
-export class NodeHTTPRequest
-  implements HTTPRequest {
+export class NodeHTTPRequest implements HTTPRequest {
   public readonly method: HTTPMethod;
 
   public readonly url: string;
@@ -207,160 +130,82 @@ export class NodeHTTPRequest
 
   private cachedJSON?: unknown;
 
-  private jsonParsed =
-    false;
+  private jsonParsed = false;
 
-  constructor(
-    request: IncomingMessage,
-    options: HTTPRequestOptions = {},
-  ) {
-    const protocol =
-      getRequestProtocol(
-        request,
-      );
+  constructor(request: IncomingMessage, options: HTTPRequestOptions = {}) {
+    const protocol = getRequestProtocol(request);
 
-    const host =
-      getRequestHost(
-        request,
-      );
+    const host = getRequestHost(request);
 
-    const path =
-      getRequestPath(
-        request,
-      );
+    const path = getRequestPath(request);
 
-    this.method =
-      normalizeHTTPMethod(
-        request.method,
-      );
+    this.method = normalizeHTTPMethod(request.method);
 
-    this.url =
-      request.url ??
-      path;
+    this.url = request.url ?? path;
 
-    this.path =
-      path;
+    this.path = path;
 
-    this.originalUrl =
-      this.url;
+    this.originalUrl = this.url;
 
-    this.headers =
-      new NodeHTTPHeaders(
-        request.headers,
-      );
+    this.headers = new NodeHTTPHeaders(request.headers);
 
-    this.query =
-      options.query ??
-      parseQueryString(
-        this.url,
-      );
+    this.query = options.query ?? parseQueryString(this.url);
 
-    this.params =
-      options.params ??
-      {};
+    this.params = options.params ?? {};
 
-    this.protocol =
-      protocol;
+    this.protocol = protocol;
 
-    this.hostname =
-      getHostname(
-        host,
-      );
+    this.hostname = getHostname(host);
 
-    this.ip =
-      options.ip ??
-      getRequestIP(
-        request,
-      );
+    this.ip = options.ip ?? getRequestIP(request);
 
-    this.ips =
-      options.ips;
+    this.ips = options.ips;
 
-    this.secure =
-      protocol ===
-        "https" ||
-      protocol ===
-        "wss";
+    this.secure = protocol === "https" || protocol === "wss";
 
-    this.rawBody =
-      options.rawBody;
+    this.rawBody = options.rawBody;
 
-    this.body =
-      options.body;
+    this.body = options.body;
 
-    this.signal =
-      options.signal;
+    this.signal = options.signal;
   }
 
   /* ------------------------------------------------------------------------ */
   /* Headers                                                                  */
   /* ------------------------------------------------------------------------ */
 
-  public getHeader(
-    name: string,
-  ): string | undefined {
-    return (
-      this.headers.get(
-        name,
-      ) ??
-      undefined
-    );
+  public getHeader(name: string): string | undefined {
+    return this.headers.get(name) ?? undefined;
   }
 
-  public get(
-    name: string,
-  ): string | undefined {
-    return this.getHeader(
-      name,
-    );
+  public get(name: string): string | undefined {
+    return this.getHeader(name);
   }
 
   /* ------------------------------------------------------------------------ */
   /* Content Negotiation                                                      */
   /* ------------------------------------------------------------------------ */
 
-  public accepts(
-    ...types: readonly string[]
-  ): string | false {
-    if (
-      types.length ===
-      0
-    ) {
+  public accepts(...types: readonly string[]): string | false {
+    if (types.length === 0) {
       return false;
     }
 
-    const accept =
-      this.getHeader(
-        HTTP_HEADERS.ACCEPT,
-      );
+    const accept = this.getHeader(HTTP_HEADERS.ACCEPT);
 
-    if (
-      !accept ||
-      accept.trim() ===
-        "*/*"
-    ) {
+    if (!accept || accept.trim() === "*/*") {
       return types[0];
     }
 
-    const accepted =
-      parseAcceptHeader(
-        accept,
-      );
+    const accepted = parseAcceptHeader(accept);
 
-    for (
-      const type of types
-    ) {
+    for (const type of types) {
       if (
         accepted.some(
           (candidate) =>
-            candidate ===
-              "*/*" ||
-            candidate ===
-              type.toLowerCase() ||
-            mediaTypeMatches(
-              candidate,
-              type,
-            ),
+            candidate === "*/*" ||
+            candidate === type.toLowerCase() ||
+            mediaTypeMatches(candidate, type),
         )
       ) {
         return type;
@@ -370,48 +215,21 @@ export class NodeHTTPRequest
     return false;
   }
 
-  public is(
-    ...types: readonly string[]
-  ): string | false {
-    const contentType =
-      this.getHeader(
-        HTTP_HEADERS.CONTENT_TYPE,
-      );
+  public is(...types: readonly string[]): string | false {
+    const contentType = this.getHeader(HTTP_HEADERS.CONTENT_TYPE);
 
-    if (
-      !contentType
-    ) {
+    if (!contentType) {
       return false;
     }
 
-    const normalized =
-      contentType
-        .split(
-          ";",
-          1,
-        )[0]
-        .trim()
-        .toLowerCase();
+    const normalized = contentType.split(";", 1)[0].trim().toLowerCase();
 
-    for (
-      const type of types
-    ) {
-      const normalizedType =
-        type
-          .split(
-            ";",
-            1,
-          )[0]
-          .trim()
-          .toLowerCase();
+    for (const type of types) {
+      const normalizedType = type.split(";", 1)[0].trim().toLowerCase();
 
       if (
-        normalized ===
-          normalizedType ||
-        mediaTypeMatches(
-          normalized,
-          normalizedType,
-        )
+        normalized === normalizedType ||
+        mediaTypeMatches(normalized, normalizedType)
       ) {
         return type;
       }
@@ -424,75 +242,46 @@ export class NodeHTTPRequest
   /* Body                                                                      */
   /* ------------------------------------------------------------------------ */
 
-  public async json<
-    T = unknown,
-  >(): Promise<T> {
-    if (
-      this.jsonParsed
-    ) {
+  public async json<T = unknown>(): Promise<T> {
+    if (this.jsonParsed) {
       return this.cachedJSON as T;
     }
 
-    const text =
-      await this.text();
+    const text = await this.text();
 
     try {
-      const parsed =
-        JSON.parse(
-          text,
-        ) as T;
+      const parsed = JSON.parse(text) as T;
 
-      this.cachedJSON =
-        parsed;
+      this.cachedJSON = parsed;
 
-      this.jsonParsed =
-        true;
+      this.jsonParsed = true;
 
       return parsed;
-    } catch (
-      error
-    ) {
-      throw new InvalidJSONError(
-        "Request body contains invalid JSON.",
-        {
-          cause: error,
-        },
-      );
+    } catch (error) {
+      throw new InvalidJSONError("Request body contains invalid JSON.", {
+        cause: error,
+      });
     }
   }
 
   public async text(): Promise<string> {
-    if (
-      this.cachedText !==
-      undefined
-    ) {
+    if (this.cachedText !== undefined) {
       return this.cachedText;
     }
 
-    if (
-      !this.rawBody
-    ) {
-      this.cachedText =
-        "";
+    if (!this.rawBody) {
+      this.cachedText = "";
 
       return "";
     }
 
-    this.cachedText =
-      Buffer.from(
-        this.rawBody,
-      ).toString(
-        "utf8",
-      );
+    this.cachedText = Buffer.from(this.rawBody).toString("utf8");
 
     return this.cachedText;
   }
 
   public async buffer(): Promise<Uint8Array> {
-    return (
-      this.rawBody ??
-      new Uint8Array()
-    );
+    return this.rawBody ?? new Uint8Array();
   }
 
   /* ------------------------------------------------------------------------ */
@@ -500,10 +289,7 @@ export class NodeHTTPRequest
   /* ------------------------------------------------------------------------ */
 
   public get signalAborted(): boolean {
-    return (
-      this.signal?.aborted ??
-      false
-    );
+    return this.signal?.aborted ?? false;
   }
 
   public get abortedBySignal(): boolean {
@@ -519,104 +305,46 @@ export function createHTTPRequest(
   request: IncomingMessage,
   options: HTTPRequestOptions = {},
 ): NodeHTTPRequest {
-  return new NodeHTTPRequest(
-    request,
-    options,
-  );
+  return new NodeHTTPRequest(request, options);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Request URL                                                                */
 /* -------------------------------------------------------------------------- */
 
-export function getRequestPath(
-  request: IncomingMessage,
-): string {
-  const raw =
-    request.url ??
-    "/";
+export function getRequestPath(request: IncomingMessage): string {
+  const raw = request.url ?? "/";
 
-  const queryIndex =
-    raw.indexOf(
-      "?",
-    );
+  const queryIndex = raw.indexOf("?");
 
-  if (
-    queryIndex < 0
-  ) {
+  if (queryIndex < 0) {
     return raw || "/";
   }
 
-  return (
-    raw.slice(
-      0,
-      queryIndex,
-    ) ||
-    "/"
-  );
+  return raw.slice(0, queryIndex) || "/";
 }
 
-export function getRequestHost(
-  request: IncomingMessage,
-): string {
-  const host =
-    request.headers[
-      HTTP_HEADERS.HOST
-    ];
+export function getRequestHost(request: IncomingMessage): string {
+  const host = request.headers[HTTP_HEADERS.HOST];
 
-  if (
-    Array.isArray(
-      host,
-    )
-  ) {
-    return (
-      host[0] ??
-      ""
-    );
+  if (Array.isArray(host)) {
+    return host[0] ?? "";
   }
 
-  return host ??
-    "";
+  return host ?? "";
 }
 
-export function getHostname(
-  host: string,
-): string {
-  if (
-    host.startsWith(
-      "[",
-    )
-  ) {
-    const end =
-      host.indexOf(
-        "]",
-      1,
-      );
+export function getHostname(host: string): string {
+  if (host.startsWith("[")) {
+    const end = host.indexOf("]", 1);
 
-    return end >=
-      0
-      ? host.slice(
-          1,
-          end,
-        )
-      : host;
+    return end >= 0 ? host.slice(1, end) : host;
   }
 
-  const separator =
-    host.lastIndexOf(
-      ":",
-    );
+  const separator = host.lastIndexOf(":");
 
-  if (
-    separator > 0 &&
-    host.indexOf(
-      ":",
-    ) === separator
-  ) {
-    return host.slice(
-      0,
-      separator,
-    );
+  if (separator > 0 && host.indexOf(":") === separator) {
+    return host.slice(0, separator);
   }
 
   return host;
@@ -626,25 +354,11 @@ export function getHostname(
 /* Protocol                                                                   */
 /* -------------------------------------------------------------------------- */
 
-export function getRequestProtocol(
-  request: IncomingMessage,
-): string {
-  const forwarded =
-    request.headers[
-      HTTP_HEADERS.X_FORWARDED_PROTO
-    ];
+export function getRequestProtocol(request: IncomingMessage): string {
+  const forwarded = request.headers[HTTP_HEADERS.X_FORWARDED_PROTO];
 
-  if (
-    typeof forwarded ===
-    "string"
-  ) {
-    return forwarded
-      .split(
-        ",",
-        1,
-      )[0]
-      .trim()
-      .toLowerCase();
+  if (typeof forwarded === "string") {
+    return forwarded.split(",", 1)[0].trim().toLowerCase();
   }
 
   if (
@@ -661,113 +375,57 @@ export function getRequestProtocol(
 /* IP                                                                         */
 /* -------------------------------------------------------------------------- */
 
-export function getRequestIP(
-  request: IncomingMessage,
-): string | undefined {
-  const forwarded =
-    request.headers[
-      HTTP_HEADERS.X_FORWARDED_FOR
-    ];
+export function getRequestIP(request: IncomingMessage): string | undefined {
+  const forwarded = request.headers[HTTP_HEADERS.X_FORWARDED_FOR];
 
-  if (
-    typeof forwarded ===
-    "string"
-  ) {
-    const first =
-      forwarded
-        .split(
-          ",",
-          1,
-        )[0]
-        ?.trim();
+  if (typeof forwarded === "string") {
+    const first = forwarded.split(",", 1)[0]?.trim();
 
-    if (
-      first
-    ) {
+    if (first) {
       return first;
     }
   }
 
-  return (
-    request.socket
-      .remoteAddress ??
-    undefined
-  );
+  return request.socket.remoteAddress ?? undefined;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Query                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export function parseQueryString(
-  url: string,
-): HTTPQuery {
-  const queryIndex =
-    url.indexOf(
-      "?",
-    );
+export function parseQueryString(url: string): HTTPQuery {
+  const queryIndex = url.indexOf("?");
 
-  if (
-    queryIndex < 0
-  ) {
+  if (queryIndex < 0) {
     return {};
   }
 
-  const queryString =
-    url.slice(
-      queryIndex + 1,
-    );
+  const queryString = url.slice(queryIndex + 1);
 
-  if (
-    !queryString
-  ) {
+  if (!queryString) {
     return {};
   }
 
-  const searchParams =
-    new URLSearchParams(
-      queryString,
-    );
+  const searchParams = new URLSearchParams(queryString);
 
-  const result:
-    HTTPQuery = {};
+  const result: HTTPQuery = {};
 
-  for (
-    const [
-      key,
-      value,
-    ] of searchParams.entries()
-  ) {
-    const existing =
-      result[key];
+  for (const [key, value] of searchParams.entries()) {
+    const existing = result[key];
 
-    if (
-      existing ===
-      undefined
-    ) {
-      result[key] =
-        value;
+    if (existing === undefined) {
+      result[key] = value;
 
       continue;
     }
 
-    if (
-      Array.isArray(
-        existing,
-      )
-    ) {
-      result[key] = [
-        ...existing,
-        value,
-      ];
+    if (Array.isArray(existing)) {
+      result[key] = [...existing, value];
 
       continue;
     }
 
-    result[key] = [
-      existing as HTTPQueryValue,
-      value,
-    ];
+    result[key] = [existing as HTTPQueryValue, value];
   }
 
   return result;
@@ -777,16 +435,8 @@ export function parseQueryString(
 /* Method                                                                     */
 /* -------------------------------------------------------------------------- */
 
-export function normalizeHTTPMethod(
-  method:
-    | string
-    | undefined,
-): HTTPMethod {
-  const normalized =
-    (
-      method ??
-      "GET"
-    ).toUpperCase();
+export function normalizeHTTPMethod(method: string | undefined): HTTPMethod {
+  const normalized = (method ?? "GET").toUpperCase();
 
   return normalized as HTTPMethod;
 }
@@ -795,71 +445,31 @@ export function normalizeHTTPMethod(
 /* Accept Header                                                              */
 /* -------------------------------------------------------------------------- */
 
-export function parseAcceptHeader(
-  value: string,
-): string[] {
+export function parseAcceptHeader(value: string): string[] {
   return value
-    .split(
-      ",",
-    )
-    .map(
-      (part) =>
-        part
-          .split(
-            ";",
-            1,
-          )[0]
-          .trim()
-          .toLowerCase(),
-    )
-    .filter(
-      Boolean,
-    );
+    .split(",")
+    .map((part) => part.split(";", 1)[0].trim().toLowerCase())
+    .filter(Boolean);
 }
 
 export function mediaTypeMatches(
   candidate: string,
   requested: string,
 ): boolean {
-  const candidateParts =
-    candidate
-      .toLowerCase()
-      .split(
-        "/",
-      );
+  const candidateParts = candidate.toLowerCase().split("/");
 
-  const requestedParts =
-    requested
-      .toLowerCase()
-      .split(
-        "/",
-      );
+  const requestedParts = requested.toLowerCase().split("/");
 
-  if (
-    candidateParts.length !==
-      2 ||
-    requestedParts.length !==
-      2
-  ) {
+  if (candidateParts.length !== 2 || requestedParts.length !== 2) {
     return false;
   }
 
   return (
-    (
-      candidateParts[0] ===
-        "*" ||
-      requestedParts[0] ===
-        "*" ||
-      candidateParts[0] ===
-        requestedParts[0]
-    ) &&
-    (
-      candidateParts[1] ===
-        "*" ||
-      requestedParts[1] ===
-        "*" ||
-      candidateParts[1] ===
-        requestedParts[1]
-    )
+    (candidateParts[0] === "*" ||
+      requestedParts[0] === "*" ||
+      candidateParts[0] === requestedParts[0]) &&
+    (candidateParts[1] === "*" ||
+      requestedParts[1] === "*" ||
+      candidateParts[1] === requestedParts[1])
   );
 }

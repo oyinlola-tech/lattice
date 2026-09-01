@@ -4,4 +4,4 @@
  * HTTP httpRedirect module.
  */
 
-export * from './http.redirect.js';
+export * from "./http.redirect.js";

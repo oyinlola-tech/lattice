@@ -4,15 +4,9 @@
  * @module httpTrustProxy/parsing
  */
 
-import type {
-  ProxyRequest,
-  ForwardedAddress,
-} from "./httpTrustProxy.type.js";
+import type { ProxyRequest, ForwardedAddress } from "./httpTrustProxy.type.js";
 
-import {
-  X_FORWARDED_FOR,
-  FORWARDED_HEADER,
-} from "./httpTrustProxy.type.js";
+import { X_FORWARDED_FOR, FORWARDED_HEADER } from "./httpTrustProxy.type.js";
 
 /**
  * Parses the X-Forwarded-For header into individual addresses.
@@ -86,8 +80,5 @@ export function parseForwarded(
 export function getForwardedClientAddresses(
   request: ProxyRequest,
 ): readonly ForwardedAddress[] {
-  return [
-    ...parseForwarded(request),
-    ...parseForwardedFor(request),
-  ];
+  return [...parseForwarded(request), ...parseForwardedFor(request)];
 }

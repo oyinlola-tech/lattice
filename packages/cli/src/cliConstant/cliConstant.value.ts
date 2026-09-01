@@ -160,13 +160,11 @@ export const CLI_EXIT_CODES = {
 } as const;
 
 /** CLI exit code type. */
-export type CLIExitCode =
-  (typeof CLI_EXIT_CODES)[keyof typeof CLI_EXIT_CODES];
+export type CLIExitCode = (typeof CLI_EXIT_CODES)[keyof typeof CLI_EXIT_CODES];
 
 /** CLI error code type. */
 export type CLIErrorCode =
   (typeof CLI_ERROR_CODES)[keyof typeof CLI_ERROR_CODES];
 
 /** CLI command name type. */
-export type CLICommandName =
-  (typeof CLI_COMMANDS)[keyof typeof CLI_COMMANDS];
+export type CLICommandName = (typeof CLI_COMMANDS)[keyof typeof CLI_COMMANDS];

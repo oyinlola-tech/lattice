@@ -4,7 +4,10 @@ import { OpenAPIDocumentBuilder } from "../openApiDocument/openApiDocument.build
 import { OpenAPIRegistryImpl } from "../openApiRegistry/openApiRegistry.core.js";
 import { OpenAPIRouteScannerImpl } from "../openApiRouting/routeScanner.core.js";
 import { OpenAPIValidatorImpl } from "../openApiValidation/openApiValidator.core.js";
-import { toOpenAPIJSON, toOpenAPIYAML } from "../openApiSerialization/openApiSerializer.core.js";
+import {
+  toOpenAPIJSON,
+  toOpenAPIYAML,
+} from "../openApiSerialization/openApiSerializer.core.js";
 
 /**
  * High-level OpenAPI manager that coordinates generation, validation, and serving.
@@ -33,7 +36,15 @@ export class OpenAPIManager {
   }
 
   public addRoute(route: {
-    readonly method: "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
+    readonly method:
+      | "get"
+      | "put"
+      | "post"
+      | "delete"
+      | "options"
+      | "head"
+      | "patch"
+      | "trace";
     readonly path: string;
     readonly metadata?: {
       readonly openapi?: {

@@ -5,7 +5,11 @@
  */
 
 import { AsyncLocalStorage } from "node:async_hooks";
-import type { TenantContext, SystemContext, ExecutionTenantContext } from "../tenancyTypes/tenantInterface.js";
+import type {
+  TenantContext,
+  SystemContext,
+  ExecutionTenantContext,
+} from "../tenancyTypes/tenantInterface.js";
 
 /** Interface for tenant context storage. */
 export interface TenantContextStorage {

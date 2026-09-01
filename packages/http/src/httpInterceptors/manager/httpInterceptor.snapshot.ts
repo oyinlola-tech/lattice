@@ -4,9 +4,7 @@
  * @module httpInterceptors/manager/snapshot
  */
 
-import type {
-  HttpInterceptorSnapshot,
-} from "../httpInterceptor.type.js";
+import type { HttpInterceptorSnapshot } from "../httpInterceptor.type.js";
 
 import type { InterceptorRegistry } from "./httpInterceptor.registration.js";
 import { getAll } from "./httpInterceptor.lookup.js";

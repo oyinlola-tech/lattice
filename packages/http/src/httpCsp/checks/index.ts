@@ -7,4 +7,4 @@ export {
   allowsInlineScript,
   allowsEval,
   allowsNonce,
-} from './httpCsp.checks.js';
+} from "./httpCsp.checks.js";

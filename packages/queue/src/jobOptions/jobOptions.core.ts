@@ -15,10 +15,16 @@ export const DEFAULT_JOB_OPTIONS: Readonly<
  */
 export function mergeJobOptions(
   options?: JobOptions,
-): Required<
-  Pick<JobOptions, "attempts" | "timeout">
-> &
-  Pick<JobOptions, "backoff" | "delay" | "priority" | "deduplicationKey" | "scheduledAt" | "metadata"> {
+): Required<Pick<JobOptions, "attempts" | "timeout">> &
+  Pick<
+    JobOptions,
+    | "backoff"
+    | "delay"
+    | "priority"
+    | "deduplicationKey"
+    | "scheduledAt"
+    | "metadata"
+  > {
   return {
     attempts: options?.attempts ?? DEFAULT_JOB_OPTIONS.attempts ?? 1,
     timeout: options?.timeout ?? DEFAULT_JOB_OPTIONS.timeout ?? 30_000,

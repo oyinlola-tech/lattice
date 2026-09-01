@@ -23,7 +23,10 @@ export enum StorageOperation {
 }
 
 /** Options for creating a storage error. */
-export interface StorageErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface StorageErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly operation?: StorageOperation;
   readonly provider?: string;
@@ -36,7 +39,10 @@ export class StorageError extends BaseError {
   public readonly provider?: string;
   public readonly resource?: string;
 
-  constructor(message = "A storage operation failed.", options: StorageErrorOptions = {}) {
+  constructor(
+    message = "A storage operation failed.",
+    options: StorageErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.STORAGE,
@@ -47,9 +53,15 @@ export class StorageError extends BaseError {
       isOperational: options.isOperational ?? true,
       metadata: {
         ...options.metadata,
-        ...(options.operation !== undefined ? { operation: options.operation } : {}),
-        ...(options.provider !== undefined ? { provider: options.provider } : {}),
-        ...(options.resource !== undefined ? { resource: options.resource } : {}),
+        ...(options.operation !== undefined
+          ? { operation: options.operation }
+          : {}),
+        ...(options.provider !== undefined
+          ? { provider: options.provider }
+          : {}),
+        ...(options.resource !== undefined
+          ? { resource: options.resource }
+          : {}),
       },
     });
     this.operation = options.operation ?? StorageOperation.UNKNOWN;

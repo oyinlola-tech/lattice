@@ -10,9 +10,7 @@ import type {
   HttpMiddlewareResult,
 } from "../../httpMiddleware.type.js";
 
-import type {
-  HttpResponseContext as ResponseContext,
-} from "../../../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../../../httpResponse/httpResponse.context.js";
 
 import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";

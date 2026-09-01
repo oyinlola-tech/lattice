@@ -33,7 +33,9 @@ export const MapTransformer: TypeTransformer<Map<unknown, unknown>> = {
     const data = value as Record<string, unknown>;
     const raw = data[SerializationTags.VALUE];
     if (!Array.isArray(raw)) {
-      throw new Error(`Invalid Map serialized value: expected array, got ${typeof raw}`);
+      throw new Error(
+        `Invalid Map serialized value: expected array, got ${typeof raw}`,
+      );
     }
     return new Map(raw as Array<[unknown, unknown]>);
   },

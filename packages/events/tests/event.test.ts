@@ -116,15 +116,15 @@ describe("createEvent", () => {
   });
 
   it("should throw for empty type", () => {
-    expect(() =>
-      createEvent({ type: "", payload: null }),
-    ).toThrow("non-empty string");
+    expect(() => createEvent({ type: "", payload: null })).toThrow(
+      "non-empty string",
+    );
   });
 
   it("should throw for whitespace-only type", () => {
-    expect(() =>
-      createEvent({ type: "  ", payload: null }),
-    ).toThrow("non-empty string");
+    expect(() => createEvent({ type: "  ", payload: null })).toThrow(
+      "non-empty string",
+    );
   });
 });
 
@@ -152,10 +152,9 @@ describe("isEvent", () => {
 
 describe("defineEvent", () => {
   it("should create a typed event definition", () => {
-    const userCreated = defineEvent<
+    const userCreated = defineEvent<"user.created", { name: string }>(
       "user.created",
-      { name: string }
-    >("user.created");
+    );
 
     expect(userCreated.type).toBe("user.created");
 

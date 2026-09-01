@@ -6,7 +6,11 @@
  * Examples: Local filesystem, AWS S3, Cloudflare R2, Google Cloud Storage, Azure Blob.
  */
 
-import type { Adapter, AdapterCapabilities, AdapterOperationOptions } from "../index.js";
+import type {
+  Adapter,
+  AdapterCapabilities,
+  AdapterOperationOptions,
+} from "../index.js";
 
 /**
  * Storage adapter — connects Lattice storage abstractions to external providers.
@@ -16,7 +20,11 @@ export interface StorageAdapter extends Adapter {
   get(key: string, options?: AdapterOperationOptions): Promise<unknown>;
 
   /** Stores an object. */
-  put(key: string, value: unknown, options?: AdapterOperationOptions): Promise<void>;
+  put(
+    key: string,
+    value: unknown,
+    options?: AdapterOperationOptions,
+  ): Promise<void>;
 
   /** Deletes an object. */
   delete(key: string, options?: AdapterOperationOptions): Promise<void>;
@@ -25,5 +33,8 @@ export interface StorageAdapter extends Adapter {
   exists(key: string, options?: AdapterOperationOptions): Promise<boolean>;
 
   /** Lists objects with optional prefix. */
-  list(prefix?: string, options?: AdapterOperationOptions): Promise<readonly string[]>;
+  list(
+    prefix?: string,
+    options?: AdapterOperationOptions,
+  ): Promise<readonly string[]>;
 }

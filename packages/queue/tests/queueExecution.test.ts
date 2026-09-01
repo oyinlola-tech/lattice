@@ -17,27 +17,43 @@ describe("Queue Execution", () => {
     it("should reject duplicate jobs with the same deduplication key", async () => {
       const queue = createInMemoryQueue(createQueueName("test-queue"));
 
-      await queue.add("send-email", { userId: "123" }, {
-        deduplicationKey: "payment:12345",
-      });
+      await queue.add(
+        "send-email",
+        { userId: "123" },
+        {
+          deduplicationKey: "payment:12345",
+        },
+      );
 
       await expect(
-        queue.add("send-email", { userId: "456" }, {
-          deduplicationKey: "payment:12345",
-        }),
+        queue.add(
+          "send-email",
+          { userId: "456" },
+          {
+            deduplicationKey: "payment:12345",
+          },
+        ),
       ).rejects.toThrow("Duplicate job detected");
     });
 
     it("should allow jobs with different deduplication keys", async () => {
       const queue = createInMemoryQueue(createQueueName("test-queue"));
 
-      await queue.add("send-email", { userId: "123" }, {
-        deduplicationKey: "payment:12345",
-      });
+      await queue.add(
+        "send-email",
+        { userId: "123" },
+        {
+          deduplicationKey: "payment:12345",
+        },
+      );
 
-      const job = await queue.add("send-email", { userId: "456" }, {
-        deduplicationKey: "payment:67890",
-      });
+      const job = await queue.add(
+        "send-email",
+        { userId: "456" },
+        {
+          deduplicationKey: "payment:67890",
+        },
+      );
 
       expect(job.id).toBeDefined();
     });
@@ -47,9 +63,13 @@ describe("Queue Execution", () => {
     it("should create scheduled jobs with delay option", async () => {
       const queue = createInMemoryQueue(createQueueName("test-queue"));
 
-      const job = await queue.add("send-reminder", { userId: "123" }, {
-        delay: 60_000,
-      });
+      const job = await queue.add(
+        "send-reminder",
+        { userId: "123" },
+        {
+          delay: 60_000,
+        },
+      );
 
       expect(job.state).toBe(JobState.SCHEDULED);
       expect(job.scheduledAt).toBeDefined();
@@ -59,9 +79,13 @@ describe("Queue Execution", () => {
       vi.useFakeTimers();
       const queue = createInMemoryQueue(createQueueName("test-queue"));
 
-      const job = await queue.add("send-reminder", { userId: "123" }, {
-        delay: 100,
-      });
+      const job = await queue.add(
+        "send-reminder",
+        { userId: "123" },
+        {
+          delay: 100,
+        },
+      );
 
       expect(job.state).toBe(JobState.SCHEDULED);
 
@@ -76,9 +100,9 @@ describe("Queue Execution", () => {
     it("should return the highest priority job first", async () => {
       const queue = createInMemoryQueue(createQueueName("test-queue"));
 
-      await queue.add("low", { }, { priority: 10 });
-      await queue.add("high", { }, { priority: 100 });
-      await queue.add("normal", { }, { priority: 50 });
+      await queue.add("low", {}, { priority: 10 });
+      await queue.add("high", {}, { priority: 100 });
+      await queue.add("normal", {}, { priority: 50 });
 
       const nextJob = await queue.getNextJob();
       expect(nextJob?.name).toBe("high");
@@ -87,8 +111,8 @@ describe("Queue Execution", () => {
     it("should return FIFO order for same priority", async () => {
       const queue = createInMemoryQueue(createQueueName("test-queue"));
 
-      const job1 = await queue.add("first", { }, { priority: 50 });
-      const job2 = await queue.add("second", { }, { priority: 50 });
+      const job1 = await queue.add("first", {}, { priority: 50 });
+      const job2 = await queue.add("second", {}, { priority: 50 });
 
       const nextJob = await queue.getNextJob();
       expect(nextJob?.id).toBe(job1.id);
@@ -128,10 +152,14 @@ describe("Queue Execution", () => {
 
       queue.process("test-job", processor);
 
-      await queue.add("test-job", { userId: "123" }, {
-        attempts: 3,
-        backoff: { type: "fixed", delay: 50 },
-      });
+      await queue.add(
+        "test-job",
+        { userId: "123" },
+        {
+          attempts: 3,
+          backoff: { type: "fixed", delay: 50 },
+        },
+      );
 
       await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -142,14 +170,20 @@ describe("Queue Execution", () => {
 
     it("should move job to dead letter after max attempts", async () => {
       const queue = createInMemoryQueue(createQueueName("test-queue"));
-      const processor = vi.fn().mockRejectedValue(new Error("Persistent failure"));
+      const processor = vi
+        .fn()
+        .mockRejectedValue(new Error("Persistent failure"));
 
       queue.process("test-job", processor);
 
-      await queue.add("test-job", { userId: "123" }, {
-        attempts: 2,
-        backoff: { type: "fixed", delay: 10 },
-      });
+      await queue.add(
+        "test-job",
+        { userId: "123" },
+        {
+          attempts: 2,
+          backoff: { type: "fixed", delay: 10 },
+        },
+      );
 
       await new Promise((resolve) => setTimeout(resolve, 500));
 

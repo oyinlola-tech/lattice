@@ -10,5 +10,7 @@ export class CreateProductCommand extends AppCommand {
     public readonly priceAmount: number,
     public readonly priceCurrency: string,
     public readonly stock: number,
-  ) { super(); }
+  ) {
+    super();
+  }
 }

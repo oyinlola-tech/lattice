@@ -1,6 +1,4 @@
-import type {
-  Logger,
-} from "@oyinlola141/lattice-logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
 import type {
   ReadinessState,
@@ -134,7 +132,7 @@ export class ReadinessTracker {
    */
   private evaluateReadiness(): void {
     if (this.autoMarkReady && this.checks.size > 0) {
-      const allReady = [...this.checks.values()].every(check => check.ready);
+      const allReady = [...this.checks.values()].every((check) => check.ready);
 
       if (allReady && !this.ready) {
         this.markReady("All readiness checks passed.");

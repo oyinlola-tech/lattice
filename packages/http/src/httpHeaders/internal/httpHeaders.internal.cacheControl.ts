@@ -12,18 +12,10 @@
  * @returns `true` if the directive is present.
  */
 export function hasDirective(
-  directives:
-    | Record<
-        string,
-        string | true
-      >,
-  name:
-    | string,
+  directives: Record<string, string | true>,
+  name: string,
 ): boolean {
-  return Object.prototype.hasOwnProperty.call(
-    directives,
-    name,
-  );
+  return Object.prototype.hasOwnProperty.call(directives, name);
 }
 
 /**
@@ -34,36 +26,16 @@ export function hasDirective(
  * @returns The parsed number, or `undefined` if not present or not a valid non-negative integer.
  */
 export function getDirectiveNumber(
-  directives:
-    | Record<
-        string,
-        string | true
-      >,
-  name:
-    | string,
-):
-  | number
-  | undefined {
-  const value =
-    directives[name];
+  directives: Record<string, string | true>,
+  name: string,
+): number | undefined {
+  const value = directives[name];
 
-  if (
-    typeof value !==
-    "string"
-  ) {
+  if (typeof value !== "string") {
     return undefined;
   }
 
-  const parsed =
-    Number(
-      value,
-    );
+  const parsed = Number(value);
 
-  return Number.isSafeInteger(
-    parsed,
-  ) &&
-    parsed >=
-      0
-    ? parsed
-    : undefined;
+  return Number.isSafeInteger(parsed) && parsed >= 0 ? parsed : undefined;
 }

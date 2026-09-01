@@ -1,39 +1,20 @@
-import type {
-  ApplicationContext,
-} from "../../application/applicationContext.context.js";
+import type { ApplicationContext } from "../../application/applicationContext.context.js";
 
-import type {
-  ConfigurationManager,
-} from "../../configuration/configurationManager.manager.js";
+import type { ConfigurationManager } from "../../configuration/configurationManager.manager.js";
 
-import type {
-  Logger,
-} from "../../logging/core/logger.js";
+import type { Logger } from "../../logging/core/logger.js";
 
-import type {
-  ModuleLoader,
-} from "../../modules/moduleLoader/index.js";
+import type { ModuleLoader } from "../../modules/moduleLoader/index.js";
 
-import type {
-  ModuleLifecycleManager,
-} from "../../modules/moduleLifecycle/index.js";
+import type { ModuleLifecycleManager } from "../../modules/moduleLifecycle/index.js";
 
-import type {
-  ModuleRegistry,
-} from "../../modules/moduleRegistry/index.js";
+import type { ModuleRegistry } from "../../modules/moduleRegistry/index.js";
 
-import type {
-  RuntimeState,
-} from "../runtimeState.state.js";
+import type { RuntimeState } from "../runtimeState.state.js";
 
-import type {
-  RuntimeStateSnapshot,
-} from "../runtimeState.state.js";
+import type { RuntimeStateSnapshot } from "../runtimeState.state.js";
 
-import type {
-  RuntimeMode,
-  RuntimeRole,
-} from "../runtimeOptions/index.js";
+import type { RuntimeMode, RuntimeRole } from "../runtimeOptions/index.js";
 
 /**
  * Runtime identity.

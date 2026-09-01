@@ -1,30 +1,16 @@
-import type {
-  Logger,
-} from "../../logging/core/logger.js";
+import type { Logger } from "../../logging/core/logger.js";
 
-import type {
-  ApplicationContext,
-} from "../../application/applicationContext.context.js";
+import type { ApplicationContext } from "../../application/applicationContext.context.js";
 
-import type {
-  ModuleLifecycleManager,
-} from "../../modules/moduleLifecycle/index.js";
+import type { ModuleLifecycleManager } from "../../modules/moduleLifecycle/index.js";
 
-import type {
-  ModuleRegistry,
-} from "../../modules/moduleRegistry/index.js";
+import type { ModuleRegistry } from "../../modules/moduleRegistry/index.js";
 
-import type {
-  RuntimeContext,
-} from "../runtimeContext/index.js";
+import type { RuntimeContext } from "../runtimeContext/index.js";
 
-import type {
-  RuntimeEnvironment,
-} from "../runtimeEnvironment/index.js";
+import type { RuntimeEnvironment } from "../runtimeEnvironment/index.js";
 
-import type {
-  ResolvedRuntimeOptions,
-} from "../runtimeOptions/index.js";
+import type { ResolvedRuntimeOptions } from "../runtimeOptions/index.js";
 
 /**
  * Dependencies required by RuntimeShutdown.
@@ -90,11 +76,10 @@ export interface RuntimeShutdownResult {
 export interface RuntimeShutdown {
   readonly running: boolean;
   readonly phase: RuntimeShutdownPhase;
-  shutdown(
-    options?: RuntimeShutdownConfig,
-  ): Promise<RuntimeShutdownResult>;
+  shutdown(options?: RuntimeShutdownConfig): Promise<RuntimeShutdownResult>;
   getLastResult(): RuntimeShutdownResult | undefined;
-  getShutdownContext(): import("../../context/core/context.js").Context | undefined;
+  getShutdownContext():
+    import("../../context/core/context.js").Context | undefined;
   reset(): void;
 }
 

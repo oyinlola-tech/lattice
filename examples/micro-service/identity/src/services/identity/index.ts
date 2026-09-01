@@ -22,10 +22,22 @@ export function registerIdentityService(params: {
   readonly jwtSecret: string;
   readonly jwtExpiresIn: string;
 }): void {
-  const { commandBus, queryBus, eventBus, userRepository, jwtSecret, jwtExpiresIn } = params;
+  const {
+    commandBus,
+    queryBus,
+    eventBus,
+    userRepository,
+    jwtSecret,
+    jwtExpiresIn,
+  } = params;
 
   const createUserHandler = new CreateUserHandler(userRepository, eventBus);
-  const authenticateUserHandler = new AuthenticateUserHandler(userRepository, eventBus, jwtSecret, jwtExpiresIn);
+  const authenticateUserHandler = new AuthenticateUserHandler(
+    userRepository,
+    eventBus,
+    jwtSecret,
+    jwtExpiresIn,
+  );
   const getUserHandler = new GetUserHandler(userRepository);
   const getUserProfileHandler = new GetUserProfileHandler(userRepository);
 

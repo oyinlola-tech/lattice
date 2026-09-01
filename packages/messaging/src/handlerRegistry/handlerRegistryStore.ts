@@ -10,17 +10,11 @@ import type {
   HandlerQueryOptions,
 } from "./handlerRegistryType.type.js";
 
-import type {
-  NamedMessageHandler,
-} from "../messageHandler/messageHandlerType.type.js";
+import type { NamedMessageHandler } from "../messageHandler/messageHandlerType.type.js";
 
-import type {
-  Message,
-} from "../message/messageType.type.js";
+import type { Message } from "../message/messageType.type.js";
 
-import {
-  DuplicateMessageHandlerError,
-} from "@oyinlola141/lattice-errors";
+import { DuplicateMessageHandlerError } from "@oyinlola141/lattice-errors";
 
 /**
  * In-memory store for registered message handlers.
@@ -52,7 +46,10 @@ export class HandlerRegistryStore {
   }
 
   private validateNotDuplicate(handlerId: string): void {
-    if (!this.options.allowDuplicateHandlerIds && this.handlers.has(handlerId)) {
+    if (
+      !this.options.allowDuplicateHandlerIds &&
+      this.handlers.has(handlerId)
+    ) {
       throw new DuplicateMessageHandlerError(handlerId);
     }
   }
@@ -111,14 +108,25 @@ export class HandlerRegistryStore {
     return result.sort((a, b) => (a.priority ?? 100) - (b.priority ?? 100));
   }
 
-  private shouldExcludeHandler(handler: NamedMessageHandler, options: HandlerQueryOptions): boolean {
-    if (options.includeDisabled !== true && handler.enabled === false) return true;
-    if (options.maxPriority !== undefined && (handler.priority ?? 100) > options.maxPriority) return true;
+  private shouldExcludeHandler(
+    handler: NamedMessageHandler,
+    options: HandlerQueryOptions,
+  ): boolean {
+    if (options.includeDisabled !== true && handler.enabled === false)
+      return true;
+    if (
+      options.maxPriority !== undefined &&
+      (handler.priority ?? 100) > options.maxPriority
+    )
+      return true;
     return false;
   }
 
-  get<TResult>(handlerId: string): NamedMessageHandler<Message, TResult> | undefined {
-    return this.handlers.get(handlerId)?.handler as NamedMessageHandler<Message, TResult> | undefined;
+  get<TResult>(
+    handlerId: string,
+  ): NamedMessageHandler<Message, TResult> | undefined {
+    return this.handlers.get(handlerId)?.handler as
+      NamedMessageHandler<Message, TResult> | undefined;
   }
 
   has(handlerId: string): boolean {

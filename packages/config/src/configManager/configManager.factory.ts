@@ -1,10 +1,6 @@
-import type {
-  ConfigManagerOptions,
-} from "./configManager.type.js";
+import type { ConfigManagerOptions } from "./configManager.type.js";
 
-import {
-  ConfigManager,
-} from "./configManager.core.js";
+import { ConfigManager } from "./configManager.core.js";
 
 /**
  * Creates a configuration manager.
@@ -12,9 +8,7 @@ import {
 export function createConfigManager(
   options: ConfigManagerOptions = {},
 ): ConfigManager {
-  return new ConfigManager(
-    options,
-  );
+  return new ConfigManager(options);
 }
 
 /**
@@ -23,10 +17,7 @@ export function createConfigManager(
 export async function initializeConfigManager(
   options: ConfigManagerOptions = {},
 ): Promise<ConfigManager> {
-  const manager =
-    createConfigManager(
-      options,
-    );
+  const manager = createConfigManager(options);
 
   try {
     await manager.load();

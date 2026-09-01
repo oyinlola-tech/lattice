@@ -9,6 +9,4 @@ export {
   isConfigurationError,
 } from "@oyinlola141/lattice-errors";
 
-export {
-  ConfigResolutionError,
-} from "./configResolver.core.js";
+export { ConfigResolutionError } from "./configResolver.core.js";

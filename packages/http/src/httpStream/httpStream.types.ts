@@ -7,8 +7,7 @@ export interface HTTPStreamOptions {
   readonly signal?: AbortSignal;
 }
 
-export interface StreamPipeOptions
-  extends HTTPStreamOptions {
+export interface StreamPipeOptions extends HTTPStreamOptions {
   readonly end?: boolean;
 }
 
@@ -21,7 +20,4 @@ export interface StreamProgress {
   readonly chunks: number;
 }
 
-export type StreamProgressHandler =
-  (
-    progress: StreamProgress,
-  ) => void;
+export type StreamProgressHandler = (progress: StreamProgress) => void;

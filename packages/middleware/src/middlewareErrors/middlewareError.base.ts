@@ -4,7 +4,12 @@
  * @module middlewareErrors
  */
 
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "@oyinlola141/lattice-errors";
+import {
+  BaseError,
+  ErrorCode,
+  ErrorCategory,
+  ErrorSeverity,
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when a middleware pipeline fails.
@@ -33,10 +38,7 @@ export class MiddlewareError extends BaseError {
  * Error thrown when a middleware exceeds its timeout.
  */
 export class MiddlewareTimeoutError extends MiddlewareError {
-  constructor(
-    middlewareName: string,
-    timeoutMs: number,
-  ) {
+  constructor(middlewareName: string, timeoutMs: number) {
     super(`Middleware "${middlewareName}" timed out after ${timeoutMs}ms`, {
       middlewareName,
     });

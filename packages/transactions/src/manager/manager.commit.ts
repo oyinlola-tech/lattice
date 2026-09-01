@@ -7,7 +7,10 @@
 import type { Transaction } from "../transactionTypes/transaction.interface.js";
 import type { TransactionAdapter } from "../transactionTypes/transactionAdapter.js";
 import type { TransactionHooks } from "../transactionTypes/transactionHooks.js";
-import { TransactionCommitError, TransactionRollbackError } from "../transactionErrors/transactionError.types.js";
+import {
+  TransactionCommitError,
+  TransactionRollbackError,
+} from "../transactionErrors/transactionError.types.js";
 
 /**
  * Commit a transaction with hooks and adapter coordination.
@@ -23,13 +26,17 @@ export async function commitTransaction(
     await hooks.beforeCommit({ transaction });
   }
 
-  const handle = (transaction as unknown as { _getHandle: () => unknown })._getHandle();
+  const handle = (
+    transaction as unknown as { _getHandle: () => unknown }
+  )._getHandle();
   try {
     await adapter.commit(handle);
     await transaction.commit();
   } catch (error) {
     if ((transaction.state as string) === "committing") {
-      (transaction as unknown as { _transition: (s: string) => void })._transition("failed");
+      (
+        transaction as unknown as { _transition: (s: string) => void }
+      )._transition("failed");
     }
     if (hooks?.onError) {
       await hooks.onError({ transaction, error });
@@ -51,7 +58,11 @@ export async function rollbackTransaction(
   reason?: unknown,
   hooks?: TransactionHooks,
 ): Promise<void> {
-  if (transaction.state === "committed" || transaction.state === "rolled_back" || transaction.state === "failed") {
+  if (
+    transaction.state === "committed" ||
+    transaction.state === "rolled_back" ||
+    transaction.state === "failed"
+  ) {
     return;
   }
 
@@ -59,7 +70,9 @@ export async function rollbackTransaction(
     await hooks.beforeRollback({ transaction });
   }
 
-  const handle = (transaction as unknown as { _getHandle: () => unknown })._getHandle();
+  const handle = (
+    transaction as unknown as { _getHandle: () => unknown }
+  )._getHandle();
   try {
     if (handle !== undefined) {
       await adapter.rollback(handle, reason);

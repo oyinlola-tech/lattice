@@ -6,7 +6,9 @@ import { APP_NAME } from "../constants/index.js";
  * Initializes and returns a SQLite database connection.
  * Creates the users table if it does not exist.
  */
-export function createIdentityDatabase(config: DatabaseConfig): Database.Database {
+export function createIdentityDatabase(
+  config: DatabaseConfig,
+): Database.Database {
   const db = new Database(config.filename);
 
   db.pragma("journal_mode = WAL");

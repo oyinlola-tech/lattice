@@ -67,7 +67,10 @@ export const DefaultRetry = Object.freeze({
  * @param unit - The source unit
  * @returns Duration in milliseconds
  */
-export function toMilliseconds(value: number, unit: "milliseconds" | "seconds" | "minutes" | "hours" | "days"): number {
+export function toMilliseconds(
+  value: number,
+  unit: "milliseconds" | "seconds" | "minutes" | "hours" | "days",
+): number {
   switch (unit) {
     case "milliseconds":
       return value;
@@ -93,7 +96,7 @@ export function formatDuration(ms: number): string {
   if (ms < TimeMs.MINUTE) return `${Math.round(ms / TimeMs.SECOND)}s`;
   if (ms < TimeMs.HOUR) {
     const s = Math.floor(ms / TimeMs.SECOND);
-    const r = Math.round((ms % TimeMs.SECOND) / TimeMs.SECOND * 10) / 10;
+    const r = Math.round(((ms % TimeMs.SECOND) / TimeMs.SECOND) * 10) / 10;
     return r >= 0.5 ? `${s + 1}m` : `${s}s`;
   }
   if (ms < TimeMs.DAY) {

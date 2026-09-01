@@ -24,7 +24,9 @@ export function validateTimeout(timeout?: number): number | undefined {
   }
 
   if (!Number.isFinite(timeout) || timeout < 0) {
-    throw new RangeError("HTTP client timeout must be a non-negative finite number.");
+    throw new RangeError(
+      "HTTP client timeout must be a non-negative finite number.",
+    );
   }
 
   return timeout;
@@ -56,7 +58,9 @@ export function removeInterceptor<T>(list: T[], interceptor: T): void {
   }
 }
 
-export function isHttpClientResponse(value: unknown): value is HttpClientResponse {
+export function isHttpClientResponse(
+  value: unknown,
+): value is HttpClientResponse {
   return (
     value !== null &&
     typeof value === "object" &&

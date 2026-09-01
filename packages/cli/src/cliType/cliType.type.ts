@@ -11,7 +11,8 @@ import type { Logger } from "@oyinlola141/lattice-logger";
 /* -------------------------------------------------------------------------- */
 
 /** A single CLI value. */
-export type CLIValue = string | number | boolean | undefined | readonly string[];
+export type CLIValue =
+  string | number | boolean | undefined | readonly string[];
 
 /** A map of option names to values. */
 export type CLIValues = Record<string, CLIValue>;
@@ -174,5 +175,3 @@ export interface CLIHooks {
   afterRun?: (context: CLIContext, exitCode: number) => void | Promise<void>;
   onError?: (error: unknown, context?: CLIContext) => void | Promise<void>;
 }
-
-

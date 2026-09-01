@@ -2,17 +2,11 @@
  * LatticeLogger property accessors.
  */
 
-import {
-  LoggerLevel,
-} from "../../loggerLevel/loggerLevel.type.js";
+import { LoggerLevel } from "../../loggerLevel/loggerLevel.type.js";
 
-import type {
-  LoggerConfiguration,
-} from "../../loggerOptions/loggerOptions.type.js";
+import type { LoggerConfiguration } from "../../loggerOptions/loggerOptions.type.js";
 
-import type {
-  LatticeLoggerContext,
-} from "../core/loggerCore.core.js";
+import type { LatticeLoggerContext } from "../core/loggerCore.core.js";
 
 /**
  * Gets the logger name.

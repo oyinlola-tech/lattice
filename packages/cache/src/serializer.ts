@@ -19,15 +19,11 @@ import { JSONSerializer } from "@oyinlola141/lattice-serialization";
  * Uses @oyinlola141/lattice-serialization's JSONSerializer for type preservation
  * (Date, BigInt, Map, Set, Uint8Array) when configured.
  */
-export class JsonCacheSerializer
-  implements CacheSerializer<unknown, string>
-{
+export class JsonCacheSerializer implements CacheSerializer<unknown, string> {
   private readonly inner: JSONSerializer;
   private readonly preserveTypes: boolean;
 
-  constructor(options?: {
-    readonly preserveTypes?: boolean;
-  }) {
+  constructor(options?: { readonly preserveTypes?: boolean }) {
     this.preserveTypes = options?.preserveTypes ?? false;
     this.inner = new JSONSerializer();
   }
@@ -53,9 +49,7 @@ export class JsonCacheSerializer
  * Pass-through serializer for values that are already in
  * their storable form (e.g., strings, numbers).
  */
-export class RawCacheSerializer
-  implements CacheSerializer<unknown, unknown>
-{
+export class RawCacheSerializer implements CacheSerializer<unknown, unknown> {
   serialize(value: unknown): unknown {
     return value;
   }
@@ -70,12 +64,10 @@ export class RawCacheSerializer
 /* -------------------------------------------------------------------------- */
 
 /** Default JSON serializer instance. */
-export const defaultSerializer =
-  new JsonCacheSerializer();
+export const defaultSerializer = new JsonCacheSerializer();
 
 /** Default raw (pass-through) serializer instance. */
-export const rawSerializer =
-  new RawCacheSerializer();
+export const rawSerializer = new RawCacheSerializer();
 
 /**
  * Returns the appropriate serializer for the given value type.
@@ -87,7 +79,8 @@ export function getSerializer(
   value: unknown,
 ): CacheSerializer<unknown, unknown> {
   if (
-    value === null || value === undefined ||
+    value === null ||
+    value === undefined ||
     typeof value === "string" ||
     typeof value === "number" ||
     typeof value === "boolean"

@@ -1,60 +1,36 @@
-import type {
-  ConfigValue,
-} from "../configValue/configValue.core.js";
+import type { ConfigValue } from "../configValue/configValue.core.js";
 
-import {
-  cloneConfigValue,
-} from "../configValue/configValue.core.js";
+import { cloneConfigValue } from "../configValue/configValue.core.js";
 
-import type {
-  ConfigSchema,
-} from "../configSchema/configSchema.core.js";
+import type { ConfigSchema } from "../configSchema/configSchema.core.js";
 
 import {
   ConfigValueType,
   validateConfigObject,
 } from "../configSchema/configSchema.core.js";
 
-import type {
-  ConfigSource,
-} from "../configSource/configSource.core.js";
+import type { ConfigSource } from "../configSource/configSource.core.js";
 
-import {
-  createConfigSource,
-} from "../configSource/configSource.core.js";
+import { createConfigSource } from "../configSource/configSource.core.js";
 
-import type {
-  ConfigEntry,
-} from "../configEntry/configEntry.type.js";
+import type { ConfigEntry } from "../configEntry/configEntry.type.js";
 
 import type {
   ConfigLoader,
   ConfigLoadResult,
 } from "../configLoader/configLoader.core.js";
 
-import {
-  createConfigLoader,
-} from "../configLoader/configLoader.core.js";
+import { createConfigLoader } from "../configLoader/configLoader.core.js";
 
-import type {
-  ConfigStore,
-} from "../configStore/configStore.core.js";
+import type { ConfigStore } from "../configStore/configStore.core.js";
 
-import {
-  createConfigStore,
-} from "../configStore/configStore.factory.js";
+import { createConfigStore } from "../configStore/configStore.factory.js";
 
-import type {
-  ConfigResolver,
-} from "../configResolver/core/configResolver.core.js";
+import type { ConfigResolver } from "../configResolver/core/configResolver.core.js";
 
-import type {
-  ScopedConfigResolver,
-} from "../configResolver/accessors/configResolver.scoped.js";
+import type { ScopedConfigResolver } from "../configResolver/accessors/configResolver.scoped.js";
 
-import {
-  createConfigResolver,
-} from "../configResolver/core/configResolver.factory.js";
+import { createConfigResolver } from "../configResolver/core/configResolver.factory.js";
 
 import type {
   ConfigManagerOptions,
@@ -62,13 +38,9 @@ import type {
   ConfigManagerListener,
 } from "./configManager.type.js";
 
-import {
-  ConfigManagerState,
-} from "./configManager.type.js";
+import { ConfigManagerState } from "./configManager.type.js";
 
-import {
-  ConfigManagerValidationError,
-} from "./configManager.error.js";
+import { ConfigManagerValidationError } from "./configManager.error.js";
 
 /**
  * Central configuration lifecycle manager.
@@ -83,12 +55,9 @@ export class ConfigManager {
 
   private readonly resolver: ConfigResolver;
 
-  private readonly listeners =
-    new Set<ConfigManagerListener>();
+  private readonly listeners = new Set<ConfigManagerListener>();
 
-  private state:
-    ConfigManagerState =
-    ConfigManagerState.CREATED;
+  private state: ConfigManagerState = ConfigManagerState.CREATED;
 
   private lastLoadedAt?: number;
 
@@ -96,48 +65,28 @@ export class ConfigManager {
 
   private disposed = false;
 
-  constructor(
-    options: ConfigManagerOptions = {},
-  ) {
+  constructor(options: ConfigManagerOptions = {}) {
     this.store =
       options.store ??
       createConfigStore({
-        initialValues:
-          options.initialValues,
-        freeze:
-          options.freeze ??
-          true,
+        initialValues: options.initialValues,
+        freeze: options.freeze ?? true,
       });
 
     this.loader =
       options.loader ??
       createConfigLoader({
-        sources:
-          options.sources,
-        context:
-          options.context,
-        store:
-          this.store,
-        freeze:
-          options.freeze ??
-          true,
+        sources: options.sources,
+        context: options.context,
+        store: this.store,
+        freeze: options.freeze ?? true,
       });
 
-    this.resolver =
-      createConfigResolver(
-        this.store,
-        {
-          strict:
-            options.strict ??
-            true,
-          allowUndefined:
-            options.allowUndefined ??
-            true,
-          clone:
-            options.clone ??
-            false,
-        },
-      );
+    this.resolver = createConfigResolver(this.store, {
+      strict: options.strict ?? true,
+      allowUndefined: options.allowUndefined ?? true,
+      clone: options.clone ?? false,
+    });
   }
 
   /**
@@ -151,10 +100,7 @@ export class ConfigManager {
    * Returns whether the manager is ready.
    */
   get isReady(): boolean {
-    return (
-      this.state ===
-      ConfigManagerState.READY
-    );
+    return this.state === ConfigManagerState.READY;
   }
 
   /**
@@ -162,10 +108,8 @@ export class ConfigManager {
    */
   get isLoading(): boolean {
     return (
-      this.state ===
-        ConfigManagerState.LOADING ||
-      this.state ===
-        ConfigManagerState.RELOADING
+      this.state === ConfigManagerState.LOADING ||
+      this.state === ConfigManagerState.RELOADING
     );
   }
 
@@ -199,14 +143,10 @@ export class ConfigManager {
   /**
    * Returns a scoped resolver.
    */
-  scoped(
-    prefix: string,
-  ): ScopedConfigResolver {
+  scoped(prefix: string): ScopedConfigResolver {
     this.assertActive();
 
-    return this.resolver.scoped(
-      prefix,
-    );
+    return this.resolver.scoped(prefix);
   }
 
   /**
@@ -215,40 +155,26 @@ export class ConfigManager {
   async load(): Promise<ConfigLoadResult> {
     this.assertActive();
 
-    if (
-      this.isLoading
-    ) {
-      throw new Error(
-        "Configuration manager is already loading.",
-      );
+    if (this.isLoading) {
+      throw new Error("Configuration manager is already loading.");
     }
 
-    this.setState(
-      ConfigManagerState.LOADING,
-    );
+    this.setState(ConfigManagerState.LOADING);
 
     try {
-      const result =
-        await this.loader.load();
+      const result = await this.loader.load();
 
-      this.lastLoadedAt =
-        result.loadedAt;
+      this.lastLoadedAt = result.loadedAt;
 
-      this.lastError =
-        undefined;
+      this.lastError = undefined;
 
-      this.setState(
-        ConfigManagerState.READY,
-      );
+      this.setState(ConfigManagerState.READY);
 
       return result;
     } catch (error) {
-      this.lastError =
-        error;
+      this.lastError = error;
 
-      this.setState(
-        ConfigManagerState.FAILED,
-      );
+      this.setState(ConfigManagerState.FAILED);
 
       throw error;
     }
@@ -260,40 +186,26 @@ export class ConfigManager {
   async reload(): Promise<ConfigLoadResult> {
     this.assertActive();
 
-    if (
-      this.isLoading
-    ) {
-      throw new Error(
-        "Configuration manager is already loading.",
-      );
+    if (this.isLoading) {
+      throw new Error("Configuration manager is already loading.");
     }
 
-    this.setState(
-      ConfigManagerState.RELOADING,
-    );
+    this.setState(ConfigManagerState.RELOADING);
 
     try {
-      const result =
-        await this.loader.reload();
+      const result = await this.loader.reload();
 
-      this.lastLoadedAt =
-        result.loadedAt;
+      this.lastLoadedAt = result.loadedAt;
 
-      this.lastError =
-        undefined;
+      this.lastError = undefined;
 
-      this.setState(
-        ConfigManagerState.READY,
-      );
+      this.setState(ConfigManagerState.READY);
 
       return result;
     } catch (error) {
-      this.lastError =
-        error;
+      this.lastError = error;
 
-      this.setState(
-        ConfigManagerState.FAILED,
-      );
+      this.setState(ConfigManagerState.FAILED);
 
       throw error;
     }
@@ -302,68 +214,41 @@ export class ConfigManager {
   /**
    * Loads a schema and validates the complete configuration.
    */
-  validate<T extends ConfigValue>(
-    schema: {
-      readonly properties:
-        Readonly<
-          Record<string, ConfigSchema>
-        >;
-      readonly additionalProperties?:
-        boolean | ConfigSchema;
-    },
-  ): T {
+  validate<T extends ConfigValue>(schema: {
+    readonly properties: Readonly<Record<string, ConfigSchema>>;
+    readonly additionalProperties?: boolean | ConfigSchema;
+  }): T {
     this.assertActive();
 
-    const result =
-      validateConfigObject(
-        this.store.toObject(),
-        {
-          type:
-            ConfigValueType.OBJECT,
-          properties:
-            schema.properties,
-          additionalProperties:
-            schema.additionalProperties,
-        },
-      );
+    const result = validateConfigObject(this.store.toObject(), {
+      type: ConfigValueType.OBJECT,
+      properties: schema.properties,
+      additionalProperties: schema.additionalProperties,
+    });
 
-    if (
-      !result.valid
-    ) {
-      throw new ConfigManagerValidationError(
-        result.issues,
-      );
+    if (!result.valid) {
+      throw new ConfigManagerValidationError(result.issues);
     }
 
-    return cloneConfigValue(
-      result.value as T,
-    );
+    return cloneConfigValue(result.value as T);
   }
 
   /**
    * Gets a raw configuration value.
    */
-  get<T extends ConfigValue = ConfigValue>(
-    key: string,
-  ): T | undefined {
+  get<T extends ConfigValue = ConfigValue>(key: string): T | undefined {
     this.assertActive();
 
-    return this.resolver.get<T>(
-      key,
-    );
+    return this.resolver.get<T>(key);
   }
 
   /**
    * Gets a required configuration value.
    */
-  required<T extends ConfigValue = ConfigValue>(
-    key: string,
-  ): T {
+  required<T extends ConfigValue = ConfigValue>(key: string): T {
     this.assertActive();
 
-    return this.resolver.required<T>(
-      key,
-    );
+    return this.resolver.required<T>(key);
   }
 
   /**
@@ -375,85 +260,52 @@ export class ConfigManager {
   ): T | undefined {
     this.assertActive();
 
-    return this.resolver.resolve(
-      key,
-      schema,
-    );
+    return this.resolver.resolve(key, schema);
   }
 
   /**
    * Gets a string value.
    */
-  string(
-    key: string,
-    fallback?: string,
-  ): string | undefined {
+  string(key: string, fallback?: string): string | undefined {
     this.assertActive();
 
-    return this.resolver.string(
-      key,
-      fallback,
-    );
+    return this.resolver.string(key, fallback);
   }
 
   /**
    * Gets a number value.
    */
-  number(
-    key: string,
-    fallback?: number,
-  ): number | undefined {
+  number(key: string, fallback?: number): number | undefined {
     this.assertActive();
 
-    return this.resolver.number(
-      key,
-      fallback,
-    );
+    return this.resolver.number(key, fallback);
   }
 
   /**
    * Gets a boolean value.
    */
-  boolean(
-    key: string,
-    fallback?: boolean,
-  ): boolean | undefined {
+  boolean(key: string, fallback?: boolean): boolean | undefined {
     this.assertActive();
 
-    return this.resolver.boolean(
-      key,
-      fallback,
-    );
+    return this.resolver.boolean(key, fallback);
   }
 
   /**
    * Gets a bigint value.
    */
-  bigint(
-    key: string,
-    fallback?: bigint,
-  ): bigint | undefined {
+  bigint(key: string, fallback?: bigint): bigint | undefined {
     this.assertActive();
 
-    return this.resolver.bigint(
-      key,
-      fallback,
-    );
+    return this.resolver.bigint(key, fallback);
   }
 
   /**
    * Gets a Date value.
    */
-  date(
-    key: string,
-    fallback?: Date,
-  ): Date | undefined {
+  date(key: string, fallback?: Date): Date | undefined {
     this.assertActive();
 
-    return this.resolver.date(
-      key,
-      fallback,
-    );
+    return this.resolver.date(key, fallback);
   }
 
   /**
@@ -465,10 +317,7 @@ export class ConfigManager {
   ): T | undefined {
     this.assertActive();
 
-    return this.resolver.object<T>(
-      key,
-      fallback,
-    );
+    return this.resolver.object<T>(key, fallback);
   }
 
   /**
@@ -480,10 +329,7 @@ export class ConfigManager {
   ): readonly T[] | undefined {
     this.assertActive();
 
-    return this.resolver.array<T>(
-      key,
-      fallback,
-    );
+    return this.resolver.array<T>(key, fallback);
   }
 
   /**
@@ -500,42 +346,26 @@ export class ConfigManager {
   ): ConfigEntry<T> {
     this.assertActive();
 
-    return this.store.set(
-      key,
-      value,
-      {
-        source:
-          options.source ??
-          "runtime",
-        priority:
-          options.priority ??
-          Number.MAX_SAFE_INTEGER,
-        sensitive:
-          options.sensitive ??
-          false,
-      },
-    );
+    return this.store.set(key, value, {
+      source: options.source ?? "runtime",
+      priority: options.priority ?? Number.MAX_SAFE_INTEGER,
+      sensitive: options.sensitive ?? false,
+    });
   }
 
   /**
    * Removes a configuration value.
    */
-  delete(
-    key: string,
-  ): boolean {
+  delete(key: string): boolean {
     this.assertActive();
 
-    return this.store.delete(
-      key,
-    );
+    return this.store.delete(key);
   }
 
   /**
    * Returns the complete configuration object.
    */
-  toObject(): Readonly<
-    Record<string, ConfigValue>
-  > {
+  toObject(): Readonly<Record<string, ConfigValue>> {
     this.assertActive();
 
     return this.store.toObject();
@@ -546,60 +376,39 @@ export class ConfigManager {
    */
   getStatus(): ConfigManagerStatus {
     return {
-      state:
-        this.state,
-      loaded:
-        this.isReady,
-      loading:
-        this.isLoading,
-      size:
-        this.store.size,
-      lastLoadedAt:
-        this.lastLoadedAt,
-      lastError:
-        this.lastError,
+      state: this.state,
+      loaded: this.isReady,
+      loading: this.isLoading,
+      size: this.store.size,
+      lastLoadedAt: this.lastLoadedAt,
+      lastError: this.lastError,
     };
   }
 
   /**
    * Subscribes to lifecycle state changes.
    */
-  subscribe(
-    listener: ConfigManagerListener,
-  ): () => void {
+  subscribe(listener: ConfigManagerListener): () => void {
     this.assertActive();
 
-    if (
-      typeof listener !==
-        "function"
-    ) {
-      throw new TypeError(
-        "Configuration manager listener must be a function.",
-      );
+    if (typeof listener !== "function") {
+      throw new TypeError("Configuration manager listener must be a function.");
     }
 
-    this.listeners.add(
-      listener,
-    );
+    this.listeners.add(listener);
 
     return () => {
-      this.listeners.delete(
-        listener,
-      );
+      this.listeners.delete(listener);
     };
   }
 
   /**
    * Adds a configuration source.
    */
-  addSource(
-    source: ConfigSource,
-  ): void {
+  addSource(source: ConfigSource): void {
     this.assertActive();
 
-    this.loader.addSource(
-      source,
-    );
+    this.loader.addSource(source);
   }
 
   /**
@@ -607,43 +416,32 @@ export class ConfigManager {
    */
   addSourceLoader(
     name: string,
-    loader: (
-      context: {
-        readonly environment?: string;
-        readonly namespace?: string;
-        readonly signal?: AbortSignal;
-      },
-    ) =>
+    loader: (context: {
+      readonly environment?: string;
+      readonly namespace?: string;
+      readonly signal?: AbortSignal;
+    }) =>
       | {
-          readonly values:
-            Readonly<
-              Record<string, ConfigValue>
-            >;
+          readonly values: Readonly<Record<string, ConfigValue>>;
           readonly source: string;
           readonly type: import("../configSource/configSource.core.js").ConfigSourceType;
         }
       | Promise<{
-          readonly values:
-            Readonly<
-              Record<string, ConfigValue>
-            >;
+          readonly values: Readonly<Record<string, ConfigValue>>;
           readonly source: string;
           readonly type: import("../configSource/configSource.core.js").ConfigSourceType;
         }>,
   ): ConfigSource {
     this.assertActive();
 
-    const source =
-      createConfigSource(
-        {
-          name,
-        },
-        loader,
-      );
-
-    this.loader.addSource(
-      source,
+    const source = createConfigSource(
+      {
+        name,
+      },
+      loader,
     );
+
+    this.loader.addSource(source);
 
     return source;
   }
@@ -651,28 +449,21 @@ export class ConfigManager {
   /**
    * Removes a source.
    */
-  removeSource(
-    name: string,
-  ): boolean {
+  removeSource(name: string): boolean {
     this.assertActive();
 
-    return this.loader.removeSource(
-      name,
-    );
+    return this.loader.removeSource(name);
   }
 
   /**
    * Marks the manager as disposed.
    */
   async dispose(): Promise<void> {
-    if (
-      this.disposed
-    ) {
+    if (this.disposed) {
       return;
     }
 
-    this.disposed =
-      true;
+    this.disposed = true;
 
     this.listeners.clear();
 
@@ -680,27 +471,17 @@ export class ConfigManager {
 
     this.store.dispose();
 
-    this.state =
-      ConfigManagerState.DISPOSED;
+    this.state = ConfigManagerState.DISPOSED;
   }
 
-  private setState(
-    state: ConfigManagerState,
-  ): void {
-    this.state =
-      state;
+  private setState(state: ConfigManagerState): void {
+    this.state = state;
 
-    const status =
-      this.getStatus();
+    const status = this.getStatus();
 
-    for (
-      const listener of
-      this.listeners
-    ) {
+    for (const listener of this.listeners) {
       try {
-        listener(
-          status,
-        );
+        listener(status);
       } catch {
         // State listeners must not interrupt configuration lifecycle.
       }
@@ -708,14 +489,8 @@ export class ConfigManager {
   }
 
   private assertActive(): void {
-    if (
-      this.disposed ||
-      this.state ===
-        ConfigManagerState.DISPOSED
-    ) {
-      throw new Error(
-        "ConfigManager has been disposed.",
-      );
+    if (this.disposed || this.state === ConfigManagerState.DISPOSED) {
+      throw new Error("ConfigManager has been disposed.");
     }
   }
 }

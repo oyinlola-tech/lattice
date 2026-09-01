@@ -11,26 +11,18 @@ import type {
   InternalMiddleware,
 } from "../httpMiddleware.type.js";
 
-import type {
-  HttpRequestContext as RequestContext,
-} from "../../httpRequest/httpRequest.context.js";
+import type { HttpRequestContext as RequestContext } from "../../httpRequest/httpRequest.context.js";
 
-import type {
-  HttpResponseContext as ResponseContext,
-} from "../../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../../httpResponse/httpResponse.context.js";
 
 import {
   HttpMiddlewareError,
   HttpMiddlewarePipelineError,
 } from "../httpMiddleware.error.js";
 
-import {
-  normalizeResult,
-} from "./httpPipeline.helper.js";
+import { normalizeResult } from "./httpPipeline.helper.js";
 
-import {
-  list,
-} from "./httpPipeline.registration.js";
+import { list } from "./httpPipeline.registration.js";
 
 export interface PipelineExecutionOptions {
   readonly metadata: Readonly<Record<string, unknown>>;
@@ -53,12 +45,8 @@ export async function executePipeline(
   const context: HttpMiddlewareContext = {
     request,
     response,
-    state:
-      options.state ??
-      (new Map() as unknown as HttpMiddlewareState),
-    signal:
-      options.signal ??
-      new AbortController().signal,
+    state: options.state ?? (new Map() as unknown as HttpMiddlewareState),
+    signal: options.signal ?? new AbortController().signal,
     metadata: Object.freeze({
       ...pipelineOptions.metadata,
       ...(options.metadata ?? {}),
@@ -67,9 +55,7 @@ export async function executePipeline(
 
   const errors: HttpMiddlewareError[] = [];
 
-  const dispatch = async (
-    index: number,
-  ): Promise<ResponseContext> => {
+  const dispatch = async (index: number): Promise<ResponseContext> => {
     if (index >= middlewares.length) {
       return response;
     }
@@ -81,10 +67,7 @@ export async function executePipeline(
     }
 
     try {
-      const result = await entry.middleware(
-        context,
-        () => dispatch(index + 1),
-      );
+      const result = await entry.middleware(context, () => dispatch(index + 1));
 
       return normalizeResult(result, response);
     } catch (error) {
@@ -101,10 +84,7 @@ export async function executePipeline(
 
       if (pipelineOptions.onError) {
         try {
-          const errorResult = await pipelineOptions.onError(
-            error,
-            context,
-          );
+          const errorResult = await pipelineOptions.onError(error, context);
 
           return normalizeResult(errorResult, response);
         } catch {

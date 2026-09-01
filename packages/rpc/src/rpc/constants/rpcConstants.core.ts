@@ -32,4 +32,5 @@ export const MAX_PROCEDURES = 4096;
 /**
  * Procedure name pattern: dot-separated lowercase identifiers.
  */
-export const PROCEDURE_NAME_PATTERN = /^[a-z][a-zA-Z0-9]*(\.[a-z][a-zA-Z0-9]*)+$/;
+export const PROCEDURE_NAME_PATTERN =
+  /^[a-z][a-zA-Z0-9]*(\.[a-z][a-zA-Z0-9]*)+$/;

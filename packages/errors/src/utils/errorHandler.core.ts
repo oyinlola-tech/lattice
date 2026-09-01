@@ -6,10 +6,26 @@ import { BaseError } from "../base/core/baseError.core.js";
 import { ErrorCategory } from "../base/types/errorCategory.type.js";
 import { ErrorCode } from "../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../base/types/errorSeverity.type.js";
-import type { ErrorHandlerOptions, ErrorHandlerResult, ErrorHandlerContext, ErrorReporter, NormalizedError } from "./errorHandler.types.js";
+import type {
+  ErrorHandlerOptions,
+  ErrorHandlerResult,
+  ErrorHandlerContext,
+  ErrorReporter,
+  NormalizedError,
+} from "./errorHandler.types.js";
 
-export type { ErrorHandlerOptions, ErrorHandlerResult, ErrorHandlerContext, ErrorReporter, NormalizedError } from "./errorHandler.types.js";
-export { createErrorHandler, normalizeError, isHandledError } from "./errorHandler.factory.js";
+export type {
+  ErrorHandlerOptions,
+  ErrorHandlerResult,
+  ErrorHandlerContext,
+  ErrorReporter,
+  NormalizedError,
+} from "./errorHandler.types.js";
+export {
+  createErrorHandler,
+  normalizeError,
+  isHandledError,
+} from "./errorHandler.factory.js";
 
 /** Centralized error normalization, serialization, and reporting service. */
 export class ErrorHandler {
@@ -21,7 +37,8 @@ export class ErrorHandler {
   constructor(options: ErrorHandlerOptions = {}) {
     this.reporter = options.reporter;
     this.defaultStatusCode = options.defaultStatusCode ?? 500;
-    this.defaultMessage = options.defaultMessage ?? "An unexpected error occurred.";
+    this.defaultMessage =
+      options.defaultMessage ?? "An unexpected error occurred.";
     this.includeStack = options.includeStack ?? false;
   }
 
@@ -68,7 +85,10 @@ export class ErrorHandler {
   }
 
   /** Converts a BaseError into a safe response object. */
-  public toResult(error: BaseError, context?: ErrorHandlerContext): ErrorHandlerResult {
+  public toResult(
+    error: BaseError,
+    context?: ErrorHandlerContext,
+  ): ErrorHandlerResult {
     const metadata = {
       ...(error.toJSON().metadata ?? {}),
       ...(context?.metadata ?? {}),
@@ -82,7 +102,9 @@ export class ErrorHandler {
       isOperational: error.isOperational,
       expose: error.expose,
       ...(context?.requestId ? { requestId: context.requestId } : {}),
-      ...(context?.correlationId ? { correlationId: context.correlationId } : {}),
+      ...(context?.correlationId
+        ? { correlationId: context.correlationId }
+        : {}),
       ...(Object.keys(metadata).length > 0
         ? { metadata: this.sanitizeMetadata(metadata) }
         : {}),
@@ -90,7 +112,10 @@ export class ErrorHandler {
   }
 
   /** Reports an error without producing a response. */
-  public async report(value: unknown, context?: ErrorHandlerContext): Promise<BaseError> {
+  public async report(
+    value: unknown,
+    context?: ErrorHandlerContext,
+  ): Promise<BaseError> {
     const { error } = this.normalize(value);
     if (this.reporter) {
       await this.reporter(error, context);
@@ -104,7 +129,10 @@ export class ErrorHandler {
   }
 
   /** Returns a safe serialized error representation. */
-  public serialize(error: BaseError, context?: ErrorHandlerContext): Record<string, unknown> {
+  public serialize(
+    error: BaseError,
+    context?: ErrorHandlerContext,
+  ): Record<string, unknown> {
     const result = this.toResult(error, context);
     if (this.includeStack && error.expose === false) {
       return { ...result, stack: error.stack } as Record<string, unknown>;
@@ -113,10 +141,21 @@ export class ErrorHandler {
   }
 
   /** Removes obviously sensitive fields from metadata before serialization. */
-  private sanitizeMetadata(metadata: Readonly<Record<string, unknown>>): Record<string, unknown> {
+  private sanitizeMetadata(
+    metadata: Readonly<Record<string, unknown>>,
+  ): Record<string, unknown> {
     const sensitiveKeys = new Set([
-      "password", "passcode", "token", "accessToken", "refreshToken",
-      "authorization", "cookie", "secret", "privateKey", "apiKey", "credential",
+      "password",
+      "passcode",
+      "token",
+      "accessToken",
+      "refreshToken",
+      "authorization",
+      "cookie",
+      "secret",
+      "privateKey",
+      "apiKey",
+      "credential",
     ]);
     const sanitized: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(metadata)) {

@@ -25,4 +25,8 @@ export * from "./observability/index.js";
 export * from "./utils/index.js";
 export * from "./http/index.js";
 
-export { createPermissionEngine, type PermissionEngine, type PermissionEngineOptions } from "./evaluator/authorizationEngine.js";
+export {
+  createPermissionEngine,
+  type PermissionEngine,
+  type PermissionEngineOptions,
+} from "./evaluator/authorizationEngine.js";

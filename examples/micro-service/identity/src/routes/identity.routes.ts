@@ -43,7 +43,10 @@ export function createIdentityRoutes(controller: IdentityController) {
 
       // Get user profile by email: /api/identity/profile?email=...
       if (method === "GET" && path === "/api/identity/profile") {
-        const parsedUrl = new URL(url, `http://${req.headers.host ?? "localhost"}`);
+        const parsedUrl = new URL(
+          url,
+          `http://${req.headers.host ?? "localhost"}`,
+        );
         const email = parsedUrl.searchParams.get("email");
         if (email) {
           await controller.getUserProfile(req, res, email);

@@ -49,9 +49,7 @@ export async function hashPassword(
     parallelization,
   });
 
-  const salt = new Uint8Array(
-    await provider.randomBytes(saltBytes),
-  );
+  const salt = new Uint8Array(await provider.randomBytes(saltBytes));
 
   const encoded = await provider.hashPassword(password, {
     algorithm: "scrypt",

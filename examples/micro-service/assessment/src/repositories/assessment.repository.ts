@@ -19,8 +19,14 @@ export class AssessmentRepositoryImpl implements AssessmentRepository {
     return this.db.findSubmissionById(id);
   }
 
-  async findSubmissionByStudentAndAssessment(studentId: string, assessmentId: string) {
-    return this.db.findSubmissionByStudentAndAssessment(studentId, assessmentId);
+  async findSubmissionByStudentAndAssessment(
+    studentId: string,
+    assessmentId: string,
+  ) {
+    return this.db.findSubmissionByStudentAndAssessment(
+      studentId,
+      assessmentId,
+    );
   }
 
   async createSubmission(data: Readonly<Record<string, unknown>>) {

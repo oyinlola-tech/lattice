@@ -110,12 +110,16 @@ export class LoggerManager {
 }
 
 /** Creates a LoggerManager. */
-export function createLoggerManager(options: LoggerOptions = {}): LoggerManager {
+export function createLoggerManager(
+  options: LoggerOptions = {},
+): LoggerManager {
   return new LoggerManager(options);
 }
 
 /** Creates and initializes a LoggerManager. */
-export function initializeLoggerManager(options: LoggerOptions = {}): LoggerManager {
+export function initializeLoggerManager(
+  options: LoggerOptions = {},
+): LoggerManager {
   const manager = createLoggerManager(options);
   manager.initialize(options);
   return manager;
@@ -135,7 +139,10 @@ export function createLoggerManagerFromLogger(logger: Logger): LoggerManager {
 }
 
 /** Returns a logger from a manager or creates a fallback logger when no manager is supplied. */
-export function resolveManagedLogger(manager?: LoggerManager, name = "lattice"): Logger {
+export function resolveManagedLogger(
+  manager?: LoggerManager,
+  name = "lattice",
+): Logger {
   if (manager) return manager.get(name);
   return createLogger({ name });
 }

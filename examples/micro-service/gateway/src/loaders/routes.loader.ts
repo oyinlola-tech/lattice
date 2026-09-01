@@ -18,7 +18,10 @@ const allRoutes: readonly Route[] = [
 /**
  * Extracts named parameters from a regex match.
  */
-function extractParams(pattern: RegExp, pathname: string): Record<string, string> | null {
+function extractParams(
+  pattern: RegExp,
+  pathname: string,
+): Record<string, string> | null {
   const match = pathname.match(pattern);
   if (!match) return null;
 

@@ -1,7 +1,10 @@
 import type { Provider } from "./provider.js";
 import type { Scope } from "./scope.js";
 import type { Token } from "./token.js";
-import { ProviderNotFoundError, ProviderAlreadyRegisteredError } from "../errors/exceptions.js";
+import {
+  ProviderNotFoundError,
+  ProviderAlreadyRegisteredError,
+} from "../errors/exceptions.js";
 
 /**
  * Internal representation of a registered dependency.
@@ -19,10 +22,7 @@ interface ProviderRegistration {
  * application dependencies.
  */
 export class Container {
-  private readonly providers = new Map<
-    Token<unknown>,
-    ProviderRegistration
-  >();
+  private readonly providers = new Map<Token<unknown>, ProviderRegistration>();
 
   /**
    * Registers a provider in the container.
@@ -59,7 +59,9 @@ export class Container {
       return registration.instance as T;
     }
 
-    const instance = this.createInstance<T>(registration.provider as Provider<T>);
+    const instance = this.createInstance<T>(
+      registration.provider as Provider<T>,
+    );
 
     if (registration.scope === "singleton") {
       registration.instance = instance;

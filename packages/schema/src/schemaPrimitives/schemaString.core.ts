@@ -7,7 +7,10 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode, SCHEMA_STRING_FORMATS } from "@oyinlola141/lattice-constants";
+import {
+  SchemaIssueCode,
+  SCHEMA_STRING_FORMATS,
+} from "@oyinlola141/lattice-constants";
 import { OptionalModifierSchema } from "../schemaModifiers/schemaOptionalNullable.core.js";
 import { NullableModifierSchema } from "../schemaModifiers/schemaOptionalNullable.core.js";
 import { DefaultSchema } from "../schemaModifiers/schemaDefault.core.js";
@@ -118,7 +121,11 @@ export class StringSchema extends Schema<string> {
     }
   }
 
-  private _validateFormat(ctx: SchemaParseContext, value: string, format: string): boolean {
+  private _validateFormat(
+    ctx: SchemaParseContext,
+    value: string,
+    format: string,
+  ): boolean {
     const formats: Record<string, RegExp> = {
       email: SCHEMA_STRING_FORMATS.EMAIL,
       url: SCHEMA_STRING_FORMATS.URL,
@@ -242,7 +249,9 @@ export class StringSchema extends Schema<string> {
   }
 
   /** Transforms the string value. */
-  public transform<TOutput>(fn: (value: string) => TOutput): TransformSchema<string, TOutput> {
+  public transform<TOutput>(
+    fn: (value: string) => TOutput,
+  ): TransformSchema<string, TOutput> {
     return new TransformSchema(this, fn);
   }
 }

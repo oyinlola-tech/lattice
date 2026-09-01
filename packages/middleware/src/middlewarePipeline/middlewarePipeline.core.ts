@@ -4,8 +4,14 @@
  * @module middlewarePipeline/middlewarePipeline
  */
 
-import type { Middleware, NamedMiddleware } from "../middlewareTypes/middlewareDefinition.type.js";
-import type { PipelineResult, PipelineOptions } from "../middlewareTypes/middlewareContext.type.js";
+import type {
+  Middleware,
+  NamedMiddleware,
+} from "../middlewareTypes/middlewareDefinition.type.js";
+import type {
+  PipelineResult,
+  PipelineOptions,
+} from "../middlewareTypes/middlewareContext.type.js";
 import { resolveMiddleware } from "../middlewareCore/middlewareCore.compose.js";
 
 const DEFAULT_MAX = 50;

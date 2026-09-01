@@ -2,6 +2,4 @@
  * Runtime shutdown sequence.
  */
 
-export {
-  executeShutdown,
-} from "./shutdown.core.js";
+export { executeShutdown } from "./shutdown.core.js";

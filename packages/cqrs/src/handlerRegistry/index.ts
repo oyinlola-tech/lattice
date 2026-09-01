@@ -4,4 +4,4 @@
  * Central registry for command and query handlers.
  */
 
-export * from './handlerRegistry.core.js';
+export * from "./handlerRegistry.core.js";

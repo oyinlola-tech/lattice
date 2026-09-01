@@ -2,21 +2,13 @@
  * Lattice HTTP route result normalization.
  */
 
-import {
-  HttpRouteResult,
-} from "./httpRoute.result.class.js";
+import { HttpRouteResult } from "./httpRoute.result.class.js";
 
-import {
-  isReadableStream,
-} from "./httpRoute.result.util.js";
+import { isReadableStream } from "./httpRoute.result.util.js";
 
-import {
-  valueToJsonObject,
-} from "./httpRoute.result.serialize.js";
+import { valueToJsonObject } from "./httpRoute.result.serialize.js";
 
-import {
-  DEFAULT_CONTENT_TYPE,
-} from "./httpRoute.result.type.js";
+import { DEFAULT_CONTENT_TYPE } from "./httpRoute.result.type.js";
 
 import type {
   RouteResultValue,
@@ -29,37 +21,24 @@ import type {
 /* -------------------------------------------------------------------------- */
 
 export function normalizeRouteResult(
-  value:
-    | RouteResultValue,
-  options:
-    | RouteResultOptions = {},
-):
-  | HttpRouteResult {
-  if (
-    value instanceof HttpRouteResult
-  ) {
+  value: RouteResultValue,
+  options: RouteResultOptions = {},
+): HttpRouteResult {
+  if (value instanceof HttpRouteResult) {
     return value;
   }
 
-  if (
-    value === undefined ||
-    value === null
-  ) {
+  if (value === undefined || value === null) {
     return new HttpRouteResult({
-      status:
-        options.defaultStatus ?? 204,
+      status: options.defaultStatus ?? 204,
       body: null,
     });
   }
 
-  if (
-    typeof value === "string"
-  ) {
+  if (typeof value === "string") {
     return new HttpRouteResult({
-      status:
-        options.defaultStatus ?? 200,
-      contentType:
-        "text/plain; charset=utf-8",
+      status: options.defaultStatus ?? 200,
+      contentType: "text/plain; charset=utf-8",
       body: value,
     });
   }
@@ -70,59 +49,39 @@ export function normalizeRouteResult(
     typeof value === "bigint"
   ) {
     return new HttpRouteResult({
-      status:
-        options.defaultStatus ?? 200,
-      contentType:
-        options.defaultContentType ??
-        DEFAULT_CONTENT_TYPE,
-      body:
-        valueToJsonObject(value),
+      status: options.defaultStatus ?? 200,
+      contentType: options.defaultContentType ?? DEFAULT_CONTENT_TYPE,
+      body: valueToJsonObject(value),
     });
   }
 
-  if (
-    value instanceof Uint8Array
-  ) {
+  if (value instanceof Uint8Array) {
     return new HttpRouteResult({
-      status:
-        options.defaultStatus ?? 200,
+      status: options.defaultStatus ?? 200,
       body: value,
-      contentType:
-        "application/octet-stream",
+      contentType: "application/octet-stream",
     });
   }
 
-  if (
-    value instanceof ArrayBuffer
-  ) {
+  if (value instanceof ArrayBuffer) {
     return new HttpRouteResult({
-      status:
-        options.defaultStatus ?? 200,
-      body:
-        new Uint8Array(value),
-      contentType:
-        "application/octet-stream",
+      status: options.defaultStatus ?? 200,
+      body: new Uint8Array(value),
+      contentType: "application/octet-stream",
     });
   }
 
-  if (
-    isReadableStream(value)
-  ) {
+  if (isReadableStream(value)) {
     return new HttpRouteResult({
-      status:
-        options.defaultStatus ?? 200,
+      status: options.defaultStatus ?? 200,
       body: value,
     });
   }
 
   return new HttpRouteResult({
-    status:
-      options.defaultStatus ?? 200,
-    contentType:
-      options.defaultContentType ??
-      DEFAULT_CONTENT_TYPE,
-    body:
-      value as Record<string, unknown>,
+    status: options.defaultStatus ?? 200,
+    contentType: options.defaultContentType ?? DEFAULT_CONTENT_TYPE,
+    body: value as Record<string, unknown>,
   });
 }
 
@@ -131,18 +90,12 @@ export function normalizeRouteResult(
 /* -------------------------------------------------------------------------- */
 
 export function resultFromContext(
-  context:
-    | RouteResultContext,
-  value:
-    | RouteResultValue,
-):
-  | HttpRouteResult {
-  const result =
-    normalizeRouteResult(value);
+  context: RouteResultContext,
+  value: RouteResultValue,
+): HttpRouteResult {
+  const result = normalizeRouteResult(value);
 
-  if (
-    context.method === "HEAD"
-  ) {
+  if (context.method === "HEAD") {
     return result.withBody(null);
   }
 

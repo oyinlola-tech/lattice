@@ -17,7 +17,12 @@ export class ArticleController {
     this.queryBus = queryBus;
   }
 
-  public async create(body: { authorId: string; topicId: string; title: string; content: string }) {
+  public async create(body: {
+    authorId: string;
+    topicId: string;
+    title: string;
+    content: string;
+  }) {
     return this.commandBus.execute(new CreateArticleCommand(body as any));
   }
 
@@ -25,7 +30,12 @@ export class ArticleController {
     return this.queryBus.execute(new GetArticleQuery(articleId));
   }
 
-  public async list(options: { topicId?: TopicId; status?: string; limit?: number; offset?: number }) {
+  public async list(options: {
+    topicId?: TopicId;
+    status?: string;
+    limit?: number;
+    offset?: number;
+  }) {
     return this.queryBus.execute(new ListArticlesQuery(options as any));
   }
 
@@ -33,8 +43,14 @@ export class ArticleController {
     return this.queryBus.execute(new SearchArticlesQuery(searchTerm));
   }
 
-  public async update(articleId: ArticleId, userId: UserId, body: { title?: string; content?: string }) {
-    await this.commandBus.execute(new UpdateArticleCommand(articleId, userId, body));
+  public async update(
+    articleId: ArticleId,
+    userId: UserId,
+    body: { title?: string; content?: string },
+  ) {
+    await this.commandBus.execute(
+      new UpdateArticleCommand(articleId, userId, body),
+    );
     return { success: true };
   }
 

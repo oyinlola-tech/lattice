@@ -24,119 +24,63 @@ import {
 import { statusName } from "./httpStatus.name.js";
 
 export interface HttpStatusInfo {
-  readonly code:
-    | number;
+  readonly code: number;
 
-  readonly name:
-    | string;
+  readonly name: string;
 
-  readonly text:
-    | string;
+  readonly text: string;
 
-  readonly category:
-    | HttpStatusCategory;
+  readonly category: HttpStatusCategory;
 
-  readonly informational:
-    | boolean;
+  readonly informational: boolean;
 
-  readonly success:
-    | boolean;
+  readonly success: boolean;
 
-  readonly redirection:
-    | boolean;
+  readonly redirection: boolean;
 
-  readonly clientError:
-    | boolean;
+  readonly clientError: boolean;
 
-  readonly serverError:
-    | boolean;
+  readonly serverError: boolean;
 
-  readonly error:
-    | boolean;
+  readonly error: boolean;
 
-  readonly bodyAllowed:
-    | boolean;
+  readonly bodyAllowed: boolean;
 
-  readonly cacheableByDefault:
-    | boolean;
+  readonly cacheableByDefault: boolean;
 
-  readonly retryable:
-    | boolean;
+  readonly retryable: boolean;
 }
 
-export function getStatusInfo(
-  status:
-    | number,
-):
-  | HttpStatusInfo {
-  assertValidStatusCode(
-    status,
-  );
+export function getStatusInfo(status: number): HttpStatusInfo {
+  assertValidStatusCode(status);
 
-  const category =
-    getStatusCategory(
-      status,
-    );
+  const category = getStatusCategory(status);
 
   return Object.freeze({
-    code:
-      status,
+    code: status,
 
-    name:
-      statusName(
-        status,
-      ),
+    name: statusName(status),
 
-    text:
-      getStatusText(
-        status,
-      ),
+    text: getStatusText(status),
 
     category,
 
-    informational:
-      isInformational(
-        status,
-      ),
+    informational: isInformational(status),
 
-    success:
-      isSuccess(
-        status,
-      ),
+    success: isSuccess(status),
 
-    redirection:
-      isRedirection(
-        status,
-      ),
+    redirection: isRedirection(status),
 
-    clientError:
-      isClientError(
-        status,
-      ),
+    clientError: isClientError(status),
 
-    serverError:
-      isServerError(
-        status,
-      ),
+    serverError: isServerError(status),
 
-    error:
-      isError(
-        status,
-      ),
+    error: isError(status),
 
-    bodyAllowed:
-      hasResponseBody(
-        status,
-      ),
+    bodyAllowed: hasResponseBody(status),
 
-    cacheableByDefault:
-      isCacheableByDefault(
-        status,
-      ),
+    cacheableByDefault: isCacheableByDefault(status),
 
-    retryable:
-      isRetryableStatus(
-        status,
-      ),
+    retryable: isRetryableStatus(status),
   });
 }

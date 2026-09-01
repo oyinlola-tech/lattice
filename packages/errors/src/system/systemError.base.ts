@@ -28,7 +28,10 @@ export interface SystemErrorOptions extends Omit<BaseErrorOptions, "category"> {
 export class SystemError extends BaseError {
   public readonly operation: SystemOperation;
 
-  constructor(message = "A system operation failed.", options: SystemErrorOptions = {}) {
+  constructor(
+    message = "A system operation failed.",
+    options: SystemErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.SYSTEM_ERROR,
@@ -39,7 +42,9 @@ export class SystemError extends BaseError {
       isOperational: options.isOperational ?? true,
       metadata: {
         ...options.metadata,
-        ...(options.operation !== undefined ? { operation: options.operation } : {}),
+        ...(options.operation !== undefined
+          ? { operation: options.operation }
+          : {}),
       },
     });
     this.operation = options.operation ?? SystemOperation.UNKNOWN;

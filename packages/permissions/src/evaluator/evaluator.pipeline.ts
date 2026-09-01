@@ -17,7 +17,13 @@ import { AuthorizationAbortedError } from "../permissionErrors/index.js";
 /** Configuration for the evaluator. */
 export interface EvaluatorOptions {
   /** Function to look up a role definition by name. */
-  readonly getRole?: (name: string) => { readonly name: string; readonly permissions: readonly string[]; readonly inherits?: readonly string[] } | undefined;
+  readonly getRole?: (name: string) =>
+    | {
+        readonly name: string;
+        readonly permissions: readonly string[];
+        readonly inherits?: readonly string[];
+      }
+    | undefined;
   /** Registered policies. */
   readonly policies?: readonly PermissionPolicyDefinition[];
   /** Default timeout for async policy evaluation (ms). */
@@ -58,7 +64,9 @@ export async function evaluatePolicies(
   if (policies.length === 0) return null;
 
   const permissionStr = `${context.permission.resource}:${context.permission.action}`;
-  const applicable = policies.filter((p) => p.permissions.includes(permissionStr));
+  const applicable = policies.filter((p) =>
+    p.permissions.includes(permissionStr),
+  );
 
   if (applicable.length === 0) return null;
 
@@ -108,8 +116,14 @@ async function withTimeout<T>(
     }, timeoutMs);
 
     promise.then(
-      (value) => { clearTimeout(timer); resolve(value); },
-      (error) => { clearTimeout(timer); reject(error); },
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (error) => {
+        clearTimeout(timer);
+        reject(error);
+      },
     );
   });
 }

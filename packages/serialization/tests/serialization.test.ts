@@ -90,7 +90,10 @@ describe("JSONSerializer — type preservation", () => {
   });
 
   it("preserves Map objects", () => {
-    const map = new Map([["name", "Alice"], ["age", "30"]]);
+    const map = new Map([
+      ["name", "Alice"],
+      ["age", "30"],
+    ]);
     const data = { metadata: map };
     const json = serializer.serialize(data, { preserveTypes: true });
     const result = serializer.deserialize(json, { preserveTypes: true });
@@ -172,7 +175,9 @@ describe("JSONSerializer — validation", () => {
   });
 
   it("rejects invalid JSON in strict mode", () => {
-    expect(() => serializer.deserialize("not json", { strict: true })).toThrow();
+    expect(() =>
+      serializer.deserialize("not json", { strict: true }),
+    ).toThrow();
   });
 
   it("enforces max size limit", () => {
@@ -244,7 +249,9 @@ describe("DateTransformer", () => {
   });
 
   it("rejects invalid Date values", () => {
-    expect(() => DateTransformer.deserialize({ $value: "not-a-date" })).toThrow();
+    expect(() =>
+      DateTransformer.deserialize({ $value: "not-a-date" }),
+    ).toThrow();
   });
 });
 
@@ -257,13 +264,18 @@ describe("BigIntTransformer", () => {
   });
 
   it("rejects invalid BigInt strings", () => {
-    expect(() => BigIntTransformer.deserialize({ $value: "not-a-bigint" })).toThrow();
+    expect(() =>
+      BigIntTransformer.deserialize({ $value: "not-a-bigint" }),
+    ).toThrow();
   });
 });
 
 describe("MapTransformer", () => {
   it("round-trips Map objects", () => {
-    const map = new Map([["a", 1], ["b", 2]]);
+    const map = new Map([
+      ["a", 1],
+      ["b", 2],
+    ]);
     const serialized = MapTransformer.serialize(map);
     const restored = MapTransformer.deserialize(serialized);
     expect(restored).toBeInstanceOf(Map);

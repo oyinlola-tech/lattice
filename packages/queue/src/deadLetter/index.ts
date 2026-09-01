@@ -9,7 +9,4 @@ export {
   moveToDeadLetter,
 } from "./deadLetter.core.js";
 
-export type {
-  DeadLetterJob,
-  DeadLetterStore,
-} from "./deadLetter.type.js";
+export type { DeadLetterJob, DeadLetterStore } from "./deadLetter.type.js";

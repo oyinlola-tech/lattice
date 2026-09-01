@@ -25,6 +25,15 @@ export interface ResultPublishedPayload {
   readonly gradedAt: Date;
 }
 
-export const AssessmentCreatedEvent = defineEvent<"assessment.created", AssessmentCreatedPayload>("assessment.created");
-export const AssessmentSubmittedEvent = defineEvent<"assessment.submitted", AssessmentSubmittedPayload>("assessment.submitted");
-export const ResultPublishedEvent = defineEvent<"result.published", ResultPublishedPayload>("result.published");
+export const AssessmentCreatedEvent = defineEvent<
+  "assessment.created",
+  AssessmentCreatedPayload
+>("assessment.created");
+export const AssessmentSubmittedEvent = defineEvent<
+  "assessment.submitted",
+  AssessmentSubmittedPayload
+>("assessment.submitted");
+export const ResultPublishedEvent = defineEvent<
+  "result.published",
+  ResultPublishedPayload
+>("result.published");

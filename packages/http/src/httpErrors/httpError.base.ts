@@ -7,18 +7,11 @@
  * @module httpErrors/base
  */
 
-import {
-  HttpError as BaseHttpError,
-} from "@oyinlola141/lattice-errors";
+import { HttpError as BaseHttpError } from "@oyinlola141/lattice-errors";
 
-import type {
-  HttpErrorOptions,
-} from "./httpError.type.js";
+import type { HttpErrorOptions } from "./httpError.type.js";
 
-import {
-  normalizeHeaders,
-  getStatusText,
-} from "./httpError.helper.js";
+import { normalizeHeaders, getStatusText } from "./httpError.helper.js";
 
 /**
  * HTTP error with response-specific properties.
@@ -26,134 +19,74 @@ import {
  * Extends the shared HttpError from @oyinlola141/lattice-errors with additional
  * properties for HTTP response construction.
  */
-export class HttpError
-  extends BaseHttpError {
+export class HttpError extends BaseHttpError {
   /**
    * The HTTP status text.
    */
-  readonly statusText:
-    | string;
+  readonly statusText: string;
 
   /**
    * Additional error details.
    */
-  readonly details:
-    | unknown;
+  readonly details: unknown;
 
   /**
    * Custom response headers.
    */
-  readonly headers:
-    | Readonly<
-        Record<string, string>
-      >;
+  readonly headers: Readonly<Record<string, string>>;
 
   constructor(
-    status:
-      | number,
-    message?:
-      | string,
-    options:
-      | HttpErrorOptions = {},
+    status: number,
+    message?: string,
+    options: HttpErrorOptions = {},
   ) {
-    const statusText =
-      getStatusText(
-        status,
-      );
+    const statusText = getStatusText(status);
 
-    super(
-      message ??
-        statusText,
-      {
-        statusCode:
-          status,
-        code:
-          options.code,
-        expose:
-          options.expose ??
-          status <
-            500,
-        metadata:
-          options.metadata,
-        cause:
-          options.cause,
-      },
-    );
+    super(message ?? statusText, {
+      statusCode: status,
+      code: options.code,
+      expose: options.expose ?? status < 500,
+      metadata: options.metadata,
+      cause: options.cause,
+    });
 
-    this.name =
-      "HttpError";
+    this.name = "HttpError";
 
-    this.statusText =
-      statusText;
+    this.statusText = statusText;
 
-    this.details =
-      options.details;
+    this.details = options.details;
 
-    this.headers =
-      Object.freeze(
-        normalizeHeaders(
-          options.headers,
-        ),
-      );
+    this.headers = Object.freeze(normalizeHeaders(options.headers));
   }
 
   /**
    * Creates a new error with an additional header.
    */
-  withHeader(
-    name:
-      | string,
-    value:
-      | string,
-  ):
-    | HttpError {
-    return new HttpError(
-      this.statusCode,
-      this.message,
-      {
-        code:
-          this.code,
-        headers: {
-          ...this.headers,
-          [name]:
-            value,
-        },
-        details:
-          this.details,
-        expose:
-          this.expose,
-        metadata:
-          this.metadata,
+  withHeader(name: string, value: string): HttpError {
+    return new HttpError(this.statusCode, this.message, {
+      code: this.code,
+      headers: {
+        ...this.headers,
+        [name]: value,
       },
-    );
+      details: this.details,
+      expose: this.expose,
+      metadata: this.metadata,
+    });
   }
 
   /**
    * Creates a new error with updated details.
    */
-  withDetails(
-    details:
-      | unknown,
-  ):
-    | HttpError {
-    return new HttpError(
-      this.statusCode,
-      this.message,
-      {
-        code:
-          this.code,
-        headers:
-          this.headers as Record<string, string>,
-        details,
-        expose:
-          this.expose,
-        metadata:
-          this.metadata,
-      },
-    );
+  withDetails(details: unknown): HttpError {
+    return new HttpError(this.statusCode, this.message, {
+      code: this.code,
+      headers: this.headers as Record<string, string>,
+      details,
+      expose: this.expose,
+      metadata: this.metadata,
+    });
   }
 }
 
-export {
-  getStatusText,
-};
+export { getStatusText };

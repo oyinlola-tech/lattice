@@ -73,31 +73,21 @@ export const HTTP_3_0: HTTPVersion = {
   minor: 0,
 };
 
-export const DEFAULT_HTTP_VERSION =
-  HTTP_1_1;
+export const DEFAULT_HTTP_VERSION = HTTP_1_1;
 
 /* -------------------------------------------------------------------------- */
 /* Version Helpers                                                            */
 /* -------------------------------------------------------------------------- */
 
-export function formatHTTPVersion(
-  version: HTTPVersion,
-): string {
+export function formatHTTPVersion(version: HTTPVersion): string {
   return `HTTP/${version.major}.${version.minor}`;
 }
 
-export function parseHTTPVersion(
-  value: string,
-): HTTPVersion {
-  const match =
-    /^HTTP\/(\d+)\.(\d+)$/.exec(
-      value.trim(),
-    );
+export function parseHTTPVersion(value: string): HTTPVersion {
+  const match = /^HTTP\/(\d+)\.(\d+)$/.exec(value.trim());
 
   if (!match) {
-    throw new TypeError(
-      `Invalid HTTP version: ${value}`,
-    );
+    throw new TypeError(`Invalid HTTP version: ${value}`);
   }
 
   return {
@@ -106,9 +96,7 @@ export function parseHTTPVersion(
   };
 }
 
-export function isHTTPVersion(
-  value: string,
-): boolean {
+export function isHTTPVersion(value: string): boolean {
   try {
     parseHTTPVersion(value);
     return true;
@@ -128,47 +116,25 @@ export function compareHTTPVersions(
   return left.minor - right.minor;
 }
 
-export function isHTTP11(
-  version: HTTPVersion,
-): boolean {
-  return (
-    version.major === 1 &&
-    version.minor === 1
-  );
+export function isHTTP11(version: HTTPVersion): boolean {
+  return version.major === 1 && version.minor === 1;
 }
 
-export function isHTTP10(
-  version: HTTPVersion,
-): boolean {
-  return (
-    version.major === 1 &&
-    version.minor === 0
-  );
+export function isHTTP10(version: HTTPVersion): boolean {
+  return version.major === 1 && version.minor === 0;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Request Line                                                               */
 /* -------------------------------------------------------------------------- */
 
-export function formatRequestLine(
-  request: HTTPRequestLine,
-): string {
-  if (
-    !isHTTPMethod(request.method)
-  ) {
-    throw new TypeError(
-      `Invalid HTTP method: ${request.method}`,
-    );
+export function formatRequestLine(request: HTTPRequestLine): string {
+  if (!isHTTPMethod(request.method)) {
+    throw new TypeError(`Invalid HTTP method: ${request.method}`);
   }
 
-  if (
-    !isValidRequestTarget(
-      request.target,
-    )
-  ) {
-    throw new TypeError(
-      `Invalid HTTP request target: ${request.target}`,
-    );
+  if (!isValidRequestTarget(request.target)) {
+    throw new TypeError(`Invalid HTTP request target: ${request.target}`);
   }
 
   return [
@@ -178,36 +144,21 @@ export function formatRequestLine(
   ].join(" ");
 }
 
-export function parseRequestLine(
-  line: string,
-): HTTPRequestLine {
-  const parts =
-    line.trim().split(/\s+/);
+export function parseRequestLine(line: string): HTTPRequestLine {
+  const parts = line.trim().split(/\s+/);
 
   if (parts.length !== 3) {
-    throw new TypeError(
-      "Invalid HTTP request line.",
-    );
+    throw new TypeError("Invalid HTTP request line.");
   }
 
-  const [
-    method,
-    target,
-    version,
-  ] = parts;
+  const [method, target, version] = parts;
 
   if (!isHTTPMethod(method)) {
-    throw new TypeError(
-      `Invalid HTTP method: ${method}`,
-    );
+    throw new TypeError(`Invalid HTTP method: ${method}`);
   }
 
-  if (
-    !isValidRequestTarget(target)
-  ) {
-    throw new TypeError(
-      `Invalid HTTP request target: ${target}`,
-    );
+  if (!isValidRequestTarget(target)) {
+    throw new TypeError(`Invalid HTTP request target: ${target}`);
   }
 
   return {
@@ -221,17 +172,9 @@ export function parseRequestLine(
 /* Status Line                                                                */
 /* -------------------------------------------------------------------------- */
 
-export function formatStatusLine(
-  status: HTTPStatusLine,
-): string {
-  if (
-    !isValidStatusCode(
-      status.statusCode,
-    )
-  ) {
-    throw new RangeError(
-      `Invalid HTTP status code: ${status.statusCode}`,
-    );
+export function formatStatusLine(status: HTTPStatusLine): string {
+  if (!isValidStatusCode(status.statusCode)) {
+    throw new RangeError(`Invalid HTTP status code: ${status.statusCode}`);
   }
 
   return [
@@ -239,35 +182,23 @@ export function formatStatusLine(
     String(status.statusCode),
     status.reasonPhrase,
   ]
-    .filter(
-      (part) => part.length > 0,
-    )
+    .filter((part) => part.length > 0)
     .join(" ");
 }
 
-export function parseStatusLine(
-  line: string,
-): HTTPStatusLine {
-  const match =
-    /^(HTTP\/\d+\.\d+)[ \t]+(\d{3})(?:[ \t]+(.*))?$/.exec(
-      line.trim(),
-    );
+export function parseStatusLine(line: string): HTTPStatusLine {
+  const match = /^(HTTP\/\d+\.\d+)[ \t]+(\d{3})(?:[ \t]+(.*))?$/.exec(
+    line.trim(),
+  );
 
   if (!match) {
-    throw new TypeError(
-      "Invalid HTTP status line.",
-    );
+    throw new TypeError("Invalid HTTP status line.");
   }
 
-  const statusCode =
-    Number(match[2]);
+  const statusCode = Number(match[2]);
 
-  if (
-    !isValidStatusCode(statusCode)
-  ) {
-    throw new RangeError(
-      `Invalid HTTP status code: ${statusCode}`,
-    );
+  if (!isValidStatusCode(statusCode)) {
+    throw new RangeError(`Invalid HTTP status code: ${statusCode}`);
   }
 
   return {
@@ -281,60 +212,35 @@ export function parseStatusLine(
 /* Header Formatting                                                          */
 /* -------------------------------------------------------------------------- */
 
-export function formatHeader(
-  header: HTTPHeader,
-): string {
-  if (
-    !isValidHeaderName(header.name)
-  ) {
-    throw new TypeError(
-      `Invalid HTTP header name: ${header.name}`,
-    );
+export function formatHeader(header: HTTPHeader): string {
+  if (!isValidHeaderName(header.name)) {
+    throw new TypeError(`Invalid HTTP header name: ${header.name}`);
   }
 
-  if (
-    !isValidHeaderValue(header.value)
-  ) {
-    throw new TypeError(
-      `Invalid HTTP header value for ${header.name}`,
-    );
+  if (!isValidHeaderValue(header.value)) {
+    throw new TypeError(`Invalid HTTP header value for ${header.name}`);
   }
 
   return `${header.name}: ${header.value}`;
 }
 
-export function parseHeader(
-  line: string,
-): HTTPHeader {
-  const separator =
-    line.indexOf(":");
+export function parseHeader(line: string): HTTPHeader {
+  const separator = line.indexOf(":");
 
   if (separator <= 0) {
-    throw new TypeError(
-      "Invalid HTTP header line.",
-    );
+    throw new TypeError("Invalid HTTP header line.");
   }
 
-  const name =
-    line.slice(0, separator).trim();
+  const name = line.slice(0, separator).trim();
 
-  const value =
-    line.slice(separator + 1).trim();
+  const value = line.slice(separator + 1).trim();
 
-  if (
-    !isValidHeaderName(name)
-  ) {
-    throw new TypeError(
-      `Invalid HTTP header name: ${name}`,
-    );
+  if (!isValidHeaderName(name)) {
+    throw new TypeError(`Invalid HTTP header name: ${name}`);
   }
 
-  if (
-    !isValidHeaderValue(value)
-  ) {
-    throw new TypeError(
-      `Invalid HTTP header value for ${name}`,
-    );
+  if (!isValidHeaderValue(value)) {
+    throw new TypeError(`Invalid HTTP header value for ${name}`);
   }
 
   return {
@@ -347,26 +253,18 @@ export function parseHeader(
 /* Header Collection                                                          */
 /* -------------------------------------------------------------------------- */
 
-export function formatHeaders(
-  headers: readonly HTTPHeader[],
-): string {
-  return headers
-    .map(formatHeader)
-    .join("\r\n");
+export function formatHeaders(headers: readonly HTTPHeader[]): string {
+  return headers.map(formatHeader).join("\r\n");
 }
 
-export function parseHeaders(
-  value: string,
-): HTTPHeader[] {
+export function parseHeaders(value: string): HTTPHeader[] {
   if (value.length === 0) {
     return [];
   }
 
   return value
     .split(/\r\n/)
-    .filter(
-      (line) => line.length > 0,
-    )
+    .filter((line) => line.length > 0)
     .map(parseHeader);
 }
 
@@ -374,15 +272,9 @@ export function getHeader(
   headers: readonly HTTPHeader[],
   name: string,
 ): string | undefined {
-  const normalized =
-    name.toLowerCase();
+  const normalized = name.toLowerCase();
 
-  const header =
-    headers.find(
-      (item) =>
-        item.name.toLowerCase() ===
-        normalized,
-    );
+  const header = headers.find((item) => item.name.toLowerCase() === normalized);
 
   return header?.value;
 }
@@ -391,30 +283,18 @@ export function getHeaders(
   headers: readonly HTTPHeader[],
   name: string,
 ): string[] {
-  const normalized =
-    name.toLowerCase();
+  const normalized = name.toLowerCase();
 
   return headers
-    .filter(
-      (item) =>
-        item.name.toLowerCase() ===
-        normalized,
-    )
-    .map(
-      (item) => item.value,
-    );
+    .filter((item) => item.name.toLowerCase() === normalized)
+    .map((item) => item.value);
 }
 
 export function hasHeader(
   headers: readonly HTTPHeader[],
   name: string,
 ): boolean {
-  return (
-    getHeader(
-      headers,
-      name,
-    ) !== undefined
-  );
+  return getHeader(headers, name) !== undefined;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -426,33 +306,21 @@ export function setHeader(
   name: string,
   value: string,
 ): HTTPHeader[] {
-  if (
-    !isValidHeaderName(name)
-  ) {
-    throw new TypeError(
-      `Invalid HTTP header name: ${name}`,
-    );
+  if (!isValidHeaderName(name)) {
+    throw new TypeError(`Invalid HTTP header name: ${name}`);
   }
 
-  if (
-    !isValidHeaderValue(value)
-  ) {
-    throw new TypeError(
-      `Invalid HTTP header value for ${name}`,
-    );
+  if (!isValidHeaderValue(value)) {
+    throw new TypeError(`Invalid HTTP header value for ${name}`);
   }
 
-  const normalized =
-    name.toLowerCase();
+  const normalized = name.toLowerCase();
 
   const result: HTTPHeader[] = [];
   let replaced = false;
 
   for (const header of headers) {
-    if (
-      header.name.toLowerCase() ===
-      normalized
-    ) {
+    if (header.name.toLowerCase() === normalized) {
       if (!replaced) {
         result.push({
           name,
@@ -483,20 +351,12 @@ export function appendHeader(
   name: string,
   value: string,
 ): HTTPHeader[] {
-  if (
-    !isValidHeaderName(name)
-  ) {
-    throw new TypeError(
-      `Invalid HTTP header name: ${name}`,
-    );
+  if (!isValidHeaderName(name)) {
+    throw new TypeError(`Invalid HTTP header name: ${name}`);
   }
 
-  if (
-    !isValidHeaderValue(value)
-  ) {
-    throw new TypeError(
-      `Invalid HTTP header value for ${name}`,
-    );
+  if (!isValidHeaderValue(value)) {
+    throw new TypeError(`Invalid HTTP header value for ${name}`);
   }
 
   return [
@@ -512,50 +372,32 @@ export function deleteHeader(
   headers: readonly HTTPHeader[],
   name: string,
 ): HTTPHeader[] {
-  const normalized =
-    name.toLowerCase();
+  const normalized = name.toLowerCase();
 
-  return headers.filter(
-    (header) =>
-      header.name.toLowerCase() !==
-      normalized,
-  );
+  return headers.filter((header) => header.name.toLowerCase() !== normalized);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Request URL Helpers                                                        */
 /* -------------------------------------------------------------------------- */
 
-export function isAbsoluteHTTPURL(
-  value: string,
-): boolean {
+export function isAbsoluteHTTPURL(value: string): boolean {
   return isValidHTTPURL(value);
 }
 
-export function isOriginFormTarget(
-  target: string,
-): boolean {
-  return (
-    target.startsWith("/") &&
-    target !== ""
-  );
+export function isOriginFormTarget(target: string): boolean {
+  return target.startsWith("/") && target !== "";
 }
 
-export function isAbsoluteFormTarget(
-  target: string,
-): boolean {
+export function isAbsoluteFormTarget(target: string): boolean {
   return isValidHTTPURL(target);
 }
 
-export function isAsteriskFormTarget(
-  target: string,
-): boolean {
+export function isAsteriskFormTarget(target: string): boolean {
   return target === "*";
 }
 
-export function isAuthorityFormTarget(
-  target: string,
-): boolean {
+export function isAuthorityFormTarget(target: string): boolean {
   return (
     !target.startsWith("/") &&
     !target.startsWith("*") &&
@@ -573,22 +415,14 @@ export function shouldKeepAlive(
   connectionHeader?: string,
 ): boolean {
   const tokens =
-    connectionHeader
-      ?.split(",")
-      .map(
-        (token) =>
-          token.trim().toLowerCase(),
-      ) ?? [];
+    connectionHeader?.split(",").map((token) => token.trim().toLowerCase()) ??
+    [];
 
-  if (
-    tokens.includes("close")
-  ) {
+  if (tokens.includes("close")) {
     return false;
   }
 
-  if (
-    tokens.includes("keep-alive")
-  ) {
+  if (tokens.includes("keep-alive")) {
     return true;
   }
 
@@ -599,78 +433,50 @@ export function shouldCloseConnection(
   version: HTTPVersion,
   connectionHeader?: string,
 ): boolean {
-  return !shouldKeepAlive(
-    version,
-    connectionHeader,
-  );
+  return !shouldKeepAlive(version, connectionHeader);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Transfer Encoding                                                          */
 /* -------------------------------------------------------------------------- */
 
-export function parseTransferEncoding(
-  value:
-    | string
-    | undefined,
-): string[] {
+export function parseTransferEncoding(value: string | undefined): string[] {
   if (!value) {
     return [];
   }
 
   return value
     .split(",")
-    .map(
-      (item) =>
-        item.trim().toLowerCase(),
-    )
+    .map((item) => item.trim().toLowerCase())
     .filter(Boolean);
 }
 
-export function hasChunkedTransferEncoding(
-  value:
-    | string
-    | undefined,
-): boolean {
-  return parseTransferEncoding(
-    value,
-  ).includes("chunked");
+export function hasChunkedTransferEncoding(value: string | undefined): boolean {
+  return parseTransferEncoding(value).includes("chunked");
 }
 
 /* -------------------------------------------------------------------------- */
 /* Connection Header                                                           */
 /* -------------------------------------------------------------------------- */
 
-export function parseConnectionTokens(
-  value:
-    | string
-    | undefined,
-): string[] {
+export function parseConnectionTokens(value: string | undefined): string[] {
   if (!value) {
     return [];
   }
 
   return value
     .split(",")
-    .map(
-      (token) =>
-        token.trim().toLowerCase(),
-    )
+    .map((token) => token.trim().toLowerCase())
     .filter(Boolean);
 }
 
 export function hasConnectionToken(
-  value:
-    | string
-    | undefined,
+  value: string | undefined,
   token: string,
 ): boolean {
-  const normalized =
-    token.trim().toLowerCase();
+  const normalized = token.trim().toLowerCase();
 
-  return parseConnectionTokens(
-    value,
-  ).includes(normalized);
+  return parseConnectionTokens(value).includes(normalized);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -678,36 +484,22 @@ export function hasConnectionToken(
 /* -------------------------------------------------------------------------- */
 
 export function parseContentLength(
-  value:
-    | string
-    | undefined,
+  value: string | undefined,
 ): number | undefined {
-  if (
-    value === undefined
-  ) {
+  if (value === undefined) {
     return undefined;
   }
 
-  const trimmed =
-    value.trim();
+  const trimmed = value.trim();
 
-  if (
-    !/^\d+$/.test(trimmed)
-  ) {
-    throw new TypeError(
-      "Invalid Content-Length header.",
-    );
+  if (!/^\d+$/.test(trimmed)) {
+    throw new TypeError("Invalid Content-Length header.");
   }
 
-  const length =
-    Number(trimmed);
+  const length = Number(trimmed);
 
-  if (
-    !Number.isSafeInteger(length)
-  ) {
-    throw new RangeError(
-      "Content-Length exceeds the safe integer range.",
-    );
+  if (!Number.isSafeInteger(length)) {
+    throw new RangeError("Content-Length exceeds the safe integer range.");
   }
 
   return length;
@@ -722,10 +514,7 @@ export function serializeRequestHead(
   headers: readonly HTTPHeader[],
 ): string {
   return (
-    formatRequestLine(request) +
-    "\r\n" +
-    formatHeaders(headers) +
-    "\r\n\r\n"
+    formatRequestLine(request) + "\r\n" + formatHeaders(headers) + "\r\n\r\n"
   );
 }
 
@@ -734,10 +523,7 @@ export function serializeResponseHead(
   headers: readonly HTTPHeader[],
 ): string {
   return (
-    formatStatusLine(status) +
-    "\r\n" +
-    formatHeaders(headers) +
-    "\r\n\r\n"
+    formatStatusLine(status) + "\r\n" + formatHeaders(headers) + "\r\n\r\n"
   );
 }
 
@@ -745,8 +531,7 @@ export function serializeResponseHead(
 /* Reason Phrase                                                              */
 /* -------------------------------------------------------------------------- */
 
-const STANDARD_REASON_PHRASES:
-  Readonly<Record<number, string>> = {
+const STANDARD_REASON_PHRASES: Readonly<Record<number, string>> = {
   100: "Continue",
   101: "Switching Protocols",
   102: "Processing",
@@ -815,36 +600,23 @@ const STANDARD_REASON_PHRASES:
   511: "Network Authentication Required",
 };
 
-export function getReasonPhrase(
-  statusCode: number,
-): string {
-  return (
-    STANDARD_REASON_PHRASES[
-      statusCode
-    ] ?? ""
-  );
+export function getReasonPhrase(statusCode: number): string {
+  return STANDARD_REASON_PHRASES[statusCode] ?? "";
 }
 
 export function createStatusLine(
   statusCode: number,
-  version: HTTPVersion =
-    DEFAULT_HTTP_VERSION,
+  version: HTTPVersion = DEFAULT_HTTP_VERSION,
   reasonPhrase?: string,
 ): HTTPStatusLine {
-  if (
-    !isValidStatusCode(statusCode)
-  ) {
-    throw new RangeError(
-      `Invalid HTTP status code: ${statusCode}`,
-    );
+  if (!isValidStatusCode(statusCode)) {
+    throw new RangeError(`Invalid HTTP status code: ${statusCode}`);
   }
 
   return {
     version,
     statusCode,
-    reasonPhrase:
-      reasonPhrase ??
-      getReasonPhrase(statusCode),
+    reasonPhrase: reasonPhrase ?? getReasonPhrase(statusCode),
   };
 }
 
@@ -852,132 +624,77 @@ export function createStatusLine(
 /* Status Classification                                                      */
 /* -------------------------------------------------------------------------- */
 
-export function isInformationalStatus(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode >= 100 &&
-    statusCode < 200
-  );
+export function isInformationalStatus(statusCode: number): boolean {
+  return statusCode >= 100 && statusCode < 200;
 }
 
-export function isSuccessfulStatus(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode >= 200 &&
-    statusCode < 300
-  );
+export function isSuccessfulStatus(statusCode: number): boolean {
+  return statusCode >= 200 && statusCode < 300;
 }
 
-export function isRedirectionStatus(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode >= 300 &&
-    statusCode < 400
-  );
+export function isRedirectionStatus(statusCode: number): boolean {
+  return statusCode >= 300 && statusCode < 400;
 }
 
-export function isClientErrorStatus(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode >= 400 &&
-    statusCode < 500
-  );
+export function isClientErrorStatus(statusCode: number): boolean {
+  return statusCode >= 400 && statusCode < 500;
 }
 
-export function isServerErrorStatus(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode >= 500 &&
-    statusCode < 600
-  );
+export function isServerErrorStatus(statusCode: number): boolean {
+  return statusCode >= 500 && statusCode < 600;
 }
 
-export function isErrorStatus(
-  statusCode: number,
-): boolean {
-  return (
-    isClientErrorStatus(statusCode) ||
-    isServerErrorStatus(statusCode)
-  );
+export function isErrorStatus(statusCode: number): boolean {
+  return isClientErrorStatus(statusCode) || isServerErrorStatus(statusCode);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Utility                                                                    */
 /* -------------------------------------------------------------------------- */
 
-export function cloneHeaders(
-  headers: readonly HTTPHeader[],
-): HTTPHeader[] {
-  return headers.map(
-    (header) => ({
-      name: header.name,
-      value: header.value,
-    }),
-  );
+export function cloneHeaders(headers: readonly HTTPHeader[]): HTTPHeader[] {
+  return headers.map((header) => ({
+    name: header.name,
+    value: header.value,
+  }));
 }
 
 export function headersToRecord(
   headers: readonly HTTPHeader[],
 ): Record<string, string> {
-  const result:
-    Record<string, string> = {};
+  const result: Record<string, string> = {};
 
   for (const header of headers) {
-    const key =
-      header.name.toLowerCase();
+    const key = header.name.toLowerCase();
 
-    const existing =
-      result[key];
+    const existing = result[key];
 
     result[key] =
-      existing === undefined
-        ? header.value
-        : `${existing}, ${header.value}`;
+      existing === undefined ? header.value : `${existing}, ${header.value}`;
   }
 
   return result;
 }
 
 export function recordToHeaders(
-  headers:
-    | Readonly<
-        Record<string, string>
-      >
-    | undefined,
+  headers: Readonly<Record<string, string>> | undefined,
 ): HTTPHeader[] {
   if (!headers) {
     return [];
   }
 
-  return Object.entries(
-    headers,
-  ).map(
-    ([name, value]) => {
-      if (
-        !isValidHeaderName(name)
-      ) {
-        throw new TypeError(
-          `Invalid HTTP header name: ${name}`,
-        );
-      }
+  return Object.entries(headers).map(([name, value]) => {
+    if (!isValidHeaderName(name)) {
+      throw new TypeError(`Invalid HTTP header name: ${name}`);
+    }
 
-      if (
-        !isValidHeaderValue(value)
-      ) {
-        throw new TypeError(
-          `Invalid HTTP header value for ${name}`,
-        );
-      }
+    if (!isValidHeaderValue(value)) {
+      throw new TypeError(`Invalid HTTP header value for ${name}`);
+    }
 
-      return {
-        name,
-        value,
-      };
-    },
-  );
+    return {
+      name,
+      value,
+    };
+  });
 }

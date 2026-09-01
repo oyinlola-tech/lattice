@@ -1,16 +1,11 @@
-import type {
-  RuntimeMode,
-  RuntimeRole,
-} from "../runtimeOptions/index.js";
+import type { RuntimeMode, RuntimeRole } from "../runtimeOptions/index.js";
 
 import type {
   RuntimeIdentity,
   RuntimeContextDependencies,
 } from "./runtimeContext.type.js";
 
-import {
-  DefaultRuntimeContext,
-} from "./runtimeContext.core.js";
+import { DefaultRuntimeContext } from "./runtimeContext.core.js";
 
 /**
  * Creates a unique runtime identifier.
@@ -25,25 +20,19 @@ export function createRuntimeId(name: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-  return [
-    normalizedName || "runtime",
-    timestamp,
-    random,
-  ].join("-");
+  return [normalizedName || "runtime", timestamp, random].join("-");
 }
 
 /**
  * Creates a RuntimeIdentity.
  */
-export function createRuntimeIdentity(
-  options: {
-    readonly name: string;
-    readonly mode: RuntimeMode;
-    readonly role: RuntimeRole;
-    readonly id?: string;
-    readonly processId?: number;
-  },
-): RuntimeIdentity {
+export function createRuntimeIdentity(options: {
+  readonly name: string;
+  readonly mode: RuntimeMode;
+  readonly role: RuntimeRole;
+  readonly id?: string;
+  readonly processId?: number;
+}): RuntimeIdentity {
   const createdAt = new Date();
 
   return Object.freeze({
@@ -64,11 +53,7 @@ export function createRuntimeContext(
   dependencies: RuntimeContextDependencies,
   metadata: Readonly<Record<string, unknown>> = {},
 ): DefaultRuntimeContext {
-  return new DefaultRuntimeContext(
-    identity,
-    dependencies,
-    metadata,
-  );
+  return new DefaultRuntimeContext(identity, dependencies, metadata);
 }
 
 /**

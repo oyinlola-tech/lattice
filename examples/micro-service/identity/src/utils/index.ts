@@ -29,7 +29,10 @@ export async function hashPassword(password: string): Promise<string> {
 /**
  * Compares a plaintext password against a stored hash.
  */
-export async function comparePassword(password: string, storedHash: string): Promise<boolean> {
+export async function comparePassword(
+  password: string,
+  storedHash: string,
+): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const [salt, hashHex] = storedHash.split(":");
     if (!salt || !hashHex) {
@@ -42,7 +45,10 @@ export async function comparePassword(password: string, storedHash: string): Pro
         return;
       }
       const hashBuffer = Buffer.from(hashHex, "hex");
-      resolve(derivedKey.length === hashBuffer.length && timingSafeEqual(derivedKey, hashBuffer));
+      resolve(
+        derivedKey.length === hashBuffer.length &&
+          timingSafeEqual(derivedKey, hashBuffer),
+      );
     });
   });
 }

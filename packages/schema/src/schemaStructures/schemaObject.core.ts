@@ -7,7 +7,10 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue, childContext } from "../schemaBase/index.js";
-import { SchemaIssueCode, SCHEMA_FORBIDDEN_KEYS } from "@oyinlola141/lattice-constants";
+import {
+  SchemaIssueCode,
+  SCHEMA_FORBIDDEN_KEYS,
+} from "@oyinlola141/lattice-constants";
 
 /** Shape type — record of property names to schemas. */
 export type SchemaShape = Record<string, Schema<unknown>>;
@@ -25,7 +28,9 @@ interface ObjectSchemaConfig {
 /**
  * Schema for object values with a defined shape.
  */
-export class ObjectSchema<TOutput extends Record<string, unknown>> extends Schema<TOutput> {
+export class ObjectSchema<
+  TOutput extends Record<string, unknown>,
+> extends Schema<TOutput> {
   public readonly _type = "object";
   private readonly _config: ObjectSchemaConfig;
   private readonly _keys: readonly string[];
@@ -119,7 +124,9 @@ export class ObjectSchema<TOutput extends Record<string, unknown>> extends Schem
   // --- Composition methods ---
 
   /** Creates a new schema with only the specified keys. */
-  public pick<K extends keyof TOutput>(keys: readonly K[]): ObjectSchema<Pick<TOutput, K>> {
+  public pick<K extends keyof TOutput>(
+    keys: readonly K[],
+  ): ObjectSchema<Pick<TOutput, K>> {
     const newShape: Record<string, Schema<unknown>> = {};
     for (const key of keys) {
       const k = key as string;
@@ -127,18 +134,29 @@ export class ObjectSchema<TOutput extends Record<string, unknown>> extends Schem
         newShape[k] = this._config.shape[k];
       }
     }
-    return new ObjectSchema({ shape: newShape as SchemaShape, unknownKeys: "strip" });
+    return new ObjectSchema({
+      shape: newShape as SchemaShape,
+      unknownKeys: "strip",
+    });
   }
 
   /** Creates a new schema without the specified keys. */
-  public omit<K extends keyof TOutput>(keys: readonly K[]): ObjectSchema<Omit<TOutput, K>> {
+  public omit<K extends keyof TOutput>(
+    keys: readonly K[],
+  ): ObjectSchema<Omit<TOutput, K>> {
     const newShape: Record<string, Schema<unknown>> = {};
     for (const key of this._keys) {
-      if (!(keys as readonly string[]).includes(key) && this._config.shape[key]) {
+      if (
+        !(keys as readonly string[]).includes(key) &&
+        this._config.shape[key]
+      ) {
         newShape[key] = this._config.shape[key]!;
       }
     }
-    return new ObjectSchema({ shape: newShape as SchemaShape, unknownKeys: "strip" });
+    return new ObjectSchema({
+      shape: newShape as SchemaShape,
+      unknownKeys: "strip",
+    });
   }
 
   /** Makes all properties optional. */
@@ -147,10 +165,14 @@ export class ObjectSchema<TOutput extends Record<string, unknown>> extends Schem
     for (const key of this._keys) {
       const schema = this._config.shape[key];
       if (schema) {
-        newShape[key] = schema._type === "optional" ? schema : new OptionalSchema(schema);
+        newShape[key] =
+          schema._type === "optional" ? schema : new OptionalSchema(schema);
       }
     }
-    return new ObjectSchema({ shape: newShape as SchemaShape, unknownKeys: this._config.unknownKeys });
+    return new ObjectSchema({
+      shape: newShape as SchemaShape,
+      unknownKeys: this._config.unknownKeys,
+    });
   }
 
   /** Makes all properties required. */
@@ -159,11 +181,15 @@ export class ObjectSchema<TOutput extends Record<string, unknown>> extends Schem
     for (const key of this._keys) {
       const schema = this._config.shape[key];
       if (!schema) continue;
-      newShape[key] = schema._type === "optional"
-        ? (schema as unknown as OptionalSchema<unknown>)._inner
-        : schema;
+      newShape[key] =
+        schema._type === "optional"
+          ? (schema as unknown as OptionalSchema<unknown>)._inner
+          : schema;
     }
-    return new ObjectSchema({ shape: newShape as SchemaShape, unknownKeys: this._config.unknownKeys });
+    return new ObjectSchema({
+      shape: newShape as SchemaShape,
+      unknownKeys: this._config.unknownKeys,
+    });
   }
 
   /** Merges another object schema's shape into this one. */
@@ -171,7 +197,10 @@ export class ObjectSchema<TOutput extends Record<string, unknown>> extends Schem
     other: ObjectSchema<TEnd>,
   ): ObjectSchema<TOutput & TEnd> {
     const newShape = { ...this._config.shape, ...other._config.shape };
-    return new ObjectSchema({ shape: newShape, unknownKeys: this._config.unknownKeys });
+    return new ObjectSchema({
+      shape: newShape,
+      unknownKeys: this._config.unknownKeys,
+    });
   }
 
   /** Merges two object schemas (last wins on conflicts). */

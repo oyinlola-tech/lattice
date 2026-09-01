@@ -5,7 +5,10 @@
  */
 
 import type { HTTPStatusCode } from "./httpStatusCode.type.js";
-import type { TestHTTPResponse, HTTPResponseBuilder } from "./httpResponse.type.js";
+import type {
+  TestHTTPResponse,
+  HTTPResponseBuilder,
+} from "./httpResponse.type.js";
 
 /**
  * Creates a new HTTP response builder.
@@ -26,14 +29,19 @@ export function createTestHTTPResponse(): HTTPResponseBuilder {
   let sent = false;
 
   const builder: HTTPResponseBuilder = {
-    status: (code: HTTPStatusCode) => { status = code; return builder; },
+    status: (code: HTTPStatusCode) => {
+      status = code;
+      return builder;
+    },
     header: (key: string, value: string) => {
       responseHeaders.set(key.toLowerCase(), value);
       return builder;
     },
     headers: (h: Headers | Record<string, string>) => {
       if (h instanceof Headers) {
-        h.forEach((value, key) => { responseHeaders.set(key, value); });
+        h.forEach((value, key) => {
+          responseHeaders.set(key, value);
+        });
       } else {
         for (const [key, value] of Object.entries(h)) {
           responseHeaders.set(key.toLowerCase(), value);

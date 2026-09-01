@@ -5,7 +5,9 @@ declare module "fluent-ffmpeg" {
     outputOptions(options: string[]): this;
     format(format: string): this;
     on(event: string, callback: (...args: any[]) => void): this;
-    pipe(callback: (err: Error | null, stdout: NodeJS.ReadableStream) => void): this;
+    pipe(
+      callback: (err: Error | null, stdout: NodeJS.ReadableStream) => void,
+    ): this;
   }
 
   export function createFFmpeg(input: string): FfmpegCommand;

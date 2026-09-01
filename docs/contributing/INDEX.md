@@ -115,6 +115,7 @@ git checkout -b fix/my-bug-fix
 ```
 
 Branch naming:
+
 - `feat/` — new features
 - `fix/` — bug fixes
 - `docs/` — documentation
@@ -148,6 +149,7 @@ git commit -m "feat(events): add event replay capability"
 ```
 
 Commit message format:
+
 - `feat(scope): description` — new feature
 - `fix(scope): description` — bug fix
 - `docs(scope): description` — documentation
@@ -162,6 +164,7 @@ git push origin feat/my-new-feature
 ```
 
 Create a PR using the GitHub CLI:
+
 ```bash
 gh pr create --title "feat(events): add event replay capability" --body "Description of changes"
 ```
@@ -179,6 +182,7 @@ gh pr create --title "feat(events): add event replay capability" --body "Descrip
 ### 6.1 Proposal
 
 Before implementing a new package:
+
 1. Open an issue describing the package purpose.
 2. Discuss the API design and dependencies.
 3. Get approval from maintainers.
@@ -199,6 +203,7 @@ mkdir -p packages/<name>/tests
 ```
 
 Create the required files:
+
 - `package.json`
 - `tsconfig.json`
 - `src/index.ts`
@@ -281,6 +286,7 @@ npm run test:watch --workspace=@lattice/events
 ### 9.1 Strict Mode
 
 All packages use strict TypeScript:
+
 ```json
 {
   "compilerOptions": {
@@ -345,10 +351,10 @@ export class EventPublishError extends BaseError {
 Errors should carry operational metadata.
 
 ```ts
-throw new PluginDependencyError(
-  "Plugin A depends on Plugin B",
-  { pluginName: "A", metadata: { dependencyName: "B" } }
-);
+throw new PluginDependencyError("Plugin A depends on Plugin B", {
+  pluginName: "A",
+  metadata: { dependencyName: "B" },
+});
 ```
 
 ---
@@ -418,6 +424,7 @@ export function createEventBus(options?: EventBusOptions): EventBus {
 ### 13.2 README
 
 Every package must have a `README.md`:
+
 - Package purpose.
 - Installation.
 - Quick start.
@@ -462,6 +469,7 @@ export function createEventBus() {
 ### 15.1 Required Checks
 
 Every PR must pass:
+
 - `npm run architect:check` — architecture boundaries
 - `npm run typecheck` — TypeScript compilation
 - `npm test` — all tests passing

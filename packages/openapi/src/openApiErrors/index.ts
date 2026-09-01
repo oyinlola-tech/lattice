@@ -20,4 +20,7 @@ export {
   isOpenAPIError,
 } from "./openApiError.core.js";
 
-export type { OpenAPIErrorOptions, OpenAPIValidationIssue } from "./openApiError.core.js";
+export type {
+  OpenAPIErrorOptions,
+  OpenAPIValidationIssue,
+} from "./openApiError.core.js";

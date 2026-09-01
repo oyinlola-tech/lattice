@@ -67,22 +67,14 @@ describe("validateNoDuplicateIds", () => {
 
 describe("validateLinks", () => {
   it("passes for valid internal links", () => {
-    const doc = createMarkdownDocument(
-      "test",
-      "Test",
-      "[Link](other.doc)",
-    );
+    const doc = createMarkdownDocument("test", "Test", "[Link](other.doc)");
     const ids = new Set(["other.doc"]);
 
     expect(validateLinks(doc, ids).valid).toBe(true);
   });
 
   it("warns for broken internal links", () => {
-    const doc = createMarkdownDocument(
-      "test",
-      "Test",
-      "[Link](nonexistent)",
-    );
+    const doc = createMarkdownDocument("test", "Test", "[Link](nonexistent)");
     const ids = new Set(["other.doc"]);
 
     const result = validateLinks(doc, ids);
@@ -134,9 +126,7 @@ describe("validateNavigation", () => {
     const items: DocumentationNavigationItem[] = [
       {
         title: "Section",
-        children: [
-          { title: "Bad", documentId: "missing" },
-        ],
+        children: [{ title: "Bad", documentId: "missing" }],
       },
     ];
 

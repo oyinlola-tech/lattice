@@ -59,12 +59,9 @@ describe("generateMarkdown", () => {
 
 describe("generateJSON", () => {
   it("serializes document to JSON", () => {
-    const doc = createMarkdownDocument(
-      "test",
-      "Test",
-      "content",
-      { category: "guide" },
-    );
+    const doc = createMarkdownDocument("test", "Test", "content", {
+      category: "guide",
+    });
 
     const json = generateJSON(doc);
 

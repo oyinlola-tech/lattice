@@ -7,7 +7,11 @@
 
 import { AsyncLocalStorage } from "node:async_hooks";
 import { randomUUID } from "node:crypto";
-import type { PropagationContext, PropagationContextOptions, PropagationManager } from "../types.js";
+import type {
+  PropagationContext,
+  PropagationContextOptions,
+  PropagationManager,
+} from "../types.js";
 
 const storage = new AsyncLocalStorage<PropagationContext>();
 
@@ -37,7 +41,9 @@ export function createPropagationContext(
     correlationId: options?.correlationId,
     userId: options?.userId,
     service: options?.service,
-    baggage: options?.baggage ? Object.freeze({ ...options.baggage }) : undefined,
+    baggage: options?.baggage
+      ? Object.freeze({ ...options.baggage })
+      : undefined,
   };
 }
 
@@ -71,7 +77,10 @@ export class AsyncPropagationManager implements PropagationManager {
     return getCurrentContext();
   }
 
-  async run<T>(context: PropagationContext, fn: () => T | Promise<T>): Promise<T> {
+  async run<T>(
+    context: PropagationContext,
+    fn: () => T | Promise<T>,
+  ): Promise<T> {
     return storage.run(context, fn);
   }
 

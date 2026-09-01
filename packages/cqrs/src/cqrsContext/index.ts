@@ -4,4 +4,4 @@
  * CQRS execution context creation and manipulation utilities.
  */
 
-export * from './cqrsContext.core.js';
+export * from "./cqrsContext.core.js";

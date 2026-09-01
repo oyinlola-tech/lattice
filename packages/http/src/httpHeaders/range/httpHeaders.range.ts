@@ -13,73 +13,34 @@ import { parseSingleRange } from "./httpHeaders.rangeSingle.js";
  * @param value - The raw Range header value.
  * @returns An array of parsed byte ranges.
  */
-export function parseRange(
-  value:
-    | string
-    | undefined,
-): ByteRange[] {
-  if (
-    !value
-  ) {
+export function parseRange(value: string | undefined): ByteRange[] {
+  if (!value) {
     return [];
   }
 
-  const trimmed =
-    value.trim();
+  const trimmed = value.trim();
 
-  const separator =
-    trimmed.indexOf(
-      "=",
-    );
+  const separator = trimmed.indexOf("=");
 
-  if (
-    separator ===
-      -1
-  ) {
+  if (separator === -1) {
     return [];
   }
 
-  const unit =
-    trimmed
-      .slice(
-        0,
-        separator,
-      )
-      .trim()
-      .toLowerCase();
+  const unit = trimmed.slice(0, separator).trim().toLowerCase();
 
-  if (
-    unit !==
-    "bytes"
-  ) {
+  if (unit !== "bytes") {
     return [];
   }
 
-  const rangeSpecs =
-    trimmed
-      .slice(
-        separator + 1,
-      )
-      .split(",");
+  const rangeSpecs = trimmed.slice(separator + 1).split(",");
 
-  const result:
-    ByteRange[] =
-    [];
+  const result: ByteRange[] = [];
 
-  for (
-    const spec of rangeSpecs
-  ) {
-    const parsed =
-      parseSingleRange(
-        spec,
-      );
+  for (const spec of rangeSpecs) {
+    const parsed = parseSingleRange(spec);
 
-    if (
-      parsed
-    ) {
-      result.push(
-        parsed,
-      );
+    if (parsed) {
+      result.push(parsed);
     }
   }
 

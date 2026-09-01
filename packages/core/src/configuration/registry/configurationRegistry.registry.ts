@@ -1,10 +1,6 @@
-import {
-  Configuration,
-} from "../core/configuration.js";
+import { Configuration } from "../core/configuration.js";
 
-import type {
-  ConfigurationSource,
-} from "../core/configurationSource.source.js";
+import type { ConfigurationSource } from "../core/configurationSource.source.js";
 
 /**
  * A named configuration section.
@@ -67,95 +63,60 @@ export interface ConfigurationSectionOptions {
  * The registry does not load configuration.
  */
 export class ConfigurationRegistry {
-  private readonly sources =
-    new Map<
-      string,
-      ConfigurationSource
-    >();
+  private readonly sources = new Map<string, ConfigurationSource>();
 
-  private readonly sections =
-    new Map<
-      string,
-      ConfigurationSection
-    >();
+  private readonly sections = new Map<string, ConfigurationSection>();
 
   /**
    * Registers a configuration source.
    *
    * Source names must be unique.
    */
-  public registerSource(
-    source: ConfigurationSource,
-  ): void {
-    if (
-      this.sources.has(
-        source.name,
-      )
-    ) {
+  public registerSource(source: ConfigurationSource): void {
+    if (this.sources.has(source.name)) {
       throw new Error(
         `Configuration source "${source.name}" is already registered.`,
       );
     }
 
-    this.sources.set(
-      source.name,
-      source,
-    );
+    this.sources.set(source.name, source);
   }
 
   /**
    * Registers multiple configuration sources.
    */
-  public registerSources(
-    sources: readonly ConfigurationSource[],
-  ): void {
+  public registerSources(sources: readonly ConfigurationSource[]): void {
     for (const source of sources) {
-      this.registerSource(
-        source,
-      );
+      this.registerSource(source);
     }
   }
 
   /**
    * Gets a registered configuration source.
    */
-  public getSource(
-    name: string,
-  ): ConfigurationSource | undefined {
-    return this.sources.get(
-      name,
-    );
+  public getSource(name: string): ConfigurationSource | undefined {
+    return this.sources.get(name);
   }
 
   /**
    * Returns all registered configuration sources.
    */
   public getSources(): readonly ConfigurationSource[] {
-    return [
-      ...this.sources.values(),
-    ];
+    return [...this.sources.values()];
   }
 
   /**
    * Checks whether a source is registered.
    */
-  public hasSource(
-    name: string,
-  ): boolean {
-    return this.sources.has(
-      name,
-    );
+  public hasSource(name: string): boolean {
+    return this.sources.has(name);
   }
 
   /**
    * Removes a registered source.
    */
-  public removeSource(
-    name: string,
-  ): boolean {
-    return this.sources.delete(
-      name,
-    );
+  public removeSource(name: string): boolean {
+    return this.sources.delete(name);
   }
 
   /**
@@ -164,32 +125,17 @@ export class ConfigurationRegistry {
   public registerSection(
     options: ConfigurationSectionOptions,
   ): ConfigurationSection {
-    const name =
-      options.name.trim();
+    const name = options.name.trim();
 
     if (!name) {
-      throw new Error(
-        "Configuration section name cannot be empty.",
-      );
+      throw new Error("Configuration section name cannot be empty.");
     }
 
-    if (
-      this.sections.has(
-        name,
-      )
-    ) {
-      throw new Error(
-        `Configuration section "${name}" is already registered.`,
-      );
+    if (this.sections.has(name)) {
+      throw new Error(`Configuration section "${name}" is already registered.`);
     }
 
-    const path =
-      (
-        options.path ??
-        name
-      )
-        .trim()
-        .replace(/\s+/g, "");
+    const path = (options.path ?? name).trim().replace(/\s+/g, "");
 
     if (!path) {
       throw new Error(
@@ -197,18 +143,13 @@ export class ConfigurationRegistry {
       );
     }
 
-    const section: ConfigurationSection =
-      Object.freeze({
-        name,
-        path,
-        description:
-          options.description,
-      });
-
-    this.sections.set(
+    const section: ConfigurationSection = Object.freeze({
       name,
-      section,
-    );
+      path,
+      description: options.description,
+    });
+
+    this.sections.set(name, section);
 
     return section;
   }
@@ -216,43 +157,29 @@ export class ConfigurationRegistry {
   /**
    * Gets a registered configuration section.
    */
-  public getSection(
-    name: string,
-  ): ConfigurationSection | undefined {
-    return this.sections.get(
-      name,
-    );
+  public getSection(name: string): ConfigurationSection | undefined {
+    return this.sections.get(name);
   }
 
   /**
    * Returns all registered configuration sections.
    */
   public getSections(): readonly ConfigurationSection[] {
-    return [
-      ...this.sections.values(),
-    ];
+    return [...this.sections.values()];
   }
 
   /**
    * Checks whether a configuration section exists.
    */
-  public hasSection(
-    name: string,
-  ): boolean {
-    return this.sections.has(
-      name,
-    );
+  public hasSection(name: string): boolean {
+    return this.sections.has(name);
   }
 
   /**
    * Removes a configuration section.
    */
-  public removeSection(
-    name: string,
-  ): boolean {
-    return this.sections.delete(
-      name,
-    );
+  public removeSection(name: string): boolean {
+    return this.sections.delete(name);
   }
 
   /**
@@ -270,20 +197,13 @@ export class ConfigurationRegistry {
     configuration: Configuration,
     name: string,
   ): Configuration {
-    const section =
-      this.sections.get(
-        name,
-      );
+    const section = this.sections.get(name);
 
     if (!section) {
-      throw new Error(
-        `Configuration section "${name}" is not registered.`,
-      );
+      throw new Error(`Configuration section "${name}" is not registered.`);
     }
 
-    return configuration.scope(
-      section.path,
-    );
+    return configuration.scope(section.path);
   }
 
   /**

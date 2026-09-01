@@ -103,13 +103,8 @@ export function createCleanupManager(
 
     entries.length = 0;
 
-    if (
-      errors.length > 0 &&
-      errors.length === entries.length
-    ) {
-      throw new Error(
-        `All ${errors.length} cleanup functions failed.`,
-      );
+    if (errors.length > 0 && errors.length === entries.length) {
+      throw new Error(`All ${errors.length} cleanup functions failed.`);
     }
   };
 

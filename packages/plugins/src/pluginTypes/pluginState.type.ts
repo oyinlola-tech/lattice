@@ -18,7 +18,9 @@ export type PluginState =
 /**
  * Valid state transitions for the plugin state machine.
  */
-export const VALID_STATE_TRANSITIONS: Readonly<Record<PluginState, readonly PluginState[]>> = {
+export const VALID_STATE_TRANSITIONS: Readonly<
+  Record<PluginState, readonly PluginState[]>
+> = {
   registered: ["installing"],
   installing: ["installed", "failed"],
   installed: ["initializing", "stopping"],

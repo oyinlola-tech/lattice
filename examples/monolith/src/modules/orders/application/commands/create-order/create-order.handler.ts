@@ -16,12 +16,15 @@ export class CreateOrderHandler {
     private readonly products: ProductRepository,
   ) {}
 
-  public async execute(command: CreateOrderCommand): Promise<CreateOrderResult> {
+  public async execute(
+    command: CreateOrderCommand,
+  ): Promise<CreateOrderResult> {
     const items = await Promise.all(
       command.items.map(async (item) => {
         const product = await this.products.findById(item.productId);
         if (!product) throw new Error(`Product "${item.productId}" not found.`);
-        if (!product.inStock) throw new Error(`Product "${product.name}" is out of stock.`);
+        if (!product.inStock)
+          throw new Error(`Product "${product.name}" is out of stock.`);
         product.reserveStock(item.quantity);
         await this.products.save(product);
         return {

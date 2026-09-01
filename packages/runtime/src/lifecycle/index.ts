@@ -2,9 +2,7 @@
  * Module lifecycle management.
  */
 
-export {
-  LifecycleManager,
-} from "./lifecycle.core.js";
+export { LifecycleManager } from "./lifecycle.core.js";
 
 export type {
   LifecyclePhase,

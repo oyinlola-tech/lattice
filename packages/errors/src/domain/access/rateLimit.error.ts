@@ -7,7 +7,10 @@ import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 /**
  * Options for creating a rate-limit error.
  */
-export interface RateLimitErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface RateLimitErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   /** Number of seconds the client should wait before retrying. */
   readonly retryAfterSeconds?: number;
@@ -19,7 +22,10 @@ export interface RateLimitErrorOptions extends Omit<BaseErrorOptions, "category"
 export class RateLimitError extends BaseError {
   public readonly retryAfterSeconds?: number;
 
-  constructor(message = "Too many requests. Please try again later.", options: RateLimitErrorOptions = {}) {
+  constructor(
+    message = "Too many requests. Please try again later.",
+    options: RateLimitErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.RATE_LIMITED,
@@ -30,13 +36,20 @@ export class RateLimitError extends BaseError {
       isOperational: options.isOperational ?? true,
       metadata: {
         ...options.metadata,
-        ...(options.retryAfterSeconds !== undefined ? { retryAfterSeconds: options.retryAfterSeconds } : {}),
+        ...(options.retryAfterSeconds !== undefined
+          ? { retryAfterSeconds: options.retryAfterSeconds }
+          : {}),
       },
     });
 
     if (options.retryAfterSeconds !== undefined) {
-      if (!Number.isFinite(options.retryAfterSeconds) || options.retryAfterSeconds < 0) {
-        throw new RangeError("retryAfterSeconds must be a finite non-negative number.");
+      if (
+        !Number.isFinite(options.retryAfterSeconds) ||
+        options.retryAfterSeconds < 0
+      ) {
+        throw new RangeError(
+          "retryAfterSeconds must be a finite non-negative number.",
+        );
       }
       this.retryAfterSeconds = options.retryAfterSeconds;
     }
@@ -56,13 +69,18 @@ export class RateLimitError extends BaseError {
   public override toJSON() {
     return {
       ...super.toJSON(),
-      ...(this.retryAfterSeconds !== undefined ? { retryAfterSeconds: this.retryAfterSeconds } : {}),
+      ...(this.retryAfterSeconds !== undefined
+        ? { retryAfterSeconds: this.retryAfterSeconds }
+        : {}),
     };
   }
 }
 
 /** Creates a rate-limit error. */
-export function createRateLimitError(retryAfterSeconds?: number, message = "Too many requests. Please try again later."): RateLimitError {
+export function createRateLimitError(
+  retryAfterSeconds?: number,
+  message = "Too many requests. Please try again later.",
+): RateLimitError {
   return new RateLimitError(message, { retryAfterSeconds });
 }
 
@@ -73,5 +91,7 @@ export function isRateLimitError(value: unknown): value is RateLimitError {
 
 /** Creates a rate-limit error that asks the client to retry after the specified number of seconds. */
 export function retryAfterError(retryAfterSeconds: number): RateLimitError {
-  return new RateLimitError("Too many requests. Please try again later.", { retryAfterSeconds });
+  return new RateLimitError("Too many requests. Please try again later.", {
+    retryAfterSeconds,
+  });
 }

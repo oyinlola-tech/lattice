@@ -6,9 +6,7 @@
 
 import { DEFAULT_MAX_BODY_SIZE } from "./httpFetch.type.js";
 
-import {
-  RequestBodyTooLargeError as FetchRequestBodyTooLargeError,
-} from "@oyinlola141/lattice-errors";
+import { RequestBodyTooLargeError as FetchRequestBodyTooLargeError } from "@oyinlola141/lattice-errors";
 
 export { FetchRequestBodyTooLargeError };
 
@@ -45,10 +43,7 @@ export async function readFetchBody(
   if (contentLength) {
     const size = parseInt(contentLength, 10);
     if (size > maxBodySize) {
-      throw new FetchRequestBodyTooLargeError(
-        maxBodySize,
-        size,
-      );
+      throw new FetchRequestBodyTooLargeError(maxBodySize, size);
     }
   }
 
@@ -67,10 +62,7 @@ export async function readFetchBody(
 
       totalSize += value.length;
       if (totalSize > maxBodySize) {
-        throw new FetchRequestBodyTooLargeError(
-          maxBodySize,
-          totalSize,
-        );
+        throw new FetchRequestBodyTooLargeError(maxBodySize, totalSize);
       }
 
       chunks.push(value);

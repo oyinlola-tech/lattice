@@ -66,10 +66,7 @@ export function getSerializationDepth(
  *
  * @throws {SerializationDepthError} when depth exceeds the limit.
  */
-export function assertDepthWithinLimit(
-  value: unknown,
-  maxDepth: number,
-): void {
+export function assertDepthWithinLimit(value: unknown, maxDepth: number): void {
   const depth = getSerializationDepth(value);
   if (depth > maxDepth) {
     throw new SerializationDepthError(depth, maxDepth);

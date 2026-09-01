@@ -8,7 +8,10 @@ import type { Clock } from "../clock/schedulerClock.type.js";
 
 import { createJobContext } from "../job/jobContext.type.js";
 
-import { SchedulerJobExecutionError, SchedulerJobCancelledError } from "../errors/scheduler.errors.js";
+import {
+  SchedulerJobExecutionError,
+  SchedulerJobCancelledError,
+} from "../errors/scheduler.errors.js";
 
 import { DEFAULT_JOB_TIMEOUT } from "../constants/schedulerConstants.core.js";
 
@@ -45,11 +48,18 @@ export class JobExecutor {
     );
 
     try {
-      await this.withTimeout(() => Promise.resolve(job.handler(context)), timeout, signal);
+      await this.withTimeout(
+        () => Promise.resolve(job.handler(context)),
+        timeout,
+        signal,
+      );
       return { success: true };
     } catch (error) {
       if (signal.aborted) {
-        throw new SchedulerJobCancelledError("Job was cancelled via signal.", job.id);
+        throw new SchedulerJobCancelledError(
+          "Job was cancelled via signal.",
+          job.id,
+        );
       }
       throw new SchedulerJobExecutionError(
         error instanceof Error ? error.message : "Unknown job execution error.",

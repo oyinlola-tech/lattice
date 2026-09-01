@@ -4,7 +4,4 @@
  * Immutable typed context value collection.
  */
 
-export {
-  ContextValues,
-  createContextValues,
-} from "./contextValues.values.js";
+export { ContextValues, createContextValues } from "./contextValues.values.js";

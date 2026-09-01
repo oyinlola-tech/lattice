@@ -1,6 +1,4 @@
-import type {
-  ConfigValue,
-} from "../configValue/configValue.core.js";
+import type { ConfigValue } from "../configValue/configValue.core.js";
 
 import type {
   ConfigSchema,
@@ -17,43 +15,29 @@ import {
   ConfigValueType,
 } from "./configSchema.type.js";
 
-import type {
-  ConfigObjectSchema,
-} from "./configSchema.type.js";
+import type { ConfigObjectSchema } from "./configSchema.type.js";
 
 /**
  * Returns the runtime configuration value type.
  */
-export function getConfigValueType(
-  value: unknown,
-): ConfigValueType {
-  if (
-    value === null
-  ) {
+export function getConfigValueType(value: unknown): ConfigValueType {
+  if (value === null) {
     return ConfigValueType.NULL;
   }
 
-  if (
-    value === undefined
-  ) {
+  if (value === undefined) {
     return ConfigValueType.ANY;
   }
 
-  if (
-    value instanceof Date
-  ) {
+  if (value instanceof Date) {
     return ConfigValueType.DATE;
   }
 
-  if (
-    Array.isArray(value)
-  ) {
+  if (Array.isArray(value)) {
     return ConfigValueType.ARRAY;
   }
 
-  switch (
-    typeof value
-  ) {
+  switch (typeof value) {
     case "string":
       return ConfigValueType.STRING;
 
@@ -79,33 +63,17 @@ export function getConfigValueType(
  */
 export function matchesConfigType(
   value: unknown,
-  type:
-    | ConfigValueType
-    | readonly ConfigValueType[],
+  type: ConfigValueType | readonly ConfigValueType[],
 ): boolean {
-  if (
-    Array.isArray(type)
-  ) {
-    return type.some(
-      (candidate) =>
-        matchesConfigType(
-          value,
-          candidate,
-        ),
-    );
+  if (Array.isArray(type)) {
+    return type.some((candidate) => matchesConfigType(value, candidate));
   }
 
-  if (
-    value === null
-  ) {
-    return (
-      type === ConfigValueType.NULL
-    );
+  if (value === null) {
+    return type === ConfigValueType.NULL;
   }
 
-  if (
-    value === undefined
-  ) {
+  if (value === undefined) {
     return false;
   }
 
@@ -117,10 +85,7 @@ export function matchesConfigType(
       return typeof value === "string";
 
     case ConfigValueType.NUMBER:
-      return (
-        typeof value === "number" &&
-        Number.isFinite(value)
-      );
+      return typeof value === "number" && Number.isFinite(value);
 
     case ConfigValueType.BOOLEAN:
       return typeof value === "boolean";
@@ -129,12 +94,7 @@ export function matchesConfigType(
       return typeof value === "bigint";
 
     case ConfigValueType.DATE:
-      return (
-        value instanceof Date &&
-        !Number.isNaN(
-          value.getTime(),
-        )
-      );
+      return value instanceof Date && !Number.isNaN(value.getTime());
 
     case ConfigValueType.ARRAY:
       return Array.isArray(value);
@@ -163,23 +123,16 @@ export function createConfigValidationIssue(
   message: string,
   code: string,
   options: Partial<
-    Pick<
-      ConfigValidationIssue,
-      "expected" | "received" | "severity"
-    >
+    Pick<ConfigValidationIssue, "expected" | "received" | "severity">
   > = {},
 ): ConfigValidationIssue {
   return {
     path,
     message,
     code,
-    severity:
-      options.severity ??
-      ConfigValidationSeverity.ERROR,
-    expected:
-      options.expected,
-    received:
-      options.received,
+    severity: options.severity ?? ConfigValidationSeverity.ERROR,
+    expected: options.expected,
+    received: options.received,
   };
 }
 
@@ -187,16 +140,10 @@ export function createConfigValidationIssue(
  * Formats expected schema types.
  */
 function formatExpectedType(
-  type:
-    | ConfigValueType
-    | readonly ConfigValueType[],
+  type: ConfigValueType | readonly ConfigValueType[],
 ): string {
-  if (
-    Array.isArray(type)
-  ) {
-    return type.join(
-      " | ",
-    );
+  if (Array.isArray(type)) {
+    return type.join(" | ");
   }
 
   return String(type);
@@ -205,21 +152,13 @@ function formatExpectedType(
 /**
  * Resolves a schema default.
  */
-function resolveDefaultValue(
-  schema: ConfigSchema,
-): ConfigValue | undefined {
-  if (
-    schema.default ===
-      undefined
-  ) {
+function resolveDefaultValue(schema: ConfigSchema): ConfigValue | undefined {
+  if (schema.default === undefined) {
     return undefined;
   }
 
-  return typeof schema.default ===
-    "function"
-    ? (
-        schema.default as () => ConfigValue
-      )()
+  return typeof schema.default === "function"
+    ? (schema.default as () => ConfigValue)()
     : schema.default;
 }
 
@@ -228,22 +167,15 @@ function resolveDefaultValue(
  */
 function appendCustomValidationResult(
   result:
-    | boolean
-    | string
-    | ConfigValidationIssue
-    | readonly ConfigValidationIssue[],
+    boolean | string | ConfigValidationIssue | readonly ConfigValidationIssue[],
   path: string,
   issues: ConfigValidationIssue[],
 ): void {
-  if (
-    result === true
-  ) {
+  if (result === true) {
     return;
   }
 
-  if (
-    result === false
-  ) {
+  if (result === false) {
     issues.push(
       createConfigValidationIssue(
         path,
@@ -255,37 +187,19 @@ function appendCustomValidationResult(
     return;
   }
 
-  if (
-    typeof result === "string"
-  ) {
-    issues.push(
-      createConfigValidationIssue(
-        path,
-        result,
-        "CUSTOM_VALIDATION",
-      ),
-    );
+  if (typeof result === "string") {
+    issues.push(createConfigValidationIssue(path, result, "CUSTOM_VALIDATION"));
 
     return;
   }
 
-  if (
-    Array.isArray(result)
-  ) {
-    issues.push(
-      ...result,
-    );
+  if (Array.isArray(result)) {
+    issues.push(...result);
 
     return;
   }
 
-  issues.push(
-    ...(
-      Array.isArray(result)
-        ? result
-        : [result]
-    ),
-  );
+  issues.push(...(Array.isArray(result) ? result : [result]));
 }
 
 /**
@@ -297,17 +211,12 @@ function validateBuiltInRules(
   context: ConfigValidationContext,
   issues: ConfigValidationIssue[],
 ): void {
-  if (
-    typeof value === "string"
-  ) {
-    const stringSchema =
-      schema as ConfigStringSchema;
+  if (typeof value === "string") {
+    const stringSchema = schema as ConfigStringSchema;
 
     if (
-      stringSchema.minLength !==
-        undefined &&
-      value.length <
-        stringSchema.minLength
+      stringSchema.minLength !== undefined &&
+      value.length < stringSchema.minLength
     ) {
       issues.push(
         createConfigValidationIssue(
@@ -319,10 +228,8 @@ function validateBuiltInRules(
     }
 
     if (
-      stringSchema.maxLength !==
-        undefined &&
-      value.length >
-        stringSchema.maxLength
+      stringSchema.maxLength !== undefined &&
+      value.length > stringSchema.maxLength
     ) {
       issues.push(
         createConfigValidationIssue(
@@ -333,20 +240,13 @@ function validateBuiltInRules(
       );
     }
 
-    if (
-      stringSchema.pattern
-    ) {
+    if (stringSchema.pattern) {
       const pattern =
-        typeof stringSchema.pattern ===
-          "string"
-          ? new RegExp(
-              stringSchema.pattern,
-            )
+        typeof stringSchema.pattern === "string"
+          ? new RegExp(stringSchema.pattern)
           : stringSchema.pattern;
 
-      if (
-        !pattern.test(value)
-      ) {
+      if (!pattern.test(value)) {
         issues.push(
           createConfigValidationIssue(
             context.path,
@@ -357,12 +257,7 @@ function validateBuiltInRules(
       }
     }
 
-    if (
-      stringSchema.enum &&
-      !stringSchema.enum.includes(
-        value,
-      )
-    ) {
+    if (stringSchema.enum && !stringSchema.enum.includes(value)) {
       issues.push(
         createConfigValidationIssue(
           context.path,
@@ -373,18 +268,10 @@ function validateBuiltInRules(
     }
   }
 
-  if (
-    typeof value === "number"
-  ) {
-    const numberSchema =
-      schema as ConfigNumberSchema;
+  if (typeof value === "number") {
+    const numberSchema = schema as ConfigNumberSchema;
 
-    if (
-      numberSchema.min !==
-        undefined &&
-      value <
-        numberSchema.min
-    ) {
+    if (numberSchema.min !== undefined && value < numberSchema.min) {
       issues.push(
         createConfigValidationIssue(
           context.path,
@@ -394,12 +281,7 @@ function validateBuiltInRules(
       );
     }
 
-    if (
-      numberSchema.max !==
-        undefined &&
-      value >
-        numberSchema.max
-    ) {
+    if (numberSchema.max !== undefined && value > numberSchema.max) {
       issues.push(
         createConfigValidationIssue(
           context.path,
@@ -409,10 +291,7 @@ function validateBuiltInRules(
       );
     }
 
-    if (
-      numberSchema.integer &&
-      !Number.isInteger(value)
-    ) {
+    if (numberSchema.integer && !Number.isInteger(value)) {
       issues.push(
         createConfigValidationIssue(
           context.path,
@@ -422,10 +301,7 @@ function validateBuiltInRules(
       );
     }
 
-    if (
-      numberSchema.positive &&
-      value <= 0
-    ) {
+    if (numberSchema.positive && value <= 0) {
       issues.push(
         createConfigValidationIssue(
           context.path,
@@ -436,17 +312,12 @@ function validateBuiltInRules(
     }
   }
 
-  if (
-    Array.isArray(value)
-  ) {
-    const arraySchema =
-      schema as ConfigArraySchema;
+  if (Array.isArray(value)) {
+    const arraySchema = schema as ConfigArraySchema;
 
     if (
-      arraySchema.minItems !==
-        undefined &&
-      value.length <
-        arraySchema.minItems
+      arraySchema.minItems !== undefined &&
+      value.length < arraySchema.minItems
     ) {
       issues.push(
         createConfigValidationIssue(
@@ -458,10 +329,8 @@ function validateBuiltInRules(
     }
 
     if (
-      arraySchema.maxItems !==
-        undefined &&
-      value.length >
-        arraySchema.maxItems
+      arraySchema.maxItems !== undefined &&
+      value.length > arraySchema.maxItems
     ) {
       issues.push(
         createConfigValidationIssue(
@@ -472,35 +341,17 @@ function validateBuiltInRules(
       );
     }
 
-    if (
-      arraySchema.items
-    ) {
-      value.forEach(
-        (
-          item,
-          index,
-        ) => {
-          const result =
-            validateConfigValue(
-              item,
-              arraySchema.items!,
-              {
-                path:
-                  `${context.path}[${index}]`,
-                root:
-                  context.root,
-                parent:
-                  value,
-                key:
-                  index,
-              },
-            );
+    if (arraySchema.items) {
+      value.forEach((item, index) => {
+        const result = validateConfigValue(item, arraySchema.items!, {
+          path: `${context.path}[${index}]`,
+          root: context.root,
+          parent: value,
+          key: index,
+        });
 
-          issues.push(
-            ...result.issues,
-          );
-        },
-      );
+        issues.push(...result.issues);
+      });
     }
   }
 }
@@ -513,40 +364,26 @@ export function validateConfigValue(
   schema: ConfigSchema,
   context?: Partial<ConfigValidationContext>,
 ): ConfigValidationResult {
-  const path =
-    context?.path ??
-    "$";
+  const path = context?.path ?? "$";
 
-  const validationContext:
-    ConfigValidationContext = {
+  const validationContext: ConfigValidationContext = {
     path,
-    root:
-      context?.root ??
-      value,
-    parent:
-      context?.parent,
-    key:
-      context?.key,
+    root: context?.root ?? value,
+    parent: context?.parent,
+    key: context?.key,
   };
 
-  const issues:
-    ConfigValidationIssue[] =
-    [];
+  const issues: ConfigValidationIssue[] = [];
 
-  if (
-    value === undefined
-  ) {
-    if (
-      schema.required
-    ) {
+  if (value === undefined) {
+    if (schema.required) {
       issues.push(
         createConfigValidationIssue(
           path,
           `Configuration value at "${path}" is required.`,
           "REQUIRED",
           {
-            expected:
-              schema.type,
+            expected: schema.type,
           },
         ),
       );
@@ -559,44 +396,28 @@ export function validateConfigValue(
 
     return {
       valid: true,
-      value:
-        resolveDefaultValue(
-          schema,
-        ),
+      value: resolveDefaultValue(schema),
       issues,
     };
   }
 
-  if (
-    value === null &&
-    schema.nullable
-  ) {
+  if (value === null && schema.nullable) {
     return {
       valid: true,
-      value:
-        value as ConfigValue,
+      value: value as ConfigValue,
       issues,
     };
   }
 
-  if (
-    !matchesConfigType(
-      value,
-      schema.type,
-    )
-  ) {
+  if (!matchesConfigType(value, schema.type)) {
     issues.push(
       createConfigValidationIssue(
         path,
         `Expected ${formatExpectedType(schema.type)} but received ${getConfigValueType(value)}.`,
         "TYPE_MISMATCH",
         {
-          expected:
-            schema.type,
-          received:
-            getConfigValueType(
-              value,
-            ),
+          expected: schema.type,
+          received: getConfigValueType(value),
         },
       ),
     );
@@ -607,49 +428,24 @@ export function validateConfigValue(
     };
   }
 
-  validateBuiltInRules(
-    value,
-    schema,
-    validationContext,
-    issues,
-  );
+  validateBuiltInRules(value, schema, validationContext, issues);
 
-  if (
-    schema.validate
-  ) {
-    const result =
-      schema.validate(
-        value as ConfigValue,
-        validationContext,
-      );
+  if (schema.validate) {
+    const result = schema.validate(value as ConfigValue, validationContext);
 
-    appendCustomValidationResult(
-      result,
-      path,
-      issues,
-    );
+    appendCustomValidationResult(result, path, issues);
   }
 
-  let transformed:
-    ConfigValue =
-    value as ConfigValue;
+  let transformed: ConfigValue = value as ConfigValue;
 
-  if (
-    schema.transform
-  ) {
+  if (schema.transform) {
     try {
-      transformed =
-        schema.transform(
-          value as ConfigValue,
-          validationContext,
-        );
+      transformed = schema.transform(value as ConfigValue, validationContext);
     } catch (error) {
       issues.push(
         createConfigValidationIssue(
           path,
-          error instanceof Error
-            ? error.message
-            : String(error),
+          error instanceof Error ? error.message : String(error),
           "TRANSFORM_FAILED",
         ),
       );
@@ -657,14 +453,10 @@ export function validateConfigValue(
   }
 
   return {
-    valid:
-      !issues.some(
-        (issue) =>
-          issue.severity ===
-          ConfigValidationSeverity.ERROR,
-      ),
-    value:
-      transformed,
+    valid: !issues.some(
+      (issue) => issue.severity === ConfigValidationSeverity.ERROR,
+    ),
+    value: transformed,
     issues,
   };
 }
@@ -673,22 +465,13 @@ export function validateConfigValue(
  * Validates an entire configuration object.
  */
 export function validateConfigObject(
-  value:
-    Readonly<Record<string, unknown>>,
-  schema:
-    ConfigObjectSchema,
+  value: Readonly<Record<string, unknown>>,
+  schema: ConfigObjectSchema,
   path = "$",
 ): ConfigValidationResult {
-  const issues:
-    ConfigValidationIssue[] =
-    [];
+  const issues: ConfigValidationIssue[] = [];
 
-  if (
-    !matchesConfigType(
-      value,
-      ConfigValueType.OBJECT,
-    )
-  ) {
+  if (!matchesConfigType(value, ConfigValueType.OBJECT)) {
     return {
       valid: false,
       issues: [
@@ -697,80 +480,39 @@ export function validateConfigObject(
           `Expected object but received ${getConfigValueType(value)}.`,
           "TYPE_MISMATCH",
           {
-            expected:
-              ConfigValueType.OBJECT,
-            received:
-              getConfigValueType(
-                value,
-              ),
+            expected: ConfigValueType.OBJECT,
+            received: getConfigValueType(value),
           },
         ),
       ],
     };
   }
 
-  const result:
-    Record<string, ConfigValue> =
-    {};
+  const result: Record<string, ConfigValue> = {};
 
-  for (
-    const [
+  for (const [key, propertySchema] of Object.entries(schema.properties)) {
+    const propertyPath = `${path}.${key}`;
+
+    const propertyResult = validateConfigValue(value[key], propertySchema, {
+      path: propertyPath,
+      root: value,
+      parent: value,
       key,
-      propertySchema,
-    ] of Object.entries(
-      schema.properties,
-    )
-  ) {
-    const propertyPath =
-      `${path}.${key}`;
+    });
 
-    const propertyResult =
-      validateConfigValue(
-        value[key],
-        propertySchema,
-        {
-          path:
-            propertyPath,
-          root:
-            value,
-          parent:
-            value,
-          key,
-        },
-      );
+    issues.push(...propertyResult.issues);
 
-    issues.push(
-      ...propertyResult.issues,
-    );
-
-    if (
-      propertyResult.value !==
-        undefined
-    ) {
-      result[key] =
-        propertyResult.value;
+    if (propertyResult.value !== undefined) {
+      result[key] = propertyResult.value;
     }
   }
 
-  for (
-    const [
-      key,
-      child,
-    ] of Object.entries(value)
-  ) {
-    if (
-      Object.prototype.hasOwnProperty.call(
-        schema.properties,
-        key,
-      )
-    ) {
+  for (const [key, child] of Object.entries(value)) {
+    if (Object.prototype.hasOwnProperty.call(schema.properties, key)) {
       continue;
     }
 
-    if (
-      schema.additionalProperties ===
-      false
-    ) {
+    if (schema.additionalProperties === false) {
       issues.push(
         createConfigValidationIssue(
           `${path}.${key}`,
@@ -784,50 +526,34 @@ export function validateConfigObject(
 
     if (
       schema.additionalProperties &&
-      typeof schema.additionalProperties ===
-        "object"
+      typeof schema.additionalProperties === "object"
     ) {
-      const propertyResult =
-        validateConfigValue(
-          child,
-          schema.additionalProperties,
-          {
-            path:
-              `${path}.${key}`,
-            root:
-              value,
-            parent:
-              value,
-            key,
-          },
-        );
-
-      issues.push(
-        ...propertyResult.issues,
+      const propertyResult = validateConfigValue(
+        child,
+        schema.additionalProperties,
+        {
+          path: `${path}.${key}`,
+          root: value,
+          parent: value,
+          key,
+        },
       );
 
-      if (
-        propertyResult.value !==
-          undefined
-      ) {
-        result[key] =
-          propertyResult.value;
+      issues.push(...propertyResult.issues);
+
+      if (propertyResult.value !== undefined) {
+        result[key] = propertyResult.value;
       }
     } else {
-      result[key] =
-        child as ConfigValue;
+      result[key] = child as ConfigValue;
     }
   }
 
   return {
-    valid:
-      !issues.some(
-        (issue) =>
-          issue.severity ===
-          ConfigValidationSeverity.ERROR,
-      ),
-    value:
-      result,
+    valid: !issues.some(
+      (issue) => issue.severity === ConfigValidationSeverity.ERROR,
+    ),
+    value: result,
     issues,
   };
 }
@@ -839,46 +565,27 @@ export function assertValidConfig(
   value: unknown,
   schema: ConfigSchema,
 ): ConfigValue {
-  const result =
-    validateConfigValue(
-      value,
-      schema,
-    );
+  const result = validateConfigValue(value, schema);
 
-  if (
-    !result.valid
-  ) {
-    throw new ConfigSchemaValidationError(
-      result.issues,
-    );
+  if (!result.valid) {
+    throw new ConfigSchemaValidationError(result.issues);
   }
 
-  return (
-    result.value as ConfigValue
-  );
+  return result.value as ConfigValue;
 }
 
-import {
-  ConfigurationError,
-} from "@oyinlola141/lattice-errors";
+import { ConfigurationError } from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when schema validation fails.
  */
-export class ConfigSchemaValidationError
-  extends ConfigurationError {
-  readonly issues:
-    readonly ConfigValidationIssue[];
+export class ConfigSchemaValidationError extends ConfigurationError {
+  readonly issues: readonly ConfigValidationIssue[];
 
-  constructor(
-    issues:
-      readonly ConfigValidationIssue[],
-  ) {
+  constructor(issues: readonly ConfigValidationIssue[]) {
     super(
       `Configuration validation failed with ${issues.length} issue${
-        issues.length === 1
-          ? ""
-          : "s"
+        issues.length === 1 ? "" : "s"
       }.`,
       {
         configKey: "schema",
@@ -886,9 +593,6 @@ export class ConfigSchemaValidationError
       },
     );
 
-    this.issues =
-      Object.freeze([
-        ...issues,
-      ]);
+    this.issues = Object.freeze([...issues]);
   }
 }

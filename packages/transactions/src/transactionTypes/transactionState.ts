@@ -26,7 +26,4 @@ export type TransactionPropagation =
 
 /** Database isolation levels. */
 export type TransactionIsolationLevel =
-  | "read_uncommitted"
-  | "read_committed"
-  | "repeatable_read"
-  | "serializable";
+  "read_uncommitted" | "read_committed" | "repeatable_read" | "serializable";

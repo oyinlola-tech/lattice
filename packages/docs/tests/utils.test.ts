@@ -69,9 +69,7 @@ describe("extractTitleFromMarkdown", () => {
   });
 
   it("ignores non-first headings", () => {
-    expect(extractTitleFromMarkdown("text\n## Second\n# First")).toBe(
-      "First",
-    );
+    expect(extractTitleFromMarkdown("text\n## Second\n# First")).toBe("First");
   });
 });
 

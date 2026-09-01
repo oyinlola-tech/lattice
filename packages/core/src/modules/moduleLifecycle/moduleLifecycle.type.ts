@@ -1,10 +1,6 @@
-import type {
-  ModuleId,
-} from "../module.js";
+import type { ModuleId } from "../module.js";
 
-import type {
-  ModuleContext,
-} from "../moduleContext.context.js";
+import type { ModuleContext } from "../moduleContext.context.js";
 
 /**
  * Lifecycle phases supported by the module system.
@@ -25,26 +21,19 @@ export type ModuleLifecyclePhase =
  * Runtime lifecycle state for a module.
  */
 export interface ModuleLifecycleState {
-  readonly moduleId:
-    ModuleId;
+  readonly moduleId: ModuleId;
 
-  readonly phase:
-    ModuleLifecyclePhase;
+  readonly phase: ModuleLifecyclePhase;
 
-  readonly error?:
-    unknown;
+  readonly error?: unknown;
 
-  readonly initializedAt?:
-    Date;
+  readonly initializedAt?: Date;
 
-  readonly startedAt?:
-    Date;
+  readonly startedAt?: Date;
 
-  readonly stoppedAt?:
-    Date;
+  readonly stoppedAt?: Date;
 
-  readonly destroyedAt?:
-    Date;
+  readonly destroyedAt?: Date;
 }
 
 /**
@@ -56,11 +45,7 @@ export interface ModuleLifecycleHooks {
   /**
    * Called before the module starts accepting work.
    */
-  initialize?(
-    context: ModuleContext,
-  ):
-    | void
-    | Promise<void>;
+  initialize?(context: ModuleContext): void | Promise<void>;
 
   /**
    * Called after all modules have initialized.
@@ -68,31 +53,19 @@ export interface ModuleLifecycleHooks {
    * This is useful when a module needs other modules to
    * already be initialized before it becomes active.
    */
-  start?(
-    context: ModuleContext,
-  ):
-    | void
-    | Promise<void>;
+  start?(context: ModuleContext): void | Promise<void>;
 
   /**
    * Called when the application begins shutting down.
    */
-  stop?(
-    context: ModuleContext,
-  ):
-    | void
-    | Promise<void>;
+  stop?(context: ModuleContext): void | Promise<void>;
 
   /**
    * Called after the module has stopped.
    *
    * This is the place for final resource cleanup.
    */
-  destroy?(
-    context: ModuleContext,
-  ):
-    | void
-    | Promise<void>;
+  destroy?(context: ModuleContext): void | Promise<void>;
 }
 
 /**
@@ -128,24 +101,18 @@ export interface ModuleLifecycleOptions {
   readonly continueOnDestroyError?: boolean;
 }
 
-import {
-  ModuleLifecycleError as BaseModuleLifecycleError,
-} from "@oyinlola141/lattice-errors";
+import { ModuleLifecycleError as BaseModuleLifecycleError } from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when a module lifecycle operation fails.
  */
-export class ModuleLifecycleError
-  extends BaseModuleLifecycleError {
+export class ModuleLifecycleError extends BaseModuleLifecycleError {
   public constructor(
     moduleId: ModuleId,
     phase: ModuleLifecyclePhase,
     cause: unknown,
   ) {
-    const message =
-      cause instanceof Error
-        ? cause.message
-        : String(cause);
+    const message = cause instanceof Error ? cause.message : String(cause);
 
     super(
       moduleId,
@@ -160,18 +127,12 @@ export class ModuleLifecycleError
  * Result of a lifecycle operation.
  */
 export interface ModuleLifecycleResult {
-  readonly completed:
-    readonly ModuleId[];
+  readonly completed: readonly ModuleId[];
 
-  readonly failed:
-    readonly ModuleId[];
+  readonly failed: readonly ModuleId[];
 }
 
 /**
  * Internal lifecycle state map.
  */
-export type LifecycleStateMap =
-  Map<
-    ModuleId,
-    ModuleLifecycleState
-  >;
+export type LifecycleStateMap = Map<ModuleId, ModuleLifecycleState>;

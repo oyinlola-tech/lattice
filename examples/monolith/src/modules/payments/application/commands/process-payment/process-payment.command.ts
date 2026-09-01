@@ -8,5 +8,7 @@ export class ProcessPaymentCommand extends AppCommand {
     public readonly orderId: OrderId,
     public readonly amount: number,
     public readonly currency: string,
-  ) { super(); }
+  ) {
+    super();
+  }
 }

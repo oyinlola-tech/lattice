@@ -1,14 +1,8 @@
-import type {
-  RuntimeEnvironmentVariables,
-} from "../runtimeEnvironment.type.js";
+import type { RuntimeEnvironmentVariables } from "../runtimeEnvironment.type.js";
 
-import {
-  getProcessObject,
-} from "./runtimeEnvironment.detection.js";
+import { getProcessObject } from "./runtimeEnvironment.detection.js";
 
-export function detectCI(
-  variables: RuntimeEnvironmentVariables,
-): boolean {
+export function detectCI(variables: RuntimeEnvironmentVariables): boolean {
   const explicit = variables.CI ?? variables.CONTINUOUS_INTEGRATION;
 
   if (isTruthyEnvironmentValue(explicit)) {
@@ -63,9 +57,7 @@ export function detectContainer(
   return false;
 }
 
-function isTruthyEnvironmentValue(
-  value: string | undefined,
-): boolean {
+function isTruthyEnvironmentValue(value: string | undefined): boolean {
   if (value === undefined) {
     return false;
   }

@@ -2,12 +2,13 @@
  * Internal CSP helpers for splitting, normalizing, and freezing directives.
  */
 
-import type { CSPDirectiveValue, CSPDirectives } from '../types/httpCsp.type.js';
-import { normalizeDirectiveName } from '../validation/httpCsp.validation.js';
+import type {
+  CSPDirectiveValue,
+  CSPDirectives,
+} from "../types/httpCsp.type.js";
+import { normalizeDirectiveName } from "../validation/httpCsp.validation.js";
 
-export function splitPolicy(
-  value: string,
-): string[] {
+export function splitPolicy(value: string): string[] {
   const result: string[] = [];
   let current = "";
 
@@ -29,9 +30,7 @@ export function splitPolicy(
   return result;
 }
 
-export function normalizeDirectiveValues(
-  values: CSPDirectiveValue,
-): string[] {
+export function normalizeDirectiveValues(values: CSPDirectiveValue): string[] {
   const result =
     typeof values === "string"
       ? values.trim().split(/\s+/)

@@ -4,75 +4,39 @@
  * @module httpAdapter/node/server
  */
 
-import {
-  IncomingMessage,
-  Server,
-  ServerResponse,
-} from "node:http";
+import { IncomingMessage, Server, ServerResponse } from "node:http";
 
-import {
-  validateTimeout,
-  validateMaxBodySize,
-} from "./httpNode.type.js";
+import { validateTimeout, validateMaxBodySize } from "./httpNode.type.js";
 
-import {
-  DEFAULT_MAX_BODY_SIZE,
-} from "./httpNode.type.js";
+import { DEFAULT_MAX_BODY_SIZE } from "./httpNode.type.js";
 
 /* -------------------------------------------------------------------------- */
 /* Type Guards                                                                */
 /* -------------------------------------------------------------------------- */
 
-export function isIncomingMessage(
-  value: unknown,
-): value is IncomingMessage {
-  return (
-    value instanceof
-    IncomingMessage
-  );
+export function isIncomingMessage(value: unknown): value is IncomingMessage {
+  return value instanceof IncomingMessage;
 }
 
-export function isServerResponse(
-  value: unknown,
-): value is ServerResponse {
-  return (
-    value instanceof
-    ServerResponse
-  );
+export function isServerResponse(value: unknown): value is ServerResponse {
+  return value instanceof ServerResponse;
 }
 
-export function isNodeRequestResponsePair(
-  value: unknown,
-): value is {
-  readonly request:
-    | IncomingMessage;
+export function isNodeRequestResponsePair(value: unknown): value is {
+  readonly request: IncomingMessage;
 
-  readonly response:
-    | ServerResponse;
+  readonly response: ServerResponse;
 } {
-  if (
-    value ===
-      null ||
-    typeof value !==
-      "object"
-  ) {
+  if (value === null || typeof value !== "object") {
     return false;
   }
 
-  const pair =
-    value as {
-      request?: unknown;
-      response?: unknown;
-    };
+  const pair = value as {
+    request?: unknown;
+    response?: unknown;
+  };
 
-  return (
-    isIncomingMessage(
-      pair.request,
-    ) &&
-    isServerResponse(
-      pair.response,
-    )
-  );
+  return isIncomingMessage(pair.request) && isServerResponse(pair.response);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -80,62 +44,40 @@ export function isNodeRequestResponsePair(
 /* -------------------------------------------------------------------------- */
 
 export function configureServer(
-  server:
-    | Server,
-  options:
-    | {
-        readonly requestTimeout?:
-          | number;
-        readonly headersTimeout?:
-          | number;
-        readonly keepAliveTimeout?:
-          | number;
-        readonly connectionTimeout?:
-          | number;
-      },
+  server: Server,
+  options: {
+    readonly requestTimeout?: number;
+    readonly headersTimeout?: number;
+    readonly keepAliveTimeout?: number;
+    readonly connectionTimeout?: number;
+  },
 ): void {
-  if (
-    options.requestTimeout !==
-      undefined
-  ) {
-    server.requestTimeout =
-      validateTimeout(
-        options.requestTimeout,
-        "requestTimeout",
-      );
+  if (options.requestTimeout !== undefined) {
+    server.requestTimeout = validateTimeout(
+      options.requestTimeout,
+      "requestTimeout",
+    );
   }
 
-  if (
-    options.headersTimeout !==
-      undefined
-  ) {
-    server.headersTimeout =
-      validateTimeout(
-        options.headersTimeout,
-        "headersTimeout",
-      );
+  if (options.headersTimeout !== undefined) {
+    server.headersTimeout = validateTimeout(
+      options.headersTimeout,
+      "headersTimeout",
+    );
   }
 
-  if (
-    options.keepAliveTimeout !==
-      undefined
-  ) {
-    server.keepAliveTimeout =
-      validateTimeout(
-        options.keepAliveTimeout,
-        "keepAliveTimeout",
-      );
+  if (options.keepAliveTimeout !== undefined) {
+    server.keepAliveTimeout = validateTimeout(
+      options.keepAliveTimeout,
+      "keepAliveTimeout",
+    );
   }
 
-  if (
-    options.connectionTimeout !==
-      undefined
-  ) {
-    server.timeout =
-      validateTimeout(
-        options.connectionTimeout,
-        "connectionTimeout",
-      );
+  if (options.connectionTimeout !== undefined) {
+    server.timeout = validateTimeout(
+      options.connectionTimeout,
+      "connectionTimeout",
+    );
   }
 }
 
@@ -144,99 +86,51 @@ export function configureServer(
 /* -------------------------------------------------------------------------- */
 
 export function listen(
-  server:
-    | Server,
-  port:
-    | number,
-  host:
-    | string,
+  server: Server,
+  port: number,
+  host: string,
 ): Promise<void> {
-  return new Promise(
-    (
-      resolve,
-      reject,
-    ) => {
-      const onError =
-        (
-          error: Error,
-        ) => {
-          cleanup();
-          reject(
-            error,
-          );
-        };
+  return new Promise((resolve, reject) => {
+    const onError = (error: Error) => {
+      cleanup();
+      reject(error);
+    };
 
-      const onListening =
-        () => {
-          cleanup();
-          resolve();
-        };
+    const onListening = () => {
+      cleanup();
+      resolve();
+    };
 
-      const cleanup =
-        () => {
-          server.off(
-            "error",
-            onError,
-          );
+    const cleanup = () => {
+      server.off("error", onError);
 
-          server.off(
-            "listening",
-            onListening,
-          );
-        };
+      server.off("listening", onListening);
+    };
 
-      server.once(
-        "error",
-        onError,
-      );
+    server.once("error", onError);
 
-      server.once(
-        "listening",
-        onListening,
-      );
+    server.once("listening", onListening);
 
-      server.listen(
-        port,
-        host,
-      );
-    },
-  );
+    server.listen(port, host);
+  });
 }
 
-export function closeServer(
-  server:
-    | Server,
-): Promise<void> {
-  if (
-    !server.listening
-  ) {
+export function closeServer(server: Server): Promise<void> {
+  if (!server.listening) {
     return Promise.resolve();
   }
 
-  return new Promise(
-    (
-      resolve,
-      reject,
-    ) => {
-      server.close(
-        (
-          error,
-        ) => {
-          if (
-            error
-          ) {
-            reject(
-              error,
-            );
+  return new Promise((resolve, reject) => {
+    server.close((error) => {
+      if (error) {
+        reject(error);
 
-            return;
-          }
+        return;
+      }
 
-          resolve();
-        },
-      );
-    },
-  );
+      resolve();
+    });
+  });
 }
 
 /* -------------------------------------------------------------------------- */
@@ -244,23 +138,13 @@ export function closeServer(
 /* -------------------------------------------------------------------------- */
 
 export function getHeader(
-  request:
-    | IncomingMessage,
+  request: IncomingMessage,
   name: string,
 ): string | undefined {
-  const value =
-    request.headers[
-      name.toLowerCase()
-    ];
+  const value = request.headers[name.toLowerCase()];
 
-  if (
-    Array.isArray(
-      value,
-    )
-  ) {
-    return value.join(
-      ", ",
-    );
+  if (Array.isArray(value)) {
+    return value.join(", ");
   }
 
   return value;
@@ -270,173 +154,79 @@ export function getHeader(
 /* URL Helpers                                                                */
 /* -------------------------------------------------------------------------- */
 
-export function removePort(
-  host: string,
-): string {
-  if (
-    host.startsWith(
-      "[",
-    )
-  ) {
-    const closing =
-      host.indexOf(
-        "]",
-        1,
-        );
+export function removePort(host: string): string {
+  if (host.startsWith("[")) {
+    const closing = host.indexOf("]", 1);
 
-    if (
-      closing !==
-        -1
-    ) {
-      return host.slice(
-        1,
-        closing,
-      );
+    if (closing !== -1) {
+      return host.slice(1, closing);
     }
 
     return host;
   }
 
-  const separator =
-    host.lastIndexOf(
-      ":",
-    );
+  const separator = host.lastIndexOf(":");
 
-  if (
-    separator >
-      -1 &&
-    host.indexOf(
-      ":",
-    ) ===
-      separator
-  ) {
-    return host.slice(
-      0,
-      separator,
-    );
+  if (separator > -1 && host.indexOf(":") === separator) {
+    return host.slice(0, separator);
   }
 
   return host;
 }
 
-export function extractPort(
-  host: string,
-): number | undefined {
-  if (
-    host.startsWith(
-      "[",
-    )
-  ) {
-    const closing =
-      host.indexOf(
-        "]",
-        1,
-      );
+export function extractPort(host: string): number | undefined {
+  if (host.startsWith("[")) {
+    const closing = host.indexOf("]", 1);
 
-    if (
-      closing ===
-      -1
-    ) {
+    if (closing === -1) {
       return undefined;
     }
 
-    const suffix =
-      host.slice(
-        closing +
-          1,
-      );
+    const suffix = host.slice(closing + 1);
 
-    if (
-      !suffix.startsWith(
-        ":",
-      )
-    ) {
+    if (!suffix.startsWith(":")) {
       return undefined;
     }
 
-    return parsePort(
-      suffix.slice(
-        1,
-      ),
-    );
+    return parsePort(suffix.slice(1));
   }
 
-  const separator =
-    host.lastIndexOf(
-      ":",
-    );
+  const separator = host.lastIndexOf(":");
 
-  if (
-    separator ===
-      -1 ||
-    host.indexOf(
-      ":",
-    ) !==
-      separator
-  ) {
+  if (separator === -1 || host.indexOf(":") !== separator) {
     return undefined;
   }
 
-  return parsePort(
-    host.slice(
-      separator +
-        1,
-    ),
-  );
+  return parsePort(host.slice(separator + 1));
 }
 
-export function parsePort(
-  value: string,
-): number | undefined {
-  if (
-    !/^\d+$/.test(
-      value,
-    )
-  ) {
+export function parsePort(value: string): number | undefined {
+  if (!/^\d+$/.test(value)) {
     return undefined;
   }
 
-  const port =
-    Number(
-      value,
-    );
+  const port = Number(value);
 
-  return Number.isInteger(
-    port,
-  ) &&
-    port >= 1 &&
-    port <= 65535
+  return Number.isInteger(port) && port >= 1 && port <= 65535
     ? port
     : undefined;
 }
 
-export function getSearchPart(
-  url: string,
-): string {
-  const index =
-    url.indexOf(
-      "?",
-    );
+export function getSearchPart(url: string): string {
+  const index = url.indexOf("?");
 
-  if (
-    index ===
-    -1
-  ) {
+  if (index === -1) {
     return "";
   }
 
-  return url.slice(
-    index + 1,
-  );
+  return url.slice(index + 1);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Body Errors                                                                */
 /* -------------------------------------------------------------------------- */
 
-import {
-  RequestBodyTooLargeError as NodeRequestBodyTooLargeError,
-} from "@oyinlola141/lattice-errors";
+import { RequestBodyTooLargeError as NodeRequestBodyTooLargeError } from "@oyinlola141/lattice-errors";
 
 export { NodeRequestBodyTooLargeError };
 
@@ -445,267 +235,137 @@ export { NodeRequestBodyTooLargeError };
 /* -------------------------------------------------------------------------- */
 
 export function readNodeRequestBody(
-  request:
-    | IncomingMessage,
-  maxBodySize =
-    DEFAULT_MAX_BODY_SIZE,
+  request: IncomingMessage,
+  maxBodySize = DEFAULT_MAX_BODY_SIZE,
 ): Promise<Uint8Array> {
-  const limit =
-    validateMaxBodySize(
-      maxBodySize,
-    );
+  const limit = validateMaxBodySize(maxBodySize);
 
-  const declaredLength =
-    getHeader(
-      request,
-      "content-length",
-    );
+  const declaredLength = getHeader(request, "content-length");
 
-  if (
-    declaredLength
-  ) {
-    const length =
-      Number(
-        declaredLength,
-      );
+  if (declaredLength) {
+    const length = Number(declaredLength);
 
-    if (
-      Number.isFinite(
-        length,
-      ) &&
-      length >
-        limit
-    ) {
+    if (Number.isFinite(length) && length > limit) {
       request.destroy();
 
-      return Promise.reject(
-        new NodeRequestBodyTooLargeError(
-          limit,
-          length,
-        ),
-      );
+      return Promise.reject(new NodeRequestBodyTooLargeError(limit, length));
     }
   }
 
-  return new Promise(
-    (
-      resolve,
-      reject,
-    ) => {
-      const chunks:
-        Uint8Array[] = [];
+  return new Promise((resolve, reject) => {
+    const chunks: Uint8Array[] = [];
 
-      let total =
-        0;
+    let total = 0;
 
-      let settled =
-        false;
+    let settled = false;
 
-      const cleanup =
-        () => {
-          request.off(
-            "data",
-            onData,
-          );
+    const cleanup = () => {
+      request.off("data", onData);
 
-          request.off(
-            "end",
-            onEnd,
-          );
+      request.off("end", onEnd);
 
-          request.off(
-            "error",
-            onError,
-          );
+      request.off("error", onError);
 
-          request.off(
-            "aborted",
-            onAborted,
-          );
-        };
+      request.off("aborted", onAborted);
+    };
 
-      const fail =
-        (
-          error: Error,
-        ) => {
-          if (
-            settled
-          ) {
-            return;
-          }
+    const fail = (error: Error) => {
+      if (settled) {
+        return;
+      }
 
-          settled =
-            true;
+      settled = true;
 
-          cleanup();
-          reject(
-            error,
-          );
-        };
+      cleanup();
+      reject(error);
+    };
 
-      const onData =
-        (
-          chunk:
-            | Buffer,
-        ) => {
-          const data =
-            new Uint8Array(
-              chunk,
-            );
+    const onData = (chunk: Buffer) => {
+      const data = new Uint8Array(chunk);
 
-          total +=
-            data.byteLength;
+      total += data.byteLength;
 
-          if (
-            total >
-            limit
-          ) {
-            request.destroy();
+      if (total > limit) {
+        request.destroy();
 
-            fail(
-              new NodeRequestBodyTooLargeError(
-                limit,
-                total,
-              ),
-            );
+        fail(new NodeRequestBodyTooLargeError(limit, total));
 
-            return;
-          }
+        return;
+      }
 
-          chunks.push(
-            data,
-          );
-        };
+      chunks.push(data);
+    };
 
-      const onEnd =
-        () => {
-          if (
-            settled
-          ) {
-            return;
-          }
+    const onEnd = () => {
+      if (settled) {
+        return;
+      }
 
-          settled =
-            true;
+      settled = true;
 
-          cleanup();
+      cleanup();
 
-          const result =
-            new Uint8Array(
-              total,
-            );
+      const result = new Uint8Array(total);
 
-          let offset =
-            0;
+      let offset = 0;
 
-          for (
-            const chunk of chunks
-          ) {
-            result.set(
-              chunk,
-              offset,
-            );
+      for (const chunk of chunks) {
+        result.set(chunk, offset);
 
-            offset +=
-              chunk.byteLength;
-          }
+        offset += chunk.byteLength;
+      }
 
-          resolve(
-            result,
-          );
-        };
+      resolve(result);
+    };
 
-      const onError =
-        (
-          error:
-            | Error,
-        ) => {
-          fail(
-            error,
-          );
-        };
+    const onError = (error: Error) => {
+      fail(error);
+    };
 
-      const onAborted =
-        () => {
-          fail(
-            new Error(
-              "The HTTP request was aborted while reading the request body.",
-            ),
-          );
-        };
-
-      request.on(
-        "data",
-        onData,
+    const onAborted = () => {
+      fail(
+        new Error(
+          "The HTTP request was aborted while reading the request body.",
+        ),
       );
+    };
 
-      request.once(
-        "end",
-        onEnd,
-      );
+    request.on("data", onData);
 
-      request.once(
-        "error",
-        onError,
-      );
+    request.once("end", onEnd);
 
-      request.once(
-        "aborted",
-        onAborted,
-      );
-    },
-  );
+    request.once("error", onError);
+
+    request.once("aborted", onAborted);
+  });
 }
 
 /* -------------------------------------------------------------------------- */
 /* Response Result Detection                                                  */
 /* -------------------------------------------------------------------------- */
 
-export function isResponseContextLike(
-  value: unknown,
-): value is {
-  readonly status?:
-    | number;
+export function isResponseContextLike(value: unknown): value is {
+  readonly status?: number;
 
-  readonly statusText?:
-    | string;
+  readonly statusText?: string;
 
-  readonly headers?:
-    | Readonly<
-        Record<string, string>
-      >;
+  readonly headers?: Readonly<Record<string, string>>;
 
-  readonly body?:
-    | unknown;
+  readonly body?: unknown;
 
-  readonly contentType?:
-    | string;
+  readonly contentType?: string;
 
-  readonly contentLength?:
-    | number;
+  readonly contentLength?: number;
 
-  readonly cookies?:
-    | readonly never[];
+  readonly cookies?: readonly never[];
 
-  readonly metadata?:
-    | Readonly<
-        Record<string, unknown>
-      >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 } {
-  if (
-    value ===
-      null ||
-    typeof value !==
-      "object"
-  ) {
+  if (value === null || typeof value !== "object") {
     return false;
   }
 
-  const candidate =
-    value as Record<
-      string,
-      unknown
-    >;
+  const candidate = value as Record<string, unknown>;
 
   return (
     "status" in candidate ||

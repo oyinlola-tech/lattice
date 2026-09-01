@@ -9,7 +9,11 @@ import { SchemaError } from "./schemaError.base.js";
  * Error thrown when a value does not match the expected type.
  */
 export class SchemaTypeError extends SchemaError {
-  constructor(expected: string, received: string, path: readonly (string | number)[] = []) {
+  constructor(
+    expected: string,
+    received: string,
+    path: readonly (string | number)[] = [],
+  ) {
     super(`Expected ${expected}, received ${received}`, {
       code: ErrorCode.SCHEMA_INVALID_TYPE,
       issues: [{ code: "invalid_type", path, expected, received }],
@@ -21,11 +25,18 @@ export class SchemaTypeError extends SchemaError {
  * Error thrown when a literal value does not match.
  */
 export class SchemaLiteralError extends SchemaError {
-  constructor(expected: unknown, received: unknown, path: readonly (string | number)[] = []) {
-    super(`Expected literal ${JSON.stringify(expected)}, received ${JSON.stringify(received)}`, {
-      code: ErrorCode.SCHEMA_INVALID_LITERAL,
-      issues: [{ code: "invalid_literal", path, expected, received }],
-    });
+  constructor(
+    expected: unknown,
+    received: unknown,
+    path: readonly (string | number)[] = [],
+  ) {
+    super(
+      `Expected literal ${JSON.stringify(expected)}, received ${JSON.stringify(received)}`,
+      {
+        code: ErrorCode.SCHEMA_INVALID_LITERAL,
+        issues: [{ code: "invalid_literal", path, expected, received }],
+      },
+    );
   }
 }
 
@@ -33,11 +44,18 @@ export class SchemaLiteralError extends SchemaError {
  * Error thrown when a value is not in the allowed enum values.
  */
 export class SchemaEnumError extends SchemaError {
-  constructor(expected: readonly unknown[], received: unknown, path: readonly (string | number)[] = []) {
-    super(`Expected one of ${expected.map((v) => JSON.stringify(v)).join(", ")}`, {
-      code: ErrorCode.SCHEMA_INVALID_ENUM,
-      issues: [{ code: "invalid_enum", path, expected, received }],
-    });
+  constructor(
+    expected: readonly unknown[],
+    received: unknown,
+    path: readonly (string | number)[] = [],
+  ) {
+    super(
+      `Expected one of ${expected.map((v) => JSON.stringify(v)).join(", ")}`,
+      {
+        code: ErrorCode.SCHEMA_INVALID_ENUM,
+        issues: [{ code: "invalid_enum", path, expected, received }],
+      },
+    );
   }
 }
 
@@ -45,7 +63,11 @@ export class SchemaEnumError extends SchemaError {
  * Error thrown when string constraints are violated.
  */
 export class SchemaStringError extends SchemaError {
-  constructor(message: string, path: readonly (string | number)[] = [], details?: Record<string, unknown>) {
+  constructor(
+    message: string,
+    path: readonly (string | number)[] = [],
+    details?: Record<string, unknown>,
+  ) {
     super(message, {
       code: ErrorCode.SCHEMA_INVALID_STRING,
       issues: [{ code: "invalid_string", path, ...details }],
@@ -57,7 +79,11 @@ export class SchemaStringError extends SchemaError {
  * Error thrown when number constraints are violated.
  */
 export class SchemaNumberError extends SchemaError {
-  constructor(message: string, path: readonly (string | number)[] = [], details?: Record<string, unknown>) {
+  constructor(
+    message: string,
+    path: readonly (string | number)[] = [],
+    details?: Record<string, unknown>,
+  ) {
     super(message, {
       code: ErrorCode.SCHEMA_INVALID_NUMBER,
       issues: [{ code: "invalid_number", path, ...details }],
@@ -70,10 +96,13 @@ export class SchemaNumberError extends SchemaError {
  */
 export class SchemaRequiredError extends SchemaError {
   constructor(path: readonly (string | number)[] = []) {
-    super(`Required field missing at path: ${path.length > 0 ? path.join(".") : "(root)"}`, {
-      code: ErrorCode.SCHEMA_VALIDATION,
-      issues: [{ code: "required", path }],
-    });
+    super(
+      `Required field missing at path: ${path.length > 0 ? path.join(".") : "(root)"}`,
+      {
+        code: ErrorCode.SCHEMA_VALIDATION,
+        issues: [{ code: "required", path }],
+      },
+    );
   }
 }
 
@@ -81,7 +110,10 @@ export class SchemaRequiredError extends SchemaError {
  * Error thrown when a union schema fails to match any variant.
  */
 export class SchemaUnionError extends SchemaError {
-  constructor(path: readonly (string | number)[] = [], issues?: readonly unknown[]) {
+  constructor(
+    path: readonly (string | number)[] = [],
+    issues?: readonly unknown[],
+  ) {
     super("Invalid union: no matching schema found", {
       code: ErrorCode.SCHEMA_INVALID_UNION,
       issues: issues ?? [{ code: "invalid_union", path }],

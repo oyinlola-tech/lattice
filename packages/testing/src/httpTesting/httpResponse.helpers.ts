@@ -40,15 +40,29 @@ export function noContentResponse(): TestHTTPResponse {
 
 /** Creates a 400 Bad Request response. */
 export function badRequestResponse(message: string): TestHTTPResponse {
-  return createHTTPResponse(400, { error: message }, { "content-type": "application/json" });
+  return createHTTPResponse(
+    400,
+    { error: message },
+    { "content-type": "application/json" },
+  );
 }
 
 /** Creates a 404 Not Found response. */
 export function notFoundResponse(message = "Not Found"): TestHTTPResponse {
-  return createHTTPResponse(404, { error: message }, { "content-type": "application/json" });
+  return createHTTPResponse(
+    404,
+    { error: message },
+    { "content-type": "application/json" },
+  );
 }
 
 /** Creates a 500 Internal Server Error response. */
-export function serverErrorResponse(message = "Internal Server Error"): TestHTTPResponse {
-  return createHTTPResponse(500, { error: message }, { "content-type": "application/json" });
+export function serverErrorResponse(
+  message = "Internal Server Error",
+): TestHTTPResponse {
+  return createHTTPResponse(
+    500,
+    { error: message },
+    { "content-type": "application/json" },
+  );
 }

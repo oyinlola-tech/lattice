@@ -8,19 +8,54 @@ export interface OpenAPIDocumentOptions {
     readonly description?: string;
     readonly summary?: string;
     readonly termsOfService?: string;
-    readonly contact?: { readonly name?: string; readonly url?: string; readonly email?: string };
+    readonly contact?: {
+      readonly name?: string;
+      readonly url?: string;
+      readonly email?: string;
+    };
     readonly license?: { readonly name: string; readonly url?: string };
   };
   readonly openapi?: string;
-  readonly servers?: readonly { readonly url: string; readonly description?: string; readonly variables?: Readonly<Record<string, { readonly enum?: readonly string[]; readonly default: string; readonly description?: string }>> }[];
-  readonly tags?: readonly { readonly name: string; readonly description?: string }[];
+  readonly servers?: readonly {
+    readonly url: string;
+    readonly description?: string;
+    readonly variables?: Readonly<
+      Record<
+        string,
+        {
+          readonly enum?: readonly string[];
+          readonly default: string;
+          readonly description?: string;
+        }
+      >
+    >;
+  }[];
+  readonly tags?: readonly {
+    readonly name: string;
+    readonly description?: string;
+  }[];
   readonly security?: readonly Record<string, readonly string[]>[];
 }
 
 interface MutableDocument {
   openapi: string;
-  info: { title: string; version: string; description?: string; summary?: string; termsOfService?: string; contact?: { name?: string; url?: string; email?: string }; license?: { name: string; url?: string } };
-  servers?: { url: string; description?: string; variables?: Record<string, { enum?: readonly string[]; default: string; description?: string }> }[];
+  info: {
+    title: string;
+    version: string;
+    description?: string;
+    summary?: string;
+    termsOfService?: string;
+    contact?: { name?: string; url?: string; email?: string };
+    license?: { name: string; url?: string };
+  };
+  servers?: {
+    url: string;
+    description?: string;
+    variables?: Record<
+      string,
+      { enum?: readonly string[]; default: string; description?: string }
+    >;
+  }[];
   paths: Record<string, unknown>;
   components?: Record<string, unknown>;
   security?: Record<string, readonly string[]>[];
@@ -47,18 +82,37 @@ export class OpenAPIDocumentBuilder {
     return this;
   }
 
-  public addServer(server: { readonly url: string; readonly description?: string; readonly variables?: Readonly<Record<string, { readonly enum?: readonly string[]; readonly default: string; readonly description?: string }>> }): this {
+  public addServer(server: {
+    readonly url: string;
+    readonly description?: string;
+    readonly variables?: Readonly<
+      Record<
+        string,
+        {
+          readonly enum?: readonly string[];
+          readonly default: string;
+          readonly description?: string;
+        }
+      >
+    >;
+  }): this {
     this.document.servers = [...(this.document.servers ?? []), { ...server }];
     return this;
   }
 
-  public addTag(tag: { readonly name: string; readonly description?: string }): this {
+  public addTag(tag: {
+    readonly name: string;
+    readonly description?: string;
+  }): this {
     this.document.tags = [...(this.document.tags ?? []), { ...tag }];
     return this;
   }
 
   public addSecurity(security: Record<string, readonly string[]>): this {
-    this.document.security = [...(this.document.security ?? []), { ...security }];
+    this.document.security = [
+      ...(this.document.security ?? []),
+      { ...security },
+    ];
     return this;
   }
 
@@ -69,34 +123,56 @@ export class OpenAPIDocumentBuilder {
 
   public addSchema(name: string, schema: unknown): this {
     const components = this.document.components ?? {};
-    this.document.components = { ...components, schemas: { ...(components.schemas ?? {}), [name]: schema } };
+    this.document.components = {
+      ...components,
+      schemas: { ...(components.schemas ?? {}), [name]: schema },
+    };
     return this;
   }
 
   public addResponse(name: string, response: unknown): this {
     const components = this.document.components ?? {};
-    this.document.components = { ...components, responses: { ...(components.responses ?? {}), [name]: response } };
+    this.document.components = {
+      ...components,
+      responses: { ...(components.responses ?? {}), [name]: response },
+    };
     return this;
   }
 
   public addParameter(name: string, parameter: unknown): this {
     const components = this.document.components ?? {};
-    this.document.components = { ...components, parameters: { ...(components.parameters ?? {}), [name]: parameter } };
+    this.document.components = {
+      ...components,
+      parameters: { ...(components.parameters ?? {}), [name]: parameter },
+    };
     return this;
   }
 
   public addSecurityScheme(name: string, scheme: unknown): this {
     const components = this.document.components ?? {};
-    this.document.components = { ...components, securitySchemes: { ...(components.securitySchemes ?? {}), [name]: scheme } };
+    this.document.components = {
+      ...components,
+      securitySchemes: {
+        ...(components.securitySchemes ?? {}),
+        [name]: scheme,
+      },
+    };
     return this;
   }
 
   public build(): Readonly<OpenAPIDocument> {
-    const paths = Object.keys(this.document.paths).length === 0 ? {} : (this.document.paths as OpenAPIDocument["paths"]);
+    const paths =
+      Object.keys(this.document.paths).length === 0
+        ? {}
+        : (this.document.paths as OpenAPIDocument["paths"]);
     const components: Record<string, unknown> = {};
     if (this.document.components) {
       for (const [key, value] of Object.entries(this.document.components)) {
-        if (value && typeof value === "object" && Object.keys(value).length > 0) {
+        if (
+          value &&
+          typeof value === "object" &&
+          Object.keys(value).length > 0
+        ) {
           components[key] = Object.freeze({ ...(value as object) });
         }
       }
@@ -104,11 +180,19 @@ export class OpenAPIDocumentBuilder {
     return Object.freeze({
       openapi: this.document.openapi,
       info: Object.freeze(this.document.info) as OpenAPIDocument["info"],
-      servers: this.document.servers?.length ? Object.freeze(this.document.servers) : undefined,
+      servers: this.document.servers?.length
+        ? Object.freeze(this.document.servers)
+        : undefined,
       paths: Object.freeze(paths) as OpenAPIDocument["paths"],
-      ...(Object.keys(components).length > 0 ? { components: Object.freeze(components) } : {}),
-      security: this.document.security?.length ? Object.freeze(this.document.security) : undefined,
-      tags: this.document.tags?.length ? Object.freeze(this.document.tags) : undefined,
+      ...(Object.keys(components).length > 0
+        ? { components: Object.freeze(components) }
+        : {}),
+      security: this.document.security?.length
+        ? Object.freeze(this.document.security)
+        : undefined,
+      tags: this.document.tags?.length
+        ? Object.freeze(this.document.tags)
+        : undefined,
     }) as Readonly<OpenAPIDocument>;
   }
 }

@@ -11,7 +11,4 @@ export {
   ModuleLoadError,
 } from "./moduleLoader.type.js";
 
-export {
-  ModuleLoader,
-  createModuleLoader,
-} from "./moduleLoader.loader.js";
+export { ModuleLoader, createModuleLoader } from "./moduleLoader.loader.js";

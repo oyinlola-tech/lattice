@@ -9,7 +9,11 @@ import { MessageError } from "./messageError.base.js";
 export class MessageValidationError extends MessageError {
   public readonly issues: readonly string[];
 
-  constructor(message: string, issues: readonly string[] = [], messageType?: string) {
+  constructor(
+    message: string,
+    issues: readonly string[] = [],
+    messageType?: string,
+  ) {
     super(message, {
       code: ErrorCode.MESSAGE_VALIDATION_FAILED,
       messageType,

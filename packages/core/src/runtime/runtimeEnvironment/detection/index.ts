@@ -13,12 +13,6 @@ export {
   getProcessObject,
 } from "./runtimeEnvironment.detection.js";
 
-export {
-  getNodeOsObject,
-  safeCall,
-} from "./runtimeEnvironment.os.js";
+export { getNodeOsObject, safeCall } from "./runtimeEnvironment.os.js";
 
-export {
-  detectCI,
-  detectContainer,
-} from "./runtimeEnvironment.env.js";
+export { detectCI, detectContainer } from "./runtimeEnvironment.env.js";

@@ -18,7 +18,9 @@ export function createMemoryPermissionResolver(
   store: Map<string, readonly PermissionRule[]>,
 ): PermissionResolver {
   return {
-    async resolvePermissions(actor: PermissionActor): Promise<readonly PermissionRule[]> {
+    async resolvePermissions(
+      actor: PermissionActor,
+    ): Promise<readonly PermissionRule[]> {
       return store.get(actor.id) ?? [];
     },
   };

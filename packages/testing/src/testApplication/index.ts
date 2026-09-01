@@ -4,9 +4,7 @@
  * Simplified test application context creation.
  */
 
-export {
-  createTestApplication,
-} from "./testApplication.core.js";
+export { createTestApplication } from "./testApplication.core.js";
 
 export type {
   TestApplication,

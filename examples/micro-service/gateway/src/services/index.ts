@@ -1,1 +1,6 @@
-export { HttpClient, createServiceClient, type ServiceResponse, type ProxyRequestOptions } from "./http-client.js";
+export {
+  HttpClient,
+  createServiceClient,
+  type ServiceResponse,
+  type ProxyRequestOptions,
+} from "./http-client.js";

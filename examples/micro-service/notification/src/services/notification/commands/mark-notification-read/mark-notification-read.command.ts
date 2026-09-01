@@ -2,7 +2,9 @@ import { Command } from "@oyinlola141/lattice-cqrs";
 
 export const MARK_NOTIFICATION_READ_COMMAND = "notification.markRead" as const;
 
-export class MarkNotificationReadCommand extends Command<typeof MARK_NOTIFICATION_READ_COMMAND> {
+export class MarkNotificationReadCommand extends Command<
+  typeof MARK_NOTIFICATION_READ_COMMAND
+> {
   public readonly notificationId: string;
 
   constructor(payload: { readonly notificationId: string }) {

@@ -1,14 +1,8 @@
-import type {
-  ConfigValue,
-} from "../../configValue/configValue.core.js";
+import type { ConfigValue } from "../../configValue/configValue.core.js";
 
-import type {
-  ConfigSchema,
-} from "../../configSchema/configSchema.core.js";
+import type { ConfigSchema } from "../../configSchema/configSchema.core.js";
 
-import type {
-  ConfigStore,
-} from "../../configStore/configStore.core.js";
+import type { ConfigStore } from "../../configStore/configStore.core.js";
 
 /**
  * Options for resolving configuration values.
@@ -22,9 +16,7 @@ export interface ConfigResolverOptions {
 /**
  * Result returned when resolving a configuration value.
  */
-export interface ConfigResolutionResult<
-  T extends ConfigValue = ConfigValue,
-> {
+export interface ConfigResolutionResult<T extends ConfigValue = ConfigValue> {
   readonly key: string;
   readonly value: T | undefined;
   readonly found: boolean;

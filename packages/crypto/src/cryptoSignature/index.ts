@@ -4,4 +4,4 @@
  * Digital signature creation and verification.
  */
 
-export * from './cryptoSignature.core.js';
+export * from "./cryptoSignature.core.js";

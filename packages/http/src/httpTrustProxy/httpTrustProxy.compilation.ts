@@ -31,14 +31,11 @@ export function compileTrustProxy(
 
   if (trustProxy === "linklocal") {
     return (value) =>
-      value === "127.0.0.1" ||
-      value === "::1" ||
-      value === "::ffff:127.0.0.1";
+      value === "127.0.0.1" || value === "::1" || value === "::ffff:127.0.0.1";
   }
 
   if (trustProxy === "loopback") {
-    return (value) =>
-      isLoopbackAddress(value);
+    return (value) => isLoopbackAddress(value);
   }
 
   if (Array.isArray(trustProxy)) {
@@ -47,9 +44,7 @@ export function compileTrustProxy(
   }
 
   if (typeof trustProxy === "string") {
-    const trustSet = new Set(
-      trustProxy.split(",").map((s) => s.trim()),
-    );
+    const trustSet = new Set(trustProxy.split(",").map((s) => s.trim()));
     return (value) => trustSet.has(value);
   }
 

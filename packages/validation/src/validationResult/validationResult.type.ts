@@ -2,7 +2,12 @@
  * Validation result types and helpers.
  */
 
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "@oyinlola141/lattice-errors";
+import {
+  BaseError,
+  ErrorCode,
+  ErrorCategory,
+  ErrorSeverity,
+} from "@oyinlola141/lattice-errors";
 
 /** A single validation issue. */
 export interface ValidationIssue {
@@ -20,11 +25,14 @@ export function formatIssues(issues: readonly ValidationIssue[]): string {
 }
 
 /** Groups validation issues by their first path segment. */
-export function toFieldErrors(issues: readonly ValidationIssue[]): Readonly<Record<string, string>> {
+export function toFieldErrors(
+  issues: readonly ValidationIssue[],
+): Readonly<Record<string, string>> {
   const result: Record<string, string> = {};
   for (const issue of issues) {
     const field = issue.path[0];
-    if (typeof field === "string" && !(field in result)) result[field] = issue.message;
+    if (typeof field === "string" && !(field in result))
+      result[field] = issue.message;
   }
   return result;
 }
@@ -48,22 +56,34 @@ export type ValidationResult<T> = ValidationSuccess<T> | ValidationFailure;
 
 /** Creates a successful validation result. */
 export function success<T>(data: T): ValidationSuccess<T> {
-  return Object.freeze({ success: true as const, data, issues: [] as readonly ValidationIssue[] } as ValidationSuccess<T>);
+  return Object.freeze({
+    success: true as const,
+    data,
+    issues: [] as readonly ValidationIssue[],
+  } as ValidationSuccess<T>);
 }
 
 /** Creates a failed validation result. */
 export function failure(issues: readonly ValidationIssue[]): ValidationFailure {
-  if (issues.length === 0) throw new Error("A failure must contain at least one issue.");
-  return Object.freeze({ success: false as const, issues: Object.freeze([...issues]) });
+  if (issues.length === 0)
+    throw new Error("A failure must contain at least one issue.");
+  return Object.freeze({
+    success: false as const,
+    issues: Object.freeze([...issues]),
+  });
 }
 
 /** Checks whether a result is successful. */
-export function isValidationSuccess<T>(result: ValidationResult<T>): result is ValidationSuccess<T> {
+export function isValidationSuccess<T>(
+  result: ValidationResult<T>,
+): result is ValidationSuccess<T> {
   return result.success;
 }
 
 /** Checks whether a result is a failure. */
-export function isValidationFailure<T>(result: ValidationResult<T>): result is ValidationFailure {
+export function isValidationFailure<T>(
+  result: ValidationResult<T>,
+): result is ValidationFailure {
   return !result.success;
 }
 
@@ -74,7 +94,15 @@ export function unwrapValidation<T>(result: ValidationResult<T>): T {
 }
 
 /** Creates a single validation issue. */
-export function issue(message: string, options?: { readonly path?: readonly (string | number)[]; readonly code?: string; readonly expected?: unknown; readonly received?: unknown }): ValidationIssue {
+export function issue(
+  message: string,
+  options?: {
+    readonly path?: readonly (string | number)[];
+    readonly code?: string;
+    readonly expected?: unknown;
+    readonly received?: unknown;
+  },
+): ValidationIssue {
   return Object.freeze({
     path: options?.path ?? [],
     code: options?.code ?? "VALIDATION_ERROR",
@@ -85,21 +113,32 @@ export function issue(message: string, options?: { readonly path?: readonly (str
 }
 
 /** Transforms the data in a successful result. */
-export function map<T, U>(result: ValidationResult<T>, fn: (data: T) => U): ValidationResult<U> {
+export function map<T, U>(
+  result: ValidationResult<T>,
+  fn: (data: T) => U,
+): ValidationResult<U> {
   if (result.success) return success(fn(result.data));
   return result;
 }
 
 /** Combines multiple validation results. Returns the first failure, or a success with all data. */
-export function combine<T extends readonly unknown[]>(results: { [K in keyof T]: ValidationResult<T[K]> }): ValidationResult<T> {
+export function combine<T extends readonly unknown[]>(results: {
+  [K in keyof T]: ValidationResult<T[K]>;
+}): ValidationResult<T> {
   const failures: ValidationIssue[] = [];
   const data: unknown[] = [];
 
   for (const result of results) {
-    if (result.success) { data.push(result.data); } else { failures.push(...result.issues); }
+    if (result.success) {
+      data.push(result.data);
+    } else {
+      failures.push(...result.issues);
+    }
   }
 
-  return failures.length > 0 ? failure(failures) : success(data as unknown as T);
+  return failures.length > 0
+    ? failure(failures)
+    : success(data as unknown as T);
 }
 
 /** Error thrown when attempting to unwrap a failed validation result. */
@@ -121,6 +160,11 @@ export class ValidationResultError extends BaseError {
   }
 
   public override toJSON() {
-    return { ...super.toJSON(), name: this.name, message: this.message, issues: this.issues };
+    return {
+      ...super.toJSON(),
+      name: this.name,
+      message: this.message,
+      issues: this.issues,
+    };
   }
 }

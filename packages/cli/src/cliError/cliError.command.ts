@@ -6,7 +6,10 @@
  */
 
 import { NotFoundError, ConflictError } from "@oyinlola141/lattice-errors";
-import { CLI_ERROR_CODES, CLI_EXIT_CODES } from "../cliConstant/cliConstant.value.js";
+import {
+  CLI_ERROR_CODES,
+  CLI_EXIT_CODES,
+} from "../cliConstant/cliConstant.value.js";
 
 /* -------------------------------------------------------------------------- */
 /* Command Not Found                                                          */

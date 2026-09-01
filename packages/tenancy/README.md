@@ -11,7 +11,7 @@ npm install @latticejs/tenancy
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/tenancy";
+import {} from /* add usage here */ "@latticejs/tenancy";
 ```
 
 ## License

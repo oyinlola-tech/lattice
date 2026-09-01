@@ -9,104 +9,52 @@ import type {
   HttpMiddlewareContext,
 } from "../../httpMiddleware.type.js";
 
-import type {
-  HttpResponseContext as ResponseContext,
-} from "../../../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../../../httpResponse/httpResponse.context.js";
 
 export function composeMiddleware(
-  ...middlewares:
-    | readonly HttpMiddleware[]
-):
-  | HttpMiddleware {
-  return async (
-    context,
-    next,
-  ) => {
-    let index =
-      -1;
+  ...middlewares: readonly HttpMiddleware[]
+): HttpMiddleware {
+  return async (context, next) => {
+    let index = -1;
 
-    const dispatch =
-      async (
-        i:
-          | number,
-      ): Promise<ResponseContext> => {
-        if (
-          i <=
-          index
-        ) {
-          throw new Error(
-            "composeMiddleware() called multiple times.",
-          );
-        }
+    const dispatch = async (i: number): Promise<ResponseContext> => {
+      if (i <= index) {
+        throw new Error("composeMiddleware() called multiple times.");
+      }
 
-        index =
-          i;
+      index = i;
 
-        const middleware =
-          middlewares[i];
+      const middleware = middlewares[i];
 
-        if (
-          !middleware
-        ) {
-          return next();
-        }
+      if (!middleware) {
+        return next();
+      }
 
-        return middleware(
-          context,
-          () =>
-            dispatch(
-              i +
-                1,
-            ),
-        ) as Promise<ResponseContext>;
-      };
+      return middleware(context, () =>
+        dispatch(i + 1),
+      ) as Promise<ResponseContext>;
+    };
 
-    return dispatch(
-      0,
-    );
+    return dispatch(0);
   };
 }
 
 export function combineMiddleware(
-  ...middlewares:
-    | readonly HttpMiddleware[]
-):
-  | HttpMiddleware {
-  return composeMiddleware(
-    ...middlewares,
-  );
+  ...middlewares: readonly HttpMiddleware[]
+): HttpMiddleware {
+  return composeMiddleware(...middlewares);
 }
 
 export function withMiddleware(
-  handler:
-    | ((
-        context:
-          | HttpMiddlewareContext,
-      ) =>
-        | void
-        | Promise<void>),
-  ...middlewares:
-    | readonly HttpMiddleware[]
-):
-  | HttpMiddleware {
-  const composed =
-    composeMiddleware(
-      ...middlewares,
-    );
+  handler: (context: HttpMiddlewareContext) => void | Promise<void>,
+  ...middlewares: readonly HttpMiddleware[]
+): HttpMiddleware {
+  const composed = composeMiddleware(...middlewares);
 
-  return async (
-    context,
-    next,
-  ) => {
-    const result =
-      await composed(
-        context,
-        next,
-      );
+  return async (context, next) => {
+    const result = await composed(context, next);
 
-    await handler(
-      context,
-    );
+    await handler(context);
 
     return result;
   };

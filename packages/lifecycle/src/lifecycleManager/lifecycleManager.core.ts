@@ -5,8 +5,15 @@
  * Orchestrates component registration, startup, shutdown, rollback, and signals.
  */
 
-import { LifecycleState, LIFECYCLE_DEFAULT_CONCURRENCY, LIFECYCLE_DEFAULT_SHUTDOWN_TIMEOUT } from "@oyinlola141/lattice-constants";
-import type { LifecycleComponent, LifecycleRegistrationOptions } from "../lifecycleComponent/lifecycleComponent.type.js";
+import {
+  LifecycleState,
+  LIFECYCLE_DEFAULT_CONCURRENCY,
+  LIFECYCLE_DEFAULT_SHUTDOWN_TIMEOUT,
+} from "@oyinlola141/lattice-constants";
+import type {
+  LifecycleComponent,
+  LifecycleRegistrationOptions,
+} from "../lifecycleComponent/lifecycleComponent.type.js";
 import { LifecycleRegistry } from "../lifecycleRegistry/lifecycleRegistry.core.js";
 import { LifecycleStateMachine } from "../lifecycleState/lifecycleState.machine.js";
 import { LifecycleExecutor } from "../lifecycleExecutor/lifecycleExecutor.core.js";
@@ -55,7 +62,8 @@ export class LifecycleManager {
       executor: new LifecycleExecutor(),
       events: new LifecycleEventEmitter(),
       concurrency: options.concurrency ?? LIFECYCLE_DEFAULT_CONCURRENCY,
-      shutdownTimeout: options.shutdownTimeout ?? LIFECYCLE_DEFAULT_SHUTDOWN_TIMEOUT,
+      shutdownTimeout:
+        options.shutdownTimeout ?? LIFECYCLE_DEFAULT_SHUTDOWN_TIMEOUT,
       componentStates: new Map(),
       results: new Map(),
       startTime: 0,
@@ -72,7 +80,10 @@ export class LifecycleManager {
   }
 
   /** Registers a component with the lifecycle manager. */
-  public register(component: LifecycleComponent, options: LifecycleRegistrationOptions = {}): void {
+  public register(
+    component: LifecycleComponent,
+    options: LifecycleRegistrationOptions = {},
+  ): void {
     this._ctx.registry.register(component, options);
 
     const id = options.id ?? component.name;
@@ -124,8 +135,14 @@ export class LifecycleManager {
   }
 
   /** Returns component status information. */
-  public getStatus(): ReadonlyMap<string, { state: LifecycleState; results: readonly ExecutionResult[] }> {
-    const status = new Map<string, { state: LifecycleState; results: readonly ExecutionResult[] }>();
+  public getStatus(): ReadonlyMap<
+    string,
+    { state: LifecycleState; results: readonly ExecutionResult[] }
+  > {
+    const status = new Map<
+      string,
+      { state: LifecycleState; results: readonly ExecutionResult[] }
+    >();
 
     for (const [id, sm] of this._ctx.componentStates) {
       status.set(id, {
@@ -145,6 +162,8 @@ export class LifecycleManager {
 }
 
 /** Creates a new lifecycle manager. */
-export function createLifecycleManager(options?: LifecycleManagerOptions): LifecycleManager {
+export function createLifecycleManager(
+  options?: LifecycleManagerOptions,
+): LifecycleManager {
   return new LifecycleManager(options);
 }

@@ -12,7 +12,11 @@ import {
   createKeyBuilder,
   defaultKeyBuilder,
 } from "../src/key-builder.js";
-import { DEFAULT_PREFIX, DEFAULT_SEPARATOR, MAX_KEY_LENGTH } from "../src/constants.js";
+import {
+  DEFAULT_PREFIX,
+  DEFAULT_SEPARATOR,
+  MAX_KEY_LENGTH,
+} from "../src/constants.js";
 
 // ─── DefaultKeyBuilder ─────────────────────────────────────────────────────
 

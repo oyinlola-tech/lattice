@@ -14,8 +14,7 @@ let defaultProvider: CryptoProvider | undefined;
  */
 function getDefaultProvider(): CryptoProvider {
   if (defaultProvider === undefined) {
-    defaultProvider =
-      createNodeCryptoProvider();
+    defaultProvider = createNodeCryptoProvider();
   }
 
   return defaultProvider;
@@ -26,13 +25,10 @@ function getDefaultProvider(): CryptoProvider {
  *
  * The returned value does not expose the original token.
  */
-export async function hashToken(
-  token: string,
-): Promise<string> {
+export async function hashToken(token: string): Promise<string> {
   assertToken(token);
 
-  const digest =
-    await getDefaultProvider().hash("sha256", token);
+  const digest = await getDefaultProvider().hash("sha256", token);
 
   return encode(digest, "hex");
 }
@@ -40,13 +36,10 @@ export async function hashToken(
 /**
  * Creates a Base64URL SHA-256 digest of a token.
  */
-export async function hashTokenBase64Url(
-  token: string,
-): Promise<string> {
+export async function hashTokenBase64Url(token: string): Promise<string> {
   assertToken(token);
 
-  const digest =
-    await getDefaultProvider().hash("sha256", token);
+  const digest = await getDefaultProvider().hash("sha256", token);
 
   return encode(digest, "base64url");
 }
@@ -62,20 +55,13 @@ export async function verifyTokenHash(
   expectedHash: string,
 ): Promise<boolean> {
   try {
-    const actual =
-      await hashToken(token);
+    const actual = await hashToken(token);
 
-    if (
-      actual.length !==
-        expectedHash.length
-    ) {
+    if (actual.length !== expectedHash.length) {
       return false;
     }
 
-    return constantTimeEqual(
-      actual,
-      expectedHash,
-    );
+    return constantTimeEqual(actual, expectedHash);
   } catch {
     return false;
   }
@@ -86,19 +72,14 @@ export async function verifyTokenHash(
  *
  * This is useful when a raw bearer token must never be persisted.
  */
-export async function hashTokenForStorage(
-  token: string,
-): Promise<string> {
+export async function hashTokenForStorage(token: string): Promise<string> {
   return hashToken(token);
 }
 
 /**
  * Compares two hex-encoded strings in constant time.
  */
-function constantTimeEqual(
-  left: string,
-  right: string,
-): boolean {
+function constantTimeEqual(left: string, right: string): boolean {
   let mismatch = 0;
 
   const length = left.length;
@@ -107,14 +88,8 @@ function constantTimeEqual(
     return false;
   }
 
-  for (
-    let i = 0;
-    i < length;
-    i += 1
-  ) {
-    mismatch |=
-      left.charCodeAt(i) ^
-      right.charCodeAt(i);
+  for (let i = 0; i < length; i += 1) {
+    mismatch |= left.charCodeAt(i) ^ right.charCodeAt(i);
   }
 
   return mismatch === 0;
@@ -123,16 +98,8 @@ function constantTimeEqual(
 /**
  * Validates the basic shape of an opaque token.
  */
-function assertToken(
-  token: string,
-): void {
-  if (
-    typeof token !==
-      "string" ||
-    token.length === 0
-  ) {
-    throw new TypeError(
-      "Token must be a non-empty string.",
-    );
+function assertToken(token: string): void {
+  if (typeof token !== "string" || token.length === 0) {
+    throw new TypeError("Token must be a non-empty string.");
   }
 }

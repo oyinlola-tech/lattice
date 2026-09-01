@@ -6,15 +6,11 @@
  * host validation, request smuggling protection, and request ID validation.
  */
 
-export type {
-  HTTPSecurityConfig,
-} from "./httpSecurity.config.js";
+export type { HTTPSecurityConfig } from "./httpSecurity.config.js";
 
 export { DEFAULT_SECURITY_CONFIG } from "./httpSecurity.config.js";
 
-export type {
-  SecurityValidationResult,
-} from "./httpSecurity.validator.js";
+export type { SecurityValidationResult } from "./httpSecurity.validator.js";
 
 export {
   validateHeaders,
@@ -26,9 +22,6 @@ export {
   validateTransferEncoding,
 } from "./httpSecurity.validator.js";
 
-export type {
-  GuardableRequest,
-  GuardResult,
-} from "./httpSecurity.guard.js";
+export type { GuardableRequest, GuardResult } from "./httpSecurity.guard.js";
 
 export { guardRequest } from "./httpSecurity.guard.js";

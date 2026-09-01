@@ -5,7 +5,10 @@ import type { NotificationType, NotificationStatus } from "../enums/index.js";
 
 export interface NotificationRepository {
   findById(id: NotificationId): Promise<NotificationModel | null>;
-  findByUser(userId: UserId, status?: NotificationStatus): Promise<readonly NotificationModel[]>;
+  findByUser(
+    userId: UserId,
+    status?: NotificationStatus,
+  ): Promise<readonly NotificationModel[]>;
   save(notification: NotificationModel): Promise<void>;
   markAsRead(id: NotificationId): Promise<void>;
   markAllAsRead(userId: UserId): Promise<void>;
@@ -15,11 +18,16 @@ export interface NotificationRepository {
 export class SqliteNotificationRepository implements NotificationRepository {
   public async findById(id: NotificationId): Promise<NotificationModel | null> {
     const db = getDatabase();
-    const row = db.prepare("SELECT * FROM notifications WHERE id = ?").get(id) as Record<string, unknown> | undefined;
+    const row = db
+      .prepare("SELECT * FROM notifications WHERE id = ?")
+      .get(id) as Record<string, unknown> | undefined;
     return row ? mapRowToNotification(row) : null;
   }
 
-  public async findByUser(userId: UserId, status?: NotificationStatus): Promise<readonly NotificationModel[]> {
+  public async findByUser(
+    userId: UserId,
+    status?: NotificationStatus,
+  ): Promise<readonly NotificationModel[]> {
     const db = getDatabase();
     let query = "SELECT * FROM notifications WHERE user_id = ?";
     const params: unknown[] = [userId];
@@ -37,25 +45,45 @@ export class SqliteNotificationRepository implements NotificationRepository {
 
   public async save(notification: NotificationModel): Promise<void> {
     const db = getDatabase();
-    db.prepare(`
+    db.prepare(
+      `
       INSERT INTO notifications (id, user_id, type, title, message, status, metadata, created_at, read_at)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(notification.id, notification.userId, notification.type, notification.title, notification.message, notification.status, JSON.stringify(notification.metadata), notification.createdAt.toISOString(), notification.readAt?.toISOString() ?? null);
+    `,
+    ).run(
+      notification.id,
+      notification.userId,
+      notification.type,
+      notification.title,
+      notification.message,
+      notification.status,
+      JSON.stringify(notification.metadata),
+      notification.createdAt.toISOString(),
+      notification.readAt?.toISOString() ?? null,
+    );
   }
 
   public async markAsRead(id: NotificationId): Promise<void> {
     const db = getDatabase();
-    db.prepare("UPDATE notifications SET status = 'read', read_at = datetime('now') WHERE id = ?").run(id);
+    db.prepare(
+      "UPDATE notifications SET status = 'read', read_at = datetime('now') WHERE id = ?",
+    ).run(id);
   }
 
   public async markAllAsRead(userId: UserId): Promise<void> {
     const db = getDatabase();
-    db.prepare("UPDATE notifications SET status = 'read', read_at = datetime('now') WHERE user_id = ? AND status = 'unread'").run(userId);
+    db.prepare(
+      "UPDATE notifications SET status = 'read', read_at = datetime('now') WHERE user_id = ? AND status = 'unread'",
+    ).run(userId);
   }
 
   public async countUnread(userId: UserId): Promise<number> {
     const db = getDatabase();
-    const row = db.prepare("SELECT COUNT(*) as count FROM notifications WHERE user_id = ? AND status = 'unread'").get(userId) as { count: number };
+    const row = db
+      .prepare(
+        "SELECT COUNT(*) as count FROM notifications WHERE user_id = ? AND status = 'unread'",
+      )
+      .get(userId) as { count: number };
     return row.count;
   }
 }

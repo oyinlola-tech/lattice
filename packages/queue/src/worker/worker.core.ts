@@ -53,7 +53,12 @@ export function createWorker<TData>(
     stats.processed++;
 
     try {
-      await proc(job as never, { signal: abortController?.signal ?? new AbortController().signal } as never);
+      await proc(
+        job as never,
+        {
+          signal: abortController?.signal ?? new AbortController().signal,
+        } as never,
+      );
       stats.succeeded++;
     } catch {
       stats.failed++;

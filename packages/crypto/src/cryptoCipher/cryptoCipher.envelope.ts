@@ -1,11 +1,6 @@
-import type {
-  CipherOptions,
-} from "./cryptoCipher.core.js";
+import type { CipherOptions } from "./cryptoCipher.core.js";
 
-import {
-  encrypt,
-  decrypt,
-} from "./cryptoCipher.core.js";
+import { encrypt, decrypt } from "./cryptoCipher.core.js";
 
 /**
  * Creates an encrypted envelope suitable for storage or transport.
@@ -50,24 +45,15 @@ export async function decryptEnvelope(
     throw new TypeError("Invalid encrypted envelope.");
   }
 
-  const [
-    version,
-    algorithm,
-    encodedIv,
-    encodedAuthTag,
-    encodedCiphertext,
-  ] = parts as [string, string, string, string, string];
+  const [version, algorithm, encodedIv, encodedAuthTag, encodedCiphertext] =
+    parts as [string, string, string, string, string];
 
   if (version !== "v1") {
-    throw new TypeError(
-      `Unsupported encrypted envelope version: ${version}.`,
-    );
+    throw new TypeError(`Unsupported encrypted envelope version: ${version}.`);
   }
 
   if (algorithm !== "aes-256-gcm") {
-    throw new TypeError(
-      `Unsupported envelope algorithm: ${algorithm}.`,
-    );
+    throw new TypeError(`Unsupported envelope algorithm: ${algorithm}.`);
   }
 
   const iv = decodeBase64Url(encodedIv);

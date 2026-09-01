@@ -100,8 +100,22 @@ describe("createDomainRegistry", () => {
 
 describe("utils", () => {
   it("isTenantActive", () => {
-    expect(isTenantActive({ id: createTenantId("a"), name: "A", status: "active", metadata: {} })).toBe(true);
-    expect(isTenantActive({ id: createTenantId("a"), name: "A", status: "suspended", metadata: {} })).toBe(false);
+    expect(
+      isTenantActive({
+        id: createTenantId("a"),
+        name: "A",
+        status: "active",
+        metadata: {},
+      }),
+    ).toBe(true);
+    expect(
+      isTenantActive({
+        id: createTenantId("a"),
+        name: "A",
+        status: "suspended",
+        metadata: {},
+      }),
+    ).toBe(false);
   });
 
   it("sameTenant", () => {

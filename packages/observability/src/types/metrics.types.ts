@@ -24,7 +24,12 @@ export interface Gauge {
 export interface Histogram {
   readonly name: string;
   record(value: number): void;
-  getValue(): { readonly count: number; readonly sum: number; readonly min: number; readonly max: number };
+  getValue(): {
+    readonly count: number;
+    readonly sum: number;
+    readonly min: number;
+    readonly max: number;
+  };
   reset(): void;
 }
 
@@ -44,7 +49,14 @@ export interface MetricsRegistry {
 export interface MetricSnapshot {
   readonly name: string;
   readonly type: "counter" | "gauge" | "histogram";
-  readonly value: number | { readonly count: number; readonly sum: number; readonly min: number; readonly max: number };
+  readonly value:
+    | number
+    | {
+        readonly count: number;
+        readonly sum: number;
+        readonly min: number;
+        readonly max: number;
+      };
   readonly labels?: Record<string, string>;
 }
 

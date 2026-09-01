@@ -29,8 +29,7 @@ export const MIME_TYPES = {
   CSV: "text/csv",
   CSS: "text/css",
   DOC: "application/msword",
-  DOCX:
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  DOCX: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   EOT: "application/vnd.ms-fontobject",
   EPUB: "application/epub+zip",
   GIF: "image/gif",
@@ -52,8 +51,7 @@ export const MIME_TYPES = {
   PDF: "application/pdf",
   PNG: "image/png",
   PPT: "application/vnd.ms-powerpoint",
-  PPTX:
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+  PPTX: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
   RAR: "application/vnd.rar",
   RSS: "application/rss+xml",
   SVG: "image/svg+xml",
@@ -71,22 +69,18 @@ export const MIME_TYPES = {
   WOFF2: "font/woff2",
   XML: "application/xml",
   XLS: "application/vnd.ms-excel",
-  XLSX:
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  XLSX: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   ZIP: "application/zip",
   ZST: "application/zstd",
 } as const;
 
-export type KnownMIMEType =
-  (typeof MIME_TYPES)[keyof typeof MIME_TYPES];
+export type KnownMIMEType = (typeof MIME_TYPES)[keyof typeof MIME_TYPES];
 
 /* -------------------------------------------------------------------------- */
 /* Extension Map                                                              */
 /* -------------------------------------------------------------------------- */
 
-const EXTENSION_TO_MIME: Readonly<
-  Record<string, string>
-> = {
+const EXTENSION_TO_MIME: Readonly<Record<string, string>> = {
   aac: MIME_TYPES.AAC,
   avif: MIME_TYPES.AVIF,
   avi: MIME_TYPES.AVI,
@@ -148,149 +142,65 @@ const EXTENSION_TO_MIME: Readonly<
 /* Reverse Map                                                                */
 /* -------------------------------------------------------------------------- */
 
-const MIME_TO_EXTENSIONS: Readonly<
-  Record<string, readonly string[]>
-> = buildReverseMap(
-  EXTENSION_TO_MIME,
-);
+const MIME_TO_EXTENSIONS: Readonly<Record<string, readonly string[]>> =
+  buildReverseMap(EXTENSION_TO_MIME);
 
 /* -------------------------------------------------------------------------- */
 /* Lookup                                                                     */
 /* -------------------------------------------------------------------------- */
 
 export function getMIMEType(
-  filenameOrExtension:
-    | string
-    | undefined
-    | null,
+  filenameOrExtension: string | undefined | null,
 ): string {
-  if (
-    filenameOrExtension ===
-      undefined ||
-    filenameOrExtension ===
-      null
-  ) {
+  if (filenameOrExtension === undefined || filenameOrExtension === null) {
     return MIME_TYPES.BIN;
   }
 
-  const extension =
-    getExtension(
-      filenameOrExtension,
-    );
+  const extension = getExtension(filenameOrExtension);
 
-  if (
-    extension.length ===
-    0
-  ) {
+  if (extension.length === 0) {
     return MIME_TYPES.BIN;
   }
 
-  return (
-    EXTENSION_TO_MIME[
-      extension
-    ] ??
-    MIME_TYPES.BIN
-  );
+  return EXTENSION_TO_MIME[extension] ?? MIME_TYPES.BIN;
 }
 
 export function lookupMIMEType(
-  filenameOrExtension:
-    | string
-    | undefined
-    | null,
+  filenameOrExtension: string | undefined | null,
 ): string | undefined {
-  if (
-    filenameOrExtension ===
-      undefined ||
-    filenameOrExtension ===
-      null
-  ) {
+  if (filenameOrExtension === undefined || filenameOrExtension === null) {
     return undefined;
   }
 
-  const extension =
-    getExtension(
-      filenameOrExtension,
-    );
+  const extension = getExtension(filenameOrExtension);
 
-  return (
-    EXTENSION_TO_MIME[
-      extension
-    ]
-  );
+  return EXTENSION_TO_MIME[extension];
 }
 
-export function getExtension(
-  filenameOrExtension: string,
-): string {
-  const clean =
-    filenameOrExtension
-      .split(
-        "?",
-        1,
-      )[0]
-      .split(
-        "#",
-        1,
-      )[0]
-      .trim();
+export function getExtension(filenameOrExtension: string): string {
+  const clean = filenameOrExtension.split("?", 1)[0].split("#", 1)[0].trim();
 
-  const lastSlash =
-    Math.max(
-      clean.lastIndexOf(
-        "/",
-      ),
-      clean.lastIndexOf(
-        "\\",
-      ),
-    );
+  const lastSlash = Math.max(clean.lastIndexOf("/"), clean.lastIndexOf("\\"));
 
-  const filename =
-    clean.slice(
-      lastSlash + 1,
-    );
+  const filename = clean.slice(lastSlash + 1);
 
-  const lastDot =
-    filename.lastIndexOf(
-      ".",
-    );
+  const lastDot = filename.lastIndexOf(".");
 
-  if (
-    lastDot <=
-    0
-  ) {
+  if (lastDot <= 0) {
     return "";
   }
 
-  return filename
-    .slice(
-      lastDot + 1,
-    )
-    .toLowerCase();
+  return filename.slice(lastDot + 1).toLowerCase();
 }
 
-export function getMIMEExtensions(
-  mimeType: string,
-): readonly string[] {
-  const normalized =
-    normalizeMIMEType(
-      mimeType,
-    );
+export function getMIMEExtensions(mimeType: string): readonly string[] {
+  const normalized = normalizeMIMEType(mimeType);
 
-  return (
-    MIME_TO_EXTENSIONS[
-      normalized
-    ] ??
-    []
-  );
+  return MIME_TO_EXTENSIONS[normalized] ?? [];
 }
 
-export function getPrimaryExtension(
-  mimeType: string,
-): string | undefined {
-  return getMIMEExtensions(
-    mimeType,
-  )[0];
+export function getPrimaryExtension(mimeType: string): string | undefined {
+  return getMIMEExtensions(mimeType)[0];
 }
 
 /* -------------------------------------------------------------------------- */
@@ -298,91 +208,40 @@ export function getPrimaryExtension(
 /* -------------------------------------------------------------------------- */
 
 export function isKnownMIMEType(
-  mimeType:
-    | string
-    | undefined
-    | null,
+  mimeType: string | undefined | null,
 ): mimeType is KnownMIMEType {
-  if (
-    !mimeType
-  ) {
+  if (!mimeType) {
     return false;
   }
 
-  const normalized =
-    normalizeMIMEType(
-      mimeType,
-    );
+  const normalized = normalizeMIMEType(mimeType);
 
-  return Object.values(
-    MIME_TYPES,
-  ).includes(
-    normalized as KnownMIMEType,
-  );
+  return Object.values(MIME_TYPES).includes(normalized as KnownMIMEType);
 }
 
-export function isMIMEType(
-  value:
-    | string
-    | undefined
-    | null,
-): boolean {
-  if (
-    !value
-  ) {
+export function isMIMEType(value: string | undefined | null): boolean {
+  if (!value) {
     return false;
   }
 
-  const normalized =
-    value.trim();
+  const normalized = value.trim();
 
-  const separator =
-    normalized.indexOf(
-      "/",
-    );
+  const separator = normalized.indexOf("/");
 
-  if (
-    separator <=
-      0 ||
-    separator ===
-      normalized.length -
-        1
-  ) {
+  if (separator <= 0 || separator === normalized.length - 1) {
     return false;
   }
 
-  const type =
-    normalized.slice(
-      0,
-      separator,
-    );
+  const type = normalized.slice(0, separator);
 
-  const subtype =
-    normalized.slice(
-      separator + 1,
-    );
+  const subtype = normalized.slice(separator + 1);
 
-  return (
-    isMIMEToken(
-      type,
-    ) &&
-    isMIMEToken(
-      subtype,
-    )
-  );
+  return isMIMEToken(type) && isMIMEToken(subtype);
 }
 
-export function assertMIMEType(
-  value: string,
-): asserts value is KnownMIMEType {
-  if (
-    !isMIMEType(
-      value,
-    )
-  ) {
-    throw new TypeError(
-      `Invalid MIME type: ${value}`,
-    );
+export function assertMIMEType(value: string): asserts value is KnownMIMEType {
+  if (!isMIMEType(value)) {
+    throw new TypeError(`Invalid MIME type: ${value}`);
   }
 }
 
@@ -390,228 +249,105 @@ export function assertMIMEType(
 /* Normalization                                                              */
 /* -------------------------------------------------------------------------- */
 
-export function normalizeMIMEType(
-  mimeType: string,
-): string {
-  return mimeType
-    .trim()
-    .split(
-      ";",
-      1,
-    )[0]
-    .trim()
-    .toLowerCase();
+export function normalizeMIMEType(mimeType: string): string {
+  return mimeType.trim().split(";", 1)[0].trim().toLowerCase();
 }
 
 /* -------------------------------------------------------------------------- */
 /* MIME Categories                                                            */
 /* -------------------------------------------------------------------------- */
 
-export function getMIMECategory(
-  mimeType: string,
-): string | undefined {
-  const normalized =
-    normalizeMIMEType(
-      mimeType,
-    );
+export function getMIMECategory(mimeType: string): string | undefined {
+  const normalized = normalizeMIMEType(mimeType);
 
-  const separator =
-    normalized.indexOf(
-      "/",
-    );
+  const separator = normalized.indexOf("/");
 
-  if (
-    separator <=
-    0
-  ) {
+  if (separator <= 0) {
     return undefined;
   }
 
-  return normalized.slice(
-    0,
-    separator,
-  );
+  return normalized.slice(0, separator);
 }
 
-export function getMIMESubtype(
-  mimeType: string,
-): string | undefined {
-  const normalized =
-    normalizeMIMEType(
-      mimeType,
-    );
+export function getMIMESubtype(mimeType: string): string | undefined {
+  const normalized = normalizeMIMEType(mimeType);
 
-  const separator =
-    normalized.indexOf(
-      "/",
-    );
+  const separator = normalized.indexOf("/");
 
-  if (
-    separator <=
-    0 ||
-    separator ===
-      normalized.length -
-        1
-  ) {
+  if (separator <= 0 || separator === normalized.length - 1) {
     return undefined;
   }
 
-  return normalized.slice(
-    separator + 1,
-  );
+  return normalized.slice(separator + 1);
 }
 
-export function isTextMIME(
-  mimeType: string,
-): boolean {
-  return (
-    getMIMECategory(
-      mimeType,
-    ) === "text"
-  );
+export function isTextMIME(mimeType: string): boolean {
+  return getMIMECategory(mimeType) === "text";
 }
 
-export function isImageMIME(
-  mimeType: string,
-): boolean {
-  return (
-    getMIMECategory(
-      mimeType,
-    ) === "image"
-  );
+export function isImageMIME(mimeType: string): boolean {
+  return getMIMECategory(mimeType) === "image";
 }
 
-export function isAudioMIME(
-  mimeType: string,
-): boolean {
-  return (
-    getMIMECategory(
-      mimeType,
-    ) === "audio"
-  );
+export function isAudioMIME(mimeType: string): boolean {
+  return getMIMECategory(mimeType) === "audio";
 }
 
-export function isVideoMIME(
-  mimeType: string,
-): boolean {
-  return (
-    getMIMECategory(
-      mimeType,
-    ) === "video"
-  );
+export function isVideoMIME(mimeType: string): boolean {
+  return getMIMECategory(mimeType) === "video";
 }
 
-export function isApplicationMIME(
-  mimeType: string,
-): boolean {
-  return (
-    getMIMECategory(
-      mimeType,
-    ) === "application"
-  );
+export function isApplicationMIME(mimeType: string): boolean {
+  return getMIMECategory(mimeType) === "application";
 }
 
-export function isFontMIME(
-  mimeType: string,
-): boolean {
-  return (
-    getMIMECategory(
-      mimeType,
-    ) === "font"
-  );
+export function isFontMIME(mimeType: string): boolean {
+  return getMIMECategory(mimeType) === "font";
 }
 
 /* -------------------------------------------------------------------------- */
 /* Structured Types                                                           */
 /* -------------------------------------------------------------------------- */
 
-export function isJSONMIME(
-  mimeType: string,
-): boolean {
-  const normalized =
-    normalizeMIMEType(
-      mimeType,
-    );
+export function isJSONMIME(mimeType: string): boolean {
+  const normalized = normalizeMIMEType(mimeType);
+
+  return normalized === "application/json" || normalized.endsWith("+json");
+}
+
+export function isXMLMIME(mimeType: string): boolean {
+  const normalized = normalizeMIMEType(mimeType);
 
   return (
-    normalized ===
-      "application/json" ||
-    normalized.endsWith(
-      "+json",
-    )
+    normalized === "application/xml" ||
+    normalized === "text/xml" ||
+    normalized.endsWith("+xml")
   );
 }
 
-export function isXMLMIME(
-  mimeType: string,
-): boolean {
-  const normalized =
-    normalizeMIMEType(
-      mimeType,
-    );
-
-  return (
-    normalized ===
-      "application/xml" ||
-    normalized ===
-      "text/xml" ||
-    normalized.endsWith(
-      "+xml",
-    )
-  );
+export function isMultipartMIME(mimeType: string): boolean {
+  return normalizeMIMEType(mimeType).startsWith("multipart/");
 }
 
-export function isMultipartMIME(
-  mimeType: string,
-): boolean {
-  return normalizeMIMEType(
-    mimeType,
-  ).startsWith(
-    "multipart/",
-  );
-}
+export function isBinaryMIME(mimeType: string): boolean {
+  const normalized = normalizeMIMEType(mimeType);
 
-export function isBinaryMIME(
-  mimeType: string,
-): boolean {
-  const normalized =
-    normalizeMIMEType(
-      mimeType,
-    );
-
-  if (
-    normalized ===
-      MIME_TYPES.BIN
-  ) {
+  if (normalized === MIME_TYPES.BIN) {
     return true;
   }
 
   return (
-    isImageMIME(
-      normalized,
-    ) ||
-    isAudioMIME(
-      normalized,
-    ) ||
-    isVideoMIME(
-      normalized,
-    ) ||
-    normalized ===
-      MIME_TYPES.PDF ||
-    normalized ===
-      MIME_TYPES.ZIP ||
-    normalized ===
-      MIME_TYPES.GZIP ||
-    normalized ===
-      MIME_TYPES.BZIP ||
-    normalized ===
-      MIME_TYPES.BZIP2 ||
-    normalized ===
-      MIME_TYPES.RAR ||
-    normalized ===
-      MIME_TYPES.TAR ||
-    normalized ===
-      MIME_TYPES.WASM
+    isImageMIME(normalized) ||
+    isAudioMIME(normalized) ||
+    isVideoMIME(normalized) ||
+    normalized === MIME_TYPES.PDF ||
+    normalized === MIME_TYPES.ZIP ||
+    normalized === MIME_TYPES.GZIP ||
+    normalized === MIME_TYPES.BZIP ||
+    normalized === MIME_TYPES.BZIP2 ||
+    normalized === MIME_TYPES.RAR ||
+    normalized === MIME_TYPES.TAR ||
+    normalized === MIME_TYPES.WASM
   );
 }
 
@@ -619,145 +355,60 @@ export function isBinaryMIME(
 /* Content Negotiation                                                        */
 /* -------------------------------------------------------------------------- */
 
-export function mimeTypesEqual(
-  left: string,
-  right: string,
-): boolean {
-  return (
-    normalizeMIMEType(
-      left,
-    ) ===
-    normalizeMIMEType(
-      right,
-    )
-  );
+export function mimeTypesEqual(left: string, right: string): boolean {
+  return normalizeMIMEType(left) === normalizeMIMEType(right);
 }
 
-export function matchesMIMEType(
-  actual: string,
-  expected: string,
-): boolean {
-  const left =
-    normalizeMIMEType(
-      actual,
-    );
+export function matchesMIMEType(actual: string, expected: string): boolean {
+  const left = normalizeMIMEType(actual);
 
-  const right =
-    normalizeMIMEType(
-      expected,
-    );
+  const right = normalizeMIMEType(expected);
 
-  if (
-    left ===
-    right
-  ) {
+  if (left === right) {
     return true;
   }
 
-  const [
-    actualType,
-    actualSubtype,
-  ] =
-    splitMIMEType(
-      left,
-    );
+  const [actualType, actualSubtype] = splitMIMEType(left);
 
-  const [
-    expectedType,
-    expectedSubtype,
-  ] =
-    splitMIMEType(
-      right,
-    );
+  const [expectedType, expectedSubtype] = splitMIMEType(right);
 
-  if (
-    !actualType ||
-    !actualSubtype ||
-    !expectedType ||
-    !expectedSubtype
-  ) {
+  if (!actualType || !actualSubtype || !expectedType || !expectedSubtype) {
     return false;
   }
 
-  if (
-    expectedType !==
-      "*" &&
-    expectedType !==
-      actualType
-  ) {
+  if (expectedType !== "*" && expectedType !== actualType) {
     return false;
   }
 
-  return (
-    expectedSubtype ===
-      "*" ||
-    expectedSubtype ===
-      actualSubtype
-  );
+  return expectedSubtype === "*" || expectedSubtype === actualSubtype;
 }
 
-export function parseAcceptHeader(
-  header:
-    | string
-    | undefined
-    | null,
-): string[] {
-  if (
-    !header
-  ) {
+export function parseAcceptHeader(header: string | undefined | null): string[] {
+  if (!header) {
     return [];
   }
 
   return header
-    .split(
-      ",",
-    )
-    .map(
-      (part) =>
-        part
-          .split(
-            ";",
-            1,
-          )[0]
-          .trim()
-          .toLowerCase(),
-    )
-    .filter(
-      isMIMEType,
-    );
+    .split(",")
+    .map((part) => part.split(";", 1)[0].trim().toLowerCase())
+    .filter(isMIMEType);
 }
 
 export function negotiateMIMEType(
-  accepted:
-    | string
-    | readonly string[],
+  accepted: string | readonly string[],
   available: readonly string[],
 ): string | undefined {
   const acceptedTypes =
-    typeof accepted ===
-    "string"
-      ? parseAcceptHeader(
-          accepted,
-        )
-      : accepted.map(
-          normalizeMIMEType,
-        );
+    typeof accepted === "string"
+      ? parseAcceptHeader(accepted)
+      : accepted.map(normalizeMIMEType);
 
-  for (
-    const candidate of acceptedTypes
-  ) {
-    const match =
-      available.find(
-        (availableType) =>
-          matchesMIMEType(
-            availableType,
-            candidate,
-          ),
-      );
+  for (const candidate of acceptedTypes) {
+    const match = available.find((availableType) =>
+      matchesMIMEType(availableType, candidate),
+    );
 
-    if (
-      match
-    ) {
+    if (match) {
       return match;
     }
   }
@@ -769,57 +420,30 @@ export function negotiateMIMEType(
 /* Charset Helpers                                                            */
 /* -------------------------------------------------------------------------- */
 
-export function withCharset(
-  mimeType: string,
-  charset: string,
-): string {
-  return `${normalizeMIMEType(
-    mimeType,
-  )}; charset=${charset
+export function withCharset(mimeType: string, charset: string): string {
+  return `${normalizeMIMEType(mimeType)}; charset=${charset
     .trim()
     .toLowerCase()}`;
 }
 
-export function isUTF8MIME(
-  mimeType: string,
-): boolean {
-  const match =
-    /;\s*charset\s*=\s*"?([^";]+)"?/i.exec(
-      mimeType,
-    );
+export function isUTF8MIME(mimeType: string): boolean {
+  const match = /;\s*charset\s*=\s*"?([^";]+)"?/i.exec(mimeType);
 
-  return (
-    match?.[1]
-      .trim()
-      .toLowerCase() ===
-    "utf-8"
-  );
+  return match?.[1].trim().toLowerCase() === "utf-8";
 }
 
 /* -------------------------------------------------------------------------- */
 /* File Helpers                                                               */
 /* -------------------------------------------------------------------------- */
 
-export function filenameToMIME(
-  filename: string,
-): string {
-  return getMIMEType(
-    filename,
-  );
+export function filenameToMIME(filename: string): string {
+  return getMIMEType(filename);
 }
 
-export function mimeToFilename(
-  mimeType: string,
-  basename = "file",
-): string {
-  const extension =
-    getPrimaryExtension(
-      mimeType,
-    );
+export function mimeToFilename(mimeType: string, basename = "file"): string {
+  const extension = getPrimaryExtension(mimeType);
 
-  if (
-    !extension
-  ) {
+  if (!extension) {
     return basename;
   }
 
@@ -832,85 +456,32 @@ export function mimeToFilename(
 
 function splitMIMEType(
   mimeType: string,
-): [
-  string | undefined,
-  string | undefined,
-] {
-  const separator =
-    mimeType.indexOf(
-      "/",
-    );
+): [string | undefined, string | undefined] {
+  const separator = mimeType.indexOf("/");
 
-  if (
-    separator <=
-      0 ||
-    separator ===
-      mimeType.length -
-        1
-  ) {
-    return [
-      undefined,
-      undefined,
-    ];
+  if (separator <= 0 || separator === mimeType.length - 1) {
+    return [undefined, undefined];
   }
 
-  return [
-    mimeType.slice(
-      0,
-      separator,
-    ),
-    mimeType.slice(
-      separator + 1,
-    ),
-  ];
+  return [mimeType.slice(0, separator), mimeType.slice(separator + 1)];
 }
 
-function isMIMEToken(
-  value: string,
-): boolean {
-  return /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/.test(
-    value,
-  );
+function isMIMEToken(value: string): boolean {
+  return /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/.test(value);
 }
 
 function buildReverseMap(
-  map: Readonly<
-    Record<string, string>
-  >,
-): Readonly<
-  Record<string, readonly string[]>
-> {
-  const result:
-    Record<
-      string,
-      string[]
-    > = {};
+  map: Readonly<Record<string, string>>,
+): Readonly<Record<string, readonly string[]>> {
+  const result: Record<string, string[]> = {};
 
-  for (
-    const [
-      extension,
-      mimeType,
-    ] of Object.entries(
-      map,
-    )
-  ) {
-    const existing =
-      result[
-        mimeType
-      ];
+  for (const [extension, mimeType] of Object.entries(map)) {
+    const existing = result[mimeType];
 
-    if (
-      existing
-    ) {
-      existing.push(
-        extension,
-      );
+    if (existing) {
+      existing.push(extension);
     } else {
-      result[
-        mimeType
-      ] = [
-        extension,
-      ];
+      result[mimeType] = [extension];
     }
   }
 

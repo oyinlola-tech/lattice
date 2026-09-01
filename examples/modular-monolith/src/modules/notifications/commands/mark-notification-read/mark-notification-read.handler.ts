@@ -2,7 +2,10 @@ import { CommandHandler } from "@oyinlola141/lattice-cqrs";
 import type { MarkNotificationReadCommand } from "./mark-notification-read.command.js";
 import type { NotificationRepository } from "../../../../repositories/notification.repository.js";
 
-export class MarkNotificationReadHandler extends CommandHandler<MarkNotificationReadCommand, void> {
+export class MarkNotificationReadHandler extends CommandHandler<
+  MarkNotificationReadCommand,
+  void
+> {
   public readonly commandType = "notifications.mark-read" as const;
 
   private readonly notifications: NotificationRepository;

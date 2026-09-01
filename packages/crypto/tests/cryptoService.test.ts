@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { CryptoService, createCryptoService } from "../src/cryptoService/index.js";
+import {
+  CryptoService,
+  createCryptoService,
+} from "../src/cryptoService/index.js";
 
 describe("CryptoService", () => {
   const service = createCryptoService();
@@ -30,7 +33,9 @@ describe("CryptoService", () => {
     it("returns hex string", async () => {
       const hex = await service.hashHex("hello");
       expect(typeof hex).toBe("string");
-      expect(hex).toBe("2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824");
+      expect(hex).toBe(
+        "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+      );
     });
   });
 
@@ -39,7 +44,12 @@ describe("CryptoService", () => {
       const key = await service.generateKey();
       const plaintext = new Uint8Array([1, 2, 3, 4, 5]);
       const encrypted = await service.encrypt(plaintext, key.bytes());
-      const decrypted = await service.decrypt(encrypted.ciphertext, key.bytes(), encrypted.iv, encrypted.authTag);
+      const decrypted = await service.decrypt(
+        encrypted.ciphertext,
+        key.bytes(),
+        encrypted.iv,
+        encrypted.authTag,
+      );
       expect(decrypted).toEqual(plaintext);
     });
   });
@@ -60,7 +70,9 @@ describe("CryptoService", () => {
 
   describe("deriveKey", () => {
     it("derives a key", async () => {
-      const result = await service.deriveKey("password", "scrypt", { salt: new Uint8Array(16).fill(1) });
+      const result = await service.deriveKey("password", "scrypt", {
+        salt: new Uint8Array(16).fill(1),
+      });
       expect(result.key).toBeInstanceOf(Uint8Array);
     });
   });

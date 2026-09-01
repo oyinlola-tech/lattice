@@ -49,12 +49,24 @@ describe("createTenantContextStorage", () => {
     const ctxA = {
       mode: "tenant" as const,
       tenant: tenantA,
-      context: { tenantId: tenantA.id, source: "header" as const, trust: "verified" as const, resolvedAt: new Date(), metadata: {} },
+      context: {
+        tenantId: tenantA.id,
+        source: "header" as const,
+        trust: "verified" as const,
+        resolvedAt: new Date(),
+        metadata: {},
+      },
     };
     const ctxB = {
       mode: "tenant" as const,
       tenant: tenantB,
-      context: { tenantId: tenantB.id, source: "jwt" as const, trust: "trusted" as const, resolvedAt: new Date(), metadata: {} },
+      context: {
+        tenantId: tenantB.id,
+        source: "jwt" as const,
+        trust: "trusted" as const,
+        resolvedAt: new Date(),
+        metadata: {},
+      },
     };
 
     storage.run(ctxA, () => {

@@ -1,4 +1,7 @@
-import type { HashAlgorithm, HmacAlgorithm } from "../../cryptoProvider/index.js";
+import type {
+  HashAlgorithm,
+  HmacAlgorithm,
+} from "../../cryptoProvider/index.js";
 import type { SignatureAlgorithm } from "../../cryptoProvider/index.js";
 
 export function toBytes(input: Uint8Array | string | ArrayBuffer): Uint8Array {
@@ -13,7 +16,9 @@ export function toBytes(input: Uint8Array | string | ArrayBuffer): Uint8Array {
   return new Uint8Array(input);
 }
 
-export function nodeHashAlgorithm(algorithm: HashAlgorithm | HmacAlgorithm): string {
+export function nodeHashAlgorithm(
+  algorithm: HashAlgorithm | HmacAlgorithm,
+): string {
   const map: Record<string, string> = {
     sha256: "sha256",
     sha384: "sha384",
@@ -42,9 +47,7 @@ export function nodeSignatureAlgorithm(algorithm: SignatureAlgorithm): string {
     case "ed25519":
       return "ed25519";
     default:
-      throw new TypeError(
-        `Unsupported signature algorithm: ${algorithm}.`,
-      );
+      throw new TypeError(`Unsupported signature algorithm: ${algorithm}.`);
   }
 }
 

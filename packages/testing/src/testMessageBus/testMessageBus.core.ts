@@ -4,9 +4,7 @@
  * Wraps the real MessageBus with recording and assertion support.
  */
 
-import {
-  createMessageBus,
-} from "@oyinlola141/lattice-messaging";
+import { createMessageBus } from "@oyinlola141/lattice-messaging";
 
 import type {
   Message,

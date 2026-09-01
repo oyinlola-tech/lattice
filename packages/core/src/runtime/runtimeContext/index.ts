@@ -5,9 +5,7 @@
  * runtime-owned infrastructure.
  */
 
-export {
-  DefaultRuntimeContext,
-} from "./runtimeContext.core.js";
+export { DefaultRuntimeContext } from "./runtimeContext.core.js";
 
 export {
   createRuntimeId,

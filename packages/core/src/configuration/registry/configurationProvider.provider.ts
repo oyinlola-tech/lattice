@@ -1,14 +1,8 @@
-import {
-  Configuration,
-} from "../core/configuration.js";
+import { Configuration } from "../core/configuration.js";
 
-import type {
-  ConfigurationKey,
-} from "../core/configurationKey.key.js";
+import type { ConfigurationKey } from "../core/configurationKey.key.js";
 
-import type {
-  ConfigurationSource,
-} from "../core/configurationSource.source.js";
+import type { ConfigurationSource } from "../core/configurationSource.source.js";
 
 /**
  * Provides access to application configuration.
@@ -25,39 +19,29 @@ export interface ConfigurationProvider {
   /**
    * Retrieves a configuration value.
    */
-  get<T = unknown>(
-    path: string,
-  ): T | undefined;
+  get<T = unknown>(path: string): T | undefined;
 
   /**
    * Retrieves a required configuration value.
    *
    * Throws when the requested value does not exist.
    */
-  require<T = unknown>(
-    path: string,
-  ): T;
+  require<T = unknown>(path: string): T;
 
   /**
    * Retrieves a typed configuration value using a key.
    */
-  getByKey<T>(
-    key: ConfigurationKey<T>,
-  ): T | undefined;
+  getByKey<T>(key: ConfigurationKey<T>): T | undefined;
 
   /**
    * Retrieves a required typed configuration value.
    */
-  requireByKey<T>(
-    key: ConfigurationKey<T>,
-  ): T;
+  requireByKey<T>(key: ConfigurationKey<T>): T;
 
   /**
    * Checks whether a configuration value exists.
    */
-  has(
-    path: string,
-  ): boolean;
+  has(path: string): boolean;
 
   /**
    * Reloads configuration from registered sources.
@@ -92,23 +76,15 @@ export interface ConfigurationProviderOptions {
  * Responsible for coordinating configuration sources while
  * keeping the rest of the application independent from them.
  */
-export class DefaultConfigurationProvider
-  implements ConfigurationProvider
-{
+export class DefaultConfigurationProvider implements ConfigurationProvider {
   private configuration: Configuration;
 
   private readonly sources: ConfigurationSource[];
 
-  public constructor(
-    options: ConfigurationProviderOptions = {},
-  ) {
-    this.configuration =
-      options.configuration ??
-      new Configuration();
+  public constructor(options: ConfigurationProviderOptions = {}) {
+    this.configuration = options.configuration ?? new Configuration();
 
-    this.sources = [
-      ...(options.sources ?? []),
-    ];
+    this.sources = [...(options.sources ?? [])];
   }
 
   /**
@@ -121,56 +97,36 @@ export class DefaultConfigurationProvider
   /**
    * Retrieves a configuration value.
    */
-  public get<T = unknown>(
-    path: string,
-  ): T | undefined {
-    return this.configuration.get<T>(
-      path,
-    );
+  public get<T = unknown>(path: string): T | undefined {
+    return this.configuration.get<T>(path);
   }
 
   /**
    * Retrieves a required configuration value.
    */
-  public require<T = unknown>(
-    path: string,
-  ): T {
-    return this.configuration.require<T>(
-      path,
-    );
+  public require<T = unknown>(path: string): T {
+    return this.configuration.require<T>(path);
   }
 
   /**
    * Retrieves a typed configuration value.
    */
-  public getByKey<T>(
-    key: ConfigurationKey<T>,
-  ): T | undefined {
-    return this.configuration.getByKey(
-      key,
-    );
+  public getByKey<T>(key: ConfigurationKey<T>): T | undefined {
+    return this.configuration.getByKey(key);
   }
 
   /**
    * Retrieves a required typed configuration value.
    */
-  public requireByKey<T>(
-    key: ConfigurationKey<T>,
-  ): T {
-    return this.configuration.requireByKey(
-      key,
-    );
+  public requireByKey<T>(key: ConfigurationKey<T>): T {
+    return this.configuration.requireByKey(key);
   }
 
   /**
    * Checks whether a configuration value exists.
    */
-  public has(
-    path: string,
-  ): boolean {
-    return this.configuration.has(
-      path,
-    );
+  public has(path: string): boolean {
+    return this.configuration.has(path);
   }
 
   /**
@@ -180,32 +136,23 @@ export class DefaultConfigurationProvider
    * sources override values from lower priority sources.
    */
   public async reload(): Promise<Configuration> {
-    const sources = [
-      ...this.sources,
-    ].sort(
-      (a, b) =>
-        a.priority - b.priority,
-    );
+    const sources = [...this.sources].sort((a, b) => a.priority - b.priority);
 
-    let configuration =
-      new Configuration();
+    let configuration = new Configuration();
 
     for (const source of sources) {
-      const entries =
-        await source.load();
+      const entries = await source.load();
 
       for (const entry of entries) {
-        configuration =
-          configuration.with(
-            entry.path,
-            entry.value,
-            source.type,
-          );
+        configuration = configuration.with(
+          entry.path,
+          entry.value,
+          source.type,
+        );
       }
     }
 
-    this.configuration =
-      configuration;
+    this.configuration = configuration;
 
     return configuration;
   }
@@ -214,9 +161,7 @@ export class DefaultConfigurationProvider
    * Returns the registered configuration sources.
    */
   public getSources(): readonly ConfigurationSource[] {
-    return [
-      ...this.sources,
-    ];
+    return [...this.sources];
   }
 
   /**
@@ -225,9 +170,7 @@ export class DefaultConfigurationProvider
    * This is used by ConfigurationManager to push loaded
    * configuration into the provider.
    */
-  public setConfiguration(
-    configuration: Configuration,
-  ): void {
+  public setConfiguration(configuration: Configuration): void {
     this.configuration = configuration;
   }
 
@@ -237,12 +180,8 @@ export class DefaultConfigurationProvider
    * The source is not loaded automatically.
    * Call reload() when the provider should rebuild its configuration.
    */
-  public addSource(
-    source: ConfigurationSource,
-  ): void {
-    this.sources.push(
-      source,
-    );
+  public addSource(source: ConfigurationSource): void {
+    this.sources.push(source);
   }
 
   /**
@@ -250,23 +189,14 @@ export class DefaultConfigurationProvider
    *
    * Returns true when a source was removed.
    */
-  public removeSource(
-    name: string,
-  ): boolean {
-    const index =
-      this.sources.findIndex(
-        (source) =>
-          source.name === name,
-      );
+  public removeSource(name: string): boolean {
+    const index = this.sources.findIndex((source) => source.name === name);
 
     if (index === -1) {
       return false;
     }
 
-    this.sources.splice(
-      index,
-      1,
-    );
+    this.sources.splice(index, 1);
 
     return true;
   }
@@ -278,7 +208,5 @@ export class DefaultConfigurationProvider
 export function createConfigurationProvider(
   options: ConfigurationProviderOptions = {},
 ): ConfigurationProvider {
-  return new DefaultConfigurationProvider(
-    options,
-  );
+  return new DefaultConfigurationProvider(options);
 }

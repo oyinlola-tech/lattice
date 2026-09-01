@@ -18,9 +18,7 @@ export async function withTimeout<T>(
 ): Promise<T> {
   return new Promise<T>((resolve, reject) => {
     const timer = setTimeout(() => {
-      reject(
-        new LifecycleTimeoutError(componentId, phase, timeoutMs),
-      );
+      reject(new LifecycleTimeoutError(componentId, phase, timeoutMs));
     }, timeoutMs);
 
     fn()

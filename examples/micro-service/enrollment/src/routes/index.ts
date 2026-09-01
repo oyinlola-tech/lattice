@@ -17,6 +17,9 @@ export interface Route {
  * @param queryBus - The query bus instance.
  * @returns Combined array of all routes.
  */
-export function createAllRoutes(commandBus: CommandBus, queryBus: QueryBus): readonly Route[] {
+export function createAllRoutes(
+  commandBus: CommandBus,
+  queryBus: QueryBus,
+): readonly Route[] {
   return [...createEnrollmentRoutes(commandBus, queryBus)];
 }

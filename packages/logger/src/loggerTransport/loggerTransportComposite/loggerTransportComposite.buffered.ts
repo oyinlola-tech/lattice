@@ -2,9 +2,7 @@
  * Buffered logger transport.
  */
 
-import type {
-  LoggerEntry,
-} from "../../loggerEntry/loggerEntry.type.js";
+import type { LoggerEntry } from "../../loggerEntry/loggerEntry.type.js";
 
 import type {
   LoggerBufferedTransportOptions,
@@ -18,9 +16,7 @@ import {
   writeLoggerTransport,
 } from "../loggerTransport.core.js";
 
-import {
-  isLoggerTransportObject,
-} from "../loggerTransportGuard.js";
+import { isLoggerTransportObject } from "../loggerTransportGuard.js";
 
 /**
  * Creates a transport that buffers entries before forwarding
@@ -36,7 +32,9 @@ export function createBufferedLoggerTransport(
   let timer: ReturnType<typeof setTimeout> | undefined;
 
   const flush = async (): Promise<void> => {
-    if (buffer.length === 0) { return; }
+    if (buffer.length === 0) {
+      return;
+    }
     const entries = buffer.splice(0, buffer.length);
     for (const entry of entries) {
       await writeLoggerTransport(transport, entry);
@@ -44,10 +42,16 @@ export function createBufferedLoggerTransport(
   };
 
   const scheduleFlush = (): void => {
-    if (flushInterval <= 0 || timer) { return; }
+    if (flushInterval <= 0 || timer) {
+      return;
+    }
     timer = setTimeout(async () => {
       timer = undefined;
-      try { await flush(); } catch { /* deliberate no-op */ }
+      try {
+        await flush();
+      } catch {
+        /* deliberate no-op */
+      }
     }, flushInterval);
   };
 
@@ -64,7 +68,10 @@ export function createBufferedLoggerTransport(
     },
     flush,
     async close() {
-      if (timer) { clearTimeout(timer); timer = undefined; }
+      if (timer) {
+        clearTimeout(timer);
+        timer = undefined;
+      }
       await flush();
       if (isLoggerTransportObject(transport) && transport.close) {
         await transport.close();

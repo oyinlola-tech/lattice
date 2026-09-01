@@ -4,17 +4,19 @@
 
 import { describe, it, expect } from "vitest";
 
-import {
-  createCleanupManager,
-} from "../src/cleanupManager/cleanupManager.core.js";
+import { createCleanupManager } from "../src/cleanupManager/cleanupManager.core.js";
 
 describe("createCleanupManager", () => {
   it("should register and execute cleanup functions", async () => {
     const cleanup = createCleanupManager();
     const order: number[] = [];
 
-    cleanup.register(() => { order.push(1); });
-    cleanup.register(() => { order.push(2); });
+    cleanup.register(() => {
+      order.push(1);
+    });
+    cleanup.register(() => {
+      order.push(2);
+    });
 
     await cleanup.dispose();
 

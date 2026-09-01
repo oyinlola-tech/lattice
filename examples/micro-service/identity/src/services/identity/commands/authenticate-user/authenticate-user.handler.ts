@@ -22,7 +22,10 @@ export interface AuthenticateUserResult {
  * Handles the AuthenticateUserCommand.
  * Validates credentials and returns a signed JWT token.
  */
-export class AuthenticateUserHandler extends CommandHandler<AuthenticateUserCommand, AuthenticateUserResult> {
+export class AuthenticateUserHandler extends CommandHandler<
+  AuthenticateUserCommand,
+  AuthenticateUserResult
+> {
   public static readonly TYPE = "AuthenticateUser" as const;
   public readonly commandType = AuthenticateUserHandler.TYPE;
 
@@ -44,14 +47,20 @@ export class AuthenticateUserHandler extends CommandHandler<AuthenticateUserComm
     this.jwtExpiresIn = jwtExpiresIn;
   }
 
-  public async execute(command: AuthenticateUserCommand, _context?: CqrsContext): Promise<AuthenticateUserResult> {
+  public async execute(
+    command: AuthenticateUserCommand,
+    _context?: CqrsContext,
+  ): Promise<AuthenticateUserResult> {
     const user = this.userRepository.findByEmail(command.email);
 
     if (!user) {
       throw new UnauthorizedError("Invalid email or password.");
     }
 
-    const passwordValid = await comparePassword(command.password, user.passwordHash);
+    const passwordValid = await comparePassword(
+      command.password,
+      user.passwordHash,
+    );
 
     if (!passwordValid) {
       throw new UnauthorizedError("Invalid email or password.");

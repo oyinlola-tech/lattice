@@ -1,10 +1,6 @@
-import type {
-  Configuration,
-} from "../core/configuration.js";
+import type { Configuration } from "../core/configuration.js";
 
-import {
-  ConfigurationSchemaRegistry,
-} from "../schema/configurationSchema.schema.js";
+import { ConfigurationSchemaRegistry } from "../schema/configurationSchema.schema.js";
 
 import type {
   ConfigurationSchema,
@@ -12,13 +8,9 @@ import type {
   ConfigurationValidationResult,
 } from "../schema/configurationSchema.schema.js";
 
-import {
-  FrameworkError,
-} from "../../errors/frameworkError.error.js";
+import { FrameworkError } from "../../errors/frameworkError.error.js";
 
-import {
-  ErrorCode,
-} from "../../errors/errorCode.code.js";
+import { ErrorCode } from "../../errors/errorCode.code.js";
 
 /**
  * Result returned after validating configuration.
@@ -74,9 +66,7 @@ export interface ConfigurationValidationOptions {
 /**
  * Error thrown when configuration validation fails.
  */
-export class ConfigurationValidationError
-  extends FrameworkError
-{
+export class ConfigurationValidationError extends FrameworkError {
   /**
    * All configuration validation issues.
    */
@@ -97,32 +87,22 @@ export class ConfigurationValidationError
     schemaCount: number,
     invalidSchemaCount: number,
   ) {
-    super(
-      createValidationErrorMessage(
+    super(createValidationErrorMessage(issues), {
+      code: ErrorCode.CONFIGURATION_VALIDATION_FAILED,
+      details: {
         issues,
-      ),
-      {
-        code: ErrorCode.CONFIGURATION_VALIDATION_FAILED,
-        details: {
-          issues,
-          schemaCount,
-          invalidSchemaCount,
-        },
+        schemaCount,
+        invalidSchemaCount,
       },
-    );
+    });
 
-    this.name =
-      "ConfigurationValidationError";
+    this.name = "ConfigurationValidationError";
 
-    this.issues = [
-      ...issues,
-    ];
+    this.issues = [...issues];
 
-    this.schemaCount =
-      schemaCount;
+    this.schemaCount = schemaCount;
 
-    this.invalidSchemaCount =
-      invalidSchemaCount;
+    this.invalidSchemaCount = invalidSchemaCount;
   }
 }
 
@@ -134,22 +114,16 @@ export async function validateConfiguration(
   registry: ConfigurationSchemaRegistry,
   options: ConfigurationValidationOptions = {},
 ): Promise<ConfigurationValidationReport> {
-  const schemas =
-    registry.getAll();
+  const schemas = registry.getAll();
 
-  const issues: ConfigurationValidationIssue[] =
-    [];
+  const issues: ConfigurationValidationIssue[] = [];
 
   let validSchemaCount = 0;
 
   let invalidSchemaCount = 0;
 
   for (const schema of schemas) {
-    const result =
-      await validateSchema(
-        configuration,
-        schema,
-      );
+    const result = await validateSchema(configuration, schema);
 
     if (result.success) {
       validSchemaCount += 1;
@@ -158,27 +132,21 @@ export async function validateConfiguration(
 
     invalidSchemaCount += 1;
 
-    issues.push(
-      ...result.errors,
-    );
+    issues.push(...result.errors);
 
-    if (
-      options.failFast === true
-    ) {
+    if (options.failFast === true) {
       break;
     }
   }
 
   return {
-    valid:
-      issues.length === 0,
+    valid: issues.length === 0,
 
     configuration,
 
     issues,
 
-    schemaCount:
-      schemas.length,
+    schemaCount: schemas.length,
 
     validSchemaCount,
 
@@ -197,12 +165,7 @@ export async function validateConfigurationOrThrow(
   registry: ConfigurationSchemaRegistry,
   options: ConfigurationValidationOptions = {},
 ): Promise<Configuration> {
-  const report =
-    await validateConfiguration(
-      configuration,
-      registry,
-      options,
-    );
+  const report = await validateConfiguration(configuration, registry, options);
 
   if (!report.valid) {
     throw new ConfigurationValidationError(
@@ -223,21 +186,15 @@ export async function validateSchema<T>(
   schema: ConfigurationSchema<T>,
 ): Promise<ConfigurationValidationResult<T>> {
   try {
-    return await schema.validate(
-      configuration,
-    );
+    return await schema.validate(configuration);
   } catch (error) {
     return {
       success: false,
       errors: [
         {
           path: schema.path,
-          message:
-            error instanceof Error
-              ? error.message
-              : String(error),
-          code:
-            "CONFIGURATION_VALIDATOR_ERROR",
+          message: error instanceof Error ? error.message : String(error),
+          code: "CONFIGURATION_VALIDATOR_ERROR",
         },
       ],
     };
@@ -255,13 +212,9 @@ function createValidationErrorMessage(
     return "Configuration validation failed.";
   }
 
-  const formatted =
-    issues
-      .map(
-        (issue) =>
-          `${issue.path}: ${issue.message}`,
-      )
-      .join("; ");
+  const formatted = issues
+    .map((issue) => `${issue.path}: ${issue.message}`)
+    .join("; ");
 
   return `Configuration validation failed: ${formatted}`;
 }

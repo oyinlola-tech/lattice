@@ -21,11 +21,8 @@ export function calculateRetryDelay(
 
     case BackoffType.EXPONENTIAL: {
       const multiplierValue = multiplier ?? 2;
-      const calculatedDelay =
-        delay * Math.pow(multiplierValue, attempt - 1);
-      return maxDelay
-        ? Math.min(calculatedDelay, maxDelay)
-        : calculatedDelay;
+      const calculatedDelay = delay * Math.pow(multiplierValue, attempt - 1);
+      return maxDelay ? Math.min(calculatedDelay, maxDelay) : calculatedDelay;
     }
 
     default:
@@ -36,10 +33,7 @@ export function calculateRetryDelay(
 /**
  * Checks if a job should be retried based on its state.
  */
-export function shouldRetry(
-  attempt: number,
-  maxAttempts: number,
-): boolean {
+export function shouldRetry(attempt: number, maxAttempts: number): boolean {
   return attempt < maxAttempts;
 }
 
@@ -65,9 +59,7 @@ export function createBackoffOptions(
 /**
  * Creates a fixed backoff options.
  */
-export function createFixedBackoff(
-  delay: number,
-): BackoffOptions {
+export function createFixedBackoff(delay: number): BackoffOptions {
   return createBackoffOptions(BackoffType.FIXED, delay);
 }
 

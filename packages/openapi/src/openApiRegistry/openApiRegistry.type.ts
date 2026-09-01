@@ -7,7 +7,10 @@ import type { OpenAPISchema } from "../openApiTypes/openApiTypes.core.js";
 import type { OpenAPISecurityScheme } from "../openApiTypes/openApiTypes.core.js";
 import type { OpenAPITag } from "../openApiTypes/openApiTypes.core.js";
 import type { OpenAPIReference } from "../openApiTypes/openApiTypes.core.js";
-import { COMPONENT_REF_PREFIX, DEFAULT_OPENAPI_VERSION } from "../openApiConstants/openApiConstants.core.js";
+import {
+  COMPONENT_REF_PREFIX,
+  DEFAULT_OPENAPI_VERSION,
+} from "../openApiConstants/openApiConstants.core.js";
 import {
   OpenAPIComponentConflictError,
   OpenAPIDocumentError,
@@ -18,7 +21,8 @@ import {
  * A registered route in the OpenAPI registry.
  */
 export interface OpenAPIRoute {
-  readonly method: "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
+  readonly method:
+    "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
 
   readonly path: string;
 
@@ -58,7 +62,19 @@ export interface OpenAPIRegistry {
 
   registerTag(tag: OpenAPITag): void;
 
-  ref(section: "schemas" | "responses" | "parameters" | "requestBodies" | "headers" | "examples" | "securitySchemes" | "links" | "callbacks", name: string): OpenAPIReference;
+  ref(
+    section:
+      | "schemas"
+      | "responses"
+      | "parameters"
+      | "requestBodies"
+      | "headers"
+      | "examples"
+      | "securitySchemes"
+      | "links"
+      | "callbacks",
+    name: string,
+  ): OpenAPIReference;
 
   generate(): OpenAPIDocument;
 

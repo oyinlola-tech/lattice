@@ -19,6 +19,4 @@ export {
   cryptoKeyError,
 } from "@oyinlola141/lattice-errors";
 
-export type {
-  CryptoErrorOptions,
-} from "@oyinlola141/lattice-errors";
+export type { CryptoErrorOptions } from "@oyinlola141/lattice-errors";

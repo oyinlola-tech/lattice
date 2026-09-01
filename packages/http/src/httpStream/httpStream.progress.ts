@@ -8,21 +8,13 @@ import type {
   StreamProgressHandler,
 } from "./httpStream.types.js";
 
-import {
-  createAbortError,
-} from "./httpStream.error.js";
+import { createAbortError } from "./httpStream.error.js";
 
-import {
-  destroyStream,
-} from "./httpStream.destroy.js";
+import { destroyStream } from "./httpStream.destroy.js";
 
-import {
-  getChunkSize,
-} from "./httpStream.helper.js";
+import { getChunkSize } from "./httpStream.helper.js";
 
-import {
-  isWritableFinished,
-} from "./httpStream.state.js";
+import { isWritableFinished } from "./httpStream.state.js";
 
 import {
   createSettleGuard,
@@ -95,7 +87,9 @@ export async function pipeStreamWithProgress(
       complete();
     };
 
-    const onFinish = () => { complete(); };
+    const onFinish = () => {
+      complete();
+    };
 
     const onError = (error: unknown) => {
       destroyStream(destination);

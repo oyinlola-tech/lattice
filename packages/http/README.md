@@ -11,7 +11,7 @@ npm install @latticejs/http
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/http";
+import {} from /* add usage here */ "@latticejs/http";
 ```
 
 ## License

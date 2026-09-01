@@ -1,4 +1,11 @@
-import type { UserId, ArticleId, CommentId, ReactionId, TopicId, NotificationId } from "../types/index.js";
+import type {
+  UserId,
+  ArticleId,
+  CommentId,
+  ReactionId,
+  TopicId,
+  NotificationId,
+} from "../types/index.js";
 
 export interface CreateUserDto {
   readonly email: string;

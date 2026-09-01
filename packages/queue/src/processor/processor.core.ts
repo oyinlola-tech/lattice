@@ -1,4 +1,8 @@
-import type { Processor, ProcessorInfo, ProcessorRegistry } from "./processor.type.js";
+import type {
+  Processor,
+  ProcessorInfo,
+  ProcessorRegistry,
+} from "./processor.type.js";
 
 import { JobError } from "@oyinlola141/lattice-errors";
 
@@ -33,9 +37,7 @@ export function createProcessorRegistry(): ProcessorRegistry {
     get<TData, TResult>(
       jobName: string,
     ): Processor<TData, TResult> | undefined {
-      return processors.get(jobName) as
-        | Processor<TData, TResult>
-        | undefined;
+      return processors.get(jobName) as Processor<TData, TResult> | undefined;
     },
 
     has(jobName: string): boolean {

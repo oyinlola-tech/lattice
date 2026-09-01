@@ -2,16 +2,12 @@
  * Logger formatter types and interfaces.
  */
 
-import type {
-  LoggerEntry,
-} from "../loggerEntry/loggerEntry.type.js";
+import type { LoggerEntry } from "../loggerEntry/loggerEntry.type.js";
 
 /**
  * Supported formatter output.
  */
-export type LoggerFormattedOutput =
-  | string
-  | Record<string, unknown>;
+export type LoggerFormattedOutput = string | Record<string, unknown>;
 
 /**
  * Formatter context.

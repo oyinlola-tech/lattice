@@ -34,7 +34,9 @@ export class GetUserHandler extends QueryHandler<GetUserQuery, GetUserResult> {
   }
 
   public execute(query: GetUserQuery, _context?: CqrsContext): GetUserResult {
-    const user = this.userRepository.findById(query.userId as Parameters<UserRepository["findById"]>[0]);
+    const user = this.userRepository.findById(
+      query.userId as Parameters<UserRepository["findById"]>[0],
+    );
 
     if (!user) {
       throw new NotFoundError(`User with ID "${query.userId}" was not found.`);

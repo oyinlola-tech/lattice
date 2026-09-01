@@ -124,65 +124,65 @@ Lattice is organized as an npm workspaces monorepo. Each package has a focused r
 
 ### Foundation
 
-| Package | Description |
-|---------|-------------|
-| `@lattice/core` | Lifecycle, context, runtime, modules |
-| `@lattice/runtime` | Application lifecycle orchestrator |
-| `@lattice/container` | DI container with token-based registration |
-| `@lattice/config` | Layered configuration with sources |
-| `@lattice/errors` | Shared error base class and utilities |
-| `@lattice/validation` | Schema validation with Zod |
-| `@lattice/logger` | Structured logging with transports |
-| `@lattice/lifecycle` | State machine, dependency ordering, graceful shutdown |
-| `@lattice/constants` | Shared constants, enums, and type-safe literals |
-| `@lattice/types` | Shared type guards and utility types |
-| `@lattice/middleware` | Composable middleware pipeline |
+| Package               | Description                                           |
+| --------------------- | ----------------------------------------------------- |
+| `@lattice/core`       | Lifecycle, context, runtime, modules                  |
+| `@lattice/runtime`    | Application lifecycle orchestrator                    |
+| `@lattice/container`  | DI container with token-based registration            |
+| `@lattice/config`     | Layered configuration with sources                    |
+| `@lattice/errors`     | Shared error base class and utilities                 |
+| `@lattice/validation` | Schema validation with Zod                            |
+| `@lattice/logger`     | Structured logging with transports                    |
+| `@lattice/lifecycle`  | State machine, dependency ordering, graceful shutdown |
+| `@lattice/constants`  | Shared constants, enums, and type-safe literals       |
+| `@lattice/types`      | Shared type guards and utility types                  |
+| `@lattice/middleware` | Composable middleware pipeline                        |
 
 ### Application
 
-| Package | Description |
-|---------|-------------|
-| `@lattice/http` | HTTP primitives, request handling, routing |
-| `@lattice/schema` | Schema definition and parsing engine |
-| `@lattice/serialization` | Data translation layer |
-| `@lattice/cqrs` | Command query responsibility segregation |
-| `@lattice/cli` | Command-line interface |
+| Package                  | Description                                |
+| ------------------------ | ------------------------------------------ |
+| `@lattice/http`          | HTTP primitives, request handling, routing |
+| `@lattice/schema`        | Schema definition and parsing engine       |
+| `@lattice/serialization` | Data translation layer                     |
+| `@lattice/cqrs`          | Command query responsibility segregation   |
+| `@lattice/cli`           | Command-line interface                     |
 
 ### Data and Infrastructure
 
-| Package | Description |
-|---------|-------------|
-| `@lattice/database` | Database clients, repositories, transactions |
-| `@lattice/storage` | Storage abstractions and lifecycle |
-| `@lattice/queue` | Background job infrastructure |
-| `@lattice/messaging` | In-process message bus |
-| `@lattice/transactions` | Transaction lifecycle and coordination |
-| `@lattice/cache` | Cache abstraction with adapters |
+| Package                 | Description                                  |
+| ----------------------- | -------------------------------------------- |
+| `@lattice/database`     | Database clients, repositories, transactions |
+| `@lattice/storage`      | Storage abstractions and lifecycle           |
+| `@lattice/queue`        | Background job infrastructure                |
+| `@lattice/messaging`    | In-process message bus                       |
+| `@lattice/transactions` | Transaction lifecycle and coordination       |
+| `@lattice/cache`        | Cache abstraction with adapters              |
 
 ### Security
 
-| Package | Description |
-|---------|-------------|
-| `@lattice/security` | Input validation, CORS, CSRF, rate limiting |
-| `@lattice/crypto` | Cryptographic primitives |
-| `@lattice/auth` | JWT, sessions, password hashing |
-| `@lattice/permissions` | RBAC, ABAC, resource authorization |
+| Package                | Description                                 |
+| ---------------------- | ------------------------------------------- |
+| `@lattice/security`    | Input validation, CORS, CSRF, rate limiting |
+| `@lattice/crypto`      | Cryptographic primitives                    |
+| `@lattice/auth`        | JWT, sessions, password hashing             |
+| `@lattice/permissions` | RBAC, ABAC, resource authorization          |
 
 ### Platform
 
-| Package | Description |
-|---------|-------------|
+| Package                  | Description                           |
+| ------------------------ | ------------------------------------- |
 | `@lattice/observability` | Metrics, tracing, context propagation |
-| `@lattice/tenancy` | Multi-tenant context and isolation |
-| `@lattice/feature-flags` | Feature flag evaluation and rollouts |
-| `@lattice/adapters` | Boundary layer for external platforms |
+| `@lattice/tenancy`       | Multi-tenant context and isolation    |
+| `@lattice/feature-flags` | Feature flag evaluation and rollouts  |
+| `@lattice/adapters`      | Boundary layer for external platforms |
 
 ### Development
 
-| Package | Description |
-|---------|-------------|
+| Package            | Description                   |
+| ------------------ | ----------------------------- |
 | `@lattice/testing` | Test helpers, fixtures, mocks |
-| `@lattice/docs` | Documentation infrastructure |
+| `@lattice/docs`    | Documentation infrastructure  |
 
 ---
 
@@ -227,11 +227,11 @@ Lattice is currently under active development.
 
 The public API may change before the first stable release. Use packages with caution in production.
 
-| Status | Description |
-|--------|-------------|
-| Built | Package implementation complete |
-| Beta | API may change |
-| Experimental | Not recommended for production |
+| Status       | Description                     |
+| ------------ | ------------------------------- |
+| Built        | Package implementation complete |
+| Beta         | API may change                  |
+| Experimental | Not recommended for production  |
 
 All packages are currently at version `0.1.0` and marked as **Built**.
 

@@ -38,12 +38,16 @@ export function createAssessmentDatabase(): AssessmentRepository {
 
   const assessmentRepository: AssessmentRepository = {
     async findById(id: string) {
-      const row = db.prepare(`SELECT * FROM ${ASSESSMENT_TABLE} WHERE id = ?`).get(id) as Record<string, unknown> | undefined;
+      const row = db
+        .prepare(`SELECT * FROM ${ASSESSMENT_TABLE} WHERE id = ?`)
+        .get(id) as Record<string, unknown> | undefined;
       return row ?? null;
     },
 
     async findByCourseId(courseId: string) {
-      return db.prepare(`SELECT * FROM ${ASSESSMENT_TABLE} WHERE course_id = ?`).all(courseId) as Readonly<Record<string, unknown>>[];
+      return db
+        .prepare(`SELECT * FROM ${ASSESSMENT_TABLE} WHERE course_id = ?`)
+        .all(courseId) as Readonly<Record<string, unknown>>[];
     },
 
     async create(data: Readonly<Record<string, unknown>>) {
@@ -59,17 +63,28 @@ export function createAssessmentDatabase(): AssessmentRepository {
         data["totalPoints"],
         data["durationMinutes"] ?? null,
       );
-      const row = db.prepare(`SELECT * FROM ${ASSESSMENT_TABLE} WHERE id = ?`).get(data["id"]) as Record<string, unknown>;
+      const row = db
+        .prepare(`SELECT * FROM ${ASSESSMENT_TABLE} WHERE id = ?`)
+        .get(data["id"]) as Record<string, unknown>;
       return row;
     },
 
     async findSubmissionById(id: string) {
-      const row = db.prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE id = ?`).get(id) as Record<string, unknown> | undefined;
+      const row = db
+        .prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE id = ?`)
+        .get(id) as Record<string, unknown> | undefined;
       return row ?? null;
     },
 
-    async findSubmissionByStudentAndAssessment(studentId: string, assessmentId: string) {
-      const row = db.prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE student_id = ? AND assessment_id = ?`).get(studentId, assessmentId) as Record<string, unknown> | undefined;
+    async findSubmissionByStudentAndAssessment(
+      studentId: string,
+      assessmentId: string,
+    ) {
+      const row = db
+        .prepare(
+          `SELECT * FROM ${SUBMISSION_TABLE} WHERE student_id = ? AND assessment_id = ?`,
+        )
+        .get(studentId, assessmentId) as Record<string, unknown> | undefined;
       return row ?? null;
     },
 
@@ -85,22 +100,32 @@ export function createAssessmentDatabase(): AssessmentRepository {
         data["answers"],
         data["status"] ?? "submitted",
       );
-      const row = db.prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE id = ?`).get(data["id"]) as Record<string, unknown>;
+      const row = db
+        .prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE id = ?`)
+        .get(data["id"]) as Record<string, unknown>;
       return row;
     },
 
     async updateSubmissionScore(id: string, score: number) {
-      db.prepare(`UPDATE ${SUBMISSION_TABLE} SET score = ?, status = 'graded', graded_at = datetime('now') WHERE id = ?`).run(score, id);
-      const row = db.prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE id = ?`).get(id) as Record<string, unknown>;
+      db.prepare(
+        `UPDATE ${SUBMISSION_TABLE} SET score = ?, status = 'graded', graded_at = datetime('now') WHERE id = ?`,
+      ).run(score, id);
+      const row = db
+        .prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE id = ?`)
+        .get(id) as Record<string, unknown>;
       return row;
     },
 
     async findSubmissionsByAssessment(assessmentId: string) {
-      return db.prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE assessment_id = ?`).all(assessmentId) as Readonly<Record<string, unknown>>[];
+      return db
+        .prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE assessment_id = ?`)
+        .all(assessmentId) as Readonly<Record<string, unknown>>[];
     },
 
     async findSubmissionsByStudent(studentId: string) {
-      return db.prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE student_id = ?`).all(studentId) as Readonly<Record<string, unknown>>[];
+      return db
+        .prepare(`SELECT * FROM ${SUBMISSION_TABLE} WHERE student_id = ?`)
+        .all(studentId) as Readonly<Record<string, unknown>>[];
     },
   };
 

@@ -19,9 +19,7 @@ export function createInMemoryDeadLetterStore<
       store.set(deadLetterJob.job.id, deadLetterJob);
     },
 
-    async get(
-      jobId: JobId,
-    ): Promise<DeadLetterJob<TData> | null> {
+    async get(jobId: JobId): Promise<DeadLetterJob<TData> | null> {
       return store.get(jobId) ?? null;
     },
 

@@ -4,4 +4,4 @@
  * Event subscription management.
  */
 
-export * from './eventSubscription.core.js';
+export * from "./eventSubscription.core.js";

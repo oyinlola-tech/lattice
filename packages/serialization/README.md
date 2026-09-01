@@ -11,7 +11,7 @@ npm install @latticejs/serialization
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/serialization";
+import {} from /* add usage here */ "@latticejs/serialization";
 ```
 
 ## License

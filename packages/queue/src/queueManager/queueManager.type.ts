@@ -7,14 +7,9 @@ import type { Queue, QueueOptions } from "../queue/queue.type.js";
  */
 export interface QueueManager {
   /** Get or create a queue by name. */
-  getQueue<TData>(
-    name: QueueName,
-    options?: QueueOptions,
-  ): Queue<TData>;
+  getQueue<TData>(name: QueueName, options?: QueueOptions): Queue<TData>;
   /** Get an existing queue by name. */
-  getExistingQueue<TData>(
-    name: QueueName,
-  ): Queue<TData> | undefined;
+  getExistingQueue<TData>(name: QueueName): Queue<TData> | undefined;
   /** Check if a queue exists. */
   hasQueue(name: QueueName): boolean;
   /** Get all queue names. */

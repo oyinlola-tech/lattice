@@ -4,7 +4,11 @@
  * Messaging adapter contracts — bridges Lattice messaging to external providers.
  */
 
-import type { Adapter, AdapterCapabilities, AdapterOperationOptions } from "../index.js";
+import type {
+  Adapter,
+  AdapterCapabilities,
+  AdapterOperationOptions,
+} from "../index.js";
 
 /**
  * Messaging adapter — connects Lattice message bus to external providers.
@@ -13,7 +17,11 @@ import type { Adapter, AdapterCapabilities, AdapterOperationOptions } from "../i
  */
 export interface MessageAdapter extends Adapter {
   /** Publishes a message to the external provider. */
-  publish(topic: string, message: unknown, options?: AdapterOperationOptions): Promise<void>;
+  publish(
+    topic: string,
+    message: unknown,
+    options?: AdapterOperationOptions,
+  ): Promise<void>;
 
   /** Subscribes to a topic with a handler. */
   subscribe(topic: string, handler: MessageHandler): Promise<Subscription>;

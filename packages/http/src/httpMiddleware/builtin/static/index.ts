@@ -4,4 +4,7 @@
  * Static file serving middleware.
  */
 
-export { createStaticMiddleware, type StaticMiddlewareOptions } from "./httpMiddleware.static.js";
+export {
+  createStaticMiddleware,
+  type StaticMiddlewareOptions,
+} from "./httpMiddleware.static.js";

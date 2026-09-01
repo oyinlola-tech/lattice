@@ -1,6 +1,9 @@
 import type { Logger } from "../loggerCore/core/loggerCore.type.js";
 import { createLogger } from "../loggerCore/core/loggerCore.core.js";
-import type { LoggerOptions, ChildLoggerOptions } from "../loggerOptions/loggerOptions.type.js";
+import type {
+  LoggerOptions,
+  ChildLoggerOptions,
+} from "../loggerOptions/loggerOptions.type.js";
 
 /**
  * Factory responsible for creating and managing Lattice loggers.
@@ -80,7 +83,11 @@ export class LoggerFactory {
 
     await Promise.all(
       loggers.map(async (logger) => {
-        try { await logger.close(); } catch { /* Disposal continues for the remaining loggers. */ }
+        try {
+          await logger.close();
+        } catch {
+          /* Disposal continues for the remaining loggers. */
+        }
       }),
     );
   }
@@ -116,19 +123,28 @@ export class LoggerFactory {
     return {
       ...this.defaults,
       ...options,
-      metadata: { ...(this.defaults.metadata ?? {}), ...(options.metadata ?? {}) },
+      metadata: {
+        ...(this.defaults.metadata ?? {}),
+        ...(options.metadata ?? {}),
+      },
       transports: options.transports ?? this.defaults.transports,
     };
   }
 }
 
 /** Creates a logger factory. */
-export function createLoggerFactory(defaults: LoggerOptions = {}): LoggerFactory {
+export function createLoggerFactory(
+  defaults: LoggerOptions = {},
+): LoggerFactory {
   return new LoggerFactory(defaults);
 }
 
 /** Creates a standalone logger through a factory. */
-export function createFactoryLogger(factory: LoggerFactory, name: string, options: LoggerOptions = {}): Logger {
+export function createFactoryLogger(
+  factory: LoggerFactory,
+  name: string,
+  options: LoggerOptions = {},
+): Logger {
   return factory.create(name, options);
 }
 

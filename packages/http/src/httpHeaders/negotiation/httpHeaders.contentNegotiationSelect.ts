@@ -19,29 +19,16 @@ import { mediaTypeSpecificity } from "../internal/httpHeaders.internal.specifici
  * @returns The best matching candidate, or `undefined` if none match.
  */
 export function preferredMediaType(
-  headers:
-    | HTTPHeadersLike,
-  candidates:
-    | readonly string[],
-): string
-  | undefined {
-  const accept =
-    toHTTPHeaders(
-      headers,
-    ).get(
-      "accept",
-    );
+  headers: HTTPHeadersLike,
+  candidates: readonly string[],
+): string | undefined {
+  const accept = toHTTPHeaders(headers).get("accept");
 
-  if (
-    !accept
-  ) {
+  if (!accept) {
     return candidates[0];
   }
 
-  const accepted =
-    parseWeightedValues(
-      accept,
-    );
+  const accepted = parseWeightedValues(accept);
 
   let best:
     | {
@@ -51,62 +38,32 @@ export function preferredMediaType(
       }
     | undefined;
 
-  for (
-    const candidate of candidates
-  ) {
-    const parsedCandidate =
-      parseMediaType(
-        candidate,
-      );
+  for (const candidate of candidates) {
+    const parsedCandidate = parseMediaType(candidate);
 
-    if (
-      !parsedCandidate
-    ) {
+    if (!parsedCandidate) {
       continue;
     }
 
-    for (
-      const acceptedItem of accepted
-    ) {
-      const parsedAccepted =
-        parseMediaType(
-          acceptedItem.value,
-        );
+    for (const acceptedItem of accepted) {
+      const parsedAccepted = parseMediaType(acceptedItem.value);
 
-      if (
-        !parsedAccepted ||
-        acceptedItem.quality <=
-          0
-      ) {
+      if (!parsedAccepted || acceptedItem.quality <= 0) {
         continue;
       }
 
-      const specificity =
-        mediaTypeSpecificity(
-          parsedAccepted,
-          parsedCandidate,
-        );
+      const specificity = mediaTypeSpecificity(parsedAccepted, parsedCandidate);
 
-      if (
-        specificity ===
-        0
-      ) {
+      if (specificity === 0) {
         continue;
       }
 
-      const score =
-        acceptedItem.quality;
+      const score = acceptedItem.quality;
 
       if (
         !best ||
-        score >
-          best.quality ||
-        (
-          score ===
-            best.quality &&
-          specificity >
-            best.specificity
-        )
+        score > best.quality ||
+        (score === best.quality && specificity > best.specificity)
       ) {
         best = {
           candidate,

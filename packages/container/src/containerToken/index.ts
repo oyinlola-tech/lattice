@@ -4,4 +4,4 @@
  * Token types for service identification.
  */
 
-export * from './containerToken.type.js';
+export * from "./containerToken.type.js";

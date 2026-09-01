@@ -13,29 +13,14 @@ import { toHTTPHeaders } from "../conversion/httpHeaders.conversion.js";
  * @param headers - The headers to convert. If omitted, returns an empty Headers.
  * @returns A new {@link Headers} instance.
  */
-export function toHeaders(
-  headers?:
-    | HTTPHeadersLike,
-): Headers {
-  const result =
-    new Headers();
+export function toHeaders(headers?: HTTPHeadersLike): Headers {
+  const result = new Headers();
 
-  const normalized =
-    toHTTPHeaders(
-      headers,
-    );
+  const normalized = toHTTPHeaders(headers);
 
-  normalized.forEach(
-    (
-      value,
-      name,
-    ) => {
-      result.append(
-        name,
-        value,
-      );
-    },
-  );
+  normalized.forEach((value, name) => {
+    result.append(name, value);
+  });
 
   return result;
 }
@@ -47,10 +32,7 @@ export function toHeaders(
  * @returns A plain object with lowercased header names as keys.
  */
 export function toHeaderObject(
-  headers?:
-    | HTTPHeadersLike,
+  headers?: HTTPHeadersLike,
 ): Record<string, string> {
-  return toHTTPHeaders(
-    headers,
-  ).toObject();
+  return toHTTPHeaders(headers).toObject();
 }

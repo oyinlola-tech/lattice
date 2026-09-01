@@ -9,108 +9,55 @@ import type {
   HttpMiddlewareContext,
 } from "../../httpMiddleware.type.js";
 
-import type {
-  HttpResponseContext as ResponseContext,
-} from "../../../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../../../httpResponse/httpResponse.context.js";
 
 export interface CorsMiddlewareOptions {
-  readonly allowOrigin?:
-    | string
-    | ((context: HttpMiddlewareContext) => string);
+  readonly allowOrigin?: string | ((context: HttpMiddlewareContext) => string);
 
-  readonly allowMethods?:
-    | string;
+  readonly allowMethods?: string;
 
-  readonly allowHeaders?:
-    | string;
+  readonly allowHeaders?: string;
 
-  readonly exposeHeaders?:
-    | string;
+  readonly exposeHeaders?: string;
 
-  readonly credentials?:
-    | boolean;
+  readonly credentials?: boolean;
 
-  readonly maxAge?:
-    | number;
+  readonly maxAge?: number;
 }
 
 export function createCorsMiddleware(
-  options:
-    | CorsMiddlewareOptions = {},
-):
-  | HttpMiddleware {
-  return async (
-    context,
-    next,
-  ) => {
-    const response =
-      await next();
+  options: CorsMiddlewareOptions = {},
+): HttpMiddleware {
+  return async (context, next) => {
+    const response = await next();
 
-    const headers =
-      new Headers(
-        response.headers as Record<string, string>,
-      );
+    const headers = new Headers(response.headers as Record<string, string>);
 
     const origin =
-      typeof options.allowOrigin ===
-      "function"
-        ? options.allowOrigin(
-            context,
-          )
-        : options.allowOrigin ??
-          "*";
+      typeof options.allowOrigin === "function"
+        ? options.allowOrigin(context)
+        : (options.allowOrigin ?? "*");
 
-    headers.set(
-      "access-control-allow-origin",
-      origin,
-    );
+    headers.set("access-control-allow-origin", origin);
 
-    if (
-      options.allowMethods
-    ) {
-      headers.set(
-        "access-control-allow-methods",
-        options.allowMethods,
-      );
+    if (options.allowMethods) {
+      headers.set("access-control-allow-methods", options.allowMethods);
     }
 
-    if (
-      options.allowHeaders
-    ) {
-      headers.set(
-        "access-control-allow-headers",
-        options.allowHeaders,
-      );
+    if (options.allowHeaders) {
+      headers.set("access-control-allow-headers", options.allowHeaders);
     }
 
-    if (
-      options.exposeHeaders
-    ) {
-      headers.set(
-        "access-control-expose-headers",
-        options.exposeHeaders,
-      );
+    if (options.exposeHeaders) {
+      headers.set("access-control-expose-headers", options.exposeHeaders);
     }
 
-    if (
-      options.credentials
-    ) {
-      headers.set(
-        "access-control-allow-credentials",
-        "true",
-      );
+    if (options.credentials) {
+      headers.set("access-control-allow-credentials", "true");
     }
 
-    if (
-      options.maxAge !==
-      undefined
-    ) {
-      headers.set(
-        "access-control-max-age",
-        String(
-          options.maxAge,
-        ),
-      );
+    if (options.maxAge !== undefined) {
+      headers.set("access-control-max-age", String(options.maxAge));
     }
 
     return {

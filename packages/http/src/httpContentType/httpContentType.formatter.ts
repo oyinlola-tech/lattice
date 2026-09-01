@@ -2,24 +2,16 @@
  * HTTP Content-Type formatting and creation.
  */
 
-import type {
-  ContentType,
-} from "./httpContentType.type.js";
+import type { ContentType } from "./httpContentType.type.js";
 import {
   isValidToken,
   quoteParameterValue,
 } from "./httpContentType.parserHelpers.js";
 
-export function formatContentType(
-  contentType: ContentType,
-): string {
-  const mediaType =
-    `${contentType.type}/${contentType.subtype}`;
+export function formatContentType(contentType: ContentType): string {
+  const mediaType = `${contentType.type}/${contentType.subtype}`;
 
-  const parameters =
-    Object.entries(
-      contentType.parameters,
-    );
+  const parameters = Object.entries(contentType.parameters);
 
   if (parameters.length === 0) {
     return mediaType;
@@ -28,8 +20,7 @@ export function formatContentType(
   return [
     mediaType,
     ...parameters.map(
-      ([name, value]) =>
-        `${name}=${quoteParameterValue(value)}`,
+      ([name, value]) => `${name}=${quoteParameterValue(value)}`,
     ),
   ].join("; ");
 }
@@ -37,66 +28,35 @@ export function formatContentType(
 export function createContentType(
   type: string,
   subtype: string,
-  parameters: Record<
-    string,
-    string
-  > = {},
+  parameters: Record<string, string> = {},
 ): ContentType {
-  const normalizedType =
-    type.trim().toLowerCase();
+  const normalizedType = type.trim().toLowerCase();
 
-  const normalizedSubtype =
-    subtype.trim().toLowerCase();
+  const normalizedSubtype = subtype.trim().toLowerCase();
 
-  if (
-    !isValidToken(normalizedType)
-  ) {
-    throw new TypeError(
-      `Invalid media type: ${type}`,
-    );
+  if (!isValidToken(normalizedType)) {
+    throw new TypeError(`Invalid media type: ${type}`);
   }
 
-  if (
-    !isValidToken(
-      normalizedSubtype,
-    )
-  ) {
-    throw new TypeError(
-      `Invalid media subtype: ${subtype}`,
-    );
+  if (!isValidToken(normalizedSubtype)) {
+    throw new TypeError(`Invalid media subtype: ${subtype}`);
   }
 
-  const normalizedParameters: Record<
-    string,
-    string
-  > = {};
+  const normalizedParameters: Record<string, string> = {};
 
-  for (const [
-    name,
-    value,
-  ] of Object.entries(parameters)) {
-    const normalizedName =
-      name.trim().toLowerCase();
+  for (const [name, value] of Object.entries(parameters)) {
+    const normalizedName = name.trim().toLowerCase();
 
-    if (
-      !isValidToken(
-        normalizedName,
-      )
-    ) {
-      throw new TypeError(
-        `Invalid content type parameter: ${name}`,
-      );
+    if (!isValidToken(normalizedName)) {
+      throw new TypeError(`Invalid content type parameter: ${name}`);
     }
 
-    normalizedParameters[
-      normalizedName
-    ] = String(value);
+    normalizedParameters[normalizedName] = String(value);
   }
 
   return {
     type: normalizedType,
     subtype: normalizedSubtype,
-    parameters:
-      normalizedParameters,
+    parameters: normalizedParameters,
   };
 }

@@ -67,9 +67,7 @@ export function xContentTypeOptionsHeader(): string {
 /**
  * Creates an X-Frame-Options header.
  */
-export function xFrameOptionsHeader(
-  option: XFrameOptions = "DENY",
-): string {
+export function xFrameOptionsHeader(option: XFrameOptions = "DENY"): string {
   return option;
 }
 
@@ -85,9 +83,7 @@ export function referrerPolicyHeader(
 /**
  * Creates a Permissions-Policy header.
  */
-export function permissionsPolicyHeader(
-  policy: PermissionsPolicy,
-): string {
+export function permissionsPolicyHeader(policy: PermissionsPolicy): string {
   return Object.entries(policy)
     .map(([feature, value]) => {
       if (typeof value === "boolean") {

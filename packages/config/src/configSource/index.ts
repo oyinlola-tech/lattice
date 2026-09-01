@@ -4,4 +4,4 @@
  * Configuration source abstractions and implementations.
  */
 
-export * from './configSource.core.js';
+export * from "./configSource.core.js";

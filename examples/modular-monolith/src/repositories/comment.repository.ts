@@ -6,35 +6,59 @@ export interface CommentRepository {
   findById(id: CommentId): Promise<CommentModel | null>;
   findByArticle(articleId: ArticleId): Promise<readonly CommentModel[]>;
   save(comment: CommentModel): Promise<void>;
-  update(id: CommentId, data: Partial<Pick<CommentModel, "content">>): Promise<void>;
+  update(
+    id: CommentId,
+    data: Partial<Pick<CommentModel, "content">>,
+  ): Promise<void>;
   delete(id: CommentId): Promise<void>;
 }
 
 export class SqliteCommentRepository implements CommentRepository {
   public async findById(id: CommentId): Promise<CommentModel | null> {
     const db = getDatabase();
-    const row = db.prepare("SELECT * FROM comments WHERE id = ?").get(id) as Record<string, unknown> | undefined;
+    const row = db.prepare("SELECT * FROM comments WHERE id = ?").get(id) as
+      Record<string, unknown> | undefined;
     return row ? mapRowToComment(row) : null;
   }
 
-  public async findByArticle(articleId: ArticleId): Promise<readonly CommentModel[]> {
+  public async findByArticle(
+    articleId: ArticleId,
+  ): Promise<readonly CommentModel[]> {
     const db = getDatabase();
-    const rows = db.prepare("SELECT * FROM comments WHERE article_id = ? ORDER BY created_at ASC").all(articleId) as Record<string, unknown>[];
+    const rows = db
+      .prepare(
+        "SELECT * FROM comments WHERE article_id = ? ORDER BY created_at ASC",
+      )
+      .all(articleId) as Record<string, unknown>[];
     return rows.map(mapRowToComment);
   }
 
   public async save(comment: CommentModel): Promise<void> {
     const db = getDatabase();
-    db.prepare(`
+    db.prepare(
+      `
       INSERT INTO comments (id, article_id, author_id, content, created_at, updated_at)
       VALUES (?, ?, ?, ?, ?, ?)
-    `).run(comment.id, comment.articleId, comment.authorId, comment.content, comment.createdAt.toISOString(), comment.updatedAt.toISOString());
+    `,
+    ).run(
+      comment.id,
+      comment.articleId,
+      comment.authorId,
+      comment.content,
+      comment.createdAt.toISOString(),
+      comment.updatedAt.toISOString(),
+    );
   }
 
-  public async update(id: CommentId, data: Partial<Pick<CommentModel, "content">>): Promise<void> {
+  public async update(
+    id: CommentId,
+    data: Partial<Pick<CommentModel, "content">>,
+  ): Promise<void> {
     const db = getDatabase();
     if (data.content !== undefined) {
-      db.prepare("UPDATE comments SET content = ?, updated_at = datetime('now') WHERE id = ?").run(data.content, id);
+      db.prepare(
+        "UPDATE comments SET content = ?, updated_at = datetime('now') WHERE id = ?",
+      ).run(data.content, id);
     }
   }
 

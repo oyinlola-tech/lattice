@@ -6,7 +6,11 @@
 
 import type { Tenant } from "../tenancyTypes/tenantInterface.js";
 import type { TenantContextStorage } from "./contextStorage.core.js";
-import type { SystemContext, TenantExecutionContext, ExecutionTenantContext } from "../tenancyTypes/tenantInterface.js";
+import type {
+  SystemContext,
+  TenantExecutionContext,
+  ExecutionTenantContext,
+} from "../tenancyTypes/tenantInterface.js";
 import { TenantContextMissingError } from "../tenancyErrors/tenancyError.types.js";
 
 /** Options for the context manager. */

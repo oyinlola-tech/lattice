@@ -9,9 +9,7 @@ import {
 /**
  * Returns true when an algorithm provides authenticated encryption.
  */
-export function isAeadAlgorithm(
-  algorithm: CryptoAlgorithm,
-): boolean {
+export function isAeadAlgorithm(algorithm: CryptoAlgorithm): boolean {
   return AEAD_ALGORITHMS.includes(
     algorithm as (typeof AEAD_ALGORITHMS)[number],
   );
@@ -20,9 +18,7 @@ export function isAeadAlgorithm(
 /**
  * Returns true when an algorithm is a hashing algorithm.
  */
-export function isHashAlgorithm(
-  algorithm: CryptoAlgorithm,
-): boolean {
+export function isHashAlgorithm(algorithm: CryptoAlgorithm): boolean {
   return HASH_ALGORITHMS.includes(
     algorithm as (typeof HASH_ALGORITHMS)[number],
   );
@@ -31,9 +27,7 @@ export function isHashAlgorithm(
 /**
  * Returns true when an algorithm is a key derivation algorithm.
  */
-export function isKeyDerivationAlgorithm(
-  algorithm: CryptoAlgorithm,
-): boolean {
+export function isKeyDerivationAlgorithm(algorithm: CryptoAlgorithm): boolean {
   return KEY_DERIVATION_ALGORITHMS.includes(
     algorithm as (typeof KEY_DERIVATION_ALGORITHMS)[number],
   );
@@ -42,27 +36,17 @@ export function isKeyDerivationAlgorithm(
 /**
  * Returns true when an algorithm is a message authentication algorithm.
  */
-export function isMacAlgorithm(
-  algorithm: CryptoAlgorithm,
-): boolean {
-  return MAC_ALGORITHMS.includes(
-    algorithm as (typeof MAC_ALGORITHMS)[number],
-  );
+export function isMacAlgorithm(algorithm: CryptoAlgorithm): boolean {
+  return MAC_ALGORITHMS.includes(algorithm as (typeof MAC_ALGORITHMS)[number]);
 }
 
 /**
  * Returns true when the supplied value is a supported algorithm.
  */
-export function isCryptoAlgorithm(
-  value: unknown,
-): value is CryptoAlgorithm {
+export function isCryptoAlgorithm(value: unknown): value is CryptoAlgorithm {
   return (
     typeof value === "string" &&
-    Object.values(
-      CryptoAlgorithm,
-    ).includes(
-      value as CryptoAlgorithm,
-    )
+    Object.values(CryptoAlgorithm).includes(value as CryptoAlgorithm)
   );
 }
 
@@ -71,21 +55,12 @@ export function isCryptoAlgorithm(
  *
  * Throws when the value is not a supported algorithm.
  */
-export function parseCryptoAlgorithm(
-  value: string,
-): CryptoAlgorithm {
-  const normalized =
-    value.trim().toLowerCase();
+export function parseCryptoAlgorithm(value: string): CryptoAlgorithm {
+  const normalized = value.trim().toLowerCase();
 
-  if (
-    isCryptoAlgorithm(
-      normalized,
-    )
-  ) {
+  if (isCryptoAlgorithm(normalized)) {
     return normalized;
   }
 
-  throw new TypeError(
-    `Unsupported cryptographic algorithm: "${value}".`,
-  );
+  throw new TypeError(`Unsupported cryptographic algorithm: "${value}".`);
 }

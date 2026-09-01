@@ -4,7 +4,10 @@
  * @module cache/cache
  */
 
-import type { PermissionCache, PermissionDecision } from "../permissionTypes/index.js";
+import type {
+  PermissionCache,
+  PermissionDecision,
+} from "../permissionTypes/index.js";
 
 /** Cache entry with optional TTL. */
 interface CacheEntry {
@@ -17,7 +20,9 @@ interface CacheEntry {
  *
  * @param defaultTtlMs - Default TTL in milliseconds. Defaults to 60000 (1 minute).
  */
-export function createMemoryPermissionCache(defaultTtlMs: number = 60000): PermissionCache {
+export function createMemoryPermissionCache(
+  defaultTtlMs: number = 60000,
+): PermissionCache {
   const store = new Map<string, CacheEntry>();
 
   return {
@@ -31,7 +36,11 @@ export function createMemoryPermissionCache(defaultTtlMs: number = 60000): Permi
       return entry.value;
     },
 
-    async set(key: string, value: PermissionDecision, options?: { readonly ttl?: number }): Promise<void> {
+    async set(
+      key: string,
+      value: PermissionDecision,
+      options?: { readonly ttl?: number },
+    ): Promise<void> {
       const ttl = options?.ttl ?? defaultTtlMs;
       store.set(key, {
         value,

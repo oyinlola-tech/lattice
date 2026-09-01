@@ -6,7 +6,11 @@
  * Extends AuthorizationError from @oyinlola141/lattice-errors.
  */
 
-import { AuthorizationError, ErrorCode, type ErrorMetadata } from "@oyinlola141/lattice-errors";
+import {
+  AuthorizationError,
+  ErrorCode,
+  type ErrorMetadata,
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Base error for all permission-related failures.

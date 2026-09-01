@@ -19,7 +19,11 @@ export function jsonResponse(
   data: unknown,
   status = 200,
   headers: ResponseHeaders = {},
-): { readonly status: number; readonly headers: ResponseHeaders; readonly body: string } {
+): {
+  readonly status: number;
+  readonly headers: ResponseHeaders;
+  readonly body: string;
+} {
   return {
     status,
     headers: {
@@ -37,7 +41,11 @@ export function textResponse(
   text: string,
   status = 200,
   headers: ResponseHeaders = {},
-): { readonly status: number; readonly headers: ResponseHeaders; readonly body: string } {
+): {
+  readonly status: number;
+  readonly headers: ResponseHeaders;
+  readonly body: string;
+} {
   return {
     status,
     headers: {
@@ -55,7 +63,11 @@ export function htmlResponse(
   html: string,
   status = 200,
   headers: ResponseHeaders = {},
-): { readonly status: number; readonly headers: ResponseHeaders; readonly body: string } {
+): {
+  readonly status: number;
+  readonly headers: ResponseHeaders;
+  readonly body: string;
+} {
   return {
     status,
     headers: {
@@ -73,7 +85,11 @@ export function redirectResponse(
   url: string,
   status = 302,
   headers: ResponseHeaders = {},
-): { readonly status: number; readonly headers: ResponseHeaders; readonly body: undefined } {
+): {
+  readonly status: number;
+  readonly headers: ResponseHeaders;
+  readonly body: undefined;
+} {
   return {
     status,
     headers: {
@@ -90,7 +106,11 @@ export function redirectResponse(
 export function emptyResponse(
   status = 204,
   headers: ResponseHeaders = {},
-): { readonly status: number; readonly headers: ResponseHeaders; readonly body: undefined } {
+): {
+  readonly status: number;
+  readonly headers: ResponseHeaders;
+  readonly body: undefined;
+} {
   return {
     status,
     headers,
@@ -101,9 +121,7 @@ export function emptyResponse(
 /**
  * Serializes a response cookie into a Set-Cookie header string.
  */
-export function serializeResponseCookie(
-  cookie: ResponseCookie,
-): string {
+export function serializeResponseCookie(cookie: ResponseCookie): string {
   let str = `${cookie.name}=${cookie.value}`;
 
   if (cookie.options) {

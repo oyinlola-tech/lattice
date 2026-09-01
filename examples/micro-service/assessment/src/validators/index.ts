@@ -1,4 +1,8 @@
-import type { CreateAssessmentDto, SubmitAssessmentDto, PublishResultDto } from "../dtos/index.js";
+import type {
+  CreateAssessmentDto,
+  SubmitAssessmentDto,
+  PublishResultDto,
+} from "../dtos/index.js";
 import { AssessmentType } from "../enums/index.js";
 
 export function validateCreateAssessment(dto: CreateAssessmentDto): string[] {
@@ -13,14 +17,20 @@ export function validateCreateAssessment(dto: CreateAssessmentDto): string[] {
   }
 
   if (!Object.values(AssessmentType).includes(dto.type as AssessmentType)) {
-    errors.push(`type must be one of: ${Object.values(AssessmentType).join(", ")}`);
+    errors.push(
+      `type must be one of: ${Object.values(AssessmentType).join(", ")}`,
+    );
   }
 
   if (dto.totalPoints <= 0) {
     errors.push("totalPoints must be greater than 0");
   }
 
-  if (dto.durationMinutes !== undefined && dto.durationMinutes !== null && dto.durationMinutes <= 0) {
+  if (
+    dto.durationMinutes !== undefined &&
+    dto.durationMinutes !== null &&
+    dto.durationMinutes <= 0
+  ) {
     errors.push("durationMinutes must be greater than 0");
   }
 

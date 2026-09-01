@@ -102,7 +102,8 @@ export interface ParsedCookie {
 /** Configuration for CORS. */
 export interface CorsConfig {
   /** Allowed origins (strings or regex patterns). */
-  readonly origin?: string | readonly string[] | RegExp | ((origin: string) => boolean);
+  readonly origin?:
+    string | readonly string[] | RegExp | ((origin: string) => boolean);
   /** Allowed HTTP methods. */
   readonly methods?: readonly string[];
   /** Allowed request headers. */
@@ -142,7 +143,10 @@ export interface RateLimitConfig {
   /** Key generator function (defaults to IP). */
   readonly keyGenerator?: (request: RateLimitRequest) => string;
   /** Custom handler when rate limit is exceeded. */
-  readonly handler?: (request: RateLimitRequest, response: RateLimitResponse) => void;
+  readonly handler?: (
+    request: RateLimitRequest,
+    response: RateLimitResponse,
+  ) => void;
   /** Skip certain requests. */
   readonly skip?: (request: RateLimitRequest) => boolean;
   /** Message returned when rate limited. */

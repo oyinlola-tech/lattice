@@ -10,14 +10,21 @@ import { randomUUID } from "node:crypto";
 import { NotFoundError } from "../../../../errors/index.js";
 import { CommentCreatedEvent } from "../../../../events/index.js";
 
-export class CreateCommentHandler extends CommandHandler<CreateCommentCommand, CommentModel> {
+export class CreateCommentHandler extends CommandHandler<
+  CreateCommentCommand,
+  CommentModel
+> {
   public readonly commandType = "comments.create" as const;
 
   private readonly comments: CommentRepository;
   private readonly articles: ArticleRepository;
   private readonly events: EventBus;
 
-  public constructor(comments: CommentRepository, articles: ArticleRepository, events: EventBus) {
+  public constructor(
+    comments: CommentRepository,
+    articles: ArticleRepository,
+    events: EventBus,
+  ) {
     super();
     this.comments = comments;
     this.articles = articles;

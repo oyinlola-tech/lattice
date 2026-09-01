@@ -4,4 +4,4 @@
  * Logger lifecycle and registry management.
  */
 
-export * from './loggerManager.core.js';
+export * from "./loggerManager.core.js";

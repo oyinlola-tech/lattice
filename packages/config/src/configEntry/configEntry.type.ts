@@ -23,9 +23,7 @@ export interface ConfigEntry<T extends ConfigValue = ConfigValue> {
 /**
  * Options used when creating a configuration entry.
  */
-export interface ConfigEntryOptions<
-  T extends ConfigValue = ConfigValue,
-> {
+export interface ConfigEntryOptions<T extends ConfigValue = ConfigValue> {
   readonly key: string;
   readonly value: T;
   readonly source?: string;
@@ -39,41 +37,31 @@ export interface ConfigEntryOptions<
 /**
  * Creates a configuration entry.
  */
-export function createConfigEntry<
-  T extends ConfigValue,
->(
+export function createConfigEntry<T extends ConfigValue>(
   options: ConfigEntryOptions<T>,
 ): ConfigEntry<T> {
   const key = options.key.trim();
 
   if (key.length === 0) {
-    throw new TypeError(
-      "Configuration entry key cannot be empty.",
-    );
+    throw new TypeError("Configuration entry key cannot be empty.");
   }
 
   return Object.freeze({
     key,
     value: options.value,
     source: options.source ?? "unknown",
-    sourceType:
-      options.sourceType ??
-      ("custom" as ConfigSourceType),
+    sourceType: options.sourceType ?? ("custom" as ConfigSourceType),
     priority: options.priority ?? 0,
     sensitive: options.sensitive ?? false,
     resolved: options.resolved ?? true,
-    createdAt:
-      options.createdAt ??
-      Date.now(),
+    createdAt: options.createdAt ?? Date.now(),
   });
 }
 
 /**
  * Creates an entry from another entry while replacing its value.
  */
-export function updateConfigEntry<
-  T extends ConfigValue,
->(
+export function updateConfigEntry<T extends ConfigValue>(
   entry: ConfigEntry,
   value: T,
 ): ConfigEntry<T> {
@@ -92,18 +80,12 @@ export function updateConfigEntry<
 /**
  * Checks whether a value is a valid configuration entry.
  */
-export function isConfigEntry(
-  value: unknown,
-): value is ConfigEntry {
-  if (
-    typeof value !== "object" ||
-    value === null
-  ) {
+export function isConfigEntry(value: unknown): value is ConfigEntry {
+  if (typeof value !== "object" || value === null) {
     return false;
   }
 
-  const entry =
-    value as Partial<ConfigEntry>;
+  const entry = value as Partial<ConfigEntry>;
 
   return (
     typeof entry.key === "string" &&
@@ -125,11 +107,7 @@ export function redactConfigValue(
   value: ConfigValue,
   replacement = "[REDACTED]",
 ): ConfigValue {
-  if (
-    value === undefined ||
-    value === null ||
-    typeof value !== "object"
-  ) {
+  if (value === undefined || value === null || typeof value !== "object") {
     return replacement;
   }
 
@@ -138,9 +116,7 @@ export function redactConfigValue(
   }
 
   if (Array.isArray(value)) {
-    return value.map(() =>
-      replacement,
-    );
+    return value.map(() => replacement);
   }
 
   return replacement;
@@ -152,18 +128,14 @@ export function redactConfigValue(
  *
  * Sensitive values are never returned in clear text.
  */
-export function toSafeConfigEntry(
-  entry: ConfigEntry,
-): ConfigEntry {
+export function toSafeConfigEntry(entry: ConfigEntry): ConfigEntry {
   if (!entry.sensitive) {
     return entry;
   }
 
   return createConfigEntry({
     key: entry.key,
-    value: redactConfigValue(
-      entry.value,
-    ),
+    value: redactConfigValue(entry.value),
     source: entry.source,
     sourceType: entry.sourceType,
     priority: entry.priority,
@@ -179,8 +151,7 @@ export function toSafeConfigEntry(
 export function serializeConfigEntry(
   entry: ConfigEntry,
 ): Record<string, unknown> {
-  const safeEntry =
-    toSafeConfigEntry(entry);
+  const safeEntry = toSafeConfigEntry(entry);
 
   return {
     key: safeEntry.key,
@@ -197,9 +168,7 @@ export function serializeConfigEntry(
 /**
  * Creates a copy of an entry with a different source.
  */
-export function withConfigEntrySource<
-  T extends ConfigValue,
->(
+export function withConfigEntrySource<T extends ConfigValue>(
   entry: ConfigEntry<T>,
   source: string,
   sourceType: ConfigSourceType,
@@ -236,10 +205,7 @@ export function configEntriesEqual(
     left.sensitive === right.sensitive &&
     left.resolved === right.resolved &&
     left.createdAt === right.createdAt &&
-    Object.is(
-      left.value,
-      right.value,
-    )
+    Object.is(left.value, right.value)
   );
 }
 
@@ -249,23 +215,13 @@ export function configEntriesEqual(
 export function sortConfigEntries(
   entries: readonly ConfigEntry[],
 ): readonly ConfigEntry[] {
-  return [...entries].sort(
-    (left, right) => {
-      const keyComparison =
-        left.key.localeCompare(
-          right.key,
-        );
+  return [...entries].sort((left, right) => {
+    const keyComparison = left.key.localeCompare(right.key);
 
-      if (
-        keyComparison !== 0
-      ) {
-        return keyComparison;
-      }
+    if (keyComparison !== 0) {
+      return keyComparison;
+    }
 
-      return (
-        right.priority -
-        left.priority
-      );
-    },
-  );
+    return right.priority - left.priority;
+  });
 }

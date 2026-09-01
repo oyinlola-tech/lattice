@@ -1,20 +1,13 @@
-import {
-  DatabaseError,
-} from "@oyinlola141/lattice-errors";
+import { DatabaseError } from "@oyinlola141/lattice-errors";
 
-import type {
-  DatabaseClient,
-} from "../databaseClient/databaseClient.core.js";
+import type { DatabaseClient } from "../databaseClient/databaseClient.core.js";
 
 import { Prisma } from "@prisma/client";
 
 /**
  * Health status of the database.
  */
-export type DatabaseHealthStatus =
-  | "healthy"
-  | "unhealthy"
-  | "degraded";
+export type DatabaseHealthStatus = "healthy" | "unhealthy" | "degraded";
 
 /**
  * Detailed database health information.
@@ -51,8 +44,7 @@ export interface DatabaseReadiness {
 /**
  * Default database health-check timeout.
  */
-export const DEFAULT_HEALTH_TIMEOUT_MS =
-  5_000;
+export const DEFAULT_HEALTH_TIMEOUT_MS = 5_000;
 
 /**
  * Performs a lightweight database health check.
@@ -62,76 +54,39 @@ export async function checkDatabaseHealth(
   options: DatabaseHealthOptions = {},
 ): Promise<DatabaseHealth> {
   if (!client) {
-    throw new TypeError(
-      "A database client is required.",
-    );
+    throw new TypeError("A database client is required.");
   }
 
-  const timeoutMs =
-    normalizeTimeout(
-      options.timeoutMs,
-    );
+  const timeoutMs = normalizeTimeout(options.timeoutMs);
 
-  const checkedAt =
-    new Date();
+  const checkedAt = new Date();
 
-  const startedAt =
-    performance.now();
+  const startedAt = performance.now();
 
   try {
-    await withTimeout(
-      executeHealthCheck(
-        client,
-      ),
-      timeoutMs,
-    );
+    await withTimeout(executeHealthCheck(client), timeoutMs);
 
-    const latencyMs =
-      Math.max(
-        0,
-        Math.round(
-          performance.now() -
-            startedAt,
-        ),
-      );
+    const latencyMs = Math.max(0, Math.round(performance.now() - startedAt));
 
     return {
-      status:
-        latencyMs >
-        timeoutMs * 0.75
-          ? "degraded"
-          : "healthy",
+      status: latencyMs > timeoutMs * 0.75 ? "degraded" : "healthy",
       healthy: true,
       latencyMs,
       checkedAt,
-      message:
-        "Database connection is healthy.",
+      message: "Database connection is healthy.",
     };
   } catch (error) {
-    const latencyMs =
-      Math.max(
-        0,
-        Math.round(
-          performance.now() -
-            startedAt,
-        ),
-      );
+    const latencyMs = Math.max(0, Math.round(performance.now() - startedAt));
 
-    const normalizedError =
-      normalizeHealthError(
-        error,
-      );
+    const normalizedError = normalizeHealthError(error);
 
     return {
-      status:
-        "unhealthy",
+      status: "unhealthy",
       healthy: false,
       latencyMs,
       checkedAt,
-      message:
-        normalizedError.message,
-      error:
-        normalizedError,
+      message: normalizedError.message,
+      error: normalizedError,
     };
   }
 }
@@ -147,64 +102,34 @@ export async function checkDatabaseReadiness(
   options: DatabaseHealthOptions = {},
 ): Promise<DatabaseReadiness> {
   if (!client) {
-    throw new TypeError(
-      "A database client is required.",
-    );
+    throw new TypeError("A database client is required.");
   }
 
-  const timeoutMs =
-    normalizeTimeout(
-      options.timeoutMs,
-    );
+  const timeoutMs = normalizeTimeout(options.timeoutMs);
 
-  const checkedAt =
-    new Date();
+  const checkedAt = new Date();
 
-  const startedAt =
-    performance.now();
+  const startedAt = performance.now();
 
   try {
-    await withTimeout(
-      executeHealthCheck(
-        client,
-      ),
-      timeoutMs,
-    );
+    await withTimeout(executeHealthCheck(client), timeoutMs);
 
-    const latencyMs =
-      Math.max(
-        0,
-        Math.round(
-          performance.now() -
-            startedAt,
-        ),
-      );
+    const latencyMs = Math.max(0, Math.round(performance.now() - startedAt));
 
     return {
       ready: true,
       checkedAt,
       latencyMs,
-      message:
-        "Database is ready.",
+      message: "Database is ready.",
     };
   } catch (error) {
-    const latencyMs =
-      Math.max(
-        0,
-        Math.round(
-          performance.now() -
-            startedAt,
-        ),
-      );
+    const latencyMs = Math.max(0, Math.round(performance.now() - startedAt));
 
     return {
       ready: false,
       checkedAt,
       latencyMs,
-      message:
-        normalizeHealthError(
-          error,
-        ).message,
+      message: normalizeHealthError(error).message,
     };
   }
 }
@@ -216,32 +141,17 @@ export async function assertDatabaseHealth(
   client: DatabaseClient,
   options: DatabaseHealthOptions = {},
 ): Promise<DatabaseHealth> {
-  const health =
-    await checkDatabaseHealth(
-      client,
-      options,
-    );
+  const health = await checkDatabaseHealth(client, options);
 
   if (!health.healthy) {
-    throw new DatabaseError(
-      "Database health check failed.",
-      {
-        metadata: {
-          status:
-            health.status,
-          latencyMs:
-            health.latencyMs,
-          checkedAt:
-            health.checkedAt.toISOString(),
-        },
-        cause:
-          health.error
-            ? new Error(
-                health.error.message,
-              )
-            : undefined,
+    throw new DatabaseError("Database health check failed.", {
+      metadata: {
+        status: health.status,
+        latencyMs: health.latencyMs,
+        checkedAt: health.checkedAt.toISOString(),
       },
-    );
+      cause: health.error ? new Error(health.error.message) : undefined,
+    });
   }
 
   return health;
@@ -254,11 +164,7 @@ export async function isDatabaseHealthy(
   client: DatabaseClient,
   options: DatabaseHealthOptions = {},
 ): Promise<boolean> {
-  const health =
-    await checkDatabaseHealth(
-      client,
-      options,
-    );
+  const health = await checkDatabaseHealth(client, options);
 
   return health.healthy;
 }
@@ -266,9 +172,7 @@ export async function isDatabaseHealthy(
 /**
  * Executes the lightweight health query.
  */
-async function executeHealthCheck(
-  client: DatabaseClient,
-): Promise<void> {
+async function executeHealthCheck(client: DatabaseClient): Promise<void> {
   try {
     await client.queryRaw<
       readonly [
@@ -276,59 +180,39 @@ async function executeHealthCheck(
           result: number;
         },
       ]
-    >(
-      Prisma.sql`SELECT 1 AS result`,
-    );
+    >(Prisma.sql`SELECT 1 AS result`);
   } catch (error) {
-    throw new DatabaseError(
-      "Database health query failed.",
-      {
-        cause: error,
-      },
-    );
+    throw new DatabaseError("Database health query failed.", {
+      cause: error,
+    });
   }
 }
 
 /**
  * Runs a promise with a timeout.
  */
-async function withTimeout<
-  TValue,
->(
+async function withTimeout<TValue>(
   promise: Promise<TValue>,
   timeoutMs: number,
 ): Promise<TValue> {
-  let timeout:
-    ReturnType<typeof setTimeout> |
-    undefined;
+  let timeout: ReturnType<typeof setTimeout> | undefined;
 
   try {
     return await Promise.race([
       promise,
-      new Promise<TValue>(
-        (
-          _resolve,
-          reject,
-        ) => {
-          timeout =
-            setTimeout(
-              () => {
-                reject(
-                  new DatabaseError(
-                    `Database health check timed out after ${timeoutMs}ms.`,
-                  ),
-                );
-              },
-              timeoutMs,
-            );
-        },
-      ),
+      new Promise<TValue>((_resolve, reject) => {
+        timeout = setTimeout(() => {
+          reject(
+            new DatabaseError(
+              `Database health check timed out after ${timeoutMs}ms.`,
+            ),
+          );
+        }, timeoutMs);
+      }),
     ]);
   } finally {
     if (timeout) {
-      clearTimeout(
-        timeout,
-      );
+      clearTimeout(timeout);
     }
   }
 }
@@ -336,56 +220,36 @@ async function withTimeout<
 /**
  * Normalizes timeout values.
  */
-function normalizeTimeout(
-  timeoutMs?: number,
-): number {
-  if (
-    timeoutMs ===
-    undefined
-  ) {
+function normalizeTimeout(timeoutMs?: number): number {
+  if (timeoutMs === undefined) {
     return DEFAULT_HEALTH_TIMEOUT_MS;
   }
 
-  if (
-    !Number.isFinite(
-      timeoutMs,
-    ) ||
-    timeoutMs <= 0
-  ) {
+  if (!Number.isFinite(timeoutMs) || timeoutMs <= 0) {
     throw new TypeError(
       "Database health timeout must be a positive finite number.",
     );
   }
 
-  return Math.floor(
-    timeoutMs,
-  );
+  return Math.floor(timeoutMs);
 }
 
 /**
  * Converts an unknown error into a safe health error.
  */
-function normalizeHealthError(
-  error: unknown,
-): {
+function normalizeHealthError(error: unknown): {
   readonly name: string;
   readonly message: string;
 } {
-  if (
-    error instanceof Error
-  ) {
+  if (error instanceof Error) {
     return {
-      name:
-        error.name,
-      message:
-        error.message,
+      name: error.name,
+      message: error.message,
     };
   }
 
   return {
-    name:
-      "DatabaseHealthError",
-    message:
-      "Database health check failed.",
+    name: "DatabaseHealthError",
+    message: "Database health check failed.",
   };
 }

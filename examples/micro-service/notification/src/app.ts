@@ -15,7 +15,9 @@ export interface NotificationApp {
   readonly shutdown: () => Promise<void>;
 }
 
-export function createApp(repository: INotificationRepository): NotificationApp {
+export function createApp(
+  repository: INotificationRepository,
+): NotificationApp {
   const eventBus = createEventBus();
   const commandBus = new CommandBus();
   const queryBus = new QueryBus();

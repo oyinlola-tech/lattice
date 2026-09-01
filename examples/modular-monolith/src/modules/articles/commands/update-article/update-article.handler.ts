@@ -3,7 +3,10 @@ import type { UpdateArticleCommand } from "./update-article.command.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
 import { NotFoundError, ForbiddenError } from "../../../../errors/index.js";
 
-export class UpdateArticleHandler extends CommandHandler<UpdateArticleCommand, void> {
+export class UpdateArticleHandler extends CommandHandler<
+  UpdateArticleCommand,
+  void
+> {
   public readonly commandType = "articles.update" as const;
 
   private readonly articles: ArticleRepository;
@@ -25,7 +28,9 @@ export class UpdateArticleHandler extends CommandHandler<UpdateArticleCommand, v
 
     await this.articles.update(command.articleId, {
       ...(command.data.title !== undefined && { title: command.data.title }),
-      ...(command.data.content !== undefined && { content: command.data.content }),
+      ...(command.data.content !== undefined && {
+        content: command.data.content,
+      }),
     });
   }
 }

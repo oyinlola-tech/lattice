@@ -25,13 +25,15 @@ export const ValidationPattern = Object.freeze({
   /** Alphanumeric with hyphens and underscores */
   SLUG: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
   /** Strong password: 8+ chars, uppercase, lowercase, digit, special */
-  STRONG_PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
+  STRONG_PASSWORD:
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
   /** Hex colour code (3 or 6 digits) */
   HEX_COLOR: /^#(?:[0-9a-fA-F]{3}){1,2}$/,
   /** URL pattern (http/https) */
   URL: /^https?:\/\/[^\s/$.?#].[^\s]*$/i,
   /** Semantic version (v1.2.3) */
-  SEMVER: /^\d+\.\d+\.\d+(?:-[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*)?(?:\+[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*)?$/,
+  SEMVER:
+    /^\d+\.\d+\.\d+(?:-[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*)?(?:\+[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*)?$/,
   /** Phone number (international format with optional + prefix) */
   PHONE: /^\+?[1-9]\d{6,14}$/,
   /** File name (no path separators) */

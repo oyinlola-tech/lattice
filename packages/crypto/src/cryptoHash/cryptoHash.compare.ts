@@ -1,10 +1,7 @@
 /**
  * Performs a constant-time comparison of two digest strings.
  */
-export function equalDigests(
-  left: Uint8Array,
-  right: Uint8Array,
-): boolean {
+export function equalDigests(left: Uint8Array, right: Uint8Array): boolean {
   if (left.byteLength !== right.byteLength) {
     return false;
   }

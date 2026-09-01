@@ -7,7 +7,10 @@ import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 /**
  * Options for creating an HTTP server lifecycle error.
  */
-export interface HttpServerLifecycleErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface HttpServerLifecycleErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
 }
 
@@ -38,6 +41,8 @@ export function createHttpServerLifecycleError(
 }
 
 /** Determines whether an unknown value is an HttpServerLifecycleError. */
-export function isHttpServerLifecycleError(value: unknown): value is HttpServerLifecycleError {
+export function isHttpServerLifecycleError(
+  value: unknown,
+): value is HttpServerLifecycleError {
   return value instanceof HttpServerLifecycleError;
 }

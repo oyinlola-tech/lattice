@@ -94,5 +94,4 @@ export const ErrorCode = {
 /**
  * Union of all core Lattice error codes.
  */
-export type ErrorCode =
-  (typeof ErrorCode)[keyof typeof ErrorCode];
+export type ErrorCode = (typeof ErrorCode)[keyof typeof ErrorCode];

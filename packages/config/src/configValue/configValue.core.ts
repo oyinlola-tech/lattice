@@ -11,12 +11,7 @@
  * Primitive configuration values.
  */
 export type ConfigPrimitive =
-  | string
-  | number
-  | boolean
-  | bigint
-  | null
-  | undefined;
+  string | number | boolean | bigint | null | undefined;
 
 /**
  * JSON-compatible configuration values.
@@ -28,8 +23,7 @@ export type ConfigJsonValue =
   | null
   | ConfigJsonValue[]
   | {
-      readonly [key: string]:
-        ConfigJsonValue;
+      readonly [key: string]: ConfigJsonValue;
     };
 
 /**
@@ -40,8 +34,7 @@ export type ConfigValue =
   | Date
   | ConfigValue[]
   | {
-      readonly [key: string]:
-        ConfigValue;
+      readonly [key: string]: ConfigValue;
     };
 
 /**
@@ -57,16 +50,13 @@ export type ResolvedConfigValue =
   | Date
   | ResolvedConfigValue[]
   | {
-      readonly [key: string]:
-        ResolvedConfigValue;
+      readonly [key: string]: ResolvedConfigValue;
     };
 
 /**
  * Checks whether a value is a configuration primitive.
  */
-export function isConfigPrimitive(
-  value: unknown,
-): value is ConfigPrimitive {
+export function isConfigPrimitive(value: unknown): value is ConfigPrimitive {
   return (
     value === null ||
     value === undefined ||
@@ -80,9 +70,7 @@ export function isConfigPrimitive(
 /**
  * Checks whether a value is a plain configuration object.
  */
-export function isConfigObject(
-  value: unknown,
-): value is {
+export function isConfigObject(value: unknown): value is {
   readonly [key: string]: ConfigValue;
 } {
   if (
@@ -94,51 +82,29 @@ export function isConfigObject(
     return false;
   }
 
-  const prototype =
-    Object.getPrototypeOf(value);
+  const prototype = Object.getPrototypeOf(value);
 
-  return (
-    prototype === Object.prototype ||
-    prototype === null
-  );
+  return prototype === Object.prototype || prototype === null;
 }
 
 /**
  * Checks whether a value can be stored as a configuration value.
  */
-export function isConfigValue(
-  value: unknown,
-): value is ConfigValue {
-  if (
-    isConfigPrimitive(value)
-  ) {
+export function isConfigValue(value: unknown): value is ConfigValue {
+  if (isConfigPrimitive(value)) {
     return true;
   }
 
-  if (
-    value instanceof Date
-  ) {
-    return !Number.isNaN(
-      value.getTime(),
-    );
+  if (value instanceof Date) {
+    return !Number.isNaN(value.getTime());
   }
 
-  if (
-    Array.isArray(value)
-  ) {
-    return value.every(
-      isConfigValue,
-    );
+  if (Array.isArray(value)) {
+    return value.every(isConfigValue);
   }
 
-  if (
-    isConfigObject(value)
-  ) {
-    return Object.values(
-      value,
-    ).every(
-      isConfigValue,
-    );
+  if (isConfigObject(value)) {
+    return Object.values(value).every(isConfigValue);
   }
 
   return false;
@@ -153,9 +119,7 @@ export function isConfigValue(
 export function toConfigJsonValue(
   value: ConfigValue,
 ): ConfigJsonValue | undefined {
-  if (
-    value === undefined
-  ) {
+  if (value === undefined) {
     return undefined;
   }
 
@@ -167,69 +131,36 @@ export function toConfigJsonValue(
     return value;
   }
 
-  if (
-    typeof value === "number"
-  ) {
-    if (
-      Number.isFinite(value)
-    ) {
+  if (typeof value === "number") {
+    if (Number.isFinite(value)) {
       return value;
     }
 
     return null;
   }
 
-  if (
-    typeof value === "bigint"
-  ) {
+  if (typeof value === "bigint") {
     return value.toString();
   }
 
-  if (
-    value instanceof Date
-  ) {
+  if (value instanceof Date) {
     return value.toISOString();
   }
 
-  if (
-    Array.isArray(value)
-  ) {
+  if (Array.isArray(value)) {
     return value
-      .map(
-        toConfigJsonValue,
-      )
-      .filter(
-        (
-          item,
-        ): item is ConfigJsonValue =>
-          item !== undefined,
-      );
+      .map(toConfigJsonValue)
+      .filter((item): item is ConfigJsonValue => item !== undefined);
   }
 
-  if (
-    isConfigObject(value)
-  ) {
-    const result: Record<
-      string,
-      ConfigJsonValue
-    > = {};
+  if (isConfigObject(value)) {
+    const result: Record<string, ConfigJsonValue> = {};
 
-    for (
-      const [
-        key,
-        child,
-      ] of Object.entries(value)
-    ) {
-      const converted =
-        toConfigJsonValue(
-          child,
-        );
+    for (const [key, child] of Object.entries(value)) {
+      const converted = toConfigJsonValue(child);
 
-      if (
-        converted !== undefined
-      ) {
-        result[key] =
-          converted;
+      if (converted !== undefined) {
+        result[key] = converted;
       }
     }
 
@@ -244,67 +175,42 @@ export function toConfigJsonValue(
  *
  * This is primarily useful when generating environment-like output.
  */
-export function configValueToString(
-  value: ConfigValue,
-): string | undefined {
-  if (
-    value === undefined
-  ) {
+export function configValueToString(value: ConfigValue): string | undefined {
+  if (value === undefined) {
     return undefined;
   }
 
-  if (
-    value === null
-  ) {
+  if (value === null) {
     return "null";
   }
 
-  if (
-    typeof value === "string"
-  ) {
+  if (typeof value === "string") {
     return value;
   }
 
-  if (
-    typeof value === "boolean"
-  ) {
-    return value
-      ? "true"
-      : "false";
+  if (typeof value === "boolean") {
+    return value ? "true" : "false";
   }
 
-  if (
-    typeof value === "number"
-  ) {
+  if (typeof value === "number") {
     return String(value);
   }
 
-  if (
-    typeof value === "bigint"
-  ) {
+  if (typeof value === "bigint") {
     return `${value}n`;
   }
 
-  if (
-    value instanceof Date
-  ) {
+  if (value instanceof Date) {
     return value.toISOString();
   }
 
-  const json =
-    toConfigJsonValue(
-      value,
-    );
+  const json = toConfigJsonValue(value);
 
-  if (
-    json === undefined
-  ) {
+  if (json === undefined) {
     return undefined;
   }
 
-  return JSON.stringify(
-    json,
-  );
+  return JSON.stringify(json);
 }
 
 /**
@@ -314,12 +220,8 @@ export function configValueToString(
  * booleans from arbitrary strings. Use the typed config resolvers
  * when a specific type is required.
  */
-export function parseConfigString(
-  value: string | undefined,
-): ConfigPrimitive {
-  if (
-    value === undefined
-  ) {
+export function parseConfigString(value: string | undefined): ConfigPrimitive {
+  if (value === undefined) {
     return undefined;
   }
 
@@ -330,28 +232,17 @@ export function parseConfigString(
  * Parses a boolean configuration value.
  */
 export function parseConfigBoolean(
-  value:
-    string |
-    boolean |
-    undefined,
+  value: string | boolean | undefined,
 ): boolean | undefined {
-  if (
-    value === undefined
-  ) {
+  if (value === undefined) {
     return undefined;
   }
 
-  if (
-    typeof value === "boolean"
-  ) {
+  if (typeof value === "boolean") {
     return value;
   }
 
-  switch (
-    value
-      .trim()
-      .toLowerCase()
-  ) {
+  switch (value.trim().toLowerCase()) {
     case "true":
     case "1":
     case "yes":
@@ -375,80 +266,49 @@ export function parseConfigBoolean(
  * Parses a numeric configuration value.
  */
 export function parseConfigNumber(
-  value:
-    string |
-    number |
-    undefined,
+  value: string | number | undefined,
 ): number | undefined {
-  if (
-    value === undefined
-  ) {
+  if (value === undefined) {
     return undefined;
   }
 
-  if (
-    typeof value === "number"
-  ) {
-    return Number.isFinite(
-      value,
-    )
-      ? value
-      : undefined;
+  if (typeof value === "number") {
+    return Number.isFinite(value) ? value : undefined;
   }
 
-  const normalized =
-    value.trim();
+  const normalized = value.trim();
 
-  if (
-    normalized.length === 0
-  ) {
+  if (normalized.length === 0) {
     return undefined;
   }
 
-  const parsed =
-    Number(normalized);
+  const parsed = Number(normalized);
 
-  return Number.isFinite(
-    parsed,
-  )
-    ? parsed
-    : undefined;
+  return Number.isFinite(parsed) ? parsed : undefined;
 }
 
 /**
  * Parses a bigint configuration value.
  */
 export function parseConfigBigInt(
-  value:
-    string |
-    bigint |
-    undefined,
+  value: string | bigint | undefined,
 ): bigint | undefined {
-  if (
-    value === undefined
-  ) {
+  if (value === undefined) {
     return undefined;
   }
 
-  if (
-    typeof value === "bigint"
-  ) {
+  if (typeof value === "bigint") {
     return value;
   }
 
-  const normalized =
-    value.trim();
+  const normalized = value.trim();
 
-  if (
-    normalized.length === 0
-  ) {
+  if (normalized.length === 0) {
     return undefined;
   }
 
   try {
-    return BigInt(
-      normalized,
-    );
+    return BigInt(normalized);
   } catch {
     return undefined;
   }
@@ -458,37 +318,21 @@ export function parseConfigBigInt(
  * Parses a Date configuration value.
  */
 export function parseConfigDate(
-  value:
-    string |
-    Date |
-    undefined,
+  value: string | Date | undefined,
 ): Date | undefined {
-  if (
-    value === undefined
-  ) {
+  if (value === undefined) {
     return undefined;
   }
 
-  if (
-    value instanceof Date
-  ) {
-    return Number.isNaN(
-      value.getTime(),
-    )
+  if (value instanceof Date) {
+    return Number.isNaN(value.getTime())
       ? undefined
-      : new Date(
-          value.getTime(),
-        );
+      : new Date(value.getTime());
   }
 
-  const parsed =
-    new Date(value);
+  const parsed = new Date(value);
 
-  return Number.isNaN(
-    parsed.getTime(),
-  )
-    ? undefined
-    : parsed;
+  return Number.isNaN(parsed.getTime()) ? undefined : parsed;
 }
 
 /**
@@ -497,99 +341,49 @@ export function parseConfigDate(
  * Configuration objects should normally be immutable after
  * resolution to prevent accidental runtime mutation.
  */
-export function freezeConfigValue<
-  T extends ConfigValue,
->(
-  value: T,
-): T {
-  if (
-    typeof value !== "object" ||
-    value === null
-  ) {
+export function freezeConfigValue<T extends ConfigValue>(value: T): T {
+  if (typeof value !== "object" || value === null) {
     return value;
   }
 
-  if (
-    Object.isFrozen(value)
-  ) {
+  if (Object.isFrozen(value)) {
     return value;
   }
 
-  if (
-    value instanceof Date
-  ) {
-    return Object.freeze(
-      value,
-    ) as T;
+  if (value instanceof Date) {
+    return Object.freeze(value) as T;
   }
 
-  for (
-    const child of
-    Object.values(value)
-  ) {
-    if (
-      isConfigValue(child)
-    ) {
-      freezeConfigValue(
-        child,
-      );
+  for (const child of Object.values(value)) {
+    if (isConfigValue(child)) {
+      freezeConfigValue(child);
     }
   }
 
-  return Object.freeze(
-    value,
-  ) as T;
+  return Object.freeze(value) as T;
 }
 
 /**
  * Deeply clones a configuration value.
  */
-export function cloneConfigValue<
-  T extends ConfigValue,
->(
-  value: T,
-): T {
-  if (
-    value === null ||
-    value === undefined ||
-    typeof value !== "object"
-  ) {
+export function cloneConfigValue<T extends ConfigValue>(value: T): T {
+  if (value === null || value === undefined || typeof value !== "object") {
     return value;
   }
 
-  if (
-    value instanceof Date
-  ) {
-    return new Date(
-      value.getTime(),
-    ) as T;
+  if (value instanceof Date) {
+    return new Date(value.getTime()) as T;
   }
 
-  if (
-    Array.isArray(value)
-  ) {
-    return value.map(
-      cloneConfigValue,
-    ) as T;
+  if (Array.isArray(value)) {
+    return value.map(cloneConfigValue) as T;
   }
 
-  if (
-    isConfigObject(value)
-  ) {
-    const result:
-      Record<string, ConfigValue> =
-      {};
+  if (isConfigObject(value)) {
+    const result: Record<string, ConfigValue> = {};
 
-    for (
-      const [
-        key,
-        child,
-      ] of Object.entries(value)
-    ) {
-      result[key] =
-        cloneConfigValue(
-          child,
-        );
+    for (const [key, child] of Object.entries(value)) {
+      result[key] = cloneConfigValue(child);
     }
 
     return result as T;
@@ -605,75 +399,35 @@ export function configValuesEqual(
   left: ConfigValue,
   right: ConfigValue,
 ): boolean {
-  if (
-    Object.is(
-      left,
-      right,
-    )
-  ) {
+  if (Object.is(left, right)) {
     return true;
   }
 
-  if (
-    left instanceof Date &&
-    right instanceof Date
-  ) {
-    return (
-      left.getTime() ===
-      right.getTime()
-    );
+  if (left instanceof Date && right instanceof Date) {
+    return left.getTime() === right.getTime();
   }
 
-  if (
-    Array.isArray(left) &&
-    Array.isArray(right)
-  ) {
-    if (
-      left.length !==
-      right.length
-    ) {
+  if (Array.isArray(left) && Array.isArray(right)) {
+    if (left.length !== right.length) {
       return false;
     }
 
-    return left.every(
-      (
-        value,
-        index,
-      ) =>
-        configValuesEqual(
-          value,
-          right[index],
-        ),
-    );
+    return left.every((value, index) => configValuesEqual(value, right[index]));
   }
 
-  if (
-    isConfigObject(left) &&
-    isConfigObject(right)
-  ) {
-    const leftKeys =
-      Object.keys(left);
+  if (isConfigObject(left) && isConfigObject(right)) {
+    const leftKeys = Object.keys(left);
 
-    const rightKeys =
-      Object.keys(right);
+    const rightKeys = Object.keys(right);
 
-    if (
-      leftKeys.length !==
-      rightKeys.length
-    ) {
+    if (leftKeys.length !== rightKeys.length) {
       return false;
     }
 
     return leftKeys.every(
       (key) =>
-        Object.prototype.hasOwnProperty.call(
-          right,
-          key,
-        ) &&
-        configValuesEqual(
-          left[key],
-          right[key],
-        ),
+        Object.prototype.hasOwnProperty.call(right, key) &&
+        configValuesEqual(left[key], right[key]),
     );
   }
 

@@ -13,7 +13,9 @@ export class OrdersModule {
   private readonly orders: OrderRepository;
   private readonly commandBus: CommandBus;
   private readonly queryBus: QueryBus;
-  private readonly eventHandlers: ((events: readonly DomainEvent[]) => Promise<void>)[] = [];
+  private readonly eventHandlers: ((
+    events: readonly DomainEvent[],
+  ) => Promise<void>)[] = [];
 
   public constructor() {
     this.orders = new InMemoryOrderRepository();
@@ -26,19 +28,43 @@ export class OrdersModule {
     const cancelHandler = new CancelOrderHandler(this.orders);
     const getHandler = new GetOrderHandler(this.orders);
     const listHandler = new ListUserOrdersHandler(this.orders);
-    this.commandBus.register("orders.create", createHandler.execute.bind(createHandler));
-    this.commandBus.register("orders.cancel", cancelHandler.execute.bind(cancelHandler));
-    this.queryBus.register("orders.getById", getHandler.execute.bind(getHandler));
-    this.queryBus.register("orders.listByUser", listHandler.execute.bind(listHandler));
+    this.commandBus.register(
+      "orders.create",
+      createHandler.execute.bind(createHandler),
+    );
+    this.commandBus.register(
+      "orders.cancel",
+      cancelHandler.execute.bind(cancelHandler),
+    );
+    this.queryBus.register(
+      "orders.getById",
+      getHandler.execute.bind(getHandler),
+    );
+    this.queryBus.register(
+      "orders.listByUser",
+      listHandler.execute.bind(listHandler),
+    );
   }
 
-  public onEvents(handler: (events: readonly DomainEvent[]) => Promise<void>): void { this.eventHandlers.push(handler); }
+  public onEvents(
+    handler: (events: readonly DomainEvent[]) => Promise<void>,
+  ): void {
+    this.eventHandlers.push(handler);
+  }
 
   public async dispatchEvents(events: readonly DomainEvent[]): Promise<void> {
-    for (const handler of this.eventHandlers) { await handler(events); }
+    for (const handler of this.eventHandlers) {
+      await handler(events);
+    }
   }
 
-  public getCommandBus(): CommandBus { return this.commandBus; }
-  public getQueryBus(): QueryBus { return this.queryBus; }
-  public getOrderRepository(): OrderRepository { return this.orders; }
+  public getCommandBus(): CommandBus {
+    return this.commandBus;
+  }
+  public getQueryBus(): QueryBus {
+    return this.queryBus;
+  }
+  public getOrderRepository(): OrderRepository {
+    return this.orders;
+  }
 }

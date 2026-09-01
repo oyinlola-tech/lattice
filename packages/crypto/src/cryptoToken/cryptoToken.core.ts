@@ -23,10 +23,7 @@ function getDefaultProvider(): CryptoProvider {
 /**
  * Supported token encodings.
  */
-export type TokenEncoding =
-  | "hex"
-  | "base64"
-  | "base64url";
+export type TokenEncoding = "hex" | "base64" | "base64url";
 
 /**
  * Options for generating a secure token.
@@ -61,52 +58,45 @@ export async function generateToken(
 /**
  * Generates a secure API key.
  */
-export async function generateApiKey(prefix = "lat_", bytes = 32): Promise<string> {
+export async function generateApiKey(
+  prefix = "lat_",
+  bytes = 32,
+): Promise<string> {
   return generateToken({ bytes, encoding: "base64url", prefix });
 }
 
 /**
  * Generates a secure session token.
  */
-export async function generateSessionToken(
-  bytes = 32,
-): Promise<string> {
+export async function generateSessionToken(bytes = 32): Promise<string> {
   return generateToken({ bytes, encoding: "base64url", prefix: "sess_" });
 }
 
 /**
  * Generates a secure refresh token.
  */
-export async function generateRefreshToken(
-  bytes = 48,
-): Promise<string> {
+export async function generateRefreshToken(bytes = 48): Promise<string> {
   return generateToken({ bytes, encoding: "base64url", prefix: "ref_" });
 }
 
 /**
  * Generates a secure verification token.
  */
-export async function generateVerificationToken(
-  bytes = 32,
-): Promise<string> {
+export async function generateVerificationToken(bytes = 32): Promise<string> {
   return generateToken({ bytes, encoding: "base64url", prefix: "verify_" });
 }
 
 /**
  * Generates a secure password-reset token.
  */
-export async function generatePasswordResetToken(
-  bytes = 32,
-): Promise<string> {
+export async function generatePasswordResetToken(bytes = 32): Promise<string> {
   return generateToken({ bytes, encoding: "base64url", prefix: "reset_" });
 }
 
 /**
  * Generates a secure CSRF token.
  */
-export async function generateCsrfToken(
-  bytes = 32,
-): Promise<string> {
+export async function generateCsrfToken(bytes = 32): Promise<string> {
   return generateToken({ bytes, encoding: "base64url", prefix: "csrf_" });
 }
 
@@ -115,13 +105,9 @@ export async function generateCsrfToken(
  *
  * Leading zeroes are preserved.
  */
-export async function generateOtp(
-  digits = 6,
-): Promise<string> {
+export async function generateOtp(digits = 6): Promise<string> {
   if (!Number.isInteger(digits) || digits < 4 || digits > 12) {
-    throw new RangeError(
-      "OTP digits must be an integer between 4 and 12.",
-    );
+    throw new RangeError("OTP digits must be an integer between 4 and 12.");
   }
 
   const max = 10 ** digits;
@@ -142,8 +128,6 @@ export async function generateEmailVerificationCode(
 /**
  * Generates a short-lived login verification code.
  */
-export async function generateLoginCode(
-  digits = 6,
-): Promise<string> {
+export async function generateLoginCode(digits = 6): Promise<string> {
   return generateOtp(digits);
 }

@@ -47,28 +47,34 @@ src/
 ## Modules
 
 ### Identity
+
 - Register users
 - Update profiles
 - Get user information
 
 ### Articles
+
 - Create, update, delete articles
 - Publish articles (draft → published workflow)
 - Search and list articles
 
 ### Comments
+
 - Add comments to articles
 - Update and delete comments
 
 ### Reactions
+
 - React to articles (like, love, insightful, disagree)
 - Remove reactions
 
 ### Topics
+
 - Create topics
 - Follow/unfollow topics
 
 ### Notifications
+
 - Event-driven notifications
 - Mark notifications as read
 
@@ -121,18 +127,24 @@ Each module registers its commands and queries:
 
 ```typescript
 export function registerArticlesModule(config: ArticlesModuleConfig): void {
-  config.commandBus.register("articles.create", new CreateArticleHandler(config.articles));
-  config.queryBus.register("articles.get", new GetArticleHandler(config.articles));
+  config.commandBus.register(
+    "articles.create",
+    new CreateArticleHandler(config.articles),
+  );
+  config.queryBus.register(
+    "articles.get",
+    new GetArticleHandler(config.articles),
+  );
 }
 ```
 
 ## Differences from `examples/monolith`
 
-| Aspect | Monolith | Modular Monolith |
-|--------|----------|------------------|
-| Structure | Traditional layered | Module-focused |
-| Module boundaries | Loose | Explicit registration |
-| CQRS | Per module | Per module |
-| Events | Manual wiring | EventBus integration |
-| Infrastructure | Mixed in modules | Shared in `src/` |
-| Complexity | Simpler | More structured |
+| Aspect            | Monolith            | Modular Monolith      |
+| ----------------- | ------------------- | --------------------- |
+| Structure         | Traditional layered | Module-focused        |
+| Module boundaries | Loose               | Explicit registration |
+| CQRS              | Per module          | Per module            |
+| Events            | Manual wiring       | EventBus integration  |
+| Infrastructure    | Mixed in modules    | Shared in `src/`      |
+| Complexity        | Simpler             | More structured       |

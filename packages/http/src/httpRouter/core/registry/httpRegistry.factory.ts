@@ -4,9 +4,7 @@
  * @module httpRoute/registry/factory
  */
 
-import type {
-  RouteRegistryOptions,
-} from "./core/httpRegistry.type.js";
+import type { RouteRegistryOptions } from "./core/httpRegistry.type.js";
 
 import { RouteRegistry } from "./httpRegistry.core.js";
 import { RouteRegistryGroup } from "./httpRegistry.group.js";
@@ -39,6 +37,8 @@ export function isRouteRegistry(value: unknown): value is RouteRegistry {
 /**
  * Type guard for RouteRegistryGroup.
  */
-export function isRouteRegistryGroup(value: unknown): value is RouteRegistryGroup {
+export function isRouteRegistryGroup(
+  value: unknown,
+): value is RouteRegistryGroup {
   return value instanceof RouteRegistryGroup;
 }

@@ -1,41 +1,33 @@
-import type {
-  RuntimeErrorOptions,
-} from "./runtimeError.type.js";
+import type { RuntimeErrorOptions } from "./runtimeError.type.js";
 
-import {
-  RuntimeErrorCode,
-} from "./runtimeError.type.js";
+import { RuntimeErrorCode } from "./runtimeError.type.js";
 
-import {
-  RuntimeError,
-} from "./runtimeError.base.js";
+import { RuntimeError } from "./runtimeError.base.js";
 
 /**
  * Error thrown when runtime state transitions are invalid.
  */
-export class RuntimeStateError
-  extends RuntimeError {
-  public readonly from: import("./runtimeError.type.js").RuntimeErrorPhase | string;
-  public readonly to: import("./runtimeError.type.js").RuntimeErrorPhase | string;
+export class RuntimeStateError extends RuntimeError {
+  public readonly from:
+    import("./runtimeError.type.js").RuntimeErrorPhase | string;
+  public readonly to:
+    import("./runtimeError.type.js").RuntimeErrorPhase | string;
 
   public constructor(
     from: import("./runtimeError.type.js").RuntimeErrorPhase | string,
     to: import("./runtimeError.type.js").RuntimeErrorPhase | string,
     options: Omit<RuntimeErrorOptions, "code"> = {},
   ) {
-    super(
-      `Invalid runtime state transition from "${from}" to "${to}".`,
-      {
-        ...options,
-        code: RuntimeErrorCode.INVALID_STATE_TRANSITION,
-        operation: options.operation ?? "run",
-        metadata: {
-          ...(options.metadata ?? {}),
-          from,
-          to,
-        },
+    super(`Invalid runtime state transition from "${from}" to "${to}".`, {
+      ...options,
+      code: RuntimeErrorCode.INVALID_STATE_TRANSITION,
+      operation: options.operation ?? "run",
+      metadata: {
+        ...(options.metadata ?? {}),
+        from,
+        to,
       },
-    );
+    });
 
     this.name = "RuntimeStateError";
     this.from = from;
@@ -46,8 +38,7 @@ export class RuntimeStateError
 /**
  * Error thrown when runtime startup fails.
  */
-export class RuntimeStartError
-  extends RuntimeError {
+export class RuntimeStartError extends RuntimeError {
   public constructor(
     message: string,
     options: Omit<RuntimeErrorOptions, "operation"> = {},
@@ -65,8 +56,7 @@ export class RuntimeStartError
 /**
  * Error thrown when runtime shutdown fails.
  */
-export class RuntimeStopError
-  extends RuntimeError {
+export class RuntimeStopError extends RuntimeError {
   public constructor(
     message: string,
     options: Omit<RuntimeErrorOptions, "operation"> = {},
@@ -84,8 +74,7 @@ export class RuntimeStopError
 /**
  * Error thrown when runtime initialization fails.
  */
-export class RuntimeInitializationError
-  extends RuntimeError {
+export class RuntimeInitializationError extends RuntimeError {
   public constructor(
     message: string,
     options: Omit<RuntimeErrorOptions, "operation"> = {},
@@ -103,8 +92,7 @@ export class RuntimeInitializationError
 /**
  * Error thrown when runtime loading fails.
  */
-export class RuntimeLoadError
-  extends RuntimeError {
+export class RuntimeLoadError extends RuntimeError {
   public constructor(
     message: string,
     options: Omit<RuntimeErrorOptions, "operation"> = {},

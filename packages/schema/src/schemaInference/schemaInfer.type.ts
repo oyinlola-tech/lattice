@@ -13,11 +13,12 @@ import type { Schema } from "../schemaBase/index.js";
  * const UserSchema = schema.object({ name: schema.string() });
  * type User = Infer<typeof UserSchema>; // { name: string }
  */
-export type Infer<TSchema> = TSchema extends Schema<infer TOutput, unknown>
-  ? TOutput
-  : TSchema extends Schema<infer TOutput>
+export type Infer<TSchema> =
+  TSchema extends Schema<infer TOutput, unknown>
     ? TOutput
-    : never;
+    : TSchema extends Schema<infer TOutput>
+      ? TOutput
+      : never;
 
 /**
  * Infers the input type of a schema.
@@ -26,11 +27,12 @@ export type Infer<TSchema> = TSchema extends Schema<infer TOutput, unknown>
  * const schema = schema.string().transform(Number);
  * type Input = Input<typeof schema>; // string
  */
-export type SchemaInput<TSchema> = TSchema extends Schema<unknown, infer TInput>
-  ? TInput
-  : TSchema extends Schema<infer TOutput>
-    ? TOutput
-    : never;
+export type SchemaInput<TSchema> =
+  TSchema extends Schema<unknown, infer TInput>
+    ? TInput
+    : TSchema extends Schema<infer TOutput>
+      ? TOutput
+      : never;
 
 /**
  * Infers the output type of a schema (alias for Infer).

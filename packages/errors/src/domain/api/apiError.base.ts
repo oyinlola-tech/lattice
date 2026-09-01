@@ -44,7 +44,10 @@ export class APIError extends BaseError {
 }
 
 /** Creates an API error. */
-export function createAPIError(message: string, options: APIErrorOptions = {}): APIError {
+export function createAPIError(
+  message: string,
+  options: APIErrorOptions = {},
+): APIError {
   return new APIError(message, options);
 }
 
@@ -57,11 +60,18 @@ export function isAPIError(value: unknown): value is APIError {
 export class APIValidationError extends APIError {
   public readonly issues: readonly string[];
 
-  constructor(message: string, issues: readonly string[] = [], options: { endpoint?: string; method?: string } = {}) {
+  constructor(
+    message: string,
+    issues: readonly string[] = [],
+    options: { endpoint?: string; method?: string } = {},
+  ) {
     super(message, {
       code: ErrorCode.API_VALIDATION,
-      endpoint: options.endpoint, method: options.method,
-      metadata: { issues }, statusCode: 422, expose: true,
+      endpoint: options.endpoint,
+      method: options.method,
+      metadata: { issues },
+      statusCode: 422,
+      expose: true,
     });
     this.issues = Object.freeze([...issues]);
   }
@@ -69,10 +79,16 @@ export class APIValidationError extends APIError {
 
 /** Error thrown when API authentication fails. */
 export class APIAuthenticationError extends APIError {
-  constructor(message = "API authentication is required.", options: { endpoint?: string; method?: string } = {}) {
+  constructor(
+    message = "API authentication is required.",
+    options: { endpoint?: string; method?: string } = {},
+  ) {
     super(message, {
-      code: ErrorCode.UNAUTHORIZED, endpoint: options.endpoint, method: options.method,
-      statusCode: 401, expose: true,
+      code: ErrorCode.UNAUTHORIZED,
+      endpoint: options.endpoint,
+      method: options.method,
+      statusCode: 401,
+      expose: true,
     });
   }
 }
@@ -84,8 +100,11 @@ export class APIAuthorizationError extends APIError {
     options: { endpoint?: string; method?: string } = {},
   ) {
     super(message, {
-      code: ErrorCode.FORBIDDEN, endpoint: options.endpoint, method: options.method,
-      statusCode: 403, expose: true,
+      code: ErrorCode.FORBIDDEN,
+      endpoint: options.endpoint,
+      method: options.method,
+      statusCode: 403,
+      expose: true,
     });
   }
 }

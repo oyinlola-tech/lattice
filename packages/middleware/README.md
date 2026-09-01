@@ -11,7 +11,7 @@ npm install @latticejs/middleware
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/middleware";
+import {} from /* add usage here */ "@latticejs/middleware";
 ```
 
 ## License

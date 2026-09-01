@@ -11,15 +11,9 @@
  * - Module lifecycle orchestration
  */
 
-export {
-  DefaultRuntime,
-  createRuntime,
-} from "./runtime/runtime.core.js";
+export { DefaultRuntime, createRuntime } from "./runtime/runtime.core.js";
 
-export type {
-  Runtime,
-  RuntimeDependencies,
-} from "./runtime/runtime.core.js";
+export type { Runtime, RuntimeDependencies } from "./runtime/runtime.core.js";
 
 export * from "./runtimeState/index.js";
 export * from "./runtimeOptions/index.js";

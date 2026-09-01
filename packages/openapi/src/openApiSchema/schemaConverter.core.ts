@@ -12,7 +12,14 @@ function isOptional(value: unknown): boolean {
   return false;
 }
 
-function extractMeta(schema: { _metadata?: { description?: string; example?: unknown; deprecated?: boolean; title?: string } }): Partial<OpenAPISchema> {
+function extractMeta(schema: {
+  _metadata?: {
+    description?: string;
+    example?: unknown;
+    deprecated?: boolean;
+    title?: string;
+  };
+}): Partial<OpenAPISchema> {
   const m = schema._metadata;
   if (!m) return {};
   return {
@@ -23,9 +30,21 @@ function extractMeta(schema: { _metadata?: { description?: string; example?: unk
   };
 }
 
-type SchemaInput = { _type: string; _metadata?: { description?: string; example?: unknown; deprecated?: boolean; title?: string }; [key: string]: unknown };
+type SchemaInput = {
+  _type: string;
+  _metadata?: {
+    description?: string;
+    example?: unknown;
+    deprecated?: boolean;
+    title?: string;
+  };
+  [key: string]: unknown;
+};
 
-export function convertSchema(input: unknown, _visited = new Set<object>()): SchemaConversionResult {
+export function convertSchema(
+  input: unknown,
+  _visited = new Set<object>(),
+): SchemaConversionResult {
   if (input && typeof input === "object" && "_type" in input) {
     const schema = input as SchemaInput;
     const meta = extractMeta(schema);
@@ -37,8 +56,10 @@ export function convertSchema(input: unknown, _visited = new Set<object>()): Sch
         return { schema: { type: schema._type, ...meta }, warnings: [] };
 
       case "object": {
-        const shape = (schema as { shape?: Record<string, unknown> }).shape ?? {};
-        const requiredKeys = (schema as { requiredKeys?: readonly string[] }).requiredKeys ?? [];
+        const shape =
+          (schema as { shape?: Record<string, unknown> }).shape ?? {};
+        const requiredKeys =
+          (schema as { requiredKeys?: readonly string[] }).requiredKeys ?? [];
         const properties: Record<string, OpenAPISchema> = {};
         const required: string[] = [];
         const warnings: string[] = [];
@@ -46,10 +67,16 @@ export function convertSchema(input: unknown, _visited = new Set<object>()): Sch
           const converted = convertSchema(value, _visited);
           properties[key] = converted.schema;
           warnings.push(...converted.warnings);
-          if (!isOptional(value) && requiredKeys.includes(key)) required.push(key);
+          if (!isOptional(value) && requiredKeys.includes(key))
+            required.push(key);
         }
         return {
-          schema: { type: "object", ...(Object.keys(properties).length > 0 ? { properties } : {}), ...(required.length > 0 ? { required } : {}), ...meta },
+          schema: {
+            type: "object",
+            ...(Object.keys(properties).length > 0 ? { properties } : {}),
+            ...(required.length > 0 ? { required } : {}),
+            ...meta,
+          },
           warnings,
         };
       }
@@ -63,15 +90,30 @@ export function convertSchema(input: unknown, _visited = new Set<object>()): Sch
           itemsSchema = converted.schema;
           warnings.push(...converted.warnings);
         }
-        return { schema: { type: "array", ...(itemsSchema ? { items: itemsSchema } : {}), ...meta }, warnings };
+        return {
+          schema: {
+            type: "array",
+            ...(itemsSchema ? { items: itemsSchema } : {}),
+            ...meta,
+          },
+          warnings,
+        };
       }
 
       case "enum":
       case "literal":
-        return { schema: { type: "string", enum: (schema as { values?: readonly unknown[] }).values ?? [], ...meta }, warnings: [] };
+        return {
+          schema: {
+            type: "string",
+            enum: (schema as { values?: readonly unknown[] }).values ?? [],
+            ...meta,
+          },
+          warnings: [],
+        };
 
       case "union": {
-        const options = (schema as { options?: readonly unknown[] }).options ?? [];
+        const options =
+          (schema as { options?: readonly unknown[] }).options ?? [];
         const warnings: string[] = [];
         const oneOf = options.map((option) => {
           const converted = convertSchema(option, _visited);
@@ -83,19 +125,35 @@ export function convertSchema(input: unknown, _visited = new Set<object>()): Sch
 
       case "optional": {
         const inner = (schema as { inner?: unknown }).inner;
-        if (!inner) return { schema: {}, warnings: ["Optional schema has no inner schema."] };
+        if (!inner)
+          return {
+            schema: {},
+            warnings: ["Optional schema has no inner schema."],
+          };
         return convertSchema(inner, _visited);
       }
 
       case "nullable": {
         const inner = (schema as { inner?: unknown }).inner;
-        if (!inner) return { schema: { nullable: true }, warnings: ["Nullable schema has no inner schema."] };
+        if (!inner)
+          return {
+            schema: { nullable: true },
+            warnings: ["Nullable schema has no inner schema."],
+          };
         const converted = convertSchema(inner, _visited);
-        return { schema: { ...converted.schema, nullable: true }, warnings: converted.warnings };
+        return {
+          schema: { ...converted.schema, nullable: true },
+          warnings: converted.warnings,
+        };
       }
 
       default:
-        return { schema: {}, warnings: [`Unsupported schema type: ${(schema as { _type?: string })._type ?? "unknown"}`] };
+        return {
+          schema: {},
+          warnings: [
+            `Unsupported schema type: ${(schema as { _type?: string })._type ?? "unknown"}`,
+          ],
+        };
     }
   }
 
@@ -103,13 +161,19 @@ export function convertSchema(input: unknown, _visited = new Set<object>()): Sch
     const items = input[0];
     if (items) {
       const converted = convertSchema(items, _visited);
-      return { schema: { type: "array", items: converted.schema }, warnings: converted.warnings };
+      return {
+        schema: { type: "array", items: converted.schema },
+        warnings: converted.warnings,
+      };
     }
     return { schema: { type: "array" }, warnings: [] };
   }
-  if (typeof input === "string") return { schema: { type: "string" }, warnings: [] };
-  if (typeof input === "number") return { schema: { type: "number" }, warnings: [] };
-  if (typeof input === "boolean") return { schema: { type: "boolean" }, warnings: [] };
+  if (typeof input === "string")
+    return { schema: { type: "string" }, warnings: [] };
+  if (typeof input === "number")
+    return { schema: { type: "number" }, warnings: [] };
+  if (typeof input === "boolean")
+    return { schema: { type: "boolean" }, warnings: [] };
   return { schema: {}, warnings: ["Unable to convert unknown schema input."] };
 }
 

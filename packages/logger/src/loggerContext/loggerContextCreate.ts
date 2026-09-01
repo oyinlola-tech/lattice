@@ -2,9 +2,7 @@
  * Logger context creation and manipulation.
  */
 
-import type {
-  LogMetadata,
-} from "../loggerEntry/loggerEntry.type.js";
+import type { LogMetadata } from "../loggerEntry/loggerEntry.type.js";
 
 import type {
   LoggerContext,
@@ -16,13 +14,10 @@ import type {
 /**
  * Generates a unique context identifier.
  */
-export function createLoggerContextId():
-  string {
+export function createLoggerContextId(): string {
   if (
-    typeof crypto !==
-      "undefined" &&
-    typeof crypto.randomUUID ===
-      "function"
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
   ) {
     return `ctx:${crypto.randomUUID()}`;
   }
@@ -30,9 +25,7 @@ export function createLoggerContextId():
   return [
     "ctx",
     Date.now().toString(36),
-    Math.random()
-      .toString(36)
-      .slice(2),
+    Math.random().toString(36).slice(2),
   ].join(":");
 }
 
@@ -40,54 +33,36 @@ export function createLoggerContextId():
  * Creates a logger context.
  */
 export function createLoggerContext(
-  options:
-    LoggerContextOptions = {},
-):
-  LoggerContext {
-  const parent =
-    options.parent;
+  options: LoggerContextOptions = {},
+): LoggerContext {
+  const parent = options.parent;
 
-  const identifiers:
-    LoggerContextIdentifiers =
-    Object.freeze({
-      ...(parent?.identifiers ?? {}),
-      ...(options.correlationId !== undefined
-        ? { correlationId: options.correlationId }
-        : {}),
-      ...(options.requestId !== undefined
-        ? { requestId: options.requestId }
-        : {}),
-      ...(options.traceId !== undefined
-        ? { traceId: options.traceId }
-        : {}),
-      ...(options.spanId !== undefined
-        ? { spanId: options.spanId }
-        : {}),
-      ...(options.userId !== undefined
-        ? { userId: options.userId }
-        : {}),
-      ...(options.tenantId !== undefined
-        ? { tenantId: options.tenantId }
-        : {}),
-      ...(options.sessionId !== undefined
-        ? { sessionId: options.sessionId }
-        : {}),
-      ...(options.jobId !== undefined
-        ? { jobId: options.jobId }
-        : {}),
-      ...(options.moduleId !== undefined
-        ? { moduleId: options.moduleId }
-        : {}),
-      ...(options.operationId !== undefined
-        ? { operationId: options.operationId }
-        : {}),
-    });
+  const identifiers: LoggerContextIdentifiers = Object.freeze({
+    ...(parent?.identifiers ?? {}),
+    ...(options.correlationId !== undefined
+      ? { correlationId: options.correlationId }
+      : {}),
+    ...(options.requestId !== undefined
+      ? { requestId: options.requestId }
+      : {}),
+    ...(options.traceId !== undefined ? { traceId: options.traceId } : {}),
+    ...(options.spanId !== undefined ? { spanId: options.spanId } : {}),
+    ...(options.userId !== undefined ? { userId: options.userId } : {}),
+    ...(options.tenantId !== undefined ? { tenantId: options.tenantId } : {}),
+    ...(options.sessionId !== undefined
+      ? { sessionId: options.sessionId }
+      : {}),
+    ...(options.jobId !== undefined ? { jobId: options.jobId } : {}),
+    ...(options.moduleId !== undefined ? { moduleId: options.moduleId } : {}),
+    ...(options.operationId !== undefined
+      ? { operationId: options.operationId }
+      : {}),
+  });
 
-  const metadata: LoggerContextData =
-    Object.freeze({
-      ...(parent?.metadata ?? {}),
-      ...(options.metadata ?? {}),
-    });
+  const metadata: LoggerContextData = Object.freeze({
+    ...(parent?.metadata ?? {}),
+    ...(options.metadata ?? {}),
+  });
 
   return Object.freeze({ identifiers, metadata });
 }

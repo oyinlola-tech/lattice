@@ -8,11 +8,9 @@
  * A parsed Authorization header with scheme and credentials.
  */
 export interface ParsedAuthorization {
-  readonly scheme:
-    | string;
+  readonly scheme: string;
 
-  readonly credentials:
-    | string;
+  readonly credentials: string;
 }
 
 /**
@@ -22,52 +20,25 @@ export interface ParsedAuthorization {
  * @returns The parsed authorization, or `undefined` if invalid.
  */
 export function parseAuthorization(
-  value:
-    | string
-    | undefined,
-):
-  | ParsedAuthorization
-  | undefined {
-  if (
-    !value
-  ) {
+  value: string | undefined,
+): ParsedAuthorization | undefined {
+  if (!value) {
     return undefined;
   }
 
-  const trimmed =
-    value.trim();
+  const trimmed = value.trim();
 
-  const separator =
-    trimmed.indexOf(
-      " ",
-    );
+  const separator = trimmed.indexOf(" ");
 
-  if (
-    separator ===
-      -1
-  ) {
+  if (separator === -1) {
     return undefined;
   }
 
-  const scheme =
-    trimmed
-      .slice(
-        0,
-        separator,
-      )
-      .trim();
+  const scheme = trimmed.slice(0, separator).trim();
 
-  const credentials =
-    trimmed
-      .slice(
-        separator + 1,
-      )
-      .trim();
+  const credentials = trimmed.slice(separator + 1).trim();
 
-  if (
-    !scheme ||
-    !credentials
-  ) {
+  if (!scheme || !credentials) {
     return undefined;
   }
 
@@ -83,17 +54,8 @@ export function parseAuthorization(
  * @param value - The raw Authorization header value.
  * @returns `true` if the scheme is `"Bearer"` (case-insensitive).
  */
-export function isBearerAuthorization(
-  value:
-    | string
-    | undefined,
-): boolean {
-  return (
-    parseAuthorization(
-      value,
-    )?.scheme.toLowerCase() ===
-    "bearer"
-  );
+export function isBearerAuthorization(value: string | undefined): boolean {
+  return parseAuthorization(value)?.scheme.toLowerCase() === "bearer";
 }
 
 /**
@@ -102,22 +64,10 @@ export function isBearerAuthorization(
  * @param value - The raw Authorization header value.
  * @returns The Bearer token, or `undefined` if not a Bearer authorization.
  */
-export function getBearerToken(
-  value:
-    | string
-    | undefined,
-): string
-  | undefined {
-  const parsed =
-    parseAuthorization(
-      value,
-    );
+export function getBearerToken(value: string | undefined): string | undefined {
+  const parsed = parseAuthorization(value);
 
-  if (
-    !parsed ||
-    parsed.scheme.toLowerCase() !==
-      "bearer"
-  ) {
+  if (!parsed || parsed.scheme.toLowerCase() !== "bearer") {
     return undefined;
   }
 

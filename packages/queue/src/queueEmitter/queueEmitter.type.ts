@@ -10,10 +10,7 @@ import type { QueueEventMap } from "../queue/queue.type.js";
  */
 export interface QueueEventEmitter {
   /** Emit an event. */
-  emit<K extends keyof QueueEventMap>(
-    event: K,
-    data: QueueEventMap[K],
-  ): void;
+  emit<K extends keyof QueueEventMap>(event: K, data: QueueEventMap[K]): void;
   /** Subscribe to an event. */
   on<K extends keyof QueueEventMap>(
     event: K,

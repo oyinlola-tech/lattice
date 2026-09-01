@@ -1,15 +1,9 @@
-import type {
-  Module,
-} from "@oyinlola141/lattice-core";
+import type { Module } from "@oyinlola141/lattice-core";
 
 /**
  * Lifecycle hook phases for modules.
  */
-export type LifecyclePhase =
-  | "initialize"
-  | "start"
-  | "stop"
-  | "destroy";
+export type LifecyclePhase = "initialize" | "start" | "stop" | "destroy";
 
 /**
  * Result of a lifecycle operation.

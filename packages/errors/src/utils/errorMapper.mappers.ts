@@ -6,7 +6,12 @@ import { BaseError } from "../base/core/baseError.core.js";
 import { ErrorCategory } from "../base/types/errorCategory.type.js";
 import { ErrorCode } from "../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../base/types/errorSeverity.type.js";
-import type { ErrorMapperContext, ErrorMapper, ErrorMapperPredicate, ErrorMappingRule } from "./errorMapper.types.js";
+import type {
+  ErrorMapperContext,
+  ErrorMapper,
+  ErrorMapperPredicate,
+  ErrorMappingRule,
+} from "./errorMapper.types.js";
 import type { ErrorMapperRegistry } from "./errorMapper.registry.js";
 
 /** Maps common native JavaScript errors. */

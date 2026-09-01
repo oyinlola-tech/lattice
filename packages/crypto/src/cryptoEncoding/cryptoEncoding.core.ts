@@ -1,12 +1,6 @@
-import {
-  toHex,
-  fromHex,
-} from "./encoding/cryptoEncoding.hex.js";
+import { toHex, fromHex } from "./encoding/cryptoEncoding.hex.js";
 
-import {
-  toBase64,
-  fromBase64,
-} from "./encoding/cryptoEncoding.base64.js";
+import { toBase64, fromBase64 } from "./encoding/cryptoEncoding.base64.js";
 
 import {
   toBase64Url,
@@ -16,11 +10,7 @@ import {
 /**
  * Supported binary encodings.
  */
-export type CryptoEncoding =
-  | "hex"
-  | "base64"
-  | "base64url"
-  | "utf8";
+export type CryptoEncoding = "hex" | "base64" | "base64url" | "utf8";
 
 /**
  * Encodes bytes into a string.
@@ -42,15 +32,10 @@ export function encode(
       return toBase64Url(value);
 
     case "utf8":
-      return new TextDecoder()
-        .decode(value);
+      return new TextDecoder().decode(value);
 
     default:
-      throw new TypeError(
-        `Unsupported crypto encoding: ${String(
-          encoding,
-        )}.`,
-      );
+      throw new TypeError(`Unsupported crypto encoding: ${String(encoding)}.`);
   }
 }
 
@@ -61,12 +46,8 @@ export function decode(
   value: string,
   encoding: CryptoEncoding = "base64url",
 ): Uint8Array {
-  if (
-    typeof value !== "string"
-  ) {
-    throw new TypeError(
-      "Encoded value must be a string.",
-    );
+  if (typeof value !== "string") {
+    throw new TypeError("Encoded value must be a string.");
   }
 
   switch (encoding) {
@@ -80,56 +61,35 @@ export function decode(
       return fromBase64Url(value);
 
     case "utf8":
-      return new TextEncoder()
-        .encode(value);
+      return new TextEncoder().encode(value);
 
     default:
-      throw new TypeError(
-        `Unsupported crypto encoding: ${String(
-          encoding,
-        )}.`,
-      );
+      throw new TypeError(`Unsupported crypto encoding: ${String(encoding)}.`);
   }
 }
 
 /**
  * Encodes UTF-8 text into bytes.
  */
-export function utf8Encode(
-  value: string,
-): Uint8Array {
-  if (
-    typeof value !== "string"
-  ) {
-    throw new TypeError(
-      "UTF-8 input must be a string.",
-    );
+export function utf8Encode(value: string): Uint8Array {
+  if (typeof value !== "string") {
+    throw new TypeError("UTF-8 input must be a string.");
   }
 
-  return new TextEncoder()
-    .encode(value);
+  return new TextEncoder().encode(value);
 }
 
 /**
  * Decodes UTF-8 bytes into a string.
  */
-export function utf8Decode(
-  value: Uint8Array,
-): string {
+export function utf8Decode(value: Uint8Array): string {
   assertBytes(value);
 
-  return new TextDecoder()
-    .decode(value);
+  return new TextDecoder().decode(value);
 }
 
-function assertBytes(
-  value: Uint8Array,
-): void {
-  if (
-    !(value instanceof Uint8Array)
-  ) {
-    throw new TypeError(
-      "Value must be a Uint8Array.",
-    );
+function assertBytes(value: Uint8Array): void {
+  if (!(value instanceof Uint8Array)) {
+    throw new TypeError("Value must be a Uint8Array.");
   }
 }

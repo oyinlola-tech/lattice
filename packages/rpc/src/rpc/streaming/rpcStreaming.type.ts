@@ -26,7 +26,10 @@ export interface RPCStreamingProcedure<TInput = unknown, TOutput = unknown> {
 /**
  * Creates a streaming RPC procedure.
  */
-export function createRPCStreamingProcedure<TInput = unknown, TOutput = unknown>(
+export function createRPCStreamingProcedure<
+  TInput = unknown,
+  TOutput = unknown,
+>(
   name: string,
   handler: RPCStreamingHandler<TInput, TOutput>,
 ): RPCStreamingProcedure<TInput, TOutput> {

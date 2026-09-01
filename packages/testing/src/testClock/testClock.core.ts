@@ -59,9 +59,7 @@ export interface TestClock {
 export function createTestClock(
   initialTime?: Date | string | number,
 ): TestClock {
-  let currentTime = initialTime
-    ? new Date(initialTime).getTime()
-    : Date.now();
+  let currentTime = initialTime ? new Date(initialTime).getTime() : Date.now();
 
   const now = (): Date => new Date(currentTime);
 

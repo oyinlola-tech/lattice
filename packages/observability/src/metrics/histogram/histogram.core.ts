@@ -30,7 +30,12 @@ export class DefaultHistogram implements Histogram {
     if (value > this.max) this.max = value;
   }
 
-  getValue(): { readonly count: number; readonly sum: number; readonly min: number; readonly max: number } {
+  getValue(): {
+    readonly count: number;
+    readonly sum: number;
+    readonly min: number;
+    readonly max: number;
+  } {
     return {
       count: this.count,
       sum: this.sum,
@@ -48,6 +53,9 @@ export class DefaultHistogram implements Histogram {
 }
 
 /** Creates a histogram. */
-export function createHistogram(name: string, labels?: Record<string, string>): DefaultHistogram {
+export function createHistogram(
+  name: string,
+  labels?: Record<string, string>,
+): DefaultHistogram {
   return new DefaultHistogram(name, labels);
 }

@@ -51,6 +51,7 @@ Interfaces are defined before implementations.
 Consumers depend on abstractions, not concrete classes.
 
 This allows:
+
 - Swapping implementations without changing consumers.
 - Testing with fakes and mocks.
 - Clear contracts between modules.
@@ -91,6 +92,7 @@ Errors are first-class citizens.
 Every package defines its own error hierarchy rooted in `@lattice/errors`.
 
 Errors carry:
+
 - A machine-readable code.
 - A human-readable message.
 - Operational metadata (plugin name, dependency name, etc.).
@@ -117,6 +119,7 @@ Lattice is organized into five conceptual layers.
 The base of the framework.
 
 Provides:
+
 - Error handling (`@lattice/errors`)
 - Type utilities (`@lattice/types`)
 - Constants and branded types (`@lattice/constants`)
@@ -376,7 +379,10 @@ Services are registered with tokens:
 
 ```ts
 container.register(UserRepositoryToken, () => new UserRepository());
-container.register(UserServiceToken, (ctx) => new UserService(ctx.resolve(UserRepositoryToken)));
+container.register(
+  UserServiceToken,
+  (ctx) => new UserService(ctx.resolve(UserRepositoryToken)),
+);
 ```
 
 ### 7.2 Resolution
@@ -442,12 +448,14 @@ The transport layer is the boundary between the outside world and the Lattice ap
 Transport packages translate external requests into internal application calls.
 
 They should:
+
 - Parse incoming requests.
 - Apply transport-specific middleware.
 - Route to the appropriate handler.
 - Serialize responses.
 
 They should NOT:
+
 - Contain business logic.
 - Directly access the database.
 - Know about other transport packages.
@@ -528,6 +536,7 @@ Modules encapsulate features and compose into applications.
 A controlled extension system (`@lattice/plugins`).
 
 Plugins:
+
 - Register with the plugin manager.
 - Declare dependencies on other plugins.
 - Receive a controlled context (container, config, logger, events).
@@ -576,6 +585,7 @@ BaseError
 ### 12.2 Error Properties
 
 Every error carries:
+
 - `code` — machine-readable error code.
 - `message` — human-readable description.
 - `cause` — underlying error.
@@ -595,14 +605,14 @@ Each package defines domain-specific errors.
 
 ```ts
 // @lattice/database
-DatabaseConnectionError
-QueryExecutionError
-TransactionError
+DatabaseConnectionError;
+QueryExecutionError;
+TransactionError;
 
 // @lattice/auth
-AuthenticationError
-InvalidTokenError
-SessionExpiredError
+AuthenticationError;
+InvalidTokenError;
+SessionExpiredError;
 ```
 
 ---
@@ -733,6 +743,7 @@ packages/<package-name>/
 ```
 
 Rules:
+
 - Maximum 5 files per folder (excluding `index.ts`).
 - Maximum 150 lines per file.
 - Barrel `index.ts` files re-export the public API only.
@@ -746,6 +757,7 @@ Rules:
 ### 17.1 Why ESM?
 
 Lattice uses ECMAScript modules (ESM) for:
+
 - Native browser compatibility.
 - Better tree-shaking.
 - Clearer module boundaries.
@@ -754,6 +766,7 @@ Lattice uses ECMAScript modules (ESM) for:
 ### 17.2 Why TypeScript?
 
 TypeScript provides:
+
 - Compile-time type safety.
 - Better IDE support.
 - Self-documenting code.
@@ -762,6 +775,7 @@ TypeScript provides:
 ### 17.3 Why npm Workspaces?
 
 npm workspaces provide:
+
 - Native monorepo support.
 - Simple dependency management.
 - No external tooling required.
@@ -769,6 +783,7 @@ npm workspaces provide:
 ### 17.4 Why Vitest?
 
 Vitest provides:
+
 - Fast test execution.
 - Native ESM support.
 - Simple configuration.
@@ -777,6 +792,7 @@ Vitest provides:
 ### 17.5 Why Not NestJS?
 
 Lattice differs from NestJS in:
+
 - No decorator-heavy configuration.
 - Explicit dependency direction.
 - Lighter runtime overhead.
@@ -832,6 +848,7 @@ Lattice aims to support edge runtimes (Vercel Edge, Cloudflare Workers) through 
 ### 19.2 Plugin Marketplace
 
 The plugin system could evolve into a marketplace with:
+
 - Version compatibility checks.
 - Capability declarations.
 - Permission enforcement.
@@ -840,6 +857,7 @@ The plugin system could evolve into a marketplace with:
 ### 19.3 Distributed Tracing
 
 Full OpenTelemetry integration for distributed tracing across:
+
 - HTTP requests.
 - CQRS commands.
 - Events.
@@ -849,6 +867,7 @@ Full OpenTelemetry integration for distributed tracing across:
 ### 19.4 Horizontal Scaling
 
 Support for multi-instance deployments:
+
 - Distributed cache.
 - Distributed lock.
 - Message queue.
@@ -858,14 +877,14 @@ Support for multi-instance deployments:
 
 ## 20. Glossary
 
-| Term | Definition |
-|------|-----------|
-| Module | A self-contained unit of functionality with explicit imports and exports. |
-| Plugin | A controlled extension that participates in the application lifecycle. |
-| Transport | The boundary layer that translates external requests into internal calls. |
-| Infrastructure | External system integrations (database, cache, queue, scheduler). |
-| Context | Controlled environment provided to plugins, middleware, and handlers. |
-| State Machine | A formal model of valid state transitions for lifecycle management. |
-| Lifecycle | The sequence of states a component goes through from creation to disposal. |
-| Tier | A dependency level in the package hierarchy (0 = leaf, 4 = DX). |
+| Term                 | Definition                                                                 |
+| -------------------- | -------------------------------------------------------------------------- |
+| Module               | A self-contained unit of functionality with explicit imports and exports.  |
+| Plugin               | A controlled extension that participates in the application lifecycle.     |
+| Transport            | The boundary layer that translates external requests into internal calls.  |
+| Infrastructure       | External system integrations (database, cache, queue, scheduler).          |
+| Context              | Controlled environment provided to plugins, middleware, and handlers.      |
+| State Machine        | A formal model of valid state transitions for lifecycle management.        |
+| Lifecycle            | The sequence of states a component goes through from creation to disposal. |
+| Tier                 | A dependency level in the package hierarchy (0 = leaf, 4 = DX).            |
 | Dependency Direction | The rule that dependencies flow from higher-level to lower-level packages. |

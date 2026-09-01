@@ -20,128 +20,101 @@ export interface LoggerEntry {
   /**
    * Unique identifier for this log entry.
    */
-  readonly id:
-    string;
+  readonly id: string;
 
   /**
    * Numeric severity.
    */
-  readonly level:
-    LoggerLevel;
+  readonly level: LoggerLevel;
 
   /**
    * Canonical severity name.
    */
-  readonly levelName:
-    LoggerLevelName;
+  readonly levelName: LoggerLevelName;
 
   /**
    * Human-readable message.
    */
-  readonly message:
-    string;
+  readonly message: string;
 
   /**
    * Structured metadata.
    */
-  readonly metadata:
-    LogMetadata;
+  readonly metadata: LogMetadata;
 
   /**
    * Execution context.
    */
-  readonly context?:
-    LoggerEntryContext;
+  readonly context?: LoggerEntryContext;
 
   /**
    * Source information.
    */
-  readonly source?:
-    LoggerSource;
+  readonly source?: LoggerSource;
 
   /**
    * Error associated with the entry.
    */
-  readonly error?:
-    Error;
+  readonly error?: Error;
 
   /**
    * Logger name.
    */
-  readonly logger?:
-    string;
+  readonly logger?: string;
 
   /**
    * Timestamp of the log event.
    */
-  readonly timestamp:
-    Date;
+  readonly timestamp: Date;
 
   /**
    * Unix timestamp in milliseconds.
    */
-  readonly timestampMs:
-    number;
+  readonly timestampMs: number;
 
   /**
    * Process identifier where available.
    */
-  readonly pid?:
-    number;
+  readonly pid?: number;
 
   /**
    * Hostname where available.
    */
-  readonly hostname?:
-    string;
+  readonly hostname?: string;
 
   /**
    * Environment name.
    */
-  readonly environment?:
-    string;
+  readonly environment?: string;
 }
 
 /**
  * Input used to create a log entry.
  */
 export interface LoggerEntryInput {
-  readonly id?:
-    string;
+  readonly id?: string;
 
-  readonly level:
-    LoggerLevel;
+  readonly level: LoggerLevel;
 
-  readonly levelName?:
-    LoggerLevelName;
+  readonly levelName?: LoggerLevelName;
 
-  readonly message:
-    string;
+  readonly message: string;
 
-  readonly metadata?:
-    LogMetadata;
+  readonly metadata?: LogMetadata;
 
-  readonly context?:
-    LoggerEntryContext;
+  readonly context?: LoggerEntryContext;
 
-  readonly source?:
-    LoggerSource;
+  readonly source?: LoggerSource;
 
-  readonly error?:
-    Error;
+  readonly error?: Error;
 
-  readonly logger?:
-    string;
+  readonly logger?: string;
 
-  readonly timestamp?:
-    Date;
+  readonly timestamp?: Date;
 
-  readonly pid?:
-    number;
+  readonly pid?: number;
 
-  readonly hostname?:
-    string;
+  readonly hostname?: string;
 
-  readonly environment?:
-    string;
+  readonly environment?: string;
 }

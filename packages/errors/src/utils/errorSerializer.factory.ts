@@ -6,22 +6,38 @@ import { BaseError } from "../base/core/baseError.core.js";
 import { ErrorCategory } from "../base/types/errorCategory.type.js";
 import { ErrorSeverity } from "../base/types/errorSeverity.type.js";
 import { ErrorSerializer } from "./errorSerializer.core.js";
-import type { ErrorSerializerOptions, PublicErrorResponse, InternalErrorResponse } from "./errorSerializer.types.js";
+import type {
+  ErrorSerializerOptions,
+  PublicErrorResponse,
+  InternalErrorResponse,
+} from "./errorSerializer.types.js";
 
-export type { ErrorSerializerOptions, PublicErrorResponse, InternalErrorResponse } from "./errorSerializer.types.js";
+export type {
+  ErrorSerializerOptions,
+  PublicErrorResponse,
+  InternalErrorResponse,
+} from "./errorSerializer.types.js";
 
 /** Creates an ErrorSerializer instance. */
-export function createErrorSerializer(options: ErrorSerializerOptions = {}): ErrorSerializer {
+export function createErrorSerializer(
+  options: ErrorSerializerOptions = {},
+): ErrorSerializer {
   return new ErrorSerializer(options);
 }
 
 /** Serializes a BaseError for internal use. */
-export function serializeError(error: BaseError, options: ErrorSerializerOptions = {}): InternalErrorResponse {
+export function serializeError(
+  error: BaseError,
+  options: ErrorSerializerOptions = {},
+): InternalErrorResponse {
   return new ErrorSerializer(options).serialize(error);
 }
 
 /** Serializes a BaseError for public API responses. */
-export function serializePublicError(error: BaseError, options: ErrorSerializerOptions = {}): PublicErrorResponse {
+export function serializePublicError(
+  error: BaseError,
+  options: ErrorSerializerOptions = {},
+): PublicErrorResponse {
   return new ErrorSerializer(options).serializePublic(error);
 }
 

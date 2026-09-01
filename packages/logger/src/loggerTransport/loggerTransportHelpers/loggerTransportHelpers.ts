@@ -2,75 +2,57 @@
  * Logger transport helper functions.
  */
 
-import type {
-  LoggerEntry,
-} from "../../loggerEntry/loggerEntry.type.js";
+import type { LoggerEntry } from "../../loggerEntry/loggerEntry.type.js";
 
-import type {
-  LoggerTransportLike,
-} from "../loggerTransport.type.js";
+import type { LoggerTransportLike } from "../loggerTransport.type.js";
 
-import {
-  isLoggerTransportObject,
-} from "../loggerTransportGuard.js";
+import { isLoggerTransportObject } from "../loggerTransportGuard.js";
 
 /**
  * Converts a LoggerEntry into a console-friendly object.
  */
 export function serializeTransportEntry(
-  entry:
-    LoggerEntry,
-):
-  Record<string, unknown> {
+  entry: LoggerEntry,
+): Record<string, unknown> {
   return {
-    timestamp:
-      entry.timestamp.toISOString(),
+    timestamp: entry.timestamp.toISOString(),
 
-    level:
-      entry.levelName,
+    level: entry.levelName,
 
-    message:
-      entry.message,
+    message: entry.message,
 
     ...(entry.logger
       ? {
-          logger:
-            entry.logger,
+          logger: entry.logger,
         }
       : {}),
 
     ...(entry.context
       ? {
-          context:
-            entry.context,
+          context: entry.context,
         }
       : {}),
 
     ...(entry.metadata
       ? {
-          metadata:
-            entry.metadata,
+          metadata: entry.metadata,
         }
       : {}),
 
     ...(entry.source
       ? {
-          source:
-            entry.source,
+          source: entry.source,
         }
       : {}),
 
     ...(entry.error
       ? {
           error: {
-            name:
-              entry.error.name,
+            name: entry.error.name,
 
-            message:
-              entry.error.message,
+            message: entry.error.message,
 
-            stack:
-              entry.error.stack,
+            stack: entry.error.stack,
           },
         }
       : {}),
@@ -81,16 +63,9 @@ export function serializeTransportEntry(
  * Safely closes a transport.
  */
 export async function closeLoggerTransport(
-  transport:
-    LoggerTransportLike,
-):
-  Promise<void> {
-  if (
-    isLoggerTransportObject(
-      transport,
-    ) &&
-    transport.close
-  ) {
+  transport: LoggerTransportLike,
+): Promise<void> {
+  if (isLoggerTransportObject(transport) && transport.close) {
     await transport.close();
   }
 }
@@ -99,16 +74,9 @@ export async function closeLoggerTransport(
  * Flushes a transport.
  */
 export async function flushLoggerTransport(
-  transport:
-    LoggerTransportLike,
-):
-  Promise<void> {
-  if (
-    isLoggerTransportObject(
-      transport,
-    ) &&
-    transport.flush
-  ) {
+  transport: LoggerTransportLike,
+): Promise<void> {
+  if (isLoggerTransportObject(transport) && transport.flush) {
     await transport.flush();
   }
 }

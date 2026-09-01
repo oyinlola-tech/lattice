@@ -70,12 +70,7 @@ export interface LoggerOptions {
  * directly from environment variables or configuration files.
  */
 export type LogLevelOption =
-  | "trace"
-  | "debug"
-  | "info"
-  | "warn"
-  | "error"
-  | "fatal";
+  "trace" | "debug" | "info" | "warn" | "error" | "fatal";
 
 /**
  * Default logging configuration.
@@ -83,10 +78,7 @@ export type LogLevelOption =
 export const DEFAULT_LOGGER_OPTIONS: Required<
   Pick<
     LoggerOptions,
-    | "level"
-    | "timestamps"
-    | "structured"
-    | "includeStackTrace"
+    "level" | "timestamps" | "structured" | "includeStackTrace"
   >
 > = {
   level: "info",

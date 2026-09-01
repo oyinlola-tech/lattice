@@ -232,14 +232,14 @@ export { createEventBus } from "./eventBus/eventBus.factory.js";
 
 Use dot notation to separate domain prefix from concern.
 
-| Pattern | Example | Wrong |
-|---------|---------|-------|
-| Single-word prefix | `http.error.ts` | `http-error.ts` |
-| Multi-word prefix | `externalService.error.ts` | `external-service-error.ts` |
-| Types/interfaces | `configManager.type.ts` | `config-manager-type.ts` |
-| Utilities | `cryptoRandom.helper.ts` | `crypto-random-helper.ts` |
-| Constants | `http.status.ts` | `http-status.ts` |
-| Factory | `eventBus.factory.ts` | `event-bus-factory.ts` |
+| Pattern            | Example                    | Wrong                       |
+| ------------------ | -------------------------- | --------------------------- |
+| Single-word prefix | `http.error.ts`            | `http-error.ts`             |
+| Multi-word prefix  | `externalService.error.ts` | `external-service-error.ts` |
+| Types/interfaces   | `configManager.type.ts`    | `config-manager-type.ts`    |
+| Utilities          | `cryptoRandom.helper.ts`   | `crypto-random-helper.ts`   |
+| Constants          | `http.status.ts`           | `http-status.ts`            |
+| Factory            | `eventBus.factory.ts`      | `event-bus-factory.ts`      |
 
 ### 6.2 Class Names
 
@@ -421,11 +421,11 @@ Do not add inline comments in implementation code unless absolutely necessary.
 
 ```ts
 // ✅ Correct — self-documenting code
-const activeConnections = connections.filter(c => c.state === "open");
+const activeConnections = connections.filter((c) => c.state === "open");
 
 // ❌ Wrong — unnecessary comment
 // filter to only open connections
-const activeConnections = connections.filter(c => c.state === "open");
+const activeConnections = connections.filter((c) => c.state === "open");
 ```
 
 ### 8.8 .js Extensions
@@ -469,6 +469,7 @@ All `@lattice/*` dependencies must use exact versions (`0.1.0`).
 ### 9.3 Peer Dependencies
 
 Peer dependencies must be:
+
 1. Optional.
 2. Documented.
 3. In a higher or equal tier.
@@ -512,7 +513,7 @@ throw new PluginDependencyError(
   {
     pluginName: "A",
     metadata: { dependencyName: "B" },
-  }
+  },
 );
 ```
 
@@ -588,9 +589,9 @@ Defer expensive operations until needed.
 Limit concurrency to prevent resource exhaustion.
 
 ```ts
-await Promise.all(plugins.map(p => p.start()));
+await Promise.all(plugins.map((p) => p.start()));
 // Better:
-await pLimit(4)(plugins.map(p => () => p.start()));
+await pLimit(4)(plugins.map((p) => () => p.start()));
 ```
 
 ### 12.5 Caching
@@ -616,7 +617,7 @@ Use Vitest for all tests.
 Test files must be named `<package-name>.test.ts`.
 
 ```ts
-packages/events/tests/events.test.ts
+packages / events / tests / events.test.ts;
 ```
 
 ### 13.4 Test Coverage

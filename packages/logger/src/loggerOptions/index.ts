@@ -4,4 +4,4 @@
  * Logger configuration options and types.
  */
 
-export * from './loggerOptions.type.js';
+export * from "./loggerOptions.type.js";

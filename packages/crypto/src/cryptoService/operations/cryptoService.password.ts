@@ -8,9 +8,7 @@ import {
   verifyPassword,
 } from "../../cryptoPassword/cryptoPassword.core.js";
 
-import {
-  createCryptoError,
-} from "@oyinlola141/lattice-errors";
+import { createCryptoError } from "@oyinlola141/lattice-errors";
 
 export type { PasswordHashOptions, PasswordHashResult };
 
@@ -21,10 +19,7 @@ export async function serviceHashPassword(
   try {
     return await hashPassword(password, options);
   } catch {
-    throw createCryptoError(
-      "Password hashing failed.",
-      {},
-    );
+    throw createCryptoError("Password hashing failed.", {});
   }
 }
 

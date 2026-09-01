@@ -29,7 +29,9 @@ export interface TransactionAdapter {
   /** Adapter capabilities. */
   readonly capabilities: TransactionAdapterCapabilities;
   /** Begin a new transaction. Returns a handle. */
-  begin(options?: import("./transaction.interface.js").TransactionOptions): Promise<TransactionHandle>;
+  begin(
+    options?: import("./transaction.interface.js").TransactionOptions,
+  ): Promise<TransactionHandle>;
   /** Commit a transaction. */
   commit(handle: TransactionHandle): Promise<void>;
   /** Rollback a transaction. */

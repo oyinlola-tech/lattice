@@ -4,4 +4,9 @@
  * @module authPassword
  */
 
-export { hashPassword, verifyPassword, needsRehash, generateRandomToken } from "./authPassword.core.js";
+export {
+  hashPassword,
+  verifyPassword,
+  needsRehash,
+  generateRandomToken,
+} from "./authPassword.core.js";

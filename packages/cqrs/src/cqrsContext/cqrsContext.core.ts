@@ -1,6 +1,4 @@
-import type {
-  CqrsContext,
-} from "../cqrsTypes/cqrsTypes.type.js";
+import type { CqrsContext } from "../cqrsTypes/cqrsTypes.type.js";
 
 /**
  * Standard execution context for CQRS operations.
@@ -8,17 +6,14 @@ import type {
  * The context carries request-scoped information without coupling
  * commands, queries, or events to a specific transport.
  */
-export interface CqrsExecutionContext
-  extends CqrsContext {
+export interface CqrsExecutionContext extends CqrsContext {
   readonly requestId?: string;
   readonly correlationId?: string;
   readonly causationId?: string;
   readonly userId?: string;
   readonly tenantId?: string;
   readonly source?: string;
-  readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -31,20 +26,14 @@ export interface CreateExecutionContextInput {
   readonly userId?: string;
   readonly tenantId?: string;
   readonly source?: string;
-  readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
  * Creates a unique request identifier.
  */
 export function createRequestId(): string {
-  if (
-    typeof globalThis.crypto
-      ?.randomUUID ===
-    "function"
-  ) {
+  if (typeof globalThis.crypto?.randomUUID === "function") {
     return globalThis.crypto.randomUUID();
   }
 
@@ -59,32 +48,21 @@ export function createRequestId(): string {
 export function createExecutionContext(
   input: CreateExecutionContextInput = {},
 ): CqrsExecutionContext {
-  const context:
-    CqrsExecutionContext = {
-    requestId:
-      input.requestId ??
-      createRequestId(),
-    correlationId:
-      input.correlationId,
-    causationId:
-      input.causationId,
-    userId:
-      input.userId,
-    tenantId:
-      input.tenantId,
-    source:
-      input.source,
-    metadata:
-      input.metadata
-        ? Object.freeze({
-            ...input.metadata,
-          })
-        : undefined,
+  const context: CqrsExecutionContext = {
+    requestId: input.requestId ?? createRequestId(),
+    correlationId: input.correlationId,
+    causationId: input.causationId,
+    userId: input.userId,
+    tenantId: input.tenantId,
+    source: input.source,
+    metadata: input.metadata
+      ? Object.freeze({
+          ...input.metadata,
+        })
+      : undefined,
   };
 
-  return Object.freeze(
-    context,
-  );
+  return Object.freeze(context);
 }
 
 /**
@@ -95,29 +73,16 @@ export function createChildExecutionContext(
   overrides: CreateExecutionContextInput = {},
 ): CqrsExecutionContext {
   return createExecutionContext({
-    requestId:
-      overrides.requestId,
-    correlationId:
-      overrides.correlationId ??
-      parent.correlationId,
+    requestId: overrides.requestId,
+    correlationId: overrides.correlationId ?? parent.correlationId,
     causationId:
-      overrides.causationId ??
-      parent.requestId ??
-      parent.causationId,
-    userId:
-      overrides.userId ??
-      parent.userId,
-    tenantId:
-      overrides.tenantId ??
-      parent.tenantId,
-    source:
-      overrides.source ??
-      parent.source,
+      overrides.causationId ?? parent.requestId ?? parent.causationId,
+    userId: overrides.userId ?? parent.userId,
+    tenantId: overrides.tenantId ?? parent.tenantId,
+    source: overrides.source ?? parent.source,
     metadata: {
-      ...(parent.metadata ??
-        {}),
-      ...(overrides.metadata ??
-        {}),
+      ...(parent.metadata ?? {}),
+      ...(overrides.metadata ?? {}),
     },
   });
 }
@@ -127,18 +92,14 @@ export function createChildExecutionContext(
  */
 export function withContextMetadata(
   context: CqrsExecutionContext,
-  metadata: Readonly<
-    Record<string, unknown>
-  >,
+  metadata: Readonly<Record<string, unknown>>,
 ): CqrsExecutionContext {
   return Object.freeze({
     ...context,
-    metadata:
-      Object.freeze({
-        ...(context.metadata ??
-          {}),
-        ...metadata,
-      }),
+    metadata: Object.freeze({
+      ...(context.metadata ?? {}),
+      ...metadata,
+    }),
   });
 }
 
@@ -149,12 +110,8 @@ export function withUser(
   context: CqrsExecutionContext,
   userId: string,
 ): CqrsExecutionContext {
-  if (
-    !userId.trim()
-  ) {
-    throw new TypeError(
-      "User ID cannot be empty.",
-    );
+  if (!userId.trim()) {
+    throw new TypeError("User ID cannot be empty.");
   }
 
   return Object.freeze({
@@ -170,12 +127,8 @@ export function withTenant(
   context: CqrsExecutionContext,
   tenantId: string,
 ): CqrsExecutionContext {
-  if (
-    !tenantId.trim()
-  ) {
-    throw new TypeError(
-      "Tenant ID cannot be empty.",
-    );
+  if (!tenantId.trim()) {
+    throw new TypeError("Tenant ID cannot be empty.");
   }
 
   return Object.freeze({
@@ -191,12 +144,8 @@ export function withSource(
   context: CqrsExecutionContext,
   source: string,
 ): CqrsExecutionContext {
-  if (
-    !source.trim()
-  ) {
-    throw new TypeError(
-      "Context source cannot be empty.",
-    );
+  if (!source.trim()) {
+    throw new TypeError("Context source cannot be empty.");
   }
 
   return Object.freeze({
@@ -235,9 +184,7 @@ export function getCausationId(
 /**
  * Returns the current user ID.
  */
-export function getUserId(
-  context?: CqrsExecutionContext,
-): string | undefined {
+export function getUserId(context?: CqrsExecutionContext): string | undefined {
   return context?.userId;
 }
 
@@ -257,31 +204,21 @@ export function getContextMetadata<T = unknown>(
   context: CqrsExecutionContext | undefined,
   key: string,
 ): T | undefined {
-  return context?.metadata?.[
-    key
-  ] as T | undefined;
+  return context?.metadata?.[key] as T | undefined;
 }
 
 /**
  * Determines whether the context has a user identity.
  */
-export function hasUser(
-  context?: CqrsExecutionContext,
-): boolean {
-  return Boolean(
-    context?.userId,
-  );
+export function hasUser(context?: CqrsExecutionContext): boolean {
+  return Boolean(context?.userId);
 }
 
 /**
  * Determines whether the context has a tenant identity.
  */
-export function hasTenant(
-  context?: CqrsExecutionContext,
-): boolean {
-  return Boolean(
-    context?.tenantId,
-  );
+export function hasTenant(context?: CqrsExecutionContext): boolean {
+  return Boolean(context?.tenantId);
 }
 
 /**
@@ -291,17 +228,11 @@ export function sharesCorrelation(
   first?: CqrsExecutionContext,
   second?: CqrsExecutionContext,
 ): boolean {
-  if (
-    !first?.correlationId ||
-    !second?.correlationId
-  ) {
+  if (!first?.correlationId || !second?.correlationId) {
     return false;
   }
 
-  return (
-    first.correlationId ===
-    second.correlationId
-  );
+  return first.correlationId === second.correlationId;
 }
 
 /**
@@ -311,23 +242,16 @@ export function serializeExecutionContext(
   context: CqrsExecutionContext,
 ): Record<string, unknown> {
   return {
-    requestId:
-      context.requestId,
-    correlationId:
-      context.correlationId,
-    causationId:
-      context.causationId,
-    userId:
-      context.userId,
-    tenantId:
-      context.tenantId,
-    source:
-      context.source,
-    metadata:
-      context.metadata
-        ? {
-            ...context.metadata,
-          }
-        : undefined,
+    requestId: context.requestId,
+    correlationId: context.correlationId,
+    causationId: context.causationId,
+    userId: context.userId,
+    tenantId: context.tenantId,
+    source: context.source,
+    metadata: context.metadata
+      ? {
+          ...context.metadata,
+        }
+      : undefined,
   };
 }

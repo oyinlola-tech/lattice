@@ -75,5 +75,3 @@ function buildGraphForPhase(
 
   return graph;
 }
-
-

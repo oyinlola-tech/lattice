@@ -57,9 +57,7 @@ export function use(
   createId: () => string,
 ): () => void {
   if (typeof middleware !== "function") {
-    throw new TypeError(
-      "HTTP middleware must be a function.",
-    );
+    throw new TypeError("HTTP middleware must be a function.");
   }
 
   const id = createId();
@@ -77,13 +75,8 @@ export function use(
   };
 }
 
-export function remove(
-  entries: InternalMiddleware[],
-  id: string,
-): boolean {
-  const index = entries.findIndex(
-    (entry) => entry.id === id,
-  );
+export function remove(entries: InternalMiddleware[], id: string): boolean {
+  const index = entries.findIndex((entry) => entry.id === id);
 
   if (index === -1) {
     return false;
@@ -99,9 +92,7 @@ export function setEnabled(
   id: string,
   enabled: boolean,
 ): boolean {
-  const entry = entries.find(
-    (item) => item.id === id,
-  );
+  const entry = entries.find((item) => item.id === id);
 
   if (!entry) {
     return false;
@@ -112,22 +103,15 @@ export function setEnabled(
   return true;
 }
 
-export function has(
-  entries: InternalMiddleware[],
-  id: string,
-): boolean {
-  return entries.some(
-    (entry) => entry.id === id,
-  );
+export function has(entries: InternalMiddleware[], id: string): boolean {
+  return entries.some((entry) => entry.id === id);
 }
 
 export function get(
   entries: InternalMiddleware[],
   id: string,
 ): RegisteredMiddleware | undefined {
-  const entry = entries.find(
-    (item) => item.id === id,
-  );
+  const entry = entries.find((item) => item.id === id);
 
   if (!entry) {
     return undefined;
@@ -149,8 +133,7 @@ export function list(
     .filter((entry) => entry.enabled)
     .sort(
       (a, b) =>
-        a.priority - b.priority ||
-        (a.sequence ?? 0) - (b.sequence ?? 0),
+        a.priority - b.priority || (a.sequence ?? 0) - (b.sequence ?? 0),
     )
     .map((entry) => ({
       id: entry.id,

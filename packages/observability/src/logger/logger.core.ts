@@ -77,7 +77,11 @@ export class StructuredLogger implements Logger {
     // Transport-specific flush; default is no-op
   }
 
-  private log(level: LogLevel, message: string, context?: Record<string, unknown>): void {
+  private log(
+    level: LogLevel,
+    message: string,
+    context?: Record<string, unknown>,
+  ): void {
     if (!this.isLevelEnabled(level)) return;
 
     const mergedContext = { ...this.context, ...(context ?? {}) };
@@ -85,7 +89,8 @@ export class StructuredLogger implements Logger {
       level,
       message,
       loggerName: this.name,
-      context: Object.keys(mergedContext).length > 0 ? mergedContext : undefined,
+      context:
+        Object.keys(mergedContext).length > 0 ? mergedContext : undefined,
     });
 
     this.transport.write(record);
@@ -93,6 +98,8 @@ export class StructuredLogger implements Logger {
 }
 
 /** Creates a structured logger. */
-export function createStructuredLogger(options: LoggerOptions): StructuredLogger {
+export function createStructuredLogger(
+  options: LoggerOptions,
+): StructuredLogger {
   return new StructuredLogger(options);
 }

@@ -56,7 +56,10 @@ export abstract class Schema<TOutput, TInput = TOutput> {
    * Parses input and returns a discriminated result.
    * Never throws.
    */
-  public safeParse(input: TInput, options?: SchemaParseOptions): SchemaResult<TOutput> {
+  public safeParse(
+    input: TInput,
+    options?: SchemaParseOptions,
+  ): SchemaResult<TOutput> {
     const ctx = createParseContext(options);
     try {
       const data = this._parse(ctx, input);
@@ -68,11 +71,13 @@ export abstract class Schema<TOutput, TInput = TOutput> {
       if (ctx.issues.length > 0) {
         return schemaFailure([...ctx.issues]);
       }
-      return schemaFailure([{
-        code: "custom",
-        path: [],
-        message: "Unknown validation error",
-      }]);
+      return schemaFailure([
+        {
+          code: "custom",
+          path: [],
+          message: "Unknown validation error",
+        },
+      ]);
     }
   }
 

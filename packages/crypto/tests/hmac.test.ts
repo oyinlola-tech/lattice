@@ -1,8 +1,15 @@
 import { describe, it, expect } from "vitest";
-import { hmac, hmacSha256, hmacSha384, hmacSha512 } from "../src/cryptoHash/index.js";
+import {
+  hmac,
+  hmacSha256,
+  hmacSha384,
+  hmacSha512,
+} from "../src/cryptoHash/index.js";
 
 describe("hmac", () => {
-  const key = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+  const key = new Uint8Array([
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+  ]);
   const data = new Uint8Array([104, 101, 108, 108, 111]);
 
   it("computes HMAC-SHA256", async () => {
@@ -37,7 +44,10 @@ describe("hmac", () => {
 
   it("changes output when key changes", async () => {
     const a = await hmacSha256(data, key);
-    const b = await hmacSha256(data, new Uint8Array([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]));
+    const b = await hmacSha256(
+      data,
+      new Uint8Array([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]),
+    );
     expect(a).not.toBe(b);
   });
 

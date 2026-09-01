@@ -12,9 +12,7 @@ import type {
 import type { LifecycleContext } from "../lifecycleContext/lifecycleContext.type.js";
 import { withTimeout, withConcurrency } from "../lifecycleInternal/index.js";
 import { getComponentMethod } from "../lifecyclePhase/index.js";
-import {
-  LifecycleComponentError,
-} from "@oyinlola141/lattice-errors";
+import { LifecycleComponentError } from "@oyinlola141/lattice-errors";
 
 /** Result of executing a component hook. */
 export interface ExecutionResult {
@@ -43,7 +41,9 @@ export class LifecycleExecutor {
     context: LifecycleContext,
   ): Promise<ExecutionResult> {
     const methodName = getComponentMethod(phase);
-    const hook = (registration.component as unknown as Record<string, unknown>)[methodName];
+    const hook = (registration.component as unknown as Record<string, unknown>)[
+      methodName
+    ];
 
     if (typeof hook !== "function") {
       return {
@@ -64,10 +64,9 @@ export class LifecycleExecutor {
       try {
         await withTimeout(
           async () => {
-            const result = (hook as (ctx: LifecycleContext) => Promise<void> | void).call(
-              registration.component,
-              context,
-            );
+            const result = (
+              hook as (ctx: LifecycleContext) => Promise<void> | void
+            ).call(registration.component, context);
             if (result instanceof Promise) {
               await result;
             }
@@ -113,14 +112,10 @@ export class LifecycleExecutor {
   ): Promise<readonly ExecutionResult[]> {
     const results: ExecutionResult[] = [];
 
-    await withConcurrency(
-      registrations,
-      concurrency,
-      async (reg) => {
-        const result = await this.execute(reg, phase, context);
-        results.push(result);
-      },
-    );
+    await withConcurrency(registrations, concurrency, async (reg) => {
+      const result = await this.execute(reg, phase, context);
+      results.push(result);
+    });
 
     return results;
   }

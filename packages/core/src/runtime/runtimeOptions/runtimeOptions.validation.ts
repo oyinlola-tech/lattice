@@ -1,11 +1,6 @@
-import type {
-  RuntimeMode,
-  RuntimeRole,
-} from "./runtimeOptions.type.js";
+import type { RuntimeMode, RuntimeRole } from "./runtimeOptions.type.js";
 
-import {
-  DEFAULT_RUNTIME_OPTIONS,
-} from "./runtimeOptions.defaults.js";
+import { DEFAULT_RUNTIME_OPTIONS } from "./runtimeOptions.defaults.js";
 
 /**
  * Validates a runtime mode.
@@ -27,31 +22,21 @@ export function assertRuntimeRole(
   value: unknown,
 ): asserts value is RuntimeRole {
   if (!isRuntimeRole(value)) {
-    throw new TypeError(
-      `Invalid runtime role "${String(value)}".`,
-    );
+    throw new TypeError(`Invalid runtime role "${String(value)}".`);
   }
 }
 
 /**
  * Checks whether a runtime mode is valid.
  */
-export function isRuntimeMode(
-  value: unknown,
-): value is RuntimeMode {
-  return (
-    value === "development" ||
-    value === "test" ||
-    value === "production"
-  );
+export function isRuntimeMode(value: unknown): value is RuntimeMode {
+  return value === "development" || value === "test" || value === "production";
 }
 
 /**
  * Checks whether a runtime role is valid.
  */
-export function isRuntimeRole(
-  value: unknown,
-): value is RuntimeRole {
+export function isRuntimeRole(value: unknown): value is RuntimeRole {
   return (
     value === "application" ||
     value === "api" ||
@@ -64,9 +49,7 @@ export function isRuntimeRole(
 /**
  * Validates the runtime name.
  */
-export function validateRuntimeName(
-  name: string | undefined,
-): void {
+export function validateRuntimeName(name: string | undefined): void {
   if (name === undefined) {
     return;
   }
@@ -91,10 +74,7 @@ export function validateRuntimeTimeout(
     return;
   }
 
-  if (
-    !Number.isFinite(timeout) ||
-    timeout < 0
-  ) {
+  if (!Number.isFinite(timeout) || timeout < 0) {
     throw new TypeError(
       `${field} timeout must be a finite number greater than or equal to 0.`,
     );

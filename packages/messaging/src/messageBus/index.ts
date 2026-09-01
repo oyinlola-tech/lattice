@@ -4,9 +4,6 @@
  * MessageBus interface and in-memory implementation.
  */
 
-export type {
-  MessageBusOptions,
-  MessageBus,
-} from "./messageBusType.type.js";
+export type { MessageBusOptions, MessageBus } from "./messageBusType.type.js";
 
 export { InMemoryMessageBus, createMessageBus } from "./messageBusCore.js";

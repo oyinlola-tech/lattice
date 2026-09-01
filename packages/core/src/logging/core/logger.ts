@@ -1,10 +1,4 @@
-export type LogLevel =
-  | "trace"
-  | "debug"
-  | "info"
-  | "warn"
-  | "error"
-  | "fatal";
+export type LogLevel = "trace" | "debug" | "info" | "warn" | "error" | "fatal";
 
 /**
  * Structured metadata attached to a log entry.
@@ -53,20 +47,12 @@ export interface Logger {
   /**
    * Logs an error.
    */
-  error(
-    message: string,
-    error?: unknown,
-    context?: LogContext,
-  ): void;
+  error(message: string, error?: unknown, context?: LogContext): void;
 
   /**
    * Logs a fatal error.
    */
-  fatal(
-    message: string,
-    error?: unknown,
-    context?: LogContext,
-  ): void;
+  fatal(message: string, error?: unknown, context?: LogContext): void;
 
   /**
    * Creates a child logger with persistent context.
@@ -83,55 +69,33 @@ export interface Logger {
 export abstract class BaseLogger implements Logger {
   private readonly persistentContext: LogContext;
 
-  protected constructor(
-    context: LogContext = {},
-  ) {
+  protected constructor(context: LogContext = {}) {
     this.persistentContext = {
       ...context,
     };
   }
 
-  public trace(
-    message: string,
-    context?: LogContext,
-  ): void {
+  public trace(message: string, context?: LogContext): void {
     this.write("trace", message, context);
   }
 
-  public debug(
-    message: string,
-    context?: LogContext,
-  ): void {
+  public debug(message: string, context?: LogContext): void {
     this.write("debug", message, context);
   }
 
-  public info(
-    message: string,
-    context?: LogContext,
-  ): void {
+  public info(message: string, context?: LogContext): void {
     this.write("info", message, context);
   }
 
-  public warn(
-    message: string,
-    context?: LogContext,
-  ): void {
+  public warn(message: string, context?: LogContext): void {
     this.write("warn", message, context);
   }
 
-  public error(
-    message: string,
-    error?: unknown,
-    context?: LogContext,
-  ): void {
+  public error(message: string, error?: unknown, context?: LogContext): void {
     this.write("error", message, context, error);
   }
 
-  public fatal(
-    message: string,
-    error?: unknown,
-    context?: LogContext,
-  ): void {
+  public fatal(message: string, error?: unknown, context?: LogContext): void {
     this.write("fatal", message, context, error);
   }
 
@@ -157,7 +121,5 @@ export abstract class BaseLogger implements Logger {
   /**
    * Creates a child logger.
    */
-  protected abstract createChild(
-    context: LogContext,
-  ): Logger;
+  protected abstract createChild(context: LogContext): Logger;
 }

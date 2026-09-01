@@ -16,21 +16,11 @@ import { buildDirectives } from "./httpHeaders.cacheControlBuilder.js";
  * @returns Parsed cache control directives.
  */
 export function parseCacheControl(
-  value:
-    | string
-    | undefined,
+  value: string | undefined,
 ): CacheControlDirectives {
-  const items =
-    splitHeaderValues(
-      value,
-    );
+  const items = splitHeaderValues(value);
 
-  const directives =
-    parseDirectiveTokens(
-      items,
-    );
+  const directives = parseDirectiveTokens(items);
 
-  return buildDirectives(
-    directives,
-  );
+  return buildDirectives(directives);
 }

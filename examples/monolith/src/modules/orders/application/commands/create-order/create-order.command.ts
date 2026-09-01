@@ -1,5 +1,9 @@
 import { AppCommand } from "../../../../../shared/application/command.js";
-import type { OrderId, UserId, ProductId } from "../../../../../shared/domain/ids.js";
+import type {
+  OrderId,
+  UserId,
+  ProductId,
+} from "../../../../../shared/domain/ids.js";
 
 export interface CreateOrderItemData {
   readonly productId: ProductId;
@@ -13,5 +17,7 @@ export class CreateOrderCommand extends AppCommand {
     public readonly id: OrderId,
     public readonly userId: UserId,
     public readonly items: readonly CreateOrderItemData[],
-  ) { super(); }
+  ) {
+    super();
+  }
 }

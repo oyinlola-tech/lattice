@@ -6,7 +6,11 @@ import { PublishResultCommand } from "../services/assessment/commands/publish-re
 import { GetAssessmentQuery } from "../services/assessment/queries/get-assessment/get-assessment.query.js";
 import { GetAssessmentResultQuery } from "../services/assessment/queries/get-assessment-result/get-assessment-result.query.js";
 import { ListAssessmentResultsQuery } from "../services/assessment/queries/list-assessment-results/list-assessment-results.query.js";
-import { validateCreateAssessment, validateSubmitAssessment, validatePublishResult } from "../validators/index.js";
+import {
+  validateCreateAssessment,
+  validateSubmitAssessment,
+  validatePublishResult,
+} from "../validators/index.js";
 
 export class AssessmentController {
   private readonly handlers: AssessmentServiceHandlers;
@@ -16,7 +20,13 @@ export class AssessmentController {
   }
 
   async createAssessment(body: unknown): Promise<Response> {
-    const dto = body as { courseId: string; title: string; type: string; totalPoints: number; durationMinutes?: number | null };
+    const dto = body as {
+      courseId: string;
+      title: string;
+      type: string;
+      totalPoints: number;
+      durationMinutes?: number | null;
+    };
     const errors = validateCreateAssessment(dto);
     if (errors.length > 0) {
       return jsonResponse({ errors }, 400);
@@ -33,7 +43,11 @@ export class AssessmentController {
   }
 
   async submitAssessment(body: unknown): Promise<Response> {
-    const dto = body as { assessmentId: string; studentId: string; answers: string };
+    const dto = body as {
+      assessmentId: string;
+      studentId: string;
+      answers: string;
+    };
     const errors = validateSubmitAssessment(dto);
     if (errors.length > 0) {
       return jsonResponse({ errors }, 400);

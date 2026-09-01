@@ -12,9 +12,7 @@ export {
   createShutdownResult,
 } from "./runtimeShutdown.core.js";
 
-export {
-  executeShutdownPipeline,
-} from "./pipeline/index.js";
+export { executeShutdownPipeline } from "./pipeline/index.js";
 
 export type {
   RuntimeShutdownDependencies,

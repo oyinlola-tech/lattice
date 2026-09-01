@@ -24,7 +24,10 @@ export interface RouteOpenAPIMetadata {
 
   readonly security?: readonly Record<string, readonly string[]>[];
 
-  readonly servers?: readonly { readonly url: string; readonly description?: string }[];
+  readonly servers?: readonly {
+    readonly url: string;
+    readonly description?: string;
+  }[];
 }
 
 /**

@@ -89,7 +89,10 @@ export {
 } from "./scheduler/errors/index.js";
 
 // Job
-export { createJobContext, createJobDefinition } from "./scheduler/job/index.js";
+export {
+  createJobContext,
+  createJobDefinition,
+} from "./scheduler/job/index.js";
 
 // Schedule
 export { createSchedule } from "./scheduler/schedule/index.js";
@@ -98,7 +101,12 @@ export { createSchedule } from "./scheduler/schedule/index.js";
 export { ScheduleHandleImpl } from "./scheduler/scheduleHandle/index.js";
 
 // Trigger
-export { DateTrigger, DelayTrigger, IntervalTrigger, CronTrigger } from "./scheduler/trigger/index.js";
+export {
+  DateTrigger,
+  DelayTrigger,
+  IntervalTrigger,
+  CronTrigger,
+} from "./scheduler/trigger/index.js";
 
 // Clock
 export { SystemClock, createSystemClock } from "./scheduler/clock/index.js";

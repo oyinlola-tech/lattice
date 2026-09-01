@@ -72,8 +72,14 @@ export function createMessageContext(
 ): MessageContext {
   return Object.freeze({
     message,
-    correlationId: options.correlationId ?? message.correlationId ?? (message.id as unknown as MessageCorrelationId),
-    causationId: options.causationId ?? message.causationId ?? (message.id as unknown as MessageCausationId),
+    correlationId:
+      options.correlationId ??
+      message.correlationId ??
+      (message.id as unknown as MessageCorrelationId),
+    causationId:
+      options.causationId ??
+      message.causationId ??
+      (message.id as unknown as MessageCausationId),
     headers: Object.freeze({ ...options.headers }),
     signal: options.signal ?? new AbortController().signal,
     state: options.state ?? new Map<string, unknown>(),

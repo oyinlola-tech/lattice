@@ -1,6 +1,4 @@
-import {
-  createNodeCryptoProvider,
-} from "../node/index.js";
+import { createNodeCryptoProvider } from "../node/index.js";
 
 const provider = createNodeCryptoProvider();
 

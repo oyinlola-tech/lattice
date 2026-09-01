@@ -1,6 +1,4 @@
-import type {
-  ModuleId,
-} from "../module.js";
+import type { ModuleId } from "../module.js";
 
 /**
  * Describes how a module depends on another module.
@@ -28,8 +26,7 @@ export interface ModuleDependency {
 /**
  * A normalized collection of module dependencies.
  */
-export type ModuleDependencies =
-  readonly ModuleDependency[];
+export type ModuleDependencies = readonly ModuleDependency[];
 
 /**
  * Dependency graph node.
@@ -45,8 +42,7 @@ export interface ModuleDependencyNode {
   /**
    * Dependencies declared by the module.
    */
-  readonly dependencies:
-    ModuleDependencies;
+  readonly dependencies: ModuleDependencies;
 }
 
 /**
@@ -56,37 +52,25 @@ export interface ModuleDependencyGraph {
   /**
    * All modules represented by the graph.
    */
-  readonly nodes:
-    ReadonlyMap<
-      ModuleId,
-      ModuleDependencyNode
-    >;
+  readonly nodes: ReadonlyMap<ModuleId, ModuleDependencyNode>;
 
   /**
    * Returns the dependencies of a module.
    */
-  getDependencies(
-    moduleId: ModuleId,
-  ): ModuleDependencies;
+  getDependencies(moduleId: ModuleId): ModuleDependencies;
 
   /**
    * Returns whether the graph contains a module.
    */
-  hasModule(
-    moduleId: ModuleId,
-  ): boolean;
+  hasModule(moduleId: ModuleId): boolean;
 
   /**
    * Returns the modules that depend on the specified module.
    */
-  getDependents(
-    moduleId: ModuleId,
-  ): readonly ModuleId[];
+  getDependents(moduleId: ModuleId): readonly ModuleId[];
 }
 
 /**
  * A raw dependency declaration accepted by the framework.
  */
-export type ModuleDependencyInput =
-  | ModuleId
-  | ModuleDependency;
+export type ModuleDependencyInput = ModuleId | ModuleDependency;

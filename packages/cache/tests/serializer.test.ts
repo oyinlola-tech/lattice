@@ -55,9 +55,13 @@ describe("JsonCacheSerializer", () => {
 
     const input = { createdAt: new Date("2024-01-15T12:00:00.000Z") };
     const serialized = dateSerializer.serialize(input);
-    const deserialized = dateSerializer.deserialize(serialized) as { createdAt: Date };
+    const deserialized = dateSerializer.deserialize(serialized) as {
+      createdAt: Date;
+    };
     expect(deserialized.createdAt).toBeInstanceOf(Date);
-    expect(deserialized.createdAt.toISOString()).toBe("2024-01-15T12:00:00.000Z");
+    expect(deserialized.createdAt.toISOString()).toBe(
+      "2024-01-15T12:00:00.000Z",
+    );
   });
 
   it("handles empty objects and arrays", () => {

@@ -1,18 +1,10 @@
-import {
-  RuntimeState,
-} from "../runtimeState.state.js";
+import { RuntimeState } from "../runtimeState.state.js";
 
-import type {
-  RuntimeBootstrap,
-} from "../runtimeBootstrap/runtimeBootstrap.type.js";
+import type { RuntimeBootstrap } from "../runtimeBootstrap/runtimeBootstrap.type.js";
 
-import type {
-  RuntimeShutdown,
-} from "../runtimeShutdown/runtimeShutdown.type.js";
+import type { RuntimeShutdown } from "../runtimeShutdown/runtimeShutdown.type.js";
 
-import {
-  RuntimeManagerError,
-} from "./runtimeManager.error.js";
+import { RuntimeManagerError } from "./runtimeManager.error.js";
 
 /**
  * Performs the startup state transition.

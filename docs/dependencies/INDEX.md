@@ -37,12 +37,13 @@ Foundation → Runtime Primitives → Application Architecture → Infrastructur
 
 These packages depend on nothing except Node.js built-ins and external libraries.
 
-| Package | Purpose |
-|---------|---------|
+| Package           | Purpose                                                                 |
+| ----------------- | ----------------------------------------------------------------------- |
 | `@lattice/errors` | Shared error base class, error codes, error categories, error utilities |
-| `@lattice/types` | Type guards, utility types, converters, branded types |
+| `@lattice/types`  | Type guards, utility types, converters, branded types                   |
 
 **Rules:**
+
 - Must not import from any other `@lattice/*` package.
 - External dependencies only.
 - These are the foundation of the entire framework.
@@ -53,36 +54,37 @@ These packages depend on nothing except Node.js built-ins and external libraries
 
 Depends only on Tier 0.
 
-| Package | Depends On | Purpose |
-|---------|-----------|---------|
-| `@lattice/constants` | errors | Branded IDs, enums, serialization constants |
-| `@lattice/container` | errors | DI container with token-based registration |
-| `@lattice/logger` | errors | Structured logging with transports |
-| `@lattice/crypto` | errors | Hashing, encryption, tokens |
-| `@lattice/validation` | errors | Schema validation with Zod |
-| `@lattice/schema` | errors, constants, types | Schema definition, parsing, type inference |
-| `@lattice/config` | errors | Layered configuration with sources |
-| `@lattice/middleware` | errors | Composable middleware pipeline |
-| `@lattice/serialization` | errors, constants, types, validation | JSON serializer, type transformers, envelopes |
-| `@lattice/events` | errors, constants | Event bus, emitter, middleware, registry |
-| `@lattice/messaging` | errors, constants | In-process message bus |
-| `@lattice/lifecycle` | errors, constants | State machine, dependency ordering, graceful shutdown |
-| `@lattice/transactions` | errors | Transaction lifecycle, AsyncLocalStorage context |
-| `@lattice/permissions` | errors, constants | RBAC, ABAC, resource authorization |
-| `@lattice/feature-flags` | errors | Feature flag evaluation, rule engine |
-| `@lattice/plugins` | errors, constants, types | Plugin registration, lifecycle, orchestration |
-| `@lattice/security` | errors, constants | Input validation, CORS, CSRF, rate limiting |
-| `@lattice/tenancy` | errors, constants | Multi-tenant context and isolation |
-| `@lattice/docs` | errors | Documentation infrastructure |
-| `@lattice/cache` | errors, types, serialization | Cache abstraction with memory adapter |
-| `@lattice/storage` | errors, constants, types, serialization | Database, object storage, repository abstractions |
-| `@lattice/adapters` | errors, constants, types, lifecycle | Adapter contracts, registry, transport abstractions |
-| `@lattice/queue` | errors, constants, serialization | Background job and async task infrastructure |
-| `@lattice/scheduler` | errors, constants, types | Job scheduling, cron, triggers |
-| `@lattice/database` | errors | Database clients, repositories, transactions |
-| `@lattice/observability` | errors | Structured logging, metrics, tracing, exporters |
+| Package                  | Depends On                              | Purpose                                               |
+| ------------------------ | --------------------------------------- | ----------------------------------------------------- |
+| `@lattice/constants`     | errors                                  | Branded IDs, enums, serialization constants           |
+| `@lattice/container`     | errors                                  | DI container with token-based registration            |
+| `@lattice/logger`        | errors                                  | Structured logging with transports                    |
+| `@lattice/crypto`        | errors                                  | Hashing, encryption, tokens                           |
+| `@lattice/validation`    | errors                                  | Schema validation with Zod                            |
+| `@lattice/schema`        | errors, constants, types                | Schema definition, parsing, type inference            |
+| `@lattice/config`        | errors                                  | Layered configuration with sources                    |
+| `@lattice/middleware`    | errors                                  | Composable middleware pipeline                        |
+| `@lattice/serialization` | errors, constants, types, validation    | JSON serializer, type transformers, envelopes         |
+| `@lattice/events`        | errors, constants                       | Event bus, emitter, middleware, registry              |
+| `@lattice/messaging`     | errors, constants                       | In-process message bus                                |
+| `@lattice/lifecycle`     | errors, constants                       | State machine, dependency ordering, graceful shutdown |
+| `@lattice/transactions`  | errors                                  | Transaction lifecycle, AsyncLocalStorage context      |
+| `@lattice/permissions`   | errors, constants                       | RBAC, ABAC, resource authorization                    |
+| `@lattice/feature-flags` | errors                                  | Feature flag evaluation, rule engine                  |
+| `@lattice/plugins`       | errors, constants, types                | Plugin registration, lifecycle, orchestration         |
+| `@lattice/security`      | errors, constants                       | Input validation, CORS, CSRF, rate limiting           |
+| `@lattice/tenancy`       | errors, constants                       | Multi-tenant context and isolation                    |
+| `@lattice/docs`          | errors                                  | Documentation infrastructure                          |
+| `@lattice/cache`         | errors, types, serialization            | Cache abstraction with memory adapter                 |
+| `@lattice/storage`       | errors, constants, types, serialization | Database, object storage, repository abstractions     |
+| `@lattice/adapters`      | errors, constants, types, lifecycle     | Adapter contracts, registry, transport abstractions   |
+| `@lattice/queue`         | errors, constants, serialization        | Background job and async task infrastructure          |
+| `@lattice/scheduler`     | errors, constants, types                | Job scheduling, cron, triggers                        |
+| `@lattice/database`      | errors                                  | Database clients, repositories, transactions          |
+| `@lattice/observability` | errors                                  | Structured logging, metrics, tracing, exporters       |
 
 **Rules:**
+
 - May import from Tier 0 only.
 - Must not import from any Tier 2+ package.
 - Peer dependencies on higher-tier packages are allowed only when explicitly documented and optional.
@@ -93,17 +95,18 @@ Depends only on Tier 0.
 
 Depends on Tier 0 + Tier 1.
 
-| Package | Depends On | Purpose |
-|---------|-----------|---------|
-| `@lattice/core` | errors, constants, messaging | Lifecycle, context, runtime, modules |
-| `@lattice/cqrs` | errors, events, messaging | Commands, queries, handlers |
-| `@lattice/auth` | errors, constants, permissions | JWT, sessions, password hashing |
-| `@lattice/runtime` | errors, constants, container, config, logger, events, core | Application lifecycle orchestrator |
-| `@lattice/openapi` | errors, constants, schema | OpenAPI document generation |
-| `@lattice/rpc` | errors, constants, types, schema | RPC primitives |
-| `@lattice/api` | errors, constants, types, schema | API abstraction layer |
+| Package            | Depends On                                                 | Purpose                              |
+| ------------------ | ---------------------------------------------------------- | ------------------------------------ |
+| `@lattice/core`    | errors, constants, messaging                               | Lifecycle, context, runtime, modules |
+| `@lattice/cqrs`    | errors, events, messaging                                  | Commands, queries, handlers          |
+| `@lattice/auth`    | errors, constants, permissions                             | JWT, sessions, password hashing      |
+| `@lattice/runtime` | errors, constants, container, config, logger, events, core | Application lifecycle orchestrator   |
+| `@lattice/openapi` | errors, constants, schema                                  | OpenAPI document generation          |
+| `@lattice/rpc`     | errors, constants, types, schema                           | RPC primitives                       |
+| `@lattice/api`     | errors, constants, types, schema                           | API abstraction layer                |
 
 **Rules:**
+
 - May import from Tier 0 and Tier 1 only.
 - Must not import from Tier 3+ packages.
 - Must not import from transport packages (`http`, `rpc`, `api`, `openapi`) unless explicitly documented.
@@ -115,12 +118,13 @@ Depends on Tier 0 + Tier 1.
 
 Depends on Tier 0 + Tier 1 + Tier 2.
 
-| Package | Depends On | Purpose |
-|---------|-----------|---------|
+| Package         | Depends On                     | Purpose                                    |
+| --------------- | ------------------------------ | ------------------------------------------ |
 | `@lattice/http` | core, errors, logger, security | HTTP request handling, routing, middleware |
-| `@lattice/cli` | config, core, errors, logger | Command-line interface |
+| `@lattice/cli`  | config, core, errors, logger   | Command-line interface                     |
 
 **Rules:**
+
 - May import from Tier 0, Tier 1, and Tier 2 only.
 - Must not import from other transport packages (`http` must not import from `rpc`, `api`, `openapi`; `rpc` must not import from `http`, `api`, `openapi`).
 - Transport packages translate external requests into internal application calls.
@@ -132,12 +136,13 @@ Depends on Tier 0 + Tier 1 + Tier 2.
 
 Depends on any tier.
 
-| Package | Depends On | Purpose |
-|---------|-----------|---------|
-| `@lattice/testing` | many | Test helpers, fixtures, mocks |
-| `@lattice/docs` | errors | Documentation generation |
+| Package            | Depends On | Purpose                       |
+| ------------------ | ---------- | ----------------------------- |
+| `@lattice/testing` | many       | Test helpers, fixtures, mocks |
+| `@lattice/docs`    | errors     | Documentation generation      |
 
 **Rules:**
+
 - May import from any package.
 - Must not be imported by production runtime packages (testing only).
 - `@lattice/testing` must not be listed as a dependency in any production package.
@@ -172,22 +177,22 @@ Tier 4: testing, docs
 
 These patterns must **never** occur:
 
-| Pattern | Reason |
-|---------|--------|
-| `errors → @lattice/*` | Leaf package must stay leaf |
-| `constants → @lattice/*` | Leaf package must stay leaf |
-| `types → @lattice/*` | Leaf package must stay leaf |
-| `core → http` | Core must not know about transport |
-| `core → rpc` | Core must not know about transport |
-| `cqrs → http` | CQRS must not know about transport |
-| `events → http` | Events must not know about transport |
-| `http → rpc` | Transport packages must not depend on each other |
-| `http → api` | Transport packages must not depend on each other |
-| `rpc → http` | Transport packages must not depend on each other |
-| `runtime → http` | Runtime must not know about specific transports |
-| `database → http` | Infrastructure must not know about transport |
-| `queue → http` | Infrastructure must not know about transport |
-| `testing → production` | Testing must not be imported by production code |
+| Pattern                  | Reason                                           |
+| ------------------------ | ------------------------------------------------ |
+| `errors → @lattice/*`    | Leaf package must stay leaf                      |
+| `constants → @lattice/*` | Leaf package must stay leaf                      |
+| `types → @lattice/*`     | Leaf package must stay leaf                      |
+| `core → http`            | Core must not know about transport               |
+| `core → rpc`             | Core must not know about transport               |
+| `cqrs → http`            | CQRS must not know about transport               |
+| `events → http`          | Events must not know about transport             |
+| `http → rpc`             | Transport packages must not depend on each other |
+| `http → api`             | Transport packages must not depend on each other |
+| `rpc → http`             | Transport packages must not depend on each other |
+| `runtime → http`         | Runtime must not know about specific transports  |
+| `database → http`        | Infrastructure must not know about transport     |
+| `queue → http`           | Infrastructure must not know about transport     |
+| `testing → production`   | Testing must not be imported by production code  |
 
 ---
 
@@ -201,12 +206,13 @@ Peer dependencies are allowed only when all three conditions are met:
 
 Current peer dependencies:
 
-| Package | Peer | Tier | Purpose |
-|---------|------|------|---------|
-| `@lattice/permissions` | `@lattice/http` | 3 | HTTP-specific permission guards |
-| `@lattice/tenancy` | `@lattice/http` | 3 | HTTP-specific tenant resolution |
+| Package                | Peer            | Tier | Purpose                         |
+| ---------------------- | --------------- | ---- | ------------------------------- |
+| `@lattice/permissions` | `@lattice/http` | 3    | HTTP-specific permission guards |
+| `@lattice/tenancy`     | `@lattice/http` | 3    | HTTP-specific tenant resolution |
 
 **Rules:**
+
 - Peer dependencies must be declared in `peerDependencies` with `"optional": true` in `peerDependenciesMeta`.
 - Peer dependencies must not create circular dependency chains.
 - Peer dependencies must not be required for the package's core functionality.
@@ -224,6 +230,7 @@ External dependencies (non-`@lattice/*`) should use caret ranges (`^`) for SemVe
 Internal `@lattice/*` dependencies must use exact versions (`0.1.0`), not wildcards (`*`) or ranges.
 
 This ensures:
+
 - Consistent builds across the monorepo.
 - No accidental version drift.
 - Predictable dependency resolution.
@@ -231,6 +238,7 @@ This ensures:
 ### 6.3 Future Versioning
 
 When Lattice reaches `1.0.0`:
+
 - Internal dependencies should use caret ranges (`^1.0.0`).
 - Breaking changes require coordinated version bumps across affected packages.
 
@@ -245,6 +253,7 @@ A circular dependency occurs when package A depends on package B, and package B 
 ### 7.2 Detection
 
 Circular dependencies are detected by:
+
 - `architect-check.js` — manual script.
 - `tests/architect/boundaries.test.ts` — automated test.
 - CI pipeline — must pass before merging.
@@ -303,6 +312,7 @@ Peer dependencies flow upward but are optional.
 ```
 
 This is allowed because:
+
 - The dependency is optional.
 - `permissions` functions without `http`.
 - The peer dependency is explicitly documented.
@@ -320,6 +330,7 @@ This is allowed because:
 ```
 
 This is allowed because:
+
 - Testing code is never imported by production packages.
 - It enables comprehensive test coverage.
 
@@ -336,6 +347,7 @@ The following automated checks enforce these rules:
 3. **Circular dependency check** — ensures no circular dependencies exist.
 
 Run with:
+
 ```bash
 npm run architect:check
 ```
@@ -343,6 +355,7 @@ npm run architect:check
 ### 9.2 CI Integration
 
 The architecture check runs in CI:
+
 - On every pull request.
 - On every push to main.
 
@@ -351,6 +364,7 @@ PRs that fail `architect:check` cannot be merged.
 ### 9.3 Code Review
 
 Reviewers must verify:
+
 - New dependencies respect the tier system.
 - No circular dependencies are introduced.
 - Peer dependencies are justified and documented.
@@ -412,17 +426,17 @@ When changing a package's dependencies:
 
 ## 12. Quick Reference
 
-| Tier | Can Import From | Examples |
-|------|----------------|----------|
-| 0 (Leaf) | Nothing (external only) | `errors`, `types` |
-| 1 (Foundation) | Tier 0 | `container`, `logger`, `events` |
-| 2 (Application) | Tier 0, Tier 1 | `core`, `cqrs`, `runtime` |
-| 3 (Transport) | Tier 0, Tier 1, Tier 2 | `http`, `cli` |
-| 4 (DX) | Any | `testing`, `docs` |
+| Tier            | Can Import From         | Examples                        |
+| --------------- | ----------------------- | ------------------------------- |
+| 0 (Leaf)        | Nothing (external only) | `errors`, `types`               |
+| 1 (Foundation)  | Tier 0                  | `container`, `logger`, `events` |
+| 2 (Application) | Tier 0, Tier 1          | `core`, `cqrs`, `runtime`       |
+| 3 (Transport)   | Tier 0, Tier 1, Tier 2  | `http`, `cli`                   |
+| 4 (DX)          | Any                     | `testing`, `docs`               |
 
-| Action | Command |
-|--------|---------|
-| Check architecture | `npm run architect:check` |
-| Check types | `npm run typecheck --workspace=@lattice/<pkg>` |
-| Run tests | `npm run test --workspace=@lattice/<pkg>` |
-| Build package | `npm run build --workspace=@lattice/<pkg>` |
+| Action             | Command                                        |
+| ------------------ | ---------------------------------------------- |
+| Check architecture | `npm run architect:check`                      |
+| Check types        | `npm run typecheck --workspace=@lattice/<pkg>` |
+| Run tests          | `npm run test --workspace=@lattice/<pkg>`      |
+| Build package      | `npm run build --workspace=@lattice/<pkg>`     |

@@ -23,7 +23,8 @@ function parseServiceError(body: unknown): NormalizedError {
     return {
       error: String(obj["error"] ?? "Service Error"),
       message: String(obj["message"] ?? obj["error"] ?? "An error occurred"),
-      statusCode: typeof obj["statusCode"] === "number" ? obj["statusCode"] : 500,
+      statusCode:
+        typeof obj["statusCode"] === "number" ? obj["statusCode"] : 500,
       service: typeof obj["service"] === "string" ? obj["service"] : undefined,
     };
   }
@@ -43,11 +44,15 @@ export function errorMiddleware(
   res: ServerResponse,
   error: unknown,
 ): void {
-  const requestId = (req as IncomingMessage & { requestId?: string }).requestId ?? "unknown";
+  const requestId =
+    (req as IncomingMessage & { requestId?: string }).requestId ?? "unknown";
 
   // If headers already sent, we can't send another response
   if (res.headersSent) {
-    logger.error("Error after headers sent", { requestId, error: String(error) });
+    logger.error("Error after headers sent", {
+      requestId,
+      error: String(error),
+    });
     return;
   }
 
@@ -55,7 +60,10 @@ export function errorMiddleware(
 
   if (error instanceof Error) {
     // Check if this is a fetch/service error
-    if (error.message.includes("timed out") || error.message.includes("ECONNREFUSED")) {
+    if (
+      error.message.includes("timed out") ||
+      error.message.includes("ECONNREFUSED")
+    ) {
       normalized = {
         error: "Service Unavailable",
         message: "A backend service is currently unavailable",
@@ -64,9 +72,10 @@ export function errorMiddleware(
     } else {
       normalized = {
         error: "Internal Gateway Error",
-        message: process.env["NODE_ENV"] === "production"
-          ? "An unexpected error occurred"
-          : error.message,
+        message:
+          process.env["NODE_ENV"] === "production"
+            ? "An unexpected error occurred"
+            : error.message,
         statusCode: 500,
       };
     }
@@ -88,8 +97,10 @@ export function errorMiddleware(
   });
 
   res.writeHead(normalized.statusCode, { "Content-Type": "application/json" });
-  res.end(JSON.stringify({
-    ...normalized,
-    requestId,
-  }));
+  res.end(
+    JSON.stringify({
+      ...normalized,
+      requestId,
+    }),
+  );
 }

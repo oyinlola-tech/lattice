@@ -40,7 +40,9 @@ class MockConnection implements Connection {
     this.id = id ?? `conn-${Math.random().toString(36).slice(2, 8)}`;
   }
 
-  async query<T = Record<string, unknown>>(query: Query): Promise<QueryResult<T>> {
+  async query<T = Record<string, unknown>>(
+    query: Query,
+  ): Promise<QueryResult<T>> {
     return { rows: [] as T[], rowCount: 0, fields: [], durationMs: 1 };
   }
 
@@ -68,7 +70,9 @@ class MockDatabase implements Database {
     this.connected = false;
   }
 
-  async query<T = Record<string, unknown>>(_query: Query): Promise<QueryResult<T>> {
+  async query<T = Record<string, unknown>>(
+    _query: Query,
+  ): Promise<QueryResult<T>> {
     return { rows: [] as T[], rowCount: 0, fields: [], durationMs: 1 };
   }
 
@@ -104,10 +108,10 @@ class MockDatabase implements Database {
 
 describe("ConnectionPool", () => {
   it("creates connections via factory", async () => {
-    const pool = new ConnectionPool(
-      async () => new MockConnection(),
-      { min: 2, max: 5 },
-    );
+    const pool = new ConnectionPool(async () => new MockConnection(), {
+      min: 2,
+      max: 5,
+    });
     await pool.initialize();
     const stats = pool.getStats();
     expect(stats.total).toBe(2);
@@ -116,10 +120,10 @@ describe("ConnectionPool", () => {
   });
 
   it("acquires and releases connections", async () => {
-    const pool = new ConnectionPool(
-      async () => new MockConnection(),
-      { min: 1, max: 3 },
-    );
+    const pool = new ConnectionPool(async () => new MockConnection(), {
+      min: 1,
+      max: 3,
+    });
     await pool.initialize();
 
     const conn = await pool.acquire();
@@ -131,10 +135,10 @@ describe("ConnectionPool", () => {
   });
 
   it("use() automatically releases connection", async () => {
-    const pool = new ConnectionPool(
-      async () => new MockConnection(),
-      { min: 1, max: 3 },
-    );
+    const pool = new ConnectionPool(async () => new MockConnection(), {
+      min: 1,
+      max: 3,
+    });
     await pool.initialize();
 
     await pool.use(async (conn) => {
@@ -147,10 +151,10 @@ describe("ConnectionPool", () => {
   });
 
   it("rejects acquire when pool is closed", async () => {
-    const pool = new ConnectionPool(
-      async () => new MockConnection(),
-      { min: 1, max: 3 },
-    );
+    const pool = new ConnectionPool(async () => new MockConnection(), {
+      min: 1,
+      max: 3,
+    });
     await pool.initialize();
     await pool.drain();
 
@@ -158,10 +162,10 @@ describe("ConnectionPool", () => {
   });
 
   it("healthCheck returns healthy when connections exist", async () => {
-    const pool = new ConnectionPool(
-      async () => new MockConnection(),
-      { min: 1, max: 3 },
-    );
+    const pool = new ConnectionPool(async () => new MockConnection(), {
+      min: 1,
+      max: 3,
+    });
     await pool.initialize();
 
     const health = await pool.healthCheck();
@@ -380,7 +384,11 @@ describe("InMemoryLockManager", () => {
     await lockManager.acquire("resource-1", { timeout: 1000, ttl: 5000 });
 
     await expect(
-      lockManager.acquire("resource-1", { timeout: 200, ttl: 5000, retryInterval: 50 }),
+      lockManager.acquire("resource-1", {
+        timeout: 200,
+        ttl: 5000,
+        retryInterval: 50,
+      }),
     ).rejects.toThrow("Failed to acquire lock");
   });
 
@@ -420,7 +428,9 @@ describe("StorageLifecycleManager", () => {
     const initOrder: string[] = [];
 
     const component1: StorageLifecycle = {
-      initialize: async () => { initOrder.push("c1"); },
+      initialize: async () => {
+        initOrder.push("c1");
+      },
       start: async () => {},
       healthCheck: async () => ({ healthy: true, latencyMs: 1, status: "ok" }),
       drain: async () => {},
@@ -429,7 +439,9 @@ describe("StorageLifecycleManager", () => {
     };
 
     const component2: StorageLifecycle = {
-      initialize: async () => { initOrder.push("c2"); },
+      initialize: async () => {
+        initOrder.push("c2");
+      },
       start: async () => {},
       healthCheck: async () => ({ healthy: true, latencyMs: 1, status: "ok" }),
       drain: async () => {},
@@ -493,7 +505,11 @@ describe("HealthChecker", () => {
     const unhealthy: StorageLifecycle = {
       initialize: async () => {},
       start: async () => {},
-      healthCheck: async () => ({ healthy: false, latencyMs: 100, status: "error" }),
+      healthCheck: async () => ({
+        healthy: false,
+        latencyMs: 100,
+        status: "error",
+      }),
       drain: async () => {},
       shutdown: async () => {},
       getPhase: () => "ready",

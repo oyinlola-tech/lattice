@@ -34,7 +34,9 @@ function compose<TResult>(
     return handler;
   }
 
-  return async (context: MessageMiddlewareContext<Message>): Promise<TResult> => {
+  return async (
+    context: MessageMiddlewareContext<Message>,
+  ): Promise<TResult> => {
     let index = -1;
 
     async function dispatch(i: number): Promise<TResult> {
@@ -72,7 +74,10 @@ function resolveMiddlewareLike<TResult>(
  */
 export async function runMessagePipeline<TResult>(
   middlewareList: readonly MessageMiddlewareLike<Message, TResult>[],
-  handler: (message: Message, context: MessageMiddlewareContext<Message>) => Promise<TResult>,
+  handler: (
+    message: Message,
+    context: MessageMiddlewareContext<Message>,
+  ) => Promise<TResult>,
   message: Message,
   options: MessageMiddlewarePipelineOptions = {},
 ): Promise<MessageMiddlewarePipelineResult<TResult>> {
@@ -106,17 +111,19 @@ export async function runMessagePipeline<TResult>(
 
   const pipelineStart = performance.now();
 
-  const composed = compose<TResult>(
-    resolvedMiddleware,
-    async (ctx) => handler(message, ctx),
+  const composed = compose<TResult>(resolvedMiddleware, async (ctx) =>
+    handler(message, ctx),
   );
 
   const context: MessageMiddlewareContext<Message> = {
     message,
     context: {
       message,
-      correlationId: message.correlationId ?? (message.id as unknown as MessageCorrelationId),
-      causationId: message.causationId ?? (message.id as unknown as MessageCausationId),
+      correlationId:
+        message.correlationId ??
+        (message.id as unknown as MessageCorrelationId),
+      causationId:
+        message.causationId ?? (message.id as unknown as MessageCausationId),
       headers: Object.freeze({ ...metadata }),
       signal,
       state,

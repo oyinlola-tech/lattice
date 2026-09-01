@@ -5,9 +5,18 @@
  * Exported as a ReadableSpan when ended.
  */
 
-import type { ReadableSpan, Span, SpanContext, SpanEvent, SpanOptions } from "../../types.js";
+import type {
+  ReadableSpan,
+  Span,
+  SpanContext,
+  SpanEvent,
+  SpanOptions,
+} from "../../types.js";
 import { SpanKind, SpanStatus } from "../../types.js";
-import { createSpanContext, createChildSpanContext } from "./spanContext.type.js";
+import {
+  createSpanContext,
+  createChildSpanContext,
+} from "./spanContext.type.js";
 
 /**
  * Default span implementation.

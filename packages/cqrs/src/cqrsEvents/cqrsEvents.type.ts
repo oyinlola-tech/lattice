@@ -59,9 +59,9 @@ export interface CreateCqrsEventInput<
  * EventHandler which also receives a context object. The CQRS
  * bus handles context propagation internally.
  */
-export type CqrsEventHandler<
-  TEvent extends CqrsEvent = CqrsEvent,
-> = (event: TEvent) => void | Promise<void>;
+export type CqrsEventHandler<TEvent extends CqrsEvent = CqrsEvent> = (
+  event: TEvent,
+) => void | Promise<void>;
 
 /**
  * CQRS event handler registration.
@@ -87,15 +87,10 @@ export function createEventId(): string {
  *
  * Extends the base Lattice event with aggregate fields.
  */
-export function createCqrsEvent<
-  TPayload extends Record<string, unknown>,
->(
+export function createCqrsEvent<TPayload extends Record<string, unknown>>(
   input: CreateCqrsEventInput<TPayload>,
 ): CqrsEvent<TPayload> {
-  if (
-    typeof input.type !== "string" ||
-    input.type.trim().length === 0
-  ) {
+  if (typeof input.type !== "string" || input.type.trim().length === 0) {
     throw new TypeError("Event type cannot be empty.");
   }
 
@@ -167,9 +162,7 @@ export function isCqrsEvent(value: unknown): value is CqrsEvent {
 /**
  * Determines whether an event belongs to an aggregate.
  */
-export function isAggregateEvent(
-  event: CqrsEvent,
-): event is CqrsEvent & {
+export function isAggregateEvent(event: CqrsEvent): event is CqrsEvent & {
   readonly aggregateId: string;
   readonly aggregateType: string;
 } {
@@ -184,16 +177,11 @@ export function isAggregateEvent(
 /**
  * Creates a CQRS event handler registration.
  */
-export function createCqrsEventHandler<
-  TEvent extends CqrsEvent,
->(
+export function createCqrsEventHandler<TEvent extends CqrsEvent>(
   eventType: TEvent["type"],
   handler: CqrsEventHandler<TEvent>,
 ): CqrsEventHandlerRegistration<TEvent> {
-  if (
-    typeof eventType !== "string" ||
-    eventType.trim().length === 0
-  ) {
+  if (typeof eventType !== "string" || eventType.trim().length === 0) {
     throw new TypeError("Event type cannot be empty.");
   }
 
@@ -215,16 +203,14 @@ export const createEvent = createCqrsEvent;
 /**
  * @deprecated Use CqrsEventHandler type instead.
  */
-export type EventHandler<
-  TEvent extends CqrsEvent = CqrsEvent,
-> = CqrsEventHandler<TEvent>;
+export type EventHandler<TEvent extends CqrsEvent = CqrsEvent> =
+  CqrsEventHandler<TEvent>;
 
 /**
  * @deprecated Use CqrsEventHandlerRegistration type instead.
  */
-export type EventHandlerRegistration<
-  TEvent extends CqrsEvent = CqrsEvent,
-> = CqrsEventHandlerRegistration<TEvent>;
+export type EventHandlerRegistration<TEvent extends CqrsEvent = CqrsEvent> =
+  CqrsEventHandlerRegistration<TEvent>;
 
 /**
  * @deprecated Use createCqrsEventHandler instead.

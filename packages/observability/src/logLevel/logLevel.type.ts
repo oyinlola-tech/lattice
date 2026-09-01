@@ -8,7 +8,13 @@
 import { LogLevel, type LogLevelName } from "../types.js";
 
 const LEVEL_NAMES: readonly LogLevelName[] = [
-  "trace", "debug", "info", "warn", "error", "fatal", "off",
+  "trace",
+  "debug",
+  "info",
+  "warn",
+  "error",
+  "fatal",
+  "off",
 ];
 
 const NAME_TO_LEVEL: ReadonlyMap<LogLevelName, LogLevel> = new Map([
@@ -32,7 +38,10 @@ export function logLevelFromName(name: LogLevelName): LogLevel {
 }
 
 /** Returns true if a message at `messageLevel` should pass the `threshold`. */
-export function shouldLog(threshold: LogLevel, messageLevel: LogLevel): boolean {
+export function shouldLog(
+  threshold: LogLevel,
+  messageLevel: LogLevel,
+): boolean {
   return messageLevel >= threshold;
 }
 

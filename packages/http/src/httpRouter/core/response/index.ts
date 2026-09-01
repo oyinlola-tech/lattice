@@ -4,5 +4,4 @@
  * HTTP router response utilities.
  */
 
-export * from "./httpRouter.response.js";
-export * from "./httpRouter.response.helper.js";
+export * from "./httpRouter.register.js";

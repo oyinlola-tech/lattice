@@ -8,7 +8,13 @@ export class CreateUserHandler {
   public async execute(command: CreateUserCommand): Promise<void> {
     const existing = await this.users.findByEmail(command.email);
     if (existing) throw new Error("A user with this email already exists.");
-    const user = User.create(command.id, command.email, command.name, command.passwordHash, command.role);
+    const user = User.create(
+      command.id,
+      command.email,
+      command.name,
+      command.passwordHash,
+      command.role,
+    );
     await this.users.save(user);
   }
 }

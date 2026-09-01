@@ -35,7 +35,12 @@ export class ModuleLoadError extends ModuleError {
 export class ModuleLifecycleError extends ModuleError {
   public readonly phase: string;
 
-  constructor(moduleId: string, phase: string, message?: string, cause?: unknown) {
+  constructor(
+    moduleId: string,
+    phase: string,
+    message?: string,
+    cause?: unknown,
+  ) {
     super(message ?? `Module "${moduleId}" failed during ${phase}.`, {
       code: ErrorCode.MODULE_LIFECYCLE,
       cause,
@@ -54,7 +59,8 @@ export class ModuleLifecycleError extends ModuleError {
 export class ModuleDependencyError extends ModuleError {
   constructor(moduleId: string, dependencyId: string, message?: string) {
     super(
-      message ?? `Module "${moduleId}" depends on "${dependencyId}" which is not available.`,
+      message ??
+        `Module "${moduleId}" depends on "${dependencyId}" which is not available.`,
       {
         code: ErrorCode.MODULE_DEPENDENCY_MISSING,
         moduleId,

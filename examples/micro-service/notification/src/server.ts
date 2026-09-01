@@ -1,4 +1,8 @@
-import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
+import {
+  createServer,
+  type IncomingMessage,
+  type ServerResponse,
+} from "node:http";
 import type { INotificationRepository } from "./interfaces/index.js";
 import type { NotificationModel } from "./models/index.js";
 import { NotificationStatus } from "./enums/index.js";
@@ -14,7 +18,9 @@ class InMemoryNotificationRepository implements INotificationRepository {
   async findAll(userId?: string): Promise<readonly NotificationModel[]> {
     const all = Array.from(this.store.values());
     if (userId) {
-      return all.filter((n) => n.userId === userId).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+      return all
+        .filter((n) => n.userId === userId)
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
     }
     return all.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
@@ -42,22 +48,30 @@ async function main(): Promise<void> {
     queryBus: app.queryBus,
   });
 
-  const routes = new Map<string, (req: IncomingMessage, res: ServerResponse) => Promise<void>>();
+  const routes = new Map<
+    string,
+    (req: IncomingMessage, res: ServerResponse) => Promise<void>
+  >();
   registerNotificationRoutes(routes, controller);
 
   const server = createServer(async (req, res) => {
     const method = req.method ?? "GET";
-      const urlStr = req.url ?? "/";
-      const host = req.headers.host ?? "localhost";
-      const url = new URL(urlStr, `http://${host}`);
-      const path = url.pathname;
+    const urlStr = req.url ?? "/";
+    const host = req.headers.host ?? "localhost";
+    const url = new URL(urlStr, `http://${host}`);
+    const path = url.pathname;
 
     // Match routes (simple prefix matching)
     for (const [key, handler] of routes) {
       const parts = key.split(":");
       const routeMethod = parts[0];
       const routePath = parts[1];
-      if (routeMethod && routePath && routeMethod === method && path.startsWith(routePath)) {
+      if (
+        routeMethod &&
+        routePath &&
+        routeMethod === method &&
+        path.startsWith(routePath)
+      ) {
         await handler(req, res);
         return;
       }
@@ -68,7 +82,9 @@ async function main(): Promise<void> {
   });
 
   server.listen(config.port, config.host, () => {
-    console.log(`Notification service running at http://${config.host}:${config.port}`);
+    console.log(
+      `Notification service running at http://${config.host}:${config.port}`,
+    );
   });
 
   const shutdown = async () => {

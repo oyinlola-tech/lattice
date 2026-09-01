@@ -44,37 +44,21 @@ export interface CryptoKeyOptions {
 /**
  * Checks whether a value is a CryptoKey.
  */
-export function isCryptoKey(
-  value: unknown,
-): value is CryptoKey {
-  if (
-    typeof value !==
-      "object" ||
-    value === null
-  ) {
+export function isCryptoKey(value: unknown): value is CryptoKey {
+  if (typeof value !== "object" || value === null) {
     return false;
   }
 
-  const key =
-    value as Partial<CryptoKey>;
+  const key = value as Partial<CryptoKey>;
 
   return (
-    typeof key.algorithm ===
-      "string" &&
-    typeof key.keyId ===
-      "string" &&
-    Array.isArray(
-      key.usages,
-    ) &&
-    typeof key.extractable ===
-      "boolean" &&
-    typeof key.createdAt ===
-      "number" &&
-    typeof key.length ===
-      "number" &&
-    typeof key.fingerprint ===
-      "string" &&
-    typeof key.bytes ===
-      "function"
+    typeof key.algorithm === "string" &&
+    typeof key.keyId === "string" &&
+    Array.isArray(key.usages) &&
+    typeof key.extractable === "boolean" &&
+    typeof key.createdAt === "number" &&
+    typeof key.length === "number" &&
+    typeof key.fingerprint === "string" &&
+    typeof key.bytes === "function"
   );
 }

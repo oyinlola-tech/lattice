@@ -21,7 +21,9 @@ import { createForbiddenResponse, createJsonResponse } from "./httpHelpers.js";
 /** Options for the authorize middleware. */
 export interface AuthorizeMiddlewareOptions {
   /** Function to extract an actor from the request context. */
-  readonly extractActor: (context: HttpMiddlewareContext) => PermissionActor | Promise<PermissionActor> | undefined;
+  readonly extractActor: (
+    context: HttpMiddlewareContext,
+  ) => PermissionActor | Promise<PermissionActor> | undefined;
   /** Authorization options (signal, policyTimeout). */
   readonly authorization?: AuthorizationOptions;
   /** Custom 403 response body. */
@@ -71,13 +73,24 @@ export function createRequirePermissionMiddleware(
   return async (context, next) => {
     const actor = context.state.get<PermissionActor>(ACTOR_STATE_KEY);
     if (!actor) {
-      return createForbiddenResponse("No actor found in request context", options);
+      return createForbiddenResponse(
+        "No actor found in request context",
+        options,
+      );
     }
     const resource = options.extractResource?.(context);
-    const decision = await engine.check(actor, options.permission, resource, options.authorization);
+    const decision = await engine.check(
+      actor,
+      options.permission,
+      resource,
+      options.authorization,
+    );
     context.state.set(DECISION_STATE_KEY, decision);
     if (!decision.allowed) {
-      return createForbiddenResponse(decision.reason ?? "Access denied", options);
+      return createForbiddenResponse(
+        decision.reason ?? "Access denied",
+        options,
+      );
     }
     return next();
   };
@@ -111,17 +124,28 @@ export function createRequirePermissionsMiddleware(
   return async (context, next) => {
     const actor = context.state.get<PermissionActor>(ACTOR_STATE_KEY);
     if (!actor) {
-      return createForbiddenResponse("No actor found in request context", options);
+      return createForbiddenResponse(
+        "No actor found in request context",
+        options,
+      );
     }
     const results = new Map<string, PermissionDecision>();
     for (const perm of permissions) {
-      const decision = await engine.check(actor, perm, undefined, options.authorization);
+      const decision = await engine.check(
+        actor,
+        perm,
+        undefined,
+        options.authorization,
+      );
       results.set(perm, decision);
     }
     context.state.set("permissions:decisions", results);
     for (const [perm, decision] of results) {
       if (!decision.allowed) {
-        return createForbiddenResponse(decision.reason ?? `Missing permission: ${perm}`, options);
+        return createForbiddenResponse(
+          decision.reason ?? `Missing permission: ${perm}`,
+          options,
+        );
       }
     }
     return next();

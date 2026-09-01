@@ -1,1 +1,5 @@
-export { getDatabase, initDatabase, closeDatabase } from "./enrollment.database.js";
+export {
+  getDatabase,
+  initDatabase,
+  closeDatabase,
+} from "./enrollment.database.js";

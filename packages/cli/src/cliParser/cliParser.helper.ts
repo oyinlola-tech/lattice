@@ -29,7 +29,10 @@ export function parseCLIArguments(
 }
 
 /** Parses a raw string value according to an option definition. */
-export function parseOptionValue(definition: CLIOption, value: string): CLIValue {
+export function parseOptionValue(
+  definition: CLIOption,
+  value: string,
+): CLIValue {
   switch (definition.type) {
     case "boolean":
       return parseBoolean(value, definition.name);
@@ -70,7 +73,9 @@ export function parseBoolean(value: string, option = "option"): boolean {
 export function isOption(token: string): boolean {
   return (
     (token.startsWith(CLI_OPTION_PREFIXES.LONG) && token !== "--") ||
-    (token.startsWith(CLI_OPTION_PREFIXES.SHORT) && !token.startsWith(CLI_OPTION_PREFIXES.LONG) && token !== "-")
+    (token.startsWith(CLI_OPTION_PREFIXES.SHORT) &&
+      !token.startsWith(CLI_OPTION_PREFIXES.LONG) &&
+      token !== "-")
   );
 }
 

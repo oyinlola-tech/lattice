@@ -4,9 +4,7 @@
  * Wraps the real EventBus with recording and assertion support.
  */
 
-import {
-  EventBus,
-} from "@oyinlola141/lattice-events";
+import { EventBus } from "@oyinlola141/lattice-events";
 
 import type {
   Event,
@@ -15,9 +13,7 @@ import type {
   EventPublishResult,
 } from "@oyinlola141/lattice-events";
 
-import type {
-  EventId,
-} from "@oyinlola141/lattice-constants";
+import type { EventId } from "@oyinlola141/lattice-constants";
 
 /**
  * A recorded event publication.

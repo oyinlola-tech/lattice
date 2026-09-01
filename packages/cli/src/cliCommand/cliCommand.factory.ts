@@ -4,7 +4,11 @@
  * Factory functions for creating and executing CLI commands.
  */
 
-import type { CLICommand, CLICommandDefinition, CLIContext } from "../cliType/cliType.type.js";
+import type {
+  CLICommand,
+  CLICommandDefinition,
+  CLIContext,
+} from "../cliType/cliType.type.js";
 import { validateCommand } from "./cliCommand.validator.js";
 
 /* -------------------------------------------------------------------------- */
@@ -18,9 +22,7 @@ export function createCommand(definition: CLICommandDefinition): CLICommand {
   return {
     ...definition,
     name: definition.name.trim(),
-    aliases: definition.aliases
-      ?.map((alias) => alias.trim())
-      .filter(Boolean),
+    aliases: definition.aliases?.map((alias) => alias.trim()).filter(Boolean),
   };
 }
 

@@ -2,22 +2,14 @@
  * CSP type definitions.
  */
 
-export type CSPDirectiveValue =
-  | string
-  | readonly string[];
+export type CSPDirectiveValue = string | readonly string[];
 
 export interface CSPDirectives {
   readonly [directive: string]: readonly string[];
 }
 
 export interface CSPOptions {
-  readonly directives?:
-    | Readonly<
-        Record<
-          string,
-          CSPDirectiveValue
-        >
-      >;
+  readonly directives?: Readonly<Record<string, CSPDirectiveValue>>;
   readonly defaultSrc?: CSPDirectiveValue;
   readonly scriptSrc?: CSPDirectiveValue;
   readonly styleSrc?: CSPDirectiveValue;

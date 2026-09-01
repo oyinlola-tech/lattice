@@ -140,11 +140,18 @@ export {
 
 /* ─── Processor ─────────────────────────────────────────────────────────── */
 
-export { BatchSpanProcessor, createBatchSpanProcessor } from "./processor/index.js";
+export {
+  BatchSpanProcessor,
+  createBatchSpanProcessor,
+} from "./processor/index.js";
 
 /* ─── Redaction ─────────────────────────────────────────────────────────── */
 
-export { createRedactor, redactObject, isSensitiveField } from "./redaction/index.js";
+export {
+  createRedactor,
+  redactObject,
+  isSensitiveField,
+} from "./redaction/index.js";
 
 /* ─── Noop ──────────────────────────────────────────────────────────────── */
 
@@ -163,4 +170,7 @@ export {
 
 /* ─── Observability Facade ──────────────────────────────────────────────── */
 
-export { DefaultObservability, createObservability } from "./observability/index.js";
+export {
+  DefaultObservability,
+  createObservability,
+} from "./observability/index.js";

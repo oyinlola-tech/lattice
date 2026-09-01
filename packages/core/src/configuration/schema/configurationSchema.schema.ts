@@ -70,8 +70,7 @@ export type ConfigurationValidator<T> = (
   value: T,
   context: ConfigurationValidationContext,
 ) =>
-  | ConfigurationValidationResult<T>
-  | Promise<ConfigurationValidationResult<T>>;
+  ConfigurationValidationResult<T> | Promise<ConfigurationValidationResult<T>>;
 
 /**
  * Options used to create a configuration schema.
@@ -140,52 +139,33 @@ export interface ConfigurationSchema<T = ConfigurationValue> {
 /**
  * Creates a configuration schema.
  */
-export function createConfigurationSchema<
-  T = ConfigurationValue,
->(
+export function createConfigurationSchema<T = ConfigurationValue>(
   options: ConfigurationSchemaOptions<T>,
 ): ConfigurationSchema<T> {
-  const path =
-    normalizeConfigurationPath(
-      options.path,
-    );
+  const path = normalizeConfigurationPath(options.path);
 
   if (!path) {
-    throw new Error(
-      "Configuration schema path cannot be empty.",
-    );
+    throw new Error("Configuration schema path cannot be empty.");
   }
 
-  const required =
-    options.required ?? true;
+  const required = options.required ?? true;
 
   return Object.freeze({
     path,
     required,
-    defaultValue:
-      options.defaultValue,
-    description:
-      options.description,
+    defaultValue: options.defaultValue,
+    description: options.description,
 
     async validate(
       configuration: Configuration,
-    ): Promise<
-      ConfigurationValidationResult<T>
-    > {
-      const exists =
-        configuration.has(
-          path,
-        );
+    ): Promise<ConfigurationValidationResult<T>> {
+      const exists = configuration.has(path);
 
       if (!exists) {
-        if (
-          options.defaultValue !==
-          undefined
-        ) {
+        if (options.defaultValue !== undefined) {
           return {
             success: true,
-            value:
-              options.defaultValue,
+            value: options.defaultValue,
             errors: [],
           };
         }
@@ -196,10 +176,8 @@ export function createConfigurationSchema<
             errors: [
               {
                 path,
-                message:
-                  `Required configuration "${path}" is not defined.`,
-                code:
-                  "CONFIGURATION_REQUIRED",
+                message: `Required configuration "${path}" is not defined.`,
+                code: "CONFIGURATION_REQUIRED",
               },
             ],
           };
@@ -207,20 +185,14 @@ export function createConfigurationSchema<
 
         return {
           success: true,
-          value:
-            undefined,
+          value: undefined,
           errors: [],
         };
       }
 
-      const value =
-        configuration.get<T>(
-          path,
-        );
+      const value = configuration.get<T>(path);
 
-      if (
-        !options.validator
-      ) {
+      if (!options.validator) {
         return {
           success: true,
           value,
@@ -228,13 +200,10 @@ export function createConfigurationSchema<
         };
       }
 
-      return options.validator(
-        value as T,
-        {
-          configuration,
-          path,
-        },
-      );
+      return options.validator(value as T, {
+        configuration,
+        path,
+      });
     },
   });
 }
@@ -243,95 +212,57 @@ export function createConfigurationSchema<
  * Collection of configuration schemas.
  */
 export class ConfigurationSchemaRegistry {
-  private readonly schemas =
-    new Map<
-      string,
-      ConfigurationSchema
-    >();
+  private readonly schemas = new Map<string, ConfigurationSchema>();
 
   /**
    * Registers a schema.
    */
-  public register<T>(
-    schema: ConfigurationSchema<T>,
-  ): void {
-    if (
-      this.schemas.has(
-        schema.path,
-      )
-    ) {
+  public register<T>(schema: ConfigurationSchema<T>): void {
+    if (this.schemas.has(schema.path)) {
       throw new Error(
         `Configuration schema "${schema.path}" is already registered.`,
       );
     }
 
-    this.schemas.set(
-      schema.path,
-      schema as ConfigurationSchema,
-    );
+    this.schemas.set(schema.path, schema as ConfigurationSchema);
   }
 
   /**
    * Registers multiple schemas.
    */
-  public registerMany(
-    schemas: readonly ConfigurationSchema[],
-  ): void {
+  public registerMany(schemas: readonly ConfigurationSchema[]): void {
     for (const schema of schemas) {
-      this.register(
-        schema,
-      );
+      this.register(schema);
     }
   }
 
   /**
    * Retrieves a schema.
    */
-  public get<T>(
-    path: string,
-  ): ConfigurationSchema<T> | undefined {
-    return this.schemas.get(
-      normalizeConfigurationPath(
-        path,
-      ),
-    ) as
-      | ConfigurationSchema<T>
-      | undefined;
+  public get<T>(path: string): ConfigurationSchema<T> | undefined {
+    return this.schemas.get(normalizeConfigurationPath(path)) as
+      ConfigurationSchema<T> | undefined;
   }
 
   /**
    * Checks whether a schema exists.
    */
-  public has(
-    path: string,
-  ): boolean {
-    return this.schemas.has(
-      normalizeConfigurationPath(
-        path,
-      ),
-    );
+  public has(path: string): boolean {
+    return this.schemas.has(normalizeConfigurationPath(path));
   }
 
   /**
    * Removes a schema.
    */
-  public remove(
-    path: string,
-  ): boolean {
-    return this.schemas.delete(
-      normalizeConfigurationPath(
-        path,
-      ),
-    );
+  public remove(path: string): boolean {
+    return this.schemas.delete(normalizeConfigurationPath(path));
   }
 
   /**
    * Returns all registered schemas.
    */
   public getAll(): readonly ConfigurationSchema[] {
-    return [
-      ...this.schemas.values(),
-    ];
+    return [...this.schemas.values()];
   }
 
   /**
@@ -362,24 +293,14 @@ export function createConfigurationSchemaRegistry(): ConfigurationSchemaRegistry
 export async function validateConfiguration(
   configuration: Configuration,
   registry: ConfigurationSchemaRegistry,
-): Promise<ConfigurationValidationResult<
-  Configuration
->> {
-  const errors: ConfigurationValidationIssue[] =
-    [];
+): Promise<ConfigurationValidationResult<Configuration>> {
+  const errors: ConfigurationValidationIssue[] = [];
 
-  for (
-    const schema of registry.getAll()
-  ) {
-    const result =
-      await schema.validate(
-        configuration,
-      );
+  for (const schema of registry.getAll()) {
+    const result = await schema.validate(configuration);
 
     if (!result.success) {
-      errors.push(
-        ...result.errors,
-      );
+      errors.push(...result.errors);
     }
   }
 
@@ -400,18 +321,10 @@ export async function validateConfiguration(
 /**
  * Normalizes a configuration path.
  */
-function normalizeConfigurationPath(
-  path: string,
-): string {
-  if (
-    typeof path !== "string"
-  ) {
-    throw new TypeError(
-      "Configuration schema path must be a string.",
-    );
+function normalizeConfigurationPath(path: string): string {
+  if (typeof path !== "string") {
+    throw new TypeError("Configuration schema path must be a string.");
   }
 
-  return path
-    .trim()
-    .replace(/\s+/g, "");
+  return path.trim().replace(/\s+/g, "");
 }

@@ -6,7 +6,10 @@
  * exposing concrete class constructors.
  */
 
-import type { Serializer, SerializationFormat } from "../serializerTypes/index.js";
+import type {
+  Serializer,
+  SerializationFormat,
+} from "../serializerTypes/index.js";
 import { JSONSerializer } from "../serializerJson/index.js";
 import { UnsupportedSerializationFormatError } from "@oyinlola141/lattice-errors";
 import { SerializationFormat as Format } from "@oyinlola141/lattice-constants";

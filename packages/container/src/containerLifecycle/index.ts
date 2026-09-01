@@ -4,4 +4,4 @@
  * Container lifecycle management and scoping.
  */
 
-export * from './containerLifecycle.core.js';
+export * from "./containerLifecycle.core.js";

@@ -5,7 +5,10 @@
  */
 
 import type { TenantId } from "./tenantIdentity.js";
-import type { TenantResolutionSource, TenantTrustLevel } from "./tenantInterface.js";
+import type {
+  TenantResolutionSource,
+  TenantTrustLevel,
+} from "./tenantInterface.js";
 
 /** A tenant resolution result from a resolver. */
 export interface TenantResolution {

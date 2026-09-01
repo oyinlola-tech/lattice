@@ -35,6 +35,9 @@ export class DefaultCounter implements Counter {
 }
 
 /** Creates a counter. */
-export function createCounter(name: string, labels?: Record<string, string>): DefaultCounter {
+export function createCounter(
+  name: string,
+  labels?: Record<string, string>,
+): DefaultCounter {
   return new DefaultCounter(name, labels);
 }

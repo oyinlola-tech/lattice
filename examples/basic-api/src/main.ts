@@ -27,46 +27,48 @@ async function bootstrap(): Promise<void> {
   const usersController = app.getUsersController();
   const healthController = app.getHealthController();
 
-  const server = http.createServer(async (req: IncomingMessage, res: ServerResponse) => {
-    const url = req.url ?? "/";
-    const method = req.method ?? "GET";
+  const server = http.createServer(
+    async (req: IncomingMessage, res: ServerResponse) => {
+      const url = req.url ?? "/";
+      const method = req.method ?? "GET";
 
-    try {
-      const body = await readBody(req);
+      try {
+        const body = await readBody(req);
 
-      const request = {
-        method,
-        url,
-        headers: req.headers as Record<string, string>,
-        body,
-        params: {},
-        query: {},
-        id: crypto.randomUUID(),
-      };
+        const request = {
+          method,
+          url,
+          headers: req.headers as Record<string, string>,
+          body,
+          params: {},
+          query: {},
+          id: crypto.randomUUID(),
+        };
 
-      let result: { status: number; body: unknown };
+        let result: { status: number; body: unknown };
 
-      if (url.startsWith("/health")) {
-        result = await healthController.handleRequest(request);
-      } else if (url.startsWith("/users")) {
-        result = await usersController.handleRequest(request);
-      } else {
-        result = { status: 404, body: { error: "Not found" } };
+        if (url.startsWith("/health")) {
+          result = await healthController.handleRequest(request);
+        } else if (url.startsWith("/users")) {
+          result = await usersController.handleRequest(request);
+        } else {
+          result = { status: 404, body: { error: "Not found" } };
+        }
+
+        res.writeHead(result.status, { "Content-Type": "application/json" });
+
+        if (result.body !== undefined) {
+          res.end(JSON.stringify(result.body));
+        } else {
+          res.end();
+        }
+      } catch (error) {
+        console.error("Unhandled error:", error);
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Internal server error" }));
       }
-
-      res.writeHead(result.status, { "Content-Type": "application/json" });
-
-      if (result.body !== undefined) {
-        res.end(JSON.stringify(result.body));
-      } else {
-        res.end();
-      }
-    } catch (error) {
-      console.error("Unhandled error:", error);
-      res.writeHead(500, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ error: "Internal server error" }));
-    }
-  });
+    },
+  );
 
   server.listen(config.port, config.host, () => {
     console.log(`Server running at http://${config.host}:${config.port}`);

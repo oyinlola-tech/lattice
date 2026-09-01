@@ -18,11 +18,7 @@ export type DocumentationCategory =
 
 /** Status of a documentation page. */
 export type DocumentationStatus =
-  | "stable"
-  | "experimental"
-  | "beta"
-  | "deprecated"
-  | "internal";
+  "stable" | "experimental" | "beta" | "deprecated" | "internal";
 
 /** API symbol kind for auto-generated references. */
 export type APISymbolKind =

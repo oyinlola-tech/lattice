@@ -7,7 +7,10 @@ export interface Route {
   readonly handler: (body: any, params: any) => Promise<unknown>;
 }
 
-export function createReactionRoutes(commandBus: CommandBus, queryBus: QueryBus): readonly Route[] {
+export function createReactionRoutes(
+  commandBus: CommandBus,
+  queryBus: QueryBus,
+): readonly Route[] {
   const controller = new ReactionController(commandBus, queryBus);
 
   return [
@@ -19,12 +22,14 @@ export function createReactionRoutes(commandBus: CommandBus, queryBus: QueryBus)
     {
       method: "DELETE",
       path: "/articles/:articleId/reactions/:userId",
-      handler: async (_body: any, params: any) => controller.remove(params.articleId, params.userId),
+      handler: async (_body: any, params: any) =>
+        controller.remove(params.articleId, params.userId),
     },
     {
       method: "GET",
       path: "/articles/:articleId/reactions",
-      handler: async (_body: any, params: any) => controller.get(params.articleId),
+      handler: async (_body: any, params: any) =>
+        controller.get(params.articleId),
     },
   ];
 }

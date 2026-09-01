@@ -1,14 +1,8 @@
-import type {
-  ModuleLoader,
-} from "../../../modules/moduleLoader/index.js";
+import type { ModuleLoader } from "../../../modules/moduleLoader/index.js";
 
-import type {
-  ModuleLifecycleManager,
-} from "../../../modules/moduleLifecycle/index.js";
+import type { ModuleLifecycleManager } from "../../../modules/moduleLifecycle/index.js";
 
-import {
-  RuntimeBootstrapError,
-} from "./runtimeBootstrap.pipeline.js";
+import { RuntimeBootstrapError } from "./runtimeBootstrap.pipeline.js";
 
 export async function invokeModuleLoader(
   moduleLoader: ModuleLoader,

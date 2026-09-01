@@ -4,4 +4,9 @@
  * @module middlewareUtils
  */
 
-export { loggingMiddleware, errorMiddleware, timeoutMiddleware, rateLimitMiddleware } from "./middlewareUtils.builtins.js";
+export {
+  loggingMiddleware,
+  errorMiddleware,
+  timeoutMiddleware,
+  rateLimitMiddleware,
+} from "./middlewareUtils.builtins.js";

@@ -3,22 +3,16 @@
  * its own scoped-instance cache.
  */
 
-import type {
-  RegistrationToken,
-} from "../containerRegistration/containerRegistration.core.js";
+import type { RegistrationToken } from "../containerRegistration/containerRegistration.core.js";
 
 import {
   ContainerLifecycle,
   ContainerLifecycleOwner,
 } from "../containerLifecycle/containerLifecycle.core.js";
 
-import type {
-  ResolutionCache,
-} from "../containerResolution/containerResolution.type.js";
+import type { ResolutionCache } from "../containerResolution/containerResolution.type.js";
 
-import type {
-  Token,
-} from "../containerToken/containerToken.type.js";
+import type { Token } from "../containerToken/containerToken.type.js";
 
 import type {
   ContainerScopeOptions,
@@ -57,7 +51,11 @@ export class ContainerScopeContext {
       ...this.parent.resolutionOptions,
       cache: this.cache,
     });
-    this.lifecycle.track(result.token as Token, result.value, ContainerLifecycleOwner.SCOPE);
+    this.lifecycle.track(
+      result.token as Token,
+      result.value,
+      ContainerLifecycleOwner.SCOPE,
+    );
     return result.value as T;
   }
 
@@ -124,7 +122,9 @@ export class ContainerScopeContext {
    */
   private ensureActive(): void {
     if (this.disposed) {
-      throw new Error(`Container scope "${this.name}" has already been disposed.`);
+      throw new Error(
+        `Container scope "${this.name}" has already been disposed.`,
+      );
     }
   }
 }

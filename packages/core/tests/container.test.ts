@@ -100,11 +100,7 @@ describe("Container", () => {
     it("should return different instances for transient scope", () => {
       const container = new Container();
 
-      container.register(
-        LoggerToken,
-        { useClass: ConsoleLogger },
-        "transient",
-      );
+      container.register(LoggerToken, { useClass: ConsoleLogger }, "transient");
 
       const first = container.resolve(LoggerToken);
       const second = container.resolve(LoggerToken);

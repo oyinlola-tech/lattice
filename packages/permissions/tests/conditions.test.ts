@@ -10,7 +10,9 @@ import {
 } from "../src/index.js";
 import type { PermissionContext } from "../src/index.js";
 
-const makeContext = (overrides?: Partial<PermissionContext>): PermissionContext => ({
+const makeContext = (
+  overrides?: Partial<PermissionContext>,
+): PermissionContext => ({
   actor: { id: "user_1", roles: ["admin"] },
   permission: { resource: "post", action: "read" },
   ...overrides,

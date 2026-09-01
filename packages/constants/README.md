@@ -11,7 +11,7 @@ npm install @latticejs/constants
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/constants";
+import {} from /* add usage here */ "@latticejs/constants";
 ```
 
 ## License

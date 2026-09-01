@@ -11,9 +11,7 @@ export type {
   FetchAdapterResult,
 } from "./fetch/httpFetch.type.js";
 
-export {
-  FetchHttpResponseWriter,
-} from "./fetch/httpFetch.responseWriter.js";
+export { FetchHttpResponseWriter } from "./fetch/httpFetch.responseWriter.js";
 
 export {
   createFetchRequestContext,

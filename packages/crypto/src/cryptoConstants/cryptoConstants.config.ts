@@ -1,16 +1,8 @@
-import {
-  CRYPTO_ALGORITHM,
-  ENCODING,
-  AES_GCM,
-} from "./cryptoConstants.type.js";
+import { CRYPTO_ALGORITHM, ENCODING, AES_GCM } from "./cryptoConstants.type.js";
 
-import {
-  TOKEN_PREFIX,
-} from "./cryptoConstants.token.js";
+import { TOKEN_PREFIX } from "./cryptoConstants.token.js";
 
-import {
-  PASSWORD_HASH,
-} from "./cryptoConstants.security.js";
+import { PASSWORD_HASH } from "./cryptoConstants.security.js";
 
 /**
  * Type-safe union of supported crypto algorithm identifiers.
@@ -21,14 +13,12 @@ export type CryptoAlgorithmName =
 /**
  * Type-safe union of supported token prefixes.
  */
-export type TokenPrefix =
-  (typeof TOKEN_PREFIX)[keyof typeof TOKEN_PREFIX];
+export type TokenPrefix = (typeof TOKEN_PREFIX)[keyof typeof TOKEN_PREFIX];
 
 /**
  * Type-safe union of supported encodings.
  */
-export type CryptoEncodingName =
-  (typeof ENCODING)[keyof typeof ENCODING];
+export type CryptoEncodingName = (typeof ENCODING)[keyof typeof ENCODING];
 
 /**
  * Returns the default AES-GCM configuration.
@@ -40,14 +30,10 @@ export function getDefaultAesGcmConfig(): {
   readonly authTagBytes: number;
 } {
   return {
-    keyBytes:
-      AES_GCM.KEY_BYTES,
-    keyBits:
-      AES_GCM.KEY_BITS,
-    ivBytes:
-      AES_GCM.IV_BYTES,
-    authTagBytes:
-      AES_GCM.AUTH_TAG_BYTES,
+    keyBytes: AES_GCM.KEY_BYTES,
+    keyBits: AES_GCM.KEY_BITS,
+    ivBytes: AES_GCM.IV_BYTES,
+    authTagBytes: AES_GCM.AUTH_TAG_BYTES,
   };
 }
 
@@ -64,25 +50,18 @@ export function getDefaultPasswordHashConfig(): {
   readonly pbkdf2Digest: string;
 } {
   return {
-    saltBytes:
-      PASSWORD_HASH.SALT_BYTES,
+    saltBytes: PASSWORD_HASH.SALT_BYTES,
 
-    keyBytes:
-      PASSWORD_HASH.KEY_BYTES,
+    keyBytes: PASSWORD_HASH.KEY_BYTES,
 
-    scryptCost:
-      PASSWORD_HASH.SCRYPT.COST,
+    scryptCost: PASSWORD_HASH.SCRYPT.COST,
 
-    scryptBlockSize:
-      PASSWORD_HASH.SCRYPT.BLOCK_SIZE,
+    scryptBlockSize: PASSWORD_HASH.SCRYPT.BLOCK_SIZE,
 
-    scryptParallelization:
-      PASSWORD_HASH.SCRYPT.PARALLELIZATION,
+    scryptParallelization: PASSWORD_HASH.SCRYPT.PARALLELIZATION,
 
-    pbkdf2Iterations:
-      PASSWORD_HASH.PBKDF2.ITERATIONS,
+    pbkdf2Iterations: PASSWORD_HASH.PBKDF2.ITERATIONS,
 
-    pbkdf2Digest:
-      PASSWORD_HASH.PBKDF2.DIGEST,
+    pbkdf2Digest: PASSWORD_HASH.PBKDF2.DIGEST,
   };
 }

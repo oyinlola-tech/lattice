@@ -4,4 +4,4 @@
  * HTTP httpCors module.
  */
 
-export * from './http.cors.js';
+export * from "./http.cors.js";

@@ -4,4 +4,7 @@
  * Central facade for logging, metrics, tracing, and context propagation.
  */
 
-export { DefaultObservability, createObservability } from "./observability.core.js";
+export {
+  DefaultObservability,
+  createObservability,
+} from "./observability.core.js";

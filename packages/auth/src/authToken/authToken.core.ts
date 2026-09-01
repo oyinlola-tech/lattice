@@ -15,7 +15,11 @@ import type {
   TokenConfig,
   TokenVerificationResult,
 } from "../authTypes/authToken.type.js";
-import { signToken, verifyToken, generateTokenId } from "./authToken.signing.js";
+import {
+  signToken,
+  verifyToken,
+  generateTokenId,
+} from "./authToken.signing.js";
 
 const DEFAULT_ACCESS_TTL = TimeMs.SECOND * 15; // 15 minutes
 const DEFAULT_REFRESH_TTL = TimeMs.SECOND * 60 * 60 * 24 * 7; // 7 days
@@ -98,5 +102,7 @@ export function refreshAccessToken(
   const result = verifyRefreshToken(refreshToken, config);
   if (!result.valid || !result.payload) return null;
 
-  return createTokenPair(result.payload.sub, config, { roles: options?.roles ?? result.payload.roles });
+  return createTokenPair(result.payload.sub, config, {
+    roles: options?.roles ?? result.payload.roles,
+  });
 }

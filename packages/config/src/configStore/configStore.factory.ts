@@ -4,17 +4,11 @@
  * Factory and utility functions for ConfigStore.
  */
 
-export {
-  normalizeKey,
-} from "./configStore.core.js";
+export { normalizeKey } from "./configStore.core.js";
 
-import type {
-  ConfigStoreOptions,
-} from "./configStore.type.js";
+import type { ConfigStoreOptions } from "./configStore.type.js";
 
-import {
-  ConfigStore,
-} from "./configStore.core.js";
+import { ConfigStore } from "./configStore.core.js";
 
 /**
  * Creates a configuration store.
@@ -22,7 +16,5 @@ import {
 export function createConfigStore(
   options: ConfigStoreOptions = {},
 ): ConfigStore {
-  return new ConfigStore(
-    options,
-  );
+  return new ConfigStore(options);
 }

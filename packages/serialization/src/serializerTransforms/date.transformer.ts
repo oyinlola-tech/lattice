@@ -29,7 +29,9 @@ export const DateTransformer: TypeTransformer<Date> = {
     const data = value as Record<string, unknown>;
     const raw = data[SerializationTags.VALUE];
     if (typeof raw !== "string") {
-      throw new Error(`Invalid Date serialized value: expected string, got ${typeof raw}`);
+      throw new Error(
+        `Invalid Date serialized value: expected string, got ${typeof raw}`,
+      );
     }
     const date = new Date(raw);
     if (Number.isNaN(date.getTime())) {

@@ -5,7 +5,8 @@
  */
 
 /** HTTP method type. */
-export type HTTPMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD" | "OPTIONS";
+export type HTTPMethod =
+  "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD" | "OPTIONS";
 
 /**
  * A test HTTP request.
@@ -43,7 +44,9 @@ export interface HTTPRequestBuilder {
   HEAD: (path: string) => HTTPRequestBuilder;
   OPTIONS: (path: string) => HTTPRequestBuilder;
   withHeader: (key: string, value: string) => HTTPRequestBuilder;
-  withHeaders: (headers: Headers | Record<string, string>) => HTTPRequestBuilder;
+  withHeaders: (
+    headers: Headers | Record<string, string>,
+  ) => HTTPRequestBuilder;
   withQuery: (query: Record<string, string>) => HTTPRequestBuilder;
   withParam: (key: string, value: string) => HTTPRequestBuilder;
   withBody: (body: unknown) => HTTPRequestBuilder;
@@ -64,13 +67,41 @@ export function createTestHTTPRequest(): HTTPRequestBuilder {
   let body: unknown = undefined;
 
   const builder: HTTPRequestBuilder = {
-    GET: (p: string) => { method = "GET"; path = p; return builder; },
-    POST: (p: string) => { method = "POST"; path = p; return builder; },
-    PUT: (p: string) => { method = "PUT"; path = p; return builder; },
-    PATCH: (p: string) => { method = "PATCH"; path = p; return builder; },
-    DELETE: (p: string) => { method = "DELETE"; path = p; return builder; },
-    HEAD: (p: string) => { method = "HEAD"; path = p; return builder; },
-    OPTIONS: (p: string) => { method = "OPTIONS"; path = p; return builder; },
+    GET: (p: string) => {
+      method = "GET";
+      path = p;
+      return builder;
+    },
+    POST: (p: string) => {
+      method = "POST";
+      path = p;
+      return builder;
+    },
+    PUT: (p: string) => {
+      method = "PUT";
+      path = p;
+      return builder;
+    },
+    PATCH: (p: string) => {
+      method = "PATCH";
+      path = p;
+      return builder;
+    },
+    DELETE: (p: string) => {
+      method = "DELETE";
+      path = p;
+      return builder;
+    },
+    HEAD: (p: string) => {
+      method = "HEAD";
+      path = p;
+      return builder;
+    },
+    OPTIONS: (p: string) => {
+      method = "OPTIONS";
+      path = p;
+      return builder;
+    },
 
     withHeader: (key: string, value: string) => {
       headers.set(key.toLowerCase(), value);

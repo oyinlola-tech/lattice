@@ -115,20 +115,25 @@ export class PriorityQueue {
 
       if (
         left < this.heap.length &&
-        this.heap[left]!.nextRunAt.getTime() < this.heap[smallest]!.nextRunAt.getTime()
+        this.heap[left]!.nextRunAt.getTime() <
+          this.heap[smallest]!.nextRunAt.getTime()
       ) {
         smallest = left;
       }
 
       if (
         right < this.heap.length &&
-        this.heap[right]!.nextRunAt.getTime() < this.heap[smallest]!.nextRunAt.getTime()
+        this.heap[right]!.nextRunAt.getTime() <
+          this.heap[smallest]!.nextRunAt.getTime()
       ) {
         smallest = right;
       }
 
       if (smallest !== index) {
-        [this.heap[smallest]!, this.heap[index]!] = [this.heap[index]!, this.heap[smallest]!];
+        [this.heap[smallest]!, this.heap[index]!] = [
+          this.heap[index]!,
+          this.heap[smallest]!,
+        ];
         index = smallest;
       } else {
         break;

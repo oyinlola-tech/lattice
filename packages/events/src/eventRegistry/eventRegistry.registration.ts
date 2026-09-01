@@ -8,9 +8,7 @@ import type {
   EventType,
 } from "../eventTypes/eventDefinition.type.js";
 
-import type {
-  EventTypePattern,
-} from "../eventTypes/eventType.type.js";
+import type { EventTypePattern } from "../eventTypes/eventType.type.js";
 
 import type {
   EventHandlerLike,
@@ -18,9 +16,7 @@ import type {
   RegisteredEventHandler,
 } from "../eventHandler/eventHandler.core.js";
 
-import {
-  createEventHandler,
-} from "../eventHandler/eventHandler.core.js";
+import { createEventHandler } from "../eventHandler/eventHandler.core.js";
 
 import {
   isValidEventType,
@@ -28,13 +24,9 @@ import {
   normalizeEventType,
 } from "../eventTypes/eventType.type.js";
 
-import type {
-  EventSubscription,
-} from "../eventSubscription/eventSubscription.core.js";
+import type { EventSubscription } from "../eventSubscription/eventSubscription.core.js";
 
-import {
-  createEventSubscription,
-} from "../eventSubscription/eventSubscription.core.js";
+import { createEventSubscription } from "../eventSubscription/eventSubscription.core.js";
 
 import {
   DuplicateEventDefinitionError,
@@ -47,102 +39,48 @@ import type {
   RegisteredEventDefinition,
 } from "./eventRegistry.type.js";
 
-import {
-  EventRegistryChangeType,
-} from "./eventRegistry.type.js";
+import { EventRegistryChangeType } from "./eventRegistry.type.js";
 
 /**
  * Registers an event definition.
  */
-export function registryRegister<
-  TType extends EventType,
-  TPayload,
->(
-  definition:
-    EventDefinition<
-      TType,
-      TPayload
-    >,
-  definitions:
-    Map<
-      EventType,
-      RegisteredEventDefinition
-    >,
-  options:
-    {
-      allowDuplicateDefinitions:
-        boolean;
-    },
-  ensureActive:
-    () => void,
-  notify:
-    (
-      change:
-        EventRegistryChange,
-    ) =>
-      void,
-):
-  RegisteredEventDefinition<
-    TType,
-    TPayload
-  > {
+export function registryRegister<TType extends EventType, TPayload>(
+  definition: EventDefinition<TType, TPayload>,
+  definitions: Map<EventType, RegisteredEventDefinition>,
+  options: {
+    allowDuplicateDefinitions: boolean;
+  },
+  ensureActive: () => void,
+  notify: (change: EventRegistryChange) => void,
+): RegisteredEventDefinition<TType, TPayload> {
   ensureActive();
 
-  const type =
-    normalizeEventType(
-      definition.type,
-    );
+  const type = normalizeEventType(definition.type);
 
-  if (
-    !isValidEventType(
-      type,
-    )
-  ) {
-    throw new TypeError(
-      `Invalid event type "${definition.type}".`,
-    );
+  if (!isValidEventType(type)) {
+    throw new TypeError(`Invalid event type "${definition.type}".`);
   }
 
-  if (
-    definitions.has(
-      type,
-    ) &&
-    !options
-      .allowDuplicateDefinitions
-  ) {
-    throw new DuplicateEventDefinitionError(
-      type,
-    );
+  if (definitions.has(type) && !options.allowDuplicateDefinitions) {
+    throw new DuplicateEventDefinitionError(type);
   }
 
-  const registered:
-    RegisteredEventDefinition<
-      TType,
-      TPayload
-    > = Object.freeze({
-    type:
-      type as TType,
+  const registered: RegisteredEventDefinition<TType, TPayload> = Object.freeze({
+    type: type as TType,
 
     definition,
 
-    registeredAt:
-      new Date(),
+    registeredAt: new Date(),
   });
 
-  definitions.set(
-    type,
-    registered as RegisteredEventDefinition,
-  );
+  definitions.set(type, registered as RegisteredEventDefinition);
 
   notify({
-    type:
-      EventRegistryChangeType.EVENT_REGISTERED,
+    type: EventRegistryChangeType.EVENT_REGISTERED,
 
-    eventType:
-      type,
+    eventType: type,
 
-    timestamp:
-      new Date(),
+    timestamp: new Date(),
   });
 
   return registered;
@@ -151,106 +89,50 @@ export function registryRegister<
 /**
  * Registers a handler.
  */
-export function registryRegisterHandler<
-  TEvent extends Event = Event,
->(
-  eventType:
-    EventTypePattern,
-  handler:
-    EventHandlerLike<TEvent>,
-  handlerOptions:
-    Omit<
-      EventHandlerOptions,
-      "eventType"
-    >,
-  handlers:
-    Map<
-      string,
-      RegisteredEventHandler
-    >,
-  options:
-    {
-      allowDuplicateHandlerIds:
-        boolean;
-    },
-  ensureActive:
-    () => void,
-  notify:
-    (
-      change:
-        EventRegistryChange,
-    ) =>
-      void,
-):
-  EventSubscription {
+export function registryRegisterHandler<TEvent extends Event = Event>(
+  eventType: EventTypePattern,
+  handler: EventHandlerLike<TEvent>,
+  handlerOptions: Omit<EventHandlerOptions, "eventType">,
+  handlers: Map<string, RegisteredEventHandler>,
+  options: {
+    allowDuplicateHandlerIds: boolean;
+  },
+  ensureActive: () => void,
+  notify: (change: EventRegistryChange) => void,
+): EventSubscription {
   ensureActive();
 
-  if (
-    !isValidEventTypePattern(
-      eventType,
-    )
-  ) {
-    throw new TypeError(
-      `Invalid event type pattern "${eventType}".`,
-    );
+  if (!isValidEventTypePattern(eventType)) {
+    throw new TypeError(`Invalid event type pattern "${eventType}".`);
   }
 
   const normalizedPattern =
     eventType === "*"
       ? "*"
-      : eventType.endsWith(
-          ".*",
-        )
-        ? `${normalizeEventType(
-            eventType.slice(
-              0,
-              -2,
-            ),
-          )}.*`
-        : normalizeEventType(
-            eventType,
-          );
+      : eventType.endsWith(".*")
+        ? `${normalizeEventType(eventType.slice(0, -2))}.*`
+        : normalizeEventType(eventType);
 
-  const registration =
-    createEventHandler(
-      handler,
-      {
-        ...handlerOptions,
+  const registration = createEventHandler(handler, {
+    ...handlerOptions,
 
-        eventType:
-          normalizedPattern,
-      },
-    );
+    eventType: normalizedPattern,
+  });
 
-  if (
-    handlers.has(
-      registration.id,
-    ) &&
-    !options
-      .allowDuplicateHandlerIds
-  ) {
-    throw new DuplicateEventHandlerError(
-      registration.id,
-    );
+  if (handlers.has(registration.id) && !options.allowDuplicateHandlerIds) {
+    throw new DuplicateEventHandlerError(registration.id);
   }
 
-  handlers.set(
-    registration.id,
-    registration as RegisteredEventHandler,
-  );
+  handlers.set(registration.id, registration as RegisteredEventHandler);
 
   notify({
-    type:
-      EventRegistryChangeType.HANDLER_REGISTERED,
+    type: EventRegistryChangeType.HANDLER_REGISTERED,
 
-    eventType:
-      normalizedPattern,
+    eventType: normalizedPattern,
 
-    handler:
-      registration as RegisteredEventHandler,
+    handler: registration as RegisteredEventHandler,
 
-    timestamp:
-      new Date(),
+    timestamp: new Date(),
   });
 
   return createEventSubscription(
@@ -263,11 +145,9 @@ export function registryRegisterHandler<
       );
     },
     {
-      id:
-        registration.id,
+      id: registration.id,
 
-      description:
-        registration.description,
+      description: registration.description,
     },
   );
 }
@@ -276,47 +156,24 @@ export function registryRegisterHandler<
  * Unregisters an event definition.
  */
 export function registryUnregister(
-  eventType:
-    EventType,
-  definitions:
-    Map<
-      EventType,
-      RegisteredEventDefinition
-    >,
-  ensureActive:
-    () => void,
-  notify:
-    (
-      change:
-        EventRegistryChange,
-    ) =>
-      void,
-):
-  boolean {
+  eventType: EventType,
+  definitions: Map<EventType, RegisteredEventDefinition>,
+  ensureActive: () => void,
+  notify: (change: EventRegistryChange) => void,
+): boolean {
   ensureActive();
 
-  const type =
-    normalizeEventType(
-      eventType,
-    );
+  const type = normalizeEventType(eventType);
 
-  const removed =
-    definitions.delete(
-      type,
-    );
+  const removed = definitions.delete(type);
 
-  if (
-    removed
-  ) {
+  if (removed) {
     notify({
-      type:
-        EventRegistryChangeType.EVENT_UNREGISTERED,
+      type: EventRegistryChangeType.EVENT_UNREGISTERED,
 
-      eventType:
-        type,
+      eventType: type,
 
-      timestamp:
-        new Date(),
+      timestamp: new Date(),
     });
   }
 
@@ -327,55 +184,30 @@ export function registryUnregister(
  * Unregisters a handler.
  */
 export function registryUnregisterHandler(
-  handlerId:
-    string,
-  handlers:
-    Map<
-      string,
-      RegisteredEventHandler
-    >,
-  ensureActive:
-    () => void,
-  notify:
-    (
-      change:
-        EventRegistryChange,
-    ) =>
-      void,
-):
-  boolean {
+  handlerId: string,
+  handlers: Map<string, RegisteredEventHandler>,
+  ensureActive: () => void,
+  notify: (change: EventRegistryChange) => void,
+): boolean {
   ensureActive();
 
-  const handler =
-    handlers.get(
-      handlerId,
-    );
+  const handler = handlers.get(handlerId);
 
-  if (
-    !handler
-  ) {
+  if (!handler) {
     return false;
   }
 
-  const removed =
-    handlers.delete(
-      handlerId,
-    );
+  const removed = handlers.delete(handlerId);
 
-  if (
-    removed
-  ) {
+  if (removed) {
     notify({
-      type:
-        EventRegistryChangeType.HANDLER_UNREGISTERED,
+      type: EventRegistryChangeType.HANDLER_UNREGISTERED,
 
-      eventType:
-        handler.eventType,
+      eventType: handler.eventType,
 
       handler,
 
-      timestamp:
-        new Date(),
+      timestamp: new Date(),
     });
   }
 

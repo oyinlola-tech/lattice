@@ -37,11 +37,15 @@ export function createTransaction(
   const afterRollbackCallbacks: Array<() => Promise<void>> = [];
   let handle: unknown;
 
-  const setHandle = (h: unknown): void => { handle = h; };
+  const setHandle = (h: unknown): void => {
+    handle = h;
+  };
   const getHandle = (): unknown => handle;
   const transition = createTransitionFunction(
     () => state,
-    (s) => { state = s; },
+    (s) => {
+      state = s;
+    },
   );
 
   const metadata = new Map<string, unknown>(
@@ -52,13 +56,27 @@ export function createTransaction(
   const startedAt = Date.now();
 
   const txn: Transaction = {
-    get id(): string { return id; },
-    get parentId(): string | undefined { return parentId; },
-    get state(): TransactionState { return state; },
-    get options(): Readonly<TransactionOptions> { return Object.freeze({ ...options }); },
-    get startedAt(): number { return startedAt; },
-    get metadata(): ReadonlyMap<string, unknown> { return metadata; },
-    get timedOut(): boolean { return timedOut; },
+    get id(): string {
+      return id;
+    },
+    get parentId(): string | undefined {
+      return parentId;
+    },
+    get state(): TransactionState {
+      return state;
+    },
+    get options(): Readonly<TransactionOptions> {
+      return Object.freeze({ ...options });
+    },
+    get startedAt(): number {
+      return startedAt;
+    },
+    get metadata(): ReadonlyMap<string, unknown> {
+      return metadata;
+    },
+    get timedOut(): boolean {
+      return timedOut;
+    },
 
     async commit(): Promise<void> {
       if (state !== "active") {
@@ -72,7 +90,11 @@ export function createTransaction(
       try {
         transition("committed");
         for (const cb of afterCommitCallbacks) {
-          try { await cb(); } catch { /* swallow */ }
+          try {
+            await cb();
+          } catch {
+            /* swallow */
+          }
         }
         afterCommitCallbacks.length = 0;
         afterRollbackCallbacks.length = 0;
@@ -83,7 +105,11 @@ export function createTransaction(
     },
 
     async rollback(reason?: unknown): Promise<void> {
-      if (state === "committed" || state === "rolled_back" || state === "failed") {
+      if (
+        state === "committed" ||
+        state === "rolled_back" ||
+        state === "failed"
+      ) {
         return;
       }
       if (state !== "active" && state !== "committing" && state !== "pending") {
@@ -93,7 +119,11 @@ export function createTransaction(
       try {
         transition("rolled_back");
         for (const cb of afterRollbackCallbacks) {
-          try { await cb(); } catch { /* swallow */ }
+          try {
+            await cb();
+          } catch {
+            /* swallow */
+          }
         }
         afterCommitCallbacks.length = 0;
         afterRollbackCallbacks.length = 0;
@@ -128,8 +158,13 @@ export function createTransaction(
     /** @internal */ _setHandle: setHandle,
     /** @internal */ _getHandle: getHandle,
     /** @internal */ _transition: transition,
-    /** @internal */ _markTimedOut: (): void => { timedOut = true; },
-    /** @internal */ _getAfterCommitCallbacks: (): Array<() => Promise<void>> => afterCommitCallbacks,
-    /** @internal */ _getAfterRollbackCallbacks: (): Array<() => Promise<void>> => afterRollbackCallbacks,
+    /** @internal */ _markTimedOut: (): void => {
+      timedOut = true;
+    },
+    /** @internal */ _getAfterCommitCallbacks: (): Array<() => Promise<void>> =>
+      afterCommitCallbacks,
+    /** @internal */ _getAfterRollbackCallbacks: (): Array<
+      () => Promise<void>
+    > => afterRollbackCallbacks,
   });
 }

@@ -87,9 +87,7 @@ export type {
   CacheEventSubscription,
 } from "./types-events.js";
 
-export type {
-  CacheKeyBuilder,
-} from "./types-keys.js";
+export type { CacheKeyBuilder } from "./types-keys.js";
 
 // Constants
 export {
@@ -143,22 +141,13 @@ export {
 } from "./key-builder.js";
 
 // Store
-export {
-  DefaultCacheStore,
-  createCacheStore,
-} from "./store.js";
+export { DefaultCacheStore, createCacheStore } from "./store.js";
 
 // Memory Adapter
-export {
-  MemoryCacheAdapter,
-  createMemoryCacheAdapter,
-} from "./memory.js";
+export { MemoryCacheAdapter, createMemoryCacheAdapter } from "./memory.js";
 
 // Tags
-export {
-  InMemoryTagStore,
-  createTagStore,
-} from "./tags.js";
+export { InMemoryTagStore, createTagStore } from "./tags.js";
 
 // Invalidation
 export {
@@ -175,13 +164,7 @@ export {
 } from "./lock.js";
 
 // Metrics
-export {
-  InMemoryCacheMetrics,
-  createCacheMetrics,
-} from "./metrics.js";
+export { InMemoryCacheMetrics, createCacheMetrics } from "./metrics.js";
 
 // Cache Service
-export {
-  CacheService,
-  createCacheService,
-} from "./cache.js";
+export { CacheService, createCacheService } from "./cache.js";

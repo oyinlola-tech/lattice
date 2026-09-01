@@ -11,14 +11,21 @@ import { randomUUID } from "node:crypto";
 import { NotFoundError } from "../../../../errors/index.js";
 import { ReactionAddedEvent } from "../../../../events/index.js";
 
-export class AddReactionHandler extends CommandHandler<AddReactionCommand, ReactionModel> {
+export class AddReactionHandler extends CommandHandler<
+  AddReactionCommand,
+  ReactionModel
+> {
   public readonly commandType = "reactions.add" as const;
 
   private readonly reactions: ReactionRepository;
   private readonly articles: ArticleRepository;
   private readonly events: EventBus;
 
-  public constructor(reactions: ReactionRepository, articles: ArticleRepository, events: EventBus) {
+  public constructor(
+    reactions: ReactionRepository,
+    articles: ArticleRepository,
+    events: EventBus,
+  ) {
     super();
     this.reactions = reactions;
     this.articles = articles;

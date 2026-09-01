@@ -1,35 +1,22 @@
-import type {
-  RuntimeMode,
-  RuntimeRole,
-} from "../runtimeOptions/index.js";
+import type { RuntimeMode, RuntimeRole } from "../runtimeOptions/index.js";
 
 /**
  * Supported operating system platforms.
  */
 export type RuntimePlatform =
-  | "linux"
-  | "darwin"
-  | "win32"
-  | "freebsd"
-  | "openbsd"
-  | "android"
-  | "other";
+  "linux" | "darwin" | "win32" | "freebsd" | "openbsd" | "android" | "other";
 
 /**
  * Supported JavaScript runtime types.
  */
-export type RuntimeEngine =
-  | "node"
-  | "bun"
-  | "deno"
-  | "browser"
-  | "unknown";
+export type RuntimeEngine = "node" | "bun" | "deno" | "browser" | "unknown";
 
 /**
  * Runtime environment variables.
  */
-export type RuntimeEnvironmentVariables =
-  Readonly<Record<string, string | undefined>>;
+export type RuntimeEnvironmentVariables = Readonly<
+  Record<string, string | undefined>
+>;
 
 /**
  * Basic process information.

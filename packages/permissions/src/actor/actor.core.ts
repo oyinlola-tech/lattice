@@ -22,8 +22,12 @@ export function createPermissionActor(
     id,
     type: options?.type,
     roles: options?.roles ? Object.freeze([...options.roles]) : undefined,
-    permissions: options?.permissions ? Object.freeze([...options.permissions]) : undefined,
-    deniedPermissions: options?.deniedPermissions ? Object.freeze([...options.deniedPermissions]) : undefined,
+    permissions: options?.permissions
+      ? Object.freeze([...options.permissions])
+      : undefined,
+    deniedPermissions: options?.deniedPermissions
+      ? Object.freeze([...options.deniedPermissions])
+      : undefined,
   });
 }
 
@@ -37,7 +41,10 @@ export function actorHasRole(actor: PermissionActor, role: string): boolean {
 /**
  * Check if an actor has a direct permission.
  */
-export function actorHasPermission(actor: PermissionActor, permission: string): boolean {
+export function actorHasPermission(
+  actor: PermissionActor,
+  permission: string,
+): boolean {
   return actor.permissions?.includes(permission) ?? false;
 }
 

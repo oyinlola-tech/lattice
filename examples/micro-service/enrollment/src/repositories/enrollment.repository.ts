@@ -8,7 +8,10 @@ export interface EnrollmentRepository {
   /** Finds an enrollment by its unique identifier. */
   findById(id: EnrollmentId): Promise<EnrollmentModel | null>;
   /** Finds an enrollment by student and course combination. */
-  findByStudentAndCourse(studentId: StudentId, courseId: CourseId): Promise<EnrollmentModel | null>;
+  findByStudentAndCourse(
+    studentId: StudentId,
+    courseId: CourseId,
+  ): Promise<EnrollmentModel | null>;
   /** Returns all enrollments for a given student. */
   findByStudentId(studentId: StudentId): Promise<readonly EnrollmentModel[]>;
   /** Returns all enrollments for a given course. */
@@ -16,7 +19,11 @@ export interface EnrollmentRepository {
   /** Persists a new enrollment. */
   save(enrollment: EnrollmentModel): Promise<void>;
   /** Updates the status of an enrollment. */
-  updateStatus(id: EnrollmentId, status: EnrollmentStatus, withdrawnAt?: Date): Promise<void>;
+  updateStatus(
+    id: EnrollmentId,
+    status: EnrollmentStatus,
+    withdrawnAt?: Date,
+  ): Promise<void>;
   /** Counts active enrollments for a student. */
   countActiveByStudentId(studentId: StudentId): Promise<number>;
 }
@@ -25,9 +32,8 @@ export interface EnrollmentRepository {
 export class SqliteEnrollmentRepository implements EnrollmentRepository {
   public async findById(id: EnrollmentId): Promise<EnrollmentModel | null> {
     const db = getDatabase();
-    const row = db
-      .prepare("SELECT * FROM enrollments WHERE id = ?")
-      .get(id) as Record<string, unknown> | undefined;
+    const row = db.prepare("SELECT * FROM enrollments WHERE id = ?").get(id) as
+      Record<string, unknown> | undefined;
     return row ? mapRowToEnrollment(row) : null;
   }
 
@@ -37,33 +43,45 @@ export class SqliteEnrollmentRepository implements EnrollmentRepository {
   ): Promise<EnrollmentModel | null> {
     const db = getDatabase();
     const row = db
-      .prepare("SELECT * FROM enrollments WHERE student_id = ? AND course_id = ?")
+      .prepare(
+        "SELECT * FROM enrollments WHERE student_id = ? AND course_id = ?",
+      )
       .get(studentId, courseId) as Record<string, unknown> | undefined;
     return row ? mapRowToEnrollment(row) : null;
   }
 
-  public async findByStudentId(studentId: StudentId): Promise<readonly EnrollmentModel[]> {
+  public async findByStudentId(
+    studentId: StudentId,
+  ): Promise<readonly EnrollmentModel[]> {
     const db = getDatabase();
     const rows = db
-      .prepare("SELECT * FROM enrollments WHERE student_id = ? ORDER BY created_at DESC")
+      .prepare(
+        "SELECT * FROM enrollments WHERE student_id = ? ORDER BY created_at DESC",
+      )
       .all(studentId) as Record<string, unknown>[];
     return rows.map(mapRowToEnrollment);
   }
 
-  public async findByCourseId(courseId: CourseId): Promise<readonly EnrollmentModel[]> {
+  public async findByCourseId(
+    courseId: CourseId,
+  ): Promise<readonly EnrollmentModel[]> {
     const db = getDatabase();
     const rows = db
-      .prepare("SELECT * FROM enrollments WHERE course_id = ? ORDER BY created_at DESC")
+      .prepare(
+        "SELECT * FROM enrollments WHERE course_id = ? ORDER BY created_at DESC",
+      )
       .all(courseId) as Record<string, unknown>[];
     return rows.map(mapRowToEnrollment);
   }
 
   public async save(enrollment: EnrollmentModel): Promise<void> {
     const db = getDatabase();
-    db.prepare(`
+    db.prepare(
+      `
       INSERT INTO enrollments (id, student_id, course_id, status, created_at, updated_at, withdrawn_at)
       VALUES (?, ?, ?, ?, ?, ?, ?)
-    `).run(
+    `,
+    ).run(
       enrollment.id,
       enrollment.studentId,
       enrollment.courseId,
@@ -80,17 +98,21 @@ export class SqliteEnrollmentRepository implements EnrollmentRepository {
     withdrawnAt?: Date,
   ): Promise<void> {
     const db = getDatabase();
-    db.prepare(`
+    db.prepare(
+      `
       UPDATE enrollments
       SET status = ?, updated_at = datetime('now'), withdrawn_at = ?
       WHERE id = ?
-    `).run(status, withdrawnAt?.toISOString() ?? null, id);
+    `,
+    ).run(status, withdrawnAt?.toISOString() ?? null, id);
   }
 
   public async countActiveByStudentId(studentId: StudentId): Promise<number> {
     const db = getDatabase();
     const row = db
-      .prepare("SELECT COUNT(*) as count FROM enrollments WHERE student_id = ? AND status = 'active'")
+      .prepare(
+        "SELECT COUNT(*) as count FROM enrollments WHERE student_id = ? AND status = 'active'",
+      )
       .get(studentId) as { count: number };
     return row.count;
   }
@@ -109,8 +131,9 @@ function mapRowToEnrollment(row: Record<string, unknown>): EnrollmentModel {
     status: row["status"] as EnrollmentStatus,
     createdAt: new Date(row["created_at"] as string),
     updatedAt: new Date(row["updated_at"] as string),
-    withdrawnAt: row["withdrawn_at"] != null
-      ? new Date(row["withdrawn_at"] as string)
-      : null,
+    withdrawnAt:
+      row["withdrawn_at"] != null
+        ? new Date(row["withdrawn_at"] as string)
+        : null,
   };
 }

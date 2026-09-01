@@ -168,7 +168,10 @@ The `MessageAdapter` handles message-based communication:
 ```ts
 interface MessageAdapter extends Adapter {
   publish(topic: string, message: unknown): Promise<void> | void;
-  subscribe(topic: string, handler: MessageHandler): Promise<Subscription> | void;
+  subscribe(
+    topic: string,
+    handler: MessageHandler,
+  ): Promise<Subscription> | void;
 }
 
 interface MessageHandler {
@@ -339,21 +342,22 @@ Health status is used by diagnostics and readiness checks.
 
 Adapters define a dedicated error hierarchy rooted in `@lattice/errors`:
 
-| Error Class | Meaning |
-|-------------|---------|
-| `AdapterError` | Base adapter error |
-| `AdapterNotFoundError` | Adapter not registered |
-| `AdapterAlreadyRegisteredError` | Duplicate registration |
-| `AdapterNotSupportedError` | Capability not supported |
+| Error Class                     | Meaning                     |
+| ------------------------------- | --------------------------- |
+| `AdapterError`                  | Base adapter error          |
+| `AdapterNotFoundError`          | Adapter not registered      |
+| `AdapterAlreadyRegisteredError` | Duplicate registration      |
+| `AdapterNotSupportedError`      | Capability not supported    |
 | `AdapterCapabilityMissingError` | Required capability missing |
-| `AdapterConnectionError` | Connection failure |
-| `AdapterOperationError` | Operation failure |
-| `AdapterTimeoutError` | Operation timed out |
-| `AdapterDisposeError` | Disposal failure |
-| `AdapterInitializationError` | Initialization failure |
-| `AdapterConfigurationError` | Invalid configuration |
+| `AdapterConnectionError`        | Connection failure          |
+| `AdapterOperationError`         | Operation failure           |
+| `AdapterTimeoutError`           | Operation timed out         |
+| `AdapterDisposeError`           | Disposal failure            |
+| `AdapterInitializationError`    | Initialization failure      |
+| `AdapterConfigurationError`     | Invalid configuration       |
 
 All errors carry:
+
 - A machine-readable code.
 - A human-readable message.
 - The adapter name.
@@ -377,6 +381,7 @@ mockRegistry.register(createMockAdapter("http", { http: true }));
 ```
 
 Mock adapters implement the base `Adapter` interface and can be configured with:
+
 - Custom capabilities.
 - Health status.
 - Lifecycle behavior.
@@ -387,12 +392,12 @@ Mock adapters implement the base `Adapter` interface and can be configured with:
 
 `@lattice/adapters` depends on:
 
-| Package | Purpose |
-|---------|---------|
-| `@lattice/errors` | Error hierarchy |
-| `@lattice/constants` | Branded types and constants |
-| `@lattice/types` | Type guards and utility types |
-| `@lattice/lifecycle` | Lifecycle contracts |
+| Package              | Purpose                       |
+| -------------------- | ----------------------------- |
+| `@lattice/errors`    | Error hierarchy               |
+| `@lattice/constants` | Branded types and constants   |
+| `@lattice/types`     | Type guards and utility types |
+| `@lattice/lifecycle` | Lifecycle contracts           |
 
 Adapters do **not** depend on transport packages (`@lattice/http`, `@lattice/messaging`, etc.).
 Transport packages depend on adapters, not the reverse.

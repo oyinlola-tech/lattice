@@ -1,6 +1,9 @@
 import { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
 import type { EventBus } from "@oyinlola141/lattice-events";
-import type { TopicRepository, TopicFollowerRepository } from "../../repositories/topic.repository.js";
+import type {
+  TopicRepository,
+  TopicFollowerRepository,
+} from "../../repositories/topic.repository.js";
 import { CreateTopicHandler } from "./commands/create-topic/create-topic.handler.js";
 import { FollowTopicHandler } from "./commands/follow-topic/follow-topic.handler.js";
 import { GetTopicHandler } from "./queries/get-topic/get-topic.handler.js";

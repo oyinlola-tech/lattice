@@ -1,6 +1,4 @@
-import {
-  FrameworkError,
-} from "../../errors/frameworkError.error.js";
+import { FrameworkError } from "../../errors/frameworkError.error.js";
 
 import type {
   RuntimeErrorOptions,
@@ -8,9 +6,7 @@ import type {
   RuntimeErrorMetadata,
 } from "./runtimeError.type.js";
 
-import {
-  RuntimeErrorCode,
-} from "./runtimeError.type.js";
+import { RuntimeErrorCode } from "./runtimeError.type.js";
 
 /**
  * Base error for all runtime failures.
@@ -18,8 +14,7 @@ import {
  * Extends FrameworkError so runtime errors can be caught
  * uniformly with other framework errors.
  */
-export class RuntimeError
-  extends FrameworkError {
+export class RuntimeError extends FrameworkError {
   public readonly operation?: import("./runtimeError.type.js").RuntimeOperation;
   public readonly phase?: import("./runtimeError.type.js").RuntimeErrorPhase;
   public readonly runtimeId?: string;
@@ -28,10 +23,7 @@ export class RuntimeError
   public readonly errorMetadata: RuntimeErrorMetadata;
   public readonly recoverable: boolean;
 
-  public constructor(
-    message: string,
-    options: RuntimeErrorOptions = {},
-  ) {
+  public constructor(message: string, options: RuntimeErrorOptions = {}) {
     const details: Record<string, unknown> = {};
 
     if (options.operation !== undefined) {

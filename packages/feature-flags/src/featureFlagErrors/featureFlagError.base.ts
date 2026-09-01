@@ -5,7 +5,11 @@
  */
 
 import { ApplicationError, ErrorCode } from "@oyinlola141/lattice-errors";
-import type { ErrorCategory, ErrorSeverity, ErrorMetadata } from "@oyinlola141/lattice-errors";
+import type {
+  ErrorCategory,
+  ErrorSeverity,
+  ErrorMetadata,
+} from "@oyinlola141/lattice-errors";
 
 /** Options for creating a feature flag error. */
 export interface FeatureFlagErrorOptions {
@@ -22,10 +26,7 @@ export interface FeatureFlagErrorOptions {
  * Extends ApplicationError from @oyinlola141/lattice-errors.
  */
 export class FeatureFlagError extends ApplicationError {
-  public constructor(
-    message: string,
-    options: FeatureFlagErrorOptions = {},
-  ) {
+  public constructor(message: string, options: FeatureFlagErrorOptions = {}) {
     super(message, {
       code: options.code ?? ErrorCode.UNKNOWN,
       category: options.category as ErrorCategory | undefined,

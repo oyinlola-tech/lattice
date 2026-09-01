@@ -41,6 +41,9 @@ export class DefaultGauge implements Gauge {
 }
 
 /** Creates a gauge. */
-export function createGauge(name: string, labels?: Record<string, string>): DefaultGauge {
+export function createGauge(
+  name: string,
+  labels?: Record<string, string>,
+): DefaultGauge {
   return new DefaultGauge(name, labels);
 }

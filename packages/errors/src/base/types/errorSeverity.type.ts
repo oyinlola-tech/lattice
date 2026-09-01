@@ -34,16 +34,10 @@ export enum ErrorSeverity {
 /**
  * Determines whether a value is a valid error severity.
  */
-export function isErrorSeverity(
-  value: unknown,
-): value is ErrorSeverity {
+export function isErrorSeverity(value: unknown): value is ErrorSeverity {
   return (
     typeof value === "string" &&
-    Object.values(
-      ErrorSeverity,
-    ).includes(
-      value as ErrorSeverity,
-    )
+    Object.values(ErrorSeverity).includes(value as ErrorSeverity)
   );
 }
 
@@ -52,12 +46,9 @@ export function isErrorSeverity(
  */
 export function normalizeErrorSeverity(
   value: unknown,
-  fallback: ErrorSeverity =
-    ErrorSeverity.ERROR,
+  fallback: ErrorSeverity = ErrorSeverity.ERROR,
 ): ErrorSeverity {
-  if (
-    isErrorSeverity(value)
-  ) {
+  if (isErrorSeverity(value)) {
     return value;
   }
 
@@ -69,9 +60,7 @@ export function normalizeErrorSeverity(
  *
  * Higher values represent more severe conditions.
  */
-export function getErrorSeverityPriority(
-  severity: ErrorSeverity,
-): number {
+export function getErrorSeverityPriority(severity: ErrorSeverity): number {
   switch (severity) {
     case ErrorSeverity.INFO:
       return 10;
@@ -103,42 +92,25 @@ export function compareErrorSeverity(
   left: ErrorSeverity,
   right: ErrorSeverity,
 ): number {
-  return (
-    getErrorSeverityPriority(
-      left,
-    ) -
-    getErrorSeverityPriority(
-      right,
-    )
-  );
+  return getErrorSeverityPriority(left) - getErrorSeverityPriority(right);
 }
 
 /**
  * Returns whether a severity should trigger operational alerting.
  */
-export function isAlertableSeverity(
-  severity: ErrorSeverity,
-): boolean {
+export function isAlertableSeverity(severity: ErrorSeverity): boolean {
   return (
-    severity ===
-      ErrorSeverity.CRITICAL ||
-    severity ===
-      ErrorSeverity.FATAL
+    severity === ErrorSeverity.CRITICAL || severity === ErrorSeverity.FATAL
   );
 }
 
 /**
  * Returns whether a severity represents a failure.
  */
-export function isFailureSeverity(
-  severity: ErrorSeverity,
-): boolean {
+export function isFailureSeverity(severity: ErrorSeverity): boolean {
   return (
-    severity ===
-      ErrorSeverity.ERROR ||
-    severity ===
-      ErrorSeverity.CRITICAL ||
-    severity ===
-      ErrorSeverity.FATAL
+    severity === ErrorSeverity.ERROR ||
+    severity === ErrorSeverity.CRITICAL ||
+    severity === ErrorSeverity.FATAL
   );
 }

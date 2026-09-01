@@ -4,11 +4,7 @@
 
 import { describe, it, expect } from "vitest";
 
-import {
-  createMockFn,
-  createSpyFn,
-  createStub,
-} from "../src/mocking/index.js";
+import { createMockFn, createSpyFn, createStub } from "../src/mocking/index.js";
 
 describe("createMockFn", () => {
   it("should record calls", () => {

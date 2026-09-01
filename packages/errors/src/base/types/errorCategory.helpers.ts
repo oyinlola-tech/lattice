@@ -6,11 +6,17 @@ import { ErrorCategory } from "./errorCategory.enum.js";
 
 /** Determines whether a value is a valid error category. */
 export function isErrorCategory(value: unknown): value is ErrorCategory {
-  return typeof value === "string" && Object.values(ErrorCategory).includes(value as ErrorCategory);
+  return (
+    typeof value === "string" &&
+    Object.values(ErrorCategory).includes(value as ErrorCategory)
+  );
 }
 
 /** Converts an unknown value into a valid error category. */
-export function normalizeErrorCategory(value: unknown, fallback: ErrorCategory = ErrorCategory.UNKNOWN): ErrorCategory {
+export function normalizeErrorCategory(
+  value: unknown,
+  fallback: ErrorCategory = ErrorCategory.UNKNOWN,
+): ErrorCategory {
   if (isErrorCategory(value)) return value;
   return fallback;
 }
@@ -34,7 +40,9 @@ export function isClientErrorCategory(category: ErrorCategory): boolean {
 }
 
 /** Returns whether the category represents an infrastructure problem. */
-export function isInfrastructureErrorCategory(category: ErrorCategory): boolean {
+export function isInfrastructureErrorCategory(
+  category: ErrorCategory,
+): boolean {
   switch (category) {
     case ErrorCategory.DATABASE:
     case ErrorCategory.CACHE:

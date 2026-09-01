@@ -27,10 +27,18 @@ class InMemoryOrderStore {
 export class InMemoryOrderRepository implements OrderRepository {
   private readonly store = new InMemoryOrderStore();
 
-  public async findById(id: OrderId): Promise<Order | null> { return this.store.findById(id); }
-  public async findAll(): Promise<readonly Order[]> { return this.store.findAll(); }
-  public async save(entity: Order): Promise<void> { await this.store.save(entity); }
-  public async delete(id: OrderId): Promise<void> { await this.store.delete(id); }
+  public async findById(id: OrderId): Promise<Order | null> {
+    return this.store.findById(id);
+  }
+  public async findAll(): Promise<readonly Order[]> {
+    return this.store.findAll();
+  }
+  public async save(entity: Order): Promise<void> {
+    await this.store.save(entity);
+  }
+  public async delete(id: OrderId): Promise<void> {
+    await this.store.delete(id);
+  }
 
   public async findByUserId(userId: UserId): Promise<readonly Order[]> {
     const all = await this.findAll();

@@ -19,4 +19,7 @@ export interface CacheMiddlewareContext {
   readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
-export type CacheMiddleware = (context: CacheMiddlewareContext, next: () => Promise<unknown>) => Promise<unknown>;
+export type CacheMiddleware = (
+  context: CacheMiddlewareContext,
+  next: () => Promise<unknown>,
+) => Promise<unknown>;

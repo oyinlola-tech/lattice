@@ -19,9 +19,7 @@ export function normalizeDocumentId(id: string): string {
  */
 export function documentIdFromPath(path: string): string {
   return normalizeDocumentId(
-    path
-      .replace(/\.[^.]+$/, "")
-      .replace(/[/\\]/g, "."),
+    path.replace(/\.[^.]+$/, "").replace(/[/\\]/g, "."),
   );
 }
 
@@ -29,10 +27,7 @@ export function documentIdFromPath(path: string): string {
  * Resolves a relative document link against a base ID.
  * "guides.http" + "./routing" → "guides.http.routing"
  */
-export function resolveDocumentLink(
-  baseId: string,
-  link: string,
-): string {
+export function resolveDocumentLink(baseId: string, link: string): string {
   if (link.startsWith("/")) {
     return normalizeDocumentId(link.slice(1));
   }
@@ -56,9 +51,7 @@ export function resolveDocumentLink(
 /**
  * Extracts the title from markdown content (first heading).
  */
-export function extractTitleFromMarkdown(
-  markdown: string,
-): string | undefined {
+export function extractTitleFromMarkdown(markdown: string): string | undefined {
   const match = markdown.match(/^#\s+(.+)$/m);
   return match?.[1]?.trim();
 }

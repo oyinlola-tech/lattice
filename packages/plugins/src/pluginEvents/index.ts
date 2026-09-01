@@ -5,4 +5,7 @@
  */
 
 export type { PluginLifecycleEvent } from "./pluginEvent.core.js";
-export { PLUGIN_EVENTS, createPluginLifecycleEvent } from "./pluginEvent.core.js";
+export {
+  PLUGIN_EVENTS,
+  createPluginLifecycleEvent,
+} from "./pluginEvent.core.js";

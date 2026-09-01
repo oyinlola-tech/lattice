@@ -1,18 +1,13 @@
 import { describe, it, expect } from "vitest";
 
-import {
-  EventBus,
-  EventBusState,
-} from "../src/eventBus/eventBus.core.js";
+import { EventBus, EventBusState } from "../src/eventBus/eventBus.core.js";
 
 import {
   createEventBus,
   createStartedEventBus,
 } from "../src/eventBus/eventBus.factory.js";
 
-import type {
-  Event,
-} from "../src/eventTypes/eventDefinition.type.js";
+import type { Event } from "../src/eventTypes/eventDefinition.type.js";
 
 import type {
   EventMiddleware,
@@ -23,17 +18,14 @@ import type {
 // Helpers
 // ---------------------------------------------------------------------------
 
-interface TestEvent
-  extends Event {
+interface TestEvent extends Event {
   readonly type: "test.event";
   readonly payload: {
     readonly value: string;
   };
 }
 
-function makeTestEvent(
-  value = "hello",
-): TestEvent {
+function makeTestEvent(value = "hello"): TestEvent {
   return {
     type: "test.event",
     payload: { value },
@@ -50,18 +42,14 @@ function makeTestEvent(
 describe("EventBus", () => {
   it("creates a bus in CREATED state", () => {
     const bus = createEventBus();
-    expect(bus.getState()).toBe(
-      EventBusState.CREATED,
-    );
+    expect(bus.getState()).toBe(EventBusState.CREATED);
     expect(bus.isActive()).toBe(false);
   });
 
   it("auto-starts on first use", () => {
     const bus = createEventBus();
     bus.on("*", () => {});
-    expect(bus.getState()).toBe(
-      EventBusState.ACTIVE,
-    );
+    expect(bus.getState()).toBe(EventBusState.ACTIVE);
   });
 
   it("starts and stops explicitly", () => {
@@ -86,9 +74,7 @@ describe("EventBus", () => {
     expect(result.handled).toBe(true);
     expect(result.handlerCount).toBe(1);
     expect(received).toHaveLength(1);
-    expect(received[0]!.type).toBe(
-      "test.event",
-    );
+    expect(received[0]!.type).toBe("test.event");
   });
 
   it("returns errors from handlers", async () => {
@@ -98,9 +84,7 @@ describe("EventBus", () => {
       throw new Error("handler failure");
     });
 
-    const result = await bus.publish(
-      makeTestEvent(),
-    );
+    const result = await bus.publish(makeTestEvent());
 
     expect(result.errors).toHaveLength(1);
   });
@@ -113,13 +97,9 @@ describe("EventBus", () => {
       version: 1,
     });
 
-    expect(bus.hasEvent("test.event")).toBe(
-      true,
-    );
+    expect(bus.hasEvent("test.event")).toBe(true);
     bus.unregister("test.event");
-    expect(bus.hasEvent("test.event")).toBe(
-      false,
-    );
+    expect(bus.hasEvent("test.event")).toBe(false);
   });
 
   it("counts handlers", () => {
@@ -150,9 +130,7 @@ describe("EventBus", () => {
   it("disposes the bus permanently", () => {
     const bus = createEventBus();
     bus.dispose();
-    expect(bus.getState()).toBe(
-      EventBusState.DISPOSED,
-    );
+    expect(bus.getState()).toBe(EventBusState.DISPOSED);
     expect(() => bus.on("*", () => {})).toThrow();
   });
 
@@ -167,10 +145,7 @@ describe("EventBus", () => {
     bus.start();
     bus.stop();
 
-    expect(events).toEqual([
-      "started",
-      "stopped",
-    ]);
+    expect(events).toEqual(["started", "stopped"]);
   });
 
   it("publishEvent creates and publishes", async () => {
@@ -186,9 +161,7 @@ describe("EventBus", () => {
       payload: { value: "x" },
     });
 
-    expect(result.event.type).toBe(
-      "test.event",
-    );
+    expect(result.event.type).toBe("test.event");
     expect(receivedType).toBe("test.event");
   });
 });
@@ -201,13 +174,12 @@ describe("EventBus middleware", () => {
   it("accepts middleware via constructor options", async () => {
     const log: string[] = [];
 
-    const loggingMiddleware: EventMiddleware =
-      async (ctx, next) => {
-        log.push(`before:${ctx.event.type}`);
-        const result = await next();
-        log.push(`after:${ctx.event.type}`);
-        return result;
-      };
+    const loggingMiddleware: EventMiddleware = async (ctx, next) => {
+      log.push(`before:${ctx.event.type}`);
+      const result = await next();
+      log.push(`after:${ctx.event.type}`);
+      return result;
+    };
 
     const bus = createStartedEventBus({
       middleware: [loggingMiddleware],
@@ -217,10 +189,7 @@ describe("EventBus middleware", () => {
 
     await bus.publish(makeTestEvent());
 
-    expect(log).toEqual([
-      "before:test.event",
-      "after:test.event",
-    ]);
+    expect(log).toEqual(["before:test.event", "after:test.event"]);
   });
 
   it("adds middleware dynamically with use()", async () => {
@@ -239,10 +208,7 @@ describe("EventBus middleware", () => {
 
     await bus.publish(makeTestEvent());
 
-    expect(log).toEqual([
-      "dynamic-before",
-      "dynamic-after",
-    ]);
+    expect(log).toEqual(["dynamic-before", "dynamic-after"]);
   });
 
   it("removes middleware via returned function", async () => {
@@ -250,12 +216,10 @@ describe("EventBus middleware", () => {
 
     const bus = createStartedEventBus();
 
-    const remove = bus.use(
-      async (_ctx, next) => {
-        log.push("middleware");
-        return next();
-      },
-    );
+    const remove = bus.use(async (_ctx, next) => {
+      log.push("middleware");
+      return next();
+    });
 
     bus.on("test.event", () => {});
 
@@ -275,10 +239,7 @@ describe("EventBus middleware", () => {
     const bus = createStartedEventBus();
     bus.on("test.event", () => {});
 
-    const perPubMw: EventMiddleware = async (
-      _ctx,
-      next,
-    ) => {
+    const perPubMw: EventMiddleware = async (_ctx, next) => {
       log.push("per-pub");
       return next();
     };
@@ -334,9 +295,7 @@ describe("EventBus middleware", () => {
 
     bus.on("test.event", () => {});
 
-    const result = await bus.publish(
-      makeTestEvent(),
-    );
+    const result = await bus.publish(makeTestEvent());
 
     expect(result.middlewareExecutions).toBeDefined();
     expect(result.middlewareExecutions).toHaveLength(1);
@@ -376,8 +335,6 @@ describe("EventBus middleware", () => {
 
     bus.on("test.event", () => {});
 
-    await expect(
-      bus.publish(makeTestEvent()),
-    ).rejects.toThrow();
+    await expect(bus.publish(makeTestEvent())).rejects.toThrow();
   });
 });

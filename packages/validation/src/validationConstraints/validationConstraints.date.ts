@@ -8,7 +8,10 @@ import { createConstraint } from "./validationConstraints.base.js";
 export const isoDate = createConstraint<string>(
   (value) => {
     const date = new Date(value);
-    return !Number.isNaN(date.getTime()) && /^\d{4}-\d{2}-\d{2}(?:T.*)?$/u.test(value);
+    return (
+      !Number.isNaN(date.getTime()) &&
+      /^\d{4}-\d{2}-\d{2}(?:T.*)?$/u.test(value)
+    );
   },
   {
     name: "iso_date",

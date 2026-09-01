@@ -10,8 +10,5 @@
     "strictPropertyInitialization": false
   },
   "include": ["src"],
-  "exclude": [
-    "src/httpRouter/**/*",
-    "src/index.ts"
-  ]
+  "exclude": ["src/httpRouter/**/*", "src/index.ts"]
 }

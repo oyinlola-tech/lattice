@@ -1,10 +1,6 @@
-import type {
-  RuntimeOS,
-} from "../runtimeEnvironment.type.js";
+import type { RuntimeOS } from "../runtimeEnvironment.type.js";
 
-import {
-  getProcessObject,
-} from "./runtimeEnvironment.detection.js";
+import { getProcessObject } from "./runtimeEnvironment.detection.js";
 
 export function getNodeOsObject(): RuntimeOS | undefined {
   const runtimeProcess = getProcessObject();

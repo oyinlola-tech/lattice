@@ -17,7 +17,10 @@ export interface Route {
  * @param queryBus - The query bus instance.
  * @returns Array of route definitions.
  */
-export function createEnrollmentRoutes(commandBus: CommandBus, queryBus: QueryBus): readonly Route[] {
+export function createEnrollmentRoutes(
+  commandBus: CommandBus,
+  queryBus: QueryBus,
+): readonly Route[] {
   const controller = new EnrollmentController(commandBus, queryBus);
 
   return [
@@ -39,7 +42,8 @@ export function createEnrollmentRoutes(commandBus: CommandBus, queryBus: QueryBu
     {
       method: "GET",
       path: "/enrollments/student/:studentId",
-      handler: async (_body: any, params: any) => controller.listByStudent(params.studentId),
+      handler: async (_body: any, params: any) =>
+        controller.listByStudent(params.studentId),
     },
   ];
 }

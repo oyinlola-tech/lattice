@@ -4,4 +4,4 @@
  * Dependency provider implementations and factories.
  */
 
-export * from './containerProvider.core.js';
+export * from "./containerProvider.core.js";

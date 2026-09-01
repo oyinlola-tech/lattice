@@ -11,7 +11,7 @@ npm install @latticejs/crypto
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/crypto";
+import {} from /* add usage here */ "@latticejs/crypto";
 ```
 
 ## License

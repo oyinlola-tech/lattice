@@ -2,17 +2,11 @@
  * Logger core types and interfaces.
  */
 
-import type {
-  LoggerLevel,
-} from "../../loggerLevel/loggerLevel.type.js";
+import type { LoggerLevel } from "../../loggerLevel/loggerLevel.type.js";
 
-import type {
-  LogMetadata,
-} from "../../loggerEntry/loggerEntry.type.js";
+import type { LogMetadata } from "../../loggerEntry/loggerEntry.type.js";
 
-import type {
-  LoggerContext,
-} from "../../loggerContext/loggerContext.core.js";
+import type { LoggerContext } from "../../loggerContext/loggerContext.core.js";
 
 import type {
   ChildLoggerOptions,
@@ -27,53 +21,25 @@ export interface Logger {
   readonly level: LoggerLevel;
   readonly enabled: boolean;
 
-  fatal(
-    message: string,
-    metadata?: LogMetadata,
-  ): void;
+  fatal(message: string, metadata?: LogMetadata): void;
 
-  error(
-    message: string,
-    metadata?: LogMetadata,
-  ): void;
+  error(message: string, metadata?: LogMetadata): void;
 
-  warn(
-    message: string,
-    metadata?: LogMetadata,
-  ): void;
+  warn(message: string, metadata?: LogMetadata): void;
 
-  info(
-    message: string,
-    metadata?: LogMetadata,
-  ): void;
+  info(message: string, metadata?: LogMetadata): void;
 
-  debug(
-    message: string,
-    metadata?: LogMetadata,
-  ): void;
+  debug(message: string, metadata?: LogMetadata): void;
 
-  trace(
-    message: string,
-    metadata?: LogMetadata,
-  ): void;
+  trace(message: string, metadata?: LogMetadata): void;
 
-  log(
-    level: LoggerLevel,
-    message: string,
-    options?: LogOptions,
-  ): void;
+  log(level: LoggerLevel, message: string, options?: LogOptions): void;
 
-  child(
-    options?: ChildLoggerOptions,
-  ): Logger;
+  child(options?: ChildLoggerOptions): Logger;
 
-  withContext(
-    context: LoggerContext,
-  ): Logger;
+  withContext(context: LoggerContext): Logger;
 
-  setLevel(
-    level: LoggerLevel,
-  ): void;
+  setLevel(level: LoggerLevel): void;
 
   enable(): void;
 

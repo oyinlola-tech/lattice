@@ -7,7 +7,9 @@ import { ErrorHandler } from "./errorHandler.core.js";
 import type { ErrorHandlerOptions } from "./errorHandler.types.js";
 
 /** Creates a default error handler. */
-export function createErrorHandler(options: ErrorHandlerOptions = {}): ErrorHandler {
+export function createErrorHandler(
+  options: ErrorHandlerOptions = {},
+): ErrorHandler {
   return new ErrorHandler(options);
 }
 

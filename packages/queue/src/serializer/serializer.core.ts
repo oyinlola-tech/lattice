@@ -21,13 +21,11 @@ export const JsonSerializer: Serializer = Object.freeze({
 /**
  * Creates a serializer with custom options.
  */
-export function createJsonSerializer(
-  options?: {
-    replacer?: (key: string, value: unknown) => unknown;
-    space?: number;
-    preserveTypes?: boolean;
-  },
-): Serializer {
+export function createJsonSerializer(options?: {
+  replacer?: (key: string, value: unknown) => unknown;
+  space?: number;
+  preserveTypes?: boolean;
+}): Serializer {
   const inner = new JSONSerializer();
   return Object.freeze({
     serialize<T>(data: T): string {

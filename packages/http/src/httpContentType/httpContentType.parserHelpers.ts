@@ -2,21 +2,13 @@
  * Internal parser helper functions for HTTP Content-Type parsing.
  */
 
-import type {
-  ContentTypeParameter,
-} from "./httpContentType.type.js";
+import type { ContentTypeParameter } from "./httpContentType.type.js";
 
-export function isValidToken(
-  value: string,
-): boolean {
-  return /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/.test(
-    value,
-  );
+export function isValidToken(value: string): boolean {
+  return /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/.test(value);
 }
 
-export function splitParameters(
-  value: string,
-): string[] {
+export function splitParameters(value: string): string[] {
   const parts: string[] = [];
   let current = "";
   let quoted = false;
@@ -29,10 +21,7 @@ export function splitParameters(
       continue;
     }
 
-    if (
-      quoted &&
-      character === "\\"
-    ) {
+    if (quoted && character === "\\") {
       current += character;
       escaped = true;
       continue;
@@ -44,13 +33,8 @@ export function splitParameters(
       continue;
     }
 
-    if (
-      character === ";" &&
-      !quoted
-    ) {
-      parts.push(
-        current.trim(),
-      );
+    if (character === ";" && !quoted) {
+      parts.push(current.trim());
       current = "";
       continue;
     }
@@ -58,12 +42,8 @@ export function splitParameters(
     current += character;
   }
 
-  if (
-    current.trim().length > 0
-  ) {
-    parts.push(
-      current.trim(),
-    );
+  if (current.trim().length > 0) {
+    parts.push(current.trim());
   }
 
   return parts;
@@ -72,39 +52,26 @@ export function splitParameters(
 export function parseParameter(
   value: string,
 ): ContentTypeParameter | undefined {
-  const separator =
-    value.indexOf("=");
+  const separator = value.indexOf("=");
 
   if (separator <= 0) {
     return undefined;
   }
 
-  const name = value
-    .slice(0, separator)
-    .trim()
-    .toLowerCase();
+  const name = value.slice(0, separator).trim().toLowerCase();
 
-  let parameterValue = value
-    .slice(separator + 1)
-    .trim();
+  let parameterValue = value.slice(separator + 1).trim();
 
   if (!isValidToken(name)) {
     return undefined;
   }
 
   if (
-    parameterValue.startsWith(
-      '"',
-    ) &&
-    parameterValue.endsWith(
-      '"',
-    ) &&
+    parameterValue.startsWith('"') &&
+    parameterValue.endsWith('"') &&
     parameterValue.length >= 2
   ) {
-    parameterValue =
-      unquoteParameterValue(
-        parameterValue,
-      );
+    parameterValue = unquoteParameterValue(parameterValue);
   }
 
   return {
@@ -113,35 +80,21 @@ export function parseParameter(
   };
 }
 
-export function quoteParameterValue(
-  value: string,
-): string {
+export function quoteParameterValue(value: string): string {
   if (isValidToken(value)) {
     return value;
   }
 
-  return `"${value
-    .replaceAll("\\", "\\\\")
-    .replaceAll('"', '\\"')}"`;
+  return `"${value.replaceAll("\\", "\\\\").replaceAll('"', '\\"')}"`;
 }
 
-export function unquoteParameterValue(
-  value: string,
-): string {
+export function unquoteParameterValue(value: string): string {
   let result = "";
 
-  for (
-    let index = 1;
-    index < value.length - 1;
-    index += 1
-  ) {
-    const character =
-      value[index];
+  for (let index = 1; index < value.length - 1; index += 1) {
+    const character = value[index];
 
-    if (
-      character === "\\" &&
-      index < value.length - 2
-    ) {
+    if (character === "\\" && index < value.length - 2) {
       index += 1;
       result += value[index];
       continue;

@@ -4,9 +4,7 @@
 
 import { describe, it, expect } from "vitest";
 
-import {
-  createTestClock,
-} from "../src/testClock/testClock.core.js";
+import { createTestClock } from "../src/testClock/testClock.core.js";
 
 describe("createTestClock", () => {
   it("should default to current time", () => {

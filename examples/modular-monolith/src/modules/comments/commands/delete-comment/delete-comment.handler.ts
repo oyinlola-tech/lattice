@@ -3,7 +3,10 @@ import type { DeleteCommentCommand } from "./delete-comment.command.js";
 import type { CommentRepository } from "../../../../repositories/comment.repository.js";
 import { NotFoundError, ForbiddenError } from "../../../../errors/index.js";
 
-export class DeleteCommentHandler extends CommandHandler<DeleteCommentCommand, void> {
+export class DeleteCommentHandler extends CommandHandler<
+  DeleteCommentCommand,
+  void
+> {
   public readonly commandType = "comments.delete" as const;
 
   private readonly comments: CommentRepository;

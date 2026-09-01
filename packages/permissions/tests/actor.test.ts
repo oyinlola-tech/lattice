@@ -57,12 +57,16 @@ describe("actorHasRole", () => {
 
 describe("actorHasPermission", () => {
   it("returns true when actor has permission", () => {
-    const actor = createPermissionActor("user_1", { permissions: ["post:read"] });
+    const actor = createPermissionActor("user_1", {
+      permissions: ["post:read"],
+    });
     expect(actorHasPermission(actor, "post:read")).toBe(true);
   });
 
   it("returns false when actor lacks permission", () => {
-    const actor = createPermissionActor("user_1", { permissions: ["post:read"] });
+    const actor = createPermissionActor("user_1", {
+      permissions: ["post:read"],
+    });
     expect(actorHasPermission(actor, "post:delete")).toBe(false);
   });
 
@@ -125,11 +129,15 @@ describe("createMemoryPermissionCache", () => {
 
 describe("permissionCacheKey", () => {
   it("generates a cache key", () => {
-    expect(permissionCacheKey("user_1", "post:read")).toBe("actor:user_1:post:read");
+    expect(permissionCacheKey("user_1", "post:read")).toBe(
+      "actor:user_1:post:read",
+    );
   });
 
   it("includes resource ID", () => {
-    expect(permissionCacheKey("user_1", "post:read", "post_123")).toBe("actor:user_1:post:read:post_123");
+    expect(permissionCacheKey("user_1", "post:read", "post_123")).toBe(
+      "actor:user_1:post:read:post_123",
+    );
   });
 });
 
@@ -150,7 +158,9 @@ describe("utils", () => {
 
   it("createCacheKey", () => {
     expect(createCacheKey("user_1", "post:read")).toBe("user_1:post:read");
-    expect(createCacheKey("user_1", "post:read", "post_1")).toBe("user_1:post:read:post_1");
+    expect(createCacheKey("user_1", "post:read", "post_1")).toBe(
+      "user_1:post:read:post_1",
+    );
   });
 
   it("createActor", () => {

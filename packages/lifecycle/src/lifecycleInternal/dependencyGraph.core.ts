@@ -4,9 +4,7 @@
  * Directed acyclic graph for component dependency tracking.
  */
 
-import {
-  LifecycleDependencyError,
-} from "@oyinlola141/lattice-errors";
+import { LifecycleDependencyError } from "@oyinlola141/lattice-errors";
 
 /**
  * A directed acyclic graph of component dependencies.

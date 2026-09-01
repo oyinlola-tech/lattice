@@ -1,9 +1,16 @@
 import { describe, it, expect } from "vitest";
-import { derivePbkdf2, deriveScrypt, deriveKey, generateSalt } from "../src/cryptoKeyDerivation/index.js";
+import {
+  derivePbkdf2,
+  deriveScrypt,
+  deriveKey,
+  generateSalt,
+} from "../src/cryptoKeyDerivation/index.js";
 
 describe("derivePbkdf2", () => {
   it("derives a key from a password", async () => {
-    const result = await derivePbkdf2("password123", { salt: new Uint8Array(16).fill(1) });
+    const result = await derivePbkdf2("password123", {
+      salt: new Uint8Array(16).fill(1),
+    });
     expect(result.key).toBeInstanceOf(Uint8Array);
     expect(result.key.length).toBe(32);
     expect(result.salt.length).toBe(16);
@@ -24,7 +31,9 @@ describe("derivePbkdf2", () => {
 
 describe("deriveScrypt", () => {
   it("derives a key from a password", async () => {
-    const result = await deriveScrypt("password123", { salt: new Uint8Array(16).fill(1) });
+    const result = await deriveScrypt("password123", {
+      salt: new Uint8Array(16).fill(1),
+    });
     expect(result.key).toBeInstanceOf(Uint8Array);
     expect(result.key.length).toBe(32);
   });
@@ -44,19 +53,25 @@ describe("deriveScrypt", () => {
 
 describe("deriveKey", () => {
   it("routes to PBKDF2 for pbkdf2-sha256", async () => {
-    const result = await deriveKey("password", "pbkdf2-sha256", { salt: new Uint8Array(16).fill(1) });
+    const result = await deriveKey("password", "pbkdf2-sha256", {
+      salt: new Uint8Array(16).fill(1),
+    });
     expect(result.key).toBeInstanceOf(Uint8Array);
     expect(result.key.length).toBe(32);
   });
 
   it("routes to scrypt for scrypt", async () => {
-    const result = await deriveKey("password", "scrypt", { salt: new Uint8Array(16).fill(1) });
+    const result = await deriveKey("password", "scrypt", {
+      salt: new Uint8Array(16).fill(1),
+    });
     expect(result.key).toBeInstanceOf(Uint8Array);
     expect(result.key.length).toBe(32);
   });
 
   it("throws for unsupported algorithm", async () => {
-    await expect(deriveKey("password", "aes-256-gcm" as never)).rejects.toThrow();
+    await expect(
+      deriveKey("password", "aes-256-gcm" as never),
+    ).rejects.toThrow();
   });
 });
 

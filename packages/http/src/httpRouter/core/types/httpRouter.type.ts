@@ -4,13 +4,9 @@
  * Core types for routing, route definitions, and router context.
  */
 
-import type {
-  HttpRequestContext as RequestContext,
-} from "../../httpRequest/httpRequest.context.js";
+import type { HttpRequestContext as RequestContext } from "../../httpRequest/httpRequest.context.js";
 
-import type {
-  HttpResponseContext as ResponseContext,
-} from "../../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../../httpResponse/httpResponse.context.js";
 
 import type {
   HttpMiddleware,
@@ -34,15 +30,9 @@ export type RouterHandler = (
   | ResponseContext
   | Response
   | void
-  | Promise<
-      | ResponseContext
-      | Response
-      | void
-    >;
+  | Promise<ResponseContext | Response | void>;
 
-export type RouterHandlerLike =
-  | RouterHandler
-  | HttpMiddleware;
+export type RouterHandlerLike = RouterHandler | HttpMiddleware;
 
 export interface HttpRouterContext {
   readonly request: RequestContext;
@@ -107,24 +97,12 @@ export interface RouterOptions {
 
 export type RouterNotFoundHandler = (
   context: HttpRouterRequestContext,
-) =>
-  | ResponseContext
-  | Response
-  | Promise<
-      | ResponseContext
-      | Response
-    >;
+) => ResponseContext | Response | Promise<ResponseContext | Response>;
 
 export type RouterMethodNotAllowedHandler = (
   context: HttpRouterRequestContext,
   allowedMethods: readonly HttpMethod[],
-) =>
-  | ResponseContext
-  | Response
-  | Promise<
-      | ResponseContext
-      | Response
-    >;
+) => ResponseContext | Response | Promise<ResponseContext | Response>;
 
 export interface HttpRouterRequestContext {
   readonly request: RequestContext;

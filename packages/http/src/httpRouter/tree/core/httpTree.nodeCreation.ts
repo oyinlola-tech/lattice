@@ -4,9 +4,7 @@
  * @module httpRoute/tree/nodeCreation
  */
 
-import type {
-  MutableRouteTreeNode,
-} from "./httpTree.type.js";
+import type { MutableRouteTreeNode } from "./httpTree.type.js";
 
 /**
  * Creates a child node based on the segment.

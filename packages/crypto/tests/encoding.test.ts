@@ -44,7 +44,9 @@ describe("base64 encoding", () => {
   });
 
   it("decodes base64 to bytes", () => {
-    expect(fromBase64("SGVsbG8=")).toEqual(new Uint8Array([72, 101, 108, 108, 111]));
+    expect(fromBase64("SGVsbG8=")).toEqual(
+      new Uint8Array([72, 101, 108, 108, 111]),
+    );
   });
 
   it("round-trips base64", () => {

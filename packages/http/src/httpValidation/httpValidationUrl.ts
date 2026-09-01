@@ -7,29 +7,15 @@
 import type { HTTPValidationResult } from "./httpValidationTypes.type.js";
 
 export function isValidURL(
-  value:
-    | string
-    | undefined
-    | null,
+  value: string | undefined | null,
   base?: string | URL,
 ): boolean {
-  if (
-    value ===
-      undefined ||
-    value ===
-      null ||
-    value.trim()
-      .length ===
-      0
-  ) {
+  if (value === undefined || value === null || value.trim().length === 0) {
     return false;
   }
 
   try {
-    new URL(
-      value,
-      base,
-    );
+    new URL(value, base);
 
     return true;
   } catch {
@@ -41,87 +27,50 @@ export function validateURL(
   value: string,
   base?: string | URL,
 ): HTTPValidationResult {
-  if (
-    !isValidURL(
-      value,
-      base,
-    )
-  ) {
+  if (!isValidURL(value, base)) {
     return {
       valid: false,
-      reason:
-        "Invalid URL.",
+      reason: "Invalid URL.",
     };
   }
 
   try {
     return {
       valid: true,
-      value: new URL(
-        value,
-        base,
-      ).href,
+      value: new URL(value, base).href,
     };
   } catch {
     return {
       valid: false,
-      reason:
-        "Invalid URL.",
+      reason: "Invalid URL.",
     };
   }
 }
 
-export function isValidHTTPURL(
-  value:
-    | string
-    | undefined
-    | null,
-): boolean {
-  if (
-    !isValidURL(
-      value,
-    )
-  ) {
+export function isValidHTTPURL(value: string | undefined | null): boolean {
+  if (!isValidURL(value)) {
     return false;
   }
 
   try {
-    const url =
-      new URL(
-        value!,
-      );
+    const url = new URL(value!);
 
-    return (
-      url.protocol ===
-        "http:" ||
-      url.protocol ===
-        "https:"
-    );
+    return url.protocol === "http:" || url.protocol === "https:";
   } catch {
     return false;
   }
 }
 
-export function validateHTTPURL(
-  value: string,
-): HTTPValidationResult {
-  if (
-    !isValidHTTPURL(
-      value,
-    )
-  ) {
+export function validateHTTPURL(value: string): HTTPValidationResult {
+  if (!isValidHTTPURL(value)) {
     return {
       valid: false,
-      reason:
-        "URL must use the HTTP or HTTPS protocol.",
+      reason: "URL must use the HTTP or HTTPS protocol.",
     };
   }
 
   return {
     valid: true,
-    value:
-      new URL(
-        value,
-      ).href,
+    value: new URL(value).href,
   };
 }

@@ -5,7 +5,12 @@
  * Memory-bounded with configurable batch size and flush interval.
  */
 
-import type { ReadableSpan, Span, SpanExporter, SpanProcessor } from "../types.js";
+import type {
+  ReadableSpan,
+  Span,
+  SpanExporter,
+  SpanProcessor,
+} from "../types.js";
 
 const DEFAULT_BATCH_SIZE = 512;
 const DEFAULT_FLUSH_INTERVAL_MS = 5_000;
@@ -27,9 +32,13 @@ export class BatchSpanProcessor implements SpanProcessor {
     readonly batchSize?: number;
     readonly flushIntervalMs?: number;
   }) {
-    this.exporter = options?.exporter ?? { export: async () => {}, shutdown: async () => {} };
+    this.exporter = options?.exporter ?? {
+      export: async () => {},
+      shutdown: async () => {},
+    };
     this.batchSize = options?.batchSize ?? DEFAULT_BATCH_SIZE;
-    this.flushIntervalMs = options?.flushIntervalMs ?? DEFAULT_FLUSH_INTERVAL_MS;
+    this.flushIntervalMs =
+      options?.flushIntervalMs ?? DEFAULT_FLUSH_INTERVAL_MS;
   }
 
   onStart(_span: Span): void {
@@ -52,7 +61,11 @@ export class BatchSpanProcessor implements SpanProcessor {
       }, this.flushIntervalMs);
 
       // Allow the process to exit even if the timer is active
-      if (this.timer && typeof this.timer === "object" && "unref" in this.timer) {
+      if (
+        this.timer &&
+        typeof this.timer === "object" &&
+        "unref" in this.timer
+      ) {
         this.timer.unref();
       }
     }

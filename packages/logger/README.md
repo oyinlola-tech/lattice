@@ -11,7 +11,7 @@ npm install @latticejs/logger
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/logger";
+import {} from /* add usage here */ "@latticejs/logger";
 ```
 
 ## License

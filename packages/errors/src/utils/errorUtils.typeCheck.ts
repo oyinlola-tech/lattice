@@ -7,9 +7,11 @@ import { ErrorCategory } from "../base/types/errorCategory.type.js";
 import { ErrorSeverity } from "../base/types/errorSeverity.type.js";
 
 /** Type guard for unknown error-like values. */
-export function isErrorLike(
-  value: unknown,
-): value is { readonly name: string; readonly message: string; readonly stack?: string } {
+export function isErrorLike(value: unknown): value is {
+  readonly name: string;
+  readonly message: string;
+  readonly stack?: string;
+} {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -38,7 +40,11 @@ export function isServerError(value: unknown): boolean {
 
 /** Returns whether an error represents a client-side failure. */
 export function isClientError(value: unknown): boolean {
-  return value instanceof BaseError && value.statusCode >= 400 && value.statusCode < 500;
+  return (
+    value instanceof BaseError &&
+    value.statusCode >= 400 &&
+    value.statusCode < 500
+  );
 }
 
 /** Returns whether an error belongs to a category. */

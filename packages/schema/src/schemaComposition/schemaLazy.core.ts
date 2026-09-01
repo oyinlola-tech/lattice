@@ -11,7 +11,10 @@ import type { SchemaParseContext } from "../schemaBase/index.js";
  * Schema that defers creation of the inner schema until parse time.
  * Essential for recursive data structures like trees and nested comments.
  */
-export class LazySchema<TOutput, TInput = TOutput> extends Schema<TOutput, TInput> {
+export class LazySchema<TOutput, TInput = TOutput> extends Schema<
+  TOutput,
+  TInput
+> {
   public readonly _type = "lazy";
   private readonly _factory: () => Schema<TOutput, TInput>;
   private _inner: Schema<TOutput, TInput> | undefined;

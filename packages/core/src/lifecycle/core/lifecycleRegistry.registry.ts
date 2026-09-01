@@ -4,9 +4,7 @@ import type { LifecycleParticipant } from "./lifecycle.js";
 /**
  * Any component that can participate in the application lifecycle.
  */
-export type LifecycleComponent =
-  | LifecycleParticipant
-  | LifecycleHook;
+export type LifecycleComponent = LifecycleParticipant | LifecycleHook;
 
 /**
  * Internal lifecycle registration.
@@ -68,13 +66,10 @@ export class LifecycleRegistry {
   ): LifecycleRegistration {
     const registration: LifecycleRegistration = {
       id: this.createId(),
-      name:
-        name ??
-        this.resolveComponentName(component),
+      name: name ?? this.resolveComponentName(component),
       component,
       order: this.sequence,
-      isParticipant:
-        this.isLifecycleParticipant(component),
+      isParticipant: this.isLifecycleParticipant(component),
     };
 
     this.sequence += 1;
@@ -87,12 +82,9 @@ export class LifecycleRegistry {
   /**
    * Unregisters a component by registration ID.
    */
-  public unregister(
-    id: string,
-  ): boolean {
+  public unregister(id: string): boolean {
     const index = this.registrations.findIndex(
-      (registration) =>
-        registration.id === id,
+      (registration) => registration.id === id,
     );
 
     if (index === -1) {
@@ -108,53 +100,38 @@ export class LifecycleRegistry {
    * Returns all registrations in initialization/startup order.
    */
   public getAll(): readonly LifecycleRegistration[] {
-    return [...this.registrations].sort(
-      (a, b) => a.order - b.order,
-    );
+    return [...this.registrations].sort((a, b) => a.order - b.order);
   }
 
   /**
    * Returns all registrations in shutdown/destruction order.
    */
   public getReverse(): readonly LifecycleRegistration[] {
-    return [...this.registrations].sort(
-      (a, b) => b.order - a.order,
-    );
+    return [...this.registrations].sort((a, b) => b.order - a.order);
   }
 
   /**
    * Finds a registration by ID.
    */
-  public getById(
-    id: string,
-  ): LifecycleRegistration | undefined {
-    return this.registrations.find(
-      (registration) =>
-        registration.id === id,
-    );
+  public getById(id: string): LifecycleRegistration | undefined {
+    return this.registrations.find((registration) => registration.id === id);
   }
 
   /**
    * Finds a registration by component name.
    */
-  public getByName(
-    name: string,
-  ): LifecycleRegistration | undefined {
+  public getByName(name: string): LifecycleRegistration | undefined {
     return this.registrations.find(
-      (registration) =>
-        registration.name === name,
+      (registration) => registration.name === name,
     );
   }
 
   /**
    * Checks whether a component is registered.
    */
-  public has(
-    component: LifecycleComponent,
-  ): boolean {
+  public has(component: LifecycleComponent): boolean {
     return this.registrations.some(
-      (registration) =>
-        registration.component === component,
+      (registration) => registration.component === component,
     );
   }
 
@@ -197,12 +174,8 @@ export class LifecycleRegistry {
   /**
    * Resolves a readable component name.
    */
-  private resolveComponentName(
-    component: LifecycleComponent,
-  ): string {
-    if (
-      this.isLifecycleParticipant(component)
-    ) {
+  private resolveComponentName(component: LifecycleComponent): string {
+    if (this.isLifecycleParticipant(component)) {
       return component.name;
     }
 

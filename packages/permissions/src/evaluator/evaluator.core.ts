@@ -12,7 +12,10 @@ import type {
 import { parsePermission, matches } from "../permission/permission.core.js";
 import { compileRules, findMatchingRules } from "../rule/ruleCompiler.js";
 import { evaluateRules } from "../rule/rule.core.js";
-import { resolveActorPermissions, evaluatePolicies } from "./evaluator.pipeline.js";
+import {
+  resolveActorPermissions,
+  evaluatePolicies,
+} from "./evaluator.pipeline.js";
 import type { EvaluatorOptions } from "./evaluator.pipeline.js";
 
 export { evaluateWithExplain } from "./evaluator.explain.js";
@@ -31,7 +34,11 @@ export async function evaluate(
 
   if (actor.deniedPermissions) {
     for (const denied of actor.deniedPermissions) {
-      if (denied === permissionStr || denied === `${permission.resource}:*` || denied === "*:*") {
+      if (
+        denied === permissionStr ||
+        denied === `${permission.resource}:*` ||
+        denied === "*:*"
+      ) {
         return Object.freeze({
           allowed: false,
           reason: "explicit_deny",
@@ -43,10 +50,16 @@ export async function evaluate(
 
   const allPermissions = resolveActorPermissions(actor, options);
 
-  const matchingPermissions = allPermissions.filter((p) => matches(p, permissionStr));
+  const matchingPermissions = allPermissions.filter((p) =>
+    matches(p, permissionStr),
+  );
   const rules: PermissionRule[] = matchingPermissions.map((p) => {
     const parsed = parsePermission(p);
-    return { effect: "allow" as const, action: parsed.action, resource: parsed.resource };
+    return {
+      effect: "allow" as const,
+      action: parsed.action,
+      resource: parsed.resource,
+    };
   });
 
   const compiled = compileRules(rules);
@@ -55,14 +68,22 @@ export async function evaluate(
 
   if (!ruleResult.allowed) {
     const ctx: PermissionContext = { actor, permission, resource };
-    const policyResult = await evaluatePolicies(ctx, options.policies ?? [], authOptions);
+    const policyResult = await evaluatePolicies(
+      ctx,
+      options.policies ?? [],
+      authOptions,
+    );
     if (policyResult !== null) return policyResult;
 
     return Object.freeze({ allowed: false, reason: "no_matching_rule" });
   }
 
   const ctx: PermissionContext = { actor, permission, resource };
-  const policyResult = await evaluatePolicies(ctx, options.policies ?? [], authOptions);
+  const policyResult = await evaluatePolicies(
+    ctx,
+    options.policies ?? [],
+    authOptions,
+  );
   if (policyResult !== null) return policyResult;
 
   return Object.freeze({

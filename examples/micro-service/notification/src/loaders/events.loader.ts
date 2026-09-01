@@ -1,6 +1,11 @@
 import type { EventBus } from "@oyinlola141/lattice-events";
 import type { Queue } from "@oyinlola141/lattice-queue";
-import { UserCreatedEvent, StudentEnrolledEvent, AssessmentSubmittedEvent, ResultPublishedEvent } from "../events/index.js";
+import {
+  UserCreatedEvent,
+  StudentEnrolledEvent,
+  AssessmentSubmittedEvent,
+  ResultPublishedEvent,
+} from "../events/index.js";
 import type { ProcessNotificationJobData } from "../jobs/index.js";
 import { NOTIFICATION_JOB_NAME } from "../constants/index.js";
 
@@ -11,7 +16,8 @@ export interface EventsLoaderDeps {
 
 export function loadEvents(deps: EventsLoaderDeps): void {
   deps.eventBus.on(UserCreatedEvent.type, async (event) => {
-    const payload = event.payload as import("../events/index.js").UserCreatedPayload;
+    const payload =
+      event.payload as import("../events/index.js").UserCreatedPayload;
     await deps.queue.add(NOTIFICATION_JOB_NAME, {
       eventType: event.type,
       userId: payload.userId,
@@ -24,7 +30,8 @@ export function loadEvents(deps: EventsLoaderDeps): void {
   });
 
   deps.eventBus.on(StudentEnrolledEvent.type, async (event) => {
-    const payload = event.payload as import("../events/index.js").StudentEnrolledPayload;
+    const payload =
+      event.payload as import("../events/index.js").StudentEnrolledPayload;
     await deps.queue.add(NOTIFICATION_JOB_NAME, {
       eventType: event.type,
       userId: payload.studentId,
@@ -36,7 +43,8 @@ export function loadEvents(deps: EventsLoaderDeps): void {
   });
 
   deps.eventBus.on(AssessmentSubmittedEvent.type, async (event) => {
-    const payload = event.payload as import("../events/index.js").AssessmentSubmittedPayload;
+    const payload =
+      event.payload as import("../events/index.js").AssessmentSubmittedPayload;
     await deps.queue.add(NOTIFICATION_JOB_NAME, {
       eventType: event.type,
       userId: payload.studentId,
@@ -50,7 +58,8 @@ export function loadEvents(deps: EventsLoaderDeps): void {
   });
 
   deps.eventBus.on(ResultPublishedEvent.type, async (event) => {
-    const payload = event.payload as import("../events/index.js").ResultPublishedPayload;
+    const payload =
+      event.payload as import("../events/index.js").ResultPublishedPayload;
     await deps.queue.add(NOTIFICATION_JOB_NAME, {
       eventType: event.type,
       userId: payload.studentId,

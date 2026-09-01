@@ -7,10 +7,7 @@
 /**
  * Safely parse JSON with a fallback value.
  */
-export function safeJsonParse<T>(
-  json: string,
-  fallback: T,
-): T {
+export function safeJsonParse<T>(json: string, fallback: T): T {
   try {
     return JSON.parse(json) as T;
   } catch {
@@ -24,7 +21,8 @@ export function safeJsonParse<T>(
 export function toString(value: unknown, fallback = ""): string {
   if (value === null || value === undefined) return fallback;
   if (typeof value === "string") return value;
-  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  if (typeof value === "number" || typeof value === "boolean")
+    return String(value);
   try {
     return JSON.stringify(value);
   } catch {
@@ -52,7 +50,8 @@ export function toBoolean(value: unknown, fallback = false): boolean {
   if (typeof value === "string") {
     const lower = value.toLowerCase().trim();
     if (lower === "true" || lower === "1" || lower === "yes") return true;
-    if (lower === "false" || lower === "0" || lower === "no" || lower === "") return false;
+    if (lower === "false" || lower === "0" || lower === "no" || lower === "")
+      return false;
   }
   if (typeof value === "number") return value !== 0;
   return fallback;

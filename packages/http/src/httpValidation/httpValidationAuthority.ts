@@ -5,29 +5,17 @@
  * CONNECT requests and absolute-form URIs.
  */
 
-import {
-  isValidHostname,
-} from "./httpValidationHostname.js";
-import {
-  isValidPort,
-} from "./httpValidationPort.js";
+import { isValidHostname } from "./httpValidationHostname.js";
+import { isValidPort } from "./httpValidationPort.js";
 
 export function isValidAuthority(
-  authority:
-    | string
-    | undefined
-    | null,
+  authority: string | undefined | null,
 ): boolean {
   if (
-    authority ===
-      undefined ||
-    authority ===
-      null ||
-    authority.length ===
-      0 ||
-    /[\r\n\s]/.test(
-      authority,
-    )
+    authority === undefined ||
+    authority === null ||
+    authority.length === 0 ||
+    /[\r\n\s]/.test(authority)
   ) {
     return false;
   }
@@ -35,85 +23,39 @@ export function isValidAuthority(
   /*
    * IPv6 literal.
    */
-  if (
-    authority.startsWith(
-      "[",
-    )
-  ) {
-    const match =
-      /^\[[^\]]+\](?::\d{1,5})?$/.exec(
-        authority,
-      );
+  if (authority.startsWith("[")) {
+    const match = /^\[[^\]]+\](?::\d{1,5})?$/.exec(authority);
 
-    if (
-      !match
-    ) {
+    if (!match) {
       return false;
     }
 
     const colonIdx = authority.lastIndexOf(":");
-    const port = colonIdx >= 0 ? Number(authority.slice(colonIdx + 1)) : undefined;
+    const port =
+      colonIdx >= 0 ? Number(authority.slice(colonIdx + 1)) : undefined;
 
-    return (
-      port ===
-        undefined ||
-      isValidPort(
-        port,
-      )
-    );
+    return port === undefined || isValidPort(port);
   }
 
-  const separator =
-    authority.lastIndexOf(
-      ":",
-    );
+  const separator = authority.lastIndexOf(":");
 
-  if (
-    separator ===
-    -1
-  ) {
-    return isValidHostname(
-      authority,
-    );
+  if (separator === -1) {
+    return isValidHostname(authority);
   }
 
-  const hostname =
-    authority.slice(
-      0,
-      separator,
-    );
+  const hostname = authority.slice(0, separator);
 
-  const portValue =
-    authority.slice(
-      separator + 1,
-    );
+  const portValue = authority.slice(separator + 1);
 
-  if (
-    !isValidHostname(
-      hostname,
-    )
-  ) {
+  if (!isValidHostname(hostname)) {
     return false;
   }
 
-  if (
-    portValue.length ===
-    0
-  ) {
+  if (portValue.length === 0) {
     return false;
   }
 
-  const port =
-    Number(
-      portValue,
-    );
+  const port = Number(portValue);
 
-  return (
-    Number.isInteger(
-      port,
-    ) &&
-    isValidPort(
-      port,
-    )
-  );
+  return Number.isInteger(port) && isValidPort(port);
 }

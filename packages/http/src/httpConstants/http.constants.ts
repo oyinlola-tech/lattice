@@ -154,11 +154,7 @@ export const HTTP_CONTENT_TYPES = {
 /* Request Methods                                                            */
 /* -------------------------------------------------------------------------- */
 
-export const HTTP_SAFE_METHODS = [
-  "GET",
-  "HEAD",
-  "OPTIONS",
-] as const;
+export const HTTP_SAFE_METHODS = ["GET", "HEAD", "OPTIONS"] as const;
 
 export const HTTP_IDEMPOTENT_METHODS = [
   "GET",
@@ -176,15 +172,7 @@ export const HTTP_IDEMPOTENT_METHODS = [
 export const HTTP_CORS_DEFAULTS = {
   ORIGIN: "*",
 
-  METHODS: [
-    "GET",
-    "HEAD",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
-    "OPTIONS",
-  ],
+  METHODS: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 
   ALLOWED_HEADERS: [
     "Accept",
@@ -278,9 +266,7 @@ export const HTTP_SERVER_EVENTS = {
 /* Response Messages                                                          */
 /* -------------------------------------------------------------------------- */
 
-export const HTTP_STATUS_MESSAGES: Readonly<
-  Record<number, string>
-> = {
+export const HTTP_STATUS_MESSAGES: Readonly<Record<number, string>> = {
   100: "Continue",
   101: "Switching Protocols",
   102: "Processing",
@@ -334,59 +320,36 @@ export const HTTP_STATUS_MESSAGES: Readonly<
 /* Helpers                                                                    */
 /* -------------------------------------------------------------------------- */
 
-export function isHTTPMethod(
-  method: string,
-): boolean {
+export function isHTTPMethod(method: string): boolean {
   return HTTP_METHODS.includes(
     method.toUpperCase() as (typeof HTTP_METHODS)[number],
   );
 }
 
-export function isSafeHTTPMethod(
-  method: string,
-): boolean {
+export function isSafeHTTPMethod(method: string): boolean {
   return HTTP_SAFE_METHODS.includes(
     method.toUpperCase() as (typeof HTTP_SAFE_METHODS)[number],
   );
 }
 
-export function isIdempotentHTTPMethod(
-  method: string,
-): boolean {
+export function isIdempotentHTTPMethod(method: string): boolean {
   return HTTP_IDEMPOTENT_METHODS.includes(
     method.toUpperCase() as (typeof HTTP_IDEMPOTENT_METHODS)[number],
   );
 }
 
-export function getHTTPStatusMessage(
-  statusCode: number,
-): string {
-  return (
-    HTTP_STATUS_MESSAGES[statusCode] ??
-    "Unknown Status"
-  );
+export function getHTTPStatusMessage(statusCode: number): string {
+  return HTTP_STATUS_MESSAGES[statusCode] ?? "Unknown Status";
 }
 
-export function isHTTPErrorStatus(
-  statusCode: number,
-): boolean {
+export function isHTTPErrorStatus(statusCode: number): boolean {
   return statusCode >= 400;
 }
 
-export function isHTTPSuccessStatus(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode >= 200 &&
-    statusCode < 300
-  );
+export function isHTTPSuccessStatus(statusCode: number): boolean {
+  return statusCode >= 200 && statusCode < 300;
 }
 
-export function isHTTPRedirectStatus(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode >= 300 &&
-    statusCode < 400
-  );
+export function isHTTPRedirectStatus(statusCode: number): boolean {
+  return statusCode >= 300 && statusCode < 400;
 }

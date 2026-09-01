@@ -1,6 +1,4 @@
-import type {
-  Logger,
-} from "@oyinlola141/lattice-logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
 /**
  * Signal handler for process lifecycle events.
@@ -27,9 +25,7 @@ export class SignalHandler {
   /**
    * Registers signal handlers.
    */
-  public register(
-    shutdownHandler: () => void,
-  ): void {
+  public register(shutdownHandler: () => void): void {
     this.shutdownHandler = shutdownHandler;
 
     if (this.handleSignals) {

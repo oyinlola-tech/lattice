@@ -4,7 +4,10 @@
  * @module resolvers/pathResolver
  */
 
-import type { TenantResolver, TenantResolution } from "../../tenancyTypes/resolverTypes.js";
+import type {
+  TenantResolver,
+  TenantResolution,
+} from "../../tenancyTypes/resolverTypes.js";
 import { createTenantId } from "../../tenancyTypes/tenantIdentity.js";
 
 /** Context with getPath method. */
@@ -42,7 +45,10 @@ export function createPathResolver(
 
       if (prefix) {
         const prefixSegments = prefix.split("/").filter(Boolean);
-        if (segments.slice(0, prefixSegments.length).join("/") === prefixSegments.join("/")) {
+        if (
+          segments.slice(0, prefixSegments.length).join("/") ===
+          prefixSegments.join("/")
+        ) {
           segments = segments.slice(prefixSegments.length);
         }
       }

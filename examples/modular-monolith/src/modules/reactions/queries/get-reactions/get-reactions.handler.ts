@@ -9,7 +9,10 @@ export interface ReactionsByArticleResult {
   readonly counts: Record<ReactionType, number>;
 }
 
-export class GetReactionsHandler extends QueryHandler<GetReactionsQuery, ReactionsByArticleResult> {
+export class GetReactionsHandler extends QueryHandler<
+  GetReactionsQuery,
+  ReactionsByArticleResult
+> {
   public readonly queryType = "reactions.get" as const;
 
   private readonly reactions: ReactionRepository;
@@ -19,7 +22,9 @@ export class GetReactionsHandler extends QueryHandler<GetReactionsQuery, Reactio
     this.reactions = reactions;
   }
 
-  public async execute(query: GetReactionsQuery): Promise<ReactionsByArticleResult> {
+  public async execute(
+    query: GetReactionsQuery,
+  ): Promise<ReactionsByArticleResult> {
     const reactions = await this.reactions.findByArticle(query.articleId);
     const counts = await this.reactions.countByArticle(query.articleId);
 

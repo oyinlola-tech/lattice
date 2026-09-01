@@ -4,4 +4,4 @@
  * HTTP httpMime module.
  */
 
-export * from './http.mime.js';
+export * from "./http.mime.js";

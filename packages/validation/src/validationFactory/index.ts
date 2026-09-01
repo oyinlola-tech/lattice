@@ -4,4 +4,4 @@
  * Validation schema factory functions.
  */
 
-export * from './validationFactory.core.js';
+export * from "./validationFactory.core.js";

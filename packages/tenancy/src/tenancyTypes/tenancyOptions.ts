@@ -7,7 +7,12 @@
 import type { TenantId } from "./tenantIdentity.js";
 import type { Tenant, TenantRequirement } from "./tenantInterface.js";
 import type { TenantResolver } from "./resolverTypes.js";
-import type { TenantRepository, TenantCache, TenantProvisioner, TenantConfigurationProvider } from "./repositoryTypes.js";
+import type {
+  TenantRepository,
+  TenantCache,
+  TenantProvisioner,
+  TenantConfigurationProvider,
+} from "./repositoryTypes.js";
 
 /** Options for creating a tenancy service. */
 export interface TenancyOptions {

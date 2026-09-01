@@ -25,7 +25,9 @@ export class ReportProcessor {
     const { userId, reportType, dateRange } = job.data;
     this.attemptCount++;
 
-    console.log(`[ReportProcessor] Generating ${reportType} report for user ${userId}`);
+    console.log(
+      `[ReportProcessor] Generating ${reportType} report for user ${userId}`,
+    );
     console.log(`  Date range: ${dateRange.start} to ${dateRange.end}`);
     console.log(`  Attempt: ${job.attempt}/${job.maxAttempts}`);
 
@@ -34,10 +36,14 @@ export class ReportProcessor {
 
     // Simulate occasional failure for retry demonstration
     if (this.attemptCount % 3 === 0) {
-      console.log(`[ReportProcessor] Simulated failure on attempt ${this.attemptCount}`);
+      console.log(
+        `[ReportProcessor] Simulated failure on attempt ${this.attemptCount}`,
+      );
       throw new Error("External service temporarily unavailable");
     }
 
-    console.log(`[ReportProcessor] Report generated successfully for user ${userId}`);
+    console.log(
+      `[ReportProcessor] Report generated successfully for user ${userId}`,
+    );
   }
 }

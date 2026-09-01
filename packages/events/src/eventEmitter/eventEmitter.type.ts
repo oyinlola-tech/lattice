@@ -2,17 +2,11 @@
  * Event emitter type definitions for Lattice.
  */
 
-import type {
-  Event,
-} from "../eventTypes/eventDefinition.type.js";
+import type { Event } from "../eventTypes/eventDefinition.type.js";
 
-import type {
-  RegisteredEventHandler,
-} from "../eventHandler/eventHandler.core.js";
+import type { RegisteredEventHandler } from "../eventHandler/eventHandler.core.js";
 
-import type {
-  EventSubscription,
-} from "../eventSubscription/eventSubscription.core.js";
+import type { EventSubscription } from "../eventSubscription/eventSubscription.core.js";
 
 export enum EventEmitterMode {
   SEQUENTIAL = "sequential",

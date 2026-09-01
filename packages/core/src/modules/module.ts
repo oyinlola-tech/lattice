@@ -1,14 +1,8 @@
-import type {
-  ApplicationContext,
-} from "../application/applicationContext.context.js";
+import type { ApplicationContext } from "../application/applicationContext.context.js";
 
-import type {
-  LifecycleScope,
-} from "../lifecycle/scope/lifecycleScope.scope.js";
+import type { LifecycleScope } from "../lifecycle/scope/lifecycleScope.scope.js";
 
-import type {
-  ModuleContext,
-} from "./moduleContext.context.js";
+import type { ModuleContext } from "./moduleContext.context.js";
 
 /**
  * Unique identifier for a module.
@@ -18,8 +12,7 @@ export type ModuleId = string;
 /**
  * Configuration supplied to a module during creation.
  */
-export type ModuleOptions =
-  Readonly<Record<string, unknown>>;
+export type ModuleOptions = Readonly<Record<string, unknown>>;
 
 /**
  * Lifecycle hooks supported by a module.
@@ -30,11 +23,7 @@ export interface ModuleLifecycle {
   /**
    * Called when the module is initialized.
    */
-  onInitialize?(
-    context: ModuleContext,
-  ):
-    | void
-    | Promise<void>;
+  onInitialize?(context: ModuleContext): void | Promise<void>;
 
   /**
    * Called after all modules have been initialized.
@@ -42,29 +31,17 @@ export interface ModuleLifecycle {
    * This is useful when a module depends on other modules
    * being fully ready before performing startup work.
    */
-  onReady?(
-    context: ModuleContext,
-  ):
-    | void
-    | Promise<void>;
+  onReady?(context: ModuleContext): void | Promise<void>;
 
   /**
    * Called when the application begins shutting down.
    */
-  onShutdown?(
-    context: ModuleContext,
-  ):
-    | void
-    | Promise<void>;
+  onShutdown?(context: ModuleContext): void | Promise<void>;
 
   /**
    * Called when the module is destroyed.
    */
-  onDestroy?(
-    context: ModuleContext,
-  ):
-    | void
-    | Promise<void>;
+  onDestroy?(context: ModuleContext): void | Promise<void>;
 }
 
 /**
@@ -84,8 +61,7 @@ export interface ModuleLifecycle {
  * The same module contract works inside a monolith,
  * modular monolith, or independent microservice.
  */
-export interface Module
-  extends ModuleLifecycle {
+export interface Module extends ModuleLifecycle {
   /**
    * Unique module identifier.
    */
@@ -134,9 +110,7 @@ export interface Module
  * Framework users can extend this instead of implementing
  * the Module interface manually.
  */
-export abstract class BaseModule
-  implements Module
-{
+export abstract class BaseModule implements Module {
   /**
    * Unique module identifier.
    */
@@ -155,27 +129,23 @@ export abstract class BaseModule
   /**
    * Module dependencies.
    */
-  public readonly dependencies:
-    readonly ModuleId[];
+  public readonly dependencies: readonly ModuleId[];
 
   /**
    * Module-specific options.
    */
-  public readonly options:
-    ModuleOptions;
+  public readonly options: ModuleOptions;
 
   /**
    * Lifecycle scope.
    */
-  public readonly scope?:
-    LifecycleScope;
+  public readonly scope?: LifecycleScope;
 
   /**
    * Application context becomes available after the module
    * has been attached to an application.
    */
-  protected applicationContext?:
-    ApplicationContext;
+  protected applicationContext?: ApplicationContext;
 
   protected constructor(
     options: {
@@ -185,29 +155,21 @@ export abstract class BaseModule
       readonly scope?: LifecycleScope;
     } = {},
   ) {
-    this.version =
-      options.version;
+    this.version = options.version;
 
-    this.dependencies = [
-      ...(options.dependencies ?? []),
-    ];
+    this.dependencies = [...(options.dependencies ?? [])];
 
-    this.options =
-      options.options ?? {};
+    this.options = options.options ?? {};
 
-    this.scope =
-      options.scope;
+    this.scope = options.scope;
   }
 
   /**
    * Called internally by the module runtime when the module
    * becomes associated with an application.
    */
-  public attach(
-    context: ApplicationContext,
-  ): void {
-    this.applicationContext =
-      context;
+  public attach(context: ApplicationContext): void {
+    this.applicationContext = context;
   }
 
   /**
@@ -215,11 +177,8 @@ export abstract class BaseModule
    *
    * Throws if the module has not yet been attached.
    */
-  protected getApplicationContext():
-    ApplicationContext {
-    if (
-      !this.applicationContext
-    ) {
+  protected getApplicationContext(): ApplicationContext {
+    if (!this.applicationContext) {
       throw new Error(
         `Module "${this.name}" has not been attached to an application.`,
       );
@@ -231,36 +190,28 @@ export abstract class BaseModule
   /**
    * Module initialization hook.
    */
-  public async onInitialize(
-    _context: ModuleContext,
-  ): Promise<void> {
+  public async onInitialize(_context: ModuleContext): Promise<void> {
     // Optional hook.
   }
 
   /**
    * Module ready hook.
    */
-  public async onReady(
-    _context: ModuleContext,
-  ): Promise<void> {
+  public async onReady(_context: ModuleContext): Promise<void> {
     // Optional hook.
   }
 
   /**
    * Module shutdown hook.
    */
-  public async onShutdown(
-    _context: ModuleContext,
-  ): Promise<void> {
+  public async onShutdown(_context: ModuleContext): Promise<void> {
     // Optional hook.
   }
 
   /**
    * Module destruction hook.
    */
-  public async onDestroy(
-    _context: ModuleContext,
-  ): Promise<void> {
+  public async onDestroy(_context: ModuleContext): Promise<void> {
     // Optional hook.
   }
 }
@@ -268,25 +219,17 @@ export abstract class BaseModule
 /**
  * Type guard for determining whether an object is a Module.
  */
-export function isModule(
-  value: unknown,
-): value is Module {
-  if (
-    value === null ||
-    typeof value !== "object"
-  ) {
+export function isModule(value: unknown): value is Module {
+  if (value === null || typeof value !== "object") {
     return false;
   }
 
-  const candidate =
-    value as Partial<Module>;
+  const candidate = value as Partial<Module>;
 
   return (
-    typeof candidate.id ===
-      "string" &&
+    typeof candidate.id === "string" &&
     candidate.id.length > 0 &&
-    typeof candidate.name ===
-      "string" &&
+    typeof candidate.name === "string" &&
     candidate.name.length > 0
   );
 }
@@ -296,8 +239,6 @@ export function isModule(
  *
  * Useful for modules that do not require a class.
  */
-export function createModule(
-  definition: Module,
-): Module {
+export function createModule(definition: Module): Module {
   return definition;
 }

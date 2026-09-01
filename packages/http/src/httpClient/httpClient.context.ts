@@ -4,9 +4,7 @@
  * @module httpClient/context
  */
 
-import {
-  createFetchRequest,
-} from "../httpAdapter/httpFetch.adapter.js";
+import { createFetchRequest } from "../httpAdapter/httpFetch.adapter.js";
 
 import type {
   HttpClientMethod,
@@ -14,17 +12,11 @@ import type {
   HttpClientRequestContext,
 } from "./httpClient.type.js";
 
-import {
-  buildClientUrl,
-} from "./httpClient.url.js";
+import { buildClientUrl } from "./httpClient.url.js";
 
-import {
-  mergeHeaders,
-} from "./httpClient.headers.js";
+import { mergeHeaders } from "./httpClient.headers.js";
 
-import {
-  normalizeRequestBody,
-} from "./httpClient.body.js";
+import { normalizeRequestBody } from "./httpClient.body.js";
 
 export function createContext(
   url: string | URL,

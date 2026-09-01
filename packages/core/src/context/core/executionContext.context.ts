@@ -90,9 +90,7 @@ export interface ExecutionContext {
   /**
    * Arbitrary execution scoped metadata.
    */
-  readonly metadata: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -100,13 +98,9 @@ export interface ExecutionContext {
  *
  * The execution ID and start time can be generated automatically.
  */
-export interface CreateExecutionContextInput
-  extends Partial<
-    Omit<
-      ExecutionContext,
-      "executionId" | "startedAt" | "metadata"
-    >
-  > {
+export interface CreateExecutionContextInput extends Partial<
+  Omit<ExecutionContext, "executionId" | "startedAt" | "metadata">
+> {
   /**
    * Optional execution identifier.
    *
@@ -134,40 +128,27 @@ export function createExecutionContext(
   input: CreateExecutionContextInput = {},
 ): ExecutionContext {
   return Object.freeze({
-    executionId:
-      input.executionId ??
-      createExecutionId(),
+    executionId: input.executionId ?? createExecutionId(),
 
-    correlationId:
-      input.correlationId,
+    correlationId: input.correlationId,
 
-    traceId:
-      input.traceId,
+    traceId: input.traceId,
 
-    spanId:
-      input.spanId,
+    spanId: input.spanId,
 
-    principalId:
-      input.principalId,
+    principalId: input.principalId,
 
-    authenticationScheme:
-      input.authenticationScheme,
+    authenticationScheme: input.authenticationScheme,
 
-    service:
-      input.service,
+    service: input.service,
 
-    module:
-      input.module,
+    module: input.module,
 
-    operation:
-      input.operation,
+    operation: input.operation,
 
-    transport:
-      input.transport,
+    transport: input.transport,
 
-    startedAt:
-      input.startedAt ??
-      new Date(),
+    startedAt: input.startedAt ?? new Date(),
 
     metadata: Object.freeze({
       ...(input.metadata ?? {}),
@@ -192,49 +173,28 @@ export function deriveExecutionContext(
   } = {},
 ): ExecutionContext {
   return createExecutionContext({
-    executionId:
-      overrides.executionId ??
-      context.executionId,
+    executionId: overrides.executionId ?? context.executionId,
 
-    correlationId:
-      overrides.correlationId ??
-      context.correlationId,
+    correlationId: overrides.correlationId ?? context.correlationId,
 
-    traceId:
-      overrides.traceId ??
-      context.traceId,
+    traceId: overrides.traceId ?? context.traceId,
 
-    spanId:
-      overrides.spanId ??
-      context.spanId,
+    spanId: overrides.spanId ?? context.spanId,
 
-    principalId:
-      overrides.principalId ??
-      context.principalId,
+    principalId: overrides.principalId ?? context.principalId,
 
     authenticationScheme:
-      overrides.authenticationScheme ??
-      context.authenticationScheme,
+      overrides.authenticationScheme ?? context.authenticationScheme,
 
-    service:
-      overrides.service ??
-      context.service,
+    service: overrides.service ?? context.service,
 
-    module:
-      overrides.module ??
-      context.module,
+    module: overrides.module ?? context.module,
 
-    operation:
-      overrides.operation ??
-      context.operation,
+    operation: overrides.operation ?? context.operation,
 
-    transport:
-      overrides.transport ??
-      context.transport,
+    transport: overrides.transport ?? context.transport,
 
-    startedAt:
-      overrides.startedAt ??
-      context.startedAt,
+    startedAt: overrides.startedAt ?? context.startedAt,
 
     metadata: {
       ...context.metadata,
@@ -251,12 +211,9 @@ export function withExecutionMetadata(
   context: ExecutionContext,
   metadata: Record<string, unknown>,
 ): ExecutionContext {
-  return deriveExecutionContext(
-    context,
-    {
-      metadata,
-    },
-  );
+  return deriveExecutionContext(context, {
+    metadata,
+  });
 }
 
 /**
@@ -266,10 +223,7 @@ export function getExecutionDuration(
   context: ExecutionContext,
   endTime: Date = new Date(),
 ): number {
-  return (
-    endTime.getTime() -
-    context.startedAt.getTime()
-  );
+  return endTime.getTime() - context.startedAt.getTime();
 }
 
 /**
@@ -290,11 +244,7 @@ function createExecutionId(): string {
    */
   return [
     Date.now().toString(36),
-    Math.random()
-      .toString(36)
-      .slice(2),
-    Math.random()
-      .toString(36)
-      .slice(2),
+    Math.random().toString(36).slice(2),
+    Math.random().toString(36).slice(2),
   ].join("-");
 }

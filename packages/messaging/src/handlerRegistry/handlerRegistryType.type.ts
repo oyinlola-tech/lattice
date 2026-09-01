@@ -13,9 +13,7 @@ import type {
   NamedMessageHandler,
 } from "../messageHandler/messageHandlerType.type.js";
 
-import type {
-  Message,
-} from "../message/messageType.type.js";
+import type { Message } from "../message/messageType.type.js";
 
 /**
  * Options for the handler registry.

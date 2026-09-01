@@ -8,7 +8,10 @@ export interface NotificationsResult {
   readonly unreadCount: number;
 }
 
-export class GetNotificationsHandler extends QueryHandler<GetNotificationsQuery, NotificationsResult> {
+export class GetNotificationsHandler extends QueryHandler<
+  GetNotificationsQuery,
+  NotificationsResult
+> {
   public readonly queryType = "notifications.get" as const;
 
   private readonly notifications: NotificationRepository;
@@ -18,7 +21,9 @@ export class GetNotificationsHandler extends QueryHandler<GetNotificationsQuery,
     this.notifications = notifications;
   }
 
-  public async execute(query: GetNotificationsQuery): Promise<NotificationsResult> {
+  public async execute(
+    query: GetNotificationsQuery,
+  ): Promise<NotificationsResult> {
     const notifications = await this.notifications.findByUser(query.userId);
     const unreadCount = await this.notifications.countUnread(query.userId);
 

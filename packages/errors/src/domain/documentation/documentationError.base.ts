@@ -9,7 +9,10 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating a documentation error. */
-export interface DocumentationErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface DocumentationErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly documentId?: string;
 }
@@ -40,11 +43,16 @@ export class DocumentationError extends BaseError {
 }
 
 /** Creates a documentation error. */
-export function createDocumentationError(message: string, options: DocumentationErrorOptions = {}): DocumentationError {
+export function createDocumentationError(
+  message: string,
+  options: DocumentationErrorOptions = {},
+): DocumentationError {
   return new DocumentationError(message, options);
 }
 
 /** Determines whether an unknown value is a DocumentationError. */
-export function isDocumentationError(value: unknown): value is DocumentationError {
+export function isDocumentationError(
+  value: unknown,
+): value is DocumentationError {
   return value instanceof DocumentationError;
 }

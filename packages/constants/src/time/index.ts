@@ -5,4 +5,10 @@
  */
 
 export { type TimeUnit, TimeUnits } from "./time.unit.type.js";
-export { TimeMs, DefaultTimeout, DefaultRetry, toMilliseconds, formatDuration } from "./time.constant.js";
+export {
+  TimeMs,
+  DefaultTimeout,
+  DefaultRetry,
+  toMilliseconds,
+  formatDuration,
+} from "./time.constant.js";

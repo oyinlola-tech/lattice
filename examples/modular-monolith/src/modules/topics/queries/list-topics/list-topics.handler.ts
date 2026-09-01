@@ -3,7 +3,10 @@ import type { ListTopicsQuery } from "./list-topics.query.js";
 import type { TopicRepository } from "../../../../repositories/topic.repository.js";
 import type { TopicModel } from "../../../../models/topic.model.js";
 
-export class ListTopicsHandler extends QueryHandler<ListTopicsQuery, readonly TopicModel[]> {
+export class ListTopicsHandler extends QueryHandler<
+  ListTopicsQuery,
+  readonly TopicModel[]
+> {
   public readonly queryType = "topics.list" as const;
 
   private readonly topics: TopicRepository;
@@ -13,7 +16,9 @@ export class ListTopicsHandler extends QueryHandler<ListTopicsQuery, readonly To
     this.topics = topics;
   }
 
-  public async execute(_query: ListTopicsQuery): Promise<readonly TopicModel[]> {
+  public async execute(
+    _query: ListTopicsQuery,
+  ): Promise<readonly TopicModel[]> {
     return this.topics.findAll();
   }
 }

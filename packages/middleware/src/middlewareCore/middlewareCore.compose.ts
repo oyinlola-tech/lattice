@@ -7,7 +7,10 @@
  * Each middleware calls `next()` to proceed to the next one.
  */
 
-import type { Middleware, NamedMiddleware } from "../middlewareTypes/middlewareDefinition.type.js";
+import type {
+  Middleware,
+  NamedMiddleware,
+} from "../middlewareTypes/middlewareDefinition.type.js";
 
 const MAX_DEPTH = 100;
 

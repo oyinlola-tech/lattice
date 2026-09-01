@@ -16,10 +16,7 @@ export function combineAbortSignals(
     return first;
   }
 
-  if (
-    typeof AbortSignal !== "undefined" &&
-    "any" in AbortSignal
-  ) {
+  if (typeof AbortSignal !== "undefined" && "any" in AbortSignal) {
     return (
       AbortSignal as typeof AbortSignal & {
         any(signals: readonly AbortSignal[]): AbortSignal;

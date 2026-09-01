@@ -1,4 +1,8 @@
-import { BaseError, ErrorCode, ErrorCategory } from "@oyinlola141/lattice-errors";
+import {
+  BaseError,
+  ErrorCode,
+  ErrorCategory,
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when a gateway-specific failure occurs.

@@ -3,8 +3,17 @@
  */
 
 import type { ValidationIssue } from "../validationResult/validationResult.type.js";
-import { formatIssues, toFieldErrors } from "../validationResult/validationResult.type.js";
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity, type ErrorMetadata } from "@oyinlola141/lattice-errors";
+import {
+  formatIssues,
+  toFieldErrors,
+} from "../validationResult/validationResult.type.js";
+import {
+  BaseError,
+  ErrorCode,
+  ErrorCategory,
+  ErrorSeverity,
+  type ErrorMetadata,
+} from "@oyinlola141/lattice-errors";
 
 /** Error codes used by the validation package. */
 export enum ValidationErrorCode {
@@ -32,9 +41,14 @@ export class ValidationError extends BaseError {
   public readonly context?: Readonly<Record<string, unknown>>;
   public readonly timestamp: number;
 
-  constructor(message: string, issues: readonly ValidationIssue[] = [], options: ValidationErrorOptions = {}) {
+  constructor(
+    message: string,
+    issues: readonly ValidationIssue[] = [],
+    options: ValidationErrorOptions = {},
+  ) {
     super(message, {
-      code: (options.code as unknown as ErrorCode) ?? ErrorCode.VALIDATION_FAILED,
+      code:
+        (options.code as unknown as ErrorCode) ?? ErrorCode.VALIDATION_FAILED,
       category: ErrorCategory.VALIDATION,
       severity: ErrorSeverity.WARNING,
       statusCode: 400,
@@ -74,9 +88,17 @@ export class ValidationError extends BaseError {
 }
 
 /** Converts an unknown error into a ValidationError. */
-export function toValidationError(error: unknown, fallbackMessage = "Validation failed.", options: ValidationErrorOptions = {}): ValidationError {
+export function toValidationError(
+  error: unknown,
+  fallbackMessage = "Validation failed.",
+  options: ValidationErrorOptions = {},
+): ValidationError {
   if (error instanceof ValidationError) return error;
-  if (error instanceof Error) return new ValidationError(error.message || fallbackMessage, [], { ...options, cause: error });
+  if (error instanceof Error)
+    return new ValidationError(error.message || fallbackMessage, [], {
+      ...options,
+      cause: error,
+    });
   return new ValidationError(fallbackMessage, [], { ...options, cause: error });
 }
 
@@ -86,11 +108,21 @@ export function isValidationError(error: unknown): error is ValidationError {
 }
 
 /** Returns whether a validation error has a specific code. */
-export function hasValidationErrorCode(error: unknown, code: ValidationErrorCode): boolean {
+export function hasValidationErrorCode(
+  error: unknown,
+  code: ValidationErrorCode,
+): boolean {
   return isValidationError(error) && error.validationCode === code;
 }
 
 /** Creates a validation error from a collection of issues. */
-export function createValidationError(issues: readonly ValidationIssue[], options: ValidationErrorOptions = {}): ValidationError {
-  return new ValidationError(formatIssues(issues) || "Validation failed.", issues, options);
+export function createValidationError(
+  issues: readonly ValidationIssue[],
+  options: ValidationErrorOptions = {},
+): ValidationError {
+  return new ValidationError(
+    formatIssues(issues) || "Validation failed.",
+    issues,
+    options,
+  );
 }

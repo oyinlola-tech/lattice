@@ -97,15 +97,21 @@ describe("Header Security", () => {
     });
 
     it("rejects header names with invalid characters", () => {
-      expect(validateHeaderName("X Bad Header")).toContain("invalid characters");
+      expect(validateHeaderName("X Bad Header")).toContain(
+        "invalid characters",
+      );
       expect(validateHeaderName("X;Header")).toContain("invalid characters");
     });
   });
 
   describe("validateHeaderValue", () => {
     it("accepts valid header values", () => {
-      expect(validateHeaderValue("Content-Type", "application/json")).toBeUndefined();
-      expect(validateHeaderValue("Authorization", "Bearer token123")).toBeUndefined();
+      expect(
+        validateHeaderValue("Content-Type", "application/json"),
+      ).toBeUndefined();
+      expect(
+        validateHeaderValue("Authorization", "Bearer token123"),
+      ).toBeUndefined();
     });
 
     it("rejects CRLF injection", () => {
@@ -120,7 +126,9 @@ describe("Header Security", () => {
 
     it("rejects oversized values", () => {
       const bigValue = "x".repeat(10000);
-      const error = validateHeaderValue("X-Test", bigValue, { maxValueSize: 1024 });
+      const error = validateHeaderValue("X-Test", bigValue, {
+        maxValueSize: 1024,
+      });
       expect(error).toContain("exceeds maximum");
     });
   });
@@ -343,8 +351,12 @@ describe("Body Validation", () => {
     });
 
     it("rejects zero or negative", () => {
-      expect(validateBodyLimitConfig({ maxSize: 0 })).toContain("must be positive");
-      expect(validateBodyLimitConfig({ maxSize: -1 })).toContain("must be positive");
+      expect(validateBodyLimitConfig({ maxSize: 0 })).toContain(
+        "must be positive",
+      );
+      expect(validateBodyLimitConfig({ maxSize: -1 })).toContain(
+        "must be positive",
+      );
     });
 
     it("rejects over 1GB", () => {
@@ -431,7 +443,9 @@ describe("Cookie Security", () => {
     });
 
     it("rejects names with special characters", () => {
-      expect(validateCookieName("name with space")).toContain("invalid characters");
+      expect(validateCookieName("name with space")).toContain(
+        "invalid characters",
+      );
       expect(validateCookieName("name;value")).toContain("invalid characters");
     });
   });
@@ -442,7 +456,9 @@ describe("Cookie Security", () => {
     });
 
     it("rejects control characters", () => {
-      expect(validateCookieValue("value\x00here")).toContain("control characters");
+      expect(validateCookieValue("value\x00here")).toContain(
+        "control characters",
+      );
     });
   });
 
@@ -480,7 +496,9 @@ describe("CORS", () => {
     });
 
     it("allows wildcard", () => {
-      expect(isOriginAllowed("https://anything.com", { origin: "*" })).toBe("*");
+      expect(isOriginAllowed("https://anything.com", { origin: "*" })).toBe(
+        "*",
+      );
     });
 
     it("allows matching array origin", () => {
@@ -513,7 +531,9 @@ describe("CORS", () => {
       const headers = generatePreflightHeaders("https://example.com", {
         origin: "https://example.com",
       });
-      expect(headers["Access-Control-Allow-Origin"]).toBe("https://example.com");
+      expect(headers["Access-Control-Allow-Origin"]).toBe(
+        "https://example.com",
+      );
       expect(headers["Access-Control-Allow-Methods"]).toBeDefined();
       expect(headers["Access-Control-Max-Age"]).toBe("86400");
     });
@@ -532,7 +552,9 @@ describe("CORS", () => {
         origin: "https://example.com",
         credentials: true,
       });
-      expect(headers["Access-Control-Allow-Origin"]).toBe("https://example.com");
+      expect(headers["Access-Control-Allow-Origin"]).toBe(
+        "https://example.com",
+      );
       expect(headers["Access-Control-Allow-Credentials"]).toBe("true");
     });
   });
@@ -544,24 +566,24 @@ describe("CORS", () => {
     });
 
     it("rejects custom methods", () => {
-      expect(isMethodAllowed("PATCH", { origin: "*", methods: ["GET", "POST"] })).toBe(false);
+      expect(
+        isMethodAllowed("PATCH", { origin: "*", methods: ["GET", "POST"] }),
+      ).toBe(false);
     });
   });
 
   describe("getDisallowedHeaders", () => {
     it("returns empty for all allowed headers", () => {
-      const result = getDisallowedHeaders(
-        ["Content-Type", "Authorization"],
-        { allowedHeaders: ["Content-Type", "Authorization"] },
-      );
+      const result = getDisallowedHeaders(["Content-Type", "Authorization"], {
+        allowedHeaders: ["Content-Type", "Authorization"],
+      });
       expect(result).toHaveLength(0);
     });
 
     it("returns disallowed headers", () => {
-      const result = getDisallowedHeaders(
-        ["X-Evil-Header", "Content-Type"],
-        { allowedHeaders: ["Content-Type"] },
-      );
+      const result = getDisallowedHeaders(["X-Evil-Header", "Content-Type"], {
+        allowedHeaders: ["Content-Type"],
+      });
       expect(result).toEqual(["X-Evil-Header"]);
     });
   });
@@ -756,7 +778,11 @@ describe("Rate Limiting", () => {
     });
 
     it("middleware populates response headers when limited", () => {
-      const limiter = createRateLimiter({ max: 1, windowMs: 60000, handler: defaultHandler });
+      const limiter = createRateLimiter({
+        max: 1,
+        windowMs: 60000,
+        handler: defaultHandler,
+      });
       limiter.check({ ip: "1.2.3.4" });
 
       const response = {
@@ -778,7 +804,9 @@ describe("Rate Limiting", () => {
 describe("Security Headers", () => {
   describe("SECURITY_HEADER_NAMES", () => {
     it("has all expected header names", () => {
-      expect(SECURITY_HEADER_NAMES.CONTENT_TYPE_OPTIONS).toBe("X-Content-Type-Options");
+      expect(SECURITY_HEADER_NAMES.CONTENT_TYPE_OPTIONS).toBe(
+        "X-Content-Type-Options",
+      );
       expect(SECURITY_HEADER_NAMES.FRAME_OPTIONS).toBe("X-Frame-Options");
       expect(SECURITY_HEADER_NAMES.HSTS).toBe("Strict-Transport-Security");
     });
@@ -830,7 +858,9 @@ describe("Security Headers", () => {
 
   describe("validateCspDirective", () => {
     it("warns about unsafe-inline", () => {
-      const warning = validateCspDirective("default-src 'self' 'unsafe-inline'");
+      const warning = validateCspDirective(
+        "default-src 'self' 'unsafe-inline'",
+      );
       expect(warning).toContain("unsafe-inline");
     });
 
@@ -917,8 +947,13 @@ describe("Input Sanitization", () => {
 
   describe("sanitizeObject", () => {
     it("removes prototype pollution keys", () => {
-      const result = sanitizeObject({ name: "test", __proto__: { polluted: true } });
-      expect(Object.prototype.hasOwnProperty.call(result, "__proto__")).toBe(false);
+      const result = sanitizeObject({
+        name: "test",
+        __proto__: { polluted: true },
+      });
+      expect(Object.prototype.hasOwnProperty.call(result, "__proto__")).toBe(
+        false,
+      );
       expect(result.name).toBe("test");
     });
 

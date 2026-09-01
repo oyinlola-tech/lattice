@@ -33,7 +33,11 @@ export { OpenAPIDocumentBuilder } from "./openApiDocument/openApiDocument.builde
 export type { OpenAPIDocumentOptions } from "./openApiDocument/openApiDocument.builder.js";
 
 export { OpenAPIRegistryImpl } from "./openApiRegistry/openApiRegistry.core.js";
-export type { OpenAPIRegistry, OpenAPIRoute, OpenAPIComponentRegistration } from "./openApiRegistry/openApiRegistry.type.js";
+export type {
+  OpenAPIRegistry,
+  OpenAPIRoute,
+  OpenAPIComponentRegistration,
+} from "./openApiRegistry/openApiRegistry.type.js";
 
 export {
   OpenAPIError,
@@ -51,7 +55,10 @@ export {
   isOpenAPIError,
 } from "./openApiErrors/openApiError.core.js";
 
-export type { OpenAPIErrorOptions, OpenAPIValidationIssue } from "./openApiErrors/openApiError.core.js";
+export type {
+  OpenAPIErrorOptions,
+  OpenAPIValidationIssue,
+} from "./openApiErrors/openApiError.core.js";
 
 export {
   DEFAULT_OPENAPI_VERSION,
@@ -69,10 +76,21 @@ export {
   LATTICE_TO_OPENAPI_METHODS,
   OpenAPIRouteScannerImpl,
 } from "./openApiRouting/index.js";
-export type { RouteMetadata, RouteOpenAPIMetadata, RouteParameterMetadata, RouteInfo } from "./openApiRouting/index.js";
+export type {
+  RouteMetadata,
+  RouteOpenAPIMetadata,
+  RouteParameterMetadata,
+  RouteInfo,
+} from "./openApiRouting/index.js";
 
-export { convertSchema, createSchemaConverter } from "./openApiSchema/schemaConverter.core.js";
-export type { SchemaConverter, SchemaConversionResult } from "./openApiSchema/schemaConverter.core.js";
+export {
+  convertSchema,
+  createSchemaConverter,
+} from "./openApiSchema/schemaConverter.core.js";
+export type {
+  SchemaConverter,
+  SchemaConversionResult,
+} from "./openApiSchema/schemaConverter.core.js";
 
 export { SchemaRegistryImpl } from "./openApiSchema/schemaRegistry.core.js";
 export type { SchemaRegistry } from "./openApiSchema/schemaRegistry.core.js";
@@ -82,7 +100,10 @@ export { createComponentReference } from "./openApiSchema/references.core.js";
 export { OpenAPIValidatorImpl } from "./openApiValidation/openApiValidator.core.js";
 export type { OpenAPIValidator } from "./openApiValidation/openApiValidator.core.js";
 
-export { toOpenAPIJSON, toOpenAPIYAML } from "./openApiSerialization/openApiSerializer.core.js";
+export {
+  toOpenAPIJSON,
+  toOpenAPIYAML,
+} from "./openApiSerialization/openApiSerializer.core.js";
 
 export { OpenAPIManager } from "./openApiHttp/openApiHttpAdapter.core.js";
 

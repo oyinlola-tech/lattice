@@ -22,7 +22,10 @@ export enum TimeoutOperation {
 }
 
 /** Options for creating a timeout error. */
-export interface TimeoutErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface TimeoutErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly operation?: TimeoutOperation;
   readonly timeoutMs?: number;
@@ -35,7 +38,10 @@ export class TimeoutError extends BaseError {
   public readonly timeoutMs?: number;
   public readonly target?: string;
 
-  constructor(message = "The operation timed out.", options: TimeoutErrorOptions = {}) {
+  constructor(
+    message = "The operation timed out.",
+    options: TimeoutErrorOptions = {},
+  ) {
     validateTimeout(options.timeoutMs);
     super(message, {
       ...options,
@@ -47,8 +53,12 @@ export class TimeoutError extends BaseError {
       isOperational: options.isOperational ?? true,
       metadata: {
         ...options.metadata,
-        ...(options.operation !== undefined ? { operation: options.operation } : {}),
-        ...(options.timeoutMs !== undefined ? { timeoutMs: options.timeoutMs } : {}),
+        ...(options.operation !== undefined
+          ? { operation: options.operation }
+          : {}),
+        ...(options.timeoutMs !== undefined
+          ? { timeoutMs: options.timeoutMs }
+          : {}),
         ...(options.target !== undefined ? { target: options.target } : {}),
       },
     });

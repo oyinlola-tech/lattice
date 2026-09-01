@@ -2,7 +2,12 @@
  * Base OpenAPI error and factory functions.
  */
 
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "@oyinlola141/lattice-errors";
+import {
+  BaseError,
+  ErrorCode,
+  ErrorCategory,
+  ErrorSeverity,
+} from "@oyinlola141/lattice-errors";
 
 /** Options for creating an OpenAPI error. */
 export interface OpenAPIErrorOptions {
@@ -23,14 +28,18 @@ export class OpenAPIError extends BaseError {
       statusCode: options.statusCode ?? 500,
       expose: options.expose ?? false,
       cause: options.cause,
-      metadata: options.metadata as import("@oyinlola141/lattice-errors").ErrorMetadata | undefined,
+      metadata: options.metadata as
+        import("@oyinlola141/lattice-errors").ErrorMetadata | undefined,
     });
     this.name = "OpenAPIError";
   }
 }
 
 /** Creates an OpenAPI error. */
-export function createOpenAPIError(message: string, options: OpenAPIErrorOptions = {}): OpenAPIError {
+export function createOpenAPIError(
+  message: string,
+  options: OpenAPIErrorOptions = {},
+): OpenAPIError {
   return new OpenAPIError(message, options);
 }
 

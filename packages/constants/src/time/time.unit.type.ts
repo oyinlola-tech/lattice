@@ -5,7 +5,8 @@
  */
 
 /** Type-safe time unit string. */
-export type TimeUnit = "milliseconds" | "seconds" | "minutes" | "hours" | "days";
+export type TimeUnit =
+  "milliseconds" | "seconds" | "minutes" | "hours" | "days";
 
 /**
  * All supported time units as an object map.

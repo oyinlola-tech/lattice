@@ -38,7 +38,10 @@ export class CryptoError extends BaseError {
   public readonly operation: CryptoOperation;
   public readonly algorithm?: string;
 
-  constructor(message = "A cryptographic operation failed.", options: CryptoErrorOptions = {}) {
+  constructor(
+    message = "A cryptographic operation failed.",
+    options: CryptoErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.CRYPTO,
@@ -49,8 +52,12 @@ export class CryptoError extends BaseError {
       isOperational: options.isOperational ?? true,
       metadata: {
         ...options.metadata,
-        ...(options.operation !== undefined ? { operation: options.operation } : {}),
-        ...(options.algorithm !== undefined ? { algorithm: options.algorithm } : {}),
+        ...(options.operation !== undefined
+          ? { operation: options.operation }
+          : {}),
+        ...(options.algorithm !== undefined
+          ? { algorithm: options.algorithm }
+          : {}),
       },
     });
     this.operation = options.operation ?? CryptoOperation.UNKNOWN;

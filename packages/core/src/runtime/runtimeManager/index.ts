@@ -5,22 +5,13 @@
  * runtime state and delegates to bootstrap/shutdown services.
  */
 
-export {
-  DefaultRuntimeManager,
-} from "./runtimeManager.core.js";
+export { DefaultRuntimeManager } from "./runtimeManager.core.js";
 
-export {
-  RuntimeManagerError,
-} from "./runtimeManager.error.js";
+export { RuntimeManagerError } from "./runtimeManager.error.js";
 
-export {
-  createRuntimeManager,
-} from "./runtimeManager.factory.js";
+export { createRuntimeManager } from "./runtimeManager.factory.js";
 
-export {
-  performStart,
-  performStop,
-} from "./runtimeManager.lifecycle.js";
+export { performStart, performStop } from "./runtimeManager.lifecycle.js";
 
 export type {
   RuntimeManagerDependencies,

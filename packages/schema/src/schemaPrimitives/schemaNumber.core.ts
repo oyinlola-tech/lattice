@@ -219,7 +219,9 @@ export class NumberSchema extends Schema<number> {
   }
 
   /** Transforms the number value. */
-  public transform<TOutput>(fn: (value: number) => TOutput): TransformSchema<number, TOutput> {
+  public transform<TOutput>(
+    fn: (value: number) => TOutput,
+  ): TransformSchema<number, TOutput> {
     return new TransformSchema(this, fn);
   }
 }

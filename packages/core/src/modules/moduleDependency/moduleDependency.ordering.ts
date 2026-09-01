@@ -1,14 +1,8 @@
-import type {
-  ModuleId,
-} from "../module.js";
+import type { ModuleId } from "../module.js";
 
-import type {
-  ModuleDependencyGraph,
-} from "./moduleDependency.type.js";
+import type { ModuleDependencyGraph } from "./moduleDependency.type.js";
 
-import {
-  validateModuleDependencyGraph,
-} from "./moduleDependency.graph.js";
+import { validateModuleDependencyGraph } from "./moduleDependency.graph.js";
 
 /**
  * Detects circular dependencies in a module graph.
@@ -17,70 +11,38 @@ import {
  */
 export function findModuleDependencyCycle(
   graph: ModuleDependencyGraph,
-):
-  | readonly ModuleId[]
-  | undefined {
-  const visiting =
-    new Set<ModuleId>();
+): readonly ModuleId[] | undefined {
+  const visiting = new Set<ModuleId>();
 
-  const visited =
-    new Set<ModuleId>();
+  const visited = new Set<ModuleId>();
 
-  const path: ModuleId[] =
-    [];
+  const path: ModuleId[] = [];
 
-  const visit = (
-    moduleId: ModuleId,
-  ):
-    | readonly ModuleId[]
-    | undefined => {
+  const visit = (moduleId: ModuleId): readonly ModuleId[] | undefined => {
     if (visiting.has(moduleId)) {
-      const index =
-        path.indexOf(
-          moduleId,
-        );
+      const index = path.indexOf(moduleId);
 
       if (index >= 0) {
-        return [
-          ...path.slice(index),
-          moduleId,
-        ];
+        return [...path.slice(index), moduleId];
       }
 
-      return [
-        moduleId,
-      ];
+      return [moduleId];
     }
 
     if (visited.has(moduleId)) {
       return undefined;
     }
 
-    visiting.add(
-      moduleId,
-    );
+    visiting.add(moduleId);
 
-    path.push(
-      moduleId,
-    );
+    path.push(moduleId);
 
-    for (
-      const dependency of graph.getDependencies(
-        moduleId,
-      )
-    ) {
-      if (
-        !graph.hasModule(
-          dependency.id,
-        )
-      ) {
+    for (const dependency of graph.getDependencies(moduleId)) {
+      if (!graph.hasModule(dependency.id)) {
         continue;
       }
 
-      const cycle =
-        visit(
-          dependency.id,
-        );
+      const cycle = visit(dependency.id);
 
       if (cycle) {
         return cycle;
@@ -88,21 +50,14 @@ export function findModuleDependencyCycle(
     }
 
     path.pop();
-    visiting.delete(
-      moduleId,
-    );
-    visited.add(
-      moduleId,
-    );
+    visiting.delete(moduleId);
+    visited.add(moduleId);
 
     return undefined;
   };
 
-  for (
-    const moduleId of graph.nodes.keys()
-  ) {
-    const cycle =
-      visit(moduleId);
+  for (const moduleId of graph.nodes.keys()) {
+    const cycle = visit(moduleId);
 
     if (cycle) {
       return cycle;
@@ -118,11 +73,7 @@ export function findModuleDependencyCycle(
 export function hasModuleDependencyCycle(
   graph: ModuleDependencyGraph,
 ): boolean {
-  return (
-    findModuleDependencyCycle(
-      graph,
-    ) !== undefined
-  );
+  return findModuleDependencyCycle(graph) !== undefined;
 }
 
 /**
@@ -145,10 +96,7 @@ export function hasModuleDependencyCycle(
 export function resolveModuleStartupOrder(
   graph: ModuleDependencyGraph,
 ): readonly ModuleId[] {
-  const missing =
-    validateModuleDependencyGraph(
-      graph,
-    );
+  const missing = validateModuleDependencyGraph(graph);
 
   if (missing.length > 0) {
     throw new Error(
@@ -156,10 +104,7 @@ export function resolveModuleStartupOrder(
     );
   }
 
-  const cycle =
-    findModuleDependencyCycle(
-      graph,
-    );
+  const cycle = findModuleDependencyCycle(graph);
 
   if (cycle) {
     throw new Error(
@@ -167,74 +112,43 @@ export function resolveModuleStartupOrder(
     );
   }
 
-  const temporary =
-    new Set<ModuleId>();
+  const temporary = new Set<ModuleId>();
 
-  const permanent =
-    new Set<ModuleId>();
+  const permanent = new Set<ModuleId>();
 
-  const order: ModuleId[] =
-    [];
+  const order: ModuleId[] = [];
 
-  const visit = (
-    moduleId: ModuleId,
-  ): void => {
-    if (
-      permanent.has(moduleId)
-    ) {
+  const visit = (moduleId: ModuleId): void => {
+    if (permanent.has(moduleId)) {
       return;
     }
 
-    if (
-      temporary.has(moduleId)
-    ) {
+    if (temporary.has(moduleId)) {
       throw new Error(
         `Circular module dependency detected involving "${moduleId}".`,
       );
     }
 
-    temporary.add(
-      moduleId,
-    );
+    temporary.add(moduleId);
 
-    for (
-      const dependency of graph.getDependencies(
-        moduleId,
-      )
-    ) {
-      if (
-        graph.hasModule(
-          dependency.id,
-        )
-      ) {
-        visit(
-          dependency.id,
-        );
+    for (const dependency of graph.getDependencies(moduleId)) {
+      if (graph.hasModule(dependency.id)) {
+        visit(dependency.id);
       }
     }
 
-    temporary.delete(
-      moduleId,
-    );
+    temporary.delete(moduleId);
 
-    permanent.add(
-      moduleId,
-    );
+    permanent.add(moduleId);
 
-    order.push(
-      moduleId,
-    );
+    order.push(moduleId);
   };
 
-  for (
-    const moduleId of graph.nodes.keys()
-  ) {
+  for (const moduleId of graph.nodes.keys()) {
     visit(moduleId);
   }
 
-  return Object.freeze(
-    order,
-  );
+  return Object.freeze(order);
 }
 
 /**
@@ -246,9 +160,5 @@ export function resolveModuleStartupOrder(
 export function resolveModuleShutdownOrder(
   graph: ModuleDependencyGraph,
 ): readonly ModuleId[] {
-  return Object.freeze([
-    ...resolveModuleStartupOrder(
-      graph,
-    ),
-  ].reverse());
+  return Object.freeze([...resolveModuleStartupOrder(graph)].reverse());
 }

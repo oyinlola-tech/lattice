@@ -1,11 +1,19 @@
-import type { DeriveKeyOptions, CryptoInput, KeyDerivationAlgorithm } from "../../../cryptoProvider/index.js";
+import type {
+  DeriveKeyOptions,
+  CryptoInput,
+  KeyDerivationAlgorithm,
+} from "../../../cryptoProvider/index.js";
 import { pbkdf2, scrypt, randomBytes, timingSafeEqual } from "node:crypto";
-import { toBytes, toBase64Url, fromBase64Url } from "../nodeCryptoProvider.helper.js";
 import {
-  cryptoKeyDerivationError,
-} from "@oyinlola141/lattice-errors";
+  toBytes,
+  toBase64Url,
+  fromBase64Url,
+} from "../nodeCryptoProvider.helper.js";
+import { cryptoKeyDerivationError } from "@oyinlola141/lattice-errors";
 
-export async function deriveKey(options: DeriveKeyOptions): Promise<Uint8Array> {
+export async function deriveKey(
+  options: DeriveKeyOptions,
+): Promise<Uint8Array> {
   const password = toBytes(options.password);
   const salt = options.salt;
 
@@ -21,7 +29,9 @@ export async function deriveKey(options: DeriveKeyOptions): Promise<Uint8Array> 
           "sha256",
           (err, derived) => {
             if (err) {
-              reject(cryptoKeyDerivationError("Key derivation failed.", "pbkdf2"));
+              reject(
+                cryptoKeyDerivationError("Key derivation failed.", "pbkdf2"),
+              );
             } else {
               resolve(new Uint8Array(derived));
             }
@@ -44,7 +54,9 @@ export async function deriveKey(options: DeriveKeyOptions): Promise<Uint8Array> 
           },
           (err, derived) => {
             if (err) {
-              reject(cryptoKeyDerivationError("Key derivation failed.", "scrypt"));
+              reject(
+                cryptoKeyDerivationError("Key derivation failed.", "scrypt"),
+              );
             } else {
               resolve(new Uint8Array(derived));
             }

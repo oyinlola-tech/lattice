@@ -160,10 +160,7 @@ export function generateSimpleHeaders(
  * @param config - CORS configuration.
  * @returns True if the method is allowed.
  */
-export function isMethodAllowed(
-  method: string,
-  config: CorsConfig,
-): boolean {
+export function isMethodAllowed(method: string, config: CorsConfig): boolean {
   const allowedMethods = config.methods ?? DEFAULT_CORS_CONFIG.methods;
   return allowedMethods.includes(method.toUpperCase());
 }

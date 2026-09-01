@@ -14,26 +14,11 @@ import { resolveRange } from "./httpHeaders.rangeResolution.js";
  * @param size - The total size in bytes.
  * @returns The formatted Content-Range header value (e.g. `"bytes 0-499/1234"`).
  */
-export function formatContentRange(
-  range:
-    | ByteRange,
-  size:
-    | number,
-):
-  | string {
-  const resolved =
-    resolveRange(
-      range,
-      size,
-    );
+export function formatContentRange(range: ByteRange, size: number): string {
+  const resolved = resolveRange(range, size);
 
-  if (
-    !resolved
-  ) {
-    return "bytes */" +
-      String(
-        size,
-      );
+  if (!resolved) {
+    return "bytes */" + String(size);
   }
 
   return `bytes ${resolved.start}-${resolved.end}/${size}`;

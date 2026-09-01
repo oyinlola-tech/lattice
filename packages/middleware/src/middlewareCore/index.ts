@@ -4,4 +4,8 @@
  * @module middlewareCore
  */
 
-export { compose, resolveMiddleware, withTiming } from "./middlewareCore.compose.js";
+export {
+  compose,
+  resolveMiddleware,
+  withTiming,
+} from "./middlewareCore.compose.js";

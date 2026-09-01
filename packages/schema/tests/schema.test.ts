@@ -297,7 +297,10 @@ describe("ObjectSchema", () => {
       name: stringSchema(),
       age: numberSchema(),
     });
-    expect(s.parse({ name: "John", age: 30 })).toEqual({ name: "John", age: 30 });
+    expect(s.parse({ name: "John", age: 30 })).toEqual({
+      name: "John",
+      age: 30,
+    });
   });
 
   it("rejects non-objects", () => {
@@ -316,7 +319,9 @@ describe("ObjectSchema", () => {
         name: stringSchema(),
       }),
     });
-    expect(s.parse({ user: { name: "John" } })).toEqual({ user: { name: "John" } });
+    expect(s.parse({ user: { name: "John" } })).toEqual({
+      user: { name: "John" },
+    });
   });
 
   it("strips unknown keys by default", () => {
@@ -348,7 +353,9 @@ describe("ObjectSchema", () => {
       password: stringSchema(),
     });
     const omitted = s.omit(["password"]);
-    expect(omitted.parse({ name: "John", password: "secret" })).toEqual({ name: "John" });
+    expect(omitted.parse({ name: "John", password: "secret" })).toEqual({
+      name: "John",
+    });
   });
 
   it("supports partial", () => {
@@ -364,12 +371,17 @@ describe("ObjectSchema", () => {
   it("supports extend", () => {
     const base = objectSchema({ name: stringSchema() });
     const extended = base.extend(objectSchema({ age: numberSchema() }));
-    expect(extended.parse({ name: "John", age: 30 })).toEqual({ name: "John", age: 30 });
+    expect(extended.parse({ name: "John", age: 30 })).toEqual({
+      name: "John",
+      age: 30,
+    });
   });
 
   it("rejects prototype pollution keys", () => {
     const s = objectSchema({ name: stringSchema() });
-    expect(() => s.parse({ constructor: { prototype: { admin: true } } })).toThrow();
+    expect(() =>
+      s.parse({ constructor: { prototype: { admin: true } } }),
+    ).toThrow();
   });
 });
 
@@ -449,7 +461,9 @@ describe("RecordSchema", () => {
 
   it("rejects prototype pollution keys", () => {
     const s = recordSchema(numberSchema());
-    expect(() => s.parse({ constructor: { prototype: { admin: true } } })).toThrow();
+    expect(() =>
+      s.parse({ constructor: { prototype: { admin: true } } }),
+    ).toThrow();
   });
 });
 
@@ -510,7 +524,10 @@ describe("IntersectionSchema", () => {
     const a = objectSchema({ name: stringSchema() });
     const b = objectSchema({ age: numberSchema() });
     const s = intersectionSchema(a, b);
-    expect(s.parse({ name: "John", age: 30 })).toEqual({ name: "John", age: 30 });
+    expect(s.parse({ name: "John", age: 30 })).toEqual({
+      name: "John",
+      age: 30,
+    });
   });
 });
 
@@ -583,12 +600,20 @@ describe("DefaultSchema", () => {
 
 describe("RefineSchema", () => {
   it("passes when refinement succeeds", () => {
-    const s = refineSchema(stringSchema(), (v) => v.startsWith("USR_"), "Must start with USR_");
+    const s = refineSchema(
+      stringSchema(),
+      (v) => v.startsWith("USR_"),
+      "Must start with USR_",
+    );
     expect(s.parse("USR_123")).toBe("USR_123");
   });
 
   it("fails when refinement fails", () => {
-    const s = refineSchema(stringSchema(), (v) => v.startsWith("USR_"), "Must start with USR_");
+    const s = refineSchema(
+      stringSchema(),
+      (v) => v.startsWith("USR_"),
+      "Must start with USR_",
+    );
     expect(() => s.parse("INVALID")).toThrow();
   });
 });
@@ -799,10 +824,7 @@ describe("Error handling", () => {
       age: numberSchema(),
     });
 
-    const result = s.safeParse(
-      { name: 123, age: "bad" },
-      { abortEarly: true },
-    );
+    const result = s.safeParse({ name: 123, age: "bad" }, { abortEarly: true });
 
     expect(result.success).toBe(false);
     if (!result.success) {

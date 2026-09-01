@@ -17,10 +17,7 @@ export interface RouteTreeNode {
 }
 
 export type RouteTreeNodeType =
-  | "static"
-  | "parameter"
-  | "wildcard"
-  | "optional";
+  "static" | "parameter" | "wildcard" | "optional";
 
 export interface RouteTreeOptions {
   readonly caseSensitive?: boolean;

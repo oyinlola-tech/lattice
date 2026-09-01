@@ -72,9 +72,10 @@ export function calculateRetryDelay(
 ): number {
   const base = retry.retryDelay ?? 1000;
   const max = retry.maxRetryDelay ?? 30_000;
-  const ms = retry.backoff === "fixed"
-    ? base
-    : Math.min(base * Math.pow(2, attempt), max);
+  const ms =
+    retry.backoff === "fixed"
+      ? base
+      : Math.min(base * Math.pow(2, attempt), max);
   return ms + Math.random() * 1000;
 }
 

@@ -2,11 +2,7 @@
  * Readiness state of the runtime.
  */
 export type ReadinessState =
-  | "not_ready"
-  | "initializing"
-  | "ready"
-  | "degraded"
-  | "shutting_down";
+  "not_ready" | "initializing" | "ready" | "degraded" | "shutting_down";
 
 /**
  * Readiness check result.

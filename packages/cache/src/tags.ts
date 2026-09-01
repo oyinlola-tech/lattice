@@ -27,16 +27,10 @@ import type {
  */
 export class InMemoryTagStore implements CacheTagStore {
   /** Tag → Set of keys */
-  private readonly tagToKeys = new Map<
-    CacheTag,
-    Set<CacheKey>
-  >();
+  private readonly tagToKeys = new Map<CacheTag, Set<CacheKey>>();
 
   /** Key → Set of tags */
-  private readonly keyToTags = new Map<
-    CacheKey,
-    Set<CacheTag>
-  >();
+  private readonly keyToTags = new Map<CacheKey, Set<CacheTag>>();
 
   /* ---- Add Tags ---- */
 

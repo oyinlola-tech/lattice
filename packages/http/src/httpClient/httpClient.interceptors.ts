@@ -10,9 +10,7 @@ import type {
   HttpErrorInterceptor,
 } from "./httpClient.type.js";
 
-import {
-  removeInterceptor,
-} from "./httpClient.helpers.js";
+import { removeInterceptor } from "./httpClient.helpers.js";
 
 export function addRequestInterceptor(
   list: HttpRequestInterceptor[],

@@ -6,7 +6,10 @@ import { NotFoundError, ForbiddenError } from "../../../../errors/index.js";
 import { ArticleStatus } from "../../../../enums/index.js";
 import { ArticlePublishedEvent } from "../../../../events/index.js";
 
-export class PublishArticleHandler extends CommandHandler<PublishArticleCommand, void> {
+export class PublishArticleHandler extends CommandHandler<
+  PublishArticleCommand,
+  void
+> {
   public readonly commandType = "articles.publish" as const;
 
   private readonly articles: ArticleRepository;

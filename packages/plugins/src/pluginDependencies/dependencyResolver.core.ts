@@ -1,5 +1,8 @@
 import type { PluginDependency } from "../pluginTypes/pluginDependency.type.js";
-import { PluginDependencyCycleError, PluginDependencyError } from "@oyinlola141/lattice-errors";
+import {
+  PluginDependencyCycleError,
+  PluginDependencyError,
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Result of dependency resolution.
@@ -20,7 +23,13 @@ export class DependencyResolver {
    * Resolves dependencies for the given plugins.
    */
   public resolve(
-    plugins: Map<string, { readonly dependencies?: readonly PluginDependency[]; readonly optionalDependencies?: readonly PluginDependency[] }>,
+    plugins: Map<
+      string,
+      {
+        readonly dependencies?: readonly PluginDependency[];
+        readonly optionalDependencies?: readonly PluginDependency[];
+      }
+    >,
   ): DependencyResolution {
     const missing: string[] = [];
     const cycles: string[] = [];
@@ -54,12 +63,22 @@ export class DependencyResolver {
       return { ordered: [], missing, cycles };
     }
 
-    return { ordered: Object.freeze(order), missing, cycles: Object.freeze(cycles) };
+    return {
+      ordered: Object.freeze(order),
+      missing,
+      cycles: Object.freeze(cycles),
+    };
   }
 
   private dfs(
     name: string,
-    plugins: Map<string, { readonly dependencies?: readonly PluginDependency[]; readonly optionalDependencies?: readonly PluginDependency[] }>,
+    plugins: Map<
+      string,
+      {
+        readonly dependencies?: readonly PluginDependency[];
+        readonly optionalDependencies?: readonly PluginDependency[];
+      }
+    >,
     visited: Set<string>,
     visiting: Set<string>,
     order: string[],

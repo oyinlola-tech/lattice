@@ -14,7 +14,8 @@ export enum LogLevel {
 }
 
 /** Human-readable log level name. */
-export type LogLevelName = "trace" | "debug" | "info" | "warn" | "error" | "fatal" | "off";
+export type LogLevelName =
+  "trace" | "debug" | "info" | "warn" | "error" | "fatal" | "off";
 
 /** A structured log record produced by a logger. */
 export interface LogRecord {

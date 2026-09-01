@@ -1,6 +1,9 @@
 import type { ValidationConstraint } from "./validationConstraints.base.js";
 
-import { createConstraint, assertNonNegativeInteger } from "./validationConstraints.base.js";
+import {
+  createConstraint,
+  assertNonNegativeInteger,
+} from "./validationConstraints.base.js";
 
 /**
  * Requires a string to be non-empty after trimming.
@@ -20,14 +23,11 @@ export const nonEmptyString = createConstraint<string>(
 export function minLength(minimum: number): ValidationConstraint<string> {
   assertNonNegativeInteger(minimum, "minimum");
 
-  return createConstraint(
-    (value) => value.length >= minimum,
-    {
-      name: `min_length_${minimum}`,
-      code: "min_length",
-      message: `Value must contain at least ${minimum} characters.`,
-    },
-  );
+  return createConstraint((value) => value.length >= minimum, {
+    name: `min_length_${minimum}`,
+    code: "min_length",
+    message: `Value must contain at least ${minimum} characters.`,
+  });
 }
 
 /**
@@ -36,14 +36,11 @@ export function minLength(minimum: number): ValidationConstraint<string> {
 export function maxLength(maximum: number): ValidationConstraint<string> {
   assertNonNegativeInteger(maximum, "maximum");
 
-  return createConstraint(
-    (value) => value.length <= maximum,
-    {
-      name: `max_length_${maximum}`,
-      code: "max_length",
-      message: `Value must contain at most ${maximum} characters.`,
-    },
-  );
+  return createConstraint((value) => value.length <= maximum, {
+    name: `max_length_${maximum}`,
+    code: "max_length",
+    message: `Value must contain at most ${maximum} characters.`,
+  });
 }
 
 /**
@@ -77,14 +74,11 @@ export function matches(
   pattern: RegExp,
   message = "Value has an invalid format.",
 ): ValidationConstraint<string> {
-  return createConstraint(
-    (value) => pattern.test(value),
-    {
-      name: "matches",
-      code: "invalid_format",
-      message,
-    },
-  );
+  return createConstraint((value) => pattern.test(value), {
+    name: "matches",
+    code: "invalid_format",
+    message,
+  });
 }
 
 /**
@@ -104,7 +98,9 @@ export const email = createConstraint<string>(
  */
 export const uuid = createConstraint<string>(
   (value) =>
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu.test(value),
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu.test(
+      value,
+    ),
   {
     name: "uuid",
     code: "invalid_uuid",

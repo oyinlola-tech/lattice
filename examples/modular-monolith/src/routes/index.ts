@@ -11,7 +11,10 @@ export interface Route {
   readonly handler: (body: any, params: any, query?: any) => Promise<unknown>;
 }
 
-export function createAllRoutes(commandBus: CommandBus, queryBus: QueryBus): readonly Route[] {
+export function createAllRoutes(
+  commandBus: CommandBus,
+  queryBus: QueryBus,
+): readonly Route[] {
   return [
     ...createUserRoutes(commandBus, queryBus),
     ...createArticleRoutes(commandBus, queryBus),

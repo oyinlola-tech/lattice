@@ -21,10 +21,7 @@ export class RouteRegistryGroup {
     this.options = options;
   }
 
-  createGroup(
-    name: string,
-    options: RouteRegistryOptions = {},
-  ): RouteRegistry {
+  createGroup(name: string, options: RouteRegistryOptions = {}): RouteRegistry {
     const mergedOptions = { ...this.options, ...options };
     const registry = new RouteRegistry(mergedOptions);
     this.registries.set(name, registry);
@@ -49,7 +46,10 @@ export class RouteRegistryGroup {
     registry.register(path, method, handler, options);
   }
 
-  lookup(path: string, options: RouteLookupOptions = {}): RouteRegistryEntry | undefined {
+  lookup(
+    path: string,
+    options: RouteLookupOptions = {},
+  ): RouteRegistryEntry | undefined {
     for (const registry of this.registries.values()) {
       const entry = registry.lookup(path, options);
       if (entry) {
@@ -59,7 +59,10 @@ export class RouteRegistryGroup {
     return undefined;
   }
 
-  findAll(path: string, options: RouteLookupOptions = {}): readonly RouteRegistryEntry[] {
+  findAll(
+    path: string,
+    options: RouteLookupOptions = {},
+  ): readonly RouteRegistryEntry[] {
     const results: RouteRegistryEntry[] = [];
     for (const registry of this.registries.values()) {
       results.push(...registry.findAll(path, options));

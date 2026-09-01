@@ -4,10 +4,7 @@ import { encode } from "../cryptoEncoding/cryptoEncoding.core.js";
 
 import type { CryptoProvider } from "../cryptoProvider/index.js";
 
-import type {
-  CryptoKey,
-  CryptoKeyOptions,
-} from "./cryptoKey.type.js";
+import type { CryptoKey, CryptoKeyOptions } from "./cryptoKey.type.js";
 
 let defaultProvider: CryptoProvider | undefined;
 
@@ -19,8 +16,7 @@ let defaultProvider: CryptoProvider | undefined;
  */
 function getDefaultProvider(): CryptoProvider {
   if (defaultProvider === undefined) {
-    defaultProvider =
-      createNodeCryptoProvider();
+    defaultProvider = createNodeCryptoProvider();
   }
 
   return defaultProvider;
@@ -36,50 +32,31 @@ export async function createCryptoKey(
   options: CryptoKeyOptions,
   provider: CryptoProvider = getDefaultProvider(),
 ): Promise<CryptoKey> {
-  if (
-    bytes.byteLength === 0
-  ) {
-    throw new TypeError(
-      "Cryptographic key cannot be empty.",
-    );
+  if (bytes.byteLength === 0) {
+    throw new TypeError("Cryptographic key cannot be empty.");
   }
 
-  const keyBytes =
-    new Uint8Array(bytes);
+  const keyBytes = new Uint8Array(bytes);
 
-  const digest =
-    await provider.hash("sha256", keyBytes);
+  const digest = await provider.hash("sha256", keyBytes);
 
-  const fingerprint =
-    encode(digest, "hex");
+  const fingerprint = encode(digest, "hex");
 
-  const createdAt =
-    Date.now();
+  const createdAt = Date.now();
 
-  const keyId =
-    options.keyId ??
-    `key_${await generateKeyId(provider)}`;
+  const keyId = options.keyId ?? `key_${await generateKeyId(provider)}`;
 
-  const usages = Object.freeze([
-    ...(options.usages ?? []),
-  ]);
+  const usages = Object.freeze([...(options.usages ?? [])]);
 
   return Object.freeze({
-    algorithm:
-      options.algorithm,
+    algorithm: options.algorithm,
     keyId,
     usages,
-    extractable:
-      options.extractable ??
-      false,
+    extractable: options.extractable ?? false,
     createdAt,
-    length:
-      keyBytes.byteLength * 8,
+    length: keyBytes.byteLength * 8,
     fingerprint,
-    bytes: () =>
-      new Uint8Array(
-        keyBytes,
-      ),
+    bytes: () => new Uint8Array(keyBytes),
   });
 }
 
@@ -93,23 +70,15 @@ export async function generateCryptoKey(
   options: CryptoKeyOptions,
   provider: CryptoProvider = getDefaultProvider(),
 ): Promise<CryptoKey> {
-  if (
-    !Number.isInteger(length) ||
-    length <= 0
-  ) {
+  if (!Number.isInteger(length) || length <= 0) {
     throw new RangeError(
       "Cryptographic key length must be a positive integer.",
     );
   }
 
-  const bytes =
-    await provider.randomBytes(length);
+  const bytes = await provider.randomBytes(length);
 
-  return createCryptoKey(
-    bytes,
-    options,
-    provider,
-  );
+  return createCryptoKey(bytes, options, provider);
 }
 
 /**
@@ -117,15 +86,9 @@ export async function generateCryptoKey(
  *
  * This operation is only permitted for extractable keys.
  */
-export function exportCryptoKey(
-  key: CryptoKey,
-): Uint8Array {
-  if (
-    !key.extractable
-  ) {
-    throw new Error(
-      `Cryptographic key "${key.keyId}" is not extractable.`,
-    );
+export function exportCryptoKey(key: CryptoKey): Uint8Array {
+  if (!key.extractable) {
+    throw new Error(`Cryptographic key "${key.keyId}" is not extractable.`);
   }
 
   return key.bytes();
@@ -134,11 +97,8 @@ export function exportCryptoKey(
 /**
  * Generates a hex-encoded random identifier for a key.
  */
-async function generateKeyId(
-  provider: CryptoProvider,
-): Promise<string> {
-  const idBytes =
-    await provider.randomBytes(16);
+async function generateKeyId(provider: CryptoProvider): Promise<string> {
+  const idBytes = await provider.randomBytes(16);
 
   return encode(idBytes, "hex");
 }

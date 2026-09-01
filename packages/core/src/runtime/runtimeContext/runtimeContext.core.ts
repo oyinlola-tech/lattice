@@ -1,6 +1,15 @@
-import { RuntimeState, createRuntimeStateSnapshot } from "../runtimeState.state.js";
+import {
+  RuntimeState,
+  createRuntimeStateSnapshot,
+} from "../runtimeState.state.js";
 import type { RuntimeStateSnapshot } from "../runtimeState.state.js";
-import type { RuntimeIdentity, RuntimeTiming, RuntimeContextDependencies, RuntimeContext, RuntimeContextState } from "./runtimeContext.type.js";
+import type {
+  RuntimeIdentity,
+  RuntimeTiming,
+  RuntimeContextDependencies,
+  RuntimeContext,
+  RuntimeContextState,
+} from "./runtimeContext.type.js";
 import type { ApplicationContext } from "../../application/applicationContext.context.js";
 import type { ConfigurationManager } from "../../configuration/configurationManager.manager.js";
 import type { Logger } from "../../logging/core/logger.js";
@@ -32,19 +41,42 @@ export class DefaultRuntimeContext implements RuntimeContext {
     this._moduleRegistry = dependencies.moduleRegistry;
     this._moduleLoader = dependencies.moduleLoader;
     this._moduleLifecycle = dependencies.moduleLifecycle;
-    this._state = { state: RuntimeState.CREATED, timing: { createdAt: identity.createdAt } };
+    this._state = {
+      state: RuntimeState.CREATED,
+      timing: { createdAt: identity.createdAt },
+    };
   }
 
-  public get identity(): RuntimeIdentity { return this._identity; }
-  public get state(): RuntimeState { return this._state.state; }
-  public get timing(): RuntimeTiming { return Object.freeze({ ...this._state.timing }); }
-  public get metadata(): Readonly<Record<string, unknown>> { return this._metadata; }
-  public get application(): ApplicationContext { return this._application; }
-  public get configuration(): ConfigurationManager { return this._configuration; }
-  public get logger(): Logger { return this._logger; }
-  public get moduleRegistry(): ModuleRegistry { return this._moduleRegistry; }
-  public get moduleLoader(): ModuleLoader { return this._moduleLoader; }
-  public get moduleLifecycle(): ModuleLifecycleManager { return this._moduleLifecycle; }
+  public get identity(): RuntimeIdentity {
+    return this._identity;
+  }
+  public get state(): RuntimeState {
+    return this._state.state;
+  }
+  public get timing(): RuntimeTiming {
+    return Object.freeze({ ...this._state.timing });
+  }
+  public get metadata(): Readonly<Record<string, unknown>> {
+    return this._metadata;
+  }
+  public get application(): ApplicationContext {
+    return this._application;
+  }
+  public get configuration(): ConfigurationManager {
+    return this._configuration;
+  }
+  public get logger(): Logger {
+    return this._logger;
+  }
+  public get moduleRegistry(): ModuleRegistry {
+    return this._moduleRegistry;
+  }
+  public get moduleLoader(): ModuleLoader {
+    return this._moduleLoader;
+  }
+  public get moduleLifecycle(): ModuleLifecycleManager {
+    return this._moduleLifecycle;
+  }
 
   public getStateSnapshot(): RuntimeStateSnapshot {
     return createRuntimeStateSnapshot(this._state.state);
@@ -73,13 +105,19 @@ export class DefaultRuntimeContext implements RuntimeContext {
 
     switch (state) {
       case RuntimeState.BOOTSTRAPPING:
-        this._state.timing = { ...t, startupStartedAt: t.startupStartedAt ?? now };
+        this._state.timing = {
+          ...t,
+          startupStartedAt: t.startupStartedAt ?? now,
+        };
         break;
       case RuntimeState.READY:
         this._state.timing = { ...t, readyAt: t.readyAt ?? now };
         break;
       case RuntimeState.STOPPING:
-        this._state.timing = { ...t, shutdownStartedAt: t.shutdownStartedAt ?? now };
+        this._state.timing = {
+          ...t,
+          shutdownStartedAt: t.shutdownStartedAt ?? now,
+        };
         break;
       case RuntimeState.STOPPED:
         this._state.timing = { ...t, stoppedAt: t.stoppedAt ?? now };

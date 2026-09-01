@@ -4,12 +4,6 @@
  * @module rule
  */
 
-export {
-  ruleMatches,
-  evaluateRules,
-} from "./rule.core.js";
+export { ruleMatches, evaluateRules } from "./rule.core.js";
 
-export {
-  compileRules,
-  findMatchingRules,
-} from "./ruleCompiler.js";
+export { compileRules, findMatchingRules } from "./ruleCompiler.js";

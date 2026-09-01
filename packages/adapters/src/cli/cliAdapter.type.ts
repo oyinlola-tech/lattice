@@ -11,7 +11,11 @@ import type { Adapter, AdapterCapabilities } from "../index.js";
  */
 export interface CLIAdapter extends Adapter {
   /** Runs a CLI command. */
-  run(command: string, args?: readonly string[], options?: CLIOptions): Promise<CLIResult>;
+  run(
+    command: string,
+    args?: readonly string[],
+    options?: CLIOptions,
+  ): Promise<CLIResult>;
 }
 
 /**

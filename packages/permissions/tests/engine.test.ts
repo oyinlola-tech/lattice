@@ -54,7 +54,9 @@ describe("createPermissionEngine", () => {
 
   describe("authorize", () => {
     it("does not throw when allowed", async () => {
-      await expect(engine.authorize(admin, "post:read")).resolves.toBeUndefined();
+      await expect(
+        engine.authorize(admin, "post:read"),
+      ).resolves.toBeUndefined();
     });
 
     it("throws when denied", async () => {
@@ -108,14 +110,18 @@ describe("createPermissionEngine", () => {
             name: "owner-only",
             permissions: ["post:update"],
             evaluate: (ctx) => ({
-              allowed: ctx.actor.id === (ctx.resource as Record<string, unknown>)?.authorId,
+              allowed:
+                ctx.actor.id ===
+                (ctx.resource as Record<string, unknown>)?.authorId,
             }),
           },
         ],
       });
 
       const post = { authorId: "editor_1" };
-      expect(await engineWithPolicy.can(editor, "post:update", post)).toBe(true);
+      expect(await engineWithPolicy.can(editor, "post:update", post)).toBe(
+        true,
+      );
     });
 
     it("denies when policy returns deny", async () => {
@@ -126,14 +132,18 @@ describe("createPermissionEngine", () => {
             name: "owner-only",
             permissions: ["post:update"],
             evaluate: (ctx) => ({
-              allowed: ctx.actor.id === (ctx.resource as Record<string, unknown>)?.authorId,
+              allowed:
+                ctx.actor.id ===
+                (ctx.resource as Record<string, unknown>)?.authorId,
             }),
           },
         ],
       });
 
       const post = { authorId: "other_user" };
-      expect(await engineWithPolicy.can(editor, "post:update", post)).toBe(false);
+      expect(await engineWithPolicy.can(editor, "post:update", post)).toBe(
+        false,
+      );
     });
   });
 });

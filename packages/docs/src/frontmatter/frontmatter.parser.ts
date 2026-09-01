@@ -5,7 +5,10 @@
  * and extracts metadata alongside the remaining content.
  */
 
-import type { ParsedFrontmatter, FrontmatterMetadata } from "./frontmatter.types.js";
+import type {
+  ParsedFrontmatter,
+  FrontmatterMetadata,
+} from "./frontmatter.types.js";
 
 const FRONTMATTER_DELIMITER = "---";
 
@@ -15,9 +18,7 @@ const FRONTMATTER_DELIMITER = "---";
  * Expects content to begin with `---`, followed by key-value pairs,
  * followed by another `---`.
  */
-export function parseFrontmatter(
-  raw: string,
-): ParsedFrontmatter {
+export function parseFrontmatter(raw: string): ParsedFrontmatter {
   const trimmed = raw.trimStart();
 
   if (!trimmed.startsWith(FRONTMATTER_DELIMITER)) {

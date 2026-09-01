@@ -9,8 +9,7 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating a queue error. */
-export interface QueueErrorOptions
-  extends Omit<BaseErrorOptions, "category"> {
+export interface QueueErrorOptions extends Omit<BaseErrorOptions, "category"> {
   readonly category?: ErrorCategory;
   readonly queueName?: string;
   readonly jobId?: string;
@@ -21,10 +20,7 @@ export class QueueError extends BaseError {
   public readonly queueName?: string;
   public readonly jobId?: string;
 
-  constructor(
-    message: string,
-    options: QueueErrorOptions = {},
-  ) {
+  constructor(message: string, options: QueueErrorOptions = {}) {
     super(message, {
       code: options.code ?? ErrorCode.QUEUE_ERROR,
       category: options.category ?? ErrorCategory.QUEUE,
@@ -40,9 +36,7 @@ export class QueueError extends BaseError {
 }
 
 /** Check if an error is a QueueError. */
-export function isQueueError(
-  error: unknown,
-): error is QueueError {
+export function isQueueError(error: unknown): error is QueueError {
   return error instanceof QueueError;
 }
 
@@ -54,8 +48,7 @@ export function toQueueError(
   if (error instanceof QueueError) {
     return error;
   }
-  const message =
-    error instanceof Error ? error.message : String(error);
+  const message = error instanceof Error ? error.message : String(error);
   return new QueueError(message, {
     cause: error,
     ...options,

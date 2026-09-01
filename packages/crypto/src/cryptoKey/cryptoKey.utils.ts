@@ -6,25 +6,17 @@ import type { CryptoKey } from "./cryptoKey.type.js";
  * The fingerprint can be used for identification without exposing
  * the secret key material.
  */
-export function getCryptoKeyFingerprint(
-  key: CryptoKey,
-): string {
+export function getCryptoKeyFingerprint(key: CryptoKey): string {
   return key.fingerprint;
 }
 
 /**
  * Compares two cryptographic keys by identity.
  */
-export function cryptoKeysEqual(
-  left: CryptoKey,
-  right: CryptoKey,
-): boolean {
+export function cryptoKeysEqual(left: CryptoKey, right: CryptoKey): boolean {
   return (
-    left.keyId ===
-      right.keyId &&
-    left.fingerprint ===
-      right.fingerprint &&
-    left.algorithm ===
-      right.algorithm
+    left.keyId === right.keyId &&
+    left.fingerprint === right.fingerprint &&
+    left.algorithm === right.algorithm
   );
 }

@@ -4,4 +4,4 @@
  * Built-in CQRS middleware: timing, error handling, validation, and composition.
  */
 
-export * from './cqrsMiddleware.core.js';
+export * from "./cqrsMiddleware.core.js";

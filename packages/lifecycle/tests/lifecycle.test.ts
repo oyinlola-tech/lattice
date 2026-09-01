@@ -140,7 +140,10 @@ describe("topologicalSort", () => {
     graph.addNode("a");
     graph.addNode("b");
 
-    const priorities = new Map([["a", 10], ["b", 5]]);
+    const priorities = new Map([
+      ["a", 10],
+      ["b", 5],
+    ]);
     const stages = topologicalSort(graph, priorities);
     expect(stages[0]).toEqual(["a", "b"]);
   });
@@ -161,12 +164,7 @@ describe("reverseTopologicalSort", () => {
 
 describe("withTimeout", () => {
   it("resolves before timeout", async () => {
-    const result = await withTimeout(
-      async () => "ok",
-      1000,
-      "test",
-      "start",
-    );
+    const result = await withTimeout(async () => "ok", 1000, "test", "start");
     expect(result).toBe("ok");
   });
 
@@ -235,9 +233,33 @@ describe("LifecycleRegistry", () => {
 describe("buildExecutionPlan", () => {
   it("builds startup plan with correct ordering", () => {
     const registrations = [
-      { id: "db", component: { name: "db", start: async () => {} }, dependsOn: [], priority: 0, critical: true, timeout: 30000, retry: { attempts: 0 } },
-      { id: "queue", component: { name: "queue", start: async () => {} }, dependsOn: ["db"], priority: 0, critical: true, timeout: 30000, retry: { attempts: 0 } },
-      { id: "server", component: { name: "server", start: async () => {} }, dependsOn: ["queue"], priority: 0, critical: true, timeout: 30000, retry: { attempts: 0 } },
+      {
+        id: "db",
+        component: { name: "db", start: async () => {} },
+        dependsOn: [],
+        priority: 0,
+        critical: true,
+        timeout: 30000,
+        retry: { attempts: 0 },
+      },
+      {
+        id: "queue",
+        component: { name: "queue", start: async () => {} },
+        dependsOn: ["db"],
+        priority: 0,
+        critical: true,
+        timeout: 30000,
+        retry: { attempts: 0 },
+      },
+      {
+        id: "server",
+        component: { name: "server", start: async () => {} },
+        dependsOn: ["queue"],
+        priority: 0,
+        critical: true,
+        timeout: 30000,
+        retry: { attempts: 0 },
+      },
     ];
 
     const plan = buildExecutionPlan(registrations, "start" as never);
@@ -316,16 +338,28 @@ describe("LifecycleManager", () => {
 
     manager.register({
       name: "db",
-      start: async () => { order.push("db"); },
+      start: async () => {
+        order.push("db");
+      },
     });
-    manager.register({
-      name: "queue",
-      start: async () => { order.push("queue"); },
-    }, { dependsOn: ["db"] });
-    manager.register({
-      name: "server",
-      start: async () => { order.push("server"); },
-    }, { dependsOn: ["queue"] });
+    manager.register(
+      {
+        name: "queue",
+        start: async () => {
+          order.push("queue");
+        },
+      },
+      { dependsOn: ["db"] },
+    );
+    manager.register(
+      {
+        name: "server",
+        start: async () => {
+          order.push("server");
+        },
+      },
+      { dependsOn: ["queue"] },
+    );
 
     await manager.start();
     expect(order).toEqual(["db", "queue", "server"]);
@@ -339,13 +373,20 @@ describe("LifecycleManager", () => {
     manager.register({
       name: "db",
       start: async () => {},
-      stop: async () => { order.push("db"); },
+      stop: async () => {
+        order.push("db");
+      },
     });
-    manager.register({
-      name: "server",
-      start: async () => {},
-      stop: async () => { order.push("server"); },
-    }, { dependsOn: ["db"] });
+    manager.register(
+      {
+        name: "server",
+        start: async () => {},
+        stop: async () => {
+          order.push("server");
+        },
+      },
+      { dependsOn: ["db"] },
+    );
 
     await manager.start();
     await manager.shutdown();

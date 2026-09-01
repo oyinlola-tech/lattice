@@ -17,10 +17,7 @@ export * from "./video/index.js";
 
 /** State middleware — identity pass-through. */
 export function createStateMiddleware(): import("../httpMiddleware.type.js").HttpMiddleware {
-  return async (
-    _context,
-    next,
-  ) => {
+  return async (_context, next) => {
     return next();
   };
 }

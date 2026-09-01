@@ -7,7 +7,10 @@ import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 /**
  * Options for creating an HTTP body error.
  */
-export interface HttpBodyErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface HttpBodyErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
 }
 
@@ -30,7 +33,10 @@ export class HttpBodyError extends BaseError {
 }
 
 /** Creates an HTTP body error. */
-export function createHttpBodyError(message: string, options: HttpBodyErrorOptions = {}): HttpBodyError {
+export function createHttpBodyError(
+  message: string,
+  options: HttpBodyErrorOptions = {},
+): HttpBodyError {
   return new HttpBodyError(message, options);
 }
 

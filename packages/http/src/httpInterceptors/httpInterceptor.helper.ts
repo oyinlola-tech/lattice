@@ -4,9 +4,7 @@
  * @module httpInterceptors/helpers
  */
 
-import type {
-  InterceptorPriority,
-} from "./httpInterceptor.type.js";
+import type { InterceptorPriority } from "./httpInterceptor.type.js";
 
 /**
  * Normalizes a priority string.

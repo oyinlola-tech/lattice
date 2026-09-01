@@ -5,92 +5,58 @@
  * Middleware ordering is explicit and deterministic.
  */
 
-import type {
-  MatchedRoute,
-  RouterHandler,
-} from "../core/httpRouter.type.js";
+import type { MatchedRoute, RouterHandler } from "../core/httpRouter.type.js";
 
-import type { HttpRequestContext as RequestContext,
-} from "../httpRequest/httpRequest.context.js";
+import type { HttpRequestContext as RequestContext } from "../httpRequest/httpRequest.context.js";
 
-import type { HttpResponseContext as ResponseContext,
-} from "../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../httpResponse/httpResponse.context.js";
 
 /* -------------------------------------------------------------------------- */
 /* Types                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export type RouteStackNext =
-  () =>
-    | void
-    | Promise<void>;
+export type RouteStackNext = () => void | Promise<void>;
 
-export type RouteStackHandler =
-  (
-    request:
-      | RequestContext,
-    response:
-      | ResponseContext,
-    next?:
-      | RouteStackNext,
-  ) =>
-    | void
-    | Promise<void>;
+export type RouteStackHandler = (
+  request: RequestContext,
+  response: ResponseContext,
+  next?: RouteStackNext,
+) => void | Promise<void>;
 
-export type RouteStackLayerType =
-  | "middleware"
-  | "handler";
+export type RouteStackLayerType = "middleware" | "handler";
 
 export interface RouteStackLayer {
-  readonly id:
-    | string;
+  readonly id: string;
 
-  readonly name:
-    | string
-    | undefined;
+  readonly name: string | undefined;
 
-  readonly type:
-    | RouteStackLayerType;
+  readonly type: RouteStackLayerType;
 
-  readonly handler:
-    | RouteStackHandler;
+  readonly handler: RouteStackHandler;
 
-  readonly order:
-    | number;
+  readonly order: number;
 
-  readonly metadata:
-    | Readonly<
-        Record<string, unknown>
-      >;
+  readonly metadata: Readonly<Record<string, unknown>>;
 }
 
 export interface RouteStackOptions {
-  readonly strictNext?:
-    | boolean;
+  readonly strictNext?: boolean;
 }
 
 export interface RouteStackExecutionContext {
-  readonly request:
-    | RequestContext;
+  readonly request: RequestContext;
 
-  readonly response:
-    | ResponseContext;
+  readonly response: ResponseContext;
 
-  readonly route:
-    | MatchedRoute
-    | undefined;
+  readonly route: MatchedRoute | undefined;
 }
 
 export interface RouteStackExecutionResult {
-  readonly executed:
-    | number;
+  readonly executed: number;
 
-  readonly completed:
-    | boolean;
+  readonly completed: boolean;
 
-  readonly error:
-    | unknown
-    | undefined;
+  readonly error: unknown | undefined;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -98,24 +64,15 @@ export interface RouteStackExecutionResult {
 /* -------------------------------------------------------------------------- */
 
 export class RouteStack {
-  private readonly layers:
-    | RouteStackLayer[] =
-    [];
+  private readonly layers: RouteStackLayer[] = [];
 
-  private readonly options:
-    | Required<RouteStackOptions>;
+  private readonly options: Required<RouteStackOptions>;
 
-  private sequence =
-    0;
+  private sequence = 0;
 
-  constructor(
-    options:
-      | RouteStackOptions = {},
-  ) {
+  constructor(options: RouteStackOptions = {}) {
     this.options = {
-      strictNext:
-        options.strictNext ??
-        true,
+      strictNext: options.strictNext ?? true,
     };
   }
 
@@ -124,175 +81,98 @@ export class RouteStack {
   /* ------------------------------------------------------------------------ */
 
   use(
-    handler:
-      | RouteStackHandler,
-    options:
-      | {
-          readonly name?:
-            | string;
+    handler: RouteStackHandler,
+    options: {
+      readonly name?: string;
 
-          readonly metadata?:
-            | Readonly<
-                Record<string, unknown>
-              >;
-        } = {},
-  ):
-    | RouteStackLayer {
-    return this.add(
-      "middleware",
-      handler,
-      options,
-    );
+      readonly metadata?: Readonly<Record<string, unknown>>;
+    } = {},
+  ): RouteStackLayer {
+    return this.add("middleware", handler, options);
   }
 
   handler(
-    handler:
-      | RouteStackHandler
-      | RouterHandler,
-    options:
-      | {
-          readonly name?:
-            | string;
+    handler: RouteStackHandler | RouterHandler,
+    options: {
+      readonly name?: string;
 
-          readonly metadata?:
-            | Readonly<
-                Record<string, unknown>
-              >;
-        } = {},
-  ):
-    | RouteStackLayer {
-    return this.add(
-      "handler",
-      handler as RouteStackHandler,
-      options,
-    );
+      readonly metadata?: Readonly<Record<string, unknown>>;
+    } = {},
+  ): RouteStackLayer {
+    return this.add("handler", handler as RouteStackHandler, options);
   }
 
   add(
-    type:
-      | RouteStackLayerType,
-    handler:
-      | RouteStackHandler,
-    options:
-      | {
-          readonly name?:
-            | string;
+    type: RouteStackLayerType,
+    handler: RouteStackHandler,
+    options: {
+      readonly name?: string;
 
-          readonly metadata?:
-            | Readonly<
-                Record<string, unknown>
-              >;
-        } = {},
-  ):
-    | RouteStackLayer {
-    if (
-      typeof handler !==
-      "function"
-    ) {
-      throw new TypeError(
-        "Route stack layer must be a function.",
-      );
+      readonly metadata?: Readonly<Record<string, unknown>>;
+    } = {},
+  ): RouteStackLayer {
+    if (typeof handler !== "function") {
+      throw new TypeError("Route stack layer must be a function.");
     }
 
-    this.sequence +=
-      1;
+    this.sequence += 1;
 
-    const layer:
-      | RouteStackLayer =
-      Object.freeze({
-        id:
-          `layer:${this.sequence}`,
+    const layer: RouteStackLayer = Object.freeze({
+      id: `layer:${this.sequence}`,
 
-        name:
-          options.name,
+      name: options.name,
 
-        type,
+      type,
 
-        handler,
+      handler,
 
-        order:
-          this.layers.length,
+      order: this.layers.length,
 
-        metadata:
-          Object.freeze({
-            ...(options.metadata ??
-              {}),
-          }),
-      });
+      metadata: Object.freeze({
+        ...(options.metadata ?? {}),
+      }),
+    });
 
-    this.layers.push(
-      layer,
-    );
+    this.layers.push(layer);
 
     return layer;
   }
 
   addMany(
-    layers:
-      | readonly (
-          | RouteStackLayer
-          | {
-              readonly type:
-                | RouteStackLayerType;
+    layers: readonly (
+      | RouteStackLayer
+      | {
+          readonly type: RouteStackLayerType;
 
-              readonly handler:
-                | RouteStackHandler;
+          readonly handler: RouteStackHandler;
 
-              readonly name?:
-                | string;
+          readonly name?: string;
 
-              readonly metadata?:
-                | Readonly<
-                    Record<
-                      string,
-                      unknown
-                    >
-                  >;
-            }
-        )[],
-  ):
-    | readonly RouteStackLayer[] {
-    const added:
-      | RouteStackLayer[] =
-      [];
+          readonly metadata?: Readonly<Record<string, unknown>>;
+        }
+    )[],
+  ): readonly RouteStackLayer[] {
+    const added: RouteStackLayer[] = [];
 
-    for (
-      const layer of
-      layers
-    ) {
-      if (
-        "id" in
-        layer
-      ) {
-        this.insertLayer(
-          layer,
-        );
+    for (const layer of layers) {
+      if ("id" in layer) {
+        this.insertLayer(layer);
 
-        added.push(
-          layer,
-        );
+        added.push(layer);
 
         continue;
       }
 
       added.push(
-        this.add(
-          layer.type,
-          layer.handler,
-          {
-            name:
-              layer.name,
+        this.add(layer.type, layer.handler, {
+          name: layer.name,
 
-            metadata:
-              layer.metadata,
-          },
-        ),
+          metadata: layer.metadata,
+        }),
       );
     }
 
-    return Object.freeze(
-      added,
-    );
+    return Object.freeze(added);
   }
 
   /* ------------------------------------------------------------------------ */
@@ -300,140 +180,64 @@ export class RouteStack {
   /* ------------------------------------------------------------------------ */
 
   before(
-    target:
-      | string,
-    handler:
-      | RouteStackHandler,
-    options:
-      | {
-          readonly name?:
-            | string;
+    target: string,
+    handler: RouteStackHandler,
+    options: {
+      readonly name?: string;
 
-          readonly metadata?:
-            | Readonly<
-                Record<string, unknown>
-              >;
-        } = {},
-  ):
-    | RouteStackLayer {
-    const index =
-      this.indexOf(
-        target,
-      );
+      readonly metadata?: Readonly<Record<string, unknown>>;
+    } = {},
+  ): RouteStackLayer {
+    const index = this.indexOf(target);
 
-    if (
-      index ===
-      -1
-    ) {
-      throw new Error(
-        `Route stack layer "${target}" was not found.`,
-      );
+    if (index === -1) {
+      throw new Error(`Route stack layer "${target}" was not found.`);
     }
 
-    const layer =
-      this.add(
-        "middleware",
-        handler,
-        options,
-      );
+    const layer = this.add("middleware", handler, options);
 
-    this.move(
-      layer.id,
-      index,
-    );
+    this.move(layer.id, index);
 
     return layer;
   }
 
   after(
-    target:
-      | string,
-    handler:
-      | RouteStackHandler,
-    options:
-      | {
-          readonly name?:
-            | string;
+    target: string,
+    handler: RouteStackHandler,
+    options: {
+      readonly name?: string;
 
-          readonly metadata?:
-            | Readonly<
-                Record<string, unknown>
-              >;
-        } = {},
-  ):
-    | RouteStackLayer {
-    const index =
-      this.indexOf(
-        target,
-      );
+      readonly metadata?: Readonly<Record<string, unknown>>;
+    } = {},
+  ): RouteStackLayer {
+    const index = this.indexOf(target);
 
-    if (
-      index ===
-      -1
-    ) {
-      throw new Error(
-        `Route stack layer "${target}" was not found.`,
-      );
+    if (index === -1) {
+      throw new Error(`Route stack layer "${target}" was not found.`);
     }
 
-    const layer =
-      this.add(
-        "middleware",
-        handler,
-        options,
-      );
+    const layer = this.add("middleware", handler, options);
 
-    this.move(
-      layer.id,
-      index +
-        1,
-    );
+    this.move(layer.id, index + 1);
 
     return layer;
   }
 
-  move(
-    layerId:
-      | string,
-    targetIndex:
-      | number,
-  ):
-    | boolean {
-    const sourceIndex =
-      this.indexOf(
-        layerId,
-      );
+  move(layerId: string, targetIndex: number): boolean {
+    const sourceIndex = this.indexOf(layerId);
 
-    if (
-      sourceIndex ===
-      -1
-    ) {
+    if (sourceIndex === -1) {
       return false;
     }
 
-    const boundedIndex =
-      Math.max(
-        0,
-        Math.min(
-          targetIndex,
-          this.layers.length -
-            1,
-        ),
-      );
-
-    const [
-      layer,
-    ] =
-      this.layers.splice(
-        sourceIndex,
-        1,
-      );
-
-    this.layers.splice(
-      boundedIndex,
+    const boundedIndex = Math.max(
       0,
-      layer,
+      Math.min(targetIndex, this.layers.length - 1),
     );
+
+    const [layer] = this.layers.splice(sourceIndex, 1);
+
+    this.layers.splice(boundedIndex, 0, layer);
 
     this.reindex();
 
@@ -444,176 +248,75 @@ export class RouteStack {
   /* Removal                                                                   */
   /* ------------------------------------------------------------------------ */
 
-  remove(
-    layerId:
-      | string,
-  ):
-    | boolean {
-    const index =
-      this.indexOf(
-        layerId,
-      );
+  remove(layerId: string): boolean {
+    const index = this.indexOf(layerId);
 
-    if (
-      index ===
-      -1
-    ) {
+    if (index === -1) {
       return false;
     }
 
-    this.layers.splice(
-      index,
-      1,
-    );
+    this.layers.splice(index, 1);
 
     this.reindex();
 
     return true;
   }
 
-  removeByName(
-    name:
-      | string,
-  ):
-    | number {
-    const original =
-      this.layers.length;
+  removeByName(name: string): number {
+    const original = this.layers.length;
 
-    for (
-      let index =
-        this.layers.length -
-        1;
-      index >=
-      0;
-      index -=
-        1
-    ) {
-      if (
-        this.layers[index]
-          .name ===
-        name
-      ) {
-        this.layers.splice(
-          index,
-          1,
-        );
+    for (let index = this.layers.length - 1; index >= 0; index -= 1) {
+      if (this.layers[index].name === name) {
+        this.layers.splice(index, 1);
       }
     }
 
     this.reindex();
 
-    return (
-      original -
-      this.layers.length
-    );
+    return original - this.layers.length;
   }
 
-  clear():
-    | void {
-    this.layers.length =
-      0;
+  clear(): void {
+    this.layers.length = 0;
   }
 
   /* ------------------------------------------------------------------------ */
   /* Lookup                                                                    */
   /* ------------------------------------------------------------------------ */
 
-  get(
-    layerId:
-      | string,
-  ):
-    | RouteStackLayer
-    | undefined {
-    return this.layers.find(
-      (
-        layer,
-      ) =>
-        layer.id ===
-        layerId,
-    );
+  get(layerId: string): RouteStackLayer | undefined {
+    return this.layers.find((layer) => layer.id === layerId);
   }
 
-  getByName(
-    name:
-      | string,
-  ):
-    | RouteStackLayer
-    | undefined {
-    return this.layers.find(
-      (
-        layer,
-      ) =>
-        layer.name ===
-        name,
-    );
+  getByName(name: string): RouteStackLayer | undefined {
+    return this.layers.find((layer) => layer.name === name);
   }
 
-  indexOf(
-    layerId:
-      | string,
-  ):
-    | number {
-    return this.layers.findIndex(
-      (
-        layer,
-      ) =>
-        layer.id ===
-        layerId,
-    );
+  indexOf(layerId: string): number {
+    return this.layers.findIndex((layer) => layer.id === layerId);
   }
 
-  has(
-    layerId:
-      | string,
-  ):
-    | boolean {
-    return this.indexOf(
-      layerId,
-    ) !==
-      -1;
+  has(layerId: string): boolean {
+    return this.indexOf(layerId) !== -1;
   }
 
   /* ------------------------------------------------------------------------ */
   /* Inspection                                                                */
   /* ------------------------------------------------------------------------ */
 
-  all():
-    | readonly RouteStackLayer[] {
-    return Object.freeze([
-      ...this.layers,
-    ]);
+  all(): readonly RouteStackLayer[] {
+    return Object.freeze([...this.layers]);
   }
 
-  middleware():
-    | readonly RouteStackLayer[] {
+  middleware(): readonly RouteStackLayer[] {
     return Object.freeze(
-      this.layers.filter(
-        (
-          layer,
-        ) =>
-          layer.type ===
-          "middleware",
-      ),
+      this.layers.filter((layer) => layer.type === "middleware"),
     );
   }
 
-  getHandler():
-    | RouteStackLayer
-    | undefined {
-    for (
-      let index =
-        this.layers.length -
-        1;
-      index >=
-      0;
-      index -=
-        1
-    ) {
-      if (
-        this.layers[index]
-          .type ===
-        "handler"
-      ) {
+  getHandler(): RouteStackLayer | undefined {
+    for (let index = this.layers.length - 1; index >= 0; index -= 1) {
+      if (this.layers[index].type === "handler") {
         return this.layers[index];
       }
     }
@@ -621,8 +324,7 @@ export class RouteStack {
     return undefined;
   }
 
-  count():
-    | number {
+  count(): number {
     return this.layers.length;
   }
 
@@ -631,95 +333,53 @@ export class RouteStack {
   /* ------------------------------------------------------------------------ */
 
   async execute(
-    context:
-      | RouteStackExecutionContext,
-  ):
-    | Promise<RouteStackExecutionResult> {
-    let index =
-      -1;
+    context: RouteStackExecutionContext,
+  ): Promise<RouteStackExecutionResult> {
+    let index = -1;
 
-    let executed =
-      0;
+    let executed = 0;
 
-    const dispatch =
-      async (
-        current:
-          | number,
-      ):
-        | Promise<void> => {
-        if (
-          this.options
-            .strictNext &&
-          current <=
-            index
-        ) {
-          throw new Error(
-            "Route stack next() called multiple times.",
-          );
-        }
+    const dispatch = async (current: number): Promise<void> => {
+      if (this.options.strictNext && current <= index) {
+        throw new Error("Route stack next() called multiple times.");
+      }
 
-        index =
-          current;
+      index = current;
 
-        const layer =
-          this.layers[
-            current
-          ];
+      const layer = this.layers[current];
 
-        if (
-          !layer
-        ) {
-          return;
-        }
+      if (!layer) {
+        return;
+      }
 
-        executed +=
-          1;
+      executed += 1;
 
-        if (
-          layer.type ===
-          "handler"
-        ) {
-          await layer.handler(
-            context.request,
-            context.response,
-          );
+      if (layer.type === "handler") {
+        await layer.handler(context.request, context.response);
 
-          return;
-        }
+        return;
+      }
 
-        await layer.handler(
-          context.request,
-          context.response,
-          () =>
-            dispatch(
-              current +
-                1,
-            ),
-        );
-      };
+      await layer.handler(context.request, context.response, () =>
+        dispatch(current + 1),
+      );
+    };
 
     try {
-      await dispatch(
-        0,
-      );
+      await dispatch(0);
 
       return Object.freeze({
         executed,
 
-        completed:
-          true,
+        completed: true,
 
-        error:
-          undefined,
+        error: undefined,
       });
-    } catch (
-      error
-    ) {
+    } catch (error) {
       return Object.freeze({
         executed,
 
-        completed:
-          false,
+        completed: false,
 
         error,
       });
@@ -727,14 +387,10 @@ export class RouteStack {
   }
 
   async run(
-    request:
-      | RequestContext,
-    response:
-      | ResponseContext,
-    route?:
-      | MatchedRoute,
-  ):
-    | Promise<RouteStackExecutionResult> {
+    request: RequestContext,
+    response: ResponseContext,
+    route?: MatchedRoute,
+  ): Promise<RouteStackExecutionResult> {
     return this.execute({
       request,
 
@@ -749,63 +405,36 @@ export class RouteStack {
   /* ------------------------------------------------------------------------ */
 
   static fromRoute(
-    route:
-      | MatchedRoute,
-    options:
-      | RouteStackOptions = {},
-  ):
-    | RouteStack {
-    const stack =
-      new RouteStack(
-        options,
-      );
+    route: MatchedRoute,
+    options: RouteStackOptions = {},
+  ): RouteStack {
+    const stack = new RouteStack(options);
 
-    const middleware =
-      normalizeMiddleware(
-        route.middleware,
-      );
+    const middleware = normalizeMiddleware(route.middleware);
 
-    for (
-      const layer of
-      middleware
-    ) {
-      stack.use(
-        layer,
-      );
+    for (const layer of middleware) {
+      stack.use(layer);
     }
 
-    stack.handler(
-      route.handler,
-    );
+    stack.handler(route.handler);
 
     return stack;
   }
 
-  clone():
-    | RouteStack {
-    const clone =
-      new RouteStack(
-        this.options,
-      );
+  clone(): RouteStack {
+    const clone = new RouteStack(this.options);
 
-    for (
-      const layer of
-      this.layers
-    ) {
-      clone.insertLayer(
-        {
-          ...layer,
+    for (const layer of this.layers) {
+      clone.insertLayer({
+        ...layer,
 
-          metadata:
-            Object.freeze({
-              ...layer.metadata,
-            }),
-        },
-      );
+        metadata: Object.freeze({
+          ...layer.metadata,
+        }),
+      });
     }
 
-    clone.sequence =
-      this.sequence;
+    clone.sequence = this.sequence;
 
     return clone;
   }
@@ -814,32 +443,19 @@ export class RouteStack {
   /* Serialization                                                             */
   /* ------------------------------------------------------------------------ */
 
-  toJSON():
-    | readonly Record<
-        string,
-        unknown
-      >[] {
+  toJSON(): readonly Record<string, unknown>[] {
     return Object.freeze(
-      this.layers.map(
-        (
-          layer,
-        ) => ({
-          id:
-            layer.id,
+      this.layers.map((layer) => ({
+        id: layer.id,
 
-          name:
-            layer.name,
+        name: layer.name,
 
-          type:
-            layer.type,
+        type: layer.type,
 
-          order:
-            layer.order,
+        order: layer.order,
 
-          metadata:
-            layer.metadata,
-        }),
-      ),
+        metadata: layer.metadata,
+      })),
     );
   }
 
@@ -847,46 +463,23 @@ export class RouteStack {
   /* Internals                                                                 */
   /* ------------------------------------------------------------------------ */
 
-  private insertLayer(
-    layer:
-      | RouteStackLayer,
-  ):
-    | void {
-    this.layers.push(
-      layer,
-    );
+  private insertLayer(layer: RouteStackLayer): void {
+    this.layers.push(layer);
 
-    this.sequence =
-      Math.max(
-        this.sequence,
-        extractSequence(
-          layer.id,
-        ),
-      );
+    this.sequence = Math.max(this.sequence, extractSequence(layer.id));
 
     this.reindex();
   }
 
-  private reindex():
-    | void {
-    for (
-      let index =
-        0;
-      index <
-      this.layers.length;
-      index +=
-        1
-    ) {
-      const layer =
-        this.layers[index];
+  private reindex(): void {
+    for (let index = 0; index < this.layers.length; index += 1) {
+      const layer = this.layers[index];
 
-      this.layers[index] =
-        Object.freeze({
-          ...layer,
+      this.layers[index] = Object.freeze({
+        ...layer,
 
-          order:
-            index,
-        });
+        order: index,
+      });
     }
   }
 }
@@ -895,27 +488,15 @@ export class RouteStack {
 /* Factories                                                                  */
 /* -------------------------------------------------------------------------- */
 
-export function createRouteStack(
-  options:
-    | RouteStackOptions = {},
-):
-  | RouteStack {
-  return new RouteStack(
-    options,
-  );
+export function createRouteStack(options: RouteStackOptions = {}): RouteStack {
+  return new RouteStack(options);
 }
 
 export function createRouteStackFromRoute(
-  route:
-    | MatchedRoute,
-  options:
-    | RouteStackOptions = {},
-):
-  | RouteStack {
-  return RouteStack.fromRoute(
-    route,
-    options,
-  );
+  route: MatchedRoute,
+  options: RouteStackOptions = {},
+): RouteStack {
+  return RouteStack.fromRoute(route, options);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -923,103 +504,50 @@ export function createRouteStackFromRoute(
 /* -------------------------------------------------------------------------- */
 
 export function composeRouteStack(
-  layers:
-    | readonly RouteStackHandler[],
-  options:
-    | RouteStackOptions = {},
-):
-  | RouteStack {
-  const stack =
-    new RouteStack(
-      options,
-    );
+  layers: readonly RouteStackHandler[],
+  options: RouteStackOptions = {},
+): RouteStack {
+  const stack = new RouteStack(options);
 
-  for (
-    const layer of
-    layers
-  ) {
-    stack.use(
-      layer,
-    );
+  for (const layer of layers) {
+    stack.use(layer);
   }
 
   return stack;
 }
 
-function normalizeMiddleware(
-  middleware:
-    | unknown,
-):
-  | RouteStackHandler[] {
-  if (
-    !middleware
-  ) {
+function normalizeMiddleware(middleware: unknown): RouteStackHandler[] {
+  if (!middleware) {
     return [];
   }
 
-  if (
-    Array.isArray(
-      middleware,
-    )
-  ) {
+  if (Array.isArray(middleware)) {
     return middleware as RouteStackHandler[];
   }
 
-  return [
-    middleware as RouteStackHandler,
-  ];
+  return [middleware as RouteStackHandler];
 }
 
 /* -------------------------------------------------------------------------- */
 /* Utilities                                                                  */
 /* -------------------------------------------------------------------------- */
 
-function extractSequence(
-  id:
-    | string,
-):
-  | number {
-  const match =
-    id.match(
-      /:(\d+)$/,
-    );
+function extractSequence(id: string): number {
+  const match = id.match(/:(\d+)$/);
 
-  return match
-    ? Number(
-        match[1],
-      )
-    : 0;
+  return match ? Number(match[1]) : 0;
 }
 
-export function isRouteStack(
-  value:
-    | unknown,
-):
-  value is RouteStack {
-  return (
-    value instanceof
-    RouteStack
-  );
+export function isRouteStack(value: unknown): value is RouteStack {
+  return value instanceof RouteStack;
 }
 
-export function isRouteStackLayer(
-  value:
-    | unknown,
-):
-  value is RouteStackLayer {
-  if (
-    !value ||
-    typeof value !==
-      "object"
-  ) {
+export function isRouteStackLayer(value: unknown): value is RouteStackLayer {
+  if (!value || typeof value !== "object") {
     return false;
   }
 
   return (
-    "id" in value &&
-    "type" in value &&
-    "handler" in value &&
-    "order" in value
+    "id" in value && "type" in value && "handler" in value && "order" in value
   );
 }
-

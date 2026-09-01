@@ -4,10 +4,7 @@
  * Returns false immediately if the lengths differ.
  * Uses XOR accumulation to avoid timing side-channels.
  */
-export function timingSafeEqual(
-  left: Uint8Array,
-  right: Uint8Array,
-): boolean {
+export function timingSafeEqual(left: Uint8Array, right: Uint8Array): boolean {
   if (left.byteLength !== right.byteLength) {
     return false;
   }

@@ -105,12 +105,10 @@ describe("createMarkdownDocument", () => {
   });
 
   it("accepts optional overrides", () => {
-    const doc = createMarkdownDocument(
-      "test",
-      "Test",
-      "content",
-      { category: "tutorial", tags: ["test"] },
-    );
+    const doc = createMarkdownDocument("test", "Test", "content", {
+      category: "tutorial",
+      tags: ["test"],
+    });
 
     expect(doc.category).toBe("tutorial");
     expect(doc.tags).toEqual(["test"]);

@@ -33,7 +33,9 @@ export function createCachedProvider(
 ): FeatureFlagProvider {
   const ttl = options.ttl ?? 30_000;
   const flagCache = new Map<string, CacheEntry>();
-  let listCache: { readonly flags: readonly FeatureFlag[]; readonly expiresAt: number } | undefined;
+  let listCache:
+    | { readonly flags: readonly FeatureFlag[]; readonly expiresAt: number }
+    | undefined;
 
   function isExpired(entry: { expiresAt: number }): boolean {
     return Date.now() > entry.expiresAt;

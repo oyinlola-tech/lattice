@@ -4,11 +4,17 @@ import type { Job } from "../job/job.type.js";
 
 import type { JobOptions } from "../jobOptions/jobOptions.type.js";
 
-import type { Processor, ProcessorRegistry } from "../processor/processor.type.js";
+import type {
+  Processor,
+  ProcessorRegistry,
+} from "../processor/processor.type.js";
 
 import type { Queue, QueueOptions, QueueStats } from "./queue.type.js";
 
-import { QueueClosedError, QueueDisposedError } from "@oyinlola141/lattice-errors";
+import {
+  QueueClosedError,
+  QueueDisposedError,
+} from "@oyinlola141/lattice-errors";
 
 import { createInMemoryQueue } from "../inMemoryQueue/inMemoryQueue.core.js";
 

@@ -4,4 +4,4 @@
  * HTTP httpHsts module.
  */
 
-export * from './http.hsts.js';
+export * from "./http.hsts.js";

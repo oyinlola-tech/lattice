@@ -7,7 +7,10 @@ export interface Route {
   readonly handler: (body: any, params: any) => Promise<unknown>;
 }
 
-export function createUserRoutes(commandBus: CommandBus, queryBus: QueryBus): readonly Route[] {
+export function createUserRoutes(
+  commandBus: CommandBus,
+  queryBus: QueryBus,
+): readonly Route[] {
   const controller = new UserController(commandBus, queryBus);
 
   return [
@@ -19,12 +22,14 @@ export function createUserRoutes(commandBus: CommandBus, queryBus: QueryBus): re
     {
       method: "GET",
       path: "/users/:id",
-      handler: async (_body: any, params: any) => controller.getProfile(params.id),
+      handler: async (_body: any, params: any) =>
+        controller.getProfile(params.id),
     },
     {
       method: "PATCH",
       path: "/users/:id",
-      handler: async (body: any, params: any) => controller.updateProfile(params.id, body),
+      handler: async (body: any, params: any) =>
+        controller.updateProfile(params.id, body),
     },
   ];
 }

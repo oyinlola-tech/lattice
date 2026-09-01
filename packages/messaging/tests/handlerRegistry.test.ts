@@ -96,8 +96,14 @@ describe("HandlerRegistryStore", () => {
     it("filters by priority", () => {
       const registry = new HandlerRegistryStore();
       const handler1 = createTestHandler("h1", "test.message");
-      const handler2 = { ...createTestHandler("h2", "test.message"), priority: 50 };
-      const handler3 = { ...createTestHandler("h3", "test.message"), priority: 150 };
+      const handler2 = {
+        ...createTestHandler("h2", "test.message"),
+        priority: 50,
+      };
+      const handler3 = {
+        ...createTestHandler("h3", "test.message"),
+        priority: 150,
+      };
 
       registry.register(handler1);
       registry.register(handler2);
@@ -111,7 +117,10 @@ describe("HandlerRegistryStore", () => {
 
     it("excludes disabled handlers by default", () => {
       const registry = new HandlerRegistryStore();
-      const handler = { ...createTestHandler("h1", "test.message"), enabled: false };
+      const handler = {
+        ...createTestHandler("h1", "test.message"),
+        enabled: false,
+      };
 
       registry.register(handler);
 
@@ -121,11 +130,16 @@ describe("HandlerRegistryStore", () => {
 
     it("includes disabled handlers when requested", () => {
       const registry = new HandlerRegistryStore();
-      const handler = { ...createTestHandler("h1", "test.message"), enabled: false };
+      const handler = {
+        ...createTestHandler("h1", "test.message"),
+        enabled: false,
+      };
 
       registry.register(handler);
 
-      const resolved = registry.resolve("test.message", { includeDisabled: true });
+      const resolved = registry.resolve("test.message", {
+        includeDisabled: true,
+      });
       expect(resolved).toHaveLength(1);
     });
   });

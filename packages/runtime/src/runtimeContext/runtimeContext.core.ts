@@ -1,10 +1,6 @@
-import type {
-  Environment,
-} from "@oyinlola141/lattice-constants";
+import type { Environment } from "@oyinlola141/lattice-constants";
 
-import {
-  createRuntimeId as generateRuntimeId,
-} from "./runtimeContext.factory.js";
+import { createRuntimeId as generateRuntimeId } from "./runtimeContext.factory.js";
 
 import type {
   RuntimeContext,
@@ -12,13 +8,9 @@ import type {
   RuntimeIdentity,
 } from "./runtimeContext.type.js";
 
-import type {
-  RuntimeStatus,
-} from "../runtimeState/runtimeState.type.js";
+import type { RuntimeStatus } from "../runtimeState/runtimeState.type.js";
 
-import {
-  createStatus,
-} from "../runtimeState/runtimeState.core.js";
+import { createStatus } from "../runtimeState/runtimeState.core.js";
 
 /**
  * Creates a runtime context.
@@ -61,7 +53,10 @@ export function createRuntimeIdentity(
     environment,
     applicationName,
     applicationVersion,
-    hostname: typeof process !== "undefined" ? (process.env.HOSTNAME ?? "unknown") : "unknown",
+    hostname:
+      typeof process !== "undefined"
+        ? (process.env.HOSTNAME ?? "unknown")
+        : "unknown",
     processId: typeof process !== "undefined" ? process.pid : 0,
   });
 }

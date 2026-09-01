@@ -4,4 +4,4 @@
  * HTTP httpNegotiation module.
  */
 
-export * from './httpNegotiation.core.js';
+export * from "./httpNegotiation.core.js";

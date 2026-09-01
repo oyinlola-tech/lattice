@@ -104,7 +104,13 @@ export function createPermissionEngine(
       resource?: unknown,
       authOptions?: AuthorizationOptions,
     ): Promise<boolean> {
-      const decision = await evaluate(actor, permission, resource, evaluatorOptions, authOptions);
+      const decision = await evaluate(
+        actor,
+        permission,
+        resource,
+        evaluatorOptions,
+        authOptions,
+      );
       return decision.allowed;
     },
 
@@ -114,7 +120,13 @@ export function createPermissionEngine(
       resource?: unknown,
       authOptions?: AuthorizationOptions,
     ): Promise<PermissionDecision> {
-      return evaluate(actor, permission, resource, evaluatorOptions, authOptions);
+      return evaluate(
+        actor,
+        permission,
+        resource,
+        evaluatorOptions,
+        authOptions,
+      );
     },
 
     async authorize(
@@ -123,7 +135,13 @@ export function createPermissionEngine(
       resource?: unknown,
       authOptions?: AuthorizationOptions,
     ): Promise<void> {
-      const decision = await evaluate(actor, permission, resource, evaluatorOptions, authOptions);
+      const decision = await evaluate(
+        actor,
+        permission,
+        resource,
+        evaluatorOptions,
+        authOptions,
+      );
       if (!decision.allowed) {
         throw new PermissionDeniedError(decision.reason ?? "Access denied", {
           actorId: actor.id,
@@ -138,7 +156,13 @@ export function createPermissionEngine(
       resource?: unknown,
       authOptions?: AuthorizationOptions,
     ): Promise<ExplainResult> {
-      return evaluateWithExplain(actor, permission, resource, evaluatorOptions, authOptions);
+      return evaluateWithExplain(
+        actor,
+        permission,
+        resource,
+        evaluatorOptions,
+        authOptions,
+      );
     },
 
     createAbility(actor: PermissionActor): Ability {

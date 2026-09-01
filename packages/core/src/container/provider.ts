@@ -30,6 +30,4 @@ export type Constructor<T> = new (...args: never[]) => T;
  * A dependency provider understood by the Lattice container.
  */
 export type Provider<T> =
-  | ClassProvider<T>
-  | FactoryProvider<T>
-  | ValueProvider<T>;
+  ClassProvider<T> | FactoryProvider<T> | ValueProvider<T>;

@@ -119,15 +119,18 @@ export interface PasswordProvider {
   readonly name: string;
   readonly capabilities: CryptoCapabilities;
 
-  hashPassword(password: CryptoInput, options?: {
-    algorithm?: KeyDerivationAlgorithm;
-    memoryCost?: number;
-    timeCost?: number;
-    blockSize?: number;
-    parallelism?: number;
-    keyBytes?: number;
-    salt?: Uint8Array;
-  }): Promise<string>;
+  hashPassword(
+    password: CryptoInput,
+    options?: {
+      algorithm?: KeyDerivationAlgorithm;
+      memoryCost?: number;
+      timeCost?: number;
+      blockSize?: number;
+      parallelism?: number;
+      keyBytes?: number;
+      salt?: Uint8Array;
+    },
+  ): Promise<string>;
 
   verifyPassword(password: CryptoInput, hash: string): Promise<boolean>;
 }

@@ -4,7 +4,10 @@
  * @module resolvers/jwtResolver
  */
 
-import type { TenantResolver, TenantResolution } from "../../tenancyTypes/resolverTypes.js";
+import type {
+  TenantResolver,
+  TenantResolution,
+} from "../../tenancyTypes/resolverTypes.js";
 import { createTenantId } from "../../tenancyTypes/tenantIdentity.js";
 
 /** JWT claims with tenant_id. */

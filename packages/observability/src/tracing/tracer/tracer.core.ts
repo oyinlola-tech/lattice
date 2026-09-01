@@ -4,7 +4,14 @@
  * Creates spans and notifies processors on start/end.
  */
 
-import type { ReadableSpan, Span, SpanExporter, SpanOptions, SpanProcessor, Tracer } from "../../types.js";
+import type {
+  ReadableSpan,
+  Span,
+  SpanExporter,
+  SpanOptions,
+  SpanProcessor,
+  Tracer,
+} from "../../types.js";
 import { DefaultSpan, createSpan } from "../span/index.js";
 
 /**

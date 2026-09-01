@@ -6,9 +6,14 @@ const logger = createLogger({ name: "gateway:request" });
 /**
  * Logs incoming requests and outgoing responses with timing and correlation.
  */
-export function loggingMiddleware(req: IncomingMessage, res: ServerResponse, next: () => void): void {
+export function loggingMiddleware(
+  req: IncomingMessage,
+  res: ServerResponse,
+  next: () => void,
+): void {
   const startTime = Date.now();
-  const requestId = (req as IncomingMessage & { requestId?: string }).requestId ?? "unknown";
+  const requestId =
+    (req as IncomingMessage & { requestId?: string }).requestId ?? "unknown";
   const method = req.method ?? "UNKNOWN";
   const url = req.url ?? "/";
 

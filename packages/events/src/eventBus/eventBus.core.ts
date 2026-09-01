@@ -9,9 +9,7 @@ import type {
   EventType,
 } from "../eventTypes/eventDefinition.type.js";
 
-import type {
-  EventTypePattern,
-} from "../eventTypes/eventType.type.js";
+import type { EventTypePattern } from "../eventTypes/eventType.type.js";
 
 import type {
   EventHandlerLike,
@@ -19,26 +17,15 @@ import type {
   RegisteredEventHandler,
 } from "../eventHandler/eventHandler.core.js";
 
-import type {
-  EventSubscription,
-} from "../eventSubscription/eventSubscription.core.js";
+import type { EventSubscription } from "../eventSubscription/eventSubscription.core.js";
 
-import {
-  EventEmitter,
-} from "../eventEmitter/eventEmitter.core.js";
+import { EventEmitter } from "../eventEmitter/eventEmitter.core.js";
 
-import {
-  EventErrorMode,
-} from "../eventEmitter/eventEmitter.type.js";
+import { EventErrorMode } from "../eventEmitter/eventEmitter.type.js";
 
-import {
-  EventRegistry,
-} from "../eventRegistry/eventRegistry.store.js";
+import { EventRegistry } from "../eventRegistry/eventRegistry.store.js";
 
-import {
-  EventError,
-  toEventError,
-} from "../eventErrors/eventError.base.js";
+import { EventError, toEventError } from "../eventErrors/eventError.base.js";
 
 import type {
   EventMiddlewareLike,
@@ -54,13 +41,9 @@ import type {
   EventBusListener,
 } from "./eventBus.type.js";
 
-import {
-  EventBusState,
-} from "./eventBus.type.js";
+import { EventBusState } from "./eventBus.type.js";
 
-export {
-  EventBusState,
-} from "./eventBus.type.js";
+export { EventBusState } from "./eventBus.type.js";
 
 import {
   busOn,
@@ -71,249 +54,131 @@ import {
   registerMiddlewareItem,
 } from "./eventBus.registration.js";
 
-import {
-  busPublish,
-  busPublishEvent,
-} from "./eventBus.publish.js";
+import { busPublish, busPublishEvent } from "./eventBus.publish.js";
 
 /**
  * High-level event bus.
  */
 export class EventBus {
-  private readonly emitter:
-    EventEmitter;
+  private readonly emitter: EventEmitter;
 
-  private readonly registry:
-    EventRegistry;
+  private readonly registry: EventRegistry;
 
-  private readonly options:
-    Required<
-      Pick<
-        EventBusOptions,
-        "requireRegistration"
-      >
-    >;
+  private readonly options: Required<
+    Pick<EventBusOptions, "requireRegistration">
+  >;
 
   private busMiddleware: RegisteredEventMiddleware[];
 
-  private readonly listeners =
-    new Set<EventBusListener>();
+  private readonly listeners = new Set<EventBusListener>();
 
-  private state:
-    EventBusState =
-    EventBusState.CREATED;
+  private state: EventBusState = EventBusState.CREATED;
 
-  constructor(
-    options:
-      EventBusOptions = {},
-  ) {
+  constructor(options: EventBusOptions = {}) {
     this.options = {
-      requireRegistration:
-        options.requireRegistration ??
-        false,
+      requireRegistration: options.requireRegistration ?? false,
     };
 
-    this.registry =
-      new EventRegistry(
-        options.registry,
-      );
+    this.registry = new EventRegistry(options.registry);
 
-    this.emitter =
-      new EventEmitter(
-        {
-          ...options.emitter,
-          errorMode:
-            options.emitter?.errorMode ??
-            EventErrorMode.CONTINUE,
-        },
-      );
+    this.emitter = new EventEmitter({
+      ...options.emitter,
+      errorMode: options.emitter?.errorMode ?? EventErrorMode.CONTINUE,
+    });
 
-    this.busMiddleware =
-      (options.middleware ?? []).map(
-        (
-          m,
-          index,
-        ) =>
-          registerMiddlewareItem(
-            m,
-            index,
-          ),
-      );
+    this.busMiddleware = (options.middleware ?? []).map((m, index) =>
+      registerMiddlewareItem(m, index),
+    );
   }
 
-  start():
-    this {
+  start(): this {
     this.ensureNotDisposed();
 
-    if (
-      this.state ===
-      EventBusState.ACTIVE
-    ) {
+    if (this.state === EventBusState.ACTIVE) {
       return this;
     }
 
-    this.state =
-      EventBusState.ACTIVE;
+    this.state = EventBusState.ACTIVE;
 
     this.notify({
-      type:
-        "started",
+      type: "started",
 
-      timestamp:
-        new Date(),
+      timestamp: new Date(),
     });
 
     return this;
   }
 
-  stop():
-    this {
+  stop(): this {
     this.ensureNotDisposed();
 
-    if (
-      this.state !==
-      EventBusState.ACTIVE
-    ) {
+    if (this.state !== EventBusState.ACTIVE) {
       return this;
     }
 
-    this.state =
-      EventBusState.CREATED;
+    this.state = EventBusState.CREATED;
 
     this.notify({
-      type:
-        "stopped",
+      type: "stopped",
 
-      timestamp:
-        new Date(),
+      timestamp: new Date(),
     });
 
     return this;
   }
 
-  register<
-    TType extends EventType,
-    TPayload,
-  >(
-    definition:
-      EventDefinition<
-        TType,
-        TPayload
-      >,
+  register<TType extends EventType, TPayload>(
+    definition: EventDefinition<TType, TPayload>,
   ) {
     this.ensureUsable();
 
-    return this.registry.register(
-      definition,
+    return this.registry.register(definition);
+  }
+
+  on<TEvent extends Event = Event>(
+    eventType: EventTypePattern,
+    handler: EventHandlerLike<TEvent>,
+    options: Omit<EventHandlerOptions, "eventType"> = {},
+  ): EventSubscription {
+    return busOn(this.emitter, eventType, handler, options, () =>
+      this.ensureUsable(),
     );
   }
 
-  on<
-    TEvent extends Event = Event,
-  >(
-    eventType:
-      EventTypePattern,
-    handler:
-      EventHandlerLike<TEvent>,
-    options:
-      Omit<
-        EventHandlerOptions,
-        "eventType"
-      > = {},
-  ):
-    EventSubscription {
-    return busOn(
-      this.emitter,
-      eventType,
-      handler,
-      options,
-      () => this.ensureUsable(),
+  once<TEvent extends Event = Event>(
+    eventType: EventTypePattern,
+    handler: EventHandlerLike<TEvent>,
+    options: Omit<EventHandlerOptions, "eventType" | "once"> = {},
+  ): EventSubscription {
+    return busOnce(this.emitter, eventType, handler, options, () =>
+      this.ensureUsable(),
     );
   }
 
-  once<
-    TEvent extends Event = Event,
-  >(
-    eventType:
-      EventTypePattern,
-    handler:
-      EventHandlerLike<TEvent>,
-    options:
-      Omit<
-        EventHandlerOptions,
-        | "eventType"
-        | "once"
-      > = {},
-  ):
-    EventSubscription {
-    return busOnce(
-      this.emitter,
-      eventType,
-      handler,
-      options,
-      () => this.ensureUsable(),
-    );
+  onAny<TEvent extends Event = Event>(
+    handler: EventHandlerLike<TEvent>,
+    options: Omit<EventHandlerOptions, "eventType"> = {},
+  ): EventSubscription {
+    return busOnAny(this.emitter, handler, options, () => this.ensureUsable());
   }
 
-  onAny<
-    TEvent extends Event = Event,
-  >(
-    handler:
-      EventHandlerLike<TEvent>,
-    options:
-      Omit<
-        EventHandlerOptions,
-        "eventType"
-      > = {},
-  ):
-    EventSubscription {
-    return busOnAny(
-      this.emitter,
-      handler,
-      options,
-      () => this.ensureUsable(),
-    );
-  }
-
-  off(
-    subscription:
-      EventSubscription,
-  ):
-    boolean {
-    return busOff(
-      this.emitter,
-      subscription,
-      () => this.ensureNotDisposed(),
-    );
+  off(subscription: EventSubscription): boolean {
+    return busOff(this.emitter, subscription, () => this.ensureNotDisposed());
   }
 
   use(
-    middleware:
-      EventMiddlewareLike,
-    options:
-      EventMiddlewareOptions = {},
-  ):
-    () => void {
+    middleware: EventMiddlewareLike,
+    options: EventMiddlewareOptions = {},
+  ): () => void {
     this.ensureNotDisposed();
 
-    return busUse(
-      this.busMiddleware,
-      middleware,
-      options,
-    );
+    return busUse(this.busMiddleware, middleware, options);
   }
 
-  async publish<
-    TEvent extends Event,
-  >(
-    event:
-      TEvent,
-    options:
-      PublishOptions = {},
-  ):
-    Promise<
-      EventPublishResult<TEvent>
-    > {
+  async publish<TEvent extends Event>(
+    event: TEvent,
+    options: PublishOptions = {},
+  ): Promise<EventPublishResult<TEvent>> {
     return busPublish(
       event,
       options,
@@ -326,19 +191,10 @@ export class EventBus {
     );
   }
 
-  async publishEvent<
-    TPayload,
-  >(
-    input:
-      EventInput<TPayload>,
-    options:
-      PublishOptions = {},
-  ):
-    Promise<
-      EventPublishResult<
-        Event<TPayload>
-      >
-    > {
+  async publishEvent<TPayload>(
+    input: EventInput<TPayload>,
+    options: PublishOptions = {},
+  ): Promise<EventPublishResult<Event<TPayload>>> {
     return busPublishEvent(
       input,
       options,
@@ -351,73 +207,38 @@ export class EventBus {
     );
   }
 
-  async emit<
-    TEvent extends Event,
-  >(
-    event:
-      TEvent,
-    options:
-      PublishOptions = {},
-  ):
-    Promise<
-      EventPublishResult<TEvent>
-    > {
-    return this.publish(
-      event,
-      options,
-    );
+  async emit<TEvent extends Event>(
+    event: TEvent,
+    options: PublishOptions = {},
+  ): Promise<EventPublishResult<TEvent>> {
+    return this.publish(event, options);
   }
 
-  getDefinition<
-    TType extends EventType,
-    TPayload = unknown,
-  >(
-    eventType:
-      TType,
-  ) {
+  getDefinition<TType extends EventType, TPayload = unknown>(eventType: TType) {
     this.ensureUsable();
 
-    return this.registry.get<
-      TType,
-      TPayload
-    >(
-      eventType,
-    );
+    return this.registry.get<TType, TPayload>(eventType);
   }
 
-  hasEvent(
-    eventType:
-      EventType,
-  ):
-    boolean {
+  hasEvent(eventType: EventType): boolean {
     this.ensureUsable();
 
-    return this.registry.has(
-      eventType,
-    );
+    return this.registry.has(eventType);
   }
 
-  unregister(
-    eventType:
-      EventType,
-  ):
-    boolean {
+  unregister(eventType: EventType): boolean {
     this.ensureUsable();
 
-    return this.registry.unregister(
-      eventType,
-    );
+    return this.registry.unregister(eventType);
   }
 
-  getRegistry():
-    EventRegistry {
+  getRegistry(): EventRegistry {
     this.ensureUsable();
 
     return this.registry;
   }
 
-  getEmitter():
-    EventEmitter {
+  getEmitter(): EventEmitter {
     this.ensureUsable();
 
     return this.emitter;
@@ -429,60 +250,40 @@ export class EventBus {
     return this.registry.getDefinitions();
   }
 
-  getHandlers():
-    readonly RegisteredEventHandler[] {
+  getHandlers(): readonly RegisteredEventHandler[] {
     this.ensureUsable();
 
     return this.emitter.getRegistrations();
   }
 
-  getState():
-    EventBusState {
+  getState(): EventBusState {
     return this.state;
   }
 
-  isActive():
-    boolean {
-    return (
-      this.state ===
-      EventBusState.ACTIVE
-    );
+  isActive(): boolean {
+    return this.state === EventBusState.ACTIVE;
   }
 
-  get eventCount():
-    number {
+  get eventCount(): number {
     return this.registry.eventCount;
   }
 
-  get handlerCount():
-    number {
+  get handlerCount(): number {
     return this.emitter.listenerCount;
   }
 
-  subscribe(
-    listener:
-      EventBusListener,
-  ):
-    () => void {
+  subscribe(listener: EventBusListener): () => void {
     this.ensureNotDisposed();
 
-    this.listeners.add(
-      listener,
-    );
+    this.listeners.add(listener);
 
     return () => {
-      this.listeners.delete(
-        listener,
-      );
+      this.listeners.delete(listener);
     };
   }
 
-  dispose():
-    void {
-    if (
-      this.state ===
-      EventBusState.DISPOSED
-    ) {
+  dispose(): void {
+    if (this.state === EventBusState.DISPOSED) {
       return;
     }
 
@@ -491,67 +292,36 @@ export class EventBus {
 
     this.listeners.clear();
 
-    this.state =
-      EventBusState.DISPOSED;
+    this.state = EventBusState.DISPOSED;
   }
 
-  toError(
-    error:
-      unknown,
-    event?:
-      Event,
-  ):
-    EventError {
-    return toEventError(
-      error,
-      {
-        eventType: event?.type,
-        eventId: event?.id,
-      },
-    );
+  toError(error: unknown, event?: Event): EventError {
+    return toEventError(error, {
+      eventType: event?.type,
+      eventId: event?.id,
+    });
   }
 
-  private ensureUsable():
-    void {
+  private ensureUsable(): void {
     this.ensureNotDisposed();
 
-    if (
-      this.state ===
-      EventBusState.CREATED
-    ) {
+    if (this.state === EventBusState.CREATED) {
       this.start();
     }
   }
 
-  private ensureNotDisposed():
-    void {
-    if (
-      this.state ===
-      EventBusState.DISPOSED
-    ) {
-      throw new EventError(
-        "Event bus has already been disposed.",
-        {
-          code:
-            "EVENT_BUS_DISPOSED",
-        },
-      );
+  private ensureNotDisposed(): void {
+    if (this.state === EventBusState.DISPOSED) {
+      throw new EventError("Event bus has already been disposed.", {
+        code: "EVENT_BUS_DISPOSED",
+      });
     }
   }
 
-  private notify(
-    event:
-      EventBusEvent,
-  ):
-    void {
-    for (
-      const listener of
-      this.listeners
-    ) {
+  private notify(event: EventBusEvent): void {
+    for (const listener of this.listeners) {
       try {
-        listener(
-          event,
-        );
+        listener(event);
       } catch {
         /**
          * Observers must never be able to break

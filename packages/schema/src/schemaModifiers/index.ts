@@ -12,4 +12,7 @@ export {
 } from "./schemaOptionalNullable.core.js";
 export { DefaultSchema, defaultSchema } from "./schemaDefault.core.js";
 export { RefineSchema, refineSchema } from "./schemaRefine.core.js";
-export { TransformModifierSchema, transformSchema } from "./schemaTransform.core.js";
+export {
+  TransformModifierSchema,
+  transformSchema,
+} from "./schemaTransform.core.js";

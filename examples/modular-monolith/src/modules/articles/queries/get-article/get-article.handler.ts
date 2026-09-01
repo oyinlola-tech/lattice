@@ -3,7 +3,10 @@ import type { GetArticleQuery } from "./get-article.query.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
 import type { ArticleModel } from "../../../../models/article.model.js";
 
-export class GetArticleHandler extends QueryHandler<GetArticleQuery, ArticleModel | null> {
+export class GetArticleHandler extends QueryHandler<
+  GetArticleQuery,
+  ArticleModel | null
+> {
   public readonly queryType = "articles.get" as const;
 
   private readonly articles: ArticleRepository;

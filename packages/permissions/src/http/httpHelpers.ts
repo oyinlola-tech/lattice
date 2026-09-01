@@ -18,7 +18,11 @@ export interface DeniedResponseOptions {
 export function createForbiddenResponse(
   reason: string,
   options?: DeniedResponseOptions,
-): { readonly status: 403; readonly body: unknown; readonly headers: Record<string, string> } {
+): {
+  readonly status: 403;
+  readonly body: unknown;
+  readonly headers: Record<string, string>;
+} {
   const body = options?.deniedResponse
     ? options.deniedResponse({ allowed: false, reason })
     : { error: "Forbidden", message: reason };
@@ -36,7 +40,11 @@ export function createForbiddenResponse(
 export function createJsonResponse(
   status: number,
   body: unknown,
-): { readonly status: number; readonly body: unknown; readonly headers: Record<string, string> } {
+): {
+  readonly status: number;
+  readonly body: unknown;
+  readonly headers: Record<string, string>;
+} {
   return Object.freeze({
     status,
     body,

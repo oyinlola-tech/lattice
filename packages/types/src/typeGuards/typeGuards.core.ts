@@ -7,7 +7,9 @@
 /**
  * Check if a value is a plain object (not an array, null, or class instance).
  */
-export function isPlainObject(value: unknown): value is Record<string, unknown> {
+export function isPlainObject(
+  value: unknown,
+): value is Record<string, unknown> {
   if (typeof value !== "object" || value === null) return false;
   const proto = Object.getPrototypeOf(value);
   return proto === Object.prototype || proto === null;
@@ -16,7 +18,9 @@ export function isPlainObject(value: unknown): value is Record<string, unknown> 
 /**
  * Check if a value is a non-null object.
  */
-export function isNonNullObject(value: unknown): value is Record<string, unknown> {
+export function isNonNullObject(
+  value: unknown,
+): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
@@ -74,7 +78,9 @@ export function isEmail(value: unknown): value is string {
  */
 export function isUuid(value: unknown): value is string {
   if (typeof value !== "string") return false;
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+    value,
+  );
 }
 
 /**
@@ -106,7 +112,9 @@ export function isDefined<T>(value: T | null | undefined): value is T {
 /**
  * Check if a value is a function.
  */
-export function isFunction(value: unknown): value is (...args: unknown[]) => unknown {
+export function isFunction(
+  value: unknown,
+): value is (...args: unknown[]) => unknown {
   return typeof value === "function";
 }
 
@@ -114,10 +122,11 @@ export function isFunction(value: unknown): value is (...args: unknown[]) => unk
  * Check if a value is a Promise.
  */
 export function isPromise(value: unknown): value is Promise<unknown> {
-  return value instanceof Promise || (
-    typeof value === "object" &&
-    value !== null &&
-    "then" in value &&
-    typeof (value as Record<string, unknown>).then === "function"
+  return (
+    value instanceof Promise ||
+    (typeof value === "object" &&
+      value !== null &&
+      "then" in value &&
+      typeof (value as Record<string, unknown>).then === "function")
   );
 }

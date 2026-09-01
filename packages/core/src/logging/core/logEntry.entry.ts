@@ -81,9 +81,7 @@ export interface LogError {
  * Objects
  * Unknown thrown values
  */
-export function serializeLogError(
-  error: unknown,
-): LogError {
+export function serializeLogError(error: unknown): LogError {
   if (error instanceof Error) {
     const candidate = error as Error & {
       code?: string;

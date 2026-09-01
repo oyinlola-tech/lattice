@@ -2,13 +2,9 @@
  * Event middleware type definitions for Lattice.
  */
 
-import type {
-  Event,
-} from "../eventTypes/eventDefinition.type.js";
+import type { Event } from "../eventTypes/eventDefinition.type.js";
 
-import type {
-  EventHandlerContext,
-} from "../eventHandler/eventHandler.core.js";
+import type { EventHandlerContext } from "../eventHandler/eventHandler.core.js";
 
 export interface EventMiddlewareContext<TEvent extends Event = Event> {
   readonly event: TEvent;
@@ -27,13 +23,17 @@ export type EventMiddleware<TEvent extends Event = Event, TResult = unknown> = (
   next: EventMiddlewareNext<TResult>,
 ) => Promise<TResult>;
 
-export interface EventMiddlewareObject<TEvent extends Event = Event, TResult = unknown> {
+export interface EventMiddlewareObject<
+  TEvent extends Event = Event,
+  TResult = unknown,
+> {
   readonly handle: EventMiddleware<TEvent, TResult>;
 }
 
-export type EventMiddlewareLike<TEvent extends Event = Event, TResult = unknown> =
-  | EventMiddleware<TEvent, TResult>
-  | EventMiddlewareObject<TEvent, TResult>;
+export type EventMiddlewareLike<
+  TEvent extends Event = Event,
+  TResult = unknown,
+> = EventMiddleware<TEvent, TResult> | EventMiddlewareObject<TEvent, TResult>;
 
 export interface EventMiddlewareOptions {
   readonly id?: string;
@@ -42,7 +42,10 @@ export interface EventMiddlewareOptions {
   readonly enabled?: boolean;
 }
 
-export interface RegisteredEventMiddleware<TEvent extends Event = Event, TResult = unknown> {
+export interface RegisteredEventMiddleware<
+  TEvent extends Event = Event,
+  TResult = unknown,
+> {
   readonly id: string;
   readonly description?: string;
   readonly priority: number;

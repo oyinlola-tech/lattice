@@ -4,4 +4,7 @@
  * @module manager
  */
 
-export { createTransactionManager, type TransactionManagerOptions } from "./manager.core.js";
+export {
+  createTransactionManager,
+  type TransactionManagerOptions,
+} from "./manager.core.js";

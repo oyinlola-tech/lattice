@@ -4,4 +4,4 @@
  * Factory functions for crypto primitives.
  */
 
-export * from './cryptoFactory.core.js';
+export * from "./cryptoFactory.core.js";

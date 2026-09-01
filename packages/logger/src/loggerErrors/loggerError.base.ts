@@ -12,7 +12,11 @@ import { LoggingError } from "@oyinlola141/lattice-errors";
 export class LoggerError extends LoggingError {
   readonly loggerCode: string;
 
-  constructor(message: string, code = "LOGGER_ERROR", options?: { readonly cause?: unknown }) {
+  constructor(
+    message: string,
+    code = "LOGGER_ERROR",
+    options?: { readonly cause?: unknown },
+  ) {
     super(message, { cause: options?.cause });
     this.name = "LoggerError";
     this.loggerCode = code;
@@ -30,7 +34,12 @@ export class LoggerConfigurationError extends LoggerError {
 /** Raised when a logger has already been disposed. */
 export class LoggerDisposedError extends LoggerError {
   constructor(loggerName?: string) {
-    super(loggerName ? `Logger "${loggerName}" has been disposed.` : "Logger has been disposed.", "LOGGER_DISPOSED");
+    super(
+      loggerName
+        ? `Logger "${loggerName}" has been disposed.`
+        : "Logger has been disposed.",
+      "LOGGER_DISPOSED",
+    );
     this.name = "LoggerDisposedError";
   }
 }
@@ -39,7 +48,10 @@ export class LoggerDisposedError extends LoggerError {
 export class LoggerTransportError extends LoggerError {
   readonly transportName?: string;
 
-  constructor(message: string, options?: { readonly transportName?: string; readonly cause?: unknown }) {
+  constructor(
+    message: string,
+    options?: { readonly transportName?: string; readonly cause?: unknown },
+  ) {
     super(message, "LOGGER_TRANSPORT_ERROR", options);
     this.name = "LoggerTransportError";
     this.transportName = options?.transportName;
@@ -50,7 +62,10 @@ export class LoggerTransportError extends LoggerError {
 export class LoggerFormatterError extends LoggerError {
   readonly formatterName?: string;
 
-  constructor(message: string, options?: { readonly formatterName?: string; readonly cause?: unknown }) {
+  constructor(
+    message: string,
+    options?: { readonly formatterName?: string; readonly cause?: unknown },
+  ) {
     super(message, "LOGGER_FORMATTER_ERROR", options);
     this.name = "LoggerFormatterError";
     this.formatterName = options?.formatterName;
@@ -81,7 +96,9 @@ export class LoggerTimeoutError extends LoggerTransportError {
   readonly timeout: number;
 
   constructor(transportName: string, timeout: number) {
-    super(`Logger transport "${transportName}" timed out after ${timeout}ms.`, { transportName });
+    super(`Logger transport "${transportName}" timed out after ${timeout}ms.`, {
+      transportName,
+    });
     this.name = "LoggerTimeoutError";
     this.timeout = timeout;
   }
@@ -101,7 +118,9 @@ export class LoggerFormatterNotFoundError extends LoggerError {
 
   constructor(formatterName?: string) {
     super(
-      formatterName ? `Logger formatter "${formatterName}" was not found.` : "Logger formatter was not found.",
+      formatterName
+        ? `Logger formatter "${formatterName}" was not found.`
+        : "Logger formatter was not found.",
       "LOGGER_FORMATTER_NOT_FOUND",
     );
     this.name = "LoggerFormatterNotFoundError";
@@ -115,7 +134,9 @@ export class LoggerTransportNotFoundError extends LoggerError {
 
   constructor(transportName?: string) {
     super(
-      transportName ? `Logger transport "${transportName}" was not found.` : "Logger transport was not found.",
+      transportName
+        ? `Logger transport "${transportName}" was not found.`
+        : "Logger transport was not found.",
       "LOGGER_TRANSPORT_NOT_FOUND",
     );
     this.name = "LoggerTransportNotFoundError";

@@ -21,20 +21,13 @@ export type LogValue =
   | Error
   | readonly unknown[]
   | {
-      readonly [key: string]:
-        unknown;
+      readonly [key: string]: unknown;
     };
 
 /**
  * Structured logging metadata.
  */
-export type LogMetadata =
-  Readonly<
-    Record<
-      string,
-      LogValue
-    >
-  >;
+export type LogMetadata = Readonly<Record<string, LogValue>>;
 
 /**
  * Information about the source of a log entry.
@@ -43,38 +36,32 @@ export interface LoggerSource {
   /**
    * Application or service name.
    */
-  readonly service?:
-    string;
+  readonly service?: string;
 
   /**
    * Application component.
    */
-  readonly component?:
-    string;
+  readonly component?: string;
 
   /**
    * Module that produced the log.
    */
-  readonly module?:
-    string;
+  readonly module?: string;
 
   /**
    * Source file.
    */
-  readonly file?:
-    string;
+  readonly file?: string;
 
   /**
    * Source function.
    */
-  readonly function?:
-    string;
+  readonly function?: string;
 
   /**
    * Source line.
    */
-  readonly line?:
-    number;
+  readonly line?: number;
 }
 
 /**
@@ -84,42 +71,35 @@ export interface LoggerEntryContext {
   /**
    * Correlation identifier.
    */
-  readonly correlationId?:
-    string;
+  readonly correlationId?: string;
 
   /**
    * Request identifier.
    */
-  readonly requestId?:
-    string;
+  readonly requestId?: string;
 
   /**
    * Trace identifier.
    */
-  readonly traceId?:
-    string;
+  readonly traceId?: string;
 
   /**
    * Span identifier.
    */
-  readonly spanId?:
-    string;
+  readonly spanId?: string;
 
   /**
    * User identifier.
    */
-  readonly userId?:
-    string;
+  readonly userId?: string;
 
   /**
    * Tenant identifier.
    */
-  readonly tenantId?:
-    string;
+  readonly tenantId?: string;
 
   /**
    * Additional context.
    */
-  readonly metadata?:
-    LogMetadata;
+  readonly metadata?: LogMetadata;
 }

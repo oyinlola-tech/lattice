@@ -9,8 +9,15 @@
  */
 
 import type { TenantId } from "../tenancyTypes/tenantIdentity.js";
-import type { Tenant, TenantContext, TenantRequirement } from "../tenancyTypes/tenantInterface.js";
-import type { TenantResolver, TenantResolution } from "../tenancyTypes/resolverTypes.js";
+import type {
+  Tenant,
+  TenantContext,
+  TenantRequirement,
+} from "../tenancyTypes/tenantInterface.js";
+import type {
+  TenantResolver,
+  TenantResolution,
+} from "../tenancyTypes/resolverTypes.js";
 import type { TenantRepository } from "../tenancyTypes/repositoryTypes.js";
 import type { TenantContextStorage } from "../context/contextStorage.core.js";
 import type { HttpMiddleware } from "./httpTypes.js";
@@ -35,7 +42,9 @@ export interface ResolveTenantMiddlewareOptions {
   /** Tenant context storage for propagation. */
   readonly storage: TenantContextStorage;
   /** Custom error response for missing tenant. */
-  readonly notFoundResponse?: (resolution: TenantResolution | undefined) => unknown;
+  readonly notFoundResponse?: (
+    resolution: TenantResolution | undefined,
+  ) => unknown;
 }
 
 /** Options for the require tenant middleware. */
@@ -59,14 +68,26 @@ export function createResolveTenantMiddleware(
     const resolution = await options.resolver.resolve(context);
 
     if (!resolution) {
-      const body = options.notFoundResponse?.(resolution) ?? { error: "Tenant not found" };
-      return { status: 404, body, headers: { "content-type": "application/json" } };
+      const body = options.notFoundResponse?.(resolution) ?? {
+        error: "Tenant not found",
+      };
+      return {
+        status: 404,
+        body,
+        headers: { "content-type": "application/json" },
+      };
     }
 
     const tenant = await options.repository.findById(resolution.tenantId);
     if (!tenant) {
-      const body = options.notFoundResponse?.(resolution) ?? { error: `Tenant "${resolution.tenantId}" not found` };
-      return { status: 404, body, headers: { "content-type": "application/json" } };
+      const body = options.notFoundResponse?.(resolution) ?? {
+        error: `Tenant "${resolution.tenantId}" not found`,
+      };
+      return {
+        status: 404,
+        body,
+        headers: { "content-type": "application/json" },
+      };
     }
 
     const tenantContext: TenantContext = {
@@ -116,8 +137,14 @@ export function createRequireTenantMiddleware(
 
     const tenant = context.state.get<Tenant>(TENANT_STATE_KEY);
     if (!tenant) {
-      const body = options?.deniedResponse?.(undefined) ?? { error: "Tenant context is required" };
-      return { status: 401, body, headers: { "content-type": "application/json" } };
+      const body = options?.deniedResponse?.(undefined) ?? {
+        error: "Tenant context is required",
+      };
+      return {
+        status: 401,
+        body,
+        headers: { "content-type": "application/json" },
+      };
     }
 
     return next();

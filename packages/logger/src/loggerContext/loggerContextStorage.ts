@@ -7,9 +7,7 @@ import type {
   LoggerContextStorage,
 } from "./loggerContext.core.js";
 
-import {
-  mergeLoggerContexts,
-} from "./loggerContext.core.js";
+import { mergeLoggerContexts } from "./loggerContext.core.js";
 
 /**
  * Creates context storage.
@@ -18,49 +16,24 @@ import {
  * logger package remains runtime-agnostic and does not require
  * Node-specific dependencies.
  */
-export function createLoggerContextStorage():
-  LoggerContextStorage {
-  const stack:
-    LoggerContext[] =
-    [];
+export function createLoggerContextStorage(): LoggerContextStorage {
+  const stack: LoggerContext[] = [];
 
   return {
-    get():
-      LoggerContext |
-      undefined {
-      return stack[
-        stack.length - 1
-      ];
+    get(): LoggerContext | undefined {
+      return stack[stack.length - 1];
     },
 
-    set(
-      context:
-        LoggerContext,
-    ):
-      void {
-      if (
-        stack.length > 0
-      ) {
-        stack[
-          stack.length - 1
-        ] = context;
+    set(context: LoggerContext): void {
+      if (stack.length > 0) {
+        stack[stack.length - 1] = context;
       } else {
-        stack.push(
-          context,
-        );
+        stack.push(context);
       }
     },
 
-    run<T>(
-      context:
-        LoggerContext,
-      callback:
-        () => T,
-    ):
-      T {
-      stack.push(
-        context,
-      );
+    run<T>(context: LoggerContext, callback: () => T): T {
+      stack.push(context);
 
       try {
         return callback();
@@ -69,36 +42,16 @@ export function createLoggerContextStorage():
       }
     },
 
-    with<T>(
-      context:
-        LoggerContext,
-      callback:
-        () => T,
-    ):
-      T {
-      const current =
-        stack[
-          stack.length - 1
-        ];
+    with<T>(context: LoggerContext, callback: () => T): T {
+      const current = stack[stack.length - 1];
 
-      const merged =
-        current
-          ? mergeLoggerContexts(
-              current,
-              context,
-            )
-          : context;
+      const merged = current ? mergeLoggerContexts(current, context) : context;
 
-      return this.run(
-        merged,
-        callback,
-      );
+      return this.run(merged, callback);
     },
 
-    clear():
-      void {
-      stack.length =
-        0;
+    clear(): void {
+      stack.length = 0;
     },
   };
 }

@@ -4,9 +4,7 @@
  * Pre-started containers with override support.
  */
 
-export {
-  createTestContainer,
-} from "./testContainer.core.js";
+export { createTestContainer } from "./testContainer.core.js";
 
 export type {
   DependencyOverride,

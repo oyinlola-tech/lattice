@@ -45,10 +45,11 @@ export function normalizeIdentifier(value: string): string {
 /** Removes surrounding quotes from a string. */
 export function normalizeQuotes(value: string): string {
   const normalized = value.trim();
-  if (normalized.length >= 2 && (
-    (normalized.startsWith('"') && normalized.endsWith('"')) ||
-    (normalized.startsWith("'") && normalized.endsWith("'"))
-  )) {
+  if (
+    normalized.length >= 2 &&
+    ((normalized.startsWith('"') && normalized.endsWith('"')) ||
+      (normalized.startsWith("'") && normalized.endsWith("'")))
+  ) {
     return normalized.slice(1, -1);
   }
   return normalized;
@@ -60,17 +61,25 @@ export function removeBom(value: string): string {
 }
 
 /** Normalizes an array by applying a normalizer to every item. */
-export function normalizeArray<T>(values: readonly T[], normalizer: (value: T) => T): T[] {
+export function normalizeArray<T>(
+  values: readonly T[],
+  normalizer: (value: T) => T,
+): T[] {
   return values.map(normalizer);
 }
 
 /** Normalizes an array asynchronously. */
-export async function normalizeArrayAsync<T>(values: readonly T[], normalizer: (value: T) => T | Promise<T>): Promise<T[]> {
+export async function normalizeArrayAsync<T>(
+  values: readonly T[],
+  normalizer: (value: T) => T | Promise<T>,
+): Promise<T[]> {
   return Promise.all(values.map(normalizer));
 }
 
 /** Composes multiple normalizers into one. */
-export function composeNormalizers<T>(...normalizers: readonly ((value: T) => T)[]): (value: T) => T {
+export function composeNormalizers<T>(
+  ...normalizers: readonly ((value: T) => T)[]
+): (value: T) => T {
   return (value: T): T => {
     let current = value;
     for (const normalizer of normalizers) current = normalizer(current);
@@ -79,12 +88,17 @@ export function composeNormalizers<T>(...normalizers: readonly ((value: T) => T)
 }
 
 /** Creates a normalizer that only changes a value when the predicate returns true. */
-export function conditionalNormalizer<T>(predicate: (value: T) => boolean, normalizer: (value: T) => T): (value: T) => T {
-  return (value: T): T => predicate(value) ? normalizer(value) : value;
+export function conditionalNormalizer<T>(
+  predicate: (value: T) => boolean,
+  normalizer: (value: T) => T,
+): (value: T) => T {
+  return (value: T): T => (predicate(value) ? normalizer(value) : value);
 }
 
 /** Normalizes an optional string. */
-export function normalizeOptionalString(value: string | undefined): string | undefined {
+export function normalizeOptionalString(
+  value: string | undefined,
+): string | undefined {
   if (value === undefined) return undefined;
   return normalizeWhitespace(normalizeUnicode(value));
 }
@@ -96,7 +110,9 @@ export function normalizeNullableString(value: string | null): string | null {
 }
 
 /** Normalizes an optional nullable string. */
-export function normalizeOptionalNullableString(value: string | null | undefined): string | null | undefined {
+export function normalizeOptionalNullableString(
+  value: string | null | undefined,
+): string | null | undefined {
   if (value === null || value === undefined) return value;
   return normalizeWhitespace(normalizeUnicode(value));
 }

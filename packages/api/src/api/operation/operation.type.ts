@@ -64,7 +64,8 @@ export function defineOperation<TInput = unknown, TOutput = unknown>(
 ): APIOperation<TInput, TOutput> {
   const operation: APIOperation<TInput, TOutput> = {
     ...options,
-    timeout: options.timeout ?? options.metadata?.timeout ?? DEFAULT_OPERATION_TIMEOUT,
+    timeout:
+      options.timeout ?? options.metadata?.timeout ?? DEFAULT_OPERATION_TIMEOUT,
   };
 
   return Object.freeze(operation);

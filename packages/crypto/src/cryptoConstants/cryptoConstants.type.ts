@@ -47,13 +47,12 @@ export const HASH_ALGORITHMS = Object.freeze([
 /**
  * Algorithms intended for password/key derivation.
  */
-export const KEY_DERIVATION_ALGORITHMS =
-  Object.freeze([
-    CryptoAlgorithm.PBKDF2_SHA256,
-    CryptoAlgorithm.PBKDF2_SHA512,
-    CryptoAlgorithm.SCRYPT,
-    CryptoAlgorithm.ARGON2ID,
-  ] as const);
+export const KEY_DERIVATION_ALGORITHMS = Object.freeze([
+  CryptoAlgorithm.PBKDF2_SHA256,
+  CryptoAlgorithm.PBKDF2_SHA512,
+  CryptoAlgorithm.SCRYPT,
+  CryptoAlgorithm.ARGON2ID,
+] as const);
 
 /**
  * Algorithms intended for message authentication.

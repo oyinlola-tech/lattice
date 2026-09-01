@@ -5,7 +5,12 @@
  * Concrete repositories can extend this for domain-specific queries.
  */
 
-import type { Database, Query, QueryParameter, QueryResult } from "../types/storage.type.js";
+import type {
+  Database,
+  Query,
+  QueryParameter,
+  QueryResult,
+} from "../types/storage.type.js";
 
 /**
  * Options for the base repository.
@@ -94,10 +99,7 @@ export class BaseRepository<
     }
 
     const setClauses = keys.map((key, i) => `${key} = $${i + 1}`).join(", ");
-    const parameters = [
-      ...values,
-      id,
-    ] as QueryParameter[];
+    const parameters = [...values, id] as QueryParameter[];
 
     const query: Query = {
       text: `UPDATE ${this.tableName} SET ${setClauses} WHERE ${this.primaryKey} = $${keys.length + 1} RETURNING *`,

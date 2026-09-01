@@ -7,7 +7,10 @@ import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 /**
  * Options for creating an HTTP router error.
  */
-export interface HttpRouterErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface HttpRouterErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
 }
 
@@ -30,7 +33,10 @@ export class HttpRouterError extends BaseError {
 }
 
 /** Creates an HTTP router error. */
-export function createHttpRouterError(message: string, options: HttpRouterErrorOptions = {}): HttpRouterError {
+export function createHttpRouterError(
+  message: string,
+  options: HttpRouterErrorOptions = {},
+): HttpRouterError {
   return new HttpRouterError(message, options);
 }
 

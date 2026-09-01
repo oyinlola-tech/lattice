@@ -26,7 +26,10 @@ export function createMessageId(): MessageId {
  * Generates a UUID when available.
  */
 function createUuid(): string {
-  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
+  ) {
     return crypto.randomUUID();
   }
   return [
@@ -43,7 +46,8 @@ function normalizeTimestamp(timestamp: MessageInput["timestamp"]): Date {
   if (timestamp instanceof Date) return new Date(timestamp.getTime());
   if (typeof timestamp === "number") {
     const date = new Date(timestamp);
-    if (Number.isNaN(date.getTime())) throw new TypeError("Invalid message timestamp.");
+    if (Number.isNaN(date.getTime()))
+      throw new TypeError("Invalid message timestamp.");
     return date;
   }
   return new Date();
@@ -90,8 +94,12 @@ export function createDerivedMessage<TPayload>(
 ): Message<TPayload> {
   return createMessage({
     ...input,
-    correlationId: input.correlationId ?? sourceMessage.correlationId ?? (sourceMessage.id as unknown as MessageCorrelationId),
-    causationId: input.causationId ?? (sourceMessage.id as unknown as MessageCausationId),
+    correlationId:
+      input.correlationId ??
+      sourceMessage.correlationId ??
+      (sourceMessage.id as unknown as MessageCorrelationId),
+    causationId:
+      input.causationId ?? (sourceMessage.id as unknown as MessageCausationId),
   });
 }
 
@@ -112,14 +120,18 @@ export function isMessage(value: unknown): value is Message {
 /**
  * Returns the message type.
  */
-export function getMessageType<TPayload>(message: Message<TPayload>): MessageType {
+export function getMessageType<TPayload>(
+  message: Message<TPayload>,
+): MessageType {
   return message.type;
 }
 
 /**
  * Returns the message payload.
  */
-export function getMessagePayload<TPayload>(message: Message<TPayload>): TPayload {
+export function getMessagePayload<TPayload>(
+  message: Message<TPayload>,
+): TPayload {
   return message.payload;
 }
 

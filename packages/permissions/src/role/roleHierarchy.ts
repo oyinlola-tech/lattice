@@ -5,7 +5,10 @@
  */
 
 import type { RoleDefinition } from "../permissionTypes/index.js";
-import { CircularRoleInheritanceError, RoleNotFoundError } from "../permissionErrors/index.js";
+import {
+  CircularRoleInheritanceError,
+  RoleNotFoundError,
+} from "../permissionErrors/index.js";
 
 /**
  * Resolve all permissions for a set of role names, following inheritance chains.

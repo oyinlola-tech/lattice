@@ -49,7 +49,6 @@ export interface CacheFreshness {
   readonly remaining: number;
 }
 
-export const CACHE_CONTROL_HEADER =
-  "cache-control" as const;
+export const CACHE_CONTROL_HEADER = "cache-control" as const;
 
 export const DEFAULT_MAX_AGE = 0;

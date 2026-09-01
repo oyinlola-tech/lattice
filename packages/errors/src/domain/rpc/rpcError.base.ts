@@ -9,8 +9,7 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating an RPC error. */
-export interface RPCErrorOptions
-  extends Omit<BaseErrorOptions, "category"> {
+export interface RPCErrorOptions extends Omit<BaseErrorOptions, "category"> {
   readonly category?: ErrorCategory;
   readonly procedureName?: string;
 }
@@ -19,10 +18,7 @@ export interface RPCErrorOptions
 export class RPCError extends BaseError {
   public readonly procedureName?: string;
 
-  constructor(
-    message: string,
-    options: RPCErrorOptions = {},
-  ) {
+  constructor(message: string, options: RPCErrorOptions = {}) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.RPC_ERROR,
@@ -54,19 +50,19 @@ export function createRPCError(
 }
 
 /** Determines whether an unknown value is an RPCError. */
-export function isRPCError(
-  value: unknown,
-): value is RPCError {
+export function isRPCError(value: unknown): value is RPCError {
   return value instanceof RPCError;
 }
 
 /** Error thrown when an RPC procedure is not found. */
 export class RPCProcedureNotFoundError extends RPCError {
   constructor(procedureName: string) {
-    super(
-      `RPC procedure "${procedureName}" is not registered.`,
-      { code: ErrorCode.RPC_PROCEDURE_NOT_FOUND, procedureName, statusCode: 404, expose: true },
-    );
+    super(`RPC procedure "${procedureName}" is not registered.`, {
+      code: ErrorCode.RPC_PROCEDURE_NOT_FOUND,
+      procedureName,
+      statusCode: 404,
+      expose: true,
+    });
     this.name = "RPCProcedureNotFoundError";
   }
 }

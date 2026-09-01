@@ -4,9 +4,7 @@
  * Console logger implementation and factory.
  */
 
-export {
-  ConsoleLogger,
-} from "./consoleLogger.logger.js";
+export { ConsoleLogger } from "./consoleLogger.logger.js";
 
 export {
   LoggerFactory,

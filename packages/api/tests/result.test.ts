@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { apiFailure, apiSuccess, isApiFailure, isApiSuccess } from "../src/api/result/apiResult.type.js";
+import {
+  apiFailure,
+  apiSuccess,
+  isApiFailure,
+  isApiSuccess,
+} from "../src/api/result/apiResult.type.js";
 
 describe("apiSuccess", () => {
   it("creates a successful result", () => {

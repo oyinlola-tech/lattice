@@ -4,10 +4,7 @@
  * Core lifecycle state machine, hooks, and registry.
  */
 
-export {
-  LifecycleState,
-  type LifecycleParticipant,
-} from "./lifecycle.js";
+export { LifecycleState, type LifecycleParticipant } from "./lifecycle.js";
 
 export {
   hasInitializeHook,

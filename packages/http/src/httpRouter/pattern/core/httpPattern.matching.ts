@@ -4,10 +4,7 @@
  * @module httpRoute/pattern/matching
  */
 
-import type {
-  CompiledRoutePattern,
-  RouteMatch,
-} from "./httpPattern.type.js";
+import type { CompiledRoutePattern, RouteMatch } from "./httpPattern.type.js";
 
 /**
  * Tests if a path matches a compiled route pattern.

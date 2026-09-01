@@ -5,7 +5,13 @@
  */
 
 /** Type-safe cache strategy string. */
-export type CacheStrategy = "no-store" | "no-cache" | "private" | "public" | "must-revalidate" | "immutable";
+export type CacheStrategy =
+  | "no-store"
+  | "no-cache"
+  | "private"
+  | "public"
+  | "must-revalidate"
+  | "immutable";
 
 /**
  * All supported cache strategies as an object map.

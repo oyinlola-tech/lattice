@@ -4,4 +4,7 @@
  * @module constantsErrors
  */
 
-export { InvalidConstantError, ConstantContextError } from "./constantsError.base.js";
+export {
+  InvalidConstantError,
+  ConstantContextError,
+} from "./constantsError.base.js";

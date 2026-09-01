@@ -12,9 +12,7 @@ import type {
   HttpMiddlewareResult,
 } from "../../httpMiddleware.type.js";
 
-import type {
-  HttpResponseContext as ResponseContext,
-} from "../../../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../../../httpResponse/httpResponse.context.js";
 
 export interface ImageCompressionOptions {
   readonly quality?: number;
@@ -41,9 +39,7 @@ async function getSharp() {
     const mod = await import("sharp");
     return (mod as any).default ?? mod;
   } catch {
-    throw new Error(
-      "Sharp is not installed. Run: npm install sharp",
-    );
+    throw new Error("Sharp is not installed. Run: npm install sharp");
   }
 }
 
@@ -99,8 +95,8 @@ export function createImageCompressionMiddleware(
 
     const response = await next();
 
-    const contentType =
-      context.response.headers["content-type"] as string | undefined;
+    const contentType = context.response.headers["content-type"] as
+      string | undefined;
 
     if (!contentType || !contentType.startsWith("image/")) {
       return response;
@@ -131,9 +127,7 @@ export function createImageCompressionMiddleware(
                 ? "image/avif"
                 : contentType;
 
-      const headers = new Headers(
-        response.headers as Record<string, string>,
-      );
+      const headers = new Headers(response.headers as Record<string, string>);
       headers.set("content-type", newContentType);
       headers.set(
         "cache-control",

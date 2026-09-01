@@ -21,9 +21,7 @@ export class DocumentRegistry implements DocumentationProvider {
    */
   register(document: DocumentationDocument): void {
     if (this.documents.has(document.id)) {
-      throw new Error(
-        `Duplicate document ID: "${document.id}".`,
-      );
+      throw new Error(`Duplicate document ID: "${document.id}".`);
     }
 
     this.documents.set(document.id, Object.freeze(document));
@@ -32,9 +30,7 @@ export class DocumentRegistry implements DocumentationProvider {
   /**
    * Registers multiple documents.
    */
-  registerAll(
-    documents: readonly DocumentationDocument[],
-  ): void {
+  registerAll(documents: readonly DocumentationDocument[]): void {
     for (const doc of documents) {
       this.register(doc);
     }
@@ -92,13 +88,9 @@ export class DocumentRegistry implements DocumentationProvider {
   /**
    * Filters documents by category.
    */
-  byCategory(
-    category: string,
-  ): readonly DocumentationDocument[] {
+  byCategory(category: string): readonly DocumentationDocument[] {
     return Object.freeze(
-      [...this.documents.values()].filter(
-        (doc) => doc.category === category,
-      ),
+      [...this.documents.values()].filter((doc) => doc.category === category),
     );
   }
 
@@ -107,9 +99,7 @@ export class DocumentRegistry implements DocumentationProvider {
    */
   byTag(tag: string): readonly DocumentationDocument[] {
     return Object.freeze(
-      [...this.documents.values()].filter(
-        (doc) => doc.tags?.includes(tag),
-      ),
+      [...this.documents.values()].filter((doc) => doc.tags?.includes(tag)),
     );
   }
 }

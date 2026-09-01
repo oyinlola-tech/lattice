@@ -11,7 +11,7 @@ npm install @latticejs/transactions
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/transactions";
+import {} from /* add usage here */ "@latticejs/transactions";
 ```
 
 ## License

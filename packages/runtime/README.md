@@ -11,7 +11,7 @@ npm install @latticejs/runtime
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/runtime";
+import {} from /* add usage here */ "@latticejs/runtime";
 ```
 
 ## License

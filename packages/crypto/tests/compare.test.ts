@@ -25,7 +25,9 @@ describe("timingSafeEqual", () => {
   });
 
   it("returns false when one is empty", () => {
-    expect(timingSafeEqual(new Uint8Array([1]), new Uint8Array([]))).toBe(false);
+    expect(timingSafeEqual(new Uint8Array([1]), new Uint8Array([]))).toBe(
+      false,
+    );
   });
 
   it("handles large arrays", () => {

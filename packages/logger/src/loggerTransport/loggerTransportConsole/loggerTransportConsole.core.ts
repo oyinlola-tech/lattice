@@ -8,13 +8,9 @@ import type {
   RegisteredLoggerTransport,
 } from "../loggerTransport.type.js";
 
-import {
-  createLoggerTransport,
-} from "../loggerTransport.core.js";
+import { createLoggerTransport } from "../loggerTransport.core.js";
 
-import {
-  serializeTransportEntry,
-} from "../loggerTransportHelpers/loggerTransportHelpers.js";
+import { serializeTransportEntry } from "../loggerTransportHelpers/loggerTransportHelpers.js";
 
 /**
  * Creates a simple console transport.
@@ -23,64 +19,38 @@ import {
  * Node.js-specific APIs.
  */
 export function createConsoleLoggerTransport(
-  options:
-    LoggerTransportOptions = {},
-):
-  RegisteredLoggerTransport {
-  const transport:
-    LoggerTransport = {
-    name:
-      options.name ??
-      "console",
+  options: LoggerTransportOptions = {},
+): RegisteredLoggerTransport {
+  const transport: LoggerTransport = {
+    name: options.name ?? "console",
 
-    enabled:
-      options.enabled ??
-      true,
+    enabled: options.enabled ?? true,
 
-    write(
-      entry,
-    ):
-      void {
-      const payload =
-        serializeTransportEntry(
-          entry,
-        );
+    write(entry): void {
+      const payload = serializeTransportEntry(entry);
 
-      switch (
-        entry.levelName
-      ) {
+      switch (entry.levelName) {
         case "fatal":
         case "error":
-          console.error(
-            payload,
-          );
+          console.error(payload);
           break;
 
         case "warn":
-          console.warn(
-            payload,
-          );
+          console.warn(payload);
           break;
 
         case "debug":
         case "trace":
-          console.debug(
-            payload,
-          );
+          console.debug(payload);
           break;
 
         case "info":
         default:
-          console.info(
-            payload,
-          );
+          console.info(payload);
           break;
       }
     },
   };
 
-  return createLoggerTransport(
-    transport,
-    options,
-  );
+  return createLoggerTransport(transport, options);
 }

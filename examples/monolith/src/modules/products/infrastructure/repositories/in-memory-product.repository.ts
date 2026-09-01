@@ -3,7 +3,10 @@ import type { ProductRepository } from "../../domain/repositories/product.reposi
 import type { ProductId } from "../../../../shared/domain/ids.js";
 
 class InMemoryProductStore {
-  private readonly items = new Map<string, { data: Product; updatedAt: Date }>();
+  private readonly items = new Map<
+    string,
+    { data: Product; updatedAt: Date }
+  >();
 
   public async findById(id: ProductId): Promise<Product | null> {
     const entry = this.items.get(id);
@@ -26,8 +29,16 @@ class InMemoryProductStore {
 export class InMemoryProductRepository implements ProductRepository {
   private readonly store = new InMemoryProductStore();
 
-  public async findById(id: ProductId): Promise<Product | null> { return this.store.findById(id); }
-  public async findAll(): Promise<readonly Product[]> { return this.store.findAll(); }
-  public async save(entity: Product): Promise<void> { await this.store.save(entity); }
-  public async delete(id: ProductId): Promise<void> { await this.store.delete(id); }
+  public async findById(id: ProductId): Promise<Product | null> {
+    return this.store.findById(id);
+  }
+  public async findAll(): Promise<readonly Product[]> {
+    return this.store.findAll();
+  }
+  public async save(entity: Product): Promise<void> {
+    await this.store.save(entity);
+  }
+  public async delete(id: ProductId): Promise<void> {
+    await this.store.delete(id);
+  }
 }

@@ -8,23 +8,33 @@ import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 import { ExternalServiceError } from "./externalServiceError.base.js";
 
 /** Creates an external service timeout error. */
-export function externalServiceTimeoutError(service: string, operation?: string): ExternalServiceError {
+export function externalServiceTimeoutError(
+  service: string,
+  operation?: string,
+): ExternalServiceError {
   return new ExternalServiceError(`The ${service} request timed out.`, {
-    service, operation,
+    service,
+    operation,
     code: ErrorCode.EXTERNAL_SERVICE_TIMEOUT,
     category: ErrorCategory.EXTERNAL_SERVICE,
     severity: ErrorSeverity.WARNING,
-    statusCode: 504, expose: false,
+    statusCode: 504,
+    expose: false,
   });
 }
 
 /** Creates an external service unavailable error. */
-export function externalServiceUnavailable(service: string, operation?: string): ExternalServiceError {
+export function externalServiceUnavailable(
+  service: string,
+  operation?: string,
+): ExternalServiceError {
   return new ExternalServiceError(`${service} is currently unavailable.`, {
-    service, operation,
+    service,
+    operation,
     code: ErrorCode.EXTERNAL_SERVICE_UNAVAILABLE,
     category: ErrorCategory.EXTERNAL_SERVICE,
     severity: ErrorSeverity.ERROR,
-    statusCode: 503, expose: false,
+    statusCode: 503,
+    expose: false,
   });
 }

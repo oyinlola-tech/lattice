@@ -12,9 +12,7 @@ import type {
   EventType,
 } from "../eventTypes/eventDefinition.type.js";
 
-import type {
-  EventTypePattern,
-} from "../eventTypes/eventType.type.js";
+import type { EventTypePattern } from "../eventTypes/eventType.type.js";
 
 import type {
   EventHandlerLike,
@@ -22,9 +20,7 @@ import type {
   RegisteredEventHandler,
 } from "../eventHandler/eventHandler.core.js";
 
-import type {
-  EventSubscription,
-} from "../eventSubscription/eventSubscription.core.js";
+import type { EventSubscription } from "../eventSubscription/eventSubscription.core.js";
 
 import {
   DuplicateEventDefinitionError,
@@ -71,58 +67,30 @@ export {
  * Main event registry.
  */
 export class EventRegistry {
-  private readonly definitions =
-    new Map<
-      EventType,
-      RegisteredEventDefinition
-    >();
+  private readonly definitions = new Map<
+    EventType,
+    RegisteredEventDefinition
+  >();
 
-  private readonly handlers =
-    new Map<
-      string,
-      RegisteredEventHandler
-    >();
+  private readonly handlers = new Map<string, RegisteredEventHandler>();
 
-  private readonly listeners =
-    new Set<
-      EventRegistryListener
-    >();
+  private readonly listeners = new Set<EventRegistryListener>();
 
-  private readonly options:
-    Required<EventRegistryOptions>;
+  private readonly options: Required<EventRegistryOptions>;
 
-  private disposed =
-    false;
+  private disposed = false;
 
-  constructor(
-    options:
-      EventRegistryOptions = {},
-  ) {
+  constructor(options: EventRegistryOptions = {}) {
     this.options = {
-      allowDuplicateDefinitions:
-        options.allowDuplicateDefinitions ??
-        false,
+      allowDuplicateDefinitions: options.allowDuplicateDefinitions ?? false,
 
-      allowDuplicateHandlerIds:
-        options.allowDuplicateHandlerIds ??
-        false,
+      allowDuplicateHandlerIds: options.allowDuplicateHandlerIds ?? false,
     };
   }
 
-  register<
-    TType extends EventType,
-    TPayload,
-  >(
-    definition:
-      EventDefinition<
-        TType,
-        TPayload
-      >,
-  ):
-    RegisteredEventDefinition<
-      TType,
-      TPayload
-    > {
+  register<TType extends EventType, TPayload>(
+    definition: EventDefinition<TType, TPayload>,
+  ): RegisteredEventDefinition<TType, TPayload> {
     return registryRegister(
       definition,
       this.definitions,
@@ -132,20 +100,11 @@ export class EventRegistry {
     );
   }
 
-  registerHandler<
-    TEvent extends Event = Event,
-  >(
-    eventType:
-      EventTypePattern,
-    handler:
-      EventHandlerLike<TEvent>,
-    options:
-      Omit<
-        EventHandlerOptions,
-        "eventType"
-      > = {},
-  ):
-    EventSubscription {
+  registerHandler<TEvent extends Event = Event>(
+    eventType: EventTypePattern,
+    handler: EventHandlerLike<TEvent>,
+    options: Omit<EventHandlerOptions, "eventType"> = {},
+  ): EventSubscription {
     return registryRegisterHandler(
       eventType,
       handler,
@@ -157,77 +116,34 @@ export class EventRegistry {
     );
   }
 
-  get<
-    TType extends EventType,
-    TPayload = unknown,
-  >(
-    eventType:
-      TType,
-  ):
-    RegisteredEventDefinition<
-      TType,
-      TPayload
-    > |
-    undefined {
+  get<TType extends EventType, TPayload = unknown>(
+    eventType: TType,
+  ): RegisteredEventDefinition<TType, TPayload> | undefined {
     this.ensureActive();
 
-    return this.definitions.get(
-      eventType,
-    ) as
-      | RegisteredEventDefinition<
-          TType,
-          TPayload
-        >
-      | undefined;
+    return this.definitions.get(eventType) as
+      RegisteredEventDefinition<TType, TPayload> | undefined;
   }
 
-  require<
-    TType extends EventType,
-    TPayload = unknown,
-  >(
-    eventType:
-      TType,
-  ):
-    RegisteredEventDefinition<
-      TType,
-      TPayload
-    > {
-    const definition =
-      this.get<
-        TType,
-        TPayload
-      >(
-        eventType,
-      );
+  require<TType extends EventType, TPayload = unknown>(
+    eventType: TType,
+  ): RegisteredEventDefinition<TType, TPayload> {
+    const definition = this.get<TType, TPayload>(eventType);
 
-    if (
-      !definition
-    ) {
-      throw new EventDefinitionNotFoundError(
-        eventType,
-      );
+    if (!definition) {
+      throw new EventDefinitionNotFoundError(eventType);
     }
 
     return definition;
   }
 
-  has(
-    eventType:
-      EventType,
-  ):
-    boolean {
+  has(eventType: EventType): boolean {
     this.ensureActive();
 
-    return this.definitions.has(
-      eventType,
-    );
+    return this.definitions.has(eventType);
   }
 
-  unregister(
-    eventType:
-      EventType,
-  ):
-    boolean {
+  unregister(eventType: EventType): boolean {
     return registryUnregister(
       eventType,
       this.definitions,
@@ -236,57 +152,29 @@ export class EventRegistry {
     );
   }
 
-  getHandler(
-    handlerId:
-      string,
-  ):
-    RegisteredEventHandler |
-    undefined {
+  getHandler(handlerId: string): RegisteredEventHandler | undefined {
     this.ensureActive();
 
-    return this.handlers.get(
-      handlerId,
-    );
+    return this.handlers.get(handlerId);
   }
 
-  requireHandler(
-    handlerId:
-      string,
-  ):
-    RegisteredEventHandler {
-    const handler =
-      this.getHandler(
-        handlerId,
-      );
+  requireHandler(handlerId: string): RegisteredEventHandler {
+    const handler = this.getHandler(handlerId);
 
-    if (
-      !handler
-    ) {
-      throw new EventHandlerNotFoundError(
-        handlerId,
-      );
+    if (!handler) {
+      throw new EventHandlerNotFoundError(handlerId);
     }
 
     return handler;
   }
 
-  hasHandler(
-    handlerId:
-      string,
-  ):
-    boolean {
+  hasHandler(handlerId: string): boolean {
     this.ensureActive();
 
-    return this.handlers.has(
-      handlerId,
-    );
+    return this.handlers.has(handlerId);
   }
 
-  unregisterHandler(
-    handlerId:
-      string,
-  ):
-    boolean {
+  unregisterHandler(handlerId: string): boolean {
     return registryUnregisterHandler(
       handlerId,
       this.handlers,
@@ -295,80 +183,49 @@ export class EventRegistry {
     );
   }
 
-  getDefinitions():
-    readonly RegisteredEventDefinition[] {
+  getDefinitions(): readonly RegisteredEventDefinition[] {
     this.ensureActive();
 
-    return getAllDefinitions(
-      this.definitions,
-    );
+    return getAllDefinitions(this.definitions);
   }
 
-  getHandlers():
-    readonly RegisteredEventHandler[] {
+  getHandlers(): readonly RegisteredEventHandler[] {
     this.ensureActive();
 
-    return getAllHandlers(
-      this.handlers,
-    );
+    return getAllHandlers(this.handlers);
   }
 
-  getHandlersForEvent(
-    event:
-      Event,
-  ):
-    readonly RegisteredEventHandler[] {
+  getHandlersForEvent(event: Event): readonly RegisteredEventHandler[] {
     this.ensureActive();
 
-    return getHandlersForEvent(
-      this.handlers,
-      event,
-    );
+    return getHandlersForEvent(this.handlers, event);
   }
 
-  getHandlersForType(
-    eventType:
-      EventType,
-  ):
-    readonly RegisteredEventHandler[] {
+  getHandlersForType(eventType: EventType): readonly RegisteredEventHandler[] {
     this.ensureActive();
 
-    return getHandlersForType(
-      this.handlers,
-      eventType,
-    );
+    return getHandlersForType(this.handlers, eventType);
   }
 
-  subscribe(
-    listener:
-      EventRegistryListener,
-  ):
-    () => void {
+  subscribe(listener: EventRegistryListener): () => void {
     this.ensureActive();
 
-    this.listeners.add(
-      listener,
-    );
+    this.listeners.add(listener);
 
     return () => {
-      this.listeners.delete(
-        listener,
-      );
+      this.listeners.delete(listener);
     };
   }
 
-  get eventCount():
-    number {
+  get eventCount(): number {
     return this.definitions.size;
   }
 
-  get handlerCount():
-    number {
+  get handlerCount(): number {
     return this.handlers.size;
   }
 
-  clear():
-    void {
+  clear(): void {
     registryClear(
       this.definitions,
       this.handlers,
@@ -377,8 +234,7 @@ export class EventRegistry {
     );
   }
 
-  dispose():
-    void {
+  dispose(): void {
     registryDispose(
       this.disposed,
       this.definitions,
@@ -388,34 +244,20 @@ export class EventRegistry {
       (c) => this.notify(c),
     );
 
-    this.disposed =
-      true;
+    this.disposed = true;
   }
 
-  isDisposed():
-    boolean {
+  isDisposed(): boolean {
     return this.disposed;
   }
 
-  private notify(
-    change:
-      EventRegistryChange,
-  ):
-    void {
-    registryNotify(
-      change,
-      this.listeners,
-    );
+  private notify(change: EventRegistryChange): void {
+    registryNotify(change, this.listeners);
   }
 
-  private ensureActive():
-    void {
-    if (
-      this.disposed
-    ) {
-      throw new Error(
-        "EventRegistry has already been disposed.",
-      );
+  private ensureActive(): void {
+    if (this.disposed) {
+      throw new Error("EventRegistry has already been disposed.");
     }
   }
 }
@@ -424,11 +266,7 @@ export class EventRegistry {
  * Creates an event registry.
  */
 export function createEventRegistry(
-  options:
-    EventRegistryOptions = {},
-):
-  EventRegistry {
-  return new EventRegistry(
-    options,
-  );
+  options: EventRegistryOptions = {},
+): EventRegistry {
+  return new EventRegistry(options);
 }

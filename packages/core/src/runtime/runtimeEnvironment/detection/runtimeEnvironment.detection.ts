@@ -95,9 +95,7 @@ export function detectProcessInfo(): RuntimeProcessInfo {
   });
 }
 
-export function detectHostInfo(
-  platform: RuntimePlatform,
-): RuntimeHostInfo {
+export function detectHostInfo(platform: RuntimePlatform): RuntimeHostInfo {
   const processObject = getProcessObject();
   const osObject = getNodeOsObject();
 

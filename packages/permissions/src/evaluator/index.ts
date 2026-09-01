@@ -4,9 +4,6 @@
  * @module evaluator
  */
 
-export {
-  evaluate,
-  evaluateWithExplain,
-} from "./evaluator.core.js";
+export { evaluate, evaluateWithExplain } from "./evaluator.core.js";
 
 export type { EvaluatorOptions } from "./evaluator.pipeline.js";

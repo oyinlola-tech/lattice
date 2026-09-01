@@ -3,7 +3,10 @@ import type { GetUserQuery } from "./get-user.query.js";
 import type { UserRepository } from "../../../../repositories/user.repository.js";
 import type { UserModel } from "../../../../models/user.model.js";
 
-export class GetUserHandler extends QueryHandler<GetUserQuery, UserModel | null> {
+export class GetUserHandler extends QueryHandler<
+  GetUserQuery,
+  UserModel | null
+> {
   public readonly queryType = "identity.get-user" as const;
 
   private readonly users: UserRepository;

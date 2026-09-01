@@ -20,9 +20,7 @@ export function getBreadcrumbs(
 ): readonly DocumentationBreadcrumb[] {
   const path: DocumentationBreadcrumb[] = [];
 
-  function walk(
-    nodes: readonly DocumentationNavigationItem[],
-  ): boolean {
+  function walk(nodes: readonly DocumentationNavigationItem[]): boolean {
     for (const node of nodes) {
       if (node.documentId === documentId) {
         path.push({ title: node.title, documentId: node.documentId });
@@ -53,9 +51,7 @@ export function flattenNavigation(
 ): readonly string[] {
   const result: string[] = [];
 
-  function walk(
-    nodes: readonly DocumentationNavigationItem[],
-  ): void {
+  function walk(nodes: readonly DocumentationNavigationItem[]): void {
     for (const node of nodes) {
       if (node.documentId) {
         result.push(node.documentId);
@@ -104,9 +100,7 @@ export function getSiblings(
   ): string[] | undefined {
     for (const node of nodes) {
       if (node.documentId === documentId) {
-        return nodes
-          .filter((n) => n.documentId)
-          .map((n) => n.documentId!);
+        return nodes.filter((n) => n.documentId).map((n) => n.documentId!);
       }
 
       if (node.children) {

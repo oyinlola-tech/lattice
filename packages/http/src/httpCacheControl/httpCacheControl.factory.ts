@@ -4,18 +4,14 @@
  * @module httpCacheControl/factory
  */
 
-import type {
-  CacheControlOptions,
-} from "./core/httpCacheControl.type.js";
+import type { CacheControlOptions } from "./core/httpCacheControl.type.js";
 
 import { formatCacheControl } from "./core/httpCacheControl.parse.js";
 
 /**
  * Creates a Cache-Control header string from options.
  */
-export function createCacheControl(
-  options: CacheControlOptions = {},
-): string {
+export function createCacheControl(options: CacheControlOptions = {}): string {
   return formatCacheControl(options);
 }
 
@@ -36,27 +32,21 @@ export function createNoStoreHeader(): string {
 /**
  * Creates a public cache header with max-age.
  */
-export function createPublicCacheHeader(
-  maxAge: number,
-): string {
+export function createPublicCacheHeader(maxAge: number): string {
   return createCacheControl({ public: true, maxAge });
 }
 
 /**
  * Creates a private cache header with max-age.
  */
-export function createPrivateCacheHeader(
-  maxAge: number,
-): string {
+export function createPrivateCacheHeader(maxAge: number): string {
   return createCacheControl({ private: true, maxAge });
 }
 
 /**
  * Creates an immutable cache header.
  */
-export function createImmutableCacheHeader(
-  maxAge: number,
-): string {
+export function createImmutableCacheHeader(maxAge: number): string {
   return createCacheControl({ public: true, maxAge, immutable: true });
 }
 

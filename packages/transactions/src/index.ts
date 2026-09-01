@@ -18,4 +18,7 @@ export * from "./hooks/index.js";
 export * from "./registry/index.js";
 export * from "./utils/index.js";
 
-export { createTransactionManager, type TransactionManagerOptions } from "./manager/index.js";
+export {
+  createTransactionManager,
+  type TransactionManagerOptions,
+} from "./manager/index.js";

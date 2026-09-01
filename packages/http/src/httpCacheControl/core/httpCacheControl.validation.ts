@@ -4,18 +4,17 @@
  * @module httpCacheControl/validation
  */
 
-import type {
-  CacheControlDirectives,
-} from "./httpCacheControl.type.js";
+import type { CacheControlDirectives } from "./httpCacheControl.type.js";
 
 import { parseCacheControl } from "./httpCacheControl.parse.js";
 
 /**
  * Validates cache control directives for correctness.
  */
-export function validateCacheControl(
-  header: string | undefined,
-): { readonly valid: boolean; readonly errors: readonly string[] } {
+export function validateCacheControl(header: string | undefined): {
+  readonly valid: boolean;
+  readonly errors: readonly string[];
+} {
   const errors: string[] = [];
   const directives = parseCacheControl(header);
 
@@ -35,7 +34,10 @@ export function validateCacheControl(
     errors.push("min-fresh must be non-negative");
   }
 
-  if (directives.staleWhileRevalidate !== undefined && directives.staleWhileRevalidate < 0) {
+  if (
+    directives.staleWhileRevalidate !== undefined &&
+    directives.staleWhileRevalidate < 0
+  ) {
     errors.push("stale-while-revalidate must be non-negative");
   }
 
@@ -47,7 +49,10 @@ export function validateCacheControl(
     errors.push("cannot have both private and public directives");
   }
 
-  if (directives.noStore && (directives.maxAge !== undefined || directives.sMaxAge !== undefined)) {
+  if (
+    directives.noStore &&
+    (directives.maxAge !== undefined || directives.sMaxAge !== undefined)
+  ) {
     errors.push("no-store is incompatible with max-age/s-maxage");
   }
 

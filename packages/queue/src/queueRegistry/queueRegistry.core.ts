@@ -16,10 +16,9 @@ export function createQueueRegistry(): QueueRegistry {
   return {
     register<TData>(queue: Queue<TData>): void {
       if (queues.has(queue.name)) {
-        throw new QueueError(
-          `Queue "${queue.name}" is already registered.`,
-          { queueName: queue.name },
-        );
+        throw new QueueError(`Queue "${queue.name}" is already registered.`, {
+          queueName: queue.name,
+        });
       }
 
       queues.set(queue.name, queue as Queue);

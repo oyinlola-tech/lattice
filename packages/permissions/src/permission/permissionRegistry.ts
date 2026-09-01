@@ -37,9 +37,15 @@ export function createPermissionRegistry(options?: PermissionRegistryOptions) {
      */
     define(
       permission: string | Permission,
-      opts?: { readonly description?: string; readonly implies?: readonly string[] },
+      opts?: {
+        readonly description?: string;
+        readonly implies?: readonly string[];
+      },
     ): void {
-      const parsed = typeof permission === "string" ? parsePermission(permission) : permission;
+      const parsed =
+        typeof permission === "string"
+          ? parsePermission(permission)
+          : permission;
       const key = `${parsed.resource}:${parsed.action}`;
 
       if (permissions.has(key) && !allowOverride) {

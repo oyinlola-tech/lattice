@@ -5,15 +5,10 @@
 /**
  * Creates an AbortError consistently across runtimes.
  */
-export function createAbortError():
-  Error {
-  const error =
-    new Error(
-      "Event dispatch was aborted.",
-    );
+export function createAbortError(): Error {
+  const error = new Error("Event dispatch was aborted.");
 
-  error.name =
-    "AbortError";
+  error.name = "AbortError";
 
   return error;
 }

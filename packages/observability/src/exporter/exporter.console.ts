@@ -4,7 +4,14 @@
  * Exports telemetry to the console for development and debugging.
  */
 
-import type { LogExporter, LogRecord, MetricExporter, MetricSnapshot, ReadableSpan, SpanExporter } from "../types.js";
+import type {
+  LogExporter,
+  LogRecord,
+  MetricExporter,
+  MetricSnapshot,
+  ReadableSpan,
+  SpanExporter,
+} from "../types.js";
 
 /**
  * Exports completed spans to the console.
@@ -12,21 +19,27 @@ import type { LogExporter, LogRecord, MetricExporter, MetricSnapshot, ReadableSp
 export class ConsoleSpanExporter implements SpanExporter {
   async export(spans: readonly ReadableSpan[]): Promise<void> {
     for (const span of spans) {
-      console.log(JSON.stringify({
-        type: "span",
-        name: span.name,
-        traceId: span.context.traceId,
-        spanId: span.context.spanId,
-        parentSpanId: span.context.parentSpanId,
-        kind: span.kind,
-        status: span.status,
-        duration: `${span.duration}ms`,
-        startTime: span.startTime.toISOString(),
-        endTime: span.endTime.toISOString(),
-        attributes: span.attributes,
-        events: span.events,
-        resource: span.resource,
-      }, null, 2));
+      console.log(
+        JSON.stringify(
+          {
+            type: "span",
+            name: span.name,
+            traceId: span.context.traceId,
+            spanId: span.context.spanId,
+            parentSpanId: span.context.parentSpanId,
+            kind: span.kind,
+            status: span.status,
+            duration: `${span.duration}ms`,
+            startTime: span.startTime.toISOString(),
+            endTime: span.endTime.toISOString(),
+            attributes: span.attributes,
+            events: span.events,
+            resource: span.resource,
+          },
+          null,
+          2,
+        ),
+      );
     }
   }
 
@@ -71,14 +84,20 @@ export class ConsoleLogExporter implements LogExporter {
 export class ConsoleMetricExporter implements MetricExporter {
   async export(snapshots: readonly MetricSnapshot[]): Promise<void> {
     for (const snapshot of snapshots) {
-      console.log(JSON.stringify({
-        type: "metric",
-        metricType: snapshot.type,
-        name: snapshot.name,
-        value: snapshot.value,
-        labels: snapshot.labels,
-        timestamp: new Date().toISOString(),
-      }, null, 2));
+      console.log(
+        JSON.stringify(
+          {
+            type: "metric",
+            metricType: snapshot.type,
+            name: snapshot.name,
+            value: snapshot.value,
+            labels: snapshot.labels,
+            timestamp: new Date().toISOString(),
+          },
+          null,
+          2,
+        ),
+      );
     }
   }
 

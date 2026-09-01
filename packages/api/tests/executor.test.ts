@@ -101,6 +101,12 @@ describe("APIExecutor", () => {
 
     await executor.execute(operation, {}, context);
 
-    expect(order).toEqual(["a:before", "b:before", "handler", "b:after", "a:after"]);
+    expect(order).toEqual([
+      "a:before",
+      "b:before",
+      "handler",
+      "b:after",
+      "a:after",
+    ]);
   });
 });

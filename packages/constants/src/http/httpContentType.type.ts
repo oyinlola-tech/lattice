@@ -51,6 +51,9 @@ export const Charset = Object.freeze({
  * @param charset - Optional charset (e.g. Charset.UTF_8)
  * @returns Full Content-Type string (e.g. "application/json; charset=utf-8")
  */
-export function buildContentType(mimeType: ContentType, charset?: string): string {
+export function buildContentType(
+  mimeType: ContentType,
+  charset?: string,
+): string {
   return charset ? `${mimeType}; charset=${charset}` : mimeType;
 }

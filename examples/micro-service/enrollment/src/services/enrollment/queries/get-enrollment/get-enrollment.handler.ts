@@ -5,7 +5,10 @@ import type { EnrollmentModel } from "../../../../models/enrollment.model.js";
 import { NotFoundError } from "../../../../errors/index.js";
 
 /** Handler that processes GetEnrollmentQuery. */
-export class GetEnrollmentHandler extends QueryHandler<GetEnrollmentQuery, EnrollmentModel> {
+export class GetEnrollmentHandler extends QueryHandler<
+  GetEnrollmentQuery,
+  EnrollmentModel
+> {
   /** The query type this handler processes. */
   public readonly queryType = "enrollment.get" as const;
 

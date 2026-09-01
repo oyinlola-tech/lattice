@@ -3,7 +3,10 @@ import type { SearchArticlesQuery } from "./search-articles.query.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
 import type { ArticleModel } from "../../../../models/article.model.js";
 
-export class SearchArticlesHandler extends QueryHandler<SearchArticlesQuery, readonly ArticleModel[]> {
+export class SearchArticlesHandler extends QueryHandler<
+  SearchArticlesQuery,
+  readonly ArticleModel[]
+> {
   public readonly queryType = "articles.search" as const;
 
   private readonly articles: ArticleRepository;
@@ -13,7 +16,9 @@ export class SearchArticlesHandler extends QueryHandler<SearchArticlesQuery, rea
     this.articles = articles;
   }
 
-  public async execute(query: SearchArticlesQuery): Promise<readonly ArticleModel[]> {
+  public async execute(
+    query: SearchArticlesQuery,
+  ): Promise<readonly ArticleModel[]> {
     return this.articles.search(query.searchTerm);
   }
 }

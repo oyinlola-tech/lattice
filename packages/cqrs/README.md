@@ -11,7 +11,7 @@ npm install @latticejs/cqrs
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/cqrs";
+import {} from /* add usage here */ "@latticejs/cqrs";
 ```
 
 ## License

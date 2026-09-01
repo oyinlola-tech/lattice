@@ -2,7 +2,10 @@
  * Markdown output generation for documentation documents.
  */
 
-import type { DocumentationDocument, DocumentationContent } from "../docsTypes/index.js";
+import type {
+  DocumentationDocument,
+  DocumentationContent,
+} from "../docsTypes/index.js";
 import type { MarkdownGeneratorOptions } from "./generator.types.js";
 import { nodesToMarkdown } from "./generatorMarkdownNodes.js";
 

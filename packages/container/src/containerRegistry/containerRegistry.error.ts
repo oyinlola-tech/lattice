@@ -10,9 +10,7 @@ import type {
   Token,
 } from "../containerToken/containerToken.type.js";
 
-import {
-  unwrapToken,
-} from "../containerToken/containerToken.type.js";
+import { unwrapToken } from "../containerToken/containerToken.type.js";
 
 /**
  * Describes a token for registry diagnostics.
@@ -21,8 +19,7 @@ export function describeRegistryToken<T>(
   token: Token<T> | InjectionToken<T>,
 ): string {
   const normalized = unwrapToken(token);
-  if (typeof normalized === "string")
-    return normalized;
+  if (typeof normalized === "string") return normalized;
   if (typeof normalized === "symbol") {
     return normalized.description
       ? `Symbol(${normalized.description})`

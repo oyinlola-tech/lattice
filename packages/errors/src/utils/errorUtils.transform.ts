@@ -8,7 +8,10 @@ import { ErrorSeverity } from "../base/types/errorSeverity.type.js";
 import { getErrorMessage } from "./errorUtils.extraction.js";
 
 /** Safely converts an unknown thrown value into an Error instance. */
-export function toError(value: unknown, fallback = "An unexpected error occurred."): Error {
+export function toError(
+  value: unknown,
+  fallback = "An unexpected error occurred.",
+): Error {
   if (value instanceof Error) {
     return value;
   }
@@ -24,7 +27,9 @@ export function withErrorContext(error: unknown, context: string): Error {
 /** Executes a function and converts thrown values into BaseError instances. */
 export function tryCatch<T>(
   operation: () => T,
-): { readonly success: true; readonly value: T } | { readonly success: false; readonly error: BaseError } {
+):
+  | { readonly success: true; readonly value: T }
+  | { readonly success: false; readonly error: BaseError } {
   try {
     return { success: true, value: operation() };
   } catch (error) {
@@ -35,7 +40,10 @@ export function tryCatch<T>(
 /** Async equivalent of tryCatch. */
 export async function tryCatchAsync<T>(
   operation: () => T | Promise<T>,
-): Promise<{ readonly success: true; readonly value: T } | { readonly success: false; readonly error: BaseError }> {
+): Promise<
+  | { readonly success: true; readonly value: T }
+  | { readonly success: false; readonly error: BaseError }
+> {
   try {
     return { success: true, value: await operation() };
   } catch (error) {

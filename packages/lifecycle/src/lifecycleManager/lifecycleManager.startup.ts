@@ -35,7 +35,9 @@ const EXECUTING_STATE: Record<StartupPhase, LifecycleState> = {
 /**
  * Performs the full startup sequence: initialize → start → ready.
  */
-export async function performStartup(ctx: LifecycleManagerContext): Promise<void> {
+export async function performStartup(
+  ctx: LifecycleManagerContext,
+): Promise<void> {
   ctx.startTime = Date.now();
   ctx.state.transition(LifecycleState.INITIALIZING);
   ctx.events.emit("application:initializing", {});
@@ -78,9 +80,18 @@ export async function performStartup(ctx: LifecycleManagerContext): Promise<void
  * Executes a single startup phase across all registered components.
  * Returns false if a critical component failed.
  */
-async function executePhase(ctx: LifecycleManagerContext, phase: StartupPhase): Promise<boolean> {
-  const plan = buildExecutionPlan(ctx.registry.getAll(), phase as LifecyclePhase);
-  const context = createLifecycleContext(phase as LifecyclePhase, ctx.startTime);
+async function executePhase(
+  ctx: LifecycleManagerContext,
+  phase: StartupPhase,
+): Promise<boolean> {
+  const plan = buildExecutionPlan(
+    ctx.registry.getAll(),
+    phase as LifecyclePhase,
+  );
+  const context = createLifecycleContext(
+    phase as LifecyclePhase,
+    ctx.startTime,
+  );
 
   for (const stage of plan.stages) {
     const stageRegs = stage.components
@@ -89,13 +100,20 @@ async function executePhase(ctx: LifecycleManagerContext, phase: StartupPhase): 
 
     if (stageRegs.length === 0) continue;
 
-    transitionComponentBatch(ctx, stageRegs.map((r) => r.id), EXECUTING_STATE[phase]);
+    transitionComponentBatch(
+      ctx,
+      stageRegs.map((r) => r.id),
+      EXECUTING_STATE[phase],
+    );
     ctx.events.emit("component:starting", {
       component: { componentId: stage.components.join(",") },
     });
 
     const results = await ctx.executor.executeStage(
-      stageRegs, phase as LifecyclePhase, context, ctx.concurrency,
+      stageRegs,
+      phase as LifecyclePhase,
+      context,
+      ctx.concurrency,
     );
 
     for (const result of results) {

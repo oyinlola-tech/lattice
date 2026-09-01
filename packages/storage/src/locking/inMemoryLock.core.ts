@@ -6,11 +6,7 @@
  */
 
 import { randomBytes } from "node:crypto";
-import type {
-  Lock,
-  LockManager,
-  LockOptions,
-} from "../types/storage.type.js";
+import type { Lock, LockManager, LockOptions } from "../types/storage.type.js";
 
 /** Default lock options. */
 const DEFAULT_LOCK_OPTIONS: LockOptions = {
@@ -121,7 +117,9 @@ export class InMemoryLockManager implements LockManager {
       lockId,
       resource,
       acquiredAt,
-      get expiresAt() { return entry.expiresAt; },
+      get expiresAt() {
+        return entry.expiresAt;
+      },
       release: async () => {
         const current = this.locks.get(resource);
         if (current?.lockId === lockId) {

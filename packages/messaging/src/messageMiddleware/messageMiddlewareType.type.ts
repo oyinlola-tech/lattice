@@ -7,13 +7,9 @@
  * @module messageMiddleware/messageMiddlewareType
  */
 
-import type {
-  Message,
-} from "../message/messageType.type.js";
+import type { Message } from "../message/messageType.type.js";
 
-import type {
-  MessageContext,
-} from "../messageContext/messageContextType.type.js";
+import type { MessageContext } from "../messageContext/messageContextType.type.js";
 
 /**
  * Context available to message middleware.

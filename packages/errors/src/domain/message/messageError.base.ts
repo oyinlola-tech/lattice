@@ -9,7 +9,10 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating a message error. */
-export interface MessageErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface MessageErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly messageType?: string;
   readonly messageId?: string;
@@ -41,7 +44,9 @@ export class MessageError extends BaseError {
   public override toJSON() {
     return {
       ...super.toJSON(),
-      ...(this.messageType !== undefined ? { messageType: this.messageType } : {}),
+      ...(this.messageType !== undefined
+        ? { messageType: this.messageType }
+        : {}),
       ...(this.messageId !== undefined ? { messageId: this.messageId } : {}),
       ...(this.handlerId !== undefined ? { handlerId: this.handlerId } : {}),
     };
@@ -49,7 +54,10 @@ export class MessageError extends BaseError {
 }
 
 /** Creates a message error. */
-export function createMessageError(message: string, options: MessageErrorOptions = {}): MessageError {
+export function createMessageError(
+  message: string,
+  options: MessageErrorOptions = {},
+): MessageError {
   return new MessageError(message, options);
 }
 
@@ -59,16 +67,30 @@ export function isMessageError(value: unknown): value is MessageError {
 }
 
 /** Converts an unknown thrown value into a MessageError. */
-export function toMessageError(error: unknown, options: { message?: string; messageType?: string; messageId?: string; code?: string } = {}): MessageError {
+export function toMessageError(
+  error: unknown,
+  options: {
+    message?: string;
+    messageType?: string;
+    messageId?: string;
+    code?: string;
+  } = {},
+): MessageError {
   if (error instanceof MessageError) {
     return error;
   }
   if (error instanceof Error) {
     return new MessageError(options.message ?? error.message, {
-      code: options.code as ErrorCode | undefined, messageType: options.messageType, messageId: options.messageId, cause: error,
+      code: options.code as ErrorCode | undefined,
+      messageType: options.messageType,
+      messageId: options.messageId,
+      cause: error,
     });
   }
   return new MessageError(options.message ?? String(error), {
-    code: options.code as ErrorCode | undefined, messageType: options.messageType, messageId: options.messageId, cause: error,
+    code: options.code as ErrorCode | undefined,
+    messageType: options.messageType,
+    messageId: options.messageId,
+    cause: error,
   });
 }

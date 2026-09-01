@@ -8,7 +8,10 @@ import { createRPCRequest } from "../types/rpcRequest.type.js";
 
 import { RPCProcedureNotFoundError } from "../errors/rpc.errors.js";
 
-import { DEFAULT_RPC_TIMEOUT, MAX_PENDING_REQUESTS } from "../constants/rpcConstants.core.js";
+import {
+  DEFAULT_RPC_TIMEOUT,
+  MAX_PENDING_REQUESTS,
+} from "../constants/rpcConstants.core.js";
 
 /**
  * Options for RPC client calls.
@@ -27,7 +30,10 @@ export interface RPCCallOptions {
 export class RPCClient {
   private readonly transport: RPCTransport;
 
-  private readonly pending = new Map<string, { resolve: (value: RPCResponse) => void; reject: (error: Error) => void }>();
+  private readonly pending = new Map<
+    string,
+    { resolve: (value: RPCResponse) => void; reject: (error: Error) => void }
+  >();
 
   constructor(transport: RPCTransport) {
     this.transport = transport;

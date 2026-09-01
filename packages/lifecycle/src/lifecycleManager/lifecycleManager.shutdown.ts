@@ -17,10 +17,15 @@ const SHUTDOWN_PHASES = ["stop", "dispose"] as const;
  * Performs the full shutdown sequence: stop → dispose.
  * Idempotent — safe to call multiple times.
  */
-export async function performShutdown(ctx: LifecycleManagerContext): Promise<void> {
+export async function performShutdown(
+  ctx: LifecycleManagerContext,
+): Promise<void> {
   if (ctx.state.state === LifecycleState.DISPOSED) return;
 
-  if (ctx.state.state !== LifecycleState.STOPPING && ctx.state.state !== LifecycleState.FAILED) {
+  if (
+    ctx.state.state !== LifecycleState.STOPPING &&
+    ctx.state.state !== LifecycleState.FAILED
+  ) {
     ctx.state.transition(LifecycleState.STOPPING);
   }
   ctx.events.emit("application:stopping", {});
@@ -38,7 +43,9 @@ export async function performShutdown(ctx: LifecycleManagerContext): Promise<voi
   }
 
   ctx.state.forceState(LifecycleState.DISPOSED);
-  ctx.events.emit("application:stopped", { duration: Date.now() - ctx.startTime });
+  ctx.events.emit("application:stopped", {
+    duration: Date.now() - ctx.startTime,
+  });
 }
 
 /** Executes a single shutdown phase across all registered components. */
@@ -46,8 +53,14 @@ async function executeShutdownPhase(
   ctx: LifecycleManagerContext,
   phase: "stop" | "dispose",
 ): Promise<void> {
-  const plan = buildExecutionPlan(ctx.registry.getAll(), phase as LifecyclePhase);
-  const context = createLifecycleContext(phase as LifecyclePhase, ctx.startTime);
+  const plan = buildExecutionPlan(
+    ctx.registry.getAll(),
+    phase as LifecyclePhase,
+  );
+  const context = createLifecycleContext(
+    phase as LifecyclePhase,
+    ctx.startTime,
+  );
 
   for (const stage of plan.stages) {
     const stageRegs = stage.components
@@ -60,9 +73,15 @@ async function executeShutdownPhase(
       transitionComponent(ctx, reg.id, LifecycleState.STOPPING);
     }
 
-    await ctx.executor.executeStage(stageRegs, phase as LifecyclePhase, context, ctx.concurrency);
+    await ctx.executor.executeStage(
+      stageRegs,
+      phase as LifecyclePhase,
+      context,
+      ctx.concurrency,
+    );
 
-    const targetState = phase === "stop" ? LifecycleState.STOPPED : LifecycleState.DISPOSED;
+    const targetState =
+      phase === "stop" ? LifecycleState.STOPPED : LifecycleState.DISPOSED;
     for (const reg of stageRegs) {
       transitionComponent(ctx, reg.id, targetState);
     }

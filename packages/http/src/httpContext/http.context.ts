@@ -11,9 +11,7 @@ import type {
 /* Context Options                                                             */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPContextOptions<
-  State extends HTTPState = HTTPState,
-> {
+export interface HTTPContextOptions<State extends HTTPState = HTTPState> {
   readonly request: HTTPRequest;
   readonly response: HTTPResponse;
   readonly logger: Logger;
@@ -28,124 +26,70 @@ export interface HTTPContextOptions<
 export class DefaultHTTPContext<
   State extends HTTPState = HTTPState,
 > implements HTTPContext<State> {
-  public readonly request:
-    HTTPRequest;
+  public readonly request: HTTPRequest;
 
-  public readonly response:
-    HTTPResponse;
+  public readonly response: HTTPResponse;
 
-  public readonly state:
-    State;
+  public readonly state: State;
 
-  public readonly logger:
-    Logger;
+  public readonly logger: Logger;
 
-  public readonly signal:
-    AbortSignal;
+  public readonly signal: AbortSignal;
 
-  public readonly startedAt:
-    number;
+  public readonly startedAt: number;
 
-  private readonly values:
-    Map<string, unknown>;
+  private readonly values: Map<string, unknown>;
 
-  constructor(
-    options: HTTPContextOptions<State>,
-  ) {
-    this.request =
-      options.request;
+  constructor(options: HTTPContextOptions<State>) {
+    this.request = options.request;
 
-    this.response =
-      options.response;
+    this.response = options.response;
 
-    this.state =
-      options.state ??
-      ({} as State);
+    this.state = options.state ?? ({} as State);
 
-    this.logger =
-      options.logger;
+    this.logger = options.logger;
 
-    this.signal =
-      options.signal ??
-      createContextAbortSignal(
-        options.request,
-      );
+    this.signal = options.signal ?? createContextAbortSignal(options.request);
 
-    this.startedAt =
-      Date.now();
+    this.startedAt = Date.now();
 
-    this.values =
-      new Map<string, unknown>();
+    this.values = new Map<string, unknown>();
   }
 
   /* ------------------------------------------------------------------------ */
   /* Values                                                                   */
   /* ------------------------------------------------------------------------ */
 
-  public get<T = unknown>(
-    key: string,
-  ): T | undefined {
-    return this.values.get(
-      key,
-    ) as T | undefined;
+  public get<T = unknown>(key: string): T | undefined {
+    return this.values.get(key) as T | undefined;
   }
 
-  public set<T = unknown>(
-    key: string,
-    value: T,
-  ): void {
-    this.values.set(
-      key,
-      value,
-    );
+  public set<T = unknown>(key: string, value: T): void {
+    this.values.set(key, value);
   }
 
-  public has(
-    key: string,
-  ): boolean {
-    return this.values.has(
-      key,
-    );
+  public has(key: string): boolean {
+    return this.values.has(key);
   }
 
-  public delete(
-    key: string,
-  ): boolean {
-    return this.values.delete(
-      key,
-    );
+  public delete(key: string): boolean {
+    return this.values.delete(key);
   }
 
   /* ------------------------------------------------------------------------ */
   /* State Helpers                                                            */
   /* ------------------------------------------------------------------------ */
 
-  public getState<
-    K extends keyof State,
-  >(
-    key: K,
-  ): State[K] {
+  public getState<K extends keyof State>(key: K): State[K] {
     return this.state[key];
   }
 
-  public setState<
-    K extends keyof State,
-  >(
-    key: K,
-    value: State[K],
-  ): void {
-    this.state[key] =
-      value;
+  public setState<K extends keyof State>(key: K, value: State[K]): void {
+    this.state[key] = value;
   }
 
-  public hasState<
-    K extends keyof State,
-  >(
-    key: K,
-  ): boolean {
-    return (
-      key in this.state
-    );
+  public hasState<K extends keyof State>(key: K): boolean {
+    return key in this.state;
   }
 
   /* ------------------------------------------------------------------------ */
@@ -164,9 +108,7 @@ export class DefaultHTTPContext<
     return this.request.url;
   }
 
-  public get ip():
-    | string
-    | undefined {
+  public get ip(): string | undefined {
     return this.request.ip;
   }
 
@@ -178,56 +120,30 @@ export class DefaultHTTPContext<
     return this.response.statusCode;
   }
 
-  public status(
-    code: number,
-  ): this {
-    this.response.status(
-      code,
-    );
+  public status(code: number): this {
+    this.response.status(code);
 
     return this;
   }
 
-  public async json<T>(
-    data: T,
-  ): Promise<void> {
-    await this.response.json(
-      data,
-    );
+  public async json<T>(data: T): Promise<void> {
+    await this.response.json(data);
   }
 
-  public async send(
-    data?: unknown,
-  ): Promise<void> {
-    await this.response.send(
-      data,
-    );
+  public async send(data?: unknown): Promise<void> {
+    await this.response.send(data);
   }
 
-  public async text(
-    data: string,
-  ): Promise<void> {
-    await this.response.text(
-      data,
-    );
+  public async text(data: string): Promise<void> {
+    await this.response.text(data);
   }
 
-  public async html(
-    data: string,
-  ): Promise<void> {
-    await this.response.html(
-      data,
-    );
+  public async html(data: string): Promise<void> {
+    await this.response.html(data);
   }
 
-  public async redirect(
-    url: string,
-    statusCode?: number,
-  ): Promise<void> {
-    await this.response.redirect(
-      url,
-      statusCode,
-    );
+  public async redirect(url: string, statusCode?: number): Promise<void> {
+    await this.response.redirect(url, statusCode);
   }
 
   /* ------------------------------------------------------------------------ */
@@ -235,10 +151,7 @@ export class DefaultHTTPContext<
   /* ------------------------------------------------------------------------ */
 
   public get duration(): number {
-    return (
-      Date.now() -
-      this.startedAt
-    );
+    return Date.now() - this.startedAt;
   }
 
   public get elapsed(): number {
@@ -253,22 +166,12 @@ export class DefaultHTTPContext<
   /* Logging                                                                  */
   /* ------------------------------------------------------------------------ */
 
-  public log(
-    message: string,
-    metadata?: Record<string, unknown>,
-  ): void {
-    const logger =
-      this.logger as unknown as {
-        info?: (
-          message: string,
-          metadata?: Record<string, unknown>,
-        ) => void;
-      };
+  public log(message: string, metadata?: Record<string, unknown>): void {
+    const logger = this.logger as unknown as {
+      info?: (message: string, metadata?: Record<string, unknown>) => void;
+    };
 
-    logger.info?.(
-      message,
-      metadata,
-    );
+    logger.info?.(message, metadata);
   }
 
   /* ------------------------------------------------------------------------ */
@@ -284,29 +187,20 @@ export class DefaultHTTPContext<
 /* Factory                                                                    */
 /* -------------------------------------------------------------------------- */
 
-export function createHTTPContext<
-  State extends HTTPState = HTTPState,
->(
+export function createHTTPContext<State extends HTTPState = HTTPState>(
   options: HTTPContextOptions<State>,
 ): DefaultHTTPContext<State> {
-  return new DefaultHTTPContext(
-    options,
-  );
+  return new DefaultHTTPContext(options);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Abort Signal                                                               */
 /* -------------------------------------------------------------------------- */
 
-function createContextAbortSignal(
-  request: HTTPRequest,
-): AbortSignal {
-  const controller =
-    new AbortController();
+function createContextAbortSignal(request: HTTPRequest): AbortSignal {
+  const controller = new AbortController();
 
-  if (
-    request.aborted
-  ) {
+  if (request.aborted) {
     controller.abort();
   }
 
@@ -323,7 +217,11 @@ function createContextAbortSignal(
       "abort",
       () => {
         // Use any cast since HTTPRequest may not have removeListener
-        (request as { removeListener?: (event: string, listener: () => void) => void })?.removeListener?.("aborted", onRequestAbort);
+        (
+          request as {
+            removeListener?: (event: string, listener: () => void) => void;
+          }
+        )?.removeListener?.("aborted", onRequestAbort);
       },
       { once: true },
     );
@@ -336,32 +234,19 @@ function createContextAbortSignal(
 /* Context Type Guard                                                         */
 /* -------------------------------------------------------------------------- */
 
-export function isHTTPContext(
-  value: unknown,
-): value is HTTPContext {
-  if (
-    value === null ||
-    typeof value !==
-      "object"
-  ) {
+export function isHTTPContext(value: unknown): value is HTTPContext {
+  if (value === null || typeof value !== "object") {
     return false;
   }
 
-  const candidate =
-    value as Partial<HTTPContext>;
+  const candidate = value as Partial<HTTPContext>;
 
   return (
-    candidate.request !==
-      undefined &&
-    candidate.response !==
-      undefined &&
-    candidate.logger !==
-      undefined &&
-    candidate.state !==
-      undefined &&
-    typeof candidate.get ===
-      "function" &&
-    typeof candidate.set ===
-      "function"
+    candidate.request !== undefined &&
+    candidate.response !== undefined &&
+    candidate.logger !== undefined &&
+    candidate.state !== undefined &&
+    typeof candidate.get === "function" &&
+    typeof candidate.set === "function"
   );
 }

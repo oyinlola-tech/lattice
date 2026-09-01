@@ -49,6 +49,7 @@ const TIERS = {
 
 function packageNameToKey(name) {
   return name
+    .replace(/^@oyinlola141\/lattice-/, "")
     .replace(/^@lattice\//, "")
     .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 }
@@ -86,13 +87,19 @@ describe("Architecture Boundaries", () => {
       const allDeps = { ...pkg.dependencies, ...pkg.peerDependencies };
 
       for (const [depName, version] of Object.entries(allDeps)) {
-        if (depName.startsWith("@lattice/") && version === "*") {
+        if (
+          (depName.startsWith("@lattice/") ||
+            depName.startsWith("@oyinlola141/lattice-")) &&
+          version === "*"
+        ) {
           errors.push(`${pkg.name}: ${depName}@${version}`);
         }
       }
     }
 
-    expect(errors, `Wildcard versions found:\n${errors.join("\n")}`).toEqual([]);
+    expect(errors, `Wildcard versions found:\n${errors.join("\n")}`).toEqual(
+      [],
+    );
   });
 
   it("has no tier violations in regular dependencies", () => {
@@ -108,7 +115,11 @@ describe("Architecture Boundaries", () => {
       }
 
       for (const depName of Object.keys(pkg.dependencies)) {
-        if (!depName.startsWith("@lattice/")) continue;
+        if (
+          !depName.startsWith("@lattice/") &&
+          !depName.startsWith("@oyinlola141/lattice-")
+        )
+          continue;
 
         const depKey = packageNameToKey(depName);
         const depTier = TIERS[depKey];
@@ -120,7 +131,7 @@ describe("Architecture Boundaries", () => {
 
         if (depTier > pkgTier) {
           errors.push(
-            `${pkg.name} (tier ${pkgTier}) → ${depName} (tier ${depTier})`
+            `${pkg.name} (tier ${pkgTier}) → ${depName} (tier ${depTier})`,
           );
         }
       }
@@ -137,7 +148,7 @@ describe("Architecture Boundaries", () => {
 
     for (const pkg of packages) {
       const deps = Object.keys(pkg.dependencies).filter((d) =>
-        d.startsWith("@lattice/")
+        d.startsWith("@lattice/") || d.startsWith("@oyinlola141/lattice-"),
       );
       graph.set(pkg.name, deps);
     }
@@ -166,7 +177,10 @@ describe("Architecture Boundaries", () => {
       }
     }
 
-    expect(cycles, `Circular dependencies found:\n${cycles.join("\n")}`).toEqual([]);
+    expect(
+      cycles,
+      `Circular dependencies found:\n${cycles.join("\n")}`,
+    ).toEqual([]);
   });
 
   it("all packages have known tiers", () => {

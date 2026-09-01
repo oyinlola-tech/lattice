@@ -4,16 +4,9 @@ import type { HTTPRequest } from "../httpTypes/http.types.js";
 /* Query Types                                                                */
 /* -------------------------------------------------------------------------- */
 
-export type QueryPrimitive =
-  | string
-  | number
-  | boolean
-  | null;
+export type QueryPrimitive = string | number | boolean | null;
 
-export type QueryValue =
-  | QueryPrimitive
-  | QueryPrimitive[]
-  | QueryObject;
+export type QueryValue = QueryPrimitive | QueryPrimitive[] | QueryObject;
 
 export interface QueryObject {
   readonly [key: string]: QueryValue;
@@ -30,42 +23,22 @@ export interface QueryParseOptions {
 /* -------------------------------------------------------------------------- */
 
 export function parseQuery(
-  query:
-    | string
-    | URLSearchParams
-    | undefined,
-  options:
-    QueryParseOptions = {},
+  query: string | URLSearchParams | undefined,
+  options: QueryParseOptions = {},
 ): QueryObject {
-  if (
-    query ===
-    undefined
-  ) {
+  if (query === undefined) {
     return {};
   }
 
   const params =
     query instanceof URLSearchParams
       ? query
-      : createSearchParams(
-          query,
-          options,
-        );
+      : createSearchParams(query, options);
 
-  const result:
-    Record<string, QueryValue> = {};
+  const result: Record<string, QueryValue> = {};
 
-  for (
-    const [
-      key,
-      value,
-    ] of params.entries()
-  ) {
-    appendQueryValue(
-      result,
-      parseQueryKey(key),
-      value,
-    );
+  for (const [key, value] of params.entries()) {
+    appendQueryValue(result, parseQueryKey(key), value);
   }
 
   return result;
@@ -77,163 +50,89 @@ export function parseQuery(
 
 export function getQuery(
   request: HTTPRequest,
-  options:
-    QueryParseOptions = {},
+  options: QueryParseOptions = {},
 ): QueryObject {
-  const url =
-    request.url;
+  const url = request.url;
 
-  if (
-    !url
-  ) {
+  if (!url) {
     return {};
   }
 
-  const queryIndex =
-    url.indexOf(
-      "?",
-    );
+  const queryIndex = url.indexOf("?");
 
-  if (
-    queryIndex ===
-    -1
-  ) {
+  if (queryIndex === -1) {
     return {};
   }
 
-  const hashIndex =
-    url.indexOf(
-      "#",
-      queryIndex + 1,
-    );
+  const hashIndex = url.indexOf("#", queryIndex + 1);
 
-  const query =
-    url.slice(
-      queryIndex + 1,
-      hashIndex === -1
-        ? undefined
-        : hashIndex,
-    );
-
-  return parseQuery(
-    query,
-    options,
+  const query = url.slice(
+    queryIndex + 1,
+    hashIndex === -1 ? undefined : hashIndex,
   );
+
+  return parseQuery(query, options);
 }
 
 export function getQueryValue(
   request: HTTPRequest,
   key: string,
 ): QueryValue | undefined {
-  return getQuery(
-    request,
-  )[key];
+  return getQuery(request)[key];
 }
 
 export function getQueryString(
   request: HTTPRequest,
   key: string,
 ): string | undefined {
-  const value =
-    getQueryValue(
-      request,
-      key,
-    );
+  const value = getQueryValue(request, key);
 
-  if (
-    value ===
-    undefined ||
-    Array.isArray(
-      value,
-    )
-  ) {
+  if (value === undefined || Array.isArray(value)) {
     return undefined;
   }
 
-  if (
-    value ===
-    null
-  ) {
+  if (value === null) {
     return null as unknown as string;
   }
 
-  return String(
-    value,
-  );
+  return String(value);
 }
 
-export function getQueryStrings(
-  request: HTTPRequest,
-  key: string,
-): string[] {
-  const value =
-    getQueryValue(
-      request,
-      key,
-    );
+export function getQueryStrings(request: HTTPRequest, key: string): string[] {
+  const value = getQueryValue(request, key);
 
-  if (
-    value ===
-    undefined
-  ) {
+  if (value === undefined) {
     return [];
   }
 
-  if (
-    Array.isArray(
-      value,
-    )
-  ) {
-    return value.map(
-      String,
-    );
+  if (Array.isArray(value)) {
+    return value.map(String);
   }
 
-  return [
-    String(value),
-  ];
+  return [String(value)];
 }
 
 /* -------------------------------------------------------------------------- */
 /* Search Params                                                               */
 /* -------------------------------------------------------------------------- */
 
-export function getSearchParams(
-  request: HTTPRequest,
-): URLSearchParams {
-  const url =
-    request.url ??
-    "";
+export function getSearchParams(request: HTTPRequest): URLSearchParams {
+  const url = request.url ?? "";
 
-  const queryIndex =
-    url.indexOf(
-      "?",
-    );
+  const queryIndex = url.indexOf("?");
 
-  if (
-    queryIndex ===
-    -1
-  ) {
+  if (queryIndex === -1) {
     return new URLSearchParams();
   }
 
-  const hashIndex =
-    url.indexOf(
-      "#",
-      queryIndex + 1,
-    );
+  const hashIndex = url.indexOf("#", queryIndex + 1);
 
-  const query =
-    url.slice(
-      queryIndex + 1,
-      hashIndex === -1
-        ? undefined
-        : hashIndex,
-    );
-
-  return new URLSearchParams(
-    query,
+  const query = url.slice(
+    queryIndex + 1,
+    hashIndex === -1 ? undefined : hashIndex,
   );
+
+  return new URLSearchParams(query);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -241,62 +140,35 @@ export function getSearchParams(
 /* -------------------------------------------------------------------------- */
 
 export function stringifyQuery(
-  query:
-    | QueryObject
-    | Record<string, unknown>,
+  query: QueryObject | Record<string, unknown>,
 ): string {
-  const params =
-    new URLSearchParams();
+  const params = new URLSearchParams();
 
-  appendObjectToSearchParams(
-    params,
-    query,
-  );
+  appendObjectToSearchParams(params, query);
 
   return params.toString();
 }
 
 export function buildQueryString(
-  query:
-    | QueryObject
-    | Record<string, unknown>,
+  query: QueryObject | Record<string, unknown>,
 ): string {
-  const value =
-    stringifyQuery(
-      query,
-    );
+  const value = stringifyQuery(query);
 
-  return value
-    ? `?${value}`
-    : "";
+  return value ? `?${value}` : "";
 }
 
 /* -------------------------------------------------------------------------- */
 /* Query Value Access                                                         */
 /* -------------------------------------------------------------------------- */
 
-export function hasQuery(
-  request: HTTPRequest,
-  key: string,
-): boolean {
-  return getSearchParams(
-    request,
-  ).has(
-    key,
-  );
+export function hasQuery(request: HTTPRequest, key: string): boolean {
+  return getSearchParams(request).has(key);
 }
 
-export function querySize(
-  request: HTTPRequest,
-): number {
-  let size =
-    0;
+export function querySize(request: HTTPRequest): number {
+  let size = 0;
 
-  for (
-    const _ of getSearchParams(
-      request,
-    )
-  ) {
+  for (const _ of getSearchParams(request)) {
     size += 1;
   }
 
@@ -307,32 +179,14 @@ export function querySize(
 /* Query Key Parsing                                                          */
 /* -------------------------------------------------------------------------- */
 
-export function parseQueryKey(
-  key: string,
-): string[] {
-  if (
-    !key
-  ) {
+export function parseQueryKey(key: string): string[] {
+  if (!key) {
     return [""];
   }
 
-  const normalized =
-    key.replace(
-      /\]/g,
-      "",
-    );
+  const normalized = key.replace(/\]/g, "");
 
-  return normalized
-    .split(
-      /[.[\]]+/,
-    )
-    .filter(
-      (
-        part,
-      ) =>
-        part.length >
-        0,
-    );
+  return normalized.split(/[.[\]]+/).filter((part) => part.length > 0);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -340,142 +194,71 @@ export function parseQueryKey(
 /* -------------------------------------------------------------------------- */
 
 function appendQueryValue(
-  target:
-    Record<string, QueryValue>,
+  target: Record<string, QueryValue>,
   path: readonly string[],
   value: string,
 ): void {
-  if (
-    path.length ===
-    0
-  ) {
+  if (path.length === 0) {
     return;
   }
 
-  const root =
-    path[0];
+  const root = path[0];
 
-  if (
-    path.length ===
-    1
-  ) {
-    const existing =
-      target[root];
+  if (path.length === 1) {
+    const existing = target[root];
 
-    if (
-      existing ===
-      undefined
-    ) {
-      target[root] =
-        normalizeQueryValue(
-          value,
-        );
+    if (existing === undefined) {
+      target[root] = normalizeQueryValue(value);
 
       return;
     }
 
-    if (
-      Array.isArray(
-        existing,
-      )
-    ) {
-      existing.push(
-        normalizeQueryValue(
-          value,
-        ),
-      );
+    if (Array.isArray(existing)) {
+      existing.push(normalizeQueryValue(value));
 
       return;
     }
 
-    target[root] = [
-      existing as QueryPrimitive,
-      normalizeQueryValue(
-        value,
-      ),
-    ];
+    target[root] = [existing as QueryPrimitive, normalizeQueryValue(value)];
 
     return;
   }
 
-  const existing =
-    target[root];
+  const existing = target[root];
 
-  let object:
-    Record<
-      string,
-      QueryValue
-    >;
+  let object: Record<string, QueryValue>;
 
-  if (
-    isQueryObject(
-      existing,
-    )
-  ) {
-    object =
-      existing as Record<
-        string,
-        QueryValue
-      >;
+  if (isQueryObject(existing)) {
+    object = existing as Record<string, QueryValue>;
   } else {
     object = {};
-    target[root] =
-      object;
+    target[root] = object;
   }
 
-  appendQueryValue(
-    object,
-    path.slice(1),
-    value,
-  );
+  appendQueryValue(object, path.slice(1), value);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Query Value Normalization                                                  */
 /* -------------------------------------------------------------------------- */
 
-export function normalizeQueryValue(
-  value: string,
-): QueryPrimitive {
-  if (
-    value ===
-    "null"
-  ) {
+export function normalizeQueryValue(value: string): QueryPrimitive {
+  if (value === "null") {
     return null;
   }
 
-  if (
-    value ===
-    "true"
-  ) {
+  if (value === "true") {
     return true;
   }
 
-  if (
-    value ===
-    "false"
-  ) {
+  if (value === "false") {
     return false;
   }
 
-  if (
-    /^-?(?:0|[1-9]\d*)(?:\.\d+)?$/.test(
-      value,
-    )
-  ) {
-    const number =
-      Number(
-        value,
-      );
+  if (/^-?(?:0|[1-9]\d*)(?:\.\d+)?$/.test(value)) {
+    const number = Number(value);
 
-    if (
-      Number.isSafeInteger(
-        number,
-      ) ||
-      Number.isFinite(
-        number,
-      )
-    ) {
+    if (Number.isSafeInteger(number) || Number.isFinite(number)) {
       return number;
     }
   }
@@ -483,20 +266,8 @@ export function normalizeQueryValue(
   return value;
 }
 
-function isQueryObject(
-  value:
-    | QueryValue
-    | undefined,
-): value is QueryObject {
-  return (
-    value !==
-      null &&
-    typeof value ===
-      "object" &&
-    !Array.isArray(
-      value,
-    )
-  );
+function isQueryObject(value: QueryValue | undefined): value is QueryObject {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -505,35 +276,19 @@ function isQueryObject(
 
 function createSearchParams(
   query: string,
-  options:
-    QueryParseOptions,
+  options: QueryParseOptions,
 ): URLSearchParams {
-  let value =
-    query;
+  let value = query;
 
-  if (
-    options.plusAsSpace !==
-    false
-  ) {
-    value =
-      value.replace(
-        /\+/g,
-        " ",
-      );
+  if (options.plusAsSpace !== false) {
+    value = value.replace(/\+/g, " ");
   }
 
-  if (
-    options.decode ===
-    false
-  ) {
-    return new URLSearchParams(
-      value,
-    );
+  if (options.decode === false) {
+    return new URLSearchParams(value);
   }
 
-  return new URLSearchParams(
-    value,
-  );
+  return new URLSearchParams(value);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -542,106 +297,53 @@ function createSearchParams(
 
 function appendObjectToSearchParams(
   params: URLSearchParams,
-  object:
-    | Record<string, unknown>,
+  object: Record<string, unknown>,
   prefix?: string,
 ): void {
-  for (
-    const [
-      key,
-      value,
-    ] of Object.entries(
-      object,
-    )
-  ) {
-    const path =
-      prefix
-        ? `${prefix}[${key}]`
-        : key;
+  for (const [key, value] of Object.entries(object)) {
+    const path = prefix ? `${prefix}[${key}]` : key;
 
-    if (
-      value ===
-      undefined
-    ) {
+    if (value === undefined) {
       continue;
     }
 
-    if (
-      value ===
-      null
-    ) {
-      params.append(
-        path,
-        "null",
-      );
+    if (value === null) {
+      params.append(path, "null");
 
       continue;
     }
 
-    if (
-      Array.isArray(
-        value,
-      )
-    ) {
-      for (
-        const item of value
-      ) {
-        if (
-          item ===
-          undefined
-        ) {
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        if (item === undefined) {
           continue;
         }
 
-        if (
-          isPlainObject(
-            item,
-          )
-        ) {
+        if (isPlainObject(item)) {
           appendObjectToSearchParams(
             params,
-            item as Record<
-              string,
-              unknown
-            >,
+            item as Record<string, unknown>,
             path,
           );
         } else {
-          params.append(
-            path,
-            serializeQueryPrimitive(
-              item,
-            ),
-          );
+          params.append(path, serializeQueryPrimitive(item));
         }
       }
 
       continue;
     }
 
-    if (
-      isPlainObject(
-        value,
-      )
-    ) {
+    if (isPlainObject(value)) {
       appendObjectToSearchParams(
         params,
-        value as Record<
-          string,
-          unknown
-        >,
+        value as Record<string, unknown>,
         path,
       );
 
       continue;
     }
 
-    params.append(
-      path,
-      serializeQueryPrimitive(
-        value,
-      ),
-    );
+    params.append(path, serializeQueryPrimitive(value));
   }
 }
 
@@ -649,159 +351,81 @@ function appendObjectToSearchParams(
 /* Primitive Serialization                                                    */
 /* -------------------------------------------------------------------------- */
 
-function serializeQueryPrimitive(
-  value: unknown,
-): string {
-  if (
-    value ===
-    null
-  ) {
+function serializeQueryPrimitive(value: unknown): string {
+  if (value === null) {
     return "null";
   }
 
-  if (
-    value ===
-    undefined
-  ) {
+  if (value === undefined) {
     return "";
   }
 
-  if (
-    typeof value ===
-    "boolean"
-  ) {
-    return value
-      ? "true"
-      : "false";
+  if (typeof value === "boolean") {
+    return value ? "true" : "false";
   }
 
-  if (
-    typeof value ===
-    "string"
-  ) {
+  if (typeof value === "string") {
     return value;
   }
 
-  if (
-    typeof value ===
-      "number" ||
-    typeof value ===
-      "bigint"
-  ) {
-    return String(
-      value,
-    );
+  if (typeof value === "number" || typeof value === "bigint") {
+    return String(value);
   }
 
-  if (
-    value instanceof Date
-  ) {
+  if (value instanceof Date) {
     return value.toISOString();
   }
 
-  return String(
-    value,
-  );
+  return String(value);
 }
 
-function isPlainObject(
-  value: unknown,
-): boolean {
-  if (
-    value ===
-      null ||
-    typeof value !==
-      "object"
-  ) {
+function isPlainObject(value: unknown): boolean {
+  if (value === null || typeof value !== "object") {
     return false;
   }
 
-  const prototype =
-    Object.getPrototypeOf(
-      value,
-    );
+  const prototype = Object.getPrototypeOf(value);
 
-  return (
-    prototype ===
-      Object.prototype ||
-    prototype ===
-      null
-  );
+  return prototype === Object.prototype || prototype === null;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Query Utilities                                                            */
 /* -------------------------------------------------------------------------- */
 
-export function cloneQuery(
-  query: QueryObject,
-): QueryObject {
-  return JSON.parse(
-    JSON.stringify(
-      query,
-    ),
-  ) as QueryObject;
+export function cloneQuery(query: QueryObject): QueryObject {
+  return JSON.parse(JSON.stringify(query)) as QueryObject;
 }
 
-export function mergeQuery(
-  ...queries: QueryObject[]
-): QueryObject {
-  const result:
-    Record<string, QueryValue> =
-    {};
+export function mergeQuery(...queries: QueryObject[]): QueryObject {
+  const result: Record<string, QueryValue> = {};
 
-  for (
-    const query of queries
-  ) {
-    mergeQueryObject(
-      result,
-      query,
-    );
+  for (const query of queries) {
+    mergeQueryObject(result, query);
   }
 
   return result;
 }
 
 function mergeQueryObject(
-  target:
-    Record<string, QueryValue>,
-  source:
-    QueryObject,
+  target: Record<string, QueryValue>,
+  source: QueryObject,
 ): void {
-  for (
-    const [
-      key,
-      value,
-    ] of Object.entries(
-      source,
-    )
-  ) {
+  for (const [key, value] of Object.entries(source)) {
     if (key === "__proto__" || key === "constructor") {
       continue;
     }
-    const existing =
-      target[key];
+    const existing = target[key];
 
-    if (
-      isQueryObject(
-        existing,
-      ) &&
-      isQueryObject(
-        value,
-      )
-    ) {
+    if (isQueryObject(existing) && isQueryObject(value)) {
       mergeQueryObject(
-        existing as Record<
-          string,
-          QueryValue
-        >,
+        existing as Record<string, QueryValue>,
         value as QueryObject,
       );
 
       continue;
     }
 
-    target[key] =
-      value;
+    target[key] = value;
   }
 }

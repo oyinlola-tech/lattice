@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { hashPassword, verifyPassword, decodePasswordHash, encodePasswordHash, isPasswordHash, isValidPassword } from "../src/cryptoPassword/index.js";
+import {
+  hashPassword,
+  verifyPassword,
+  decodePasswordHash,
+  encodePasswordHash,
+  isPasswordHash,
+  isValidPassword,
+} from "../src/cryptoPassword/index.js";
 
 describe("hashPassword", async () => {
   it("hashes a password", async () => {
@@ -20,7 +27,10 @@ describe("hashPassword", async () => {
 describe("verifyPassword", async () => {
   it("verifies a correct password", async () => {
     const hash = await hashPassword("correct-horse-battery-staple");
-    const valid = await verifyPassword("correct-horse-battery-staple", hash.encoded);
+    const valid = await verifyPassword(
+      "correct-horse-battery-staple",
+      hash.encoded,
+    );
     expect(valid).toBe(true);
   });
 

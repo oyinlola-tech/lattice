@@ -7,9 +7,7 @@
  * @module httpMiddleware/errors
  */
 
-import {
-  BaseError,
-} from "@oyinlola141/lattice-errors";
+import { BaseError } from "@oyinlola141/lattice-errors";
 
 /* -------------------------------------------------------------------------- */
 /* Errors                                                                     */
@@ -18,115 +16,72 @@ import {
 /**
  * Error raised by an HTTP middleware function.
  */
-export class HttpMiddlewareError
-  extends BaseError {
+export class HttpMiddlewareError extends BaseError {
   /**
    * The unique identifier of the middleware.
    */
-  readonly middlewareId:
-    | string
-    | undefined;
+  readonly middlewareId: string | undefined;
 
   /**
    * The name of the middleware.
    */
-  readonly middlewareName:
-    | string
-    | undefined;
+  readonly middlewareName: string | undefined;
 
   constructor(
-    message:
-      | string,
-    options:
-      | {
-          readonly middlewareId?:
-            | string;
+    message: string,
+    options: {
+      readonly middlewareId?: string;
 
-          readonly middlewareName?:
-            | string;
+      readonly middlewareName?: string;
 
-          readonly cause?:
-            | unknown;
-        } = {},
+      readonly cause?: unknown;
+    } = {},
   ) {
-    super(
-      message,
-      {
-        code:
-          "HTTP_MIDDLEWARE_ERROR",
+    super(message, {
+      code: "HTTP_MIDDLEWARE_ERROR",
 
-        statusCode:
-          500,
+      statusCode: 500,
 
-        expose:
-          false,
+      expose: false,
 
-        cause:
-          options.cause,
-      },
-    );
+      cause: options.cause,
+    });
 
-    this.name =
-      "HttpMiddlewareError";
+    this.name = "HttpMiddlewareError";
 
-    this.middlewareId =
-      options.middlewareId;
+    this.middlewareId = options.middlewareId;
 
-    this.middlewareName =
-      options.middlewareName;
+    this.middlewareName = options.middlewareName;
   }
 }
 
 /**
  * Error raised when the HTTP middleware pipeline fails.
  */
-export class HttpMiddlewarePipelineError
-  extends BaseError {
+export class HttpMiddlewarePipelineError extends BaseError {
   /**
    * The errors that occurred during pipeline execution.
    */
-  readonly errors:
-    | readonly HttpMiddlewareError[];
+  readonly errors: readonly HttpMiddlewareError[];
 
-  constructor(
-    errors:
-      | readonly HttpMiddlewareError[],
-  ) {
+  constructor(errors: readonly HttpMiddlewareError[]) {
     const message =
-      errors.length ===
-      1
+      errors.length === 1
         ? `HTTP middleware pipeline failed: ${errors[0]?.message ?? "Unknown error"}`
-        : `HTTP middleware pipeline failed with ${errors.length} errors: ${errors.map(
-            (
-              e,
-            ) =>
-              e.message,
-          ).join(
-            ", ",
-          )}`;
+        : `HTTP middleware pipeline failed with ${errors.length} errors: ${errors
+            .map((e) => e.message)
+            .join(", ")}`;
 
-    super(
-      message,
-      {
-        code:
-          "MIDDLEWARE_PIPELINE_ERROR",
+    super(message, {
+      code: "MIDDLEWARE_PIPELINE_ERROR",
 
-        statusCode:
-          500,
+      statusCode: 500,
 
-        expose:
-          false,
-      },
-    );
+      expose: false,
+    });
 
-    this.name =
-      "HttpMiddlewarePipelineError";
+    this.name = "HttpMiddlewarePipelineError";
 
-    this.errors =
-      Object.freeze(
-        [
-          ...errors,
-        ],
-      );
+    this.errors = Object.freeze([...errors]);
   }
 }

@@ -235,7 +235,11 @@ describe("MemoryCacheAdapter — getMany", () => {
 
 describe("MemoryCacheAdapter — setMany", () => {
   it("sets multiple entries", async () => {
-    const entries = new Map([["a", 1], ["b", 2], ["c", 3]]);
+    const entries = new Map([
+      ["a", 1],
+      ["b", 2],
+      ["c", 3],
+    ]);
     const results = await adapter.setMany(entries, { ttl: 5000 });
     expect(results).toHaveLength(3);
     expect(results.every((r) => r.success)).toBe(true);

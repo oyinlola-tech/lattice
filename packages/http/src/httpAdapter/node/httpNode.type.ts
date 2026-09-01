@@ -4,53 +4,34 @@
  * @module httpAdapter/node/types
  */
 
-import type {
-  Server,
-} from "node:http";
+import type { Server } from "node:http";
 
-import type {
-  HttpAdapterOptions,
-} from "../http.adapter.js";
+import type { HttpAdapterOptions } from "../http.adapter.js";
 
-import type {
-  TrustProxy,
-} from "../../httpTrustProxy/httpTrustProxy.core.js";
+import type { TrustProxy } from "../../httpTrustProxy/httpTrustProxy.core.js";
 
 /* -------------------------------------------------------------------------- */
 /* Types                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export interface NodeAdapterOptions
-  extends HttpAdapterOptions {
-  readonly host?:
-    | string;
+export interface NodeAdapterOptions extends HttpAdapterOptions {
+  readonly host?: string;
 
-  readonly port?:
-    | number;
+  readonly port?: number;
 
-  readonly server?:
-    | Server;
+  readonly server?: Server;
 
-  readonly maxBodySize?:
-    | number;
+  readonly maxBodySize?: number;
 
-  readonly trustProxy?:
-    | boolean
-    | number
-    | string
-    | readonly string[];
+  readonly trustProxy?: boolean | number | string | readonly string[];
 
-  readonly requestTimeout?:
-    | number;
+  readonly requestTimeout?: number;
 
-  readonly headersTimeout?:
-    | number;
+  readonly headersTimeout?: number;
 
-  readonly keepAliveTimeout?:
-    | number;
+  readonly keepAliveTimeout?: number;
 
-  readonly connectionTimeout?:
-    | number;
+  readonly connectionTimeout?: number;
 }
 
 /**
@@ -60,8 +41,7 @@ export interface NodeRequestOptions {
   /**
    * Maximum body size in bytes.
    */
-  readonly maxBodySize?:
-    | number;
+  readonly maxBodySize?: number;
 
   /**
    * Trust proxy configuration for X-Forwarded-* headers.
@@ -70,59 +50,41 @@ export interface NodeRequestOptions {
    * - number: Trust N proxies from the right
    * - string[]: Trust specific IP addresses
    */
-  readonly trustProxy?:
-    | TrustProxy;
+  readonly trustProxy?: TrustProxy;
 }
 
 export interface NodeServerAddress {
-  readonly host:
-    | string;
+  readonly host: string;
 
-  readonly port:
-    | number;
+  readonly port: number;
 
-  readonly family:
-    | string;
+  readonly family: string;
 }
 
 export interface NodeAdapterEvents {
-  readonly onError?:
-    (error: Error) => void;
+  readonly onError?: (error: Error) => void;
 
-  readonly onListening?:
-    (address: NodeServerAddress) => void;
+  readonly onListening?: (address: NodeServerAddress) => void;
 
-  readonly onClose?:
-    () => void;
+  readonly onClose?: () => void;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Constants                                                                  */
 /* -------------------------------------------------------------------------- */
 
-export const DEFAULT_HOST =
-  "127.0.0.1";
+export const DEFAULT_HOST = "127.0.0.1";
 
-export const DEFAULT_PORT =
-  3000;
+export const DEFAULT_PORT = 3000;
 
-export const DEFAULT_MAX_BODY_SIZE =
-  10 * 1024 * 1024;
+export const DEFAULT_MAX_BODY_SIZE = 10 * 1024 * 1024;
 
 /* -------------------------------------------------------------------------- */
 /* Validation                                                                 */
 /* -------------------------------------------------------------------------- */
 
-export function validatePort(
-  port: number,
-): number {
-  if (
-    !Number.isInteger(
-      port,
-    ) ||
-    port < 0 ||
-    port > 65535
-  ) {
+export function validatePort(port: number): number {
+  if (!Number.isInteger(port) || port < 0 || port > 65535) {
     throw new RangeError(
       "HTTP server port must be an integer between 0 and 65535.",
     );
@@ -131,15 +93,8 @@ export function validatePort(
   return port;
 }
 
-export function validateMaxBodySize(
-  size: number,
-): number {
-  if (
-    !Number.isSafeInteger(
-      size,
-    ) ||
-    size < 0
-  ) {
+export function validateMaxBodySize(size: number): number {
+  if (!Number.isSafeInteger(size) || size < 0) {
     throw new RangeError(
       "Maximum request body size must be a non-negative safe integer.",
     );
@@ -148,19 +103,9 @@ export function validateMaxBodySize(
   return size;
 }
 
-export function validateTimeout(
-  value: number,
-  name: string,
-): number {
-  if (
-    !Number.isFinite(
-      value,
-    ) ||
-    value < 0
-  ) {
-    throw new RangeError(
-      `${name} must be a non-negative finite number.`,
-    );
+export function validateTimeout(value: number, name: string): number {
+  if (!Number.isFinite(value) || value < 0) {
+    throw new RangeError(`${name} must be a non-negative finite number.`);
   }
 
   return value;

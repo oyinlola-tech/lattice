@@ -3,7 +3,9 @@ import type { CreateAssessmentDto } from "../../../../dtos/index.js";
 
 export const CREATE_ASSESSMENT_COMMAND = "assessment.create" as const;
 
-export class CreateAssessmentCommand extends Command<typeof CREATE_ASSESSMENT_COMMAND> {
+export class CreateAssessmentCommand extends Command<
+  typeof CREATE_ASSESSMENT_COMMAND
+> {
   public readonly courseId: string;
   public readonly title: string;
   public readonly assessmentType: string;

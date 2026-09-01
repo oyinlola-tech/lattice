@@ -4,4 +4,8 @@
  * @module utils
  */
 
-export { isTerminalState, isModifiable, summarizeTransaction } from "./utils.helper.js";
+export {
+  isTerminalState,
+  isModifiable,
+  summarizeTransaction,
+} from "./utils.helper.js";

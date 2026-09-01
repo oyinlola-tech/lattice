@@ -5,11 +5,7 @@
  * and prefixes. Ensures keys are well-formed and consistently formatted.
  */
 
-import type {
-  CacheKey,
-  CacheKeyOptions,
-  CacheNamespace,
-} from "./types.js";
+import type { CacheKey, CacheKeyOptions, CacheNamespace } from "./types.js";
 import type { CacheKeyBuilder } from "./types-keys.js";
 import {
   CACHE_KEY_PATTERN,
@@ -28,9 +24,7 @@ import { cacheInvalidKeyError } from "./errors.js";
  *
  * Keys are built as: `[prefix:][namespace:]key`
  */
-export class DefaultKeyBuilder
-  implements CacheKeyBuilder
-{
+export class DefaultKeyBuilder implements CacheKeyBuilder {
   private readonly globalPrefix: string;
   private readonly globalSeparator: string;
   private readonly currentNamespace?: CacheNamespace;
@@ -40,23 +34,15 @@ export class DefaultKeyBuilder
     readonly separator?: string;
     readonly namespace?: CacheNamespace;
   }) {
-    this.globalPrefix =
-      options?.prefix ?? DEFAULT_PREFIX;
-    this.globalSeparator =
-      options?.separator ?? DEFAULT_SEPARATOR;
+    this.globalPrefix = options?.prefix ?? DEFAULT_PREFIX;
+    this.globalSeparator = options?.separator ?? DEFAULT_SEPARATOR;
     this.currentNamespace = options?.namespace;
   }
 
-  build(
-    key: string,
-    options?: CacheKeyOptions,
-  ): CacheKey {
-    const separator =
-      options?.separator ?? this.globalSeparator;
-    const namespace =
-      options?.namespace ?? this.currentNamespace;
-    const prefix =
-      options?.prefix ?? this.globalPrefix;
+  build(key: string, options?: CacheKeyOptions): CacheKey {
+    const separator = options?.separator ?? this.globalSeparator;
+    const namespace = options?.namespace ?? this.currentNamespace;
+    const prefix = options?.prefix ?? this.globalPrefix;
 
     const parts: string[] = [];
 
@@ -86,9 +72,7 @@ export class DefaultKeyBuilder
     return fullKey;
   }
 
-  namespace(
-    namespace: CacheNamespace,
-  ): CacheKeyBuilder {
+  namespace(namespace: CacheNamespace): CacheKeyBuilder {
     return new DefaultKeyBuilder({
       prefix: this.globalPrefix,
       separator: this.globalSeparator,

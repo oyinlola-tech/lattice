@@ -8,21 +8,13 @@ import type {
   EventType,
 } from "../eventTypes/eventDefinition.type.js";
 
-import {
-  createEvent,
-} from "../eventTypes/eventDefinition.type.js";
+import { createEvent } from "../eventTypes/eventDefinition.type.js";
 
-import type {
-  RegisteredEventHandler,
-} from "../eventHandler/eventHandler.core.js";
+import type { RegisteredEventHandler } from "../eventHandler/eventHandler.core.js";
 
-import {
-  EventEmitter,
-} from "../eventEmitter/eventEmitter.core.js";
+import { EventEmitter } from "../eventEmitter/eventEmitter.core.js";
 
-import {
-  EventRegistry,
-} from "../eventRegistry/eventRegistry.store.js";
+import { EventRegistry } from "../eventRegistry/eventRegistry.store.js";
 
 import {
   EventDispatchAbortedError,
@@ -35,13 +27,9 @@ import type {
   RegisteredEventMiddleware,
 } from "../eventMiddleware/eventMiddleware.type.js";
 
-import {
-  createEventMiddlewareContext,
-} from "../eventMiddleware/eventMiddleware.helper.js";
+import { createEventMiddlewareContext } from "../eventMiddleware/eventMiddleware.helper.js";
 
-import {
-  executeEventMiddlewarePipeline,
-} from "../eventMiddleware/eventMiddleware.pipeline.js";
+import { executeEventMiddlewarePipeline } from "../eventMiddleware/eventMiddleware.pipeline.js";
 
 import type {
   PublishOptions,
@@ -49,118 +37,62 @@ import type {
   EventBusEvent,
 } from "./eventBus.type.js";
 
-import {
-  registerMiddlewareItem,
-} from "./eventBus.registration.js";
+import { registerMiddlewareItem } from "./eventBus.registration.js";
 
 /**
  * Publishes an event through the bus.
  */
-export async function busPublish<
-  TEvent extends Event,
->(
-  event:
-    TEvent,
-  options:
-    PublishOptions,
-  emitter:
-    EventEmitter,
-  registry:
-    EventRegistry,
-  busMiddleware:
-    RegisteredEventMiddleware[],
-  requireRegistration:
-    boolean,
-  ensureUsable:
-    () => void,
-  notify:
-    (
-      e:
-        EventBusEvent,
-    ) =>
-      void,
-):
-  Promise<
-    EventPublishResult<TEvent>
-  > {
+export async function busPublish<TEvent extends Event>(
+  event: TEvent,
+  options: PublishOptions,
+  emitter: EventEmitter,
+  registry: EventRegistry,
+  busMiddleware: RegisteredEventMiddleware[],
+  requireRegistration: boolean,
+  ensureUsable: () => void,
+  notify: (e: EventBusEvent) => void,
+): Promise<EventPublishResult<TEvent>> {
   ensureUsable();
 
-  if (
-    options.signal?.aborted
-  ) {
+  if (options.signal?.aborted) {
     throw new EventDispatchAbortedError("Event dispatch was aborted.", {
       eventType: event?.type,
       eventId: event?.id,
     });
   }
 
-  if (
-    requireRegistration &&
-    !registry.has(
-      event.type,
-    )
-  ) {
-    throw new EventError(
-      `Event type "${event.type}" is not registered.`,
-      {
-        eventType: event.type,
-        eventId: event.id,
-      },
-    );
+  if (requireRegistration && !registry.has(event.type)) {
+    throw new EventError(`Event type "${event.type}" is not registered.`, {
+      eventType: event.type,
+      eventId: event.id,
+    });
   }
 
   const allMiddleware = [
     ...busMiddleware,
-    ...(options.middleware ?? []).map(
-      (
-        m,
-        index,
-      ) =>
-        registerMiddlewareItem(
-          m,
-          index +
-            busMiddleware.length,
-        ),
+    ...(options.middleware ?? []).map((m, index) =>
+      registerMiddlewareItem(m, index + busMiddleware.length),
     ),
   ];
 
-  const middlewareContext =
-    createEventMiddlewareContext(
-      event,
-      {
-        signal:
-          options.signal,
-        metadata:
-          options.metadata,
-      },
-    );
+  const middlewareContext = createEventMiddlewareContext(event, {
+    signal: options.signal,
+    metadata: options.metadata,
+  });
 
-  const terminal =
-    async () => {
-      return emitter.emit(
-        event,
-        {
-          mode:
-            options.mode,
+  const terminal = async () => {
+    return emitter.emit(event, {
+      mode: options.mode,
 
-          errorMode:
-            options.errorMode,
+      errorMode: options.errorMode,
 
-          signal:
-            options.signal,
+      signal: options.signal,
 
-          metadata:
-            options.metadata,
-        },
-      );
-    };
+      metadata: options.metadata,
+    });
+  };
 
-  let result:
-    Awaited<
-      ReturnType<
-        typeof terminal
-      >
-    >;
+  let result: Awaited<ReturnType<typeof terminal>>;
 
   let middlewareResult:
     | {
@@ -173,108 +105,60 @@ export async function busPublish<
       }
     | undefined;
 
-  if (
-    allMiddleware.length >
-    0
-  ) {
-    const pipelineResult =
-      await executeEventMiddlewarePipeline(
-        allMiddleware,
-        middlewareContext,
-        terminal,
-      );
+  if (allMiddleware.length > 0) {
+    const pipelineResult = await executeEventMiddlewarePipeline(
+      allMiddleware,
+      middlewareContext,
+      terminal,
+    );
 
-    result =
-      pipelineResult.result as Awaited<
-        ReturnType<
-          typeof terminal
-        >
-      >;
+    result = pipelineResult.result as Awaited<ReturnType<typeof terminal>>;
 
-    middlewareResult =
-      {
-        result:
-          pipelineResult.result,
-        executions:
-          pipelineResult.executions,
-      };
+    middlewareResult = {
+      result: pipelineResult.result,
+      executions: pipelineResult.executions,
+    };
   } else {
-    result =
-      await terminal();
+    result = await terminal();
   }
 
   notify({
-    type:
-      "published",
+    type: "published",
 
     event,
 
-    timestamp:
-      new Date(),
+    timestamp: new Date(),
   });
 
   return {
     event,
 
-    handled:
-      result.handled,
+    handled: result.handled,
 
-    handlerCount:
-      result.results.length,
+    handlerCount: result.results.length,
 
-    results:
-      result.results.map(
-        (
-          execution,
-        ) =>
-          execution.result,
-      ),
+    results: result.results.map((execution) => execution.result),
 
-    errors:
-      result.errors,
+    errors: result.errors,
 
-    middlewareExecutions:
-      middlewareResult
-        ?.executions,
+    middlewareExecutions: middlewareResult?.executions,
   };
 }
 
 /**
  * Creates and publishes an event from input data.
  */
-export async function busPublishEvent<
-  TPayload,
->(
-  input:
-    EventInput<TPayload>,
-  options:
-    PublishOptions,
-  emitter:
-    EventEmitter,
-  registry:
-    EventRegistry,
-  busMiddleware:
-    RegisteredEventMiddleware[],
-  requireRegistration:
-    boolean,
-  ensureUsable:
-    () => void,
-  notify:
-    (
-      e:
-        EventBusEvent,
-    ) =>
-      void,
-):
-  Promise<
-    EventPublishResult<
-      Event<TPayload>
-    >
-  > {
-  const event =
-    createEvent(
-      input,
-    );
+export async function busPublishEvent<TPayload>(
+  input: EventInput<TPayload>,
+  options: PublishOptions,
+  emitter: EventEmitter,
+  registry: EventRegistry,
+  busMiddleware: RegisteredEventMiddleware[],
+  requireRegistration: boolean,
+  ensureUsable: () => void,
+  notify: (e: EventBusEvent) => void,
+): Promise<EventPublishResult<Event<TPayload>>> {
+  const event = createEvent(input);
 
   return busPublish(
     event,

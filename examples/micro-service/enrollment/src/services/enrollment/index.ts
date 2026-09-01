@@ -22,13 +22,20 @@ export interface EnrollmentServiceConfig {
  * Registers all enrollment command and query handlers with their respective buses.
  * @param config - The service configuration containing dependencies.
  */
-export function registerEnrollmentService(config: EnrollmentServiceConfig): void {
+export function registerEnrollmentService(
+  config: EnrollmentServiceConfig,
+): void {
   const { enrollments, commandBus, queryBus, events } = config;
 
   const enrollStudentHandler = new EnrollStudentHandler(enrollments, events);
-  const withdrawStudentHandler = new WithdrawStudentHandler(enrollments, events);
+  const withdrawStudentHandler = new WithdrawStudentHandler(
+    enrollments,
+    events,
+  );
   const getEnrollmentHandler = new GetEnrollmentHandler(enrollments);
-  const listStudentEnrollmentsHandler = new ListStudentEnrollmentsHandler(enrollments);
+  const listStudentEnrollmentsHandler = new ListStudentEnrollmentsHandler(
+    enrollments,
+  );
 
   commandBus.register("enrollment.enroll-student", enrollStudentHandler);
   commandBus.register("enrollment.withdraw-student", withdrawStudentHandler);

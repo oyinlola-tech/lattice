@@ -1,10 +1,6 @@
-import {
-  createNodeCryptoProvider,
-} from "../node/index.js";
+import { createNodeCryptoProvider } from "../node/index.js";
 
-import type {
-  CryptoInput,
-} from "../cryptoProvider/index.js";
+import type { CryptoInput } from "../cryptoProvider/index.js";
 
 import type { SignatureAlgorithm } from "../cryptoProvider/index.js";
 
@@ -57,11 +53,7 @@ export async function signString(
   privateKey: CryptoInput,
   options: SignatureOptions = {},
 ): Promise<Uint8Array> {
-  return sign(
-    Buffer.from(data, "utf8"),
-    privateKey,
-    options,
-  );
+  return sign(Buffer.from(data, "utf8"), privateKey, options);
 }
 
 /**
@@ -73,10 +65,5 @@ export async function verifyString(
   publicKey: CryptoInput,
   options: SignatureOptions = {},
 ): Promise<boolean> {
-  return verify(
-    Buffer.from(data, "utf8"),
-    signature,
-    publicKey,
-    options,
-  );
+  return verify(Buffer.from(data, "utf8"), signature, publicKey, options);
 }

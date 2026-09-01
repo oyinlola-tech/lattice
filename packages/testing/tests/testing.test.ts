@@ -246,7 +246,9 @@ describe("HTTP Assertions", () => {
   it("asserts headers", () => {
     const response = jsonResponse({});
     assertResponseHeader(response, "Content-Type", "application/json");
-    expect(() => assertResponseHeader(response, "X-Missing", "value")).toThrow();
+    expect(() =>
+      assertResponseHeader(response, "X-Missing", "value"),
+    ).toThrow();
   });
 
   it("asserts body", () => {

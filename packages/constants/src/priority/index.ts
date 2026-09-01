@@ -4,4 +4,9 @@
  * @module priority
  */
 
-export { type Priority, Priorities, PriorityWeight, comparePriority } from "./priority.type.js";
+export {
+  type Priority,
+  Priorities,
+  PriorityWeight,
+  comparePriority,
+} from "./priority.type.js";

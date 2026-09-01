@@ -1,23 +1,19 @@
 import { BaseError } from "../../base/core/baseError.core.js";
 import type { BaseErrorOptions } from "../../base/types/baseError.type.js";
 
-import {
-  ErrorCategory,
-} from "../../base/types/errorCategory.type.js";
+import { ErrorCategory } from "../../base/types/errorCategory.type.js";
 
-import {
-  ErrorCode,
-} from "../../base/types/errorCode.type.js";
+import { ErrorCode } from "../../base/types/errorCode.type.js";
 
-import {
-  ErrorSeverity,
-} from "../../base/types/errorSeverity.type.js";
+import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /**
  * Options for creating a middleware error.
  */
-export interface MiddlewareErrorOptions
-  extends Omit<BaseErrorOptions, "category"> {
+export interface MiddlewareErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly middlewareName?: string;
 }
@@ -28,34 +24,18 @@ export interface MiddlewareErrorOptions
 export class MiddlewareError extends BaseError {
   public readonly middlewareName?: string;
 
-  constructor(
-    message: string,
-    options: MiddlewareErrorOptions = {},
-  ) {
-    super(
-      message,
-      {
-        ...options,
-        code:
-          options.code ??
-          ErrorCode.MIDDLEWARE_EXECUTION,
-        category:
-          options.category ??
-          ErrorCategory.MIDDLEWARE,
-        severity:
-          options.severity ??
-          ErrorSeverity.ERROR,
-        statusCode:
-          options.statusCode ?? 500,
-        expose:
-          options.expose ?? false,
-        isOperational:
-          options.isOperational ?? true,
-      },
-    );
+  constructor(message: string, options: MiddlewareErrorOptions = {}) {
+    super(message, {
+      ...options,
+      code: options.code ?? ErrorCode.MIDDLEWARE_EXECUTION,
+      category: options.category ?? ErrorCategory.MIDDLEWARE,
+      severity: options.severity ?? ErrorSeverity.ERROR,
+      statusCode: options.statusCode ?? 500,
+      expose: options.expose ?? false,
+      isOperational: options.isOperational ?? true,
+    });
 
-    this.middlewareName =
-      options.middlewareName;
+    this.middlewareName = options.middlewareName;
   }
 
   public override toJSON() {
@@ -63,8 +43,7 @@ export class MiddlewareError extends BaseError {
       ...super.toJSON(),
       ...(this.middlewareName !== undefined
         ? {
-            middlewareName:
-              this.middlewareName,
+            middlewareName: this.middlewareName,
           }
         : {}),
     };
@@ -84,32 +63,22 @@ export function createMiddlewareError(
 /**
  * Determines whether an unknown value is a MiddlewareError.
  */
-export function isMiddlewareError(
-  value: unknown,
-): value is MiddlewareError {
+export function isMiddlewareError(value: unknown): value is MiddlewareError {
   return value instanceof MiddlewareError;
 }
 
 /**
  * Error raised when a middleware function times out.
  */
-export class MiddlewareTimeoutError
-  extends MiddlewareError {
+export class MiddlewareTimeoutError extends MiddlewareError {
   public readonly timeoutMs: number;
 
-  constructor(
-    middlewareName: string,
-    timeoutMs: number,
-  ) {
-    super(
-      `Middleware "${middlewareName}" timed out after ${timeoutMs}ms.`,
-      {
-        code:
-          ErrorCode.MIDDLEWARE_TIMEOUT,
-        middlewareName,
-        metadata: { timeoutMs },
-      },
-    );
+  constructor(middlewareName: string, timeoutMs: number) {
+    super(`Middleware "${middlewareName}" timed out after ${timeoutMs}ms.`, {
+      code: ErrorCode.MIDDLEWARE_TIMEOUT,
+      middlewareName,
+      metadata: { timeoutMs },
+    });
 
     this.timeoutMs = timeoutMs;
   }
@@ -118,16 +87,12 @@ export class MiddlewareTimeoutError
 /**
  * Error raised when next() is called multiple times in a middleware.
  */
-export class MiddlewareNextCalledMultipleTimesError
-  extends MiddlewareError {
+export class MiddlewareNextCalledMultipleTimesError extends MiddlewareError {
   constructor(middlewareName: string) {
-    super(
-      `Middleware "${middlewareName}" called next() multiple times.`,
-      {
-        middlewareName,
-        statusCode: 500,
-        isOperational: false,
-      },
-    );
+    super(`Middleware "${middlewareName}" called next() multiple times.`, {
+      middlewareName,
+      statusCode: 500,
+      isOperational: false,
+    });
   }
 }

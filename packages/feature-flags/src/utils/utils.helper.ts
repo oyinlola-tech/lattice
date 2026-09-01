@@ -9,7 +9,9 @@ import type { FeatureFlagValue } from "../featureFlagTypes/featureFlagRule/featu
 /**
  * Check if a value is a plain object (not null, not array).
  */
-export function isPlainObject(value: unknown): value is Record<string, unknown> {
+export function isPlainObject(
+  value: unknown,
+): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 

@@ -28,13 +28,9 @@ export interface ContextKey<T> {
  *   "authenticated-user",
  * );
  */
-export function createContextKey<T>(
-  name: string,
-): ContextKey<T> {
+export function createContextKey<T>(name: string): ContextKey<T> {
   if (!name.trim()) {
-    throw new Error(
-      "Context key name cannot be empty.",
-    );
+    throw new Error("Context key name cannot be empty.");
   }
 
   return Object.freeze({
@@ -47,10 +43,7 @@ export function createContextKey<T>(
  * Internal storage used by the execution context
  * for strongly typed values.
  */
-export type ContextValueStore = Map<
-  symbol,
-  unknown
->;
+export type ContextValueStore = Map<symbol, unknown>;
 
 /**
  * Stores a value against a context key.
@@ -85,15 +78,10 @@ export function requireContextValue<T>(
   store: ContextValueStore,
   key: ContextKey<T>,
 ): T {
-  const value = getContextValue(
-    store,
-    key,
-  );
+  const value = getContextValue(store, key);
 
   if (value === undefined) {
-    throw new Error(
-      `Required context value "${key.name}" is not available.`,
-    );
+    throw new Error(`Required context value "${key.name}" is not available.`);
   }
 
   return value;

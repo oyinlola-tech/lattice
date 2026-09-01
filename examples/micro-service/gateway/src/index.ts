@@ -7,7 +7,11 @@
 
 export { createApp, type GatewayApp } from "./app.js";
 
-export { createGatewayConfig, serviceConfigs, type ServiceConfigs } from "./config/index.js";
+export {
+  createGatewayConfig,
+  serviceConfigs,
+  type ServiceConfigs,
+} from "./config/index.js";
 
 export { SERVICE_NAMES, API_VERSION } from "./constants/index.js";
 
@@ -47,12 +51,22 @@ export {
   errorMiddleware,
 } from "./middlewares/index.js";
 
-export { HttpClient, createServiceClient, type ServiceResponse, type ProxyRequestOptions } from "./services/index.js";
+export {
+  HttpClient,
+  createServiceClient,
+  type ServiceResponse,
+  type ProxyRequestOptions,
+} from "./services/index.js";
 
 export type { UserId } from "./types/index.js";
 export { createUserId, isValidUserId } from "./types/index.js";
 
-export { generateId, parseBoolean, extractBearerToken, buildQueryString } from "./utils/index.js";
+export {
+  generateId,
+  parseBoolean,
+  extractBearerToken,
+  buildQueryString,
+} from "./utils/index.js";
 
 export {
   createUserSchema,

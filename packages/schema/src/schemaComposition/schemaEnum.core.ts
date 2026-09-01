@@ -40,6 +40,8 @@ export class EnumSchema<T extends string | number> extends Schema<T> {
 }
 
 /** Creates an enum schema from an array of allowed values. */
-export function enumSchema<T extends string | number>(values: readonly T[]): EnumSchema<T> {
+export function enumSchema<T extends string | number>(
+  values: readonly T[],
+): EnumSchema<T> {
   return new EnumSchema(values);
 }

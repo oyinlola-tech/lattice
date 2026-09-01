@@ -2,26 +2,15 @@
  * @oyinlola141/lattice-http/httpStream — Consume a readable stream via chunk callback.
  */
 
-import {
-  HttpStreamError as StreamError,
-} from "@oyinlola141/lattice-errors";
+import { HttpStreamError as StreamError } from "@oyinlola141/lattice-errors";
 
-import type {
-  HTTPStreamOptions,
-} from "./httpStream.types.js";
+import type { HTTPStreamOptions } from "./httpStream.types.js";
 
-import {
-  createAbortError,
-  normalizeStreamError,
-} from "./httpStream.error.js";
+import { createAbortError, normalizeStreamError } from "./httpStream.error.js";
 
-import {
-  isReadableEnded,
-} from "./httpStream.state.js";
+import { isReadableEnded } from "./httpStream.state.js";
 
-import {
-  destroyStream,
-} from "./httpStream.destroy.js";
+import { destroyStream } from "./httpStream.destroy.js";
 
 import {
   createSettleGuard,
@@ -66,9 +55,13 @@ export async function consumeStream(
       }
     };
 
-    const onEnd = () => { finish(); };
+    const onEnd = () => {
+      finish();
+    };
 
-    const onError = (error: unknown) => { finish(error); };
+    const onError = (error: unknown) => {
+      finish(error);
+    };
 
     const onClose = () => {
       if (!guard.settled() && !isReadableEnded(stream)) {

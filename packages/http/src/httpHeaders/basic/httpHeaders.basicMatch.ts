@@ -4,7 +4,10 @@
  * @module httpHeaders/basicMatch
  */
 
-import type { HTTPHeadersLike, HeaderMatchOptions } from "../types/httpHeaders.type.js";
+import type {
+  HTTPHeadersLike,
+  HeaderMatchOptions,
+} from "../types/httpHeaders.type.js";
 import { toHTTPHeaders } from "../conversion/httpHeaders.conversion.js";
 
 /**
@@ -17,54 +20,26 @@ import { toHTTPHeaders } from "../conversion/httpHeaders.conversion.js";
  * @returns `true` if the header value matches.
  */
 export function headerEquals(
-  headers:
-    | HTTPHeadersLike,
-  name:
-    | string,
-  expected:
-    | string,
-  options:
-    | HeaderMatchOptions = {},
+  headers: HTTPHeadersLike,
+  name: string,
+  expected: string,
+  options: HeaderMatchOptions = {},
 ): boolean {
-  const actual =
-    toHTTPHeaders(
-      headers,
-    ).get(
-      name,
-    );
+  const actual = toHTTPHeaders(headers).get(name);
 
-  if (
-    actual ===
-      undefined
-  ) {
+  if (actual === undefined) {
     return false;
   }
 
-  const left =
-    options.trim ===
-      false
-      ? actual
-      : actual.trim();
+  const left = options.trim === false ? actual : actual.trim();
 
-  const right =
-    options.trim ===
-      false
-      ? expected
-      : expected.trim();
+  const right = options.trim === false ? expected : expected.trim();
 
-  if (
-    options.caseSensitive
-  ) {
-    return (
-      left ===
-      right
-    );
+  if (options.caseSensitive) {
+    return left === right;
   }
 
-  return (
-    left.toLowerCase() ===
-    right.toLowerCase()
-  );
+  return left.toLowerCase() === right.toLowerCase();
 }
 
 /**
@@ -76,38 +51,17 @@ export function headerEquals(
  * @returns `true` if the value is found among the header's values.
  */
 export function headerContains(
-  headers:
-    | HTTPHeadersLike,
-  name:
-    | string,
-  value:
-    | string,
+  headers: HTTPHeadersLike,
+  name: string,
+  value: string,
 ): boolean {
-  const actual =
-    toHTTPHeaders(
-      headers,
-    ).get(
-      name,
-    );
+  const actual = toHTTPHeaders(headers).get(name);
 
-  if (
-    actual ===
-      undefined
-  ) {
+  if (actual === undefined) {
     return false;
   }
 
   return actual
     .split(",")
-    .some(
-      (
-        item,
-      ) =>
-        item
-          .trim()
-          .toLowerCase() ===
-        value
-          .trim()
-          .toLowerCase(),
-    );
+    .some((item) => item.trim().toLowerCase() === value.trim().toLowerCase());
 }

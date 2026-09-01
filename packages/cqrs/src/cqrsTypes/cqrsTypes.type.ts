@@ -9,18 +9,14 @@
 /**
  * Base contract for every command.
  */
-export interface Command<
-  TType extends string = string,
-> {
+export interface Command<TType extends string = string> {
   readonly type: TType;
 }
 
 /**
  * Base contract for every query.
  */
-export interface Query<
-  TType extends string = string,
-> {
+export interface Query<TType extends string = string> {
   readonly type: TType;
 }
 
@@ -33,17 +29,13 @@ export interface CqrsContext {
   readonly causationId?: string;
   readonly userId?: string;
   readonly tenantId?: string;
-  readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
  * Result returned by a command handler.
  */
-export interface CommandResult<
-  TResult = void,
-> {
+export interface CommandResult<TResult = void> {
   readonly result: TResult;
   readonly commandType?: string;
 }
@@ -51,9 +43,7 @@ export interface CommandResult<
 /**
  * Result returned by a query handler.
  */
-export interface QueryResult<
-  TResult,
-> {
+export interface QueryResult<TResult> {
   readonly result: TResult;
   readonly queryType?: string;
 }
@@ -65,23 +55,14 @@ export interface CommandHandler<
   TCommand extends Command = Command,
   TResult = void,
 > {
-  execute(
-    command: TCommand,
-    context?: CqrsContext,
-  ): Promise<TResult> | TResult;
+  execute(command: TCommand, context?: CqrsContext): Promise<TResult> | TResult;
 }
 
 /**
  * Generic query handler contract.
  */
-export interface QueryHandler<
-  TQuery extends Query = Query,
-  TResult = unknown,
-> {
-  execute(
-    query: TQuery,
-    context?: CqrsContext,
-  ): Promise<TResult> | TResult;
+export interface QueryHandler<TQuery extends Query = Query, TResult = unknown> {
+  execute(query: TQuery, context?: CqrsContext): Promise<TResult> | TResult;
 }
 
 /**
@@ -90,12 +71,7 @@ export interface QueryHandler<
 export type CommandHandlerFunction<
   TCommand extends Command = Command,
   TResult = void,
-> = (
-  command: TCommand,
-  context?: CqrsContext,
-) =>
-  | TResult
-  | Promise<TResult>;
+> = (command: TCommand, context?: CqrsContext) => TResult | Promise<TResult>;
 
 /**
  * Function-based query handler.
@@ -103,12 +79,7 @@ export type CommandHandlerFunction<
 export type QueryHandlerFunction<
   TQuery extends Query = Query,
   TResult = unknown,
-> = (
-  query: TQuery,
-  context?: CqrsContext,
-) =>
-  | TResult
-  | Promise<TResult>;
+> = (query: TQuery, context?: CqrsContext) => TResult | Promise<TResult>;
 
 /**
  * Union of supported command handler implementations.
@@ -117,30 +88,13 @@ export type CommandHandlerLike<
   TCommand extends Command = Command,
   TResult = void,
 > =
-  | CommandHandler<
-      TCommand,
-      TResult
-    >
-  | CommandHandlerFunction<
-      TCommand,
-      TResult
-    >;
+  CommandHandler<TCommand, TResult> | CommandHandlerFunction<TCommand, TResult>;
 
 /**
  * Union of supported query handler implementations.
  */
-export type QueryHandlerLike<
-  TQuery extends Query = Query,
-  TResult = unknown,
-> =
-  | QueryHandler<
-      TQuery,
-      TResult
-    >
-  | QueryHandlerFunction<
-      TQuery,
-      TResult
-    >;
+export type QueryHandlerLike<TQuery extends Query = Query, TResult = unknown> =
+  QueryHandler<TQuery, TResult> | QueryHandlerFunction<TQuery, TResult>;
 
 /**
  * Middleware surrounding command execution.
@@ -151,49 +105,31 @@ export type CommandMiddleware = <
 >(
   command: TCommand,
   context: CqrsContext | undefined,
-  next: (
-    command: TCommand,
-    context?: CqrsContext,
-  ) => Promise<TResult>,
+  next: (command: TCommand, context?: CqrsContext) => Promise<TResult>,
 ) => Promise<TResult>;
 
 /**
  * Middleware surrounding query execution.
  */
-export type QueryMiddleware = <
-  TQuery extends Query = Query,
-  TResult = unknown,
->(
+export type QueryMiddleware = <TQuery extends Query = Query, TResult = unknown>(
   query: TQuery,
   context: CqrsContext | undefined,
-  next: (
-    query: TQuery,
-    context?: CqrsContext,
-  ) => Promise<TResult>,
+  next: (query: TQuery, context?: CqrsContext) => Promise<TResult>,
 ) => Promise<TResult>;
 
 /**
  * Generic middleware usable by both command and query pipelines.
  */
 export type CqrsMiddleware = (
-  request:
-    | Command
-    | Query,
+  request: Command | Query,
   context: CqrsContext | undefined,
-  next: (
-    request:
-      | Command
-      | Query,
-    context?: CqrsContext,
-  ) => Promise<unknown>,
+  next: (request: Command | Query, context?: CqrsContext) => Promise<unknown>,
 ) => Promise<unknown>;
 
 /**
  * Identifies whether a request is a command or query.
  */
-export type CqrsRequest =
-  | Command
-  | Query;
+export type CqrsRequest = Command | Query;
 
 /**
  * Result of resolving a command handler.
@@ -203,10 +139,7 @@ export interface CommandHandlerRegistration<
   TResult = void,
 > {
   readonly commandType: TCommand["type"];
-  readonly handler: CommandHandlerLike<
-    TCommand,
-    TResult
-  >;
+  readonly handler: CommandHandlerLike<TCommand, TResult>;
 }
 
 /**
@@ -217,10 +150,7 @@ export interface QueryHandlerRegistration<
   TResult = unknown,
 > {
   readonly queryType: TQuery["type"];
-  readonly handler: QueryHandlerLike<
-    TQuery,
-    TResult
-  >;
+  readonly handler: QueryHandlerLike<TQuery, TResult>;
 }
 
 /**
@@ -228,19 +158,14 @@ export interface QueryHandlerRegistration<
  */
 export interface CqrsBusOptions {
   readonly middleware?: readonly CqrsMiddleware[];
-  readonly contextFactory?: () =>
-    | CqrsContext
-    | Promise<CqrsContext>;
+  readonly contextFactory?: () => CqrsContext | Promise<CqrsContext>;
 }
 
 /**
  * Command bus contract.
  */
 export interface CommandBus {
-  execute<
-    TCommand extends Command,
-    TResult = void,
-  >(
+  execute<TCommand extends Command, TResult = void>(
     command: TCommand,
     context?: CqrsContext,
   ): Promise<TResult>;
@@ -250,10 +175,7 @@ export interface CommandBus {
  * Query bus contract.
  */
 export interface QueryBus {
-  execute<
-    TQuery extends Query,
-    TResult = unknown,
-  >(
+  execute<TQuery extends Query, TResult = unknown>(
     query: TQuery,
     context?: CqrsContext,
   ): Promise<TResult>;
@@ -264,10 +186,7 @@ export interface QueryBus {
  */
 export type CommandOf<
   TType extends string,
-  TPayload extends Record<
-    string,
-    unknown
-  > = Record<string, never>,
+  TPayload extends Record<string, unknown> = Record<string, never>,
 > = Readonly<
   {
     readonly type: TType;
@@ -279,10 +198,7 @@ export type CommandOf<
  */
 export type QueryOf<
   TType extends string,
-  TPayload extends Record<
-    string,
-    unknown
-  > = Record<string, never>,
+  TPayload extends Record<string, unknown> = Record<string, never>,
 > = Readonly<
   {
     readonly type: TType;
@@ -292,30 +208,18 @@ export type QueryOf<
 /**
  * Extracts the type discriminator from a CQRS request.
  */
-export type CqrsRequestType<
-  TRequest extends CqrsRequest,
-> = TRequest["type"];
+export type CqrsRequestType<TRequest extends CqrsRequest> = TRequest["type"];
 
 /**
  * Extracts the payload of a command or query without its discriminator.
  */
-export type CqrsPayload<
-  TRequest extends CqrsRequest,
-> = Omit<
-  TRequest,
-  "type"
->;
+export type CqrsPayload<TRequest extends CqrsRequest> = Omit<TRequest, "type">;
 
 /**
  * Determines whether a value is a command.
  */
-export function isCommand(
-  value: unknown,
-): value is Command {
-  return (
-    isCqrsRequest(value) &&
-    "type" in value
-  );
+export function isCommand(value: unknown): value is Command {
+  return isCqrsRequest(value) && "type" in value;
 }
 
 /**
@@ -325,18 +229,14 @@ export function isCommand(
  * should normally be used only when the surrounding code already knows
  * the request belongs to the query pipeline.
  */
-export function isQuery(
-  value: unknown,
-): value is Query {
+export function isQuery(value: unknown): value is Query {
   return isCqrsRequest(value);
 }
 
 /**
  * Determines whether an unknown value satisfies the basic CQRS request shape.
  */
-export function isCqrsRequest(
-  value: unknown,
-): value is CqrsRequest {
+export function isCqrsRequest(value: unknown): value is CqrsRequest {
   return (
     typeof value === "object" &&
     value !== null &&

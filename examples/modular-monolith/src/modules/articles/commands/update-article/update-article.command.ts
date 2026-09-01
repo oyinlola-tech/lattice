@@ -7,7 +7,11 @@ export class UpdateArticleCommand extends Command<"articles.update"> {
   public readonly userId: UserId;
   public readonly data: UpdateArticleDto;
 
-  public constructor(articleId: ArticleId, userId: UserId, data: UpdateArticleDto) {
+  public constructor(
+    articleId: ArticleId,
+    userId: UserId,
+    data: UpdateArticleDto,
+  ) {
     super("articles.update");
     this.articleId = articleId;
     this.userId = userId;

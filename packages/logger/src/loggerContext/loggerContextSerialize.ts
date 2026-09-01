@@ -2,9 +2,7 @@
  * Logger context serialization and type guards.
  */
 
-import type {
-  LogMetadata,
-} from "../loggerEntry/loggerEntry.type.js";
+import type { LogMetadata } from "../loggerEntry/loggerEntry.type.js";
 
 import type {
   LoggerContext,
@@ -16,9 +14,7 @@ import type {
  *
  * Identifiers are flattened using their conventional names.
  */
-export function contextToLogMetadata(
-  context: LoggerContext,
-): LogMetadata {
+export function contextToLogMetadata(context: LoggerContext): LogMetadata {
   return {
     ...context.identifiers,
     ...context.metadata,
@@ -44,9 +40,7 @@ export function serializeLoggerContext(
 /**
  * Checks whether a value is a LoggerContext.
  */
-export function isLoggerContext(
-  value: unknown,
-): value is LoggerContext {
+export function isLoggerContext(value: unknown): value is LoggerContext {
   if (typeof value !== "object" || value === null) {
     return false;
   }

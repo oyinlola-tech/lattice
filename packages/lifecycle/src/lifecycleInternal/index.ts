@@ -10,8 +10,4 @@ export {
   reverseTopologicalSort,
 } from "./topologicalSort.core.js";
 export type { TopologicalStage } from "./topologicalSort.core.js";
-export {
-  withTimeout,
-  withAbort,
-  withConcurrency,
-} from "./asyncUtils.core.js";
+export { withTimeout, withAbort, withConcurrency } from "./asyncUtils.core.js";

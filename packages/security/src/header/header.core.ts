@@ -153,7 +153,8 @@ export function validateHeaders(
         continue;
       }
 
-      totalSize += Buffer.byteLength(name, "utf8") + Buffer.byteLength(v, "utf8");
+      totalSize +=
+        Buffer.byteLength(name, "utf8") + Buffer.byteLength(v, "utf8");
     }
   }
 

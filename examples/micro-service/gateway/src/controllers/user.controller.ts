@@ -1,7 +1,11 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { createServiceClient } from "../services/index.js";
 import { serviceConfigs } from "../config/index.js";
-import { createUserSchema, updateUserSchema, loginUserSchema } from "../validators/index.js";
+import {
+  createUserSchema,
+  updateUserSchema,
+  loginUserSchema,
+} from "../validators/index.js";
 
 const client = createServiceClient(serviceConfigs["identity"]);
 
@@ -27,7 +31,11 @@ async function parseBody(req: IncomingMessage): Promise<unknown> {
 /**
  * Sends a JSON response.
  */
-function jsonResponse(res: ServerResponse, status: number, data: unknown): void {
+function jsonResponse(
+  res: ServerResponse,
+  status: number,
+  data: unknown,
+): void {
   res.writeHead(status, { "Content-Type": "application/json" });
   res.end(JSON.stringify(data));
 }
@@ -35,12 +43,18 @@ function jsonResponse(res: ServerResponse, status: number, data: unknown): void 
 /**
  * Proxies user creation to the identity service.
  */
-export async function createUser(req: IncomingMessage, res: ServerResponse): Promise<void> {
+export async function createUser(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
   const body = await parseBody(req);
   const validation = createUserSchema.safeParse(body);
 
   if (!validation.success) {
-    jsonResponse(res, 400, { error: "Validation failed", details: validation.error.flatten() });
+    jsonResponse(res, 400, {
+      error: "Validation failed",
+      details: validation.error.flatten(),
+    });
     return;
   }
 
@@ -55,8 +69,14 @@ export async function createUser(req: IncomingMessage, res: ServerResponse): Pro
 /**
  * Proxies user listing to the identity service.
  */
-export async function listUsers(req: IncomingMessage, res: ServerResponse): Promise<void> {
-  const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`);
+export async function listUsers(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
+  const url = new URL(
+    req.url ?? "/",
+    `http://${req.headers.host ?? "localhost"}`,
+  );
   const authHeader = req.headers["authorization"] ?? "";
 
   const result = await client.get(`/api/v1/users${url.search}`, {
@@ -69,8 +89,14 @@ export async function listUsers(req: IncomingMessage, res: ServerResponse): Prom
 /**
  * Proxies get user by ID to the identity service.
  */
-export async function getUserById(req: IncomingMessage, res: ServerResponse): Promise<void> {
-  const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`);
+export async function getUserById(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
+  const url = new URL(
+    req.url ?? "/",
+    `http://${req.headers.host ?? "localhost"}`,
+  );
   const pathParts = url.pathname.split("/");
   const userId = pathParts[pathParts.length - 1];
   const authHeader = req.headers["authorization"] ?? "";
@@ -90,8 +116,14 @@ export async function getUserById(req: IncomingMessage, res: ServerResponse): Pr
 /**
  * Proxies user update to the identity service.
  */
-export async function updateUser(req: IncomingMessage, res: ServerResponse): Promise<void> {
-  const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`);
+export async function updateUser(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
+  const url = new URL(
+    req.url ?? "/",
+    `http://${req.headers.host ?? "localhost"}`,
+  );
   const pathParts = url.pathname.split("/");
   const userId = pathParts[pathParts.length - 1];
   const authHeader = req.headers["authorization"] ?? "";
@@ -105,13 +137,20 @@ export async function updateUser(req: IncomingMessage, res: ServerResponse): Pro
   const validation = updateUserSchema.safeParse(body);
 
   if (!validation.success) {
-    jsonResponse(res, 400, { error: "Validation failed", details: validation.error.flatten() });
+    jsonResponse(res, 400, {
+      error: "Validation failed",
+      details: validation.error.flatten(),
+    });
     return;
   }
 
-  const result = await client.patch(`/api/v1/users/${userId}`, validation.data, {
-    authorization: authHeader,
-  });
+  const result = await client.patch(
+    `/api/v1/users/${userId}`,
+    validation.data,
+    {
+      authorization: authHeader,
+    },
+  );
 
   jsonResponse(res, result.status, result.data);
 }
@@ -119,8 +158,14 @@ export async function updateUser(req: IncomingMessage, res: ServerResponse): Pro
 /**
  * Proxies user deletion to the identity service.
  */
-export async function deleteUser(req: IncomingMessage, res: ServerResponse): Promise<void> {
-  const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`);
+export async function deleteUser(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
+  const url = new URL(
+    req.url ?? "/",
+    `http://${req.headers.host ?? "localhost"}`,
+  );
   const pathParts = url.pathname.split("/");
   const userId = pathParts[pathParts.length - 1];
   const authHeader = req.headers["authorization"] ?? "";
@@ -140,12 +185,18 @@ export async function deleteUser(req: IncomingMessage, res: ServerResponse): Pro
 /**
  * Proxies user login to the identity service.
  */
-export async function loginUser(req: IncomingMessage, res: ServerResponse): Promise<void> {
+export async function loginUser(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
   const body = await parseBody(req);
   const validation = loginUserSchema.safeParse(body);
 
   if (!validation.success) {
-    jsonResponse(res, 400, { error: "Validation failed", details: validation.error.flatten() });
+    jsonResponse(res, 400, {
+      error: "Validation failed",
+      details: validation.error.flatten(),
+    });
     return;
   }
 
@@ -157,12 +208,18 @@ export async function loginUser(req: IncomingMessage, res: ServerResponse): Prom
 /**
  * Proxies user registration to the identity service.
  */
-export async function registerUser(req: IncomingMessage, res: ServerResponse): Promise<void> {
+export async function registerUser(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
   const body = await parseBody(req);
   const validation = createUserSchema.safeParse(body);
 
   if (!validation.success) {
-    jsonResponse(res, 400, { error: "Validation failed", details: validation.error.flatten() });
+    jsonResponse(res, 400, {
+      error: "Validation failed",
+      details: validation.error.flatten(),
+    });
     return;
   }
 

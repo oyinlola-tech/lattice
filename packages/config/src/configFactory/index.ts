@@ -4,4 +4,4 @@
  * Factory functions for creating configuration instances.
  */
 
-export * from './configFactory.core.js';
+export * from "./configFactory.core.js";

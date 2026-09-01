@@ -1,15 +1,11 @@
-import {
-  createNodeCryptoProvider,
-} from "../node/index.js";
+import { createNodeCryptoProvider } from "../node/index.js";
 
 const provider = createNodeCryptoProvider();
 
 /**
  * Generates cryptographically secure random bytes.
  */
-export async function randomBytesSecure(
-  length: number,
-): Promise<Uint8Array> {
+export async function randomBytesSecure(length: number): Promise<Uint8Array> {
   return provider.randomBytes(length);
 }
 
@@ -19,10 +15,7 @@ export async function randomBytesSecure(
  * The returned value is in the range:
  * min <= value < max
  */
-export async function randomInteger(
-  min: number,
-  max: number,
-): Promise<number> {
+export async function randomInteger(min: number, max: number): Promise<number> {
   return provider.randomInt(min, max);
 }
 
@@ -30,9 +23,7 @@ export async function randomInteger(
  * Generates a cryptographically secure random integer
  * from zero up to, but excluding, max.
  */
-export async function randomIntegerBelow(
-  max: number,
-): Promise<number> {
+export async function randomIntegerBelow(max: number): Promise<number> {
   return provider.randomInt(0, max);
 }
 

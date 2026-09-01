@@ -4,24 +4,16 @@
  * @module httpAdapter/node/response
  */
 
-import type {
-  ServerResponse,
-} from "node:http";
+import type { ServerResponse } from "node:http";
 
-import type {
-  HttpResponseWriter,
-} from "../../httpResponse/httpResponse.writer.js";
+import type { HttpResponseWriter } from "../../httpResponse/httpResponse.writer.js";
 
 /* -------------------------------------------------------------------------- */
 /* Node Response Writer                                                       */
 /* -------------------------------------------------------------------------- */
 
-export class NodeResponseWriter
-  implements HttpResponseWriter {
-  constructor(
-    private readonly response:
-      | ServerResponse,
-  ) {}
+export class NodeResponseWriter implements HttpResponseWriter {
+  constructor(private readonly response: ServerResponse) {}
 
   get headersSent(): boolean {
     return this.response.headersSent;
@@ -37,145 +29,62 @@ export class NodeResponseWriter
 
   writeHead(
     status: number,
-    statusText?:
-      | string,
-    headers?:
-      | Readonly<
-          Record<string, string>
-        >,
+    statusText?: string,
+    headers?: Readonly<Record<string, string>>,
   ): void {
-    if (
-      headers
-    ) {
-      for (
-        const [
-          name,
-          value,
-        ] of Object.entries(
-          headers,
-        )
-      ) {
-        this.setHeader(
-          name,
-          value,
-        );
+    if (headers) {
+      for (const [name, value] of Object.entries(headers)) {
+        this.setHeader(name, value);
       }
     }
 
-    if (
-      statusText !==
-        undefined &&
-      statusText !==
-        ""
-    ) {
-      this.response.writeHead(
-        status,
-        statusText,
-      );
+    if (statusText !== undefined && statusText !== "") {
+      this.response.writeHead(status, statusText);
 
       return;
     }
 
-    this.response.writeHead(
-      status,
-    );
+    this.response.writeHead(status);
   }
 
-  setHeader(
-    name: string,
-    value: string,
-  ): void {
-    this.response.setHeader(
-      name,
-      value,
-    );
+  setHeader(name: string, value: string): void {
+    this.response.setHeader(name, value);
   }
 
-  appendHeader(
-    name: string,
-    value: string,
-  ): void {
-    const existing =
-      this.response.getHeader(
-        name,
-      );
+  appendHeader(name: string, value: string): void {
+    const existing = this.response.getHeader(name);
 
-    if (
-      existing ===
-      undefined
-    ) {
-      this.response.setHeader(
-        name,
-        value,
-      );
+    if (existing === undefined) {
+      this.response.setHeader(name, value);
 
       return;
     }
 
-    if (
-      Array.isArray(
-        existing,
-      )
-    ) {
-      this.response.setHeader(
-        name,
-        [
-          ...existing.map(
-            String,
-          ),
-          value,
-        ],
-      );
+    if (Array.isArray(existing)) {
+      this.response.setHeader(name, [...existing.map(String), value]);
 
       return;
     }
 
-    this.response.setHeader(
-      name,
-      [
-        String(
-          existing,
-        ),
-        value,
-      ],
-    );
+    this.response.setHeader(name, [String(existing), value]);
   }
 
-  removeHeader(
-    name: string,
-  ): void {
-    this.response.removeHeader(
-      name,
-    );
+  removeHeader(name: string): void {
+    this.response.removeHeader(name);
   }
 
-  write(
-    chunk:
-      | string
-      | Uint8Array,
-  ): boolean {
-    return this.response.write(
-      chunk,
-    );
+  write(chunk: string | Uint8Array): boolean {
+    return this.response.write(chunk);
   }
 
-  end(
-    chunk?:
-      | string
-      | Uint8Array,
-  ): void {
-    if (
-      chunk ===
-      undefined
-    ) {
+  end(chunk?: string | Uint8Array): void {
+    if (chunk === undefined) {
       this.response.end();
 
       return;
     }
 
-    this.response.end(
-      chunk,
-    );
+    this.response.end(chunk);
   }
 
   flushHeaders(): void {
@@ -183,10 +92,9 @@ export class NodeResponseWriter
   }
 
   flush(): void {
-    const response =
-      this.response as ServerResponse & {
-        flush?: () => void;
-      };
+    const response = this.response as ServerResponse & {
+      flush?: () => void;
+    };
 
     response.flush?.();
   }

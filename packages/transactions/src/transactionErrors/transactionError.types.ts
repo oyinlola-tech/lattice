@@ -58,9 +58,10 @@ export class TransactionRollbackError extends TransactionError {
       cause: options?.cause,
       metadata: {
         transactionId,
-        originalError: options?.originalError instanceof Error
-          ? options.originalError.message
-          : String(options?.originalError ?? "unknown"),
+        originalError:
+          options?.originalError instanceof Error
+            ? options.originalError.message
+            : String(options?.originalError ?? "unknown"),
       },
     });
   }

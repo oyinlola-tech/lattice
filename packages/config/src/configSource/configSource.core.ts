@@ -6,9 +6,7 @@
  * configuration.
  */
 
-import type {
-  ConfigValue,
-} from "../configValue/configValue.core.js";
+import type { ConfigValue } from "../configValue/configValue.core.js";
 
 /**
  * Supported configuration source kinds.
@@ -60,13 +58,9 @@ export interface ConfigSource {
   readonly priority: number;
   readonly optional: boolean;
 
-  load(
-    context: ConfigSourceContext,
-  ): Promise<ConfigSourceResult>;
+  load(context: ConfigSourceContext): Promise<ConfigSourceResult>;
 
-  isAvailable?(
-    context: ConfigSourceContext,
-  ): boolean | Promise<boolean>;
+  isAvailable?(context: ConfigSourceContext): boolean | Promise<boolean>;
 
   close?(): Promise<void> | void;
 }
@@ -76,16 +70,13 @@ export interface ConfigSource {
  */
 export type ConfigSourceLoader = (
   context: ConfigSourceContext,
-) =>
-  | ConfigSourceResult
-  | Promise<ConfigSourceResult>;
+) => ConfigSourceResult | Promise<ConfigSourceResult>;
 
 /**
  * Configuration source implementation that delegates loading to a
  * function.
  */
-export interface FunctionConfigSource
-  extends ConfigSource {
+export interface FunctionConfigSource extends ConfigSource {
   readonly type: ConfigSourceType.CUSTOM;
   readonly loader: ConfigSourceLoader;
 }
@@ -103,18 +94,12 @@ export interface ConfigSourceOptions {
 /**
  * Checks whether a value is a configuration source.
  */
-export function isConfigSource(
-  value: unknown,
-): value is ConfigSource {
-  if (
-    typeof value !== "object" ||
-    value === null
-  ) {
+export function isConfigSource(value: unknown): value is ConfigSource {
+  if (typeof value !== "object" || value === null) {
     return false;
   }
 
-  const source =
-    value as Partial<ConfigSource>;
+  const source = value as Partial<ConfigSource>;
 
   return (
     typeof source.name === "string" &&
@@ -133,63 +118,38 @@ export function createConfigSource(
   options: ConfigSourceOptions,
   loader: ConfigSourceLoader,
 ): FunctionConfigSource {
-  const type =
-    options.type ??
-    ConfigSourceType.CUSTOM;
+  const type = options.type ?? ConfigSourceType.CUSTOM;
 
-  const priority =
-    options.priority ??
-    0;
+  const priority = options.priority ?? 0;
 
-  if (
-    options.name.trim().length === 0
-  ) {
-    throw new TypeError(
-      "Configuration source name cannot be empty.",
-    );
+  if (options.name.trim().length === 0) {
+    throw new TypeError("Configuration source name cannot be empty.");
   }
 
-  if (
-    !Number.isFinite(priority)
-  ) {
+  if (!Number.isFinite(priority)) {
     throw new TypeError(
       "Configuration source priority must be a finite number.",
     );
   }
 
-  if (
-    typeof loader !== "function"
-  ) {
-    throw new TypeError(
-      "Configuration source loader must be a function.",
-    );
+  if (typeof loader !== "function") {
+    throw new TypeError("Configuration source loader must be a function.");
   }
 
   return Object.freeze({
-    name:
-      options.name,
+    name: options.name,
     type,
     priority,
-    optional:
-      options.optional ??
-      false,
+    optional: options.optional ?? false,
     loader,
 
-    async load(
-      context: ConfigSourceContext,
-    ): Promise<ConfigSourceResult> {
-      const result =
-        await loader(context);
+    async load(context: ConfigSourceContext): Promise<ConfigSourceResult> {
+      const result = await loader(context);
 
-      return normalizeConfigSourceResult(
-        result,
-        options.name,
-        type,
-      );
+      return normalizeConfigSourceResult(result, options.name, type);
     },
 
-    isAvailable:
-      async () => true,
+    isAvailable: async () => true,
   }) as FunctionConfigSource;
 }
 
@@ -197,31 +157,21 @@ export function createConfigSource(
  * Creates a source backed by an in-memory object.
  */
 export function createMemoryConfigSource(
-  values:
-    Readonly<Record<string, ConfigValue>>,
-  options: Omit<
-    ConfigSourceOptions,
-    "type"
-  > & {
+  values: Readonly<Record<string, ConfigValue>>,
+  options: Omit<ConfigSourceOptions, "type"> & {
     readonly type?: ConfigSourceType;
   },
 ): ConfigSource {
-  const sourceName =
-    options.name;
+  const sourceName = options.name;
 
   return createConfigSource(
     {
       ...options,
-      type:
-        options.type ??
-        ConfigSourceType.MEMORY,
+      type: options.type ?? ConfigSourceType.MEMORY,
     },
     async () => ({
-      source:
-        sourceName,
-      type:
-        options.type ??
-        ConfigSourceType.MEMORY,
+      source: sourceName,
+      type: options.type ?? ConfigSourceType.MEMORY,
       values: {
         ...values,
       },
@@ -233,22 +183,15 @@ export function createMemoryConfigSource(
  * Creates a defaults configuration source.
  */
 export function createDefaultsConfigSource(
-  values:
-    Readonly<Record<string, ConfigValue>>,
+  values: Readonly<Record<string, ConfigValue>>,
   name = "defaults",
 ): ConfigSource {
-  return createMemoryConfigSource(
-    values,
-    {
-      name,
-      type:
-        ConfigSourceType.DEFAULTS,
-      priority:
-        -1000,
-      optional:
-        false,
-    },
-  );
+  return createMemoryConfigSource(values, {
+    name,
+    type: ConfigSourceType.DEFAULTS,
+    priority: -1000,
+    optional: false,
+  });
 }
 
 /**
@@ -257,17 +200,13 @@ export function createDefaultsConfigSource(
 export function createCustomConfigSource(
   name: string,
   loader: ConfigSourceLoader,
-  options: Omit<
-    ConfigSourceOptions,
-    "name" | "type"
-  > = {},
+  options: Omit<ConfigSourceOptions, "name" | "type"> = {},
 ): FunctionConfigSource {
   return createConfigSource(
     {
       ...options,
       name,
-      type:
-        ConfigSourceType.CUSTOM,
+      type: ConfigSourceType.CUSTOM,
     },
     loader,
   );
@@ -281,10 +220,7 @@ export function normalizeConfigSourceResult(
   fallbackName: string,
   fallbackType: ConfigSourceType,
 ): ConfigSourceResult {
-  if (
-    !result ||
-    typeof result !== "object"
-  ) {
+  if (!result || typeof result !== "object") {
     throw new TypeError(
       `Configuration source "${fallbackName}" returned an invalid result.`,
     );
@@ -301,18 +237,13 @@ export function normalizeConfigSourceResult(
   }
 
   return Object.freeze({
-    source:
-      result.source ??
-      fallbackName,
+    source: result.source ?? fallbackName,
 
-    type:
-      result.type ??
-      fallbackType,
+    type: result.type ?? fallbackType,
 
-    values:
-      Object.freeze({
-        ...result.values,
-      }),
+    values: Object.freeze({
+      ...result.values,
+    }),
   });
 }
 
@@ -324,26 +255,13 @@ export function normalizeConfigSourceResult(
 export function sortConfigSources(
   sources: readonly ConfigSource[],
 ): readonly ConfigSource[] {
-  return [...sources].sort(
-    (
-      left,
-      right,
-    ) => {
-      if (
-        right.priority !==
-        left.priority
-      ) {
-        return (
-          right.priority -
-          left.priority
-        );
-      }
+  return [...sources].sort((left, right) => {
+    if (right.priority !== left.priority) {
+      return right.priority - left.priority;
+    }
 
-      return left.name.localeCompare(
-        right.name,
-      );
-    },
-  );
+    return left.name.localeCompare(right.name);
+  });
 }
 
 /**
@@ -353,10 +271,7 @@ export function findConfigSource(
   sources: readonly ConfigSource[],
   name: string,
 ): ConfigSource | undefined {
-  return sources.find(
-    (source) =>
-      source.name === name,
-  );
+  return sources.find((source) => source.name === name);
 }
 
 /**
@@ -367,28 +282,18 @@ export function findConfigSource(
 export function deduplicateConfigSources(
   sources: readonly ConfigSource[],
 ): readonly ConfigSource[] {
-  const seen =
-    new Set<string>();
+  const seen = new Set<string>();
 
-  const result: ConfigSource[] =
-    [];
+  const result: ConfigSource[] = [];
 
-  for (
-    const source of sources
-  ) {
-    if (
-      seen.has(source.name)
-    ) {
+  for (const source of sources) {
+    if (seen.has(source.name)) {
       continue;
     }
 
-    seen.add(
-      source.name,
-    );
+    seen.add(source.name);
 
-    result.push(
-      source,
-    );
+    result.push(source);
   }
 
   return result;
@@ -404,20 +309,11 @@ export async function loadConfigSource(
   context: ConfigSourceContext = {},
 ): Promise<ConfigSourceResult | undefined> {
   try {
-    if (
-      source.isAvailable
-    ) {
-      const available =
-        await source.isAvailable(
-          context,
-        );
+    if (source.isAvailable) {
+      const available = await source.isAvailable(context);
 
-      if (
-        !available
-      ) {
-        if (
-          source.optional
-        ) {
+      if (!available) {
+        if (source.optional) {
           return undefined;
         }
 
@@ -427,13 +323,9 @@ export async function loadConfigSource(
       }
     }
 
-    return await source.load(
-      context,
-    );
+    return await source.load(context);
   } catch (error) {
-    if (
-      source.optional
-    ) {
+    if (source.optional) {
       return undefined;
     }
 
@@ -448,32 +340,15 @@ export async function loadConfigSources(
   sources: readonly ConfigSource[],
   context: ConfigSourceContext = {},
 ): Promise<readonly ConfigSourceResult[]> {
-  const sorted =
-    sortConfigSources(
-      deduplicateConfigSources(
-        sources,
-      ),
-    );
+  const sorted = sortConfigSources(deduplicateConfigSources(sources));
 
-  const results:
-    ConfigSourceResult[] =
-    [];
+  const results: ConfigSourceResult[] = [];
 
-  for (
-    const source of sorted
-  ) {
-    const result =
-      await loadConfigSource(
-        source,
-        context,
-      );
+  for (const source of sorted) {
+    const result = await loadConfigSource(source, context);
 
-    if (
-      result
-    ) {
-      results.push(
-        result,
-      );
+    if (result) {
+      results.push(result);
     }
   }
 

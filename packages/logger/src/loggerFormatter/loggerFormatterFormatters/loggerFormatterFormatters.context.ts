@@ -2,103 +2,50 @@
  * Logger context and source formatting helpers.
  */
 
-import type {
-  LoggerEntry,
-} from "../../loggerEntry/loggerEntry.type.js";
+import type { LoggerEntry } from "../../loggerEntry/loggerEntry.type.js";
 
 /**
  * Formats logger context.
  */
-export function formatContext(
-  entry:
-    LoggerEntry,
-):
-  string {
-  if (
-    !entry.context
-  ) {
+export function formatContext(entry: LoggerEntry): string {
+  if (!entry.context) {
     return "";
   }
 
-  const values:
-    string[] =
-    [];
+  const values: string[] = [];
 
-  for (
-    const [
-      key,
-      value,
-    ] of Object.entries(
-      entry.context,
-    )
-  ) {
-    if (
-      value ===
-        undefined ||
-      value ===
-        null
-    ) {
+  for (const [key, value] of Object.entries(entry.context)) {
+    if (value === undefined || value === null) {
       continue;
     }
 
-    values.push(
-      `${key}=${String(value)}`,
-    );
+    values.push(`${key}=${String(value)}`);
   }
 
-  return values.length >
-    0
-    ? `[${values.join(" ")}]`
-    : "";
+  return values.length > 0 ? `[${values.join(" ")}]` : "";
 }
 
 /**
  * Formats logger source information.
  */
-export function formatSource(
-  entry:
-    LoggerEntry,
-):
-  string {
-  const source =
-    entry.source;
+export function formatSource(entry: LoggerEntry): string {
+  const source = entry.source;
 
-  if (
-    !source
-  ) {
+  if (!source) {
     return "";
   }
 
-  const location:
-    string[] =
-    [];
+  const location: string[] = [];
 
-  if (
-    source.file
-  ) {
-    location.push(
-      source.file,
-    );
+  if (source.file) {
+    location.push(source.file);
   }
 
-  if (
-    source.line !==
-      undefined
-  ) {
-    location.push(
-      String(
-        source.line,
-      ),
-    );
+  if (source.line !== undefined) {
+    location.push(String(source.line));
   }
 
-  const functionName =
-    source.function
-      ? ` ${source.function}`
-      : "";
+  const functionName = source.function ? ` ${source.function}` : "";
 
-  return location.length >
-    0
-    ? `[${location.join(":")}${functionName}]`
-    : "";
+  return location.length > 0 ? `[${location.join(":")}${functionName}]` : "";
 }

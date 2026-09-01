@@ -1,6 +1,4 @@
-import {
-  DatabaseError,
-} from "@oyinlola141/lattice-errors";
+import { DatabaseError } from "@oyinlola141/lattice-errors";
 
 import {
   DatabaseClient,
@@ -16,11 +14,7 @@ import type {
  * Connection lifecycle events.
  */
 export type DatabaseConnectionEvent =
-  | "connecting"
-  | "connected"
-  | "disconnecting"
-  | "disconnected"
-  | "error";
+  "connecting" | "connected" | "disconnecting" | "disconnected" | "error";
 
 /**
  * Listener invoked when the connection state changes.
@@ -42,8 +36,7 @@ export interface DatabaseConnectionEventDetails {
 /**
  * Options for the connection manager.
  */
-export interface DatabaseConnectionManagerOptions
-  extends DatabaseClientOptions {
+export interface DatabaseConnectionManagerOptions extends DatabaseClientOptions {
   readonly autoConnect?: boolean;
   readonly healthCheckIntervalMs?: number;
 }
@@ -56,47 +49,31 @@ export interface DatabaseConnectionManagerOptions
  * `autoConnect` is enabled.
  */
 export class DatabaseConnectionManager {
-  private readonly client:
-    DatabaseClient;
+  private readonly client: DatabaseClient;
 
-  private readonly listeners =
-    new Set<DatabaseConnectionListener>();
+  private readonly listeners = new Set<DatabaseConnectionListener>();
 
   private readonly autoConnect: boolean;
 
   private readonly healthCheckIntervalMs?: number;
 
-  private healthCheckTimer?:
-    ReturnType<
-      typeof setInterval
-    >;
+  private healthCheckTimer?: ReturnType<typeof setInterval>;
 
-  private connectionPromise?:
-    Promise<void>;
+  private connectionPromise?: Promise<void>;
 
-  constructor(
-    options: DatabaseConnectionManagerOptions = {},
-  ) {
-    this.client =
-      new DatabaseClient(
-        options,
-      );
+  constructor(options: DatabaseConnectionManagerOptions = {}) {
+    this.client = new DatabaseClient(options);
 
-    this.autoConnect =
-      options.autoConnect ??
-      false;
+    this.autoConnect = options.autoConnect ?? false;
 
-    this.healthCheckIntervalMs =
-      options.healthCheckIntervalMs;
+    this.healthCheckIntervalMs = options.healthCheckIntervalMs;
   }
 
   /**
    * Initializes the connection manager.
    */
   public async initialize(): Promise<void> {
-    if (
-      !this.autoConnect
-    ) {
+    if (!this.autoConnect) {
       return;
     }
 
@@ -107,48 +84,31 @@ export class DatabaseConnectionManager {
    * Opens the database connection.
    */
   public async connect(): Promise<void> {
-    if (
-      this.client.getStatus() ===
-      "connected"
-    ) {
+    if (this.client.getStatus() === "connected") {
       return;
     }
 
-    if (
-      this.connectionPromise
-    ) {
+    if (this.connectionPromise) {
       return this.connectionPromise;
     }
 
-    this.emit(
-      "connecting",
-    );
+    this.emit("connecting");
 
-    this.connectionPromise =
-      this.client
-        .connect()
-        .then(() => {
-          this.emit(
-            "connected",
-          );
+    this.connectionPromise = this.client
+      .connect()
+      .then(() => {
+        this.emit("connected");
 
-          this.startHealthChecks();
-        })
-        .catch((error) => {
-          this.emit(
-            "error",
-            error,
-          );
+        this.startHealthChecks();
+      })
+      .catch((error) => {
+        this.emit("error", error);
 
-          throw this.normalizeError(
-            error,
-            "Database connection failed.",
-          );
-        })
-        .finally(() => {
-          this.connectionPromise =
-            undefined;
-        });
+        throw this.normalizeError(error, "Database connection failed.");
+      })
+      .finally(() => {
+        this.connectionPromise = undefined;
+      });
 
     return this.connectionPromise;
   }
@@ -159,38 +119,22 @@ export class DatabaseConnectionManager {
   public async disconnect(): Promise<void> {
     this.stopHealthChecks();
 
-    const status =
-      this.client.getStatus();
+    const status = this.client.getStatus();
 
-    if (
-      status ===
-        "disconnected" ||
-      status ===
-        "disconnecting"
-    ) {
+    if (status === "disconnected" || status === "disconnecting") {
       return;
     }
 
-    this.emit(
-      "disconnecting",
-    );
+    this.emit("disconnecting");
 
     try {
       await this.client.disconnect();
 
-      this.emit(
-        "disconnected",
-      );
+      this.emit("disconnected");
     } catch (error) {
-      this.emit(
-        "error",
-        error,
-      );
+      this.emit("error", error);
 
-      throw this.normalizeError(
-        error,
-        "Database disconnection failed.",
-      );
+      throw this.normalizeError(error, "Database disconnection failed.");
     }
   }
 
@@ -198,10 +142,7 @@ export class DatabaseConnectionManager {
    * Ensures that the connection is ready.
    */
   public async ensureConnected(): Promise<void> {
-    if (
-      this.client.getStatus() !==
-      "connected"
-    ) {
+    if (this.client.getStatus() !== "connected") {
       await this.connect();
     }
   }
@@ -230,38 +171,23 @@ export class DatabaseConnectionManager {
   /**
    * Subscribes to connection lifecycle events.
    */
-  public on(
-    listener: DatabaseConnectionListener,
-  ): () => void {
-    if (
-      typeof listener !==
-      "function"
-    ) {
-      throw new TypeError(
-        "A connection listener must be a function.",
-      );
+  public on(listener: DatabaseConnectionListener): () => void {
+    if (typeof listener !== "function") {
+      throw new TypeError("A connection listener must be a function.");
     }
 
-    this.listeners.add(
-      listener,
-    );
+    this.listeners.add(listener);
 
     return () => {
-      this.off(
-        listener,
-      );
+      this.off(listener);
     };
   }
 
   /**
    * Removes a connection listener.
    */
-  public off(
-    listener: DatabaseConnectionListener,
-  ): boolean {
-    return this.listeners.delete(
-      listener,
-    );
+  public off(listener: DatabaseConnectionListener): boolean {
+    return this.listeners.delete(listener);
   }
 
   /**
@@ -277,23 +203,15 @@ export class DatabaseConnectionManager {
   public startHealthChecks(): void {
     this.stopHealthChecks();
 
-    const interval =
-      this.healthCheckIntervalMs;
+    const interval = this.healthCheckIntervalMs;
 
-    if (
-      !interval ||
-      interval <= 0
-    ) {
+    if (!interval || interval <= 0) {
       return;
     }
 
-    this.healthCheckTimer =
-      setInterval(
-        () => {
-          void this.runScheduledHealthCheck();
-        },
-        interval,
-      );
+    this.healthCheckTimer = setInterval(() => {
+      void this.runScheduledHealthCheck();
+    }, interval);
 
     this.unrefTimer();
   }
@@ -302,18 +220,13 @@ export class DatabaseConnectionManager {
    * Stops periodic database health checks.
    */
   public stopHealthChecks(): void {
-    if (
-      !this.healthCheckTimer
-    ) {
+    if (!this.healthCheckTimer) {
       return;
     }
 
-    clearInterval(
-      this.healthCheckTimer,
-    );
+    clearInterval(this.healthCheckTimer);
 
-    this.healthCheckTimer =
-      undefined;
+    this.healthCheckTimer = undefined;
   }
 
   /**
@@ -330,29 +243,16 @@ export class DatabaseConnectionManager {
   /**
    * Emits a connection lifecycle event.
    */
-  private emit(
-    event: DatabaseConnectionEvent,
-    error?: unknown,
-  ): void {
-    const details: DatabaseConnectionEventDetails =
-      Object.freeze({
-        status:
-          this.client.getStatus(),
-        timestamp:
-          new Date(),
-        error,
-      });
+  private emit(event: DatabaseConnectionEvent, error?: unknown): void {
+    const details: DatabaseConnectionEventDetails = Object.freeze({
+      status: this.client.getStatus(),
+      timestamp: new Date(),
+      error,
+    });
 
-    for (
-      const listener of [
-        ...this.listeners,
-      ]
-    ) {
+    for (const listener of [...this.listeners]) {
       try {
-        listener(
-          event,
-          details,
-        );
+        listener(event, details);
       } catch {
         // Connection lifecycle listeners must never break the
         // database connection lifecycle itself.
@@ -365,23 +265,13 @@ export class DatabaseConnectionManager {
    */
   private async runScheduledHealthCheck(): Promise<void> {
     try {
-      const health =
-        await this.healthCheck();
+      const health = await this.healthCheck();
 
-      if (
-        health.status ===
-        "error"
-      ) {
-        this.emit(
-          "error",
-          health.error,
-        );
+      if (health.status === "error") {
+        this.emit("error", health.error);
       }
     } catch (error) {
-      this.emit(
-        "error",
-        error,
-      );
+      this.emit("error", error);
     }
   }
 
@@ -389,16 +279,11 @@ export class DatabaseConnectionManager {
    * Prevents the health-check timer from keeping Node alive.
    */
   private unrefTimer(): void {
-    const timer =
-      this.healthCheckTimer as
-        | (
-            ReturnType<
-              typeof setInterval
-            > & {
-              unref?: () => void;
-            }
-          )
-        | undefined;
+    const timer = this.healthCheckTimer as
+      | (ReturnType<typeof setInterval> & {
+          unref?: () => void;
+        })
+      | undefined;
 
     timer?.unref?.();
   }
@@ -410,22 +295,16 @@ export class DatabaseConnectionManager {
     error: unknown,
     fallbackMessage: string,
   ): DatabaseError {
-    if (
-      error instanceof
-      DatabaseError
-    ) {
+    if (error instanceof DatabaseError) {
       return error;
     }
 
     return new DatabaseError(
-      error instanceof Error
-        ? error.message
-        : fallbackMessage,
+      error instanceof Error ? error.message : fallbackMessage,
       {
         cause: error,
         metadata: {
-          status:
-            this.client.getStatus(),
+          status: this.client.getStatus(),
         },
       },
     );
@@ -438,7 +317,5 @@ export class DatabaseConnectionManager {
 export function createConnectionManager(
   options: DatabaseConnectionManagerOptions = {},
 ): DatabaseConnectionManager {
-  return new DatabaseConnectionManager(
-    options,
-  );
+  return new DatabaseConnectionManager(options);
 }

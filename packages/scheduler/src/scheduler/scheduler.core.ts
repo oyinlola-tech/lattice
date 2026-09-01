@@ -14,9 +14,21 @@ import type { ScheduleState } from "./types/schedulerTypes.core.js";
 
 import { ScheduleHandleImpl } from "./scheduleHandle/scheduleHandle.type.js";
 
-import { SchedulerError, SchedulerNotStartedError, SchedulerAlreadyStartedError, SchedulerStoppedError, InvalidScheduleError, InvalidJobError } from "./errors/scheduler.errors.js";
+import {
+  SchedulerError,
+  SchedulerNotStartedError,
+  SchedulerAlreadyStartedError,
+  SchedulerStoppedError,
+  InvalidScheduleError,
+  InvalidJobError,
+} from "./errors/scheduler.errors.js";
 
-import { DateTrigger, DelayTrigger, IntervalTrigger, CronTrigger } from "./trigger/schedulerTrigger.core.js";
+import {
+  DateTrigger,
+  DelayTrigger,
+  IntervalTrigger,
+  CronTrigger,
+} from "./trigger/schedulerTrigger.core.js";
 
 import { SystemClock } from "./clock/schedulerClock.type.js";
 
@@ -28,7 +40,10 @@ import { PriorityQueue } from "./priorityQueue/schedulerPriorityQueue.core.js";
 
 import { parseDuration } from "./duration/duration.parser.js";
 
-import { MAX_SCHEDULES, MAX_TIMER_DELAY } from "./constants/schedulerConstants.core.js";
+import {
+  MAX_SCHEDULES,
+  MAX_TIMER_DELAY,
+} from "./constants/schedulerConstants.core.js";
 
 /**
  * Scheduler for time-based job execution.
@@ -145,7 +160,10 @@ export class Scheduler {
     const nextRunAt = trigger.next(this.clock.now());
 
     if (nextRunAt === null) {
-      throw new InvalidScheduleError("Trigger returned null for next run.", scheduleId);
+      throw new InvalidScheduleError(
+        "Trigger returned null for next run.",
+        scheduleId,
+      );
     }
 
     const schedule: Schedule = {
@@ -223,7 +241,13 @@ export class Scheduler {
     const signal = new AbortController().signal;
 
     try {
-      await this.executor.execute(job, executionId, schedule.nextRunAt, 1, signal);
+      await this.executor.execute(
+        job,
+        executionId,
+        schedule.nextRunAt,
+        1,
+        signal,
+      );
     } catch (error) {
       // Job execution failed - retry logic would go here
     }

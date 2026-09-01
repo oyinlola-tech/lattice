@@ -1,10 +1,6 @@
-import {
-  FrameworkError,
-} from "../../errors/frameworkError.error.js";
+import { FrameworkError } from "../../errors/frameworkError.error.js";
 
-import {
-  ErrorCode,
-} from "../../errors/errorCode.code.js";
+import { ErrorCode } from "../../errors/errorCode.code.js";
 
 /**
  * Base error for all configuration related failures.
@@ -12,9 +8,7 @@ import {
  * This gives the configuration subsystem a common error type
  * while still allowing callers to handle more specific errors.
  */
-export class ConfigurationError
-  extends FrameworkError
-{
+export class ConfigurationError extends FrameworkError {
   /**
    * Configuration path associated with the error.
    */
@@ -32,41 +26,32 @@ export class ConfigurationError
     options: {
       readonly path?: string;
       readonly cause?: unknown;
-      readonly details?: Readonly<
-        Record<string, unknown>
-      >;
+      readonly details?: Readonly<Record<string, unknown>>;
     } = {},
   ) {
-    super(
-      message,
-      {
-        code,
-        details: {
-          ...(options.details ?? {}),
-          ...(options.path
-            ? {
-                path: options.path,
-              }
-            : {}),
-        },
-        cause: options.cause,
+    super(message, {
+      code,
+      details: {
+        ...(options.details ?? {}),
+        ...(options.path
+          ? {
+              path: options.path,
+            }
+          : {}),
       },
-    );
+      cause: options.cause,
+    });
 
-    this.name =
-      "ConfigurationError";
+    this.name = "ConfigurationError";
 
-    this.path =
-      options.path;
+    this.path = options.path;
   }
 }
 
 /**
  * Thrown when configuration loading fails.
  */
-export class ConfigurationSourceError
-  extends ConfigurationError
-{
+export class ConfigurationSourceError extends ConfigurationError {
   /**
    * Name of the configuration source that failed.
    */
@@ -77,15 +62,8 @@ export class ConfigurationSourceError
    */
   public readonly sourceType: string;
 
-  public constructor(
-    sourceName: string,
-    sourceType: string,
-    cause: unknown,
-  ) {
-    const causeMessage =
-      cause instanceof Error
-        ? cause.message
-        : String(cause);
+  public constructor(sourceName: string, sourceType: string, cause: unknown) {
+    const causeMessage = cause instanceof Error ? cause.message : String(cause);
 
     super(
       ErrorCode.CONFIGURATION_LOAD_FAILED,
@@ -99,26 +77,19 @@ export class ConfigurationSourceError
       },
     );
 
-    this.name =
-      "ConfigurationSourceError";
+    this.name = "ConfigurationSourceError";
 
-    this.sourceName =
-      sourceName;
+    this.sourceName = sourceName;
 
-    this.sourceType =
-      sourceType;
+    this.sourceType = sourceType;
   }
 }
 
 /**
  * Thrown when a required configuration value is missing.
  */
-export class ConfigurationMissingError
-  extends ConfigurationError
-{
-  public constructor(
-    path: string,
-  ) {
+export class ConfigurationMissingError extends ConfigurationError {
+  public constructor(path: string) {
     super(
       ErrorCode.CONFIGURATION_REQUIRED,
       `Required configuration "${path}" is not defined.`,
@@ -127,8 +98,7 @@ export class ConfigurationMissingError
       },
     );
 
-    this.name =
-      "ConfigurationMissingError";
+    this.name = "ConfigurationMissingError";
   }
 }
 
@@ -136,9 +106,7 @@ export class ConfigurationMissingError
  * Thrown when a configuration value has an invalid type
  * or otherwise cannot be interpreted correctly.
  */
-export class ConfigurationTypeError
-  extends ConfigurationError
-{
+export class ConfigurationTypeError extends ConfigurationError {
   /**
    * Expected configuration type.
    */
@@ -149,13 +117,8 @@ export class ConfigurationTypeError
    */
   public readonly actualType: string;
 
-  public constructor(
-    path: string,
-    expectedType: string,
-    value: unknown,
-  ) {
-    const actualType =
-      getValueType(value);
+  public constructor(path: string, expectedType: string, value: unknown) {
+    const actualType = getValueType(value);
 
     super(
       ErrorCode.CONFIGURATION_INVALID_TYPE,
@@ -169,38 +132,27 @@ export class ConfigurationTypeError
       },
     );
 
-    this.name =
-      "ConfigurationTypeError";
+    this.name = "ConfigurationTypeError";
 
-    this.expectedType =
-      expectedType;
+    this.expectedType = expectedType;
 
-    this.actualType =
-      actualType;
+    this.actualType = actualType;
   }
 }
 
 /**
  * Thrown when a configuration value fails schema validation.
  */
-export class ConfigurationSchemaError
-  extends ConfigurationError
-{
+export class ConfigurationSchemaError extends ConfigurationError {
   /**
    * Validation issues associated with the schema.
    */
   public readonly issues: readonly ConfigurationErrorIssue[];
 
-  public constructor(
-    path: string,
-    issues: readonly ConfigurationErrorIssue[],
-  ) {
+  public constructor(path: string, issues: readonly ConfigurationErrorIssue[]) {
     super(
       ErrorCode.CONFIGURATION_VALIDATION_FAILED,
-      createSchemaErrorMessage(
-        path,
-        issues,
-      ),
+      createSchemaErrorMessage(path, issues),
       {
         path,
         details: {
@@ -209,12 +161,9 @@ export class ConfigurationSchemaError
       },
     );
 
-    this.name =
-      "ConfigurationSchemaError";
+    this.name = "ConfigurationSchemaError";
 
-    this.issues = [
-      ...issues,
-    ];
+    this.issues = [...issues];
   }
 }
 
@@ -250,9 +199,7 @@ export interface ConfigurationErrorIssue {
  * duplicate or conflicting definitions that cannot
  * be resolved.
  */
-export class ConfigurationConflictError
-  extends ConfigurationError
-{
+export class ConfigurationConflictError extends ConfigurationError {
   /**
    * Configuration path where the conflict occurred.
    */
@@ -263,10 +210,7 @@ export class ConfigurationConflictError
    */
   public readonly sources: readonly string[];
 
-  public constructor(
-    path: string,
-    sources: readonly string[],
-  ) {
+  public constructor(path: string, sources: readonly string[]) {
     super(
       ErrorCode.CONFIGURATION_CONFLICT,
       `Configuration conflict detected for "${path}" between sources: ${sources.join(
@@ -280,24 +224,18 @@ export class ConfigurationConflictError
       },
     );
 
-    this.name =
-      "ConfigurationConflictError";
+    this.name = "ConfigurationConflictError";
 
-    this.conflictingPath =
-      path;
+    this.conflictingPath = path;
 
-    this.sources = [
-      ...sources,
-    ];
+    this.sources = [...sources];
   }
 }
 
 /**
  * Creates a safe representation of a configuration value's type.
  */
-function getValueType(
-  value: unknown,
-): string {
+function getValueType(value: unknown): string {
   if (value === null) {
     return "null";
   }
@@ -320,13 +258,9 @@ function createSchemaErrorMessage(
     return `Configuration "${path}" failed schema validation.`;
   }
 
-  const details =
-    issues
-      .map(
-        (issue) =>
-          `${issue.path}: ${issue.message}`,
-      )
-      .join("; ");
+  const details = issues
+    .map((issue) => `${issue.path}: ${issue.message}`)
+    .join("; ");
 
   return `Configuration "${path}" failed schema validation: ${details}`;
 }

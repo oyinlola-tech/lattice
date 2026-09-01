@@ -42,30 +42,24 @@ export function createEventHandlerError(
 /** Error thrown when an event handler cannot be found. */
 export class EventHandlerNotFoundError extends EventError {
   constructor(handlerId: string) {
-    super(
-      `Event handler "${handlerId}" was not found.`,
-      {
-        code: ErrorCode.RESOURCE_NOT_FOUND as ErrorCode | string,
-        handlerId,
-        statusCode: 404,
-        expose: true,
-      },
-    );
+    super(`Event handler "${handlerId}" was not found.`, {
+      code: ErrorCode.RESOURCE_NOT_FOUND as ErrorCode | string,
+      handlerId,
+      statusCode: 404,
+      expose: true,
+    });
   }
 }
 
 /** Error thrown when an event handler is already registered. */
 export class DuplicateEventHandlerError extends EventError {
   constructor(handlerId: string) {
-    super(
-      `Event handler "${handlerId}" is already registered.`,
-      {
-        code: ErrorCode.CONFLICT,
-        handlerId,
-        statusCode: 409,
-        expose: true,
-      },
-    );
+    super(`Event handler "${handlerId}" is already registered.`, {
+      code: ErrorCode.CONFLICT,
+      handlerId,
+      statusCode: 409,
+      expose: true,
+    });
   }
 }
 

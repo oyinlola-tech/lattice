@@ -1,14 +1,8 @@
-import {
-  FrameworkError,
-} from "../../errors/frameworkError.error.js";
+import { FrameworkError } from "../../errors/frameworkError.error.js";
 
-import {
-  ErrorCode,
-} from "../../errors/errorCode.code.js";
+import { ErrorCode } from "../../errors/errorCode.code.js";
 
-import type {
-  ModuleId,
-} from "../module.js";
+import type { ModuleId } from "../module.js";
 
 /**
  * Error codes produced by the module subsystem.
@@ -19,62 +13,43 @@ import type {
 export const ModuleErrorCode = {
   UNKNOWN: ErrorCode.UNKNOWN_ERROR,
 
-  INVALID_DEFINITION:
-    ErrorCode.MODULE_INVALID_DEFINITION,
+  INVALID_DEFINITION: ErrorCode.MODULE_INVALID_DEFINITION,
 
-  INVALID_ID :
-    ErrorCode.INVALID_ARGUMENT,
+  INVALID_ID: ErrorCode.INVALID_ARGUMENT,
 
-  DUPLICATE :
-    ErrorCode.MODULE_DUPLICATE,
+  DUPLICATE: ErrorCode.MODULE_DUPLICATE,
 
-  NOT_FOUND :
-    ErrorCode.MODULE_NOT_FOUND,
+  NOT_FOUND: ErrorCode.MODULE_NOT_FOUND,
 
-  ALREADY_REGISTERED :
-    ErrorCode.MODULE_ALREADY_REGISTERED,
+  ALREADY_REGISTERED: ErrorCode.MODULE_ALREADY_REGISTERED,
 
-  NOT_REGISTERED :
-    ErrorCode.MODULE_NOT_FOUND,
+  NOT_REGISTERED: ErrorCode.MODULE_NOT_FOUND,
 
-  INVALID_DEPENDENCY :
-    ErrorCode.MODULE_INVALID_DEPENDENCY,
+  INVALID_DEPENDENCY: ErrorCode.MODULE_INVALID_DEPENDENCY,
 
-  MISSING_DEPENDENCY :
-    ErrorCode.MODULE_MISSING_DEPENDENCY,
+  MISSING_DEPENDENCY: ErrorCode.MODULE_MISSING_DEPENDENCY,
 
-  CIRCULAR_DEPENDENCY :
-    ErrorCode.MODULE_CIRCULAR_DEPENDENCY,
+  CIRCULAR_DEPENDENCY: ErrorCode.MODULE_CIRCULAR_DEPENDENCY,
 
-  VERSION_MISMATCH :
-    ErrorCode.MODULE_VERSION_MISMATCH,
+  VERSION_MISMATCH: ErrorCode.MODULE_VERSION_MISMATCH,
 
-  LOAD_FAILED :
-    ErrorCode.MODULE_LOAD_FAILED,
+  LOAD_FAILED: ErrorCode.MODULE_LOAD_FAILED,
 
-  INITIALIZATION_FAILED :
-    ErrorCode.MODULE_INITIALIZATION_FAILED,
+  INITIALIZATION_FAILED: ErrorCode.MODULE_INITIALIZATION_FAILED,
 
-  START_FAILED :
-    ErrorCode.MODULE_START_FAILED,
+  START_FAILED: ErrorCode.MODULE_START_FAILED,
 
-  STOP_FAILED :
-    ErrorCode.MODULE_STOP_FAILED,
+  STOP_FAILED: ErrorCode.MODULE_STOP_FAILED,
 
-  DESTROY_FAILED :
-    ErrorCode.MODULE_DESTROY_FAILED,
+  DESTROY_FAILED: ErrorCode.MODULE_DESTROY_FAILED,
 
-  INVALID_INSTANCE :
-    ErrorCode.MODULE_INVALID_INSTANCE,
+  INVALID_INSTANCE: ErrorCode.MODULE_INVALID_INSTANCE,
 
-  INVALID_STATE :
-    ErrorCode.MODULE_INVALID_STATE,
+  INVALID_STATE: ErrorCode.MODULE_INVALID_STATE,
 
-  OPERATION_IN_PROGRESS :
-    ErrorCode.MODULE_OPERATION_IN_PROGRESS,
+  OPERATION_IN_PROGRESS: ErrorCode.MODULE_OPERATION_IN_PROGRESS,
 
-  OPERATION_NOT_ALLOWED :
-    ErrorCode.MODULE_OPERATION_NOT_ALLOWED,
+  OPERATION_NOT_ALLOWED: ErrorCode.MODULE_OPERATION_NOT_ALLOWED,
 } as const;
 
 /**
@@ -90,34 +65,27 @@ export interface ModuleErrorDetails {
   /**
    * Module that caused the error.
    */
-  readonly moduleId?:
-    ModuleId;
+  readonly moduleId?: ModuleId;
 
   /**
    * Related dependency.
    */
-  readonly dependencyId?:
-    ModuleId;
+  readonly dependencyId?: ModuleId;
 
   /**
    * Lifecycle phase associated with the error.
    */
-  readonly phase?:
-    string;
+  readonly phase?: string;
 
   /**
    * Dependency cycle, when applicable.
    */
-  readonly cycle?:
-    readonly ModuleId[];
+  readonly cycle?: readonly ModuleId[];
 
   /**
    * Additional structured information.
    */
-  readonly metadata?:
-    Readonly<
-      Record<string, unknown>
-    >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -126,140 +94,93 @@ export interface ModuleErrorDetails {
  * Extends FrameworkError so module errors can be caught
  * uniformly with other framework errors.
  */
-export class ModuleError
-  extends FrameworkError {
+export class ModuleError extends FrameworkError {
   /**
    * Module associated with this error.
    */
-  public readonly moduleId?:
-    ModuleId;
+  public readonly moduleId?: ModuleId;
 
   /**
    * Related dependency.
    */
-  public readonly dependencyId?:
-    ModuleId;
+  public readonly dependencyId?: ModuleId;
 
   /**
    * Lifecycle phase.
    */
-  public readonly phase?:
-    string;
+  public readonly phase?: string;
 
   /**
    * Dependency cycle.
    */
-  public readonly cycle?:
-    readonly ModuleId[];
+  public readonly cycle?: readonly ModuleId[];
 
   /**
    * Structured metadata.
    */
-  public readonly errorMetadata?:
-    Readonly<
-      Record<string, unknown>
-    >;
+  public readonly errorMetadata?: Readonly<Record<string, unknown>>;
 
   public constructor(
     message: string,
     options: {
-      readonly code?:
-        ModuleErrorCode;
+      readonly code?: ModuleErrorCode;
 
-      readonly moduleId?:
-        ModuleId;
+      readonly moduleId?: ModuleId;
 
-      readonly dependencyId?:
-        ModuleId;
+      readonly dependencyId?: ModuleId;
 
-      readonly phase?:
-        string;
+      readonly phase?: string;
 
-      readonly cycle?:
-        readonly ModuleId[];
+      readonly cycle?: readonly ModuleId[];
 
-      readonly metadata?:
-        Readonly<
-          Record<string, unknown>
-        >;
+      readonly metadata?: Readonly<Record<string, unknown>>;
 
-      readonly cause?:
-        unknown;
+      readonly cause?: unknown;
     } = {},
   ) {
-    const details: Record<
-      string,
-      unknown
-    > = {};
+    const details: Record<string, unknown> = {};
 
-    if (
-      options.moduleId !== undefined
-    ) {
-      details.moduleId =
-        options.moduleId;
+    if (options.moduleId !== undefined) {
+      details.moduleId = options.moduleId;
     }
 
-    if (
-      options.dependencyId !==
-        undefined
-    ) {
-      details.dependencyId =
-        options.dependencyId;
+    if (options.dependencyId !== undefined) {
+      details.dependencyId = options.dependencyId;
     }
 
-    if (
-      options.phase !== undefined
-    ) {
-      details.phase =
-        options.phase;
+    if (options.phase !== undefined) {
+      details.phase = options.phase;
     }
 
-    if (
-      options.cycle !== undefined
-    ) {
-      details.cycle =
-        options.cycle;
+    if (options.cycle !== undefined) {
+      details.cycle = options.cycle;
     }
 
-    if (
-      options.metadata !== undefined
-    ) {
-      details.metadata =
-        options.metadata;
+    if (options.metadata !== undefined) {
+      details.metadata = options.metadata;
     }
 
     super(message, {
-      code:
-        options.code ??
-        ModuleErrorCode.UNKNOWN,
+      code: options.code ?? ModuleErrorCode.UNKNOWN,
       details,
       cause: options.cause,
     });
 
-    this.name =
-      "ModuleError";
+    this.name = "ModuleError";
 
-    this.moduleId =
-      options.moduleId;
+    this.moduleId = options.moduleId;
 
-    this.dependencyId =
-      options.dependencyId;
+    this.dependencyId = options.dependencyId;
 
-    this.phase =
-      options.phase;
+    this.phase = options.phase;
 
-    this.cycle = options.cycle
-      ? Object.freeze([
-          ...options.cycle,
-        ])
+    this.cycle = options.cycle ? Object.freeze([...options.cycle]) : undefined;
+
+    this.errorMetadata = options.metadata
+      ? Object.freeze({
+          ...options.metadata,
+        })
       : undefined;
-
-    this.errorMetadata =
-      options.metadata
-        ? Object.freeze({
-            ...options.metadata,
-          })
-        : undefined;
   }
 
   /**
@@ -269,20 +190,15 @@ export class ModuleError
     return {
       ...super.toJSON(),
 
-      moduleId:
-        this.moduleId,
+      moduleId: this.moduleId,
 
-      dependencyId:
-        this.dependencyId,
+      dependencyId: this.dependencyId,
 
-      phase:
-        this.phase,
+      phase: this.phase,
 
-      cycle:
-        this.cycle,
+      cycle: this.cycle,
 
-      errorMetadata:
-        this.errorMetadata,
+      errorMetadata: this.errorMetadata,
     };
   }
 }

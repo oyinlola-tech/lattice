@@ -1,22 +1,12 @@
-import type {
-  ConfigValue,
-} from "../configValue/configValue.core.js";
+import type { ConfigValue } from "../configValue/configValue.core.js";
 
-import type {
-  ConfigSource,
-} from "../configSource/configSource.core.js";
+import type { ConfigSource } from "../configSource/configSource.core.js";
 
-import type {
-  ConfigLoader,
-} from "../configLoader/configLoader.core.js";
+import type { ConfigLoader } from "../configLoader/configLoader.core.js";
 
-import type {
-  ConfigStore,
-} from "../configStore/configStore.core.js";
+import type { ConfigStore } from "../configStore/configStore.core.js";
 
-import type {
-  ConfigResolverOptions,
-} from "../configResolver/core/configResolver.type.js";
+import type { ConfigResolverOptions } from "../configResolver/core/configResolver.type.js";
 
 /**
  * Configuration manager lifecycle state.
@@ -33,14 +23,10 @@ export enum ConfigManagerState {
 /**
  * Configuration manager options.
  */
-export interface ConfigManagerOptions
-  extends ConfigResolverOptions {
+export interface ConfigManagerOptions extends ConfigResolverOptions {
   readonly sources?: readonly ConfigSource[];
 
-  readonly initialValues?:
-    Readonly<
-      Record<string, ConfigValue>
-    >;
+  readonly initialValues?: Readonly<Record<string, ConfigValue>>;
 
   readonly store?: ConfigStore;
 
@@ -72,6 +58,4 @@ export interface ConfigManagerStatus {
 /**
  * Listener for configuration manager state changes.
  */
-export type ConfigManagerListener = (
-  status: ConfigManagerStatus,
-) => void;
+export type ConfigManagerListener = (status: ConfigManagerStatus) => void;

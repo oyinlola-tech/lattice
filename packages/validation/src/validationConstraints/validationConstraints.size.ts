@@ -57,8 +57,7 @@ export function estimateSerializedSize(
     let total = 0;
     for (const [k, v] of value) {
       total +=
-        estimateSerializedSize(k, tracker) +
-        estimateSerializedSize(v, tracker);
+        estimateSerializedSize(k, tracker) + estimateSerializedSize(v, tracker);
     }
     return total;
   }
@@ -84,10 +83,7 @@ export function estimateSerializedSize(
  *
  * @throws {SerializationPayloadTooLargeError} when the estimate exceeds maxSize.
  */
-export function assertSizeWithinLimit(
-  value: unknown,
-  maxSize: number,
-): void {
+export function assertSizeWithinLimit(value: unknown, maxSize: number): void {
   const size = estimateSerializedSize(value);
   if (size > maxSize) {
     throw new SerializationPayloadTooLargeError(size, maxSize);

@@ -7,36 +7,22 @@
  * @module httpAdapter/node/adapter
  */
 
-import {
-  Server,
-  ServerResponse,
-  createServer,
-} from "node:http";
+import { Server, ServerResponse, createServer } from "node:http";
 
-import {
-  HttpRequestContext,
-} from "../../httpRequest/httpRequest.context.js";
+import { HttpRequestContext } from "../../httpRequest/httpRequest.context.js";
 
 import {
   HttpResponseContext,
   createResponseContext,
 } from "../../httpResponse/httpResponse.context.js";
 
-import type {
-  ResponseContextInit,
-} from "../../httpResponse/core/httpResponse.type.js";
+import type { ResponseContextInit } from "../../httpResponse/core/httpResponse.type.js";
 
-import {
-  BaseHttpAdapter,
-} from "../http.adapter.js";
+import { BaseHttpAdapter } from "../http.adapter.js";
 
-import type {
-  HttpHandlerResult,
-} from "../http.adapter.js";
+import type { HttpHandlerResult } from "../http.adapter.js";
 
-import type {
-  HttpResponseWriter,
-} from "../../httpResponse/httpResponse.writer.js";
+import type { HttpResponseWriter } from "../../httpResponse/httpResponse.writer.js";
 
 import type {
   NodeAdapterOptions,
@@ -52,9 +38,7 @@ import {
   validateMaxBodySize,
 } from "./httpNode.type.js";
 
-import {
-  NodeResponseWriter,
-} from "./httpNode.response.js";
+import { NodeResponseWriter } from "./httpNode.response.js";
 
 import {
   getNodeRequestHeaders,
@@ -80,162 +64,98 @@ import {
 /* Node HTTP Adapter                                                          */
 /* -------------------------------------------------------------------------- */
 
-export class NodeHttpAdapter
-  extends BaseHttpAdapter {
-  private readonly host:
-    | string;
+export class NodeHttpAdapter extends BaseHttpAdapter {
+  private readonly host: string;
 
-  private readonly port:
-    | number;
+  private readonly port: number;
 
-  private readonly maxBodySize:
-    | number;
+  private readonly maxBodySize: number;
 
-  private readonly requestTimeout:
-    | number
-    | undefined;
+  private readonly requestTimeout: number | undefined;
 
-  private readonly headersTimeout:
-    | number
-    | undefined;
+  private readonly headersTimeout: number | undefined;
 
-  private readonly keepAliveTimeout:
-    | number
-    | undefined;
+  private readonly keepAliveTimeout: number | undefined;
 
-  private readonly connectionTimeout:
-    | number
-    | undefined;
+  private readonly connectionTimeout: number | undefined;
 
   private readonly trustProxy:
-    | boolean
-    | number
-    | string
-    | readonly string[]
-    | undefined;
+    boolean | number | string | readonly string[] | undefined;
 
-  private readonly events:
-    | NodeAdapterEvents;
+  private readonly events: NodeAdapterEvents;
 
-  private server:
-    | Server
-    | undefined;
+  private server: Server | undefined;
 
-  private ownsServer =
-    false;
+  private ownsServer = false;
 
-  constructor(
-    options:
-      | NodeAdapterOptions = {},
-  ) {
+  constructor(options: NodeAdapterOptions = {}) {
     super({
       ...options,
-      name:
-        options.name ??
-        "node",
+      name: options.name ?? "node",
       capabilities: {
-        streaming:
-          true,
-        websockets:
-          false,
-        http2:
-          false,
-        http3:
-          false,
-        trailers:
-          true,
-        abortSignal:
-          true,
-        keepAlive:
-          true,
-        compression:
-          false,
+        streaming: true,
+        websockets: false,
+        http2: false,
+        http3: false,
+        trailers: true,
+        abortSignal: true,
+        keepAlive: true,
+        compression: false,
         ...options.capabilities,
       },
     });
 
-    this.host =
-      options.host ??
-      DEFAULT_HOST;
+    this.host = options.host ?? DEFAULT_HOST;
 
-    this.port =
-      validatePort(
-        options.port ??
-          DEFAULT_PORT,
-      );
+    this.port = validatePort(options.port ?? DEFAULT_PORT);
 
-    this.maxBodySize =
-      validateMaxBodySize(
-        options.maxBodySize ??
-          DEFAULT_MAX_BODY_SIZE,
-      );
+    this.maxBodySize = validateMaxBodySize(
+      options.maxBodySize ?? DEFAULT_MAX_BODY_SIZE,
+    );
 
-    this.requestTimeout =
-      options.requestTimeout;
+    this.requestTimeout = options.requestTimeout;
 
-    this.headersTimeout =
-      options.headersTimeout;
+    this.headersTimeout = options.headersTimeout;
 
-    this.keepAliveTimeout =
-      options.keepAliveTimeout;
+    this.keepAliveTimeout = options.keepAliveTimeout;
 
-    this.connectionTimeout =
-      options.connectionTimeout;
+    this.connectionTimeout = options.connectionTimeout;
 
-    this.trustProxy =
-      options.trustProxy;
+    this.trustProxy = options.trustProxy;
 
     this.events = {};
 
-    this.server =
-      options.server;
+    this.server = options.server;
 
-    this.ownsServer =
-      !options.server;
+    this.ownsServer = !options.server;
   }
 
   /* ------------------------------------------------------------------------ */
   /* Server                                                                   */
   /* ------------------------------------------------------------------------ */
 
-  get httpServer():
-    | Server
-    | undefined {
+  get httpServer(): Server | undefined {
     return this.server;
   }
 
-  get address():
-    | NodeServerAddress
-    | undefined {
-    if (
-      !this.server
-    ) {
+  get address(): NodeServerAddress | undefined {
+    if (!this.server) {
       return undefined;
     }
 
-    const address =
-      this.server.address();
+    const address = this.server.address();
 
-    if (
-      !address ||
-      typeof address ===
-        "string"
-    ) {
+    if (!address || typeof address === "string") {
       return undefined;
     }
 
     return {
-      host:
-        address.address,
-      port:
-        address.port,
+      host: address.address,
+      port: address.port,
       family:
-        typeof address.family ===
-        "string"
+        typeof address.family === "string"
           ? address.family
-          : String(
-              address.family,
-            ),
+          : String(address.family),
     };
   }
 
@@ -243,41 +163,21 @@ export class NodeHttpAdapter
   /* Request / Response                                                       */
   /* ------------------------------------------------------------------------ */
 
-  override createRequest(
-    input: unknown,
-  ): HttpRequestContext {
-    if (
-      !isIncomingMessage(
-        input,
-      )
-    ) {
+  override createRequest(input: unknown): HttpRequestContext {
+    if (!isIncomingMessage(input)) {
       throw new TypeError(
         "NodeHttpAdapter.createRequest expected an IncomingMessage.",
       );
     }
 
-    return createNodeRequestContext(
-      input,
-      {
-        maxBodySize:
-          this.maxBodySize,
-        trustProxy:
-          this.trustProxy as boolean | string | readonly string[],
-      },
-    );
+    return createNodeRequestContext(input, {
+      maxBodySize: this.maxBodySize,
+      trustProxy: this.trustProxy as boolean | string | readonly string[],
+    });
   }
 
-  override createResponse(
-    input?:
-      | unknown,
-  ): HttpResponseContext {
-    if (
-      input !==
-        undefined &&
-      !isServerResponse(
-        input,
-      )
-    ) {
+  override createResponse(input?: unknown): HttpResponseContext {
+    if (input !== undefined && !isServerResponse(input)) {
       throw new TypeError(
         "NodeHttpAdapter.createResponse expected a ServerResponse.",
       );
@@ -286,172 +186,90 @@ export class NodeHttpAdapter
     return createResponseContext();
   }
 
-  override createWriter(
-    response: unknown,
-  ): HttpResponseWriter {
-    if (
-      !isServerResponse(
-        response,
-      )
-    ) {
+  override createWriter(response: unknown): HttpResponseWriter {
+    if (!isServerResponse(response)) {
       throw new TypeError(
         "NodeHttpAdapter.createWriter expected a ServerResponse.",
       );
     }
 
-    return new NodeResponseWriter(
-      response,
-    );
+    return new NodeResponseWriter(response);
   }
 
   /* ------------------------------------------------------------------------ */
   /* Handle                                                                   */
   /* ------------------------------------------------------------------------ */
 
-  override async handle(
-    input: unknown,
-  ): Promise<void> {
-    if (
-      !isNodeRequestResponsePair(
-        input,
-      )
-    ) {
+  override async handle(input: unknown): Promise<void> {
+    if (!isNodeRequestResponsePair(input)) {
       throw new TypeError(
         "NodeHttpAdapter.handle expects a Node HTTP request/response pair.",
       );
     }
 
-    const request =
-      input.request;
+    const request = input.request;
 
-    const response =
-      input.response;
+    const response = input.response;
 
-    const context =
-      this.createRequest(
-        request,
-      );
+    const context = this.createRequest(request);
 
     try {
-      const result =
-        await this.executeNodeHandler(
-          context,
-        );
+      const result = await this.executeNodeHandler(context);
 
-      const responseContext =
-        this.normalizeResult(
-          result,
-        );
+      const responseContext = this.normalizeResult(result);
 
-      await this.writeNodeResponse(
-        response,
-        responseContext,
-      );
-    } catch (
-      error
-    ) {
-      await this.handleNodeError(
-        error,
-        context,
-        response,
-      );
+      await this.writeNodeResponse(response, responseContext);
+    } catch (error) {
+      await this.handleNodeError(error, context, response);
     }
   }
 
   private async executeNodeHandler(
-    request:
-      | HttpRequestContext,
+    request: HttpRequestContext,
   ): Promise<HttpHandlerResult> {
-    if (
-      !this.handler
-    ) {
-      throw new Error(
-        "No HTTP handler has been configured.",
-      );
+    if (!this.handler) {
+      throw new Error("No HTTP handler has been configured.");
     }
 
-    return this.handler(
-      request,
-    );
+    return this.handler(request);
   }
 
-  private normalizeResult(
-    result:
-      | HttpHandlerResult,
-  ): HttpResponseContext {
-    if (
-      result instanceof
-      HttpResponseContext
-    ) {
+  private normalizeResult(result: HttpHandlerResult): HttpResponseContext {
+    if (result instanceof HttpResponseContext) {
       return result;
     }
 
-    if (
-      result ===
-        undefined ||
-      result ===
-        null
-    ) {
+    if (result === undefined || result === null) {
       return createResponseContext();
     }
 
-    if (
-      isResponseContextLike(
-        result,
-      )
-    ) {
-      return createResponseContext(
-        result as ResponseContextInit,
-      );
+    if (isResponseContextLike(result)) {
+      return createResponseContext(result as ResponseContextInit);
     }
 
-    return createResponseContext().json(
-      result,
-    );
+    return createResponseContext().json(result);
   }
 
   private async handleNodeError(
     error: unknown,
-    request:
-      | HttpRequestContext,
-    response:
-      | ServerResponse,
+    request: HttpRequestContext,
+    response: ServerResponse,
   ): Promise<void> {
-    if (
-      response.headersSent
-    ) {
-      response.destroy(
-        error instanceof
-          Error
-          ? error
-          : undefined,
-      );
+    if (response.headersSent) {
+      response.destroy(error instanceof Error ? error : undefined);
 
       return;
     }
 
-    const context =
-      createResponseContext();
+    const context = createResponseContext();
 
-    if (
-      this.errorHandler
-    ) {
+    if (this.errorHandler) {
       try {
-        const result =
-          await this.errorHandler(
-            error,
-            request,
-          );
+        const result = await this.errorHandler(error, request);
 
-        const normalized =
-          this.normalizeResult(
-            result,
-          );
+        const normalized = this.normalizeResult(result);
 
-        await this.writeNodeResponse(
-          response,
-          normalized,
-        );
+        await this.writeNodeResponse(response, normalized);
 
         return;
       } catch {
@@ -459,128 +277,74 @@ export class NodeHttpAdapter
       }
     }
 
-    context
-      .internalServerError()
-      .json({
-        error:
-          "Internal Server Error",
-      });
+    context.internalServerError().json({
+      error: "Internal Server Error",
+    });
 
-    await this.writeNodeResponse(
-      response,
-      context,
-    );
+    await this.writeNodeResponse(response, context);
   }
 
   private async writeNodeResponse(
-    response:
-      | ServerResponse,
-    context:
-      | HttpResponseContext,
+    response: ServerResponse,
+    context: HttpResponseContext,
   ): Promise<void> {
-    const writer =
-      this.createWriter(
-        response,
-      );
+    const writer = this.createWriter(response);
 
-    await this.writeNodeResponse(
-      response,
-      context,
-    );
+    await this.writeNodeResponse(response, context);
 
-    if (
-      !response.writableEnded
-    ) {
+    if (!response.writableEnded) {
       writer.end();
     }
   }
 
   override async start(): Promise<void> {
-    if (
-      this.server?.listening
-    ) {
+    if (this.server?.listening) {
       return;
     }
 
-    if (
-      !this.server
-    ) {
-      this.server =
-        createServer(
-          (
-            request,
-            response,
-          ) => {
-            void this.handle({
-              request,
-              response,
-            });
-          },
-        );
-
-      this.ownsServer =
-        true;
-    } else {
-      this.server.removeAllListeners(
-        "request",
-      );
-
-      this.server.on(
-        "request",
-        (
+    if (!this.server) {
+      this.server = createServer((request, response) => {
+        void this.handle({
           request,
           response,
-        ) => {
-          void this.handle({
-            request,
-            response,
-          });
-        },
-      );
+        });
+      });
+
+      this.ownsServer = true;
+    } else {
+      this.server.removeAllListeners("request");
+
+      this.server.on("request", (request, response) => {
+        void this.handle({
+          request,
+          response,
+        });
+      });
     }
 
-    configureServer(
-      this.server,
-      {
-        requestTimeout:
-          this.requestTimeout,
-        headersTimeout:
-          this.headersTimeout,
-        keepAliveTimeout:
-          this.keepAliveTimeout,
-        connectionTimeout:
-          this.connectionTimeout,
-      },
-    );
+    configureServer(this.server, {
+      requestTimeout: this.requestTimeout,
+      headersTimeout: this.headersTimeout,
+      keepAliveTimeout: this.keepAliveTimeout,
+      connectionTimeout: this.connectionTimeout,
+    });
 
-    await listen(
-      this.server,
-      this.port,
-      this.host,
-    );
+    await listen(this.server, this.port, this.host);
 
     await super.start();
   }
 
   override async stop(): Promise<void> {
-    if (
-      !this.server ||
-      !this.server.listening
-    ) {
+    if (!this.server || !this.server.listening) {
       await super.stop();
 
       return;
     }
 
-    await closeServer(
-      this.server,
-    );
+    await closeServer(this.server);
 
-    if (
-      this.ownsServer
-    ) {
-      this.server =
-        undefined;
+    if (this.ownsServer) {
+      this.server = undefined;
     }
 
     await super.stop();
@@ -592,10 +356,7 @@ export class NodeHttpAdapter
 /* -------------------------------------------------------------------------- */
 
 export function createNodeHttpAdapter(
-  options:
-    | NodeAdapterOptions = {},
+  options: NodeAdapterOptions = {},
 ): NodeHttpAdapter {
-  return new NodeHttpAdapter(
-    options,
-  );
+  return new NodeHttpAdapter(options);
 }

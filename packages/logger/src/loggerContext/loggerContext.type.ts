@@ -2,9 +2,7 @@
  * Logger context types.
  */
 
-import type {
-  LogMetadata,
-} from "../loggerEntry/loggerEntry.type.js";
+import type { LogMetadata } from "../loggerEntry/loggerEntry.type.js";
 
 /**
  * Logger context.

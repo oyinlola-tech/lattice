@@ -12,7 +12,9 @@ import { randomBytes } from "node:crypto";
  * @param authorization - Raw Authorization header value
  * @returns The token string, or null if not a Bearer token
  */
-export function parseBearerToken(authorization: string | undefined): string | null {
+export function parseBearerToken(
+  authorization: string | undefined,
+): string | null {
   if (!authorization) return null;
   const parts = authorization.split(" ");
   if (parts.length !== 2 || parts[0] !== "Bearer") return null;
@@ -25,7 +27,9 @@ export function parseBearerToken(authorization: string | undefined): string | nu
  * @param cookie - Raw Cookie header value
  * @returns Parsed cookies
  */
-export function parseCookies(cookie: string | undefined): Record<string, string> {
+export function parseCookies(
+  cookie: string | undefined,
+): Record<string, string> {
   const result: Record<string, string> = {};
   if (!cookie) return result;
   for (const part of cookie.split(";")) {
@@ -48,7 +52,10 @@ export function isTokenExpired(token: string): boolean {
     const parts = token.split(".");
     if (parts.length !== 3) return true;
     const payload = JSON.parse(
-      Buffer.from(parts[1]!.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString("utf-8"),
+      Buffer.from(
+        parts[1]!.replace(/-/g, "+").replace(/_/g, "/"),
+        "base64",
+      ).toString("utf-8"),
     );
     const now = Math.floor(Date.now() / 1000);
     return payload.exp < now;
@@ -68,7 +75,10 @@ export function extractUserId(token: string): string | null {
     const parts = token.split(".");
     if (parts.length !== 3) return null;
     const payload = JSON.parse(
-      Buffer.from(parts[1]!.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString("utf-8"),
+      Buffer.from(
+        parts[1]!.replace(/-/g, "+").replace(/_/g, "/"),
+        "base64",
+      ).toString("utf-8"),
     );
     return payload.sub ?? null;
   } catch {

@@ -5,6 +5,6 @@
 export {
   isValidDirectiveName,
   normalizeDirectiveName,
-} from './httpCsp.validation.js';
+} from "./httpCsp.validation.js";
 
-export { validateCSP } from './httpCsp.validate.js';
+export { validateCSP } from "./httpCsp.validate.js";

@@ -4,4 +4,4 @@
  * HTTP httpCompression module.
  */
 
-export * from './http.compression.js';
+export * from "./http.compression.js";

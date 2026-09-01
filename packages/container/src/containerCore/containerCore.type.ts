@@ -2,13 +2,9 @@
  * Types for the core container.
  */
 
-import type {
-  RegistrationToken,
-} from "../containerRegistration/containerRegistration.core.js";
+import type { RegistrationToken } from "../containerRegistration/containerRegistration.core.js";
 
-import type {
-  ContainerRegistration,
-} from "../containerRegistration/containerRegistration.core.js";
+import type { ContainerRegistration } from "../containerRegistration/containerRegistration.core.js";
 
 /**
  * Options used when creating a child container scope.
@@ -33,7 +29,10 @@ export interface ContainerLike {
   readonly name: string;
   readonly resolver: {
     createScope(): import("../containerResolution/containerResolution.type.js").ResolutionCache;
-    resolveDetailed(token: unknown, options: unknown): { token: unknown; value: unknown };
+    resolveDetailed(
+      token: unknown,
+      options: unknown,
+    ): { token: unknown; value: unknown };
     canResolve(token: unknown): boolean;
   };
   readonly resolutionOptions: {
@@ -42,5 +41,7 @@ export interface ContainerLike {
     maxResolutionDepth: number;
   };
   has<T>(token: RegistrationToken<T>): boolean;
-  createScope(options?: ContainerScopeOptions): import("./containerCore.scope.js").ContainerScopeContext;
+  createScope(
+    options?: ContainerScopeOptions,
+  ): import("./containerCore.scope.js").ContainerScopeContext;
 }

@@ -11,7 +11,11 @@
 export type HttpMiddleware = (
   context: HttpMiddlewareContext,
   next: () => Promise<HttpResponseContext>,
-) => void | Response | HttpResponseContext | Promise<void | Response | HttpResponseContext>;
+) =>
+  | void
+  | Response
+  | HttpResponseContext
+  | Promise<void | Response | HttpResponseContext>;
 
 /** HTTP middleware context from @oyinlola141/lattice-http. */
 export interface HttpMiddlewareContext {

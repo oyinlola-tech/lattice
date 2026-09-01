@@ -4,4 +4,4 @@
  * Event system error types.
  */
 
-export * from './eventError.base.js';
+export * from "./eventError.base.js";

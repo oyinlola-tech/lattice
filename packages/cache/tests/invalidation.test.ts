@@ -9,7 +9,10 @@ import { describe, it, expect, beforeEach } from "vitest";
 
 import { MemoryCacheAdapter, createMemoryCacheAdapter } from "../src/memory.js";
 import { InMemoryTagStore, createTagStore } from "../src/tags.js";
-import { CacheInvalidationManager, createInvalidationManager } from "../src/invalidation.js";
+import {
+  CacheInvalidationManager,
+  createInvalidationManager,
+} from "../src/invalidation.js";
 
 let adapter: MemoryCacheAdapter;
 let tagStore: InMemoryTagStore;

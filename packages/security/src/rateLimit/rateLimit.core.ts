@@ -116,9 +116,7 @@ export function createRateLimiter(config: RateLimitConfig) {
       store.set(key, entry);
     } else {
       // Existing window — remove expired timestamps
-      const validTimestamps = entry.timestamps.filter(
-        (t) => t > windowStart,
-      );
+      const validTimestamps = entry.timestamps.filter((t) => t > windowStart);
       validTimestamps.push(now);
       entry = { timestamps: validTimestamps, windowStart: entry.windowStart };
       store.set(key, entry);

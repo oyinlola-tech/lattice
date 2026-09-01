@@ -11,7 +11,7 @@ npm install @latticejs/feature-flags
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/feature-flags";
+import {} from /* add usage here */ "@latticejs/feature-flags";
 ```
 
 ## License

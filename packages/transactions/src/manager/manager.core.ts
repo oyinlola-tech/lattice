@@ -12,7 +12,10 @@ import type { TransactionAdapter } from "../transactionTypes/transactionAdapter.
 import type { TransactionContext } from "../transactionTypes/transactionAdapter.js";
 import type { TransactionHooks } from "../transactionTypes/transactionHooks.js";
 import { createTransaction } from "../transaction/transaction.core.js";
-import { TransactionAdapterError, TransactionRollbackError } from "../transactionErrors/transactionError.types.js";
+import {
+  TransactionAdapterError,
+  TransactionRollbackError,
+} from "../transactionErrors/transactionError.types.js";
 import { handlePropagation } from "./manager.propagation.js";
 import { commitTransaction, rollbackTransaction } from "./manager.commit.js";
 
@@ -31,7 +34,8 @@ export function createTransactionManager(options: TransactionManagerOptions) {
 
   const resolveContext = (): TransactionContext => {
     if (options.context) return options.context;
-    const mod = require("../context/context.core.js") as typeof import("../context/context.core.js");
+    const mod =
+      require("../context/context.core.js") as typeof import("../context/context.core.js");
     return mod.getDefaultContext();
   };
 
@@ -41,7 +45,14 @@ export function createTransactionManager(options: TransactionManagerOptions) {
       const current = context.get();
 
       if (current) {
-        return handlePropagation(current, opts?.propagation ?? "required", opts, adapter, context, hooks);
+        return handlePropagation(
+          current,
+          opts?.propagation ?? "required",
+          opts,
+          adapter,
+          context,
+          hooks,
+        );
       }
 
       const transaction = createTransaction(opts);
@@ -50,9 +61,13 @@ export function createTransactionManager(options: TransactionManagerOptions) {
 
       try {
         const handle = await adapter.begin(opts);
-        (transaction as unknown as { _setHandle: (h: unknown) => void })._setHandle(handle);
+        (
+          transaction as unknown as { _setHandle: (h: unknown) => void }
+        )._setHandle(handle);
       } catch (error) {
-        (transaction as unknown as { _transition: (s: string) => void })._transition("failed");
+        (
+          transaction as unknown as { _transition: (s: string) => void }
+        )._transition("failed");
         throw new TransactionAdapterError("Failed to begin transaction", error);
       }
 
@@ -60,7 +75,9 @@ export function createTransactionManager(options: TransactionManagerOptions) {
 
       if (opts?.timeout && opts.timeout > 0) {
         const timer = setTimeout(() => {
-          (transaction as unknown as { _markTimedOut: () => void })._markTimedOut();
+          (
+            transaction as unknown as { _markTimedOut: () => void }
+          )._markTimedOut();
           transaction.markRollbackOnly("timeout");
         }, opts.timeout);
         const clearTimer = () => clearTimeout(timer);
@@ -86,7 +103,10 @@ export function createTransactionManager(options: TransactionManagerOptions) {
           }
           return result;
         } catch (error) {
-          if (transaction.state === "active" || (transaction.state as string) === "committing") {
+          if (
+            transaction.state === "active" ||
+            (transaction.state as string) === "committing"
+          ) {
             try {
               await this.rollback(transaction, error);
             } catch (rollbackError) {

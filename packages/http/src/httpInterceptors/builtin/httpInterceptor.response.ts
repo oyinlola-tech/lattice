@@ -4,9 +4,7 @@
  * @module httpInterceptors/builtin/response
  */
 
-import type {
-  HttpInterceptorOptions,
-} from "../httpInterceptor.type.js";
+import type { HttpInterceptorOptions } from "../httpInterceptor.type.js";
 
 export interface ResponseHeaderInterceptorOptions extends HttpInterceptorOptions {
   readonly headers: Record<string, string>;
@@ -20,7 +18,9 @@ export function createResponseHeaderInterceptor(
     phase: "response" as const,
     priority: options.priority ?? "normal",
     name: options.name ?? "response-headers",
-    handler: (response: { readonly headers: Record<string, string | undefined> }) => {
+    handler: (response: {
+      readonly headers: Record<string, string | undefined>;
+    }) => {
       const headers = { ...response.headers };
 
       if (options.override) {

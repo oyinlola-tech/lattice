@@ -1,14 +1,8 @@
-import type {
-  RuntimeContext,
-} from "./runtimeContext/index.js";
+import type { RuntimeContext } from "./runtimeContext/index.js";
 
-import type {
-  RuntimeEnvironment,
-} from "./runtimeEnvironment/index.js";
+import type { RuntimeEnvironment } from "./runtimeEnvironment/index.js";
 
-import type {
-  Logger,
-} from "../logging/core/logger.js";
+import type { Logger } from "../logging/core/logger.js";
 
 export function logRuntimeEvent(
   logger: Logger,
@@ -24,10 +18,7 @@ export function logRuntimeEvent(
 
     if (typeof method === "function") {
       (
-        method as (
-          message: string,
-          metadata?: Record<string, unknown>,
-        ) => void
+        method as (message: string, metadata?: Record<string, unknown>) => void
       ).call(logger, message, {
         runtimeId: context.identity.id,
         runtimeName: context.identity.name,

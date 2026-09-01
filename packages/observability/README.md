@@ -11,7 +11,7 @@ npm install @latticejs/observability
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/observability";
+import {} from /* add usage here */ "@latticejs/observability";
 ```
 
 ## License

@@ -4,4 +4,4 @@
  * Validation result types and helpers.
  */
 
-export * from './validationResult.type.js';
+export * from "./validationResult.type.js";

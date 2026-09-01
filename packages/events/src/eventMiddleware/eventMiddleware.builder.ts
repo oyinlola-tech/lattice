@@ -2,13 +2,9 @@
  * Event middleware builder functions for Lattice.
  */
 
-import type {
-  Event,
-} from "../eventTypes/eventDefinition.type.js";
+import type { Event } from "../eventTypes/eventDefinition.type.js";
 
-import {
-  EventMiddlewareError,
-} from "../eventErrors/eventError.base.js";
+import { EventMiddlewareError } from "../eventErrors/eventError.base.js";
 
 import type {
   EventMiddlewareContext,
@@ -17,25 +13,16 @@ import type {
   RegisteredEventMiddleware,
 } from "./eventMiddleware.type.js";
 
-import {
-  createEventMiddleware,
-} from "./eventMiddleware.helper.js";
+import { createEventMiddleware } from "./eventMiddleware.helper.js";
 
 /**
  * Creates an AbortError without relying on a runtime-specific
  * DOMException implementation.
  */
-function createAbortError():
-  EventMiddlewareError {
-  return new EventMiddlewareError(
-    "Event middleware execution was aborted.",
-    {
-      cause:
-        new Error(
-          "AbortSignal was aborted.",
-        ),
-    },
-  );
+function createAbortError(): EventMiddlewareError {
+  return new EventMiddlewareError("Event middleware execution was aborted.", {
+    cause: new Error("AbortSignal was aborted."),
+  });
 }
 
 /**
@@ -43,30 +30,14 @@ function createAbortError():
  * middleware and handlers.
  */
 export function beforeEvent(
-  callback:
-    (
-      context:
-        EventMiddlewareContext,
-    ) =>
-      void |
-      Promise<void>,
-  options:
-    EventMiddlewareOptions = {},
-):
-  RegisteredEventMiddleware {
-  return createEventMiddleware(
-    async (
-      context,
-      next,
-    ) => {
-      await callback(
-        context,
-      );
+  callback: (context: EventMiddlewareContext) => void | Promise<void>,
+  options: EventMiddlewareOptions = {},
+): RegisteredEventMiddleware {
+  return createEventMiddleware(async (context, next) => {
+    await callback(context);
 
-      return next();
-    },
-    options,
-  );
+    return next();
+  }, options);
 }
 
 /**
@@ -74,140 +45,76 @@ export function beforeEvent(
  * middleware and handlers.
  */
 export function afterEvent(
-  callback:
-    (
-      context:
-        EventMiddlewareContext,
-      result:
-        unknown,
-    ) =>
-      void |
-      Promise<void>,
-  options:
-    EventMiddlewareOptions = {},
-):
-  RegisteredEventMiddleware {
-  return createEventMiddleware(
-    async (
-      context,
-      next,
-    ) => {
-      const result =
-        await next();
+  callback: (
+    context: EventMiddlewareContext,
+    result: unknown,
+  ) => void | Promise<void>,
+  options: EventMiddlewareOptions = {},
+): RegisteredEventMiddleware {
+  return createEventMiddleware(async (context, next) => {
+    const result = await next();
 
-      await callback(
-        context,
-        result,
-      );
+    await callback(context, result);
 
-      return result;
-    },
-    options,
-  );
+    return result;
+  }, options);
 }
 
 /**
  * Creates a middleware that wraps the entire event operation.
  */
 export function aroundEvent(
-  callback:
-    (
-      context:
-        EventMiddlewareContext,
-      next:
-        EventMiddlewareNext,
-    ) =>
-      Promise<unknown>,
-  options:
-    EventMiddlewareOptions = {},
-):
-  RegisteredEventMiddleware {
-  return createEventMiddleware(
-    callback,
-    options,
-  );
+  callback: (
+    context: EventMiddlewareContext,
+    next: EventMiddlewareNext,
+  ) => Promise<unknown>,
+  options: EventMiddlewareOptions = {},
+): RegisteredEventMiddleware {
+  return createEventMiddleware(callback, options);
 }
 
 /**
  * Creates middleware that validates an event before it
  * reaches downstream handlers.
  */
-export function validateEventMiddleware<
-  TEvent extends Event,
->(
-  validator:
-    (
-      event:
-        TEvent,
-    ) =>
-      boolean |
-      Promise<boolean>,
-  options:
-    EventMiddlewareOptions = {},
-):
-  RegisteredEventMiddleware<TEvent> {
-  return beforeEvent(
-    async (
-      context,
-    ) => {
-      const valid =
-        await validator(
-          context.event as TEvent,
-        );
+export function validateEventMiddleware<TEvent extends Event>(
+  validator: (event: TEvent) => boolean | Promise<boolean>,
+  options: EventMiddlewareOptions = {},
+): RegisteredEventMiddleware<TEvent> {
+  return beforeEvent(async (context) => {
+    const valid = await validator(context.event as TEvent);
 
-      if (
-        !valid
-      ) {
-        throw new EventMiddlewareError(
-          `Event "${context.event.type}" failed middleware validation.`,
-          {
-            eventType: context.event?.type,
-            eventId: context.event?.id,
-          },
-        );
-      }
-    },
-    options,
-  );
+    if (!valid) {
+      throw new EventMiddlewareError(
+        `Event "${context.event.type}" failed middleware validation.`,
+        {
+          eventType: context.event?.type,
+          eventId: context.event?.id,
+        },
+      );
+    }
+  }, options);
 }
 
 /**
  * Creates middleware that records event timing.
  */
 export function timingEventMiddleware(
-  callback:
-    (
-      duration:
-        number,
-      context:
-        EventMiddlewareContext,
-    ) =>
-      void |
-      Promise<void>,
-  options:
-    EventMiddlewareOptions = {},
-):
-  RegisteredEventMiddleware {
-  return aroundEvent(
-    async (
-      context,
-      next,
-    ) => {
-      const started =
-        performance.now();
+  callback: (
+    duration: number,
+    context: EventMiddlewareContext,
+  ) => void | Promise<void>,
+  options: EventMiddlewareOptions = {},
+): RegisteredEventMiddleware {
+  return aroundEvent(async (context, next) => {
+    const started = performance.now();
 
-      try {
-        return await next();
-      } finally {
-        await callback(
-          performance.now() -
-            started,
-          context,
-        );
-      }
-    },
-    options,
-  );
+    try {
+      return await next();
+    } finally {
+      await callback(performance.now() - started, context);
+    }
+  }, options);
 }
 
 /**
@@ -215,81 +122,38 @@ export function timingEventMiddleware(
  * middleware context state.
  */
 export function stateEventMiddleware<T>(
-  key:
-    string,
-  factory:
-    (
-      context:
-        EventMiddlewareContext,
-    ) =>
-      T |
-      Promise<T>,
-  options:
-    EventMiddlewareOptions = {},
-):
-  RegisteredEventMiddleware {
-  return beforeEvent(
-    async (
-      context,
-    ) => {
-      context.state.set(
-        key,
-        await factory(
-          context,
-        ),
-      );
-    },
-    options,
-  );
+  key: string,
+  factory: (context: EventMiddlewareContext) => T | Promise<T>,
+  options: EventMiddlewareOptions = {},
+): RegisteredEventMiddleware {
+  return beforeEvent(async (context) => {
+    context.state.set(key, await factory(context));
+  }, options);
 }
 
 /**
  * Enables middleware.
  */
-export function enableEventMiddleware<
-  TEvent extends Event,
-  TResult,
->(
-  middleware:
-    RegisteredEventMiddleware<
-      TEvent,
-      TResult
-    >,
-):
-  RegisteredEventMiddleware<
-    TEvent,
-    TResult
-  > {
+export function enableEventMiddleware<TEvent extends Event, TResult>(
+  middleware: RegisteredEventMiddleware<TEvent, TResult>,
+): RegisteredEventMiddleware<TEvent, TResult> {
   return Object.freeze({
     ...middleware,
 
-    enabled:
-      true,
+    enabled: true,
   });
 }
 
 /**
  * Disables middleware.
  */
-export function disableEventMiddleware<
-  TEvent extends Event,
-  TResult,
->(
-  middleware:
-    RegisteredEventMiddleware<
-      TEvent,
-      TResult
-    >,
-):
-  RegisteredEventMiddleware<
-    TEvent,
-    TResult
-  > {
+export function disableEventMiddleware<TEvent extends Event, TResult>(
+  middleware: RegisteredEventMiddleware<TEvent, TResult>,
+): RegisteredEventMiddleware<TEvent, TResult> {
   return Object.freeze({
     ...middleware,
 
-    enabled:
-      false,
+    enabled: false,
   });
 }
 
@@ -298,20 +162,11 @@ export function disableEventMiddleware<
  * supplied AbortSignal is cancelled.
  */
 export function abortableEventMiddleware(
-  options:
-    EventMiddlewareOptions = {},
-):
-  RegisteredEventMiddleware {
-  return beforeEvent(
-    async (
-      context,
-    ) => {
-      if (
-        context.signal.aborted
-      ) {
-        throw createAbortError();
-      }
-    },
-    options,
-  );
+  options: EventMiddlewareOptions = {},
+): RegisteredEventMiddleware {
+  return beforeEvent(async (context) => {
+    if (context.signal.aborted) {
+      throw createAbortError();
+    }
+  }, options);
 }

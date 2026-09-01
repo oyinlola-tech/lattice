@@ -11,7 +11,11 @@ import type {
   SerializationMetadata,
   SerializedValue,
 } from "../serializerTypes/index.js";
-import { SerializationFormat, SerializationContentType, SERIALIZATION_SCHEMA_VERSION } from "@oyinlola141/lattice-constants";
+import {
+  SerializationFormat,
+  SerializationContentType,
+  SERIALIZATION_SCHEMA_VERSION,
+} from "@oyinlola141/lattice-constants";
 import { encodeUtf8, decodeUtf8 } from "../serializerTransformsExt/index.js";
 
 /**

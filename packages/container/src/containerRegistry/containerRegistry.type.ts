@@ -2,9 +2,7 @@
  * Types for the container registry.
  */
 
-import type {
-  ContainerRegistration,
-} from "../containerRegistration/containerRegistration.core.js";
+import type { ContainerRegistration } from "../containerRegistration/containerRegistration.core.js";
 
 import type {
   InjectionToken,
@@ -14,9 +12,7 @@ import type {
 /**
  * Normalized registry token.
  */
-export type RegistryToken<T = unknown> =
-  | Token<T>
-  | InjectionToken<T>;
+export type RegistryToken<T = unknown> = Token<T> | InjectionToken<T>;
 
 /**
  * Registry change operation.
@@ -42,8 +38,9 @@ export interface RegistryChangeEvent<T = unknown> {
 /**
  * Registry subscription callback.
  */
-export type RegistryListener<T = unknown> =
-  (event: RegistryChangeEvent<T>) => void;
+export type RegistryListener<T = unknown> = (
+  event: RegistryChangeEvent<T>,
+) => void;
 
 /**
  * Registry options.

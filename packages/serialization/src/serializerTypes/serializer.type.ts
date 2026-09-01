@@ -8,11 +8,7 @@
 
 /** Supported serialization format identifiers. */
 export type SerializationFormat =
-  | "json"
-  | "text"
-  | "binary"
-  | "messagepack"
-  | string;
+  "json" | "text" | "binary" | "messagepack" | string;
 
 /** The output of a serialization operation. */
 export type SerializedValue = string | Uint8Array;
@@ -62,10 +58,7 @@ export interface SerializedEnvelope {
 }
 
 /** Synchronous serializer contract. */
-export interface Serializer<
-  TValue = unknown,
-  TSerialized = SerializedValue,
-> {
+export interface Serializer<TValue = unknown, TSerialized = SerializedValue> {
   /** Canonical name for registry lookup (e.g., "json"). */
   readonly name: string;
   /** The MIME content type produced by this serializer. */
@@ -73,10 +66,7 @@ export interface Serializer<
   /** Serialize a value into the target format. */
   serialize(value: TValue, options?: SerializeOptions): TSerialized;
   /** Deserialize a value from the target format. */
-  deserialize<T = TValue>(
-    value: TSerialized,
-    options?: DeserializeOptions,
-  ): T;
+  deserialize<T = TValue>(value: TSerialized, options?: DeserializeOptions): T;
 }
 
 /** Asynchronous serializer contract (for streaming / large payloads). */
@@ -86,10 +76,7 @@ export interface AsyncSerializer<
 > {
   readonly name: string;
   readonly contentType: string;
-  serialize(
-    value: TValue,
-    options?: SerializeOptions,
-  ): Promise<TSerialized>;
+  serialize(value: TValue, options?: SerializeOptions): Promise<TSerialized>;
   deserialize<T = TValue>(
     value: TSerialized,
     options?: DeserializeOptions,

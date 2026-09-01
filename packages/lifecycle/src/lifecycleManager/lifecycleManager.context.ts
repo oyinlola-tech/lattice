@@ -61,6 +61,10 @@ export function emitComponentFailed(
   result: { id: string; error?: unknown; duration: number },
 ): void {
   ctx.events.emit("component:failed", {
-    component: { componentId: result.id, error: result.error, duration: result.duration },
+    component: {
+      componentId: result.id,
+      error: result.error,
+      duration: result.duration,
+    },
   });
 }

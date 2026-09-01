@@ -32,117 +32,64 @@ import {
 /* -------------------------------------------------------------------------- */
 
 export type HttpServerState =
-  | "created"
-  | "starting"
-  | "running"
-  | "stopping"
-  | "stopped"
-  | "failed";
+  "created" | "starting" | "running" | "stopping" | "stopped" | "failed";
 
 export interface HttpServerAddress {
-  readonly protocol?:
-    | string;
+  readonly protocol?: string;
 
-  readonly host?:
-    | string;
+  readonly host?: string;
 
-  readonly port?:
-    | number;
+  readonly port?: number;
 
-  readonly path?:
-    | string;
+  readonly path?: string;
 }
 
-export interface HttpServerOptions
-  extends HttpAdapterOptions {
-  readonly adapter:
-    | HttpAdapter;
+export interface HttpServerOptions extends HttpAdapterOptions {
+  readonly adapter: HttpAdapter;
 
-  readonly handler?:
-    | HttpHandler;
+  readonly handler?: HttpHandler;
 
-  readonly errorHandler?:
-    | HttpErrorHandler;
+  readonly errorHandler?: HttpErrorHandler;
 
-  readonly gracefulShutdownTimeout?:
-    | number;
+  readonly gracefulShutdownTimeout?: number;
 
-  readonly metadata?:
-    | Readonly<
-        Record<string, unknown>
-      >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 export interface HttpServerEvents {
-  readonly onStarting?:
-    | ((
-        server: HttpServer,
-      ) => void);
+  readonly onStarting?: (server: HttpServer) => void;
 
-  readonly onStarted?:
-    | ((
-        server: HttpServer,
-      ) => void);
+  readonly onStarted?: (server: HttpServer) => void;
 
-  readonly onStopping?:
-    | ((
-        server: HttpServer,
-      ) => void);
+  readonly onStopping?: (server: HttpServer) => void;
 
-  readonly onStopped?:
-    | ((
-        server: HttpServer,
-      ) => void);
+  readonly onStopped?: (server: HttpServer) => void;
 
-  readonly onError?:
-    | ((
-        error: unknown,
-        server: HttpServer,
-      ) => void);
+  readonly onError?: (error: unknown, server: HttpServer) => void;
 
-  readonly onRequest?:
-    | ((
-        server: HttpServer,
-      ) => void);
+  readonly onRequest?: (server: HttpServer) => void;
 
-  readonly onResponse?:
-    | ((
-        server: HttpServer,
-      ) => void);
+  readonly onResponse?: (server: HttpServer) => void;
 }
 
 export interface HttpServerSnapshot {
-  readonly name:
-    | string;
+  readonly name: string;
 
-  readonly state:
-    | HttpServerState;
+  readonly state: HttpServerState;
 
-  readonly adapter:
-    | string;
+  readonly adapter: string;
 
-  readonly address:
-    | HttpServerAddress
-    | undefined;
+  readonly address: HttpServerAddress | undefined;
 
-  readonly startedAt:
-    | Date
-    | undefined;
+  readonly startedAt: Date | undefined;
 
-  readonly stoppedAt:
-    | Date
-    | undefined;
+  readonly stoppedAt: Date | undefined;
 
-  readonly uptime:
-    | number;
+  readonly uptime: number;
 
-  readonly requests:
-    | number;
+  readonly requests: number;
 
-  readonly metadata:
-    | Readonly<
-        Record<string, unknown>
-      >;
+  readonly metadata: Readonly<Record<string, unknown>>;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -161,113 +108,63 @@ export {
 /* -------------------------------------------------------------------------- */
 
 export class HttpServer {
-  readonly name:
-    | string;
+  readonly name: string;
 
-  readonly adapter:
-    | HttpAdapter;
+  readonly adapter: HttpAdapter;
 
-  readonly metadata:
-    | Readonly<
-        Record<string, unknown>
-      >;
+  readonly metadata: Readonly<Record<string, unknown>>;
 
-  readonly gracefulShutdownTimeout:
-    | number;
+  readonly gracefulShutdownTimeout: number;
 
-  private stateValue:
-    | HttpServerState =
-    "created";
+  private stateValue: HttpServerState = "created";
 
-  private addressValue:
-    | HttpServerAddress
-    | undefined;
+  private addressValue: HttpServerAddress | undefined;
 
-  private startedAtValue:
-    | Date
-    | undefined;
+  private startedAtValue: Date | undefined;
 
-  private stoppedAtValue:
-    | Date
-    | undefined;
+  private stoppedAtValue: Date | undefined;
 
-  private requestCount =
-    0;
+  private requestCount = 0;
 
-  private readonly events:
-    | HttpServerEvents;
+  private readonly events: HttpServerEvents;
 
-  private readonly configuredHandler:
-    | HttpHandler
-    | undefined;
+  private readonly configuredHandler: HttpHandler | undefined;
 
-  private readonly configuredErrorHandler:
-    | HttpErrorHandler
-    | undefined;
+  private readonly configuredErrorHandler: HttpErrorHandler | undefined;
 
-  private startPromise:
-    | Promise<void>
-    | undefined;
+  private startPromise: Promise<void> | undefined;
 
-  private stopPromise:
-    | Promise<void>
-    | undefined;
+  private stopPromise: Promise<void> | undefined;
 
-  constructor(
-    options:
-      | HttpServerOptions,
-  ) {
-    if (
-      !isHttpAdapter(
-        options.adapter,
-      )
-    ) {
-      throw new TypeError(
-        "HttpServer requires a valid HTTP adapter.",
-      );
+  constructor(options: HttpServerOptions) {
+    if (!isHttpAdapter(options.adapter)) {
+      throw new TypeError("HttpServer requires a valid HTTP adapter.");
     }
 
-    this.name =
-      options.name ??
-      "lattice-http";
+    this.name = options.name ?? "lattice-http";
 
-    this.adapter =
-      options.adapter;
+    this.adapter = options.adapter;
 
-    this.metadata =
-      Object.freeze({
-        ...(options.metadata ??
-          {}),
-      });
+    this.metadata = Object.freeze({
+      ...(options.metadata ?? {}),
+    });
 
-    this.gracefulShutdownTimeout =
-      validateShutdownTimeout(
-        options.gracefulShutdownTimeout ??
-          30_000,
-      );
+    this.gracefulShutdownTimeout = validateShutdownTimeout(
+      options.gracefulShutdownTimeout ?? 30_000,
+    );
 
     this.events = {};
 
-    this.configuredHandler =
-      options.handler;
+    this.configuredHandler = options.handler;
 
-    this.configuredErrorHandler =
-      options.errorHandler;
+    this.configuredErrorHandler = options.errorHandler;
 
-    if (
-      options.handler
-    ) {
-      this.adapterHandler(
-        options.handler,
-      );
+    if (options.handler) {
+      this.adapterHandler(options.handler);
     }
 
-    if (
-      options.errorHandler
-    ) {
-      this.adapterErrorHandler(
-        options.errorHandler,
-      );
+    if (options.errorHandler) {
+      this.adapterErrorHandler(options.errorHandler);
     }
   }
 
@@ -275,81 +172,50 @@ export class HttpServer {
   /* State                                                                     */
   /* ------------------------------------------------------------------------ */
 
-  get state():
-    | HttpServerState {
+  get state(): HttpServerState {
     return this.stateValue;
   }
 
   get isRunning(): boolean {
-    return (
-      this.stateValue ===
-      "running"
-    );
+    return this.stateValue === "running";
   }
 
   get isStarting(): boolean {
-    return (
-      this.stateValue ===
-      "starting"
-    );
+    return this.stateValue === "starting";
   }
 
   get isStopping(): boolean {
-    return (
-      this.stateValue ===
-      "stopping"
-    );
+    return this.stateValue === "stopping";
   }
 
   get isStopped(): boolean {
-    return (
-      this.stateValue ===
-        "stopped" ||
-      this.stateValue ===
-        "created"
-    );
+    return this.stateValue === "stopped" || this.stateValue === "created";
   }
 
-  get address():
-    | HttpServerAddress
-    | undefined {
+  get address(): HttpServerAddress | undefined {
     return this.addressValue;
   }
 
-  get startedAt():
-    | Date
-    | undefined {
+  get startedAt(): Date | undefined {
     return this.startedAtValue;
   }
 
-  get stoppedAt():
-    | Date
-    | undefined {
+  get stoppedAt(): Date | undefined {
     return this.stoppedAtValue;
   }
 
-  get requests():
-    | number {
+  get requests(): number {
     return this.requestCount;
   }
 
-  get uptime():
-    | number {
-    if (
-      !this.startedAtValue
-    ) {
+  get uptime(): number {
+    if (!this.startedAtValue) {
       return 0;
     }
 
-    const end =
-      this.stoppedAtValue ??
-      new Date();
+    const end = this.stoppedAtValue ?? new Date();
 
-    return Math.max(
-      0,
-      end.getTime() -
-        this.startedAtValue.getTime(),
-    );
+    return Math.max(0, end.getTime() - this.startedAtValue.getTime());
   }
 
   /* ------------------------------------------------------------------------ */
@@ -357,197 +223,116 @@ export class HttpServer {
   /* ------------------------------------------------------------------------ */
 
   async start(): Promise<this> {
-    if (
-      this.stateValue ===
-      "running"
-    ) {
+    if (this.stateValue === "running") {
       return this;
     }
 
-    if (
-      this.stateValue ===
-      "starting"
-    ) {
+    if (this.stateValue === "starting") {
       await this.startPromise;
 
       return this;
     }
 
-    if (
-      this.stateValue ===
-      "stopping"
-    ) {
-      throw new InvalidHttpServerStateError(
-        this.stateValue,
-        "start",
-      );
+    if (this.stateValue === "stopping") {
+      throw new InvalidHttpServerStateError(this.stateValue, "start");
     }
 
-    this.stateValue =
-      "starting";
+    this.stateValue = "starting";
 
-    this.events.onStarting?.(
-      this,
-    );
+    this.events.onStarting?.(this);
 
-    this.startPromise =
-      this.performStart();
+    this.startPromise = this.performStart();
 
     try {
       await this.startPromise;
 
-      this.stateValue =
-        "running";
+      this.stateValue = "running";
 
-      this.startedAtValue =
-        new Date();
+      this.startedAtValue = new Date();
 
-      this.stoppedAtValue =
-        undefined;
+      this.stoppedAtValue = undefined;
 
       this.refreshAddress();
 
-      this.events.onStarted?.(
-        this,
-      );
+      this.events.onStarted?.(this);
 
       return this;
-    } catch (
-      error
-    ) {
-      this.stateValue =
-        "failed";
+    } catch (error) {
+      this.stateValue = "failed";
 
       const wrapped =
-        error instanceof
-        HttpServerStartError
+        error instanceof HttpServerStartError
           ? error
-          : new HttpServerStartError(
-              "Failed to start the HTTP server.",
-              error,
-            );
+          : new HttpServerStartError("Failed to start the HTTP server.", error);
 
-      this.events.onError?.(
-        wrapped,
-        this,
-      );
+      this.events.onError?.(wrapped, this);
 
       throw wrapped;
     } finally {
-      this.startPromise =
-        undefined;
+      this.startPromise = undefined;
     }
   }
 
   async stop(
-    options:
-      | {
-          readonly force?:
-            | boolean;
-          readonly timeout?:
-            | number;
-        } = {},
+    options: {
+      readonly force?: boolean;
+      readonly timeout?: number;
+    } = {},
   ): Promise<this> {
-    if (
-      this.stateValue ===
-        "created" ||
-      this.stateValue ===
-        "stopped"
-    ) {
+    if (this.stateValue === "created" || this.stateValue === "stopped") {
       return this;
     }
 
-    if (
-      this.stateValue ===
-      "stopping"
-    ) {
+    if (this.stateValue === "stopping") {
       await this.stopPromise;
 
       return this;
     }
 
-    if (
-      this.stateValue ===
-      "starting"
-    ) {
-      throw new InvalidHttpServerStateError(
-        this.stateValue,
-        "stop",
-      );
+    if (this.stateValue === "starting") {
+      throw new InvalidHttpServerStateError(this.stateValue, "stop");
     }
 
-    this.stateValue =
-      "stopping";
+    this.stateValue = "stopping";
 
-    this.events.onStopping?.(
-      this,
+    this.events.onStopping?.(this);
+
+    const timeout = validateShutdownTimeout(
+      options.timeout ?? this.gracefulShutdownTimeout,
     );
 
-    const timeout =
-      validateShutdownTimeout(
-        options.timeout ??
-          this.gracefulShutdownTimeout,
-      );
-
-    this.stopPromise =
-      this.performStop(
-        options.force ??
-          false,
-        timeout,
-      );
+    this.stopPromise = this.performStop(options.force ?? false, timeout);
 
     try {
       await this.stopPromise;
 
-      this.stateValue =
-        "stopped";
+      this.stateValue = "stopped";
 
-      this.stoppedAtValue =
-        new Date();
+      this.stoppedAtValue = new Date();
 
-      this.events.onStopped?.(
-        this,
-      );
+      this.events.onStopped?.(this);
 
       return this;
-    } catch (
-      error
-    ) {
-      this.stateValue =
-        "failed";
+    } catch (error) {
+      this.stateValue = "failed";
 
       const wrapped =
-        error instanceof
-        HttpServerStopError
+        error instanceof HttpServerStopError
           ? error
-          : new HttpServerStopError(
-              "Failed to stop the HTTP server.",
-              error,
-            );
+          : new HttpServerStopError("Failed to stop the HTTP server.", error);
 
-      this.events.onError?.(
-        wrapped,
-        this,
-      );
+      this.events.onError?.(wrapped, this);
 
       throw wrapped;
     } finally {
-      this.stopPromise =
-        undefined;
+      this.stopPromise = undefined;
     }
   }
 
   async restart(): Promise<this> {
-    if (
-      this.stateValue ===
-        "running" ||
-      this.stateValue ===
-        "failed"
-    ) {
+    if (this.stateValue === "running" || this.stateValue === "failed") {
       await this.stop({
-        force:
-          this.stateValue ===
-          "failed",
+        force: this.stateValue === "failed",
       });
     }
 
@@ -562,45 +347,25 @@ export class HttpServer {
   /* Handler Configuration                                                     */
   /* ------------------------------------------------------------------------ */
 
-  setHandler(
-    handler:
-      | HttpHandler,
-  ): this {
-    this.adapterHandler(
-      handler,
-    );
+  setHandler(handler: HttpHandler): this {
+    this.adapterHandler(handler);
 
     return this;
   }
 
-  setErrorHandler(
-    handler:
-      | HttpErrorHandler,
-  ): this {
-    this.adapterErrorHandler(
-      handler,
-    );
+  setErrorHandler(handler: HttpErrorHandler): this {
+    this.adapterErrorHandler(handler);
 
     return this;
   }
 
-  private adapterHandler(
-    handler:
-      | HttpHandler,
-  ): void {
-    const adapter =
-      this.adapter as
-        HttpAdapter & {
-          handler?:
-            | HttpHandler;
-        };
+  private adapterHandler(handler: HttpHandler): void {
+    const adapter = this.adapter as HttpAdapter & {
+      handler?: HttpHandler;
+    };
 
-    if (
-      "handler" in
-      adapter
-    ) {
-      adapter.handler =
-        handler;
+    if ("handler" in adapter) {
+      adapter.handler = handler;
 
       return;
     }
@@ -612,23 +377,13 @@ export class HttpServer {
      */
   }
 
-  private adapterErrorHandler(
-    handler:
-      | HttpErrorHandler,
-  ): void {
-    const adapter =
-      this.adapter as
-        HttpAdapter & {
-          errorHandler?:
-            | HttpErrorHandler;
-        };
+  private adapterErrorHandler(handler: HttpErrorHandler): void {
+    const adapter = this.adapter as HttpAdapter & {
+      errorHandler?: HttpErrorHandler;
+    };
 
-    if (
-      "errorHandler" in
-      adapter
-    ) {
-      adapter.errorHandler =
-        handler;
+    if ("errorHandler" in adapter) {
+      adapter.errorHandler = handler;
     }
   }
 
@@ -637,23 +392,17 @@ export class HttpServer {
   /* ------------------------------------------------------------------------ */
 
   recordRequest(): void {
-    this.requestCount +=
-      1;
+    this.requestCount += 1;
 
-    this.events.onRequest?.(
-      this,
-    );
+    this.events.onRequest?.(this);
   }
 
   recordResponse(): void {
-    this.events.onResponse?.(
-      this,
-    );
+    this.events.onResponse?.(this);
   }
 
   resetRequestCount(): void {
-    this.requestCount =
-      0;
+    this.requestCount = 0;
   }
 
   /* ------------------------------------------------------------------------ */
@@ -661,46 +410,27 @@ export class HttpServer {
   /* ------------------------------------------------------------------------ */
 
   on(
-    event:
-      | keyof HttpServerEvents,
-    listener:
-      | NonNullable<
-          HttpServerEvents[
-            keyof HttpServerEvents
-          ]
-        >,
+    event: keyof HttpServerEvents,
+    listener: NonNullable<HttpServerEvents[keyof HttpServerEvents]>,
   ): () => void {
-    const events =
-      this.events as Record<
-        string,
-        unknown
-      >;
+    const events = this.events as Record<string, unknown>;
 
-    const previous =
-      events[event];
+    const previous = events[event];
 
-    if (
-      previous
-    ) {
+    if (previous) {
       throw new HttpServerError(
         `A listener for "${String(event)}" is already registered.`,
         {
-          code:
-            "HTTP_SERVER_EVENT_LISTENER_EXISTS",
+          code: "HTTP_SERVER_EVENT_LISTENER_EXISTS",
         },
       );
     }
 
-    events[event] =
-      listener;
+    events[event] = listener;
 
     return () => {
-      if (
-        events[event] ===
-        listener
-      ) {
-        events[event] =
-          undefined;
+      if (events[event] === listener) {
+        events[event] = undefined;
       }
     };
   }
@@ -711,32 +441,23 @@ export class HttpServer {
 
   snapshot(): HttpServerSnapshot {
     return {
-      name:
-        this.name,
+      name: this.name,
 
-      state:
-        this.stateValue,
+      state: this.stateValue,
 
-      adapter:
-        this.adapter.name,
+      adapter: this.adapter.name,
 
-      address:
-        this.addressValue,
+      address: this.addressValue,
 
-      startedAt:
-        this.startedAtValue,
+      startedAt: this.startedAtValue,
 
-      stoppedAt:
-        this.stoppedAtValue,
+      stoppedAt: this.stoppedAtValue,
 
-      uptime:
-        this.uptime,
+      uptime: this.uptime,
 
-      requests:
-        this.requestCount,
+      requests: this.requestCount,
 
-      metadata:
-        this.metadata,
+      metadata: this.metadata,
     };
   }
 
@@ -749,49 +470,30 @@ export class HttpServer {
   /* ------------------------------------------------------------------------ */
 
   private async performStart(): Promise<void> {
-    await startAdapter(
-      this.adapter,
-    );
+    await startAdapter(this.adapter);
   }
 
-  private async performStop(
-    force:
-      | boolean,
-    timeout:
-      | number,
-  ): Promise<void> {
-    if (
-      force
-    ) {
-      await stopAdapter(
-        this.adapter,
-      );
+  private async performStop(force: boolean, timeout: number): Promise<void> {
+    if (force) {
+      await stopAdapter(this.adapter);
 
       return;
     }
 
     await withTimeout(
-      stopAdapter(
-        this.adapter,
-      ),
+      stopAdapter(this.adapter),
       timeout,
       "HTTP server shutdown timed out.",
     );
   }
 
   private refreshAddress(): void {
-    const adapter =
-      this.adapter as
-        HttpAdapter & {
-          address?:
-            | HttpServerAddress;
-        };
+    const adapter = this.adapter as HttpAdapter & {
+      address?: HttpServerAddress;
+    };
 
-    if (
-      adapter.address
-    ) {
-      this.addressValue =
-        adapter.address;
+    if (adapter.address) {
+      this.addressValue = adapter.address;
     }
   }
 }
@@ -800,13 +502,8 @@ export class HttpServer {
 /* Factory                                                                    */
 /* -------------------------------------------------------------------------- */
 
-export function createHttpServer(
-  options:
-    | HttpServerOptions,
-): HttpServer {
-  return new HttpServer(
-    options,
-  );
+export function createHttpServer(options: HttpServerOptions): HttpServer {
+  return new HttpServer(options);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -814,120 +511,63 @@ export function createHttpServer(
 /* -------------------------------------------------------------------------- */
 
 export class HttpServerManager {
-  private readonly servers =
-    new Map<
-      string,
-      HttpServer
-    >();
+  private readonly servers = new Map<string, HttpServer>();
 
-  register(
-    server:
-      | HttpServer,
-  ): this {
-    if (
-      this.servers.has(
-        server.name,
-      )
-    ) {
+  register(server: HttpServer): this {
+    if (this.servers.has(server.name)) {
       throw new HttpServerError(
         `HTTP server "${server.name}" is already registered.`,
         {
-          code:
-            "HTTP_SERVER_ALREADY_REGISTERED",
+          code: "HTTP_SERVER_ALREADY_REGISTERED",
         },
       );
     }
 
-    this.servers.set(
-      server.name,
-      server,
-    );
+    this.servers.set(server.name, server);
 
     return this;
   }
 
-  replace(
-    server:
-      | HttpServer,
-  ): this {
-    this.servers.set(
-      server.name,
-      server,
-    );
+  replace(server: HttpServer): this {
+    this.servers.set(server.name, server);
 
     return this;
   }
 
-  unregister(
-    name:
-      | string,
-  ): boolean {
-    return this.servers.delete(
-      name,
-    );
+  unregister(name: string): boolean {
+    return this.servers.delete(name);
   }
 
-  get(
-    name:
-      | string,
-  ):
-    | HttpServer
-    | undefined {
-    return this.servers.get(
-      name,
-    );
+  get(name: string): HttpServer | undefined {
+    return this.servers.get(name);
   }
 
-  require(
-    name:
-      | string,
-  ): HttpServer {
-    const server =
-      this.get(
-        name,
-      );
+  require(name: string): HttpServer {
+    const server = this.get(name);
 
-    if (
-      !server
-    ) {
-      throw new HttpServerError(
-        `HTTP server "${name}" is not registered.`,
-        {
-          code:
-            "HTTP_SERVER_NOT_FOUND",
-        },
-      );
+    if (!server) {
+      throw new HttpServerError(`HTTP server "${name}" is not registered.`, {
+        code: "HTTP_SERVER_NOT_FOUND",
+      });
     }
 
     return server;
   }
 
-  list():
-    | readonly HttpServer[] {
-    return Object.freeze(
-      [
-        ...this.servers.values(),
-      ],
-    );
+  list(): readonly HttpServer[] {
+    return Object.freeze([...this.servers.values()]);
   }
 
   async startAll(): Promise<void> {
-    for (
-      const server of this.servers.values()
-    ) {
+    for (const server of this.servers.values()) {
       await server.start();
     }
   }
 
   async stopAll(): Promise<void> {
-    const servers =
-      [
-        ...this.servers.values(),
-      ].reverse();
+    const servers = [...this.servers.values()].reverse();
 
-    for (
-      const server of servers
-    ) {
+    for (const server of servers) {
       await server.stop();
     }
   }
@@ -942,49 +582,29 @@ export class HttpServerManager {
 /* Utility Functions                                                          */
 /* -------------------------------------------------------------------------- */
 
-export async function startServer(
-  server:
-    | HttpServer,
-): Promise<HttpServer> {
+export async function startServer(server: HttpServer): Promise<HttpServer> {
   return server.start();
 }
 
-export async function stopServer(
-  server:
-    | HttpServer,
-): Promise<HttpServer> {
+export async function stopServer(server: HttpServer): Promise<HttpServer> {
   return server.stop();
 }
 
-export async function restartServer(
-  server:
-    | HttpServer,
-): Promise<HttpServer> {
+export async function restartServer(server: HttpServer): Promise<HttpServer> {
   return server.restart();
 }
 
-export function isHttpServer(
-  value: unknown,
-): value is HttpServer {
-  return (
-    value instanceof
-    HttpServer
-  );
+export function isHttpServer(value: unknown): value is HttpServer {
+  return value instanceof HttpServer;
 }
 
-export function getServerState(
-  server:
-    | HttpServer,
-): HttpServerState {
+export function getServerState(server: HttpServer): HttpServerState {
   return server.state;
 }
 
 export function getServerAddress(
-  server:
-    | HttpServer,
-):
-  | HttpServerAddress
-  | undefined {
+  server: HttpServer,
+): HttpServerAddress | undefined {
   return server.address;
 }
 
@@ -993,109 +613,60 @@ export function getServerAddress(
 /* -------------------------------------------------------------------------- */
 
 export function withTimeout<T>(
-  promise:
-    | Promise<T>,
-  timeout:
-    | number,
-  message:
-    | string,
+  promise: Promise<T>,
+  timeout: number,
+  message: string,
 ): Promise<T> {
-  if (
-    timeout ===
-    0
-  ) {
+  if (timeout === 0) {
     return promise;
   }
 
-  return new Promise<T>(
-    (
-      resolve,
-      reject,
-    ) => {
-      let settled =
-        false;
+  return new Promise<T>((resolve, reject) => {
+    let settled = false;
 
-      const timer =
-        setTimeout(
-          () => {
-            if (
-              settled
-            ) {
-              return;
-            }
+    const timer = setTimeout(() => {
+      if (settled) {
+        return;
+      }
 
-            settled =
-              true;
+      settled = true;
 
-            reject(
-              new HttpServerError(
-                message,
-                {
-                  code:
-                    "HTTP_SERVER_TIMEOUT",
-                },
-              ),
-            );
-          },
-          timeout,
-        );
-
-      promise.then(
-        (
-          value,
-        ) => {
-          if (
-            settled
-          ) {
-            return;
-          }
-
-          settled =
-            true;
-
-          clearTimeout(
-            timer,
-          );
-
-          resolve(
-            value,
-          );
-        },
-        (
-          error,
-        ) => {
-          if (
-            settled
-          ) {
-            return;
-          }
-
-          settled =
-            true;
-
-          clearTimeout(
-            timer,
-          );
-
-          reject(
-            error,
-          );
-        },
+      reject(
+        new HttpServerError(message, {
+          code: "HTTP_SERVER_TIMEOUT",
+        }),
       );
-    },
-  );
+    }, timeout);
+
+    promise.then(
+      (value) => {
+        if (settled) {
+          return;
+        }
+
+        settled = true;
+
+        clearTimeout(timer);
+
+        resolve(value);
+      },
+      (error) => {
+        if (settled) {
+          return;
+        }
+
+        settled = true;
+
+        clearTimeout(timer);
+
+        reject(error);
+      },
+    );
+  });
 }
 
-function validateShutdownTimeout(
-  timeout:
-    | number,
-): number {
-  if (
-    !Number.isFinite(
-      timeout,
-    ) ||
-    timeout < 0
-  ) {
+function validateShutdownTimeout(timeout: number): number {
+  if (!Number.isFinite(timeout) || timeout < 0) {
     throw new RangeError(
       "HTTP server shutdown timeout must be a non-negative finite number.",
     );

@@ -4,4 +4,4 @@
  * Log level definitions and filtering.
  */
 
-export * from './loggerLevel.type.js';
+export * from "./loggerLevel.type.js";

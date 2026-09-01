@@ -5,7 +5,12 @@
 import type { LogLevel } from "./logging.types.js";
 import type { MetricsRegistry } from "./metrics.types.js";
 import type { Logger } from "./logging.types.js";
-import type { Tracer, SpanExporter, SpanProcessor, Sampler } from "./tracing.types.js";
+import type {
+  Tracer,
+  SpanExporter,
+  SpanProcessor,
+  Sampler,
+} from "./tracing.types.js";
 import type { LogExporter } from "./logging.types.js";
 import type { MetricExporter } from "./metrics.types.js";
 

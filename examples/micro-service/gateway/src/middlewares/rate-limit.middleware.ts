@@ -51,10 +51,12 @@ export function rateLimitMiddleware(
 
     if (entry.count > maxRequests) {
       res.writeHead(429, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({
-        error: "Too many requests",
-        retryAfter: resetSeconds,
-      }));
+      res.end(
+        JSON.stringify({
+          error: "Too many requests",
+          retryAfter: resetSeconds,
+        }),
+      );
       return;
     }
 

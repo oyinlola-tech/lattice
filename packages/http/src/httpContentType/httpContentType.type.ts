@@ -5,9 +5,7 @@
 export interface ContentType {
   readonly type: string;
   readonly subtype: string;
-  readonly parameters: Readonly<
-    Record<string, string>
-  >;
+  readonly parameters: Readonly<Record<string, string>>;
 }
 
 export interface ContentTypeParameter {

@@ -61,7 +61,8 @@ export function evaluateRule(
     }
 
     case "percentage": {
-      const subject = context.userId ?? context.tenantId ?? context.sessionId ?? "anonymous";
+      const subject =
+        context.userId ?? context.tenantId ?? context.sessionId ?? "anonymous";
       const matched = isInRollout(flagKey, subject, rule.percentage);
       return { matched, value: matched ? rule.value : undefined };
     }
@@ -75,8 +76,12 @@ export function evaluateRule(
     }
 
     case "variant": {
-      const subject = context.userId ?? context.tenantId ?? context.sessionId ?? "anonymous";
-      const totalWeight = rule.variants.reduce((sum: number, v: { weight: number }) => sum + v.weight, 0);
+      const subject =
+        context.userId ?? context.tenantId ?? context.sessionId ?? "anonymous";
+      const totalWeight = rule.variants.reduce(
+        (sum: number, v: { weight: number }) => sum + v.weight,
+        0,
+      );
       if (totalWeight <= 0) return { matched: false };
 
       const bucket = isInRollout(flagKey, subject, 100) ? 99 : 0;

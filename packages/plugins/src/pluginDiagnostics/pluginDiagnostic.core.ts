@@ -78,17 +78,31 @@ export function buildDiagnosticReport(
     readonly state: PluginState;
   }>,
 ): PluginDiagnosticReport {
-  const pluginDiagnostics: PluginDiagnostic[] = plugins.map(({ plugin, state }) => ({
-    plugin: plugin.metadata,
-    state,
-    health: state === "started" ? createHealthyHealth() : state === "failed" ? createUnhealthyHealth() : createDegradedHealth(),
-    dependencies: plugin.dependencies?.map((d) => d.name) ?? [],
-    optionalDependencies: plugin.optionalDependencies?.map((d) => d.name) ?? [],
-  }));
+  const pluginDiagnostics: PluginDiagnostic[] = plugins.map(
+    ({ plugin, state }) => ({
+      plugin: plugin.metadata,
+      state,
+      health:
+        state === "started"
+          ? createHealthyHealth()
+          : state === "failed"
+            ? createUnhealthyHealth()
+            : createDegradedHealth(),
+      dependencies: plugin.dependencies?.map((d) => d.name) ?? [],
+      optionalDependencies:
+        plugin.optionalDependencies?.map((d) => d.name) ?? [],
+    }),
+  );
 
-  const healthy = pluginDiagnostics.filter((d) => d.health.status === "healthy").length;
-  const degraded = pluginDiagnostics.filter((d) => d.health.status === "degraded").length;
-  const unhealthy = pluginDiagnostics.filter((d) => d.health.status === "unhealthy").length;
+  const healthy = pluginDiagnostics.filter(
+    (d) => d.health.status === "healthy",
+  ).length;
+  const degraded = pluginDiagnostics.filter(
+    (d) => d.health.status === "degraded",
+  ).length;
+  const unhealthy = pluginDiagnostics.filter(
+    (d) => d.health.status === "unhealthy",
+  ).length;
   const failed = pluginDiagnostics.filter((d) => d.state === "failed").length;
 
   return {

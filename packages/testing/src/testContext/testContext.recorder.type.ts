@@ -37,7 +37,11 @@ export interface CapturedMessage {
  */
 export interface LogRecorder {
   readonly entries: readonly CapturedLogEntry[];
-  record: (level: string, message: string, metadata?: Record<string, unknown>) => void;
+  record: (
+    level: string,
+    message: string,
+    metadata?: Record<string, unknown>,
+  ) => void;
   clear: () => void;
   findByLevel: (level: string) => readonly CapturedLogEntry[];
   findByMessage: (substring: string) => readonly CapturedLogEntry[];

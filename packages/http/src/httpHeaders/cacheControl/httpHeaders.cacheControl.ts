@@ -15,16 +15,9 @@ import { parseCacheControl } from "./httpHeaders.cacheControlParse.js";
  * @returns Parsed cache control directives.
  */
 export function parseCacheControlFromHeaders(
-  headers:
-    | HTTPHeadersLike,
+  headers: HTTPHeadersLike,
 ): import("../types/httpHeaders.type.js").CacheControlDirectives {
-  return parseCacheControl(
-    toHTTPHeaders(
-      headers,
-    ).get(
-      "cache-control",
-    ),
-  );
+  return parseCacheControl(toHTTPHeaders(headers).get("cache-control"));
 }
 
 /**
@@ -35,20 +28,13 @@ export function parseCacheControlFromHeaders(
  * @returns `true` if the directive is present.
  */
 export function hasCacheDirective(
-  headers:
-    | HTTPHeadersLike,
-  directive:
-    | string,
+  headers: HTTPHeadersLike,
+  directive: string,
 ): boolean {
-  const parsed =
-    parseCacheControlFromHeaders(
-      headers,
-    );
+  const parsed = parseCacheControlFromHeaders(headers);
 
   return Object.prototype.hasOwnProperty.call(
     parsed.directives,
-    directive
-      .trim()
-      .toLowerCase(),
+    directive.trim().toLowerCase(),
   );
 }

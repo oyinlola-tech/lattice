@@ -16,54 +16,27 @@ import { parseWeightedValues } from "../internal/httpHeaders.internal.weightedVa
  * @returns `true` if the encoding is accepted (or if no Accept-Encoding header is present).
  */
 export function acceptsEncoding(
-  headers:
-    | HTTPHeadersLike,
-  encoding:
-    | string,
+  headers: HTTPHeadersLike,
+  encoding: string,
 ): boolean {
-  const value =
-    toHTTPHeaders(
-      headers,
-    ).get(
-      "accept-encoding",
-    );
+  const value = toHTTPHeaders(headers).get("accept-encoding");
 
-  if (
-    !value
-  ) {
+  if (!value) {
     return true;
   }
 
-  const requested =
-    encoding
-      .trim()
-      .toLowerCase();
+  const requested = encoding.trim().toLowerCase();
 
-  const entries =
-    parseWeightedValues(
-      value,
-    );
+  const entries = parseWeightedValues(value);
 
-  for (
-    const entry of entries
-  ) {
-    const candidate =
-      entry.value
-        .toLowerCase();
+  for (const entry of entries) {
+    const candidate = entry.value.toLowerCase();
 
-    if (
-      entry.quality <=
-        0
-    ) {
+    if (entry.quality <= 0) {
       continue;
     }
 
-    if (
-      candidate ===
-        requested ||
-      candidate ===
-        "*"
-    ) {
+    if (candidate === requested || candidate === "*") {
       return true;
     }
   }

@@ -4,5 +4,4 @@
  * HTTP route matching utilities.
  */
 
-export * from "./httpRouter.match.js";
-export * from "./httpRouter.match.helper.js";
+export * from "./httpRouter.register.js";

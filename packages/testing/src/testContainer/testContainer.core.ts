@@ -5,9 +5,7 @@
  * and override support for dependency injection testing.
  */
 
-import {
-  createStartedContainer,
-} from "@oyinlola141/lattice-container";
+import { createStartedContainer } from "@oyinlola141/lattice-container";
 
 import type {
   Container,
@@ -85,8 +83,7 @@ export function createTestContainer(
   const resolve = <T>(token: RegistrationToken<T>): T =>
     container.resolve(token) as T;
 
-  const has = <T>(token: RegistrationToken<T>): boolean =>
-    container.has(token);
+  const has = <T>(token: RegistrationToken<T>): boolean => container.has(token);
 
   const dispose = async (): Promise<void> => {
     await container.dispose();

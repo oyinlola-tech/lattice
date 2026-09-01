@@ -177,9 +177,7 @@ describe("Exception classes", () => {
     it("should include token in message", () => {
       const error = new ProviderAlreadyRegisteredError("MyService");
 
-      expect(error.code).toBe(
-        ErrorCode.PROVIDER_ALREADY_REGISTERED,
-      );
+      expect(error.code).toBe(ErrorCode.PROVIDER_ALREADY_REGISTERED);
       expect(error.message).toContain("MyService");
       expect(error.name).toBe("ProviderAlreadyRegisteredError");
     });
@@ -189,9 +187,7 @@ describe("Exception classes", () => {
     it("should include path in message", () => {
       const error = new ConfigurationNotFoundError("database.host");
 
-      expect(error.code).toBe(
-        ErrorCode.CONFIGURATION_NOT_FOUND,
-      );
+      expect(error.code).toBe(ErrorCode.CONFIGURATION_NOT_FOUND);
       expect(error.message).toContain("database.host");
       expect(error.name).toBe("ConfigurationNotFoundError");
     });
@@ -201,9 +197,7 @@ describe("Exception classes", () => {
     it("should have correct code", () => {
       const error = new ExecutionContextNotFoundError();
 
-      expect(error.code).toBe(
-        ErrorCode.EXECUTION_CONTEXT_NOT_FOUND,
-      );
+      expect(error.code).toBe(ErrorCode.EXECUTION_CONTEXT_NOT_FOUND);
       expect(error.name).toBe("ExecutionContextNotFoundError");
     });
   });
@@ -274,15 +268,9 @@ describe("Error serialization", () => {
 describe("ErrorCode", () => {
   it("should have all expected error codes", () => {
     expect(ErrorCode.UNKNOWN_ERROR).toBe("CORE_UNKNOWN_ERROR");
-    expect(ErrorCode.INVALID_ARGUMENT).toBe(
-      "CORE_INVALID_ARGUMENT",
-    );
-    expect(ErrorCode.PROVIDER_NOT_FOUND).toBe(
-      "CORE_PROVIDER_NOT_FOUND",
-    );
-    expect(ErrorCode.MODULE_NOT_FOUND).toBe(
-      "CORE_MODULE_NOT_FOUND",
-    );
+    expect(ErrorCode.INVALID_ARGUMENT).toBe("CORE_INVALID_ARGUMENT");
+    expect(ErrorCode.PROVIDER_NOT_FOUND).toBe("CORE_PROVIDER_NOT_FOUND");
+    expect(ErrorCode.MODULE_NOT_FOUND).toBe("CORE_MODULE_NOT_FOUND");
     expect(ErrorCode.CONFIGURATION_NOT_FOUND).toBe(
       "CORE_CONFIGURATION_NOT_FOUND",
     );

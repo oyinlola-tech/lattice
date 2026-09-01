@@ -1,14 +1,8 @@
-import type {
-  Environment,
-} from "@oyinlola141/lattice-constants";
+import type { Environment } from "@oyinlola141/lattice-constants";
 
-import type {
-  RuntimeId,
-} from "../runtimeState/runtimeState.type.js";
+import type { RuntimeId } from "../runtimeState/runtimeState.type.js";
 
-import type {
-  RuntimeState,
-} from "../runtimeState/runtimeState.type.js";
+import type { RuntimeState } from "../runtimeState/runtimeState.type.js";
 
 /**
  * Runtime configuration options.

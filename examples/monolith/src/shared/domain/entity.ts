@@ -9,7 +9,13 @@ export abstract class Entity<TId extends string> {
     this._updatedAt = this.createdAt;
   }
 
-  public get updatedAt(): Date { return this._updatedAt; }
-  protected touch(): void { this._updatedAt = new Date(); }
-  public equals(other: Entity<TId>): boolean { return this.id === other.id; }
+  public get updatedAt(): Date {
+    return this._updatedAt;
+  }
+  protected touch(): void {
+    this._updatedAt = new Date();
+  }
+  public equals(other: Entity<TId>): boolean {
+    return this.id === other.id;
+  }
 }

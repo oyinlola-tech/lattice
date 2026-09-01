@@ -8,8 +8,22 @@ export interface CacheTagOptions {
 }
 
 export interface CacheTagStore {
-  add(key: CacheKey, tags: readonly CacheTag[], options?: CacheTagOptions): Promise<void>;
-  remove(key: CacheKey, tags: readonly CacheTag[], options?: CacheTagOptions): Promise<void>;
-  getKeys(tag: CacheTag, options?: CacheTagOptions): Promise<readonly CacheKey[]>;
-  invalidate(tag: CacheTag, options?: CacheTagOptions): Promise<CacheClearResult>;
+  add(
+    key: CacheKey,
+    tags: readonly CacheTag[],
+    options?: CacheTagOptions,
+  ): Promise<void>;
+  remove(
+    key: CacheKey,
+    tags: readonly CacheTag[],
+    options?: CacheTagOptions,
+  ): Promise<void>;
+  getKeys(
+    tag: CacheTag,
+    options?: CacheTagOptions,
+  ): Promise<readonly CacheKey[]>;
+  invalidate(
+    tag: CacheTag,
+    options?: CacheTagOptions,
+  ): Promise<CacheClearResult>;
 }

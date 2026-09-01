@@ -39,13 +39,18 @@ export class ModuleError extends BaseError {
     return {
       ...super.toJSON(),
       ...(this.moduleId !== undefined ? { moduleId: this.moduleId } : {}),
-      ...(this.dependencyId !== undefined ? { dependencyId: this.dependencyId } : {}),
+      ...(this.dependencyId !== undefined
+        ? { dependencyId: this.dependencyId }
+        : {}),
     };
   }
 }
 
 /** Creates a module error. */
-export function createModuleError(message: string, options: ModuleErrorOptions = {}): ModuleError {
+export function createModuleError(
+  message: string,
+  options: ModuleErrorOptions = {},
+): ModuleError {
   return new ModuleError(message, options);
 }
 

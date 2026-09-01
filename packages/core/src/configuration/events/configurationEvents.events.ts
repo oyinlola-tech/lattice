@@ -1,18 +1,10 @@
-import type {
-  Configuration,
-} from "../core/configuration.js";
+import type { Configuration } from "../core/configuration.js";
 
-import type {
-  ConfigurationLoadResult,
-} from "../loader/configurationLoader.loader.js";
+import type { ConfigurationLoadResult } from "../loader/configurationLoader.loader.js";
 
-import type {
-  ConfigurationValidationReport,
-} from "../schema/configurationValidation.validator.js";
+import type { ConfigurationValidationReport } from "../schema/configurationValidation.validator.js";
 
-import type {
-  ConfigurationManagerState,
-} from "../configurationManager.manager.js";
+import type { ConfigurationManagerState } from "../configurationManager.manager.js";
 
 /**
  * Base contract for all configuration events.
@@ -37,21 +29,15 @@ export interface ConfigurationEvent {
 /**
  * Emitted before configuration initialization begins.
  */
-export interface ConfigurationInitializingEvent
-  extends ConfigurationEvent
-{
-  readonly type:
-    "configuration.initializing";
+export interface ConfigurationInitializingEvent extends ConfigurationEvent {
+  readonly type: "configuration.initializing";
 }
 
 /**
  * Emitted after configuration sources have been loaded.
  */
-export interface ConfigurationLoadedEvent
-  extends ConfigurationEvent
-{
-  readonly type:
-    "configuration.loaded";
+export interface ConfigurationLoadedEvent extends ConfigurationEvent {
+  readonly type: "configuration.loaded";
 
   /**
    * Result produced by the configuration loader.
@@ -67,11 +53,8 @@ export interface ConfigurationLoadedEvent
 /**
  * Emitted after configuration validation succeeds.
  */
-export interface ConfigurationValidatedEvent
-  extends ConfigurationEvent
-{
-  readonly type:
-    "configuration.validated";
+export interface ConfigurationValidatedEvent extends ConfigurationEvent {
+  readonly type: "configuration.validated";
 
   /**
    * Validation report.
@@ -88,11 +71,8 @@ export interface ConfigurationValidatedEvent
  * Emitted when configuration initialization completes
  * successfully.
  */
-export interface ConfigurationReadyEvent
-  extends ConfigurationEvent
-{
-  readonly type:
-    "configuration.ready";
+export interface ConfigurationReadyEvent extends ConfigurationEvent {
+  readonly type: "configuration.ready";
 
   /**
    * Active configuration.
@@ -108,11 +88,8 @@ export interface ConfigurationReadyEvent
 /**
  * Emitted when configuration initialization or reload fails.
  */
-export interface ConfigurationFailedEvent
-  extends ConfigurationEvent
-{
-  readonly type:
-    "configuration.failed";
+export interface ConfigurationFailedEvent extends ConfigurationEvent {
+  readonly type: "configuration.failed";
 
   /**
    * Error that caused the failure.
@@ -123,58 +100,46 @@ export interface ConfigurationFailedEvent
    * Configuration that was active before the failure,
    * when available.
    */
-  readonly previousConfiguration?:
-    Configuration;
+  readonly previousConfiguration?: Configuration;
 }
 
 /**
  * Emitted before a configuration reload begins.
  */
-export interface ConfigurationReloadingEvent
-  extends ConfigurationEvent
-{
-  readonly type:
-    "configuration.reloading";
+export interface ConfigurationReloadingEvent extends ConfigurationEvent {
+  readonly type: "configuration.reloading";
 
   /**
    * Configuration currently in use.
    */
-  readonly previousConfiguration:
-    Configuration;
+  readonly previousConfiguration: Configuration;
 }
 
 /**
  * Emitted after a configuration reload succeeds.
  */
-export interface ConfigurationReloadedEvent
-  extends ConfigurationEvent
-{
-  readonly type:
-    "configuration.reloaded";
+export interface ConfigurationReloadedEvent extends ConfigurationEvent {
+  readonly type: "configuration.reloaded";
 
   /**
    * Previous configuration.
    */
-  readonly previousConfiguration:
-    Configuration;
+  readonly previousConfiguration: Configuration;
 
   /**
    * New active configuration.
    */
-  readonly configuration:
-    Configuration;
+  readonly configuration: Configuration;
 
   /**
    * Load result for the new configuration.
    */
-  readonly load:
-    ConfigurationLoadResult;
+  readonly load: ConfigurationLoadResult;
 
   /**
    * Validation result for the new configuration.
    */
-  readonly validation:
-    ConfigurationValidationReport;
+  readonly validation: ConfigurationValidationReport;
 }
 
 /**
@@ -193,47 +158,33 @@ export type ConfigurationLifecycleEvent =
  * Configuration event type names.
  */
 export const ConfigurationEventType = Object.freeze({
-  INITIALIZING:
-    "configuration.initializing",
+  INITIALIZING: "configuration.initializing",
 
-  LOADED:
-    "configuration.loaded",
+  LOADED: "configuration.loaded",
 
-  VALIDATED:
-    "configuration.validated",
+  VALIDATED: "configuration.validated",
 
-  READY:
-    "configuration.ready",
+  READY: "configuration.ready",
 
-  FAILED:
-    "configuration.failed",
+  FAILED: "configuration.failed",
 
-  RELOADING:
-    "configuration.reloading",
+  RELOADING: "configuration.reloading",
 
-  RELOADED:
-    "configuration.reloaded",
+  RELOADED: "configuration.reloaded",
 } as const);
 
 /**
  * Type representing a valid configuration event name.
  */
 export type ConfigurationEventTypeValue =
-  typeof ConfigurationEventType[
-    keyof typeof ConfigurationEventType
-  ];
+  (typeof ConfigurationEventType)[keyof typeof ConfigurationEventType];
 
 /**
  * Configuration event listener.
  */
 export type ConfigurationEventListener<
-  T extends ConfigurationLifecycleEvent =
-    ConfigurationLifecycleEvent,
-> = (
-  event: T,
-) =>
-  | void
-  | Promise<void>;
+  T extends ConfigurationLifecycleEvent = ConfigurationLifecycleEvent,
+> = (event: T) => void | Promise<void>;
 
 /**
  * Creates the base metadata shared by configuration events.
@@ -256,12 +207,8 @@ export function createConfigurationInitializingEvent(
   state: ConfigurationManagerState,
 ): ConfigurationInitializingEvent {
   return {
-    ...createConfigurationEventBase(
-      ConfigurationEventType.INITIALIZING,
-      state,
-    ),
-    type:
-      ConfigurationEventType.INITIALIZING,
+    ...createConfigurationEventBase(ConfigurationEventType.INITIALIZING, state),
+    type: ConfigurationEventType.INITIALIZING,
   };
 }
 
@@ -273,15 +220,10 @@ export function createConfigurationLoadedEvent(
   result: ConfigurationLoadResult,
 ): ConfigurationLoadedEvent {
   return {
-    ...createConfigurationEventBase(
-      ConfigurationEventType.LOADED,
-      state,
-    ),
-    type:
-      ConfigurationEventType.LOADED,
+    ...createConfigurationEventBase(ConfigurationEventType.LOADED, state),
+    type: ConfigurationEventType.LOADED,
     result,
-    configuration:
-      result.configuration,
+    configuration: result.configuration,
   };
 }
 
@@ -294,12 +236,8 @@ export function createConfigurationValidatedEvent(
   validation: ConfigurationValidationReport,
 ): ConfigurationValidatedEvent {
   return {
-    ...createConfigurationEventBase(
-      ConfigurationEventType.VALIDATED,
-      state,
-    ),
-    type:
-      ConfigurationEventType.VALIDATED,
+    ...createConfigurationEventBase(ConfigurationEventType.VALIDATED, state),
+    type: ConfigurationEventType.VALIDATED,
     configuration,
     validation,
   };
@@ -314,12 +252,8 @@ export function createConfigurationReadyEvent(
   validation: ConfigurationValidationReport,
 ): ConfigurationReadyEvent {
   return {
-    ...createConfigurationEventBase(
-      ConfigurationEventType.READY,
-      state,
-    ),
-    type:
-      ConfigurationEventType.READY,
+    ...createConfigurationEventBase(ConfigurationEventType.READY, state),
+    type: ConfigurationEventType.READY,
     configuration,
     validation,
   };
@@ -334,12 +268,8 @@ export function createConfigurationFailedEvent(
   previousConfiguration?: Configuration,
 ): ConfigurationFailedEvent {
   return {
-    ...createConfigurationEventBase(
-      ConfigurationEventType.FAILED,
-      state,
-    ),
-    type:
-      ConfigurationEventType.FAILED,
+    ...createConfigurationEventBase(ConfigurationEventType.FAILED, state),
+    type: ConfigurationEventType.FAILED,
     error,
     previousConfiguration,
   };
@@ -353,12 +283,8 @@ export function createConfigurationReloadingEvent(
   previousConfiguration: Configuration,
 ): ConfigurationReloadingEvent {
   return {
-    ...createConfigurationEventBase(
-      ConfigurationEventType.RELOADING,
-      state,
-    ),
-    type:
-      ConfigurationEventType.RELOADING,
+    ...createConfigurationEventBase(ConfigurationEventType.RELOADING, state),
+    type: ConfigurationEventType.RELOADING,
     previousConfiguration,
   };
 }
@@ -374,12 +300,8 @@ export function createConfigurationReloadedEvent(
   validation: ConfigurationValidationReport,
 ): ConfigurationReloadedEvent {
   return {
-    ...createConfigurationEventBase(
-      ConfigurationEventType.RELOADED,
-      state,
-    ),
-    type:
-      ConfigurationEventType.RELOADED,
+    ...createConfigurationEventBase(ConfigurationEventType.RELOADED, state),
+    type: ConfigurationEventType.RELOADED,
     previousConfiguration,
     configuration,
     load,

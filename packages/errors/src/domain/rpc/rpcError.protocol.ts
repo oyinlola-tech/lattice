@@ -29,7 +29,10 @@ export class RPCValidationError extends RPCError {
 
 /** Error thrown when RPC authentication fails. */
 export class RPCAuthenticationError extends RPCError {
-  constructor(message = "RPC authentication is required.", procedureName?: string) {
+  constructor(
+    message = "RPC authentication is required.",
+    procedureName?: string,
+  ) {
     super(message, {
       code: ErrorCode.RPC_UNAUTHORIZED,
       procedureName,
@@ -102,10 +105,12 @@ export class RPCDeserializationError extends RPCError {
 /** Error thrown when a duplicate RPC procedure is registered. */
 export class RPCDuplicateProcedureError extends RPCError {
   constructor(procedureName: string) {
-    super(
-      `RPC procedure "${procedureName}" is already registered.`,
-      { code: ErrorCode.RPC_DUPLICATE_PROCEDURE, procedureName, statusCode: 409, expose: true },
-    );
+    super(`RPC procedure "${procedureName}" is already registered.`, {
+      code: ErrorCode.RPC_DUPLICATE_PROCEDURE,
+      procedureName,
+      statusCode: 409,
+      expose: true,
+    });
     this.name = "RPCDuplicateProcedureError";
   }
 }

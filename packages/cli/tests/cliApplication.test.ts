@@ -7,16 +7,31 @@
 
 import { describe, it, expect, vi } from "vitest";
 
-import { LatticeCLI, createCLI } from "../src/cliApplication/cliApplication.core.js";
+import {
+  LatticeCLI,
+  createCLI,
+} from "../src/cliApplication/cliApplication.core.js";
 import {
   isHelpRequest,
   isVersionRequest,
   printVersion,
   printHelp,
 } from "../src/cliApplication/cliApplication.builtins.js";
-import { createCLIWriter, registerCLIInterruptHandler } from "../src/cliApplication/cliApplication.writer.js";
-import { CLIRunner, createCLIRunner, runCLICommand } from "../src/cliRunner/cliRunner.core.js";
-import { CLIHelpGenerator, createHelpGenerator, generateCLIHelp, generateCommandHelp } from "../src/cliHelp/cliHelp.generator.js";
+import {
+  createCLIWriter,
+  registerCLIInterruptHandler,
+} from "../src/cliApplication/cliApplication.writer.js";
+import {
+  CLIRunner,
+  createCLIRunner,
+  runCLICommand,
+} from "../src/cliRunner/cliRunner.core.js";
+import {
+  CLIHelpGenerator,
+  createHelpGenerator,
+  generateCLIHelp,
+  generateCommandHelp,
+} from "../src/cliHelp/cliHelp.generator.js";
 import {
   formatTitle,
   formatCommands,
@@ -37,7 +52,10 @@ import {
   parseVersion,
   isCompatibleVersion,
 } from "../src/cliVersion/cliVersion.core.js";
-import { createCommand, createCommand as cmd } from "../src/cliCommand/cliCommand.factory.js";
+import {
+  createCommand,
+  createCommand as cmd,
+} from "../src/cliCommand/cliCommand.factory.js";
 import { CLI_EXIT_CODES } from "../src/cliConstant/cliConstant.value.js";
 import type { CLICommand, CLIWriter } from "../src/cliType/cliType.type.js";
 
@@ -47,13 +65,28 @@ function createMockWriter(): CLIWriter & { stdout: string; stderr: string } {
   let stdout = "";
   let stderr = "";
   return {
-    get stdout() { return stdout; },
-    get stderr() { return stderr; },
-    write(message: string) { stdout += message; },
-    writeLine(message = "") { stdout += message + "\n"; },
-    error(message: string) { stderr += message; },
-    errorLine(message = "") { stderr += message + "\n"; },
-    reset() { stdout = ""; stderr = ""; },
+    get stdout() {
+      return stdout;
+    },
+    get stderr() {
+      return stderr;
+    },
+    write(message: string) {
+      stdout += message;
+    },
+    writeLine(message = "") {
+      stdout += message + "\n";
+    },
+    error(message: string) {
+      stderr += message;
+    },
+    errorLine(message = "") {
+      stderr += message + "\n";
+    },
+    reset() {
+      stdout = "";
+      stderr = "";
+    },
   };
 }
 
@@ -214,7 +247,9 @@ describe("LatticeCLI", () => {
     cli.register(
       createCommand({
         name: "test",
-        execute: () => { executed = true; },
+        execute: () => {
+          executed = true;
+        },
       }),
     );
     const code = await cli.run(["test"]);
@@ -227,7 +262,9 @@ describe("LatticeCLI", () => {
     cli.register(
       createCommand({
         name: "fail",
-        execute: () => { throw new Error("boom"); },
+        execute: () => {
+          throw new Error("boom");
+        },
       }),
     );
     const code = await cli.run(["fail"]);
@@ -274,9 +311,7 @@ describe("LatticeCLI", () => {
     const afterRun = vi.fn();
     const cli = new LatticeCLI();
     cli.use({ beforeRun, afterRun });
-    cli.register(
-      createCommand({ name: "test", execute: () => {} }),
-    );
+    cli.register(createCommand({ name: "test", execute: () => {} }));
     await cli.run(["test"]);
     expect(beforeRun).toHaveBeenCalled();
     expect(afterRun).toHaveBeenCalled();
@@ -300,7 +335,17 @@ describe("CLIRunner", () => {
       values: {},
       cwd: "/tmp",
       env: {},
-      logger: { debug: () => {}, info: () => {}, warn: () => {}, error: () => {}, trace: () => {}, fatal: () => {}, child: () => ({} as any), level: 3, flush: () => {} } as any,
+      logger: {
+        debug: () => {},
+        info: () => {},
+        warn: () => {},
+        error: () => {},
+        trace: () => {},
+        fatal: () => {},
+        child: () => ({}) as any,
+        level: 3,
+        flush: () => {},
+      } as any,
     };
   }
 
@@ -309,7 +354,9 @@ describe("CLIRunner", () => {
     const runner = createCLIRunner();
     const cmd = createCommand({
       name: "test",
-      execute: () => { executed = true; },
+      execute: () => {
+        executed = true;
+      },
     });
     const code = await runner.run(cmd, createDummyContext());
     expect(code).toBe(CLI_EXIT_CODES.SUCCESS);
@@ -347,7 +394,9 @@ describe("CLIRunner", () => {
     const runner = createCLIRunner();
     const cmd = createCommand({
       name: "fail",
-      execute: () => { throw new Error("boom"); },
+      execute: () => {
+        throw new Error("boom");
+      },
     });
     const code = await runner.run(cmd, createDummyContext());
     expect(code).toBe(CLI_EXIT_CODES.GENERAL_ERROR);
@@ -368,7 +417,9 @@ describe("CLIRunner", () => {
     const runner = createCLIRunner({ hooks: { onError } });
     const cmd = createCommand({
       name: "fail",
-      execute: () => { throw new Error("boom"); },
+      execute: () => {
+        throw new Error("boom");
+      },
     });
     await runner.run(cmd, createDummyContext());
     expect(onError).toHaveBeenCalled();
@@ -378,7 +429,9 @@ describe("CLIRunner", () => {
     const runner = createCLIRunner();
     const cmd = createCommand({
       name: "fail",
-      execute: () => { throw new Error("boom"); },
+      execute: () => {
+        throw new Error("boom");
+      },
     });
     const code = await runner.safeRun(cmd, createDummyContext());
     expect(code).toBe(CLI_EXIT_CODES.GENERAL_ERROR);
@@ -390,14 +443,26 @@ describe("runCLICommand", () => {
     let executed = false;
     const cmd = createCommand({
       name: "test",
-      execute: () => { executed = true; },
+      execute: () => {
+        executed = true;
+      },
     });
     const ctx = {
       args: [],
       values: {},
       cwd: "/tmp",
       env: {},
-      logger: { debug: () => {}, info: () => {}, warn: () => {}, error: () => {}, trace: () => {}, fatal: () => {}, child: () => ({} as any), level: 3, flush: () => {} } as any,
+      logger: {
+        debug: () => {},
+        info: () => {},
+        warn: () => {},
+        error: () => {},
+        trace: () => {},
+        fatal: () => {},
+        child: () => ({}) as any,
+        level: 3,
+        flush: () => {},
+      } as any,
     };
     const code = await runCLICommand(cmd, ctx);
     expect(code).toBe(CLI_EXIT_CODES.SUCCESS);
@@ -411,7 +476,11 @@ describe("CLIHelpGenerator", () => {
   it("generates application help", () => {
     const generator = createHelpGenerator({ name: "my-app", version: "1.0.0" });
     const help = generator.generate([
-      createCommand({ name: "start", description: "Start the server", execute: () => {} }),
+      createCommand({
+        name: "start",
+        description: "Start the server",
+        execute: () => {},
+      }),
     ]);
     expect(help).toContain("my-app");
     expect(help).toContain("1.0.0");
@@ -468,7 +537,11 @@ describe("generateCLIHelp", () => {
 describe("generateCommandHelp", () => {
   it("generates command help directly", () => {
     const help = generateCommandHelp(
-      createCommand({ name: "test", description: "Test command", execute: () => {} }),
+      createCommand({
+        name: "test",
+        description: "Test command",
+        execute: () => {},
+      }),
       { name: "app" },
     );
     expect(help).toContain("test");
@@ -500,7 +573,12 @@ describe("formatCommands", () => {
 
   it("formats with aliases", () => {
     const output = formatCommands([
-      createCommand({ name: "start", aliases: ["-s"], description: "Start", execute: () => {} }),
+      createCommand({
+        name: "start",
+        aliases: ["-s"],
+        description: "Start",
+        execute: () => {},
+      }),
     ]);
     expect(output).toContain("(-s)");
   });
@@ -521,16 +599,12 @@ describe("formatOptions", () => {
   });
 
   it("marks required options", () => {
-    const output = formatOptions([
-      { name: "name", required: true },
-    ]);
+    const output = formatOptions([{ name: "name", required: true }]);
     expect(output).toContain("[required]");
   });
 
   it("shows default values", () => {
-    const output = formatOptions([
-      { name: "port", defaultValue: 3000 },
-    ]);
+    const output = formatOptions([{ name: "port", defaultValue: 3000 }]);
     expect(output).toContain("default: 3000");
   });
 });
@@ -546,9 +620,7 @@ describe("formatArguments", () => {
   });
 
   it("marks variadic arguments", () => {
-    const output = formatArguments([
-      { name: "files", variadic: true },
-    ]);
+    const output = formatArguments([{ name: "files", variadic: true }]);
     expect(output).toContain("...");
   });
 });
@@ -568,7 +640,11 @@ describe("formatOptionLabel", () => {
   });
 
   it("formats short + long option", () => {
-    const label = formatOptionLabel({ name: "port", short: "p", type: "number" });
+    const label = formatOptionLabel({
+      name: "port",
+      short: "p",
+      type: "number",
+    });
     expect(label).toBe("-p, --port <number>");
   });
 });
@@ -579,7 +655,9 @@ describe("formatArgumentLabel", () => {
   });
 
   it("formats variadic argument", () => {
-    expect(formatArgumentLabel({ name: "files", variadic: true })).toBe("<files...>");
+    expect(formatArgumentLabel({ name: "files", variadic: true })).toBe(
+      "<files...>",
+    );
   });
 });
 

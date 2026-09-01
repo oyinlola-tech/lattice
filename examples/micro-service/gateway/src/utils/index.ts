@@ -10,7 +10,10 @@ export function generateId(): string {
 /**
  * Parses a string value into a boolean.
  */
-export function parseBoolean(value: string | undefined, defaultValue = false): boolean {
+export function parseBoolean(
+  value: string | undefined,
+  defaultValue = false,
+): boolean {
   if (value === undefined) return defaultValue;
   return value === "true" || value === "1";
 }
@@ -18,7 +21,9 @@ export function parseBoolean(value: string | undefined, defaultValue = false): b
 /**
  * Extracts the bearer token from an Authorization header.
  */
-export function extractBearerToken(authorization: string | undefined): string | null {
+export function extractBearerToken(
+  authorization: string | undefined,
+): string | null {
   if (!authorization) return null;
   const parts = authorization.split(" ");
   if (parts.length !== 2 || parts[0] !== "Bearer") return null;

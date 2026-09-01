@@ -32,11 +32,9 @@ export function createMiddlewareChain(
 /**
  * Logging middleware for queue processing.
  */
-export function createLoggingMiddleware(
-  logger?: {
-    info: (message: string, data?: Record<string, unknown>) => void;
-  },
-): QueueMiddleware {
+export function createLoggingMiddleware(logger?: {
+  info: (message: string, data?: Record<string, unknown>) => void;
+}): QueueMiddleware {
   return async (ctx) => {
     const startTime = Date.now();
 
@@ -79,9 +77,7 @@ export function createLoggingMiddleware(
 /**
  * Timeout middleware for queue processing.
  */
-export function createTimeoutMiddleware(
-  timeoutMs: number,
-): QueueMiddleware {
+export function createTimeoutMiddleware(timeoutMs: number): QueueMiddleware {
   return async (ctx) => {
     return Promise.race([
       ctx.next(),

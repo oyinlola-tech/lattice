@@ -4,9 +4,7 @@ import type { KeyObject } from "node:crypto";
 /**
  * Maps a signature algorithm to a Node.js hash algorithm name.
  */
-export function nodeSignatureAlgorithm(
-  algorithm: SignatureAlgorithm,
-): string {
+export function nodeSignatureAlgorithm(algorithm: SignatureAlgorithm): string {
   switch (algorithm) {
     case "rsa-sha256":
       return "RSA-SHA256";
@@ -21,9 +19,7 @@ export function nodeSignatureAlgorithm(
     case "ecdsa-sha512":
       return "SHA512";
     case "ed25519":
-      throw new TypeError(
-        "Ed25519 does not use a digest algorithm.",
-      );
+      throw new TypeError("Ed25519 does not use a digest algorithm.");
     default:
       throw new TypeError(
         `Unsupported signature algorithm: ${String(algorithm)}.`,
@@ -34,9 +30,7 @@ export function nodeSignatureAlgorithm(
 /**
  * Checks whether a value is a Node.js KeyObject.
  */
-export function isKeyObject(
-  value: unknown,
-): value is KeyObject {
+export function isKeyObject(value: unknown): value is KeyObject {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -48,9 +42,7 @@ export function isKeyObject(
 /**
  * Asserts that a value is a Node.js KeyObject.
  */
-export function assertKeyObject(
-  key: KeyObject,
-): void {
+export function assertKeyObject(key: KeyObject): void {
   if (!isKeyObject(key)) {
     throw new TypeError("Expected a Node.js KeyObject.");
   }

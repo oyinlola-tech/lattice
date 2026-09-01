@@ -7,9 +7,7 @@ import type {
   ConfigValidationIssue,
 } from "./configSchema.type.js";
 
-import {
-  createConfigValidationIssue,
-} from "./configSchema.validator.js";
+import { createConfigValidationIssue } from "./configSchema.validator.js";
 
 /**
  * Formats expected schema types.
@@ -19,12 +17,8 @@ export function formatExpectedType(
     | import("./configSchema.type.js").ConfigValueType
     | readonly import("./configSchema.type.js").ConfigValueType[],
 ): string {
-  if (
-    Array.isArray(type)
-  ) {
-    return type.join(
-      " | ",
-    );
+  if (Array.isArray(type)) {
+    return type.join(" | ");
   }
 
   return String(type);
@@ -36,15 +30,11 @@ export function formatExpectedType(
 export function resolveDefaultValue(
   schema: ConfigSchema,
 ): import("../configValue/configValue.core.js").ConfigValue | undefined {
-  if (
-    schema.default ===
-      undefined
-  ) {
+  if (schema.default === undefined) {
     return undefined;
   }
 
-  return typeof schema.default ===
-    "function"
+  return typeof schema.default === "function"
     ? (
         schema.default as () => import("../configValue/configValue.core.js").ConfigValue
       )()
@@ -56,22 +46,15 @@ export function resolveDefaultValue(
  */
 export function appendCustomValidationResult(
   result:
-    | boolean
-    | string
-    | ConfigValidationIssue
-    | readonly ConfigValidationIssue[],
+    boolean | string | ConfigValidationIssue | readonly ConfigValidationIssue[],
   path: string,
   issues: ConfigValidationIssue[],
 ): void {
-  if (
-    result === true
-  ) {
+  if (result === true) {
     return;
   }
 
-  if (
-    result === false
-  ) {
+  if (result === false) {
     issues.push(
       createConfigValidationIssue(
         path,
@@ -83,37 +66,19 @@ export function appendCustomValidationResult(
     return;
   }
 
-  if (
-    typeof result === "string"
-  ) {
-    issues.push(
-      createConfigValidationIssue(
-        path,
-        result,
-        "CUSTOM_VALIDATION",
-      ),
-    );
+  if (typeof result === "string") {
+    issues.push(createConfigValidationIssue(path, result, "CUSTOM_VALIDATION"));
 
     return;
   }
 
-  if (
-    Array.isArray(result)
-  ) {
-    issues.push(
-      ...result,
-    );
+  if (Array.isArray(result)) {
+    issues.push(...result);
 
     return;
   }
 
-  issues.push(
-    ...(
-      Array.isArray(result)
-        ? result
-        : [result]
-    ),
-  );
+  issues.push(...(Array.isArray(result) ? result : [result]));
 }
 
 /**
@@ -125,17 +90,12 @@ export function validateBuiltInRules(
   context: ConfigValidationContext,
   issues: ConfigValidationIssue[],
 ): void {
-  if (
-    typeof value === "string"
-  ) {
-    const stringSchema =
-      schema as ConfigStringSchema;
+  if (typeof value === "string") {
+    const stringSchema = schema as ConfigStringSchema;
 
     if (
-      stringSchema.minLength !==
-        undefined &&
-      value.length <
-        stringSchema.minLength
+      stringSchema.minLength !== undefined &&
+      value.length < stringSchema.minLength
     ) {
       issues.push(
         createConfigValidationIssue(
@@ -147,10 +107,8 @@ export function validateBuiltInRules(
     }
 
     if (
-      stringSchema.maxLength !==
-        undefined &&
-      value.length >
-        stringSchema.maxLength
+      stringSchema.maxLength !== undefined &&
+      value.length > stringSchema.maxLength
     ) {
       issues.push(
         createConfigValidationIssue(
@@ -161,20 +119,13 @@ export function validateBuiltInRules(
       );
     }
 
-    if (
-      stringSchema.pattern
-    ) {
+    if (stringSchema.pattern) {
       const pattern =
-        typeof stringSchema.pattern ===
-          "string"
-          ? new RegExp(
-              stringSchema.pattern,
-            )
+        typeof stringSchema.pattern === "string"
+          ? new RegExp(stringSchema.pattern)
           : stringSchema.pattern;
 
-      if (
-        !pattern.test(value)
-      ) {
+      if (!pattern.test(value)) {
         issues.push(
           createConfigValidationIssue(
             context.path,
@@ -185,12 +136,7 @@ export function validateBuiltInRules(
       }
     }
 
-    if (
-      stringSchema.enum &&
-      !stringSchema.enum.includes(
-        value,
-      )
-    ) {
+    if (stringSchema.enum && !stringSchema.enum.includes(value)) {
       issues.push(
         createConfigValidationIssue(
           context.path,
@@ -201,18 +147,10 @@ export function validateBuiltInRules(
     }
   }
 
-  if (
-    typeof value === "number"
-  ) {
-    const numberSchema =
-      schema as ConfigNumberSchema;
+  if (typeof value === "number") {
+    const numberSchema = schema as ConfigNumberSchema;
 
-    if (
-      numberSchema.min !==
-        undefined &&
-      value <
-        numberSchema.min
-    ) {
+    if (numberSchema.min !== undefined && value < numberSchema.min) {
       issues.push(
         createConfigValidationIssue(
           context.path,
@@ -222,12 +160,7 @@ export function validateBuiltInRules(
       );
     }
 
-    if (
-      numberSchema.max !==
-        undefined &&
-      value >
-        numberSchema.max
-    ) {
+    if (numberSchema.max !== undefined && value > numberSchema.max) {
       issues.push(
         createConfigValidationIssue(
           context.path,
@@ -237,10 +170,7 @@ export function validateBuiltInRules(
       );
     }
 
-    if (
-      numberSchema.integer &&
-      !Number.isInteger(value)
-    ) {
+    if (numberSchema.integer && !Number.isInteger(value)) {
       issues.push(
         createConfigValidationIssue(
           context.path,
@@ -250,10 +180,7 @@ export function validateBuiltInRules(
       );
     }
 
-    if (
-      numberSchema.positive &&
-      value <= 0
-    ) {
+    if (numberSchema.positive && value <= 0) {
       issues.push(
         createConfigValidationIssue(
           context.path,
@@ -264,17 +191,12 @@ export function validateBuiltInRules(
     }
   }
 
-  if (
-    Array.isArray(value)
-  ) {
-    const arraySchema =
-      schema as ConfigArraySchema;
+  if (Array.isArray(value)) {
+    const arraySchema = schema as ConfigArraySchema;
 
     if (
-      arraySchema.minItems !==
-        undefined &&
-      value.length <
-        arraySchema.minItems
+      arraySchema.minItems !== undefined &&
+      value.length < arraySchema.minItems
     ) {
       issues.push(
         createConfigValidationIssue(
@@ -286,10 +208,8 @@ export function validateBuiltInRules(
     }
 
     if (
-      arraySchema.maxItems !==
-        undefined &&
-      value.length >
-        arraySchema.maxItems
+      arraySchema.maxItems !== undefined &&
+      value.length > arraySchema.maxItems
     ) {
       issues.push(
         createConfigValidationIssue(
@@ -300,39 +220,19 @@ export function validateBuiltInRules(
       );
     }
 
-    if (
-      arraySchema.items
-    ) {
-      value.forEach(
-        (
-          item,
-          index,
-        ) => {
-          const {
-            validateConfigValue,
-          } = require("./configSchema.validator.js");
+    if (arraySchema.items) {
+      value.forEach((item, index) => {
+        const { validateConfigValue } = require("./configSchema.validator.js");
 
-          const result =
-            validateConfigValue(
-              item,
-              arraySchema.items!,
-              {
-                path:
-                  `${context.path}[${index}]`,
-                root:
-                  context.root,
-                parent:
-                  value,
-                key:
-                  index,
-              },
-            );
+        const result = validateConfigValue(item, arraySchema.items!, {
+          path: `${context.path}[${index}]`,
+          root: context.root,
+          parent: value,
+          key: index,
+        });
 
-          issues.push(
-            ...result.issues,
-          );
-        },
-      );
+        issues.push(...result.issues);
+      });
     }
   }
 }

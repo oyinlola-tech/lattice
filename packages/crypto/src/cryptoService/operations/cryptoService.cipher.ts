@@ -3,10 +3,7 @@ import type {
   CipherResult,
 } from "../../cryptoCipher/cryptoCipher.core.js";
 
-import {
-  encrypt,
-  decrypt,
-} from "../../cryptoCipher/cryptoCipher.core.js";
+import { encrypt, decrypt } from "../../cryptoCipher/cryptoCipher.core.js";
 
 import {
   cryptoCipherError,
@@ -23,10 +20,7 @@ export async function serviceEncrypt(
   try {
     return await encrypt(plaintext, key, options);
   } catch {
-    throw cryptoCipherError(
-      "Encryption failed.",
-      CryptoOperation.ENCRYPT,
-    );
+    throw cryptoCipherError("Encryption failed.", CryptoOperation.ENCRYPT);
   }
 }
 
@@ -38,17 +32,8 @@ export async function serviceDecrypt(
   aad?: Uint8Array,
 ): Promise<Uint8Array> {
   try {
-    return await decrypt(
-      ciphertext,
-      key,
-      iv,
-      authTag,
-      aad,
-    );
+    return await decrypt(ciphertext, key, iv, authTag, aad);
   } catch {
-    throw cryptoCipherError(
-      "Decryption failed.",
-      CryptoOperation.DECRYPT,
-    );
+    throw cryptoCipherError("Decryption failed.", CryptoOperation.DECRYPT);
   }
 }

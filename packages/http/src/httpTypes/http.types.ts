@@ -16,8 +16,7 @@ export const HTTP_METHODS = [
   "CONNECT",
 ] as const;
 
-export type HTTPMethod =
-  (typeof HTTP_METHODS)[number];
+export type HTTPMethod = (typeof HTTP_METHODS)[number];
 
 /* -------------------------------------------------------------------------- */
 /* HTTP Status                                                                */
@@ -30,9 +29,7 @@ export type HTTPStatusCode = number;
 /* -------------------------------------------------------------------------- */
 
 export type HTTPHeadersInit =
-  | Headers
-  | Record<string, string>
-  | readonly (readonly [string, string])[];
+  Headers | Record<string, string> | readonly (readonly [string, string])[];
 
 export interface HTTPHeaders {
   get(name: string): string | null;
@@ -40,9 +37,7 @@ export interface HTTPHeaders {
   append(name: string, value: string): void;
   has(name: string): boolean;
   delete(name: string): void;
-  entries(): IterableIterator<
-    [string, string]
-  >;
+  entries(): IterableIterator<[string, string]>;
   keys(): IterableIterator<string>;
   values(): IterableIterator<string>;
 }
@@ -51,26 +46,18 @@ export interface HTTPHeaders {
 /* Query                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export type HTTPQueryValue =
-  | string
-  | number
-  | boolean
-  | null
-  | undefined;
+export type HTTPQueryValue = string | number | boolean | null | undefined;
 
-export type HTTPQuery =
-  Record<
-    string,
-    HTTPQueryValue |
-      readonly HTTPQueryValue[]
-  >;
+export type HTTPQuery = Record<
+  string,
+  HTTPQueryValue | readonly HTTPQueryValue[]
+>;
 
 /* -------------------------------------------------------------------------- */
 /* Params                                                                     */
 /* -------------------------------------------------------------------------- */
 
-export type HTTPParams =
-  Record<string, string>;
+export type HTTPParams = Record<string, string>;
 
 /* -------------------------------------------------------------------------- */
 /* Request                                                                    */
@@ -93,21 +80,13 @@ export interface HTTPRequest {
   readonly secure: boolean;
   readonly aborted: boolean;
 
-  getHeader(
-    name: string,
-  ): string | undefined;
+  getHeader(name: string): string | undefined;
 
-  get(
-    name: string,
-  ): string | undefined;
+  get(name: string): string | undefined;
 
-  accepts(
-    ...types: readonly string[]
-  ): string | false;
+  accepts(...types: readonly string[]): string | false;
 
-  is(
-    ...types: readonly string[]
-  ): string | false;
+  is(...types: readonly string[]): string | false;
 
   json<T = unknown>(): Promise<T>;
 
@@ -125,70 +104,38 @@ export interface HTTPResponse {
   headersSent: boolean;
   finished: boolean;
 
-  setHeader(
-    name: string,
-    value: string | readonly string[],
-  ): this;
+  setHeader(name: string, value: string | readonly string[]): this;
 
-  getHeader(
-    name: string,
-  ): string | string[] | undefined;
+  getHeader(name: string): string | string[] | undefined;
 
-  removeHeader(
-    name: string,
-  ): this;
+  removeHeader(name: string): this;
 
-  status(
-    code: HTTPStatusCode,
-  ): this;
+  status(code: HTTPStatusCode): this;
 
-  type(
-    contentType: string,
-  ): this;
+  type(contentType: string): this;
 
-  set(
-    name: string,
-    value: string | readonly string[],
-  ): this;
+  set(name: string, value: string | readonly string[]): this;
 
-  header(
-    name: string,
-    value: string | readonly string[],
-  ): this;
+  header(name: string, value: string | readonly string[]): this;
 
-  json<T = unknown>(
-    data: T,
-  ): Promise<void>;
+  json<T = unknown>(data: T): Promise<void>;
 
-  send(
-    body?: unknown,
-  ): Promise<void>;
+  send(body?: unknown): Promise<void>;
 
-  text(
-    body: string,
-  ): Promise<void>;
+  text(body: string): Promise<void>;
 
-  html(
-    body: string,
-  ): Promise<void>;
+  html(body: string): Promise<void>;
 
-  redirect(
-    url: string,
-    statusCode?: HTTPStatusCode,
-  ): Promise<void>;
+  redirect(url: string, statusCode?: HTTPStatusCode): Promise<void>;
 
-  end(
-    body?: Uint8Array,
-  ): Promise<void>;
+  end(body?: Uint8Array): Promise<void>;
 }
 
 /* -------------------------------------------------------------------------- */
 /* HTTP Context                                                               */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPContext<
-  State = Record<string, unknown>,
-> {
+export interface HTTPContext<State = Record<string, unknown>> {
   readonly request: HTTPRequest;
   readonly response: HTTPResponse;
   readonly state: State;
@@ -198,22 +145,13 @@ export interface HTTPContext<
 
   readonly startedAt: number;
 
-  get<T = unknown>(
-    key: string,
-  ): T | undefined;
+  get<T = unknown>(key: string): T | undefined;
 
-  set<T = unknown>(
-    key: string,
-    value: T,
-  ): void;
+  set<T = unknown>(key: string, value: T): void;
 
-  has(
-    key: string,
-  ): boolean;
+  has(key: string): boolean;
 
-  delete(
-    key: string,
-  ): boolean;
+  delete(key: string): boolean;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -222,61 +160,43 @@ export interface HTTPContext<
 
 export type HTTPNext = () => Promise<void>;
 
-export type HTTPMiddleware<
-  State = Record<string, unknown>,
-> = (
+export type HTTPMiddleware<State = Record<string, unknown>> = (
   context: HTTPContext<State>,
   next: HTTPNext,
-) =>
-  | void
-  | Promise<void>;
+) => void | Promise<void>;
 
 /* -------------------------------------------------------------------------- */
 /* Handler                                                                    */
 /* -------------------------------------------------------------------------- */
 
-export type HTTPHandler<
-  State = Record<string, unknown>,
-> = (
+export type HTTPHandler<State = Record<string, unknown>> = (
   context: HTTPContext<State>,
-) =>
-  | unknown
-  | Promise<unknown>;
+) => unknown | Promise<unknown>;
 
 /* -------------------------------------------------------------------------- */
 /* Route                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPRoute<
-  State = Record<string, unknown>,
-> {
-  readonly method:
-    | HTTPMethod
-    | readonly HTTPMethod[];
+export interface HTTPRoute<State = Record<string, unknown>> {
+  readonly method: HTTPMethod | readonly HTTPMethod[];
 
   readonly path: string;
 
   readonly handler: HTTPHandler<State>;
 
-  readonly middleware?:
-    readonly HTTPMiddleware<State>[];
+  readonly middleware?: readonly HTTPMiddleware<State>[];
 
   readonly name?: string;
 
-  readonly metadata?:
-    Record<string, unknown>;
+  readonly metadata?: Record<string, unknown>;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Router                                                                     */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPRouter<
-  State = Record<string, unknown>,
-> {
-  register(
-    route: HTTPRoute<State>,
-  ): this;
+export interface HTTPRouter<State = Record<string, unknown>> {
+  register(route: HTTPRoute<State>): this;
 
   get(
     path: string,
@@ -320,9 +240,7 @@ export interface HTTPRouter<
     middleware?: readonly HTTPMiddleware<State>[],
   ): this;
 
-  use(
-    middleware: HTTPMiddleware<State>,
-  ): this;
+  use(middleware: HTTPMiddleware<State>): this;
 
   routes(): readonly HTTPRoute<State>[];
 }
@@ -331,9 +249,7 @@ export interface HTTPRouter<
 /* Route Match                                                                */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPRouteMatch<
-  State = Record<string, unknown>,
-> {
+export interface HTTPRouteMatch<State = Record<string, unknown>> {
   readonly route: HTTPRoute<State>;
   readonly params: HTTPParams;
 }
@@ -370,10 +286,7 @@ export interface HTTPServer {
       }
     | null;
 
-  on(
-    event: HTTPServerEvent,
-    listener: (...args: unknown[]) => void,
-  ): this;
+  on(event: HTTPServerEvent, listener: (...args: unknown[]) => void): this;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -381,11 +294,7 @@ export interface HTTPServer {
 /* -------------------------------------------------------------------------- */
 
 export type HTTPServerEvent =
-  | "listening"
-  | "connection"
-  | "request"
-  | "error"
-  | "close";
+  "listening" | "connection" | "request" | "error" | "close";
 
 /* -------------------------------------------------------------------------- */
 /* Request Handler                                                            */
@@ -394,9 +303,7 @@ export type HTTPServerEvent =
 export type HTTPRequestHandler = (
   request: HTTPRequest,
   response: HTTPResponse,
-) =>
-  | void
-  | Promise<void>;
+) => void | Promise<void>;
 
 /* -------------------------------------------------------------------------- */
 /* HTTP Errors                                                                */
@@ -426,8 +333,7 @@ export interface HTTPErrorLike {
 export interface HTTPContentType {
   readonly type: string;
   readonly subtype: string;
-  readonly parameters:
-    Readonly<Record<string, string>>;
+  readonly parameters: Readonly<Record<string, string>>;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -441,14 +347,8 @@ export interface HTTPCookieOptions {
   readonly path?: string;
   readonly secure?: boolean;
   readonly httpOnly?: boolean;
-  readonly sameSite?:
-    | "strict"
-    | "lax"
-    | "none";
-  readonly priority?:
-    | "low"
-    | "medium"
-    | "high";
+  readonly sameSite?: "strict" | "lax" | "none";
+  readonly priority?: "low" | "medium" | "high";
 }
 
 export interface HTTPCookie {
@@ -463,18 +363,13 @@ export interface HTTPCookie {
 
 export interface HTTPCORSOptions {
   readonly origin?:
-    | string
-    | readonly string[]
-    | ((origin: string | undefined) => boolean);
+    string | readonly string[] | ((origin: string | undefined) => boolean);
 
-  readonly methods?:
-    readonly HTTPMethod[];
+  readonly methods?: readonly HTTPMethod[];
 
-  readonly allowedHeaders?:
-    readonly string[];
+  readonly allowedHeaders?: readonly string[];
 
-  readonly exposedHeaders?:
-    readonly string[];
+  readonly exposedHeaders?: readonly string[];
 
   readonly credentials?: boolean;
 
@@ -488,9 +383,7 @@ export interface HTTPCORSOptions {
 export interface HTTPBodyParserOptions {
   readonly limit?: number;
   readonly strict?: boolean;
-  readonly type?:
-    | string
-    | readonly string[];
+  readonly type?: string | readonly string[];
 }
 
 export type HTTPBodyParser = (
@@ -502,33 +395,24 @@ export type HTTPBodyParser = (
 /* Application                                                                */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPApplicationOptions
-  extends HTTPServerOptions {
+export interface HTTPApplicationOptions extends HTTPServerOptions {
   readonly logger?: Logger;
   readonly trustProxy?: boolean;
-  readonly bodyParser?:
-    HTTPBodyParserOptions;
+  readonly bodyParser?: HTTPBodyParserOptions;
 }
 
 export interface HTTPApplication<
   State = Record<string, unknown>,
 > extends HTTPRouter<State> {
-  readonly server:
-    HTTPServer | undefined;
+  readonly server: HTTPServer | undefined;
 
   readonly logger: Logger;
 
-  listen(
-    port: number,
-    host?: string,
-  ): Promise<void>;
+  listen(port: number, host?: string): Promise<void>;
 
   close(): Promise<void>;
 
-  handle(
-    request: HTTPRequest,
-    response: HTTPResponse,
-  ): Promise<void>;
+  handle(request: HTTPRequest, response: HTTPResponse): Promise<void>;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -543,9 +427,7 @@ export interface HTTPClientRequestOptions {
   readonly timeout?: number;
 }
 
-export interface HTTPClientResponse<
-  T = unknown,
-> {
+export interface HTTPClientResponse<T = unknown> {
   readonly status: number;
   readonly statusText: string;
   readonly headers: HTTPHeaders;
@@ -570,45 +452,30 @@ export interface HTTPClient {
 
   get<T = unknown>(
     url: string,
-    options?: Omit<
-      HTTPClientRequestOptions,
-      "method" | "body"
-    >,
+    options?: Omit<HTTPClientRequestOptions, "method" | "body">,
   ): Promise<HTTPClientResponse<T>>;
 
   post<T = unknown>(
     url: string,
     body?: unknown,
-    options?: Omit<
-      HTTPClientRequestOptions,
-      "method" | "body"
-    >,
+    options?: Omit<HTTPClientRequestOptions, "method" | "body">,
   ): Promise<HTTPClientResponse<T>>;
 
   put<T = unknown>(
     url: string,
     body?: unknown,
-    options?: Omit<
-      HTTPClientRequestOptions,
-      "method" | "body"
-    >,
+    options?: Omit<HTTPClientRequestOptions, "method" | "body">,
   ): Promise<HTTPClientResponse<T>>;
 
   patch<T = unknown>(
     url: string,
     body?: unknown,
-    options?: Omit<
-      HTTPClientRequestOptions,
-      "method" | "body"
-    >,
+    options?: Omit<HTTPClientRequestOptions, "method" | "body">,
   ): Promise<HTTPClientResponse<T>>;
 
   delete<T = unknown>(
     url: string,
-    options?: Omit<
-      HTTPClientRequestOptions,
-      "method" | "body"
-    >,
+    options?: Omit<HTTPClientRequestOptions, "method" | "body">,
   ): Promise<HTTPClientResponse<T>>;
 }
 
@@ -616,17 +483,10 @@ export interface HTTPClient {
 /* Utilities                                                                  */
 /* -------------------------------------------------------------------------- */
 
-export type HTTPHandlerResult =
-  | void
-  | unknown
-  | Promise<unknown>;
+export type HTTPHandlerResult = void | unknown | Promise<unknown>;
 
-export type HTTPState =
-  Record<string, unknown>;
+export type HTTPState = Record<string, unknown>;
 
-export type HTTPMiddlewareFactory<
-  State = HTTPState,
-  Options = unknown,
-> = (
+export type HTTPMiddlewareFactory<State = HTTPState, Options = unknown> = (
   options?: Options,
 ) => HTTPMiddleware<State>;

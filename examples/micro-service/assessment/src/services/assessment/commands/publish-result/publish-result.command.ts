@@ -3,7 +3,9 @@ import type { PublishResultDto } from "../../../../dtos/index.js";
 
 export const PUBLISH_RESULT_COMMAND = "result.publish" as const;
 
-export class PublishResultCommand extends Command<typeof PUBLISH_RESULT_COMMAND> {
+export class PublishResultCommand extends Command<
+  typeof PUBLISH_RESULT_COMMAND
+> {
   public readonly submissionId: string;
   public readonly score: number;
 

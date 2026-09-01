@@ -21,7 +21,10 @@ export class UserController {
     return this.queryBus.execute(new GetUserQuery(userId));
   }
 
-  public async updateProfile(userId: UserId, body: { name?: string; bio?: string; avatar?: string }) {
+  public async updateProfile(
+    userId: UserId,
+    body: { name?: string; bio?: string; avatar?: string },
+  ) {
     await this.commandBus.execute(new UpdateProfileCommand(userId, body));
     return { success: true };
   }

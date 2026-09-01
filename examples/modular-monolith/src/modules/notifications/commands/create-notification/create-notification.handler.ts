@@ -3,11 +3,17 @@ import type { CreateNotificationCommand } from "./create-notification.command.js
 import type { NotificationRepository } from "../../../../repositories/notification.repository.js";
 import type { NotificationModel } from "../../../../models/notification.model.js";
 import type { NotificationId } from "../../../../types/index.js";
-import { NotificationStatus, NotificationType } from "../../../../enums/index.js";
+import {
+  NotificationStatus,
+  NotificationType,
+} from "../../../../enums/index.js";
 import { createNotificationId } from "../../../../types/index.js";
 import { randomUUID } from "node:crypto";
 
-export class CreateNotificationHandler extends CommandHandler<CreateNotificationCommand, NotificationModel> {
+export class CreateNotificationHandler extends CommandHandler<
+  CreateNotificationCommand,
+  NotificationModel
+> {
   public readonly commandType = "notifications.create" as const;
 
   private readonly notifications: NotificationRepository;
@@ -17,7 +23,9 @@ export class CreateNotificationHandler extends CommandHandler<CreateNotification
     this.notifications = notifications;
   }
 
-  public async execute(command: CreateNotificationCommand): Promise<NotificationModel> {
+  public async execute(
+    command: CreateNotificationCommand,
+  ): Promise<NotificationModel> {
     const now = new Date();
     const notification: NotificationModel = {
       id: createNotificationId(randomUUID()),

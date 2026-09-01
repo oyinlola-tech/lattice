@@ -9,28 +9,18 @@
 /**
  * A generic event payload.
  */
-export type EventPayload =
-  unknown;
+export type EventPayload = unknown;
 
 /**
  * A structured event payload.
  */
-export type ObjectEventPayload =
-  Readonly<
-    Record<string, unknown>
-  >;
+export type ObjectEventPayload = Readonly<Record<string, unknown>>;
 
 /**
  * Primitive values that can safely be used as payload data.
  */
 export type PrimitiveEventPayload =
-  | string
-  | number
-  | boolean
-  | bigint
-  | symbol
-  | null
-  | undefined;
+  string | number | boolean | bigint | symbol | null | undefined;
 
 /**
  * JSON-compatible event payload value.
@@ -42,20 +32,13 @@ export type JsonEventPayload =
   | null
   | JsonEventPayload[]
   | {
-      readonly [
-        key: string
-      ]:
-        JsonEventPayload;
+      readonly [key: string]: JsonEventPayload;
     };
 
 /**
  * Payload type map used by strongly typed event systems.
  */
-export type EventPayloadMap =
-  Record<
-    string,
-    unknown
-  >;
+export type EventPayloadMap = Record<string, unknown>;
 
 /**
  * Extracts the payload associated with an event type.
@@ -68,27 +51,16 @@ export type PayloadOf<
 /**
  * Creates a payload map from event definitions.
  */
-export type PayloadMap<
-  TTypes extends string,
-  TPayload,
-> = {
-  readonly [
-    TType in TTypes
-  ]:
-    TPayload;
+export type PayloadMap<TTypes extends string, TPayload> = {
+  readonly [TType in TTypes]: TPayload;
 };
 
 /**
  * Event payload factory.
  */
-export type EventPayloadFactory<
-  TPayload = EventPayload,
-  TInput = TPayload,
-> = (
-  input:
-    TInput,
-) =>
-  TPayload;
+export type EventPayloadFactory<TPayload = EventPayload, TInput = TPayload> = (
+  input: TInput,
+) => TPayload;
 
 /**
  * Options used when creating a payload.
@@ -99,8 +71,7 @@ export interface EventPayloadOptions {
    *
    * Defaults to false.
    */
-  readonly deepFreeze?:
-    boolean;
+  readonly deepFreeze?: boolean;
 
   /**
    * Whether undefined values should be removed from
@@ -108,27 +79,19 @@ export interface EventPayloadOptions {
    *
    * Defaults to false.
    */
-  readonly stripUndefined?:
-    boolean;
+  readonly stripUndefined?: boolean;
 }
 
 /**
  * Determines whether a value is a primitive payload.
  */
 export function isPrimitiveEventPayload(
-  value:
-    unknown,
-):
-  value is PrimitiveEventPayload {
+  value: unknown,
+): value is PrimitiveEventPayload {
   return (
     value === null ||
     value === undefined ||
-    (
-      typeof value !==
-        "object" &&
-      typeof value !==
-        "function"
-    )
+    (typeof value !== "object" && typeof value !== "function")
   );
 }
 
@@ -136,79 +99,35 @@ export function isPrimitiveEventPayload(
  * Determines whether a value is a structured object payload.
  */
 export function isObjectEventPayload(
-  value:
-    unknown,
-):
-  value is ObjectEventPayload {
-  return (
-    typeof value ===
-      "object" &&
-    value !== null &&
-    !Array.isArray(
-      value,
-    )
-  );
+  value: unknown,
+): value is ObjectEventPayload {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 /**
  * Determines whether a value can be represented as a JSON
  * event payload.
  */
-export function isJsonEventPayload(
-  value:
-    unknown,
-):
-  value is JsonEventPayload {
+export function isJsonEventPayload(value: unknown): value is JsonEventPayload {
   if (
     value === null ||
-    typeof value ===
-      "string" ||
-    typeof value ===
-      "boolean"
+    typeof value === "string" ||
+    typeof value === "boolean"
   ) {
     return true;
   }
 
-  if (
-    typeof value ===
-      "number"
-  ) {
-    return Number.isFinite(
-      value,
-    );
+  if (typeof value === "number") {
+    return Number.isFinite(value);
   }
 
-  if (
-    Array.isArray(
-      value,
-    )
-  ) {
-    return value.every(
-      (
-        item,
-      ) =>
-        isJsonEventPayload(
-          item,
-        ),
-    );
+  if (Array.isArray(value)) {
+    return value.every((item) => isJsonEventPayload(item));
   }
 
-  if (
-    typeof value ===
-      "object"
-  ) {
-    return Object.values(
-      value as Record<
-        string,
-        unknown
-      >,
-    ).every(
-      (
-        item,
-      ) =>
-        isJsonEventPayload(
-          item,
-        ),
+  if (typeof value === "object") {
+    return Object.values(value as Record<string, unknown>).every((item) =>
+      isJsonEventPayload(item),
     );
   }
 
@@ -218,37 +137,18 @@ export function isJsonEventPayload(
 /**
  * Creates a payload object from an input object.
  */
-export function createEventPayload<
-  TPayload extends EventPayload,
->(
-  payload:
-    TPayload,
-  options:
-    EventPayloadOptions = {},
-):
-  TPayload {
-  let result =
-    payload;
+export function createEventPayload<TPayload extends EventPayload>(
+  payload: TPayload,
+  options: EventPayloadOptions = {},
+): TPayload {
+  let result = payload;
 
-  if (
-    options.stripUndefined &&
-    isObjectEventPayload(
-      result,
-    )
-  ) {
-    result =
-      stripUndefinedValues(
-        result,
-      ) as TPayload;
+  if (options.stripUndefined && isObjectEventPayload(result)) {
+    result = stripUndefinedValues(result) as TPayload;
   }
 
-  if (
-    options.deepFreeze
-  ) {
-    result =
-      deepFreeze(
-        result,
-      );
+  if (options.deepFreeze) {
+    result = deepFreeze(result);
   }
 
   return result;
@@ -259,45 +159,24 @@ export function createEventPayload<
  */
 export function createObjectEventPayload<
   const TPayload extends ObjectEventPayload,
->(
-  payload:
-    TPayload,
-  options:
-    EventPayloadOptions = {},
-):
-  TPayload {
-  return createEventPayload(
-    payload,
-    options,
-  );
+>(payload: TPayload, options: EventPayloadOptions = {}): TPayload {
+  return createEventPayload(payload, options);
 }
 
 /**
  * Creates a JSON-compatible event payload.
  */
-export function createJsonEventPayload<
-  const TPayload extends JsonEventPayload,
->(
-  payload:
-    TPayload,
-  options:
-    EventPayloadOptions = {},
-):
-  TPayload {
-  if (
-    !isJsonEventPayload(
-      payload,
-    )
-  ) {
+export function createJsonEventPayload<const TPayload extends JsonEventPayload>(
+  payload: TPayload,
+  options: EventPayloadOptions = {},
+): TPayload {
+  if (!isJsonEventPayload(payload)) {
     throw new TypeError(
       "Event payload must contain only JSON-compatible values.",
     );
   }
 
-  return createEventPayload(
-    payload,
-    options,
-  );
+  return createEventPayload(payload, options);
 }
 
 /**
@@ -306,21 +185,12 @@ export function createJsonEventPayload<
  * Falls back to returning the original payload when cloning
  * is not possible.
  */
-export function cloneEventPayload<
-  TPayload extends EventPayload,
->(
-  payload:
-    TPayload,
-):
-  TPayload {
-  if (
-    typeof structuredClone ===
-      "function"
-  ) {
+export function cloneEventPayload<TPayload extends EventPayload>(
+  payload: TPayload,
+): TPayload {
+  if (typeof structuredClone === "function") {
     try {
-      return structuredClone(
-        payload,
-      );
+      return structuredClone(payload);
     } catch {
       // Fall through to the original payload.
     }
@@ -332,93 +202,43 @@ export function cloneEventPayload<
 /**
  * Deeply freezes an event payload.
  */
-export function deepFreeze<
-  T,
->(
-  value:
-    T,
-):
-  T {
-  if (
-    value === null ||
-    typeof value !==
-      "object"
-  ) {
+export function deepFreeze<T>(value: T): T {
+  if (value === null || typeof value !== "object") {
     return value;
   }
 
-  if (
-    Object.isFrozen(
-      value,
-    )
-  ) {
+  if (Object.isFrozen(value)) {
     return value;
   }
 
-  const object =
-    value as Record<
-      PropertyKey,
-      unknown
-    >;
+  const object = value as Record<PropertyKey, unknown>;
 
-  for (
-    const key of
-    Reflect.ownKeys(
-      object,
-    )
-  ) {
-    const child =
-      object[key];
+  for (const key of Reflect.ownKeys(object)) {
+    const child = object[key];
 
     if (
       child !== null &&
-      typeof child ===
-        "object" &&
-      !Object.isFrozen(
-        child,
-      )
+      typeof child === "object" &&
+      !Object.isFrozen(child)
     ) {
-      deepFreeze(
-        child,
-      );
+      deepFreeze(child);
     }
   }
 
-  return Object.freeze(
-    value,
-  );
+  return Object.freeze(value);
 }
 
 /**
  * Removes undefined properties from an object payload.
  */
-export function stripUndefinedValues<
-  T extends ObjectEventPayload,
->(
-  payload:
-    T,
-):
-  T {
-  const result:
-    Record<
-      string,
-      unknown
-    > = {};
+export function stripUndefinedValues<T extends ObjectEventPayload>(
+  payload: T,
+): T {
+  const result: Record<string, unknown> = {};
 
-  for (
-    const [
-      key,
-      value,
-    ] of Object.entries(
-      payload,
-    )
-  ) {
-    if (
-      value !==
-        undefined
-    ) {
-      result[key] =
-        value;
+  for (const [key, value] of Object.entries(payload)) {
+    if (value !== undefined) {
+      result[key] = value;
     }
   }
 
@@ -434,83 +254,41 @@ export function stripUndefinedValues<
 export function mergeEventPayloads<
   TFirst extends ObjectEventPayload,
   TSecond extends ObjectEventPayload,
->(
-  first:
-    TFirst,
-  second:
-    TSecond,
-):
-  TFirst &
-  TSecond {
+>(first: TFirst, second: TSecond): TFirst & TSecond {
   return {
     ...first,
     ...second,
-  } as TFirst &
-    TSecond;
+  } as TFirst & TSecond;
 }
 
 /**
  * Creates a payload factory that always returns the supplied
  * static payload.
  */
-export function staticPayload<
-  TPayload,
->(
-  payload:
-    TPayload,
-):
-  EventPayloadFactory<
-    TPayload,
-    void
-  > {
-  return () =>
-    payload;
+export function staticPayload<TPayload>(
+  payload: TPayload,
+): EventPayloadFactory<TPayload, void> {
+  return () => payload;
 }
 
 /**
  * Creates a payload factory from a transformation function.
  */
-export function definePayloadFactory<
-  TInput,
-  TPayload,
->(
-  factory:
-    EventPayloadFactory<
-      TPayload,
-      TInput
-    >,
-):
-  EventPayloadFactory<
-    TPayload,
-    TInput
-  > {
+export function definePayloadFactory<TInput, TPayload>(
+  factory: EventPayloadFactory<TPayload, TInput>,
+): EventPayloadFactory<TPayload, TInput> {
   return factory;
 }
 
 /**
  * Validates a payload using a custom predicate.
  */
-export function validateEventPayload<
-  TPayload,
->(
-  payload:
-    unknown,
-  validator:
-    (
-      payload:
-        unknown,
-    ) =>
-      payload is TPayload,
-):
-  TPayload {
-  if (
-    !validator(
-      payload,
-    )
-  ) {
-    throw new TypeError(
-      "Event payload validation failed.",
-    );
+export function validateEventPayload<TPayload>(
+  payload: unknown,
+  validator: (payload: unknown) => payload is TPayload,
+): TPayload {
+  if (!validator(payload)) {
+    throw new TypeError("Event payload validation failed.");
   }
 
   return payload;
@@ -519,22 +297,12 @@ export function validateEventPayload<
 /**
  * Returns a human-readable payload type.
  */
-export function describeEventPayload(
-  payload:
-    unknown,
-):
-  string {
-  if (
-    payload === null
-  ) {
+export function describeEventPayload(payload: unknown): string {
+  if (payload === null) {
     return "null";
   }
 
-  if (
-    Array.isArray(
-      payload,
-    )
-  ) {
+  if (Array.isArray(payload)) {
     return "array";
   }
 

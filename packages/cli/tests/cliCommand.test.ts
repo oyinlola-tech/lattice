@@ -9,9 +9,21 @@ import { describe, it, expect } from "vitest";
 
 import { CLICommandRegistry } from "../src/cliCommand/cliCommand.registry.js";
 import { CLICommandBuilder } from "../src/cliCommand/cliCommand.builder.js";
-import { createCommand, command, executeCommand } from "../src/cliCommand/cliCommand.factory.js";
-import { validateCommand, isCLICommand, sortCommands } from "../src/cliCommand/cliCommand.validator.js";
-import { CommandNotFoundError, DuplicateCommandError, InvalidCommandNameError } from "../src/cliError/index.js";
+import {
+  createCommand,
+  command,
+  executeCommand,
+} from "../src/cliCommand/cliCommand.factory.js";
+import {
+  validateCommand,
+  isCLICommand,
+  sortCommands,
+} from "../src/cliCommand/cliCommand.validator.js";
+import {
+  CommandNotFoundError,
+  DuplicateCommandError,
+  InvalidCommandNameError,
+} from "../src/cliError/index.js";
 import type { CLICommand, CLIContext } from "../src/cliType/cliType.type.js";
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
@@ -33,7 +45,17 @@ function createDummyContext(overrides?: Partial<CLIContext>): CLIContext {
     values: {},
     cwd: "/tmp",
     env: {},
-    logger: { debug: () => {}, info: () => {}, warn: () => {}, error: () => {}, trace: () => {}, fatal: () => {}, child: () => ({} as any), level: 3, flush: () => {} } as any,
+    logger: {
+      debug: () => {},
+      info: () => {},
+      warn: () => {},
+      error: () => {},
+      trace: () => {},
+      fatal: () => {},
+      child: () => ({}) as any,
+      level: 3,
+      flush: () => {},
+    } as any,
     ...overrides,
   };
 }
@@ -80,14 +102,18 @@ describe("CLICommandRegistry", () => {
   it("throws DuplicateCommandError for duplicate name", () => {
     const registry = new CLICommandRegistry();
     registry.register(createTestCommand("start"));
-    expect(() => registry.register(createTestCommand("start"))).toThrow(DuplicateCommandError);
+    expect(() => registry.register(createTestCommand("start"))).toThrow(
+      DuplicateCommandError,
+    );
   });
 
   it("throws DuplicateCommandError for alias collision with name", () => {
     const registry = new CLICommandRegistry();
     registry.register(createTestCommand("start"));
     registry.register(createTestCommand("stop", { aliases: ["go"] }));
-    expect(() => registry.register(createTestCommand("go"))).toThrow(DuplicateCommandError);
+    expect(() => registry.register(createTestCommand("go"))).toThrow(
+      DuplicateCommandError,
+    );
   });
 
   it("unregisters a command", () => {
@@ -167,7 +193,12 @@ describe("CLICommandBuilder", () => {
     const cmd = new CLICommandBuilder()
       .name("build")
       .options([
-        { name: "outDir", short: "o", type: "string", description: "Output directory" },
+        {
+          name: "outDir",
+          short: "o",
+          type: "string",
+          description: "Output directory",
+        },
       ])
       .execute(() => {})
       .build();
@@ -190,10 +221,7 @@ describe("CLICommandBuilder", () => {
   it("builds a command with sub-commands", () => {
     const cmd = new CLICommandBuilder()
       .name("db")
-      .commands([
-        createTestCommand("migrate"),
-        createTestCommand("seed"),
-      ])
+      .commands([createTestCommand("migrate"), createTestCommand("seed")])
       .execute(() => {})
       .build();
 
@@ -211,7 +239,9 @@ describe("CLICommandBuilder", () => {
   });
 
   it("throws TypeError if execute is missing", () => {
-    expect(() => new CLICommandBuilder().name("test").build()).toThrow(TypeError);
+    expect(() => new CLICommandBuilder().name("test").build()).toThrow(
+      TypeError,
+    );
   });
 });
 
@@ -242,16 +272,24 @@ describe("createCommand", () => {
   });
 
   it("throws InvalidCommandNameError for empty name", () => {
-    expect(() => createCommand({ name: "", execute: () => {} })).toThrow(InvalidCommandNameError);
+    expect(() => createCommand({ name: "", execute: () => {} })).toThrow(
+      InvalidCommandNameError,
+    );
   });
 
   it("throws InvalidCommandNameError for invalid name pattern", () => {
-    expect(() => createCommand({ name: "bad name!", execute: () => {} })).toThrow(InvalidCommandNameError);
+    expect(() =>
+      createCommand({ name: "bad name!", execute: () => {} }),
+    ).toThrow(InvalidCommandNameError);
   });
 
   it("allows colon and hyphen in names", () => {
-    expect(() => createCommand({ name: "db:migrate", execute: () => {} })).not.toThrow();
-    expect(() => createCommand({ name: "db-migrate", execute: () => {} })).not.toThrow();
+    expect(() =>
+      createCommand({ name: "db:migrate", execute: () => {} }),
+    ).not.toThrow();
+    expect(() =>
+      createCommand({ name: "db-migrate", execute: () => {} }),
+    ).not.toThrow();
   });
 });
 
@@ -267,7 +305,9 @@ describe("executeCommand", () => {
   it("calls the command's execute method", async () => {
     let called = false;
     const cmd = createTestCommand("test", {
-      execute: () => { called = true; },
+      execute: () => {
+        called = true;
+      },
     });
     await executeCommand(cmd, createDummyContext());
     expect(called).toBe(true);
@@ -276,7 +316,9 @@ describe("executeCommand", () => {
   it("passes context to execute", async () => {
     let receivedCtx: CLIContext | undefined;
     const cmd = createTestCommand("test", {
-      execute: (ctx: CLIContext) => { receivedCtx = ctx; },
+      execute: (ctx: CLIContext) => {
+        receivedCtx = ctx;
+      },
     });
     const ctx = createDummyContext({ args: ["hello"] });
     await executeCommand(cmd, ctx);
@@ -285,9 +327,13 @@ describe("executeCommand", () => {
 
   it("propagates errors from execute", async () => {
     const cmd = createTestCommand("test", {
-      execute: () => { throw new Error("boom"); },
+      execute: () => {
+        throw new Error("boom");
+      },
     });
-    await expect(executeCommand(cmd, createDummyContext())).rejects.toThrow("boom");
+    await expect(executeCommand(cmd, createDummyContext())).rejects.toThrow(
+      "boom",
+    );
   });
 
   it("handles async execute", async () => {
@@ -317,11 +363,15 @@ describe("validateCommand", () => {
   });
 
   it("rejects empty name", () => {
-    expect(() => validateCommand({ name: "", execute: () => {} } as any)).toThrow(InvalidCommandNameError);
+    expect(() =>
+      validateCommand({ name: "", execute: () => {} } as any),
+    ).toThrow(InvalidCommandNameError);
   });
 
   it("rejects name with spaces", () => {
-    expect(() => validateCommand({ name: "my command", execute: () => {} } as any)).toThrow(InvalidCommandNameError);
+    expect(() =>
+      validateCommand({ name: "my command", execute: () => {} } as any),
+    ).toThrow(InvalidCommandNameError);
   });
 
   it("rejects duplicate alias matching name", () => {
@@ -387,10 +437,7 @@ describe("sortCommands", () => {
   });
 
   it("does not mutate original array", () => {
-    const commands = [
-      createTestCommand("b"),
-      createTestCommand("a"),
-    ];
+    const commands = [createTestCommand("b"), createTestCommand("a")];
     sortCommands(commands);
     expect(commands[0].name).toBe("b");
   });

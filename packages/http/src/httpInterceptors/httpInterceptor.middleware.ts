@@ -4,9 +4,7 @@
  * @module httpInterceptors/middleware
  */
 
-import type {
-  HttpInterceptorOptions,
-} from "./httpInterceptor.type.js";
+import type { HttpInterceptorOptions } from "./httpInterceptor.type.js";
 
 export interface HttpInterceptorMiddlewareContext {
   readonly request: unknown;
@@ -77,7 +75,9 @@ export function middlewareToErrorInterceptor<T>(
       const context: HttpInterceptorMiddlewareContext = {
         request: null,
         error,
-        next: async () => { throw error; },
+        next: async () => {
+          throw error;
+        },
       };
       return middleware(context);
     },

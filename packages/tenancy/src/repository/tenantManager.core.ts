@@ -6,10 +6,19 @@
 
 import type { TenantId } from "../tenancyTypes/tenantIdentity.js";
 import type { Tenant } from "../tenancyTypes/tenantInterface.js";
-import type { TenantResolver, TenantResolution } from "../tenancyTypes/resolverTypes.js";
-import type { TenantRepository, TenantCache } from "../tenancyTypes/repositoryTypes.js";
+import type {
+  TenantResolver,
+  TenantResolution,
+} from "../tenancyTypes/resolverTypes.js";
+import type {
+  TenantRepository,
+  TenantCache,
+} from "../tenancyTypes/repositoryTypes.js";
 import type { TenantContextStorage } from "../context/contextStorage.core.js";
-import { TenantNotFoundError, TenantUnavailableError } from "../tenancyErrors/tenancyError.types.js";
+import {
+  TenantNotFoundError,
+  TenantUnavailableError,
+} from "../tenancyErrors/tenancyError.types.js";
 
 /** Options for the tenant manager. */
 export interface TenantManagerOptions {

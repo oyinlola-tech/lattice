@@ -3,10 +3,7 @@
  *
  * Lattice supports classes, strings, and symbols as dependency tokens.
  */
-export type Token<T = unknown> =
-  | ConstructorToken<T>
-  | string
-  | symbol;
+export type Token<T = unknown> = ConstructorToken<T> | string | symbol;
 
 /**
  * A class that can be used as a dependency token.

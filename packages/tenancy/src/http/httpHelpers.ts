@@ -10,7 +10,11 @@
 export function createJsonErrorResponse(
   status: number,
   message: string,
-): { readonly status: number; readonly body: unknown; readonly headers: Record<string, string> } {
+): {
+  readonly status: number;
+  readonly body: unknown;
+  readonly headers: Record<string, string>;
+} {
   return Object.freeze({
     status,
     body: { error: message },

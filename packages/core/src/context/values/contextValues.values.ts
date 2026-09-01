@@ -1,7 +1,4 @@
-import type {
-  ContextKey,
-  ContextValueStore,
-} from "../core/contextKey.key.js";
+import type { ContextKey, ContextValueStore } from "../core/contextKey.key.js";
 import {
   getContextValue,
   hasContextValue,
@@ -24,12 +21,8 @@ export class ContextValues {
    * An optional initial store can be supplied when deriving
    * a new context value collection.
    */
-  public constructor(
-    values?: ContextValueStore,
-  ) {
-    this.values = new Map(
-      values ?? [],
-    );
+  public constructor(values?: ContextValueStore) {
+    this.values = new Map(values ?? []);
   }
 
   /**
@@ -37,13 +30,8 @@ export class ContextValues {
    *
    * Returns undefined when the value does not exist.
    */
-  public get<T>(
-    key: ContextKey<T>,
-  ): T | undefined {
-    return getContextValue(
-      this.values,
-      key,
-    );
+  public get<T>(key: ContextKey<T>): T | undefined {
+    return getContextValue(this.values, key);
   }
 
   /**
@@ -51,67 +39,39 @@ export class ContextValues {
    *
    * Throws when the value does not exist.
    */
-  public require<T>(
-    key: ContextKey<T>,
-  ): T {
-    return requireContextValue(
-      this.values,
-      key,
-    );
+  public require<T>(key: ContextKey<T>): T {
+    return requireContextValue(this.values, key);
   }
 
   /**
    * Checks whether a value exists for the supplied key.
    */
-  public has<T>(
-    key: ContextKey<T>,
-  ): boolean {
-    return hasContextValue(
-      this.values,
-      key,
-    );
+  public has<T>(key: ContextKey<T>): boolean {
+    return hasContextValue(this.values, key);
   }
 
   /**
    * Returns a new ContextValues instance with
    * the supplied value added or replaced.
    */
-  public set<T>(
-    key: ContextKey<T>,
-    value: T,
-  ): ContextValues {
-    const values = new Map(
-      this.values,
-    );
+  public set<T>(key: ContextKey<T>, value: T): ContextValues {
+    const values = new Map(this.values);
 
-    values.set(
-      key.id,
-      value,
-    );
+    values.set(key.id, value);
 
-    return new ContextValues(
-      values,
-    );
+    return new ContextValues(values);
   }
 
   /**
    * Returns a new ContextValues instance with
    * the supplied key removed.
    */
-  public delete<T>(
-    key: ContextKey<T>,
-  ): ContextValues {
-    const values = new Map(
-      this.values,
-    );
+  public delete<T>(key: ContextKey<T>): ContextValues {
+    const values = new Map(this.values);
 
-    values.delete(
-      key.id,
-    );
+    values.delete(key.id);
 
-    return new ContextValues(
-      values,
-    );
+    return new ContextValues(values);
   }
 
   /**
@@ -140,25 +100,14 @@ export class ContextValues {
    * Creates a new ContextValues instance containing
    * all existing values plus the supplied values.
    */
-  public merge(
-    other: ContextValues,
-  ): ContextValues {
-    const values = new Map(
-      this.values,
-    );
+  public merge(other: ContextValues): ContextValues {
+    const values = new Map(this.values);
 
-    for (
-      const [key, value] of other.values
-    ) {
-      values.set(
-        key,
-        value,
-      );
+    for (const [key, value] of other.values) {
+      values.set(key, value);
     }
 
-    return new ContextValues(
-      values,
-    );
+    return new ContextValues(values);
   }
 
   /**
@@ -170,9 +119,7 @@ export class ContextValues {
    * derive another ContextValues instance.
    */
   public toStore(): ContextValueStore {
-    return new Map(
-      this.values,
-    );
+    return new Map(this.values);
   }
 
   /**
@@ -182,12 +129,8 @@ export class ContextValues {
    * objects themselves are intentionally not recoverable
    * from the internal store.
    */
-  public *entries(): IterableIterator<
-    readonly [symbol, unknown]
-  > {
-    for (
-      const entry of this.values.entries()
-    ) {
+  public *entries(): IterableIterator<readonly [symbol, unknown]> {
+    for (const entry of this.values.entries()) {
       yield entry;
     }
   }

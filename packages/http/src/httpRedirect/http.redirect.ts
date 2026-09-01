@@ -37,93 +37,46 @@ export const DEFAULT_REDIRECT_STATUS = 302;
 
 export const DEFAULT_MAX_REDIRECTS = 20;
 
-export const REDIRECT_STATUS_CODES = [
-  301,
-  302,
-  303,
-  307,
-  308,
-] as const;
+export const REDIRECT_STATUS_CODES = [301, 302, 303, 307, 308] as const;
 
 /* -------------------------------------------------------------------------- */
 /* Redirect Classification                                                    */
 /* -------------------------------------------------------------------------- */
 
-export function isRedirectStatus(
-  statusCode: number,
-): boolean {
+export function isRedirectStatus(statusCode: number): boolean {
   return (
     REDIRECT_STATUS_CODES.includes(
-      statusCode as
-        (typeof REDIRECT_STATUS_CODES)[number],
+      statusCode as (typeof REDIRECT_STATUS_CODES)[number],
     ) ||
-    (
-      statusCode >= 300 &&
-      statusCode < 400 &&
-      statusCode !== 304
-    )
+    (statusCode >= 300 && statusCode < 400 && statusCode !== 304)
   );
 }
 
-export function isPermanentRedirect(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode === 301 ||
-    statusCode === 308
-  );
+export function isPermanentRedirect(statusCode: number): boolean {
+  return statusCode === 301 || statusCode === 308;
 }
 
-export function isTemporaryRedirect(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode === 302 ||
-    statusCode === 303 ||
-    statusCode === 307
-  );
+export function isTemporaryRedirect(statusCode: number): boolean {
+  return statusCode === 302 || statusCode === 303 || statusCode === 307;
 }
 
-export function isMethodPreservingRedirect(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode === 307 ||
-    statusCode === 308
-  );
+export function isMethodPreservingRedirect(statusCode: number): boolean {
+  return statusCode === 307 || statusCode === 308;
 }
 
-export function isMethodChangingRedirect(
-  statusCode: number,
-): boolean {
-  return (
-    statusCode === 301 ||
-    statusCode === 302 ||
-    statusCode === 303
-  );
+export function isMethodChangingRedirect(statusCode: number): boolean {
+  return statusCode === 301 || statusCode === 302 || statusCode === 303;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Redirect Status                                                            */
 /* -------------------------------------------------------------------------- */
 
-export function getRedirectStatus(
-  statusCode:
-    | number
-    | undefined,
-): number {
-  const status =
-    statusCode ??
-    DEFAULT_REDIRECT_STATUS;
+export function getRedirectStatus(statusCode: number | undefined): number {
+  const status = statusCode ?? DEFAULT_REDIRECT_STATUS;
 
-  if (
-    !isRedirectStatus(
-      status,
-    )
-  ) {
-    throw new RangeError(
-      `Invalid redirect status code: ${status}`,
-    );
+  if (!isRedirectStatus(status)) {
+    throw new RangeError(`Invalid redirect status code: ${status}`);
   }
 
   return status;
@@ -134,55 +87,27 @@ export function getRedirectStatus(
 /* -------------------------------------------------------------------------- */
 
 export function isValidLocation(
-  location:
-    | string
-    | URL
-    | undefined
-    | null,
+  location: string | URL | undefined | null,
 ): boolean {
-  if (
-    location ===
-      undefined ||
-    location ===
-      null
-  ) {
+  if (location === undefined || location === null) {
     return false;
   }
 
-  const value =
-    location instanceof URL
-      ? location.href
-      : location;
+  const value = location instanceof URL ? location.href : location;
 
-  if (
-    value.length ===
-      0 ||
-    /[\r\n]/.test(
-      value,
-    )
-  ) {
+  if (value.length === 0 || /[\r\n]/.test(value)) {
     return false;
   }
 
   return true;
 }
 
-export function validateLocation(
-  location: string | URL,
-): string {
-  if (
-    !isValidLocation(
-      location,
-    )
-  ) {
-    throw new TypeError(
-      "Invalid redirect Location.",
-    );
+export function validateLocation(location: string | URL): string {
+  if (!isValidLocation(location)) {
+    throw new TypeError("Invalid redirect Location.");
   }
 
-  return location instanceof URL
-    ? location.href
-    : location;
+  return location instanceof URL ? location.href : location;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -191,36 +116,20 @@ export function validateLocation(
 
 export function resolveRedirectURL(
   location: string | URL,
-  currentURL:
-    | string
-    | URL,
+  currentURL: string | URL,
 ): URL {
-  const locationValue =
-    validateLocation(
-      location,
-    );
+  const locationValue = validateLocation(location);
 
-  const base =
-    currentURL instanceof URL
-      ? currentURL
-      : new URL(currentURL);
+  const base = currentURL instanceof URL ? currentURL : new URL(currentURL);
 
-  return new URL(
-    locationValue,
-    base,
-  );
+  return new URL(locationValue, base);
 }
 
 export function resolveRedirectLocation(
   location: string | URL,
-  currentURL:
-    | string
-    | URL,
+  currentURL: string | URL,
 ): string {
-  return resolveRedirectURL(
-    location,
-    currentURL,
-  ).href;
+  return resolveRedirectURL(location, currentURL).href;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -234,35 +143,23 @@ export function formatLocation(
     readonly baseURL?: string | URL;
   } = {},
 ): string {
-  const value =
-    validateLocation(
-      location,
-    );
+  const value = validateLocation(location);
 
-  if (
-    !options.absolute
-  ) {
+  if (!options.absolute) {
     return value;
   }
 
-  if (
-    isAbsoluteURL(value)
-  ) {
+  if (isAbsoluteURL(value)) {
     return value;
   }
 
-  if (
-    !options.baseURL
-  ) {
+  if (!options.baseURL) {
     throw new TypeError(
       "A baseURL is required to create an absolute redirect Location.",
     );
   }
 
-  return resolveRedirectLocation(
-    value,
-    options.baseURL,
-  );
+  return resolveRedirectLocation(value, options.baseURL);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -273,33 +170,18 @@ export function createRedirect(
   location: string | URL,
   options: RedirectOptions = {},
 ): RedirectResult {
-  const statusCode =
-    getRedirectStatus(
-      options.statusCode,
-    );
+  const statusCode = getRedirectStatus(options.statusCode);
 
-  const formattedLocation =
-    formatLocation(
-      location,
-      {
-        absolute:
-          options.absolute ??
-          false,
-        baseURL:
-          options.baseURL,
-      },
-    );
+  const formattedLocation = formatLocation(location, {
+    absolute: options.absolute ?? false,
+    baseURL: options.baseURL,
+  });
 
   return {
     statusCode,
-    location:
-      formattedLocation,
+    location: formattedLocation,
     preserveMethod:
-      isMethodPreservingRedirect(
-        statusCode,
-      ) ||
-      options.preserveMethod ===
-        true,
+      isMethodPreservingRedirect(statusCode) || options.preserveMethod === true,
   };
 }
 
@@ -311,16 +193,9 @@ export function shouldPreserveRedirectMethod(
   statusCode: number,
   method: string,
 ): boolean {
-  const normalized =
-    method
-      .trim()
-      .toUpperCase();
+  const normalized = method.trim().toUpperCase();
 
-  if (
-    isMethodPreservingRedirect(
-      statusCode,
-    )
-  ) {
+  if (isMethodPreservingRedirect(statusCode)) {
     return true;
   }
 
@@ -328,47 +203,25 @@ export function shouldPreserveRedirectMethod(
    * Historically, 301/302 may rewrite POST to GET.
    * For methods other than POST, the original method is normally retained.
    */
-  if (
-    (
-      statusCode === 301 ||
-      statusCode === 302
-    ) &&
-    normalized === "POST"
-  ) {
+  if ((statusCode === 301 || statusCode === 302) && normalized === "POST") {
     return false;
   }
 
-  if (
-    statusCode === 303
-  ) {
+  if (statusCode === 303) {
     return false;
   }
 
   return true;
 }
 
-export function getRedirectMethod(
-  statusCode: number,
-  method: string,
-): string {
-  const normalized =
-    method
-      .trim()
-      .toUpperCase();
+export function getRedirectMethod(statusCode: number, method: string): string {
+  const normalized = method.trim().toUpperCase();
 
-  if (
-    statusCode === 303
-  ) {
+  if (statusCode === 303) {
     return "GET";
   }
 
-  if (
-    (
-      statusCode === 301 ||
-      statusCode === 302
-    ) &&
-    normalized === "POST"
-  ) {
+  if ((statusCode === 301 || statusCode === 302) && normalized === "POST") {
     return "GET";
   }
 
@@ -380,36 +233,19 @@ export function getRedirectMethod(
 /* -------------------------------------------------------------------------- */
 
 export function createRedirectPolicy(
-  options:
-    | Partial<RedirectPolicy>
-    | undefined = {},
+  options: Partial<RedirectPolicy> | undefined = {},
 ): RedirectPolicy {
-  const maxRedirects =
-    options.maxRedirects ??
-    DEFAULT_MAX_REDIRECTS;
+  const maxRedirects = options.maxRedirects ?? DEFAULT_MAX_REDIRECTS;
 
-  if (
-    !Number.isInteger(
-      maxRedirects,
-    ) ||
-    maxRedirects < 0
-  ) {
-    throw new RangeError(
-      "maxRedirects must be a non-negative integer.",
-    );
+  if (!Number.isInteger(maxRedirects) || maxRedirects < 0) {
+    throw new RangeError("maxRedirects must be a non-negative integer.");
   }
 
   return {
     maxRedirects,
-    preserveMethod:
-      options.preserveMethod ??
-      false,
-    allowCrossOrigin:
-      options.allowCrossOrigin ??
-      true,
-    allowDowngrade:
-      options.allowDowngrade ??
-      false,
+    preserveMethod: options.preserveMethod ?? false,
+    allowCrossOrigin: options.allowCrossOrigin ?? true,
+    allowDowngrade: options.allowDowngrade ?? false,
   };
 }
 
@@ -418,43 +254,19 @@ export function createRedirectPolicy(
 /* -------------------------------------------------------------------------- */
 
 export function canFollowRedirect(
-  fromURL:
-    | string
-    | URL,
-  toURL:
-    | string
-    | URL,
+  fromURL: string | URL,
+  toURL: string | URL,
   policy: RedirectPolicy,
 ): boolean {
-  const from =
-    normalizeURL(
-      fromURL,
-    );
+  const from = normalizeURL(fromURL);
 
-  const to =
-    normalizeURL(
-      toURL,
-    );
+  const to = normalizeURL(toURL);
 
-  if (
-    !policy.allowCrossOrigin &&
-    !isSameOrigin(
-      from,
-      to,
-    )
-  ) {
+  if (!policy.allowCrossOrigin && !isSameOrigin(from, to)) {
     return false;
   }
 
-  if (
-    !policy.allowDowngrade &&
-    isHTTPS(
-      from,
-    ) &&
-    !isHTTPS(
-      to,
-    )
-  ) {
+  if (!policy.allowDowngrade && isHTTPS(from) && !isHTTPS(to)) {
     return false;
   }
 
@@ -466,25 +278,13 @@ export function canFollowRedirect(
 /* -------------------------------------------------------------------------- */
 
 export function resolveRedirectChain(
-  initialURL:
-    | string
-    | URL,
-  locations: readonly (
-    string | URL
-  )[],
-  policy:
-    | Partial<RedirectPolicy>
-    | undefined = {},
+  initialURL: string | URL,
+  locations: readonly (string | URL)[],
+  policy: Partial<RedirectPolicy> | undefined = {},
 ): URL[] {
-  const redirectPolicy =
-    createRedirectPolicy(
-      policy,
-    );
+  const redirectPolicy = createRedirectPolicy(policy);
 
-  if (
-    locations.length >
-    redirectPolicy.maxRedirects
-  ) {
+  if (locations.length > redirectPolicy.maxRedirects) {
     throw new RangeError(
       `Redirect chain exceeds the maximum of ${redirectPolicy.maxRedirects} redirects.`,
     );
@@ -492,30 +292,13 @@ export function resolveRedirectChain(
 
   const chain: URL[] = [];
 
-  let current =
-    normalizeURL(
-      initialURL,
-    );
+  let current = normalizeURL(initialURL);
 
-  for (
-    const location of locations
-  ) {
-    const next =
-      resolveRedirectURL(
-        location,
-        current,
-      );
+  for (const location of locations) {
+    const next = resolveRedirectURL(location, current);
 
-    if (
-      !canFollowRedirect(
-        current,
-        next,
-        redirectPolicy,
-      )
-    ) {
-      throw new Error(
-        "Redirect is blocked by the configured redirect policy.",
-      );
+    if (!canFollowRedirect(current, next, redirectPolicy)) {
+      throw new Error("Redirect is blocked by the configured redirect policy.");
     }
 
     chain.push(next);
@@ -529,51 +312,27 @@ export function resolveRedirectChain(
 /* Redirect Loop Detection                                                    */
 /* -------------------------------------------------------------------------- */
 
-export function hasRedirectLoop(
-  locations: readonly (
-    string | URL
-  )[],
-): boolean {
-  const seen =
-    new Set<string>();
+export function hasRedirectLoop(locations: readonly (string | URL)[]): boolean {
+  const seen = new Set<string>();
 
-  for (
-    const location of locations
-  ) {
-    const normalized =
-      normalizeURL(
-        location,
-      ).href;
+  for (const location of locations) {
+    const normalized = normalizeURL(location).href;
 
-    if (
-      seen.has(
-        normalized,
-      )
-    ) {
+    if (seen.has(normalized)) {
       return true;
     }
 
-    seen.add(
-      normalized,
-    );
+    seen.add(normalized);
   }
 
   return false;
 }
 
 export function assertNoRedirectLoop(
-  locations: readonly (
-    string | URL
-  )[],
+  locations: readonly (string | URL)[],
 ): void {
-  if (
-    hasRedirectLoop(
-      locations,
-    )
-  ) {
-    throw new Error(
-      "Redirect loop detected.",
-    );
+  if (hasRedirectLoop(locations)) {
+    throw new Error("Redirect loop detected.");
   }
 }
 
@@ -581,132 +340,64 @@ export function assertNoRedirectLoop(
 /* Origin Helpers                                                             */
 /* -------------------------------------------------------------------------- */
 
-export function isSameOrigin(
-  left:
-    | string
-    | URL,
-  right:
-    | string
-    | URL,
-): boolean {
-  const leftURL =
-    normalizeURL(
-      left,
-    );
+export function isSameOrigin(left: string | URL, right: string | URL): boolean {
+  const leftURL = normalizeURL(left);
 
-  const rightURL =
-    normalizeURL(
-      right,
-    );
+  const rightURL = normalizeURL(right);
 
   return (
-    leftURL.protocol ===
-      rightURL.protocol &&
-    leftURL.hostname ===
-      rightURL.hostname &&
-    getEffectivePort(
-      leftURL,
-    ) ===
-      getEffectivePort(
-        rightURL,
-      )
+    leftURL.protocol === rightURL.protocol &&
+    leftURL.hostname === rightURL.hostname &&
+    getEffectivePort(leftURL) === getEffectivePort(rightURL)
   );
 }
 
 export function isCrossOrigin(
-  left:
-    | string
-    | URL,
-  right:
-    | string
-    | URL,
+  left: string | URL,
+  right: string | URL,
 ): boolean {
-  return !isSameOrigin(
-    left,
-    right,
-  );
+  return !isSameOrigin(left, right);
 }
 
-export function isHTTPS(
-  value:
-    | string
-    | URL,
-): boolean {
-  return (
-    normalizeURL(
-      value,
-    ).protocol ===
-    "https:"
-  );
+export function isHTTPS(value: string | URL): boolean {
+  return normalizeURL(value).protocol === "https:";
 }
 
 /* -------------------------------------------------------------------------- */
 /* Relative Redirects                                                         */
 /* -------------------------------------------------------------------------- */
 
-export function isAbsoluteURL(
-  value: string,
-): boolean {
+export function isAbsoluteURL(value: string): boolean {
   try {
-    const url =
-      new URL(value);
+    const url = new URL(value);
 
-    return (
-      url.protocol.length >
-        0 &&
-      url.hostname.length >
-        0
-    );
+    return url.protocol.length > 0 && url.hostname.length > 0;
   } catch {
     return false;
   }
 }
 
-export function isRelativeURL(
-  value: string,
-): boolean {
-  if (
-    /[\r\n]/.test(
-      value,
-    )
-  ) {
+export function isRelativeURL(value: string): boolean {
+  if (/[\r\n]/.test(value)) {
     return false;
   }
 
-  return !isAbsoluteURL(
-    value,
-  );
+  return !isAbsoluteURL(value);
 }
 
 export function toRelativeLocation(
-  target:
-    | string
-    | URL,
-  base:
-    | string
-    | URL,
+  target: string | URL,
+  base: string | URL,
 ): string {
-  const targetURL =
-    normalizeURL(
-      target,
-    );
+  const targetURL = normalizeURL(target);
 
-  const baseURL =
-    normalizeURL(
-      base,
-    );
+  const baseURL = normalizeURL(base);
 
-  if (
-    !isSameOrigin(
-      targetURL,
-      baseURL,
-    )
-  ) {
+  if (!isSameOrigin(targetURL, baseURL)) {
     return targetURL.href;
   }
 
-  const targetPath =
-    `${targetURL.pathname}${targetURL.search}${targetURL.hash}`;
+  const targetPath = `${targetURL.pathname}${targetURL.search}${targetURL.hash}`;
 
   return targetPath || "/";
 }
@@ -715,146 +406,82 @@ export function toRelativeLocation(
 /* Security Helpers                                                           */
 /* -------------------------------------------------------------------------- */
 
-export function isSafeRedirectProtocol(
-  location: string | URL,
-): boolean {
+export function isSafeRedirectProtocol(location: string | URL): boolean {
   try {
-    const value =
-      validateLocation(
-        location,
-      );
+    const value = validateLocation(location);
 
     /*
      * Relative references are safe from protocol changes because they are
      * resolved against the current request origin.
      */
-    if (
-      !isAbsoluteURL(
-        value,
-      )
-    ) {
+    if (!isAbsoluteURL(value)) {
       return true;
     }
 
-    const url =
-      new URL(value);
+    const url = new URL(value);
 
-    return (
-      url.protocol ===
-        "http:" ||
-      url.protocol ===
-        "https:"
-    );
+    return url.protocol === "http:" || url.protocol === "https:";
   } catch {
     return false;
   }
 }
 
-export function isPotentiallyUnsafeRedirect(
-  location: string | URL,
-): boolean {
-  return !isSafeRedirectProtocol(
-    location,
-  );
+export function isPotentiallyUnsafeRedirect(location: string | URL): boolean {
+  return !isSafeRedirectProtocol(location);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Redirect Header Helpers                                                    */
 /* -------------------------------------------------------------------------- */
 
-export function createLocationHeader(
-  location: string | URL,
-): {
+export function createLocationHeader(location: string | URL): {
   readonly name: "Location";
   readonly value: string;
 } {
   return {
     name: "Location",
-    value:
-      validateLocation(
-        location,
-      ),
+    value: validateLocation(location),
   };
 }
 
 export function getLocationHeader(
-  headers:
-    | Headers
-    | Readonly<
-        Record<string, string>
-      >,
+  headers: Headers | Readonly<Record<string, string>>,
 ): string | undefined {
-  if (
-    typeof Headers !==
-    "undefined" &&
-    headers instanceof Headers
-  ) {
-    return headers.get(
-      "location",
-    ) ?? undefined;
+  if (typeof Headers !== "undefined" && headers instanceof Headers) {
+    return headers.get("location") ?? undefined;
   }
 
-  const record =
-    headers as Readonly<
-      Record<string, string>
-    >;
+  const record = headers as Readonly<Record<string, string>>;
 
-  const key =
-    Object.keys(
-      record,
-    ).find(
-      (name) =>
-        name.toLowerCase() ===
-        "location",
-    );
+  const key = Object.keys(record).find(
+    (name) => name.toLowerCase() === "location",
+  );
 
-  return key
-    ? record[key]
-    : undefined;
+  return key ? record[key] : undefined;
 }
 
 /* -------------------------------------------------------------------------- */
 /* URL Normalization                                                          */
 /* -------------------------------------------------------------------------- */
 
-function normalizeURL(
-  value:
-    | string
-    | URL,
-): URL {
-  if (
-    value instanceof URL
-  ) {
-    return new URL(
-      value.href,
-    );
+function normalizeURL(value: string | URL): URL {
+  if (value instanceof URL) {
+    return new URL(value.href);
   }
 
-  return new URL(
-    value,
-  );
+  return new URL(value);
 }
 
-function getEffectivePort(
-  url: URL,
-): string {
-  if (
-    url.port
-  ) {
+function getEffectivePort(url: URL): string {
+  if (url.port) {
     return url.port;
   }
 
-  if (
-    url.protocol ===
-    "https:"
-  ) {
+  if (url.protocol === "https:") {
     return "443";
   }
 
-  if (
-    url.protocol ===
-    "http:"
-  ) {
+  if (url.protocol === "http:") {
     return "80";
   }
 

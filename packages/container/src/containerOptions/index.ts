@@ -4,4 +4,4 @@
  * Container configuration options and types.
  */
 
-export * from './containerOptions.type.js';
+export * from "./containerOptions.type.js";

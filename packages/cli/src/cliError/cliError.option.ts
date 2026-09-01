@@ -6,7 +6,10 @@
 
 import { ConflictError } from "@oyinlola141/lattice-errors";
 import { CLIError } from "./cliError.base.js";
-import { CLI_ERROR_CODES, CLI_EXIT_CODES } from "../cliConstant/cliConstant.value.js";
+import {
+  CLI_ERROR_CODES,
+  CLI_EXIT_CODES,
+} from "../cliConstant/cliConstant.value.js";
 
 /* -------------------------------------------------------------------------- */
 /* Invalid Option                                                             */

@@ -8,14 +8,20 @@ export interface MiddlewareContext {
 }
 
 export type NextFunction = () => Promise<void>;
-export type Middleware = (ctx: MiddlewareContext & { logger?: Logger }, next: NextFunction) => Promise<void>;
+export type Middleware = (
+  ctx: MiddlewareContext & { logger?: Logger },
+  next: NextFunction,
+) => Promise<void>;
 
 export function createLoggingMiddleware(logger: Logger): Middleware {
   return async (ctx, next) => {
     logger.info(`${ctx.method} ${ctx.path}`, { requestId: ctx.requestId });
     await next();
     const duration = Date.now() - ctx.startTime;
-    logger.info(`${ctx.method} ${ctx.path} completed`, { requestId: ctx.requestId, duration });
+    logger.info(`${ctx.method} ${ctx.path} completed`, {
+      requestId: ctx.requestId,
+      duration,
+    });
   };
 }
 
@@ -37,7 +43,8 @@ export function createErrorMiddleware(logger: Logger): Middleware {
 
 export function createRequestIdMiddleware(): Middleware {
   return async (ctx, next) => {
-    (ctx as any).requestId = `req:${Date.now()}:${Math.random().toString(36).slice(2, 8)}`;
+    (ctx as any).requestId =
+      `req:${Date.now()}:${Math.random().toString(36).slice(2, 8)}`;
     await next();
   };
 }

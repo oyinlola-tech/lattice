@@ -24,7 +24,10 @@ export interface RouteOpenAPIMetadata {
 
   readonly security?: readonly Record<string, readonly string[]>[];
 
-  readonly servers?: readonly { readonly url: string; readonly description?: string }[];
+  readonly servers?: readonly {
+    readonly url: string;
+    readonly description?: string;
+  }[];
 }
 
 /**
@@ -57,7 +60,8 @@ export interface RouteMetadata {
  * Route information for scanning.
  */
 export interface RouteInfo {
-  readonly method: "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
+  readonly method:
+    "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
 
   readonly path: string;
 
@@ -86,21 +90,48 @@ export class OpenAPIRouteScannerImpl {
         "200": {
           description: "OK",
           ...(route.metadata?.openapi?.responses?.["200"]
-            ? (route.metadata.openapi.responses["200"] as { description?: string })
+            ? (route.metadata.openapi.responses["200"] as {
+                description?: string;
+              })
             : {}),
         },
       };
 
       const operation: OpenAPIOperation = {
-        ...(route.metadata?.openapi?.operationId ? { operationId: route.metadata.openapi.operationId } : {}),
-        ...(route.metadata?.openapi?.summary ? { summary: route.metadata.openapi.summary } : {}),
-        ...(route.metadata?.openapi?.description ? { description: route.metadata.openapi.description } : {}),
-        ...(route.metadata?.openapi?.tags?.length ? { tags: [...route.metadata.openapi.tags] } : {}),
-        ...(route.metadata?.openapi?.deprecated !== undefined ? { deprecated: route.metadata.openapi.deprecated } : {}),
-        ...(route.metadata?.openapi?.parameters?.length ? { parameters: [...route.metadata.openapi.parameters] as OpenAPIOperation["parameters"] } : {}),
-        ...(route.metadata?.openapi?.requestBody ? { requestBody: route.metadata.openapi.requestBody as OpenAPIOperation["requestBody"] } : {}),
-        ...(route.metadata?.openapi?.security?.length ? { security: [...route.metadata.openapi.security] } : {}),
-        ...(route.metadata?.openapi?.servers?.length ? { servers: [...route.metadata.openapi.servers] } : {}),
+        ...(route.metadata?.openapi?.operationId
+          ? { operationId: route.metadata.openapi.operationId }
+          : {}),
+        ...(route.metadata?.openapi?.summary
+          ? { summary: route.metadata.openapi.summary }
+          : {}),
+        ...(route.metadata?.openapi?.description
+          ? { description: route.metadata.openapi.description }
+          : {}),
+        ...(route.metadata?.openapi?.tags?.length
+          ? { tags: [...route.metadata.openapi.tags] }
+          : {}),
+        ...(route.metadata?.openapi?.deprecated !== undefined
+          ? { deprecated: route.metadata.openapi.deprecated }
+          : {}),
+        ...(route.metadata?.openapi?.parameters?.length
+          ? {
+              parameters: [
+                ...route.metadata.openapi.parameters,
+              ] as OpenAPIOperation["parameters"],
+            }
+          : {}),
+        ...(route.metadata?.openapi?.requestBody
+          ? {
+              requestBody: route.metadata.openapi
+                .requestBody as OpenAPIOperation["requestBody"],
+            }
+          : {}),
+        ...(route.metadata?.openapi?.security?.length
+          ? { security: [...route.metadata.openapi.security] }
+          : {}),
+        ...(route.metadata?.openapi?.servers?.length
+          ? { servers: [...route.metadata.openapi.servers] }
+          : {}),
         responses: response200,
       };
 

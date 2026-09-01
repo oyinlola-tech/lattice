@@ -5,47 +5,33 @@
  */
 
 export const INFORMATIONAL_STATUS_TEXT = Object.freeze({
-  100:
-    "Continue",
+  100: "Continue",
 
-  101:
-    "Switching Protocols",
+  101: "Switching Protocols",
 
-  102:
-    "Processing",
+  102: "Processing",
 
-  103:
-    "Early Hints",
+  103: "Early Hints",
 } as const);
 
 export const SUCCESS_STATUS_TEXT = Object.freeze({
-  200:
-    "OK",
+  200: "OK",
 
-  201:
-    "Created",
+  201: "Created",
 
-  202:
-    "Accepted",
+  202: "Accepted",
 
-  203:
-    "Non-Authoritative Information",
+  203: "Non-Authoritative Information",
 
-  204:
-    "No Content",
+  204: "No Content",
 
-  205:
-    "Reset Content",
+  205: "Reset Content",
 
-  206:
-    "Partial Content",
+  206: "Partial Content",
 
-  207:
-    "Multi-Status",
+  207: "Multi-Status",
 
-  208:
-    "Already Reported",
+  208: "Already Reported",
 
-  226:
-    "IM Used",
+  226: "IM Used",
 } as const);

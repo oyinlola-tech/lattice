@@ -6,7 +6,13 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { ApplicationError, NotFoundError, ConflictError, AuthorizationError, ConfigurationError } from "@oyinlola141/lattice-errors";
+import {
+  ApplicationError,
+  NotFoundError,
+  ConflictError,
+  AuthorizationError,
+  ConfigurationError,
+} from "@oyinlola141/lattice-errors";
 
 import {
   CLIError,
@@ -41,7 +47,10 @@ import {
   CLIConfigurationError,
 } from "../src/cliError/cliError.execution.js";
 
-import { CLI_ERROR_CODES, CLI_EXIT_CODES } from "../src/cliConstant/cliConstant.value.js";
+import {
+  CLI_ERROR_CODES,
+  CLI_EXIT_CODES,
+} from "../src/cliConstant/cliConstant.value.js";
 
 // ─── CLIError Base ─────────────────────────────────────────────────────────
 
@@ -164,19 +173,25 @@ describe("getCLIExitCode", () => {
   });
 
   it("returns GENERAL_ERROR for non-CLIError", () => {
-    expect(getCLIExitCode(new Error("test"))).toBe(CLI_EXIT_CODES.GENERAL_ERROR);
+    expect(getCLIExitCode(new Error("test"))).toBe(
+      CLI_EXIT_CODES.GENERAL_ERROR,
+    );
     expect(getCLIExitCode("string")).toBe(CLI_EXIT_CODES.GENERAL_ERROR);
   });
 });
 
 describe("getCLIErrorCode", () => {
   it("extracts error code from CLIError", () => {
-    const error = new CLIError("test", { code: CLI_ERROR_CODES.COMMAND_NOT_FOUND });
+    const error = new CLIError("test", {
+      code: CLI_ERROR_CODES.COMMAND_NOT_FOUND,
+    });
     expect(getCLIErrorCode(error)).toBe(CLI_ERROR_CODES.COMMAND_NOT_FOUND);
   });
 
   it("returns UNKNOWN_ERROR for non-CLIError", () => {
-    expect(getCLIErrorCode(new Error("test"))).toBe(CLI_ERROR_CODES.UNKNOWN_ERROR);
+    expect(getCLIErrorCode(new Error("test"))).toBe(
+      CLI_ERROR_CODES.UNKNOWN_ERROR,
+    );
   });
 });
 

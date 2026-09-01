@@ -45,9 +45,10 @@ export function createMockAdapter(
 /**
  * Creates a mock adapter registry pre-populated with adapters.
  */
-export function createMockAdapterRegistry(
-  adapters: Adapter[] = [],
-): { registry: AdapterRegistry; adapters: Adapter[] } {
+export function createMockAdapterRegistry(adapters: Adapter[] = []): {
+  registry: AdapterRegistry;
+  adapters: Adapter[];
+} {
   const registry = new AdapterRegistry();
   for (const adapter of adapters) {
     registry.register(adapter);

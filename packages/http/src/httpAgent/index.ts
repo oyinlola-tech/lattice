@@ -4,4 +4,4 @@
  * HTTP httpAgent module.
  */
 
-export * from './http.agent.js';
+export * from "./http.agent.js";

@@ -16,9 +16,7 @@ export const PASSWORD_FORMAT_VERSION = "v1";
 /**
  * Decodes an encoded password hash into its parameters.
  */
-export function decodePasswordHash(
-  encoded: string,
-): PasswordHashParameters {
+export function decodePasswordHash(encoded: string): PasswordHashParameters {
   if (typeof encoded !== "string" || encoded.length === 0) {
     throw new TypeError("Password hash must be a non-empty string.");
   }
@@ -39,15 +37,11 @@ export function decodePasswordHash(
   ] = parts as [string, string, string, string, string, string];
 
   if (version !== PASSWORD_FORMAT_VERSION) {
-    throw new TypeError(
-      `Unsupported password hash version: ${version}.`,
-    );
+    throw new TypeError(`Unsupported password hash version: ${version}.`);
   }
 
   if (algorithm !== CryptoAlgorithm.SCRYPT) {
-    throw new TypeError(
-      `Unsupported password hash algorithm: ${algorithm}.`,
-    );
+    throw new TypeError(`Unsupported password hash algorithm: ${algorithm}.`);
   }
 
   const cost = parsePositiveInteger(costPart, "cost");
@@ -63,10 +57,7 @@ export function decodePasswordHash(
     throw new TypeError("Invalid password hash payload.");
   }
 
-  const [encodedSalt, encodedHash] = payloadParts as [
-    string,
-    string,
-  ];
+  const [encodedSalt, encodedHash] = payloadParts as [string, string];
 
   const salt = decodeBase64Url(encodedSalt);
   const hash = decodeBase64Url(encodedHash);
@@ -101,13 +92,9 @@ export function decodePasswordHash(
 /**
  * Encodes password hashing parameters into a portable string.
  */
-export function encodePasswordHash(
-  parameters: PasswordHashParameters,
-): string {
+export function encodePasswordHash(parameters: PasswordHashParameters): string {
   if (parameters.algorithm !== CryptoAlgorithm.SCRYPT) {
-    throw new TypeError(
-      "Only scrypt password hashes are supported.",
-    );
+    throw new TypeError("Only scrypt password hashes are supported.");
   }
 
   validateParameters({

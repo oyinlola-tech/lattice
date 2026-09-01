@@ -64,7 +64,9 @@ export function nodesToMarkdown(nodes: readonly DocumentationNode[]): string {
           tip: "TIP",
           danger: "DANGER",
         };
-        lines.push(`> **${labels[node.kind] ?? node.kind.toUpperCase()}:** ${node.value}`);
+        lines.push(
+          `> **${labels[node.kind] ?? node.kind.toUpperCase()}:** ${node.value}`,
+        );
         lines.push("");
         break;
       }

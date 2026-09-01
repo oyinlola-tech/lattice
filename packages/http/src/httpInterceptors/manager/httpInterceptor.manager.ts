@@ -14,7 +14,12 @@ import type {
 
 import { InterceptorRegistry } from "./httpInterceptor.registration.js";
 import { createSnapshot } from "./httpInterceptor.snapshot.js";
-import { findByPhase, enable, disable, getAll } from "./httpInterceptor.lookup.js";
+import {
+  findByPhase,
+  enable,
+  disable,
+  getAll,
+} from "./httpInterceptor.lookup.js";
 
 export class HttpInterceptorManager<T> {
   private readonly registry: InterceptorRegistry<T>;
@@ -30,10 +35,7 @@ export class HttpInterceptorManager<T> {
     this.registry = new InterceptorRegistry<T>();
   }
 
-  register(
-    handler: T,
-    options: HttpInterceptorOptions = {},
-  ): string {
+  register(handler: T, options: HttpInterceptorOptions = {}): string {
     return this.registry.register(handler, options);
   }
 
@@ -53,7 +55,9 @@ export class HttpInterceptorManager<T> {
     return this.registry.hasByName(name);
   }
 
-  findByPhase(phase: InterceptorPhase): readonly RegisteredHttpInterceptor<T>[] {
+  findByPhase(
+    phase: InterceptorPhase,
+  ): readonly RegisteredHttpInterceptor<T>[] {
     return findByPhase(this.registry.underlying, phase);
   }
 

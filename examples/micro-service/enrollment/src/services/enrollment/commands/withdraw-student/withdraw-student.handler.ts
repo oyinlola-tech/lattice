@@ -8,7 +8,10 @@ import { NotEnrolledError } from "../../../../errors/index.js";
 import { StudentWithdrawnEvent } from "../../../../events/index.js";
 
 /** Handler that processes WithdrawStudentCommand and updates the enrollment status. */
-export class WithdrawStudentHandler extends CommandHandler<WithdrawStudentCommand, EnrollmentModel> {
+export class WithdrawStudentHandler extends CommandHandler<
+  WithdrawStudentCommand,
+  EnrollmentModel
+> {
   /** The command type this handler processes. */
   public readonly commandType = "enrollment.withdraw-student" as const;
 
@@ -21,7 +24,9 @@ export class WithdrawStudentHandler extends CommandHandler<WithdrawStudentComman
     this.events = events;
   }
 
-  public async execute(command: WithdrawStudentCommand): Promise<EnrollmentModel> {
+  public async execute(
+    command: WithdrawStudentCommand,
+  ): Promise<EnrollmentModel> {
     const enrollment = await this.enrollments.findByStudentAndCourse(
       command.data.studentId,
       command.data.courseId,
@@ -36,7 +41,11 @@ export class WithdrawStudentHandler extends CommandHandler<WithdrawStudentComman
     }
 
     const now = new Date();
-    await this.enrollments.updateStatus(enrollment.id, EnrollmentStatus.WITHDRAWN, now);
+    await this.enrollments.updateStatus(
+      enrollment.id,
+      EnrollmentStatus.WITHDRAWN,
+      now,
+    );
 
     const event = StudentWithdrawnEvent.create({
       enrollmentId: enrollment.id,

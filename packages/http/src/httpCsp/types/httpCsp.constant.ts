@@ -2,14 +2,12 @@
  * CSP constants and directive names.
  */
 
-export const CONTENT_SECURITY_POLICY_HEADER =
-  "Content-Security-Policy";
+export const CONTENT_SECURITY_POLICY_HEADER = "Content-Security-Policy";
 
 export const CONTENT_SECURITY_POLICY_REPORT_ONLY_HEADER =
   "Content-Security-Policy-Report-Only";
 
-export const DEFAULT_NONCE_LENGTH =
-  16;
+export const DEFAULT_NONCE_LENGTH = 16;
 
 export const CSP_DIRECTIVES = Object.freeze([
   "default-src",
@@ -50,5 +48,4 @@ export const CSP_DIRECTIVES = Object.freeze([
   "worker-src",
 ] as const);
 
-export type CSPDirectiveName =
-  (typeof CSP_DIRECTIVES)[number];
+export type CSPDirectiveName = (typeof CSP_DIRECTIVES)[number];

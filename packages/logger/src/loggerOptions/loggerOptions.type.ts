@@ -60,7 +60,17 @@ export interface LoggerConfiguration {
 }
 
 /** Default logger configuration values. */
-export const DEFAULT_LOGGER_OPTIONS: Required<Pick<LoggerOptions, "enabled" | "throwTransportErrors" | "asynchronous" | "transportTimeout" | "inheritContext" | "mutable">> = {
+export const DEFAULT_LOGGER_OPTIONS: Required<
+  Pick<
+    LoggerOptions,
+    | "enabled"
+    | "throwTransportErrors"
+    | "asynchronous"
+    | "transportTimeout"
+    | "inheritContext"
+    | "mutable"
+  >
+> = {
   enabled: true,
   throwTransportErrors: false,
   asynchronous: false,
@@ -71,19 +81,33 @@ export const DEFAULT_LOGGER_OPTIONS: Required<Pick<LoggerOptions, "enabled" | "t
 
 /** Validates logger options. */
 export function validateLoggerOptions(options: LoggerOptions): void {
-  if (options.name !== undefined && (typeof options.name !== "string" || options.name.trim().length === 0)) {
+  if (
+    options.name !== undefined &&
+    (typeof options.name !== "string" || options.name.trim().length === 0)
+  ) {
     throw new TypeError("Logger name must be a non-empty string.");
   }
-  if (options.environment !== undefined && (typeof options.environment !== "string" || options.environment.trim().length === 0)) {
+  if (
+    options.environment !== undefined &&
+    (typeof options.environment !== "string" ||
+      options.environment.trim().length === 0)
+  ) {
     throw new TypeError("Logger environment must be a non-empty string.");
   }
-  if (options.transportTimeout !== undefined && (!Number.isFinite(options.transportTimeout) || options.transportTimeout < 0)) {
-    throw new RangeError("Logger transport timeout must be a non-negative finite number.");
+  if (
+    options.transportTimeout !== undefined &&
+    (!Number.isFinite(options.transportTimeout) || options.transportTimeout < 0)
+  ) {
+    throw new RangeError(
+      "Logger transport timeout must be a non-negative finite number.",
+    );
   }
 }
 
 /** Resolves partial logger options into a normalized configuration. */
-export function resolveLoggerOptions(options: LoggerOptions = {}): LoggerConfiguration {
+export function resolveLoggerOptions(
+  options: LoggerOptions = {},
+): LoggerConfiguration {
   validateLoggerOptions(options);
 
   return Object.freeze({
@@ -94,16 +118,23 @@ export function resolveLoggerOptions(options: LoggerOptions = {}): LoggerConfigu
     formatter: options.formatter ?? "text",
     transports: Object.freeze([...(options.transports ?? [])]),
     enabled: options.enabled ?? DEFAULT_LOGGER_OPTIONS.enabled,
-    throwTransportErrors: options.throwTransportErrors ?? DEFAULT_LOGGER_OPTIONS.throwTransportErrors,
+    throwTransportErrors:
+      options.throwTransportErrors ??
+      DEFAULT_LOGGER_OPTIONS.throwTransportErrors,
     asynchronous: options.asynchronous ?? DEFAULT_LOGGER_OPTIONS.asynchronous,
-    transportTimeout: options.transportTimeout ?? DEFAULT_LOGGER_OPTIONS.transportTimeout,
-    inheritContext: options.inheritContext ?? DEFAULT_LOGGER_OPTIONS.inheritContext,
+    transportTimeout:
+      options.transportTimeout ?? DEFAULT_LOGGER_OPTIONS.transportTimeout,
+    inheritContext:
+      options.inheritContext ?? DEFAULT_LOGGER_OPTIONS.inheritContext,
     mutable: options.mutable ?? DEFAULT_LOGGER_OPTIONS.mutable,
   });
 }
 
 /** Merges two logger option objects. Values from `override` take precedence. */
-export function mergeLoggerOptions(base: LoggerOptions, override: LoggerOptions): LoggerOptions {
+export function mergeLoggerOptions(
+  base: LoggerOptions,
+  override: LoggerOptions,
+): LoggerOptions {
   return {
     ...base,
     ...override,
@@ -113,7 +144,10 @@ export function mergeLoggerOptions(base: LoggerOptions, override: LoggerOptions)
 }
 
 /** Creates options for a child logger. */
-export function createChildLoggerOptions(parent: LoggerConfiguration, options: ChildLoggerOptions = {}): LoggerOptions {
+export function createChildLoggerOptions(
+  parent: LoggerConfiguration,
+  options: ChildLoggerOptions = {},
+): LoggerOptions {
   return {
     name: options.name ?? parent.name,
     level: options.level ?? parent.level,

@@ -35,7 +35,9 @@ export function createPermissionEventEmitter() {
     /** Register an event handler. */
     on(handler: PermissionEventHandler): () => void {
       handlers.add(handler);
-      return () => { handlers.delete(handler); };
+      return () => {
+        handlers.delete(handler);
+      };
     },
 
     /** Emit a permission check event. */
@@ -58,10 +60,9 @@ export function createPermissionEventEmitter() {
  * @param fn - The permission check function.
  * @returns Wrapped function that emits events.
  */
-export function withObservability<T extends (...args: readonly unknown[]) => Promise<PermissionDecision>>(
-  emitter: ReturnType<typeof createPermissionEventEmitter>,
-  fn: T,
-): T {
+export function withObservability<
+  T extends (...args: readonly unknown[]) => Promise<PermissionDecision>,
+>(emitter: ReturnType<typeof createPermissionEventEmitter>, fn: T): T {
   return (async (...args: readonly unknown[]) => {
     const start = performance.now();
     const decision = await fn(...args);

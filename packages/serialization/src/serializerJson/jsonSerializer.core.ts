@@ -6,13 +6,32 @@
  * transformer-based type preservation.
  */
 
-import type { Serializer, SerializeOptions, DeserializeOptions } from "../serializerTypes/index.js";
+import type {
+  Serializer,
+  SerializeOptions,
+  DeserializeOptions,
+} from "../serializerTypes/index.js";
 import { TransformerRegistry } from "../serializerTransforms/index.js";
-import { DateTransformer, BigIntTransformer, MapTransformer, SetTransformer } from "../serializerTransforms/index.js";
-import { BufferTransformer, ErrorTransformer } from "../serializerTransformsExt/index.js";
-import { SerializationLimits, SerializationTags } from "@oyinlola141/lattice-constants";
+import {
+  DateTransformer,
+  BigIntTransformer,
+  MapTransformer,
+  SetTransformer,
+} from "../serializerTransforms/index.js";
+import {
+  BufferTransformer,
+  ErrorTransformer,
+} from "../serializerTransformsExt/index.js";
+import {
+  SerializationLimits,
+  SerializationTags,
+} from "@oyinlola141/lattice-constants";
 import { isPlainObject } from "@oyinlola141/lattice-types";
-import { assertNoCircularReference, assertDepthWithinLimit, assertSizeWithinLimit } from "@oyinlola141/lattice-validation";
+import {
+  assertNoCircularReference,
+  assertDepthWithinLimit,
+  assertSizeWithinLimit,
+} from "@oyinlola141/lattice-validation";
 
 /** Default transformer registry with all built-in transformers. */
 function createDefaultTransformers(): TransformerRegistry {
@@ -37,7 +56,9 @@ export class JSONSerializer implements Serializer<unknown, string> {
   }
 
   /** Register a custom type transformer. */
-  registerTransformer(transformer: import("../serializerTypes/index.js").TypeTransformer): void {
+  registerTransformer(
+    transformer: import("../serializerTypes/index.js").TypeTransformer,
+  ): void {
     this.transformers.register(transformer);
   }
 
@@ -77,7 +98,11 @@ export class JSONSerializer implements Serializer<unknown, string> {
     return parsed as T;
   }
 
-  private transformValue(value: unknown, depth: number, maxDepth: number): unknown {
+  private transformValue(
+    value: unknown,
+    depth: number,
+    maxDepth: number,
+  ): unknown {
     if (value === null || value === undefined) return value;
     if (typeof value === "bigint") {
       const transformer = this.transformers.findForValue(value);
@@ -87,7 +112,9 @@ export class JSONSerializer implements Serializer<unknown, string> {
     if (depth >= maxDepth) return value;
 
     if (Array.isArray(value)) {
-      return value.map((item) => this.transformValue(item, depth + 1, maxDepth));
+      return value.map((item) =>
+        this.transformValue(item, depth + 1, maxDepth),
+      );
     }
 
     const transformer = this.transformers.findForValue(value);
@@ -99,22 +126,34 @@ export class JSONSerializer implements Serializer<unknown, string> {
     if (value instanceof Map) {
       const entries: Array<[unknown, unknown]> = [];
       for (const [k, v] of value) {
-        entries.push([this.transformValue(k, depth + 1, maxDepth), this.transformValue(v, depth + 1, maxDepth)]);
+        entries.push([
+          this.transformValue(k, depth + 1, maxDepth),
+          this.transformValue(v, depth + 1, maxDepth),
+        ]);
       }
-      return { [SerializationTags.TYPE]: "Map", [SerializationTags.VALUE]: entries };
+      return {
+        [SerializationTags.TYPE]: "Map",
+        [SerializationTags.VALUE]: entries,
+      };
     }
 
     if (value instanceof Set) {
       return {
         [SerializationTags.TYPE]: "Set",
-        [SerializationTags.VALUE]: [...value].map((v) => this.transformValue(v, depth + 1, maxDepth)),
+        [SerializationTags.VALUE]: [...value].map((v) =>
+          this.transformValue(v, depth + 1, maxDepth),
+        ),
       };
     }
 
     if (isPlainObject(value)) {
       const result: Record<string, unknown> = {};
       for (const key of Object.keys(value)) {
-        result[key] = this.transformValue((value as Record<string, unknown>)[key], depth + 1, maxDepth);
+        result[key] = this.transformValue(
+          (value as Record<string, unknown>)[key],
+          depth + 1,
+          maxDepth,
+        );
       }
       return result;
     }
@@ -122,7 +161,11 @@ export class JSONSerializer implements Serializer<unknown, string> {
     return value;
   }
 
-  private restoreValue(value: unknown, depth: number, maxDepth: number): unknown {
+  private restoreValue(
+    value: unknown,
+    depth: number,
+    maxDepth: number,
+  ): unknown {
     if (value === null || value === undefined) return value;
     if (typeof value !== "object") return value;
     if (depth >= maxDepth) return value;
@@ -142,7 +185,11 @@ export class JSONSerializer implements Serializer<unknown, string> {
     if (isPlainObject(value)) {
       const result: Record<string, unknown> = {};
       for (const key of Object.keys(value)) {
-        result[key] = this.restoreValue((value as Record<string, unknown>)[key], depth + 1, maxDepth);
+        result[key] = this.restoreValue(
+          (value as Record<string, unknown>)[key],
+          depth + 1,
+          maxDepth,
+        );
       }
       return result;
     }
@@ -159,11 +206,14 @@ export class JSONSerializer implements Serializer<unknown, string> {
   }
 
   private assertOutputSize(json: string, maxSize: number): void {
-    const size = typeof Buffer !== "undefined"
-      ? Buffer.byteLength(json, "utf-8")
-      : new TextEncoder().encode(json).byteLength;
+    const size =
+      typeof Buffer !== "undefined"
+        ? Buffer.byteLength(json, "utf-8")
+        : new TextEncoder().encode(json).byteLength;
     if (size > maxSize) {
-      throw new Error(`Serialized payload too large: ${size} bytes (max: ${maxSize})`);
+      throw new Error(
+        `Serialized payload too large: ${size} bytes (max: ${maxSize})`,
+      );
     }
   }
 }

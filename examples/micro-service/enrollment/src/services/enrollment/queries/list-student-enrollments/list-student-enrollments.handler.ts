@@ -18,7 +18,9 @@ export class ListStudentEnrollmentsHandler extends QueryHandler<
     this.enrollments = enrollments;
   }
 
-  public async execute(query: ListStudentEnrollmentsQuery): Promise<readonly EnrollmentModel[]> {
+  public async execute(
+    query: ListStudentEnrollmentsQuery,
+  ): Promise<readonly EnrollmentModel[]> {
     return this.enrollments.findByStudentId(query.studentId);
   }
 }

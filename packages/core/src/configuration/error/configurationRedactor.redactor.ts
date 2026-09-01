@@ -30,8 +30,7 @@ export const DEFAULT_SENSITIVE_PATTERNS: readonly string[] = [
  * Default value used when a sensitive configuration value
  * is redacted.
  */
-export const DEFAULT_REDACTION_VALUE =
-  "[REDACTED]";
+export const DEFAULT_REDACTION_VALUE = "[REDACTED]";
 
 /**
  * Options for ConfigurationRedactor.
@@ -76,16 +75,13 @@ export interface ConfigurationSensitivity {
   /**
    * Reason the path was classified as sensitive.
    */
-  readonly reason?:
-    | "pattern"
-    | "exact-path";
+  readonly reason?: "pattern" | "exact-path";
 }
 
 /**
  * Safe representation of configuration.
  */
-export type RedactedConfiguration =
-  ConfigurationValue;
+export type RedactedConfiguration = ConfigurationValue;
 
 /**
  * Redacts sensitive configuration values.
@@ -102,78 +98,45 @@ export class ConfigurationRedactor {
 
   private readonly deep: boolean;
 
-  public constructor(
-    options: ConfigurationRedactorOptions = {},
-  ) {
+  public constructor(options: ConfigurationRedactorOptions = {}) {
     this.sensitivePatterns = [
       ...DEFAULT_SENSITIVE_PATTERNS,
       ...(options.sensitivePatterns ?? []),
-    ].map(
-      (pattern) =>
-        normalizePattern(pattern),
+    ].map((pattern) => normalizePattern(pattern));
+
+    this.sensitivePaths = new Set(
+      (options.sensitivePaths ?? []).map((path) => normalizePath(path)),
     );
 
-    this.sensitivePaths =
-      new Set(
-        (
-          options.sensitivePaths ??
-          []
-        ).map(
-          (path) =>
-            normalizePath(path),
-        ),
-      );
+    this.redactionValue = options.redactionValue ?? DEFAULT_REDACTION_VALUE;
 
-    this.redactionValue =
-      options.redactionValue ??
-      DEFAULT_REDACTION_VALUE;
-
-    this.deep =
-      options.deep ?? true;
+    this.deep = options.deep ?? true;
   }
 
   /**
    * Determines whether a configuration path is sensitive.
    */
-  public isSensitive(
-    path: string,
-  ): boolean {
-    return this.checkSensitivity(
-      path,
-    ).sensitive;
+  public isSensitive(path: string): boolean {
+    return this.checkSensitivity(path).sensitive;
   }
 
   /**
    * Provides detailed sensitivity information.
    */
-  public checkSensitivity(
-    path: string,
-  ): ConfigurationSensitivity {
-    const normalizedPath =
-      normalizePath(path);
+  public checkSensitivity(path: string): ConfigurationSensitivity {
+    const normalizedPath = normalizePath(path);
 
-    if (
-      this.sensitivePaths.has(
-        normalizedPath,
-      )
-    ) {
+    if (this.sensitivePaths.has(normalizedPath)) {
       return {
         sensitive: true,
         reason: "exact-path",
       };
     }
 
-    const pathSegments =
-      normalizedPath.split(".");
+    const pathSegments = normalizedPath.split(".");
 
-    for (
-      const segment of pathSegments
-    ) {
-      if (
-        this.matchesSensitivePattern(
-          segment,
-        )
-      ) {
+    for (const segment of pathSegments) {
+      if (this.matchesSensitivePattern(segment)) {
         return {
           sensitive: true,
           reason: "pattern",
@@ -181,11 +144,7 @@ export class ConfigurationRedactor {
       }
     }
 
-    if (
-      this.matchesSensitivePattern(
-        normalizedPath,
-      )
-    ) {
+    if (this.matchesSensitivePattern(normalizedPath)) {
       return {
         sensitive: true,
         reason: "pattern",
@@ -203,25 +162,15 @@ export class ConfigurationRedactor {
    * The returned object is safe to use for logging and
    * diagnostics.
    */
-  public redact(
-    configuration: Configuration,
-  ): RedactedConfiguration {
-    return this.redactValue(
-      configuration.toObject(),
-      "",
-    );
+  public redact(configuration: Configuration): RedactedConfiguration {
+    return this.redactValue(configuration.toObject(), "");
   }
 
   /**
    * Redacts a plain configuration object.
    */
-  public redactObject(
-    value: ConfigurationValue,
-  ): RedactedConfiguration {
-    return this.redactValue(
-      value,
-      "",
-    );
+  public redactObject(value: ConfigurationValue): RedactedConfiguration {
+    return this.redactValue(value, "");
   }
 
   /**
@@ -231,9 +180,7 @@ export class ConfigurationRedactor {
     path: string,
     value: ConfigurationValue,
   ): ConfigurationValue {
-    if (
-      this.isSensitive(path)
-    ) {
+    if (this.isSensitive(path)) {
       return this.redactionValue;
     }
 
@@ -241,10 +188,7 @@ export class ConfigurationRedactor {
       return value;
     }
 
-    return this.redactValue(
-      value,
-      path,
-    );
+    return this.redactValue(value, path);
   }
 
   /**
@@ -254,10 +198,7 @@ export class ConfigurationRedactor {
     value: ConfigurationValue,
     parentPath: string,
   ): ConfigurationValue {
-    if (
-      value === null ||
-      value === undefined
-    ) {
+    if (value === null || value === undefined) {
       return value;
     }
 
@@ -266,10 +207,7 @@ export class ConfigurationRedactor {
       typeof value === "number" ||
       typeof value === "boolean"
     ) {
-      if (
-        parentPath &&
-        this.isSensitive(parentPath)
-      ) {
+      if (parentPath && this.isSensitive(parentPath)) {
         return this.redactionValue;
       }
 
@@ -281,52 +219,26 @@ export class ConfigurationRedactor {
         return value;
       }
 
-      return value.map(
-        (
+      return value.map((item, index) =>
+        this.redactValue(
           item,
-          index,
-        ) =>
-          this.redactValue(
-            item,
-            parentPath
-              ? `${parentPath}.${index}`
-              : String(index),
-          ),
+          parentPath ? `${parentPath}.${index}` : String(index),
+        ),
       );
     }
 
-    const result: Record<
-      string,
-      ConfigurationValue
-    > = {};
+    const result: Record<string, ConfigurationValue> = {};
 
-    for (
-      const [
-        key,
-        childValue,
-      ] of Object.entries(value)
-    ) {
-      const path =
-        parentPath
-          ? `${parentPath}.${key}`
-          : key;
+    for (const [key, childValue] of Object.entries(value)) {
+      const path = parentPath ? `${parentPath}.${key}` : key;
 
-      if (
-        this.isSensitive(path)
-      ) {
-        result[key] =
-          this.redactionValue;
+      if (this.isSensitive(path)) {
+        result[key] = this.redactionValue;
 
         continue;
       }
 
-      result[key] =
-        this.deep
-          ? this.redactValue(
-              childValue,
-              path,
-            )
-          : childValue;
+      result[key] = this.deep ? this.redactValue(childValue, path) : childValue;
     }
 
     return result;
@@ -336,17 +248,11 @@ export class ConfigurationRedactor {
    * Checks whether a path segment matches one of the
    * configured sensitive patterns.
    */
-  private matchesSensitivePattern(
-    value: string,
-  ): boolean {
-    const normalized =
-      normalizePattern(value);
+  private matchesSensitivePattern(value: string): boolean {
+    const normalized = normalizePattern(value);
 
-    return this.sensitivePatterns.some(
-      (pattern) =>
-        normalized.includes(
-          pattern,
-        ),
+    return this.sensitivePatterns.some((pattern) =>
+      normalized.includes(pattern),
     );
   }
 }
@@ -357,9 +263,7 @@ export class ConfigurationRedactor {
 export function createConfigurationRedactor(
   options: ConfigurationRedactorOptions = {},
 ): ConfigurationRedactor {
-  return new ConfigurationRedactor(
-    options,
-  );
+  return new ConfigurationRedactor(options);
 }
 
 /**
@@ -368,31 +272,19 @@ export function createConfigurationRedactor(
 export function redactConfiguration(
   configuration: Configuration,
 ): RedactedConfiguration {
-  return createConfigurationRedactor().redact(
-    configuration,
-  );
+  return createConfigurationRedactor().redact(configuration);
 }
 
 /**
  * Normalizes a configuration path.
  */
-function normalizePath(
-  path: string,
-): string {
-  return path
-    .trim()
-    .replace(/\s+/g, "")
-    .toLowerCase();
+function normalizePath(path: string): string {
+  return path.trim().replace(/\s+/g, "").toLowerCase();
 }
 
 /**
  * Normalizes a sensitivity pattern.
  */
-function normalizePattern(
-  pattern: string,
-): string {
-  return pattern
-    .trim()
-    .replace(/\s+/g, "")
-    .toLowerCase();
+function normalizePattern(pattern: string): string {
+  return pattern.trim().replace(/\s+/g, "").toLowerCase();
 }

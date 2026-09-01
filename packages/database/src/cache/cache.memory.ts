@@ -1,13 +1,9 @@
-import {
-  DatabaseError,
-} from "@oyinlola141/lattice-errors";
+import { DatabaseError } from "@oyinlola141/lattice-errors";
 
 /**
  * Cache entry stored by the database cache.
  */
-export interface CacheEntry<
-  TValue,
-> {
+export interface CacheEntry<TValue> {
   readonly value: TValue;
   readonly createdAt: number;
   readonly expiresAt?: number;
@@ -33,26 +29,14 @@ export interface CacheStats {
 /**
  * Generic cache contract.
  */
-export interface DatabaseCache<
-  TValue = unknown,
-> {
-  get(
-    key: string,
-  ): TValue | undefined;
+export interface DatabaseCache<TValue = unknown> {
+  get(key: string): TValue | undefined;
 
-  set(
-    key: string,
-    value: TValue,
-    options?: CacheOptions,
-  ): void;
+  set(key: string, value: TValue, options?: CacheOptions): void;
 
-  has(
-    key: string,
-  ): boolean;
+  has(key: string): boolean;
 
-  delete(
-    key: string,
-  ): boolean;
+  delete(key: string): boolean;
 
   clear(): void;
 }
@@ -65,14 +49,8 @@ export interface DatabaseCache<
  */
 export class MemoryDatabaseCache<
   TValue = unknown,
->
-  implements DatabaseCache<TValue>
-{
-  private readonly entries =
-    new Map<
-      string,
-      CacheEntry<TValue>
-    >();
+> implements DatabaseCache<TValue> {
+  private readonly entries = new Map<string, CacheEntry<TValue>>();
 
   private hits = 0;
 
@@ -80,29 +58,17 @@ export class MemoryDatabaseCache<
 
   private readonly defaultTtlMs?: number;
 
-  constructor(
-    options: CacheOptions = {},
-  ) {
-    this.defaultTtlMs =
-      normalizeTtl(
-        options.ttlMs,
-      );
+  constructor(options: CacheOptions = {}) {
+    this.defaultTtlMs = normalizeTtl(options.ttlMs);
   }
 
   /**
    * Gets a cached value.
    */
-  public get(
-    key: string,
-  ): TValue | undefined {
-    validateKey(
-      key,
-    );
+  public get(key: string): TValue | undefined {
+    validateKey(key);
 
-    const entry =
-      this.entries.get(
-        key,
-      );
+    const entry = this.entries.get(key);
 
     if (!entry) {
       this.misses += 1;
@@ -110,12 +76,8 @@ export class MemoryDatabaseCache<
       return undefined;
     }
 
-    if (
-      isExpired(entry)
-    ) {
-      this.entries.delete(
-        key,
-      );
+    if (isExpired(entry)) {
+      this.entries.delete(key);
 
       this.misses += 1;
 
@@ -130,63 +92,34 @@ export class MemoryDatabaseCache<
   /**
    * Sets a cached value.
    */
-  public set(
-    key: string,
-    value: TValue,
-    options: CacheOptions = {},
-  ): void {
-    validateKey(
-      key,
-    );
+  public set(key: string, value: TValue, options: CacheOptions = {}): void {
+    validateKey(key);
 
-    const ttlMs =
-      normalizeTtl(
-        options.ttlMs ??
-          this.defaultTtlMs,
-      );
+    const ttlMs = normalizeTtl(options.ttlMs ?? this.defaultTtlMs);
 
-    const createdAt =
-      Date.now();
+    const createdAt = Date.now();
 
-    this.entries.set(
-      key,
-      {
-        value,
-        createdAt,
-        expiresAt:
-          ttlMs === undefined
-            ? undefined
-            : createdAt +
-              ttlMs,
-      },
-    );
+    this.entries.set(key, {
+      value,
+      createdAt,
+      expiresAt: ttlMs === undefined ? undefined : createdAt + ttlMs,
+    });
   }
 
   /**
    * Checks whether a valid cached value exists.
    */
-  public has(
-    key: string,
-  ): boolean {
-    validateKey(
-      key,
-    );
+  public has(key: string): boolean {
+    validateKey(key);
 
-    const entry =
-      this.entries.get(
-        key,
-      );
+    const entry = this.entries.get(key);
 
     if (!entry) {
       return false;
     }
 
-    if (
-      isExpired(entry)
-    ) {
-      this.entries.delete(
-        key,
-      );
+    if (isExpired(entry)) {
+      this.entries.delete(key);
 
       return false;
     }
@@ -197,16 +130,10 @@ export class MemoryDatabaseCache<
   /**
    * Deletes a cache entry.
    */
-  public delete(
-    key: string,
-  ): boolean {
-    validateKey(
-      key,
-    );
+  public delete(key: string): boolean {
+    validateKey(key);
 
-    return this.entries.delete(
-      key,
-    );
+    return this.entries.delete(key);
   }
 
   /**
@@ -222,18 +149,9 @@ export class MemoryDatabaseCache<
   public prune(): number {
     let removed = 0;
 
-    for (
-      const [
-        key,
-        entry,
-      ] of this.entries
-    ) {
-      if (
-        isExpired(entry)
-      ) {
-        this.entries.delete(
-          key,
-        );
+    for (const [key, entry] of this.entries) {
+      if (isExpired(entry)) {
+        this.entries.delete(key);
 
         removed += 1;
       }
@@ -257,22 +175,13 @@ export class MemoryDatabaseCache<
   public getStats(): CacheStats {
     this.prune();
 
-    const total =
-      this.hits +
-      this.misses;
+    const total = this.hits + this.misses;
 
     return {
-      size:
-        this.entries.size,
-      hits:
-        this.hits,
-      misses:
-        this.misses,
-      hitRate:
-        total === 0
-          ? 0
-          : this.hits /
-            total,
+      size: this.entries.size,
+      hits: this.hits,
+      misses: this.misses,
+      hitRate: total === 0 ? 0 : this.hits / total,
     };
   }
 
@@ -290,23 +199,17 @@ export class MemoryDatabaseCache<
   public keys(): readonly string[] {
     this.prune();
 
-    return Object.freeze([
-      ...this.entries.keys(),
-    ]);
+    return Object.freeze([...this.entries.keys()]);
   }
 }
 
 /**
  * Creates an in-memory database cache.
  */
-export function createDatabaseCache<
-  TValue = unknown,
->(
+export function createDatabaseCache<TValue = unknown>(
   options: CacheOptions = {},
 ): MemoryDatabaseCache<TValue> {
-  return new MemoryDatabaseCache<TValue>(
-    options,
-  );
+  return new MemoryDatabaseCache<TValue>(options);
 }
 
 /**
@@ -316,120 +219,72 @@ export function createCacheKey(
   namespace: string,
   ...parts: readonly unknown[]
 ): string {
-  validateKey(
-    namespace,
-  );
+  validateKey(namespace);
 
-  return [
-    namespace,
-    ...parts.map(
-      serializeCachePart,
-    ),
-  ].join(":");
+  return [namespace, ...parts.map(serializeCachePart)].join(":");
 }
 
 /**
  * Serializes a cache key component deterministically.
  */
-export function serializeCachePart(
-  value: unknown,
-): string {
-  if (
-    value === null
-  ) {
+export function serializeCachePart(value: unknown): string {
+  if (value === null) {
     return "null";
   }
 
-  if (
-    value === undefined
-  ) {
+  if (value === undefined) {
     return "undefined";
   }
 
   if (
-    typeof value ===
-      "string" ||
-    typeof value ===
-      "number" ||
-    typeof value ===
-      "boolean" ||
-    typeof value ===
-      "bigint"
+    typeof value === "string" ||
+    typeof value === "number" ||
+    typeof value === "boolean" ||
+    typeof value === "bigint"
   ) {
-    return String(
-      value,
-    );
+    return String(value);
   }
 
-  if (
-    value instanceof Date
-  ) {
+  if (value instanceof Date) {
     return value.toISOString();
   }
 
   try {
     return JSON.stringify(
       value,
-      Object.keys(
-        value as Record<
-          string,
-          unknown
-        >,
-      ).sort(),
+      Object.keys(value as Record<string, unknown>).sort(),
     );
   } catch (error) {
-    throw new DatabaseError(
-      "Unable to serialize database cache key.",
-      {
-        cause: error,
-      },
-    );
+    throw new DatabaseError("Unable to serialize database cache key.", {
+      cause: error,
+    });
   }
 }
 
 /**
  * Wraps a cache around an asynchronous loader.
  */
-export async function getOrSet<
-  TValue,
->(
+export async function getOrSet<TValue>(
   cache: DatabaseCache<TValue>,
   key: string,
   loader: () => Promise<TValue>,
   options?: CacheOptions,
 ): Promise<TValue> {
-  validateKey(
-    key,
-  );
+  validateKey(key);
 
-  if (
-    typeof loader !==
-    "function"
-  ) {
-    throw new TypeError(
-      "A cache loader function is required.",
-    );
+  if (typeof loader !== "function") {
+    throw new TypeError("A cache loader function is required.");
   }
 
-  const cached =
-    cache.get(
-      key,
-    );
+  const cached = cache.get(key);
 
-  if (
-    cached !== undefined
-  ) {
+  if (cached !== undefined) {
     return cached;
   }
 
-  const value =
-    await loader();
+  const value = await loader();
 
-  cache.set(
-    key,
-    value,
-    options,
-  );
+  cache.set(key, value, options);
 
   return value;
 }
@@ -443,21 +298,13 @@ export function invalidateByPrefix(
   cache: MemoryDatabaseCache,
   prefix: string,
 ): number {
-  validateKey(
-    prefix,
-  );
+  validateKey(prefix);
 
   let removed = 0;
 
-  for (
-    const key of cache.keys()
-  ) {
-    if (
-      key.startsWith(prefix)
-    ) {
-      if (
-        cache.delete(key)
-      ) {
+  for (const key of cache.keys()) {
+    if (key.startsWith(prefix)) {
+      if (cache.delete(key)) {
         removed += 1;
       }
     }
@@ -469,64 +316,34 @@ export function invalidateByPrefix(
 /**
  * Checks whether a cache entry has expired.
  */
-function isExpired<TValue>(
-  entry: CacheEntry<TValue>,
-): boolean {
-  return (
-    entry.expiresAt !==
-      undefined &&
-    entry.expiresAt <=
-      Date.now()
-  );
+function isExpired<TValue>(entry: CacheEntry<TValue>): boolean {
+  return entry.expiresAt !== undefined && entry.expiresAt <= Date.now();
 }
 
 /**
  * Normalizes a TTL value.
  */
-function normalizeTtl(
-  ttlMs?: number,
-): number | undefined {
-  if (
-    ttlMs === undefined
-  ) {
+function normalizeTtl(ttlMs?: number): number | undefined {
+  if (ttlMs === undefined) {
     return undefined;
   }
 
-  if (
-    !Number.isFinite(ttlMs)
-  ) {
-    throw new TypeError(
-      "Cache TTL must be a finite number.",
-    );
+  if (!Number.isFinite(ttlMs)) {
+    throw new TypeError("Cache TTL must be a finite number.");
   }
 
-  if (
-    ttlMs < 0
-  ) {
-    throw new TypeError(
-      "Cache TTL cannot be negative.",
-    );
+  if (ttlMs < 0) {
+    throw new TypeError("Cache TTL cannot be negative.");
   }
 
-  return Math.floor(
-    ttlMs,
-  );
+  return Math.floor(ttlMs);
 }
 
 /**
  * Validates a cache key.
  */
-function validateKey(
-  key: string,
-): void {
-  if (
-    typeof key !==
-      "string" ||
-    key.trim().length ===
-      0
-  ) {
-    throw new TypeError(
-      "A non-empty cache key is required.",
-    );
+function validateKey(key: string): void {
+  if (typeof key !== "string" || key.trim().length === 0) {
+    throw new TypeError("A non-empty cache key is required.");
   }
 }

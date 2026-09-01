@@ -9,7 +9,10 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating an external service error. */
-export interface ExternalServiceErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface ExternalServiceErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly service: string;
   readonly operation?: string;
@@ -24,21 +27,31 @@ export class ExternalServiceError extends BaseError {
   public readonly responseStatus?: number;
   public readonly serviceCode?: string | number;
 
-  constructor(message = "An external service operation failed.", options: ExternalServiceErrorOptions) {
+  constructor(
+    message = "An external service operation failed.",
+    options: ExternalServiceErrorOptions,
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.EXTERNAL_SERVICE,
       category: options.category ?? ErrorCategory.EXTERNAL_SERVICE,
       severity: options.severity ?? ErrorSeverity.ERROR,
-      statusCode: options.statusCode ?? mapResponseStatus(options.responseStatus),
+      statusCode:
+        options.statusCode ?? mapResponseStatus(options.responseStatus),
       expose: options.expose ?? false,
       isOperational: options.isOperational ?? true,
       metadata: {
         ...options.metadata,
         service: options.service,
-        ...(options.operation !== undefined ? { operation: options.operation } : {}),
-        ...(options.responseStatus !== undefined ? { responseStatus: options.responseStatus } : {}),
-        ...(options.serviceCode !== undefined ? { serviceCode: String(options.serviceCode) } : {}),
+        ...(options.operation !== undefined
+          ? { operation: options.operation }
+          : {}),
+        ...(options.responseStatus !== undefined
+          ? { responseStatus: options.responseStatus }
+          : {}),
+        ...(options.serviceCode !== undefined
+          ? { serviceCode: String(options.serviceCode) }
+          : {}),
       },
     });
     this.service = options.service;
@@ -52,8 +65,12 @@ export class ExternalServiceError extends BaseError {
       ...super.toJSON(),
       service: this.service,
       ...(this.operation !== undefined ? { operation: this.operation } : {}),
-      ...(this.responseStatus !== undefined ? { responseStatus: this.responseStatus } : {}),
-      ...(this.serviceCode !== undefined ? { serviceCode: String(this.serviceCode) } : {}),
+      ...(this.responseStatus !== undefined
+        ? { responseStatus: this.responseStatus }
+        : {}),
+      ...(this.serviceCode !== undefined
+        ? { serviceCode: String(this.serviceCode) }
+        : {}),
     };
   }
 }
@@ -68,7 +85,9 @@ export function createExternalServiceError(
 }
 
 /** Determines whether an unknown value is an ExternalServiceError. */
-export function isExternalServiceError(value: unknown): value is ExternalServiceError {
+export function isExternalServiceError(
+  value: unknown,
+): value is ExternalServiceError {
   return value instanceof ExternalServiceError;
 }
 

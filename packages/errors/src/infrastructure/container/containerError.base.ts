@@ -9,7 +9,10 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating a container error. */
-export interface ContainerErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface ContainerErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly token?: string;
 }
@@ -40,7 +43,10 @@ export class ContainerError extends BaseError {
 }
 
 /** Creates a container error. */
-export function createContainerError(message: string, options: ContainerErrorOptions = {}): ContainerError {
+export function createContainerError(
+  message: string,
+  options: ContainerErrorOptions = {},
+): ContainerError {
   return new ContainerError(message, options);
 }
 

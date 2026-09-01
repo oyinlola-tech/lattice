@@ -6,9 +6,7 @@
 
 import type { HttpClientBody } from "./httpClient.type.js";
 
-import {
-  HttpClientError,
-} from "./httpClient.error.js";
+import { HttpClientError } from "./httpClient.error.js";
 
 export function normalizeRequestBody(
   body: HttpClientBody,
@@ -20,9 +18,12 @@ export function normalizeRequestBody(
   }
 
   if (method === "GET" || method === "HEAD") {
-    throw new HttpClientError(`${method} requests cannot contain a request body.`, {
-      code: "HTTP_CLIENT_INVALID_BODY",
-    });
+    throw new HttpClientError(
+      `${method} requests cannot contain a request body.`,
+      {
+        code: "HTTP_CLIENT_INVALID_BODY",
+      },
+    );
   }
 
   if (isBodyInit(body)) {
@@ -53,7 +54,10 @@ function isBodyInit(value: unknown): value is BodyInit {
     return true;
   }
 
-  if (typeof URLSearchParams !== "undefined" && value instanceof URLSearchParams) {
+  if (
+    typeof URLSearchParams !== "undefined" &&
+    value instanceof URLSearchParams
+  ) {
     return true;
   }
 
@@ -65,7 +69,10 @@ function isBodyInit(value: unknown): value is BodyInit {
     return true;
   }
 
-  if (typeof ReadableStream !== "undefined" && value instanceof ReadableStream) {
+  if (
+    typeof ReadableStream !== "undefined" &&
+    value instanceof ReadableStream
+  ) {
     return true;
   }
 

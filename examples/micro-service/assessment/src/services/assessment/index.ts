@@ -20,12 +20,21 @@ export function registerAssessmentService(
   repository: AssessmentRepository,
   eventBus: EventBus,
 ): AssessmentServiceHandlers {
-  const publishEvent = async (event: { readonly type: string; readonly payload: unknown }) => {
+  const publishEvent = async (event: {
+    readonly type: string;
+    readonly payload: unknown;
+  }) => {
     await eventBus.publish(event as any);
   };
 
-  const createAssessment = new CreateAssessmentHandler(repository, publishEvent);
-  const submitAssessment = new SubmitAssessmentHandler(repository, publishEvent);
+  const createAssessment = new CreateAssessmentHandler(
+    repository,
+    publishEvent,
+  );
+  const submitAssessment = new SubmitAssessmentHandler(
+    repository,
+    publishEvent,
+  );
   const publishResult = new PublishResultHandler(repository, publishEvent);
   const getAssessment = new GetAssessmentHandler(repository);
   const getAssessmentResult = new GetAssessmentResultHandler(repository);

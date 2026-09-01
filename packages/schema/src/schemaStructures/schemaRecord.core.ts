@@ -7,7 +7,10 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue, childContext } from "../schemaBase/index.js";
-import { SchemaIssueCode, SCHEMA_FORBIDDEN_KEYS } from "@oyinlola141/lattice-constants";
+import {
+  SchemaIssueCode,
+  SCHEMA_FORBIDDEN_KEYS,
+} from "@oyinlola141/lattice-constants";
 import { StringSchema } from "../schemaPrimitives/index.js";
 
 /**
@@ -23,7 +26,10 @@ export class RecordSchema<TValue> extends Schema<Record<string, TValue>> {
     super();
   }
 
-  public _parse(ctx: SchemaParseContext, input: unknown): Record<string, TValue> {
+  public _parse(
+    ctx: SchemaParseContext,
+    input: unknown,
+  ): Record<string, TValue> {
     if (typeof input !== "object" || input === null || Array.isArray(input)) {
       addIssue(ctx, {
         code: SchemaIssueCode.INVALID_TYPE,

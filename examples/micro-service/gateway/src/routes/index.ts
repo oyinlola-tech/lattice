@@ -6,7 +6,10 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 export interface Route {
   readonly method: string;
   readonly pattern: RegExp;
-  readonly handler: (req: IncomingMessage, res: ServerResponse) => Promise<void>;
+  readonly handler: (
+    req: IncomingMessage,
+    res: ServerResponse,
+  ) => Promise<void>;
   readonly requiresAuth: boolean;
 }
 
@@ -14,7 +17,10 @@ export interface Route {
  * Extracts named parameters from a regex match using the pattern source.
  * We parse the pattern source to find named groups like (?<name>...)
  */
-function extractParams(pattern: RegExp, pathname: string): Record<string, string> | null {
+function extractParams(
+  pattern: RegExp,
+  pathname: string,
+): Record<string, string> | null {
   const match = pathname.match(pattern);
   if (!match) return null;
 

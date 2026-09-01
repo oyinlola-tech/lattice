@@ -31,7 +31,9 @@ export const BufferTransformer: TypeTransformer<Uint8Array> = {
     const data = value as Record<string, unknown>;
     const raw = data[SerializationTags.VALUE];
     if (typeof raw !== "string") {
-      throw new Error(`Invalid Buffer serialized value: expected string, got ${typeof raw}`);
+      throw new Error(
+        `Invalid Buffer serialized value: expected string, got ${typeof raw}`,
+      );
     }
     return fromBase64(raw);
   },

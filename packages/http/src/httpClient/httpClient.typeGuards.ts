@@ -13,9 +13,7 @@ import {
 
 import type { HttpClientResponse } from "./httpClient.type.js";
 
-import {
-  HttpClientResponseMarker,
-} from "./httpClient.helpers.js";
+import { HttpClientResponseMarker } from "./httpClient.helpers.js";
 
 export function isHttpClientError(value: unknown): value is HttpClientError {
   return value instanceof HttpClientError;

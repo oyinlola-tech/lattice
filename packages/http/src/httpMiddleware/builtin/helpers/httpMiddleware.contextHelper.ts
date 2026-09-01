@@ -9,13 +9,9 @@ import type {
   HttpMiddlewareState,
 } from "../../httpMiddleware.type.js";
 
-import type {
-  HttpRequestContext as RequestContext,
-} from "../../../httpRequest/httpRequest.context.js";
+import type { HttpRequestContext as RequestContext } from "../../../httpRequest/httpRequest.context.js";
 
-import type {
-  HttpResponseContext as ResponseContext,
-} from "../../../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../../../httpResponse/httpResponse.context.js";
 
 import type { HttpMiddleware } from "../../httpMiddleware.type.js";
 
@@ -25,57 +21,31 @@ import {
 } from "./httpMiddleware.accessor.js";
 
 export function createMiddlewareContext(
-  request:
-    | RequestContext,
-  response:
-    | ResponseContext,
-  options:
-    | {
-        readonly state?:
-          | HttpMiddlewareState;
+  request: RequestContext,
+  response: ResponseContext,
+  options: {
+    readonly state?: HttpMiddlewareState;
 
-        readonly signal?:
-          | AbortSignal;
+    readonly signal?: AbortSignal;
 
-        readonly metadata?:
-          | Readonly<
-              Record<string, unknown>
-            >;
-      } = {},
-):
-  | HttpMiddlewareContext {
-  const state =
-    options.state ??
-    new Map() as unknown as HttpMiddlewareState;
+    readonly metadata?: Readonly<Record<string, unknown>>;
+  } = {},
+): HttpMiddlewareContext {
+  const state = options.state ?? (new Map() as unknown as HttpMiddlewareState);
 
-  const signal =
-    options.signal ??
-    getContextSignal(
-      request,
-    );
+  const signal = options.signal ?? getContextSignal(request);
 
   return {
     request,
     response,
     state,
-    signal:
-      signal ??
-      createNeverAbortedSignal(),
-    metadata:
-      Object.freeze({
-        ...(options.metadata ??
-          {}),
-      }),
+    signal: signal ?? createNeverAbortedSignal(),
+    metadata: Object.freeze({
+      ...(options.metadata ?? {}),
+    }),
   };
 }
 
-export function isHttpMiddleware(
-  value:
-    | unknown,
-):
-  value is HttpMiddleware {
-  return (
-    typeof value ===
-    "function"
-  );
+export function isHttpMiddleware(value: unknown): value is HttpMiddleware {
+  return typeof value === "function";
 }

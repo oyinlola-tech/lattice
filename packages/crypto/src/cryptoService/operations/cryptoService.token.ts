@@ -26,36 +26,23 @@ export async function serviceGenerateToken(
   try {
     return await generateToken(options);
   } catch {
-    throw createCryptoError(
-      "Token generation failed.",
-      {},
-    );
+    throw createCryptoError("Token generation failed.", {});
   }
 }
 
-export async function serviceGenerateOtp(
-  digits = 6,
-): Promise<string> {
+export async function serviceGenerateOtp(digits = 6): Promise<string> {
   try {
     return await generateOtp(digits);
   } catch {
-    throw createCryptoError(
-      "OTP generation failed.",
-      {},
-    );
+    throw createCryptoError("OTP generation failed.", {});
   }
 }
 
-export async function serviceHashToken(
-  token: string,
-): Promise<string> {
+export async function serviceHashToken(token: string): Promise<string> {
   try {
     return await hashToken(token);
   } catch {
-    throw cryptoHashError(
-      "Token hashing failed.",
-      "sha256",
-    );
+    throw cryptoHashError("Token hashing failed.", "sha256");
   }
 }
 

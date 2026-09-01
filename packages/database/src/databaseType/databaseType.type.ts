@@ -2,20 +2,13 @@
  * Database connection lifecycle states.
  */
 export type DatabaseStatus =
-  | "disconnected"
-  | "connecting"
-  | "connected"
-  | "disconnecting"
-  | "error";
+  "disconnected" | "connecting" | "connected" | "disconnecting" | "error";
 
 /**
  * Supported transaction isolation levels.
  */
 export type TransactionIsolationLevel =
-  | "ReadUncommitted"
-  | "ReadCommitted"
-  | "RepeatableRead"
-  | "Serializable";
+  "ReadUncommitted" | "ReadCommitted" | "RepeatableRead" | "Serializable";
 
 /**
  * Database operation types.
@@ -37,9 +30,7 @@ export type DatabaseOperation =
 export interface DatabaseOperationOptions {
   readonly signal?: AbortSignal;
   readonly timeoutMs?: number;
-  readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -80,8 +71,7 @@ export interface DatabaseMetrics {
 /**
  * Transaction configuration.
  */
-export interface TransactionOptions
-  extends DatabaseOperationOptions {
+export interface TransactionOptions extends DatabaseOperationOptions {
   readonly isolationLevel?: TransactionIsolationLevel;
   readonly timeoutMs?: number;
   readonly maxWaitMs?: number;
@@ -90,10 +80,7 @@ export interface TransactionOptions
 /**
  * Generic transaction callback.
  */
-export type TransactionCallback<
-  TContext,
-  TResult,
-> = (
+export type TransactionCallback<TContext, TResult> = (
   context: TContext,
 ) => Promise<TResult>;
 
@@ -104,9 +91,7 @@ export type TransactionCallback<
  * lower-level database driver without leaking implementation details
  * throughout the application.
  */
-export interface DatabaseClient<
-  TTransactionContext = unknown,
-> {
+export interface DatabaseClient<TTransactionContext = unknown> {
   connect(): Promise<void>;
 
   disconnect(): Promise<void>;
@@ -118,10 +103,7 @@ export interface DatabaseClient<
   healthCheck(): Promise<DatabaseHealth>;
 
   transaction<TResult>(
-    callback: TransactionCallback<
-      TTransactionContext,
-      TResult
-    >,
+    callback: TransactionCallback<TTransactionContext, TResult>,
     options?: TransactionOptions,
   ): Promise<TResult>;
 }
@@ -162,20 +144,11 @@ export interface Repository<
     options?: DatabaseOperationOptions,
   ): Promise<TEntity>;
 
-  delete(
-    id: TId,
-    options?: DatabaseOperationOptions,
-  ): Promise<void>;
+  delete(id: TId, options?: DatabaseOperationOptions): Promise<void>;
 
-  exists(
-    filter: TFilter,
-    options?: DatabaseOperationOptions,
-  ): Promise<boolean>;
+  exists(filter: TFilter, options?: DatabaseOperationOptions): Promise<boolean>;
 
-  count(
-    filter?: TFilter,
-    options?: DatabaseOperationOptions,
-  ): Promise<number>;
+  count(filter?: TFilter, options?: DatabaseOperationOptions): Promise<number>;
 }
 
 /**
@@ -201,9 +174,7 @@ export interface PaginationMeta {
 /**
  * Paginated repository result.
  */
-export interface PaginatedResult<
-  TEntity,
-> {
+export interface PaginatedResult<TEntity> {
   readonly data: readonly TEntity[];
   readonly meta: PaginationMeta;
 }
@@ -211,16 +182,12 @@ export interface PaginatedResult<
 /**
  * Sorting direction.
  */
-export type SortDirection =
-  | "asc"
-  | "desc";
+export type SortDirection = "asc" | "desc";
 
 /**
  * Generic sort definition.
  */
-export interface SortInput<
-  TField extends string = string,
-> {
+export interface SortInput<TField extends string = string> {
   readonly field: TField;
   readonly direction: SortDirection;
 }
@@ -238,9 +205,7 @@ export interface QueryOptions<
 /**
  * Database entity base contract.
  */
-export interface DatabaseEntity<
-  TId = string,
-> {
+export interface DatabaseEntity<TId = string> {
   readonly id: TId;
   readonly createdAt: Date;
   readonly updatedAt: Date;
@@ -249,16 +214,14 @@ export interface DatabaseEntity<
 /**
  * Soft-deletable entity contract.
  */
-export interface SoftDeletableEntity
-  extends DatabaseEntity {
+export interface SoftDeletableEntity extends DatabaseEntity {
   readonly deletedAt: Date | null;
 }
 
 /**
  * Auditable entity contract.
  */
-export interface AuditableEntity
-  extends DatabaseEntity {
+export interface AuditableEntity extends DatabaseEntity {
   readonly createdBy?: string;
   readonly updatedBy?: string;
 }
@@ -274,55 +237,35 @@ export interface DatabaseErrorInfo {
   readonly field?: string;
   readonly constraint?: string;
   readonly cause?: unknown;
-  readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
  * Database logger contract.
  */
 export interface DatabaseLogger {
-  debug(
-    message: string,
-    metadata?: Readonly<
-      Record<string, unknown>
-    >,
-  ): void;
+  debug(message: string, metadata?: Readonly<Record<string, unknown>>): void;
 
-  info(
-    message: string,
-    metadata?: Readonly<
-      Record<string, unknown>
-    >,
-  ): void;
+  info(message: string, metadata?: Readonly<Record<string, unknown>>): void;
 
-  warn(
-    message: string,
-    metadata?: Readonly<
-      Record<string, unknown>
-    >,
-  ): void;
+  warn(message: string, metadata?: Readonly<Record<string, unknown>>): void;
 
   error(
     message: string,
     error?: unknown,
-    metadata?: Readonly<
-      Record<string, unknown>
-    >,
+    metadata?: Readonly<Record<string, unknown>>,
   ): void;
 }
 
 /**
  * Default no-op database logger.
  */
-export const noopDatabaseLogger: DatabaseLogger =
-  Object.freeze({
-    debug: () => undefined,
-    info: () => undefined,
-    warn: () => undefined,
-    error: () => undefined,
-  });
+export const noopDatabaseLogger: DatabaseLogger = Object.freeze({
+  debug: () => undefined,
+  info: () => undefined,
+  warn: () => undefined,
+  error: () => undefined,
+});
 
 /**
  * Normalizes pagination input.
@@ -330,22 +273,9 @@ export const noopDatabaseLogger: DatabaseLogger =
 export function normalizePagination(
   input?: PaginationInput,
 ): Required<PaginationInput> {
-  const page = Math.max(
-    1,
-    Math.floor(
-      input?.page ?? 1,
-    ),
-  );
+  const page = Math.max(1, Math.floor(input?.page ?? 1));
 
-  const limit = Math.min(
-    100,
-    Math.max(
-      1,
-      Math.floor(
-        input?.limit ?? 20,
-      ),
-    ),
-  );
+  const limit = Math.min(100, Math.max(1, Math.floor(input?.limit ?? 20)));
 
   return {
     page,
@@ -361,62 +291,30 @@ export function createPaginationMeta(
   limit: number,
   total: number,
 ): PaginationMeta {
-  const normalizedPage =
-    Math.max(
-      1,
-      Math.floor(page),
-    );
+  const normalizedPage = Math.max(1, Math.floor(page));
 
-  const normalizedLimit =
-    Math.max(
-      1,
-      Math.floor(limit),
-    );
+  const normalizedLimit = Math.max(1, Math.floor(limit));
 
-  const normalizedTotal =
-    Math.max(
-      0,
-      Math.floor(total),
-    );
+  const normalizedTotal = Math.max(0, Math.floor(total));
 
   const totalPages =
-    normalizedTotal === 0
-      ? 0
-      : Math.ceil(
-          normalizedTotal /
-            normalizedLimit,
-        );
+    normalizedTotal === 0 ? 0 : Math.ceil(normalizedTotal / normalizedLimit);
 
   return {
     page: normalizedPage,
     limit: normalizedLimit,
     total: normalizedTotal,
     totalPages,
-    hasNextPage:
-      totalPages > 0 &&
-      normalizedPage <
-        totalPages,
-    hasPreviousPage:
-      normalizedPage > 1 &&
-      totalPages > 0,
+    hasNextPage: totalPages > 0 && normalizedPage < totalPages,
+    hasPreviousPage: normalizedPage > 1 && totalPages > 0,
   };
 }
 
 /**
  * Calculates the offset for a paginated query.
  */
-export function getPaginationOffset(
-  input?: PaginationInput,
-): number {
-  const {
-    page,
-    limit,
-  } = normalizePagination(
-    input,
-  );
+export function getPaginationOffset(input?: PaginationInput): number {
+  const { page, limit } = normalizePagination(input);
 
-  return (
-    (page - 1) *
-    limit
-  );
+  return (page - 1) * limit;
 }

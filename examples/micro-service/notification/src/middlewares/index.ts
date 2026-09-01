@@ -3,7 +3,11 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 /**
  * Simple request logging middleware.
  */
-export function requestLogger(req: IncomingMessage, res: ServerResponse, next: () => void): void {
+export function requestLogger(
+  req: IncomingMessage,
+  res: ServerResponse,
+  next: () => void,
+): void {
   const start = Date.now();
   const method = req.method;
   const url = req.url;
@@ -19,12 +23,12 @@ export function requestLogger(req: IncomingMessage, res: ServerResponse, next: (
 /**
  * Simple JSON body parser middleware.
  */
-export function jsonBodyParser(req: IncomingMessage, _res: ServerResponse, next: () => void): void {
-  if (
-    req.method === "POST" ||
-    req.method === "PUT" ||
-    req.method === "PATCH"
-  ) {
+export function jsonBodyParser(
+  req: IncomingMessage,
+  _res: ServerResponse,
+  next: () => void,
+): void {
+  if (req.method === "POST" || req.method === "PUT" || req.method === "PATCH") {
     const contentType = req.headers["content-type"];
     if (contentType?.includes("application/json")) {
       const chunks: Buffer[] = [];
@@ -32,7 +36,9 @@ export function jsonBodyParser(req: IncomingMessage, _res: ServerResponse, next:
       req.on("end", () => {
         try {
           const raw = Buffer.concat(chunks).toString("utf-8");
-          (req as IncomingMessage & { body?: unknown }).body = raw ? JSON.parse(raw) : {};
+          (req as IncomingMessage & { body?: unknown }).body = raw
+            ? JSON.parse(raw)
+            : {};
         } catch {
           (req as IncomingMessage & { body?: unknown }).body = {};
         }

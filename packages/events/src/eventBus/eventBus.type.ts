@@ -2,18 +2,14 @@
  * Event bus type definitions for Lattice.
  */
 
-import type {
-  Event,
-} from "../eventTypes/eventDefinition.type.js";
+import type { Event } from "../eventTypes/eventDefinition.type.js";
 
 import type {
   EventEmitterMode,
   EventErrorMode,
 } from "../eventEmitter/eventEmitter.type.js";
 
-import type {
-  EventMiddlewareLike,
-} from "../eventMiddleware/eventMiddleware.type.js";
+import type { EventMiddlewareLike } from "../eventMiddleware/eventMiddleware.type.js";
 
 export interface EventBusOptions {
   readonly emitter?: {

@@ -9,7 +9,10 @@ import type { TenantRepository } from "../tenancyTypes/repositoryTypes.js";
 import type { TenantContextStorage } from "../context/contextStorage.core.js";
 import type { HttpMiddleware } from "./httpTypes.js";
 import { createForbidden } from "./httpHelpers.js";
-import { TENANT_STATE_KEY, TENANT_CONTEXT_STATE_KEY } from "./tenancyMiddleware.core.js";
+import {
+  TENANT_STATE_KEY,
+  TENANT_CONTEXT_STATE_KEY,
+} from "./tenancyMiddleware.core.js";
 
 // ─── Options ──────────────────────────────────────────────────────────────
 
@@ -54,7 +57,9 @@ export function createTenantPropagationMiddleware(
 ): HttpMiddleware {
   return async (context, next) => {
     const tenant = context.state.get<Tenant>(TENANT_STATE_KEY);
-    const tenantCtx = context.state.get<TenantContext>(TENANT_CONTEXT_STATE_KEY);
+    const tenantCtx = context.state.get<TenantContext>(
+      TENANT_CONTEXT_STATE_KEY,
+    );
 
     if (tenant && tenantCtx) {
       return storage.run(

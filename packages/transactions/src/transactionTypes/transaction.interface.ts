@@ -4,7 +4,11 @@
  * @module transactionTypes/transaction
  */
 
-import type { TransactionState, TransactionPropagation, TransactionIsolationLevel } from "./transactionState.js";
+import type {
+  TransactionState,
+  TransactionPropagation,
+  TransactionIsolationLevel,
+} from "./transactionState.js";
 
 /** Options for starting a transaction. */
 export interface TransactionOptions {

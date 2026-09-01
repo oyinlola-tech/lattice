@@ -4,4 +4,4 @@
  * Schema definitions and Zod integration.
  */
 
-export * from './validationSchema.core.js';
+export * from "./validationSchema.core.js";

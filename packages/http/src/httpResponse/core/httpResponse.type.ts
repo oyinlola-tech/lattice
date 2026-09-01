@@ -5,12 +5,7 @@
  */
 
 export type ResponseBody =
-  | string
-  | Buffer
-  | Uint8Array
-  | object
-  | null
-  | undefined;
+  string | Buffer | Uint8Array | object | null | undefined;
 
 export type ResponseHeaders = Record<string, string | string[] | undefined>;
 

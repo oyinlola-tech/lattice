@@ -1,6 +1,4 @@
-import {
-  DatabaseError,
-} from "@oyinlola141/lattice-errors";
+import { DatabaseError } from "@oyinlola141/lattice-errors";
 
 import type {
   DatabaseClient,
@@ -21,16 +19,12 @@ export interface Migration {
   /**
    * Applies the migration.
    */
-  readonly up: (
-    database: DatabaseTransactionContext,
-  ) => Promise<void>;
+  readonly up: (database: DatabaseTransactionContext) => Promise<void>;
 
   /**
    * Reverts the migration.
    */
-  readonly down?: (
-    database: DatabaseTransactionContext,
-  ) => Promise<void>;
+  readonly down?: (database: DatabaseTransactionContext) => Promise<void>;
 }
 
 /**
@@ -71,30 +65,24 @@ export interface MigrationRunnerOptions {
 /**
  * Default migration table.
  */
-export const DEFAULT_MIGRATION_TABLE =
-  "_migrations";
+export const DEFAULT_MIGRATION_TABLE = "_migrations";
 
 /**
  * Default migration advisory lock.
  */
-export const DEFAULT_MIGRATION_LOCK =
-  "database:migrations";
+export const DEFAULT_MIGRATION_LOCK = "database:migrations";
 
 /**
  * Runs and tracks database migrations.
  */
 export class MigrationRunner {
-  private readonly client:
-    DatabaseClient;
+  private readonly client: DatabaseClient;
 
-  private readonly migrations:
-    readonly Migration[];
+  private readonly migrations: readonly Migration[];
 
-  private readonly tableName:
-    string;
+  private readonly tableName: string;
 
-  private readonly lockKey:
-    string;
+  private readonly lockKey: string;
 
   constructor(
     client: DatabaseClient,
@@ -102,31 +90,18 @@ export class MigrationRunner {
     options: MigrationRunnerOptions = {},
   ) {
     if (!client) {
-      throw new TypeError(
-        "A database client is required.",
-      );
+      throw new TypeError("A database client is required.");
     }
 
-    this.client =
-      client;
+    this.client = client;
 
-    this.migrations =
-      normalizeMigrations(
-        migrations,
-      );
+    this.migrations = normalizeMigrations(migrations);
 
-    this.tableName =
-      options.tableName ??
-      DEFAULT_MIGRATION_TABLE;
+    this.tableName = options.tableName ?? DEFAULT_MIGRATION_TABLE;
 
-    this.lockKey =
-      options.lockKey ??
-      DEFAULT_MIGRATION_LOCK;
+    this.lockKey = options.lockKey ?? DEFAULT_MIGRATION_LOCK;
 
-    validateIdentifier(
-      this.tableName,
-      "migration table name",
-    );
+    validateIdentifier(this.tableName, "migration table name");
   }
 
   /**
@@ -135,34 +110,19 @@ export class MigrationRunner {
   public async status(): Promise<MigrationStatus> {
     await this.ensureMigrationTable();
 
-    const applied =
-      await this.getAppliedMigrations();
+    const applied = await this.getAppliedMigrations();
 
-    const appliedVersions =
-      new Set(
-        applied.map(
-          (migration) =>
-            migration.version,
-        ),
-      );
+    const appliedVersions = new Set(
+      applied.map((migration) => migration.version),
+    );
 
-    const pending =
-      this.migrations.filter(
-        (migration) =>
-          !appliedVersions.has(
-            migration.version,
-          ),
-      );
+    const pending = this.migrations.filter(
+      (migration) => !appliedVersions.has(migration.version),
+    );
 
     return {
-      currentVersion:
-        getCurrentVersion(
-          applied,
-        ),
-      latestVersion:
-        getLatestVersion(
-          this.migrations,
-        ),
+      currentVersion: getCurrentVersion(applied),
+      latestVersion: getLatestVersion(this.migrations),
       pending,
       applied,
     };
@@ -174,72 +134,40 @@ export class MigrationRunner {
   public async migrate(): Promise<MigrationResult> {
     await this.ensureMigrationTable();
 
-    const applied =
-      await this.getAppliedMigrations();
+    const applied = await this.getAppliedMigrations();
 
-    const appliedVersions =
-      new Set(
-        applied.map(
-          (migration) =>
-            migration.version,
-        ),
-      );
+    const appliedVersions = new Set(
+      applied.map((migration) => migration.version),
+    );
 
-    const pending =
-      this.migrations.filter(
-        (migration) =>
-          !appliedVersions.has(
-            migration.version,
-          ),
-      );
+    const pending = this.migrations.filter(
+      (migration) => !appliedVersions.has(migration.version),
+    );
 
-    if (
-      pending.length === 0
-    ) {
+    if (pending.length === 0) {
       return {
         applied: [],
         skipped: applied,
       };
     }
 
-    const newlyApplied:
-      MigrationRecord[] =
-      [];
+    const newlyApplied: MigrationRecord[] = [];
 
-    await this.client.transaction(
-      async (
-        transaction,
-      ) => {
-        await this.acquireMigrationLock(
-          transaction,
-        );
+    await this.client.transaction(async (transaction) => {
+      await this.acquireMigrationLock(transaction);
 
-        for (
-          const migration of pending
-        ) {
-          await this.executeMigration(
-            transaction,
-            migration,
-          );
+      for (const migration of pending) {
+        await this.executeMigration(transaction, migration);
 
-          const record =
-            await this.recordMigration(
-              transaction,
-              migration,
-            );
+        const record = await this.recordMigration(transaction, migration);
 
-          newlyApplied.push(
-            record,
-          );
-        }
-      },
-    );
+        newlyApplied.push(record);
+      }
+    });
 
     return {
-      applied:
-        newlyApplied,
-      skipped:
-        applied,
+      applied: newlyApplied,
+      skipped: applied,
     };
   }
 
@@ -249,75 +177,51 @@ export class MigrationRunner {
   public async rollback(): Promise<MigrationRecord | null> {
     await this.ensureMigrationTable();
 
-    const applied =
-      await this.getAppliedMigrations();
+    const applied = await this.getAppliedMigrations();
 
-    if (
-      applied.length === 0
-    ) {
+    if (applied.length === 0) {
       return null;
     }
 
-    const latest =
-      applied[
-        applied.length - 1
-      ];
+    const latest = applied[applied.length - 1];
 
     if (!latest) {
       return null;
     }
 
-    const migration =
-      this.migrations.find(
-        (candidate) =>
-          candidate.version ===
-          latest.version,
-      );
+    const migration = this.migrations.find(
+      (candidate) => candidate.version === latest.version,
+    );
 
     if (!migration) {
       throw new DatabaseError(
         `Migration "${latest.name}" is recorded as applied but is not registered.`,
         {
           metadata: {
-            version:
-              latest.version,
+            version: latest.version,
           },
         },
       );
     }
 
-    if (
-      !migration.down
-    ) {
+    if (!migration.down) {
       throw new DatabaseError(
         `Migration "${migration.name}" does not define a rollback operation.`,
         {
           metadata: {
-            version:
-              migration.version,
+            version: migration.version,
           },
         },
       );
     }
 
-    await this.client.transaction(
-      async (
-        transaction,
-      ) => {
-        await this.acquireMigrationLock(
-          transaction,
-        );
+    await this.client.transaction(async (transaction) => {
+      await this.acquireMigrationLock(transaction);
 
-        await migration.down!(
-          transaction,
-        );
+      await migration.down!(transaction);
 
-        await this.deleteMigrationRecord(
-          transaction,
-          migration.version,
-        );
-      },
-    );
+      await this.deleteMigrationRecord(transaction, migration.version);
+    });
 
     return latest;
   }
@@ -325,95 +229,60 @@ export class MigrationRunner {
   /**
    * Rolls back all applied migrations in reverse order.
    */
-  public async rollbackAll(): Promise<
-    readonly MigrationRecord[]
-  > {
+  public async rollbackAll(): Promise<readonly MigrationRecord[]> {
     await this.ensureMigrationTable();
 
-    const applied =
-      await this.getAppliedMigrations();
+    const applied = await this.getAppliedMigrations();
 
-    if (
-      applied.length === 0
-    ) {
+    if (applied.length === 0) {
       return [];
     }
 
-    const rolledBack:
-      MigrationRecord[] =
-      [];
+    const rolledBack: MigrationRecord[] = [];
 
-    await this.client.transaction(
-      async (
-        transaction,
-      ) => {
-        await this.acquireMigrationLock(
-          transaction,
+    await this.client.transaction(async (transaction) => {
+      await this.acquireMigrationLock(transaction);
+
+      for (let index = applied.length - 1; index >= 0; index -= 1) {
+        const record = applied[index];
+
+        if (!record) {
+          continue;
+        }
+
+        const migration = this.migrations.find(
+          (candidate) => candidate.version === record.version,
         );
 
-        for (
-          let index =
-            applied.length - 1;
-          index >= 0;
-          index -= 1
-        ) {
-          const record =
-            applied[index];
-
-          if (!record) {
-            continue;
-          }
-
-          const migration =
-            this.migrations.find(
-              (candidate) =>
-                candidate.version ===
-                record.version,
-            );
-
-          if (
-            !migration
-          ) {
-            throw new DatabaseError(
-              `Migration "${record.name}" is not registered.`,
-              {
-                metadata: {
-                  version:
-                    record.version,
-                },
+        if (!migration) {
+          throw new DatabaseError(
+            `Migration "${record.name}" is not registered.`,
+            {
+              metadata: {
+                version: record.version,
               },
-            );
-          }
-
-          if (
-            !migration.down
-          ) {
-            throw new DatabaseError(
-              `Migration "${migration.name}" does not define a rollback operation.`,
-              {
-                metadata: {
-                  version:
-                    migration.version,
-                },
-              },
-            );
-          }
-
-          await migration.down(
-            transaction,
-          );
-
-          await this.deleteMigrationRecord(
-            transaction,
-            migration.version,
-          );
-
-          rolledBack.push(
-            record,
+            },
           );
         }
-      },
-    );
+
+        if (!migration.down) {
+          throw new DatabaseError(
+            `Migration "${migration.name}" does not define a rollback operation.`,
+            {
+              metadata: {
+                version: migration.version,
+              },
+            },
+          );
+        }
+
+        await migration.down(transaction);
+
+        await this.deleteMigrationRecord(transaction, migration.version);
+
+        rolledBack.push(record);
+      }
+    });
 
     return rolledBack;
   }
@@ -422,10 +291,7 @@ export class MigrationRunner {
    * Ensures the migration table exists.
    */
   public async ensureMigrationTable(): Promise<void> {
-    const table =
-      quoteIdentifier(
-        this.tableName,
-      );
+    const table = quoteIdentifier(this.tableName);
 
     try {
       await this.client.executeRaw(
@@ -438,40 +304,30 @@ export class MigrationRunner {
         `,
       );
     } catch (error) {
-      throw new DatabaseError(
-        "Failed to initialize the migration table.",
-        {
-          cause: error,
-          metadata: {
-            tableName:
-              this.tableName,
-          },
+      throw new DatabaseError("Failed to initialize the migration table.", {
+        cause: error,
+        metadata: {
+          tableName: this.tableName,
         },
-      );
+      });
     }
   }
 
   /**
    * Returns all applied migrations.
    */
-  public async getAppliedMigrations(): Promise<
-    readonly MigrationRecord[]
-  > {
-    const table =
-      quoteIdentifier(
-        this.tableName,
-      );
+  public async getAppliedMigrations(): Promise<readonly MigrationRecord[]> {
+    const table = quoteIdentifier(this.tableName);
 
     try {
-      const rows =
-        await this.client.queryRaw<
-          readonly {
-            version: number;
-            name: string;
-            applied_at: Date;
-          }[]
-        >(
-          Prisma.sql`
+      const rows = await this.client.queryRaw<
+        readonly {
+          version: number;
+          name: string;
+          applied_at: Date;
+        }[]
+      >(
+        Prisma.sql`
             SELECT
               "version",
               "name",
@@ -479,33 +335,20 @@ export class MigrationRunner {
             FROM ${table}
             ORDER BY "version" ASC
           `,
-        );
+      );
 
-      return rows.map(
-        (row) => ({
-          version:
-            Number(
-              row.version,
-            ),
-          name:
-            row.name,
-          appliedAt:
-            new Date(
-              row.applied_at,
-            ),
-        }),
-      );
+      return rows.map((row) => ({
+        version: Number(row.version),
+        name: row.name,
+        appliedAt: new Date(row.applied_at),
+      }));
     } catch (error) {
-      throw new DatabaseError(
-        "Failed to read migration history.",
-        {
-          cause: error,
-          metadata: {
-            tableName:
-              this.tableName,
-          },
+      throw new DatabaseError("Failed to read migration history.", {
+        cause: error,
+        metadata: {
+          tableName: this.tableName,
         },
-      );
+      });
     }
   }
 
@@ -517,22 +360,15 @@ export class MigrationRunner {
     migration: Migration,
   ): Promise<void> {
     try {
-      await migration.up(
-        transaction,
-      );
+      await migration.up(transaction);
     } catch (error) {
-      throw new DatabaseError(
-        `Migration "${migration.name}" failed.`,
-        {
-          cause: error,
-          metadata: {
-            version:
-              migration.version,
-            name:
-              migration.name,
-          },
+      throw new DatabaseError(`Migration "${migration.name}" failed.`, {
+        cause: error,
+        metadata: {
+          version: migration.version,
+          name: migration.name,
         },
-      );
+      });
     }
   }
 
@@ -543,10 +379,7 @@ export class MigrationRunner {
     transaction: DatabaseTransactionContext,
     migration: Migration,
   ): Promise<MigrationRecord> {
-    const table =
-      quoteIdentifier(
-        this.tableName,
-      );
+    const table = quoteIdentifier(this.tableName);
 
     try {
       await transaction.$executeRawUnsafe(
@@ -561,12 +394,9 @@ export class MigrationRunner {
       );
 
       return {
-        version:
-          migration.version,
-        name:
-          migration.name,
-        appliedAt:
-          new Date(),
+        version: migration.version,
+        name: migration.name,
+        appliedAt: new Date(),
       };
     } catch (error) {
       throw new DatabaseError(
@@ -574,8 +404,7 @@ export class MigrationRunner {
         {
           cause: error,
           metadata: {
-            version:
-              migration.version,
+            version: migration.version,
           },
         },
       );
@@ -589,10 +418,7 @@ export class MigrationRunner {
     transaction: DatabaseTransactionContext,
     version: number,
   ): Promise<void> {
-    const table =
-      quoteIdentifier(
-        this.tableName,
-      );
+    const table = quoteIdentifier(this.tableName);
 
     try {
       await transaction.$executeRawUnsafe(
@@ -622,10 +448,7 @@ export class MigrationRunner {
     transaction: DatabaseTransactionContext,
   ): Promise<void> {
     try {
-      const lock =
-        hashLockKey(
-          this.lockKey,
-        );
+      const lock = hashLockKey(this.lockKey);
 
       await transaction.$executeRaw`
         SELECT pg_advisory_xact_lock(
@@ -638,8 +461,7 @@ export class MigrationRunner {
         {
           cause: error,
           metadata: {
-            lockKey:
-              this.lockKey,
+            lockKey: this.lockKey,
           },
         },
       );
@@ -655,11 +477,7 @@ export function createMigrationRunner(
   migrations: readonly Migration[],
   options?: MigrationRunnerOptions,
 ): MigrationRunner {
-  return new MigrationRunner(
-    client,
-    migrations,
-    options,
-  );
+  return new MigrationRunner(client, migrations, options);
 }
 
 /**
@@ -668,131 +486,63 @@ export function createMigrationRunner(
 export function normalizeMigrations(
   migrations: readonly Migration[],
 ): readonly Migration[] {
-  if (
-    !Array.isArray(
-      migrations,
-    )
-  ) {
-    throw new TypeError(
-      "Migrations must be an array.",
-    );
+  if (!Array.isArray(migrations)) {
+    throw new TypeError("Migrations must be an array.");
   }
 
-  const normalized =
-    migrations
-      .map(
-        (migration) => {
-          validateMigration(
-            migration,
-          );
+  const normalized = migrations
+    .map((migration) => {
+      validateMigration(migration);
 
-          return Object.freeze({
-            ...migration,
-          });
-        },
-      )
-      .sort(
-        (
-          first,
-          second,
-        ) =>
-          first.version -
-          second.version,
-      );
+      return Object.freeze({
+        ...migration,
+      });
+    })
+    .sort((first, second) => first.version - second.version);
 
-  for (
-    let index = 1;
-    index <
-    normalized.length;
-    index += 1
-  ) {
-    const previous =
-      normalized[
-        index - 1
-      ];
+  for (let index = 1; index < normalized.length; index += 1) {
+    const previous = normalized[index - 1];
 
-    const current =
-      normalized[index];
+    const current = normalized[index];
 
-    if (
-      previous &&
-      current &&
-      previous.version ===
-        current.version
-    ) {
-      throw new TypeError(
-        `Duplicate migration version: ${current.version}.`,
-      );
+    if (previous && current && previous.version === current.version) {
+      throw new TypeError(`Duplicate migration version: ${current.version}.`);
     }
   }
 
-  return Object.freeze(
-    normalized,
-  );
+  return Object.freeze(normalized);
 }
 
 /**
  * Validates one migration.
  */
-export function validateMigration(
-  migration: Migration,
-): void {
-  if (
-    !migration ||
-    typeof migration !==
-      "object"
-  ) {
-    throw new TypeError(
-      "A migration definition is required.",
-    );
+export function validateMigration(migration: Migration): void {
+  if (!migration || typeof migration !== "object") {
+    throw new TypeError("A migration definition is required.");
+  }
+
+  if (!Number.isInteger(migration.version) || migration.version <= 0) {
+    throw new TypeError("Migration version must be a positive integer.");
   }
 
   if (
-    !Number.isInteger(
-      migration.version,
-    ) ||
-    migration.version <= 0
+    typeof migration.name !== "string" ||
+    migration.name.trim().length === 0
   ) {
-    throw new TypeError(
-      "Migration version must be a positive integer.",
-    );
+    throw new TypeError("Migration name is required.");
   }
 
-  if (
-    typeof migration.name !==
-      "string" ||
-    migration.name.trim().length ===
-      0
-  ) {
-    throw new TypeError(
-      "Migration name is required.",
-    );
+  if (migration.name.length > 255) {
+    throw new TypeError("Migration name cannot exceed 255 characters.");
   }
 
-  if (
-    migration.name.length >
-    255
-  ) {
-    throw new TypeError(
-      "Migration name cannot exceed 255 characters.",
-    );
-  }
-
-  if (
-    typeof migration.up !==
-    "function"
-  ) {
+  if (typeof migration.up !== "function") {
     throw new TypeError(
       `Migration "${migration.name}" requires an up function.`,
     );
   }
 
-  if (
-    migration.down !==
-      undefined &&
-    typeof migration.down !==
-      "function"
-  ) {
+  if (migration.down !== undefined && typeof migration.down !== "function") {
     throw new TypeError(
       `Migration "${migration.name}" has an invalid down function.`,
     );
@@ -802,19 +552,12 @@ export function validateMigration(
 /**
  * Returns the latest registered migration version.
  */
-export function getLatestVersion(
-  migrations: readonly Migration[],
-): number {
-  if (
-    migrations.length ===
-    0
-  ) {
+export function getLatestVersion(migrations: readonly Migration[]): number {
+  if (migrations.length === 0) {
     return 0;
   }
 
-  return migrations[
-    migrations.length - 1
-  ]!.version;
+  return migrations[migrations.length - 1]!.version;
 }
 
 /**
@@ -823,28 +566,18 @@ export function getLatestVersion(
 export function getCurrentVersion(
   migrations: readonly MigrationRecord[],
 ): number {
-  if (
-    migrations.length ===
-    0
-  ) {
+  if (migrations.length === 0) {
     return 0;
   }
 
-  return migrations[
-    migrations.length - 1
-  ]!.version;
+  return migrations[migrations.length - 1]!.version;
 }
 
 /**
  * Quotes a validated SQL identifier.
  */
-function quoteIdentifier(
-  identifier: string,
-): string {
-  validateIdentifier(
-    identifier,
-    "identifier",
-  );
+function quoteIdentifier(identifier: string): string {
+  validateIdentifier(identifier, "identifier");
 
   return `"${identifier}"`;
 }
@@ -852,54 +585,28 @@ function quoteIdentifier(
 /**
  * Validates an SQL identifier.
  */
-function validateIdentifier(
-  identifier: string,
-  name: string,
-): void {
+function validateIdentifier(identifier: string, name: string): void {
   if (
-    typeof identifier !==
-      "string" ||
-    !/^[A-Za-z_][A-Za-z0-9_]*$/.test(
-      identifier,
-    )
+    typeof identifier !== "string" ||
+    !/^[A-Za-z_][A-Za-z0-9_]*$/.test(identifier)
   ) {
-    throw new TypeError(
-      `Invalid ${name}: "${identifier}".`,
-    );
+    throw new TypeError(`Invalid ${name}: "${identifier}".`);
   }
 }
 
 /**
  * Creates a deterministic signed 64-bit advisory lock key.
  */
-function hashLockKey(
-  value: string,
-): bigint {
-  let hash =
-    1469598103934665603n;
+function hashLockKey(value: string): bigint {
+  let hash = 1469598103934665603n;
 
-  const bytes =
-    new TextEncoder().encode(
-      value,
-    );
+  const bytes = new TextEncoder().encode(value);
 
-  for (
-    const byte of bytes
-  ) {
-    hash ^= BigInt(
-      byte,
-    );
+  for (const byte of bytes) {
+    hash ^= BigInt(byte);
 
-    hash =
-      BigInt.asIntN(
-        64,
-        hash *
-          1099511628211n,
-      );
+    hash = BigInt.asIntN(64, hash * 1099511628211n);
   }
 
-  return BigInt.asIntN(
-    64,
-    hash,
-  );
+  return BigInt.asIntN(64, hash);
 }

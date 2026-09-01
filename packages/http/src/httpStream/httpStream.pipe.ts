@@ -3,12 +3,20 @@
  */
 
 import { HttpStreamError as StreamError } from "@oyinlola141/lattice-errors";
-import type { StreamPipeOptions, StreamResult, HTTPStreamOptions } from "./httpStream.types.js";
+import type {
+  StreamPipeOptions,
+  StreamResult,
+  HTTPStreamOptions,
+} from "./httpStream.types.js";
 import { createAbortError } from "./httpStream.error.js";
 import { isReadableEnded, isWritableFinished } from "./httpStream.state.js";
 import { destroyStream } from "./httpStream.destroy.js";
 import { getChunkSize } from "./httpStream.helper.js";
-import { createSettleGuard, cleanupListeners, wireAbortSignal } from "./httpStream.eventHelper.js";
+import {
+  createSettleGuard,
+  cleanupListeners,
+  wireAbortSignal,
+} from "./httpStream.eventHelper.js";
 
 export async function pipeStream(
   source: NodeJS.ReadableStream,
@@ -53,14 +61,20 @@ export async function pipeStream(
       }
 
       if (!isWritableFinished(destination)) {
-        try { destination.end(); } catch (error) { finish(error); }
+        try {
+          destination.end();
+        } catch (error) {
+          finish(error);
+        }
         return;
       }
 
       finish();
     };
 
-    const onFinish = () => { finish(); };
+    const onFinish = () => {
+      finish();
+    };
 
     const onSourceError = (error: unknown) => {
       destroyStream(destination);
@@ -74,9 +88,11 @@ export async function pipeStream(
 
     const onSourceClose = () => {
       if (!isReadableEnded(source) && !guard.settled()) {
-        finish(new StreamError("Source stream closed before completion.", {
-          code: "STREAM_SOURCE_CLOSED",
-        }));
+        finish(
+          new StreamError("Source stream closed before completion.", {
+            code: "STREAM_SOURCE_CLOSED",
+          }),
+        );
       }
     };
 
@@ -97,11 +113,14 @@ export async function pipeStream(
 
     cleanupFn = () => {
       cleanupListeners(source, [
-        ["data", onData], ["end", onEnd],
-        ["error", onSourceError], ["close", onSourceClose],
+        ["data", onData],
+        ["end", onEnd],
+        ["error", onSourceError],
+        ["close", onSourceClose],
       ]);
       cleanupListeners(destination, [
-        ["error", onDestinationError], ["finish", onFinish],
+        ["error", onDestinationError],
+        ["finish", onFinish],
       ]);
       removeAbort();
     };

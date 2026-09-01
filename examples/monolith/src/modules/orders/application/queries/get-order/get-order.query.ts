@@ -4,5 +4,7 @@ import type { Order } from "../../../domain/entities/order.entity.js";
 
 export class GetOrderQuery extends AppQuery<Order | null> {
   public readonly type = "orders.getById" as const;
-  constructor(public readonly id: OrderId) { super(); }
+  constructor(public readonly id: OrderId) {
+    super();
+  }
 }

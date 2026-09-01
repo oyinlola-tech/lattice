@@ -17,29 +17,16 @@ import { parseWeightedValues } from "../internal/httpHeaders.internal.weightedVa
  * @returns The best matching encoding, or `undefined` if none match.
  */
 export function preferredEncoding(
-  headers:
-    | HTTPHeadersLike,
-  candidates:
-    | readonly string[],
-): string
-  | undefined {
-  const value =
-    toHTTPHeaders(
-      headers,
-    ).get(
-      "accept-encoding",
-    );
+  headers: HTTPHeadersLike,
+  candidates: readonly string[],
+): string | undefined {
+  const value = toHTTPHeaders(headers).get("accept-encoding");
 
-  if (
-    !value
-  ) {
+  if (!value) {
     return candidates[0];
   }
 
-  const accepted =
-    parseWeightedValues(
-      value,
-    );
+  const accepted = parseWeightedValues(value);
 
   let best:
     | {
@@ -48,44 +35,21 @@ export function preferredEncoding(
       }
     | undefined;
 
-  for (
-    const candidate of candidates
-  ) {
-    const normalized =
-      candidate
-        .trim()
-        .toLowerCase();
+  for (const candidate of candidates) {
+    const normalized = candidate.trim().toLowerCase();
 
-    const match =
-      accepted.find(
-        (
-          item,
-        ) =>
-          item.value
-            .toLowerCase() ===
-            normalized ||
-          item.value ===
-            "*",
-      );
+    const match = accepted.find(
+      (item) => item.value.toLowerCase() === normalized || item.value === "*",
+    );
 
-    if (
-      !match ||
-      match.quality <=
-        0
-    ) {
+    if (!match || match.quality <= 0) {
       continue;
     }
 
-    if (
-      !best ||
-      match.quality >
-        best.quality
-    ) {
+    if (!best || match.quality > best.quality) {
       best = {
-        encoding:
-          candidate,
-        quality:
-          match.quality,
+        encoding: candidate,
+        quality: match.quality,
       };
     }
   }

@@ -5,15 +5,24 @@
 import type { OpenAPIParameter } from "./openApiPath.type.js";
 
 export interface OpenAPIComponents {
-  readonly schemas?: Readonly<Record<string, import("./openApiSchema.type.js").OpenAPISchema>>;
+  readonly schemas?: Readonly<
+    Record<string, import("./openApiSchema.type.js").OpenAPISchema>
+  >;
   readonly responses?: Readonly<Record<string, OpenAPIResponse>>;
   readonly parameters?: Readonly<Record<string, OpenAPIParameter>>;
   readonly examples?: Readonly<Record<string, OpenAPIExample>>;
   readonly requestBodies?: Readonly<Record<string, OpenAPIRequestBody>>;
   readonly headers?: Readonly<Record<string, OpenAPIHeader>>;
-  readonly securitySchemes?: Readonly<Record<string, import("./openApiSecurity.type.js").OpenAPISecurityScheme>>;
+  readonly securitySchemes?: Readonly<
+    Record<string, import("./openApiSecurity.type.js").OpenAPISecurityScheme>
+  >;
   readonly links?: Readonly<Record<string, OpenAPILink>>;
-  readonly callbacks?: Readonly<Record<string, Readonly<Record<string, import("./openApiPath.type.js").OpenAPIPathItem>>>>;
+  readonly callbacks?: Readonly<
+    Record<
+      string,
+      Readonly<Record<string, import("./openApiPath.type.js").OpenAPIPathItem>>
+    >
+  >;
 }
 
 export interface OpenAPIResponse {
@@ -23,7 +32,10 @@ export interface OpenAPIResponse {
   readonly links?: Readonly<Record<string, OpenAPILink>>;
 }
 
-export type { OpenAPIParameter, OpenAPIParameterLocation } from "./openApiPath.type.js";
+export type {
+  OpenAPIParameter,
+  OpenAPIParameterLocation,
+} from "./openApiPath.type.js";
 
 export interface OpenAPIRequestBody {
   readonly description?: string;

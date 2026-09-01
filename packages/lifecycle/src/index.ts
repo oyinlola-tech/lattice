@@ -51,7 +51,10 @@ export { buildExecutionPlan } from "./lifecyclePlan/index.js";
 export type { ExecutionStage, ExecutionPlan } from "./lifecyclePlan/index.js";
 export { LifecycleExecutor } from "./lifecycleExecutor/index.js";
 export type { ExecutionResult } from "./lifecycleExecutor/index.js";
-export { LifecycleManager, createLifecycleManager } from "./lifecycleManager/index.js";
+export {
+  LifecycleManager,
+  createLifecycleManager,
+} from "./lifecycleManager/index.js";
 export type { LifecycleManagerOptions } from "./lifecycleManager/index.js";
 export { LifecycleEventEmitter } from "./lifecycleEvents/index.js";
 export type {

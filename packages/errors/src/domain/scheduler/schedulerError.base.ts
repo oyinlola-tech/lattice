@@ -9,7 +9,10 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating a scheduler error. */
-export interface SchedulerErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface SchedulerErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly jobId?: string;
   readonly scheduleId?: string;
@@ -44,7 +47,10 @@ export class SchedulerError extends BaseError {
 }
 
 /** Creates a scheduler error. */
-export function createSchedulerError(message: string, options: SchedulerErrorOptions = {}): SchedulerError {
+export function createSchedulerError(
+  message: string,
+  options: SchedulerErrorOptions = {},
+): SchedulerError {
   return new SchedulerError(message, options);
 }
 
@@ -57,7 +63,9 @@ export function isSchedulerError(value: unknown): value is SchedulerError {
 export class SchedulerNotStartedError extends SchedulerError {
   constructor() {
     super("Scheduler has not been started.", {
-      code: ErrorCode.SCHEDULER_NOT_STARTED, statusCode: 400, expose: true,
+      code: ErrorCode.SCHEDULER_NOT_STARTED,
+      statusCode: 400,
+      expose: true,
     });
     this.name = "SchedulerNotStartedError";
   }
@@ -67,7 +75,9 @@ export class SchedulerNotStartedError extends SchedulerError {
 export class SchedulerAlreadyStartedError extends SchedulerError {
   constructor() {
     super("Scheduler is already started.", {
-      code: ErrorCode.SCHEDULER_ALREADY_STARTED, statusCode: 400, expose: true,
+      code: ErrorCode.SCHEDULER_ALREADY_STARTED,
+      statusCode: 400,
+      expose: true,
     });
     this.name = "SchedulerAlreadyStartedError";
   }
@@ -77,7 +87,9 @@ export class SchedulerAlreadyStartedError extends SchedulerError {
 export class SchedulerStoppedError extends SchedulerError {
   constructor() {
     super("Scheduler is stopped.", {
-      code: ErrorCode.SCHEDULER_STOPPED, statusCode: 400, expose: true,
+      code: ErrorCode.SCHEDULER_STOPPED,
+      statusCode: 400,
+      expose: true,
     });
     this.name = "SchedulerStoppedError";
   }
@@ -87,7 +99,10 @@ export class SchedulerStoppedError extends SchedulerError {
 export class SchedulerJobNotFoundError extends SchedulerError {
   constructor(jobId: string) {
     super(`Job "${jobId}" is not registered.`, {
-      code: ErrorCode.SCHEDULER_JOB_NOT_FOUND, jobId, statusCode: 404, expose: true,
+      code: ErrorCode.SCHEDULER_JOB_NOT_FOUND,
+      jobId,
+      statusCode: 404,
+      expose: true,
     });
     this.name = "SchedulerJobNotFoundError";
   }
@@ -97,7 +112,10 @@ export class SchedulerJobNotFoundError extends SchedulerError {
 export class SchedulerJobAlreadyExistsError extends SchedulerError {
   constructor(jobId: string) {
     super(`Job "${jobId}" already exists.`, {
-      code: ErrorCode.SCHEDULER_JOB_ALREADY_EXISTS, jobId, statusCode: 409, expose: true,
+      code: ErrorCode.SCHEDULER_JOB_ALREADY_EXISTS,
+      jobId,
+      statusCode: 409,
+      expose: true,
     });
     this.name = "SchedulerJobAlreadyExistsError";
   }
@@ -107,7 +125,10 @@ export class SchedulerJobAlreadyExistsError extends SchedulerError {
 export class InvalidJobError extends SchedulerError {
   constructor(message: string, jobId?: string) {
     super(message, {
-      code: ErrorCode.INVALID_JOB, jobId, statusCode: 400, expose: true,
+      code: ErrorCode.INVALID_JOB,
+      jobId,
+      statusCode: 400,
+      expose: true,
     });
     this.name = "InvalidJobError";
   }

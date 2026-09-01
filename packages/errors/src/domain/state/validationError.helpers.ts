@@ -14,7 +14,10 @@ export function createValidationIssue(
 }
 
 /** Creates a required-field validation issue. */
-export function requiredFieldIssue(field: string, message = `${field} is required.`): ValidationIssue {
+export function requiredFieldIssue(
+  field: string,
+  message = `${field} is required.`,
+): ValidationIssue {
   return createValidationIssue(message, {
     field,
     code: ErrorCode.MISSING_FIELD,
@@ -22,7 +25,11 @@ export function requiredFieldIssue(field: string, message = `${field} is require
 }
 
 /** Creates an invalid-field validation issue. */
-export function invalidFieldIssue(field: string, message = `${field} is invalid.`, value?: unknown): ValidationIssue {
+export function invalidFieldIssue(
+  field: string,
+  message = `${field} is invalid.`,
+  value?: unknown,
+): ValidationIssue {
   return createValidationIssue(message, {
     field,
     code: ErrorCode.INVALID_FIELD,

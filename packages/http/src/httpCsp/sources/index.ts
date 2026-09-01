@@ -9,4 +9,4 @@ export {
   isUnsafeEvalSource,
   isNonceSource,
   isHashSource,
-} from './httpCsp.sources.js';
+} from "./httpCsp.sources.js";

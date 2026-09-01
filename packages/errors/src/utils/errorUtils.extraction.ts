@@ -6,7 +6,10 @@ import { BaseError } from "../base/core/baseError.core.js";
 import { isErrorLike } from "./errorUtils.typeCheck.js";
 
 /** Returns the message from an unknown thrown value. */
-export function getErrorMessage(value: unknown, fallback = "An unexpected error occurred."): string {
+export function getErrorMessage(
+  value: unknown,
+  fallback = "An unexpected error occurred.",
+): string {
   if (value instanceof Error) {
     return value.message || fallback;
   }

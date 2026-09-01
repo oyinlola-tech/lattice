@@ -193,13 +193,16 @@ describe("Queries", () => {
 // ============================================================
 describe("Command Handlers", () => {
   it("FunctionCommandHandler wraps a function", async () => {
-    const handler = new FunctionCommandHandler(
-      "CreateUser",
-      (cmd: any) => ({ id: "1", name: cmd.name }),
-    );
+    const handler = new FunctionCommandHandler("CreateUser", (cmd: any) => ({
+      id: "1",
+      name: cmd.name,
+    }));
 
     expect(handler.commandType).toBe("CreateUser");
-    const result = await handler.execute({ type: "CreateUser", name: "Alice" } as any);
+    const result = await handler.execute({
+      type: "CreateUser",
+      name: "Alice",
+    } as any);
     expect(result).toEqual({ id: "1", name: "Alice" });
   });
 
@@ -209,7 +212,10 @@ describe("Command Handlers", () => {
     });
 
     expect(handler.commandType).toBe("DeleteUser");
-    const result = await handler.execute({ type: "DeleteUser", id: "1" } as any);
+    const result = await handler.execute({
+      type: "DeleteUser",
+      id: "1",
+    } as any);
     expect(result).toEqual({ deleted: "1" });
   });
 
@@ -221,19 +227,25 @@ describe("Command Handlers", () => {
 
   it("isCommandHandlerLike detects functions", () => {
     expect(isCommandHandlerLike(() => {})).toBe(true);
-    expect(isCommandHandlerLike(createCommandHandler("Test", () => {}))).toBe(true);
+    expect(isCommandHandlerLike(createCommandHandler("Test", () => {}))).toBe(
+      true,
+    );
     expect(isCommandHandlerLike(null)).toBe(false);
   });
 
   it("executeCommandHandler executes function handlers", async () => {
     const handler = (cmd: any) => `Handled ${cmd.type}`;
-    const result = await executeCommandHandler(handler, { type: "Test" } as any);
+    const result = await executeCommandHandler(handler, {
+      type: "Test",
+    } as any);
     expect(result).toBe("Handled Test");
   });
 
   it("executeCommandHandler executes class handlers", async () => {
     const handler = createCommandHandler("Test", async () => "result");
-    const result = await executeCommandHandler(handler, { type: "Test" } as any);
+    const result = await executeCommandHandler(handler, {
+      type: "Test",
+    } as any);
     expect(result).toBe("result");
   });
 });
@@ -243,10 +255,10 @@ describe("Command Handlers", () => {
 // ============================================================
 describe("Query Handlers", () => {
   it("FunctionQueryHandler wraps a function", async () => {
-    const handler = new FunctionQueryHandler(
-      "GetUser",
-      (q: any) => ({ id: q.id, name: "Alice" }),
-    );
+    const handler = new FunctionQueryHandler("GetUser", (q: any) => ({
+      id: q.id,
+      name: "Alice",
+    }));
 
     expect(handler.queryType).toBe("GetUser");
     const result = await handler.execute({ type: "GetUser", id: "1" } as any);
@@ -278,17 +290,21 @@ describe("Query Handlers", () => {
 describe("Command Bus", () => {
   it("registers and executes handlers", async () => {
     const bus = createCommandBus();
-    bus.register("CreateUser", async (cmd: any) => ({ id: "1", name: cmd.name }));
+    bus.register("CreateUser", async (cmd: any) => ({
+      id: "1",
+      name: cmd.name,
+    }));
 
-    const result = await bus.execute({ type: "CreateUser", name: "Alice" } as any);
+    const result = await bus.execute({
+      type: "CreateUser",
+      name: "Alice",
+    } as any);
     expect(result).toEqual({ id: "1", name: "Alice" });
   });
 
   it("throws when no handler registered", async () => {
     const bus = createCommandBus();
-    await expect(
-      bus.execute({ type: "Unknown" } as any),
-    ).rejects.toThrow();
+    await expect(bus.execute({ type: "Unknown" } as any)).rejects.toThrow();
   });
 
   it("throws on duplicate registration", () => {
@@ -376,9 +392,7 @@ describe("Query Bus", () => {
 
   it("throws when no handler registered", async () => {
     const bus = createQueryBus();
-    await expect(
-      bus.execute({ type: "Unknown" } as any),
-    ).rejects.toThrow();
+    await expect(bus.execute({ type: "Unknown" } as any)).rejects.toThrow();
   });
 
   it("throws on duplicate registration", () => {
@@ -467,14 +481,10 @@ describe("Middleware", () => {
   it("contextMiddleware enriches context", async () => {
     const mw = contextMiddleware();
     let capturedCtx: any;
-    await mw(
-      { type: "Test" } as any,
-      undefined,
-      async (req, ctx) => {
-        capturedCtx = ctx;
-        return "done";
-      },
-    );
+    await mw({ type: "Test" } as any, undefined, async (req, ctx) => {
+      capturedCtx = ctx;
+      return "done";
+    });
     expect(capturedCtx?.metadata?.cqrsRequestType).toBe("Test");
   });
 
@@ -495,16 +505,18 @@ describe("Middleware", () => {
       },
     ]);
 
-    await composed(
-      { type: "Test" } as any,
-      undefined,
-      async () => {
-        order.push("handler");
-        return "done";
-      },
-    );
+    await composed({ type: "Test" } as any, undefined, async () => {
+      order.push("handler");
+      return "done";
+    });
 
-    expect(order).toEqual(["1-before", "2-before", "handler", "2-after", "1-after"]);
+    expect(order).toEqual([
+      "1-before",
+      "2-before",
+      "handler",
+      "2-after",
+      "1-after",
+    ]);
   });
 
   it("beforeMiddleware runs before execution", async () => {
@@ -513,14 +525,10 @@ describe("Middleware", () => {
       order.push("before");
     });
 
-    await mw(
-      { type: "Test" } as any,
-      undefined,
-      async () => {
-        order.push("handler");
-        return "done";
-      },
-    );
+    await mw({ type: "Test" } as any, undefined, async () => {
+      order.push("handler");
+      return "done";
+    });
 
     expect(order).toEqual(["before", "handler"]);
   });
@@ -531,14 +539,10 @@ describe("Middleware", () => {
       order.push(`after:${result}`);
     });
 
-    await mw(
-      { type: "Test" } as any,
-      undefined,
-      async () => {
-        order.push("handler");
-        return "done";
-      },
-    );
+    await mw({ type: "Test" } as any, undefined, async () => {
+      order.push("handler");
+      return "done";
+    });
 
     expect(order).toEqual(["handler", "after:done"]);
   });
@@ -550,13 +554,9 @@ describe("Middleware", () => {
     });
 
     await expect(
-      mw(
-        { type: "Test" } as any,
-        undefined,
-        async () => {
-          throw new Error("fail");
-        },
-      ),
+      mw({ type: "Test" } as any, undefined, async () => {
+        throw new Error("fail");
+      }),
     ).rejects.toThrow();
 
     expect(order).toEqual(["error"]);
@@ -650,7 +650,10 @@ describe("CQRS Events", () => {
       received.push(event);
     });
 
-    const event = createEvent({ type: "UserCreated", payload: { name: "Alice" } });
+    const event = createEvent({
+      type: "UserCreated",
+      payload: { name: "Alice" },
+    });
     await bus.publish(event);
 
     expect(received).toHaveLength(1);
@@ -661,8 +664,12 @@ describe("CQRS Events", () => {
     const bus = createEventBus();
     let count = 0;
 
-    bus.on("Test", async () => { count++; });
-    bus.on("Test", async () => { count++; });
+    bus.on("Test", async () => {
+      count++;
+    });
+    bus.on("Test", async () => {
+      count++;
+    });
 
     await bus.publish(createEvent({ type: "Test", payload: {} }));
     expect(count).toBe(2);

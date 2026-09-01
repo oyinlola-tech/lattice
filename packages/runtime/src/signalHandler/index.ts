@@ -2,6 +2,4 @@
  * Process signal handling.
  */
 
-export {
-  SignalHandler,
-} from "./signalHandler.core.js";
+export { SignalHandler } from "./signalHandler.core.js";

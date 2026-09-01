@@ -12,7 +12,10 @@ import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
 /**
  * Schema that transforms the output of an inner schema.
  */
-export class TransformModifierSchema<TInput, TOutput> extends Schema<TOutput, TInput> {
+export class TransformModifierSchema<TInput, TOutput> extends Schema<
+  TOutput,
+  TInput
+> {
   public readonly _type = "transform";
 
   constructor(

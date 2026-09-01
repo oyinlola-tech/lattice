@@ -4,7 +4,10 @@ import type { PluginState } from "../pluginTypes/pluginState.type.js";
 import type { RegisteredPlugin } from "../pluginRegistry/pluginRegistry.core.js";
 import { VALID_STATE_TRANSITIONS } from "../pluginTypes/pluginState.type.js";
 import { PluginStateError } from "@oyinlola141/lattice-errors";
-import { PLUGIN_EVENTS, createPluginLifecycleEvent } from "../pluginEvents/pluginEvent.core.js";
+import {
+  PLUGIN_EVENTS,
+  createPluginLifecycleEvent,
+} from "../pluginEvents/pluginEvent.core.js";
 
 /**
  * Emits a plugin lifecycle event if the context supports events.
@@ -43,16 +46,35 @@ export class LifecycleController {
 
     this.ensureTransition(registered, "installing");
     registered.setState("installing");
-    emitLifecycleEvent(context, PLUGIN_EVENTS.INSTALLING, name, "installing", from);
+    emitLifecycleEvent(
+      context,
+      PLUGIN_EVENTS.INSTALLING,
+      name,
+      "installing",
+      from,
+    );
 
     try {
       await registered.plugin.install?.(context, registered.options);
       this.ensureTransition(registered, "installed");
       registered.setState("installed");
-      emitLifecycleEvent(context, PLUGIN_EVENTS.INSTALLED, name, "installed", "installing");
+      emitLifecycleEvent(
+        context,
+        PLUGIN_EVENTS.INSTALLED,
+        name,
+        "installed",
+        "installing",
+      );
     } catch (error) {
       registered.setState("failed");
-      emitLifecycleEvent(context, PLUGIN_EVENTS.FAILED, name, "failed", from, error);
+      emitLifecycleEvent(
+        context,
+        PLUGIN_EVENTS.FAILED,
+        name,
+        "failed",
+        from,
+        error,
+      );
       throw error;
     }
   }
@@ -66,16 +88,35 @@ export class LifecycleController {
 
     this.ensureTransition(registered, "initializing");
     registered.setState("initializing");
-    emitLifecycleEvent(context, PLUGIN_EVENTS.INITIALIZING, name, "initializing", from);
+    emitLifecycleEvent(
+      context,
+      PLUGIN_EVENTS.INITIALIZING,
+      name,
+      "initializing",
+      from,
+    );
 
     try {
       await registered.plugin.initialize?.(context);
       this.ensureTransition(registered, "initialized");
       registered.setState("initialized");
-      emitLifecycleEvent(context, PLUGIN_EVENTS.INITIALIZED, name, "initialized", "initializing");
+      emitLifecycleEvent(
+        context,
+        PLUGIN_EVENTS.INITIALIZED,
+        name,
+        "initialized",
+        "initializing",
+      );
     } catch (error) {
       registered.setState("failed");
-      emitLifecycleEvent(context, PLUGIN_EVENTS.FAILED, name, "failed", from, error);
+      emitLifecycleEvent(
+        context,
+        PLUGIN_EVENTS.FAILED,
+        name,
+        "failed",
+        from,
+        error,
+      );
       throw error;
     }
   }
@@ -95,10 +136,23 @@ export class LifecycleController {
       await registered.plugin.start?.(context);
       this.ensureTransition(registered, "started");
       registered.setState("started");
-      emitLifecycleEvent(context, PLUGIN_EVENTS.STARTED, name, "started", "starting");
+      emitLifecycleEvent(
+        context,
+        PLUGIN_EVENTS.STARTED,
+        name,
+        "started",
+        "starting",
+      );
     } catch (error) {
       registered.setState("failed");
-      emitLifecycleEvent(context, PLUGIN_EVENTS.FAILED, name, "failed", from, error);
+      emitLifecycleEvent(
+        context,
+        PLUGIN_EVENTS.FAILED,
+        name,
+        "failed",
+        from,
+        error,
+      );
       throw error;
     }
   }
@@ -118,10 +172,23 @@ export class LifecycleController {
       await registered.plugin.stop?.(context);
       this.ensureTransition(registered, "stopped");
       registered.setState("stopped");
-      emitLifecycleEvent(context, PLUGIN_EVENTS.STOPPED, name, "stopped", "stopping");
+      emitLifecycleEvent(
+        context,
+        PLUGIN_EVENTS.STOPPED,
+        name,
+        "stopped",
+        "stopping",
+      );
     } catch (error) {
       registered.setState("failed");
-      emitLifecycleEvent(context, PLUGIN_EVENTS.FAILED, name, "failed", from, error);
+      emitLifecycleEvent(
+        context,
+        PLUGIN_EVENTS.FAILED,
+        name,
+        "failed",
+        from,
+        error,
+      );
       throw error;
     }
   }
@@ -135,7 +202,13 @@ export class LifecycleController {
 
     this.ensureTransition(registered, "disposing");
     registered.setState("disposing");
-    emitLifecycleEvent(context, PLUGIN_EVENTS.DISPOSING, name, "disposing", from);
+    emitLifecycleEvent(
+      context,
+      PLUGIN_EVENTS.DISPOSING,
+      name,
+      "disposing",
+      from,
+    );
 
     const errors: unknown[] = [];
 
@@ -154,14 +227,23 @@ export class LifecycleController {
     }
 
     registered.setState("disposed");
-    emitLifecycleEvent(context, PLUGIN_EVENTS.DISPOSED, name, "disposed", "disposing");
+    emitLifecycleEvent(
+      context,
+      PLUGIN_EVENTS.DISPOSED,
+      name,
+      "disposed",
+      "disposing",
+    );
 
     if (errors.length > 0) {
       throw errors[0];
     }
   }
 
-  private ensureTransition(registered: RegisteredPlugin, to: PluginState): void {
+  private ensureTransition(
+    registered: RegisteredPlugin,
+    to: PluginState,
+  ): void {
     const from = registered.state;
     if (from === to) {
       return;

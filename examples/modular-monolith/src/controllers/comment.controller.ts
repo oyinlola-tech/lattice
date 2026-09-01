@@ -14,7 +14,11 @@ export class CommentController {
     this.queryBus = queryBus;
   }
 
-  public async create(body: { articleId: string; authorId: string; content: string }) {
+  public async create(body: {
+    articleId: string;
+    authorId: string;
+    content: string;
+  }) {
     return this.commandBus.execute(new CreateCommentCommand(body as any));
   }
 
@@ -22,8 +26,14 @@ export class CommentController {
     return this.queryBus.execute(new ListCommentsQuery(articleId));
   }
 
-  public async update(commentId: CommentId, userId: UserId, body: { content: string }) {
-    await this.commandBus.execute(new UpdateCommentCommand(commentId, userId, body.content));
+  public async update(
+    commentId: CommentId,
+    userId: UserId,
+    body: { content: string },
+  ) {
+    await this.commandBus.execute(
+      new UpdateCommentCommand(commentId, userId, body.content),
+    );
     return { success: true };
   }
 

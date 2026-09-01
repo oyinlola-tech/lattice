@@ -65,10 +65,16 @@ export type LifecycleEventListener = (event: LifecycleEvent) => void;
  * Integrates with observability without depending on the events package.
  */
 export class LifecycleEventEmitter {
-  private readonly _listeners = new Map<LifecycleEventType, Set<LifecycleEventListener>>();
+  private readonly _listeners = new Map<
+    LifecycleEventType,
+    Set<LifecycleEventListener>
+  >();
 
   /** Subscribes to an event type. */
-  public on(type: LifecycleEventType, listener: LifecycleEventListener): () => void {
+  public on(
+    type: LifecycleEventType,
+    listener: LifecycleEventListener,
+  ): () => void {
     if (!this._listeners.has(type)) {
       this._listeners.set(type, new Set());
     }
@@ -80,7 +86,10 @@ export class LifecycleEventEmitter {
   }
 
   /** Emits an event. */
-  public emit(type: LifecycleEventType, data: Omit<LifecycleEvent, "type" | "timestamp">): void {
+  public emit(
+    type: LifecycleEventType,
+    data: Omit<LifecycleEvent, "type" | "timestamp">,
+  ): void {
     const event: LifecycleEvent = {
       type,
       timestamp: Date.now(),

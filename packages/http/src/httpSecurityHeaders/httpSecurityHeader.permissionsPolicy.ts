@@ -12,9 +12,7 @@ import type {
 /**
  * Formats a PermissionsPolicy object into a header string.
  */
-export function formatPermissionsPolicy(
-  policy: PermissionsPolicy,
-): string {
+export function formatPermissionsPolicy(policy: PermissionsPolicy): string {
   return Object.entries(policy)
     .map(([feature, value]) => {
       if (typeof value === "boolean") {

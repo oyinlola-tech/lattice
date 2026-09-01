@@ -2,9 +2,19 @@
  * CSP formatting and creation functions.
  */
 
-import type { CSPDirectiveValue, CSPDirectives, CSPOptions, CSPResult } from '../types/httpCsp.type.js';
-import { normalizeDirectiveName } from '../validation/httpCsp.validation.js';
-import { normalizeDirectiveValues, freezeDirectives, addOptionalDirective, mergeDirectives } from '../internal/httpCsp.internal.js';
+import type {
+  CSPDirectiveValue,
+  CSPDirectives,
+  CSPOptions,
+  CSPResult,
+} from "../types/httpCsp.type.js";
+import { normalizeDirectiveName } from "../validation/httpCsp.validation.js";
+import {
+  normalizeDirectiveValues,
+  freezeDirectives,
+  addOptionalDirective,
+  mergeDirectives,
+} from "../internal/httpCsp.internal.js";
 
 export function formatCSP(
   directives: CSPDirectives | Readonly<Record<string, CSPDirectiveValue>>,
@@ -26,9 +36,7 @@ export function formatCSP(
   return parts.join("; ");
 }
 
-export function createCSP(
-  options: CSPOptions | undefined = {},
-): CSPResult {
+export function createCSP(options: CSPOptions | undefined = {}): CSPResult {
   const directives: Record<string, readonly string[]> = {};
 
   if (options.directives) {
@@ -54,7 +62,11 @@ export function createCSP(
   addOptionalDirective(directives, "report-uri", options.reportUri);
   addOptionalDirective(directives, "report-to", options.reportTo);
   addOptionalDirective(directives, "sandbox", options.sandbox);
-  addOptionalDirective(directives, "require-trusted-types-for", options.requireTrustedTypesFor);
+  addOptionalDirective(
+    directives,
+    "require-trusted-types-for",
+    options.requireTrustedTypesFor,
+  );
   addOptionalDirective(directives, "trusted-types", options.trustedTypes);
 
   if (options.upgradeInsecureRequests) {

@@ -1,6 +1,4 @@
-import type {
-  Command as CommandContract,
-} from "../cqrsTypes/cqrsTypes.type.js";
+import type { Command as CommandContract } from "../cqrsTypes/cqrsTypes.type.js";
 
 /**
  * Base abstract command.
@@ -14,9 +12,7 @@ export abstract class Command<
 > implements CommandContract<TType> {
   public readonly type: TType;
 
-  protected constructor(
-    type: TType,
-  ) {
+  protected constructor(type: TType) {
     this.type = type;
   }
 }
@@ -25,9 +21,7 @@ export abstract class Command<
  * Options used when constructing a concrete command.
  */
 export interface CommandOptions {
-  readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -36,18 +30,12 @@ export interface CommandOptions {
 export abstract class MetadataCommand<
   TType extends string = string,
 > extends Command<TType> {
-  public readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  public readonly metadata?: Readonly<Record<string, unknown>>;
 
-  protected constructor(
-    type: TType,
-    options: CommandOptions = {},
-  ) {
+  protected constructor(type: TType, options: CommandOptions = {}) {
     super(type);
 
-    this.metadata =
-      options.metadata;
+    this.metadata = options.metadata;
   }
 }
 
@@ -56,10 +44,7 @@ export abstract class MetadataCommand<
  */
 export function createCommand<
   TType extends string,
-  TPayload extends Record<
-    string,
-    unknown
-  > = Record<string, never>,
+  TPayload extends Record<string, unknown> = Record<string, never>,
 >(
   type: TType,
   payload?: TPayload,
@@ -81,18 +66,14 @@ export function createCommand<
 /**
  * Returns the command type discriminator.
  */
-export function getCommandType(
-  command: CommandContract,
-): string {
+export function getCommandType(command: CommandContract): string {
   return command.type;
 }
 
 /**
  * Determines whether a value is a command.
  */
-export function isCommand(
-  value: unknown,
-): value is CommandContract {
+export function isCommand(value: unknown): value is CommandContract {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -116,10 +97,6 @@ export function isCommand(
  * This is useful when defining a family of related commands while
  * keeping their discriminator values consistent.
  */
-export function commandType<
-  TType extends string,
->(
-  type: TType,
-): () => TType {
+export function commandType<TType extends string>(type: TType): () => TType {
   return () => type;
 }

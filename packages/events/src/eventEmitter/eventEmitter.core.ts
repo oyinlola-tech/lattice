@@ -2,18 +2,11 @@
  * Event emitter core class for Lattice.
  */
 
-import type {
-  Event,
-  EventInput,
-} from "../eventTypes/eventDefinition.type.js";
+import type { Event, EventInput } from "../eventTypes/eventDefinition.type.js";
 
-import type {
-  EventTypePattern,
-} from "../eventTypes/eventType.type.js";
+import type { EventTypePattern } from "../eventTypes/eventType.type.js";
 
-import {
-  createEvent,
-} from "../eventTypes/eventDefinition.type.js";
+import { createEvent } from "../eventTypes/eventDefinition.type.js";
 
 import type {
   EventHandlerLike,
@@ -27,9 +20,7 @@ import {
   getMatchingEventHandlers,
 } from "../eventHandler/eventHandler.core.js";
 
-import type {
-  EventSubscription,
-} from "../eventSubscription/eventSubscription.core.js";
+import type { EventSubscription } from "../eventSubscription/eventSubscription.core.js";
 
 import {
   EventSubscriptionGroup,
@@ -44,236 +35,117 @@ import type {
   EmitterListener,
 } from "./eventEmitter.type.js";
 
-import {
-  EventEmitterMode,
-  EventErrorMode,
-} from "./eventEmitter.type.js";
+import { EventEmitterMode, EventErrorMode } from "./eventEmitter.type.js";
 
-import {
-  emitSequential,
-} from "./eventEmitter.sequential.js";
+import { emitSequential } from "./eventEmitter.sequential.js";
 
+import { emitParallel } from "./eventEmitter.parallel.js";
 
-import {
-  emitParallel,
-} from "./eventEmitter.parallel.js";
-
-import {
-  createAbortError,
-} from "./eventEmitter.abort.js";
+import { createAbortError } from "./eventEmitter.abort.js";
 
 /**
  * Main local event emitter.
  */
 export class EventEmitter {
-  private readonly listeners =
-    new Map<
-      string,
-      EmitterListener
-    >();
+  private readonly listeners = new Map<string, EmitterListener>();
 
-  private readonly options:
-    Required<EventEmitterOptions>;
+  private readonly options: Required<EventEmitterOptions>;
 
-  private disposed =
-    false;
+  private disposed = false;
 
-  constructor(
-    options:
-      EventEmitterOptions = {},
-  ) {
+  constructor(options: EventEmitterOptions = {}) {
     this.options = {
-      mode:
-        options.mode ??
-        EventEmitterMode.SEQUENTIAL,
+      mode: options.mode ?? EventEmitterMode.SEQUENTIAL,
 
-      errorMode:
-        options.errorMode ??
-        EventErrorMode.THROW,
+      errorMode: options.errorMode ?? EventErrorMode.THROW,
 
-      freezeEvents:
-        options.freezeEvents ??
-        true,
+      freezeEvents: options.freezeEvents ?? true,
     };
   }
 
-  on<
-    TEvent extends Event = Event,
-  >(
-    eventType:
-      EventTypePattern,
-    handler:
-      EventHandlerLike<TEvent>,
-    options:
-      Omit<
-        EventHandlerOptions,
-        "eventType"
-      > = {},
-  ):
-    EventSubscription {
+  on<TEvent extends Event = Event>(
+    eventType: EventTypePattern,
+    handler: EventHandlerLike<TEvent>,
+    options: Omit<EventHandlerOptions, "eventType"> = {},
+  ): EventSubscription {
     this.ensureActive();
 
-    const registration =
-      createEventHandler(
-        handler,
-        {
-          ...options,
-          eventType,
-        },
-      );
-
-    return this.addRegistration(
-      registration as RegisteredEventHandler,
-    );
-  }
-
-  once<
-    TEvent extends Event = Event,
-  >(
-    eventType:
-      EventTypePattern,
-    handler:
-      EventHandlerLike<TEvent>,
-    options:
-      Omit<
-        EventHandlerOptions,
-        | "eventType"
-        | "once"
-      > = {},
-  ):
-    EventSubscription {
-    return this.on(
+    const registration = createEventHandler(handler, {
+      ...options,
       eventType,
-      handler,
-      {
-        ...options,
-        once:
-          true,
-      },
-    );
+    });
+
+    return this.addRegistration(registration as RegisteredEventHandler);
   }
 
-  onAny<
-    TEvent extends Event = Event,
-  >(
-    handler:
-      EventHandlerLike<TEvent>,
-    options:
-      Omit<
-        EventHandlerOptions,
-        "eventType"
-      > = {},
-  ):
-    EventSubscription {
-    return this.on(
-      "*",
-      handler,
-      options,
-    );
+  once<TEvent extends Event = Event>(
+    eventType: EventTypePattern,
+    handler: EventHandlerLike<TEvent>,
+    options: Omit<EventHandlerOptions, "eventType" | "once"> = {},
+  ): EventSubscription {
+    return this.on(eventType, handler, {
+      ...options,
+      once: true,
+    });
   }
 
-  off(
-    subscription:
-      EventSubscription,
-  ):
-    boolean {
+  onAny<TEvent extends Event = Event>(
+    handler: EventHandlerLike<TEvent>,
+    options: Omit<EventHandlerOptions, "eventType"> = {},
+  ): EventSubscription {
+    return this.on("*", handler, options);
+  }
+
+  off(subscription: EventSubscription): boolean {
     this.ensureActive();
 
-    const removed =
-      this.listeners.delete(
-        subscription.id,
-      );
+    const removed = this.listeners.delete(subscription.id);
 
-    if (
-      removed &&
-      subscription.active
-    ) {
+    if (removed && subscription.active) {
       subscription.unsubscribe();
     }
 
     return removed;
   }
 
-  async emit<
-    TEvent extends Event,
-  >(
-    event:
-      TEvent,
-    options:
-      EmitOptions = {},
-  ):
-    Promise<
-      EventEmitResult<TEvent>
-    > {
+  async emit<TEvent extends Event>(
+    event: TEvent,
+    options: EmitOptions = {},
+  ): Promise<EventEmitResult<TEvent>> {
     this.ensureActive();
 
-    if (
-      options.signal?.aborted
-    ) {
+    if (options.signal?.aborted) {
       throw createAbortError();
     }
 
-    const mode =
-      options.mode ??
-      this.options.mode;
+    const mode = options.mode ?? this.options.mode;
 
-    const errorMode =
-      options.errorMode ??
-      this.options.errorMode;
+    const errorMode = options.errorMode ?? this.options.errorMode;
 
-    const handlers =
-      getMatchingEventHandlers(
-        this.getRegistrations(),
-        event,
-      );
+    const handlers = getMatchingEventHandlers(this.getRegistrations(), event);
 
-    const context =
-      createEventHandlerContext(
-        event,
-        {
-          signal:
-            options.signal,
-          metadata:
-            options.metadata,
-        },
-      );
+    const context = createEventHandlerContext(event, {
+      signal: options.signal,
+      metadata: options.metadata,
+    });
 
-    if (
-      handlers.length ===
-        0
-    ) {
+    if (handlers.length === 0) {
       return {
         event,
-        handled:
-          false,
-        results:
-          [],
-        errors:
-          [],
+        handled: false,
+        results: [],
+        errors: [],
       };
     }
 
-    const results:
-      EventHandlerExecutionResult[] =
-      [];
+    const results: EventHandlerExecutionResult[] = [];
 
-    const errors:
-      unknown[] =
-      [];
+    const errors: unknown[] = [];
 
-    const removeOnceHandler =
-      (
-        handlerId:
-          string,
-      ) =>
-        this.removeHandler(
-          handlerId,
-        );
+    const removeOnceHandler = (handlerId: string) =>
+      this.removeHandler(handlerId);
 
-    if (
-      mode ===
-        EventEmitterMode.PARALLEL
-    ) {
+    if (mode === EventEmitterMode.PARALLEL) {
       await emitParallel(
         handlers,
         event,
@@ -297,167 +169,99 @@ export class EventEmitter {
 
     return {
       event,
-      handled:
-        results.length >
-        0,
+      handled: results.length > 0,
       results,
       errors,
     };
   }
 
-  async emitEvent<
-    TPayload,
-  >(
-    input:
-      EventInput<TPayload>,
-    options:
-      EmitOptions = {},
-  ):
-    Promise<
-      EventEmitResult<
-        Event<TPayload>
-      >
-    > {
-    const event =
-      createEvent(
-        input,
-      );
+  async emitEvent<TPayload>(
+    input: EventInput<TPayload>,
+    options: EmitOptions = {},
+  ): Promise<EventEmitResult<Event<TPayload>>> {
+    const event = createEvent(input);
 
-    return this.emit(
-      event,
-      options,
-    );
+    return this.emit(event, options);
   }
 
-  get listenerCount():
-    number {
+  get listenerCount(): number {
     return this.listeners.size;
   }
 
-  getRegistrations():
-    readonly RegisteredEventHandler[] {
-    return [
-      ...this.listeners.values(),
-    ].map(
-      ({
-        registration,
-      }) =>
-        registration,
-    );
+  getRegistrations(): readonly RegisteredEventHandler[] {
+    return [...this.listeners.values()].map(({ registration }) => registration);
   }
 
-  removeAllListeners():
-    void {
+  removeAllListeners(): void {
     this.ensureActive();
 
-    const subscriptions =
-      [
-        ...this.listeners.values(),
-      ].map(
-        ({
-          subscription,
-        }) =>
-          subscription,
-      );
+    const subscriptions = [...this.listeners.values()].map(
+      ({ subscription }) => subscription,
+    );
 
-    for (
-      const subscription of
-      subscriptions
-    ) {
+    for (const subscription of subscriptions) {
       subscription.unsubscribe();
     }
 
     this.listeners.clear();
   }
 
-  createSubscriptionGroup():
-    EventSubscriptionGroup {
+  createSubscriptionGroup(): EventSubscriptionGroup {
     this.ensureActive();
 
     return new EventSubscriptionGroup();
   }
 
-  dispose():
-    void {
-    if (
-      this.disposed
-    ) {
+  dispose(): void {
+    if (this.disposed) {
       return;
     }
 
     this.removeAllListeners();
 
-    this.disposed =
-      true;
+    this.disposed = true;
   }
 
-  isDisposed():
-    boolean {
+  isDisposed(): boolean {
     return this.disposed;
   }
 
   private addRegistration(
-    registration:
-      RegisteredEventHandler,
-  ):
-    EventSubscription {
-    const subscription =
-      createEventSubscription(
-        () => {
-          this.listeners.delete(
-            registration.id,
-          );
-        },
-        {
-          id:
-            registration.id,
-          description:
-            registration.description,
-        },
-      );
-
-    this.listeners.set(
-      registration.id,
+    registration: RegisteredEventHandler,
+  ): EventSubscription {
+    const subscription = createEventSubscription(
+      () => {
+        this.listeners.delete(registration.id);
+      },
       {
-        registration,
-        subscription,
+        id: registration.id,
+        description: registration.description,
       },
     );
+
+    this.listeners.set(registration.id, {
+      registration,
+      subscription,
+    });
 
     return subscription;
   }
 
-  private removeHandler(
-    id:
-      string,
-  ):
-    void {
-    const listener =
-      this.listeners.get(
-        id,
-      );
+  private removeHandler(id: string): void {
+    const listener = this.listeners.get(id);
 
-    if (
-      !listener
-    ) {
+    if (!listener) {
       return;
     }
 
-    this.listeners.delete(
-      id,
-    );
+    this.listeners.delete(id);
 
     listener.subscription.unsubscribe();
   }
 
-  private ensureActive():
-    void {
-    if (
-      this.disposed
-    ) {
-      throw new Error(
-        "EventEmitter has already been disposed.",
-      );
+  private ensureActive(): void {
+    if (this.disposed) {
+      throw new Error("EventEmitter has already been disposed.");
     }
   }
 }
@@ -466,11 +270,7 @@ export class EventEmitter {
  * Creates a new event emitter.
  */
 export function createEventEmitter(
-  options:
-    EventEmitterOptions = {},
-):
-  EventEmitter {
-  return new EventEmitter(
-    options,
-  );
+  options: EventEmitterOptions = {},
+): EventEmitter {
+  return new EventEmitter(options);
 }

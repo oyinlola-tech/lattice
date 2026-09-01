@@ -27,14 +27,20 @@ const LEVEL_ORDER: LoggerLevel[] = [
 export function createAppLogger(level: LoggerLevel = LoggerLevel.INFO): Logger {
   const currentLevelIndex = LEVEL_ORDER.indexOf(level);
 
-  const logMessage = (lvl: LoggerLevel, message: string, metadata?: Record<string, unknown>) => {
+  const logMessage = (
+    lvl: LoggerLevel,
+    message: string,
+    metadata?: Record<string, unknown>,
+  ) => {
     const levelIndex = LEVEL_ORDER.indexOf(lvl);
     if (levelIndex < currentLevelIndex) return;
 
     const timestamp = new Date().toISOString();
     const levelName = LEVEL_MAP[lvl] ?? "unknown";
     const meta = metadata ? ` ${JSON.stringify(metadata)}` : "";
-    console.log(`[${timestamp}] [${levelName.toUpperCase()}] ${message}${meta}`);
+    console.log(
+      `[${timestamp}] [${levelName.toUpperCase()}] ${message}${meta}`,
+    );
   };
 
   return {

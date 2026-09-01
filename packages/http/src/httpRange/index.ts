@@ -4,4 +4,4 @@
  * HTTP httpRange module.
  */
 
-export * from './http.range.js';
+export * from "./http.range.js";

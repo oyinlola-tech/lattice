@@ -45,7 +45,10 @@ export class CacheError extends BaseError {
   public readonly key?: string;
   public readonly adapter?: string;
 
-  constructor(message = "A cache operation failed.", options: CacheErrorOptions = {}) {
+  constructor(
+    message = "A cache operation failed.",
+    options: CacheErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.UNKNOWN,
@@ -56,7 +59,9 @@ export class CacheError extends BaseError {
       isOperational: options.isOperational ?? true,
       metadata: {
         ...options.metadata,
-        ...(options.operation !== undefined ? { operation: options.operation } : {}),
+        ...(options.operation !== undefined
+          ? { operation: options.operation }
+          : {}),
         ...(options.key !== undefined ? { key: options.key } : {}),
         ...(options.adapter !== undefined ? { adapter: options.adapter } : {}),
       },

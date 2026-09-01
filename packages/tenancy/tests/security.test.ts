@@ -50,18 +50,24 @@ describe("assertTenantUsable", () => {
 describe("assertTenantOwnership", () => {
   it("does not throw when ownership matches", () => {
     const resource = { tenantId: createTenantId("acme") };
-    expect(() => assertTenantOwnership(resource, createTenantId("acme"))).not.toThrow();
+    expect(() =>
+      assertTenantOwnership(resource, createTenantId("acme")),
+    ).not.toThrow();
   });
 
   it("throws when ownership mismatches", () => {
     const resource = { tenantId: createTenantId("google") };
-    expect(() => assertTenantOwnership(resource, createTenantId("acme"))).toThrow();
+    expect(() =>
+      assertTenantOwnership(resource, createTenantId("acme")),
+    ).toThrow();
   });
 });
 
 describe("assertTrustLevel", () => {
   it("does not throw when trust is sufficient", () => {
-    expect(() => assertTrustLevel("trusted", "verified", "header")).not.toThrow();
+    expect(() =>
+      assertTrustLevel("trusted", "verified", "header"),
+    ).not.toThrow();
   });
 
   it("throws when trust is insufficient", () => {
@@ -71,16 +77,22 @@ describe("assertTrustLevel", () => {
 
 describe("tenantKey", () => {
   it("generates a scoped key", () => {
-    expect(tenantKey(createTenantId("acme"), "user:123")).toBe("tenant:acme:user:123");
+    expect(tenantKey(createTenantId("acme"), "user:123")).toBe(
+      "tenant:acme:user:123",
+    );
   });
 
   it("supports custom separator", () => {
-    expect(tenantKey(createTenantId("acme"), "user:123", "/")).toBe("tenant/acme/user:123");
+    expect(tenantKey(createTenantId("acme"), "user:123", "/")).toBe(
+      "tenant/acme/user:123",
+    );
   });
 });
 
 describe("createTenantCacheKey", () => {
   it("generates a cache key", () => {
-    expect(createTenantCacheKey(createTenantId("acme"), "user:123")).toBe("tenant:acme:user:123");
+    expect(createTenantCacheKey(createTenantId("acme"), "user:123")).toBe(
+      "tenant:acme:user:123",
+    );
   });
 });

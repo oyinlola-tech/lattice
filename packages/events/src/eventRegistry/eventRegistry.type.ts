@@ -8,9 +8,7 @@ import type {
   EventType,
 } from "../eventTypes/eventDefinition.type.js";
 
-import type {
-  RegisteredEventHandler,
-} from "../eventHandler/eventHandler.core.js";
+import type { RegisteredEventHandler } from "../eventHandler/eventHandler.core.js";
 
 export interface EventRegistryOptions {
   readonly allowDuplicateDefinitions?: boolean;

@@ -1,8 +1,6 @@
-import type { HttpRequestContext as RequestContext,
-} from "../httpRequest/httpRequest.context.js";
+import type { HttpRequestContext as RequestContext } from "../httpRequest/httpRequest.context.js";
 
-import type { HttpResponseContext as ResponseContext,
-} from "../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../httpResponse/httpResponse.context.js";
 
 import type {
   MatchedRoute,
@@ -13,42 +11,26 @@ import type {
 /* Types                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export type RouterContextState =
-  Map<string, unknown>;
+export type RouterContextState = Map<string, unknown>;
 
 export interface RouterContextInit {
-  readonly request:
-    | RequestContext;
+  readonly request: RequestContext;
 
-  readonly route:
-    | MatchedRoute;
+  readonly route: MatchedRoute;
 
-  readonly params?:
-    | Readonly<
-        Record<string, string>
-      >;
+  readonly params?: Readonly<Record<string, string>>;
 
-  readonly query?:
-    | Readonly<
-        Record<
-          string,
-          string | string[]
-        >
-      >;
+  readonly query?: Readonly<Record<string, string | string[]>>;
 
-  readonly state?:
-    | RouterContextState;
+  readonly state?: RouterContextState;
 
-  readonly signal?:
-    | AbortSignal;
+  readonly signal?: AbortSignal;
 }
 
 export interface RouterContextOptions {
-  readonly state?:
-    | RouterContextState;
+  readonly state?: RouterContextState;
 
-  readonly signal?:
-    | AbortSignal;
+  readonly signal?: AbortSignal;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -62,134 +44,67 @@ export interface RouterContextOptions {
  * It provides handlers with access to the request, route parameters,
  * query values, shared state, and cancellation signal.
  */
-export class RouterContext
-  implements HttpRouterContext {
-  readonly request:
-    | RequestContext;
+export class RouterContext implements HttpRouterContext {
+  readonly request: RequestContext;
 
-  readonly params:
-    | Readonly<
-        Record<string, string>
-      >;
+  readonly params: Readonly<Record<string, string>>;
 
-  readonly query:
-    | Readonly<
-        Record<
-          string,
-          string | string[]
-        >
-      >;
+  readonly query: Readonly<Record<string, string | string[]>>;
 
-  readonly route:
-    | MatchedRoute;
+  readonly route: MatchedRoute;
 
-  readonly state:
-    | RouterContextState;
+  readonly state: RouterContextState;
 
-  readonly middleware:
-    | HttpRouterContext["middleware"];
+  readonly middleware: HttpRouterContext["middleware"];
 
-  readonly signal:
-    | AbortSignal;
+  readonly signal: AbortSignal;
 
-  constructor(
-    init:
-      | RouterContextInit,
-  ) {
-    this.request =
-      init.request;
+  constructor(init: RouterContextInit) {
+    this.request = init.request;
 
-    this.params =
-      Object.freeze({
-        ...(init.params ??
-          {}),
-      });
+    this.params = Object.freeze({
+      ...(init.params ?? {}),
+    });
 
-    this.query =
-      Object.freeze({
-        ...(init.query ??
-          {}),
-      });
+    this.query = Object.freeze({
+      ...(init.query ?? {}),
+    });
 
-    this.route =
-      init.route;
+    this.route = init.route;
 
-    this.state =
-      init.state ??
-      new Map<
-        string,
-        unknown
-      >();
+    this.state = init.state ?? new Map<string, unknown>();
 
     this.signal =
       init.signal ??
-      getRequestSignal(
-        init.request,
-      ) ??
-      new AbortController()
-        .signal;
+      getRequestSignal(init.request) ??
+      new AbortController().signal;
 
-    this.middleware =
-      createMiddlewareContext(
-        this.request,
-        this.signal,
-      );
+    this.middleware = createMiddlewareContext(this.request, this.signal);
   }
 
   /* ------------------------------------------------------------------------ */
   /* State                                                                     */
   /* ------------------------------------------------------------------------ */
 
-  get<T = unknown>(
-    key:
-      | string,
-  ):
-    | T
-    | undefined {
-    return this.state.get(
-      key,
-    ) as
-      | T
-      | undefined;
+  get<T = unknown>(key: string): T | undefined {
+    return this.state.get(key) as T | undefined;
   }
 
-  set<T = unknown>(
-    key:
-      | string,
-    value:
-      | T,
-  ):
-    | this {
-    this.state.set(
-      key,
-      value,
-    );
+  set<T = unknown>(key: string, value: T): this {
+    this.state.set(key, value);
 
     return this;
   }
 
-  has(
-    key:
-      | string,
-  ):
-    | boolean {
-    return this.state.has(
-      key,
-    );
+  has(key: string): boolean {
+    return this.state.has(key);
   }
 
-  delete(
-    key:
-      | string,
-  ):
-    | boolean {
-    return this.state.delete(
-      key,
-    );
+  delete(key: string): boolean {
+    return this.state.delete(key);
   }
 
-  clear():
-    | void {
+  clear(): void {
     this.state.clear();
   }
 
@@ -197,90 +112,49 @@ export class RouterContext
   /* Request Information                                                       */
   /* ------------------------------------------------------------------------ */
 
-  method():
-    | string {
-    return getRequestMethod(
-      this.request,
-    );
+  method(): string {
+    return getRequestMethod(this.request);
   }
 
-  url():
-    | string {
-    return getRequestUrl(
-      this.request,
-    );
+  url(): string {
+    return getRequestUrl(this.request);
   }
 
-  path():
-    | string {
+  path(): string {
     return this.route.path;
   }
 
-  routeName():
-    | string
-    | undefined {
+  routeName(): string | undefined {
     return this.route.name;
   }
 
-  routeId():
-    | string {
+  routeId(): string {
     return this.route.id;
   }
 
-  metadata<T = unknown>(
-    key:
-      | string,
-  ):
-    | T
-    | undefined {
-    return this.route.metadata[
-      key
-    ] as
-      | T
-      | undefined;
+  metadata<T = unknown>(key: string): T | undefined {
+    return this.route.metadata[key] as T | undefined;
   }
 
   /* ------------------------------------------------------------------------ */
   /* Parameters                                                                */
   /* ------------------------------------------------------------------------ */
 
-  param(
-    name:
-      | string,
-  ):
-    | string
-    | undefined {
-    return this.params[
-      name
-    ];
+  param(name: string): string | undefined {
+    return this.params[name];
   }
 
-  requiredParam(
-    name:
-      | string,
-  ):
-    | string {
-    const value =
-      this.param(
-        name,
-      );
+  requiredParam(name: string): string {
+    const value = this.param(name);
 
-    if (
-      value ===
-      undefined
-    ) {
-      throw new Error(
-        `Missing required route parameter "${name}".`,
-      );
+    if (value === undefined) {
+      throw new Error(`Missing required route parameter "${name}".`);
     }
 
     return value;
   }
 
-  allParams():
-    | Readonly<
-        Record<string, string>
-      > {
+  allParams(): Readonly<Record<string, string>> {
     return this.params;
   }
 
@@ -288,71 +162,31 @@ export class RouterContext
   /* Query                                                                     */
   /* ------------------------------------------------------------------------ */
 
-  queryParam(
-    name:
-      | string,
-  ):
-    | string
-    | string[]
-    | undefined {
-    return this.query[
-      name
-    ];
+  queryParam(name: string): string | string[] | undefined {
+    return this.query[name];
   }
 
-  queryString(
-    name:
-      | string,
-  ):
-    | string
-    | undefined {
-    const value =
-      this.queryParam(
-        name,
-      );
+  queryString(name: string): string | undefined {
+    const value = this.queryParam(name);
 
-    if (
-      Array.isArray(
-        value,
-      )
-    ) {
+    if (Array.isArray(value)) {
       return value[0];
     }
 
     return value;
   }
 
-  queryArray(
-    name:
-      | string,
-  ):
-    | readonly string[] {
-    const value =
-      this.queryParam(
-        name,
-      );
+  queryArray(name: string): readonly string[] {
+    const value = this.queryParam(name);
 
-    if (
-      value ===
-      undefined
-    ) {
+    if (value === undefined) {
       return [];
     }
 
-    return Array.isArray(
-      value,
-    )
-      ? value
-      : [value];
+    return Array.isArray(value) ? value : [value];
   }
 
-  allQuery():
-    | Readonly<
-        Record<
-          string,
-          string | string[]
-        >
-      > {
+  allQuery(): Readonly<Record<string, string | string[]>> {
     return this.query;
   }
 
@@ -360,19 +194,13 @@ export class RouterContext
   /* Cancellation                                                              */
   /* ------------------------------------------------------------------------ */
 
-  aborted():
-    | boolean {
+  aborted(): boolean {
     return this.signal.aborted;
   }
 
-  throwIfAborted():
-    | void {
-    if (
-      this.signal.aborted
-    ) {
-      throw createAbortError(
-        this.signal.reason,
-      );
+  throwIfAborted(): void {
+    if (this.signal.aborted) {
+      throw createAbortError(this.signal.reason);
     }
   }
 
@@ -380,30 +208,23 @@ export class RouterContext
   /* Conversion                                                                */
   /* ------------------------------------------------------------------------ */
 
-  toJSON():
-    | Record<string, unknown> {
+  toJSON(): Record<string, unknown> {
     return {
-      method:
-        this.method(),
+      method: this.method(),
 
-      url:
-        this.url(),
+      url: this.url(),
 
-      path:
-        this.path(),
+      path: this.path(),
 
-      route:
-        this.routeName(),
+      route: this.routeName(),
 
-      params:
-        {
-          ...this.params,
-        },
+      params: {
+        ...this.params,
+      },
 
-      query:
-        {
-          ...this.query,
-        },
+      query: {
+        ...this.query,
+      },
     };
   }
 }
@@ -412,61 +233,35 @@ export class RouterContext
 /* Factory                                                                    */
 /* -------------------------------------------------------------------------- */
 
-export function createRouterContext(
-  init:
-    | RouterContextInit,
-):
-  | RouterContext {
-  return new RouterContext(
-    init,
-  );
+export function createRouterContext(init: RouterContextInit): RouterContext {
+  return new RouterContext(init);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Context Conversion                                                         */
 /* -------------------------------------------------------------------------- */
 
-export function isRouterContext(
-  value:
-    | unknown,
-):
-  value is RouterContext {
-  return (
-    value instanceof
-    RouterContext
-  );
+export function isRouterContext(value: unknown): value is RouterContext {
+  return value instanceof RouterContext;
 }
 
-export function toRouterContext(
-  context:
-    | HttpRouterContext,
-):
-  | RouterContext {
-  if (
-    context instanceof
-    RouterContext
-  ) {
+export function toRouterContext(context: HttpRouterContext): RouterContext {
+  if (context instanceof RouterContext) {
     return context;
   }
 
   return new RouterContext({
-    request:
-      context.request,
+    request: context.request,
 
-    route:
-      context.route,
+    route: context.route,
 
-    params:
-      context.params,
+    params: context.params,
 
-    query:
-      context.query,
+    query: context.query,
 
-    state:
-      context.state,
+    state: context.state,
 
-    signal:
-      context.signal,
+    signal: context.signal,
   });
 }
 
@@ -475,39 +270,23 @@ export function toRouterContext(
 /* -------------------------------------------------------------------------- */
 
 export function cloneRouterContext(
-  context:
-    | HttpRouterContext,
-  options:
-    | RouterContextOptions = {},
-):
-  | RouterContext {
-  const source =
-    toRouterContext(
-      context,
-    );
+  context: HttpRouterContext,
+  options: RouterContextOptions = {},
+): RouterContext {
+  const source = toRouterContext(context);
 
   return new RouterContext({
-    request:
-      source.request,
+    request: source.request,
 
-    route:
-      source.route,
+    route: source.route,
 
-    params:
-      source.params,
+    params: source.params,
 
-    query:
-      source.query,
+    query: source.query,
 
-    state:
-      options.state ??
-      new Map(
-        source.state,
-      ),
+    state: options.state ?? new Map(source.state),
 
-    signal:
-      options.signal ??
-      source.signal,
+    signal: options.signal ?? source.signal,
   });
 }
 
@@ -516,12 +295,9 @@ export function cloneRouterContext(
 /* -------------------------------------------------------------------------- */
 
 function createMiddlewareContext(
-  request:
-    | RequestContext,
-  signal:
-    | AbortSignal,
-):
-  | HttpRouterContext["middleware"] {
+  request: RequestContext,
+  signal: AbortSignal,
+): HttpRouterContext["middleware"] {
   return {
     request,
     signal,
@@ -532,62 +308,34 @@ function createMiddlewareContext(
 /* Request Helpers                                                            */
 /* -------------------------------------------------------------------------- */
 
-function getRequestMethod(
-  request:
-    | RequestContext,
-):
-  | string {
-  const value =
-    (
-      request as unknown as {
-        method?:
-          | string;
-      }
-    ).method;
+function getRequestMethod(request: RequestContext): string {
+  const value = (
+    request as unknown as {
+      method?: string;
+    }
+  ).method;
 
-  return (
-    value ??
-    "GET"
-  ).toUpperCase();
+  return (value ?? "GET").toUpperCase();
 }
 
-function getRequestUrl(
-  request:
-    | RequestContext,
-):
-  | string {
-  const value =
-    (
-      request as unknown as {
-        url?:
-          | string
-          | URL;
-      }
-    ).url;
+function getRequestUrl(request: RequestContext): string {
+  const value = (
+    request as unknown as {
+      url?: string | URL;
+    }
+  ).url;
 
-  if (
-    value instanceof
-    URL
-  ) {
+  if (value instanceof URL) {
     return value.toString();
   }
 
-  return (
-    value ??
-    "/"
-  );
+  return value ?? "/";
 }
 
-function getRequestSignal(
-  request:
-    | RequestContext,
-):
-  | AbortSignal
-  | undefined {
+function getRequestSignal(request: RequestContext): AbortSignal | undefined {
   return (
     request as unknown as {
-      signal?:
-        | AbortSignal;
+      signal?: AbortSignal;
     }
   ).signal;
 }
@@ -596,43 +344,23 @@ function getRequestSignal(
 /* Abort Helpers                                                              */
 /* -------------------------------------------------------------------------- */
 
-function createAbortError(
-  reason:
-    | unknown,
-):
-  | Error {
-  if (
-    reason instanceof
-    Error
-  ) {
+function createAbortError(reason: unknown): Error {
+  if (reason instanceof Error) {
     return reason;
   }
 
-  if (
-    typeof DOMException !==
-      "undefined"
-  ) {
+  if (typeof DOMException !== "undefined") {
     return new DOMException(
-      reason
-        ? String(
-            reason,
-          )
-        : "The operation was aborted.",
+      reason ? String(reason) : "The operation was aborted.",
       "AbortError",
     );
   }
 
-  const error =
-    new Error(
-      reason
-        ? String(
-            reason,
-          )
-        : "The operation was aborted.",
-    );
+  const error = new Error(
+    reason ? String(reason) : "The operation was aborted.",
+  );
 
-  error.name =
-    "AbortError";
+  error.name = "AbortError";
 
   return error;
 }
@@ -641,23 +369,10 @@ function createAbortError(
 /* Response Helpers                                                           */
 /* -------------------------------------------------------------------------- */
 
-export function isResponseContext(
-  value:
-    | unknown,
-):
-  value is ResponseContext {
+export function isResponseContext(value: unknown): value is ResponseContext {
   return (
-    value !==
-      null &&
-    typeof value ===
-      "object" &&
-    (
-      "response" in
-        value ||
-      "status" in
-        value ||
-      "headers" in
-        value
-    )
+    value !== null &&
+    typeof value === "object" &&
+    ("response" in value || "status" in value || "headers" in value)
   );
 }

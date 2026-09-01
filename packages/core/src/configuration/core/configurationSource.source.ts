@@ -1,6 +1,4 @@
-import type {
-  ConfigurationValue,
-} from "./configuration.js";
+import type { ConfigurationValue } from "./configuration.js";
 
 /**
  * Well-known configuration source types.
@@ -37,9 +35,7 @@ export interface ConfigurationSourceEntry {
   /**
    * Optional source-specific metadata.
    */
-  readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -76,9 +72,7 @@ export interface ConfigurationSource {
   /**
    * Loads configuration entries from the source.
    */
-  load(): Promise<
-    readonly ConfigurationSourceEntry[]
-  >;
+  load(): Promise<readonly ConfigurationSourceEntry[]>;
 }
 
 /**
@@ -109,32 +103,21 @@ export interface ConfigurationSourceOptions {
  * Concrete sources can extend this class and implement
  * the load() method.
  */
-export abstract class BaseConfigurationSource
-  implements ConfigurationSource
-{
+export abstract class BaseConfigurationSource implements ConfigurationSource {
   public readonly name: string;
 
   public readonly type: ConfigurationSourceType;
 
   public readonly priority: number;
 
-  protected constructor(
-    options: ConfigurationSourceOptions,
-  ) {
-    const name =
-      options.name.trim();
+  protected constructor(options: ConfigurationSourceOptions) {
+    const name = options.name.trim();
 
     if (!name) {
-      throw new Error(
-        "Configuration source name cannot be empty.",
-      );
+      throw new Error("Configuration source name cannot be empty.");
     }
 
-    if (
-      !Number.isFinite(
-        options.priority ?? 0,
-      )
-    ) {
+    if (!Number.isFinite(options.priority ?? 0)) {
       throw new TypeError(
         "Configuration source priority must be a finite number.",
       );
@@ -142,16 +125,13 @@ export abstract class BaseConfigurationSource
 
     this.name = name;
     this.type = options.type;
-    this.priority =
-      options.priority ?? 0;
+    this.priority = options.priority ?? 0;
   }
 
   /**
    * Loads configuration entries.
    */
-  public abstract load(): Promise<
-    readonly ConfigurationSourceEntry[]
-  >;
+  public abstract load(): Promise<readonly ConfigurationSourceEntry[]>;
 }
 
 /**
@@ -162,25 +142,16 @@ export abstract class BaseConfigurationSource
  */
 export function createConfigurationSource(
   options: ConfigurationSourceOptions & {
-    readonly load: () => Promise<
-      readonly ConfigurationSourceEntry[]
-    >;
+    readonly load: () => Promise<readonly ConfigurationSourceEntry[]>;
   },
 ): ConfigurationSource {
-  const name =
-    options.name.trim();
+  const name = options.name.trim();
 
   if (!name) {
-    throw new Error(
-      "Configuration source name cannot be empty.",
-    );
+    throw new Error("Configuration source name cannot be empty.");
   }
 
-  if (
-    !Number.isFinite(
-      options.priority ?? 0,
-    )
-  ) {
+  if (!Number.isFinite(options.priority ?? 0)) {
     throw new TypeError(
       "Configuration source priority must be a finite number.",
     );
@@ -189,8 +160,7 @@ export function createConfigurationSource(
   return Object.freeze({
     name,
     type: options.type,
-    priority:
-      options.priority ?? 0,
+    priority: options.priority ?? 0,
     load: options.load,
   });
 }
@@ -205,8 +175,5 @@ export function createConfigurationSource(
 export function sortConfigurationSources(
   sources: readonly ConfigurationSource[],
 ): ConfigurationSource[] {
-  return [...sources].sort(
-    (a, b) =>
-      a.priority - b.priority,
-  );
+  return [...sources].sort((a, b) => a.priority - b.priority);
 }

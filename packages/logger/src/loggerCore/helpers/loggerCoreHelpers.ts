@@ -2,26 +2,18 @@
  * LatticeLogger normalization and assertion helpers.
  */
 
-import {
-  isLoggerFormatter,
-} from "../../loggerFormatter/loggerFormatterGuard.js";
+import { isLoggerFormatter } from "../../loggerFormatter/loggerFormatterGuard.js";
 
-import {
-  createTextLoggerFormatter,
-} from "../../loggerFormatter/loggerFormatterFormatters/loggerFormatterFormatters.text.js";
+import { createTextLoggerFormatter } from "../../loggerFormatter/loggerFormatterFormatters/loggerFormatterFormatters.text.js";
 
-import {
-  createConsoleLoggerTransport,
-} from "../../loggerTransport/loggerTransportConsole/loggerTransportConsole.core.js";
+import { createConsoleLoggerTransport } from "../../loggerTransport/loggerTransportConsole/loggerTransportConsole.core.js";
 
 import {
   LoggerConfigurationError,
   LoggerDisposedError,
 } from "../../loggerErrors/loggerError.base.js";
 
-import type {
-  LoggerConfiguration,
-} from "../../loggerOptions/loggerOptions.type.js";
+import type { LoggerConfiguration } from "../../loggerOptions/loggerOptions.type.js";
 
 /**
  * Normalizes logger configuration with defaults.
@@ -53,10 +45,7 @@ export function normalizeConfiguration(
 /**
  * Asserts that the logger is not disposed.
  */
-export function assertActive(
-  disposed: boolean,
-  name: string,
-): void {
+export function assertActive(disposed: boolean, name: string): void {
   if (disposed) {
     throw new LoggerDisposedError(name);
   }
@@ -65,13 +54,9 @@ export function assertActive(
 /**
  * Asserts that the logger configuration is mutable.
  */
-export function assertMutable(
-  mutable: boolean,
-): void {
+export function assertMutable(mutable: boolean): void {
   if (!mutable) {
-    throw new LoggerConfigurationError(
-      "Logger configuration is immutable.",
-    );
+    throw new LoggerConfigurationError("Logger configuration is immutable.");
   }
 }
 

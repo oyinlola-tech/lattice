@@ -11,7 +11,7 @@ npm install @latticejs/events
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/events";
+import {} from /* add usage here */ "@latticejs/events";
 ```
 
 ## License

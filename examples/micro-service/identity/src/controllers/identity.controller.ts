@@ -4,7 +4,10 @@ import { CreateUserCommand } from "../services/identity/commands/create-user/cre
 import { AuthenticateUserCommand } from "../services/identity/commands/authenticate-user/authenticate-user.command.js";
 import { GetUserQuery } from "../services/identity/queries/get-user/get-user.query.js";
 import { GetUserProfileQuery } from "../services/identity/queries/get-user-profile/get-user-profile.query.js";
-import { CreateUserSchema, AuthenticateUserSchema } from "../validators/index.js";
+import {
+  CreateUserSchema,
+  AuthenticateUserSchema,
+} from "../validators/index.js";
 import { errorMiddleware } from "../middlewares/index.js";
 
 /**
@@ -28,11 +31,19 @@ export class IdentityController {
       const parsed = CreateUserSchema.safeParse(body);
 
       if (!parsed.success) {
-        this.sendError(res, 400, "Validation failed.", parsed.error.flatten().fieldErrors);
+        this.sendError(
+          res,
+          400,
+          "Validation failed.",
+          parsed.error.flatten().fieldErrors,
+        );
         return;
       }
 
-      const result = await this.commandBus.execute<CreateUserCommand, Record<string, unknown>>(
+      const result = await this.commandBus.execute<
+        CreateUserCommand,
+        Record<string, unknown>
+      >(
         new CreateUserCommand({
           email: parsed.data.email,
           password: parsed.data.password,
@@ -57,11 +68,19 @@ export class IdentityController {
       const parsed = AuthenticateUserSchema.safeParse(body);
 
       if (!parsed.success) {
-        this.sendError(res, 400, "Validation failed.", parsed.error.flatten().fieldErrors);
+        this.sendError(
+          res,
+          400,
+          "Validation failed.",
+          parsed.error.flatten().fieldErrors,
+        );
         return;
       }
 
-      const result = await this.commandBus.execute<AuthenticateUserCommand, Record<string, unknown>>(
+      const result = await this.commandBus.execute<
+        AuthenticateUserCommand,
+        Record<string, unknown>
+      >(
         new AuthenticateUserCommand({
           email: parsed.data.email,
           password: parsed.data.password,
@@ -77,7 +96,11 @@ export class IdentityController {
   /**
    * GET /api/identity/users/:id
    */
-  async getUser(req: IncomingMessage, res: ServerResponse, userId: string): Promise<void> {
+  async getUser(
+    req: IncomingMessage,
+    res: ServerResponse,
+    userId: string,
+  ): Promise<void> {
     try {
       const result = await this.queryBus.execute(new GetUserQuery({ userId }));
 
@@ -90,9 +113,15 @@ export class IdentityController {
   /**
    * GET /api/identity/profile?email=...
    */
-  async getUserProfile(req: IncomingMessage, res: ServerResponse, email: string): Promise<void> {
+  async getUserProfile(
+    req: IncomingMessage,
+    res: ServerResponse,
+    email: string,
+  ): Promise<void> {
     try {
-      const result = await this.queryBus.execute(new GetUserProfileQuery({ email }));
+      const result = await this.queryBus.execute(
+        new GetUserProfileQuery({ email }),
+      );
 
       this.sendJson(res, 200, { user: result });
     } catch (err) {
@@ -127,12 +156,21 @@ export class IdentityController {
     });
   }
 
-  private sendJson(res: ServerResponse, statusCode: number, data: unknown): void {
+  private sendJson(
+    res: ServerResponse,
+    statusCode: number,
+    data: unknown,
+  ): void {
     res.writeHead(statusCode, { "Content-Type": "application/json" });
     res.end(JSON.stringify(data));
   }
 
-  private sendError(res: ServerResponse, statusCode: number, message: string, details?: unknown): void {
+  private sendError(
+    res: ServerResponse,
+    statusCode: number,
+    message: string,
+    details?: unknown,
+  ): void {
     this.sendJson(res, statusCode, {
       error: { message, statusCode, details },
     });

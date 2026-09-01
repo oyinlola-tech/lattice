@@ -7,7 +7,10 @@ import { ErrorSeverity } from "../base/types/errorSeverity.type.js";
 /**
  * Options for creating a runtime error.
  */
-export interface RuntimeErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface RuntimeErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly phase?: string;
   readonly component?: string;
@@ -45,7 +48,10 @@ export class RuntimeError extends BaseError {
 }
 
 /** Creates a runtime error. */
-export function createRuntimeError(message: string, options: RuntimeErrorOptions = {}): RuntimeError {
+export function createRuntimeError(
+  message: string,
+  options: RuntimeErrorOptions = {},
+): RuntimeError {
   return new RuntimeError(message, options);
 }
 

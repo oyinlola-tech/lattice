@@ -57,7 +57,9 @@ export class RPCDispatcher {
       if (error instanceof RPCValidationError) {
         throw error;
       }
-      throw new Error(`Handler for procedure "${request.procedure}" threw: ${String(error)}`);
+      throw new Error(
+        `Handler for procedure "${request.procedure}" threw: ${String(error)}`,
+      );
     }
   }
 }

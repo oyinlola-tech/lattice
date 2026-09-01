@@ -1,4 +1,8 @@
-export type { RPCHandler, RPCProcedure, RPCProcedureOptions } from "./rpcProcedure.type.js";
+export type {
+  RPCHandler,
+  RPCProcedure,
+  RPCProcedureOptions,
+} from "./rpcProcedure.type.js";
 
 export { createRPCProcedure } from "./rpcProcedure.type.js";
 

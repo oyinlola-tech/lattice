@@ -5,18 +5,9 @@
  */
 
 export type InterceptorPhase =
-  | "request"
-  | "response"
-  | "error"
-  | "before-request"
-  | "after-request";
+  "request" | "response" | "error" | "before-request" | "after-request";
 
-export type InterceptorPriority =
-  | "first"
-  | "high"
-  | "normal"
-  | "low"
-  | "last";
+export type InterceptorPriority = "first" | "high" | "normal" | "low" | "last";
 
 export interface HttpInterceptorMetadata {
   readonly id: string;

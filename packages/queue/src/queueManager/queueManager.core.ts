@@ -13,10 +13,7 @@ export function createQueueManager(): QueueManager {
   const queues = new Map<QueueName, Queue>();
 
   return {
-    getQueue<TData>(
-      name: QueueName,
-      options?: QueueOptions,
-    ): Queue<TData> {
+    getQueue<TData>(name: QueueName, options?: QueueOptions): Queue<TData> {
       let queue = queues.get(name) as Queue<TData> | undefined;
 
       if (!queue) {
@@ -27,9 +24,7 @@ export function createQueueManager(): QueueManager {
       return queue;
     },
 
-    getExistingQueue<TData>(
-      name: QueueName,
-    ): Queue<TData> | undefined {
+    getExistingQueue<TData>(name: QueueName): Queue<TData> | undefined {
       return queues.get(name) as Queue<TData> | undefined;
     },
 

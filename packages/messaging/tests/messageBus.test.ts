@@ -39,15 +39,23 @@ describe("MessageBus", () => {
       const bus = createMessageBus();
       const calls: string[] = [];
 
-      bus.on("test.message", async () => {
-        calls.push("h1");
-        return "result1";
-      }, { id: "h1" });
+      bus.on(
+        "test.message",
+        async () => {
+          calls.push("h1");
+          return "result1";
+        },
+        { id: "h1" },
+      );
 
-      bus.on("test.message", async () => {
-        calls.push("h2");
-        return "result2";
-      }, { id: "h2" });
+      bus.on(
+        "test.message",
+        async () => {
+          calls.push("h2");
+          return "result2";
+        },
+        { id: "h2" },
+      );
 
       const result = await bus.dispatch(
         createMessage({ type: "test.message", payload: {} }),
@@ -139,9 +147,7 @@ describe("MessageBus", () => {
         return "result";
       });
 
-      await bus.dispatch(
-        createMessage({ type: "test.message", payload: {} }),
-      );
+      await bus.dispatch(createMessage({ type: "test.message", payload: {} }));
 
       expect(calls).toEqual(["before", "handler", "after"]);
     });

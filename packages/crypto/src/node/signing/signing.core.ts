@@ -1,5 +1,10 @@
 import type { SignatureAlgorithm } from "../../cryptoProvider/index.js";
-import { generateKeyPairSync, createPrivateKey, createPublicKey, type KeyObject } from "node:crypto";
+import {
+  generateKeyPairSync,
+  createPrivateKey,
+  createPublicKey,
+  type KeyObject,
+} from "node:crypto";
 import type { CryptoKey } from "../../cryptoKey/cryptoKey.type.js";
 import { CryptoAlgorithm } from "../../cryptoConstants/cryptoConstants.type.js";
 
@@ -13,10 +18,7 @@ export function generateEd25519KeyPair(): {
   readonly privateKey: KeyObject;
   readonly publicKey: KeyObject;
 } {
-  const {
-    privateKey,
-    publicKey,
-  } = generateKeyPairSync("ed25519");
+  const { privateKey, publicKey } = generateKeyPairSync("ed25519");
 
   return Object.freeze({
     privateKey,
@@ -27,29 +29,29 @@ export function generateEd25519KeyPair(): {
 /**
  * Exports a private key as PEM.
  */
-export function exportPrivateKeyPem(
-  privateKey: KeyObject,
-): string {
+export function exportPrivateKeyPem(privateKey: KeyObject): string {
   assertKeyObject(privateKey);
 
-  return privateKey.export({
-    type: "pkcs8",
-    format: "pem",
-  }).toString();
+  return privateKey
+    .export({
+      type: "pkcs8",
+      format: "pem",
+    })
+    .toString();
 }
 
 /**
  * Exports a public key as PEM.
  */
-export function exportPublicKeyPem(
-  publicKey: KeyObject,
-): string {
+export function exportPublicKeyPem(publicKey: KeyObject): string {
   assertKeyObject(publicKey);
 
-  return publicKey.export({
-    type: "spki",
-    format: "pem",
-  }).toString();
+  return publicKey
+    .export({
+      type: "spki",
+      format: "pem",
+    })
+    .toString();
 }
 
 /**

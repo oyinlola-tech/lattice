@@ -13,8 +13,10 @@ import type { PermissionRule, Permission } from "../permissionTypes/index.js";
  * considering wildcard support.
  */
 export function ruleMatches(rule: PermissionRule, target: Permission): boolean {
-  return resourceMatches(rule.resource, target.resource) &&
-    actionMatches(rule.action, target.action);
+  return (
+    resourceMatches(rule.resource, target.resource) &&
+    actionMatches(rule.action, target.action)
+  );
 }
 
 /**

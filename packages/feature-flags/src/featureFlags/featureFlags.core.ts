@@ -56,7 +56,10 @@ export function createFeatureFlags(options: FeatureFlagsOptions) {
   }
 
   return {
-    async isEnabled(key: string, context?: FeatureFlagContext): Promise<boolean> {
+    async isEnabled(
+      key: string,
+      context?: FeatureFlagContext,
+    ): Promise<boolean> {
       const result = await this.evaluate<boolean>(key, context);
       return result.value;
     },
@@ -69,7 +72,11 @@ export function createFeatureFlags(options: FeatureFlagsOptions) {
       return result.value;
     },
 
-    async getBoolean(key: string, defaultValue: boolean, context?: FeatureFlagContext): Promise<boolean> {
+    async getBoolean(
+      key: string,
+      defaultValue: boolean,
+      context?: FeatureFlagContext,
+    ): Promise<boolean> {
       const result = await this.evaluate<boolean>(key, context);
       if (result.reason === "not_found") return defaultValue;
       return result.value;
@@ -108,7 +115,9 @@ export function createFeatureFlags(options: FeatureFlagsOptions) {
       return evaluateFlag<T>(flag, mergedCtx);
     },
 
-    async snapshot(context?: FeatureFlagContext): Promise<ReadonlyMap<string, FeatureFlagEvaluation>> {
+    async snapshot(
+      context?: FeatureFlagContext,
+    ): Promise<ReadonlyMap<string, FeatureFlagEvaluation>> {
       await ensureLoaded();
 
       const mergedCtx = mergeContext(defaultContext, context);

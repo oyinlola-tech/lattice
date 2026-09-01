@@ -2,9 +2,7 @@
  * Logger context for Lattice.
  */
 
-import type {
-  LogMetadata,
-} from "../loggerEntry/loggerEntry.type.js";
+import type { LogMetadata } from "../loggerEntry/loggerEntry.type.js";
 
 import type {
   LoggerContext,

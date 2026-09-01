@@ -32,5 +32,7 @@ export function summarizeTransaction(transaction: Transaction): string {
     `duration=${duration}ms`,
     transaction.parentId ? `parent=${transaction.parentId}` : "",
     transaction.isRollbackOnly() ? "rollback-only" : "",
-  ].filter(Boolean).join(", ");
+  ]
+    .filter(Boolean)
+    .join(", ");
 }

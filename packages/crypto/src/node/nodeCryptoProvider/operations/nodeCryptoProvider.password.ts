@@ -1,6 +1,13 @@
-import type { CryptoInput, KeyDerivationAlgorithm } from "../../../cryptoProvider/index.js";
+import type {
+  CryptoInput,
+  KeyDerivationAlgorithm,
+} from "../../../cryptoProvider/index.js";
 import { randomBytes, pbkdf2, scrypt, timingSafeEqual } from "node:crypto";
-import { toBytes, toBase64Url, fromBase64Url } from "../nodeCryptoProvider.helper.js";
+import {
+  toBytes,
+  toBase64Url,
+  fromBase64Url,
+} from "../nodeCryptoProvider.helper.js";
 import { PASSWORD_FORMAT_VERSION } from "../../../cryptoPassword/cryptoPassword.codec.js";
 import { decodePasswordHash } from "../../../cryptoPassword/cryptoPassword.codec.js";
 
@@ -74,9 +81,7 @@ export async function hashPassword(
     }
 
     default:
-      throw new TypeError(
-        `Unsupported password algorithm: ${algorithm}.`,
-      );
+      throw new TypeError(`Unsupported password algorithm: ${algorithm}.`);
   }
 
   const saltB64 = toBase64Url(salt);
@@ -101,7 +106,14 @@ export async function verifyPassword(
     return false;
   }
 
-  const [version, algorithm, costPart, blockSizePart, parallelizationPart, payload] = parts;
+  const [
+    version,
+    algorithm,
+    costPart,
+    blockSizePart,
+    parallelizationPart,
+    payload,
+  ] = parts;
   if (version !== "v1" || !payload) {
     return false;
   }

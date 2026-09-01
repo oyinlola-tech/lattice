@@ -7,7 +7,10 @@ import { createTopicId } from "../../../../types/index.js";
 import { randomUUID } from "node:crypto";
 import { ConflictError } from "../../../../errors/index.js";
 
-export class CreateTopicHandler extends CommandHandler<CreateTopicCommand, TopicModel> {
+export class CreateTopicHandler extends CommandHandler<
+  CreateTopicCommand,
+  TopicModel
+> {
   public readonly commandType = "topics.create" as const;
 
   private readonly topics: TopicRepository;
@@ -20,7 +23,9 @@ export class CreateTopicHandler extends CommandHandler<CreateTopicCommand, Topic
   public async execute(command: CreateTopicCommand): Promise<TopicModel> {
     const existing = await this.topics.findByName(command.data.name);
     if (existing) {
-      throw new ConflictError(`A topic with name "${command.data.name}" already exists`);
+      throw new ConflictError(
+        `A topic with name "${command.data.name}" already exists`,
+      );
     }
 
     const now = new Date();

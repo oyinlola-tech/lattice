@@ -6,14 +6,9 @@
  */
 
 export function generateRequestId(): string {
-  const cryptoObject =
-    globalThis.crypto;
+  const cryptoObject = globalThis.crypto;
 
-  if (
-    cryptoObject &&
-    typeof cryptoObject.randomUUID ===
-      "function"
-  ) {
+  if (cryptoObject && typeof cryptoObject.randomUUID === "function") {
     return cryptoObject.randomUUID();
   }
 

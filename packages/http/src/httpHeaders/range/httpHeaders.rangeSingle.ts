@@ -12,66 +12,29 @@ import type { ByteRange } from "../types/httpHeaders.type.js";
  * @param spec - The range spec string.
  * @returns The parsed byte range, or `undefined` if invalid.
  */
-export function parseSingleRange(
-  spec:
-    | string,
-): ByteRange
-  | undefined {
-  const value =
-    spec.trim();
+export function parseSingleRange(spec: string): ByteRange | undefined {
+  const value = spec.trim();
 
-  if (
-    !value
-  ) {
+  if (!value) {
     return undefined;
   }
 
-  const dash =
-    value.indexOf(
-      "-",
-    );
+  const dash = value.indexOf("-");
 
-  if (
-    dash ===
-      -1
-  ) {
+  if (dash === -1) {
     return undefined;
   }
 
-  const startValue =
-    value
-      .slice(
-        0,
-        dash,
-      )
-      .trim();
+  const startValue = value.slice(0, dash).trim();
 
-  const endValue =
-    value
-      .slice(
-        dash + 1,
-      )
-      .trim();
+  const endValue = value.slice(dash + 1).trim();
 
-  if (
-    startValue ===
-      ""
-  ) {
-    const end =
-      Number(
-        endValue,
-      );
+  if (startValue === "") {
+    const end = Number(endValue);
 
-    if (
-      Number.isSafeInteger(
-        end,
-      ) &&
-      end >=
-        0
-    ) {
+    if (Number.isSafeInteger(end) && end >= 0) {
       return {
-        start:
-          -1,
+        start: -1,
         end,
       };
     }
@@ -79,44 +42,22 @@ export function parseSingleRange(
     return undefined;
   }
 
-  const start =
-    Number(
-      startValue,
-    );
+  const start = Number(startValue);
 
-  if (
-    !Number.isSafeInteger(
-      start,
-    ) ||
-    start <
-      0
-  ) {
+  if (!Number.isSafeInteger(start) || start < 0) {
     return undefined;
   }
 
-  if (
-    endValue ===
-      ""
-  ) {
+  if (endValue === "") {
     return {
       start,
-      end:
-        undefined,
+      end: undefined,
     };
   }
 
-  const end =
-    Number(
-      endValue,
-    );
+  const end = Number(endValue);
 
-  if (
-    !Number.isSafeInteger(
-      end,
-    ) ||
-    end <
-      start
-  ) {
+  if (!Number.isSafeInteger(end) || end < start) {
     return undefined;
   }
 

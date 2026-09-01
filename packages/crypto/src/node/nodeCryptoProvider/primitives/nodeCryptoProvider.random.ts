@@ -2,9 +2,7 @@ import { randomBytes } from "node:crypto";
 
 export async function randomBytesImpl(length: number): Promise<Uint8Array> {
   if (!Number.isInteger(length) || length <= 0) {
-    throw new TypeError(
-      "randomBytes length must be a positive integer.",
-    );
+    throw new TypeError("randomBytes length must be a positive integer.");
   }
 
   return new Uint8Array(randomBytes(length));

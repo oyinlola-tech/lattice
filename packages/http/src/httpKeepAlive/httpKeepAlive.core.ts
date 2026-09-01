@@ -29,9 +29,7 @@ export interface KeepAliveConfig {
 export interface KeepAliveParameters {
   readonly timeout?: number;
   readonly max?: number;
-  readonly extensions: Readonly<
-    Record<string, string | undefined>
-  >;
+  readonly extensions: Readonly<Record<string, string | undefined>>;
 }
 
 export interface KeepAliveState {
@@ -45,48 +43,30 @@ export interface KeepAliveState {
 /* Constants                                                                  */
 /* -------------------------------------------------------------------------- */
 
-export const DEFAULT_KEEP_ALIVE_ENABLED =
-  true;
+export const DEFAULT_KEEP_ALIVE_ENABLED = true;
 
-export const DEFAULT_KEEP_ALIVE_TIMEOUT =
-  5_000;
+export const DEFAULT_KEEP_ALIVE_TIMEOUT = 5_000;
 
-export const DEFAULT_KEEP_ALIVE_MAX_REQUESTS =
-  100;
+export const DEFAULT_KEEP_ALIVE_MAX_REQUESTS = 100;
 
-export const MIN_KEEP_ALIVE_TIMEOUT =
-  0;
+export const MIN_KEEP_ALIVE_TIMEOUT = 0;
 
-export const MAX_KEEP_ALIVE_TIMEOUT =
-  86_400_000;
+export const MAX_KEEP_ALIVE_TIMEOUT = 86_400_000;
 
 /* -------------------------------------------------------------------------- */
 /* Configuration                                                              */
 /* -------------------------------------------------------------------------- */
 
 export function createKeepAliveConfig(
-  options:
-    | KeepAliveOptions
-    | undefined = {},
+  options: KeepAliveOptions | undefined = {},
 ): KeepAliveConfig {
-  const enabled =
-    options.enabled ??
-    DEFAULT_KEEP_ALIVE_ENABLED;
+  const enabled = options.enabled ?? DEFAULT_KEEP_ALIVE_ENABLED;
 
-  const timeout =
-    normalizeTimeout(
-      options.timeout,
-    );
+  const timeout = normalizeTimeout(options.timeout);
 
-  const maxRequests =
-    normalizeMaxRequests(
-      options.maxRequests,
-    );
+  const maxRequests = normalizeMaxRequests(options.maxRequests);
 
-  const maxIdleTime =
-    normalizeTimeout(
-      options.maxIdleTime,
-    );
+  const maxIdleTime = normalizeTimeout(options.maxIdleTime);
 
   return {
     enabled,
@@ -97,21 +77,14 @@ export function createKeepAliveConfig(
 }
 
 export function normalizeTimeout(
-  timeout:
-    | number
-    | undefined,
+  timeout: number | undefined,
 ): number | undefined {
-  if (
-    timeout ===
-      undefined
-  ) {
+  if (timeout === undefined) {
     return undefined;
   }
 
   if (
-    !Number.isFinite(
-      timeout,
-    ) ||
+    !Number.isFinite(timeout) ||
     timeout < MIN_KEEP_ALIVE_TIMEOUT ||
     timeout > MAX_KEEP_ALIVE_TIMEOUT
   ) {
@@ -120,32 +93,18 @@ export function normalizeTimeout(
     );
   }
 
-  return Math.floor(
-    timeout,
-  );
+  return Math.floor(timeout);
 }
 
 export function normalizeMaxRequests(
-  maxRequests:
-    | number
-    | undefined,
+  maxRequests: number | undefined,
 ): number | undefined {
-  if (
-    maxRequests ===
-      undefined
-  ) {
+  if (maxRequests === undefined) {
     return undefined;
   }
 
-  if (
-    !Number.isInteger(
-      maxRequests,
-    ) ||
-    maxRequests <= 0
-  ) {
-    throw new RangeError(
-      "maxRequests must be a positive integer.",
-    );
+  if (!Number.isInteger(maxRequests) || maxRequests <= 0) {
+    throw new RangeError("maxRequests must be a positive integer.");
   }
 
   return maxRequests;
@@ -156,129 +115,60 @@ export function normalizeMaxRequests(
 /* -------------------------------------------------------------------------- */
 
 export function parseKeepAliveHeader(
-  value:
-    | string
-    | undefined
-    | null,
+  value: string | undefined | null,
 ): KeepAliveParameters {
-  const extensions: Record<
-    string,
-    string | undefined
-  > = {};
+  const extensions: Record<string, string | undefined> = {};
 
-  if (
-    !value ||
-    value.trim().length ===
-      0
-  ) {
+  if (!value || value.trim().length === 0) {
     return {
       extensions,
     };
   }
 
-  let timeout:
-    | number
-    | undefined;
+  let timeout: number | undefined;
 
-  let max:
-    | number
-    | undefined;
+  let max: number | undefined;
 
-  for (
-    const part of splitHeaderParameters(
-      value,
-    )
-  ) {
-    const separator =
-      part.indexOf("=");
+  for (const part of splitHeaderParameters(value)) {
+    const separator = part.indexOf("=");
 
-    if (
-      separator === -1
-    ) {
-      const key =
-        part
-          .trim()
-          .toLowerCase();
+    if (separator === -1) {
+      const key = part.trim().toLowerCase();
 
-      if (
-        key.length > 0
-      ) {
-        extensions[key] =
-          undefined;
+      if (key.length > 0) {
+        extensions[key] = undefined;
       }
 
       continue;
     }
 
-    const key =
-      part
-        .slice(
-          0,
-          separator,
-        )
-        .trim()
-        .toLowerCase();
+    const key = part.slice(0, separator).trim().toLowerCase();
 
-    const rawValue =
-      part
-        .slice(
-          separator + 1,
-        )
-        .trim();
+    const rawValue = part.slice(separator + 1).trim();
 
-    const parsedValue =
-      unquote(
-        rawValue,
-      );
+    const parsedValue = unquote(rawValue);
 
-    if (
-      key ===
-      "timeout"
-    ) {
-      const seconds =
-        Number(
-          parsedValue,
-        );
+    if (key === "timeout") {
+      const seconds = Number(parsedValue);
 
-      if (
-        Number.isFinite(
-          seconds,
-        ) &&
-        seconds >= 0
-      ) {
-        timeout =
-          Math.floor(
-            seconds,
-          );
+      if (Number.isFinite(seconds) && seconds >= 0) {
+        timeout = Math.floor(seconds);
       }
 
       continue;
     }
 
-    if (
-      key ===
-      "max"
-    ) {
-      const requests =
-        Number(
-          parsedValue,
-        );
+    if (key === "max") {
+      const requests = Number(parsedValue);
 
-      if (
-        Number.isInteger(
-          requests,
-        ) &&
-        requests >= 0
-      ) {
-        max =
-          requests;
+      if (Number.isInteger(requests) && requests >= 0) {
+        max = requests;
       }
 
       continue;
     }
 
-    extensions[key] =
-      parsedValue;
+    extensions[key] = parsedValue;
   }
 
   return {
@@ -293,82 +183,37 @@ export function parseKeepAliveHeader(
 /* -------------------------------------------------------------------------- */
 
 export function formatKeepAliveHeader(
-  parameters:
-    | Partial<KeepAliveParameters>
-    | undefined = {},
+  parameters: Partial<KeepAliveParameters> | undefined = {},
 ): string {
   const parts: string[] = [];
 
-  if (
-    parameters.timeout !==
-      undefined
-  ) {
-    if (
-      !Number.isFinite(
-        parameters.timeout,
-      ) ||
-      parameters.timeout < 0
-    ) {
+  if (parameters.timeout !== undefined) {
+    if (!Number.isFinite(parameters.timeout) || parameters.timeout < 0) {
       throw new RangeError(
         "Keep-alive timeout must be a non-negative finite number.",
       );
     }
 
-    parts.push(
-      `timeout=${Math.floor(
-        parameters.timeout,
-      )}`,
-    );
+    parts.push(`timeout=${Math.floor(parameters.timeout)}`);
   }
 
-  if (
-    parameters.max !==
-      undefined
-  ) {
-    if (
-      !Number.isInteger(
-        parameters.max,
-      ) ||
-      parameters.max < 0
-    ) {
-      throw new RangeError(
-        "Keep-alive max must be a non-negative integer.",
-      );
+  if (parameters.max !== undefined) {
+    if (!Number.isInteger(parameters.max) || parameters.max < 0) {
+      throw new RangeError("Keep-alive max must be a non-negative integer.");
     }
 
-    parts.push(
-      `max=${parameters.max}`,
-    );
+    parts.push(`max=${parameters.max}`);
   }
 
-  for (
-    const [
-      key,
-      value,
-    ] of Object.entries(
-      parameters.extensions ??
-        {},
-    )
-  ) {
-    if (
-      value ===
-        undefined
-    ) {
-      parts.push(
-        key,
-      );
+  for (const [key, value] of Object.entries(parameters.extensions ?? {})) {
+    if (value === undefined) {
+      parts.push(key);
     } else {
-      parts.push(
-        `${key}=${quoteIfNeeded(
-          value,
-        )}`,
-      );
+      parts.push(`${key}=${quoteIfNeeded(value)}`);
     }
   }
 
-  return parts.join(
-    ", ",
-  );
+  return parts.join(", ");
 }
 
 /* -------------------------------------------------------------------------- */
@@ -376,115 +221,64 @@ export function formatKeepAliveHeader(
 /* -------------------------------------------------------------------------- */
 
 export function parseConnectionHeader(
-  value:
-    | string
-    | undefined
-    | null,
+  value: string | undefined | null,
 ): string[] {
-  if (
-    !value
-  ) {
+  if (!value) {
     return [];
   }
 
   return value
     .split(",")
-    .map(
-      (token) =>
-        token
-          .trim()
-          .toLowerCase(),
-    )
+    .map((token) => token.trim().toLowerCase())
     .filter(Boolean);
 }
 
 export function hasConnectionToken(
-  value:
-    | string
-    | undefined
-    | null,
+  value: string | undefined | null,
   token: string,
 ): boolean {
-  const normalized =
-    token
-      .trim()
-      .toLowerCase();
+  const normalized = token.trim().toLowerCase();
 
-  return parseConnectionHeader(
-    value,
-  ).includes(
-    normalized,
-  );
+  return parseConnectionHeader(value).includes(normalized);
 }
 
 export function isConnectionCloseRequested(
-  value:
-    | string
-    | undefined
-    | null,
+  value: string | undefined | null,
 ): boolean {
-  return hasConnectionToken(
-    value,
-    "close",
-  );
+  return hasConnectionToken(value, "close");
 }
 
 export function isConnectionKeepAliveRequested(
-  value:
-    | string
-    | undefined
-    | null,
+  value: string | undefined | null,
 ): boolean {
-  return hasConnectionToken(
-    value,
-    "keep-alive",
-  );
+  return hasConnectionToken(value, "keep-alive");
 }
 
 /* -------------------------------------------------------------------------- */
 /* HTTP Version Semantics                                                     */
 /* -------------------------------------------------------------------------- */
 
-export function supportsPersistentConnections(
-  httpVersion: string,
-): boolean {
-  const normalized =
-    httpVersion
-      .trim()
-      .toUpperCase();
+export function supportsPersistentConnections(httpVersion: string): boolean {
+  const normalized = httpVersion.trim().toUpperCase();
 
   return (
-    normalized ===
-      "HTTP/1.1" ||
-    normalized ===
-      "HTTP/2" ||
-    normalized ===
-      "HTTP/3"
+    normalized === "HTTP/1.1" ||
+    normalized === "HTTP/2" ||
+    normalized === "HTTP/3"
   );
 }
 
-export function defaultConnectionPersistence(
-  httpVersion: string,
-): boolean {
-  const normalized =
-    httpVersion
-      .trim()
-      .toUpperCase();
+export function defaultConnectionPersistence(httpVersion: string): boolean {
+  const normalized = httpVersion.trim().toUpperCase();
 
-  if (
-    normalized ===
-    "HTTP/1.0"
-  ) {
+  if (normalized === "HTTP/1.0") {
     return false;
   }
 
   if (
-    normalized ===
-      "HTTP/1.1" ||
-    normalized ===
-      "HTTP/2" ||
-    normalized ===
-      "HTTP/3"
+    normalized === "HTTP/1.1" ||
+    normalized === "HTTP/2" ||
+    normalized === "HTTP/3"
   ) {
     return true;
   }
@@ -494,85 +288,49 @@ export function defaultConnectionPersistence(
 
 export function shouldKeepAlive(
   httpVersion: string,
-  connectionHeader:
-    | string
-    | undefined
-    | null,
-  options:
-    | KeepAliveOptions
-    | undefined = {},
+  connectionHeader: string | undefined | null,
+  options: KeepAliveOptions | undefined = {},
 ): boolean {
-  const config =
-    createKeepAliveConfig(
-      options,
-    );
+  const config = createKeepAliveConfig(options);
 
-  if (
-    !config.enabled
-  ) {
+  if (!config.enabled) {
     return false;
   }
 
-  if (
-    isConnectionCloseRequested(
-      connectionHeader,
-    )
-  ) {
+  if (isConnectionCloseRequested(connectionHeader)) {
     return false;
   }
 
-  if (
-    defaultConnectionPersistence(
-      httpVersion,
-    )
-  ) {
+  if (defaultConnectionPersistence(httpVersion)) {
     return true;
   }
 
-  return isConnectionKeepAliveRequested(
-    connectionHeader,
-  );
+  return isConnectionKeepAliveRequested(connectionHeader);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Response Connection Policy                                                */
 /* -------------------------------------------------------------------------- */
 
-export function createConnectionHeader(
-  keepAlive: boolean,
-): string {
-  return keepAlive
-    ? "keep-alive"
-    : "close";
+export function createConnectionHeader(keepAlive: boolean): string {
+  return keepAlive ? "keep-alive" : "close";
 }
 
-export function shouldSendKeepAliveHeader(
-  httpVersion: string,
-): boolean {
-  const normalized =
-    httpVersion
-      .trim()
-      .toUpperCase();
+export function shouldSendKeepAliveHeader(httpVersion: string): boolean {
+  const normalized = httpVersion.trim().toUpperCase();
 
   /*
    * HTTP/1.1 defaults to persistence, but explicitly sending the
    * Keep-Alive header is still useful when advertising timeout/max values.
    */
-  return (
-    normalized ===
-      "HTTP/1.0" ||
-    normalized ===
-      "HTTP/1.1"
-  );
+  return normalized === "HTTP/1.0" || normalized === "HTTP/1.1";
 }
 
 /* -------------------------------------------------------------------------- */
 /* Keep-Alive State                                                           */
 /* -------------------------------------------------------------------------- */
 
-export function createKeepAliveState(
-  now = Date.now(),
-): KeepAliveState {
+export function createKeepAliveState(now = Date.now()): KeepAliveState {
   return {
     requests: 0,
     createdAt: now,
@@ -585,16 +343,13 @@ export function recordKeepAliveRequest(
   state: KeepAliveState,
   now = Date.now(),
 ): KeepAliveState {
-  if (
-    state.closed
-  ) {
+  if (state.closed) {
     return state;
   }
 
   return {
     ...state,
-    requests:
-      state.requests + 1,
+    requests: state.requests + 1,
     lastUsedAt: now,
   };
 }
@@ -616,84 +371,48 @@ export function closeKeepAlive(
 
 export function hasExceededMaxRequests(
   state: KeepAliveState,
-  maxRequests:
-    | number
-    | undefined,
+  maxRequests: number | undefined,
 ): boolean {
-  if (
-    maxRequests ===
-      undefined
-  ) {
+  if (maxRequests === undefined) {
     return false;
   }
 
-  return (
-    state.requests >=
-    maxRequests
-  );
+  return state.requests >= maxRequests;
 }
 
 export function hasExceededIdleTimeout(
   state: KeepAliveState,
-  maxIdleTime:
-    | number
-    | undefined,
+  maxIdleTime: number | undefined,
   now = Date.now(),
 ): boolean {
-  if (
-    maxIdleTime ===
-      undefined
-  ) {
+  if (maxIdleTime === undefined) {
     return false;
   }
 
-  return (
-    now -
-      state.lastUsedAt >=
-    maxIdleTime
-  );
+  return now - state.lastUsedAt >= maxIdleTime;
 }
 
 export function shouldCloseKeepAlive(
   state: KeepAliveState,
-  options:
-    | KeepAliveOptions
-    | undefined = {},
+  options: KeepAliveOptions | undefined = {},
   now = Date.now(),
 ): boolean {
-  const config =
-    createKeepAliveConfig(
-      options,
-    );
+  const config = createKeepAliveConfig(options);
 
-  if (
-    state.closed
-  ) {
+  if (state.closed) {
+    return true;
+  }
+
+  if (!config.enabled) {
+    return true;
+  }
+
+  if (hasExceededMaxRequests(state, config.maxRequests)) {
     return true;
   }
 
   if (
-    !config.enabled
-  ) {
-    return true;
-  }
-
-  if (
-    hasExceededMaxRequests(
-      state,
-      config.maxRequests,
-    )
-  ) {
-    return true;
-  }
-
-  if (
-    hasExceededIdleTimeout(
-      state,
-      config.maxIdleTime ??
-        config.timeout,
-      now,
-    )
+    hasExceededIdleTimeout(state, config.maxIdleTime ?? config.timeout, now)
   ) {
     return true;
   }
@@ -705,42 +424,20 @@ export function shouldCloseKeepAlive(
 /* Timeout Conversion                                                         */
 /* -------------------------------------------------------------------------- */
 
-export function millisecondsToSeconds(
-  milliseconds: number,
-): number {
-  if (
-    !Number.isFinite(
-      milliseconds,
-    ) ||
-    milliseconds < 0
-  ) {
-    throw new RangeError(
-      "Milliseconds must be a non-negative finite number.",
-    );
+export function millisecondsToSeconds(milliseconds: number): number {
+  if (!Number.isFinite(milliseconds) || milliseconds < 0) {
+    throw new RangeError("Milliseconds must be a non-negative finite number.");
   }
 
-  return Math.ceil(
-    milliseconds / 1_000,
-  );
+  return Math.ceil(milliseconds / 1_000);
 }
 
-export function secondsToMilliseconds(
-  seconds: number,
-): number {
-  if (
-    !Number.isFinite(
-      seconds,
-    ) ||
-    seconds < 0
-  ) {
-    throw new RangeError(
-      "Seconds must be a non-negative finite number.",
-    );
+export function secondsToMilliseconds(seconds: number): number {
+  if (!Number.isFinite(seconds) || seconds < 0) {
+    throw new RangeError("Seconds must be a non-negative finite number.");
   }
 
-  return Math.floor(
-    seconds * 1_000,
-  );
+  return Math.floor(seconds * 1_000);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -748,48 +445,27 @@ export function secondsToMilliseconds(
 /* -------------------------------------------------------------------------- */
 
 export function createKeepAliveHeader(
-  options:
-    | KeepAliveOptions
-    | undefined = {},
+  options: KeepAliveOptions | undefined = {},
 ): string | undefined {
-  const config =
-    createKeepAliveConfig(
-      options,
-    );
+  const config = createKeepAliveConfig(options);
 
-  if (
-    !config.enabled
-  ) {
+  if (!config.enabled) {
     return undefined;
   }
 
-  const parameters: Partial<
-    KeepAliveParameters
-  > = {};
+  const parameters: Partial<KeepAliveParameters> = {};
 
   const params = { ...parameters };
 
-  if (
-    config.timeout !==
-      undefined
-  ) {
-    params.timeout =
-      millisecondsToSeconds(
-        config.timeout,
-      );
+  if (config.timeout !== undefined) {
+    params.timeout = millisecondsToSeconds(config.timeout);
   }
 
-  if (
-    config.maxRequests !==
-      undefined
-  ) {
-    params.max =
-      config.maxRequests;
+  if (config.maxRequests !== undefined) {
+    params.max = config.maxRequests;
   }
 
-  return formatKeepAliveHeader(
-    params,
-  );
+  return formatKeepAliveHeader(params);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -797,63 +473,32 @@ export function createKeepAliveHeader(
 /* -------------------------------------------------------------------------- */
 
 export function addConnectionToken(
-  value:
-    | string
-    | undefined
-    | null,
+  value: string | undefined | null,
   token: string,
 ): string {
-  const normalizedToken =
-    token
-      .trim()
-      .toLowerCase();
+  const normalizedToken = token.trim().toLowerCase();
 
-  if (
-    normalizedToken.length ===
-      0
-  ) {
+  if (normalizedToken.length === 0) {
     return value ?? "";
   }
 
-  if (
-    hasConnectionToken(
-      value,
-      normalizedToken,
-    )
-  ) {
-    return value
-      ?.trim() ?? "";
+  if (hasConnectionToken(value, normalizedToken)) {
+    return value?.trim() ?? "";
   }
 
-  const existing =
-    value
-      ?.trim();
+  const existing = value?.trim();
 
-  return existing
-    ? `${existing}, ${normalizedToken}`
-    : normalizedToken;
+  return existing ? `${existing}, ${normalizedToken}` : normalizedToken;
 }
 
 export function removeConnectionToken(
-  value:
-    | string
-    | undefined
-    | null,
+  value: string | undefined | null,
   token: string,
 ): string {
-  const normalizedToken =
-    token
-      .trim()
-      .toLowerCase();
+  const normalizedToken = token.trim().toLowerCase();
 
-  return parseConnectionHeader(
-    value,
-  )
-    .filter(
-      (item) =>
-        item !==
-        normalizedToken,
-    )
+  return parseConnectionHeader(value)
+    .filter((item) => item !== normalizedToken)
     .join(", ");
 }
 
@@ -861,129 +506,61 @@ export function removeConnectionToken(
 /* Internal Helpers                                                           */
 /* -------------------------------------------------------------------------- */
 
-function splitHeaderParameters(
-  value: string,
-): string[] {
+function splitHeaderParameters(value: string): string[] {
   const result: string[] = [];
   let current = "";
   let quoted = false;
   let escaped = false;
 
-  for (
-    const character of value
-  ) {
-    if (
-      escaped
-    ) {
-      current +=
-        character;
+  for (const character of value) {
+    if (escaped) {
+      current += character;
       escaped = false;
       continue;
     }
 
-    if (
-      character ===
-      "\\"
-    ) {
-      current +=
-        character;
+    if (character === "\\") {
+      current += character;
       escaped = true;
       continue;
     }
 
-    if (
-      character ===
-      '"'
-    ) {
+    if (character === '"') {
       quoted = !quoted;
-      current +=
-        character;
+      current += character;
       continue;
     }
 
-    if (
-      (
-        character ===
-          "," ||
-        character ===
-          ";"
-      ) &&
-      !quoted
-    ) {
-      result.push(
-        current,
-      );
+    if ((character === "," || character === ";") && !quoted) {
+      result.push(current);
       current = "";
       continue;
     }
 
-    current +=
-      character;
+    current += character;
   }
 
-  if (
-    current.trim()
-      .length > 0
-  ) {
-    result.push(
-      current,
-    );
+  if (current.trim().length > 0) {
+    result.push(current);
   }
 
   return result;
 }
 
-function unquote(
-  value: string,
-): string {
-  const trimmed =
-    value.trim();
+function unquote(value: string): string {
+  const trimmed = value.trim();
 
-  if (
-    trimmed.length >= 2 &&
-    trimmed.startsWith(
-      '"',
-    ) &&
-    trimmed.endsWith(
-      '"',
-    )
-  ) {
-    return trimmed
-      .slice(
-        1,
-        -1,
-      )
-      .replace(
-        /\\"/g,
-        '"',
-      )
-      .replace(
-        /\\\\/g,
-        "\\",
-      );
+  if (trimmed.length >= 2 && trimmed.startsWith('"') && trimmed.endsWith('"')) {
+    return trimmed.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, "\\");
   }
 
   return trimmed;
 }
 
-function quoteIfNeeded(
-  value: string,
-): string {
-  if (
-    /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/.test(
-      value,
-    )
-  ) {
+function quoteIfNeeded(value: string): string {
+  if (/^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/.test(value)) {
     return value;
   }
 
-  return `"${value
-    .replace(
-      /\\/g,
-      "\\\\",
-    )
-    .replace(
-      /"/g,
-      '\\"',
-    )}"`;
+  return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
 }

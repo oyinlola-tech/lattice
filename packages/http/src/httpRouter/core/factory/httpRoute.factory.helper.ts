@@ -1,1 +1,1 @@
-export * from './httpRoute.factory.helper.js';
+export * from "./httpRoute.factory.helper.js";

@@ -13,10 +13,7 @@ import type {
 export abstract class CommandHandler<
   TCommand extends Command = Command,
   TResult = void,
-> implements CommandHandlerContract<
-  TCommand,
-  TResult
-> {
+> implements CommandHandlerContract<TCommand, TResult> {
   /**
    * Command type handled by this handler.
    */
@@ -37,93 +34,58 @@ export abstract class CommandHandler<
 export class FunctionCommandHandler<
   TCommand extends Command = Command,
   TResult = void,
-> extends CommandHandler<
-  TCommand,
-  TResult
-> {
+> extends CommandHandler<TCommand, TResult> {
   public readonly commandType: TCommand["type"];
 
   private readonly handler: (
     command: TCommand,
     context?: CqrsContext,
-  ) =>
-    | TResult
-    | Promise<TResult>;
+  ) => TResult | Promise<TResult>;
 
   constructor(
     commandType: TCommand["type"],
     handler: (
       command: TCommand,
       context?: CqrsContext,
-    ) =>
-      | TResult
-      | Promise<TResult>,
+    ) => TResult | Promise<TResult>,
   ) {
     super();
 
-    if (
-      typeof handler !==
-      "function"
-    ) {
-      throw new TypeError(
-        "Command handler must be a function.",
-      );
+    if (typeof handler !== "function") {
+      throw new TypeError("Command handler must be a function.");
     }
 
-    this.commandType =
-      commandType;
+    this.commandType = commandType;
 
-    this.handler =
-      handler;
+    this.handler = handler;
   }
 
   public execute(
     command: TCommand,
     context?: CqrsContext,
-  ):
-    | TResult
-    | Promise<TResult> {
-    return this.handler(
-      command,
-      context,
-    );
+  ): TResult | Promise<TResult> {
+    return this.handler(command, context);
   }
 }
 
 /**
  * Creates a function-based command handler.
  */
-export function createCommandHandler<
-  TCommand extends Command,
-  TResult = void,
->(
+export function createCommandHandler<TCommand extends Command, TResult = void>(
   commandType: TCommand["type"],
   handler: (
     command: TCommand,
     context?: CqrsContext,
-  ) =>
-    | TResult
-    | Promise<TResult>,
-): FunctionCommandHandler<
-  TCommand,
-  TResult
-> {
-  return new FunctionCommandHandler(
-    commandType,
-    handler,
-  );
+  ) => TResult | Promise<TResult>,
+): FunctionCommandHandler<TCommand, TResult> {
+  return new FunctionCommandHandler(commandType, handler);
 }
 
 /**
  * Determines whether a value is a command handler instance.
  */
-export function isCommandHandler(
-  value: unknown,
-): value is CommandHandler {
-  return (
-    value instanceof
-    CommandHandler
-  );
+export function isCommandHandler(value: unknown): value is CommandHandler {
+  return value instanceof CommandHandler;
 }
 
 /**
@@ -131,16 +93,9 @@ export function isCommandHandler(
  */
 export function isCommandHandlerLike(
   value: unknown,
-): value is CommandHandler | ((
-  command: Command,
-  context?: CqrsContext,
-) => unknown) {
-  return (
-    value instanceof
-      CommandHandler ||
-    typeof value ===
-      "function"
-  );
+): value is
+  CommandHandler | ((command: Command, context?: CqrsContext) => unknown) {
+  return value instanceof CommandHandler || typeof value === "function";
 }
 
 /**
@@ -155,33 +110,17 @@ export async function executeCommandHandler<
     | ((
         command: TCommand,
         context?: CqrsContext,
-      ) =>
-        | TResult
-        | Promise<TResult>),
+      ) => TResult | Promise<TResult>),
   command: TCommand,
   context?: CqrsContext,
 ): Promise<TResult> {
-  if (
-    handler instanceof
-    CommandHandler
-  ) {
-    return await handler.execute(
-      command,
-      context,
-    );
+  if (handler instanceof CommandHandler) {
+    return await handler.execute(command, context);
   }
 
-  if (
-    typeof handler ===
-    "function"
-  ) {
-    return await handler(
-      command,
-      context,
-    );
+  if (typeof handler === "function") {
+    return await handler(command, context);
   }
 
-  throw new TypeError(
-    `Invalid command handler for "${command.type}".`,
-  );
+  throw new TypeError(`Invalid command handler for "${command.type}".`);
 }

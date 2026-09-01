@@ -9,9 +9,7 @@ import type {
   CacheControlOptions,
 } from "./httpCacheControl.type.js";
 
-import {
-  CACHE_CONTROL_HEADER,
-} from "./httpCacheControl.type.js";
+import { CACHE_CONTROL_HEADER } from "./httpCacheControl.type.js";
 
 /**
  * Parses a Cache-Control header value into directives.
@@ -40,7 +38,9 @@ export function parseCacheControl(
   }
 
   return {
-    noCache: directives["no-cache"] === true || typeof directives["no-cache"] === "string",
+    noCache:
+      directives["no-cache"] === true ||
+      typeof directives["no-cache"] === "string",
     noStore: directives["no-store"] === true,
     noTransform: directives["no-transform"] === true,
     onlyIfCached: directives["only-if-cached"] === true,
@@ -54,7 +54,9 @@ export function parseCacheControl(
     private: directives["private"] === true,
     public: directives["public"] === true,
     immutable: directives["immutable"] === true,
-    staleWhileRevalidate: parseDirectiveValue(directives["stale-while-revalidate"]),
+    staleWhileRevalidate: parseDirectiveValue(
+      directives["stale-while-revalidate"],
+    ),
     staleIfError: parseDirectiveValue(directives["stale-if-error"]),
     noCacheHeaders: parseNoCacheHeaders(directives["no-cache"]),
   };
@@ -79,15 +81,16 @@ function parseNoCacheHeaders(
   if (typeof value !== "string" || value === "") {
     return undefined;
   }
-  return value.split("=").slice(1).map((h) => h.trim().replace(/"/g, ""));
+  return value
+    .split("=")
+    .slice(1)
+    .map((h) => h.trim().replace(/"/g, ""));
 }
 
 /**
  * Formats CacheControlDirectives into a Cache-Control header string.
  */
-export function formatCacheControl(
-  directives: CacheControlOptions,
-): string {
+export function formatCacheControl(directives: CacheControlOptions): string {
   const parts: string[] = [];
 
   if (directives.maxAge !== undefined) {

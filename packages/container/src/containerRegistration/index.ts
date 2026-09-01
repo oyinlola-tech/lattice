@@ -4,4 +4,4 @@
  * Service registration and token binding.
  */
 
-export * from './containerRegistration.core.js';
+export * from "./containerRegistration.core.js";

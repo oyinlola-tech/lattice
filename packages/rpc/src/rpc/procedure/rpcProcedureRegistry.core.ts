@@ -22,7 +22,9 @@ export class RPCProcedureRegistry {
    */
   register(procedure: RPCProcedure): void {
     if (this.procedures.size >= MAX_PROCEDURES) {
-      throw new Error(`Maximum number of procedures (${MAX_PROCEDURES}) exceeded.`);
+      throw new Error(
+        `Maximum number of procedures (${MAX_PROCEDURES}) exceeded.`,
+      );
     }
 
     const existing = this.procedures.get(procedure.name);

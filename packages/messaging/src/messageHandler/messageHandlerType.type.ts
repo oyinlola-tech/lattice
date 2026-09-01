@@ -7,14 +7,9 @@
  * @module messageHandler/messageHandlerType
  */
 
-import type {
-  Message,
-  MessagePayload,
-} from "../message/messageType.type.js";
+import type { Message, MessagePayload } from "../message/messageType.type.js";
 
-import type {
-  MessageContext,
-} from "../messageContext/messageContextType.type.js";
+import type { MessageContext } from "../messageContext/messageContextType.type.js";
 
 /**
  * Result of handling a message.
@@ -39,10 +34,7 @@ export interface HandlerResult<TResult = unknown> {
 export type MessageHandler<
   TMessage extends Message = Message,
   TResult = unknown,
-> = (
-  message: TMessage,
-  context: MessageContext,
-) => Promise<TResult> | TResult;
+> = (message: TMessage, context: MessageContext) => Promise<TResult> | TResult;
 
 /**
  * Message handler with metadata.

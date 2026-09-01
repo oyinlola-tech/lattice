@@ -5,18 +5,13 @@ import {
   type LogLevel as LogLevelType,
 } from "../core/logLevel.level.js";
 import type { LogEntry } from "../core/logEntry.entry.js";
-import {
-  serializeLogError,
-} from "../core/logEntry.entry.js";
+import { serializeLogError } from "../core/logEntry.entry.js";
 import type { LoggerContext } from "../core/loggerContext.context.js";
 import {
   DEFAULT_LOGGER_OPTIONS,
   type LoggerOptions,
 } from "../core/loggerOptions.options.js";
-import {
-  BaseLogger,
-  type LogContext,
-} from "../core/logger.js";
+import { BaseLogger, type LogContext } from "../core/logger.js";
 
 /**
  * Logger implementation that writes structured log entries
@@ -35,18 +30,15 @@ export class ConsoleLogger extends BaseLogger {
   private readonly options: Required<
     Pick<
       LoggerOptions,
-      | "level"
-      | "timestamps"
-      | "structured"
-      | "includeStackTrace"
+      "level" | "timestamps" | "structured" | "includeStackTrace"
     >
   > &
-    Omit<LoggerOptions, "level" | "timestamps" | "structured" | "includeStackTrace">;
+    Omit<
+      LoggerOptions,
+      "level" | "timestamps" | "structured" | "includeStackTrace"
+    >;
 
-  public constructor(
-    options: LoggerOptions = {},
-    context: LoggerContext = {},
-  ) {
+  public constructor(options: LoggerOptions = {}, context: LoggerContext = {}) {
     super({
       ...options.context,
       ...context,
@@ -95,16 +87,11 @@ export class ConsoleLogger extends BaseLogger {
    * Creates a child logger that inherits the current
    * logger configuration and adds persistent context.
    */
-  protected createChild(
-    context: LogContext,
-  ): ConsoleLogger {
-    return new ConsoleLogger(
-      this.options,
-      {
-        ...this.options.context,
-        ...context,
-      },
-    );
+  protected createChild(context: LogContext): ConsoleLogger {
+    return new ConsoleLogger(this.options, {
+      ...this.options.context,
+      ...context,
+    });
   }
 
   /**
@@ -152,9 +139,7 @@ export class ConsoleLogger extends BaseLogger {
         : "";
 
     const error =
-      entry.error !== undefined
-        ? ` ${this.formatError(entry.error)}`
-        : "";
+      entry.error !== undefined ? ` ${this.formatError(entry.error)}` : "";
 
     this.writeToConsole(
       entry.level,
@@ -165,10 +150,7 @@ export class ConsoleLogger extends BaseLogger {
   /**
    * Writes to the appropriate console method based on severity.
    */
-  private writeToConsole(
-    level: LogLevelType,
-    message: string,
-  ): void {
+  private writeToConsole(level: LogLevelType, message: string): void {
     switch (level) {
       case LogLevel.TRACE:
         console.trace(message);
@@ -202,9 +184,7 @@ export class ConsoleLogger extends BaseLogger {
   /**
    * Formats structured context for human-readable output.
    */
-  private formatContext(
-    context: LoggerContext,
-  ): string {
+  private formatContext(context: LoggerContext): string {
     return Object.entries(context)
       .map(([key, value]) => {
         return `${key}=${this.stringifyValue(value)}`;
@@ -215,9 +195,7 @@ export class ConsoleLogger extends BaseLogger {
   /**
    * Formats a structured error for human-readable output.
    */
-  private formatError(
-    error: NonNullable<LogEntry["error"]>,
-  ): string {
+  private formatError(error: NonNullable<LogEntry["error"]>): string {
     const parts: string[] = [];
 
     if (error.name) {
@@ -228,10 +206,7 @@ export class ConsoleLogger extends BaseLogger {
       parts.push(error.message);
     }
 
-    if (
-      this.options.includeStackTrace &&
-      error.stack
-    ) {
+    if (this.options.includeStackTrace && error.stack) {
       parts.push(`\n${error.stack}`);
     }
 
@@ -244,10 +219,7 @@ export class ConsoleLogger extends BaseLogger {
   private removeStackTrace(
     error: NonNullable<LogEntry["error"]>,
   ): Omit<NonNullable<LogEntry["error"]>, "stack"> {
-    const {
-      stack: _stack,
-      ...safeError
-    } = error;
+    const { stack: _stack, ...safeError } = error;
 
     return safeError;
   }
@@ -255,9 +227,7 @@ export class ConsoleLogger extends BaseLogger {
   /**
    * Safely converts arbitrary values into strings.
    */
-  private stringifyValue(
-    value: unknown,
-  ): string {
+  private stringifyValue(value: unknown): string {
     if (typeof value === "string") {
       return value;
     }

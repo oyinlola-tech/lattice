@@ -3,7 +3,11 @@
  */
 
 import { ErrorCode } from "../../base/types/errorCode.type.js";
-import { CacheError, CacheOperation, type CacheErrorOptions } from "./cacheError.base.js";
+import {
+  CacheError,
+  CacheOperation,
+  type CacheErrorOptions,
+} from "./cacheError.base.js";
 
 /** Creates a cache connection error. */
 export function cacheConnectionError(
@@ -54,7 +58,10 @@ export function cacheDeserializationError(
 }
 
 /** Creates a cache invalid key error. */
-export function cacheInvalidKeyError(key: string, message?: string): CacheError {
+export function cacheInvalidKeyError(
+  key: string,
+  message?: string,
+): CacheError {
   return new CacheError(message ?? `Invalid cache key: "${key}".`, {
     code: ErrorCode.INVALID_INPUT,
     operation: CacheOperation.UNKNOWN,
@@ -67,7 +74,9 @@ export function cacheInvalidKeyError(key: string, message?: string): CacheError 
 /** Creates a cache adapter not configured error. */
 export function cacheAdapterNotConfiguredError(adapter?: string): CacheError {
   return new CacheError(
-    adapter ? `Cache adapter "${adapter}" is not configured.` : "No cache adapter is configured.",
+    adapter
+      ? `Cache adapter "${adapter}" is not configured.`
+      : "No cache adapter is configured.",
     {
       code: ErrorCode.CONFIGURATION_MISSING,
       operation: CacheOperation.UNKNOWN,

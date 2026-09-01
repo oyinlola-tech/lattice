@@ -4,7 +4,10 @@ import type { ArticleRepository } from "../../../../repositories/article.reposit
 import type { ArticleModel } from "../../../../models/article.model.js";
 import { ArticleStatus } from "../../../../enums/index.js";
 
-export class ListArticlesHandler extends QueryHandler<ListArticlesQuery, readonly ArticleModel[]> {
+export class ListArticlesHandler extends QueryHandler<
+  ListArticlesQuery,
+  readonly ArticleModel[]
+> {
   public readonly queryType = "articles.list" as const;
 
   private readonly articles: ArticleRepository;
@@ -14,7 +17,9 @@ export class ListArticlesHandler extends QueryHandler<ListArticlesQuery, readonl
     this.articles = articles;
   }
 
-  public async execute(query: ListArticlesQuery): Promise<readonly ArticleModel[]> {
+  public async execute(
+    query: ListArticlesQuery,
+  ): Promise<readonly ArticleModel[]> {
     if (query.topicId) {
       return this.articles.findByTopic(query.topicId);
     }

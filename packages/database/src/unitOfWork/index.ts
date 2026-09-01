@@ -4,4 +4,10 @@
  * Groups multiple repository operations into a single transaction.
  */
 
-export { DatabaseUnitOfWork, createUnitOfWork, executeUnitOfWork, type UnitOfWork, type UnitOfWorkOptions } from "./unitOfWork.core.js";
+export {
+  DatabaseUnitOfWork,
+  createUnitOfWork,
+  executeUnitOfWork,
+  type UnitOfWork,
+  type UnitOfWorkOptions,
+} from "./unitOfWork.core.js";

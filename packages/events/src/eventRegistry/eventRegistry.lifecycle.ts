@@ -2,13 +2,9 @@
  * Event registry lifecycle methods for Lattice.
  */
 
-import type {
-  EventType,
-} from "../eventTypes/eventDefinition.type.js";
+import type { EventType } from "../eventTypes/eventDefinition.type.js";
 
-import type {
-  RegisteredEventHandler,
-} from "../eventHandler/eventHandler.core.js";
+import type { RegisteredEventHandler } from "../eventHandler/eventHandler.core.js";
 
 import type {
   EventRegistryChange,
@@ -25,60 +21,23 @@ import {
  * Clears all handlers and definitions from the registry.
  */
 export function registryClear(
-  definitions:
-    Map<
-      EventType,
-      RegisteredEventDefinition
-    >,
-  handlers:
-    Map<
-      string,
-      RegisteredEventHandler
-    >,
-  ensureActive:
-    () => void,
-  notify:
-    (
-      change:
-        EventRegistryChange,
-    ) =>
-      void,
-):
-  void {
+  definitions: Map<EventType, RegisteredEventDefinition>,
+  handlers: Map<string, RegisteredEventHandler>,
+  ensureActive: () => void,
+  notify: (change: EventRegistryChange) => void,
+): void {
   ensureActive();
 
-  const handlerIds =
-    [
-      ...handlers.keys(),
-    ];
+  const handlerIds = [...handlers.keys()];
 
-  for (
-    const handlerId of
-    handlerIds
-  ) {
-    registryUnregisterHandler(
-      handlerId,
-      handlers,
-      ensureActive,
-      notify,
-    );
+  for (const handlerId of handlerIds) {
+    registryUnregisterHandler(handlerId, handlers, ensureActive, notify);
   }
 
-  const eventTypes =
-    [
-      ...definitions.keys(),
-    ];
+  const eventTypes = [...definitions.keys()];
 
-  for (
-    const eventType of
-    eventTypes
-  ) {
-    registryUnregister(
-      eventType,
-      definitions,
-      ensureActive,
-      notify,
-    );
+  for (const eventType of eventTypes) {
+    registryUnregister(eventType, definitions, ensureActive, notify);
   }
 }
 
@@ -86,44 +45,18 @@ export function registryClear(
  * Disposes the registry.
  */
 export function registryDispose(
-  disposed:
-    boolean,
-  definitions:
-    Map<
-      EventType,
-      RegisteredEventDefinition
-    >,
-  handlers:
-    Map<
-      string,
-      RegisteredEventHandler
-    >,
-  listeners:
-    Set<
-      EventRegistryListener
-    >,
-  ensureActive:
-    () => void,
-  notify:
-    (
-      change:
-        EventRegistryChange,
-    ) =>
-      void,
-):
-  void {
-  if (
-    disposed
-  ) {
+  disposed: boolean,
+  definitions: Map<EventType, RegisteredEventDefinition>,
+  handlers: Map<string, RegisteredEventHandler>,
+  listeners: Set<EventRegistryListener>,
+  ensureActive: () => void,
+  notify: (change: EventRegistryChange) => void,
+): void {
+  if (disposed) {
     return;
   }
 
-  registryClear(
-    definitions,
-    handlers,
-    ensureActive,
-    notify,
-  );
+  registryClear(definitions, handlers, ensureActive, notify);
 
   listeners.clear();
 }
@@ -132,22 +65,12 @@ export function registryDispose(
  * Notifies registry listeners.
  */
 export function registryNotify(
-  change:
-    EventRegistryChange,
-  listeners:
-    Set<
-      EventRegistryListener
-    >,
-):
-  void {
-  for (
-    const listener of
-    listeners
-  ) {
+  change: EventRegistryChange,
+  listeners: Set<EventRegistryListener>,
+): void {
+  for (const listener of listeners) {
     try {
-      listener(
-        change,
-      );
+      listener(change);
     } catch {
       /**
        * Registry observers must not be able to break

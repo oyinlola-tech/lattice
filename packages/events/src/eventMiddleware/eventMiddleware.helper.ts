@@ -2,13 +2,9 @@
  * Event middleware core helpers for Lattice.
  */
 
-import type {
-  Event,
-} from "../eventTypes/eventDefinition.type.js";
+import type { Event } from "../eventTypes/eventDefinition.type.js";
 
-import {
-  EventMiddlewareError,
-} from "../eventErrors/eventError.base.js";
+import { EventMiddlewareError } from "../eventErrors/eventError.base.js";
 
 import type {
   EventMiddlewareContext,
@@ -24,13 +20,10 @@ import type {
 /**
  * Generates a middleware identifier.
  */
-export function createEventMiddlewareId():
-  string {
+export function createEventMiddlewareId(): string {
   if (
-    typeof crypto !==
-      "undefined" &&
-    typeof crypto.randomUUID ===
-      "function"
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
   ) {
     return `middleware:${crypto.randomUUID()}`;
   }
@@ -44,35 +37,25 @@ export function createEventMiddlewareId():
  * Determines whether a value is a function middleware.
  */
 export function isFunctionEventMiddleware(
-  value:
-    unknown,
-):
-  value is EventMiddleware {
-  return (
-    typeof value ===
-    "function"
-  );
+  value: unknown,
+): value is EventMiddleware {
+  return typeof value === "function";
 }
 
 /**
  * Determines whether a value is an object middleware.
  */
 export function isObjectEventMiddleware(
-  value:
-    unknown,
-):
-  value is EventMiddlewareObject {
+  value: unknown,
+): value is EventMiddlewareObject {
   return (
-    typeof value ===
-      "object" &&
+    typeof value === "object" &&
     value !== null &&
     typeof (
       value as {
-        handle?:
-          unknown;
+        handle?: unknown;
       }
-    ).handle ===
-      "function"
+    ).handle === "function"
   );
 }
 
@@ -80,18 +63,9 @@ export function isObjectEventMiddleware(
  * Determines whether a value is a supported middleware.
  */
 export function isEventMiddleware(
-  value:
-    unknown,
-):
-  value is EventMiddlewareLike {
-  return (
-    isFunctionEventMiddleware(
-      value,
-    ) ||
-    isObjectEventMiddleware(
-      value,
-    )
-  );
+  value: unknown,
+): value is EventMiddlewareLike {
+  return isFunctionEventMiddleware(value) || isObjectEventMiddleware(value);
 }
 
 /**
@@ -101,55 +75,27 @@ export function createEventMiddleware<
   TEvent extends Event = Event,
   TResult = unknown,
 >(
-  middleware:
-    EventMiddlewareLike<
-      TEvent,
-      TResult
-    >,
-  options:
-    EventMiddlewareOptions = {},
-):
-  RegisteredEventMiddleware<
-    TEvent,
-    TResult
-  > {
-  if (
-    !isEventMiddleware(
-      middleware,
-    )
-  ) {
-    throw new TypeError(
-      "Invalid event middleware.",
-    );
+  middleware: EventMiddlewareLike<TEvent, TResult>,
+  options: EventMiddlewareOptions = {},
+): RegisteredEventMiddleware<TEvent, TResult> {
+  if (!isEventMiddleware(middleware)) {
+    throw new TypeError("Invalid event middleware.");
   }
 
-  const priority =
-    options.priority ??
-    0;
+  const priority = options.priority ?? 0;
 
-  if (
-    !Number.isFinite(
-      priority,
-    )
-  ) {
-    throw new RangeError(
-      "Event middleware priority must be a finite number.",
-    );
+  if (!Number.isFinite(priority)) {
+    throw new RangeError("Event middleware priority must be a finite number.");
   }
 
   return Object.freeze({
-    id:
-      options.id ??
-      createEventMiddlewareId(),
+    id: options.id ?? createEventMiddlewareId(),
 
-    description:
-      options.description,
+    description: options.description,
 
     priority,
 
-    enabled:
-      options.enabled ??
-      true,
+    enabled: options.enabled ?? true,
 
     middleware,
   });
@@ -158,30 +104,13 @@ export function createEventMiddleware<
 /**
  * Executes a middleware implementation.
  */
-export async function executeEventMiddleware<
-  TEvent extends Event,
-  TResult,
->(
-  middleware:
-    EventMiddlewareLike<
-      TEvent,
-      TResult
-    >,
-  context:
-    EventMiddlewareContext<TEvent>,
-  next:
-    EventMiddlewareNext<TResult>,
-):
-  Promise<TResult> {
-  if (
-    isFunctionEventMiddleware(
-      middleware,
-    )
-  ) {
-    return (middleware as EventMiddleware<TEvent, TResult>)(
-      context,
-      next,
-    );
+export async function executeEventMiddleware<TEvent extends Event, TResult>(
+  middleware: EventMiddlewareLike<TEvent, TResult>,
+  context: EventMiddlewareContext<TEvent>,
+  next: EventMiddlewareNext<TResult>,
+): Promise<TResult> {
+  if (isFunctionEventMiddleware(middleware)) {
+    return (middleware as EventMiddleware<TEvent, TResult>)(context, next);
   }
 
   return (middleware as EventMiddlewareObject<TEvent, TResult>).handle(
@@ -193,69 +122,34 @@ export async function executeEventMiddleware<
 /**
  * Sorts middleware by descending priority.
  */
-export function sortEventMiddleware<
-  TEvent extends Event,
-  TResult,
->(
-  middleware:
-    readonly RegisteredEventMiddleware<
-      TEvent,
-      TResult
-    >[],
-):
-  RegisteredEventMiddleware<
-    TEvent,
-    TResult
-  >[] {
-  return [
-    ...middleware,
-  ].sort(
-    (
-      first,
-      second,
-    ) =>
-      second.priority -
-      first.priority,
+export function sortEventMiddleware<TEvent extends Event, TResult>(
+  middleware: readonly RegisteredEventMiddleware<TEvent, TResult>[],
+): RegisteredEventMiddleware<TEvent, TResult>[] {
+  return [...middleware].sort(
+    (first, second) => second.priority - first.priority,
   );
 }
 
 /**
  * Creates a middleware context.
  */
-export function createEventMiddlewareContext<
-  TEvent extends Event,
->(
-  event:
-    TEvent,
-  options:
-    EventMiddlewarePipelineOptions = {},
-):
-  EventMiddlewareContext<TEvent> {
+export function createEventMiddlewareContext<TEvent extends Event>(
+  event: TEvent,
+  options: EventMiddlewarePipelineOptions = {},
+): EventMiddlewareContext<TEvent> {
   return {
     event,
 
-    signal:
-      options.signal ??
-      new AbortController()
-        .signal,
+    signal: options.signal ?? new AbortController().signal,
 
-    metadata:
-      Object.freeze({
-        ...(options.metadata ??
-          {}),
-      }),
+    metadata: Object.freeze({
+      ...(options.metadata ?? {}),
+    }),
 
-    executionId:
-      createEventMiddlewareId(),
+    executionId: createEventMiddlewareId(),
 
-    startedAt:
-      new Date(),
+    startedAt: new Date(),
 
-    state:
-      options.state ??
-      new Map<
-        string,
-        unknown
-      >(),
+    state: options.state ?? new Map<string, unknown>(),
   };
 }

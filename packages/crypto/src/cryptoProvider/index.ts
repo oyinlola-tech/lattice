@@ -5,9 +5,7 @@
  * cryptographic operations, enabling testability and
  * runtime provider selection.
  */
-export type {
-  CryptoProvider,
-} from "./cryptoProvider.core.js";
+export type { CryptoProvider } from "./cryptoProvider.core.js";
 
 export type {
   CryptoCapabilities,

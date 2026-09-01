@@ -15,24 +15,12 @@ import { toHTTPHeaders } from "../conversion/httpHeaders.conversion.js";
  * @returns `true` if any of the names are present.
  */
 export function hasAnyHeader(
-  headers:
-    | HTTPHeadersLike,
-  names:
-    | readonly string[],
+  headers: HTTPHeadersLike,
+  names: readonly string[],
 ): boolean {
-  const normalized =
-    toHTTPHeaders(
-      headers,
-    );
+  const normalized = toHTTPHeaders(headers);
 
-  return names.some(
-    (
-      name,
-    ) =>
-      normalized.has(
-        name,
-      ),
-  );
+  return names.some((name) => normalized.has(name));
 }
 
 /**
@@ -43,22 +31,10 @@ export function hasAnyHeader(
  * @returns `true` if all names are present.
  */
 export function hasAllHeaders(
-  headers:
-    | HTTPHeadersLike,
-  names:
-    | readonly string[],
+  headers: HTTPHeadersLike,
+  names: readonly string[],
 ): boolean {
-  const normalized =
-    toHTTPHeaders(
-      headers,
-    );
+  const normalized = toHTTPHeaders(headers);
 
-  return names.every(
-    (
-      name,
-    ) =>
-      normalized.has(
-        name,
-      ),
-  );
+  return names.every((name) => normalized.has(name));
 }

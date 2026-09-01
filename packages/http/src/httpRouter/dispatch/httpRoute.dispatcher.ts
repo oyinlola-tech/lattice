@@ -12,135 +12,82 @@ import type {
   RouterHandler,
 } from "../core/httpRouter.type.js";
 
-import type {
-  RouteMatcher,
-  RouteMatcherResult,
-} from "./httpRoute.matcher.js";
+import type { RouteMatcher, RouteMatcherResult } from "./httpRoute.matcher.js";
 
-import type { HttpRequestContext as RequestContext,
-} from "../httpRequest/httpRequest.context.js";
+import type { HttpRequestContext as RequestContext } from "../httpRequest/httpRequest.context.js";
 
-import type { HttpResponseContext as ResponseContext,
-} from "../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../httpResponse/httpResponse.context.js";
 
 /* -------------------------------------------------------------------------- */
 /* Types                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export type RouteDispatchNext =
-  () =>
-    | void
-    | Promise<void>;
+export type RouteDispatchNext = () => void | Promise<void>;
 
-export type RouteMiddleware =
-  (
-    request:
-      | RequestContext,
-    response:
-      | ResponseContext,
-    next:
-      | RouteDispatchNext,
-  ) =>
-    | void
-    | Promise<void>;
+export type RouteMiddleware = (
+  request: RequestContext,
+  response: ResponseContext,
+  next: RouteDispatchNext,
+) => void | Promise<void>;
 
-export type RouteDispatchHandler =
-  (
-    request:
-      | RequestContext,
-    response:
-      | ResponseContext,
-  ) =>
-    | void
-    | Promise<void>;
+export type RouteDispatchHandler = (
+  request: RequestContext,
+  response: ResponseContext,
+) => void | Promise<void>;
 
 export interface RouteDispatchContext {
-  readonly request:
-    | RequestContext;
+  readonly request: RequestContext;
 
-  readonly response:
-    | ResponseContext;
+  readonly response: ResponseContext;
 
-  readonly route:
-    | MatchedRoute;
+  readonly route: MatchedRoute;
 
-  readonly params:
-    | Readonly<
-        Record<string, string>
-      >;
+  readonly params: Readonly<Record<string, string>>;
 
-  readonly method:
-    | HttpMethod
-    | "*";
+  readonly method: HttpMethod | "*";
 
-  readonly path:
-    | string;
+  readonly path: string;
 
-  readonly match:
-    | RouteMatcherResult;
+  readonly match: RouteMatcherResult;
 }
 
 export interface RouteDispatchOptions {
-  readonly onError?:
-    | RouteDispatchErrorHandler;
+  readonly onError?: RouteDispatchErrorHandler;
 
-  readonly onComplete?:
-    | RouteDispatchCompleteHandler;
+  readonly onComplete?: RouteDispatchCompleteHandler;
 
-  readonly preserveResponse?:
-    | boolean;
+  readonly preserveResponse?: boolean;
 }
 
-export type RouteDispatchErrorHandler =
-  (
-    error:
-      | unknown,
-    context:
-      | RouteDispatchContext,
-  ) =>
-    | void
-    | Promise<void>;
+export type RouteDispatchErrorHandler = (
+  error: unknown,
+  context: RouteDispatchContext,
+) => void | Promise<void>;
 
-export type RouteDispatchCompleteHandler =
-  (
-    context:
-      | RouteDispatchContext,
-  ) =>
-    | void
-    | Promise<void>;
+export type RouteDispatchCompleteHandler = (
+  context: RouteDispatchContext,
+) => void | Promise<void>;
 
 export interface RouteDispatchResult {
-  readonly matched:
-    | boolean;
+  readonly matched: boolean;
 
-  readonly handled:
-    | boolean;
+  readonly handled: boolean;
 
-  readonly route:
-    | MatchedRoute
-    | undefined;
+  readonly route: MatchedRoute | undefined;
 
-  readonly error:
-    | unknown
-    | undefined;
+  readonly error: unknown | undefined;
 
-  readonly context:
-    | RouteDispatchContext
-    | undefined;
+  readonly context: RouteDispatchContext | undefined;
 }
 
 export interface RouteDispatcherStats {
-  readonly dispatches:
-    | number;
+  readonly dispatches: number;
 
-  readonly handled:
-    | number;
+  readonly handled: number;
 
-  readonly unmatched:
-    | number;
+  readonly unmatched: number;
 
-  readonly errors:
-    | number;
+  readonly errors: number;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -148,35 +95,22 @@ export interface RouteDispatcherStats {
 /* -------------------------------------------------------------------------- */
 
 export class RouteDispatcher {
-  private readonly matcher:
-    | RouteMatcher;
+  private readonly matcher: RouteMatcher;
 
-  private readonly options:
-    | RouteDispatchOptions;
+  private readonly options: RouteDispatchOptions;
 
-  private dispatchCount =
-    0;
+  private dispatchCount = 0;
 
-  private handledCount =
-    0;
+  private handledCount = 0;
 
-  private unmatchedCount =
-    0;
+  private unmatchedCount = 0;
 
-  private errorCount =
-    0;
+  private errorCount = 0;
 
-  constructor(
-    matcher:
-      | RouteMatcher,
-    options:
-      | RouteDispatchOptions = {},
-  ) {
-    this.matcher =
-      matcher;
+  constructor(matcher: RouteMatcher, options: RouteDispatchOptions = {}) {
+    this.matcher = matcher;
 
-    this.options =
-      options;
+    this.options = options;
   }
 
   /* ------------------------------------------------------------------------ */
@@ -184,113 +118,66 @@ export class RouteDispatcher {
   /* ------------------------------------------------------------------------ */
 
   async dispatch(
-    request:
-      | RequestContext,
-    response:
-      | ResponseContext,
-  ):
-    | Promise<RouteDispatchResult> {
-    this.dispatchCount +=
-      1;
+    request: RequestContext,
+    response: ResponseContext,
+  ): Promise<RouteDispatchResult> {
+    this.dispatchCount += 1;
 
-    const match =
-      this.matcher.match({
-        method:
-          getRequestMethod(
-            request,
-          ),
+    const match = this.matcher.match({
+      method: getRequestMethod(request),
 
-        path:
-          getRequestPath(
-            request,
-          ),
-      });
+      path: getRequestPath(request),
+    });
 
-    if (
-      !match
-    ) {
-      this.unmatchedCount +=
-        1;
+    if (!match) {
+      this.unmatchedCount += 1;
 
       return Object.freeze({
-        matched:
-          false,
+        matched: false,
 
-        handled:
-          false,
+        handled: false,
 
-        route:
-          undefined,
+        route: undefined,
 
-        error:
-          undefined,
+        error: undefined,
 
-        context:
-          undefined,
+        context: undefined,
       });
     }
 
-    const context =
-      createDispatchContext(
-        request,
-        response,
-        match,
-      );
+    const context = createDispatchContext(request, response, match);
 
     try {
-      await this.execute(
-        context,
-      );
+      await this.execute(context);
 
-      this.handledCount +=
-        1;
+      this.handledCount += 1;
 
-      await this.options
-        .onComplete?.(
-          context,
-        );
+      await this.options.onComplete?.(context);
 
       return Object.freeze({
-        matched:
-          true,
+        matched: true,
 
-        handled:
-          true,
+        handled: true,
 
-        route:
-          match.route,
+        route: match.route,
 
-        error:
-          undefined,
+        error: undefined,
 
         context,
       });
-    } catch (
-      error
-    ) {
-      this.errorCount +=
-        1;
+    } catch (error) {
+      this.errorCount += 1;
 
-      if (
-        this.options
-          .onError
-      ) {
-        await this.options
-          .onError(
-            error,
-            context,
-          );
+      if (this.options.onError) {
+        await this.options.onError(error, context);
       }
 
       return Object.freeze({
-        matched:
-          true,
+        matched: true,
 
-        handled:
-          false,
+        handled: false,
 
-        route:
-          match.route,
+        route: match.route,
 
         error,
 
@@ -300,78 +187,45 @@ export class RouteDispatcher {
   }
 
   async dispatchMatch(
-    match:
-      | RouteMatcherResult,
-    request:
-      | RequestContext,
-    response:
-      | ResponseContext,
-  ):
-    | Promise<RouteDispatchResult> {
-    this.dispatchCount +=
-      1;
+    match: RouteMatcherResult,
+    request: RequestContext,
+    response: ResponseContext,
+  ): Promise<RouteDispatchResult> {
+    this.dispatchCount += 1;
 
-    const context =
-      createDispatchContext(
-        request,
-        response,
-        match,
-      );
+    const context = createDispatchContext(request, response, match);
 
     try {
-      await this.execute(
-        context,
-      );
+      await this.execute(context);
 
-      this.handledCount +=
-        1;
+      this.handledCount += 1;
 
-      await this.options
-        .onComplete?.(
-          context,
-        );
+      await this.options.onComplete?.(context);
 
       return Object.freeze({
-        matched:
-          true,
+        matched: true,
 
-        handled:
-          true,
+        handled: true,
 
-        route:
-          match.route,
+        route: match.route,
 
-        error:
-          undefined,
+        error: undefined,
 
         context,
       });
-    } catch (
-      error
-    ) {
-      this.errorCount +=
-        1;
+    } catch (error) {
+      this.errorCount += 1;
 
-      if (
-        this.options
-          .onError
-      ) {
-        await this.options
-          .onError(
-            error,
-            context,
-          );
+      if (this.options.onError) {
+        await this.options.onError(error, context);
       }
 
       return Object.freeze({
-        matched:
-          true,
+        matched: true,
 
-        handled:
-          false,
+        handled: false,
 
-        route:
-          match.route,
+        route: match.route,
 
         error,
 
@@ -384,75 +238,34 @@ export class RouteDispatcher {
   /* Execution                                                                 */
   /* ------------------------------------------------------------------------ */
 
-  async execute(
-    context:
-      | RouteDispatchContext,
-  ):
-    | Promise<void> {
-    const middleware =
-      normalizeMiddleware(
-        context.route
-          .middleware,
-      );
+  async execute(context: RouteDispatchContext): Promise<void> {
+    const middleware = normalizeMiddleware(context.route.middleware);
 
-    const handler =
-      normalizeHandler(
-        context.route
-          .handler,
-      );
+    const handler = normalizeHandler(context.route.handler);
 
-    let index =
-      -1;
+    let index = -1;
 
-    const dispatchNext =
-      async (
-        current:
-          | number,
-      ):
-        | Promise<void> => {
-        if (
-          current <=
-          index
-        ) {
-          throw new Error(
-            "Route middleware called next() more than once.",
-          );
-        }
+    const dispatchNext = async (current: number): Promise<void> => {
+      if (current <= index) {
+        throw new Error("Route middleware called next() more than once.");
+      }
 
-        index =
-          current;
+      index = current;
 
-        if (
-          current <
-          middleware.length
-        ) {
-          const layer =
-            middleware[
-              current
-            ];
+      if (current < middleware.length) {
+        const layer = middleware[current];
 
-          await layer(
-            context.request,
-            context.response,
-            () =>
-              dispatchNext(
-                current +
-                  1,
-              ),
-          );
-
-          return;
-        }
-
-        await handler(
-          context.request,
-          context.response,
+        await layer(context.request, context.response, () =>
+          dispatchNext(current + 1),
         );
-      };
 
-    await dispatchNext(
-      0,
-    );
+        return;
+      }
+
+      await handler(context.request, context.response);
+    };
+
+    await dispatchNext(0);
   }
 
   /* ------------------------------------------------------------------------ */
@@ -460,117 +273,65 @@ export class RouteDispatcher {
   /* ------------------------------------------------------------------------ */
 
   async executeHandler(
-    handler:
-      | RouteDispatchHandler
-      | RouterHandler,
-    context:
-      | RouteDispatchContext,
-  ):
-    | Promise<void> {
-    const normalized =
-      normalizeHandler(
-        handler,
-      );
+    handler: RouteDispatchHandler | RouterHandler,
+    context: RouteDispatchContext,
+  ): Promise<void> {
+    const normalized = normalizeHandler(handler);
 
-    await normalized(
-      context.request,
-      context.response,
-    );
+    await normalized(context.request, context.response);
   }
 
   async executeMiddleware(
-    middleware:
-      | RouteMiddleware
-      | readonly RouteMiddleware[],
-    context:
-      | RouteDispatchContext,
-  ):
-    | Promise<void> {
-    const layers =
-      normalizeMiddleware(
-        middleware,
+    middleware: RouteMiddleware | readonly RouteMiddleware[],
+    context: RouteDispatchContext,
+  ): Promise<void> {
+    const layers = normalizeMiddleware(middleware);
+
+    let index = -1;
+
+    const next = async (current: number): Promise<void> => {
+      if (current <= index) {
+        throw new Error("Route middleware called next() more than once.");
+      }
+
+      index = current;
+
+      if (current >= layers.length) {
+        return;
+      }
+
+      await layers[current](context.request, context.response, () =>
+        next(current + 1),
       );
+    };
 
-    let index =
-      -1;
-
-    const next =
-      async (
-        current:
-          | number,
-      ):
-        | Promise<void> => {
-        if (
-          current <=
-          index
-        ) {
-          throw new Error(
-            "Route middleware called next() more than once.",
-          );
-        }
-
-        index =
-          current;
-
-        if (
-          current >=
-          layers.length
-        ) {
-          return;
-        }
-
-        await layers[
-          current
-        ](
-          context.request,
-          context.response,
-          () =>
-            next(
-              current +
-                1,
-            ),
-        );
-      };
-
-    await next(
-      0,
-    );
+    await next(0);
   }
 
   /* ------------------------------------------------------------------------ */
   /* Introspection                                                             */
   /* ------------------------------------------------------------------------ */
 
-  stats():
-    | RouteDispatcherStats {
+  stats(): RouteDispatcherStats {
     return Object.freeze({
-      dispatches:
-        this.dispatchCount,
+      dispatches: this.dispatchCount,
 
-      handled:
-        this.handledCount,
+      handled: this.handledCount,
 
-      unmatched:
-        this.unmatchedCount,
+      unmatched: this.unmatchedCount,
 
-      errors:
-        this.errorCount,
+      errors: this.errorCount,
     });
   }
 
-  resetStats():
-    | void {
-    this.dispatchCount =
-      0;
+  resetStats(): void {
+    this.dispatchCount = 0;
 
-    this.handledCount =
-      0;
+    this.handledCount = 0;
 
-    this.unmatchedCount =
-      0;
+    this.unmatchedCount = 0;
 
-    this.errorCount =
-      0;
+    this.errorCount = 0;
   }
 }
 
@@ -579,16 +340,10 @@ export class RouteDispatcher {
 /* -------------------------------------------------------------------------- */
 
 export function createRouteDispatcher(
-  matcher:
-    | RouteMatcher,
-  options:
-    | RouteDispatchOptions = {},
-):
-  | RouteDispatcher {
-  return new RouteDispatcher(
-    matcher,
-    options,
-  );
+  matcher: RouteMatcher,
+  options: RouteDispatchOptions = {},
+): RouteDispatcher {
+  return new RouteDispatcher(matcher, options);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -596,18 +351,11 @@ export function createRouteDispatcher(
 /* -------------------------------------------------------------------------- */
 
 export async function dispatchRoute(
-  dispatcher:
-    | RouteDispatcher,
-  request:
-    | RequestContext,
-  response:
-    | ResponseContext,
-):
-  | Promise<RouteDispatchResult> {
-  return dispatcher.dispatch(
-    request,
-    response,
-  );
+  dispatcher: RouteDispatcher,
+  request: RequestContext,
+  response: ResponseContext,
+): Promise<RouteDispatchResult> {
+  return dispatcher.dispatch(request, response);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -615,32 +363,24 @@ export async function dispatchRoute(
 /* -------------------------------------------------------------------------- */
 
 function createDispatchContext(
-  request:
-    | RequestContext,
-  response:
-    | ResponseContext,
-  match:
-    | RouteMatcherResult,
-):
-  | RouteDispatchContext {
+  request: RequestContext,
+  response: ResponseContext,
+  match: RouteMatcherResult,
+): RouteDispatchContext {
   return Object.freeze({
     request,
 
     response,
 
-    route:
-      match.route,
+    route: match.route,
 
-    params:
-      Object.freeze({
-        ...match.params,
-      }),
+    params: Object.freeze({
+      ...match.params,
+    }),
 
-    method:
-      match.method,
+    method: match.method,
 
-    path:
-      match.path,
+    path: match.path,
 
     match,
   });
@@ -650,52 +390,30 @@ function createDispatchContext(
 /* Request Access                                                             */
 /* -------------------------------------------------------------------------- */
 
-function getRequestMethod(
-  request:
-    | RequestContext,
-):
-  | string {
-  const candidate =
-    request as unknown as {
-      method?:
-        | string;
+function getRequestMethod(request: RequestContext): string {
+  const candidate = request as unknown as {
+    method?: string;
 
-      request?:
-        | {
-            method?:
-              | string;
-          };
+    request?: {
+      method?: string;
     };
+  };
 
-  return (
-    candidate.method ??
-    candidate.request?.method ??
-    "GET"
-  );
+  return candidate.method ?? candidate.request?.method ?? "GET";
 }
 
-function getRequestPath(
-  request:
-    | RequestContext,
-):
-  | string {
-  const candidate =
-    request as unknown as {
-      path?:
-        | string;
+function getRequestPath(request: RequestContext): string {
+  const candidate = request as unknown as {
+    path?: string;
 
-      url?:
-        | string;
+    url?: string;
 
-      request?:
-        | {
-            path?:
-              | string;
+    request?: {
+      path?: string;
 
-            url?:
-              | string;
-          };
+      url?: string;
     };
+  };
 
   return (
     candidate.path ??
@@ -711,56 +429,27 @@ function getRequestPath(
 /* -------------------------------------------------------------------------- */
 
 function normalizeHandler(
-  handler:
-    | RouteDispatchHandler
-    | RouterHandler,
-):
-  | RouteDispatchHandler {
-  if (
-    typeof handler !==
-    "function"
-  ) {
-    throw new TypeError(
-      "Route handler must be a function.",
-    );
+  handler: RouteDispatchHandler | RouterHandler,
+): RouteDispatchHandler {
+  if (typeof handler !== "function") {
+    throw new TypeError("Route handler must be a function.");
   }
 
   return handler as RouteDispatchHandler;
 }
 
 function normalizeMiddleware(
-  middleware:
-    | RouteMiddleware
-    | readonly RouteMiddleware[]
-    | undefined,
-):
-  | readonly RouteMiddleware[] {
-  if (
-    !middleware
-  ) {
+  middleware: RouteMiddleware | readonly RouteMiddleware[] | undefined,
+): readonly RouteMiddleware[] {
+  if (!middleware) {
     return [];
   }
 
-  const layers =
-    Array.isArray(
-      middleware,
-    )
-      ? middleware
-      : [
-          middleware,
-        ];
+  const layers = Array.isArray(middleware) ? middleware : [middleware];
 
-  for (
-    const layer of
-    layers
-  ) {
-    if (
-      typeof layer !==
-      "function"
-    ) {
-      throw new TypeError(
-        "Route middleware must be functions.",
-      );
+  for (const layer of layers) {
+    if (typeof layer !== "function") {
+      throw new TypeError("Route middleware must be functions.");
     }
   }
 
@@ -772,106 +461,49 @@ function normalizeMiddleware(
 /* -------------------------------------------------------------------------- */
 
 export function composeRouteMiddleware(
-  middleware:
-    | readonly RouteMiddleware[],
-):
-  | RouteMiddleware {
-  const layers =
-    normalizeMiddleware(
-      middleware,
-    );
+  middleware: readonly RouteMiddleware[],
+): RouteMiddleware {
+  const layers = normalizeMiddleware(middleware);
 
-  return async (
-    request,
-    response,
-    next,
-  ) => {
-    let index =
-      -1;
+  return async (request, response, next) => {
+    let index = -1;
 
-    const dispatch =
-      async (
-        current:
-          | number,
-      ):
-        | Promise<void> => {
-        if (
-          current <=
-          index
-        ) {
-          throw new Error(
-            "Composed middleware called next() more than once.",
-          );
-        }
+    const dispatch = async (current: number): Promise<void> => {
+      if (current <= index) {
+        throw new Error("Composed middleware called next() more than once.");
+      }
 
-        index =
-          current;
+      index = current;
 
-        if (
-          current ===
-          layers.length
-        ) {
-          await next();
+      if (current === layers.length) {
+        await next();
 
-          return;
-        }
+        return;
+      }
 
-        await layers[
-          current
-        ](
-          request,
-          response,
-          () =>
-            dispatch(
-              current +
-                1,
-            ),
-        );
-      };
+      await layers[current](request, response, () => dispatch(current + 1));
+    };
 
-    await dispatch(
-      0,
-    );
+    await dispatch(0);
   };
 }
 
 export function createRouteHandler(
-  handler:
-    | RouteDispatchHandler,
-):
-  | RouterHandler {
+  handler: RouteDispatchHandler,
+): RouterHandler {
   return handler as RouterHandler;
 }
 
-export function isRouteDispatcher(
-  value:
-    | unknown,
-):
-  value is RouteDispatcher {
-  return (
-    value instanceof
-    RouteDispatcher
-  );
+export function isRouteDispatcher(value: unknown): value is RouteDispatcher {
+  return value instanceof RouteDispatcher;
 }
 
 export function isRouteDispatchResult(
-  value:
-    | unknown,
-):
-  value is RouteDispatchResult {
-  if (
-    !value ||
-    typeof value !==
-      "object"
-  ) {
+  value: unknown,
+): value is RouteDispatchResult {
+  if (!value || typeof value !== "object") {
     return false;
   }
 
-  return (
-    "matched" in
-      value &&
-    "handled" in
-      value
-  );
+  return "matched" in value && "handled" in value;
 }
-

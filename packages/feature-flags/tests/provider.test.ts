@@ -35,7 +35,11 @@ describe("environmentProvider", () => {
   it("reads flags from env with prefix", async () => {
     const provider = createEnvironmentProvider({
       prefix: "FEATURE_",
-      env: { FEATURE_NEW_UI: "true", FEATURE_OLD_UI: "false", OTHER_VAR: "ignored" },
+      env: {
+        FEATURE_NEW_UI: "true",
+        FEATURE_OLD_UI: "false",
+        OTHER_VAR: "ignored",
+      },
     });
     const flag = await provider.get("NEW_UI");
     expect(flag).toBeDefined();
@@ -63,8 +67,12 @@ describe("environmentProvider", () => {
 
 describe("compositeProvider", () => {
   it("resolves from first provider", async () => {
-    const primary = createMemoryProvider([{ key: "f1", enabled: true, defaultValue: "primary" }]);
-    const fallback = createMemoryProvider([{ key: "f1", enabled: true, defaultValue: "fallback" }]);
+    const primary = createMemoryProvider([
+      { key: "f1", enabled: true, defaultValue: "primary" },
+    ]);
+    const fallback = createMemoryProvider([
+      { key: "f1", enabled: true, defaultValue: "fallback" },
+    ]);
     const provider = createCompositeProvider([primary, fallback]);
     const flag = await provider.get("f1");
     expect(flag!.defaultValue).toBe("primary");
@@ -72,15 +80,22 @@ describe("compositeProvider", () => {
 
   it("falls through to second provider", async () => {
     const primary = createMemoryProvider([]);
-    const fallback = createMemoryProvider([{ key: "f1", enabled: true, defaultValue: "fallback" }]);
+    const fallback = createMemoryProvider([
+      { key: "f1", enabled: true, defaultValue: "fallback" },
+    ]);
     const provider = createCompositeProvider([primary, fallback]);
     const flag = await provider.get("f1");
     expect(flag!.defaultValue).toBe("fallback");
   });
 
   it("merges all flags without duplicates", async () => {
-    const a = createMemoryProvider([{ key: "f1", enabled: true, defaultValue: true }]);
-    const b = createMemoryProvider([{ key: "f1", enabled: true, defaultValue: false }, { key: "f2", enabled: true, defaultValue: true }]);
+    const a = createMemoryProvider([
+      { key: "f1", enabled: true, defaultValue: true },
+    ]);
+    const b = createMemoryProvider([
+      { key: "f1", enabled: true, defaultValue: false },
+      { key: "f2", enabled: true, defaultValue: true },
+    ]);
     const provider = createCompositeProvider([a, b]);
     const flags = await provider.getAll();
     expect(flags).toHaveLength(2);

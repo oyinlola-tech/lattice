@@ -8,7 +8,13 @@ export class CreateProductHandler {
 
   public async execute(command: CreateProductCommand): Promise<void> {
     const price = Money.create(command.priceAmount, command.priceCurrency);
-    const product = Product.create(command.id, command.name, command.description, price, command.stock);
+    const product = Product.create(
+      command.id,
+      command.name,
+      command.description,
+      price,
+      command.stock,
+    );
     await this.products.save(product);
   }
 }

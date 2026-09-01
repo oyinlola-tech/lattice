@@ -12,7 +12,9 @@ import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
 /**
  * Schema for a specific literal value.
  */
-export class LiteralSchema<T extends string | number | boolean | null> extends Schema<T> {
+export class LiteralSchema<
+  T extends string | number | boolean | null,
+> extends Schema<T> {
   public readonly _type = "literal";
 
   constructor(private readonly _expected: T) {
@@ -35,6 +37,8 @@ export class LiteralSchema<T extends string | number | boolean | null> extends S
 }
 
 /** Creates a literal schema. */
-export function literalSchema<T extends string | number | boolean | null>(value: T): LiteralSchema<T> {
+export function literalSchema<T extends string | number | boolean | null>(
+  value: T,
+): LiteralSchema<T> {
   return new LiteralSchema(value);
 }

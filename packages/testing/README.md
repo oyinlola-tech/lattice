@@ -11,7 +11,7 @@ npm install @latticejs/testing
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/testing";
+import {} from /* add usage here */ "@latticejs/testing";
 ```
 
 ## License

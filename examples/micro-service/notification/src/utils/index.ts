@@ -5,7 +5,9 @@ export function generateId(): string {
   return randomUUID();
 }
 
-export function mapEventTypeToNotificationType(eventType: string): NotificationType {
+export function mapEventTypeToNotificationType(
+  eventType: string,
+): NotificationType {
   switch (eventType) {
     case "user.created":
       return NotificationType.USER_CREATED;
@@ -37,7 +39,10 @@ export function buildNotificationTitle(type: NotificationType): string {
   }
 }
 
-export function buildNotificationMessage(type: NotificationType, metadata?: Readonly<Record<string, unknown>>): string {
+export function buildNotificationMessage(
+  type: NotificationType,
+  metadata?: Readonly<Record<string, unknown>>,
+): string {
   switch (type) {
     case NotificationType.USER_CREATED:
       return "Your account has been created successfully.";

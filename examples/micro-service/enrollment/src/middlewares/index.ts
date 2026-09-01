@@ -65,7 +65,8 @@ export function createErrorMiddleware(logger: Logger): Middleware {
  */
 export function createRequestIdMiddleware(): Middleware {
   return async (ctx, next) => {
-    (ctx as any).requestId = `req:${Date.now()}:${Math.random().toString(36).slice(2, 8)}`;
+    (ctx as any).requestId =
+      `req:${Date.now()}:${Math.random().toString(36).slice(2, 8)}`;
     await next();
   };
 }

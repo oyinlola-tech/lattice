@@ -18,7 +18,10 @@ export interface ValidationIssue {
 /**
  * Options for creating a validation error.
  */
-export interface ValidationErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface ValidationErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly issues?: readonly ValidationIssue[];
 }
@@ -29,7 +32,10 @@ export interface ValidationErrorOptions extends Omit<BaseErrorOptions, "category
 export class ValidationError extends BaseError {
   public readonly issues: readonly ValidationIssue[];
 
-  constructor(message = "Validation failed.", options: ValidationErrorOptions = {}) {
+  constructor(
+    message = "Validation failed.",
+    options: ValidationErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.VALIDATION_FAILED,

@@ -13,31 +13,15 @@ import { toHTTPHeaders } from "../conversion/httpHeaders.conversion.js";
  * @param value - The raw header value string.
  * @returns An array of trimmed, non-empty values.
  */
-export function splitHeaderValues(
-  value:
-    | string
-    | undefined,
-): string[] {
-  if (
-    value ===
-      undefined ||
-    value.trim() ===
-      ""
-  ) {
+export function splitHeaderValues(value: string | undefined): string[] {
+  if (value === undefined || value.trim() === "") {
     return [];
   }
 
   return value
     .split(",")
-    .map(
-      (
-        item,
-      ) =>
-        item.trim(),
-    )
-    .filter(
-      Boolean,
-    );
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 /**
@@ -48,16 +32,8 @@ export function splitHeaderValues(
  * @returns An array of trimmed values.
  */
 export function getHeaderValues(
-  headers:
-    | HTTPHeadersLike,
-  name:
-    | string,
+  headers: HTTPHeadersLike,
+  name: string,
 ): string[] {
-  return splitHeaderValues(
-    toHTTPHeaders(
-      headers,
-    ).get(
-      name,
-    ),
-  );
+  return splitHeaderValues(toHTTPHeaders(headers).get(name));
 }

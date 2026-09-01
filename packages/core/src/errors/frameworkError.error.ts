@@ -6,9 +6,7 @@
  * error information for HTTP handlers, logging, and observability.
  */
 
-import {
-  ApplicationError,
-} from "@oyinlola141/lattice-errors";
+import { ApplicationError } from "@oyinlola141/lattice-errors";
 
 /**
  * Options accepted by FrameworkError.
@@ -47,10 +45,7 @@ export class FrameworkError extends ApplicationError {
   /**
    * Creates a framework error.
    */
-  public constructor(
-    message: string,
-    options: FrameworkErrorOptions = {},
-  ) {
+  public constructor(message: string, options: FrameworkErrorOptions = {}) {
     super(message, {
       code: options.code as any,
       statusCode: options.status,

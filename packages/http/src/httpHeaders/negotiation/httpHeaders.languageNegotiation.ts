@@ -18,29 +18,16 @@ import { languageSpecificity } from "../internal/httpHeaders.internal.specificit
  * @returns The best matching language, or `undefined` if none match.
  */
 export function preferredLanguage(
-  headers:
-    | HTTPHeadersLike,
-  candidates:
-    | readonly string[],
-): string
-  | undefined {
-  const value =
-    toHTTPHeaders(
-      headers,
-    ).get(
-      "accept-language",
-    );
+  headers: HTTPHeadersLike,
+  candidates: readonly string[],
+): string | undefined {
+  const value = toHTTPHeaders(headers).get("accept-language");
 
-  if (
-    !value
-  ) {
+  if (!value) {
     return candidates[0];
   }
 
-  const accepted =
-    parseWeightedValues(
-      value,
-    );
+  const accepted = parseWeightedValues(value);
 
   let best:
     | {
@@ -50,58 +37,33 @@ export function preferredLanguage(
       }
     | undefined;
 
-  for (
-    const candidate of candidates
-  ) {
-    const normalizedCandidate =
-      candidate
-        .trim()
-        .toLowerCase();
+  for (const candidate of candidates) {
+    const normalizedCandidate = candidate.trim().toLowerCase();
 
-    for (
-      const item of accepted
-    ) {
-      const normalizedAccepted =
-        item.value
-          .trim()
-          .toLowerCase();
+    for (const item of accepted) {
+      const normalizedAccepted = item.value.trim().toLowerCase();
 
-      if (
-        item.quality <=
-          0
-      ) {
+      if (item.quality <= 0) {
         continue;
       }
 
-      const specificity =
-        languageSpecificity(
-          normalizedAccepted,
-          normalizedCandidate,
-        );
+      const specificity = languageSpecificity(
+        normalizedAccepted,
+        normalizedCandidate,
+      );
 
-      if (
-        specificity ===
-        0
-      ) {
+      if (specificity === 0) {
         continue;
       }
 
       if (
         !best ||
-        item.quality >
-          best.quality ||
-        (
-          item.quality ===
-            best.quality &&
-          specificity >
-            best.specificity
-        )
+        item.quality > best.quality ||
+        (item.quality === best.quality && specificity > best.specificity)
       ) {
         best = {
-          language:
-            candidate,
-          quality:
-            item.quality,
+          language: candidate,
+          quality: item.quality,
           specificity,
         };
       }

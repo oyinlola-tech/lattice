@@ -11,7 +11,7 @@ npm install @latticejs/storage
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/storage";
+import {} from /* add usage here */ "@latticejs/storage";
 ```
 
 ## License

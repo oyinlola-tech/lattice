@@ -22,7 +22,11 @@ export function authenticationMiddleware(
     const parts = authHeader.split(" ");
     if (parts.length !== 2 || parts[0] !== "Bearer") {
       res.writeHead(401, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ error: "Invalid Authorization format. Use: Bearer <token>" }));
+      res.end(
+        JSON.stringify({
+          error: "Invalid Authorization format. Use: Bearer <token>",
+        }),
+      );
       return;
     }
 
@@ -40,14 +44,17 @@ export function authenticationMiddleware(
       (req as IncomingMessage & { user: unknown }).user = decoded;
 
       logger.debug("Token validated", {
-        userId: typeof decoded === "object" && decoded !== null && "sub" in decoded
-          ? String((decoded as { sub: unknown }).sub)
-          : undefined,
+        userId:
+          typeof decoded === "object" && decoded !== null && "sub" in decoded
+            ? String((decoded as { sub: unknown }).sub)
+            : undefined,
       });
 
       next();
     } catch (error) {
-      logger.warn("Token validation failed", { error: error instanceof Error ? error.message : String(error) });
+      logger.warn("Token validation failed", {
+        error: error instanceof Error ? error.message : String(error),
+      });
       res.writeHead(401, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Invalid or expired token" }));
     }

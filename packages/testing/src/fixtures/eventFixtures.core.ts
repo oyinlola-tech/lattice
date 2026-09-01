@@ -4,14 +4,9 @@
  * Factory functions for creating test event payloads.
  */
 
-import type {
-  Event,
-  EventInput,
-} from "@oyinlola141/lattice-events";
+import type { Event, EventInput } from "@oyinlola141/lattice-events";
 
-import type {
-  EventId,
-} from "@oyinlola141/lattice-constants";
+import type { EventId } from "@oyinlola141/lattice-constants";
 
 /**
  * Options for creating a test event.

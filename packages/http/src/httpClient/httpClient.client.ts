@@ -22,21 +22,13 @@ import {
   HttpClientResponseMarker,
 } from "./httpClient.helpers.js";
 
-import {
-  normalizeRetryOptions,
-} from "./httpClient.retry.js";
+import { normalizeRetryOptions } from "./httpClient.retry.js";
 
-import {
-  normalizeClientError,
-} from "./httpClient.errorNormalizer.js";
+import { normalizeClientError } from "./httpClient.errorNormalizer.js";
 
-import {
-  createContext,
-} from "./httpClient.context.js";
+import { createContext } from "./httpClient.context.js";
 
-import {
-  executeWithRetry,
-} from "./httpClient.executor.js";
+import { executeWithRetry } from "./httpClient.executor.js";
 
 import {
   addRequestInterceptor,
@@ -114,7 +106,8 @@ export class HttpClient {
 
       const response = await executeWithRetry(context, this);
 
-      let transformed: HttpClientResponse<T> = response as HttpClientResponse<T>;
+      let transformed: HttpClientResponse<T> =
+        response as HttpClientResponse<T>;
       for (const interceptor of this.responseInterceptors) {
         transformed = await interceptor<T>(transformed);
       }

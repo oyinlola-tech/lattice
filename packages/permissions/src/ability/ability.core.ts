@@ -19,15 +19,35 @@ import { PermissionDeniedError } from "../permissionErrors/index.js";
  */
 export interface Ability {
   /** Check if the actor can perform the action. Returns boolean. */
-  can(permission: string, resource?: unknown, options?: AuthorizationOptions): Promise<boolean>;
+  can(
+    permission: string,
+    resource?: unknown,
+    options?: AuthorizationOptions,
+  ): Promise<boolean>;
   /** Check if the actor cannot perform the action. Returns boolean. */
-  cannot(permission: string, resource?: unknown, options?: AuthorizationOptions): Promise<boolean>;
+  cannot(
+    permission: string,
+    resource?: unknown,
+    options?: AuthorizationOptions,
+  ): Promise<boolean>;
   /** Full authorization check with decision details. */
-  check(permission: string, resource?: unknown, options?: AuthorizationOptions): Promise<PermissionDecision>;
+  check(
+    permission: string,
+    resource?: unknown,
+    options?: AuthorizationOptions,
+  ): Promise<PermissionDecision>;
   /** Explain the authorization decision with step-by-step trace. */
-  explain(permission: string, resource?: unknown, options?: AuthorizationOptions): Promise<ExplainResult>;
+  explain(
+    permission: string,
+    resource?: unknown,
+    options?: AuthorizationOptions,
+  ): Promise<ExplainResult>;
   /** Throw PermissionDeniedError if not allowed. */
-  authorize(permission: string, resource?: unknown, options?: AuthorizationOptions): Promise<void>;
+  authorize(
+    permission: string,
+    resource?: unknown,
+    options?: AuthorizationOptions,
+  ): Promise<void>;
   /** The actor this ability was created for. */
   readonly actor: PermissionActor;
 }
@@ -42,25 +62,63 @@ export function createAbility(
   return {
     actor,
 
-    async can(permission: string, resource?: unknown, options?: AuthorizationOptions): Promise<boolean> {
-      const decision = await evaluate(actor, permission, resource, evaluatorOptions, options);
+    async can(
+      permission: string,
+      resource?: unknown,
+      options?: AuthorizationOptions,
+    ): Promise<boolean> {
+      const decision = await evaluate(
+        actor,
+        permission,
+        resource,
+        evaluatorOptions,
+        options,
+      );
       return decision.allowed;
     },
 
-    async cannot(permission: string, resource?: unknown, options?: AuthorizationOptions): Promise<boolean> {
+    async cannot(
+      permission: string,
+      resource?: unknown,
+      options?: AuthorizationOptions,
+    ): Promise<boolean> {
       return !(await this.can(permission, resource, options));
     },
 
-    async check(permission: string, resource?: unknown, options?: AuthorizationOptions): Promise<PermissionDecision> {
+    async check(
+      permission: string,
+      resource?: unknown,
+      options?: AuthorizationOptions,
+    ): Promise<PermissionDecision> {
       return evaluate(actor, permission, resource, evaluatorOptions, options);
     },
 
-    async explain(permission: string, resource?: unknown, options?: AuthorizationOptions): Promise<ExplainResult> {
-      return evaluateWithExplain(actor, permission, resource, evaluatorOptions, options);
+    async explain(
+      permission: string,
+      resource?: unknown,
+      options?: AuthorizationOptions,
+    ): Promise<ExplainResult> {
+      return evaluateWithExplain(
+        actor,
+        permission,
+        resource,
+        evaluatorOptions,
+        options,
+      );
     },
 
-    async authorize(permission: string, resource?: unknown, options?: AuthorizationOptions): Promise<void> {
-      const decision = await evaluate(actor, permission, resource, evaluatorOptions, options);
+    async authorize(
+      permission: string,
+      resource?: unknown,
+      options?: AuthorizationOptions,
+    ): Promise<void> {
+      const decision = await evaluate(
+        actor,
+        permission,
+        resource,
+        evaluatorOptions,
+        options,
+      );
       if (!decision.allowed) {
         throw new PermissionDeniedError(decision.reason ?? "Access denied", {
           actorId: actor.id,

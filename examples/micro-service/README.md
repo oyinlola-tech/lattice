@@ -20,13 +20,13 @@ A University Learning & Assessment Platform demonstrating Lattice's distributed 
 
 ## Services
 
-| Service | Port | Purpose | Database |
-|---------|------|---------|----------|
-| **Gateway** | 3000 | Public API entry point, auth, routing | None |
-| **Identity** | 3001 | User management, authentication, JWT | SQLite |
-| **Enrollment** | 3002 | Student course enrollments | SQLite |
-| **Assessment** | 3003 | Exams, quizzes, submissions, results | SQLite |
-| **Notification** | 3004 | Event-driven notifications, queues | In-memory |
+| Service          | Port | Purpose                               | Database  |
+| ---------------- | ---- | ------------------------------------- | --------- |
+| **Gateway**      | 3000 | Public API entry point, auth, routing | None      |
+| **Identity**     | 3001 | User management, authentication, JWT  | SQLite    |
+| **Enrollment**   | 3002 | Student course enrollments            | SQLite    |
+| **Assessment**   | 3003 | Exams, quizzes, submissions, results  | SQLite    |
+| **Notification** | 3004 | Event-driven notifications, queues    | In-memory |
 
 ## Key Patterns
 
@@ -64,21 +64,21 @@ docker compose up
 
 ### Gateway (3000)
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | /health | Health check |
-| POST | /api/identity/register | Register user |
-| POST | /api/identity/authenticate | Login |
-| GET | /api/identity/users/:id | Get user |
-| POST | /api/enrollments | Enroll in course |
-| DELETE | /api/enrollments/:id | Withdraw |
-| GET | /api/enrollments?studentId= | List enrollments |
-| POST | /api/assessments | Create assessment |
-| POST | /api/assessments/submit | Submit assessment |
-| POST | /api/assessments/publish | Publish results |
-| GET | /api/notifications | List notifications |
-| POST | /api/notifications | Create notification |
-| POST | /api/notifications/read | Mark as read |
+| Method | Path                        | Description         |
+| ------ | --------------------------- | ------------------- |
+| GET    | /health                     | Health check        |
+| POST   | /api/identity/register      | Register user       |
+| POST   | /api/identity/authenticate  | Login               |
+| GET    | /api/identity/users/:id     | Get user            |
+| POST   | /api/enrollments            | Enroll in course    |
+| DELETE | /api/enrollments/:id        | Withdraw            |
+| GET    | /api/enrollments?studentId= | List enrollments    |
+| POST   | /api/assessments            | Create assessment   |
+| POST   | /api/assessments/submit     | Submit assessment   |
+| POST   | /api/assessments/publish    | Publish results     |
+| GET    | /api/notifications          | List notifications  |
+| POST   | /api/notifications          | Create notification |
+| POST   | /api/notifications/read     | Mark as read        |
 
 ## Demo Flow
 

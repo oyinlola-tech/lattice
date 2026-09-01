@@ -8,9 +8,7 @@ import {
   LifecycleState,
   LIFECYCLE_VALID_TRANSITIONS,
 } from "@oyinlola141/lattice-constants";
-import {
-  LifecycleStateError,
-} from "@oyinlola141/lattice-errors";
+import { LifecycleStateError } from "@oyinlola141/lattice-errors";
 
 /**
  * Manages lifecycle state transitions for a single entity.
@@ -48,11 +46,7 @@ export class LifecycleStateMachine {
    */
   public transition(to: LifecycleState): void {
     if (!this.canTransition(to)) {
-      throw new LifecycleStateError(
-        this._state,
-        to,
-        this._id,
-      );
+      throw new LifecycleStateError(this._state, to, this._id);
     }
     this._state = to;
   }

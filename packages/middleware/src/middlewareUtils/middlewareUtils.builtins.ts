@@ -4,7 +4,10 @@
  * @module middlewareUtils/middlewareUtils
  */
 
-import type { Middleware, NamedMiddleware } from "../middlewareTypes/middlewareDefinition.type.js";
+import type {
+  Middleware,
+  NamedMiddleware,
+} from "../middlewareTypes/middlewareDefinition.type.js";
 
 export interface LoggingContext {
   readonly requestId?: string;
@@ -75,7 +78,10 @@ export function timeoutMiddleware<TContext>(
       return Promise.race([
         next(),
         new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error(`Middleware timeout after ${timeoutMs}ms`)), timeoutMs),
+          setTimeout(
+            () => reject(new Error(`Middleware timeout after ${timeoutMs}ms`)),
+            timeoutMs,
+          ),
         ),
       ]);
     },
@@ -106,7 +112,9 @@ export function rateLimitMiddleware<TContext extends { readonly key?: string }>(
       }
 
       if (entry.count >= maxRequests) {
-        throw new Error(`Rate limit exceeded: ${maxRequests} requests per ${windowMs}ms`);
+        throw new Error(
+          `Rate limit exceeded: ${maxRequests} requests per ${windowMs}ms`,
+        );
       }
 
       entry.count++;

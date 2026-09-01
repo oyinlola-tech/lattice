@@ -18,7 +18,9 @@ export class CleanupProcessor {
   ): Promise<void> {
     const { olderThanDays, dryRun } = job.data;
 
-    console.log(`[CleanupProcessor] Cleaning up data older than ${olderThanDays} days`);
+    console.log(
+      `[CleanupProcessor] Cleaning up data older than ${olderThanDays} days`,
+    );
     console.log(`  Dry run: ${dryRun ?? false}`);
 
     // Simulate cleanup work
@@ -27,7 +29,9 @@ export class CleanupProcessor {
     const recordsCleaned = Math.floor(Math.random() * 100);
 
     if (dryRun) {
-      console.log(`[CleanupProcessor] Dry run: would have cleaned ${recordsCleaned} records`);
+      console.log(
+        `[CleanupProcessor] Dry run: would have cleaned ${recordsCleaned} records`,
+      );
     } else {
       console.log(`[CleanupProcessor] Cleaned ${recordsCleaned} records`);
     }

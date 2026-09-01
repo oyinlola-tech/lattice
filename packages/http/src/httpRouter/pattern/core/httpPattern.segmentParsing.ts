@@ -9,9 +9,7 @@ import type {
   ParameterRouteSegment,
 } from "./httpPattern.type.js";
 
-import {
-  RoutePatternError,
-} from "./httpPattern.type.js";
+import { RoutePatternError } from "./httpPattern.type.js";
 
 /**
  * Parses a route pattern string into segments.
@@ -38,7 +36,12 @@ export function parseSegments(pattern: string): readonly RouteSegment[] {
       i++;
     } else {
       let value = "";
-      while (i < pattern.length && pattern[i] !== ":" && pattern[i] !== "{" && pattern[i] !== "*") {
+      while (
+        i < pattern.length &&
+        pattern[i] !== ":" &&
+        pattern[i] !== "{" &&
+        pattern[i] !== "*"
+      ) {
         value += pattern[i];
         i++;
       }
@@ -56,7 +59,10 @@ interface CompileResult {
   readonly endIndex: number;
 }
 
-function compileColonParameter(pattern: string, startIndex: number): CompileResult {
+function compileColonParameter(
+  pattern: string,
+  startIndex: number,
+): CompileResult {
   let i = startIndex + 1;
   let name = "";
   let optional = false;
@@ -72,7 +78,11 @@ function compileColonParameter(pattern: string, startIndex: number): CompileResu
   }
 
   if (!name) {
-    throw new RoutePatternError("Parameter name cannot be empty", pattern, startIndex);
+    throw new RoutePatternError(
+      "Parameter name cannot be empty",
+      pattern,
+      startIndex,
+    );
   }
 
   return {
@@ -81,7 +91,10 @@ function compileColonParameter(pattern: string, startIndex: number): CompileResu
   };
 }
 
-function compileBraceParameter(pattern: string, startIndex: number): CompileResult {
+function compileBraceParameter(
+  pattern: string,
+  startIndex: number,
+): CompileResult {
   let i = startIndex + 1;
   let name = "";
   let optional = false;
@@ -96,13 +109,21 @@ function compileBraceParameter(pattern: string, startIndex: number): CompileResu
   }
 
   if (i >= pattern.length) {
-    throw new RoutePatternError("Unclosed brace parameter", pattern, startIndex);
+    throw new RoutePatternError(
+      "Unclosed brace parameter",
+      pattern,
+      startIndex,
+    );
   }
 
   i++; // Skip closing brace
 
   if (!name) {
-    throw new RoutePatternError("Parameter name cannot be empty", pattern, startIndex);
+    throw new RoutePatternError(
+      "Parameter name cannot be empty",
+      pattern,
+      startIndex,
+    );
   }
 
   return {

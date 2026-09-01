@@ -29,10 +29,7 @@ const DEFAULT_METHODS = ["POST", "PUT", "PATCH", "DELETE"];
  * @param expiration - Optional expiration in seconds (default: 3600).
  * @returns The CSRF token string.
  */
-export function generateCsrfToken(
-  secret: string,
-  expiration?: number,
-): string {
+export function generateCsrfToken(secret: string, expiration?: number): string {
   const ttl = expiration ?? DEFAULT_EXPIRATION;
   const expiresAt = Math.floor(Date.now() / 1000) + ttl;
   const random = randomBytes(16).toString("hex");
@@ -180,10 +177,7 @@ export function extractCsrfTokenFromCookies(
  * @param config - Optional CSRF configuration.
  * @returns The Set-Cookie header value.
  */
-export function generateCsrfCookie(
-  token: string,
-  config?: CsrfConfig,
-): string {
+export function generateCsrfCookie(token: string, config?: CsrfConfig): string {
   const name = config?.cookieName ?? DEFAULT_COOKIE_NAME;
   const ttl = config?.expiration ?? DEFAULT_EXPIRATION;
 

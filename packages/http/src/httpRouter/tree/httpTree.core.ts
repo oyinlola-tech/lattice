@@ -59,10 +59,7 @@ export class RouteTree {
     return removed;
   }
 
-  lookup(
-    path: string,
-    method?: string,
-  ): RouteTreeMatch | undefined {
+  lookup(path: string, method?: string): RouteTreeMatch | undefined {
     const segments = splitPath(path);
     const candidates = collectCandidates(this.root, segments);
 

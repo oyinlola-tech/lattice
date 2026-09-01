@@ -49,7 +49,13 @@ describe("compose", () => {
 
     const composed = compose([mw1, mw2], handler);
     await composed("test");
-    expect(order).toEqual(["mw1-before", "mw2-before", "handler", "mw2-after", "mw1-after"]);
+    expect(order).toEqual([
+      "mw1-before",
+      "mw2-before",
+      "handler",
+      "mw2-after",
+      "mw1-after",
+    ]);
   });
 
   it("should catch errors in middleware", async () => {
@@ -68,7 +74,9 @@ describe("compose", () => {
     };
     const handler = async () => "result";
     const composed = compose([mw], handler);
-    await expect(composed("test")).rejects.toThrow("next() called multiple times");
+    await expect(composed("test")).rejects.toThrow(
+      "next() called multiple times",
+    );
   });
 });
 
@@ -125,11 +133,16 @@ describe("createPipeline", () => {
   });
 
   it("should respect maxMiddleware", () => {
-    const mws: NamedMiddleware<string>[] = Array.from({ length: 10 }, (_, i) => ({
-      name: `mw-${i}`,
-      handler: async (c, n) => n(),
-    }));
-    expect(() => createPipeline(mws, async () => "ok", { maxMiddleware: 5 })).toThrow();
+    const mws: NamedMiddleware<string>[] = Array.from(
+      { length: 10 },
+      (_, i) => ({
+        name: `mw-${i}`,
+        handler: async (c, n) => n(),
+      }),
+    );
+    expect(() =>
+      createPipeline(mws, async () => "ok", { maxMiddleware: 5 }),
+    ).toThrow();
   });
 });
 
@@ -150,8 +163,12 @@ describe("loggingMiddleware", () => {
 describe("errorMiddleware", () => {
   it("should catch and report errors", async () => {
     let caughtError: unknown = null;
-    const mw = errorMiddleware((err) => { caughtError = err; });
-    const pipeline = createPipeline([mw], async () => { throw new Error("test error"); });
+    const mw = errorMiddleware((err) => {
+      caughtError = err;
+    });
+    const pipeline = createPipeline([mw], async () => {
+      throw new Error("test error");
+    });
     const result = await pipeline({});
     expect(result.success).toBe(false);
     expect(caughtError).toBeInstanceOf(Error);

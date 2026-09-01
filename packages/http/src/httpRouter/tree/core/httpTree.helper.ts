@@ -4,9 +4,7 @@
  * @module httpRoute/tree/helpers
  */
 
-import type {
-  MutableRouteTreeNode,
-} from "./httpTree.type.js";
+import type { MutableRouteTreeNode } from "./httpTree.type.js";
 
 import { createChildNode } from "./httpTree.nodeCreation.js";
 
@@ -83,11 +81,7 @@ export function removeRouteFromTree(
  * Checks if a node is empty.
  */
 export function isEmptyNode(node: MutableRouteTreeNode): boolean {
-  return (
-    node.children.size === 0 &&
-    !node.handler &&
-    node.methods.size === 0
-  );
+  return node.children.size === 0 && !node.handler && node.methods.size === 0;
 }
 
 /**

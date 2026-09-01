@@ -4,45 +4,23 @@
  * Comprehensive tests for the runtime package.
  */
 
-import {
-  describe,
-  it,
-  expect,
-  vi,
-  beforeEach,
-} from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 
-import {
-  createRuntime,
-} from "../src/runtime/runtime.core.js";
+import { createRuntime } from "../src/runtime/runtime.core.js";
 
-import type {
-  RuntimeDependencies,
-} from "../src/runtime/runtime.core.js";
+import type { RuntimeDependencies } from "../src/runtime/runtime.core.js";
 
-import type {
-  RuntimeOptions,
-} from "../src/runtimeOptions/runtimeOptions.type.js";
+import type { RuntimeOptions } from "../src/runtimeOptions/runtimeOptions.type.js";
 
-import type {
-  Module,
-} from "@oyinlola141/lattice-core";
+import type { Module } from "@oyinlola141/lattice-core";
 
-import {
-  createLogger,
-} from "@oyinlola141/lattice-logger";
+import { createLogger } from "@oyinlola141/lattice-logger";
 
-import {
-  createContainer,
-} from "@oyinlola141/lattice-container";
+import { createContainer } from "@oyinlola141/lattice-container";
 
-import {
-  createEventBus,
-} from "@oyinlola141/lattice-events";
+import { createEventBus } from "@oyinlola141/lattice-events";
 
-import {
-  RuntimeRegistry,
-} from "../src/registry/index.js";
+import { RuntimeRegistry } from "../src/registry/index.js";
 
 import {
   createTestRuntime,
@@ -55,17 +33,16 @@ import {
   resolveDependencies,
 } from "../src/dependencyGraph/index.js";
 
-import {
-  ReadinessTracker,
-} from "../src/readiness/index.js";
+import { ReadinessTracker } from "../src/readiness/index.js";
 
-import {
-  SignalHandler,
-} from "../src/signalHandler/index.js";
+import { SignalHandler } from "../src/signalHandler/index.js";
 
 /* ─── Helpers ─────────────────────────────────────────────────────────────── */
 
-function createMockModuleHelper(id: string, dependencies: string[] = []): Module {
+function createMockModuleHelper(
+  id: string,
+  dependencies: string[] = [],
+): Module {
   return {
     id,
     name: `Module ${id}`,
@@ -147,8 +124,12 @@ describe("Runtime", () => {
 
       await runtime.start();
 
-      expect(moduleA.onInitialize).toHaveBeenCalledBefore(moduleB.onInitialize as ReturnType<typeof vi.fn>);
-      expect(moduleB.onInitialize).toHaveBeenCalledBefore(moduleC.onInitialize as ReturnType<typeof vi.fn>);
+      expect(moduleA.onInitialize).toHaveBeenCalledBefore(
+        moduleB.onInitialize as ReturnType<typeof vi.fn>,
+      );
+      expect(moduleB.onInitialize).toHaveBeenCalledBefore(
+        moduleC.onInitialize as ReturnType<typeof vi.fn>,
+      );
     });
 
     it("does not start twice", async () => {
@@ -166,7 +147,9 @@ describe("Runtime", () => {
     it("handles startup failure with rollback", async () => {
       const moduleA = createMockModuleHelper("module-a");
       const moduleB = createMockModuleHelper("module-b");
-      moduleB.onInitialize = vi.fn().mockRejectedValue(new Error("Init failed"));
+      moduleB.onInitialize = vi
+        .fn()
+        .mockRejectedValue(new Error("Init failed"));
 
       const dependencies = createTestDependencies([moduleA, moduleB]);
       const options = createTestOptions();
@@ -205,8 +188,12 @@ describe("Runtime", () => {
       await runtime.start();
       await runtime.stop();
 
-      expect(moduleC.onShutdown).toHaveBeenCalledBefore(moduleB.onShutdown as ReturnType<typeof vi.fn>);
-      expect(moduleB.onShutdown).toHaveBeenCalledBefore(moduleA.onShutdown as ReturnType<typeof vi.fn>);
+      expect(moduleC.onShutdown).toHaveBeenCalledBefore(
+        moduleB.onShutdown as ReturnType<typeof vi.fn>,
+      );
+      expect(moduleB.onShutdown).toHaveBeenCalledBefore(
+        moduleA.onShutdown as ReturnType<typeof vi.fn>,
+      );
     });
 
     it("handles stop without start", async () => {
@@ -269,7 +256,9 @@ describe("RuntimeRegistry", () => {
     const runtime = createTestRuntime([]);
     registry.register("api", runtime);
 
-    expect(() => registry.register("api", runtime)).toThrow("already registered");
+    expect(() => registry.register("api", runtime)).toThrow(
+      "already registered",
+    );
   });
 
   it("require throws for missing runtime", () => {
@@ -367,10 +356,13 @@ describe("Test Runtime", () => {
     const module = createMockModuleHelper("test-mod");
     let capturedState = "";
 
-    await withTestRuntime(async (runtime) => {
-      capturedState = runtime.state;
-      expect(runtime.ready).toBe(true);
-    }, [module]);
+    await withTestRuntime(
+      async (runtime) => {
+        capturedState = runtime.state;
+        expect(runtime.ready).toBe(true);
+      },
+      [module],
+    );
 
     expect(capturedState).toBe("running");
     expect(module.onInitialize).toHaveBeenCalledOnce();

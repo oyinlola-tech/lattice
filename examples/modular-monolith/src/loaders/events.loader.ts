@@ -1,6 +1,12 @@
 import type { Logger } from "@oyinlola141/lattice-logger";
 import type { EventBus } from "@oyinlola141/lattice-events";
-import { ArticleCreatedEvent, ArticlePublishedEvent, CommentCreatedEvent, TopicFollowedEvent, ReactionAddedEvent } from "../events/index.js";
+import {
+  ArticleCreatedEvent,
+  ArticlePublishedEvent,
+  CommentCreatedEvent,
+  TopicFollowedEvent,
+  ReactionAddedEvent,
+} from "../events/index.js";
 
 export interface EventLoaderConfig {
   readonly events: EventBus;

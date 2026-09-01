@@ -11,15 +11,11 @@ export const MEDIA_TYPES = {
   CSS: "text/css",
   JAVASCRIPT: "text/javascript",
   XML: "application/xml",
-  FORM_URLENCODED:
-    "application/x-www-form-urlencoded",
-  MULTIPART_FORM_DATA:
-    "multipart/form-data",
-  OCTET_STREAM:
-    "application/octet-stream",
+  FORM_URLENCODED: "application/x-www-form-urlencoded",
+  MULTIPART_FORM_DATA: "multipart/form-data",
+  OCTET_STREAM: "application/octet-stream",
   PDF: "application/pdf",
   ZIP: "application/zip",
   GZIP: "application/gzip",
-  FORM_DATA:
-    "multipart/form-data",
+  FORM_DATA: "multipart/form-data",
 } as const;

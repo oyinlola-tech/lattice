@@ -4,4 +4,8 @@
  * @module middlewareErrors
  */
 
-export { MiddlewareError, MiddlewareTimeoutError, MiddlewareNextCalledMultipleTimesError } from "./middlewareError.base.js";
+export {
+  MiddlewareError,
+  MiddlewareTimeoutError,
+  MiddlewareNextCalledMultipleTimesError,
+} from "./middlewareError.base.js";

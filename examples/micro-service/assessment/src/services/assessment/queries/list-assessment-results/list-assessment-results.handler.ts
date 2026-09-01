@@ -14,7 +14,10 @@ export interface AssessmentResultItem {
   readonly gradedAt: Date | null;
 }
 
-export class ListAssessmentResultsHandler extends QueryHandler<ListAssessmentResultsQuery, readonly AssessmentResultItem[]> {
+export class ListAssessmentResultsHandler extends QueryHandler<
+  ListAssessmentResultsQuery,
+  readonly AssessmentResultItem[]
+> {
   public readonly queryType = LIST_ASSESSMENT_RESULTS_QUERY;
 
   private readonly repository: AssessmentRepository;
@@ -24,8 +27,13 @@ export class ListAssessmentResultsHandler extends QueryHandler<ListAssessmentRes
     this.repository = repository;
   }
 
-  async execute(query: ListAssessmentResultsQuery, _context?: CqrsContext): Promise<readonly AssessmentResultItem[]> {
-    const submissions = await this.repository.findSubmissionsByAssessment(query.assessmentId);
+  async execute(
+    query: ListAssessmentResultsQuery,
+    _context?: CqrsContext,
+  ): Promise<readonly AssessmentResultItem[]> {
+    const submissions = await this.repository.findSubmissionsByAssessment(
+      query.assessmentId,
+    );
 
     return submissions.map((sub) => ({
       id: String(sub["id"]),
@@ -35,7 +43,8 @@ export class ListAssessmentResultsHandler extends QueryHandler<ListAssessmentRes
       score: sub["score"] != null ? Number(sub["score"]) : null,
       status: String(sub["status"]),
       submittedAt: new Date(String(sub["submitted_at"])),
-      gradedAt: sub["graded_at"] != null ? new Date(String(sub["graded_at"])) : null,
+      gradedAt:
+        sub["graded_at"] != null ? new Date(String(sub["graded_at"])) : null,
     }));
   }
 }

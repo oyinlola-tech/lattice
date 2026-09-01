@@ -1,12 +1,11 @@
-import type {
-  RuntimeState,
-  RuntimeStatus,
-} from "./runtimeState.type.js";
+import type { RuntimeState, RuntimeStatus } from "./runtimeState.type.js";
 
 /**
  * Defines valid runtime state transitions.
  */
-export const RUNTIME_STATE_TRANSITIONS: Readonly<Record<RuntimeState, readonly RuntimeState[]>> = Object.freeze({
+export const RUNTIME_STATE_TRANSITIONS: Readonly<
+  Record<RuntimeState, readonly RuntimeState[]>
+> = Object.freeze({
   created: ["initializing", "failed"],
   initializing: ["initialized", "running", "failed"],
   initialized: ["starting", "running", "failed"],
@@ -42,10 +41,7 @@ export const STOPPABLE_STATES: readonly RuntimeState[] = Object.freeze([
 /**
  * Checks whether a state transition is valid.
  */
-export function canTransition(
-  from: RuntimeState,
-  to: RuntimeState,
-): boolean {
+export function canTransition(from: RuntimeState, to: RuntimeState): boolean {
   const allowed = RUNTIME_STATE_TRANSITIONS[from];
   return allowed.includes(to);
 }
@@ -53,10 +49,7 @@ export function canTransition(
 /**
  * Asserts that a state transition is valid.
  */
-export function assertTransition(
-  from: RuntimeState,
-  to: RuntimeState,
-): void {
+export function assertTransition(from: RuntimeState, to: RuntimeState): void {
   if (!canTransition(from, to)) {
     throw new Error(
       `Invalid runtime state transition from "${from}" to "${to}".`,

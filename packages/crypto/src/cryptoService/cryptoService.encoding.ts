@@ -1,15 +1,8 @@
-import type {
-  CryptoEncoding,
-} from "../cryptoEncoding/cryptoEncoding.core.js";
+import type { CryptoEncoding } from "../cryptoEncoding/cryptoEncoding.core.js";
 
-import {
-  encode,
-  decode,
-} from "../cryptoEncoding/cryptoEncoding.core.js";
+import { encode, decode } from "../cryptoEncoding/cryptoEncoding.core.js";
 
-import {
-  createCryptoError,
-} from "@oyinlola141/lattice-errors";
+import { createCryptoError } from "@oyinlola141/lattice-errors";
 
 export type { CryptoEncoding };
 
@@ -20,10 +13,7 @@ export function serviceEncode(
   try {
     return encode(value, encoding);
   } catch {
-    throw createCryptoError(
-      "Crypto encoding failed.",
-      {},
-    );
+    throw createCryptoError("Crypto encoding failed.", {});
   }
 }
 
@@ -34,9 +24,6 @@ export function serviceDecode(
   try {
     return decode(value, encoding);
   } catch {
-    throw createCryptoError(
-      "Crypto decoding failed.",
-      {},
-    );
+    throw createCryptoError("Crypto decoding failed.", {});
   }
 }

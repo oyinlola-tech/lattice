@@ -22,13 +22,8 @@ import type {
 export class Database {
   private readonly client: DatabaseClient;
 
-  constructor(
-    options: DatabaseClientOptions = {},
-  ) {
-    this.client =
-      createDatabaseClient(
-        options,
-      );
+  constructor(options: DatabaseClientOptions = {}) {
+    this.client = createDatabaseClient(options);
   }
 
   /**
@@ -77,16 +72,10 @@ export class Database {
    * Executes work inside a database transaction.
    */
   public async transaction<TResult>(
-    callback: TransactionCallback<
-      DatabaseTransactionContext,
-      TResult
-    >,
+    callback: TransactionCallback<DatabaseTransactionContext, TResult>,
     options?: TransactionOptions,
   ): Promise<TResult> {
-    return this.client.transaction(
-      callback,
-      options,
-    );
+    return this.client.transaction(callback, options);
   }
 
   /**
@@ -117,12 +106,8 @@ export class Database {
 /**
  * Creates a database facade.
  */
-export function createDatabase(
-  options: DatabaseClientOptions = {},
-): Database {
-  return new Database(
-    options,
-  );
+export function createDatabase(options: DatabaseClientOptions = {}): Database {
+  return new Database(options);
 }
 
 /**
@@ -131,9 +116,7 @@ export function createDatabase(
  * The instance is created lazily by consumers through the exported
  * factory rather than connecting during module import.
  */
-let defaultDatabase:
-  | Database
-  | undefined;
+let defaultDatabase: Database | undefined;
 
 /**
  * Returns the shared application database instance.
@@ -141,14 +124,9 @@ let defaultDatabase:
  * The connection is not established automatically. Call
  * `connect()` during application bootstrap.
  */
-export function getDatabase(
-  options: DatabaseClientOptions = {},
-): Database {
+export function getDatabase(options: DatabaseClientOptions = {}): Database {
   if (!defaultDatabase) {
-    defaultDatabase =
-      createDatabase(
-        options,
-      );
+    defaultDatabase = createDatabase(options);
   }
 
   return defaultDatabase;
@@ -160,10 +138,7 @@ export function getDatabase(
 export async function connectDatabase(
   options: DatabaseClientOptions = {},
 ): Promise<Database> {
-  const database =
-    getDatabase(
-      options,
-    );
+  const database = getDatabase(options);
 
   await database.connect();
 
@@ -194,6 +169,5 @@ export async function resetDatabase(): Promise<void> {
 
   await defaultDatabase.destroy();
 
-  defaultDatabase =
-    undefined;
+  defaultDatabase = undefined;
 }

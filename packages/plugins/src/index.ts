@@ -30,20 +30,42 @@
 export { PluginManager } from "./pluginManager/pluginManager.core.js";
 
 export { PluginRegistryImpl } from "./pluginRegistry/pluginRegistry.core.js";
-export type { PluginRegistry, RegisteredPlugin } from "./pluginRegistry/pluginRegistry.core.js";
+export type {
+  PluginRegistry,
+  RegisteredPlugin,
+} from "./pluginRegistry/pluginRegistry.core.js";
 
-export { DependencyResolver, assertResolutionValid } from "./pluginDependencies/dependencyResolver.core.js";
+export {
+  DependencyResolver,
+  assertResolutionValid,
+} from "./pluginDependencies/dependencyResolver.core.js";
 export type { DependencyResolution } from "./pluginDependencies/dependencyResolver.core.js";
 
 export { LifecycleController } from "./pluginLifecycle/pluginLifecycle.core.js";
 
-export { PLUGIN_EVENTS, createPluginLifecycleEvent } from "./pluginEvents/pluginEvent.core.js";
+export {
+  PLUGIN_EVENTS,
+  createPluginLifecycleEvent,
+} from "./pluginEvents/pluginEvent.core.js";
 export type { PluginLifecycleEvent } from "./pluginEvents/pluginEvent.core.js";
 
-export { buildDiagnosticReport, createHealthyHealth, createDegradedHealth, createUnhealthyHealth } from "./pluginDiagnostics/pluginDiagnostic.core.js";
-export type { PluginHealth, PluginHealthStatus, PluginDiagnostic, PluginDiagnosticReport } from "./pluginDiagnostics/pluginDiagnostic.core.js";
+export {
+  buildDiagnosticReport,
+  createHealthyHealth,
+  createDegradedHealth,
+  createUnhealthyHealth,
+} from "./pluginDiagnostics/pluginDiagnostic.core.js";
+export type {
+  PluginHealth,
+  PluginHealthStatus,
+  PluginDiagnostic,
+  PluginDiagnosticReport,
+} from "./pluginDiagnostics/pluginDiagnostic.core.js";
 
-export { isValidTransition, VALID_STATE_TRANSITIONS } from "./pluginTypes/pluginState.type.js";
+export {
+  isValidTransition,
+  VALID_STATE_TRANSITIONS,
+} from "./pluginTypes/pluginState.type.js";
 
 export { createPluginContext } from "./pluginIntegration/pluginContext.core.js";
 export type { CreatePluginContextOptions } from "./pluginIntegration/pluginContext.core.js";

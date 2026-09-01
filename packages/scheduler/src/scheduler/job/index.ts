@@ -8,4 +8,8 @@ export type { JobDefinition } from "./jobDefinition.type.js";
 
 export { createJobDefinition } from "./jobDefinition.type.js";
 
-export type { JobOptions, RetryPolicy, RetryStrategy } from "./jobOptions.type.js";
+export type {
+  JobOptions,
+  RetryPolicy,
+  RetryStrategy,
+} from "./jobOptions.type.js";

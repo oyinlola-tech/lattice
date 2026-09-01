@@ -2,29 +2,17 @@
  * Logger helper functions.
  */
 
-import type {
-  LogMetadata,
-} from "../../loggerEntry/loggerEntry.type.js";
+import type { LogMetadata } from "../../loggerEntry/loggerEntry.type.js";
 
-import type {
-  LoggerContext,
-} from "../../loggerContext/loggerContext.core.js";
+import type { LoggerContext } from "../../loggerContext/loggerContext.core.js";
 
-import {
-  createTextLoggerFormatter,
-} from "../../loggerFormatter/loggerFormatterFormatters/loggerFormatterFormatters.text.js";
+import { createTextLoggerFormatter } from "../../loggerFormatter/loggerFormatterFormatters/loggerFormatterFormatters.text.js";
 
-import {
-  createConsoleLoggerTransport,
-} from "../../loggerTransport/loggerTransport.registry.js";
+import { createConsoleLoggerTransport } from "../../loggerTransport/loggerTransport.registry.js";
 
-import type {
-  ChildLoggerOptions,
-} from "../../loggerOptions/loggerOptions.type.js";
+import type { ChildLoggerOptions } from "../../loggerOptions/loggerOptions.type.js";
 
-import type {
-  Logger,
-} from "../core/loggerCore.type.js";
+import type { Logger } from "../core/loggerCore.type.js";
 
 import { ContextLogger } from "../core/loggerCore.context.js";
 
@@ -37,9 +25,7 @@ export function createChildLogger(
   parent: Logger,
   options: ChildLoggerOptions = {},
 ): Logger {
-  return parent.child(
-    options,
-  );
+  return parent.child(options);
 }
 
 /**
@@ -51,21 +37,14 @@ export function logError(
   message?: string,
   metadata?: LogMetadata,
 ): void {
-  if (
-    !logger.enabled
-  ) {
+  if (!logger.enabled) {
     return;
   }
 
-  logger.log(
-    1,
-    message ??
-      error.message,
-    {
-      metadata,
-      error,
-    },
-  );
+  logger.log(1, message ?? error.message, {
+    metadata,
+    error,
+  });
 }
 
 /**
@@ -76,14 +55,9 @@ export function withLoggerContext<T>(
   context: LoggerContext,
   callback: () => T,
 ): T {
-  const scoped =
-    logger.withContext(
-      context,
-    );
+  const scoped = logger.withContext(context);
 
-  if (
-    scoped instanceof ContextLogger
-  ) {
+  if (scoped instanceof ContextLogger) {
     return callback();
   }
 
@@ -93,19 +67,11 @@ export function withLoggerContext<T>(
 /**
  * Creates a default application logger.
  */
-export function createDefaultLogger(
-  name = "lattice",
-): Logger {
-  return createLogger(
-    {
-      name,
-      level:
-        3,
-      formatter:
-        createTextLoggerFormatter(),
-      transports: [
-        createConsoleLoggerTransport(),
-      ],
-    },
-  );
+export function createDefaultLogger(name = "lattice"): Logger {
+  return createLogger({
+    name,
+    level: 3,
+    formatter: createTextLoggerFormatter(),
+    transports: [createConsoleLoggerTransport()],
+  });
 }

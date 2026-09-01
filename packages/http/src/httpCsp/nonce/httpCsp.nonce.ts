@@ -2,14 +2,11 @@
  * CSP nonce and hash source generation.
  */
 
-import type { CSPNonceOptions } from '../types/httpCsp.type.js';
-import { DEFAULT_NONCE_LENGTH } from '../types/httpCsp.constant.js';
+import type { CSPNonceOptions } from "../types/httpCsp.type.js";
+import { DEFAULT_NONCE_LENGTH } from "../types/httpCsp.constant.js";
 
 function getCrypto(): Crypto | undefined {
-  if (
-    typeof globalThis !== "undefined" &&
-    "crypto" in globalThis
-  ) {
+  if (typeof globalThis !== "undefined" && "crypto" in globalThis) {
     return globalThis.crypto;
   }
   return undefined;
@@ -39,9 +36,7 @@ function toBase64(bytes: Uint8Array): string {
     return btoa(binary);
   }
 
-  throw new Error(
-    "Base64 encoding is not available in this runtime.",
-  );
+  throw new Error("Base64 encoding is not available in this runtime.");
 }
 
 function toBase64Url(bytes: Uint8Array): string {
@@ -51,13 +46,8 @@ function toBase64Url(bytes: Uint8Array): string {
     .replace(/=+$/g, "");
 }
 
-export function isValidNonce(
-  nonce: string,
-): boolean {
-  return (
-    nonce.length > 0 &&
-    /^[A-Za-z0-9+/_=-]+$/.test(nonce)
-  );
+export function isValidNonce(nonce: string): boolean {
+  return nonce.length > 0 && /^[A-Za-z0-9+/_=-]+$/.test(nonce);
 }
 
 function validateNonce(nonce: string): void {
@@ -72,9 +62,7 @@ export function generateCSPNonce(
   const length = options.length ?? DEFAULT_NONCE_LENGTH;
 
   if (!Number.isSafeInteger(length) || length <= 0) {
-    throw new RangeError(
-      "CSP nonce length must be a positive safe integer.",
-    );
+    throw new RangeError("CSP nonce length must be a positive safe integer.");
   }
 
   const bytes = new Uint8Array(length);

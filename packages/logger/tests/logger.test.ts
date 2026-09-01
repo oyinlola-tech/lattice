@@ -14,9 +14,7 @@ import {
   createErrorLoggerEntry,
 } from "../src/loggerEntry/loggerEntry.core.js";
 
-import {
-  serializeLoggerEntry,
-} from "../src/loggerEntry/loggerEntrySerialize.js";
+import { serializeLoggerEntry } from "../src/loggerEntry/loggerEntrySerialize.js";
 
 import {
   createLoggerContext,
@@ -300,9 +298,7 @@ describe("LoggerOptions", () => {
   });
 
   it("rejects negative transportTimeout", () => {
-    expect(() =>
-      validateLoggerOptions({ transportTimeout: -1 }),
-    ).toThrow();
+    expect(() => validateLoggerOptions({ transportTimeout: -1 })).toThrow();
   });
 
   it("has sensible defaults", () => {

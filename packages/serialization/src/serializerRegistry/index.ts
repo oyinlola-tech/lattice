@@ -6,4 +6,7 @@
  */
 
 export { SerializerRegistry } from "./serializerRegistry.core.js";
-export { createSerializer, createDefaultRegistry } from "./serializerRegistry.factory.js";
+export {
+  createSerializer,
+  createDefaultRegistry,
+} from "./serializerRegistry.factory.js";

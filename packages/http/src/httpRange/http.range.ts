@@ -42,172 +42,86 @@ export const MAX_RANGE_COUNT = 128;
 /* Range Header Parsing                                                       */
 /* -------------------------------------------------------------------------- */
 
-export function parseRangeHeader(
-  value:
-    | string
-    | undefined
-    | null,
-): {
-  readonly unit: string;
-  readonly ranges: readonly ByteRange[];
-} | undefined {
-  if (
-    !value ||
-    value.trim().length === 0
-  ) {
+export function parseRangeHeader(value: string | undefined | null):
+  | {
+      readonly unit: string;
+      readonly ranges: readonly ByteRange[];
+    }
+  | undefined {
+  if (!value || value.trim().length === 0) {
     return undefined;
   }
 
-  const separator =
-    value.indexOf("=");
+  const separator = value.indexOf("=");
 
-  if (
-    separator === -1
-  ) {
+  if (separator === -1) {
     return undefined;
   }
 
-  const unit =
-    value
-      .slice(
-        0,
-        separator,
-      )
-      .trim();
+  const unit = value.slice(0, separator).trim();
 
-  if (
-    unit.length === 0
-  ) {
+  if (unit.length === 0) {
     return undefined;
   }
 
-  const rangeValue =
-    value
-      .slice(
-        separator + 1,
-      )
-      .trim();
+  const rangeValue = value.slice(separator + 1).trim();
 
-  if (
-    rangeValue.length === 0
-  ) {
+  if (rangeValue.length === 0) {
     return undefined;
   }
 
-  const ranges =
-    rangeValue
-      .split(",")
-      .map(
-        (part) =>
-          parseByteRange(
-            part,
-          ),
-      );
+  const ranges = rangeValue.split(",").map((part) => parseByteRange(part));
 
-  if (
-    ranges.length === 0 ||
-    ranges.some(
-      (range) =>
-        range ===
-        undefined,
-    )
-  ) {
+  if (ranges.length === 0 || ranges.some((range) => range === undefined)) {
     return undefined;
   }
 
-  if (
-    ranges.length >
-    MAX_RANGE_COUNT
-  ) {
+  if (ranges.length > MAX_RANGE_COUNT) {
     return undefined;
   }
 
   return {
     unit,
-    ranges:
-      ranges as ByteRange[],
+    ranges: ranges as ByteRange[],
   };
 }
 
-export function parseByteRange(
-  value: string,
-): ByteRange | undefined {
-  const trimmed =
-    value.trim();
+export function parseByteRange(value: string): ByteRange | undefined {
+  const trimmed = value.trim();
 
-  const separator =
-    trimmed.indexOf("-");
+  const separator = trimmed.indexOf("-");
 
-  if (
-    separator === -1
-  ) {
+  if (separator === -1) {
     return undefined;
   }
 
-  const startValue =
-    trimmed
-      .slice(
-        0,
-        separator,
-      )
-      .trim();
+  const startValue = trimmed.slice(0, separator).trim();
 
-  const endValue =
-    trimmed
-      .slice(
-        separator + 1,
-      )
-      .trim();
+  const endValue = trimmed.slice(separator + 1).trim();
 
-  if (
-    startValue.length ===
-      0 &&
-    endValue.length ===
-      0
-  ) {
+  if (startValue.length === 0 && endValue.length === 0) {
     return undefined;
   }
 
   const start =
-    startValue.length > 0
-      ? parseNonNegativeInteger(
-          startValue,
-        )
-      : undefined;
+    startValue.length > 0 ? parseNonNegativeInteger(startValue) : undefined;
 
   const end =
-    endValue.length > 0
-      ? parseNonNegativeInteger(
-          endValue,
-        )
-      : undefined;
+    endValue.length > 0 ? parseNonNegativeInteger(endValue) : undefined;
 
-  if (
-    startValue.length > 0 &&
-    start === undefined
-  ) {
+  if (startValue.length > 0 && start === undefined) {
     return undefined;
   }
 
-  if (
-    endValue.length > 0 &&
-    end === undefined
-  ) {
+  if (endValue.length > 0 && end === undefined) {
     return undefined;
   }
 
-  if (
-    start === undefined &&
-    end === undefined
-  ) {
+  if (start === undefined && end === undefined) {
     return undefined;
   }
 
-  if (
-    start !== undefined &&
-    end !== undefined &&
-    start > end
-  ) {
+  if (start !== undefined && end !== undefined && start > end) {
     return undefined;
   }
 
@@ -225,44 +139,27 @@ export function resolveByteRange(
   range: ByteRange,
   size: number,
 ): ResolvedByteRange | undefined {
-  validateSize(
-    size,
-  );
+  validateSize(size);
 
-  if (
-    size === 0
-  ) {
+  if (size === 0) {
     return undefined;
   }
 
   /*
    * "-N" means the final N bytes.
    */
-  if (
-    range.start === undefined
-  ) {
-    const suffixLength =
-      range.end;
+  if (range.start === undefined) {
+    const suffixLength = range.end;
 
-    if (
-      suffixLength ===
-        undefined ||
-      suffixLength <= 0
-    ) {
+    if (suffixLength === undefined || suffixLength <= 0) {
       return undefined;
     }
 
-    const length =
-      Math.min(
-        suffixLength,
-        size,
-      );
+    const length = Math.min(suffixLength, size);
 
-    const start =
-      size - length;
+    const start = size - length;
 
-    const end =
-      size - 1;
+    const end = size - 1;
 
     return {
       start,
@@ -271,12 +168,9 @@ export function resolveByteRange(
     };
   }
 
-  const start =
-    range.start;
+  const start = range.start;
 
-  if (
-    start >= size
-  ) {
+  if (start >= size) {
     return undefined;
   }
 
@@ -284,24 +178,16 @@ export function resolveByteRange(
    * An omitted end means through the final byte.
    */
   const end =
-    range.end === undefined
-      ? size - 1
-      : Math.min(
-          range.end,
-          size - 1,
-        );
+    range.end === undefined ? size - 1 : Math.min(range.end, size - 1);
 
-  if (
-    end < start
-  ) {
+  if (end < start) {
     return undefined;
   }
 
   return {
     start,
     end,
-    length:
-      end - start + 1,
+    length: end - start + 1,
   };
 }
 
@@ -309,53 +195,27 @@ export function resolveRanges(
   ranges: readonly ByteRange[],
   size: number,
 ): readonly ResolvedByteRange[] {
-  validateSize(
-    size,
-  );
+  validateSize(size);
 
   return ranges
-    .map(
-      (range) =>
-        resolveByteRange(
-          range,
-          size,
-        ),
-    )
-    .filter(
-      (
-        range,
-      ): range is ResolvedByteRange =>
-        range !== undefined,
-    );
+    .map((range) => resolveByteRange(range, size))
+    .filter((range): range is ResolvedByteRange => range !== undefined);
 }
 
 export function resolveRangeHeader(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
   size: number,
 ): RangeResult | undefined {
-  const parsed =
-    parseRangeHeader(
-      header,
-    );
+  const parsed = parseRangeHeader(header);
 
-  if (
-    !parsed
-  ) {
+  if (!parsed) {
     return undefined;
   }
 
-  const ranges =
-    resolveRanges(
-      parsed.ranges,
-      size,
-    );
+  const ranges = resolveRanges(parsed.ranges, size);
 
   return {
-    unit:
-      parsed.unit,
+    unit: parsed.unit,
     ranges,
   };
 }
@@ -364,63 +224,32 @@ export function resolveRangeHeader(
 /* Range Classification                                                       */
 /* -------------------------------------------------------------------------- */
 
-export function isByteRangeUnit(
-  unit: string,
-): boolean {
-  return (
-    unit.trim().toLowerCase() ===
-    DEFAULT_RANGE_UNIT
-  );
+export function isByteRangeUnit(unit: string): boolean {
+  return unit.trim().toLowerCase() === DEFAULT_RANGE_UNIT;
 }
 
-export function isRangeSatisfiable(
-  range: ByteRange,
-  size: number,
-): boolean {
-  return (
-    resolveByteRange(
-      range,
-      size,
-    ) !== undefined
-  );
+export function isRangeSatisfiable(range: ByteRange, size: number): boolean {
+  return resolveByteRange(range, size) !== undefined;
 }
 
 export function hasSatisfiableRanges(
   ranges: readonly ByteRange[],
   size: number,
 ): boolean {
-  return (
-    resolveRanges(
-      ranges,
-      size,
-    ).length > 0
-  );
+  return resolveRanges(ranges, size).length > 0;
 }
 
 export function isUnsatisfiableRangeHeader(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
   size: number,
 ): boolean {
-  const parsed =
-    parseRangeHeader(
-      header,
-    );
+  const parsed = parseRangeHeader(header);
 
-  if (
-    !parsed
-  ) {
+  if (!parsed) {
     return false;
   }
 
-  return (
-    resolveRanges(
-      parsed.ranges,
-      size,
-    ).length === 0
-  );
+  return resolveRanges(parsed.ranges, size).length === 0;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -430,71 +259,35 @@ export function isUnsatisfiableRangeHeader(
 export function normalizeRanges(
   ranges: readonly ResolvedByteRange[],
 ): readonly ResolvedByteRange[] {
-  if (
-    ranges.length <= 1
-  ) {
-    return [
-      ...ranges,
-    ];
+  if (ranges.length <= 1) {
+    return [...ranges];
   }
 
-  const sorted =
-    [
-      ...ranges,
-    ].sort(
-      (a, b) =>
-        a.start -
-        b.start,
-    );
+  const sorted = [...ranges].sort((a, b) => a.start - b.start);
 
-  const result: ResolvedByteRange[] =
-    [];
+  const result: ResolvedByteRange[] = [];
 
-  for (
-    const range of sorted
-  ) {
-    const previous =
-      result[
-        result.length - 1
-      ];
+  for (const range of sorted) {
+    const previous = result[result.length - 1];
 
-    if (
-      !previous
-    ) {
-      result.push(
-        range,
-      );
+    if (!previous) {
+      result.push(range);
       continue;
     }
 
-    if (
-      range.start <=
-      previous.end + 1
-    ) {
-      const end =
-        Math.max(
-          previous.end,
-          range.end,
-        );
+    if (range.start <= previous.end + 1) {
+      const end = Math.max(previous.end, range.end);
 
-      result[
-        result.length - 1
-      ] = {
-        start:
-          previous.start,
+      result[result.length - 1] = {
+        start: previous.start,
         end,
-        length:
-          end -
-          previous.start +
-          1,
+        length: end - previous.start + 1,
       };
 
       continue;
     }
 
-    result.push(
-      range,
-    );
+    result.push(range);
   }
 
   return result;
@@ -503,9 +296,7 @@ export function normalizeRanges(
 export function mergeRanges(
   ranges: readonly ResolvedByteRange[],
 ): readonly ResolvedByteRange[] {
-  return normalizeRanges(
-    ranges,
-  );
+  return normalizeRanges(ranges);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -516,51 +307,22 @@ export function formatRangeHeader(
   ranges: readonly ByteRange[],
   unit = DEFAULT_RANGE_UNIT,
 ): string {
-  if (
-    ranges.length === 0
-  ) {
-    throw new RangeError(
-      "At least one range is required.",
-    );
+  if (ranges.length === 0) {
+    throw new RangeError("At least one range is required.");
   }
 
-  const formatted =
-    ranges.map(
-      (range) =>
-        formatByteRange(
-          range,
-        ),
-    );
+  const formatted = ranges.map((range) => formatByteRange(range));
 
-  return `${unit}=${formatted.join(
-    ", ",
-  )}`;
+  return `${unit}=${formatted.join(", ")}`;
 }
 
-export function formatByteRange(
-  range: ByteRange,
-): string {
-  const start =
-    range.start !== undefined
-      ? String(
-          range.start,
-        )
-      : "";
+export function formatByteRange(range: ByteRange): string {
+  const start = range.start !== undefined ? String(range.start) : "";
 
-  const end =
-    range.end !== undefined
-      ? String(
-          range.end,
-        )
-      : "";
+  const end = range.end !== undefined ? String(range.end) : "";
 
-  if (
-    start.length === 0 &&
-    end.length === 0
-  ) {
-    throw new RangeError(
-      "A byte range must contain a start or end value.",
-    );
+  if (start.length === 0 && end.length === 0) {
+    throw new RangeError("A byte range must contain a start or end value.");
   }
 
   return `${start}-${end}`;
@@ -575,18 +337,10 @@ export function formatContentRange(
   size: number,
   unit = DEFAULT_RANGE_UNIT,
 ): string {
-  validateSize(
-    size,
-  );
+  validateSize(size);
 
-  if (
-    range.start < 0 ||
-    range.end < range.start ||
-    range.end >= size
-  ) {
-    throw new RangeError(
-      "Resolved range is outside the resource bounds.",
-    );
+  if (range.start < 0 || range.end < range.start || range.end >= size) {
+    throw new RangeError("Resolved range is outside the resource bounds.");
   }
 
   return `${unit} ${range.start}-${range.end}/${size}`;
@@ -596,9 +350,7 @@ export function formatUnsatisfiedContentRange(
   size: number,
   unit = DEFAULT_RANGE_UNIT,
 ): string {
-  validateSize(
-    size,
-  );
+  validateSize(size);
 
   return `${unit} */${size}`;
 }
@@ -608,53 +360,31 @@ export function formatUnsatisfiedContentRange(
 /* -------------------------------------------------------------------------- */
 
 export function createRangeResponse(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
   size: number,
 ): {
   readonly status: 200 | 206 | 416;
   readonly ranges: readonly ResolvedByteRange[];
   readonly contentRange?: string;
 } {
-  validateSize(
-    size,
-  );
+  validateSize(size);
 
-  const parsed =
-    parseRangeHeader(
-      header,
-    );
+  const parsed = parseRangeHeader(header);
 
-  if (
-    !parsed ||
-    !isByteRangeUnit(
-      parsed.unit,
-    )
-  ) {
+  if (!parsed || !isByteRangeUnit(parsed.unit)) {
     return {
       status: 200,
       ranges: [],
     };
   }
 
-  const ranges =
-    resolveRanges(
-      parsed.ranges,
-      size,
-    );
+  const ranges = resolveRanges(parsed.ranges, size);
 
-  if (
-    ranges.length === 0
-  ) {
+  if (ranges.length === 0) {
     return {
       status: 416,
       ranges: [],
-      contentRange:
-        formatUnsatisfiedContentRange(
-          size,
-        ),
+      contentRange: formatUnsatisfiedContentRange(size),
     };
   }
 
@@ -662,26 +392,17 @@ export function createRangeResponse(
    * A single satisfiable range is represented by a normal 206 response with
    * a Content-Range header. Multipart range formatting belongs elsewhere.
    */
-  if (
-    ranges.length === 1
-  ) {
+  if (ranges.length === 1) {
     return {
       status: 206,
       ranges,
-      contentRange:
-        formatContentRange(
-          ranges[0],
-          size,
-        ),
+      contentRange: formatContentRange(ranges[0], size),
     };
   }
 
   return {
     status: 206,
-    ranges:
-      normalizeRanges(
-        ranges,
-      ),
+    ranges: normalizeRanges(ranges),
   };
 }
 
@@ -693,25 +414,13 @@ export function isFullResourceRange(
   range: ResolvedByteRange,
   size: number,
 ): boolean {
-  validateSize(
-    size,
-  );
+  validateSize(size);
 
-  return (
-    range.start === 0 &&
-    range.end ===
-      size - 1
-  );
+  return range.start === 0 && range.end === size - 1;
 }
 
-export function getRangeLength(
-  range: ResolvedByteRange,
-): number {
-  return (
-    range.end -
-    range.start +
-    1
-  );
+export function getRangeLength(range: ResolvedByteRange): number {
+  return range.end - range.start + 1;
 }
 
 export function sliceRange<T>(
@@ -720,26 +429,12 @@ export function sliceRange<T>(
 ): T[] {
   const result: T[] = [];
 
-  const end =
-    Math.min(
-      range.end,
-      value.length - 1,
-    );
+  const end = Math.min(range.end, value.length - 1);
 
-  const start =
-    Math.max(
-      0,
-      range.start,
-    );
+  const start = Math.max(0, range.start);
 
-  for (
-    let index = start;
-    index <= end;
-    index += 1
-  ) {
-    result.push(
-      value[index],
-    );
+  for (let index = start; index <= end; index += 1) {
+    result.push(value[index]);
   }
 
   return result;
@@ -753,23 +448,13 @@ export function coalesceRanges(
   ranges: readonly ResolvedByteRange[],
   maxRanges = 16,
 ): readonly ResolvedByteRange[] {
-  if (
-    maxRanges <= 0
-  ) {
-    throw new RangeError(
-      "maxRanges must be greater than zero.",
-    );
+  if (maxRanges <= 0) {
+    throw new RangeError("maxRanges must be greater than zero.");
   }
 
-  const merged =
-    normalizeRanges(
-      ranges,
-    );
+  const merged = normalizeRanges(ranges);
 
-  if (
-    merged.length <=
-    maxRanges
-  ) {
+  if (merged.length <= maxRanges) {
     return merged;
   }
 
@@ -778,47 +463,22 @@ export function coalesceRanges(
    * into a bounded number of larger ranges. This prevents unbounded multipart
    * response overhead.
    */
-  const result: ResolvedByteRange[] =
-    [];
+  const result: ResolvedByteRange[] = [];
 
-  const groupSize =
-    Math.ceil(
-      merged.length /
-        maxRanges,
-    );
+  const groupSize = Math.ceil(merged.length / maxRanges);
 
-  for (
-    let index = 0;
-    index < merged.length;
-    index += groupSize
-  ) {
-    const group =
-      merged.slice(
-        index,
-        index + groupSize,
-      );
+  for (let index = 0; index < merged.length; index += groupSize) {
+    const group = merged.slice(index, index + groupSize);
 
-    const first =
-      group[0];
+    const first = group[0];
 
-    const last =
-      group[
-        group.length - 1
-      ];
+    const last = group[group.length - 1];
 
-    if (
-      first &&
-      last
-    ) {
+    if (first && last) {
       result.push({
-        start:
-          first.start,
-        end:
-          last.end,
-        length:
-          last.end -
-          first.start +
-          1,
+        start: first.start,
+        end: last.end,
+        length: last.end - first.start + 1,
       });
     }
   }
@@ -830,43 +490,22 @@ export function coalesceRanges(
 /* Internal Validation                                                        */
 /* -------------------------------------------------------------------------- */
 
-function parseNonNegativeInteger(
-  value: string,
-): number | undefined {
-  if (
-    !/^\d+$/.test(
-      value,
-    )
-  ) {
+function parseNonNegativeInteger(value: string): number | undefined {
+  if (!/^\d+$/.test(value)) {
     return undefined;
   }
 
-  const number =
-    Number(value);
+  const number = Number(value);
 
-  if (
-    !Number.isSafeInteger(
-      number,
-    ) ||
-    number < 0
-  ) {
+  if (!Number.isSafeInteger(number) || number < 0) {
     return undefined;
   }
 
   return number;
 }
 
-function validateSize(
-  size: number,
-): void {
-  if (
-    !Number.isSafeInteger(
-      size,
-    ) ||
-    size < 0
-  ) {
-    throw new RangeError(
-      "Resource size must be a non-negative safe integer.",
-    );
+function validateSize(size: number): void {
+  if (!Number.isSafeInteger(size) || size < 0) {
+    throw new RangeError("Resource size must be a non-negative safe integer.");
   }
 }

@@ -37,21 +37,15 @@ export const PASSWORD_POLICY = Object.freeze({
  * Values are expressed in milliseconds.
  */
 export const TOKEN_TTL = Object.freeze({
-  EMAIL_VERIFICATION_MS:
-    TimeMs.MINUTE * 15,
+  EMAIL_VERIFICATION_MS: TimeMs.MINUTE * 15,
 
-  PASSWORD_RESET_MS:
-    TimeMs.MINUTE * 15,
+  PASSWORD_RESET_MS: TimeMs.MINUTE * 15,
 
-  LOGIN_VERIFICATION_MS:
-    TimeMs.MINUTE * 10,
+  LOGIN_VERIFICATION_MS: TimeMs.MINUTE * 10,
 
-  CSRF_MS:
-    TimeMs.HOUR,
+  CSRF_MS: TimeMs.HOUR,
 
-  SESSION_MS:
-    24 * TimeMs.HOUR,
+  SESSION_MS: 24 * TimeMs.HOUR,
 
-  REFRESH_TOKEN_MS:
-    30 * 24 * TimeMs.HOUR,
+  REFRESH_TOKEN_MS: 30 * 24 * TimeMs.HOUR,
 } as const);

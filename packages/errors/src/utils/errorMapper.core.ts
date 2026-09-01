@@ -10,7 +10,10 @@ export type {
   ErrorMappingRule,
 } from "./errorMapper.types.js";
 
-export { ErrorMapperRegistry, createErrorMapperRegistry } from "./errorMapper.registry.js";
+export {
+  ErrorMapperRegistry,
+  createErrorMapperRegistry,
+} from "./errorMapper.registry.js";
 
 export {
   mapNativeError,

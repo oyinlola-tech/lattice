@@ -4,4 +4,10 @@
  * @module authProvider
  */
 
-export { createAuthService, type AuthServiceConfig, type LoginResult, type UserLookup, type PasswordVerifier } from "./authProvider.core.js";
+export {
+  createAuthService,
+  type AuthServiceConfig,
+  type LoginResult,
+  type UserLookup,
+  type PasswordVerifier,
+} from "./authProvider.core.js";

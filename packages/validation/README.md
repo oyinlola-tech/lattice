@@ -11,7 +11,7 @@ npm install @latticejs/validation
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/validation";
+import {} from /* add usage here */ "@latticejs/validation";
 ```
 
 ## License

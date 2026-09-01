@@ -2,7 +2,10 @@
  * HTTP client error subclasses.
  */
 
-import { HttpClientError, type HttpClientClientErrorOptions } from "./httpClientError.base.js";
+import {
+  HttpClientError,
+  type HttpClientClientErrorOptions,
+} from "./httpClientError.base.js";
 
 /**
  * HTTP client timeout error.
@@ -41,7 +44,10 @@ export class HttpClientAbortError extends HttpClientError {
         causeOrOptions !== null &&
         !Array.isArray(causeOrOptions) &&
         "code" in (causeOrOptions as Record<string, unknown>)
-          ? { request: requestOrOptions, ...(causeOrOptions as HttpClientClientErrorOptions) }
+          ? {
+              request: requestOrOptions,
+              ...(causeOrOptions as HttpClientClientErrorOptions),
+            }
           : { request: requestOrOptions, cause: causeOrOptions };
     } else {
       opts = requestOrOptions;
@@ -75,7 +81,10 @@ export class HttpClientNetworkError extends HttpClientError {
         causeOrOptions !== null &&
         !Array.isArray(causeOrOptions) &&
         "code" in (causeOrOptions as Record<string, unknown>)
-          ? { request: requestOrOptions, ...(causeOrOptions as HttpClientClientErrorOptions) }
+          ? {
+              request: requestOrOptions,
+              ...(causeOrOptions as HttpClientClientErrorOptions),
+            }
           : { request: requestOrOptions, cause: causeOrOptions };
     } else {
       opts = requestOrOptions;

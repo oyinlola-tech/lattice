@@ -41,9 +41,7 @@ export function createJobContext<TData>(
 /**
  * Checks if a value is a valid JobContext.
  */
-export function isJobContext(
-  value: unknown,
-): value is JobContext {
+export function isJobContext(value: unknown): value is JobContext {
   return (
     typeof value === "object" &&
     value !== null &&

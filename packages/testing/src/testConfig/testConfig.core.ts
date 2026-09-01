@@ -5,9 +5,7 @@
  * for loading configuration in tests.
  */
 
-import {
-  ConfigManager,
-} from "@oyinlola141/lattice-config";
+import { ConfigManager } from "@oyinlola141/lattice-config";
 
 import type {
   ConfigValue,
@@ -83,8 +81,9 @@ export function createTestConfigManager(
     manager.set(key, value);
   };
 
-  const get = <T extends ConfigValue = ConfigValue>(key: string): T | undefined =>
-    manager.get<T>(key);
+  const get = <T extends ConfigValue = ConfigValue>(
+    key: string,
+  ): T | undefined => manager.get<T>(key);
 
   const load = async (): Promise<void> => {
     await manager.load();

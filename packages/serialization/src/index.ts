@@ -69,4 +69,7 @@ export {
 
 // ─── Registry & Factory ───────────────────────────────────────
 export { SerializerRegistry } from "./serializerRegistry/index.js";
-export { createSerializer, createDefaultRegistry } from "./serializerRegistry/index.js";
+export {
+  createSerializer,
+  createDefaultRegistry,
+} from "./serializerRegistry/index.js";

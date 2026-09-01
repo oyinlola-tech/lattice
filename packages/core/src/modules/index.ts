@@ -11,12 +11,11 @@
 /*
  * Module contract
  */
-export {
-  // Export everything publicly exposed by module.ts.
-  //
-  // Using `export *` here keeps the barrel synchronized
-  // with the module contract as it evolves.
-} from "./module.js";
+export {} from // Export everything publicly exposed by module.ts.
+//
+// Using `export *` here keeps the barrel synchronized
+// with the module contract as it evolves.
+"./module.js";
 
 export {
   type ModuleId,

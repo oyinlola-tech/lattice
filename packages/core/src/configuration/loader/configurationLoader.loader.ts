@@ -1,6 +1,4 @@
-import {
-  Configuration,
-} from "../core/configuration.js";
+import { Configuration } from "../core/configuration.js";
 
 import type {
   ConfigurationSource,
@@ -58,15 +56,10 @@ export class ConfigurationLoader {
 
   private readonly sequential: boolean;
 
-  public constructor(
-    options: ConfigurationLoaderOptions = {},
-  ) {
-    this.sources = [
-      ...(options.sources ?? []),
-    ];
+  public constructor(options: ConfigurationLoaderOptions = {}) {
+    this.sources = [...(options.sources ?? [])];
 
-    this.sequential =
-      options.sequential ?? true;
+    this.sequential = options.sequential ?? true;
   }
 
   /**
@@ -77,18 +70,13 @@ export class ConfigurationLoader {
    * and override lower priority values.
    */
   public async load(): Promise<ConfigurationLoadResult> {
-    const sources =
-      this.getSortedSources();
+    const sources = this.getSortedSources();
 
     if (this.sequential) {
-      return this.loadSequentially(
-        sources,
-      );
+      return this.loadSequentially(sources);
     }
 
-    return this.loadConcurrently(
-      sources,
-    );
+    return this.loadConcurrently(sources);
   }
 
   /**
@@ -99,26 +87,16 @@ export class ConfigurationLoader {
   private async loadSequentially(
     sources: readonly ConfigurationSource[],
   ): Promise<ConfigurationLoadResult> {
-    let configuration =
-      new Configuration();
+    let configuration = new Configuration();
 
     let entryCount = 0;
 
     for (const source of sources) {
-      const entries =
-        await this.loadSource(
-          source,
-        );
+      const entries = await this.loadSource(source);
 
-      configuration =
-        this.applyEntries(
-          configuration,
-          entries,
-          source,
-        );
+      configuration = this.applyEntries(configuration, entries, source);
 
-      entryCount +=
-        entries.length;
+      entryCount += entries.length;
     }
 
     return {
@@ -138,34 +116,25 @@ export class ConfigurationLoader {
   private async loadConcurrently(
     sources: readonly ConfigurationSource[],
   ): Promise<ConfigurationLoadResult> {
-    const loaded =
-      await Promise.all(
-        sources.map(
-          async (source) => ({
-            source,
-            entries:
-              await this.loadSource(
-                source,
-              ),
-          }),
-        ),
-      );
+    const loaded = await Promise.all(
+      sources.map(async (source) => ({
+        source,
+        entries: await this.loadSource(source),
+      })),
+    );
 
-    let configuration =
-      new Configuration();
+    let configuration = new Configuration();
 
     let entryCount = 0;
 
     for (const result of loaded) {
-      configuration =
-        this.applyEntries(
-          configuration,
-          result.entries,
-          result.source,
-        );
+      configuration = this.applyEntries(
+        configuration,
+        result.entries,
+        result.source,
+      );
 
-      entryCount +=
-        result.entries.length;
+      entryCount += result.entries.length;
     }
 
     return {
@@ -180,19 +149,13 @@ export class ConfigurationLoader {
    */
   private async loadSource(
     source: ConfigurationSource,
-  ): Promise<
-    readonly ConfigurationSourceEntry[]
-  > {
+  ): Promise<readonly ConfigurationSourceEntry[]> {
     try {
-      const entries =
-        await source.load();
+      const entries = await source.load();
 
       return entries;
     } catch (error) {
-      throw new ConfigurationLoadError(
-        source,
-        error,
-      );
+      throw new ConfigurationLoadError(source, error);
     }
   }
 
@@ -204,28 +167,19 @@ export class ConfigurationLoader {
     entries: readonly ConfigurationSourceEntry[],
     source: ConfigurationSource,
   ): Configuration {
-    let result =
-      configuration;
+    let result = configuration;
 
     for (const entry of entries) {
-      const path =
-        entry.path.trim();
+      const path = entry.path.trim();
 
       if (!path) {
         throw new ConfigurationLoadError(
           source,
-          new Error(
-            "Configuration entry path cannot be empty.",
-          ),
+          new Error("Configuration entry path cannot be empty."),
         );
       }
 
-      result =
-        result.with(
-          path,
-          entry.value,
-          source.type,
-        );
+      result = result.with(path, entry.value, source.type);
     }
 
     return result;
@@ -238,54 +192,34 @@ export class ConfigurationLoader {
    * Higher priority sources override them.
    */
   private getSortedSources(): ConfigurationSource[] {
-    return [
-      ...this.sources,
-    ].sort(
-      (a, b) =>
-        a.priority - b.priority,
-    );
+    return [...this.sources].sort((a, b) => a.priority - b.priority);
   }
 
   /**
    * Adds a configuration source.
    */
-  public addSource(
-    source: ConfigurationSource,
-  ): void {
-    this.sources.push(
-      source,
-    );
+  public addSource(source: ConfigurationSource): void {
+    this.sources.push(source);
   }
 
   /**
    * Returns all registered sources.
    */
   public getSources(): readonly ConfigurationSource[] {
-    return [
-      ...this.sources,
-    ];
+    return [...this.sources];
   }
 
   /**
    * Removes a source by name.
    */
-  public removeSource(
-    name: string,
-  ): boolean {
-    const index =
-      this.sources.findIndex(
-        (source) =>
-          source.name === name,
-      );
+  public removeSource(name: string): boolean {
+    const index = this.sources.findIndex((source) => source.name === name);
 
     if (index === -1) {
       return false;
     }
 
-    this.sources.splice(
-      index,
-      1,
-    );
+    this.sources.splice(index, 1);
 
     return true;
   }
@@ -301,31 +235,17 @@ export class ConfigurationLoader {
 /**
  * Error thrown when a configuration source cannot be loaded.
  */
-export class ConfigurationLoadError
-  extends Error
-{
+export class ConfigurationLoadError extends Error {
   public readonly source: ConfigurationSource;
 
+  public constructor(source: ConfigurationSource, cause: unknown) {
+    const message = cause instanceof Error ? cause.message : String(cause);
 
-  public constructor(
-    source: ConfigurationSource,
-    cause: unknown,
-  ) {
-    const message =
-      cause instanceof Error
-        ? cause.message
-        : String(cause);
+    super(`Failed to load configuration source "${source.name}": ${message}`);
 
-    super(
-      `Failed to load configuration source "${source.name}": ${message}`,
-    );
+    this.source = source;
 
-
-    this.source =
-      source;
-
-    this.cause =
-      cause;
+    this.cause = cause;
   }
 }
 
@@ -335,7 +255,5 @@ export class ConfigurationLoadError
 export function createConfigurationLoader(
   options: ConfigurationLoaderOptions = {},
 ): ConfigurationLoader {
-  return new ConfigurationLoader(
-    options,
-  );
+  return new ConfigurationLoader(options);
 }

@@ -2,13 +2,9 @@ import type { ConfigValue } from "../configValue/configValue.core.js";
 import type { ConfigSchema } from "../configSchema/configSchema.type.js";
 import type { ConfigSource } from "../configSource/configSource.core.js";
 import type { ConfigStore } from "../configStore/configStore.core.js";
-import type {
-  ConfigManagerOptions,
-} from "../configManager/configManager.type.js";
+import type { ConfigManagerOptions } from "../configManager/configManager.type.js";
 
-import type {
-  ConfigManager,
-} from "../configManager/configManager.core.js";
+import type { ConfigManager } from "../configManager/configManager.core.js";
 
 import {
   createConfigManager,
@@ -18,8 +14,7 @@ import {
 /**
  * Factory options for creating a configuration manager.
  */
-export interface ConfigFactoryOptions
-  extends ConfigManagerOptions {
+export interface ConfigFactoryOptions extends ConfigManagerOptions {
   readonly name?: string;
 }
 
@@ -29,9 +24,7 @@ export interface ConfigFactoryOptions
 export function createConfiguration(
   options: ConfigFactoryOptions = {},
 ): ConfigManager {
-  return createConfigManager(
-    options,
-  );
+  return createConfigManager(options);
 }
 
 /**
@@ -40,22 +33,15 @@ export function createConfiguration(
 export async function createInitializedConfiguration(
   options: ConfigFactoryOptions = {},
 ): Promise<ConfigManager> {
-  return initializeConfigManager(
-    options,
-  );
+  return initializeConfigManager(options);
 }
 
 /**
  * Creates a configuration manager from initial values.
  */
 export function createConfigurationFromValues(
-  values: Readonly<
-    Record<string, ConfigValue>
-  >,
-  options: Omit<
-    ConfigFactoryOptions,
-    "initialValues"
-  > = {},
+  values: Readonly<Record<string, ConfigValue>>,
+  options: Omit<ConfigFactoryOptions, "initialValues"> = {},
 ): ConfigManager {
   return createConfigManager({
     ...options,
@@ -68,10 +54,7 @@ export function createConfigurationFromValues(
  */
 export function createConfigurationFromSources(
   sources: readonly ConfigSource[],
-  options: Omit<
-    ConfigFactoryOptions,
-    "sources"
-  > = {},
+  options: Omit<ConfigFactoryOptions, "sources"> = {},
 ): ConfigManager {
   return createConfigManager({
     ...options,
@@ -84,10 +67,7 @@ export function createConfigurationFromSources(
  */
 export function createConfigurationFromStore(
   store: ConfigStore,
-  options: Omit<
-    ConfigFactoryOptions,
-    "store"
-  > = {},
+  options: Omit<ConfigFactoryOptions, "store"> = {},
 ): ConfigManager {
   return createConfigManager({
     ...options,
@@ -102,28 +82,18 @@ export async function createValidatedConfiguration<
   T extends ConfigValue = ConfigValue,
 >(
   schema: {
-    readonly properties:
-      Readonly<
-        Record<string, ConfigSchema>
-      >;
-    readonly additionalProperties?:
-      boolean | ConfigSchema;
+    readonly properties: Readonly<Record<string, ConfigSchema>>;
+    readonly additionalProperties?: boolean | ConfigSchema;
   },
   options: ConfigFactoryOptions = {},
 ): Promise<{
   readonly manager: ConfigManager;
   readonly config: T;
 }> {
-  const manager =
-    await createInitializedConfiguration(
-      options,
-    );
+  const manager = await createInitializedConfiguration(options);
 
   try {
-    const config =
-      manager.validate<T>(
-        schema,
-      );
+    const config = manager.validate<T>(schema);
 
     return {
       manager,
@@ -140,21 +110,15 @@ export async function createValidatedConfiguration<
  * Factory object for dependency injection and application bootstrap.
  */
 export const configFactory = Object.freeze({
-  create:
-    createConfiguration,
+  create: createConfiguration,
 
-  initialize:
-    createInitializedConfiguration,
+  initialize: createInitializedConfiguration,
 
-  fromValues:
-    createConfigurationFromValues,
+  fromValues: createConfigurationFromValues,
 
-  fromSources:
-    createConfigurationFromSources,
+  fromSources: createConfigurationFromSources,
 
-  fromStore:
-    createConfigurationFromStore,
+  fromStore: createConfigurationFromStore,
 
-  validated:
-    createValidatedConfiguration,
+  validated: createValidatedConfiguration,
 });

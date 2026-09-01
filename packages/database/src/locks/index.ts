@@ -5,6 +5,13 @@
  */
 
 export {
-  DatabaseLockManager, createLockManager, acquireAdvisoryLock, lockRow, buildLockClause, normalizeAdvisoryKey,
-  type DatabaseLockMode, type DatabaseLockOptions, type DatabaseLockResult,
+  DatabaseLockManager,
+  createLockManager,
+  acquireAdvisoryLock,
+  lockRow,
+  buildLockClause,
+  normalizeAdvisoryKey,
+  type DatabaseLockMode,
+  type DatabaseLockOptions,
+  type DatabaseLockResult,
 } from "./locks.core.js";

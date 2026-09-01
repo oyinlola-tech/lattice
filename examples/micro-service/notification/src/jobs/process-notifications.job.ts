@@ -16,7 +16,10 @@ export interface ProcessNotificationJobData {
 }
 
 export function createProcessNotificationProcessor(commandBus: CommandBus) {
-  return async (job: Job<ProcessNotificationJobData>, _context: JobContext<ProcessNotificationJobData>) => {
+  return async (
+    job: Job<ProcessNotificationJobData>,
+    _context: JobContext<ProcessNotificationJobData>,
+  ) => {
     const { eventType, userId, metadata } = job.data;
 
     const notificationType = mapEventTypeToNotificationType(eventType);

@@ -43,8 +43,7 @@ export interface OnDestroy {
  *
  * Components can implement only the hooks they actually need.
  */
-export type LifecycleHook =
-  Partial<OnInitialize> &
+export type LifecycleHook = Partial<OnInitialize> &
   Partial<OnStart> &
   Partial<OnStop> &
   Partial<OnDestroy>;
@@ -52,9 +51,7 @@ export type LifecycleHook =
 /**
  * Type guard for initialization hooks.
  */
-export function hasInitializeHook(
-  value: unknown,
-): value is OnInitialize {
+export function hasInitializeHook(value: unknown): value is OnInitialize {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -66,9 +63,7 @@ export function hasInitializeHook(
 /**
  * Type guard for start hooks.
  */
-export function hasStartHook(
-  value: unknown,
-): value is OnStart {
+export function hasStartHook(value: unknown): value is OnStart {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -80,9 +75,7 @@ export function hasStartHook(
 /**
  * Type guard for stop hooks.
  */
-export function hasStopHook(
-  value: unknown,
-): value is OnStop {
+export function hasStopHook(value: unknown): value is OnStop {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -94,9 +87,7 @@ export function hasStopHook(
 /**
  * Type guard for destroy hooks.
  */
-export function hasDestroyHook(
-  value: unknown,
-): value is OnDestroy {
+export function hasDestroyHook(value: unknown): value is OnDestroy {
   return (
     typeof value === "object" &&
     value !== null &&

@@ -6,10 +6,7 @@
 
 import type { HttpClientQuery } from "./httpClient.type.js";
 
-import {
-  isAbsoluteUrl,
-  getDefaultBaseUrl,
-} from "./httpClient.helpers.js";
+import { isAbsoluteUrl, getDefaultBaseUrl } from "./httpClient.helpers.js";
 
 export function buildClientUrl(
   input: string | URL,

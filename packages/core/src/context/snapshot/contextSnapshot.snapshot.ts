@@ -50,17 +50,13 @@ export function createContextSnapshot(
  * The returned objects are references to the immutable
  * snapshot state, so no mutable state is shared accidentally.
  */
-export function restoreContextSnapshot(
-  snapshot: ContextSnapshot,
-): {
+export function restoreContextSnapshot(snapshot: ContextSnapshot): {
   readonly context: ExecutionContext;
   readonly values: ContextValues;
 } {
   return {
     context: snapshot.context,
-    values: new ContextValues(
-      snapshot.values.toStore(),
-    ),
+    values: new ContextValues(snapshot.values.toStore()),
   };
 }
 
@@ -76,9 +72,6 @@ export function deriveContextSnapshot(
 ): ContextSnapshot {
   return createContextSnapshot(
     context,
-    values ??
-      new ContextValues(
-        snapshot.values.toStore(),
-      ),
+    values ?? new ContextValues(snapshot.values.toStore()),
   );
 }

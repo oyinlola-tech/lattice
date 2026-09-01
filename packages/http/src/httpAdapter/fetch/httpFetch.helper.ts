@@ -4,9 +4,7 @@
  * @module httpAdapter/fetch/helpers
  */
 
-import type {
-  FetchRequestInput,
-} from "./httpFetch.type.js";
+import type { FetchRequestInput } from "./httpFetch.type.js";
 
 /**
  * Type guard for Request objects.
@@ -37,7 +35,9 @@ export function isResponse(value: unknown): value is Response {
 /**
  * Type guard for FetchRequestInput objects.
  */
-export function isFetchRequestInput(value: unknown): value is FetchRequestInput {
+export function isFetchRequestInput(
+  value: unknown,
+): value is FetchRequestInput {
   return (
     typeof value === "object" &&
     value !== null &&

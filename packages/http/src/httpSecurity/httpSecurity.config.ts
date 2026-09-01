@@ -41,20 +41,21 @@ export interface HTTPSecurityConfig {
 }
 
 /** Default security configuration. */
-export const DEFAULT_SECURITY_CONFIG: Required<HTTPSecurityConfig> = Object.freeze({
-  maxBodySize: 1_048_576, // 1MB
-  maxHeaders: 100,
-  maxHeaderValueSize: 8_192, // 8KB
-  maxUrlLength: 2048,
-  maxQueryLength: 4096,
-  allowedHosts: [],
-  trustProxy: false,
-  trustedProxyCount: 0,
-  requestTimeout: 30_000, // 30s
-  headersTimeout: 10_000, // 10s
-  keepAliveTimeout: 5_000, // 5s
-  maxRequestIdLength: 128,
-  requestIdPattern: /^[a-zA-Z0-9_-]+$/,
-  enableCrlfProtection: true,
-  enableSmugglingProtection: true,
-});
+export const DEFAULT_SECURITY_CONFIG: Required<HTTPSecurityConfig> =
+  Object.freeze({
+    maxBodySize: 1_048_576, // 1MB
+    maxHeaders: 100,
+    maxHeaderValueSize: 8_192, // 8KB
+    maxUrlLength: 2048,
+    maxQueryLength: 4096,
+    allowedHosts: [],
+    trustProxy: false,
+    trustedProxyCount: 0,
+    requestTimeout: 30_000, // 30s
+    headersTimeout: 10_000, // 10s
+    keepAliveTimeout: 5_000, // 5s
+    maxRequestIdLength: 128,
+    requestIdPattern: /^[a-zA-Z0-9_-]+$/,
+    enableCrlfProtection: true,
+    enableSmugglingProtection: true,
+  });

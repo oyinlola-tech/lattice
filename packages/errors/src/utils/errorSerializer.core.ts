@@ -4,11 +4,24 @@
 
 import { BaseError } from "../base/core/baseError.core.js";
 import type { ErrorMetadata } from "../base/core/errorMetadata.type.js";
-import type { ErrorSerializerOptions, PublicErrorResponse, InternalErrorResponse } from "./errorSerializer.types.js";
+import type {
+  ErrorSerializerOptions,
+  PublicErrorResponse,
+  InternalErrorResponse,
+} from "./errorSerializer.types.js";
 import { normalizeUnknownError } from "./errorSerializer.factory.js";
 
-export type { ErrorSerializerOptions, PublicErrorResponse, InternalErrorResponse } from "./errorSerializer.types.js";
-export { createErrorSerializer, serializeError, serializePublicError, normalizeUnknownError } from "./errorSerializer.factory.js";
+export type {
+  ErrorSerializerOptions,
+  PublicErrorResponse,
+  InternalErrorResponse,
+} from "./errorSerializer.types.js";
+export {
+  createErrorSerializer,
+  serializeError,
+  serializePublicError,
+  normalizeUnknownError,
+} from "./errorSerializer.factory.js";
 
 /** Converts errors into safe, predictable serialized structures. */
 export class ErrorSerializer {
@@ -38,7 +51,9 @@ export class ErrorSerializer {
     if (this.redactSensitiveData && result.metadata) {
       return {
         ...result,
-        metadata: this.redactMetadata(result.metadata) as Readonly<ErrorMetadata>,
+        metadata: this.redactMetadata(
+          result.metadata,
+        ) as Readonly<ErrorMetadata>,
       };
     }
     return result;
@@ -46,7 +61,9 @@ export class ErrorSerializer {
 
   /** Serializes an error for an untrusted API client. */
   public serializePublic(error: BaseError): PublicErrorResponse {
-    const metadata = this.includeMetadata ? this.redactMetadata(error.metadata) : undefined;
+    const metadata = this.includeMetadata
+      ? this.redactMetadata(error.metadata)
+      : undefined;
     return {
       code: error.code,
       message: error.expose ? error.message : this.safeMessage,
@@ -67,10 +84,22 @@ export class ErrorSerializer {
   }
 
   /** Removes commonly sensitive metadata fields. */
-  private redactMetadata(metadata: Readonly<Record<string, unknown>>): Record<string, unknown> {
+  private redactMetadata(
+    metadata: Readonly<Record<string, unknown>>,
+  ): Record<string, unknown> {
     const sensitiveKeys = new Set([
-      "password", "passcode", "token", "accessToken", "refreshToken",
-      "authorization", "cookie", "secret", "privateKey", "apiKey", "credential", "clientSecret",
+      "password",
+      "passcode",
+      "token",
+      "accessToken",
+      "refreshToken",
+      "authorization",
+      "cookie",
+      "secret",
+      "privateKey",
+      "apiKey",
+      "credential",
+      "clientSecret",
     ]);
     const result: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(metadata)) {

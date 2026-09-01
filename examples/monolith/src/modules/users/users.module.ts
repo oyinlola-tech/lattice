@@ -19,11 +19,23 @@ export class UsersModule {
   public initialize(): void {
     const createHandler = new CreateUserHandler(this.users);
     const getHandler = new GetUserHandler(this.users);
-    this.commandBus.register("users.create", createHandler.execute.bind(createHandler));
-    this.queryBus.register("users.getById", getHandler.execute.bind(getHandler));
+    this.commandBus.register(
+      "users.create",
+      createHandler.execute.bind(createHandler),
+    );
+    this.queryBus.register(
+      "users.getById",
+      getHandler.execute.bind(getHandler),
+    );
   }
 
-  public getCommandBus(): CommandBus { return this.commandBus; }
-  public getQueryBus(): QueryBus { return this.queryBus; }
-  public getUserRepository(): UserRepository { return this.users; }
+  public getCommandBus(): CommandBus {
+    return this.commandBus;
+  }
+  public getQueryBus(): QueryBus {
+    return this.queryBus;
+  }
+  public getUserRepository(): UserRepository {
+    return this.users;
+  }
 }

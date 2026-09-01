@@ -2,13 +2,9 @@
  * @oyinlola141/lattice-http/httpStream — Shared settle-once guard, cleanup, and abort patterns.
  */
 
-import {
-  destroyStream,
-} from "./httpStream.destroy.js";
+import { destroyStream } from "./httpStream.destroy.js";
 
-import {
-  normalizeStreamError,
-} from "./httpStream.error.js";
+import { normalizeStreamError } from "./httpStream.error.js";
 
 export interface StreamSettleGuard {
   readonly settled: () => boolean;
@@ -20,15 +16,17 @@ export function createSettleGuard(): StreamSettleGuard {
 
   return {
     settled: () => settled,
-    mark: () => { settled = true; },
+    mark: () => {
+      settled = true;
+    },
   };
 }
 
 export function cleanupListeners(
-  target:
-    | NodeJS.ReadableStream
-    | NodeJS.WritableStream,
-  listeners: ReadonlyArray<readonly [string, (...args: readonly unknown[]) => void]>,
+  target: NodeJS.ReadableStream | NodeJS.WritableStream,
+  listeners: ReadonlyArray<
+    readonly [string, (...args: readonly unknown[]) => void]
+  >,
 ): void {
   for (const [event, handler] of listeners) {
     target.removeListener(event, handler);

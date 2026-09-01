@@ -4,9 +4,7 @@
  * Wraps the real InMemoryQueue with recording and assertion support.
  */
 
-import {
-  createInMemoryQueue,
-} from "@oyinlola141/lattice-queue";
+import { createInMemoryQueue } from "@oyinlola141/lattice-queue";
 
 import type {
   Job,
@@ -40,11 +38,7 @@ export interface TestQueue<TData = unknown> {
   /**
    * Add a job and record it.
    */
-  add: (
-    name: string,
-    data: TData,
-    options?: JobOptions,
-  ) => Promise<Job<TData>>;
+  add: (name: string, data: TData, options?: JobOptions) => Promise<Job<TData>>;
 
   /**
    * Find jobs by name.
@@ -67,9 +61,7 @@ export interface TestQueue<TData = unknown> {
   close: () => Promise<void>;
 }
 
-import {
-  InMemoryQueue,
-} from "@oyinlola141/lattice-queue";
+import { InMemoryQueue } from "@oyinlola141/lattice-queue";
 
 /**
  * Creates a test queue with recording.

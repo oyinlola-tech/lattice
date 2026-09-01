@@ -4,4 +4,4 @@
  * HTTP httpSecurityHeaders module.
  */
 
-export * from './httpSecurity.headers.js';
+export * from "./httpSecurity.headers.js";

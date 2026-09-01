@@ -2,13 +2,9 @@
  * Logger entry serialization helpers.
  */
 
-import type {
-  LoggerEntry,
-} from "./loggerEntryHelpers.interfaces.js";
+import type { LoggerEntry } from "./loggerEntryHelpers.interfaces.js";
 
-import {
-  serializeLoggerError,
-} from "./loggerEntryHelpers.valueSerialize.js";
+import { serializeLoggerError } from "./loggerEntryHelpers.valueSerialize.js";
 
 /**
  * Returns a plain serializable representation of an entry.
@@ -16,56 +12,36 @@ import {
  * This intentionally does not call JSON.stringify itself.
  */
 export function serializeLoggerEntry(
-  entry:
-    LoggerEntry,
-):
-  Record<string, unknown> {
+  entry: LoggerEntry,
+): Record<string, unknown> {
   return {
-    id:
-      entry.id,
+    id: entry.id,
 
-    level:
-      entry.level,
+    level: entry.level,
 
-    levelName:
-      entry.levelName,
+    levelName: entry.levelName,
 
-    message:
-      entry.message,
+    message: entry.message,
 
-    metadata:
-      entry.metadata,
+    metadata: entry.metadata,
 
-    context:
-      entry.context,
+    context: entry.context,
 
-    source:
-      entry.source,
+    source: entry.source,
 
-    error:
-      entry.error
-        ? serializeLoggerError(
-            entry.error,
-          )
-        : undefined,
+    error: entry.error ? serializeLoggerError(entry.error) : undefined,
 
-    logger:
-      entry.logger,
+    logger: entry.logger,
 
-    timestamp:
-      entry.timestamp.toISOString(),
+    timestamp: entry.timestamp.toISOString(),
 
-    timestampMs:
-      entry.timestampMs,
+    timestampMs: entry.timestampMs,
 
-    pid:
-      entry.pid,
+    pid: entry.pid,
 
-    hostname:
-      entry.hostname,
+    hostname: entry.hostname,
 
-    environment:
-      entry.environment,
+    environment: entry.environment,
   };
 }
 
@@ -79,13 +55,9 @@ export {
  * a circular dependency into logger-entry.ts.
  */
 export function loggerLevelNameFallback(
-  level:
-    import("../../loggerLevel/loggerLevel.type.js").LoggerLevel,
-):
-  import("../../loggerLevel/loggerLevel.type.js").LoggerLevelName {
-  switch (
-    level
-  ) {
+  level: import("../../loggerLevel/loggerLevel.type.js").LoggerLevel,
+): import("../../loggerLevel/loggerLevel.type.js").LoggerLevelName {
+  switch (level) {
     case 0:
       return "fatal";
 
@@ -105,8 +77,6 @@ export function loggerLevelNameFallback(
       return "trace";
 
     default:
-      throw new RangeError(
-        `Unknown logger level: ${String(level)}`,
-      );
+      throw new RangeError(`Unknown logger level: ${String(level)}`);
   }
 }

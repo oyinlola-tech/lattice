@@ -2,36 +2,29 @@
  * Logger entry dispatch to transports.
  */
 
-import type {
-  LoggerEntry,
-} from "../../../loggerEntry/loggerEntry.type.js";
+import type { LoggerEntry } from "../../../loggerEntry/loggerEntry.type.js";
 
-import {
-  formatLoggerEntry,
-} from "../../../loggerFormatter/loggerFormatter.core.js";
+import { formatLoggerEntry } from "../../../loggerFormatter/loggerFormatter.core.js";
 
 import {
   createLoggerTransport,
   writeLoggerTransport,
 } from "../../../loggerTransport/loggerTransport.core.js";
 
-import {
-  isLoggerTransport,
-} from "../../../loggerTransport/loggerTransportGuard.js";
+import { isLoggerTransport } from "../../../loggerTransport/loggerTransportGuard.js";
 
-import { LoggerFormatterError, LoggerTransportError } from "../../../loggerErrors/loggerError.base.js";
+import {
+  LoggerFormatterError,
+  LoggerTransportError,
+} from "../../../loggerErrors/loggerError.base.js";
 import { toLoggerError } from "../../../loggerErrors/loggerError.helpers.js";
 
-import type {
-  LoggerConfiguration,
-} from "../../../loggerOptions/loggerOptions.type.js";
+import type { LoggerConfiguration } from "../../../loggerOptions/loggerOptions.type.js";
 
 /**
  * Default formatter used when no formatter is configured.
  */
-import {
-  createTextLoggerFormatter,
-} from "../../../loggerFormatter/loggerFormatterFormatters/loggerFormatterFormatters.text.js";
+import { createTextLoggerFormatter } from "../../../loggerFormatter/loggerFormatterFormatters/loggerFormatterFormatters.text.js";
 
 function defaultFormat(
   configuration: LoggerConfiguration,
@@ -61,7 +54,11 @@ async function writeTransport(
 
   if (typeof formatted === "string") {
     const formattedEntry = { ...entry, message: formatted };
-    await writeLoggerTransport(transport.transport, formattedEntry, transportContext);
+    await writeLoggerTransport(
+      transport.transport,
+      formattedEntry,
+      transportContext,
+    );
     return;
   }
 

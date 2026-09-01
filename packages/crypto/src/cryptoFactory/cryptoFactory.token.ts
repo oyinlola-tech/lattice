@@ -1,6 +1,4 @@
-import type {
-  TokenEncoding,
-} from "../cryptoToken/cryptoToken.core.js";
+import type { TokenEncoding } from "../cryptoToken/cryptoToken.core.js";
 
 import {
   generateToken,
@@ -49,8 +47,6 @@ export async function factoryCreateCsrfToken(): Promise<string> {
   return generateCsrfToken();
 }
 
-export async function factoryCreateOtp(
-  digits = 6,
-): Promise<string> {
+export async function factoryCreateOtp(digits = 6): Promise<string> {
   return generateOtp(digits);
 }

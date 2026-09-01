@@ -5,4 +5,7 @@
  */
 
 export type { DependencyResolution } from "./dependencyResolver.core.js";
-export { DependencyResolver, assertResolutionValid } from "./dependencyResolver.core.js";
+export {
+  DependencyResolver,
+  assertResolutionValid,
+} from "./dependencyResolver.core.js";

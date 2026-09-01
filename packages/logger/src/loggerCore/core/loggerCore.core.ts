@@ -2,22 +2,16 @@
  * Core logger implementation.
  */
 
-import {
-  LoggerLevel,
-} from "../../loggerLevel/loggerLevel.type.js";
+import { LoggerLevel } from "../../loggerLevel/loggerLevel.type.js";
 
-import type {
-  LogMetadata,
-} from "../../loggerEntry/loggerEntry.type.js";
+import type { LogMetadata } from "../../loggerEntry/loggerEntry.type.js";
 
 import type {
   LoggerContext,
   LoggerContextStorage,
 } from "../../loggerContext/loggerContext.core.js";
 
-import {
-  createLoggerContextStorage,
-} from "../../loggerContext/loggerContextStorage.js";
+import { createLoggerContextStorage } from "../../loggerContext/loggerContextStorage.js";
 
 import type {
   ChildLoggerOptions,
@@ -26,13 +20,9 @@ import type {
   LogOptions,
 } from "../../loggerOptions/loggerOptions.type.js";
 
-import {
-  resolveLoggerOptions,
-} from "../../loggerOptions/loggerOptions.type.js";
+import { resolveLoggerOptions } from "../../loggerOptions/loggerOptions.type.js";
 
-import type {
-  Logger,
-} from "./loggerCore.type.js";
+import type { Logger } from "./loggerCore.type.js";
 
 import {
   normalizeConfiguration,
@@ -81,43 +71,95 @@ export class LatticeLogger implements Logger, LatticeLoggerContext {
   private readonly _contextStorage: LoggerContextStorage;
   private _disposed = false;
 
-  constructor(options: LoggerOptions = {}, contextStorage?: LoggerContextStorage) {
+  constructor(
+    options: LoggerOptions = {},
+    contextStorage?: LoggerContextStorage,
+  ) {
     this._configuration = resolveLoggerOptions(options);
     this._contextStorage = contextStorage ?? createLoggerContextStorage();
     this._configuration = normalizeConfiguration(this._configuration);
   }
 
-  get configuration(): LoggerConfiguration { return this._configuration; }
-  get contextStorage(): LoggerContextStorage { return this._contextStorage; }
-  get name(): string { return getLoggerName(this); }
-  get level(): LoggerLevel { return getLoggerLevel(this); }
-  get enabled(): boolean { return getLoggerEnabled(this); }
+  get configuration(): LoggerConfiguration {
+    return this._configuration;
+  }
+  get contextStorage(): LoggerContextStorage {
+    return this._contextStorage;
+  }
+  get name(): string {
+    return getLoggerName(this);
+  }
+  get level(): LoggerLevel {
+    return getLoggerLevel(this);
+  }
+  get enabled(): boolean {
+    return getLoggerEnabled(this);
+  }
 
-  fatal(message: string, metadata?: LogMetadata): void { logAtLevel(this, LoggerLevel.FATAL, message, { metadata }); }
-  error(message: string, metadata?: LogMetadata): void { logAtLevel(this, LoggerLevel.ERROR, message, { metadata }); }
-  warn(message: string, metadata?: LogMetadata): void { logAtLevel(this, LoggerLevel.WARN, message, { metadata }); }
-  info(message: string, metadata?: LogMetadata): void { logAtLevel(this, LoggerLevel.INFO, message, { metadata }); }
-  debug(message: string, metadata?: LogMetadata): void { logAtLevel(this, LoggerLevel.DEBUG, message, { metadata }); }
-  trace(message: string, metadata?: LogMetadata): void { logAtLevel(this, LoggerLevel.TRACE, message, { metadata }); }
+  fatal(message: string, metadata?: LogMetadata): void {
+    logAtLevel(this, LoggerLevel.FATAL, message, { metadata });
+  }
+  error(message: string, metadata?: LogMetadata): void {
+    logAtLevel(this, LoggerLevel.ERROR, message, { metadata });
+  }
+  warn(message: string, metadata?: LogMetadata): void {
+    logAtLevel(this, LoggerLevel.WARN, message, { metadata });
+  }
+  info(message: string, metadata?: LogMetadata): void {
+    logAtLevel(this, LoggerLevel.INFO, message, { metadata });
+  }
+  debug(message: string, metadata?: LogMetadata): void {
+    logAtLevel(this, LoggerLevel.DEBUG, message, { metadata });
+  }
+  trace(message: string, metadata?: LogMetadata): void {
+    logAtLevel(this, LoggerLevel.TRACE, message, { metadata });
+  }
 
   log(level: LoggerLevel, message: string, options: LogOptions = {}): void {
     logAtLevel(this, level, message, options);
   }
 
-  child(options: ChildLoggerOptions = {}): Logger { return childLogger(this, options); }
-  withContext(context: LoggerContext): Logger { return withContextLogger(this, context); }
+  child(options: ChildLoggerOptions = {}): Logger {
+    return childLogger(this, options);
+  }
+  withContext(context: LoggerContext): Logger {
+    return withContextLogger(this, context);
+  }
 
-  setLevel(level: LoggerLevel): void { setLoggerLevel(this, level); }
-  enable(): void { enableLogger(this); }
-  disable(): void { disableLogger(this); }
-  flush(): Promise<void> { return flushLogger(this); }
-  close(): Promise<void> { return closeLogger(this); }
+  setLevel(level: LoggerLevel): void {
+    setLoggerLevel(this, level);
+  }
+  enable(): void {
+    enableLogger(this);
+  }
+  disable(): void {
+    disableLogger(this);
+  }
+  flush(): Promise<void> {
+    return flushLogger(this);
+  }
+  close(): Promise<void> {
+    return closeLogger(this);
+  }
 
-  assertActive(): void { assertActiveHelper(this._disposed, this._configuration.name); }
-  assertMutable(): void { assertMutableHelper(this._configuration.mutable); }
-  handleInfrastructureError(error: Error): void { handleInfrastructureErrorHelper(this._configuration.throwTransportErrors, error); }
-  isDisposed(): boolean { return this._disposed; }
-  markDisposed(): void { this._disposed = true; }
+  assertActive(): void {
+    assertActiveHelper(this._disposed, this._configuration.name);
+  }
+  assertMutable(): void {
+    assertMutableHelper(this._configuration.mutable);
+  }
+  handleInfrastructureError(error: Error): void {
+    handleInfrastructureErrorHelper(
+      this._configuration.throwTransportErrors,
+      error,
+    );
+  }
+  isDisposed(): boolean {
+    return this._disposed;
+  }
+  markDisposed(): void {
+    this._disposed = true;
+  }
 
   updateConfiguration(config: LoggerConfiguration): void {
     this._configuration = Object.freeze(config);

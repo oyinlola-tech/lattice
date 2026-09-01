@@ -27,18 +27,16 @@ export function toBaseError(
     });
   }
 
-  return new BaseError(
-    options.message ?? "An unknown error occurred.",
-    { ...options, cause: options.cause ?? error },
-  );
+  return new BaseError(options.message ?? "An unknown error occurred.", {
+    ...options,
+    cause: options.cause ?? error,
+  });
 }
 
 /**
  * Extracts an error code from an unknown error.
  */
-export function getErrorCode(
-  error: unknown,
-): ErrorCode | string {
+export function getErrorCode(error: unknown): ErrorCode | string {
   if (error instanceof BaseError) return error.code;
   return ErrorCode.UNKNOWN;
 }

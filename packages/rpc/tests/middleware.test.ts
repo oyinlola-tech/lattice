@@ -11,7 +11,10 @@ import { createRPCRequest } from "../src/rpc/types/rpcRequest.type.js";
 describe("RPCMiddlewareStack", () => {
   it("executes the handler when no middleware is registered", async () => {
     const stack = new RPCMiddlewareStack();
-    const context = createRPCContext(createRPCRequest({ id: "1", procedure: "test", payload: {} }), new AbortController().signal);
+    const context = createRPCContext(
+      createRPCRequest({ id: "1", procedure: "test", payload: {} }),
+      new AbortController().signal,
+    );
 
     const result = await stack.execute(context, async () => "ok");
 
@@ -36,7 +39,10 @@ describe("RPCMiddlewareStack", () => {
     };
 
     const stack = new RPCMiddlewareStack([middlewareA, middlewareB]);
-    const context = createRPCContext(createRPCRequest({ id: "1", procedure: "test", payload: {} }), new AbortController().signal);
+    const context = createRPCContext(
+      createRPCRequest({ id: "1", procedure: "test", payload: {} }),
+      new AbortController().signal,
+    );
 
     await stack.execute(context, async () => "ok");
 

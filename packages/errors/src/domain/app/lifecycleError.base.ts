@@ -9,7 +9,10 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating a lifecycle error. */
-export interface LifecycleErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface LifecycleErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly componentId?: string;
   readonly phase?: string;
@@ -37,14 +40,19 @@ export class LifecycleError extends BaseError {
   public override toJSON() {
     return {
       ...super.toJSON(),
-      ...(this.componentId !== undefined ? { componentId: this.componentId } : {}),
+      ...(this.componentId !== undefined
+        ? { componentId: this.componentId }
+        : {}),
       ...(this.phase !== undefined ? { phase: this.phase } : {}),
     };
   }
 }
 
 /** Creates a lifecycle error. */
-export function createLifecycleError(message: string, options: LifecycleErrorOptions = {}): LifecycleError {
+export function createLifecycleError(
+  message: string,
+  options: LifecycleErrorOptions = {},
+): LifecycleError {
   return new LifecycleError(message, options);
 }
 

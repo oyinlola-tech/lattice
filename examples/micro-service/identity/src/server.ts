@@ -19,8 +19,12 @@ async function main(): Promise<void> {
   });
 
   server.listen(config.port, config.host, () => {
-    console.log(`[${APP_NAME}] Server running at http://${config.host}:${config.port}`);
-    console.log(`[${APP_NAME}] Health check: http://${config.host}:${config.port}/api/identity/health`);
+    console.log(
+      `[${APP_NAME}] Server running at http://${config.host}:${config.port}`,
+    );
+    console.log(
+      `[${APP_NAME}] Health check: http://${config.host}:${config.port}/api/identity/health`,
+    );
   });
 }
 

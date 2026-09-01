@@ -12,7 +12,4 @@ export interface HashResult {
 /**
  * Supported hash output encodings.
  */
-export type HashEncoding =
-  | "hex"
-  | "base64"
-  | "base64url";
+export type HashEncoding = "hex" | "base64" | "base64url";

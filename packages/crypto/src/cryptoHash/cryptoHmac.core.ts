@@ -1,11 +1,6 @@
-import {
-  createNodeCryptoProvider,
-} from "../node/index.js";
+import { createNodeCryptoProvider } from "../node/index.js";
 
-import type {
-  HmacAlgorithm,
-  HashEncoding,
-} from "../cryptoProvider/index.js";
+import type { HmacAlgorithm, HashEncoding } from "../cryptoProvider/index.js";
 
 import type { HashInput } from "./cryptoHash.core.js";
 

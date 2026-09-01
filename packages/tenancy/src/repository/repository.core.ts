@@ -74,7 +74,10 @@ export function createDomainRegistry() {
     },
 
     all(): readonly TenantDomain[] {
-      return Array.from(domains.entries()).map(([domain, tenantId]) => ({ domain, tenantId }));
+      return Array.from(domains.entries()).map(([domain, tenantId]) => ({
+        domain,
+        tenantId,
+      }));
     },
   };
 }

@@ -9,7 +9,10 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating an adapter error. */
-export interface AdapterErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface AdapterErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly adapter?: string;
 }
@@ -40,7 +43,10 @@ export class AdapterError extends BaseError {
 }
 
 /** Creates an adapter error. */
-export function createAdapterError(message: string, options: AdapterErrorOptions = {}): AdapterError {
+export function createAdapterError(
+  message: string,
+  options: AdapterErrorOptions = {},
+): AdapterError {
   return new AdapterError(message, options);
 }
 
@@ -53,7 +59,10 @@ export function isAdapterError(value: unknown): value is AdapterError {
 export class AdapterNotFoundError extends AdapterError {
   constructor(adapterName: string) {
     super(`Adapter "${adapterName}" is not registered.`, {
-      code: ErrorCode.ADAPTER_NOT_FOUND, adapter: adapterName, statusCode: 404, expose: true,
+      code: ErrorCode.ADAPTER_NOT_FOUND,
+      adapter: adapterName,
+      statusCode: 404,
+      expose: true,
     });
     this.name = "AdapterNotFoundError";
   }
@@ -63,7 +72,10 @@ export class AdapterNotFoundError extends AdapterError {
 export class AdapterAlreadyRegisteredError extends AdapterError {
   constructor(adapterName: string) {
     super(`Adapter "${adapterName}" is already registered.`, {
-      code: ErrorCode.ADAPTER_ALREADY_REGISTERED, adapter: adapterName, statusCode: 409, expose: true,
+      code: ErrorCode.ADAPTER_ALREADY_REGISTERED,
+      adapter: adapterName,
+      statusCode: 409,
+      expose: true,
     });
     this.name = "AdapterAlreadyRegisteredError";
   }

@@ -4,7 +4,10 @@ import type { INotificationRepository } from "../interfaces/index.js";
 import { CreateNotificationCommand } from "../services/notification/commands/create-notification/create-notification.command.js";
 import { MarkNotificationReadCommand } from "../services/notification/commands/mark-notification-read/mark-notification-read.command.js";
 import { GetNotificationsQuery } from "../services/notification/queries/get-notifications/get-notifications.query.js";
-import { validateCreateNotificationDto, validateMarkNotificationReadDto } from "../validators/index.js";
+import {
+  validateCreateNotificationDto,
+  validateMarkNotificationReadDto,
+} from "../validators/index.js";
 
 export interface NotificationControllerDeps {
   readonly commandBus: CommandBus;
@@ -26,7 +29,10 @@ export class NotificationController {
   /**
    * GET /api/notifications
    */
-  async getNotifications(req: IncomingMessage, res: ServerResponse): Promise<void> {
+  async getNotifications(
+    req: IncomingMessage,
+    res: ServerResponse,
+  ): Promise<void> {
     try {
       const url = new URL(req.url ?? "/", `http://${req.headers.host}`);
       const userId = url.searchParams.get("userId") ?? undefined;
@@ -41,7 +47,10 @@ export class NotificationController {
   /**
    * POST /api/notifications
    */
-  async createNotification(req: IncomingMessage, res: ServerResponse): Promise<void> {
+  async createNotification(
+    req: IncomingMessage,
+    res: ServerResponse,
+  ): Promise<void> {
     try {
       const body = await this.readBody(req);
       const dto = validateCreateNotificationDto(body);
@@ -103,12 +112,20 @@ export class NotificationController {
     });
   }
 
-  private sendJson(res: ServerResponse, statusCode: number, data: unknown): void {
+  private sendJson(
+    res: ServerResponse,
+    statusCode: number,
+    data: unknown,
+  ): void {
     res.writeHead(statusCode, { "Content-Type": "application/json" });
     res.end(JSON.stringify(data));
   }
 
-  private sendError(res: ServerResponse, statusCode: number, message: string): void {
+  private sendError(
+    res: ServerResponse,
+    statusCode: number,
+    message: string,
+  ): void {
     this.sendJson(res, statusCode, { error: { message, statusCode } });
   }
 }

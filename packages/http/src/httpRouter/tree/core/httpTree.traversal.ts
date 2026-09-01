@@ -4,9 +4,7 @@
  * @module httpRoute/tree/traversal
  */
 
-import type {
-  MutableRouteTreeNode,
-} from "./httpTree.type.js";
+import type { MutableRouteTreeNode } from "./httpTree.type.js";
 
 /**
  * Collects candidates from the tree.
@@ -68,18 +66,22 @@ export function collectRoutes(
   node: MutableRouteTreeNode,
   path: string,
 ): Array<{ readonly path: string; readonly node: MutableRouteTreeNode }> {
-  const results: Array<{ readonly path: string; readonly node: MutableRouteTreeNode }> = [];
+  const results: Array<{
+    readonly path: string;
+    readonly node: MutableRouteTreeNode;
+  }> = [];
 
   if (node.handler) {
     results.push({ path, node });
   }
 
   for (const [key, child] of node.children) {
-    const childPath = child.type === "parameter"
-      ? `${path}:${key}`
-      : child.type === "wildcard"
-        ? `${path}*`
-        : `${path}/${key}`;
+    const childPath =
+      child.type === "parameter"
+        ? `${path}:${key}`
+        : child.type === "wildcard"
+          ? `${path}*`
+          : `${path}/${key}`;
     results.push(...collectRoutes(child, childPath));
   }
 

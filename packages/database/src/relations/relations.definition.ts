@@ -1,14 +1,9 @@
-import type {
-  DatabaseOperationOptions,
-} from "../databaseType/databaseType.type.js";
+import type { DatabaseOperationOptions } from "../databaseType/databaseType.type.js";
 
 /**
  * Describes a relation between two database entities.
  */
-export interface RelationDefinition<
-  TParent = unknown,
-  TChild = unknown,
-> {
+export interface RelationDefinition<TParent = unknown, TChild = unknown> {
   readonly name: string;
   readonly parent: TParent;
   readonly child: TChild;
@@ -22,16 +17,12 @@ export interface RelationDefinition<
  * Supported database relation types.
  */
 export type RelationType =
-  | "one-to-one"
-  | "one-to-many"
-  | "many-to-one"
-  | "many-to-many";
+  "one-to-one" | "one-to-many" | "many-to-one" | "many-to-many";
 
 /**
  * Generic relation loading options.
  */
-export interface RelationLoadOptions
-  extends DatabaseOperationOptions {
+export interface RelationLoadOptions extends DatabaseOperationOptions {
   readonly includeDeleted?: boolean;
   readonly depth?: number;
 }
@@ -48,21 +39,9 @@ export interface RelationInclude {
 /**
  * Creates a one-to-one relation definition.
  */
-export function oneToOne<
-  TParent = unknown,
-  TChild = unknown,
->(
-  definition: Omit<
-    RelationDefinition<
-      TParent,
-      TChild
-    >,
-    "type"
-  >,
-): RelationDefinition<
-  TParent,
-  TChild
-> {
+export function oneToOne<TParent = unknown, TChild = unknown>(
+  definition: Omit<RelationDefinition<TParent, TChild>, "type">,
+): RelationDefinition<TParent, TChild> {
   return Object.freeze({
     ...definition,
     type: "one-to-one",
@@ -72,21 +51,9 @@ export function oneToOne<
 /**
  * Creates a one-to-many relation definition.
  */
-export function oneToMany<
-  TParent = unknown,
-  TChild = unknown,
->(
-  definition: Omit<
-    RelationDefinition<
-      TParent,
-      TChild
-    >,
-    "type"
-  >,
-): RelationDefinition<
-  TParent,
-  TChild
-> {
+export function oneToMany<TParent = unknown, TChild = unknown>(
+  definition: Omit<RelationDefinition<TParent, TChild>, "type">,
+): RelationDefinition<TParent, TChild> {
   return Object.freeze({
     ...definition,
     type: "one-to-many",
@@ -96,21 +63,9 @@ export function oneToMany<
 /**
  * Creates a many-to-one relation definition.
  */
-export function manyToOne<
-  TParent = unknown,
-  TChild = unknown,
->(
-  definition: Omit<
-    RelationDefinition<
-      TParent,
-      TChild
-    >,
-    "type"
-  >,
-): RelationDefinition<
-  TParent,
-  TChild
-> {
+export function manyToOne<TParent = unknown, TChild = unknown>(
+  definition: Omit<RelationDefinition<TParent, TChild>, "type">,
+): RelationDefinition<TParent, TChild> {
   return Object.freeze({
     ...definition,
     type: "many-to-one",
@@ -120,21 +75,9 @@ export function manyToOne<
 /**
  * Creates a many-to-many relation definition.
  */
-export function manyToMany<
-  TParent = unknown,
-  TChild = unknown,
->(
-  definition: Omit<
-    RelationDefinition<
-      TParent,
-      TChild
-    >,
-    "type"
-  >,
-): RelationDefinition<
-  TParent,
-  TChild
-> {
+export function manyToMany<TParent = unknown, TChild = unknown>(
+  definition: Omit<RelationDefinition<TParent, TChild>, "type">,
+): RelationDefinition<TParent, TChild> {
   return Object.freeze({
     ...definition,
     type: "many-to-many",
@@ -151,26 +94,14 @@ export function includeRelation(
     readonly include?: readonly RelationInclude[];
   } = {},
 ): RelationInclude {
-  validateRelationName(
-    relation,
-  );
+  validateRelationName(relation);
 
   return Object.freeze({
     relation,
-    select:
-      options.select
-        ? Object.freeze([
-            ...new Set(
-              options.select,
-            ),
-          ])
-        : undefined,
-    include:
-      options.include
-        ? Object.freeze([
-            ...options.include,
-          ])
-        : undefined,
+    select: options.select
+      ? Object.freeze([...new Set(options.select)])
+      : undefined,
+    include: options.include ? Object.freeze([...options.include]) : undefined,
   });
 }
 
@@ -180,39 +111,23 @@ export function includeRelation(
 export function includeRelations(
   ...includes: readonly RelationInclude[]
 ): readonly RelationInclude[] {
-  return Object.freeze([
-    ...includes,
-  ]);
+  return Object.freeze([...includes]);
 }
 
 /**
  * Relation registry used by database infrastructure.
  */
 export class RelationRegistry {
-  private readonly relations =
-    new Map<
-      string,
-      RelationDefinition
-    >();
+  private readonly relations = new Map<string, RelationDefinition>();
 
   /**
    * Registers a relation.
    */
-  public register(
-    relation: RelationDefinition,
-  ): this {
-    validateRelation(
-      relation,
-    );
+  public register(relation: RelationDefinition): this {
+    validateRelation(relation);
 
-    if (
-      this.relations.has(
-        relation.name,
-      )
-    ) {
-      throw new Error(
-        `Relation "${relation.name}" is already registered.`,
-      );
+    if (this.relations.has(relation.name)) {
+      throw new Error(`Relation "${relation.name}" is already registered.`);
     }
 
     this.relations.set(
@@ -228,15 +143,9 @@ export class RelationRegistry {
   /**
    * Registers multiple relations.
    */
-  public registerMany(
-    relations: readonly RelationDefinition[],
-  ): this {
-    for (
-      const relation of relations
-    ) {
-      this.register(
-        relation,
-      );
+  public registerMany(relations: readonly RelationDefinition[]): this {
+    for (const relation of relations) {
+      this.register(relation);
     }
 
     return this;
@@ -245,56 +154,38 @@ export class RelationRegistry {
   /**
    * Gets a relation by name.
    */
-  public get(
-    name: string,
-  ): RelationDefinition | undefined {
-    return this.relations.get(
-      name,
-    );
+  public get(name: string): RelationDefinition | undefined {
+    return this.relations.get(name);
   }
 
   /**
    * Checks whether a relation exists.
    */
-  public has(
-    name: string,
-  ): boolean {
-    return this.relations.has(
-      name,
-    );
+  public has(name: string): boolean {
+    return this.relations.has(name);
   }
 
   /**
    * Removes a relation.
    */
-  public remove(
-    name: string,
-  ): boolean {
-    return this.relations.delete(
-      name,
-    );
+  public remove(name: string): boolean {
+    return this.relations.delete(name);
   }
 
   /**
    * Returns all registered relations.
    */
   public all(): readonly RelationDefinition[] {
-    return Object.freeze([
-      ...this.relations.values(),
-    ]);
+    return Object.freeze([...this.relations.values()]);
   }
 
   /**
    * Returns relations for a specific parent entity.
    */
-  public forParent(
-    parent: unknown,
-  ): readonly RelationDefinition[] {
+  public forParent(parent: unknown): readonly RelationDefinition[] {
     return Object.freeze(
       [...this.relations.values()].filter(
-        (relation) =>
-          relation.parent ===
-          parent,
+        (relation) => relation.parent === parent,
       ),
     );
   }
@@ -302,14 +193,10 @@ export class RelationRegistry {
   /**
    * Returns relations for a specific child entity.
    */
-  public forChild(
-    child: unknown,
-  ): readonly RelationDefinition[] {
+  public forChild(child: unknown): readonly RelationDefinition[] {
     return Object.freeze(
       [...this.relations.values()].filter(
-        (relation) =>
-          relation.child ===
-          child,
+        (relation) => relation.child === child,
       ),
     );
   }
@@ -335,12 +222,9 @@ export class RelationRegistry {
 export function createRelationRegistry(
   relations: readonly RelationDefinition[] = [],
 ): RelationRegistry {
-  const registry =
-    new RelationRegistry();
+  const registry = new RelationRegistry();
 
-  registry.registerMany(
-    relations,
-  );
+  registry.registerMany(relations);
 
   return registry;
 }
@@ -348,71 +232,39 @@ export function createRelationRegistry(
 /**
  * Validates a relation definition.
  */
-export function validateRelation(
-  relation: RelationDefinition,
-): void {
-  if (
-    !relation ||
-    typeof relation !==
-      "object"
-  ) {
-    throw new TypeError(
-      "A relation definition is required.",
-    );
+export function validateRelation(relation: RelationDefinition): void {
+  if (!relation || typeof relation !== "object") {
+    throw new TypeError("A relation definition is required.");
   }
 
-  validateRelationName(
-    relation.name,
-  );
+  validateRelationName(relation.name);
 
-  if (
-    relation.parent ===
-    undefined ||
-    relation.parent ===
-      null
-  ) {
+  if (relation.parent === undefined || relation.parent === null) {
     throw new TypeError(
       `Relation "${relation.name}" requires a parent entity.`,
     );
   }
 
-  if (
-    relation.child ===
-    undefined ||
-    relation.child ===
-      null
-  ) {
-    throw new TypeError(
-      `Relation "${relation.name}" requires a child entity.`,
-    );
+  if (relation.child === undefined || relation.child === null) {
+    throw new TypeError(`Relation "${relation.name}" requires a child entity.`);
   }
 
-  if (
-    !isRelationType(
-      relation.type,
-    )
-  ) {
+  if (!isRelationType(relation.type)) {
     throw new TypeError(
       `Relation "${relation.name}" has an invalid relation type.`,
     );
   }
 
   if (
-    typeof relation.foreignKey !==
-      "string" ||
-    relation.foreignKey.trim()
-      .length === 0
+    typeof relation.foreignKey !== "string" ||
+    relation.foreignKey.trim().length === 0
   ) {
-    throw new TypeError(
-      `Relation "${relation.name}" requires a foreign key.`,
-    );
+    throw new TypeError(`Relation "${relation.name}" requires a foreign key.`);
   }
 
   if (
-    typeof relation.referencedKey !==
-      "string" ||
-    relation.referencedKey
-      .trim().length === 0
+    typeof relation.referencedKey !== "string" ||
+    relation.referencedKey.trim().length === 0
   ) {
     throw new TypeError(
       `Relation "${relation.name}" requires a referenced key.`,
@@ -423,63 +275,34 @@ export function validateRelation(
 /**
  * Checks whether a value is a supported relation type.
  */
-export function isRelationType(
-  value: unknown,
-): value is RelationType {
+export function isRelationType(value: unknown): value is RelationType {
   return (
-    value ===
-      "one-to-one" ||
-    value ===
-      "one-to-many" ||
-    value ===
-      "many-to-one" ||
-    value ===
-      "many-to-many"
+    value === "one-to-one" ||
+    value === "one-to-many" ||
+    value === "many-to-one" ||
+    value === "many-to-many"
   );
 }
 
 /**
  * Returns whether the relation represents a collection.
  */
-export function isCollectionRelation(
-  relation: RelationDefinition,
-): boolean {
-  return (
-    relation.type ===
-      "one-to-many" ||
-    relation.type ===
-      "many-to-many"
-  );
+export function isCollectionRelation(relation: RelationDefinition): boolean {
+  return relation.type === "one-to-many" || relation.type === "many-to-many";
 }
 
 /**
  * Returns whether the relation represents a single entity.
  */
-export function isSingleRelation(
-  relation: RelationDefinition,
-): boolean {
-  return (
-    relation.type ===
-      "one-to-one" ||
-    relation.type ===
-      "many-to-one"
-  );
+export function isSingleRelation(relation: RelationDefinition): boolean {
+  return relation.type === "one-to-one" || relation.type === "many-to-one";
 }
 
 /**
  * Validates a relation name.
  */
-function validateRelationName(
-  name: string,
-): void {
-  if (
-    typeof name !==
-      "string" ||
-    name.trim().length ===
-      0
-  ) {
-    throw new TypeError(
-      "A relation name is required.",
-    );
+function validateRelationName(name: string): void {
+  if (typeof name !== "string" || name.trim().length === 0) {
+    throw new TypeError("A relation name is required.");
   }
 }

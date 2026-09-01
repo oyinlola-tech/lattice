@@ -6,7 +6,13 @@
 
 export interface SecurityHeadersOptions {
   readonly contentSecurityPolicy?: boolean | string;
-  readonly strictTransportSecurity?: boolean | { readonly maxAge?: number; readonly includeSubDomains?: boolean; readonly preload?: boolean };
+  readonly strictTransportSecurity?:
+    | boolean
+    | {
+        readonly maxAge?: number;
+        readonly includeSubDomains?: boolean;
+        readonly preload?: boolean;
+      };
   readonly xContentTypeOptions?: boolean;
   readonly xFrameOptions?: boolean | XFrameOptions;
   readonly xXssProtection?: boolean | string;
@@ -15,8 +21,15 @@ export interface SecurityHeadersOptions {
   readonly crossOriginEmbedderPolicy?: boolean | CrossOriginEmbedderPolicy;
   readonly crossOriginOpenerPolicy?: boolean | CrossOriginOpenerPolicy;
   readonly crossOriginResourcePolicy?: boolean | CrossOriginResourcePolicy;
-  readonly xPermittedCrossDomainPolicies?: boolean | XPermittedCrossDomainPolicy;
-  readonly expectCt?: boolean | { readonly maxAge?: number; readonly enforce?: boolean; readonly reportUri?: string };
+  readonly xPermittedCrossDomainPolicies?:
+    boolean | XPermittedCrossDomainPolicy;
+  readonly expectCt?:
+    | boolean
+    | {
+        readonly maxAge?: number;
+        readonly enforce?: boolean;
+        readonly reportUri?: string;
+      };
 }
 
 export type SecurityHeaders = {
@@ -34,10 +47,7 @@ export type SecurityHeaders = {
   readonly "expect-ct"?: string;
 };
 
-export type XFrameOptions =
-  | "DENY"
-  | "SAMEORIGIN"
-  | `ALLOW-FROM ${string}`;
+export type XFrameOptions = "DENY" | "SAMEORIGIN" | `ALLOW-FROM ${string}`;
 
 export type ReferrerPolicyValue =
   | "no-referrer"
@@ -51,9 +61,7 @@ export type ReferrerPolicyValue =
   | "";
 
 export type CrossOriginEmbedderPolicy =
-  | "require-corp"
-  | "credentialless"
-  | "unsafe-none";
+  "require-corp" | "credentialless" | "unsafe-none";
 
 export type CrossOriginOpenerPolicy =
   | "unsafe-none"
@@ -63,24 +71,16 @@ export type CrossOriginOpenerPolicy =
   | "restrict-properties-plus-coep";
 
 export type CrossOriginResourcePolicy =
-  | "same-site"
-  | "same-origin"
-  | "cross-origin";
+  "same-site" | "same-origin" | "cross-origin";
 
 export type XPermittedCrossDomainPolicy =
-  | "none"
-  | "master-only"
-  | "by-content-type"
-  | "all";
+  "none" | "master-only" | "by-content-type" | "all";
 
 export type PermissionsPolicy = Readonly<
   Record<string, PermissionsPolicyValue>
 >;
 
-export type PermissionsPolicyValue =
-  | boolean
-  | readonly string[]
-  | string;
+export type PermissionsPolicyValue = boolean | readonly string[] | string;
 
 export const SECURITY_HEADER_NAMES = {
   CSP: "content-security-policy",
@@ -97,6 +97,7 @@ export const SECURITY_HEADER_NAMES = {
   EC: "expect-ct",
 } as const;
 
-export const DEFAULT_REFERRER_POLICY: ReferrerPolicyValue = "strict-origin-when-cross-origin";
+export const DEFAULT_REFERRER_POLICY: ReferrerPolicyValue =
+  "strict-origin-when-cross-origin";
 
 export const DEFAULT_X_CONTENT_TYPE_OPTIONS = "nosniff" as const;

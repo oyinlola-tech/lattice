@@ -5,7 +5,16 @@ import type { Environment } from "@oyinlola141/lattice-constants";
 export type ModuleEnvironment = Environment;
 
 /** Category describing the role of a module. */
-export type ModuleCategory = "application" | "infrastructure" | "domain" | "integration" | "transport" | "observability" | "security" | "system" | "custom";
+export type ModuleCategory =
+  | "application"
+  | "infrastructure"
+  | "domain"
+  | "integration"
+  | "transport"
+  | "observability"
+  | "security"
+  | "system"
+  | "custom";
 
 /** Metadata describing a Lattice module. */
 export interface ModuleMetadata {
@@ -25,39 +34,65 @@ export interface ModuleMetadata {
 
 export interface ModuleMetadataOptions extends ModuleMetadata {}
 
-function normalizeOptionalString(value: string | undefined): string | undefined {
+function normalizeOptionalString(
+  value: string | undefined,
+): string | undefined {
   if (value === undefined) return undefined;
   const normalized = value.trim();
   return normalized.length > 0 ? normalized : undefined;
 }
 
-function normalizeTags(tags: readonly string[] | undefined): readonly string[] | undefined {
+function normalizeTags(
+  tags: readonly string[] | undefined,
+): readonly string[] | undefined {
   if (!tags || tags.length === 0) return undefined;
   const normalized = new Set<string>();
-  for (const tag of tags) { const value = tag.trim(); if (value.length > 0) normalized.add(value); }
+  for (const tag of tags) {
+    const value = tag.trim();
+    if (value.length > 0) normalized.add(value);
+  }
   if (normalized.size === 0) return undefined;
   return Object.freeze([...normalized]);
 }
 
-function normalizeEnvironments(environments: readonly ModuleEnvironment[] | undefined): readonly ModuleEnvironment[] | undefined {
+function normalizeEnvironments(
+  environments: readonly ModuleEnvironment[] | undefined,
+): readonly ModuleEnvironment[] | undefined {
   if (!environments || environments.length === 0) return undefined;
   return Object.freeze([...new Set(environments)]);
 }
 
 function isValidUrl(value: string): boolean {
-  try { const url = new URL(value); return url.protocol === "http:" || url.protocol === "https:"; } catch { return false; }
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
 }
 
 function validateModuleMetadata(metadata: ModuleMetadata): void {
-  if (metadata.deprecated && metadata.deprecationMessage === undefined && metadata.replacement === undefined) {
-    throw new TypeError("Deprecated modules should provide either a deprecationMessage or replacement module.");
+  if (
+    metadata.deprecated &&
+    metadata.deprecationMessage === undefined &&
+    metadata.replacement === undefined
+  ) {
+    throw new TypeError(
+      "Deprecated modules should provide either a deprecationMessage or replacement module.",
+    );
   }
-  if (metadata.homepage && !isValidUrl(metadata.homepage)) throw new TypeError(`Invalid module homepage URL: ${metadata.homepage}`);
-  if (metadata.repository && !isValidUrl(metadata.repository)) throw new TypeError(`Invalid module repository URL: ${metadata.repository}`);
+  if (metadata.homepage && !isValidUrl(metadata.homepage))
+    throw new TypeError(`Invalid module homepage URL: ${metadata.homepage}`);
+  if (metadata.repository && !isValidUrl(metadata.repository))
+    throw new TypeError(
+      `Invalid module repository URL: ${metadata.repository}`,
+    );
 }
 
 /** Creates immutable module metadata. */
-export function createModuleMetadata(options: ModuleMetadataOptions = {}): ModuleMetadata {
+export function createModuleMetadata(
+  options: ModuleMetadataOptions = {},
+): ModuleMetadata {
   const metadata: ModuleMetadata = {
     description: normalizeOptionalString(options.description),
     author: normalizeOptionalString(options.author),
@@ -77,7 +112,10 @@ export function createModuleMetadata(options: ModuleMetadataOptions = {}): Modul
 }
 
 /** Merges two metadata objects. Values from `override` take precedence. */
-export function mergeModuleMetadata(base?: ModuleMetadata, override?: ModuleMetadata): ModuleMetadata {
+export function mergeModuleMetadata(
+  base?: ModuleMetadata,
+  override?: ModuleMetadata,
+): ModuleMetadata {
   if (!base && !override) return createModuleMetadata();
   return createModuleMetadata({
     ...(base ?? {}),
@@ -89,19 +127,42 @@ export function mergeModuleMetadata(base?: ModuleMetadata, override?: ModuleMeta
 }
 
 /** Determines whether a module is enabled for an environment. */
-export function isModuleEnabledForEnvironment(metadata: ModuleMetadata | undefined, environment: ModuleEnvironment): boolean {
-  if (!metadata?.environments || metadata.environments.length === 0) return true;
+export function isModuleEnabledForEnvironment(
+  metadata: ModuleMetadata | undefined,
+  environment: ModuleEnvironment,
+): boolean {
+  if (!metadata?.environments || metadata.environments.length === 0)
+    return true;
   return metadata.environments.includes(environment);
 }
 
 /** Determines whether a module is deprecated. */
-export function isModuleDeprecated(metadata: ModuleMetadata | undefined): boolean { return metadata?.deprecated === true; }
+export function isModuleDeprecated(
+  metadata: ModuleMetadata | undefined,
+): boolean {
+  return metadata?.deprecated === true;
+}
 
 /** Determines whether a module is experimental. */
-export function isModuleExperimental(metadata: ModuleMetadata | undefined): boolean { return metadata?.experimental === true; }
+export function isModuleExperimental(
+  metadata: ModuleMetadata | undefined,
+): boolean {
+  return metadata?.experimental === true;
+}
 
 /** Creates a compact metadata object suitable for diagnostics. */
-export function getModuleMetadataSummary(metadata?: ModuleMetadata): Readonly<Record<string, unknown>> {
+export function getModuleMetadataSummary(
+  metadata?: ModuleMetadata,
+): Readonly<Record<string, unknown>> {
   if (!metadata) return {};
-  return Object.freeze({ description: metadata.description, author: metadata.author, category: metadata.category, tags: metadata.tags, environments: metadata.environments, experimental: metadata.experimental, deprecated: metadata.deprecated, replacement: metadata.replacement });
+  return Object.freeze({
+    description: metadata.description,
+    author: metadata.author,
+    category: metadata.category,
+    tags: metadata.tags,
+    environments: metadata.environments,
+    experimental: metadata.experimental,
+    deprecated: metadata.deprecated,
+    replacement: metadata.replacement,
+  });
 }

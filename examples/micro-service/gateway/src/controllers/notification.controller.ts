@@ -21,7 +21,11 @@ async function parseBody(req: IncomingMessage): Promise<unknown> {
   });
 }
 
-function jsonResponse(res: ServerResponse, status: number, data: unknown): void {
+function jsonResponse(
+  res: ServerResponse,
+  status: number,
+  data: unknown,
+): void {
   res.writeHead(status, { "Content-Type": "application/json" });
   res.end(JSON.stringify(data));
 }
@@ -29,12 +33,18 @@ function jsonResponse(res: ServerResponse, status: number, data: unknown): void 
 /**
  * Proxies notification creation to the notification service.
  */
-export async function createNotification(req: IncomingMessage, res: ServerResponse): Promise<void> {
+export async function createNotification(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
   const body = await parseBody(req);
   const validation = createNotificationSchema.safeParse(body);
 
   if (!validation.success) {
-    jsonResponse(res, 400, { error: "Validation failed", details: validation.error.flatten() });
+    jsonResponse(res, 400, {
+      error: "Validation failed",
+      details: validation.error.flatten(),
+    });
     return;
   }
 
@@ -49,8 +59,14 @@ export async function createNotification(req: IncomingMessage, res: ServerRespon
 /**
  * Proxies notification listing to the notification service.
  */
-export async function listNotifications(req: IncomingMessage, res: ServerResponse): Promise<void> {
-  const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`);
+export async function listNotifications(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
+  const url = new URL(
+    req.url ?? "/",
+    `http://${req.headers.host ?? "localhost"}`,
+  );
   const authHeader = req.headers["authorization"] ?? "";
 
   const result = await client.get(`/api/v1/notifications${url.search}`, {
@@ -63,8 +79,14 @@ export async function listNotifications(req: IncomingMessage, res: ServerRespons
 /**
  * Proxies get notification by ID to the notification service.
  */
-export async function getNotificationById(req: IncomingMessage, res: ServerResponse): Promise<void> {
-  const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`);
+export async function getNotificationById(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
+  const url = new URL(
+    req.url ?? "/",
+    `http://${req.headers.host ?? "localhost"}`,
+  );
   const pathParts = url.pathname.split("/");
   const notificationId = pathParts[pathParts.length - 1];
   const authHeader = req.headers["authorization"] ?? "";
@@ -84,8 +106,14 @@ export async function getNotificationById(req: IncomingMessage, res: ServerRespo
 /**
  * Proxies marking notification as read to the notification service.
  */
-export async function markNotificationRead(req: IncomingMessage, res: ServerResponse): Promise<void> {
-  const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`);
+export async function markNotificationRead(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
+  const url = new URL(
+    req.url ?? "/",
+    `http://${req.headers.host ?? "localhost"}`,
+  );
   const pathParts = url.pathname.split("/");
   const notificationId = pathParts[pathParts.length - 2]; // Before "read"
   const authHeader = req.headers["authorization"] ?? "";
@@ -95,9 +123,13 @@ export async function markNotificationRead(req: IncomingMessage, res: ServerResp
     return;
   }
 
-  const result = await client.patch(`/api/v1/notifications/${notificationId}/read`, {}, {
-    authorization: authHeader,
-  });
+  const result = await client.patch(
+    `/api/v1/notifications/${notificationId}/read`,
+    {},
+    {
+      authorization: authHeader,
+    },
+  );
 
   jsonResponse(res, result.status, result.data);
 }
@@ -105,12 +137,19 @@ export async function markNotificationRead(req: IncomingMessage, res: ServerResp
 /**
  * Proxies marking all notifications as read to the notification service.
  */
-export async function markAllNotificationsRead(req: IncomingMessage, res: ServerResponse): Promise<void> {
+export async function markAllNotificationsRead(
+  req: IncomingMessage,
+  res: ServerResponse,
+): Promise<void> {
   const authHeader = req.headers["authorization"] ?? "";
 
-  const result = await client.post("/api/v1/notifications/read-all", {}, {
-    authorization: authHeader,
-  });
+  const result = await client.post(
+    "/api/v1/notifications/read-all",
+    {},
+    {
+      authorization: authHeader,
+    },
+  );
 
   jsonResponse(res, result.status, result.data);
 }

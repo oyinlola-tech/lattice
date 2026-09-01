@@ -11,7 +11,7 @@ npm install @latticejs/messaging
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/messaging";
+import {} from /* add usage here */ "@latticejs/messaging";
 ```
 
 ## License

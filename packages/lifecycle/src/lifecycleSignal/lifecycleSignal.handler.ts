@@ -40,7 +40,5 @@ export function installSignalHandlers(
 }
 
 /** Default signal configuration for graceful shutdown. */
-export const DEFAULT_SHUTDOWN_SIGNALS: readonly NodeJS.Signals[] = Object.freeze([
-  "SIGINT",
-  "SIGTERM",
-]);
+export const DEFAULT_SHUTDOWN_SIGNALS: readonly NodeJS.Signals[] =
+  Object.freeze(["SIGINT", "SIGTERM"]);

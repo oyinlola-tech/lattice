@@ -17,10 +17,17 @@ import {
   resolveCommand,
   normalizeCLIValue,
 } from "../src/cliParser/cliParser.helper.js";
-import { parseLongOption, findOption, assignOptionValue } from "../src/cliParser/cliParser.longOption.js";
+import {
+  parseLongOption,
+  findOption,
+  assignOptionValue,
+} from "../src/cliParser/cliParser.longOption.js";
 import { parseShortOption } from "../src/cliParser/cliParser.shortOption.js";
 import { InvalidArgumentsError } from "../src/cliError/cliError.argument.js";
-import { InvalidOptionError, MissingOptionValueError } from "../src/cliError/cliError.option.js";
+import {
+  InvalidOptionError,
+  MissingOptionValueError,
+} from "../src/cliError/cliError.option.js";
 import type { CLICommand, CLIOption } from "../src/cliType/cliType.type.js";
 
 // ─── CLIParser ─────────────────────────────────────────────────────────────
@@ -103,7 +110,10 @@ describe("CLIParser", () => {
       execute: () => {},
     };
     const strictParser = new CLIParser();
-    const result = strictParser.parse(["--verbose", "--", "--not-parsed"], command);
+    const result = strictParser.parse(
+      ["--verbose", "--", "--not-parsed"],
+      command,
+    );
     expect(result.args).toEqual(["--not-parsed"]);
   });
 
@@ -335,13 +345,17 @@ describe("normalizeCLIValue", () => {
 
 describe("parseCLIArguments", () => {
   it("parses arguments without a parser instance", () => {
-    const result = parseCLIArguments(["start", "--verbose"], undefined, { allowUnknownOptions: true });
+    const result = parseCLIArguments(["start", "--verbose"], undefined, {
+      allowUnknownOptions: true,
+    });
     expect(result.command).toBe("start");
     expect(result.options.verbose).toBe(true);
   });
 
   it("accepts parser options", () => {
-    const result = parseCLIArguments(["--unknown"], undefined, { allowUnknownOptions: true });
+    const result = parseCLIArguments(["--unknown"], undefined, {
+      allowUnknownOptions: true,
+    });
     expect(result.options.unknown).toBe(true);
   });
 });
@@ -373,7 +387,9 @@ describe("Long option edge cases", () => {
       execute: () => {},
     };
     const parser = new CLIParser();
-    expect(() => parser.parse(["--port"], command)).toThrow(MissingOptionValueError);
+    expect(() => parser.parse(["--port"], command)).toThrow(
+      MissingOptionValueError,
+    );
   });
 });
 
@@ -418,7 +434,9 @@ describe("Short option edge cases", () => {
       execute: () => {},
     };
     const parser = new CLIParser();
-    expect(() => parser.parse(["-p"], command)).toThrow(MissingOptionValueError);
+    expect(() => parser.parse(["-p"], command)).toThrow(
+      MissingOptionValueError,
+    );
   });
 });
 

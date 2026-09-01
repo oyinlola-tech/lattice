@@ -21,7 +21,4 @@ export {
   PluginDisposeError,
 } from "./pluginError.lifecycle.js";
 
-export {
-  PluginTimeoutError,
-  PluginStateError,
-} from "./pluginError.runtime.js";
+export { PluginTimeoutError, PluginStateError } from "./pluginError.runtime.js";

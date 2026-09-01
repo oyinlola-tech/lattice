@@ -53,9 +53,7 @@ export function assertSerializesTo<T>(
   });
 
   if (actual !== expected) {
-    throw new Error(
-      `Expected serialized output ${expected}, got ${actual}`,
-    );
+    throw new Error(`Expected serialized output ${expected}, got ${actual}`);
   }
 }
 

@@ -50,9 +50,10 @@ export function validateSecurityHeaders(
 /**
  * Validates a header name.
  */
-export function validateHeaderName(
-  name: string,
-): { readonly valid: boolean; readonly error?: string } {
+export function validateHeaderName(name: string): {
+  readonly valid: boolean;
+  readonly error?: string;
+} {
   if (!name || name.length === 0) {
     return { valid: false, error: "Header name cannot be empty" };
   }
@@ -71,9 +72,10 @@ export function validateHeaderName(
 /**
  * Validates a header value.
  */
-export function validateHeaderValue(
-  value: string,
-): { readonly valid: boolean; readonly error?: string } {
+export function validateHeaderValue(value: string): {
+  readonly valid: boolean;
+  readonly error?: string;
+} {
   if (value.includes("\r") || value.includes("\n")) {
     return { valid: false, error: "Header value cannot contain CRLF" };
   }

@@ -19,7 +19,10 @@ export function createTransactionContext(): TransactionContext {
       return storage.getStore();
     },
 
-    async run<T>(transaction: Transaction, callback: () => Promise<T>): Promise<T> {
+    async run<T>(
+      transaction: Transaction,
+      callback: () => Promise<T>,
+    ): Promise<T> {
       return storage.run(transaction, callback);
     },
   };

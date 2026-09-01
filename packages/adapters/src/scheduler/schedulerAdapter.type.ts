@@ -4,14 +4,22 @@
  * Scheduler adapter contracts — bridges Lattice to scheduling providers.
  */
 
-import type { Adapter, AdapterCapabilities, AdapterOperationOptions } from "../index.js";
+import type {
+  Adapter,
+  AdapterCapabilities,
+  AdapterOperationOptions,
+} from "../index.js";
 
 /**
  * Scheduler adapter — manages scheduled tasks.
  */
 export interface SchedulerAdapter extends Adapter {
   /** Schedules a task. */
-  schedule(name: string, task: ScheduledTask, options?: AdapterOperationOptions): Promise<ScheduledJob>;
+  schedule(
+    name: string,
+    task: ScheduledTask,
+    options?: AdapterOperationOptions,
+  ): Promise<ScheduledJob>;
 
   /** Cancels a scheduled job. */
   cancel(job: ScheduledJob, options?: AdapterOperationOptions): Promise<void>;

@@ -1,4 +1,9 @@
-import type { AppConfig, DatabaseConfig, LoggerConfig, HttpConfig } from "../interfaces/index.js";
+import type {
+  AppConfig,
+  DatabaseConfig,
+  LoggerConfig,
+  HttpConfig,
+} from "../interfaces/index.js";
 
 export function createAppConfig(): AppConfig {
   return {

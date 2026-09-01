@@ -16,10 +16,7 @@ import {
   hasHeader,
   setHeader,
 } from "../httpProtocol/http.protocol.js";
-import {
-  isValidHTTPURL,
-  isValidHeaderValue,
-} from "../httpValidation/index.js";
+import { isValidHTTPURL, isValidHeaderValue } from "../httpValidation/index.js";
 
 /* -------------------------------------------------------------------------- */
 /* Types                                                                      */
@@ -41,10 +38,7 @@ export interface ProxyOptions {
   readonly xfwd?: boolean;
   readonly secure?: boolean;
   readonly timeout?: number;
-  readonly rewritePath?: (
-    path: string,
-    requestURL: URL,
-  ) => string;
+  readonly rewritePath?: (path: string, requestURL: URL) => string;
   readonly headers?: Readonly<Record<string, string>>;
 }
 
@@ -71,70 +65,42 @@ export interface ProxyRewriteOptions {
 /* Target                                                                     */
 /* -------------------------------------------------------------------------- */
 
-export function resolveProxyTarget(
-  target: string | URL,
-): ProxyTarget {
+export function resolveProxyTarget(target: string | URL): ProxyTarget {
   const url =
-    target instanceof URL
-      ? new URL(target.href)
-      : parseProxyURL(target);
+    target instanceof URL ? new URL(target.href) : parseProxyURL(target);
 
   return {
     url,
     protocol: url.protocol,
     hostname: url.hostname,
-    port:
-      url.port.length > 0
-        ? Number(url.port)
-        : undefined,
-    pathname: normalizeProxyPath(
-      url.pathname,
-    ),
+    port: url.port.length > 0 ? Number(url.port) : undefined,
+    pathname: normalizeProxyPath(url.pathname),
     search: url.search,
   };
 }
 
 export function isValidProxyTarget(
-  target:
-    | string
-    | URL
-    | undefined
-    | null,
+  target: string | URL | undefined | null,
 ): boolean {
-  if (
-    target === undefined ||
-    target === null
-  ) {
+  if (target === undefined || target === null) {
     return false;
   }
 
   try {
-    const url =
-      target instanceof URL
-        ? target
-        : new URL(target);
+    const url = target instanceof URL ? target : new URL(target);
 
     return (
       isValidHTTPURL(url.href) &&
-      (
-        url.protocol === "http:" ||
-        url.protocol === "https:"
-      )
+      (url.protocol === "http:" || url.protocol === "https:")
     );
   } catch {
     return false;
   }
 }
 
-function parseProxyURL(
-  target: string,
-): URL {
-  if (
-    !isValidProxyTarget(target)
-  ) {
-    throw new TypeError(
-      `Invalid proxy target: ${target}`,
-    );
+function parseProxyURL(target: string): URL {
+  if (!isValidProxyTarget(target)) {
+    throw new TypeError(`Invalid proxy target: ${target}`);
   }
 
   return new URL(target);
@@ -144,102 +110,50 @@ function parseProxyURL(
 /* Path Handling                                                              */
 /* -------------------------------------------------------------------------- */
 
-export function joinProxyPath(
-  basePath: string,
-  requestPath: string,
-): string {
-  const base =
-    normalizeProxyPath(basePath);
+export function joinProxyPath(basePath: string, requestPath: string): string {
+  const base = normalizeProxyPath(basePath);
 
-  const request =
-    requestPath.startsWith("/")
-      ? requestPath
-      : `/${requestPath}`;
+  const request = requestPath.startsWith("/") ? requestPath : `/${requestPath}`;
 
-  if (
-    base === "/"
-  ) {
+  if (base === "/") {
     return request;
   }
 
-  return `${base}${request}`.replace(
-    /\/{2,}/g,
-    "/",
-  );
+  return `${base}${request}`.replace(/\/{2,}/g, "/");
 }
 
 export function rewriteProxyPath(
   path: string,
   options: ProxyRewriteOptions = {},
 ): string {
-  let result =
-    path.length > 0
-      ? path
-      : "/";
+  let result = path.length > 0 ? path : "/";
 
-  if (
-    options.stripPrefix &&
-    result.startsWith(
-      options.stripPrefix,
-    )
-  ) {
-    result =
-      result.slice(
-        options.stripPrefix.length,
-      );
+  if (options.stripPrefix && result.startsWith(options.stripPrefix)) {
+    result = result.slice(options.stripPrefix.length);
 
-    if (
-      !result.startsWith("/")
-    ) {
-      result =
-        `/${result}`;
+    if (!result.startsWith("/")) {
+      result = `/${result}`;
     }
   }
 
-  if (
-    options.prependPrefix
-  ) {
-    result =
-      joinProxyPath(
-        options.prependPrefix,
-        result,
-      );
+  if (options.prependPrefix) {
+    result = joinProxyPath(options.prependPrefix, result);
   }
 
-  return normalizeProxyPath(
-    result,
-  );
+  return normalizeProxyPath(result);
 }
 
-export function normalizeProxyPath(
-  path: string,
-): string {
-  if (
-    path.length === 0
-  ) {
+export function normalizeProxyPath(path: string): string {
+  if (path.length === 0) {
     return "/";
   }
 
-  let normalized =
-    path.startsWith("/")
-      ? path
-      : `/${path}`;
+  let normalized = path.startsWith("/") ? path : `/${path}`;
 
-  normalized =
-    normalized.replace(
-      /\/{2,}/g,
-      "/",
-    );
+  normalized = normalized.replace(/\/{2,}/g, "/");
 
-  if (
-    normalized.length > 1 &&
-    normalized.endsWith("/")
-  ) {
-    normalized =
-      normalized.slice(
-        0,
-        -1,
-      );
+  if (normalized.length > 1 && normalized.endsWith("/")) {
+    normalized = normalized.slice(0, -1);
   }
 
   return normalized;
@@ -252,36 +166,17 @@ export function normalizeProxyPath(
 export function buildProxyRequestPath(
   target: ProxyTarget,
   requestPath: string,
-  rewritePath?: (
-    path: string,
-    requestURL: URL,
-  ) => string,
+  rewritePath?: (path: string, requestURL: URL) => string,
 ): string {
-  let path =
-    requestPath.length > 0
-      ? requestPath
-      : "/";
+  let path = requestPath.length > 0 ? requestPath : "/";
 
-  if (
-    rewritePath
-  ) {
-    path =
-      rewritePath(
-        path,
-        target.url,
-      );
+  if (rewritePath) {
+    path = rewritePath(path, target.url);
   }
 
-  const targetPath =
-    target.pathname === "/"
-      ? ""
-      : target.pathname;
+  const targetPath = target.pathname === "/" ? "" : target.pathname;
 
-  const normalized =
-    joinProxyPath(
-      targetPath,
-      path,
-    );
+  const normalized = joinProxyPath(targetPath, path);
 
   return `${normalized}${target.search}`;
 }
@@ -293,41 +188,19 @@ export function buildProxyRequestPath(
 export function prepareProxyHeaders(
   headers: readonly HTTPHeader[],
   target: ProxyTarget,
-  options: Pick<
-    ProxyOptions,
-    "changeOrigin" | "preserveHost" | "xfwd"
-  > = {},
+  options: Pick<ProxyOptions, "changeOrigin" | "preserveHost" | "xfwd"> = {},
 ): HTTPHeader[] {
-  let result =
-    headers.map(
-      (header) => ({
-        name: header.name,
-        value: header.value,
-      }),
-    );
+  let result = headers.map((header) => ({
+    name: header.name,
+    value: header.value,
+  }));
 
-  if (
-    options.changeOrigin &&
-    !options.preserveHost
-  ) {
-    result =
-      setHeader(
-        result,
-        "host",
-        formatHost(
-          target.url,
-        ),
-      );
+  if (options.changeOrigin && !options.preserveHost) {
+    result = setHeader(result, "host", formatHost(target.url));
   }
 
-  if (
-    options.xfwd
-  ) {
-    result =
-      setForwardedHeaders(
-        result,
-        target,
-      );
+  if (options.xfwd) {
+    result = setForwardedHeaders(result, target);
   }
 
   return result;
@@ -335,47 +208,20 @@ export function prepareProxyHeaders(
 
 export function applyProxyHeaders(
   headers: readonly HTTPHeader[],
-  additionalHeaders:
-    | Readonly<Record<string, string>>
-    | undefined,
+  additionalHeaders: Readonly<Record<string, string>> | undefined,
 ): HTTPHeader[] {
-  if (
-    !additionalHeaders
-  ) {
-    return [
-      ...headers,
-    ];
+  if (!additionalHeaders) {
+    return [...headers];
   }
 
-  let result =
-    [
-      ...headers,
-    ];
+  let result = [...headers];
 
-  for (
-    const [
-      name,
-      value,
-    ] of Object.entries(
-      additionalHeaders,
-    )
-  ) {
-    if (
-      !isValidHeaderValue(
-        value,
-      )
-    ) {
-      throw new TypeError(
-        `Invalid proxy header value for ${name}`,
-      );
+  for (const [name, value] of Object.entries(additionalHeaders)) {
+    if (!isValidHeaderValue(value)) {
+      throw new TypeError(`Invalid proxy header value for ${name}`);
     }
 
-    result =
-      setHeader(
-        result,
-        name,
-        value,
-      );
+    result = setHeader(result, name, value);
   }
 
   return result;
@@ -390,53 +236,24 @@ export function setForwardedHeaders(
   target: ProxyTarget,
   forwardedFor?: string,
 ): HTTPHeader[] {
-  let result =
-    [
-      ...headers,
-    ];
+  let result = [...headers];
 
-  const protocol =
-    target.url.protocol.replace(
-      ":",
-      "",
-    );
+  const protocol = target.url.protocol.replace(":", "");
 
-  result =
-    appendForwardedValue(
-      result,
-      "x-forwarded-proto",
-      protocol,
-    );
+  result = appendForwardedValue(result, "x-forwarded-proto", protocol);
 
-  result =
-    appendForwardedValue(
-      result,
-      "x-forwarded-host",
-      formatHost(
-        target.url,
-      ),
-    );
+  result = appendForwardedValue(
+    result,
+    "x-forwarded-host",
+    formatHost(target.url),
+  );
 
-  if (
-    target.url.port
-  ) {
-    result =
-      appendForwardedValue(
-        result,
-        "x-forwarded-port",
-        target.url.port,
-      );
+  if (target.url.port) {
+    result = appendForwardedValue(result, "x-forwarded-port", target.url.port);
   }
 
-  if (
-    forwardedFor
-  ) {
-    result =
-      appendForwardedValue(
-        result,
-        "x-forwarded-for",
-        forwardedFor,
-      );
+  if (forwardedFor) {
+    result = appendForwardedValue(result, "x-forwarded-for", forwardedFor);
   }
 
   return result;
@@ -447,107 +264,52 @@ function appendForwardedValue(
   name: string,
   value: string,
 ): HTTPHeader[] {
-  const existing =
-    getHeader(
-      headers,
-      name,
-    );
+  const existing = getHeader(headers, name);
 
-  if (
-    existing
-  ) {
-    return setHeader(
-      headers,
-      name,
-      `${existing}, ${value}`,
-    );
+  if (existing) {
+    return setHeader(headers, name, `${existing}, ${value}`);
   }
 
-  return appendHeader(
-    headers,
-    name,
-    value,
-  );
+  return appendHeader(headers, name, value);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Standard Forwarded Header                                                  */
 /* -------------------------------------------------------------------------- */
 
-export function createForwardedHeader(
-  address: ForwardedAddress,
-): string {
+export function createForwardedHeader(address: ForwardedAddress): string {
   const parts: string[] = [];
 
-  if (
-    address.for
-  ) {
-    parts.push(
-      `for=${formatForwardedIdentifier(
-        address.for,
-      )}`,
-    );
+  if (address.for) {
+    parts.push(`for=${formatForwardedIdentifier(address.for)}`);
   }
 
-  if (
-    address.host
-  ) {
-    parts.push(
-      `host=${formatForwardedValue(
-        address.host,
-      )}`,
-    );
+  if (address.host) {
+    parts.push(`host=${formatForwardedValue(address.host)}`);
   }
 
-  if (
-    address.port !==
-      undefined
-  ) {
-    parts.push(
-      `port=${address.port}`,
-    );
+  if (address.port !== undefined) {
+    parts.push(`port=${address.port}`);
   }
 
-  if (
-    address.protocol
-  ) {
-    parts.push(
-      `proto=${formatForwardedValue(
-        address.protocol,
-      )}`,
-    );
+  if (address.protocol) {
+    parts.push(`proto=${formatForwardedValue(address.protocol)}`);
   }
 
   return parts.join("; ");
 }
 
 export function parseForwardedHeader(
-  value:
-    | string
-    | undefined
-    | null,
+  value: string | undefined | null,
 ): ForwardedAddress[] {
-  if (
-    !value ||
-    value.trim().length ===
-      0
-  ) {
+  if (!value || value.trim().length === 0) {
     return [];
   }
 
-  return value
-    .split(",")
-    .map(
-      (entry) =>
-        parseForwardedEntry(
-          entry,
-        ),
-    );
+  return value.split(",").map((entry) => parseForwardedEntry(entry));
 }
 
-function parseForwardedEntry(
-  value: string,
-): ForwardedAddress {
+function parseForwardedEntry(value: string): ForwardedAddress {
   const result: {
     protocol?: string;
     host?: string;
@@ -555,72 +317,42 @@ function parseForwardedEntry(
     for?: string;
   } = {};
 
-  const parameters =
-    value.split(";");
+  const parameters = value.split(";");
 
-  for (
-    const parameter of parameters
-  ) {
-    const separator =
-      parameter.indexOf("=");
+  for (const parameter of parameters) {
+    const separator = parameter.indexOf("=");
 
-    if (
-      separator === -1
-    ) {
+    if (separator === -1) {
       continue;
     }
 
-    const key =
-      parameter
-        .slice(
-          0,
-          separator,
-        )
-        .trim()
-        .toLowerCase();
+    const key = parameter.slice(0, separator).trim().toLowerCase();
 
-    const rawValue =
-      parameter
-        .slice(
-          separator + 1,
-        )
-        .trim();
+    const rawValue = parameter.slice(separator + 1).trim();
 
-    const parsed =
-      unquoteForwardedValue(
-        rawValue,
-      );
+    const parsed = unquoteForwardedValue(rawValue);
 
     switch (key) {
       case "proto":
-        result.protocol =
-          parsed;
+        result.protocol = parsed;
         break;
 
       case "host":
-        result.host =
-          parsed;
+        result.host = parsed;
         break;
 
       case "port": {
-        const port =
-          Number(parsed);
+        const port = Number(parsed);
 
-        if (
-          Number.isInteger(port) &&
-          port >= 0 &&
-          port <= 65535
-        ) {
-          result.port =
-            port;
+        if (Number.isInteger(port) && port >= 0 && port <= 65535) {
+          result.port = port;
         }
 
         break;
       }
 
       case "for":
-        result.for =
-          parsed;
+        result.for = parsed;
         break;
     }
   }
@@ -638,37 +370,19 @@ export function createProxyRequest(
   headers: readonly HTTPHeader[],
   options: ProxyOptions,
 ): ProxyRequest {
-  const target =
-    resolveProxyTarget(
-      options.target,
-    );
+  const target = resolveProxyTarget(options.target);
 
-  let path =
-    buildProxyRequestPath(
-      target,
-      requestPath,
-      options.rewritePath,
-    );
+  let path = buildProxyRequestPath(target, requestPath, options.rewritePath);
 
-  const proxyHeaders =
-    prepareProxyHeaders(
-      headers,
-      target,
-      options,
-    );
+  const proxyHeaders = prepareProxyHeaders(headers, target, options);
 
-  const finalHeaders =
-    applyProxyHeaders(
-      proxyHeaders,
-      options.headers,
-    );
+  const finalHeaders = applyProxyHeaders(proxyHeaders, options.headers);
 
   return {
     method,
     target,
     path,
-    headers:
-      finalHeaders,
+    headers: finalHeaders,
   };
 }
 
@@ -676,33 +390,20 @@ export function createProxyRequest(
 /* Host Handling                                                              */
 /* -------------------------------------------------------------------------- */
 
-export function formatHost(
-  url: URL,
-): string {
-  const hostname =
-    url.hostname.includes(":")
-      ? `[${url.hostname}]`
-      : url.hostname;
+export function formatHost(url: URL): string {
+  const hostname = url.hostname.includes(":")
+    ? `[${url.hostname}]`
+    : url.hostname;
 
-  if (
-    !url.port
-  ) {
+  if (!url.port) {
     return hostname;
   }
 
   return `${hostname}:${url.port}`;
 }
 
-export function getProxyHost(
-  target:
-    | string
-    | URL,
-): string {
-  return formatHost(
-    resolveProxyTarget(
-      target,
-    ).url,
-  );
+export function getProxyHost(target: string | URL): string {
+  return formatHost(resolveProxyTarget(target).url);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -712,132 +413,69 @@ export function getProxyHost(
 export function removeHopByHopHeaders(
   headers: readonly HTTPHeader[],
 ): HTTPHeader[] {
-  const connection =
-    getHeader(
-      headers,
-      "connection",
-    );
+  const connection = getHeader(headers, "connection");
 
   const connectionTokens =
     connection
       ?.split(",")
-      .map(
-        (token) =>
-          token
-            .trim()
-            .toLowerCase(),
-      )
-      .filter(Boolean) ??
-    [];
+      .map((token) => token.trim().toLowerCase())
+      .filter(Boolean) ?? [];
 
-  const hopByHop = new Set(
-    [
-      "connection",
-      "keep-alive",
-      "proxy-authenticate",
-      "proxy-authorization",
-      "te",
-      "trailer",
-      "transfer-encoding",
-      "upgrade",
-      ...connectionTokens,
-    ],
-  );
+  const hopByHop = new Set([
+    "connection",
+    "keep-alive",
+    "proxy-authenticate",
+    "proxy-authorization",
+    "te",
+    "trailer",
+    "transfer-encoding",
+    "upgrade",
+    ...connectionTokens,
+  ]);
 
-  return headers.filter(
-    (header) =>
-      !hopByHop.has(
-        header.name
-          .toLowerCase(),
-      ),
-  );
+  return headers.filter((header) => !hopByHop.has(header.name.toLowerCase()));
 }
 
 /* -------------------------------------------------------------------------- */
 /* Proxy URL Helpers                                                          */
 /* -------------------------------------------------------------------------- */
 
-export function resolveProxyURL(
-  target:
-    | string
-    | URL,
-  path: string,
-): URL {
-  const proxyTarget =
-    resolveProxyTarget(
-      target,
-    );
+export function resolveProxyURL(target: string | URL, path: string): URL {
+  const proxyTarget = resolveProxyTarget(target);
 
-  const result =
-    new URL(
-      proxyTarget.url.href,
-    );
+  const result = new URL(proxyTarget.url.href);
 
-  result.pathname =
-    joinProxyPath(
-      proxyTarget.pathname,
-      path,
-    );
+  result.pathname = joinProxyPath(proxyTarget.pathname, path);
 
   return result;
 }
 
-export function isSameOrigin(
-  left:
-    | string
-    | URL,
-  right:
-    | string
-    | URL,
-): boolean {
+export function isSameOrigin(left: string | URL, right: string | URL): boolean {
   try {
-    const leftURL =
-      left instanceof URL
-        ? left
-        : new URL(left);
+    const leftURL = left instanceof URL ? left : new URL(left);
 
-    const rightURL =
-      right instanceof URL
-        ? right
-        : new URL(right);
+    const rightURL = right instanceof URL ? right : new URL(right);
 
     return (
-      leftURL.protocol ===
-        rightURL.protocol &&
-      leftURL.hostname ===
-        rightURL.hostname &&
-      effectivePort(
-        leftURL,
-      ) ===
-        effectivePort(
-          rightURL,
-        )
+      leftURL.protocol === rightURL.protocol &&
+      leftURL.hostname === rightURL.hostname &&
+      effectivePort(leftURL) === effectivePort(rightURL)
     );
   } catch {
     return false;
   }
 }
 
-function effectivePort(
-  url: URL,
-): string {
-  if (
-    url.port
-  ) {
+function effectivePort(url: URL): string {
+  if (url.port) {
     return url.port;
   }
 
-  if (
-    url.protocol ===
-    "https:"
-  ) {
+  if (url.protocol === "https:") {
     return "443";
   }
 
-  if (
-    url.protocol ===
-    "http:"
-  ) {
+  if (url.protocol === "http:") {
     return "80";
   }
 
@@ -848,46 +486,23 @@ function effectivePort(
 /* Proxy Configuration                                                        */
 /* -------------------------------------------------------------------------- */
 
-export function normalizeProxyOptions(
-  options: ProxyOptions,
-): ProxyOptions {
-  const target =
-    resolveProxyTarget(
-      options.target,
-    );
+export function normalizeProxyOptions(options: ProxyOptions): ProxyOptions {
+  const target = resolveProxyTarget(options.target);
 
   if (
-    options.timeout !==
-      undefined &&
-    (
-      !Number.isFinite(
-        options.timeout,
-      ) ||
-      options.timeout < 0
-    )
+    options.timeout !== undefined &&
+    (!Number.isFinite(options.timeout) || options.timeout < 0)
   ) {
-    throw new RangeError(
-      "Proxy timeout must be a non-negative finite number.",
-    );
+    throw new RangeError("Proxy timeout must be a non-negative finite number.");
   }
 
   return {
     ...options,
-    target:
-      target.url,
-    changeOrigin:
-      options.changeOrigin ??
-      false,
-    preserveHost:
-      options.preserveHost ??
-      false,
-    xfwd:
-      options.xfwd ??
-      false,
-    secure:
-      options.secure ??
-      target.url.protocol ===
-        "https:",
+    target: target.url,
+    changeOrigin: options.changeOrigin ?? false,
+    preserveHost: options.preserveHost ?? false,
+    xfwd: options.xfwd ?? false,
+    secure: options.secure ?? target.url.protocol === "https:",
   };
 }
 
@@ -895,65 +510,25 @@ export function normalizeProxyOptions(
 /* Internal Forwarded Helpers                                                 */
 /* -------------------------------------------------------------------------- */
 
-function formatForwardedIdentifier(
-  value: string,
-): string {
-  if (
-    /^[A-Za-z0-9._:-]+$/.test(
-      value,
-    )
-  ) {
+function formatForwardedIdentifier(value: string): string {
+  if (/^[A-Za-z0-9._:-]+$/.test(value)) {
     return value;
   }
 
-  return formatForwardedValue(
-    value,
-  );
+  return formatForwardedValue(value);
 }
 
-function formatForwardedValue(
-  value: string,
-): string {
-  if (
-    /^[A-Za-z0-9._:-]+$/.test(
-      value,
-    )
-  ) {
+function formatForwardedValue(value: string): string {
+  if (/^[A-Za-z0-9._:-]+$/.test(value)) {
     return value;
   }
 
-  return `"${value
-    .replace(
-      /\\/g,
-      "\\\\",
-    )
-    .replace(
-      /"/g,
-      '\\"',
-    )}"`;
+  return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
 }
 
-function unquoteForwardedValue(
-  value: string,
-): string {
-  if (
-    value.length >= 2 &&
-    value.startsWith('"') &&
-    value.endsWith('"')
-  ) {
-    return value
-      .slice(
-        1,
-        -1,
-      )
-      .replace(
-        /\\"/g,
-        '"',
-      )
-      .replace(
-        /\\\\/g,
-        "\\",
-      );
+function unquoteForwardedValue(value: string): string {
+  if (value.length >= 2 && value.startsWith('"') && value.endsWith('"')) {
+    return value.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, "\\");
   }
 
   return value;

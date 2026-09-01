@@ -5,37 +5,21 @@
  * contexts without the full Runtime lifecycle.
  */
 
-import type {
-  Container,
-} from "@oyinlola141/lattice-container";
+import type { Container } from "@oyinlola141/lattice-container";
 
-import type {
-  Logger,
-} from "@oyinlola141/lattice-logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
-import {
-  createStartedContainer,
-} from "@oyinlola141/lattice-container";
+import { createStartedContainer } from "@oyinlola141/lattice-container";
 
-import {
-  createLogger,
-} from "@oyinlola141/lattice-logger";
+import { createLogger } from "@oyinlola141/lattice-logger";
 
-import {
-  createCleanupManager,
-} from "../cleanupManager/cleanupManager.core.js";
+import { createCleanupManager } from "../cleanupManager/cleanupManager.core.js";
 
-import {
-  createTestClock,
-} from "../testClock/testClock.core.js";
+import { createTestClock } from "../testClock/testClock.core.js";
 
-import type {
-  CleanupManager,
-} from "../cleanupManager/cleanupManager.core.js";
+import type { CleanupManager } from "../cleanupManager/cleanupManager.core.js";
 
-import type {
-  TestClock,
-} from "../testClock/testClock.core.js";
+import type { TestClock } from "../testClock/testClock.core.js";
 
 /**
  * Options for creating a test application.

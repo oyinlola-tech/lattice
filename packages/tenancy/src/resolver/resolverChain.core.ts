@@ -4,7 +4,12 @@
  * @module resolver/resolverChain
  */
 
-import type { TenantResolver, TenantResolution, TenantResolutionResult, ResolverChainOptions } from "../tenancyTypes/resolverTypes.js";
+import type {
+  TenantResolver,
+  TenantResolution,
+  TenantResolutionResult,
+  ResolverChainOptions,
+} from "../tenancyTypes/resolverTypes.js";
 import { TenantResolutionConflictError } from "../tenancyErrors/tenancyError.types.js";
 
 /**

@@ -4,7 +4,10 @@
  * @module resolvers/headerResolver
  */
 
-import type { TenantResolver, TenantResolution } from "../../tenancyTypes/resolverTypes.js";
+import type {
+  TenantResolver,
+  TenantResolution,
+} from "../../tenancyTypes/resolverTypes.js";
 import { createTenantId } from "../../tenancyTypes/tenantIdentity.js";
 
 /** Context type with a getHeader method. */
@@ -31,7 +34,9 @@ export function createHeaderResolver(
     name: "header",
     priority,
 
-    async resolve(context: HeaderContext): Promise<TenantResolution | undefined> {
+    async resolve(
+      context: HeaderContext,
+    ): Promise<TenantResolution | undefined> {
       const value = context.getHeader(headerName);
       if (!value) return undefined;
 

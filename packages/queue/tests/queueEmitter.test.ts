@@ -120,10 +120,14 @@ describe("Queue Event Emitter", () => {
       return { success: true };
     });
 
-    await queue.add("test-job", { userId: "123" }, {
-      attempts: 3,
-      backoff: { type: "fixed", delay: 10 },
-    });
+    await queue.add(
+      "test-job",
+      { userId: "123" },
+      {
+        attempts: 3,
+        backoff: { type: "fixed", delay: 10 },
+      },
+    );
 
     await new Promise((resolve) => setTimeout(resolve, 300));
 

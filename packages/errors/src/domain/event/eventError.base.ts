@@ -9,8 +9,7 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating an event error. */
-export interface EventErrorOptions
-  extends Omit<BaseErrorOptions, "category"> {
+export interface EventErrorOptions extends Omit<BaseErrorOptions, "category"> {
   readonly category?: ErrorCategory;
   readonly eventType?: string;
   readonly eventId?: string;
@@ -24,10 +23,7 @@ export class EventError extends BaseError {
   public readonly eventId?: string;
   public readonly handlerId?: string;
 
-  constructor(
-    message: string,
-    options: EventErrorOptions = {},
-  ) {
+  constructor(message: string, options: EventErrorOptions = {}) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.EVENT_HANDLING_FAILED,
@@ -45,15 +41,9 @@ export class EventError extends BaseError {
   public override toJSON() {
     return {
       ...super.toJSON(),
-      ...(this.eventType !== undefined
-        ? { eventType: this.eventType }
-        : {}),
-      ...(this.eventId !== undefined
-        ? { eventId: this.eventId }
-        : {}),
-      ...(this.handlerId !== undefined
-        ? { handlerId: this.handlerId }
-        : {}),
+      ...(this.eventType !== undefined ? { eventType: this.eventType } : {}),
+      ...(this.eventId !== undefined ? { eventId: this.eventId } : {}),
+      ...(this.handlerId !== undefined ? { handlerId: this.handlerId } : {}),
     };
   }
 }
@@ -67,9 +57,7 @@ export function createEventError(
 }
 
 /** Determines whether an unknown value is an EventError. */
-export function isEventError(
-  value: unknown,
-): value is EventError {
+export function isEventError(value: unknown): value is EventError {
   return value instanceof EventError;
 }
 

@@ -2,10 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 
 import { createWorker, isWorker } from "../src/worker/worker.core.js";
 
-import {
-  createQueueName,
-  WorkerState,
-} from "../src/jobTypes/jobTypes.type.js";
+import { createQueueName, WorkerState } from "../src/jobTypes/jobTypes.type.js";
 
 import { createInMemoryQueue } from "../src/inMemoryQueue/inMemoryQueue.core.js";
 

@@ -21,7 +21,10 @@ export class FeatureFlagNotFoundError extends FeatureFlagError {
 
 /** Thrown when a feature flag provider fails. */
 export class FeatureFlagProviderError extends FeatureFlagError {
-  public constructor(message: string, options?: { readonly cause?: unknown; readonly provider?: string }) {
+  public constructor(
+    message: string,
+    options?: { readonly cause?: unknown; readonly provider?: string },
+  ) {
     super(message, {
       code: ErrorCode.FEATURE_FLAG_PROVIDER,
       cause: options?.cause,

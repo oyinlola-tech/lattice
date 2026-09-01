@@ -10,7 +10,9 @@ export interface CancelOrderResult {
 export class CancelOrderHandler {
   constructor(private readonly orders: OrderRepository) {}
 
-  public async execute(command: CancelOrderCommand): Promise<CancelOrderResult> {
+  public async execute(
+    command: CancelOrderCommand,
+  ): Promise<CancelOrderResult> {
     const order = await this.orders.findById(command.orderId);
     if (!order) throw new Error(`Order "${command.orderId}" not found.`);
     order.cancel();

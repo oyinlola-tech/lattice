@@ -10,8 +10,7 @@ export interface HTTPValidationResult {
   readonly reason?: string;
 }
 
-export interface HTTPHeaderValidationResult
-  extends HTTPValidationResult {
+export interface HTTPHeaderValidationResult extends HTTPValidationResult {
   readonly name?: string;
   readonly headerValue?: string;
 }

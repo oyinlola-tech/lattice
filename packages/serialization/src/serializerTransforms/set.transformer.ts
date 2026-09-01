@@ -29,7 +29,9 @@ export const SetTransformer: TypeTransformer<Set<unknown>> = {
     const data = value as Record<string, unknown>;
     const raw = data[SerializationTags.VALUE];
     if (!Array.isArray(raw)) {
-      throw new Error(`Invalid Set serialized value: expected array, got ${typeof raw}`);
+      throw new Error(
+        `Invalid Set serialized value: expected array, got ${typeof raw}`,
+      );
     }
     return new Set(raw);
   },

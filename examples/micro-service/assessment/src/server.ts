@@ -13,7 +13,9 @@ async function main() {
     if (method !== "GET" && method !== "HEAD") {
       body = await new Promise<string>((resolve) => {
         let data = "";
-        req.on("data", (chunk) => { data += chunk; });
+        req.on("data", (chunk) => {
+          data += chunk;
+        });
         req.on("end", () => resolve(data));
       });
     }
@@ -26,13 +28,18 @@ async function main() {
 
     const response = await handler(request);
 
-    res.writeHead(response.status, Object.fromEntries(response.headers.entries()));
+    res.writeHead(
+      response.status,
+      Object.fromEntries(response.headers.entries()),
+    );
     const responseBody = await response.text();
     res.end(responseBody);
   });
 
   server.listen(assessmentConfig.port, assessmentConfig.host, () => {
-    console.log(`[${assessmentConfig.serviceName}] listening on http://${assessmentConfig.host}:${assessmentConfig.port}`);
+    console.log(
+      `[${assessmentConfig.serviceName}] listening on http://${assessmentConfig.host}:${assessmentConfig.port}`,
+    );
   });
 }
 

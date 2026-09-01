@@ -6,8 +6,15 @@
 
 import type { CLIOption } from "../cliType/cliType.type.js";
 import { CLI_OPTION_PREFIXES } from "../cliConstant/cliConstant.value.js";
-import { InvalidOptionError, MissingOptionValueError } from "../cliError/cliError.option.js";
-import { isOption, parseBoolean, parseOptionValue } from "./cliParser.helper.js";
+import {
+  InvalidOptionError,
+  MissingOptionValueError,
+} from "../cliError/cliError.option.js";
+import {
+  isOption,
+  parseBoolean,
+  parseOptionValue,
+} from "./cliParser.helper.js";
 
 /** Parses a long option token from the token stream. */
 export function parseLongOption(
@@ -26,7 +33,8 @@ export function parseLongOption(
 
   const separatorIndex = raw.indexOf(CLI_OPTION_PREFIXES.VALUE_SEPARATOR);
   let name = separatorIndex >= 0 ? raw.slice(0, separatorIndex) : raw;
-  let value: unknown = separatorIndex >= 0 ? raw.slice(separatorIndex + 1) : undefined;
+  let value: unknown =
+    separatorIndex >= 0 ? raw.slice(separatorIndex + 1) : undefined;
   let negated = false;
 
   if (name.startsWith("no-")) {
@@ -45,7 +53,12 @@ export function parseLongOption(
   }
 
   if (!definition) {
-    if (value === undefined && tokens[index + 1] && tokens[index + 1] !== "--" && !isOption(tokens[index + 1]!)) {
+    if (
+      value === undefined &&
+      tokens[index + 1] &&
+      tokens[index + 1] !== "--" &&
+      !isOption(tokens[index + 1]!)
+    ) {
       value = tokens[index + 1];
       values[name] = value;
       return index + 2;
@@ -77,7 +90,10 @@ export function parseLongOption(
 }
 
 /** Finds an option by name or short form. */
-export function findOption(name: string, definitions: readonly CLIOption[]): CLIOption | undefined {
+export function findOption(
+  name: string,
+  definitions: readonly CLIOption[],
+): CLIOption | undefined {
   return definitions.find((d) => d.name === name || d.short === name);
 }
 

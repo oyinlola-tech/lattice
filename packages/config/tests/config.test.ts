@@ -1,17 +1,13 @@
 import { describe, it, expect } from "vitest";
 
-import {
-  validateConfigObject,
-} from "../src/configSchema/configSchema.validator.js";
+import { validateConfigObject } from "../src/configSchema/configSchema.validator.js";
 
 import {
   ConfigSourceType,
   createConfigSource,
 } from "../src/configSource/configSource.core.js";
 
-import {
-  createConfigStore,
-} from "../src/configStore/configStore.factory.js";
+import { createConfigStore } from "../src/configStore/configStore.factory.js";
 
 import {
   createConfigEntry,
@@ -26,15 +22,11 @@ import {
   configValueToString,
 } from "../src/configValue/configValue.core.js";
 
-import {
-  createConfigManager,
-} from "../src/configManager/configManager.factory.js";
+import { createConfigManager } from "../src/configManager/configManager.factory.js";
 
 import { ConfigManagerState } from "../src/configManager/configManager.type.js";
 
-import {
-  createConfigResolver,
-} from "../src/configResolver/core/configResolver.factory.js";
+import { createConfigResolver } from "../src/configResolver/core/configResolver.factory.js";
 
 // ---------------------------------------------------------------------------
 // ConfigValue
@@ -227,14 +219,11 @@ describe("ConfigSchema validation", () => {
 
 describe("ConfigSource", () => {
   it("creates a source with loader", async () => {
-    const source = createConfigSource(
-      { name: "test-source" },
-      async () => ({
-        values: { key: "value" },
-        source: "test",
-        type: ConfigSourceType.CUSTOM,
-      }),
-    );
+    const source = createConfigSource({ name: "test-source" }, async () => ({
+      values: { key: "value" },
+      source: "test",
+      type: ConfigSourceType.CUSTOM,
+    }));
 
     expect(source.name).toBe("test-source");
     expect(source.type).toBe(ConfigSourceType.CUSTOM);

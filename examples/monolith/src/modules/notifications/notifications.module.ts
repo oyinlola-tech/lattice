@@ -24,15 +24,21 @@ export class NotificationsModule {
       const notifType = typeMap[event.type];
       if (notifType) {
         const notification: Notification = {
-          id: crypto.randomUUID(), type: notifType,
+          id: crypto.randomUUID(),
+          type: notifType,
           message: `Order ${event.aggregateId}: ${notifType.replace(/_/g, " ")}`,
-          data: event.data, createdAt: new Date(),
+          data: event.data,
+          createdAt: new Date(),
         };
         this.notifications.push(notification);
-        console.log(`[Notifications] ${notification.type}: ${notification.message}`);
+        console.log(
+          `[Notifications] ${notification.type}: ${notification.message}`,
+        );
       }
     }
   }
 
-  public getNotifications(): readonly Notification[] { return [...this.notifications]; }
+  public getNotifications(): readonly Notification[] {
+    return [...this.notifications];
+  }
 }

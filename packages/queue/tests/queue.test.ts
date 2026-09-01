@@ -78,9 +78,9 @@ describe("Queue", () => {
 
       await queue.pause();
 
-      await expect(
-        queue.add("test-job", { userId: "123" }),
-      ).rejects.toThrow("Queue \"test-queue\" is paused.");
+      await expect(queue.add("test-job", { userId: "123" })).rejects.toThrow(
+        'Queue "test-queue" is paused.',
+      );
     });
 
     it("should close the queue", async () => {

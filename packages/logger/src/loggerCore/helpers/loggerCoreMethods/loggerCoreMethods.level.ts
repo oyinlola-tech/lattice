@@ -7,25 +7,15 @@ import {
   shouldLog,
 } from "../../../loggerLevel/loggerLevel.type.js";
 
-import type {
-  LogOptions,
-} from "../../../loggerOptions/loggerOptions.type.js";
+import type { LogOptions } from "../../../loggerOptions/loggerOptions.type.js";
 
-import {
-  LoggerConfigurationError,
-} from "../../../loggerErrors/loggerError.base.js";
+import { LoggerConfigurationError } from "../../../loggerErrors/loggerError.base.js";
 
-import {
-  createEntry,
-} from "./loggerCoreMethods.entry.js";
+import { createEntry } from "./loggerCoreMethods.entry.js";
 
-import {
-  dispatchEntry,
-} from "./loggerCoreMethods.dispatch.js";
+import { dispatchEntry } from "./loggerCoreMethods.dispatch.js";
 
-import type {
-  LatticeLoggerContext,
-} from "../../core/loggerCore.core.js";
+import type { LatticeLoggerContext } from "../../core/loggerCore.core.js";
 
 /**
  * Level logging methods extracted from LatticeLogger.
@@ -46,9 +36,7 @@ export function logAtLevel(
   }
 
   if (typeof message !== "string") {
-    throw new LoggerConfigurationError(
-      "Logger message must be a string.",
-    );
+    throw new LoggerConfigurationError("Logger message must be a string.");
   }
 
   const entry = createEntry(
@@ -59,9 +47,7 @@ export function logAtLevel(
     options,
   );
 
-  void dispatchEntry(
-    ctx.configuration,
-    entry,
-    (error: Error) => ctx.handleInfrastructureError(error),
+  void dispatchEntry(ctx.configuration, entry, (error: Error) =>
+    ctx.handleInfrastructureError(error),
   );
 }

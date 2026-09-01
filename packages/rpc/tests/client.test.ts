@@ -45,6 +45,8 @@ describe("RPCClient", () => {
 
     const client = new RPCClient(transport);
 
-    await expect(client.call("users.get", { id: "123" })).rejects.toThrow("Not found");
+    await expect(client.call("users.get", { id: "123" })).rejects.toThrow(
+      "Not found",
+    );
   });
 });

@@ -33,9 +33,7 @@ export class InMemoryTestStorage {
 
   /** Set a value with optional TTL in milliseconds. */
   set(key: string, value: unknown, ttlMs?: number): void {
-    const expiresAt = ttlMs
-      ? new Date(Date.now() + ttlMs)
-      : null;
+    const expiresAt = ttlMs ? new Date(Date.now() + ttlMs) : null;
     this.store.set(key, { value, expiresAt });
   }
 

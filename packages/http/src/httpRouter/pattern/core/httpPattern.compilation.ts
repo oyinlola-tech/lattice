@@ -46,15 +46,21 @@ export function compileRoutePattern(
   };
 }
 
-function extractParamNames(segments: readonly RouteSegment[]): readonly string[] {
+function extractParamNames(
+  segments: readonly RouteSegment[],
+): readonly string[] {
   return segments
-    .filter((s): s is ParameterRouteSegment | WildcardRouteSegment =>
-      s.type === "parameter" || s.type === "wildcard"
+    .filter(
+      (s): s is ParameterRouteSegment | WildcardRouteSegment =>
+        s.type === "parameter" || s.type === "wildcard",
     )
     .map((s) => s.name);
 }
 
-function validateNoDuplicateParams(paramNames: readonly string[], pattern: string): void {
+function validateNoDuplicateParams(
+  paramNames: readonly string[],
+  pattern: string,
+): void {
   const seen = new Set<string>();
   for (const name of paramNames) {
     if (name === "*") continue;

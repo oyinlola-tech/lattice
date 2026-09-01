@@ -1,50 +1,44 @@
-import type {
-  ResolvedRuntimeOptions,
-} from "./runtimeOptions.type.js";
+import type { ResolvedRuntimeOptions } from "./runtimeOptions.type.js";
 
 /**
  * Default runtime configuration.
  */
-export const DEFAULT_RUNTIME_OPTIONS:
-  Readonly<
-    Omit<
-      ResolvedRuntimeOptions,
-      "infrastructure" | "metadata"
-    >
-  > = Object.freeze({
-    name: "application",
-    mode: "development",
-    role: "application",
+export const DEFAULT_RUNTIME_OPTIONS: Readonly<
+  Omit<ResolvedRuntimeOptions, "infrastructure" | "metadata">
+> = Object.freeze({
+  name: "application",
+  mode: "development",
+  role: "application",
 
-    startup: {
-      autoLoadModules: true,
-      autoInitializeModules: true,
-      autoStartModules: true,
-      continueOnInitializeError: false,
-      continueOnStartError: false,
-      timeoutMs: 0,
-    },
+  startup: {
+    autoLoadModules: true,
+    autoInitializeModules: true,
+    autoStartModules: true,
+    continueOnInitializeError: false,
+    continueOnStartError: false,
+    timeoutMs: 0,
+  },
 
-    shutdown: {
-      autoStopModules: true,
-      autoDestroyModules: true,
-      continueOnStopError: true,
-      continueOnDestroyError: true,
-      timeoutMs: 30_000,
-    },
+  shutdown: {
+    autoStopModules: true,
+    autoDestroyModules: true,
+    continueOnStopError: true,
+    continueOnDestroyError: true,
+    timeoutMs: 30_000,
+  },
 
-    signals: {
-      handleSigint: true,
-      handleSigterm: true,
-      handleSighup: false,
-      handleUncaughtException: true,
-      handleUnhandledRejection: true,
-    },
+  signals: {
+    handleSigint: true,
+    handleSigterm: true,
+    handleSighup: false,
+    handleUncaughtException: true,
+    handleUnhandledRejection: true,
+  },
 
-    diagnostics: {
-      startupLogging: true,
-      shutdownLogging: true,
-      includeState: true,
-      includeModules: true,
-    },
-  });
+  diagnostics: {
+    startupLogging: true,
+    shutdownLogging: true,
+    includeState: true,
+    includeModules: true,
+  },
+});

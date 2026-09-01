@@ -4,4 +4,4 @@
  * HTTP httpCacheControl module.
  */
 
-export * from './httpCacheControl.core.js';
+export * from "./httpCacheControl.core.js";

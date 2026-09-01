@@ -4,4 +4,4 @@
  * Scope management for dependency lifetimes.
  */
 
-export * from './containerScope.type.js';
+export * from "./containerScope.type.js";

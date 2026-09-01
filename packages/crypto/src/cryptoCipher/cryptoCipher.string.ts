@@ -1,7 +1,4 @@
-import type {
-  CipherOptions,
-  CipherResult,
-} from "./cryptoCipher.core.js";
+import type { CipherOptions, CipherResult } from "./cryptoCipher.core.js";
 
 import { encrypt, decrypt } from "./cryptoCipher.core.js";
 
@@ -13,11 +10,7 @@ export async function encryptString(
   key: Uint8Array,
   options: CipherOptions = {},
 ): Promise<CipherResult> {
-  return encrypt(
-    new Uint8Array(Buffer.from(plaintext, "utf8")),
-    key,
-    options,
-  );
+  return encrypt(new Uint8Array(Buffer.from(plaintext, "utf8")), key, options);
 }
 
 /**
@@ -30,13 +23,7 @@ export async function decryptString(
   authTag: Uint8Array,
   aad?: Uint8Array,
 ): Promise<string> {
-  const plaintext = await decrypt(
-    ciphertext,
-    key,
-    iv,
-    authTag,
-    aad,
-  );
+  const plaintext = await decrypt(ciphertext, key, iv, authTag, aad);
 
   return Buffer.from(plaintext).toString("utf8");
 }

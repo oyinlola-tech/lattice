@@ -87,8 +87,7 @@ export const UNPROCESSABLE_CONTENT = 422 as const;
 /**
  * Backwards-compatible alias.
  */
-export const UNPROCESSABLE_ENTITY =
-  UNPROCESSABLE_CONTENT;
+export const UNPROCESSABLE_ENTITY = UNPROCESSABLE_CONTENT;
 
 export const LOCKED = 423 as const;
 export const FAILED_DEPENDENCY = 424 as const;
@@ -238,100 +237,70 @@ export type HTTPStatusCode =
 /* Lookup Helpers                                                             */
 /* -------------------------------------------------------------------------- */
 
-export function isKnownStatusCode(
-  status: number,
-): status is HTTPStatusCode {
-  return Object.values(
-    STATUS_CODES,
-  ).includes(
-    status as HTTPStatusCode,
-  );
+export function isKnownStatusCode(status: number): status is HTTPStatusCode {
+  return Object.values(STATUS_CODES).includes(status as HTTPStatusCode);
 }
 
 export function isInformationalStatusCode(
   status: number,
 ): status is InformationalStatusCode {
-  return (
-    status >= 100 &&
-    status < 200
-  );
+  return status >= 100 && status < 200;
 }
 
 export function isSuccessStatusCode(
   status: number,
 ): status is SuccessStatusCode {
-  return (
-    status >= 200 &&
-    status < 300
-  );
+  return status >= 200 && status < 300;
 }
 
 export function isRedirectionStatusCode(
   status: number,
 ): status is RedirectionStatusCode {
-  return (
-    status >= 300 &&
-    status < 400
-  );
+  return status >= 300 && status < 400;
 }
 
 export function isClientErrorStatusCode(
   status: number,
 ): status is ClientErrorStatusCode {
-  return (
-    status >= 400 &&
-    status < 500
-  );
+  return status >= 400 && status < 500;
 }
 
 export function isServerErrorStatusCode(
   status: number,
 ): status is ServerErrorStatusCode {
-  return (
-    status >= 500 &&
-    status < 600
-  );
+  return status >= 500 && status < 600;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Frequently Used Status Sets                                                */
 /* -------------------------------------------------------------------------- */
 
-export const EMPTY_BODY_STATUS_CODES =
-  [
-    NO_CONTENT,
-    RESET_CONTENT,
-  ] as const;
+export const EMPTY_BODY_STATUS_CODES = [NO_CONTENT, RESET_CONTENT] as const;
 
-export const REDIRECT_STATUS_CODES =
-  [
-    MOVED_PERMANENTLY,
-    FOUND,
-    SEE_OTHER,
-    TEMPORARY_REDIRECT,
-    PERMANENT_REDIRECT,
-  ] as const;
+export const REDIRECT_STATUS_CODES = [
+  MOVED_PERMANENTLY,
+  FOUND,
+  SEE_OTHER,
+  TEMPORARY_REDIRECT,
+  PERMANENT_REDIRECT,
+] as const;
 
-export const RETRYABLE_STATUS_CODES =
-  [
-    REQUEST_TIMEOUT,
-    TOO_EARLY,
-    TOO_MANY_REQUESTS,
-    INTERNAL_SERVER_ERROR,
-    BAD_GATEWAY,
-    SERVICE_UNAVAILABLE,
-    GATEWAY_TIMEOUT,
-  ] as const;
+export const RETRYABLE_STATUS_CODES = [
+  REQUEST_TIMEOUT,
+  TOO_EARLY,
+  TOO_MANY_REQUESTS,
+  INTERNAL_SERVER_ERROR,
+  BAD_GATEWAY,
+  SERVICE_UNAVAILABLE,
+  GATEWAY_TIMEOUT,
+] as const;
 
 /* -------------------------------------------------------------------------- */
 /* Default Status                                                             */
 /* -------------------------------------------------------------------------- */
 
-export const DEFAULT_SUCCESS_STATUS =
-  OK;
+export const DEFAULT_SUCCESS_STATUS = OK;
 
-export const DEFAULT_CLIENT_ERROR_STATUS =
-  BAD_REQUEST;
+export const DEFAULT_CLIENT_ERROR_STATUS = BAD_REQUEST;
 
-export const DEFAULT_SERVER_ERROR_STATUS =
-  INTERNAL_SERVER_ERROR;
+export const DEFAULT_SERVER_ERROR_STATUS = INTERNAL_SERVER_ERROR;

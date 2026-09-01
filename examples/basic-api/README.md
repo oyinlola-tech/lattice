@@ -122,10 +122,10 @@ curl -X DELETE http://localhost:3000/users/550e8400-e29b-41d4-a716-446655440000
 
 Environment variables (see `.env.example`):
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PORT` | `3000` | Server port |
-| `HOST` | `0.0.0.0` | Server host |
+| Variable   | Default       | Description |
+| ---------- | ------------- | ----------- |
+| `PORT`     | `3000`        | Server port |
+| `HOST`     | `0.0.0.0`     | Server host |
 | `NODE_ENV` | `development` | Environment |
 
 ## Architecture

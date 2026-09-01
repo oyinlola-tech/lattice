@@ -1,18 +1,10 @@
-import type {
-  ConfigValue,
-} from "../configValue/configValue.core.js";
+import type { ConfigValue } from "../configValue/configValue.core.js";
 
-import {
-  cloneConfigValue,
-} from "../configValue/configValue.core.js";
+import { cloneConfigValue } from "../configValue/configValue.core.js";
 
-import type {
-  ConfigEntry,
-} from "../configEntry/configEntry.type.js";
+import type { ConfigEntry } from "../configEntry/configEntry.type.js";
 
-import {
-  createConfigEntry,
-} from "../configEntry/configEntry.type.js";
+import { createConfigEntry } from "../configEntry/configEntry.type.js";
 
 import type {
   ConfigSource,
@@ -25,13 +17,9 @@ import {
   sortConfigSources,
 } from "../configSource/configSource.core.js";
 
-import type {
-  ConfigStore,
-} from "../configStore/configStore.core.js";
+import type { ConfigStore } from "../configStore/configStore.core.js";
 
-import {
-  createConfigStore,
-} from "../configStore/configStore.factory.js";
+import { createConfigStore } from "../configStore/configStore.factory.js";
 
 /**
  * Options controlling configuration loading.
@@ -84,11 +72,9 @@ export class ConfigLoader {
 
   private readonly store: ConfigStore;
 
-  private readonly onSourceLoaded?:
-    ConfigLoaderOptions["onSourceLoaded"];
+  private readonly onSourceLoaded?: ConfigLoaderOptions["onSourceLoaded"];
 
-  private readonly onSourceError?:
-    ConfigLoaderOptions["onSourceError"];
+  private readonly onSourceError?: ConfigLoaderOptions["onSourceError"];
 
   private readonly clearStore: boolean;
 
@@ -100,33 +86,22 @@ export class ConfigLoader {
 
   private lastResult?: ConfigLoadResult;
 
-  constructor(
-    options: ConfigLoaderOptions = {},
-  ) {
-    this.sources = [
-      ...(options.sources ?? []),
-    ];
+  constructor(options: ConfigLoaderOptions = {}) {
+    this.sources = [...(options.sources ?? [])];
 
-    this.context =
-      options.context ?? {};
+    this.context = options.context ?? {};
 
     this.store =
       options.store ??
       createConfigStore({
-        freeze:
-          options.freeze ??
-          true,
+        freeze: options.freeze ?? true,
       });
 
-    this.onSourceLoaded =
-      options.onSourceLoaded;
+    this.onSourceLoaded = options.onSourceLoaded;
 
-    this.onSourceError =
-      options.onSourceError;
+    this.onSourceError = options.onSourceError;
 
-    this.clearStore =
-      options.clearStore ??
-      true;
+    this.clearStore = options.clearStore ?? true;
   }
 
   /**
@@ -144,19 +119,14 @@ export class ConfigLoader {
   getSources(): readonly ConfigSource[] {
     this.assertActive();
 
-    return [
-      ...this.sources,
-    ];
+    return [...this.sources];
   }
 
   /**
    * Returns whether configuration has been loaded.
    */
   get isLoaded(): boolean {
-    return (
-      this.loaded &&
-      !this.disposed
-    );
+    return this.loaded && !this.disposed;
   }
 
   /**
@@ -169,9 +139,7 @@ export class ConfigLoader {
   /**
    * Returns the previous load result.
    */
-  get lastLoadResult():
-    | ConfigLoadResult
-    | undefined {
+  get lastLoadResult(): ConfigLoadResult | undefined {
     return this.lastResult;
   }
 
@@ -181,97 +149,55 @@ export class ConfigLoader {
   async load(): Promise<ConfigLoadResult> {
     this.assertActive();
 
-    if (
-      this.loading
-    ) {
-      throw new Error(
-        "Configuration is already being loaded.",
-      );
+    if (this.loading) {
+      throw new Error("Configuration is already being loaded.");
     }
 
     this.loading = true;
 
     try {
-      if (
-        this.clearStore
-      ) {
+      if (this.clearStore) {
         this.store.clear();
       }
 
-      const sortedSources =
-        sortConfigSources(
-          this.sources,
-        );
+      const sortedSources = sortConfigSources(this.sources);
 
-      const results:
-        ConfigSourceResult[] =
-        [];
+      const results: ConfigSourceResult[] = [];
 
-      for (
-        const source of sortedSources
-      ) {
+      for (const source of sortedSources) {
         try {
-          const result =
-            await loadSingleSource(
-              source,
-              this.context,
-            );
+          const result = await loadSingleSource(source, this.context);
 
-          if (
-            !result
-          ) {
+          if (!result) {
             continue;
           }
 
-          results.push(
-            result,
-          );
+          results.push(result);
 
-          this.applySource(
-            source,
-            result,
-          );
+          this.applySource(source, result);
 
-          if (
-            this.onSourceLoaded
-          ) {
-            await this.onSourceLoaded(
-              source,
-              result,
-            );
+          if (this.onSourceLoaded) {
+            await this.onSourceLoaded(source, result);
           }
         } catch (error) {
-          if (
-            this.onSourceError
-          ) {
-            await this.onSourceError(
-              source,
-              error,
-            );
+          if (this.onSourceError) {
+            await this.onSourceError(source, error);
           }
 
-          if (
-            !source.optional
-          ) {
+          if (!source.optional) {
             throw error;
           }
         }
       }
 
-      const result:
-        ConfigLoadResult = {
-        store:
-          this.store,
-        entries:
-          this.store.getEntries(),
-        sources:
-          results,
-        loadedAt:
-          Date.now(),
+      const result: ConfigLoadResult = {
+        store: this.store,
+        entries: this.store.getEntries(),
+        sources: results,
+        loadedAt: Date.now(),
       };
 
-      this.lastResult =
-        result;
+      this.lastResult = result;
 
       this.loaded = true;
 
@@ -302,19 +228,14 @@ export class ConfigLoader {
   ): Promise<ConfigLoadResult> {
     this.assertActive();
 
-    const temporaryLoader =
-      new ConfigLoader({
-        sources,
-        context:
-          this.context,
-        store:
-          this.store,
-        clearStore:
-          this.clearStore,
-      });
+    const temporaryLoader = new ConfigLoader({
+      sources,
+      context: this.context,
+      store: this.store,
+      clearStore: this.clearStore,
+    });
 
-    const result =
-      await temporaryLoader.load();
+    const result = await temporaryLoader.load();
 
     temporaryLoader.detach();
 
@@ -324,52 +245,31 @@ export class ConfigLoader {
   /**
    * Adds a source to the loader.
    */
-  addSource(
-    source: ConfigSource,
-  ): void {
+  addSource(source: ConfigSource): void {
     this.assertActive();
 
-    if (
-      this.sources.some(
-        (existing) =>
-          existing.name ===
-          source.name,
-      )
-    ) {
+    if (this.sources.some((existing) => existing.name === source.name)) {
       throw new Error(
         `Configuration source "${source.name}" is already registered.`,
       );
     }
 
-    this.sources.push(
-      source,
-    );
+    this.sources.push(source);
   }
 
   /**
    * Removes a source by name.
    */
-  removeSource(
-    name: string,
-  ): boolean {
+  removeSource(name: string): boolean {
     this.assertActive();
 
-    const index =
-      this.sources.findIndex(
-        (source) =>
-          source.name === name,
-      );
+    const index = this.sources.findIndex((source) => source.name === name);
 
-    if (
-      index === -1
-    ) {
+    if (index === -1) {
       return false;
     }
 
-    this.sources.splice(
-      index,
-      1,
-    );
+    this.sources.splice(index, 1);
 
     return true;
   }
@@ -377,36 +277,25 @@ export class ConfigLoader {
   /**
    * Finds a source by name.
    */
-  getSource(
-    name: string,
-  ): ConfigSource | undefined {
+  getSource(name: string): ConfigSource | undefined {
     this.assertActive();
 
-    return this.sources.find(
-      (source) =>
-        source.name === name,
-    );
+    return this.sources.find((source) => source.name === name);
   }
 
   /**
    * Disposes the loader and its source resources.
    */
   async dispose(): Promise<void> {
-    if (
-      this.disposed
-    ) {
+    if (this.disposed) {
       return;
     }
 
     this.disposed = true;
     this.loaded = false;
 
-    for (
-      const source of this.sources
-    ) {
-      if (
-        !source.close
-      ) {
+    for (const source of this.sources) {
+      if (!source.close) {
         continue;
       }
 
@@ -439,62 +328,29 @@ export class ConfigLoader {
    * values are therefore retained when a lower-priority source
    * attempts to replace them.
    */
-  private applySource(
-    source: ConfigSource,
-    result: ConfigSourceResult,
-  ): void {
-    const priority =
-      source.priority;
+  private applySource(source: ConfigSource, result: ConfigSourceResult): void {
+    const priority = source.priority;
 
-    for (
-      const [
-        key,
-        value,
-      ] of Object.entries(
-        result.values,
-      )
-    ) {
-      const existing =
-        this.store.getEntry(
-          key,
-        );
+    for (const [key, value] of Object.entries(result.values)) {
+      const existing = this.store.getEntry(key);
 
-      if (
-        existing &&
-        existing.priority >
-          priority
-      ) {
+      if (existing && existing.priority > priority) {
         continue;
       }
 
-      this.store.set(
-        key,
-        cloneConfigValue(
-          value,
-        ),
-        {
-          source:
-            source.name,
-          sourceType:
-            source.type,
-          priority,
-          sensitive:
-            existing?.sensitive ??
-            false,
-          resolved:
-            true,
-        },
-      );
+      this.store.set(key, cloneConfigValue(value), {
+        source: source.name,
+        sourceType: source.type,
+        priority,
+        sensitive: existing?.sensitive ?? false,
+        resolved: true,
+      });
     }
   }
 
   private assertActive(): void {
-    if (
-      this.disposed
-    ) {
-      throw new Error(
-        "ConfigLoader has been disposed.",
-      );
+    if (this.disposed) {
+      throw new Error("ConfigLoader has been disposed.");
     }
   }
 }
@@ -505,42 +361,22 @@ export class ConfigLoader {
 async function loadSingleSource(
   source: ConfigSource,
   context: ConfigSourceContext,
-): Promise<
-  ConfigSourceResult | undefined
-> {
-  if (
-    source.isAvailable
-  ) {
-    const available =
-      await source.isAvailable(
-        context,
-      );
+): Promise<ConfigSourceResult | undefined> {
+  if (source.isAvailable) {
+    const available = await source.isAvailable(context);
 
-    if (
-      !available
-    ) {
-      if (
-        source.optional
-      ) {
+    if (!available) {
+      if (source.optional) {
         return undefined;
       }
 
-      throw new Error(
-        `Configuration source "${source.name}" is unavailable.`,
-      );
+      throw new Error(`Configuration source "${source.name}" is unavailable.`);
     }
   }
 
-  const result =
-    await source.load(
-      context,
-    );
+  const result = await source.load(context);
 
-  if (
-    !result ||
-    typeof result !==
-      "object"
-  ) {
+  if (!result || typeof result !== "object") {
     throw new Error(
       `Configuration source "${source.name}" returned an invalid result.`,
     );
@@ -555,9 +391,7 @@ async function loadSingleSource(
 export function createConfigLoader(
   options: ConfigLoaderOptions = {},
 ): ConfigLoader {
-  return new ConfigLoader(
-    options,
-  );
+  return new ConfigLoader(options);
 }
 
 /**
@@ -565,16 +399,12 @@ export function createConfigLoader(
  */
 export async function loadConfiguration(
   sources: readonly ConfigSource[],
-  options: Omit<
-    ConfigLoaderOptions,
-    "sources"
-  > = {},
+  options: Omit<ConfigLoaderOptions, "sources"> = {},
 ): Promise<ConfigLoadResult> {
-  const loader =
-    createConfigLoader({
-      ...options,
-      sources,
-    });
+  const loader = createConfigLoader({
+    ...options,
+    sources,
+  });
 
   try {
     return await loader.load();
@@ -587,52 +417,24 @@ export async function loadConfiguration(
  * Converts loaded source results into configuration entries.
  */
 export function sourceResultsToEntries(
-  results:
-    readonly ConfigSourceResult[],
-  sources:
-    readonly ConfigSource[],
+  results: readonly ConfigSourceResult[],
+  sources: readonly ConfigSource[],
 ): readonly ConfigEntry[] {
-  const sourceMap =
-    new Map(
-      sources.map(
-        (source) => [
-          source.name,
-          source,
-        ],
-      ),
-    );
+  const sourceMap = new Map(sources.map((source) => [source.name, source]));
 
-  const entries:
-    ConfigEntry[] =
-    [];
+  const entries: ConfigEntry[] = [];
 
-  for (
-    const result of results
-  ) {
-    const source =
-      sourceMap.get(
-        result.source,
-      );
+  for (const result of results) {
+    const source = sourceMap.get(result.source);
 
-    for (
-      const [
-        key,
-        value,
-      ] of Object.entries(
-        result.values,
-      )
-    ) {
+    for (const [key, value] of Object.entries(result.values)) {
       entries.push(
         createConfigEntry({
           key,
           value,
-          source:
-            result.source,
-          sourceType:
-            result.type,
-          priority:
-            source?.priority ??
-            0,
+          source: result.source,
+          sourceType: result.type,
+          priority: source?.priority ?? 0,
         }),
       );
     }

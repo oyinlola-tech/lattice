@@ -7,46 +7,24 @@
 import type { HTTPValidationResult } from "./httpValidationTypes.type.js";
 import { isHTTPToken } from "./httpValidationToken.js";
 
-export function isValidHTTPMethod(
-  method:
-    | string
-    | undefined
-    | null,
-): boolean {
-  if (
-    method ===
-      undefined ||
-    method ===
-      null ||
-    method.length ===
-      0
-  ) {
+export function isValidHTTPMethod(method: string | undefined | null): boolean {
+  if (method === undefined || method === null || method.length === 0) {
     return false;
   }
 
-  return isHTTPToken(
-    method,
-  );
+  return isHTTPToken(method);
 }
 
-export function validateHTTPMethod(
-  method: string,
-): HTTPValidationResult {
-  if (
-    !isValidHTTPMethod(
-      method,
-    )
-  ) {
+export function validateHTTPMethod(method: string): HTTPValidationResult {
+  if (!isValidHTTPMethod(method)) {
     return {
       valid: false,
-      reason:
-        "Invalid HTTP method.",
+      reason: "Invalid HTTP method.",
     };
   }
 
   return {
     valid: true,
-    value:
-      method.toUpperCase(),
+    value: method.toUpperCase(),
   };
 }

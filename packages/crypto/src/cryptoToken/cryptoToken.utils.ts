@@ -1,15 +1,10 @@
 /**
  * Removes a known token prefix.
  */
-export function removeTokenPrefix(
-  token: string,
-  prefix: string,
-): string {
+export function removeTokenPrefix(token: string, prefix: string): string {
   assertToken(token);
 
-  if (
-    token.startsWith(prefix)
-  ) {
+  if (token.startsWith(prefix)) {
     return token.slice(prefix.length);
   }
 
@@ -19,15 +14,10 @@ export function removeTokenPrefix(
 /**
  * Checks whether a token has the expected prefix.
  */
-export function hasTokenPrefix(
-  token: string,
-  prefix: string,
-): boolean {
+export function hasTokenPrefix(token: string, prefix: string): boolean {
   return (
-    typeof token ===
-      "string" &&
-    typeof prefix ===
-      "string" &&
+    typeof token === "string" &&
+    typeof prefix === "string" &&
     token.startsWith(prefix)
   );
 }
@@ -35,28 +25,12 @@ export function hasTokenPrefix(
 /**
  * Validates the basic shape of an opaque token.
  */
-export function isValidToken(
-  token: string,
-  minimumLength = 16,
-): boolean {
-  return (
-    typeof token ===
-      "string" &&
-    token.length >=
-      minimumLength
-  );
+export function isValidToken(token: string, minimumLength = 16): boolean {
+  return typeof token === "string" && token.length >= minimumLength;
 }
 
-function assertToken(
-  token: string,
-): void {
-  if (
-    typeof token !==
-      "string" ||
-    token.length === 0
-  ) {
-    throw new TypeError(
-      "Token must be a non-empty string.",
-    );
+function assertToken(token: string): void {
+  if (typeof token !== "string" || token.length === 0) {
+    throw new TypeError("Token must be a non-empty string.");
   }
 }

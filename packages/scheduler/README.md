@@ -11,7 +11,7 @@ npm install @latticejs/scheduler
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/scheduler";
+import {} from /* add usage here */ "@latticejs/scheduler";
 ```
 
 ## License

@@ -22,7 +22,10 @@ export interface GetUserProfileResult {
  * Handles the GetUserProfileQuery.
  * Looks up a user by email and returns the public profile.
  */
-export class GetUserProfileHandler extends QueryHandler<GetUserProfileQuery, GetUserProfileResult> {
+export class GetUserProfileHandler extends QueryHandler<
+  GetUserProfileQuery,
+  GetUserProfileResult
+> {
   public static readonly TYPE = "GetUserProfile" as const;
   public readonly queryType = GetUserProfileHandler.TYPE;
 
@@ -33,11 +36,16 @@ export class GetUserProfileHandler extends QueryHandler<GetUserProfileQuery, Get
     this.userRepository = userRepository;
   }
 
-  public execute(query: GetUserProfileQuery, _context?: CqrsContext): GetUserProfileResult {
+  public execute(
+    query: GetUserProfileQuery,
+    _context?: CqrsContext,
+  ): GetUserProfileResult {
     const user = this.userRepository.findByEmail(query.email);
 
     if (!user) {
-      throw new NotFoundError(`User with email "${query.email}" was not found.`);
+      throw new NotFoundError(
+        `User with email "${query.email}" was not found.`,
+      );
     }
 
     return this.toPublicProfile(user);

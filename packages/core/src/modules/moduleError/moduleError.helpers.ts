@@ -1,21 +1,12 @@
-import type {
-  ModuleId,
-} from "../module.js";
+import type { ModuleId } from "../module.js";
 
-import {
-  ModuleErrorCode,
-  ModuleError,
-} from "./moduleError.base.js";
+import { ModuleErrorCode, ModuleError } from "./moduleError.base.js";
 
 /**
  * Checks whether an unknown value is a ModuleError.
  */
-export function isModuleError(
-  error: unknown,
-): error is ModuleError {
-  return (
-    error instanceof ModuleError
-  );
+export function isModuleError(error: unknown): error is ModuleError {
+  return error instanceof ModuleError;
 }
 
 /**
@@ -26,10 +17,7 @@ export function hasModuleErrorCode(
   error: unknown,
   code: ModuleErrorCode,
 ): boolean {
-  return (
-    isModuleError(error) &&
-    error.code === code
-  );
+  return isModuleError(error) && error.code === code;
 }
 
 /**
@@ -40,42 +28,26 @@ export function hasModuleErrorCode(
 export function toModuleError(
   error: unknown,
   options: {
-    readonly moduleId?:
-      ModuleId;
+    readonly moduleId?: ModuleId;
 
-    readonly code?:
-      ModuleErrorCode;
+    readonly code?: ModuleErrorCode;
 
-    readonly phase?:
-      string;
+    readonly phase?: string;
   } = {},
 ): ModuleError {
-  if (
-    error instanceof ModuleError
-  ) {
+  if (error instanceof ModuleError) {
     return error;
   }
 
-  const message =
-    error instanceof Error
-      ? error.message
-      : String(error);
+  const message = error instanceof Error ? error.message : String(error);
 
-  return new ModuleError(
-    message,
-    {
-      moduleId:
-        options.moduleId,
+  return new ModuleError(message, {
+    moduleId: options.moduleId,
 
-      code:
-        options.code ??
-        ModuleErrorCode.UNKNOWN,
+    code: options.code ?? ModuleErrorCode.UNKNOWN,
 
-      phase:
-        options.phase,
+    phase: options.phase,
 
-      cause:
-        error,
-    },
-  );
+    cause: error,
+  });
 }

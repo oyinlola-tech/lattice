@@ -24,13 +24,20 @@ export class SubmissionNotFoundError extends BaseError {
 }
 
 export class DuplicateSubmissionError extends BaseError {
-  constructor(studentId: string, assessmentId: string, options: BaseErrorOptions = {}) {
-    super(`Student "${studentId}" has already submitted assessment "${assessmentId}".`, {
-      ...options,
-      code: options.code ?? "DUPLICATE_SUBMISSION",
-      statusCode: options.statusCode ?? 409,
-      expose: true,
-    });
+  constructor(
+    studentId: string,
+    assessmentId: string,
+    options: BaseErrorOptions = {},
+  ) {
+    super(
+      `Student "${studentId}" has already submitted assessment "${assessmentId}".`,
+      {
+        ...options,
+        code: options.code ?? "DUPLICATE_SUBMISSION",
+        statusCode: options.statusCode ?? 409,
+        expose: true,
+      },
+    );
   }
 }
 

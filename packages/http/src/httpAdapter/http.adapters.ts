@@ -1,7 +1,4 @@
-import type {
-  IncomingMessage,
-  ServerResponse,
-} from "node:http";
+import type { IncomingMessage, ServerResponse } from "node:http";
 
 import type {
   HTTPContext,
@@ -13,38 +10,24 @@ import type {
   HTTPState,
 } from "../httpTypes/http.types.js";
 
-import type {
-  Logger,
-} from "@oyinlola141/lattice-logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
-import {
-  createHTTPContext,
-} from "../httpContext/http.context.js";
+import { createHTTPContext } from "../httpContext/http.context.js";
 
-import {
-  createHTTPRequest,
-} from "../httpRequest/http.request.js";
+import { createHTTPRequest } from "../httpRequest/http.request.js";
 
-import {
-  createHTTPResponse,
-} from "../httpResponse/http.response.js";
+import { createHTTPResponse } from "../httpResponse/http.response.js";
 
 /* -------------------------------------------------------------------------- */
 /* Adapter Contracts                                                          */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPAdapter<
-  State extends HTTPState = HTTPState,
-> {
+export interface HTTPAdapter<State extends HTTPState = HTTPState> {
   readonly name: string;
 
-  createRequest(
-    request: IncomingMessage,
-  ): HTTPRequest;
+  createRequest(request: IncomingMessage): HTTPRequest;
 
-  createResponse(
-    response: ServerResponse,
-  ): HTTPResponse;
+  createResponse(response: ServerResponse): HTTPResponse;
 
   createContext(
     request: HTTPRequest,
@@ -63,23 +46,14 @@ export interface HTTPAdapter<
 export class NodeHTTPAdapter<
   State extends HTTPState = HTTPState,
 > implements HTTPAdapter<State> {
-  public readonly name =
-    "node";
+  public readonly name = "node";
 
-  public createRequest(
-    request: IncomingMessage,
-  ): HTTPRequest {
-    return createHTTPRequest(
-      request,
-    );
+  public createRequest(request: IncomingMessage): HTTPRequest {
+    return createHTTPRequest(request);
   }
 
-  public createResponse(
-    response: ServerResponse,
-  ): HTTPResponse {
-    return createHTTPResponse(
-      response,
-    );
+  public createResponse(response: ServerResponse): HTTPResponse {
+    return createHTTPResponse(response);
   }
 
   public createContext(
@@ -93,13 +67,9 @@ export class NodeHTTPAdapter<
     return createHTTPContext<State>({
       request,
       response,
-      state:
-        options.state ??
-        ({} as State),
-      signal:
-        options.signal,
-      logger:
-        createFallbackLogger() as unknown as Logger,
+      state: options.state ?? ({} as State),
+      signal: options.signal,
+      logger: createFallbackLogger() as unknown as Logger,
     });
   }
 }
@@ -108,11 +78,8 @@ export class NodeHTTPAdapter<
 /* Adapter Options                                                             */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPAdapterOptions<
-  State extends HTTPState = HTTPState,
-> {
-  readonly adapter?:
-    HTTPAdapter<State>;
+export interface HTTPAdapterOptions<State extends HTTPState = HTTPState> {
+  readonly adapter?: HTTPAdapter<State>;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -130,19 +97,12 @@ export function createHTTPAdapter<
 /* -------------------------------------------------------------------------- */
 
 export interface RequestAdapter {
-  toHTTPRequest(
-    request: IncomingMessage,
-  ): HTTPRequest;
+  toHTTPRequest(request: IncomingMessage): HTTPRequest;
 }
 
-export class NodeRequestAdapter
-  implements RequestAdapter {
-  public toHTTPRequest(
-    request: IncomingMessage,
-  ): HTTPRequest {
-    return createHTTPRequest(
-      request,
-    );
+export class NodeRequestAdapter implements RequestAdapter {
+  public toHTTPRequest(request: IncomingMessage): HTTPRequest {
+    return createHTTPRequest(request);
   }
 }
 
@@ -151,19 +111,12 @@ export class NodeRequestAdapter
 /* -------------------------------------------------------------------------- */
 
 export interface ResponseAdapter {
-  toHTTPResponse(
-    response: ServerResponse,
-  ): HTTPResponse;
+  toHTTPResponse(response: ServerResponse): HTTPResponse;
 }
 
-export class NodeResponseAdapter
-  implements ResponseAdapter {
-  public toHTTPResponse(
-    response: ServerResponse,
-  ): HTTPResponse {
-    return createHTTPResponse(
-      response,
-    );
+export class NodeResponseAdapter implements ResponseAdapter {
+  public toHTTPResponse(response: ServerResponse): HTTPResponse {
+    return createHTTPResponse(response);
   }
 }
 
@@ -171,9 +124,7 @@ export class NodeResponseAdapter
 /* Context Adapter                                                             */
 /* -------------------------------------------------------------------------- */
 
-export interface ContextAdapter<
-  State extends HTTPState = HTTPState,
-> {
+export interface ContextAdapter<State extends HTTPState = HTTPState> {
   create(
     request: HTTPRequest,
     response: HTTPResponse,
@@ -198,13 +149,9 @@ export class NodeContextAdapter<
     return createHTTPContext<State>({
       request,
       response,
-      state:
-        options.state ??
-        ({} as State),
-      signal:
-        options.signal,
-      logger:
-        createFallbackLogger() as unknown as Logger,
+      state: options.state ?? ({} as State),
+      signal: options.signal,
+      logger: createFallbackLogger() as unknown as Logger,
     });
   }
 }
@@ -213,9 +160,7 @@ export class NodeContextAdapter<
 /* Handler Adapter                                                             */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPHandlerAdapter<
-  State extends HTTPState = HTTPState,
-> {
+export interface HTTPHandlerAdapter<State extends HTTPState = HTTPState> {
   handle(
     handler: HTTPHandler<State>,
     context: HTTPContext<State>,
@@ -229,9 +174,7 @@ export class DefaultHTTPHandlerAdapter<
     handler: HTTPHandler<State>,
     context: HTTPContext<State>,
   ): Promise<unknown> {
-    return handler(
-      context,
-    );
+    return handler(context);
   }
 }
 
@@ -239,12 +182,9 @@ export class DefaultHTTPHandlerAdapter<
 /* Middleware Adapter                                                         */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPMiddlewareAdapter<
-  State extends HTTPState = HTTPState,
-> {
+export interface HTTPMiddlewareAdapter<State extends HTTPState = HTTPState> {
   execute(
-    middleware:
-      readonly HTTPMiddleware<State>[],
+    middleware: readonly HTTPMiddleware<State>[],
     context: HTTPContext<State>,
     handler: HTTPHandler<State>,
   ): Promise<void>;
@@ -254,53 +194,29 @@ export class DefaultHTTPMiddlewareAdapter<
   State extends HTTPState = HTTPState,
 > implements HTTPMiddlewareAdapter<State> {
   public async execute(
-    middleware:
-      readonly HTTPMiddleware<State>[],
+    middleware: readonly HTTPMiddleware<State>[],
     context: HTTPContext<State>,
     handler: HTTPHandler<State>,
   ): Promise<void> {
-    let index =
-      -1;
+    let index = -1;
 
-    const dispatch =
-      async (
-        currentIndex: number,
-      ): Promise<void> => {
-        if (
-          currentIndex <=
-          index
-        ) {
-          throw new Error(
-            "next() called multiple times.",
-          );
-        }
+    const dispatch = async (currentIndex: number): Promise<void> => {
+      if (currentIndex <= index) {
+        throw new Error("next() called multiple times.");
+      }
 
-        index =
-          currentIndex;
+      index = currentIndex;
 
-        const current =
-          middleware[
-            currentIndex
-          ];
+      const current = middleware[currentIndex];
 
-        if (
-          !current
-        ) {
-          await handler(
-            context,
-          );
+      if (!current) {
+        await handler(context);
 
-          return;
-        }
+        return;
+      }
 
-        await current(
-          context,
-          () =>
-            dispatch(
-              currentIndex + 1,
-            ),
-        );
-      };
+      await current(context, () => dispatch(currentIndex + 1));
+    };
 
     await dispatch(0);
   }
@@ -310,38 +226,23 @@ export class DefaultHTTPMiddlewareAdapter<
 /* Route Adapter                                                               */
 /* -------------------------------------------------------------------------- */
 
-export interface HTTPRouteAdapter<
-  State extends HTTPState = HTTPState,
-> {
-  match(
-    method: string,
-    path: string,
-  ): HTTPRouteMatch<State> | undefined;
+export interface HTTPRouteAdapter<State extends HTTPState = HTTPState> {
+  match(method: string, path: string): HTTPRouteMatch<State> | undefined;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Request Conversion Helpers                                                  */
 /* -------------------------------------------------------------------------- */
 
-export function adaptNodeRequest(
-  request: IncomingMessage,
-): HTTPRequest {
-  return createHTTPRequest(
-    request,
-  );
+export function adaptNodeRequest(request: IncomingMessage): HTTPRequest {
+  return createHTTPRequest(request);
 }
 
-export function adaptNodeResponse(
-  response: ServerResponse,
-): HTTPResponse {
-  return createHTTPResponse(
-    response,
-  );
+export function adaptNodeResponse(response: ServerResponse): HTTPResponse {
+  return createHTTPResponse(response);
 }
 
-export function adaptNodeContext<
-  State extends HTTPState = HTTPState,
->(
+export function adaptNodeContext<State extends HTTPState = HTTPState>(
   request: IncomingMessage,
   response: ServerResponse,
   options: {
@@ -350,21 +251,11 @@ export function adaptNodeContext<
   } = {},
 ): HTTPContext<State> {
   return createHTTPContext<State>({
-    request:
-      adaptNodeRequest(
-        request,
-      ),
-    response:
-      adaptNodeResponse(
-        response,
-      ),
-    state:
-      options.state ??
-      ({} as State),
-    signal:
-      options.signal,
-      logger:
-        createFallbackLogger() as unknown as Logger,
+    request: adaptNodeRequest(request),
+    response: adaptNodeResponse(response),
+    state: options.state ?? ({} as State),
+    signal: options.signal,
+    logger: createFallbackLogger() as unknown as Logger,
   });
 }
 
@@ -372,29 +263,18 @@ export function adaptNodeContext<
 /* Adapter Detection                                                          */
 /* -------------------------------------------------------------------------- */
 
-export function isHTTPAdapter(
-  value: unknown,
-): value is HTTPAdapter {
-  if (
-    value === null ||
-    typeof value !==
-      "object"
-  ) {
+export function isHTTPAdapter(value: unknown): value is HTTPAdapter {
+  if (value === null || typeof value !== "object") {
     return false;
   }
 
-  const candidate =
-    value as Partial<HTTPAdapter>;
+  const candidate = value as Partial<HTTPAdapter>;
 
   return (
-    typeof candidate.name ===
-      "string" &&
-    typeof candidate.createRequest ===
-      "function" &&
-    typeof candidate.createResponse ===
-      "function" &&
-    typeof candidate.createContext ===
-      "function"
+    typeof candidate.name === "string" &&
+    typeof candidate.createRequest === "function" &&
+    typeof candidate.createResponse === "function" &&
+    typeof candidate.createContext === "function"
   );
 }
 
@@ -403,76 +283,34 @@ export function isHTTPAdapter(
 /* -------------------------------------------------------------------------- */
 
 function createFallbackLogger(): {
-  info: (
-    message: string,
-    metadata?: Record<string, unknown>,
-  ) => void;
+  info: (message: string, metadata?: Record<string, unknown>) => void;
 
-  warn: (
-    message: string,
-    metadata?: Record<string, unknown>,
-  ) => void;
+  warn: (message: string, metadata?: Record<string, unknown>) => void;
 
-  error: (
-    message: string,
-    metadata?: Record<string, unknown>,
-  ) => void;
+  error: (message: string, metadata?: Record<string, unknown>) => void;
 } {
   return {
-    info(
-      message,
-      metadata,
-    ) {
-      if (
-        metadata !==
-        undefined
-      ) {
-        console.info(
-          message,
-          metadata,
-        );
+    info(message, metadata) {
+      if (metadata !== undefined) {
+        console.info(message, metadata);
       } else {
-        console.info(
-          message,
-        );
+        console.info(message);
       }
     },
 
-    warn(
-      message,
-      metadata,
-    ) {
-      if (
-        metadata !==
-        undefined
-      ) {
-        console.warn(
-          message,
-          metadata,
-        );
+    warn(message, metadata) {
+      if (metadata !== undefined) {
+        console.warn(message, metadata);
       } else {
-        console.warn(
-          message,
-        );
+        console.warn(message);
       }
     },
 
-    error(
-      message,
-      metadata,
-    ) {
-      if (
-        metadata !==
-        undefined
-      ) {
-        console.error(
-          message,
-          metadata,
-        );
+    error(message, metadata) {
+      if (metadata !== undefined) {
+        console.error(message, metadata);
       } else {
-        console.error(
-          message,
-        );
+        console.error(message);
       }
     },
   };

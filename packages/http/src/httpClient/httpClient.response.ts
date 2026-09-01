@@ -4,15 +4,14 @@
  * @module httpClient/response
  */
 
-import type { HttpResponseType, HttpClientResponse } from "./httpClient.type.js";
+import type {
+  HttpResponseType,
+  HttpClientResponse,
+} from "./httpClient.type.js";
 
-import {
-  HttpClientError,
-} from "./httpClient.error.js";
+import { HttpClientError } from "./httpClient.error.js";
 
-import {
-  getDefaultBaseUrl,
-} from "./httpClient.helpers.js";
+import { getDefaultBaseUrl } from "./httpClient.helpers.js";
 
 export async function parseResponse(
   response: Response,

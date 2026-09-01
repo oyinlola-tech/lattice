@@ -1,99 +1,63 @@
 import { BaseError } from "../../base/core/baseError.core.js";
 import type { BaseErrorOptions } from "../../base/types/baseError.type.js";
 
-import {
-  ErrorCode,
-} from "../../base/types/errorCode.type.js";
+import { ErrorCode } from "../../base/types/errorCode.type.js";
 
-import {
-  ErrorCategory,
-} from "../../base/types/errorCategory.type.js";
+import { ErrorCategory } from "../../base/types/errorCategory.type.js";
 
-import {
-  ErrorSeverity,
-} from "../../base/types/errorSeverity.type.js";
+import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /**
  * Options for creating an HTTP form data error.
  */
-export interface HttpFormDataErrorOptions
-  extends Omit<BaseErrorOptions, "category"> {
+export interface HttpFormDataErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
 }
 
 /**
  * Base error class for HTTP form data errors.
  */
-export class HttpFormDataError
-  extends BaseError {
-  constructor(
-    message: string,
-    options: HttpFormDataErrorOptions = {},
-  ) {
-    super(
-      message,
-      {
-        ...options,
-        code:
-          options.code ??
-          ErrorCode.HTTP_FORM_DATA,
-        category:
-          options.category ??
-          ErrorCategory.INPUT,
-        severity:
-          options.severity ??
-          ErrorSeverity.ERROR,
-        statusCode:
-          options.statusCode ?? 400,
-        expose:
-          options.expose ?? true,
-      },
-    );
+export class HttpFormDataError extends BaseError {
+  constructor(message: string, options: HttpFormDataErrorOptions = {}) {
+    super(message, {
+      ...options,
+      code: options.code ?? ErrorCode.HTTP_FORM_DATA,
+      category: options.category ?? ErrorCategory.INPUT,
+      severity: options.severity ?? ErrorSeverity.ERROR,
+      statusCode: options.statusCode ?? 400,
+      expose: options.expose ?? true,
+    });
 
-    this.name =
-      "HttpFormDataError";
+    this.name = "HttpFormDataError";
   }
 }
 
 /**
  * Error thrown when form data exceeds the configured size limit.
  */
-export class HttpFormDataLimitError
-  extends HttpFormDataError {
-  constructor(
-    message: string,
-  ) {
-    super(
-      message,
-      {
-        code:
-          ErrorCode.HTTP_FORM_DATA_LIMIT,
-      },
-    );
+export class HttpFormDataLimitError extends HttpFormDataError {
+  constructor(message: string) {
+    super(message, {
+      code: ErrorCode.HTTP_FORM_DATA_LIMIT,
+    });
 
-    this.name =
-      "HttpFormDataLimitError";
+    this.name = "HttpFormDataLimitError";
   }
 }
 
 /**
  * Error thrown when form data parsing fails.
  */
-export class HttpFormDataParseError
-  extends HttpFormDataError {
-  constructor(
-    message: string,
-  ) {
-    super(
-      message,
-      {
-        code:
-          ErrorCode.HTTP_FORM_DATA_PARSE,
-      },
-    );
+export class HttpFormDataParseError extends HttpFormDataError {
+  constructor(message: string) {
+    super(message, {
+      code: ErrorCode.HTTP_FORM_DATA_PARSE,
+    });
 
-    this.name =
-      "HttpFormDataParseError";
+    this.name = "HttpFormDataParseError";
   }
 }
 
@@ -104,10 +68,7 @@ export function createHttpFormDataError(
   message: string,
   options: HttpFormDataErrorOptions = {},
 ): HttpFormDataError {
-  return new HttpFormDataError(
-    message,
-    options,
-  );
+  return new HttpFormDataError(message, options);
 }
 
 /**

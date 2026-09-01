@@ -16,7 +16,13 @@ import type { ErrorMetadata } from "@oyinlola141/lattice-errors";
  * Generic application error for the identity domain.
  */
 export class ApplicationError extends BaseApplicationError {
-  constructor(message: string, options?: { readonly statusCode?: number; readonly metadata?: ErrorMetadata }) {
+  constructor(
+    message: string,
+    options?: {
+      readonly statusCode?: number;
+      readonly metadata?: ErrorMetadata;
+    },
+  ) {
     super(message, options);
   }
 }
@@ -25,7 +31,13 @@ export class ApplicationError extends BaseApplicationError {
  * Resource not found error.
  */
 export class NotFoundError extends BaseNotFoundError {
-  constructor(message: string, options?: { readonly statusCode?: number; readonly metadata?: ErrorMetadata }) {
+  constructor(
+    message: string,
+    options?: {
+      readonly statusCode?: number;
+      readonly metadata?: ErrorMetadata;
+    },
+  ) {
     super(message, options);
   }
 }
@@ -34,7 +46,13 @@ export class NotFoundError extends BaseNotFoundError {
  * Conflict error (e.g. duplicate email).
  */
 export class ConflictError extends BaseConflictError {
-  constructor(message: string, options?: { readonly statusCode?: number; readonly metadata?: ErrorMetadata }) {
+  constructor(
+    message: string,
+    options?: {
+      readonly statusCode?: number;
+      readonly metadata?: ErrorMetadata;
+    },
+  ) {
     super(message, options);
   }
 }
@@ -43,7 +61,13 @@ export class ConflictError extends BaseConflictError {
  * Unauthorized / authentication error.
  */
 export class UnauthorizedError extends BaseUnauthorizedError {
-  constructor(message: string, options?: { readonly statusCode?: number; readonly metadata?: ErrorMetadata }) {
+  constructor(
+    message: string,
+    options?: {
+      readonly statusCode?: number;
+      readonly metadata?: ErrorMetadata;
+    },
+  ) {
     super(message, options);
   }
 }

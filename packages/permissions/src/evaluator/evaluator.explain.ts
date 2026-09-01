@@ -15,7 +15,10 @@ import type {
 import { parsePermission, matches } from "../permission/permission.core.js";
 import { compileRules, findMatchingRules } from "../rule/ruleCompiler.js";
 import { evaluateRules } from "../rule/rule.core.js";
-import { resolveActorPermissions, evaluatePolicies } from "./evaluator.pipeline.js";
+import {
+  resolveActorPermissions,
+  evaluatePolicies,
+} from "./evaluator.pipeline.js";
 import type { EvaluatorOptions } from "./evaluator.pipeline.js";
 
 /**
@@ -33,8 +36,16 @@ export async function evaluateWithExplain(
 
   if (actor.deniedPermissions) {
     for (const denied of actor.deniedPermissions) {
-      if (denied === permissionStr || denied === `${permission.resource}:*` || denied === "*:*") {
-        steps.push({ type: "deny", detail: `Explicit deny: ${denied}`, matched: true });
+      if (
+        denied === permissionStr ||
+        denied === `${permission.resource}:*` ||
+        denied === "*:*"
+      ) {
+        steps.push({
+          type: "deny",
+          detail: `Explicit deny: ${denied}`,
+          matched: true,
+        });
         return Object.freeze({ allowed: false, steps });
       }
     }
@@ -47,10 +58,16 @@ export async function evaluateWithExplain(
     }
   }
 
-  const matchingPermissions = allPermissions.filter((p) => matches(p, permissionStr));
+  const matchingPermissions = allPermissions.filter((p) =>
+    matches(p, permissionStr),
+  );
   const rules: PermissionRule[] = matchingPermissions.map((p) => {
     const parsed = parsePermission(p);
-    return { effect: "allow" as const, action: parsed.action, resource: parsed.resource };
+    return {
+      effect: "allow" as const,
+      action: parsed.action,
+      resource: parsed.resource,
+    };
   });
   const compiled = compileRules(rules);
   const matching = findMatchingRules(compiled, permission);
@@ -63,9 +80,17 @@ export async function evaluateWithExplain(
 
   if (!ruleResult.allowed) {
     const ctx: PermissionContext = { actor, permission, resource };
-    const policyResult = await evaluatePolicies(ctx, options.policies ?? [], authOptions);
+    const policyResult = await evaluatePolicies(
+      ctx,
+      options.policies ?? [],
+      authOptions,
+    );
     if (policyResult !== null) {
-      steps.push({ type: "policy", detail: `Policy: ${policyResult.reason ?? "unknown"}`, matched: policyResult.allowed });
+      steps.push({
+        type: "policy",
+        detail: `Policy: ${policyResult.reason ?? "unknown"}`,
+        matched: policyResult.allowed,
+      });
       return Object.freeze({ allowed: policyResult.allowed, steps });
     }
     steps.push({ type: "deny", detail: "No matching rule", matched: false });
@@ -73,9 +98,17 @@ export async function evaluateWithExplain(
   }
 
   const ctx: PermissionContext = { actor, permission, resource };
-  const policyResult = await evaluatePolicies(ctx, options.policies ?? [], authOptions);
+  const policyResult = await evaluatePolicies(
+    ctx,
+    options.policies ?? [],
+    authOptions,
+  );
   if (policyResult !== null) {
-    steps.push({ type: "policy", detail: `Policy: ${policyResult.reason ?? "unknown"}`, matched: policyResult.allowed });
+    steps.push({
+      type: "policy",
+      detail: `Policy: ${policyResult.reason ?? "unknown"}`,
+      matched: policyResult.allowed,
+    });
     return Object.freeze({ allowed: policyResult.allowed, steps });
   }
 

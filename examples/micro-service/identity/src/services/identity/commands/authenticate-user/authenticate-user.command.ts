@@ -9,10 +9,7 @@ export class AuthenticateUserCommand extends Command<"AuthenticateUser"> {
   public readonly email: string;
   public readonly password: string;
 
-  constructor(params: {
-    readonly email: string;
-    readonly password: string;
-  }) {
+  constructor(params: { readonly email: string; readonly password: string }) {
     super(AuthenticateUserCommand.TYPE);
     this.email = params.email;
     this.password = params.password;

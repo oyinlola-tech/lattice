@@ -25,8 +25,7 @@ export class SqliteUserRepository implements UserRepository {
 
   findById(id: UserId): UserModel | undefined {
     const row = this.db.prepare("SELECT * FROM users WHERE id = ?").get(id) as
-      | Record<string, unknown>
-      | undefined;
+      Record<string, unknown> | undefined;
 
     if (!row) {
       return undefined;
@@ -36,9 +35,9 @@ export class SqliteUserRepository implements UserRepository {
   }
 
   findByEmail(email: string): UserModel | undefined {
-    const row = this.db.prepare("SELECT * FROM users WHERE email = ?").get(email) as
-      | Record<string, unknown>
-      | undefined;
+    const row = this.db
+      .prepare("SELECT * FROM users WHERE email = ?")
+      .get(email) as Record<string, unknown> | undefined;
 
     if (!row) {
       return undefined;

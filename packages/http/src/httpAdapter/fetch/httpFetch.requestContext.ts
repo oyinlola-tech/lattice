@@ -4,9 +4,7 @@
  * @module httpAdapter/fetch/requestContext
  */
 
-import type {
-  FetchRequestInput,
-} from "./httpFetch.type.js";
+import type { FetchRequestInput } from "./httpFetch.type.js";
 
 /**
  * Creates a request context from a FetchRequestInput.
@@ -50,9 +48,7 @@ export async function createFetchRequestContext(
 /**
  * Creates a FetchRequest from a FetchRequestInput.
  */
-export function createFetchRequest(
-  input: FetchRequestInput,
-): Request {
+export function createFetchRequest(input: FetchRequestInput): Request {
   const method = (input.method ?? "GET").toUpperCase();
   const headers = new Headers();
 
@@ -70,7 +66,8 @@ export function createFetchRequest(
   };
 
   if (input.body !== undefined && method !== "GET" && method !== "HEAD") {
-    init.body = typeof input.body === "string" ? input.body : JSON.stringify(input.body);
+    init.body =
+      typeof input.body === "string" ? input.body : JSON.stringify(input.body);
   }
 
   return new Request(input.url, init);

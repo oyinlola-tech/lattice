@@ -7,12 +7,18 @@ import type { EnrollmentModel } from "../../../../models/enrollment.model.js";
 import type { EnrollmentId } from "../../../../types/index.js";
 import { EnrollmentStatus } from "../../../../enums/index.js";
 import { createEnrollmentId } from "../../../../types/index.js";
-import { AlreadyEnrolledError, EnrollmentLimitExceededError } from "../../../../errors/index.js";
+import {
+  AlreadyEnrolledError,
+  EnrollmentLimitExceededError,
+} from "../../../../errors/index.js";
 import { StudentEnrolledEvent } from "../../../../events/index.js";
 import { MAX_ENROLLMENTS_PER_STUDENT } from "../../../../constants/index.js";
 
 /** Handler that processes EnrollStudentCommand and persists the enrollment. */
-export class EnrollStudentHandler extends CommandHandler<EnrollStudentCommand, EnrollmentModel> {
+export class EnrollStudentHandler extends CommandHandler<
+  EnrollStudentCommand,
+  EnrollmentModel
+> {
   /** The command type this handler processes. */
   public readonly commandType = "enrollment.enroll-student" as const;
 
@@ -25,19 +31,29 @@ export class EnrollStudentHandler extends CommandHandler<EnrollStudentCommand, E
     this.events = events;
   }
 
-  public async execute(command: EnrollStudentCommand): Promise<EnrollmentModel> {
+  public async execute(
+    command: EnrollStudentCommand,
+  ): Promise<EnrollmentModel> {
     const existing = await this.enrollments.findByStudentAndCourse(
       command.data.studentId,
       command.data.courseId,
     );
 
     if (existing) {
-      throw new AlreadyEnrolledError(command.data.studentId, command.data.courseId);
+      throw new AlreadyEnrolledError(
+        command.data.studentId,
+        command.data.courseId,
+      );
     }
 
-    const activeCount = await this.enrollments.countActiveByStudentId(command.data.studentId);
+    const activeCount = await this.enrollments.countActiveByStudentId(
+      command.data.studentId,
+    );
     if (activeCount >= MAX_ENROLLMENTS_PER_STUDENT) {
-      throw new EnrollmentLimitExceededError(command.data.studentId, MAX_ENROLLMENTS_PER_STUDENT);
+      throw new EnrollmentLimitExceededError(
+        command.data.studentId,
+        MAX_ENROLLMENTS_PER_STUDENT,
+      );
     }
 
     const now = new Date();

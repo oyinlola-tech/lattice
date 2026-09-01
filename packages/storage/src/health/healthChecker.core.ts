@@ -68,8 +68,7 @@ export class HealthChecker {
               latencyMs: 0,
               status: "error",
               details: {
-                error:
-                  error instanceof Error ? error.message : "Unknown error",
+                error: error instanceof Error ? error.message : "Unknown error",
               },
             },
           });

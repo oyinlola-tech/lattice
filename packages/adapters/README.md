@@ -11,7 +11,7 @@ npm install @latticejs/adapters
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/adapters";
+import {} from /* add usage here */ "@latticejs/adapters";
 ```
 
 ## License

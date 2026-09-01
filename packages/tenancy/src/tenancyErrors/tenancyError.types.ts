@@ -121,9 +121,12 @@ export class TenantProvisioningError extends TenantError {
  */
 export class TenantIsolationError extends TenantError {
   constructor(expected: string, actual: string) {
-    super(`Tenant isolation violation: expected "${expected}", got "${actual}"`, {
-      code: ErrorCode.ACCESS_DENIED,
-      metadata: { expected, actual },
-    });
+    super(
+      `Tenant isolation violation: expected "${expected}", got "${actual}"`,
+      {
+        code: ErrorCode.ACCESS_DENIED,
+        metadata: { expected, actual },
+      },
+    );
   }
 }

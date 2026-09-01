@@ -6,7 +6,10 @@
 
 import type { CLIOption } from "../cliType/cliType.type.js";
 import { CLI_OPTION_PREFIXES } from "../cliConstant/cliConstant.value.js";
-import { InvalidOptionError, MissingOptionValueError } from "../cliError/cliError.option.js";
+import {
+  InvalidOptionError,
+  MissingOptionValueError,
+} from "../cliError/cliError.option.js";
 import { findOption, assignOptionValue } from "./cliParser.longOption.js";
 
 /** Parses a short option token from the token stream. */
@@ -96,6 +99,9 @@ export function parseShortOption(
 }
 
 /** Finds an option by its short flag. */
-function findShortOption(short: string, definitions: readonly CLIOption[]): CLIOption | undefined {
+function findShortOption(
+  short: string,
+  definitions: readonly CLIOption[],
+): CLIOption | undefined {
   return definitions.find((d) => d.short === short);
 }

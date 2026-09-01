@@ -20,20 +20,20 @@ const DEFAULT_ALLOWED_PROTOCOLS = ["http:", "https:"];
  * Path traversal patterns that indicate directory traversal attacks.
  */
 const TRAVERSAL_PATTERNS = [
-  /\.\./,                           // Simple ..
-  /%2e%2e/i,                        // URL-encoded ..
-  /%252e%252e/i,                    // Double-encoded ..
-  /\.\.%2f/i,                       // Mixed encoding
-  /\.\.%5c/i,                       // Mixed encoding with backslash
+  /\.\./, // Simple ..
+  /%2e%2e/i, // URL-encoded ..
+  /%252e%252e/i, // Double-encoded ..
+  /\.\.%2f/i, // Mixed encoding
+  /\.\.%5c/i, // Mixed encoding with backslash
 ];
 
 /**
  * Null byte patterns.
  */
 const NULL_BYTE_PATTERNS = [
-  /\x00/,                           // Actual null byte
-  /%00/i,                           // URL-encoded null byte
-  /%2500/i,                         // Double-encoded null byte
+  /\x00/, // Actual null byte
+  /%00/i, // URL-encoded null byte
+  /%2500/i, // Double-encoded null byte
 ];
 
 /**
@@ -53,7 +53,8 @@ export function validateUrl(
   config?: UrlValidationConfig,
 ): UrlValidationResult {
   const errors: string[] = [];
-  const allowedProtocols = config?.allowedProtocols ?? DEFAULT_ALLOWED_PROTOCOLS;
+  const allowedProtocols =
+    config?.allowedProtocols ?? DEFAULT_ALLOWED_PROTOCOLS;
   const maxLength = config?.maxLength ?? DEFAULT_MAX_URL_LENGTH;
 
   // Check length
@@ -93,7 +94,7 @@ export function validateUrl(
   // Check for path traversal (check raw URL, not normalized pathname)
   if (config?.blockTraversal !== false) {
     // Extract raw path from URL before normalization
-    const rawPath = url.split('?')[0]?.split('#')[0] ?? '';
+    const rawPath = url.split("?")[0]?.split("#")[0] ?? "";
     for (const pattern of TRAVERSAL_PATTERNS) {
       if (pattern.test(rawPath)) {
         errors.push("URL contains path traversal attempts");

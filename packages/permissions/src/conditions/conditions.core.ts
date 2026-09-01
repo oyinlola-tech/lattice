@@ -4,12 +4,17 @@
  * @module conditions/conditions
  */
 
-import type { PermissionConditionFn, PermissionContext } from "../permissionTypes/index.js";
+import type {
+  PermissionConditionFn,
+  PermissionContext,
+} from "../permissionTypes/index.js";
 
 /**
  * All conditions must return true.
  */
-export function allOf(...conditions: readonly PermissionConditionFn[]): PermissionConditionFn {
+export function allOf(
+  ...conditions: readonly PermissionConditionFn[]
+): PermissionConditionFn {
   return async (context) => {
     for (const condition of conditions) {
       if (!(await condition(context))) return false;
@@ -21,7 +26,9 @@ export function allOf(...conditions: readonly PermissionConditionFn[]): Permissi
 /**
  * At least one condition must return true.
  */
-export function anyOf(...conditions: readonly PermissionConditionFn[]): PermissionConditionFn {
+export function anyOf(
+  ...conditions: readonly PermissionConditionFn[]
+): PermissionConditionFn {
   return async (context) => {
     for (const condition of conditions) {
       if (await condition(context)) return true;

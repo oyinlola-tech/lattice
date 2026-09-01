@@ -37,7 +37,9 @@ describe("parsePermission", () => {
   });
 
   it("throws on double colon", () => {
-    expect(() => parsePermission("post::read")).toThrow("Invalid permission format");
+    expect(() => parsePermission("post::read")).toThrow(
+      "Invalid permission format",
+    );
   });
 
   it("returns a frozen object", () => {
@@ -92,11 +94,15 @@ describe("matches", () => {
 
 describe("matchesPermission", () => {
   it("matches against a Permission object", () => {
-    expect(matchesPermission("post:*", { resource: "post", action: "update" })).toBe(true);
+    expect(
+      matchesPermission("post:*", { resource: "post", action: "update" }),
+    ).toBe(true);
   });
 
   it("does not match different resource", () => {
-    expect(matchesPermission("post:*", { resource: "user", action: "read" })).toBe(false);
+    expect(
+      matchesPermission("post:*", { resource: "user", action: "read" }),
+    ).toBe(false);
   });
 });
 
@@ -105,7 +111,10 @@ describe("createPermissionRegistry", () => {
     const registry = createPermissionRegistry();
     registry.define("post:read");
     expect(registry.has("post:read")).toBe(true);
-    expect(registry.get("post:read")).toEqual({ resource: "post", action: "read" });
+    expect(registry.get("post:read")).toEqual({
+      resource: "post",
+      action: "read",
+    });
   });
 
   it("registers with description", () => {
@@ -117,8 +126,14 @@ describe("createPermissionRegistry", () => {
 
   it("registers with implied permissions", () => {
     const registry = createPermissionRegistry();
-    registry.define("post:manage", { implies: ["post:read", "post:update", "post:delete"] });
-    expect(registry.getImplied("post:manage")).toEqual(["post:read", "post:update", "post:delete"]);
+    registry.define("post:manage", {
+      implies: ["post:read", "post:update", "post:delete"],
+    });
+    expect(registry.getImplied("post:manage")).toEqual([
+      "post:read",
+      "post:update",
+      "post:delete",
+    ]);
   });
 
   it("throws on duplicate", () => {

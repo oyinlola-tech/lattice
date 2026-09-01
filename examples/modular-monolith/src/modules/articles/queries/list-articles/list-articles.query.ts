@@ -8,12 +8,14 @@ export class ListArticlesQuery extends Query<"articles.list"> {
   public readonly limit: number;
   public readonly offset: number;
 
-  public constructor(options: {
-    topicId?: TopicId;
-    status?: ArticleStatus;
-    limit?: number;
-    offset?: number;
-  } = {}) {
+  public constructor(
+    options: {
+      topicId?: TopicId;
+      status?: ArticleStatus;
+      limit?: number;
+      offset?: number;
+    } = {},
+  ) {
     super("articles.list");
     this.topicId = options.topicId;
     this.status = options.status;

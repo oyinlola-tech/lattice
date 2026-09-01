@@ -51,15 +51,13 @@ export class CacheInvalidationManager {
     let totalCleared = 0;
 
     for (const tag of tags) {
-      const keys =
-        await this.tagStore.getKeys(tag, options);
+      const keys = await this.tagStore.getKeys(tag, options);
 
       for (const key of keys) {
         await this.adapter.delete(key, options);
       }
 
-      const result =
-        await this.tagStore.invalidate(tag, options);
+      const result = await this.tagStore.invalidate(tag, options);
       totalCleared += result.cleared;
     }
 
@@ -101,10 +99,7 @@ export class CacheInvalidationManager {
     key: CacheKey,
     options?: { readonly namespace?: CacheNamespace },
   ): Promise<{ readonly deleted: boolean }> {
-    const result = await this.adapter.delete(
-      key,
-      options,
-    );
+    const result = await this.adapter.delete(key, options);
     return { deleted: result.deleted };
   }
 
@@ -124,10 +119,7 @@ export class CacheInvalidationManager {
     const deletedKeys: CacheKey[] = [];
 
     for (const key of keys) {
-      const result = await this.adapter.delete(
-        key,
-        options,
-      );
+      const result = await this.adapter.delete(key, options);
       if (result.deleted) {
         deleted++;
         deletedKeys.push(key);
@@ -145,13 +137,8 @@ export class CacheInvalidationManager {
   async flushAll(): Promise<CacheClearResult> {
     const result = await this.adapter.clear();
 
-    if (
-      typeof (this.tagStore as InMemoryTagStore)
-        .clear === "function"
-    ) {
-      (
-        this.tagStore as InMemoryTagStore
-      ).clear();
+    if (typeof (this.tagStore as InMemoryTagStore).clear === "function") {
+      (this.tagStore as InMemoryTagStore).clear();
     }
 
     return result;

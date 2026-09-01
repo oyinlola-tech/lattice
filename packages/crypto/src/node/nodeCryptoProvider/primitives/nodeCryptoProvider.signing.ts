@@ -1,4 +1,7 @@
-import type { SignatureAlgorithm, CryptoInput } from "../../../cryptoProvider/index.js";
+import type {
+  SignatureAlgorithm,
+  CryptoInput,
+} from "../../../cryptoProvider/index.js";
 import {
   createPrivateKey,
   createPublicKey,
@@ -7,7 +10,10 @@ import {
   sign as signImpl,
   verify as verifyImpl,
 } from "node:crypto";
-import { toBytes, nodeSignatureAlgorithm } from "../nodeCryptoProvider.helper.js";
+import {
+  toBytes,
+  nodeSignatureAlgorithm,
+} from "../nodeCryptoProvider.helper.js";
 
 export async function sign(options: {
   key: CryptoInput;
@@ -47,9 +53,7 @@ export async function verify(options: {
     return verifyImpl(null, data, publicKey, options.signature);
   }
 
-  const verifier = createVerify(
-    nodeSignatureAlgorithm(algorithm),
-  );
+  const verifier = createVerify(nodeSignatureAlgorithm(algorithm));
   verifier.update(data);
   verifier.end();
 

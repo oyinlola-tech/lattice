@@ -17,9 +17,7 @@ import type {
 /**
  * Next function used by middleware.
  */
-export type CqrsNext = <
-  TRequest extends Command | Query,
->(
+export type CqrsNext = <TRequest extends Command | Query>(
   request: TRequest,
   context?: CqrsContext,
 ) => Promise<unknown>;
@@ -38,36 +36,19 @@ export interface MiddlewareOptions {
 export function timingMiddleware(
   options: MiddlewareOptions = {},
 ): CqrsMiddleware {
-  const name =
-    options.name ??
-    "timing";
+  const name = options.name ?? "timing";
 
-  return async (
-    request,
-    context,
-    next,
-  ) => {
-    if (
-      options.enabled === false
-    ) {
-      return next(
-        request,
-        context,
-      );
+  return async (request, context, next) => {
+    if (options.enabled === false) {
+      return next(request, context);
     }
 
-    const startedAt =
-      Date.now();
+    const startedAt = Date.now();
 
     try {
-      return await next(
-        request,
-        context,
-      );
+      return await next(request, context);
     } finally {
-      const duration =
-        Date.now() -
-        startedAt;
+      const duration = Date.now() - startedAt;
 
       void name;
       void duration;
@@ -82,55 +63,30 @@ export function timingMiddleware(
 export function errorMiddleware(
   options: MiddlewareOptions = {},
 ): CqrsMiddleware {
-  return async (
-    request,
-    context,
-    next,
-  ) => {
-    if (
-      options.enabled === false
-    ) {
-      return next(
-        request,
-        context,
-      );
+  return async (request, context, next) => {
+    if (options.enabled === false) {
+      return next(request, context);
     }
 
     try {
-      return await next(
-        request,
-        context,
-      );
+      return await next(request, context);
     } catch (error) {
-      if (
-        error instanceof
-        BaseError
-      ) {
+      if (error instanceof BaseError) {
         throw error;
       }
 
       throw new BaseError(
-        error instanceof Error
-          ? error.message
-          : "CQRS execution failed.",
+        error instanceof Error ? error.message : "CQRS execution failed.",
         {
-          code:
-            ErrorCode.INTERNAL_ERROR,
-          category:
-            ErrorCategory.SYSTEM,
-          severity:
-            ErrorSeverity.ERROR,
-          statusCode:
-            500,
-          expose:
-            false,
-          isOperational:
-            false,
-          cause:
-            error,
+          code: ErrorCode.INTERNAL_ERROR,
+          category: ErrorCategory.SYSTEM,
+          severity: ErrorSeverity.ERROR,
+          statusCode: 500,
+          expose: false,
+          isOperational: false,
+          cause: error,
           metadata: {
-            requestType:
-              request.type,
+            requestType: request.type,
           },
         },
       );
@@ -144,52 +100,28 @@ export function errorMiddleware(
 export function validationMiddleware(
   options: MiddlewareOptions = {},
 ): CqrsMiddleware {
-  return async (
-    request,
-    context,
-    next,
-  ) => {
-    if (
-      options.enabled === false
-    ) {
-      return next(
-        request,
-        context,
-      );
+  return async (request, context, next) => {
+    if (options.enabled === false) {
+      return next(request, context);
     }
 
     if (
       !request ||
-      typeof request !==
-        "object" ||
-      typeof request.type !==
-        "string" ||
-      request.type.trim()
-        .length === 0
+      typeof request !== "object" ||
+      typeof request.type !== "string" ||
+      request.type.trim().length === 0
     ) {
-      throw new BaseError(
-        "A valid CQRS request with a type is required.",
-        {
-          code:
-            ErrorCode.INVALID_INPUT,
-          category:
-            ErrorCategory.VALIDATION,
-          severity:
-            ErrorSeverity.WARNING,
-          statusCode:
-            400,
-          expose:
-            true,
-          isOperational:
-            true,
-        },
-      );
+      throw new BaseError("A valid CQRS request with a type is required.", {
+        code: ErrorCode.INVALID_INPUT,
+        category: ErrorCategory.VALIDATION,
+        severity: ErrorSeverity.WARNING,
+        statusCode: 400,
+        expose: true,
+        isOperational: true,
+      });
     }
 
-    return next(
-      request,
-      context,
-    );
+    return next(request, context);
   };
 }
 
@@ -199,35 +131,20 @@ export function validationMiddleware(
 export function contextMiddleware(
   options: MiddlewareOptions = {},
 ): CqrsMiddleware {
-  return async (
-    request,
-    context,
-    next,
-  ) => {
-    if (
-      options.enabled === false
-    ) {
-      return next(
-        request,
-        context,
-      );
+  return async (request, context, next) => {
+    if (options.enabled === false) {
+      return next(request, context);
     }
 
-    const enrichedContext:
-      CqrsContext = {
+    const enrichedContext: CqrsContext = {
       ...(context ?? {}),
       metadata: {
-        ...(context?.metadata ??
-          {}),
-        cqrsRequestType:
-          request.type,
+        ...(context?.metadata ?? {}),
+        cqrsRequestType: request.type,
       },
     };
 
-    return next(
-      request,
-      enrichedContext,
-    );
+    return next(request, enrichedContext);
   };
 }
 
@@ -236,11 +153,7 @@ export function contextMiddleware(
  * when used with a shared lock implementation.
  */
 export interface CqrsLock {
-  acquire(
-    key: string,
-  ):
-    | (() => void)
-    | Promise<() => void>;
+  acquire(key: string): (() => void) | Promise<() => void>;
 }
 
 /**
@@ -250,40 +163,19 @@ export function lockMiddleware(
   lock: CqrsLock,
   options: MiddlewareOptions = {},
 ): CqrsMiddleware {
-  if (
-    !lock ||
-    typeof lock.acquire !==
-      "function"
-  ) {
-    throw new TypeError(
-      "A valid CQRS lock implementation is required.",
-    );
+  if (!lock || typeof lock.acquire !== "function") {
+    throw new TypeError("A valid CQRS lock implementation is required.");
   }
 
-  return async (
-    request,
-    context,
-    next,
-  ) => {
-    if (
-      options.enabled === false
-    ) {
-      return next(
-        request,
-        context,
-      );
+  return async (request, context, next) => {
+    if (options.enabled === false) {
+      return next(request, context);
     }
 
-    const release =
-      await lock.acquire(
-        request.type,
-      );
+    const release = await lock.acquire(request.type);
 
     try {
-      return await next(
-        request,
-        context,
-      );
+      return await next(request, context);
     } finally {
       release();
     }
@@ -296,22 +188,11 @@ export function lockMiddleware(
 export function commandMiddleware(
   middleware: CommandMiddleware,
 ): CqrsMiddleware {
-  return async (
-    request,
-    context,
-    next,
-  ) => {
+  return async (request, context, next) => {
     return middleware(
       request as Command,
       context,
-      async (
-        command,
-        nextContext,
-      ) =>
-        next(
-          command,
-          nextContext,
-        ),
+      async (command, nextContext) => next(command, nextContext),
     );
   };
 }
@@ -319,25 +200,10 @@ export function commandMiddleware(
 /**
  * Adapts query-specific middleware to generic CQRS middleware.
  */
-export function queryMiddleware(
-  middleware: QueryMiddleware,
-): CqrsMiddleware {
-  return async (
-    request,
-    context,
-    next,
-  ) => {
-    return middleware(
-      request as Query,
-      context,
-      async (
-        query,
-        nextContext,
-      ) =>
-        next(
-          query,
-          nextContext,
-        ),
+export function queryMiddleware(middleware: QueryMiddleware): CqrsMiddleware {
+  return async (request, context, next) => {
+    return middleware(request as Query, context, async (query, nextContext) =>
+      next(query, nextContext),
     );
   };
 }
@@ -348,66 +214,37 @@ export function queryMiddleware(
 export function composeMiddleware(
   middleware: readonly CqrsMiddleware[],
 ): CqrsMiddleware {
-  const stack = [
-    ...middleware,
-  ];
+  const stack = [...middleware];
 
-  return async (
-    request,
-    context,
-    terminal,
-  ) => {
+  return async (request, context, terminal) => {
     let index = -1;
 
     const dispatch = async (
       currentIndex: number,
-      currentRequest:
-        | Command
-        | Query,
-      currentContext?:
-        CqrsContext,
+      currentRequest: Command | Query,
+      currentContext?: CqrsContext,
     ): Promise<unknown> => {
-      if (
-        currentIndex <= index
-      ) {
-        throw new Error(
-          "CQRS middleware called next() more than once.",
-        );
+      if (currentIndex <= index) {
+        throw new Error("CQRS middleware called next() more than once.");
       }
 
-      index =
-        currentIndex;
+      index = currentIndex;
 
-      const current =
-        stack[currentIndex];
+      const current = stack[currentIndex];
 
       if (!current) {
-        return terminal(
-          currentRequest,
-          currentContext,
-        );
+        return terminal(currentRequest, currentContext);
       }
 
       return current(
         currentRequest,
         currentContext,
-        (
-          nextRequest,
-          nextContext,
-        ) =>
-          dispatch(
-            currentIndex + 1,
-            nextRequest,
-            nextContext,
-          ),
+        (nextRequest, nextContext) =>
+          dispatch(currentIndex + 1, nextRequest, nextContext),
       );
     };
 
-    return dispatch(
-      0,
-      request,
-      context,
-    );
+    return dispatch(0, request, context);
   };
 }
 
@@ -416,28 +253,14 @@ export function composeMiddleware(
  */
 export function beforeMiddleware(
   callback: (
-    request:
-      | Command
-      | Query,
+    request: Command | Query,
     context?: CqrsContext,
-  ) =>
-    | void
-    | Promise<void>,
+  ) => void | Promise<void>,
 ): CqrsMiddleware {
-  return async (
-    request,
-    context,
-    next,
-  ) => {
-    await callback(
-      request,
-      context,
-    );
+  return async (request, context, next) => {
+    await callback(request, context);
 
-    return next(
-      request,
-      context,
-    );
+    return next(request, context);
   };
 }
 
@@ -446,31 +269,15 @@ export function beforeMiddleware(
  */
 export function afterMiddleware(
   callback: (
-    request:
-      | Command
-      | Query,
+    request: Command | Query,
     result: unknown,
     context?: CqrsContext,
-  ) =>
-    | void
-    | Promise<void>,
+  ) => void | Promise<void>,
 ): CqrsMiddleware {
-  return async (
-    request,
-    context,
-    next,
-  ) => {
-    const result =
-      await next(
-        request,
-        context,
-      );
+  return async (request, context, next) => {
+    const result = await next(request, context);
 
-    await callback(
-      request,
-      result,
-      context,
-    );
+    await callback(request, result, context);
 
     return result;
   };
@@ -481,31 +288,16 @@ export function afterMiddleware(
  */
 export function onErrorMiddleware(
   callback: (
-    request:
-      | Command
-      | Query,
+    request: Command | Query,
     error: unknown,
     context?: CqrsContext,
-  ) =>
-    | void
-    | Promise<void>,
+  ) => void | Promise<void>,
 ): CqrsMiddleware {
-  return async (
-    request,
-    context,
-    next,
-  ) => {
+  return async (request, context, next) => {
     try {
-      return await next(
-        request,
-        context,
-      );
+      return await next(request, context);
     } catch (error) {
-      await callback(
-        request,
-        error,
-        context,
-      );
+      await callback(request, error, context);
 
       throw error;
     }

@@ -31,7 +31,9 @@ const DEFAULT_REPLACEMENT = "[REDACTED]";
 /**
  * Creates a redactor that replaces sensitive values in objects.
  */
-export function createRedactor(config?: RedactionConfig): (key: string, value: unknown) => unknown {
+export function createRedactor(
+  config?: RedactionConfig,
+): (key: string, value: unknown) => unknown {
   const fields = new Set(
     (config?.fields ?? DEFAULT_SENSITIVE_FIELDS).map((f) => f.toLowerCase()),
   );
@@ -75,7 +77,12 @@ export function redactObject<T extends Record<string, unknown>>(
 }
 
 /** Checks if a field name is sensitive. */
-export function isSensitiveField(fieldName: string, config?: RedactionConfig): boolean {
-  const fields = (config?.fields ?? DEFAULT_SENSITIVE_FIELDS).map((f) => f.toLowerCase());
+export function isSensitiveField(
+  fieldName: string,
+  config?: RedactionConfig,
+): boolean {
+  const fields = (config?.fields ?? DEFAULT_SENSITIVE_FIELDS).map((f) =>
+    f.toLowerCase(),
+  );
   return fields.includes(fieldName.toLowerCase());
 }

@@ -20,7 +20,11 @@ export function resolvePath(obj: unknown, path: string): unknown {
   let current: unknown = obj;
 
   for (const part of parts) {
-    if (current === null || current === undefined || typeof current !== "object") {
+    if (
+      current === null ||
+      current === undefined ||
+      typeof current !== "object"
+    ) {
       return undefined;
     }
     current = (current as Record<string, unknown>)[part];
@@ -37,7 +41,11 @@ export function resolvePath(obj: unknown, path: string): unknown {
  * @param expected - The expected value from the rule.
  * @returns Whether the condition matches.
  */
-export function matchAttribute(actual: unknown, operator: FeatureFlagOperator, expected: unknown): boolean {
+export function matchAttribute(
+  actual: unknown,
+  operator: FeatureFlagOperator,
+  expected: unknown,
+): boolean {
   switch (operator) {
     case "equals":
       return actual === expected;
@@ -46,13 +54,25 @@ export function matchAttribute(actual: unknown, operator: FeatureFlagOperator, e
       return actual !== expected;
 
     case "contains":
-      return typeof actual === "string" && typeof expected === "string" && actual.includes(expected);
+      return (
+        typeof actual === "string" &&
+        typeof expected === "string" &&
+        actual.includes(expected)
+      );
 
     case "starts_with":
-      return typeof actual === "string" && typeof expected === "string" && actual.startsWith(expected);
+      return (
+        typeof actual === "string" &&
+        typeof expected === "string" &&
+        actual.startsWith(expected)
+      );
 
     case "ends_with":
-      return typeof actual === "string" && typeof expected === "string" && actual.endsWith(expected);
+      return (
+        typeof actual === "string" &&
+        typeof expected === "string" &&
+        actual.endsWith(expected)
+      );
 
     case "in":
       return Array.isArray(expected) && expected.includes(actual);
@@ -61,22 +81,42 @@ export function matchAttribute(actual: unknown, operator: FeatureFlagOperator, e
       return Array.isArray(expected) && !expected.includes(actual);
 
     case "greater_than":
-      return typeof actual === "number" && typeof expected === "number" && actual > expected;
+      return (
+        typeof actual === "number" &&
+        typeof expected === "number" &&
+        actual > expected
+      );
 
     case "greater_than_or_equal":
-      return typeof actual === "number" && typeof expected === "number" && actual >= expected;
+      return (
+        typeof actual === "number" &&
+        typeof expected === "number" &&
+        actual >= expected
+      );
 
     case "less_than":
-      return typeof actual === "number" && typeof expected === "number" && actual < expected;
+      return (
+        typeof actual === "number" &&
+        typeof expected === "number" &&
+        actual < expected
+      );
 
     case "less_than_or_equal":
-      return typeof actual === "number" && typeof expected === "number" && actual <= expected;
+      return (
+        typeof actual === "number" &&
+        typeof expected === "number" &&
+        actual <= expected
+      );
 
     case "exists":
       return actual !== undefined && actual !== null;
 
     case "matches":
-      return typeof actual === "string" && typeof expected === "string" && new RegExp(expected).test(actual);
+      return (
+        typeof actual === "string" &&
+        typeof expected === "string" &&
+        new RegExp(expected).test(actual)
+      );
 
     default:
       return false;

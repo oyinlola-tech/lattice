@@ -1,18 +1,10 @@
-import type {
-  ResolvedRuntimeOptions,
-} from "./runtimeOptions.type.js";
+import type { ResolvedRuntimeOptions } from "./runtimeOptions.type.js";
 
-import {
-  DEFAULT_RUNTIME_OPTIONS,
-} from "./runtimeOptions.type.js";
+import { DEFAULT_RUNTIME_OPTIONS } from "./runtimeOptions.type.js";
 
-import type {
-  RuntimeId,
-} from "../runtimeState/runtimeState.type.js";
+import type { RuntimeId } from "../runtimeState/runtimeState.type.js";
 
-import {
-  createRuntimeId,
-} from "../runtimeContext/runtimeContext.factory.js";
+import { createRuntimeId } from "../runtimeContext/runtimeContext.factory.js";
 
 /**
  * Resolves runtime options with defaults applied.
@@ -29,9 +21,7 @@ export function resolveRuntimeOptions(
 /**
  * Validates runtime options.
  */
-export function validateRuntimeOptions(
-  options: ResolvedRuntimeOptions,
-): void {
+export function validateRuntimeOptions(options: ResolvedRuntimeOptions): void {
   if (!options.environment) {
     throw new Error("Runtime environment is required.");
   }

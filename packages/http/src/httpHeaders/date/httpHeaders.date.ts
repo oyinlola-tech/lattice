@@ -10,34 +10,18 @@
  * @param value - The raw date string (e.g. from a Last-Modified header).
  * @returns The parsed Date, or `undefined` if invalid.
  */
-export function parseHTTPDate(
-  value:
-    | string
-    | undefined,
-): Date
-  | undefined {
-  if (
-    !value
-  ) {
+export function parseHTTPDate(value: string | undefined): Date | undefined {
+  if (!value) {
     return undefined;
   }
 
-  const timestamp =
-    Date.parse(
-      value,
-    );
+  const timestamp = Date.parse(value);
 
-  if (
-    Number.isNaN(
-      timestamp,
-    )
-  ) {
+  if (Number.isNaN(timestamp)) {
     return undefined;
   }
 
-  return new Date(
-    timestamp,
-  );
+  return new Date(timestamp);
 }
 
 /**
@@ -47,27 +31,11 @@ export function parseHTTPDate(
  * @returns The formatted UTC date string.
  * @throws {RangeError} If the date is invalid.
  */
-export function formatHTTPDate(
-  value:
-    | Date
-    | number,
-): string {
-  const date =
-    value instanceof
-    Date
-      ? value
-      : new Date(
-          value,
-        );
+export function formatHTTPDate(value: Date | number): string {
+  const date = value instanceof Date ? value : new Date(value);
 
-  if (
-    Number.isNaN(
-      date.getTime(),
-    )
-  ) {
-    throw new RangeError(
-      "Invalid HTTP date.",
-    );
+  if (Number.isNaN(date.getTime())) {
+    throw new RangeError("Invalid HTTP date.");
   }
 
   return date.toUTCString();
@@ -81,32 +49,16 @@ export function formatHTTPDate(
  * @returns `true` if the date is in the past or equal to `now`.
  */
 export function isHTTPDateExpired(
-  value:
-    | string
-    | undefined,
-  now:
-    | Date
-    | number = Date.now(),
+  value: string | undefined,
+  now: Date | number = Date.now(),
 ): boolean {
-  const date =
-    parseHTTPDate(
-      value,
-    );
+  const date = parseHTTPDate(value);
 
-  if (
-    !date
-  ) {
+  if (!date) {
     return false;
   }
 
-  const current =
-    now instanceof
-    Date
-      ? now.getTime()
-      : now;
+  const current = now instanceof Date ? now.getTime() : now;
 
-  return (
-    date.getTime() <=
-    current
-  );
+  return date.getTime() <= current;
 }

@@ -4,8 +4,4 @@
  * CLI adapter contracts.
  */
 
-export type {
-  CLIAdapter,
-  CLIOptions,
-  CLIResult,
-} from "./cliAdapter.type.js";
+export type { CLIAdapter, CLIOptions, CLIResult } from "./cliAdapter.type.js";

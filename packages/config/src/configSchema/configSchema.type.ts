@@ -1,6 +1,4 @@
-import type {
-  ConfigValue,
-} from "../configValue/configValue.core.js";
+import type { ConfigValue } from "../configValue/configValue.core.js";
 
 /**
  * Supported configuration value types.
@@ -70,10 +68,7 @@ export interface ConfigSchema<T extends ConfigValue = ConfigValue> {
     value: T,
     context: ConfigValidationContext,
   ) =>
-    | boolean
-    | string
-    | ConfigValidationIssue
-    | readonly ConfigValidationIssue[];
+    boolean | string | ConfigValidationIssue | readonly ConfigValidationIssue[];
   readonly transform?: (
     value: ConfigValue,
     context: ConfigValidationContext,
@@ -87,9 +82,7 @@ export interface ConfigObjectSchema<
   T extends ConfigValue = ConfigValue,
 > extends ConfigSchema<T> {
   readonly type: ConfigValueType.OBJECT;
-  readonly properties: Readonly<
-    Record<string, ConfigSchema>
-  >;
+  readonly properties: Readonly<Record<string, ConfigSchema>>;
   readonly additionalProperties?: boolean | ConfigSchema;
 }
 
@@ -108,8 +101,7 @@ export interface ConfigArraySchema<
 /**
  * String configuration schema.
  */
-export interface ConfigStringSchema
-  extends ConfigSchema<string> {
+export interface ConfigStringSchema extends ConfigSchema<string> {
   readonly type: ConfigValueType.STRING;
   readonly minLength?: number;
   readonly maxLength?: number;
@@ -120,8 +112,7 @@ export interface ConfigStringSchema
 /**
  * Number configuration schema.
  */
-export interface ConfigNumberSchema
-  extends ConfigSchema<number> {
+export interface ConfigNumberSchema extends ConfigSchema<number> {
   readonly type: ConfigValueType.NUMBER;
   readonly min?: number;
   readonly max?: number;
@@ -132,8 +123,7 @@ export interface ConfigNumberSchema
 /**
  * Boolean configuration schema.
  */
-export interface ConfigBooleanSchema
-  extends ConfigSchema<boolean> {
+export interface ConfigBooleanSchema extends ConfigSchema<boolean> {
   readonly type: ConfigValueType.BOOLEAN;
 }
 
@@ -141,12 +131,9 @@ export interface ConfigBooleanSchema
  * Schema definition shorthand.
  */
 export type ConfigSchemaDefinition =
-  | ConfigSchema
-  | ConfigSchemaDefinition[]
-  | ConfigSchemaBuilder;
+  ConfigSchema | ConfigSchemaDefinition[] | ConfigSchemaBuilder;
 
 /**
  * Schema builder function.
  */
-export type ConfigSchemaBuilder =
-  () => ConfigSchema;
+export type ConfigSchemaBuilder = () => ConfigSchema;

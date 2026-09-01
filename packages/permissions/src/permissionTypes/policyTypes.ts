@@ -5,7 +5,11 @@
  */
 
 import type { PermissionActor } from "./permissionActor.js";
-import type { PermissionRule, PermissionContext, PermissionDecision } from "./ruleTypes.js";
+import type {
+  PermissionRule,
+  PermissionContext,
+  PermissionDecision,
+} from "./ruleTypes.js";
 
 /** A role definition with permissions and optional inheritance. */
 export interface RoleDefinition {
@@ -23,7 +27,9 @@ export interface RoleDefinition {
 
 /** Resolves permissions for an actor from an external source. */
 export interface PermissionResolver {
-  resolvePermissions(actor: PermissionActor): Promise<readonly PermissionRule[]>;
+  resolvePermissions(
+    actor: PermissionActor,
+  ): Promise<readonly PermissionRule[]>;
 }
 
 /** Resolves roles for an actor from an external source. */
@@ -34,7 +40,11 @@ export interface RoleResolver {
 /** Cache adapter for authorization decisions. */
 export interface PermissionCache {
   get(key: string): Promise<PermissionDecision | undefined>;
-  set(key: string, value: PermissionDecision, options?: { readonly ttl?: number }): Promise<void>;
+  set(
+    key: string,
+    value: PermissionDecision,
+    options?: { readonly ttl?: number },
+  ): Promise<void>;
   delete(key: string): Promise<void>;
   invalidateActor(actorId: string): Promise<void>;
 }
@@ -45,7 +55,9 @@ export interface PermissionPolicyDefinition {
   readonly permissions: readonly string[];
   readonly cacheable?: boolean;
   readonly priority?: number;
-  evaluate(context: PermissionContext): PermissionDecision | Promise<PermissionDecision>;
+  evaluate(
+    context: PermissionContext,
+  ): PermissionDecision | Promise<PermissionDecision>;
 }
 
 /** A step in an explain trace. */

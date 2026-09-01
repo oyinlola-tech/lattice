@@ -9,14 +9,9 @@ import type {
   HttpClientResponse,
 } from "./httpClient.type.js";
 
-import {
-  HttpClientError,
-  HttpClientTimeoutError,
-} from "./httpClient.error.js";
+import { HttpClientError, HttpClientTimeoutError } from "./httpClient.error.js";
 
-import {
-  normalizeClientError,
-} from "./httpClient.errorNormalizer.js";
+import { normalizeClientError } from "./httpClient.errorNormalizer.js";
 
 import {
   normalizeRetryOptions,
@@ -26,17 +21,14 @@ import {
   delay,
 } from "./httpClient.retry.js";
 
-import {
-  combineAbortSignals,
-} from "./httpClient.abort.js";
+import { combineAbortSignals } from "./httpClient.abort.js";
 
-import {
-  parseResponse,
-} from "./httpClient.response.js";
+import { parseResponse } from "./httpClient.response.js";
 
 interface HttpClientLike {
   readonly fetchImpl: typeof globalThis.fetch;
-  readonly defaultRetry: import("./httpClient.type.js").HttpRetryOptions | undefined;
+  readonly defaultRetry:
+    import("./httpClient.type.js").HttpRetryOptions | undefined;
   readonly defaultTimeout: number | undefined;
 }
 
@@ -44,7 +36,9 @@ export async function executeWithRetry(
   context: HttpClientRequestContext,
   client: HttpClientLike,
 ): Promise<HttpClientResponse> {
-  const retry = normalizeRetryOptions(context.config.retry ?? client.defaultRetry);
+  const retry = normalizeRetryOptions(
+    context.config.retry ?? client.defaultRetry,
+  );
   const retries = retry?.retries ?? 0;
   let attempt = 0;
 
@@ -54,7 +48,12 @@ export async function executeWithRetry(
 
       if (
         attempt < retries &&
-        shouldRetryStatus(response.status, (context.config.method ?? "GET") as import("./httpClient.type.js").HttpClientMethod, retry)
+        shouldRetryStatus(
+          response.status,
+          (context.config.method ??
+            "GET") as import("./httpClient.type.js").HttpClientMethod,
+          retry,
+        )
       ) {
         await delay(calculateRetryDelay(attempt, retry));
         attempt += 1;
@@ -81,7 +80,12 @@ export async function executeWithRetry(
 
       if (
         attempt < retries &&
-        shouldRetryError(normalized, (context.config.method ?? "GET") as import("./httpClient.type.js").HttpClientMethod, retry)
+        shouldRetryError(
+          normalized,
+          (context.config.method ??
+            "GET") as import("./httpClient.type.js").HttpClientMethod,
+          retry,
+        )
       ) {
         await delay(calculateRetryDelay(attempt, retry));
         attempt += 1;
@@ -117,7 +121,10 @@ async function executeOnce(
 
   try {
     const raw = await client.fetchImpl(request);
-    const response = await parseResponse(raw, context.config.responseType ?? "auto");
+    const response = await parseResponse(
+      raw,
+      context.config.responseType ?? "auto",
+    );
     return response;
   } catch (error) {
     if (error instanceof HttpClientError) {

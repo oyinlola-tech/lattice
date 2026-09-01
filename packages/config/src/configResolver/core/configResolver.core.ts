@@ -1,6 +1,4 @@
-import type {
-  ConfigValue,
-} from "../../configValue/configValue.core.js";
+import type { ConfigValue } from "../../configValue/configValue.core.js";
 
 import {
   parseConfigBigInt,
@@ -9,26 +7,18 @@ import {
   parseConfigNumber,
 } from "../../configValue/configValue.core.js";
 
-import type {
-  ConfigSchema,
-} from "../../configSchema/configSchema.core.js";
+import type { ConfigSchema } from "../../configSchema/configSchema.core.js";
 
-import {
-  validateConfigValue,
-} from "../../configSchema/configSchema.core.js";
+import { validateConfigValue } from "../../configSchema/configSchema.core.js";
 
-import type {
-  ConfigStore,
-} from "../../configStore/configStore.core.js";
+import type { ConfigStore } from "../../configStore/configStore.core.js";
 
 import type {
   ConfigResolverOptions,
   ConfigResolutionResult,
 } from "./configResolver.type.js";
 
-import {
-  ScopedConfigResolver,
-} from "../accessors/configResolver.scoped.js";
+import { ScopedConfigResolver } from "../accessors/configResolver.scoped.js";
 
 /**
  * Resolves typed configuration values from a ConfigStore.
@@ -39,42 +29,25 @@ import {
 export class ConfigResolver {
   private readonly store: ConfigStore;
 
-  private readonly options:
-    Required<ConfigResolverOptions>;
+  private readonly options: Required<ConfigResolverOptions>;
 
-  constructor(
-    store: ConfigStore,
-    options: ConfigResolverOptions = {},
-  ) {
+  constructor(store: ConfigStore, options: ConfigResolverOptions = {}) {
     this.store = store;
 
     this.options = {
-      strict:
-        options.strict ??
-        true,
-      allowUndefined:
-        options.allowUndefined ??
-        true,
-      clone:
-        options.clone ??
-        false,
+      strict: options.strict ?? true,
+      allowUndefined: options.allowUndefined ?? true,
+      clone: options.clone ?? false,
     };
   }
 
   /**
    * Returns the raw configuration value.
    */
-  get<T extends ConfigValue = ConfigValue>(
-    key: string,
-  ): T | undefined {
-    const value =
-      this.store.get<T>(
-        key,
-      );
+  get<T extends ConfigValue = ConfigValue>(key: string): T | undefined {
+    const value = this.store.get<T>(key);
 
-    return this.prepareValue(
-      value,
-    ) as T | undefined;
+    return this.prepareValue(value) as T | undefined;
   }
 
   /**
@@ -84,54 +57,32 @@ export class ConfigResolver {
     key: string,
     schema: ConfigSchema<T>,
   ): T | undefined {
-    const value =
-      this.store.get(
-        key,
-      );
+    const value = this.store.get(key);
 
-    const result =
-      validateConfigValue(
-        value,
-        schema as unknown as ConfigSchema,
+    const result = validateConfigValue(
+      value,
+      schema as unknown as ConfigSchema,
+      {
+        path: key,
+        root: value,
+      },
+    );
+
+    if (!result.valid && this.options.strict) {
+      throw new ConfigResolutionError(key, result.issues);
+    }
+
+    if (result.value === undefined && !this.options.allowUndefined) {
+      throw new ConfigResolutionError(key, [
         {
-          path:
-            key,
-          root:
-            value,
+          path: key,
+          message: `Configuration value "${key}" is undefined.`,
+          code: "UNDEFINED_VALUE",
         },
-      );
-
-    if (
-      !result.valid &&
-      this.options.strict
-    ) {
-      throw new ConfigResolutionError(
-        key,
-        result.issues,
-      );
+      ]);
     }
 
-    if (
-      result.value === undefined &&
-      !this.options.allowUndefined
-    ) {
-      throw new ConfigResolutionError(
-        key,
-        [
-          {
-            path: key,
-            message:
-              `Configuration value "${key}" is undefined.`,
-            code:
-              "UNDEFINED_VALUE",
-          },
-        ],
-      );
-    }
-
-    return this.prepareValue(
-      result.value,
-    ) as T | undefined;
+    return this.prepareValue(result.value) as T | undefined;
   }
 
   /**
@@ -141,99 +92,57 @@ export class ConfigResolver {
     key: string,
     schema: ConfigSchema<T>,
   ): ConfigResolutionResult<T> {
-    const value =
-      this.store.get(
-        key,
-      );
+    const value = this.store.get(key);
 
-    const result =
-      validateConfigValue(
-        value,
-        schema as unknown as ConfigSchema,
-        {
-          path:
-            key,
-          root:
-            value,
-        },
-      );
+    const result = validateConfigValue(
+      value,
+      schema as unknown as ConfigSchema,
+      {
+        path: key,
+        root: value,
+      },
+    );
 
     return {
       key,
-      value:
-        this.prepareValue(
-          result.value,
-        ) as T | undefined,
-      found:
-        value !== undefined,
-      valid:
-        result.valid,
-      issues:
-        result.issues,
+      value: this.prepareValue(result.value) as T | undefined,
+      found: value !== undefined,
+      valid: result.valid,
+      issues: result.issues,
     };
   }
 
   /**
    * Returns a required configuration value.
    */
-  required<T extends ConfigValue = ConfigValue>(
-    key: string,
-  ): T {
-    const value =
-      this.store.get<T>(
-        key,
-      );
+  required<T extends ConfigValue = ConfigValue>(key: string): T {
+    const value = this.store.get<T>(key);
 
-    if (
-      value === undefined
-    ) {
-      throw new ConfigResolutionError(
-        key,
-        [
-          {
-            path: key,
-            message:
-              `Required configuration value "${key}" is missing.`,
-            code:
-              "REQUIRED",
-          },
-        ],
-      );
+    if (value === undefined) {
+      throw new ConfigResolutionError(key, [
+        {
+          path: key,
+          message: `Required configuration value "${key}" is missing.`,
+          code: "REQUIRED",
+        },
+      ]);
     }
 
-    return this.prepareValue(
-      value,
-    ) as T;
+    return this.prepareValue(value) as T;
   }
 
   /**
    * Returns a string configuration value.
    */
-  string(
-    key: string,
-    fallback?: string,
-  ): string | undefined {
-    const value =
-      this.store.get(
-        key,
-      );
+  string(key: string, fallback?: string): string | undefined {
+    const value = this.store.get(key);
 
-    if (
-      value === undefined
-    ) {
+    if (value === undefined) {
       return fallback;
     }
 
-    if (
-      typeof value !==
-        "string"
-    ) {
-      return this.invalidType(
-        key,
-        "string",
-        value,
-        fallback,
-      );
+    if (typeof value !== "string") {
+      return this.invalidType(key, "string", value, fallback);
     }
 
     return value;
@@ -242,29 +151,17 @@ export class ConfigResolver {
   /**
    * Returns a required string.
    */
-  requiredString(
-    key: string,
-  ): string {
-    const value =
-      this.string(
-        key,
-      );
+  requiredString(key: string): string {
+    const value = this.string(key);
 
-    if (
-      value === undefined
-    ) {
-      throw new ConfigResolutionError(
-        key,
-        [
-          {
-            path: key,
-            message:
-              `Required string configuration "${key}" is missing.`,
-            code:
-              "REQUIRED_STRING",
-          },
-        ],
-      );
+    if (value === undefined) {
+      throw new ConfigResolutionError(key, [
+        {
+          path: key,
+          message: `Required string configuration "${key}" is missing.`,
+          code: "REQUIRED_STRING",
+        },
+      ]);
     }
 
     return value;
@@ -273,87 +170,46 @@ export class ConfigResolver {
   /**
    * Returns a number configuration value.
    */
-  number(
-    key: string,
-    fallback?: number,
-  ): number | undefined {
-    const value =
-      this.store.get(
-        key,
-      );
+  number(key: string, fallback?: number): number | undefined {
+    const value = this.store.get(key);
 
-    if (
-      value === undefined
-    ) {
+    if (value === undefined) {
       return fallback;
     }
 
-    if (
-      typeof value === "number"
-    ) {
-      if (
-        Number.isFinite(value)
-      ) {
+    if (typeof value === "number") {
+      if (Number.isFinite(value)) {
         return value;
       }
 
-      return this.invalidType(
-        key,
-        "number",
-        value,
-        fallback,
-      );
+      return this.invalidType(key, "number", value, fallback);
     }
 
-    if (
-      typeof value === "string"
-    ) {
-      const parsed =
-        parseConfigNumber(
-          value,
-        );
+    if (typeof value === "string") {
+      const parsed = parseConfigNumber(value);
 
-      if (
-        parsed !== undefined
-      ) {
+      if (parsed !== undefined) {
         return parsed;
       }
     }
 
-    return this.invalidType(
-      key,
-      "number",
-      value,
-      fallback,
-    );
+    return this.invalidType(key, "number", value, fallback);
   }
 
   /**
    * Returns a required number.
    */
-  requiredNumber(
-    key: string,
-  ): number {
-    const value =
-      this.number(
-        key,
-      );
+  requiredNumber(key: string): number {
+    const value = this.number(key);
 
-    if (
-      value === undefined
-    ) {
-      throw new ConfigResolutionError(
-        key,
-        [
-          {
-            path: key,
-            message:
-              `Required number configuration "${key}" is missing.`,
-            code:
-              "REQUIRED_NUMBER",
-          },
-        ],
-      );
+    if (value === undefined) {
+      throw new ConfigResolutionError(key, [
+        {
+          path: key,
+          message: `Required number configuration "${key}" is missing.`,
+          code: "REQUIRED_NUMBER",
+        },
+      ]);
     }
 
     return value;
@@ -362,76 +218,42 @@ export class ConfigResolver {
   /**
    * Returns a boolean configuration value.
    */
-  boolean(
-    key: string,
-    fallback?: boolean,
-  ): boolean | undefined {
-    const value =
-      this.store.get(
-        key,
-      );
+  boolean(key: string, fallback?: boolean): boolean | undefined {
+    const value = this.store.get(key);
 
-    if (
-      value === undefined
-    ) {
+    if (value === undefined) {
       return fallback;
     }
 
-    if (
-      typeof value === "boolean"
-    ) {
+    if (typeof value === "boolean") {
       return value;
     }
 
-    if (
-      typeof value === "string"
-    ) {
-      const parsed =
-        parseConfigBoolean(
-          value,
-        );
+    if (typeof value === "string") {
+      const parsed = parseConfigBoolean(value);
 
-      if (
-        parsed !== undefined
-      ) {
+      if (parsed !== undefined) {
         return parsed;
       }
     }
 
-    return this.invalidType(
-      key,
-      "boolean",
-      value,
-      fallback,
-    );
+    return this.invalidType(key, "boolean", value, fallback);
   }
 
   /**
    * Returns a required boolean.
    */
-  requiredBoolean(
-    key: string,
-  ): boolean {
-    const value =
-      this.boolean(
-        key,
-      );
+  requiredBoolean(key: string): boolean {
+    const value = this.boolean(key);
 
-    if (
-      value === undefined
-    ) {
-      throw new ConfigResolutionError(
-        key,
-        [
-          {
-            path: key,
-            message:
-              `Required boolean configuration "${key}" is missing.`,
-            code:
-              "REQUIRED_BOOLEAN",
-          },
-        ],
-      );
+    if (value === undefined) {
+      throw new ConfigResolutionError(key, [
+        {
+          path: key,
+          message: `Required boolean configuration "${key}" is missing.`,
+          code: "REQUIRED_BOOLEAN",
+        },
+      ]);
     }
 
     return value;
@@ -440,125 +262,67 @@ export class ConfigResolver {
   /**
    * Returns a bigint configuration value.
    */
-  bigint(
-    key: string,
-    fallback?: bigint,
-  ): bigint | undefined {
-    const value =
-      this.store.get(
-        key,
-      );
+  bigint(key: string, fallback?: bigint): bigint | undefined {
+    const value = this.store.get(key);
 
-    if (
-      value === undefined
-    ) {
+    if (value === undefined) {
       return fallback;
     }
 
-    if (
-      typeof value === "bigint"
-    ) {
+    if (typeof value === "bigint") {
       return value;
     }
 
-    if (
-      typeof value === "string"
-    ) {
-      const parsed =
-        parseConfigBigInt(
-          value,
-        );
+    if (typeof value === "string") {
+      const parsed = parseConfigBigInt(value);
 
-      if (
-        parsed !== undefined
-      ) {
+      if (parsed !== undefined) {
         return parsed;
       }
     }
 
-    return this.invalidType(
-      key,
-      "bigint",
-      value,
-      fallback,
-    );
+    return this.invalidType(key, "bigint", value, fallback);
   }
 
   /**
    * Returns a Date configuration value.
    */
-  date(
-    key: string,
-    fallback?: Date,
-  ): Date | undefined {
-    const value =
-      this.store.get(
-        key,
-      );
+  date(key: string, fallback?: Date): Date | undefined {
+    const value = this.store.get(key);
 
-    if (
-      value === undefined
-    ) {
+    if (value === undefined) {
       return fallback;
     }
 
-    if (
-      value instanceof Date
-    ) {
-      return parseConfigDate(
-        value,
-      );
+    if (value instanceof Date) {
+      return parseConfigDate(value);
     }
 
-    if (
-      typeof value === "string"
-    ) {
-      const parsed =
-        parseConfigDate(
-          value,
-        );
+    if (typeof value === "string") {
+      const parsed = parseConfigDate(value);
 
-      if (
-        parsed !== undefined
-      ) {
+      if (parsed !== undefined) {
         return parsed;
       }
     }
 
-    return this.invalidType(
-      key,
-      "date",
-      value,
-      fallback,
-    );
+    return this.invalidType(key, "date", value, fallback);
   }
 
   /**
    * Returns a required Date.
    */
-  requiredDate(
-    key: string,
-  ): Date {
-    const value =
-      this.date(
-        key,
-      );
+  requiredDate(key: string): Date {
+    const value = this.date(key);
 
-    if (
-      value === undefined
-    ) {
-      throw new ConfigResolutionError(
-        key,
-        [
-          {
-            path: key,
-            message:
-              `Required date configuration "${key}" is missing.`,
-            code:
-              "REQUIRED_DATE",
-          },
-        ],
-      );
+    if (value === undefined) {
+      throw new ConfigResolutionError(key, [
+        {
+          path: key,
+          message: `Required date configuration "${key}" is missing.`,
+          code: "REQUIRED_DATE",
+        },
+      ]);
     }
 
     return value;
@@ -571,14 +335,9 @@ export class ConfigResolver {
     key: string,
     fallback?: T,
   ): T | undefined {
-    const value =
-      this.store.get(
-        key,
-      );
+    const value = this.store.get(key);
 
-    if (
-      value === undefined
-    ) {
+    if (value === undefined) {
       return fallback;
     }
 
@@ -588,17 +347,10 @@ export class ConfigResolver {
       Array.isArray(value) ||
       value instanceof Date
     ) {
-      return this.invalidType(
-        key,
-        "object",
-        value,
-        fallback,
-      );
+      return this.invalidType(key, "object", value, fallback);
     }
 
-    return this.prepareValue(
-      value,
-    ) as T;
+    return this.prepareValue(value) as T;
   }
 
   /**
@@ -608,74 +360,41 @@ export class ConfigResolver {
     key: string,
     fallback?: readonly T[],
   ): readonly T[] | undefined {
-    const value =
-      this.store.get(
-        key,
-      );
+    const value = this.store.get(key);
 
-    if (
-      value === undefined
-    ) {
+    if (value === undefined) {
       return fallback;
     }
 
-    if (
-      !Array.isArray(value)
-    ) {
-      return this.invalidType(
-        key,
-        "array",
-        value,
-        fallback,
-      );
+    if (!Array.isArray(value)) {
+      return this.invalidType(key, "array", value, fallback);
     }
 
-    return this.prepareValue(
-      value,
-    ) as unknown as readonly T[];
+    return this.prepareValue(value) as unknown as readonly T[];
   }
 
   /**
    * Resolves a group of configuration keys.
    */
-  pick(
-    keys: readonly string[],
-  ): Readonly<
-    Record<string, ConfigValue>
-  > {
-    const result:
-      Record<string, ConfigValue> =
-      {};
+  pick(keys: readonly string[]): Readonly<Record<string, ConfigValue>> {
+    const result: Record<string, ConfigValue> = {};
 
-    for (
-      const key of keys
-    ) {
-      const value =
-        this.get(key);
+    for (const key of keys) {
+      const value = this.get(key);
 
-      if (
-        value !== undefined
-      ) {
-        result[key] =
-          value;
+      if (value !== undefined) {
+        result[key] = value;
       }
     }
 
-    return Object.freeze(
-      result,
-    );
+    return Object.freeze(result);
   }
 
   /**
    * Creates a resolver for a nested key prefix.
    */
-  scoped(
-    prefix: string,
-  ): ScopedConfigResolver {
-    return new ScopedConfigResolver(
-      this,
-      prefix,
-    );
+  scoped(prefix: string): ScopedConfigResolver {
+    return new ScopedConfigResolver(this, prefix);
   }
 
   /**
@@ -688,124 +407,74 @@ export class ConfigResolver {
   private prepareValue(
     value: ConfigValue | undefined,
   ): ConfigValue | undefined {
-    if (
-      value === undefined
-    ) {
+    if (value === undefined) {
       return undefined;
     }
 
-    if (
-      !this.options.clone
-    ) {
+    if (!this.options.clone) {
       return value;
     }
 
-    if (
-      typeof value !== "object" ||
-      value === null
-    ) {
+    if (typeof value !== "object" || value === null) {
       return value;
     }
 
-    if (
-      value instanceof Date
-    ) {
-      return new Date(
-        value.getTime(),
-      );
+    if (value instanceof Date) {
+      return new Date(value.getTime());
     }
 
-    if (
-      Array.isArray(value)
-    ) {
-      return value.map(
-        (item) =>
-          this.prepareValue(
-            item,
-          ) as ConfigValue,
-      );
+    if (Array.isArray(value)) {
+      return value.map((item) => this.prepareValue(item) as ConfigValue);
     }
 
-    const result:
-      Record<string, ConfigValue> =
-      {};
+    const result: Record<string, ConfigValue> = {};
 
-    for (
-      const [
-        key,
-        child,
-      ] of Object.entries(value)
-    ) {
-      result[key] =
-        this.prepareValue(
-          child,
-        ) as ConfigValue;
+    for (const [key, child] of Object.entries(value)) {
+      result[key] = this.prepareValue(child) as ConfigValue;
     }
 
     return result;
   }
 
-  private invalidType<
-    T,
-  >(
+  private invalidType<T>(
     key: string,
     expected: string,
     received: unknown,
     fallback: T | undefined,
   ): T | undefined {
-    if (
-      this.options.strict
-    ) {
-      throw new ConfigResolutionError(
-        key,
-        [
-          {
-            path: key,
-            message:
-              `Expected configuration "${key}" to be ${expected}.`,
-            code:
-              "TYPE_MISMATCH",
-            expected,
-            received:
-              typeof received,
-          },
-        ],
-      );
+    if (this.options.strict) {
+      throw new ConfigResolutionError(key, [
+        {
+          path: key,
+          message: `Expected configuration "${key}" to be ${expected}.`,
+          code: "TYPE_MISMATCH",
+          expected,
+          received: typeof received,
+        },
+      ]);
     }
 
     return fallback;
   }
-}import {
-  ConfigurationError,
-} from "@oyinlola141/lattice-errors";
+}
+import { ConfigurationError } from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when configuration resolution fails.
  */
-export class ConfigResolutionError
-  extends ConfigurationError {
+export class ConfigResolutionError extends ConfigurationError {
   readonly key: string;
 
-  readonly issues:
-    readonly unknown[];
+  readonly issues: readonly unknown[];
 
-  constructor(
-    key: string,
-    issues: readonly unknown[],
-  ) {
-    super(
-      `Failed to resolve configuration "${key}".`,
-      {
-        configKey: key,
-        component: "ConfigurationResolver",
-      },
-    );
+  constructor(key: string, issues: readonly unknown[]) {
+    super(`Failed to resolve configuration "${key}".`, {
+      configKey: key,
+      component: "ConfigurationResolver",
+    });
 
     this.key = key;
 
-    this.issues =
-      Object.freeze([
-        ...issues,
-      ]);
+    this.issues = Object.freeze([...issues]);
   }
 }

@@ -5,38 +5,21 @@
  * whitespace because whitespace may be meaningful in passwords
  * and other security-sensitive values.
  */
-export function normalizeText(
-  value: string,
-): string {
-  if (
-    typeof value !== "string"
-  ) {
-    throw new TypeError(
-      "Value must be a string.",
-    );
+export function normalizeText(value: string): string {
+  if (typeof value !== "string") {
+    throw new TypeError("Value must be a string.");
   }
 
-  return value.normalize(
-    "NFC",
-  );
+  return value.normalize("NFC");
 }
 
 /**
  * Returns the UTF-8 byte length of a string.
  */
-export function utf8ByteLength(
-  value: string,
-): number {
-  if (
-    typeof value !== "string"
-  ) {
-    throw new TypeError(
-      "Value must be a string.",
-    );
+export function utf8ByteLength(value: string): number {
+  if (typeof value !== "string") {
+    throw new TypeError("Value must be a string.");
   }
 
-  return Buffer.byteLength(
-    value,
-    "utf8",
-  );
+  return Buffer.byteLength(value, "utf8");
 }

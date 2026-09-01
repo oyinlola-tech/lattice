@@ -1,15 +1,8 @@
-import type {
-  Logger,
-} from "@oyinlola141/lattice-logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
-import type {
-  Container,
-} from "@oyinlola141/lattice-container";
+import type { Container } from "@oyinlola141/lattice-container";
 
-import type {
-  Module,
-  ModuleContext,
-} from "@oyinlola141/lattice-core";
+import type { Module, ModuleContext } from "@oyinlola141/lattice-core";
 
 import type {
   LifecycleResult,
@@ -19,9 +12,7 @@ import type {
   LifecycleManagerOptions,
 } from "./lifecycle.type.js";
 
-import {
-  resolveDependencies,
-} from "../dependencyGraph/index.js";
+import { resolveDependencies } from "../dependencyGraph/index.js";
 
 import {
   RuntimeStartError,
@@ -95,10 +86,9 @@ export class LifecycleManager {
         succeeded.push(moduleId);
         this.initializedModules.push(moduleId);
 
-        this.logger.debug(
-          `Module "${moduleId}" initialized.`,
-          { durationMs: Date.now() - moduleStartTime },
-        );
+        this.logger.debug(`Module "${moduleId}" initialized.`, {
+          durationMs: Date.now() - moduleStartTime,
+        });
       } catch (error) {
         const failure: LifecycleFailure = {
           moduleId,
@@ -151,10 +141,9 @@ export class LifecycleManager {
         succeeded.push(moduleId);
         this.startedModules.push(moduleId);
 
-        this.logger.debug(
-          `Module "${moduleId}" started.`,
-          { durationMs: Date.now() - moduleStartTime },
-        );
+        this.logger.debug(`Module "${moduleId}" started.`, {
+          durationMs: Date.now() - moduleStartTime,
+        });
       } catch (error) {
         const failure: LifecycleFailure = {
           moduleId,
@@ -165,10 +154,9 @@ export class LifecycleManager {
 
         failed.push(failure);
 
-        this.logger.error(
-          `Module "${moduleId}" failed during startup.`,
-          { error: failure.error },
-        );
+        this.logger.error(`Module "${moduleId}" failed during startup.`, {
+          error: failure.error,
+        });
 
         if (!this.options.continueOnFailure) {
           break;
@@ -208,10 +196,9 @@ export class LifecycleManager {
 
         succeeded.push(moduleId);
 
-        this.logger.debug(
-          `Module "${moduleId}" stopped.`,
-          { durationMs: Date.now() - moduleStartTime },
-        );
+        this.logger.debug(`Module "${moduleId}" stopped.`, {
+          durationMs: Date.now() - moduleStartTime,
+        });
       } catch (error) {
         const failure: LifecycleFailure = {
           moduleId,
@@ -222,10 +209,9 @@ export class LifecycleManager {
 
         failed.push(failure);
 
-        this.logger.error(
-          `Module "${moduleId}" failed during shutdown.`,
-          { error: failure.error },
-        );
+        this.logger.error(`Module "${moduleId}" failed during shutdown.`, {
+          error: failure.error,
+        });
       }
     }
 
@@ -263,10 +249,9 @@ export class LifecycleManager {
 
         succeeded.push(moduleId);
 
-        this.logger.debug(
-          `Module "${moduleId}" destroyed.`,
-          { durationMs: Date.now() - moduleStartTime },
-        );
+        this.logger.debug(`Module "${moduleId}" destroyed.`, {
+          durationMs: Date.now() - moduleStartTime,
+        });
       } catch (error) {
         const failure: LifecycleFailure = {
           moduleId,
@@ -277,10 +262,9 @@ export class LifecycleManager {
 
         failed.push(failure);
 
-        this.logger.error(
-          `Module "${moduleId}" failed during destruction.`,
-          { error: failure.error },
-        );
+        this.logger.error(`Module "${moduleId}" failed during destruction.`, {
+          error: failure.error,
+        });
       }
     }
 
@@ -306,14 +290,11 @@ export class LifecycleManager {
         const context = this.createModuleContext(module);
         await module.onShutdown(context);
 
-        this.logger.debug(
-          `Module "${moduleId}" rolled back.`,
-        );
+        this.logger.debug(`Module "${moduleId}" rolled back.`);
       } catch (error) {
-        this.logger.error(
-          `Module "${moduleId}" rollback failed.`,
-          { errorMessage: error instanceof Error ? error.message : String(error) },
-        );
+        this.logger.error(`Module "${moduleId}" rollback failed.`, {
+          errorMessage: error instanceof Error ? error.message : String(error),
+        });
       }
     }
   }
@@ -331,7 +312,8 @@ export class LifecycleManager {
       application: {} as ModuleContext["application"],
       configuration: {} as unknown as ModuleContext["configuration"],
       logger: this.logger,
-      getConfiguration: () => ({}) as unknown as ReturnType<ModuleContext["getConfiguration"]>,
+      getConfiguration: () =>
+        ({}) as unknown as ReturnType<ModuleContext["getConfiguration"]>,
       getConfig: () => undefined,
       requireConfig: (path: string) => {
         throw new Error(`Config "${path}" not found.`);

@@ -16,56 +16,27 @@ import { normalizeETag, stripWeakETag } from "./httpHeaders.etag.js";
  * @returns `true` if the ETags match.
  */
 export function etagMatches(
-  actual:
-    | string
-    | undefined,
-  expected:
-    | string
-    | undefined,
-  weak:
-    | boolean = true,
+  actual: string | undefined,
+  expected: string | undefined,
+  weak: boolean = true,
 ): boolean {
-  const left =
-    normalizeETag(
-      actual,
-    );
+  const left = normalizeETag(actual);
 
-  const right =
-    normalizeETag(
-      expected,
-    );
+  const right = normalizeETag(expected);
 
-  if (
-    !left ||
-    !right
-  ) {
+  if (!left || !right) {
     return false;
   }
 
-  if (
-    left ===
-      "*" ||
-    right ===
-      "*"
-  ) {
+  if (left === "*" || right === "*") {
     return true;
   }
 
-  if (
-    weak
-  ) {
-    return (
-      stripWeakETag(
-        left,
-      ) ===
-      stripWeakETag(
-        right,
-      )
-    );
+  if (weak) {
+    return stripWeakETag(left) === stripWeakETag(right);
   }
 
-  return left ===
-    right;
+  return left === right;
 }
 
 /**
@@ -74,23 +45,10 @@ export function etagMatches(
  * @param value - The raw ETag list string.
  * @returns An array of trimmed ETag values.
  */
-export function parseETagList(
-  value:
-    | string
-    | undefined,
-): string[] {
-  if (
-    !value
-  ) {
+export function parseETagList(value: string | undefined): string[] {
+  if (!value) {
     return [];
   }
 
-  return splitHeaderValues(
-    value,
-  ).map(
-    (
-      item,
-    ) =>
-      item.trim(),
-  );
+  return splitHeaderValues(value).map((item) => item.trim());
 }

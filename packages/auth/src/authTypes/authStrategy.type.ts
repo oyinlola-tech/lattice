@@ -9,7 +9,8 @@ import type { UserId } from "../authTypes/authUser.type.js";
 /**
  * Supported OAuth2 provider identifiers.
  */
-export type OAuthProvider = "google" | "github" | "microsoft" | "apple" | "discord" | "custom";
+export type OAuthProvider =
+  "google" | "github" | "microsoft" | "apple" | "discord" | "custom";
 
 /**
  * OAuth2 provider configuration.

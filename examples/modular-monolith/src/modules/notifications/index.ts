@@ -16,7 +16,9 @@ export interface NotificationsModuleConfig {
   readonly events: EventBus;
 }
 
-export function registerNotificationsModule(config: NotificationsModuleConfig): void {
+export function registerNotificationsModule(
+  config: NotificationsModuleConfig,
+): void {
   const { notifications, commandBus, queryBus, events } = config;
 
   const createHandler = new CreateNotificationHandler(notifications);

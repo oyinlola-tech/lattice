@@ -4,7 +4,14 @@
  * Filesystem-based object storage for development and testing.
  */
 
-import { readFile, writeFile, unlink, stat, mkdir, readdir } from "node:fs/promises";
+import {
+  readFile,
+  writeFile,
+  unlink,
+  stat,
+  mkdir,
+  readdir,
+} from "node:fs/promises";
 import { join, dirname } from "node:path";
 import type {
   ObjectStorage,
@@ -122,7 +129,10 @@ export class LocalObjectStorage implements ObjectStorage {
 
   async list(
     prefix?: string,
-    options?: { readonly maxKeys?: number; readonly continuationToken?: string },
+    options?: {
+      readonly maxKeys?: number;
+      readonly continuationToken?: string;
+    },
   ): Promise<ListObjectsResult> {
     const dirPath = prefix ? this.resolvePath(prefix) : this.basePath;
     const maxKeys = options?.maxKeys ?? 1000;

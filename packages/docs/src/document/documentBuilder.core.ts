@@ -70,9 +70,7 @@ export function createDocument(
  * Validates document builder options.
  * Throws on invalid input.
  */
-function validateDocumentOptions(
-  options: DocumentBuilderOptions,
-): void {
+function validateDocumentOptions(options: DocumentBuilderOptions): void {
   if (!options.id || options.id.trim().length === 0) {
     throw new Error("Document ID is required.");
   }
@@ -109,15 +107,16 @@ export function createMarkdownDocument(
 export function createStructuredDocument(
   id: string,
   title: string,
-  nodes: DocumentationContent extends { readonly nodes: infer N }
-    ? N
-    : never,
+  nodes: DocumentationContent extends { readonly nodes: infer N } ? N : never,
   options?: Partial<DocumentBuilderOptions>,
 ): DocumentationDocument {
   return createDocument({
     id,
     title,
-    content: { type: "structured", value: nodes } as unknown as DocumentationContent,
+    content: {
+      type: "structured",
+      value: nodes,
+    } as unknown as DocumentationContent,
     ...options,
   });
 }

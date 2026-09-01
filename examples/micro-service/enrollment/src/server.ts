@@ -13,12 +13,10 @@ async function bootstrap(): Promise<void> {
   console.log("─".repeat(60));
   console.log();
 
-  const { EnrollStudentCommand } = await import(
-    "./services/enrollment/commands/enroll-student/enroll-student.command.js"
-  );
-  const { WithdrawStudentCommand } = await import(
-    "./services/enrollment/commands/withdraw-student/withdraw-student.command.js"
-  );
+  const { EnrollStudentCommand } =
+    await import("./services/enrollment/commands/enroll-student/enroll-student.command.js");
+  const { WithdrawStudentCommand } =
+    await import("./services/enrollment/commands/withdraw-student/withdraw-student.command.js");
 
   const student1Id = createStudentId("student-001");
   const student2Id = createStudentId("student-002");
@@ -30,24 +28,24 @@ async function bootstrap(): Promise<void> {
   console.log(`[Seed] Courses: ${course1Id}, ${course2Id}, ${course3Id}`);
   console.log();
 
-  const enrollment1 = await commandBus.execute(
+  const enrollment1 = (await commandBus.execute(
     new EnrollStudentCommand({ studentId: student1Id, courseId: course1Id }),
-  ) as { id: string; status: string };
+  )) as { id: string; status: string };
   console.log(`[Seed] Enrollment 1: ${enrollment1.id} (${enrollment1.status})`);
 
-  const enrollment2 = await commandBus.execute(
+  const enrollment2 = (await commandBus.execute(
     new EnrollStudentCommand({ studentId: student1Id, courseId: course2Id }),
-  ) as { id: string; status: string };
+  )) as { id: string; status: string };
   console.log(`[Seed] Enrollment 2: ${enrollment2.id} (${enrollment2.status})`);
 
-  const enrollment3 = await commandBus.execute(
+  const enrollment3 = (await commandBus.execute(
     new EnrollStudentCommand({ studentId: student2Id, courseId: course1Id }),
-  ) as { id: string; status: string };
+  )) as { id: string; status: string };
   console.log(`[Seed] Enrollment 3: ${enrollment3.id} (${enrollment3.status})`);
 
-  const enrollment4 = await commandBus.execute(
+  const enrollment4 = (await commandBus.execute(
     new EnrollStudentCommand({ studentId: student2Id, courseId: course3Id }),
-  ) as { id: string; status: string };
+  )) as { id: string; status: string };
   console.log(`[Seed] Enrollment 4: ${enrollment4.id} (${enrollment4.status})`);
 
   console.log();
@@ -56,21 +54,20 @@ async function bootstrap(): Promise<void> {
   console.log("─".repeat(60));
   console.log();
 
-  const { ListStudentEnrollmentsQuery } = await import(
-    "./services/enrollment/queries/list-student-enrollments/list-student-enrollments.query.js"
-  );
+  const { ListStudentEnrollmentsQuery } =
+    await import("./services/enrollment/queries/list-student-enrollments/list-student-enrollments.query.js");
 
-  const student1Enrollments = await queryBus.execute(
+  const student1Enrollments = (await queryBus.execute(
     new ListStudentEnrollmentsQuery(student1Id),
-  ) as readonly { courseId: string; status: string }[];
+  )) as readonly { courseId: string; status: string }[];
   console.log(`[Query] Student 1 enrollments: ${student1Enrollments.length}`);
   for (const e of student1Enrollments) {
     console.log(`  - ${e.courseId} (${e.status})`);
   }
 
-  const student2Enrollments = await queryBus.execute(
+  const student2Enrollments = (await queryBus.execute(
     new ListStudentEnrollmentsQuery(student2Id),
-  ) as readonly { courseId: string; status: string }[];
+  )) as readonly { courseId: string; status: string }[];
   console.log(`[Query] Student 2 enrollments: ${student2Enrollments.length}`);
   for (const e of student2Enrollments) {
     console.log(`  - ${e.courseId} (${e.status})`);
@@ -82,15 +79,17 @@ async function bootstrap(): Promise<void> {
   console.log("─".repeat(60));
   console.log();
 
-  const withdrawal = await commandBus.execute(
+  const withdrawal = (await commandBus.execute(
     new WithdrawStudentCommand({ studentId: student1Id, courseId: course1Id }),
-  ) as { id: string; status: string };
+  )) as { id: string; status: string };
   console.log(`[Withdraw] Enrollment ${withdrawal.id}: ${withdrawal.status}`);
 
-  const updatedStudent1Enrollments = await queryBus.execute(
+  const updatedStudent1Enrollments = (await queryBus.execute(
     new ListStudentEnrollmentsQuery(student1Id),
-  ) as readonly { courseId: string; status: string }[];
-  console.log(`[Query] Student 1 enrollments after withdrawal: ${updatedStudent1Enrollments.length}`);
+  )) as readonly { courseId: string; status: string }[];
+  console.log(
+    `[Query] Student 1 enrollments after withdrawal: ${updatedStudent1Enrollments.length}`,
+  );
   for (const e of updatedStudent1Enrollments) {
     console.log(`  - ${e.courseId} (${e.status})`);
   }
@@ -103,7 +102,9 @@ async function bootstrap(): Promise<void> {
   console.log("Architecture:");
   console.log("  Single service   → Enrollment domain only");
   console.log("  CQRS pattern     → Commands write, queries read");
-  console.log("  Event-driven     → Publishes StudentEnrolled/StudentWithdrawn");
+  console.log(
+    "  Event-driven     → Publishes StudentEnrolled/StudentWithdrawn",
+  );
   console.log("  SQLite           → Lightweight persistence");
   console.log();
   console.log("API Endpoints:");

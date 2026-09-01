@@ -4,13 +4,9 @@
  * @module dispatcher/dispatcherCore
  */
 
-import type {
-  Message,
-} from "../message/messageType.type.js";
+import type { Message } from "../message/messageType.type.js";
 
-import type {
-  MessageMiddlewareLike,
-} from "../messageMiddleware/messageMiddlewareType.type.js";
+import type { MessageMiddlewareLike } from "../messageMiddleware/messageMiddlewareType.type.js";
 
 import type {
   Dispatcher,
@@ -47,34 +43,57 @@ export class DefaultDispatcher implements Dispatcher {
     const dispatchStart = performance.now();
     this.validateNotDisposed(message);
     const signal = this.resolveSignal(options.signal);
-    const context = createMessageContext(message, { ...options.context, signal });
-    const allMiddleware = [...this.globalMiddleware, ...(options.middleware ?? [])];
+    const context = createMessageContext(message, {
+      ...options.context,
+      signal,
+    });
+    const allMiddleware = [
+      ...this.globalMiddleware,
+      ...(options.middleware ?? []),
+    ];
     const handlers = this.registry.resolve(message.type);
     const handlerResults: HandlerExecutionResult[] = [];
 
     try {
       const pipelineResult = await runMessagePipeline(
         allMiddleware,
-        async (msg, mwCtx) => this.executeHandlers(msg, handlers, handlerResults, mwCtx.signal),
+        async (msg, mwCtx) =>
+          this.executeHandlers(msg, handlers, handlerResults, mwCtx.signal),
         message,
-        { signal: context.signal, metadata: options.context?.headers as Record<string, unknown>, state: options.context?.state },
+        {
+          signal: context.signal,
+          metadata: options.context?.headers as Record<string, unknown>,
+          state: options.context?.state,
+        },
       );
 
       return {
-        success: true, value: pipelineResult.result as TResult,
-        message, context, handlerResults, middlewareResult: pipelineResult,
+        success: true,
+        value: pipelineResult.result as TResult,
+        message,
+        context,
+        handlerResults,
+        middlewareResult: pipelineResult,
         duration: performance.now() - dispatchStart,
       };
     } catch (error) {
       return {
-        success: false, error: error instanceof Error ? error : new Error(String(error)),
-        message, context, handlerResults, duration: performance.now() - dispatchStart,
+        success: false,
+        error: error instanceof Error ? error : new Error(String(error)),
+        message,
+        context,
+        handlerResults,
+        duration: performance.now() - dispatchStart,
       };
     }
   }
 
   private validateNotDisposed(message: Message): void {
-    if (this.disposed) throw new MessageDispatchError(message.type, "Dispatcher has been disposed.");
+    if (this.disposed)
+      throw new MessageDispatchError(
+        message.type,
+        "Dispatcher has been disposed.",
+      );
   }
 
   private resolveSignal(signal?: AbortSignal): AbortSignal {
@@ -93,7 +112,12 @@ export class DefaultDispatcher implements Dispatcher {
     for (const handler of handlers) {
       const result = await this.executeHandler(handler, message, signal);
       results.push(result as TResult);
-      handlerResults.push({ handlerId: handler.id, success: true, value: result, duration: 0 });
+      handlerResults.push({
+        handlerId: handler.id,
+        success: true,
+        value: result,
+        duration: 0,
+      });
     }
     return results.length === 1 ? results[0]! : (results as unknown as TResult);
   }
@@ -110,7 +134,12 @@ export class DefaultDispatcher implements Dispatcher {
     } catch (error) {
       throw new MessageHandlerError(
         `Handler "${handler.id}" failed: ${error instanceof Error ? error.message : String(error)}`,
-        { handlerId: handler.id, messageType: message.type, messageId: message.id, cause: error },
+        {
+          handlerId: handler.id,
+          messageType: message.type,
+          messageId: message.id,
+          cause: error,
+        },
       );
     }
   }

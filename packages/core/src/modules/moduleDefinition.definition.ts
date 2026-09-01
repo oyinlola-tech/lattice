@@ -1,21 +1,13 @@
-import type {
-  Module,
-  ModuleId,
-  ModuleOptions,
-} from "./module.js";
+import type { Module, ModuleId, ModuleOptions } from "./module.js";
 
-import type {
-  ModuleMetadata,
-} from "./moduleMetadata.metadata.js";
+import type { ModuleMetadata } from "./moduleMetadata.metadata.js";
 
 /**
  * Factory used to create a module instance.
  *
  * The factory receives the module's resolved options.
  */
-export type ModuleFactory<
-  TModule extends Module = Module,
-> = (
+export type ModuleFactory<TModule extends Module = Module> = (
   options?: ModuleOptions,
 ) => TModule;
 
@@ -48,9 +40,7 @@ export interface ModuleDependencyDefinition {
 /**
  * Complete static definition of a Lattice module.
  */
-export interface ModuleDefinition<
-  TModule extends Module = Module,
-> {
+export interface ModuleDefinition<TModule extends Module = Module> {
   /**
    * Unique module identifier.
    */
@@ -74,11 +64,7 @@ export interface ModuleDefinition<
   /**
    * Dependencies required by the module.
    */
-  readonly dependencies?:
-    readonly (
-      | ModuleId
-      | ModuleDependencyDefinition
-    )[];
+  readonly dependencies?: readonly (ModuleId | ModuleDependencyDefinition)[];
 
   /**
    * Static module metadata.
@@ -108,9 +94,7 @@ export interface ModuleDefinition<
 /**
  * Options used when creating a module definition.
  */
-export interface DefineModuleOptions<
-  TModule extends Module = Module,
-> {
+export interface DefineModuleOptions<TModule extends Module = Module> {
   readonly id: ModuleId;
 
   readonly name: string;
@@ -119,11 +103,7 @@ export interface DefineModuleOptions<
 
   readonly factory: ModuleFactory<TModule>;
 
-  readonly dependencies?:
-    readonly (
-      | ModuleId
-      | ModuleDependencyDefinition
-    )[];
+  readonly dependencies?: readonly (ModuleId | ModuleDependencyDefinition)[];
 
   readonly metadata?: ModuleMetadata;
 
@@ -139,30 +119,21 @@ export interface DefineModuleOptions<
  *
  * A definition describes a module but does not instantiate it.
  */
-export function defineModule<
-  TModule extends Module = Module,
->(
+export function defineModule<TModule extends Module = Module>(
   options: DefineModuleOptions<TModule>,
 ): ModuleDefinition<TModule> {
-  validateModuleDefinition(
-    options,
-  );
+  validateModuleDefinition(options);
 
   return Object.freeze({
     id: options.id,
     name: options.name,
     version: options.version,
     factory: options.factory,
-    dependencies:
-      normalizeDependencies(
-        options.dependencies,
-      ),
+    dependencies: normalizeDependencies(options.dependencies),
     metadata: options.metadata,
     options: options.options,
-    autoLoad:
-      options.autoLoad ?? true,
-    multiInstance:
-      options.multiInstance ?? false,
+    autoLoad: options.autoLoad ?? true,
+    multiInstance: options.multiInstance ?? false,
   });
 }
 
@@ -171,9 +142,7 @@ export function defineModule<
  *
  * Useful when a module has already been implemented as a class.
  */
-export function moduleToDefinition<
-  TModule extends Module,
->(
+export function moduleToDefinition<TModule extends Module>(
   module: TModule,
   factory?: ModuleFactory<TModule>,
 ): ModuleDefinition<TModule> {
@@ -181,13 +150,9 @@ export function moduleToDefinition<
     id: module.id,
     name: module.name,
     version: module.version,
-    dependencies:
-      module.dependencies,
-    options:
-      module.options,
-    factory:
-      factory ??
-      (() => module),
+    dependencies: module.dependencies,
+    options: module.options,
+    factory: factory ?? (() => module),
   });
 }
 
@@ -196,69 +161,46 @@ export function moduleToDefinition<
  * representation.
  */
 export function normalizeDependencies(
-  dependencies?:
-    readonly (
-      | ModuleId
-      | ModuleDependencyDefinition
-    )[],
+  dependencies?: readonly (ModuleId | ModuleDependencyDefinition)[],
 ): readonly ModuleDependencyDefinition[] {
   if (!dependencies) {
     return [];
   }
 
   return Object.freeze(
-    dependencies.map(
-      (dependency) => {
-        if (
-          typeof dependency ===
-          "string"
-        ) {
-          return Object.freeze({
-            id: dependency,
-            optional: false,
-          });
-        }
-
+    dependencies.map((dependency) => {
+      if (typeof dependency === "string") {
         return Object.freeze({
-          id: dependency.id,
-          optional:
-            dependency.optional ??
-            false,
-          version:
-            dependency.version,
+          id: dependency,
+          optional: false,
         });
-      },
-    ),
+      }
+
+      return Object.freeze({
+        id: dependency.id,
+        optional: dependency.optional ?? false,
+        version: dependency.version,
+      });
+    }),
   );
 }
 
 /**
  * Checks whether a value is a valid module definition.
  */
-export function isModuleDefinition(
-  value: unknown,
-): value is ModuleDefinition {
-  if (
-    value === null ||
-    typeof value !== "object"
-  ) {
+export function isModuleDefinition(value: unknown): value is ModuleDefinition {
+  if (value === null || typeof value !== "object") {
     return false;
   }
 
-  const definition =
-    value as Partial<
-      ModuleDefinition
-    >;
+  const definition = value as Partial<ModuleDefinition>;
 
   return (
-    typeof definition.id ===
-      "string" &&
+    typeof definition.id === "string" &&
     definition.id.length > 0 &&
-    typeof definition.name ===
-      "string" &&
+    typeof definition.name === "string" &&
     definition.name.length > 0 &&
-    typeof definition.factory ===
-      "function"
+    typeof definition.factory === "function"
   );
 }
 
@@ -266,71 +208,41 @@ export function isModuleDefinition(
  * Validates a module definition before it enters
  * the module registry.
  */
-function validateModuleDefinition<
-  TModule extends Module,
->(
+function validateModuleDefinition<TModule extends Module>(
   definition: DefineModuleOptions<TModule>,
 ): void {
-  if (
-    !definition.id ||
-    definition.id.trim().length === 0
-  ) {
-    throw new TypeError(
-      "Module definition requires a non-empty id.",
-    );
+  if (!definition.id || definition.id.trim().length === 0) {
+    throw new TypeError("Module definition requires a non-empty id.");
   }
 
-  if (
-    !definition.name ||
-    definition.name.trim().length === 0
-  ) {
-    throw new TypeError(
-      `Module "${definition.id}" requires a non-empty name.`,
-    );
+  if (!definition.name || definition.name.trim().length === 0) {
+    throw new TypeError(`Module "${definition.id}" requires a non-empty name.`);
   }
 
-  if (
-    typeof definition.factory !==
-    "function"
-  ) {
+  if (typeof definition.factory !== "function") {
     throw new TypeError(
       `Module "${definition.id}" requires a factory function.`,
     );
   }
 
-  const dependencies =
-    definition.dependencies ?? [];
+  const dependencies = definition.dependencies ?? [];
 
-  const dependencyIds =
-    new Set<string>();
+  const dependencyIds = new Set<string>();
 
-  for (
-    const dependency of dependencies
-  ) {
-    const id =
-      typeof dependency ===
-      "string"
-        ? dependency
-        : dependency.id;
+  for (const dependency of dependencies) {
+    const id = typeof dependency === "string" ? dependency : dependency.id;
 
-    if (
-      !id ||
-      id.trim().length === 0
-    ) {
+    if (!id || id.trim().length === 0) {
       throw new TypeError(
         `Module "${definition.id}" contains an invalid dependency.`,
       );
     }
 
     if (id === definition.id) {
-      throw new TypeError(
-        `Module "${definition.id}" cannot depend on itself.`,
-      );
+      throw new TypeError(`Module "${definition.id}" cannot depend on itself.`);
     }
 
-    if (
-      dependencyIds.has(id)
-    ) {
+    if (dependencyIds.has(id)) {
       throw new TypeError(
         `Module "${definition.id}" declares dependency "${id}" more than once.`,
       );

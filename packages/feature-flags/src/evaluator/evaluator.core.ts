@@ -9,7 +9,10 @@
 import type { FeatureFlag } from "../featureFlagTypes/featureFlag.interface.js";
 import type { FeatureFlagContext } from "../featureFlagTypes/featureFlagContext.js";
 import type { FeatureFlagValue } from "../featureFlagTypes/featureFlagRule/featureFlagValue.type.js";
-import type { FeatureFlagEvaluation, FeatureFlagEvaluationReason } from "../featureFlagTypes/featureFlagEvaluation.js";
+import type {
+  FeatureFlagEvaluation,
+  FeatureFlagEvaluationReason,
+} from "../featureFlagTypes/featureFlagEvaluation.js";
 import { evaluateRule } from "./evaluatorRule.core.js";
 
 /**
@@ -19,7 +22,9 @@ import { evaluateRule } from "./evaluatorRule.core.js";
  * @param context - The evaluation context.
  * @returns A structured evaluation result.
  */
-export function evaluateFlag<TValue extends FeatureFlagValue = FeatureFlagValue>(
+export function evaluateFlag<
+  TValue extends FeatureFlagValue = FeatureFlagValue,
+>(
   flag: FeatureFlag,
   context: FeatureFlagContext = {},
 ): FeatureFlagEvaluation<TValue> {
@@ -75,10 +80,13 @@ export function evaluateFlag<TValue extends FeatureFlagValue = FeatureFlagValue>
 
     if (result.matched) {
       const reason: FeatureFlagEvaluationReason =
-        rule.type === "percentage" ? "percentage_rollout" :
-        rule.type === "variant" ? "variant_assignment" :
-        rule.type === "static" ? "static" :
-        "rule_match";
+        rule.type === "percentage"
+          ? "percentage_rollout"
+          : rule.type === "variant"
+            ? "variant_assignment"
+            : rule.type === "static"
+              ? "static"
+              : "rule_match";
 
       return {
         key: flag.key,

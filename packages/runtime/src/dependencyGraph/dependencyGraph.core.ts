@@ -6,9 +6,7 @@ import type {
   CircularDependencyInfo,
 } from "./dependencyGraph.type.js";
 
-import {
-  RuntimeCircularDependencyError,
-} from "../runtimeError/runtimeError.base.js";
+import { RuntimeCircularDependencyError } from "../runtimeError/runtimeError.base.js";
 
 /**
  * Builds a dependency graph from module IDs and their dependencies.
@@ -98,7 +96,9 @@ export function buildDependencyGraph(
     nodes: Object.freeze(new Map(nodes)),
     ordered: Object.freeze(ordered),
     hasCircularDependency: circularDependencies.length > 0,
-    circularDependencies: Object.freeze(circularDependencies.map(c => c.cycle)),
+    circularDependencies: Object.freeze(
+      circularDependencies.map((c) => c.cycle),
+    ),
   });
 }
 
@@ -111,7 +111,9 @@ export function resolveDependencies(
   const graph = buildDependencyGraph(modules);
 
   if (graph.hasCircularDependency) {
-    throw new RuntimeCircularDependencyError(graph.circularDependencies[0] ?? []);
+    throw new RuntimeCircularDependencyError(
+      graph.circularDependencies[0] ?? [],
+    );
   }
 
   // Group modules by depth for parallel initialization
@@ -143,10 +145,12 @@ export function getParallelGroups(
 ): readonly ParallelModuleGroup[] {
   const result = resolveDependencies(modules);
 
-  return result.parallelGroups.map((group, index) => Object.freeze({
-    modules: group,
-    depth: index,
-  }));
+  return result.parallelGroups.map((group, index) =>
+    Object.freeze({
+      modules: group,
+      depth: index,
+    }),
+  );
 }
 
 /**

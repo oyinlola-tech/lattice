@@ -10,7 +10,11 @@ import { SchedulerError } from "./schedulerError.base.js";
 export class SchedulerJobExecutionError extends SchedulerError {
   constructor(message: string, jobId?: string, scheduleId?: string) {
     super(message, {
-      code: ErrorCode.SCHEDULER_JOB_EXECUTION_ERROR, jobId, scheduleId, statusCode: 500, expose: false,
+      code: ErrorCode.SCHEDULER_JOB_EXECUTION_ERROR,
+      jobId,
+      scheduleId,
+      statusCode: 500,
+      expose: false,
     });
     this.name = "SchedulerJobExecutionError";
   }
@@ -20,9 +24,11 @@ export class SchedulerJobExecutionError extends SchedulerError {
 export class SchedulerJobTimeoutError extends SchedulerError {
   constructor(timeout: number, jobId?: string) {
     super(`Job timed out after ${timeout}ms.`, {
-      code: ErrorCode.SCHEDULER_JOB_TIMEOUT, jobId,
+      code: ErrorCode.SCHEDULER_JOB_TIMEOUT,
+      jobId,
       metadata: { timeout } as Record<string, ErrorMetadataValue>,
-      statusCode: 504, expose: false,
+      statusCode: 504,
+      expose: false,
     });
     this.name = "SchedulerJobTimeoutError";
   }
@@ -32,7 +38,10 @@ export class SchedulerJobTimeoutError extends SchedulerError {
 export class SchedulerJobCancelledError extends SchedulerError {
   constructor(message = "Job was cancelled.", jobId?: string) {
     super(message, {
-      code: ErrorCode.SCHEDULER_JOB_CANCELLED, jobId, statusCode: 499, expose: false,
+      code: ErrorCode.SCHEDULER_JOB_CANCELLED,
+      jobId,
+      statusCode: 499,
+      expose: false,
     });
     this.name = "SchedulerJobCancelledError";
   }
@@ -42,7 +51,10 @@ export class SchedulerJobCancelledError extends SchedulerError {
 export class SchedulerStoreError extends SchedulerError {
   constructor(message: string, scheduleId?: string) {
     super(message, {
-      code: ErrorCode.SCHEDULER_STORE_ERROR, scheduleId, statusCode: 500, expose: false,
+      code: ErrorCode.SCHEDULER_STORE_ERROR,
+      scheduleId,
+      statusCode: 500,
+      expose: false,
     });
     this.name = "SchedulerStoreError";
   }
@@ -52,7 +64,10 @@ export class SchedulerStoreError extends SchedulerError {
 export class SchedulerLockError extends SchedulerError {
   constructor(message: string, scheduleId?: string) {
     super(message, {
-      code: ErrorCode.SCHEDULER_LOCK_ERROR, scheduleId, statusCode: 409, expose: false,
+      code: ErrorCode.SCHEDULER_LOCK_ERROR,
+      scheduleId,
+      statusCode: 409,
+      expose: false,
     });
     this.name = "SchedulerLockError";
   }

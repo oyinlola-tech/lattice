@@ -103,9 +103,7 @@ describe("DependencyResolver", () => {
 
   it("detects missing dependencies", () => {
     const resolver = new DependencyResolver();
-    const plugins = new Map([
-      ["A", { dependencies: [{ name: "B" }] }],
-    ]);
+    const plugins = new Map([["A", { dependencies: [{ name: "B" }] }]]);
 
     const result = resolver.resolve(plugins);
     expect(result.missing).toEqual(["B"]);
@@ -125,9 +123,7 @@ describe("DependencyResolver", () => {
 
   it("throws on missing dependency", () => {
     const resolver = new DependencyResolver();
-    const plugins = new Map([
-      ["A", { dependencies: [{ name: "B" }] }],
-    ]);
+    const plugins = new Map([["A", { dependencies: [{ name: "B" }] }]]);
 
     const result = resolver.resolve(plugins);
     expect(() => {
@@ -168,7 +164,9 @@ describe("PluginRegistryImpl", () => {
     };
 
     registry.register(plugin);
-    expect(() => registry.register(plugin)).toThrow(PluginAlreadyRegisteredError);
+    expect(() => registry.register(plugin)).toThrow(
+      PluginAlreadyRegisteredError,
+    );
   });
 
   it("lists all plugins", () => {
@@ -218,7 +216,9 @@ describe("LifecycleController", () => {
     const registered = registry.get("@oyinlola141/lattice-test")!;
     const context = createPluginContext(plugin.metadata);
 
-    await expect(controller.install(registered, context)).rejects.toThrow("install failed");
+    await expect(controller.install(registered, context)).rejects.toThrow(
+      "install failed",
+    );
     expect(registered.state).toBe("failed");
   });
 
@@ -232,7 +232,9 @@ describe("LifecycleController", () => {
     const registered = registry.get("@oyinlola141/lattice-test")!;
     const context = createPluginContext(plugin.metadata);
 
-    await expect(controller.start(registered, context)).rejects.toThrow(PluginStateError);
+    await expect(controller.start(registered, context)).rejects.toThrow(
+      PluginStateError,
+    );
   });
 });
 
@@ -272,7 +274,9 @@ describe("PluginManager", () => {
       },
     });
 
-    const context = createPluginContext({ metadata: { name: "@oyinlola141/lattice-test" } });
+    const context = createPluginContext({
+      metadata: { name: "@oyinlola141/lattice-test" },
+    });
     await manager.start(context);
 
     expect(order).toEqual(["b", "a", "b-start", "a-start"]);
@@ -328,9 +332,12 @@ describe("PluginContext", () => {
       error: () => {},
     };
 
-    const context = createPluginContext({ name: "@oyinlola141/lattice-test" }, {
-      logger,
-    });
+    const context = createPluginContext(
+      { name: "@oyinlola141/lattice-test" },
+      {
+        logger,
+      },
+    );
 
     expect(context.logger).toBe(logger);
   });
@@ -439,7 +446,9 @@ describe("PluginManager.diagnostics", () => {
       dependencies: [{ name: "@oyinlola141/lattice-a" }],
     });
 
-    const context = createPluginContext({ metadata: { name: "@oyinlola141/lattice-test" } });
+    const context = createPluginContext({
+      metadata: { name: "@oyinlola141/lattice-test" },
+    });
     await manager.start(context);
 
     const report = manager.diagnostics();
@@ -457,7 +466,9 @@ describe("PluginManager.diagnostics", () => {
       },
     });
 
-    const context = createPluginContext({ metadata: { name: "@oyinlola141/lattice-test" } });
+    const context = createPluginContext({
+      metadata: { name: "@oyinlola141/lattice-test" },
+    });
     await manager.start(context).catch(() => {});
 
     const report = manager.diagnostics();

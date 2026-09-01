@@ -70,11 +70,15 @@ export function createAlwaysOffSampler(): AlwaysOffSampler {
 }
 
 /** Creates a probability sampler. */
-export function createProbabilitySampler(probability: number): ProbabilitySampler {
+export function createProbabilitySampler(
+  probability: number,
+): ProbabilitySampler {
   return new ProbabilitySampler(probability);
 }
 
 /** Creates a parent-based sampler. */
-export function createParentBasedSampler(rootSampler?: Sampler): ParentBasedSampler {
+export function createParentBasedSampler(
+  rootSampler?: Sampler,
+): ParentBasedSampler {
   return new ParentBasedSampler(rootSampler);
 }

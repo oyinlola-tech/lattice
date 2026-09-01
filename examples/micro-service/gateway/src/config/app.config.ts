@@ -4,7 +4,8 @@ export function createGatewayConfig(): GatewayConfig {
   return {
     port: parseInt(process.env["GATEWAY_PORT"] ?? "3000", 10),
     host: process.env["GATEWAY_HOST"] ?? "localhost",
-    jwtSecret: process.env["JWT_SECRET"] ?? "dev-secret-key-change-in-production",
+    jwtSecret:
+      process.env["JWT_SECRET"] ?? "dev-secret-key-change-in-production",
     corsOrigin: process.env["CORS_ORIGIN"] ?? "*",
     services: {
       identity: {

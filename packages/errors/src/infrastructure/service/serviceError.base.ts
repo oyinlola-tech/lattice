@@ -9,7 +9,10 @@ import { ErrorCode } from "../../base/types/errorCode.type.js";
 import { ErrorSeverity } from "../../base/types/errorSeverity.type.js";
 
 /** Options for creating a service error. */
-export interface ServiceErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface ServiceErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly service?: string;
   readonly operation?: string;
@@ -20,7 +23,10 @@ export class ServiceError extends BaseError {
   public readonly service?: string;
   public readonly operation?: string;
 
-  constructor(message = "A service operation failed.", options: ServiceErrorOptions = {}) {
+  constructor(
+    message = "A service operation failed.",
+    options: ServiceErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.SERVICE_ERROR,
@@ -32,7 +38,9 @@ export class ServiceError extends BaseError {
       metadata: {
         ...options.metadata,
         ...(options.service !== undefined ? { service: options.service } : {}),
-        ...(options.operation !== undefined ? { operation: options.operation } : {}),
+        ...(options.operation !== undefined
+          ? { operation: options.operation }
+          : {}),
       },
     });
     this.service = options.service;

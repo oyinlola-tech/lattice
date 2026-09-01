@@ -1,6 +1,4 @@
-import {
-  ErrorCode,
-} from "../../errors/errorCode.code.js";
+import { ErrorCode } from "../../errors/errorCode.code.js";
 
 /**
  * Runtime lifecycle operations.
@@ -72,8 +70,7 @@ export type RuntimeErrorCode =
 /**
  * Metadata attached to a runtime error.
  */
-export type RuntimeErrorMetadata =
-  Readonly<Record<string, unknown>>;
+export type RuntimeErrorMetadata = Readonly<Record<string, unknown>>;
 
 /**
  * Options for constructing a RuntimeError.

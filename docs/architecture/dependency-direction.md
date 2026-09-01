@@ -79,12 +79,12 @@ Before adding a dependency, ask:
 
 ### 5.1 What tier is the target package?
 
-| Question | Answer → Action |
-|----------|-----------------|
-| Is it in the same tier? | Usually OK. Verify no circular dependency. |
-| Is it in a lower tier? | OK. This is the expected direction. |
-| Is it in a higher tier? | Forbidden. Find a lower-tier alternative or extract the shared code. |
-| Is it a peer dependency? | Allowed only if optional, documented, and justified. |
+| Question                 | Answer → Action                                                      |
+| ------------------------ | -------------------------------------------------------------------- |
+| Is it in the same tier?  | Usually OK. Verify no circular dependency.                           |
+| Is it in a lower tier?   | OK. This is the expected direction.                                  |
+| Is it in a higher tier?  | Forbidden. Find a lower-tier alternative or extract the shared code. |
+| Is it a peer dependency? | Allowed only if optional, documented, and justified.                 |
 
 ### 5.2 Does this create a circular dependency?
 
@@ -171,13 +171,13 @@ Leaf packages must have no `@lattice/*` dependencies.
 
 ### 7.1 Tier Definitions
 
-| Tier | Name | Can Import From | Examples |
-|------|------|----------------|----------|
-| 0 | Leaf | Nothing (external only) | `@lattice/errors`, `@lattice/types` |
-| 1 | Foundation | Tier 0 | `@lattice/container`, `@lattice/logger`, `@lattice/events` |
-| 2 | Application Architecture | Tier 0, Tier 1 | `@lattice/core`, `@lattice/cqrs`, `@lattice/runtime` |
-| 3 | Transport | Tier 0, Tier 1, Tier 2 | `@lattice/http`, `@lattice/cli` |
-| 4 | Developer Experience | Any | `@lattice/testing`, `@lattice/docs` |
+| Tier | Name                     | Can Import From         | Examples                                                   |
+| ---- | ------------------------ | ----------------------- | ---------------------------------------------------------- |
+| 0    | Leaf                     | Nothing (external only) | `@lattice/errors`, `@lattice/types`                        |
+| 1    | Foundation               | Tier 0                  | `@lattice/container`, `@lattice/logger`, `@lattice/events` |
+| 2    | Application Architecture | Tier 0, Tier 1          | `@lattice/core`, `@lattice/cqrs`, `@lattice/runtime`       |
+| 3    | Transport                | Tier 0, Tier 1, Tier 2  | `@lattice/http`, `@lattice/cli`                            |
+| 4    | Developer Experience     | Any                     | `@lattice/testing`, `@lattice/docs`                        |
 
 ### 7.2 Determining a Package's Tier
 
@@ -208,10 +208,10 @@ Peer dependencies are allowed when:
 
 ### 8.1 Current Peer Dependencies
 
-| Package | Peer | Tier | Purpose |
-|---------|------|------|---------|
-| `@lattice/permissions` | `@lattice/http` | 3 | HTTP-specific permission guards |
-| `@lattice/tenancy` | `@lattice/http` | 3 | HTTP-specific tenant resolution |
+| Package                | Peer            | Tier | Purpose                         |
+| ---------------------- | --------------- | ---- | ------------------------------- |
+| `@lattice/permissions` | `@lattice/http` | 3    | HTTP-specific permission guards |
+| `@lattice/tenancy`     | `@lattice/http` | 3    | HTTP-specific tenant resolution |
 
 ### 8.2 Peer Dependency Rules
 
@@ -314,21 +314,21 @@ The tier system exists to serve the framework, not the other way around.
 
 ### 11.1 Acceptable Exceptions
 
-| Exception | Condition | Example |
-|-----------|-----------|---------|
-| Peer dependencies | Optional, documented, justified | `@lattice/permissions` peers with `@lattice/http` |
-| Testing imports | Tier 4 only, never in production | `@lattice/testing` imports any package |
-| Developer tooling | Not part of production bundle | Build scripts, CLI tools |
+| Exception         | Condition                        | Example                                           |
+| ----------------- | -------------------------------- | ------------------------------------------------- |
+| Peer dependencies | Optional, documented, justified  | `@lattice/permissions` peers with `@lattice/http` |
+| Testing imports   | Tier 4 only, never in production | `@lattice/testing` imports any package            |
+| Developer tooling | Not part of production bundle    | Build scripts, CLI tools                          |
 
 ### 11.2 Unacceptable Excuses
 
-| Excuse | Reality |
-|--------|---------|
-| "It's just one small import" | Small imports create hidden coupling that grows over time. |
-| "We need it for convenience" | Convenience for one package becomes maintenance burden for all. |
-| "It's only used in tests" | If it's only used in tests, put it in `@lattice/testing` or a dev dependency. |
-| "The other package is stable" | Stability is not a reason to violate architecture. |
-| "We'll refactor it later" | Dependency direction is hard to refactor after the fact. |
+| Excuse                        | Reality                                                                       |
+| ----------------------------- | ----------------------------------------------------------------------------- |
+| "It's just one small import"  | Small imports create hidden coupling that grows over time.                    |
+| "We need it for convenience"  | Convenience for one package becomes maintenance burden for all.               |
+| "It's only used in tests"     | If it's only used in tests, put it in `@lattice/testing` or a dev dependency. |
+| "The other package is stable" | Stability is not a reason to violate architecture.                            |
+| "We'll refactor it later"     | Dependency direction is hard to refactor after the fact.                      |
 
 ---
 
@@ -347,18 +347,18 @@ Before merging any PR that adds, removes, or changes a dependency:
 
 ## 13. Quick Reference
 
-| Action | Rule |
-|--------|------|
-| Adding a dependency | Target must be same or lower tier. |
-| Removing a dependency | Remove import and dependency entry. |
-| Changing a dependency | Update version, verify tier, run checks. |
-| Creating a new package | Determine tier, update docs, register in architect-check. |
-| Encountering a cycle | Extract shared code to lower-tier package. |
-| Wanting a higher-tier dependency | Find lower-tier alternative or use peer dependency. |
+| Action                           | Rule                                                      |
+| -------------------------------- | --------------------------------------------------------- |
+| Adding a dependency              | Target must be same or lower tier.                        |
+| Removing a dependency            | Remove import and dependency entry.                       |
+| Changing a dependency            | Update version, verify tier, run checks.                  |
+| Creating a new package           | Determine tier, update docs, register in architect-check. |
+| Encountering a cycle             | Extract shared code to lower-tier package.                |
+| Wanting a higher-tier dependency | Find lower-tier alternative or use peer dependency.       |
 
-| Command | Purpose |
-|---------|---------|
-| `npm run architect:check` | Verify dependency direction and tier rules. |
-| `npm run typecheck --workspace=@lattice/<pkg>` | Verify TypeScript compilation. |
-| `npm test` | Run all tests. |
-| `pnpm install` | Install dependencies and update lockfile. |
+| Command                                        | Purpose                                     |
+| ---------------------------------------------- | ------------------------------------------- |
+| `npm run architect:check`                      | Verify dependency direction and tier rules. |
+| `npm run typecheck --workspace=@lattice/<pkg>` | Verify TypeScript compilation.              |
+| `npm test`                                     | Run all tests.                              |
+| `pnpm install`                                 | Install dependencies and update lockfile.   |

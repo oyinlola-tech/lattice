@@ -4,9 +4,15 @@
  * Error classes for runtime execution, permissions, and interrupts.
  */
 
-import { AuthorizationError, ConfigurationError } from "@oyinlola141/lattice-errors";
+import {
+  AuthorizationError,
+  ConfigurationError,
+} from "@oyinlola141/lattice-errors";
 import { CLIError } from "./cliError.base.js";
-import { CLI_ERROR_CODES, CLI_EXIT_CODES } from "../cliConstant/cliConstant.value.js";
+import {
+  CLI_ERROR_CODES,
+  CLI_EXIT_CODES,
+} from "../cliConstant/cliConstant.value.js";
 import type { CLIErrorOptions } from "./cliError.base.js";
 
 /* -------------------------------------------------------------------------- */
@@ -42,10 +48,7 @@ export class CLIExecutionError extends CLIError {
 export class CLIPermissionError extends AuthorizationError {
   public readonly exitCode: number;
 
-  constructor(
-    message = "Permission denied.",
-    options: CLIErrorOptions = {},
-  ) {
+  constructor(message = "Permission denied.", options: CLIErrorOptions = {}) {
     super(message, {
       ...options,
       code: CLI_ERROR_CODES.PERMISSION_DENIED,
@@ -73,10 +76,7 @@ export class CLIPermissionError extends AuthorizationError {
  * Thrown when the CLI process is interrupted (e.g. SIGINT).
  */
 export class CLIInterruptedError extends CLIError {
-  constructor(
-    message = "Process interrupted.",
-    options: CLIErrorOptions = {},
-  ) {
+  constructor(message = "Process interrupted.", options: CLIErrorOptions = {}) {
     super(message, {
       ...options,
       code: CLI_ERROR_CODES.INTERRUPTED,

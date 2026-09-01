@@ -11,7 +11,7 @@ npm install @latticejs/rpc
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/rpc";
+import {} from /* add usage here */ "@latticejs/rpc";
 ```
 
 ## License

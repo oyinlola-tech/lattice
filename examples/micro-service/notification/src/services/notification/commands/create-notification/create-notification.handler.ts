@@ -1,13 +1,19 @@
 import { CommandHandler } from "@oyinlola141/lattice-cqrs";
 import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
-import { CreateNotificationCommand, CREATE_NOTIFICATION_COMMAND } from "./create-notification.command.js";
+import {
+  CreateNotificationCommand,
+  CREATE_NOTIFICATION_COMMAND,
+} from "./create-notification.command.js";
 import type { INotificationRepository } from "../../../../interfaces/index.js";
 import type { NotificationModel } from "../../../../models/index.js";
 import { NotificationStatus } from "../../../../enums/index.js";
 import { createNotificationId } from "../../../../types/index.js";
 import { generateId } from "../../../../utils/index.js";
 
-export class CreateNotificationCommandHandler extends CommandHandler<CreateNotificationCommand, NotificationModel> {
+export class CreateNotificationCommandHandler extends CommandHandler<
+  CreateNotificationCommand,
+  NotificationModel
+> {
   public readonly commandType = CREATE_NOTIFICATION_COMMAND;
 
   private readonly repository: INotificationRepository;
@@ -17,7 +23,10 @@ export class CreateNotificationCommandHandler extends CommandHandler<CreateNotif
     this.repository = repository;
   }
 
-  public async execute(command: CreateNotificationCommand, _context?: CqrsContext): Promise<NotificationModel> {
+  public async execute(
+    command: CreateNotificationCommand,
+    _context?: CqrsContext,
+  ): Promise<NotificationModel> {
     const now = new Date();
     const notification: NotificationModel = {
       id: createNotificationId(generateId()),

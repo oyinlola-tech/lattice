@@ -4,13 +4,9 @@
  * Provides the core Processor type and a registry for
  * managing job processors.
  */
-export {
-  createProcessorRegistry,
-} from "./processor.core.js";
+export { createProcessorRegistry } from "./processor.core.js";
 
-export {
-  isProcessor,
-} from "./processor.type.js";
+export { isProcessor } from "./processor.type.js";
 
 export type {
   Processor,

@@ -4,14 +4,9 @@
  * Factory functions for creating test message payloads.
  */
 
-import type {
-  Message,
-  MessageInput,
-} from "@oyinlola141/lattice-messaging";
+import type { Message, MessageInput } from "@oyinlola141/lattice-messaging";
 
-import type {
-  MessageId,
-} from "@oyinlola141/lattice-messaging";
+import type { MessageId } from "@oyinlola141/lattice-messaging";
 
 /**
  * Options for creating a test message.

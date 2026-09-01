@@ -13,33 +13,12 @@ export type HttpStatusCode =
   | ClientErrorStatus
   | ServerErrorStatus;
 
-export type InformationalStatus =
-  | 100
-  | 101
-  | 102
-  | 103;
+export type InformationalStatus = 100 | 101 | 102 | 103;
 
 export type SuccessStatus =
-  | 200
-  | 201
-  | 202
-  | 203
-  | 204
-  | 205
-  | 206
-  | 207
-  | 208
-  | 226;
+  200 | 201 | 202 | 203 | 204 | 205 | 206 | 207 | 208 | 226;
 
-export type RedirectionStatus =
-  | 300
-  | 301
-  | 302
-  | 303
-  | 304
-  | 305
-  | 307
-  | 308;
+export type RedirectionStatus = 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308;
 
 export type ClientErrorStatus =
   | 400
@@ -73,17 +52,7 @@ export type ClientErrorStatus =
   | 451;
 
 export type ServerErrorStatus =
-  | 500
-  | 501
-  | 502
-  | 503
-  | 504
-  | 505
-  | 506
-  | 507
-  | 508
-  | 510
-  | 511;
+  500 | 501 | 502 | 503 | 504 | 505 | 506 | 507 | 508 | 510 | 511;
 
 export type HttpStatusCategory =
   | "informational"

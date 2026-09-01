@@ -1,9 +1,7 @@
 /**
  * Core framework contracts.
  */
-export {
-  type Adapter,
-} from "./adapter.js";
+export { type Adapter } from "./adapter.js";
 
 export {
   type Handler,
@@ -11,6 +9,4 @@ export {
   createHandler,
 } from "./handler.js";
 
-export {
-  type Disposable,
-} from "./disposable.js";
+export { type Disposable } from "./disposable.js";

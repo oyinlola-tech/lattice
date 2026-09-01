@@ -63,28 +63,33 @@ export type NumberKeysOf<T> = Extract<keyof T, number>;
 /**
  * Create a type with all properties optional except the specified keys.
  */
-export type PartialExcept<T, K extends keyof T> = Partial<Omit<T, K>> & Pick<T, K>;
+export type PartialExcept<T, K extends keyof T> = Partial<Omit<T, K>> &
+  Pick<T, K>;
 
 /**
  * Create a type with all properties required except the specified keys.
  */
-export type RequiredExcept<T, K extends keyof T> = Required<Omit<T, K>> & Pick<T, K>;
+export type RequiredExcept<T, K extends keyof T> = Required<Omit<T, K>> &
+  Pick<T, K>;
 
 /**
  * Create a type that makes specified keys optional.
  */
-export type OptionalKeys<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+export type OptionalKeys<T, K extends keyof T> = Omit<T, K> &
+  Partial<Pick<T, K>>;
 
 /**
  * Create a type that makes specified keys required.
  */
-export type RequireKeys<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
+export type RequireKeys<T, K extends keyof T> = Omit<T, K> &
+  Required<Pick<T, K>>;
 
 /**
  * Extract the return type of an async function.
  */
-export type AsyncReturnType<T extends (...args: unknown[]) => Promise<unknown>> =
-  T extends (...args: unknown[]) => Promise<infer R> ? R : never;
+export type AsyncReturnType<
+  T extends (...args: unknown[]) => Promise<unknown>,
+> = T extends (...args: unknown[]) => Promise<infer R> ? R : never;
 
 /**
  * Make a type nullable (allows null).
@@ -118,7 +123,10 @@ export type NestedKeyOf<T> = T extends object
 /**
  * Get the type of a nested property by dot-notation path.
  */
-export type NestedValueOf<T, P extends string> = P extends `${infer Head}.${infer Tail}`
+export type NestedValueOf<
+  T,
+  P extends string,
+> = P extends `${infer Head}.${infer Tail}`
   ? Head extends keyof T
     ? NestedValueOf<T[Head], Tail>
     : never

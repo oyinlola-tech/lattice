@@ -22,7 +22,10 @@ export enum DatabaseOperation {
 }
 
 /** Options for creating a database error. */
-export interface DatabaseErrorOptions extends Omit<BaseErrorOptions, "category"> {
+export interface DatabaseErrorOptions extends Omit<
+  BaseErrorOptions,
+  "category"
+> {
   readonly category?: ErrorCategory;
   readonly operation?: DatabaseOperation;
   readonly driver?: string;
@@ -35,7 +38,10 @@ export class DatabaseError extends BaseError {
   public readonly driver?: string;
   public readonly databaseCode?: string | number;
 
-  constructor(message = "A database operation failed.", options: DatabaseErrorOptions = {}) {
+  constructor(
+    message = "A database operation failed.",
+    options: DatabaseErrorOptions = {},
+  ) {
     super(message, {
       ...options,
       code: options.code ?? ErrorCode.DATABASE,
@@ -46,9 +52,13 @@ export class DatabaseError extends BaseError {
       isOperational: options.isOperational ?? true,
       metadata: {
         ...options.metadata,
-        ...(options.operation !== undefined ? { operation: options.operation } : {}),
+        ...(options.operation !== undefined
+          ? { operation: options.operation }
+          : {}),
         ...(options.driver !== undefined ? { driver: options.driver } : {}),
-        ...(options.databaseCode !== undefined ? { databaseCode: String(options.databaseCode) } : {}),
+        ...(options.databaseCode !== undefined
+          ? { databaseCode: String(options.databaseCode) }
+          : {}),
       },
     });
     this.operation = options.operation ?? DatabaseOperation.UNKNOWN;
@@ -61,7 +71,9 @@ export class DatabaseError extends BaseError {
       ...super.toJSON(),
       operation: this.operation,
       ...(this.driver !== undefined ? { driver: this.driver } : {}),
-      ...(this.databaseCode !== undefined ? { databaseCode: String(this.databaseCode) } : {}),
+      ...(this.databaseCode !== undefined
+        ? { databaseCode: String(this.databaseCode) }
+        : {}),
     };
   }
 }

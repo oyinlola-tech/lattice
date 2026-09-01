@@ -4,19 +4,41 @@
  * @module authProvider/authProvider
  */
 
-import type { AuthUser, UserCredentials, UserId } from "../authTypes/authUser.type.js";
+import type {
+  AuthUser,
+  UserCredentials,
+  UserId,
+} from "../authTypes/authUser.type.js";
 import type { TokenPair, TokenConfig } from "../authTypes/authToken.type.js";
-import type { SessionStore, CreateSessionOptions, SessionId } from "../authTypes/authSession.type.js";
+import type {
+  SessionStore,
+  CreateSessionOptions,
+  SessionId,
+} from "../authTypes/authSession.type.js";
 import type { GuardResult } from "../authTypes/authRbac.type.js";
 import type { PermissionEngine } from "@oyinlola141/lattice-permissions";
-import { hashPassword, verifyPassword } from "../authPassword/authPassword.core.js";
-import { createTokenPair, verifyAccessToken, refreshAccessToken } from "../authToken/authToken.core.js";
-import { InvalidCredentialsError, TokenExpiredError, AccountDeactivatedError } from "../authErrors/authError.base.js";
+import {
+  hashPassword,
+  verifyPassword,
+} from "../authPassword/authPassword.core.js";
+import {
+  createTokenPair,
+  verifyAccessToken,
+  refreshAccessToken,
+} from "../authToken/authToken.core.js";
+import {
+  InvalidCredentialsError,
+  TokenExpiredError,
+  AccountDeactivatedError,
+} from "../authErrors/authError.base.js";
 
 /** User lookup function provided by the consumer. */
 export type UserLookup = (identifier: string) => Promise<AuthUser | null>;
 /** Password verifier function provided by the consumer. */
-export type PasswordVerifier = (userId: UserId, password: string) => Promise<boolean>;
+export type PasswordVerifier = (
+  userId: UserId,
+  password: string,
+) => Promise<boolean>;
 
 /**
  * Auth service configuration.
@@ -52,7 +74,14 @@ export interface LoginResult {
  * Create an auth service.
  */
 export function createAuthService(config: AuthServiceConfig) {
-  const { token: tokenConfig, sessionStore, findUser, verifyPassword: verifyPwd, sessionTtlSeconds, permissions } = config;
+  const {
+    token: tokenConfig,
+    sessionStore,
+    findUser,
+    verifyPassword: verifyPwd,
+    sessionTtlSeconds,
+    permissions,
+  } = config;
 
   return {
     /**
@@ -75,7 +104,9 @@ export function createAuthService(config: AuthServiceConfig) {
         throw new InvalidCredentialsError();
       }
 
-      const tokens = createTokenPair(user.id, tokenConfig, { roles: user.roles });
+      const tokens = createTokenPair(user.id, tokenConfig, {
+        roles: user.roles,
+      });
       const session = await sessionStore.create({
         userId: user.id,
         userAgent: context?.userAgent,
@@ -92,7 +123,9 @@ export function createAuthService(config: AuthServiceConfig) {
     verifyToken(token: string) {
       const result = verifyAccessToken(token, tokenConfig);
       if (!result.valid) {
-        throw new TokenExpiredError(result.error ?? "Token verification failed");
+        throw new TokenExpiredError(
+          result.error ?? "Token verification failed",
+        );
       }
       return result.payload!;
     },
@@ -127,7 +160,9 @@ export function createAuthService(config: AuthServiceConfig) {
     ): Promise<GuardResult> {
       if (permissions) {
         const actor = { id: userId, roles: [...userRoles] };
-        const resource = resourceOwnerId ? { ownerId: resourceOwnerId } : undefined;
+        const resource = resourceOwnerId
+          ? { ownerId: resourceOwnerId }
+          : undefined;
         const decision = await permissions.check(actor, permission, resource);
         return {
           allowed: decision.allowed,

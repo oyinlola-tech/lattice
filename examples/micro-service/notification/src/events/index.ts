@@ -30,7 +30,18 @@ export interface ResultPublishedPayload {
   readonly maxScore: number;
 }
 
-export const UserCreatedEvent = defineEvent<"user.created", UserCreatedPayload>("user.created");
-export const StudentEnrolledEvent = defineEvent<"student.enrolled", StudentEnrolledPayload>("student.enrolled");
-export const AssessmentSubmittedEvent = defineEvent<"assessment.submitted", AssessmentSubmittedPayload>("assessment.submitted");
-export const ResultPublishedEvent = defineEvent<"result.published", ResultPublishedPayload>("result.published");
+export const UserCreatedEvent = defineEvent<"user.created", UserCreatedPayload>(
+  "user.created",
+);
+export const StudentEnrolledEvent = defineEvent<
+  "student.enrolled",
+  StudentEnrolledPayload
+>("student.enrolled");
+export const AssessmentSubmittedEvent = defineEvent<
+  "assessment.submitted",
+  AssessmentSubmittedPayload
+>("assessment.submitted");
+export const ResultPublishedEvent = defineEvent<
+  "result.published",
+  ResultPublishedPayload
+>("result.published");

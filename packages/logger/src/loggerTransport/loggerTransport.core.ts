@@ -2,9 +2,7 @@
  * Core logger transport functions.
  */
 
-import type {
-  LoggerEntry,
-} from "../loggerEntry/loggerEntry.type.js";
+import type { LoggerEntry } from "../loggerEntry/loggerEntry.type.js";
 
 import type {
   LoggerTransportContext,

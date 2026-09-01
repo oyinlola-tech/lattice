@@ -11,7 +11,7 @@ npm install @latticejs/database
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/database";
+import {} from /* add usage here */ "@latticejs/database";
 ```
 
 ## License

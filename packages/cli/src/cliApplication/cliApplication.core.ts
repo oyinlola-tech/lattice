@@ -15,7 +15,10 @@ import type {
   CLIHooks,
   CLIWriter,
 } from "../cliType/cliType.type.js";
-import { CLI_DEFAULTS, CLI_EXIT_CODES } from "../cliConstant/cliConstant.value.js";
+import {
+  CLI_DEFAULTS,
+  CLI_EXIT_CODES,
+} from "../cliConstant/cliConstant.value.js";
 import { CLIExecutionError, normalizeCLIError } from "../cliError/index.js";
 import { CommandNotFoundError } from "../cliError/cliError.command.js";
 import { CLICommandRegistry } from "../cliCommand/cliCommand.registry.js";
@@ -86,7 +89,9 @@ export class LatticeCLI implements CLIApplication {
   }
 
   /** Runs the CLI application. */
-  public async run(args: CLIArguments = process.argv.slice(2)): Promise<number> {
+  public async run(
+    args: CLIArguments = process.argv.slice(2),
+  ): Promise<number> {
     if (this.running) {
       throw new CLIExecutionError("The CLI application is already running.");
     }
@@ -95,7 +100,13 @@ export class LatticeCLI implements CLIApplication {
 
     try {
       if (isHelpRequest(args)) {
-        printHelp(this.writer, this.name, this.version, this.description, this.commands.list());
+        printHelp(
+          this.writer,
+          this.name,
+          this.version,
+          this.description,
+          this.commands.list(),
+        );
         return CLI_EXIT_CODES.SUCCESS;
       }
 
@@ -110,7 +121,13 @@ export class LatticeCLI implements CLIApplication {
 
       if (!command) {
         if (args.length === 0) {
-          printHelp(this.writer, this.name, this.version, this.description, this.commands.list());
+          printHelp(
+            this.writer,
+            this.name,
+            this.version,
+            this.description,
+            this.commands.list(),
+          );
           return CLI_EXIT_CODES.SUCCESS;
         }
         throw new CommandNotFoundError(String(args[0]));
@@ -157,7 +174,10 @@ export class LatticeCLI implements CLIApplication {
     return undefined;
   }
 
-  private getCommandArguments(args: CLIArguments, command: CLICommand): CLIArguments {
+  private getCommandArguments(
+    args: CLIArguments,
+    command: CLICommand,
+  ): CLIArguments {
     const index = args.findIndex(
       (arg) => arg === command.name || command.aliases?.includes(arg),
     );

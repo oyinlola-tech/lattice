@@ -14,82 +14,51 @@ import {
   serializeResponseCookie,
 } from "./httpResponse.context.js";
 
-import type {
-  ResponseBody,
-  ResponseCookie,
-} from "./httpResponse.context.js";
+import type { ResponseBody, ResponseCookie } from "./httpResponse.context.js";
 
 /* -------------------------------------------------------------------------- */
 /* Types                                                                      */
 /* -------------------------------------------------------------------------- */
 
 export interface ResponseWriteOptions {
-  readonly flushHeaders?:
-    | boolean;
+  readonly flushHeaders?: boolean;
 
-  readonly end?:
-    | boolean;
+  readonly end?: boolean;
 }
 
 export interface HttpResponseWriter {
-  readonly headersSent:
-    | boolean;
+  readonly headersSent: boolean;
 
-  readonly writableEnded:
-    | boolean;
+  readonly writableEnded: boolean;
 
-  readonly writable:
-    | boolean;
+  readonly writable: boolean;
 
   writeHead(
     status: number,
-    statusText?:
-      | string,
-    headers?:
-      | Readonly<
-          Record<string, string>
-        >,
+    statusText?: string,
+    headers?: Readonly<Record<string, string>>,
   ): void;
 
-  setHeader(
-    name: string,
-    value: string,
-  ): void;
+  setHeader(name: string, value: string): void;
 
-  appendHeader(
-    name: string,
-    value: string,
-  ): void;
+  appendHeader(name: string, value: string): void;
 
-  removeHeader(
-    name: string,
-  ): void;
+  removeHeader(name: string): void;
 
-  write(
-    chunk:
-      | string
-      | Uint8Array,
-  ): boolean;
+  write(chunk: string | Uint8Array): boolean;
 
-  end(
-    chunk?:
-      | string
-      | Uint8Array,
-  ): void;
+  end(chunk?: string | Uint8Array): void;
 
-  flushHeaders?():
-    | void;
+  flushHeaders?(): void;
 
-  flush?():
-    | void;
+  flush?(): void;
 }
 
 export interface ResponseWriter {
   write(
     context: HttpResponseContext,
     writer: HttpResponseWriter,
-    options?:
-      | ResponseWriteOptions,
+    options?: ResponseWriteOptions,
   ): void | Promise<void>;
 }
 
@@ -113,84 +82,47 @@ export {
 /* Default Writer                                                             */
 /* -------------------------------------------------------------------------- */
 
-export class DefaultResponseWriter
-  implements ResponseWriter {
+export class DefaultResponseWriter implements ResponseWriter {
   async write(
     context: HttpResponseContext,
     writer: HttpResponseWriter,
-    options:
-      | ResponseWriteOptions = {},
+    options: ResponseWriteOptions = {},
   ): Promise<void> {
-    assertWritable(
-      writer,
-    );
+    assertWritable(writer);
 
     context.assertMutable();
 
-    const body =
-      context.body;
+    const body = context.body;
 
-    const status =
-      context.status;
+    const status = context.status;
 
-    const statusText =
-      context.statusText;
+    const statusText = context.statusText;
 
-    const headers =
-      context.headers;
+    const headers = context.headers;
 
-    const cookies =
-      context.cookies;
+    const cookies = context.cookies;
 
-    prepareAutomaticHeaders(
-      context,
-    );
+    prepareAutomaticHeaders(context);
 
-    writeHeaders(
-      context,
-      writer,
-      headers,
-    );
+    writeHeaders(context, writer, headers);
 
-    writeCookies(
-      writer,
-      cookies,
-    );
+    writeCookies(writer, cookies);
 
-    if (
-      options.flushHeaders !==
-        false &&
-      writer.flushHeaders
-    ) {
+    if (options.flushHeaders !== false && writer.flushHeaders) {
       writer.flushHeaders();
     }
 
-    writer.writeHead(
-      status,
-      statusText,
-    );
+    writer.writeHead(status, statusText);
 
-    if (
-      isBodyForbidden(
-        status,
-      )
-    ) {
+    if (isBodyForbidden(status)) {
       writer.end();
       context.commit();
 
       return;
     }
 
-    if (
-      body ===
-        undefined ||
-      body ===
-        null
-    ) {
-      if (
-        options.end !==
-        false
-      ) {
+    if (body === undefined || body === null) {
+      if (options.end !== false) {
         writer.end();
         context.commit();
       }
@@ -198,15 +130,8 @@ export class DefaultResponseWriter
       return;
     }
 
-    if (
-      isReadableStream(
-        body,
-      )
-    ) {
-      await writeReadableStream(
-        body,
-        writer,
-      );
+    if (isReadableStream(body)) {
+      await writeReadableStream(body, writer);
 
       writer.end();
       context.commit();
@@ -214,35 +139,22 @@ export class DefaultResponseWriter
       return;
     }
 
-    const normalized =
-      normalizeBody(
-        body,
-      );
+    const normalized = normalizeBody(body);
 
-    if (
-      normalized ===
-      undefined
-    ) {
+    if (normalized === undefined) {
       writer.end();
       context.commit();
 
       return;
     }
 
-    if (
-      options.end ===
-      false
-    ) {
-      writer.write(
-        normalized,
-      );
+    if (options.end === false) {
+      writer.write(normalized);
 
       return;
     }
 
-    writer.end(
-      normalized,
-    );
+    writer.end(normalized);
 
     context.commit();
   }
@@ -255,17 +167,11 @@ export class DefaultResponseWriter
 export async function writeResponse(
   context: HttpResponseContext,
   writer: HttpResponseWriter,
-  options:
-    | ResponseWriteOptions = {},
+  options: ResponseWriteOptions = {},
 ): Promise<void> {
-  const responseWriter =
-    new DefaultResponseWriter();
+  const responseWriter = new DefaultResponseWriter();
 
-  await responseWriter.write(
-    context,
-    writer,
-    options,
-  );
+  await responseWriter.write(context, writer, options);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -275,45 +181,25 @@ export async function writeResponse(
 export function writeHeaders(
   context: HttpResponseContext,
   writer: HttpResponseWriter,
-  headers:
-    | Readonly<
-        Record<string, string | string[] | undefined>
-      > = context.headers,
+  headers: Readonly<
+    Record<string, string | string[] | undefined>
+  > = context.headers,
 ): void {
-  for (
-    const [
-      name,
-      value,
-    ] of Object.entries(
-      headers,
-    )
-  ) {
+  for (const [name, value] of Object.entries(headers)) {
     if (value === undefined) continue;
-    const strValue = Array.isArray(value) ? value.join(', ') : value;
-    writer.setHeader(
-      name,
-      strValue,
-    );
+    const strValue = Array.isArray(value) ? value.join(", ") : value;
+    writer.setHeader(name, strValue);
   }
 }
 
 export function writeCookies(
   writer: HttpResponseWriter,
-  cookies:
-    | readonly ResponseCookie[],
+  cookies: readonly ResponseCookie[],
 ): void {
-  for (
-    const cookie of cookies
-  ) {
-    const serialized =
-      serializeResponseCookie(
-        cookie,
-      );
+  for (const cookie of cookies) {
+    const serialized = serializeResponseCookie(cookie);
 
-    writer.appendHeader(
-      "set-cookie",
-      serialized,
-    );
+    writer.appendHeader("set-cookie", serialized);
   }
 }
 
@@ -321,68 +207,36 @@ export function writeCookies(
 /* Automatic Headers                                                          */
 /* -------------------------------------------------------------------------- */
 
-export function prepareAutomaticHeaders(
-  context: HttpResponseContext,
-): void {
-  const body =
-    context.body;
+export function prepareAutomaticHeaders(context: HttpResponseContext): void {
+  const body = context.body;
 
   if (
-    context.contentType ===
-      undefined &&
-    body !==
-      undefined &&
-    body !==
-      null
+    context.contentType === undefined &&
+    body !== undefined &&
+    body !== null
   ) {
-    const inferred =
-      inferContentType(
-        body,
-      );
+    const inferred = inferContentType(body);
 
-    if (
-      inferred
-    ) {
-      context.setContentType(
-        inferred,
-      );
+    if (inferred) {
+      context.setContentType(inferred);
     }
   }
 
   if (
-    context.contentLength ===
-      undefined &&
-    body !==
-      undefined &&
-    body !==
-      null &&
-    !isReadableStream(
-      body,
-    )
+    context.contentLength === undefined &&
+    body !== undefined &&
+    body !== null &&
+    !isReadableStream(body)
   ) {
-    const length =
-      getBodyByteLength(
-        body,
-      );
+    const length = getBodyByteLength(body);
 
-    if (
-      length !==
-      undefined
-    ) {
-      context.setContentLength(
-        length,
-      );
+    if (length !== undefined) {
+      context.setContentLength(length);
     }
   }
 
-  if (
-    isBodyForbidden(
-      context.status,
-    )
-  ) {
-    context.removeHeader(
-      "content-length",
-    );
+  if (isBodyForbidden(context.status)) {
+    context.removeHeader("content-length");
   }
 }
 
@@ -392,72 +246,39 @@ export function prepareAutomaticHeaders(
 
 export function normalizeBody(
   body: ResponseBody,
-):
-  | string
-  | Uint8Array
-  | undefined {
-  if (
-    typeof body ===
-    "string"
-  ) {
+): string | Uint8Array | undefined {
+  if (typeof body === "string") {
     return body;
   }
 
-  if (
-    body instanceof
-    Uint8Array
-  ) {
+  if (body instanceof Uint8Array) {
     return body;
   }
 
-  if (
-    body instanceof
-    ArrayBuffer
-  ) {
-    return new Uint8Array(
-      body,
-    );
+  if (body instanceof ArrayBuffer) {
+    return new Uint8Array(body);
   }
 
-  if (
-    isReadableStream(
-      body,
-    )
-  ) {
+  if (isReadableStream(body)) {
     throw new UnsupportedResponseBodyError(
       "ReadableStream bodies must be handled by the streaming writer.",
     );
   }
 
-  if (
-    body ===
-      undefined ||
-    body ===
-      null
-  ) {
+  if (body === undefined || body === null) {
     return undefined;
   }
 
   if (
-    typeof body ===
-    "number" ||
-    typeof body ===
-    "boolean" ||
-    typeof body ===
-    "bigint"
+    typeof body === "number" ||
+    typeof body === "boolean" ||
+    typeof body === "bigint"
   ) {
-    return String(
-      body,
-    );
+    return String(body);
   }
 
-  if (
-    typeof body ===
-    "object"
-  ) {
-    return JSON.stringify(
-      body,
-    );
+  if (typeof body === "object") {
+    return JSON.stringify(body);
   }
 
   throw new UnsupportedResponseBodyError();
@@ -468,30 +289,21 @@ export function normalizeBody(
 /* -------------------------------------------------------------------------- */
 
 export async function writeReadableStream(
-  stream:
-    | ReadableStream<Uint8Array>,
+  stream: ReadableStream<Uint8Array>,
   writer: HttpResponseWriter,
 ): Promise<void> {
-  const reader =
-    stream.getReader();
+  const reader = stream.getReader();
 
   try {
     while (true) {
-      const result =
-        await reader.read();
+      const result = await reader.read();
 
-      if (
-        result.done
-      ) {
+      if (result.done) {
         break;
       }
 
-      if (
-        result.value
-      ) {
-        writer.write(
-          result.value,
-        );
+      if (result.value) {
+        writer.write(result.value);
       }
     }
   } finally {
@@ -503,132 +315,66 @@ export async function writeReadableStream(
 /* Body Helpers                                                               */
 /* -------------------------------------------------------------------------- */
 
-export function getBodyByteLength(
-  body: ResponseBody,
-): number | undefined {
-  if (
-    typeof body ===
-    "string"
-  ) {
-    return getUtf8ByteLength(
-      body,
-    );
+export function getBodyByteLength(body: ResponseBody): number | undefined {
+  if (typeof body === "string") {
+    return getUtf8ByteLength(body);
   }
 
-  if (
-    body instanceof
-    Uint8Array
-  ) {
+  if (body instanceof Uint8Array) {
     return body.byteLength;
   }
 
-  if (
-    body instanceof
-    ArrayBuffer
-  ) {
+  if (body instanceof ArrayBuffer) {
     return body.byteLength;
   }
 
-  if (
-    body ===
-      undefined ||
-    body ===
-      null
-  ) {
+  if (body === undefined || body === null) {
     return 0;
   }
 
-  if (
-    isReadableStream(
-      body,
-    )
-  ) {
+  if (isReadableStream(body)) {
     return undefined;
   }
 
   try {
-    const serialized =
-      JSON.stringify(
-        body,
-      );
+    const serialized = JSON.stringify(body);
 
-    if (
-      serialized ===
-      undefined
-    ) {
+    if (serialized === undefined) {
       return undefined;
     }
 
-    return getUtf8ByteLength(
-      serialized,
-    );
+    return getUtf8ByteLength(serialized);
   } catch {
     return undefined;
   }
 }
 
-export function getUtf8ByteLength(
-  value: string,
-): number {
-  if (
-    typeof TextEncoder !==
-    "undefined"
-  ) {
-    return new TextEncoder()
-      .encode(
-        value,
-      )
-      .byteLength;
+export function getUtf8ByteLength(value: string): number {
+  if (typeof TextEncoder !== "undefined") {
+    return new TextEncoder().encode(value).byteLength;
   }
 
-  return unescape(
-    encodeURIComponent(
-      value,
-    ),
-  ).length;
+  return unescape(encodeURIComponent(value)).length;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Content Type Inference                                                     */
 /* -------------------------------------------------------------------------- */
 
-export function inferContentType(
-  body: ResponseBody,
-):
-  | string
-  | undefined {
-  if (
-    typeof body ===
-    "string"
-  ) {
+export function inferContentType(body: ResponseBody): string | undefined {
+  if (typeof body === "string") {
     return "text/plain; charset=utf-8";
   }
 
-  if (
-    body instanceof
-      Uint8Array ||
-    body instanceof
-      ArrayBuffer
-  ) {
+  if (body instanceof Uint8Array || body instanceof ArrayBuffer) {
     return "application/octet-stream";
   }
 
-  if (
-    isReadableStream(
-      body,
-    )
-  ) {
+  if (isReadableStream(body)) {
     return undefined;
   }
 
-  if (
-    body !==
-      undefined &&
-    body !==
-      null &&
-    typeof body ===
-      "object"
-  ) {
+  if (body !== undefined && body !== null && typeof body === "object") {
     return "application/json; charset=utf-8";
   }
 
@@ -639,24 +385,13 @@ export function inferContentType(
 /* Status Rules                                                               */
 /* -------------------------------------------------------------------------- */
 
-export function isBodyForbidden(
-  status: number,
-): boolean {
+export function isBodyForbidden(status: number): boolean {
   return (
-    status ===
-      101 ||
-    status ===
-      204 ||
-    status ===
-      205 ||
-    status ===
-      304 ||
-    (
-      status >=
-        100 &&
-      status <
-        200
-    )
+    status === 101 ||
+    status === 204 ||
+    status === 205 ||
+    status === 304 ||
+    (status >= 100 && status < 200)
   );
 }
 
@@ -667,50 +402,32 @@ export function isBodyForbidden(
 export function isReadableStream(
   value: unknown,
 ): value is ReadableStream<Uint8Array> {
-  if (
-    typeof ReadableStream ===
-    "undefined"
-  ) {
+  if (typeof ReadableStream === "undefined") {
     return false;
   }
 
-  return (
-    value instanceof
-    ReadableStream
-  );
+  return value instanceof ReadableStream;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Writer State                                                               */
 /* -------------------------------------------------------------------------- */
 
-export function assertWritable(
-  writer: HttpResponseWriter,
-): void {
-  if (
-    writer.headersSent
-  ) {
+export function assertWritable(writer: HttpResponseWriter): void {
+  if (writer.headersSent) {
     throw new ResponseAlreadySentError(
       "HTTP response headers have already been sent.",
     );
   }
 
-  if (
-    writer.writableEnded
-  ) {
-    throw new ResponseAlreadySentError(
-      "HTTP response has already ended.",
-    );
+  if (writer.writableEnded) {
+    throw new ResponseAlreadySentError("HTTP response has already ended.");
   }
 
-  if (
-    writer.writable ===
-    false
-  ) {
-    throw new ResponseWriterError(
-      "HTTP response is not writable.",
-      { code: "HTTP_RESPONSE_NOT_WRITABLE" },
-    );
+  if (writer.writable === false) {
+    throw new ResponseWriterError("HTTP response is not writable.", {
+      code: "HTTP_RESPONSE_NOT_WRITABLE",
+    });
   }
 }
 
@@ -719,51 +436,28 @@ export function assertWritable(
 /* -------------------------------------------------------------------------- */
 
 export function createResponseWriter(
-  writer:
-    | HttpResponseWriter,
+  writer: HttpResponseWriter,
 ): ResponseWriter {
   return {
-    write(
-      context,
-      _writer,
-      options,
-    ) {
-      return writeResponse(
-        context,
-        writer,
-        options,
-      );
+    write(context, _writer, options) {
+      return writeResponse(context, writer, options);
     },
   };
 }
 
-export function isResponseWriter(
-  value: unknown,
-): value is HttpResponseWriter {
-  if (
-    value ===
-      null ||
-    typeof value !==
-      "object"
-  ) {
+export function isResponseWriter(value: unknown): value is HttpResponseWriter {
+  if (value === null || typeof value !== "object") {
     return false;
   }
 
-  const candidate =
-    value as Partial<HttpResponseWriter>;
+  const candidate = value as Partial<HttpResponseWriter>;
 
   return (
-    typeof candidate.writeHead ===
-      "function" &&
-    typeof candidate.setHeader ===
-      "function" &&
-    typeof candidate.appendHeader ===
-      "function" &&
-    typeof candidate.removeHeader ===
-      "function" &&
-    typeof candidate.write ===
-      "function" &&
-    typeof candidate.end ===
-      "function"
+    typeof candidate.writeHead === "function" &&
+    typeof candidate.setHeader === "function" &&
+    typeof candidate.appendHeader === "function" &&
+    typeof candidate.removeHeader === "function" &&
+    typeof candidate.write === "function" &&
+    typeof candidate.end === "function"
   );
 }

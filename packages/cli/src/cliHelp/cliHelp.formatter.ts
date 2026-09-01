@@ -4,7 +4,11 @@
  * Formatting utilities for CLI help text output.
  */
 
-import type { CLIArgument, CLICommand, CLIOption } from "../cliType/cliType.type.js";
+import type {
+  CLIArgument,
+  CLICommand,
+  CLIOption,
+} from "../cliType/cliType.type.js";
 import { CLI_OPTION_PREFIXES } from "../cliConstant/cliConstant.value.js";
 
 /** Formats a title line with optional version. */
@@ -17,9 +21,7 @@ export function formatCommands(commands: readonly CLICommand[]): string {
   if (commands.length === 0) return "  No commands available.";
 
   const sorted = [...commands].sort((a, b) => a.name.localeCompare(b.name));
-  const width = Math.max(
-    ...sorted.map((c) => c.name.length + aliasLength(c)),
-  );
+  const width = Math.max(...sorted.map((c) => c.name.length + aliasLength(c)));
 
   return sorted
     .map((cmd) => {
@@ -83,7 +85,9 @@ export function formatAliases(aliases: readonly string[]): string {
 
 /** Formats an option label with short/long form. */
 export function formatOptionLabel(option: CLIOption): string {
-  const short = option.short ? `${CLI_OPTION_PREFIXES.SHORT}${option.short}` : "";
+  const short = option.short
+    ? `${CLI_OPTION_PREFIXES.SHORT}${option.short}`
+    : "";
   const long = `${CLI_OPTION_PREFIXES.LONG}${option.name}`;
   const prefix = short ? `${short}, ${long}` : long;
 
@@ -117,7 +121,9 @@ export function formatUsageSuffix(command: CLICommand): string {
 
 /** Formats global options. */
 export function formatGlobalOptions(): string {
-  return ["  -h, --help     Show help.", "  -v, --version  Show version."].join("\n");
+  return ["  -h, --help     Show help.", "  -v, --version  Show version."].join(
+    "\n",
+  );
 }
 
 /** Calculates alias length for alignment. */

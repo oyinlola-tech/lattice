@@ -28,7 +28,9 @@ export interface App {
 
 export async function createApp(): Promise<App> {
   const appConfig = createAppConfig();
-  const logger = createAppLogger(appConfig.env === "production" ? LoggerLevel.INFO : LoggerLevel.DEBUG);
+  const logger = createAppLogger(
+    appConfig.env === "production" ? LoggerLevel.INFO : LoggerLevel.DEBUG,
+  );
 
   logger.info("=".repeat(60));
   logger.info(`  ${appConfig.name} v${appConfig.version}`);

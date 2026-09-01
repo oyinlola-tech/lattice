@@ -126,6 +126,10 @@ export {
   coerceBigIntSchema,
 } from "./schemaCoerce/index.js";
 
-export type { Infer, SchemaInput, SchemaOutput } from "./schemaInference/index.js";
+export type {
+  Infer,
+  SchemaInput,
+  SchemaOutput,
+} from "./schemaInference/index.js";
 
 export { schema } from "./schemaRoot/index.js";

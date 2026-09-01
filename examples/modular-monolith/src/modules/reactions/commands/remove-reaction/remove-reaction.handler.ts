@@ -2,7 +2,10 @@ import { CommandHandler } from "@oyinlola141/lattice-cqrs";
 import type { RemoveReactionCommand } from "./remove-reaction.command.js";
 import type { ReactionRepository } from "../../../../repositories/reaction.repository.js";
 
-export class RemoveReactionHandler extends CommandHandler<RemoveReactionCommand, void> {
+export class RemoveReactionHandler extends CommandHandler<
+  RemoveReactionCommand,
+  void
+> {
   public readonly commandType = "reactions.remove" as const;
 
   private readonly reactions: ReactionRepository;

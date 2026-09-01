@@ -6,35 +6,17 @@
  */
 
 import type { HTTPValidationResult } from "./httpValidationTypes.type.js";
-import {
-  isValidAuthority,
-} from "./httpValidationAuthority.js";
-import {
-  isValidURL,
-} from "./httpValidationUrl.js";
+import { isValidAuthority } from "./httpValidationAuthority.js";
+import { isValidURL } from "./httpValidationUrl.js";
 
 export function isValidRequestTarget(
-  target:
-    | string
-    | undefined
-    | null,
+  target: string | undefined | null,
 ): boolean {
-  if (
-    target ===
-      undefined ||
-    target ===
-      null ||
-    target.length ===
-      0
-  ) {
+  if (target === undefined || target === null || target.length === 0) {
     return false;
   }
 
-  if (
-    /[\r\n]/.test(
-      target,
-    )
-  ) {
+  if (/[\r\n]/.test(target)) {
     return false;
   }
 
@@ -43,58 +25,35 @@ export function isValidRequestTarget(
    * The absolute-form, authority-form, and asterisk-form are also valid
    * request-target forms.
    */
-  if (
-    target ===
-    "*"
-  ) {
+  if (target === "*") {
     return true;
   }
 
-  if (
-    target.startsWith(
-      "/",
-    )
-  ) {
+  if (target.startsWith("/")) {
     return true;
   }
 
-  if (
-    /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(
-      target,
-    )
-  ) {
-    return isValidURL(
-      target,
-    );
+  if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(target)) {
+    return isValidURL(target);
   }
 
   /*
    * CONNECT authority-form:
    * host:port
    */
-  return isValidAuthority(
-    target,
-  );
+  return isValidAuthority(target);
 }
 
-export function validateRequestTarget(
-  target: string,
-): HTTPValidationResult {
-  if (
-    !isValidRequestTarget(
-      target,
-    )
-  ) {
+export function validateRequestTarget(target: string): HTTPValidationResult {
+  if (!isValidRequestTarget(target)) {
     return {
       valid: false,
-      reason:
-        "Invalid HTTP request target.",
+      reason: "Invalid HTTP request target.",
     };
   }
 
   return {
     valid: true,
-    value:
-      target,
+    value: target,
   };
 }

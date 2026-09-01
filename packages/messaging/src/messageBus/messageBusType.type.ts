@@ -18,9 +18,7 @@ import type {
   NamedMessageHandler,
 } from "../messageHandler/messageHandlerType.type.js";
 
-import type {
-  MessageMiddlewareLike,
-} from "../messageMiddleware/messageMiddlewareType.type.js";
+import type { MessageMiddlewareLike } from "../messageMiddleware/messageMiddlewareType.type.js";
 
 import type {
   DispatchResult,

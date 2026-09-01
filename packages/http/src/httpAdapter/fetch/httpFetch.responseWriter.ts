@@ -4,9 +4,7 @@
  * @module httpAdapter/fetch/responseWriter
  */
 
-import type {
-  FetchResponseWriter,
-} from "./httpFetch.type.js";
+import type { FetchResponseWriter } from "./httpFetch.type.js";
 
 export class FetchHttpResponseWriter implements FetchResponseWriter {
   private _status = 200;
@@ -56,11 +54,12 @@ export class FetchHttpResponseWriter implements FetchResponseWriter {
   }
 
   toResponse(): Response {
-    const body = this._body !== undefined
-      ? typeof this._body === "string"
-        ? this._body
-        : JSON.stringify(this._body)
-      : undefined;
+    const body =
+      this._body !== undefined
+        ? typeof this._body === "string"
+          ? this._body
+          : JSON.stringify(this._body)
+        : undefined;
 
     return new Response(body, {
       status: this._status,
@@ -72,9 +71,7 @@ export class FetchHttpResponseWriter implements FetchResponseWriter {
 /**
  * Converts a Response to a context object.
  */
-export function responseToContext(
-  response: Response,
-): {
+export function responseToContext(response: Response): {
   readonly status: number;
   readonly headers: Record<string, string>;
   readonly body: unknown;

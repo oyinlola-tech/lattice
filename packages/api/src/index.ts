@@ -34,7 +34,12 @@ export type {
   APIResult,
 } from "./api/result/apiResult.type.js";
 
-export { apiSuccess, apiFailure, isApiSuccess, isApiFailure } from "./api/result/apiResult.type.js";
+export {
+  apiSuccess,
+  apiFailure,
+  isApiSuccess,
+  isApiFailure,
+} from "./api/result/apiResult.type.js";
 
 // Errors
 export type { APIErrorOptions } from "./api/errors/index.js";
@@ -93,7 +98,10 @@ export { defineOperation } from "./api/operation/operation.type.js";
 export { APIOperationRegistry } from "./api/registry/index.js";
 
 // Interceptors
-export type { APIInterceptor, APIExecutionContext } from "./api/interceptors/interceptor.type.js";
+export type {
+  APIInterceptor,
+  APIExecutionContext,
+} from "./api/interceptors/interceptor.type.js";
 
 export { createNoopInterceptor } from "./api/interceptors/interceptor.type.js";
 

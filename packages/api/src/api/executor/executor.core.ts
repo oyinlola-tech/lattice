@@ -29,7 +29,9 @@ export function normalizeAPIError(
   if (error instanceof Error) {
     return error;
   }
-  return new Error(`Unexpected non-error thrown in operation "${operationName}": ${String(error)}`);
+  return new Error(
+    `Unexpected non-error thrown in operation "${operationName}": ${String(error)}`,
+  );
 }
 
 /**
@@ -61,7 +63,10 @@ export class APIExecutor {
         const output = await operation.handler(input, context);
         return { ok: true, data: output } as APIResult<TOutput>;
       } catch (error) {
-        return { ok: false, error: normalizeAPIError(error, operation.name) } as APIResult<TOutput>;
+        return {
+          ok: false,
+          error: normalizeAPIError(error, operation.name),
+        } as APIResult<TOutput>;
       }
     };
 

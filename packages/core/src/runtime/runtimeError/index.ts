@@ -1,14 +1,8 @@
-import {
-  RuntimeError,
-} from "./runtimeError.base.js";
+import { RuntimeError } from "./runtimeError.base.js";
 
-import type {
-  RuntimeErrorOptions,
-} from "./runtimeError.type.js";
+import type { RuntimeErrorOptions } from "./runtimeError.type.js";
 
-import type {
-  RuntimeError as RuntimeErrorType,
-} from "./runtimeError.base.js";
+import type { RuntimeError as RuntimeErrorType } from "./runtimeError.base.js";
 
 /**
  * Runtime Errors
@@ -16,9 +10,7 @@ import type {
  * Error classes and utilities for runtime failures.
  */
 
-export {
-  RuntimeError,
-} from "./runtimeError.base.js";
+export { RuntimeError } from "./runtimeError.base.js";
 
 export {
   RuntimeStateError,
@@ -36,9 +28,7 @@ export {
   RuntimeCancellationError,
 } from "./runtimeError.specialized.js";
 
-export {
-  RuntimeErrorCode,
-} from "./runtimeError.type.js";
+export { RuntimeErrorCode } from "./runtimeError.type.js";
 
 export type {
   RuntimeOperation,
@@ -75,9 +65,7 @@ export function toRuntimeError(
 /**
  * Checks whether an unknown value is a RuntimeError.
  */
-export function isRuntimeError(
-  error: unknown,
-): error is RuntimeErrorType {
+export function isRuntimeError(error: unknown): error is RuntimeErrorType {
   return error instanceof RuntimeError;
 }
 
@@ -88,10 +76,7 @@ export function hasRuntimeErrorCode(
   error: unknown,
   code: import("./runtimeError.type.js").RuntimeErrorCode,
 ): boolean {
-  return (
-    isRuntimeError(error) &&
-    error.code === code
-  );
+  return isRuntimeError(error) && error.code === code;
 }
 
 /**

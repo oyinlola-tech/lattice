@@ -56,9 +56,7 @@ export function validateExample(
 /**
  * Renders an example as a markdown code block.
  */
-export function renderExampleMarkdown(
-  example: DocumentationExample,
-): string {
+export function renderExampleMarkdown(example: DocumentationExample): string {
   const lines: string[] = [];
 
   if (example.title) {

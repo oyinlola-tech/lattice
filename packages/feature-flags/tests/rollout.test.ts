@@ -18,7 +18,7 @@ describe("rolloutHashing", () => {
   it("returns unsigned 32-bit integers", () => {
     const hash = hashString("test");
     expect(hash).toBeGreaterThanOrEqual(0);
-    expect(hash).toBeLessThanOrEqual(0xFFFFFFFF);
+    expect(hash).toBeLessThanOrEqual(0xffffffff);
   });
 });
 

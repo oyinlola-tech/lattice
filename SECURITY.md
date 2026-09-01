@@ -71,11 +71,11 @@ This does not mean every bug in these packages is automatically a vulnerability.
 
 ## Supported Versions
 
-| Version | Supported |
-|---------|-----------|
-| Latest stable | Yes |
-| Previous stable | Yes |
-| Older versions | No |
+| Version              | Supported   |
+| -------------------- | ----------- |
+| Latest stable        | Yes         |
+| Previous stable      | Yes         |
+| Older versions       | No          |
 | Development versions | Best effort |
 
 ## Vulnerability Assessment

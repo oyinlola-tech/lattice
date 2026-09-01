@@ -4,9 +4,7 @@
  * Configuration types, defaults, and resolution for runtime options.
  */
 
-export {
-  DEFAULT_RUNTIME_OPTIONS,
-} from "./runtimeOptions.defaults.js";
+export { DEFAULT_RUNTIME_OPTIONS } from "./runtimeOptions.defaults.js";
 
 export {
   resolveRuntimeOptions,

@@ -8,7 +8,10 @@ import { UserRole } from "../../../../enums/index.js";
 import { createUserId } from "../../../../types/index.js";
 import { randomUUID } from "node:crypto";
 
-export class RegisterUserHandler extends CommandHandler<RegisterUserCommand, UserModel> {
+export class RegisterUserHandler extends CommandHandler<
+  RegisterUserCommand,
+  UserModel
+> {
   public readonly commandType = "identity.register-user" as const;
 
   private readonly users: UserRepository;
@@ -21,7 +24,9 @@ export class RegisterUserHandler extends CommandHandler<RegisterUserCommand, Use
   public async execute(command: RegisterUserCommand): Promise<UserModel> {
     const existing = await this.users.findByEmail(command.data.email);
     if (existing) {
-      throw new ConflictError(`A user with email "${command.data.email}" already exists`);
+      throw new ConflictError(
+        `A user with email "${command.data.email}" already exists`,
+      );
     }
 
     const now = new Date();

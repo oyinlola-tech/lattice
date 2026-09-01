@@ -1,4 +1,8 @@
-import type { EncryptionAlgorithm, CryptoInput, EncryptedData } from "../../../cryptoProvider/index.js";
+import type {
+  EncryptionAlgorithm,
+  CryptoInput,
+  EncryptedData,
+} from "../../../cryptoProvider/index.js";
 import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto";
 import { toBytes } from "../nodeCryptoProvider.helper.js";
 
@@ -20,10 +24,7 @@ export async function encrypt(options: {
     cipher.setAAD(toBytes(options.associatedData));
   }
 
-  const ciphertext = Buffer.concat([
-    cipher.update(plaintext),
-    cipher.final(),
-  ]);
+  const ciphertext = Buffer.concat([cipher.update(plaintext), cipher.final()]);
 
   const tag = cipher.getAuthTag();
 

@@ -4,9 +4,7 @@
  * @module httpSecurityHeaders/recommended
  */
 
-import type {
-  SecurityHeaders,
-} from "./core/httpSecurityHeader.type.js";
+import type { SecurityHeaders } from "./core/httpSecurityHeader.type.js";
 
 import { createSecurityHeaders } from "./httpSecurityHeader.factory.js";
 

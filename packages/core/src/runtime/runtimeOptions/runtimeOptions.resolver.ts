@@ -3,9 +3,7 @@ import type {
   ResolvedRuntimeOptions,
 } from "./runtimeOptions.type.js";
 
-import {
-  DEFAULT_RUNTIME_OPTIONS,
-} from "./runtimeOptions.defaults.js";
+import { DEFAULT_RUNTIME_OPTIONS } from "./runtimeOptions.defaults.js";
 
 import {
   validateRuntimeName,
@@ -50,9 +48,7 @@ export function resolveRuntimeOptions(
       continueOnStartError:
         startup.continueOnStartError ??
         DEFAULT_RUNTIME_OPTIONS.startup.continueOnStartError,
-      timeoutMs:
-        startup.timeoutMs ??
-        DEFAULT_RUNTIME_OPTIONS.startup.timeoutMs,
+      timeoutMs: startup.timeoutMs ?? DEFAULT_RUNTIME_OPTIONS.startup.timeoutMs,
     },
 
     shutdown: {
@@ -69,20 +65,16 @@ export function resolveRuntimeOptions(
         shutdown.continueOnDestroyError ??
         DEFAULT_RUNTIME_OPTIONS.shutdown.continueOnDestroyError,
       timeoutMs:
-        shutdown.timeoutMs ??
-        DEFAULT_RUNTIME_OPTIONS.shutdown.timeoutMs,
+        shutdown.timeoutMs ?? DEFAULT_RUNTIME_OPTIONS.shutdown.timeoutMs,
     },
 
     signals: {
       handleSigint:
-        signals.handleSigint ??
-        DEFAULT_RUNTIME_OPTIONS.signals.handleSigint,
+        signals.handleSigint ?? DEFAULT_RUNTIME_OPTIONS.signals.handleSigint,
       handleSigterm:
-        signals.handleSigterm ??
-        DEFAULT_RUNTIME_OPTIONS.signals.handleSigterm,
+        signals.handleSigterm ?? DEFAULT_RUNTIME_OPTIONS.signals.handleSigterm,
       handleSighup:
-        signals.handleSighup ??
-        DEFAULT_RUNTIME_OPTIONS.signals.handleSighup,
+        signals.handleSighup ?? DEFAULT_RUNTIME_OPTIONS.signals.handleSighup,
       handleUncaughtException:
         signals.handleUncaughtException ??
         DEFAULT_RUNTIME_OPTIONS.signals.handleUncaughtException,
@@ -121,9 +113,7 @@ export function resolveRuntimeOptions(
 /**
  * Validates runtime options.
  */
-export function validateRuntimeOptions(
-  options: RuntimeOptions,
-): void {
+export function validateRuntimeOptions(options: RuntimeOptions): void {
   assertRuntimeMode(options.mode ?? DEFAULT_RUNTIME_OPTIONS.mode);
   assertRuntimeRole(options.role ?? DEFAULT_RUNTIME_OPTIONS.role);
   validateRuntimeName(options.name);

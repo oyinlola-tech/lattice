@@ -29,12 +29,22 @@ export interface ObjectData {
 
 /** Object storage abstraction. */
 export interface ObjectStorage {
-  put(key: string, data: Uint8Array | ReadableStream<Uint8Array>, options?: ObjectPutOptions): Promise<ObjectMetadata>;
+  put(
+    key: string,
+    data: Uint8Array | ReadableStream<Uint8Array>,
+    options?: ObjectPutOptions,
+  ): Promise<ObjectMetadata>;
   get(key: string): Promise<ObjectData | null>;
   delete(key: string): Promise<void>;
   exists(key: string): Promise<boolean>;
   metadata(key: string): Promise<ObjectMetadata | null>;
-  list(prefix?: string, options?: { readonly maxKeys?: number; readonly continuationToken?: string }): Promise<ListObjectsResult>;
+  list(
+    prefix?: string,
+    options?: {
+      readonly maxKeys?: number;
+      readonly continuationToken?: string;
+    },
+  ): Promise<ListObjectsResult>;
 }
 
 /** Result of listing objects. */

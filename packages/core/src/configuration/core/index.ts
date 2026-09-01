@@ -4,10 +4,7 @@
  * Core configuration types, keys, and source abstractions.
  */
 
-export {
-  Configuration,
-  createConfiguration,
-} from "./configuration.js";
+export { Configuration, createConfiguration } from "./configuration.js";
 
 export type {
   ConfigurationOptions,
@@ -16,13 +13,9 @@ export type {
   ConfigurationEntry,
 } from "./configuration.js";
 
-export {
-  createConfigurationKey,
-} from "./configurationKey.key.js";
+export { createConfigurationKey } from "./configurationKey.key.js";
 
-export type {
-  ConfigurationKey,
-} from "./configurationKey.key.js";
+export type { ConfigurationKey } from "./configurationKey.key.js";
 
 export {
   BaseConfigurationSource,

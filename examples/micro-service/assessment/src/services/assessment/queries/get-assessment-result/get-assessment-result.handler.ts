@@ -15,7 +15,10 @@ export interface GetAssessmentResultResult {
   readonly gradedAt: Date | null;
 }
 
-export class GetAssessmentResultHandler extends QueryHandler<GetAssessmentResultQuery, GetAssessmentResultResult> {
+export class GetAssessmentResultHandler extends QueryHandler<
+  GetAssessmentResultQuery,
+  GetAssessmentResultResult
+> {
   public readonly queryType = GET_ASSESSMENT_RESULT_QUERY;
 
   private readonly repository: AssessmentRepository;
@@ -25,8 +28,13 @@ export class GetAssessmentResultHandler extends QueryHandler<GetAssessmentResult
     this.repository = repository;
   }
 
-  async execute(query: GetAssessmentResultQuery, _context?: CqrsContext): Promise<GetAssessmentResultResult> {
-    const submission = await this.repository.findSubmissionById(query.submissionId);
+  async execute(
+    query: GetAssessmentResultQuery,
+    _context?: CqrsContext,
+  ): Promise<GetAssessmentResultResult> {
+    const submission = await this.repository.findSubmissionById(
+      query.submissionId,
+    );
     if (!submission) {
       throw new SubmissionNotFoundError(query.submissionId);
     }
@@ -39,7 +47,10 @@ export class GetAssessmentResultHandler extends QueryHandler<GetAssessmentResult
       score: submission["score"] != null ? Number(submission["score"]) : null,
       status: String(submission["status"]),
       submittedAt: new Date(String(submission["submitted_at"])),
-      gradedAt: submission["graded_at"] != null ? new Date(String(submission["graded_at"])) : null,
+      gradedAt:
+        submission["graded_at"] != null
+          ? new Date(String(submission["graded_at"]))
+          : null,
     };
   }
 }

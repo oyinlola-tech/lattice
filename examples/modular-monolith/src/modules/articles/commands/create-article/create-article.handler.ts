@@ -9,7 +9,10 @@ import { createArticleId } from "../../../../types/index.js";
 import { randomUUID } from "node:crypto";
 import { ArticleCreatedEvent } from "../../../../events/index.js";
 
-export class CreateArticleHandler extends CommandHandler<CreateArticleCommand, ArticleModel> {
+export class CreateArticleHandler extends CommandHandler<
+  CreateArticleCommand,
+  ArticleModel
+> {
   public readonly commandType = "articles.create" as const;
 
   private readonly articles: ArticleRepository;

@@ -12,25 +12,14 @@ import { splitHeaderValues } from "../list/httpHeaders.list.js";
  * @param value - The raw ETag value.
  * @returns The trimmed ETag, or `undefined` if empty or undefined.
  */
-export function normalizeETag(
-  value:
-    | string
-    | undefined,
-): string
-  | undefined {
-  if (
-    !value
-  ) {
+export function normalizeETag(value: string | undefined): string | undefined {
+  if (!value) {
     return undefined;
   }
 
-  const trimmed =
-    value.trim();
+  const trimmed = value.trim();
 
-  if (
-    trimmed ===
-      ""
-  ) {
+  if (trimmed === "") {
     return undefined;
   }
 
@@ -43,21 +32,8 @@ export function normalizeETag(
  * @param value - The ETag value.
  * @returns `true` if the ETag is weak.
  */
-export function isWeakETag(
-  value:
-    | string
-    | undefined,
-): boolean {
-  return (
-    normalizeETag(
-      value,
-    )
-      ?.toLowerCase()
-      .startsWith(
-        "w/",
-      ) ??
-    false
-  );
+export function isWeakETag(value: string | undefined): boolean {
+  return normalizeETag(value)?.toLowerCase().startsWith("w/") ?? false;
 }
 
 /**
@@ -66,27 +42,12 @@ export function isWeakETag(
  * @param value - The ETag value.
  * @returns The strong ETag, or `undefined` if empty or undefined.
  */
-export function stripWeakETag(
-  value:
-    | string
-    | undefined,
-): string
-  | undefined {
-  const normalized =
-    normalizeETag(
-      value,
-    );
+export function stripWeakETag(value: string | undefined): string | undefined {
+  const normalized = normalizeETag(value);
 
-  if (
-    !normalized
-  ) {
+  if (!normalized) {
     return undefined;
   }
 
-  return normalized
-    .replace(
-      /^W\//i,
-      "",
-    )
-    .trim();
+  return normalized.replace(/^W\//i, "").trim();
 }

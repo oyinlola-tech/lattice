@@ -11,12 +11,21 @@ export interface NotificationServiceDeps {
   readonly queryBus: QueryBus;
 }
 
-export function registerNotificationService(deps: NotificationServiceDeps): void {
+export function registerNotificationService(
+  deps: NotificationServiceDeps,
+): void {
   const createHandler = new CreateNotificationCommandHandler(deps.repository);
-  const markReadHandler = new MarkNotificationReadCommandHandler(deps.repository);
-  const getNotificationsHandler = new GetNotificationsQueryHandler(deps.repository);
+  const markReadHandler = new MarkNotificationReadCommandHandler(
+    deps.repository,
+  );
+  const getNotificationsHandler = new GetNotificationsQueryHandler(
+    deps.repository,
+  );
 
   deps.commandBus.register(createHandler.commandType, createHandler);
   deps.commandBus.register(markReadHandler.commandType, markReadHandler);
-  deps.queryBus.register(getNotificationsHandler.queryType, getNotificationsHandler);
+  deps.queryBus.register(
+    getNotificationsHandler.queryType,
+    getNotificationsHandler,
+  );
 }

@@ -6,7 +6,11 @@ import { PublishResultCommand } from "../services/assessment/commands/publish-re
 import { GetAssessmentQuery } from "../services/assessment/queries/get-assessment/get-assessment.query.js";
 import { GetAssessmentResultQuery } from "../services/assessment/queries/get-assessment-result/get-assessment-result.query.js";
 import { ListAssessmentResultsQuery } from "../services/assessment/queries/list-assessment-results/list-assessment-results.query.js";
-import { validateCreateAssessment, validateSubmitAssessment, validatePublishResult } from "../validators/index.js";
+import {
+  validateCreateAssessment,
+  validateSubmitAssessment,
+  validatePublishResult,
+} from "../validators/index.js";
 
 export function createAssessmentRoutes(handlers: AssessmentServiceHandlers) {
   return async function handleRequest(request: Request): Promise<Response> {
@@ -16,7 +20,13 @@ export function createAssessmentRoutes(handlers: AssessmentServiceHandlers) {
 
     try {
       if (method === "POST" && path === "/assessments") {
-        const body = await request.json() as { courseId: string; title: string; type: string; totalPoints: number; durationMinutes?: number | null };
+        const body = (await request.json()) as {
+          courseId: string;
+          title: string;
+          type: string;
+          totalPoints: number;
+          durationMinutes?: number | null;
+        };
         const errors = validateCreateAssessment(body);
         if (errors.length > 0) {
           return jsonResponse({ errors }, 400);
@@ -26,7 +36,11 @@ export function createAssessmentRoutes(handlers: AssessmentServiceHandlers) {
         return jsonResponse(result, 201);
       }
 
-      if (method === "GET" && path.startsWith("/assessments/") && !path.includes("/submissions")) {
+      if (
+        method === "GET" &&
+        path.startsWith("/assessments/") &&
+        !path.includes("/submissions")
+      ) {
         const id = path.split("/assessments/")[1];
         if (!id) return errorResponse("Invalid assessment id", 400);
         const query = new GetAssessmentQuery(id);
@@ -35,7 +49,11 @@ export function createAssessmentRoutes(handlers: AssessmentServiceHandlers) {
       }
 
       if (method === "POST" && path === "/submissions") {
-        const body = await request.json() as { assessmentId: string; studentId: string; answers: string };
+        const body = (await request.json()) as {
+          assessmentId: string;
+          studentId: string;
+          answers: string;
+        };
         const errors = validateSubmitAssessment(body);
         if (errors.length > 0) {
           return jsonResponse({ errors }, 400);
@@ -45,7 +63,11 @@ export function createAssessmentRoutes(handlers: AssessmentServiceHandlers) {
         return jsonResponse(result, 201);
       }
 
-      if (method === "GET" && path.startsWith("/submissions/") && path.endsWith("/result")) {
+      if (
+        method === "GET" &&
+        path.startsWith("/submissions/") &&
+        path.endsWith("/result")
+      ) {
         const id = path.split("/submissions/")[1]?.split("/result")[0];
         if (!id) return errorResponse("Invalid submission id", 400);
         const query = new GetAssessmentResultQuery(id);
@@ -53,7 +75,11 @@ export function createAssessmentRoutes(handlers: AssessmentServiceHandlers) {
         return jsonResponse(result);
       }
 
-      if (method === "GET" && path.startsWith("/assessments/") && path.endsWith("/results")) {
+      if (
+        method === "GET" &&
+        path.startsWith("/assessments/") &&
+        path.endsWith("/results")
+      ) {
         const id = path.split("/assessments/")[1]?.split("/results")[0];
         if (!id) return errorResponse("Invalid assessment id", 400);
         const query = new ListAssessmentResultsQuery(id);
@@ -62,7 +88,10 @@ export function createAssessmentRoutes(handlers: AssessmentServiceHandlers) {
       }
 
       if (method === "POST" && path === "/results/publish") {
-        const body = await request.json() as { submissionId: string; score: number };
+        const body = (await request.json()) as {
+          submissionId: string;
+          score: number;
+        };
         const errors = validatePublishResult(body);
         if (errors.length > 0) {
           return jsonResponse({ errors }, 400);
@@ -74,7 +103,8 @@ export function createAssessmentRoutes(handlers: AssessmentServiceHandlers) {
 
       return errorResponse("Not Found", 404);
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Internal Server Error";
+      const message =
+        error instanceof Error ? error.message : "Internal Server Error";
       const status = (error as any)?.statusCode ?? 500;
       return errorResponse(message, status);
     }

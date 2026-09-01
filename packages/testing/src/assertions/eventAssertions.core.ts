@@ -4,17 +4,11 @@
  * Assert events, event types, and event payloads.
  */
 
-import type {
-  Event,
-} from "@oyinlola141/lattice-events";
+import type { Event } from "@oyinlola141/lattice-events";
 
-import type {
-  RecordedEvent,
-} from "../testEventBus/testEventBus.core.js";
+import type { RecordedEvent } from "../testEventBus/testEventBus.core.js";
 
-import type {
-  RecordedMessage,
-} from "../testMessageBus/testMessageBus.core.js";
+import type { RecordedMessage } from "../testMessageBus/testMessageBus.core.js";
 
 /**
  * Asserts that an event has a specific type.
@@ -27,9 +21,7 @@ export function assertEventType<TPayload>(
   type: string,
 ): void {
   if (event.type !== type) {
-    throw new Error(
-      `Expected event type "${type}", got "${event.type}".`,
-    );
+    throw new Error(`Expected event type "${type}", got "${event.type}".`);
   }
 }
 
@@ -47,9 +39,7 @@ export function assertEventPayload<TPayload>(
   const expectedJson = JSON.stringify(expected);
 
   if (actual !== expectedJson) {
-    throw new Error(
-      `Expected event payload ${expectedJson}, got ${actual}.`,
-    );
+    throw new Error(`Expected event payload ${expectedJson}, got ${actual}.`);
   }
 }
 

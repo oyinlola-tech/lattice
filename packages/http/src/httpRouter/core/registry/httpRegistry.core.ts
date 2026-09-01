@@ -71,7 +71,10 @@ export class RouteRegistry {
     return existed;
   }
 
-  lookup(path: string, options: RouteLookupOptions = {}): RouteRegistryEntry | undefined {
+  lookup(
+    path: string,
+    options: RouteLookupOptions = {},
+  ): RouteRegistryEntry | undefined {
     const normalizedPath = normalizePath(path, this.options);
     const method = options.method ? normalizeMethod(options.method) : undefined;
 
@@ -84,7 +87,10 @@ export class RouteRegistry {
     return undefined;
   }
 
-  findAll(path: string, options: RouteLookupOptions = {}): readonly RouteRegistryEntry[] {
+  findAll(
+    path: string,
+    options: RouteLookupOptions = {},
+  ): readonly RouteRegistryEntry[] {
     const normalizedPath = normalizePath(path, this.options);
     const method = options.method ? normalizeMethod(options.method) : undefined;
 

@@ -1,18 +1,10 @@
-import type {
-  Logger,
-} from "@oyinlola141/lattice-logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
-import type {
-  EventBus,
-} from "@oyinlola141/lattice-events";
+import type { EventBus } from "@oyinlola141/lattice-events";
 
-import type {
-  Container,
-} from "@oyinlola141/lattice-container";
+import type { Container } from "@oyinlola141/lattice-container";
 
-import type {
-  Module,
-} from "@oyinlola141/lattice-core";
+import type { Module } from "@oyinlola141/lattice-core";
 
 import type {
   RuntimeState,
@@ -32,42 +24,23 @@ import type {
   ResolvedRuntimeOptions,
 } from "../runtimeOptions/index.js";
 
-import {
-  createRuntimeOptions,
-} from "../runtimeOptions/index.js";
+import { createRuntimeOptions } from "../runtimeOptions/index.js";
 
-import type {
-  RuntimeContext,
-} from "../runtimeContext/index.js";
+import type { RuntimeContext } from "../runtimeContext/index.js";
 
-import {
-  createRuntimeContext,
-} from "../runtimeContext/index.js";
+import { createRuntimeContext } from "../runtimeContext/index.js";
 
-import {
-  createRuntimeId,
-} from "../runtimeContext/index.js";
+import { createRuntimeId } from "../runtimeContext/index.js";
 
-import {
-  LifecycleManager,
-} from "../lifecycle/index.js";
+import { LifecycleManager } from "../lifecycle/index.js";
 
-import {
-  executeStartup,
-  rollbackStartup,
-} from "../startup/index.js";
+import { executeStartup, rollbackStartup } from "../startup/index.js";
 
-import {
-  executeShutdown,
-} from "../shutdown/index.js";
+import { executeShutdown } from "../shutdown/index.js";
 
-import {
-  SignalHandler,
-} from "../signalHandler/index.js";
+import { SignalHandler } from "../signalHandler/index.js";
 
-import {
-  ReadinessTracker,
-} from "../readiness/index.js";
+import { ReadinessTracker } from "../readiness/index.js";
 
 import {
   createRuntimeEventPayload,
@@ -76,9 +49,7 @@ import {
   createReadinessEventPayload,
 } from "../runtimeEvents/index.js";
 
-import {
-  createEvent,
-} from "@oyinlola141/lattice-events";
+import { createEvent } from "@oyinlola141/lattice-events";
 
 import {
   RuntimeStartError,
@@ -294,17 +265,22 @@ export class DefaultRuntime implements Runtime {
 
       if (this.options.emitEvents) {
         this.emitEvent("runtime.running");
-        this.emitEvent("runtime.readiness.changed", createReadinessEventPayload(
-          this.options.runtimeId,
-          "running",
-          true,
-          "Runtime started successfully.",
-        ));
+        this.emitEvent(
+          "runtime.readiness.changed",
+          createReadinessEventPayload(
+            this.options.runtimeId,
+            "running",
+            true,
+            "Runtime started successfully.",
+          ),
+        );
       }
 
       this.signalHandler.register(() => {
-        this.stop().catch(error => {
-          this.logger.error("Shutdown failed.", { errorMessage: error.message });
+        this.stop().catch((error) => {
+          this.logger.error("Shutdown failed.", {
+            errorMessage: error.message,
+          });
         });
       });
 
@@ -318,21 +294,31 @@ export class DefaultRuntime implements Runtime {
       this._error = runtimeError;
       this._failedAt = new Date();
 
-      this.logger.error("Runtime failed to start.", { errorMessage: runtimeError.message });
+      this.logger.error("Runtime failed to start.", {
+        errorMessage: runtimeError.message,
+      });
 
       if (this.options.emitEvents) {
-        this.emitEvent("runtime.failed", createFailureEventPayload(
-          this.options.runtimeId,
-          "failed",
-          runtimeError,
-          "startup",
-        ));
+        this.emitEvent(
+          "runtime.failed",
+          createFailureEventPayload(
+            this.options.runtimeId,
+            "failed",
+            runtimeError,
+            "startup",
+          ),
+        );
       }
 
       try {
         await rollbackStartup(this.lifecycle, this.logger);
       } catch (rollbackError) {
-        this.logger.error("Rollback failed.", { errorMessage: rollbackError instanceof Error ? rollbackError.message : String(rollbackError) });
+        this.logger.error("Rollback failed.", {
+          errorMessage:
+            rollbackError instanceof Error
+              ? rollbackError.message
+              : String(rollbackError),
+        });
       }
 
       this.transitionTo("failed");
@@ -381,15 +367,20 @@ export class DefaultRuntime implements Runtime {
       this._error = runtimeError;
       this._failedAt = new Date();
 
-      this.logger.error("Runtime failed to stop.", { errorMessage: runtimeError.message });
+      this.logger.error("Runtime failed to stop.", {
+        errorMessage: runtimeError.message,
+      });
 
       if (this.options.emitEvents) {
-        this.emitEvent("runtime.failed", createFailureEventPayload(
-          this.options.runtimeId,
-          "failed",
-          runtimeError,
-          "stop",
-        ));
+        this.emitEvent(
+          "runtime.failed",
+          createFailureEventPayload(
+            this.options.runtimeId,
+            "failed",
+            runtimeError,
+            "stop",
+          ),
+        );
       }
 
       this.transitionTo("failed");
@@ -419,15 +410,11 @@ export class DefaultRuntime implements Runtime {
   /**
    * Emits a runtime event.
    */
-  private emitEvent(
-    eventType: string,
-    payload?: unknown,
-  ): void {
+  private emitEvent(eventType: string, payload?: unknown): void {
     if (this.options.emitEvents && this._context.eventBus) {
-      const eventPayload = payload ?? createRuntimeEventPayload(
-        this.options.runtimeId,
-        this._state,
-      );
+      const eventPayload =
+        payload ??
+        createRuntimeEventPayload(this.options.runtimeId, this._state);
       const event = createEvent({
         type: eventType,
         payload: eventPayload,

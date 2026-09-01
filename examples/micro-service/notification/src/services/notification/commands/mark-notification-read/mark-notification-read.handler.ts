@@ -1,13 +1,19 @@
 import { CommandHandler } from "@oyinlola141/lattice-cqrs";
 import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
-import { MarkNotificationReadCommand, MARK_NOTIFICATION_READ_COMMAND } from "./mark-notification-read.command.js";
+import {
+  MarkNotificationReadCommand,
+  MARK_NOTIFICATION_READ_COMMAND,
+} from "./mark-notification-read.command.js";
 import type { INotificationRepository } from "../../../../interfaces/index.js";
 import type { NotificationModel } from "../../../../models/index.js";
 import { NotificationStatus } from "../../../../enums/index.js";
 import { NotificationNotFoundError } from "../../../../errors/index.js";
 import { createNotificationId } from "../../../../types/index.js";
 
-export class MarkNotificationReadCommandHandler extends CommandHandler<MarkNotificationReadCommand, NotificationModel> {
+export class MarkNotificationReadCommandHandler extends CommandHandler<
+  MarkNotificationReadCommand,
+  NotificationModel
+> {
   public readonly commandType = MARK_NOTIFICATION_READ_COMMAND;
 
   private readonly repository: INotificationRepository;
@@ -17,7 +23,10 @@ export class MarkNotificationReadCommandHandler extends CommandHandler<MarkNotif
     this.repository = repository;
   }
 
-  public async execute(command: MarkNotificationReadCommand, _context?: CqrsContext): Promise<NotificationModel> {
+  public async execute(
+    command: MarkNotificationReadCommand,
+    _context?: CqrsContext,
+  ): Promise<NotificationModel> {
     const notificationId = createNotificationId(command.notificationId);
     const existing = await this.repository.findById(notificationId);
 

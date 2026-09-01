@@ -1,6 +1,4 @@
-import type {
-  ConfigValue,
-} from "../../configValue/configValue.core.js";
+import type { ConfigValue } from "../../configValue/configValue.core.js";
 
 import {
   parseConfigBigInt,
@@ -9,9 +7,7 @@ import {
   parseConfigNumber,
 } from "../../configValue/configValue.core.js";
 
-import {
-  ConfigResolutionError,
-} from "../core/configResolver.error.js";
+import { ConfigResolutionError } from "../core/configResolver.error.js";
 
 /**
  * Typed accessor methods for configuration resolution.

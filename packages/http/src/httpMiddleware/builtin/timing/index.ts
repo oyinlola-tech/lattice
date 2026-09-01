@@ -4,6 +4,4 @@
  * @module httpMiddleware/builtin/timing
  */
 
-export {
-  createTimingMiddleware,
-} from "./httpMiddleware.timing.js";
+export { createTimingMiddleware } from "./httpMiddleware.timing.js";

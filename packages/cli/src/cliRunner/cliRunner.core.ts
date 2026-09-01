@@ -4,7 +4,11 @@
  * Executes CLI commands with lifecycle hooks and error handling.
  */
 
-import type { CLICommand, CLIContext, CLIHooks } from "../cliType/cliType.type.js";
+import type {
+  CLICommand,
+  CLIContext,
+  CLIHooks,
+} from "../cliType/cliType.type.js";
 import { CLI_EXIT_CODES } from "../cliConstant/cliConstant.value.js";
 import { normalizeCLIError } from "../cliError/cliError.base.js";
 import { executeCommand } from "../cliCommand/cliCommand.factory.js";
@@ -16,7 +20,10 @@ import { executeCommand } from "../cliCommand/cliCommand.factory.js";
 /** Configuration for the CLI runner. */
 export interface CLIRunnerOptions {
   readonly hooks?: CLIHooks;
-  readonly onError?: (error: unknown, context: CLIContext) => void | Promise<void>;
+  readonly onError?: (
+    error: unknown,
+    context: CLIContext,
+  ) => void | Promise<void>;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -72,7 +79,10 @@ export class CLIRunner {
   }
 
   /** Runs a command, catching any unhandled errors. */
-  public async safeRun(command: CLICommand, context: CLIContext): Promise<number> {
+  public async safeRun(
+    command: CLICommand,
+    context: CLIContext,
+  ): Promise<number> {
     try {
       return await this.run(command, context);
     } catch {

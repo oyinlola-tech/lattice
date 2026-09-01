@@ -1,6 +1,4 @@
-import type {
-  Query as QueryContract,
-} from "../cqrsTypes/cqrsTypes.type.js";
+import type { Query as QueryContract } from "../cqrsTypes/cqrsTypes.type.js";
 
 /**
  * Base abstract query.
@@ -13,9 +11,7 @@ export abstract class Query<
 > implements QueryContract<TType> {
   public readonly type: TType;
 
-  protected constructor(
-    type: TType,
-  ) {
+  protected constructor(type: TType) {
     this.type = type;
   }
 }
@@ -24,9 +20,7 @@ export abstract class Query<
  * Options used when constructing a concrete query.
  */
 export interface QueryOptions {
-  readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -35,18 +29,12 @@ export interface QueryOptions {
 export abstract class MetadataQuery<
   TType extends string = string,
 > extends Query<TType> {
-  public readonly metadata?: Readonly<
-    Record<string, unknown>
-  >;
+  public readonly metadata?: Readonly<Record<string, unknown>>;
 
-  protected constructor(
-    type: TType,
-    options: QueryOptions = {},
-  ) {
+  protected constructor(type: TType, options: QueryOptions = {}) {
     super(type);
 
-    this.metadata =
-      options.metadata;
+    this.metadata = options.metadata;
   }
 }
 
@@ -55,10 +43,7 @@ export abstract class MetadataQuery<
  */
 export function createQuery<
   TType extends string,
-  TPayload extends Record<
-    string,
-    unknown
-  > = Record<string, never>,
+  TPayload extends Record<string, unknown> = Record<string, never>,
 >(
   type: TType,
   payload?: TPayload,
@@ -80,9 +65,7 @@ export function createQuery<
 /**
  * Returns the query type discriminator.
  */
-export function getQueryType(
-  query: QueryContract,
-): string {
+export function getQueryType(query: QueryContract): string {
   return query.type;
 }
 
@@ -93,9 +76,7 @@ export function getQueryType(
  * Therefore, this helper should be used when the value is already
  * known to belong to the query pipeline.
  */
-export function isQuery(
-  value: unknown,
-): value is QueryContract {
+export function isQuery(value: unknown): value is QueryContract {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -119,10 +100,6 @@ export function isQuery(
  * This is useful when defining related queries while keeping their
  * discriminator values consistent.
  */
-export function queryType<
-  TType extends string,
->(
-  type: TType,
-): () => TType {
+export function queryType<TType extends string>(type: TType): () => TType {
   return () => type;
 }

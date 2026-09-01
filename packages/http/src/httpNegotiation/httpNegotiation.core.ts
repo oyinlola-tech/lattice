@@ -50,36 +50,16 @@ export const MAX_NEGOTIATION_QUALITY = 1;
 /* -------------------------------------------------------------------------- */
 
 export function parseNegotiationHeader(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
 ): NegotiationPreference[] {
-  if (
-    header ===
-      undefined ||
-    header ===
-      null ||
-    header.trim().length ===
-      0
-  ) {
+  if (header === undefined || header === null || header.trim().length === 0) {
     return [];
   }
 
   return header
     .split(",")
-    .map(
-      (part, index) =>
-        parsePreference(
-          part,
-          index,
-        ),
-    )
-    .filter(
-      (
-        preference,
-      ) => preference.value.length > 0,
-    )
+    .map((part, index) => parsePreference(part, index))
+    .filter((preference) => preference.value.length > 0)
     .sort(comparePreferences);
 }
 
@@ -87,29 +67,19 @@ export function parsePreference(
   value: string,
   order = 0,
 ): NegotiationPreference {
-  const parts =
-    splitParameters(value);
+  const parts = splitParameters(value);
 
-  const token =
-    parts.shift()?.trim() ?? "";
+  const token = parts.shift()?.trim() ?? "";
 
-  const parameters: Record<
-    string,
-    string
-  > = {};
+  const parameters: Record<string, string> = {};
 
-  let quality =
-    DEFAULT_NEGOTIATION_QUALITY;
+  let quality = DEFAULT_NEGOTIATION_QUALITY;
 
   for (const parameter of parts) {
-    const separator =
-      parameter.indexOf("=");
+    const separator = parameter.indexOf("=");
 
     if (separator === -1) {
-      const key =
-        parameter
-          .trim()
-          .toLowerCase();
+      const key = parameter.trim().toLowerCase();
 
       if (key.length > 0) {
         parameters[key] = "";
@@ -118,36 +88,19 @@ export function parsePreference(
       continue;
     }
 
-    const key =
-      parameter
-        .slice(
-          0,
-          separator,
-        )
-        .trim()
-        .toLowerCase();
+    const key = parameter.slice(0, separator).trim().toLowerCase();
 
-    const rawValue =
-      parameter
-        .slice(
-          separator + 1,
-        )
-        .trim();
+    const rawValue = parameter.slice(separator + 1).trim();
 
-    const parsedValue =
-      unquote(rawValue);
+    const parsedValue = unquote(rawValue);
 
     if (key === "q") {
-      quality =
-        parseQuality(
-          parsedValue,
-        );
+      quality = parseQuality(parsedValue);
       continue;
     }
 
     if (key.length > 0) {
-      parameters[key] =
-        parsedValue;
+      parameters[key] = parsedValue;
     }
   }
 
@@ -155,10 +108,7 @@ export function parsePreference(
     value: unquote(token),
     quality,
     parameters,
-    specificity: calculateSpecificity(
-      token,
-      parameters,
-    ),
+    specificity: calculateSpecificity(token, parameters),
     order,
   };
 }
@@ -167,71 +117,42 @@ export function parsePreference(
 /* Quality                                                                    */
 /* -------------------------------------------------------------------------- */
 
-export function parseQuality(
-  value: string,
-): number {
-  const normalized =
-    value.trim();
+export function parseQuality(value: string): number {
+  const normalized = value.trim();
 
-  if (
-    normalized === ""
-  ) {
+  if (normalized === "") {
     return 0;
   }
 
-  const quality =
-    Number(normalized);
+  const quality = Number(normalized);
 
-  if (
-    !Number.isFinite(quality)
-  ) {
+  if (!Number.isFinite(quality)) {
     return 0;
   }
 
-  return clamp(
+  return clamp(quality, MIN_NEGOTIATION_QUALITY, MAX_NEGOTIATION_QUALITY);
+}
+
+export function formatQuality(quality: number): string {
+  const normalized = clamp(
     quality,
     MIN_NEGOTIATION_QUALITY,
     MAX_NEGOTIATION_QUALITY,
   );
-}
 
-export function formatQuality(
-  quality: number,
-): string {
-  const normalized =
-    clamp(
-      quality,
-      MIN_NEGOTIATION_QUALITY,
-      MAX_NEGOTIATION_QUALITY,
-    );
-
-  if (
-    normalized === 1
-  ) {
+  if (normalized === 1) {
     return "1";
   }
 
-  if (
-    normalized === 0
-  ) {
+  if (normalized === 0) {
     return "0";
   }
 
-  return normalized
-    .toFixed(3)
-    .replace(
-      /0+$/,
-      "",
-    );
+  return normalized.toFixed(3).replace(/0+$/, "");
 }
 
-export function isAcceptableQuality(
-  quality: number,
-): boolean {
-  return (
-    Number.isFinite(quality) &&
-    quality > 0
-  );
+export function isAcceptableQuality(quality: number): boolean {
+  return Number.isFinite(quality) && quality > 0;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -242,38 +163,21 @@ export function comparePreferences(
   left: NegotiationPreference,
   right: NegotiationPreference,
 ): number {
-  if (
-    left.quality !==
-    right.quality
-  ) {
-    return (
-      right.quality -
-      left.quality
-    );
+  if (left.quality !== right.quality) {
+    return right.quality - left.quality;
   }
 
-  if (
-    left.specificity !==
-    right.specificity
-  ) {
-    return (
-      right.specificity -
-      left.specificity
-    );
+  if (left.specificity !== right.specificity) {
+    return right.specificity - left.specificity;
   }
 
-  return (
-    left.order -
-    right.order
-  );
+  return left.order - right.order;
 }
 
 export function sortPreferences(
   preferences: readonly NegotiationPreference[],
 ): NegotiationPreference[] {
-  return [
-    ...preferences,
-  ].sort(comparePreferences);
+  return [...preferences].sort(comparePreferences);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -281,83 +185,45 @@ export function sortPreferences(
 /* -------------------------------------------------------------------------- */
 
 export function parseAccept(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
 ): NegotiationPreference[] {
-  return parseNegotiationHeader(
-    header,
-  );
+  return parseNegotiationHeader(header);
 }
 
-export function matchesAccept(
-  accepted: string,
-  available: string,
-): boolean {
-  const left =
-    normalizeMediaType(
-      accepted,
-    );
+export function matchesAccept(accepted: string, available: string): boolean {
+  const left = normalizeMediaType(accepted);
 
-  const right =
-    normalizeMediaType(
-      available,
-    );
+  const right = normalizeMediaType(available);
 
-  if (
-    left ===
-    right
-  ) {
+  if (left === right) {
     return true;
   }
 
-  const leftParts =
-    splitMediaType(left);
+  const leftParts = splitMediaType(left);
 
-  const rightParts =
-    splitMediaType(right);
+  const rightParts = splitMediaType(right);
 
-  if (
-    !leftParts ||
-    !rightParts
-  ) {
+  if (!leftParts || !rightParts) {
     return false;
   }
 
-  const [
-    leftType,
-    leftSubtype,
-  ] = leftParts;
+  const [leftType, leftSubtype] = leftParts;
 
-  const [
-    rightType,
-    rightSubtype,
-  ] = rightParts;
+  const [rightType, rightSubtype] = rightParts;
 
-  if (
-    leftType === "*" &&
-    leftSubtype === "*"
-  ) {
+  if (leftType === "*" && leftSubtype === "*") {
     return true;
   }
 
-  if (
-    leftType !== "*" &&
-    leftType !== rightType
-  ) {
+  if (leftType !== "*" && leftType !== rightType) {
     return false;
   }
 
-  if (
-    leftSubtype === "*"
-  ) {
+  if (leftSubtype === "*") {
     return true;
   }
 
-  if (
-    leftSubtype === rightSubtype
-  ) {
+  if (leftSubtype === rightSubtype) {
     return true;
   }
 
@@ -366,31 +232,18 @@ export function matchesAccept(
    *
    * application/*+json
    */
-  if (
-    leftSubtype.startsWith(
-      "*+",
-    )
-  ) {
-    return rightSubtype.endsWith(
-      leftSubtype.slice(1),
-    );
+  if (leftSubtype.startsWith("*+")) {
+    return rightSubtype.endsWith(leftSubtype.slice(1));
   }
 
   return false;
 }
 
 export function negotiateAccept(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
   available: readonly string[],
 ): string | undefined {
-  return negotiate(
-    parseAccept(header),
-    available,
-    matchesAccept,
-  );
+  return negotiate(parseAccept(header), available, matchesAccept);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -398,84 +251,43 @@ export function negotiateAccept(
 /* -------------------------------------------------------------------------- */
 
 export function parseAcceptEncoding(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
 ): NegotiationPreference[] {
-  return parseNegotiationHeader(
-    header,
-  );
+  return parseNegotiationHeader(header);
 }
 
-export function matchesEncoding(
-  accepted: string,
-  available: string,
-): boolean {
-  const left =
-    normalizeToken(
-      accepted,
-    );
+export function matchesEncoding(accepted: string, available: string): boolean {
+  const left = normalizeToken(accepted);
 
-  const right =
-    normalizeToken(
-      available,
-    );
+  const right = normalizeToken(available);
 
-  return (
-    left === "*" ||
-    left === right
-  );
+  return left === "*" || left === right;
 }
 
 export function negotiateEncoding(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
   available: readonly string[],
 ): string | undefined {
-  const preferences =
-    parseAcceptEncoding(
-      header,
-    );
+  const preferences = parseAcceptEncoding(header);
 
-  if (
-    preferences.length === 0
-  ) {
+  if (preferences.length === 0) {
     return available[0];
   }
 
-  return negotiate(
-    preferences,
-    available,
-    matchesEncoding,
-  );
+  return negotiate(preferences, available, matchesEncoding);
 }
 
 export function getEncodingQuality(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
   encoding: string,
 ): number {
-  const preferences =
-    parseAcceptEncoding(
-      header,
-    );
+  const preferences = parseAcceptEncoding(header);
 
-  if (
-    preferences.length === 0
-  ) {
+  if (preferences.length === 0) {
     return 1;
   }
 
-  return getPreferenceQuality(
-    preferences,
-    encoding,
-    matchesEncoding,
-  );
+  return getPreferenceQuality(preferences, encoding, matchesEncoding);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -483,34 +295,17 @@ export function getEncodingQuality(
 /* -------------------------------------------------------------------------- */
 
 export function parseAcceptLanguage(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
 ): NegotiationPreference[] {
-  return parseNegotiationHeader(
-    header,
-  );
+  return parseNegotiationHeader(header);
 }
 
-export function matchesLanguage(
-  accepted: string,
-  available: string,
-): boolean {
-  const left =
-    normalizeLanguageTag(
-      accepted,
-    );
+export function matchesLanguage(accepted: string, available: string): boolean {
+  const left = normalizeLanguageTag(accepted);
 
-  const right =
-    normalizeLanguageTag(
-      available,
-    );
+  const right = normalizeLanguageTag(available);
 
-  if (
-    left === "*" ||
-    left === right
-  ) {
+  if (left === "*" || left === right) {
     return true;
   }
 
@@ -521,51 +316,27 @@ export function matchesLanguage(
    * en-US matches en-US
    * en-US does not match en-GB
    */
-  return right.startsWith(
-    `${left}-`,
-  );
+  return right.startsWith(`${left}-`);
 }
 
 export function negotiateLanguage(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
   available: readonly string[],
 ): string | undefined {
-  return negotiate(
-    parseAcceptLanguage(
-      header,
-    ),
-    available,
-    matchesLanguage,
-  );
+  return negotiate(parseAcceptLanguage(header), available, matchesLanguage);
 }
 
 export function getLanguageQuality(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
   language: string,
 ): number {
-  const preferences =
-    parseAcceptLanguage(
-      header,
-    );
+  const preferences = parseAcceptLanguage(header);
 
-  if (
-    preferences.length ===
-    0
-  ) {
+  if (preferences.length === 0) {
     return 1;
   }
 
-  return getPreferenceQuality(
-    preferences,
-    language,
-    matchesLanguage,
-  );
+  return getPreferenceQuality(preferences, language, matchesLanguage);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -573,50 +344,24 @@ export function getLanguageQuality(
 /* -------------------------------------------------------------------------- */
 
 export function parseAcceptCharset(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
 ): NegotiationPreference[] {
-  return parseNegotiationHeader(
-    header,
-  );
+  return parseNegotiationHeader(header);
 }
 
-export function matchesCharset(
-  accepted: string,
-  available: string,
-): boolean {
-  const left =
-    normalizeToken(
-      accepted,
-    );
+export function matchesCharset(accepted: string, available: string): boolean {
+  const left = normalizeToken(accepted);
 
-  const right =
-    normalizeToken(
-      available,
-    );
+  const right = normalizeToken(available);
 
-  return (
-    left === "*" ||
-    left === right
-  );
+  return left === "*" || left === right;
 }
 
 export function negotiateCharset(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
   available: readonly string[],
 ): string | undefined {
-  return negotiate(
-    parseAcceptCharset(
-      header,
-    ),
-    available,
-    matchesCharset,
-  );
+  return negotiate(parseAcceptCharset(header), available, matchesCharset);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -626,43 +371,21 @@ export function negotiateCharset(
 export function negotiate<T>(
   preferences: readonly NegotiationPreference[],
   available: readonly T[],
-  matcher: (
-    accepted: string,
-    available: T,
-  ) => boolean,
+  matcher: (accepted: string, available: T) => boolean,
 ): T | undefined {
-  if (
-    available.length ===
-    0
-  ) {
+  if (available.length === 0) {
     return undefined;
   }
 
-  const sorted =
-    sortPreferences(
-      preferences,
-    );
+  const sorted = sortPreferences(preferences);
 
-  for (
-    const preference of sorted
-  ) {
-    if (
-      !isAcceptableQuality(
-        preference.quality,
-      )
-    ) {
+  for (const preference of sorted) {
+    if (!isAcceptableQuality(preference.quality)) {
       continue;
     }
 
-    for (
-      const candidate of available
-    ) {
-      if (
-        matcher(
-          preference.value,
-          candidate,
-        )
-      ) {
+    for (const candidate of available) {
+      if (matcher(preference.value, candidate)) {
         return candidate;
       }
     }
@@ -674,124 +397,64 @@ export function negotiate<T>(
 export function getPreferenceQuality<T>(
   preferences: readonly NegotiationPreference[],
   value: T,
-  matcher: (
-    accepted: string,
-    available: T,
-  ) => boolean,
+  matcher: (accepted: string, available: T) => boolean,
 ): number {
   let best: NegotiationPreference | undefined;
 
-  for (
-    const preference of preferences
-  ) {
-    if (
-      matcher(
-        preference.value,
-        value,
-      )
-    ) {
+  for (const preference of preferences) {
+    if (matcher(preference.value, value)) {
       if (
         !best ||
-        preference.quality >
-          best.quality ||
-        (
-          preference.quality ===
-            best.quality &&
-          preference.specificity >
-            best.specificity
-        )
+        preference.quality > best.quality ||
+        (preference.quality === best.quality &&
+          preference.specificity > best.specificity)
       ) {
         best = preference;
       }
     }
   }
 
-  return (
-    best?.quality ??
-    0
-  );
+  return best?.quality ?? 0;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Media Type Helpers                                                         */
 /* -------------------------------------------------------------------------- */
 
-export function normalizeMediaType(
-  value: string,
-): string {
-  return value
-    .trim()
-    .split(
-      ";",
-      1,
-    )[0]
-    .trim()
-    .toLowerCase();
+export function normalizeMediaType(value: string): string {
+  return value.trim().split(";", 1)[0].trim().toLowerCase();
 }
 
-export function splitMediaType(
-  value: string,
-): [string, string] | undefined {
-  const normalized =
-    normalizeMediaType(
-      value,
-    );
+export function splitMediaType(value: string): [string, string] | undefined {
+  const normalized = normalizeMediaType(value);
 
-  const separator =
-    normalized.indexOf("/");
+  const separator = normalized.indexOf("/");
 
-  if (
-    separator <= 0 ||
-    separator ===
-      normalized.length - 1
-  ) {
+  if (separator <= 0 || separator === normalized.length - 1) {
     return undefined;
   }
 
-  return [
-    normalized.slice(
-      0,
-      separator,
-    ),
-    normalized.slice(
-      separator + 1,
-    ),
-  ];
+  return [normalized.slice(0, separator), normalized.slice(separator + 1)];
 }
 
-export function mediaTypeSpecificity(
-  value: string,
-): number {
-  const parts =
-    splitMediaType(value);
+export function mediaTypeSpecificity(value: string): number {
+  const parts = splitMediaType(value);
 
   if (!parts) {
     return 0;
   }
 
-  const [
-    type,
-    subtype,
-  ] = parts;
+  const [type, subtype] = parts;
 
-  if (
-    type === "*" &&
-    subtype === "*"
-  ) {
+  if (type === "*" && subtype === "*") {
     return 0;
   }
 
-  if (
-    subtype === "*"
-  ) {
+  if (subtype === "*") {
     return 1;
   }
 
-  if (
-    subtype.startsWith(
-      "*+",
-    )
-  ) {
+  if (subtype.startsWith("*+")) {
     return 2;
   }
 
@@ -802,68 +465,34 @@ export function mediaTypeSpecificity(
 /* Language Helpers                                                           */
 /* -------------------------------------------------------------------------- */
 
-export function normalizeLanguageTag(
-  value: string,
-): string {
-  return value
-    .trim()
-    .replace(
-      /_/g,
-      "-",
-    )
-    .toLowerCase();
+export function normalizeLanguageTag(value: string): string {
+  return value.trim().replace(/_/g, "-").toLowerCase();
 }
 
-export function languageSpecificity(
-  value: string,
-): number {
-  const normalized =
-    normalizeLanguageTag(
-      value,
-    );
+export function languageSpecificity(value: string): number {
+  const normalized = normalizeLanguageTag(value);
 
-  if (
-    normalized === "*"
-  ) {
+  if (normalized === "*") {
     return 0;
   }
 
-  return normalized
-    .split("-")
-    .filter(Boolean)
-    .length;
+  return normalized.split("-").filter(Boolean).length;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Encoding Helpers                                                           */
 /* -------------------------------------------------------------------------- */
 
-export function normalizeEncoding(
-  value: string,
-): string {
-  return normalizeToken(
-    value,
-  );
+export function normalizeEncoding(value: string): string {
+  return normalizeToken(value);
 }
 
-export function isIdentityEncoding(
-  value: string,
-): boolean {
-  return (
-    normalizeEncoding(
-      value,
-    ) === "identity"
-  );
+export function isIdentityEncoding(value: string): boolean {
+  return normalizeEncoding(value) === "identity";
 }
 
-export function isWildcardEncoding(
-  value: string,
-): boolean {
-  return (
-    normalizeEncoding(
-      value,
-    ) === "*"
-  );
+export function isWildcardEncoding(value: string): boolean {
+  return normalizeEncoding(value) === "*";
 }
 
 /* -------------------------------------------------------------------------- */
@@ -874,32 +503,19 @@ export function createPreference(
   value: string,
   options: {
     readonly quality?: number;
-    readonly parameters?: Readonly<
-      Record<string, string>
-    >;
+    readonly parameters?: Readonly<Record<string, string>>;
     readonly order?: number;
     readonly specificity?: number;
   } = {},
 ): NegotiationPreference {
-  const parameters =
-    options.parameters ??
-    {};
+  const parameters = options.parameters ?? {};
 
   return {
-    value:
-      value.trim(),
-    quality:
-      options.quality ??
-      DEFAULT_NEGOTIATION_QUALITY,
+    value: value.trim(),
+    quality: options.quality ?? DEFAULT_NEGOTIATION_QUALITY,
     parameters,
-    specificity:
-      options.specificity ??
-      calculateSpecificity(
-        value,
-        parameters,
-      ),
-    order:
-      options.order ?? 0,
+    specificity: options.specificity ?? calculateSpecificity(value, parameters),
+    order: options.order ?? 0,
   };
 }
 
@@ -910,41 +526,19 @@ export function createPreference(
 export function formatNegotiationPreferences(
   preferences: readonly NegotiationPreference[],
 ): string {
-  return preferences
-    .map(
-      formatPreference,
-    )
-    .join(", ");
+  return preferences.map(formatPreference).join(", ");
 }
 
-export function formatPreference(
-  preference: NegotiationPreference,
-): string {
-  const parameters =
-    Object.entries(
-      preference.parameters,
-    ).map(
-      ([key, value]) =>
-        `${key}=${quoteIfNeeded(
-          value,
-        )}`,
-    );
+export function formatPreference(preference: NegotiationPreference): string {
+  const parameters = Object.entries(preference.parameters).map(
+    ([key, value]) => `${key}=${quoteIfNeeded(value)}`,
+  );
 
-  if (
-    preference.quality !==
-    DEFAULT_NEGOTIATION_QUALITY
-  ) {
-    parameters.push(
-      `q=${formatQuality(
-        preference.quality,
-      )}`,
-    );
+  if (preference.quality !== DEFAULT_NEGOTIATION_QUALITY) {
+    parameters.push(`q=${formatQuality(preference.quality)}`);
   }
 
-  return [
-    preference.value,
-    ...parameters,
-  ].join("; ");
+  return [preference.value, ...parameters].join("; ");
 }
 
 /* -------------------------------------------------------------------------- */
@@ -953,193 +547,82 @@ export function formatPreference(
 
 function calculateSpecificity(
   value: string,
-  parameters: Readonly<
-    Record<string, string>
-  >,
+  parameters: Readonly<Record<string, string>>,
 ): number {
-  const normalized =
-    value
-      .trim()
-      .toLowerCase();
+  const normalized = value.trim().toLowerCase();
 
-  if (
-    normalized.includes(
-      "/",
-    )
-  ) {
-    return (
-      mediaTypeSpecificity(
-        normalized,
-      ) +
-      Object.keys(
-        parameters,
-      ).length
-    );
+  if (normalized.includes("/")) {
+    return mediaTypeSpecificity(normalized) + Object.keys(parameters).length;
   }
 
-  if (
-    normalized.includes(
-      "-",
-    )
-  ) {
-    return (
-      languageSpecificity(
-        normalized,
-      ) +
-      Object.keys(
-        parameters,
-      ).length
-    );
+  if (normalized.includes("-")) {
+    return languageSpecificity(normalized) + Object.keys(parameters).length;
   }
 
-  return (
-    (normalized ===
-    "*"
-      ? 0
-      : 1) +
-    Object.keys(
-      parameters,
-    ).length
-  );
+  return (normalized === "*" ? 0 : 1) + Object.keys(parameters).length;
 }
 
-function splitParameters(
-  value: string,
-): string[] {
+function splitParameters(value: string): string[] {
   const result: string[] = [];
   let current = "";
   let quoted = false;
   let escaped = false;
 
-  for (
-    const character of value
-  ) {
-    if (
-      escaped
-    ) {
-      current +=
-        character;
+  for (const character of value) {
+    if (escaped) {
+      current += character;
       escaped = false;
       continue;
     }
 
-    if (
-      character ===
-      "\\"
-    ) {
-      current +=
-        character;
+    if (character === "\\") {
+      current += character;
       escaped = true;
       continue;
     }
 
-    if (
-      character ===
-      '"'
-    ) {
+    if (character === '"') {
       quoted = !quoted;
-      current +=
-        character;
+      current += character;
       continue;
     }
 
-    if (
-      character ===
-        ";" &&
-      !quoted
-    ) {
-      result.push(
-        current,
-      );
+    if (character === ";" && !quoted) {
+      result.push(current);
       current = "";
       continue;
     }
 
-    current +=
-      character;
+    current += character;
   }
 
-  result.push(
-    current,
-  );
+  result.push(current);
 
   return result;
 }
 
-function unquote(
-  value: string,
-): string {
-  const trimmed =
-    value.trim();
+function unquote(value: string): string {
+  const trimmed = value.trim();
 
-  if (
-    trimmed.length >=
-      2 &&
-    trimmed.startsWith(
-      '"',
-    ) &&
-    trimmed.endsWith(
-      '"',
-    )
-  ) {
-    return trimmed
-      .slice(
-        1,
-        -1,
-      )
-      .replace(
-        /\\"/g,
-        '"',
-      )
-      .replace(
-        /\\\\/g,
-        "\\",
-      );
+  if (trimmed.length >= 2 && trimmed.startsWith('"') && trimmed.endsWith('"')) {
+    return trimmed.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, "\\");
   }
 
   return trimmed;
 }
 
-function quoteIfNeeded(
-  value: string,
-): string {
-  if (
-    /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/.test(
-      value,
-    )
-  ) {
+function quoteIfNeeded(value: string): string {
+  if (/^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/.test(value)) {
     return value;
   }
 
-  return `"${value
-    .replace(
-      /\\/g,
-      "\\\\",
-    )
-    .replace(
-      /"/g,
-      '\\"',
-    )}"`;
+  return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
 }
 
-function normalizeToken(
-  value: string,
-): string {
-  return value
-    .trim()
-    .toLowerCase();
+function normalizeToken(value: string): string {
+  return value.trim().toLowerCase();
 }
 
-function clamp(
-  value: number,
-  minimum: number,
-  maximum: number,
-): number {
-  return Math.min(
-    maximum,
-    Math.max(
-      minimum,
-      value,
-    ),
-  );
+function clamp(value: number, minimum: number, maximum: number): number {
+  return Math.min(maximum, Math.max(minimum, value));
 }

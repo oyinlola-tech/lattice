@@ -137,10 +137,7 @@ export function sanitizeObject<T extends Record<string, unknown>>(
  * @param allowedPattern - Optional regex pattern for allowed characters.
  * @returns True if the string is safe.
  */
-export function isSafeString(
-  input: string,
-  allowedPattern?: RegExp,
-): boolean {
+export function isSafeString(input: string, allowedPattern?: RegExp): boolean {
   // Check for null bytes
   if (NULL_BYTE_PATTERN.test(input)) {
     return false;

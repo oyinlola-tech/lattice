@@ -30,10 +30,7 @@ export interface ContextProvider {
   /**
    * Executes a callback within the supplied context.
    */
-  run<T>(
-    context: ExecutionContext,
-    callback: () => T,
-  ): T;
+  run<T>(context: ExecutionContext, callback: () => T): T;
 }
 
 /**
@@ -42,14 +39,10 @@ export interface ContextProvider {
  * Uses ContextStorage internally while keeping that
  * implementation detail hidden behind the provider contract.
  */
-export class DefaultContextProvider
-  implements ContextProvider
-{
+export class DefaultContextProvider implements ContextProvider {
   private readonly storage: ContextStorage;
 
-  public constructor(
-    storage: ContextStorage = new ContextStorage(),
-  ) {
+  public constructor(storage: ContextStorage = new ContextStorage()) {
     this.storage = storage;
   }
 
@@ -77,14 +70,8 @@ export class DefaultContextProvider
   /**
    * Runs a callback within an execution context.
    */
-  public run<T>(
-    context: ExecutionContext,
-    callback: () => T,
-  ): T {
-    return this.storage.run(
-      context,
-      callback,
-    );
+  public run<T>(context: ExecutionContext, callback: () => T): T {
+    return this.storage.run(context, callback);
   }
 }
 

@@ -51,9 +51,7 @@ describe("InMemoryTagStore — remove", () => {
   });
 
   it("does nothing for non-existent key", async () => {
-    await expect(
-      tagStore.remove("missing", ["tag"]),
-    ).resolves.not.toThrow();
+    await expect(tagStore.remove("missing", ["tag"])).resolves.not.toThrow();
   });
 });
 

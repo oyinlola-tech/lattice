@@ -2,8 +2,6 @@
  * HTTP router pattern compilation.
  */
 
-export {
-  compileRoute,
-  parseParameter,
-  parseBraceParameter,
-} from "./httpRoute.pattern.core.js";
+export { compileRoutePattern } from "./core/httpPattern.compilation.js";
+
+export { parseSegments } from "./core/httpPattern.segmentParsing.js";

@@ -4,7 +4,11 @@
  * WebSocket adapter contracts — bridges Lattice to WebSocket providers.
  */
 
-import type { Adapter, AdapterCapabilities, AdapterOperationOptions } from "../index.js";
+import type {
+  Adapter,
+  AdapterCapabilities,
+  AdapterOperationOptions,
+} from "../index.js";
 
 /**
  * WebSocket adapter — manages WebSocket connections.
@@ -14,10 +18,17 @@ export interface WebSocketAdapter extends Adapter {
   accept(connection: unknown): Promise<WebSocketSession>;
 
   /** Closes a WebSocket session. */
-  close(session: WebSocketSession, code?: number, reason?: string): Promise<void>;
+  close(
+    session: WebSocketSession,
+    code?: number,
+    reason?: string,
+  ): Promise<void>;
 
   /** Sends a message to a WebSocket session. */
-  send(session: WebSocketSession, data: string | ArrayBuffer | Uint8Array): Promise<void>;
+  send(
+    session: WebSocketSession,
+    data: string | ArrayBuffer | Uint8Array,
+  ): Promise<void>;
 
   /** Broadcasts a message to all sessions. */
   broadcast(data: string | ArrayBuffer | Uint8Array): Promise<void>;

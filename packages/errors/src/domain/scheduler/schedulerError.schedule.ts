@@ -10,7 +10,10 @@ import { SchedulerError } from "./schedulerError.base.js";
 export class ScheduleNotFoundError extends SchedulerError {
   constructor(scheduleId: string) {
     super(`Schedule "${scheduleId}" is not found.`, {
-      code: ErrorCode.SCHEDULE_NOT_FOUND, scheduleId, statusCode: 404, expose: true,
+      code: ErrorCode.SCHEDULE_NOT_FOUND,
+      scheduleId,
+      statusCode: 404,
+      expose: true,
     });
     this.name = "ScheduleNotFoundError";
   }
@@ -20,7 +23,10 @@ export class ScheduleNotFoundError extends SchedulerError {
 export class ScheduleAlreadyExistsError extends SchedulerError {
   constructor(scheduleId: string) {
     super(`Schedule "${scheduleId}" already exists.`, {
-      code: ErrorCode.SCHEDULE_ALREADY_EXISTS, scheduleId, statusCode: 409, expose: true,
+      code: ErrorCode.SCHEDULE_ALREADY_EXISTS,
+      scheduleId,
+      statusCode: 409,
+      expose: true,
     });
     this.name = "ScheduleAlreadyExistsError";
   }
@@ -30,7 +36,10 @@ export class ScheduleAlreadyExistsError extends SchedulerError {
 export class InvalidScheduleError extends SchedulerError {
   constructor(message: string, scheduleId?: string) {
     super(message, {
-      code: ErrorCode.INVALID_SCHEDULE, scheduleId, statusCode: 400, expose: true,
+      code: ErrorCode.INVALID_SCHEDULE,
+      scheduleId,
+      statusCode: 400,
+      expose: true,
     });
     this.name = "InvalidScheduleError";
   }

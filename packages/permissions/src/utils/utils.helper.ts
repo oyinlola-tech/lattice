@@ -9,7 +9,11 @@ import type { PermissionActor } from "../permissionTypes/index.js";
 /**
  * Create a permission check cache key.
  */
-export function createCacheKey(actorId: string, permission: string, resourceId?: string): string {
+export function createCacheKey(
+  actorId: string,
+  permission: string,
+  resourceId?: string,
+): string {
   const base = `${actorId}:${permission}`;
   return resourceId ? `${base}:${resourceId}` : base;
 }

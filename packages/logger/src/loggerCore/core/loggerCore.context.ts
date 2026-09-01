@@ -2,40 +2,27 @@
  * ContextLogger wrapper implementation.
  */
 
-import type {
-  LoggerLevel,
-} from "../../loggerLevel/loggerLevel.type.js";
+import type { LoggerLevel } from "../../loggerLevel/loggerLevel.type.js";
 
-import type {
-  LogMetadata,
-} from "../../loggerEntry/loggerEntry.type.js";
+import type { LogMetadata } from "../../loggerEntry/loggerEntry.type.js";
 
-import type {
-  LoggerContext,
-} from "../../loggerContext/loggerContext.core.js";
+import type { LoggerContext } from "../../loggerContext/loggerContext.core.js";
 
-import {
-  createLoggerContext,
-} from "../../loggerContext/loggerContext.core.js";
+import { createLoggerContext } from "../../loggerContext/loggerContext.core.js";
 
-import {
-  createLoggerContextStorage,
-} from "../../loggerContext/loggerContextStorage.js";
+import { createLoggerContextStorage } from "../../loggerContext/loggerContextStorage.js";
 
 import type {
   ChildLoggerOptions,
   LogOptions,
 } from "../../loggerOptions/loggerOptions.type.js";
 
-import type {
-  Logger,
-} from "./loggerCore.type.js";
+import type { Logger } from "./loggerCore.type.js";
 
 /**
  * Logger wrapper that provides scoped context.
  */
-export class ContextLogger
-  implements Logger {
+export class ContextLogger implements Logger {
   constructor(
     private readonly logger: Logger,
     private readonly context: LoggerContext,

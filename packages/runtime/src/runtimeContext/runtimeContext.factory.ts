@@ -1,10 +1,6 @@
-import {
-  randomUUID,
-} from "node:crypto";
+import { randomUUID } from "node:crypto";
 
-import type {
-  RuntimeId,
-} from "../runtimeState/runtimeState.type.js";
+import type { RuntimeId } from "../runtimeState/runtimeState.type.js";
 
 /**
  * Generates a unique runtime identifier.

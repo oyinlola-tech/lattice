@@ -54,8 +54,21 @@ export async function bootstrapApplication(): Promise<Application> {
   console.log();
 
   return {
-    modules: { users: usersModule, products: productsModule, orders: ordersModule, payments: paymentsModule, notifications: notificationsModule, identity: identityModule },
-    start: async () => { console.log(`[App] Server listening on ${httpConfig.host}:${httpConfig.port}`); },
-    stop: async () => { console.log("[App] Shutting down gracefully..."); },
+    modules: {
+      users: usersModule,
+      products: productsModule,
+      orders: ordersModule,
+      payments: paymentsModule,
+      notifications: notificationsModule,
+      identity: identityModule,
+    },
+    start: async () => {
+      console.log(
+        `[App] Server listening on ${httpConfig.host}:${httpConfig.port}`,
+      );
+    },
+    stop: async () => {
+      console.log("[App] Shutting down gracefully...");
+    },
   };
 }

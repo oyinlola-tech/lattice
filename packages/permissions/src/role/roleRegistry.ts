@@ -32,7 +32,9 @@ export function createRoleRegistry(options?: RoleRegistryOptions) {
         throw new InvalidRoleError("Role name cannot be empty");
       }
       if (!definition.permissions || definition.permissions.length === 0) {
-        throw new InvalidRoleError(`Role "${definition.name}" must have at least one permission`);
+        throw new InvalidRoleError(
+          `Role "${definition.name}" must have at least one permission`,
+        );
       }
 
       if (roles.has(definition.name) && !allowOverride) {

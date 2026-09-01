@@ -11,7 +11,7 @@ npm install @latticejs/security
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/security";
+import {} from /* add usage here */ "@latticejs/security";
 ```
 
 ## License

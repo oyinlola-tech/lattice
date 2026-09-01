@@ -1,1 +1,4 @@
-export type { RPCTransport, RPCTransportRequestOptions } from "./rpcTransport.type.js";
+export type {
+  RPCTransport,
+  RPCTransportRequestOptions,
+} from "./rpcTransport.type.js";

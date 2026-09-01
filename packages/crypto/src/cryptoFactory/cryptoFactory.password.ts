@@ -1,6 +1,4 @@
-import type {
-  PasswordHashOptions,
-} from "../cryptoPassword/cryptoPassword.type.js";
+import type { PasswordHashOptions } from "../cryptoPassword/cryptoPassword.type.js";
 
 import {
   hashPassword,
@@ -13,18 +11,12 @@ export async function factoryCreatePasswordHash(
   password: string,
   options?: PasswordHashOptions,
 ) {
-  return hashPassword(
-    password,
-    options,
-  );
+  return hashPassword(password, options);
 }
 
 export async function factoryVerifyPassword(
   password: string,
   encodedHash: string,
 ): Promise<boolean> {
-  return verifyPassword(
-    password,
-    encodedHash,
-  );
+  return verifyPassword(password, encodedHash);
 }

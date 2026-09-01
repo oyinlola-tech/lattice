@@ -11,7 +11,7 @@ npm install @latticejs/lifecycle
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/lifecycle";
+import {} from /* add usage here */ "@latticejs/lifecycle";
 ```
 
 ## License

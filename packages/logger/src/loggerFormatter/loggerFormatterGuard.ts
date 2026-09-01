@@ -12,13 +12,10 @@ import type {
 /**
  * Creates a formatter identifier.
  */
-export function createLoggerFormatterId():
-  string {
+export function createLoggerFormatterId(): string {
   if (
-    typeof crypto !==
-      "undefined" &&
-    typeof crypto.randomUUID ===
-      "function"
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
   ) {
     return `formatter:${crypto.randomUUID()}`;
   }
@@ -26,9 +23,7 @@ export function createLoggerFormatterId():
   return [
     "formatter",
     Date.now().toString(36),
-    Math.random()
-      .toString(36)
-      .slice(2),
+    Math.random().toString(36).slice(2),
   ].join(":");
 }
 
@@ -36,48 +31,31 @@ export function createLoggerFormatterId():
  * Determines whether a formatter is function-based.
  */
 export function isLoggerFormatterFunction(
-  value:
-    unknown,
-):
-  value is LoggerFormatterFunction {
-  return (
-    typeof value ===
-    "function"
-  );
+  value: unknown,
+): value is LoggerFormatterFunction {
+  return typeof value === "function";
 }
 
 /**
  * Determines whether a formatter is object-based.
  */
 export function isLoggerFormatterObject(
-  value:
-    unknown,
-):
-  value is LoggerFormatter {
-  if (
-    typeof value !==
-      "object" ||
-    value === null
-  ) {
+  value: unknown,
+): value is LoggerFormatter {
+  if (typeof value !== "object" || value === null) {
     return false;
   }
 
-  const candidate =
-    value as {
-      name?:
-        unknown;
+  const candidate = value as {
+    name?: unknown;
 
-      format?:
-        unknown;
-    };
+    format?: unknown;
+  };
 
   return (
-    typeof candidate.name ===
-      "string" &&
-    candidate.name.length >
-      0 &&
-    typeof candidate.format ===
-      "function"
+    typeof candidate.name === "string" &&
+    candidate.name.length > 0 &&
+    typeof candidate.format === "function"
   );
 }
 
@@ -85,18 +63,11 @@ export function isLoggerFormatterObject(
  * Determines whether a value is a valid formatter.
  */
 export function isLoggerFormatter(
-  value:
-    unknown,
-):
-  value is LoggerFormatterLike {
+  value: unknown,
+): value is LoggerFormatterLike {
   return (
-    typeof value ===
-      "string" ||
-    isLoggerFormatterFunction(
-      value,
-    ) ||
-    isLoggerFormatterObject(
-      value,
-    )
+    typeof value === "string" ||
+    isLoggerFormatterFunction(value) ||
+    isLoggerFormatterObject(value)
   );
 }

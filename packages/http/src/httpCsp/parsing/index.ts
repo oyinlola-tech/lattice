@@ -7,4 +7,4 @@ export {
   getCSPDirective,
   hasCSPDirective,
   getEffectiveDirective,
-} from './httpCsp.parsing.js';
+} from "./httpCsp.parsing.js";

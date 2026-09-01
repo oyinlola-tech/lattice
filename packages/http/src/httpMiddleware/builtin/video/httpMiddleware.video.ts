@@ -12,13 +12,20 @@ import type {
   HttpMiddlewareResult,
 } from "../../httpMiddleware.type.js";
 
-import type {
-  HttpResponseContext as ResponseContext,
-} from "../../../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../../../httpResponse/httpResponse.context.js";
 
 export interface VideoCompressionOptions {
   readonly bitrate?: string;
-  readonly preset?: "ultrafast" | "superfast" | "veryfast" | "faster" | "fast" | "medium" | "slow" | "slower" | "veryslow";
+  readonly preset?:
+    | "ultrafast"
+    | "superfast"
+    | "veryfast"
+    | "faster"
+    | "fast"
+    | "medium"
+    | "slow"
+    | "slower"
+    | "veryslow";
   readonly crf?: number;
   readonly format?: "mp4" | "webm" | "mov";
   readonly scale?: { readonly width?: number; readonly height?: number };
@@ -99,8 +106,8 @@ export function createVideoCompressionMiddleware(
 
     const response = await next();
 
-    const contentType =
-      context.response.headers["content-type"] as string | undefined;
+    const contentType = context.response.headers["content-type"] as
+      string | undefined;
 
     if (!contentType || !contentType.startsWith("video/")) {
       return response;
@@ -111,16 +118,13 @@ export function createVideoCompressionMiddleware(
       return response;
     }
 
-    const compressionOptions =
-      options.contentTypeMap?.[contentType] ?? {};
+    const compressionOptions = options.contentTypeMap?.[contentType] ?? {};
 
     try {
       const compressed = await compressVideo(body, compressionOptions);
       const newContentType = "video/mp4";
 
-      const headers = new Headers(
-        response.headers as Record<string, string>,
-      );
+      const headers = new Headers(response.headers as Record<string, string>);
       headers.set("content-type", newContentType);
       headers.set(
         "cache-control",

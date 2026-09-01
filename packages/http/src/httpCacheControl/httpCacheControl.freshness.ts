@@ -4,9 +4,7 @@
  * @module httpCacheControl/freshness
  */
 
-import type {
-  CacheFreshness,
-} from "./core/httpCacheControl.type.js";
+import type { CacheFreshness } from "./core/httpCacheControl.type.js";
 
 import { parseCacheControl } from "./core/httpCacheControl.parse.js";
 
@@ -58,7 +56,10 @@ export function isFresh(
     const reqCacheControl = requestHeaders["cache-control"];
     const reqDirectives = parseCacheControl(reqCacheControl);
 
-    if (reqDirectives.maxAge !== undefined && freshness.age >= reqDirectives.maxAge) {
+    if (
+      reqDirectives.maxAge !== undefined &&
+      freshness.age >= reqDirectives.maxAge
+    ) {
       return false;
     }
 
@@ -91,7 +92,10 @@ export function canServeStaleWhileRevalidate(
 ): boolean {
   const cacheControl = responseHeaders["cache-control"];
   const directives = parseCacheControl(cacheControl);
-  return directives.staleWhileRevalidate !== undefined && directives.staleWhileRevalidate > 0;
+  return (
+    directives.staleWhileRevalidate !== undefined &&
+    directives.staleWhileRevalidate > 0
+  );
 }
 
 /**

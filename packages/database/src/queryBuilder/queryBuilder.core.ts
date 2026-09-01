@@ -45,9 +45,7 @@ export interface QueryFilter {
 /**
  * Query builder state.
  */
-export interface QueryBuilderState<
-  TField extends string = string,
-> {
+export interface QueryBuilderState<TField extends string = string> {
   readonly filter?: QueryFilter;
   readonly pagination?: PaginationInput;
   readonly sort?: readonly SortInput<TField>[];
@@ -61,26 +59,19 @@ export interface QueryBuilderState<
  * definition that repositories or adapters can translate into their
  * ORM-specific representation.
  */
-export class QueryBuilder<
-  TField extends string = string,
-> {
+export class QueryBuilder<TField extends string = string> {
   private filterState?: QueryFilter;
 
   private paginationState?: PaginationInput;
 
-  private sortState:
-    SortInput<TField>[] = [];
+  private sortState: SortInput<TField>[] = [];
 
-  private selectState:
-    TField[] = [];
+  private selectState: TField[] = [];
 
   /**
    * Adds an equality condition.
    */
-  public where(
-    field: TField,
-    value: unknown,
-  ): this {
+  public where(field: TField, value: unknown): this {
     return this.addCondition({
       field,
       operator: "equals",
@@ -106,189 +97,102 @@ export class QueryBuilder<
   /**
    * Adds a not-equal condition.
    */
-  public whereNot(
-    field: TField,
-    value: unknown,
-  ): this {
-    return this.whereOperator(
-      field,
-      "not",
-      value,
-    );
+  public whereNot(field: TField, value: unknown): this {
+    return this.whereOperator(field, "not", value);
   }
 
   /**
    * Adds an IN condition.
    */
-  public whereIn(
-    field: TField,
-    values: readonly unknown[],
-  ): this {
-    return this.whereOperator(
-      field,
-      "in",
-      [...values],
-    );
+  public whereIn(field: TField, values: readonly unknown[]): this {
+    return this.whereOperator(field, "in", [...values]);
   }
 
   /**
    * Adds a NOT IN condition.
    */
-  public whereNotIn(
-    field: TField,
-    values: readonly unknown[],
-  ): this {
-    return this.whereOperator(
-      field,
-      "notIn",
-      [...values],
-    );
+  public whereNotIn(field: TField, values: readonly unknown[]): this {
+    return this.whereOperator(field, "notIn", [...values]);
   }
 
   /**
    * Adds a less-than condition.
    */
-  public whereLessThan(
-    field: TField,
-    value: unknown,
-  ): this {
-    return this.whereOperator(
-      field,
-      "lt",
-      value,
-    );
+  public whereLessThan(field: TField, value: unknown): this {
+    return this.whereOperator(field, "lt", value);
   }
 
   /**
    * Adds a less-than-or-equal condition.
    */
-  public whereLessThanOrEqual(
-    field: TField,
-    value: unknown,
-  ): this {
-    return this.whereOperator(
-      field,
-      "lte",
-      value,
-    );
+  public whereLessThanOrEqual(field: TField, value: unknown): this {
+    return this.whereOperator(field, "lte", value);
   }
 
   /**
    * Adds a greater-than condition.
    */
-  public whereGreaterThan(
-    field: TField,
-    value: unknown,
-  ): this {
-    return this.whereOperator(
-      field,
-      "gt",
-      value,
-    );
+  public whereGreaterThan(field: TField, value: unknown): this {
+    return this.whereOperator(field, "gt", value);
   }
 
   /**
    * Adds a greater-than-or-equal condition.
    */
-  public whereGreaterThanOrEqual(
-    field: TField,
-    value: unknown,
-  ): this {
-    return this.whereOperator(
-      field,
-      "gte",
-      value,
-    );
+  public whereGreaterThanOrEqual(field: TField, value: unknown): this {
+    return this.whereOperator(field, "gte", value);
   }
 
   /**
    * Adds a contains condition.
    */
-  public whereContains(
-    field: TField,
-    value: string,
-  ): this {
-    return this.whereOperator(
-      field,
-      "contains",
-      value,
-    );
+  public whereContains(field: TField, value: string): this {
+    return this.whereOperator(field, "contains", value);
   }
 
   /**
    * Adds a starts-with condition.
    */
-  public whereStartsWith(
-    field: TField,
-    value: string,
-  ): this {
-    return this.whereOperator(
-      field,
-      "startsWith",
-      value,
-    );
+  public whereStartsWith(field: TField, value: string): this {
+    return this.whereOperator(field, "startsWith", value);
   }
 
   /**
    * Adds an ends-with condition.
    */
-  public whereEndsWith(
-    field: TField,
-    value: string,
-  ): this {
-    return this.whereOperator(
-      field,
-      "endsWith",
-      value,
-    );
+  public whereEndsWith(field: TField, value: string): this {
+    return this.whereOperator(field, "endsWith", value);
   }
 
   /**
    * Adds an IS NULL condition.
    */
-  public whereNull(
-    field: TField,
-  ): this {
-    return this.whereOperator(
-      field,
-      "isNull",
-    );
+  public whereNull(field: TField): this {
+    return this.whereOperator(field, "isNull");
   }
 
   /**
    * Adds an IS NOT NULL condition.
    */
-  public whereNotNull(
-    field: TField,
-  ): this {
-    return this.whereOperator(
-      field,
-      "isNotNull",
-    );
+  public whereNotNull(field: TField): this {
+    return this.whereOperator(field, "isNotNull");
   }
 
   /**
    * Adds an AND group.
    */
-  public and(
-    ...filters: QueryFilter[]
-  ): this {
-    const existing =
-      this.filterState;
+  public and(...filters: QueryFilter[]): this {
+    const existing = this.filterState;
 
     const group: QueryFilter = {
       and: filters,
     };
 
-    this.filterState =
-      existing
-        ? {
-            and: [
-              existing,
-              group,
-            ],
-          }
-        : group;
+    this.filterState = existing
+      ? {
+          and: [existing, group],
+        }
+      : group;
 
     return this;
   }
@@ -296,25 +200,18 @@ export class QueryBuilder<
   /**
    * Adds an OR group.
    */
-  public or(
-    ...filters: QueryFilter[]
-  ): this {
-    const existing =
-      this.filterState;
+  public or(...filters: QueryFilter[]): this {
+    const existing = this.filterState;
 
     const group: QueryFilter = {
       or: filters,
     };
 
-    this.filterState =
-      existing
-        ? {
-            and: [
-              existing,
-              group,
-            ],
-          }
-        : group;
+    this.filterState = existing
+      ? {
+          and: [existing, group],
+        }
+      : group;
 
     return this;
   }
@@ -322,25 +219,18 @@ export class QueryBuilder<
   /**
    * Adds a NOT group.
    */
-  public not(
-    filter: QueryFilter,
-  ): this {
-    const existing =
-      this.filterState;
+  public not(filter: QueryFilter): this {
+    const existing = this.filterState;
 
     const group: QueryFilter = {
       not: filter,
     };
 
-    this.filterState =
-      existing
-        ? {
-            and: [
-              existing,
-              group,
-            ],
-          }
-        : group;
+    this.filterState = existing
+      ? {
+          and: [existing, group],
+        }
+      : group;
 
     return this;
   }
@@ -348,9 +238,7 @@ export class QueryBuilder<
   /**
    * Sets the requested page.
    */
-  public page(
-    page: number,
-  ): this {
+  public page(page: number): this {
     this.paginationState = {
       ...this.paginationState,
       page,
@@ -362,9 +250,7 @@ export class QueryBuilder<
   /**
    * Sets the requested page size.
    */
-  public limit(
-    limit: number,
-  ): this {
+  public limit(limit: number): this {
     this.paginationState = {
       ...this.paginationState,
       limit,
@@ -376,9 +262,7 @@ export class QueryBuilder<
   /**
    * Sets pagination.
    */
-  public paginate(
-    pagination: PaginationInput,
-  ): this {
+  public paginate(pagination: PaginationInput): this {
     this.paginationState = {
       ...pagination,
     };
@@ -389,34 +273,21 @@ export class QueryBuilder<
   /**
    * Sorts ascending by a field.
    */
-  public orderByAsc(
-    field: TField,
-  ): this {
-    return this.orderBy(
-      field,
-      "asc",
-    );
+  public orderByAsc(field: TField): this {
+    return this.orderBy(field, "asc");
   }
 
   /**
    * Sorts descending by a field.
    */
-  public orderByDesc(
-    field: TField,
-  ): this {
-    return this.orderBy(
-      field,
-      "desc",
-    );
+  public orderByDesc(field: TField): this {
+    return this.orderBy(field, "desc");
   }
 
   /**
    * Adds a sort definition.
    */
-  public orderBy(
-    field: TField,
-    direction: SortDirection = "asc",
-  ): this {
+  public orderBy(field: TField, direction: SortDirection = "asc"): this {
     this.sortState.push({
       field,
       direction,
@@ -428,11 +299,8 @@ export class QueryBuilder<
   /**
    * Replaces all sort definitions.
    */
-  public sort(
-    sort: readonly SortInput<TField>[],
-  ): this {
-    this.sortState =
-      [...sort];
+  public sort(sort: readonly SortInput<TField>[]): this {
+    this.sortState = [...sort];
 
     return this;
   }
@@ -440,12 +308,8 @@ export class QueryBuilder<
   /**
    * Selects specific fields.
    */
-  public select(
-    ...fields: TField[]
-  ): this {
-    this.selectState = [
-      ...new Set(fields),
-    ];
+  public select(...fields: TField[]): this {
+    this.selectState = [...new Set(fields)];
 
     return this;
   }
@@ -454,8 +318,7 @@ export class QueryBuilder<
    * Clears all filters.
    */
   public clearFilters(): this {
-    this.filterState =
-      undefined;
+    this.filterState = undefined;
 
     return this;
   }
@@ -464,8 +327,7 @@ export class QueryBuilder<
    * Clears pagination.
    */
   public clearPagination(): this {
-    this.paginationState =
-      undefined;
+    this.paginationState = undefined;
 
     return this;
   }
@@ -493,27 +355,19 @@ export class QueryBuilder<
    */
   public build(): QueryBuilderState<TField> {
     return Object.freeze({
-      filter:
-        cloneFilter(
-          this.filterState,
-        ),
-      pagination:
-        this.paginationState
-          ? Object.freeze({
-              ...this.paginationState,
-            })
-          : undefined,
+      filter: cloneFilter(this.filterState),
+      pagination: this.paginationState
+        ? Object.freeze({
+            ...this.paginationState,
+          })
+        : undefined,
       sort:
         this.sortState.length > 0
-          ? Object.freeze([
-              ...this.sortState,
-            ])
+          ? Object.freeze([...this.sortState])
           : undefined,
       select:
         this.selectState.length > 0
-          ? Object.freeze([
-              ...this.selectState,
-            ])
+          ? Object.freeze([...this.selectState])
           : undefined,
     });
   }
@@ -523,12 +377,8 @@ export class QueryBuilder<
    */
   public toQueryOptions(): QueryOptions<TField> {
     return {
-      pagination:
-        this.paginationState,
-      sort:
-        this.sortState.length > 0
-          ? [...this.sortState]
-          : undefined,
+      pagination: this.paginationState,
+      sort: this.sortState.length > 0 ? [...this.sortState] : undefined,
     };
   }
 
@@ -536,28 +386,19 @@ export class QueryBuilder<
    * Creates an independent copy of the builder.
    */
   public clone(): QueryBuilder<TField> {
-    const builder =
-      new QueryBuilder<TField>();
+    const builder = new QueryBuilder<TField>();
 
-    builder.filterState =
-      cloneFilter(
-        this.filterState,
-      );
+    builder.filterState = cloneFilter(this.filterState);
 
-    builder.paginationState =
-      this.paginationState
-        ? {
-            ...this.paginationState,
-          }
-        : undefined;
+    builder.paginationState = this.paginationState
+      ? {
+          ...this.paginationState,
+        }
+      : undefined;
 
-    builder.sortState = [
-      ...this.sortState,
-    ];
+    builder.sortState = [...this.sortState];
 
-    builder.selectState = [
-      ...this.selectState,
-    ];
+    builder.selectState = [...this.selectState];
 
     return builder;
   }
@@ -565,33 +406,20 @@ export class QueryBuilder<
   /**
    * Adds a condition to the current filter.
    */
-  private addCondition(
-    condition: QueryCondition,
-  ): this {
-    const existing =
-      this.filterState;
+  private addCondition(condition: QueryCondition): this {
+    const existing = this.filterState;
 
     if (!existing) {
       this.filterState = {
-        conditions: [
-          condition,
-        ],
+        conditions: [condition],
       };
 
       return this;
     }
 
-    if (
-      existing.conditions &&
-      !existing.and &&
-      !existing.or &&
-      !existing.not
-    ) {
+    if (existing.conditions && !existing.and && !existing.or && !existing.not) {
       this.filterState = {
-        conditions: [
-          ...existing.conditions,
-          condition,
-        ],
+        conditions: [...existing.conditions, condition],
       };
 
       return this;
@@ -601,9 +429,7 @@ export class QueryBuilder<
       and: [
         existing,
         {
-          conditions: [
-            condition,
-          ],
+          conditions: [condition],
         },
       ],
     };
@@ -624,57 +450,29 @@ export function createQueryBuilder<
 /**
  * Clones a query filter without sharing mutable arrays.
  */
-function cloneFilter(
-  filter?: QueryFilter,
-): QueryFilter | undefined {
+function cloneFilter(filter?: QueryFilter): QueryFilter | undefined {
   if (!filter) {
     return undefined;
   }
 
   return {
-    conditions:
-      filter.conditions
-        ? filter.conditions.map(
-            (condition) => ({
-              ...condition,
-              ...(Array.isArray(
-                condition.value,
-              )
-                ? {
-                    value: [
-                      ...condition.value,
-                    ],
-                  }
-                : {}),
-            }),
-          )
-        : undefined,
+    conditions: filter.conditions
+      ? filter.conditions.map((condition) => ({
+          ...condition,
+          ...(Array.isArray(condition.value)
+            ? {
+                value: [...condition.value],
+              }
+            : {}),
+        }))
+      : undefined,
 
-    and:
-      filter.and
-        ? filter.and.map(
-            (child) =>
-              cloneFilter(
-                child,
-              )!,
-          )
-        : undefined,
+    and: filter.and
+      ? filter.and.map((child) => cloneFilter(child)!)
+      : undefined,
 
-    or:
-      filter.or
-        ? filter.or.map(
-            (child) =>
-              cloneFilter(
-                child,
-              )!,
-          )
-        : undefined,
+    or: filter.or ? filter.or.map((child) => cloneFilter(child)!) : undefined,
 
-    not:
-      filter.not
-        ? cloneFilter(
-            filter.not,
-          )
-        : undefined,
+    not: filter.not ? cloneFilter(filter.not) : undefined,
   };
 }

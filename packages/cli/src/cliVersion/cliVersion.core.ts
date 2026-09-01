@@ -39,7 +39,9 @@ export function formatCLIVersion(name: string, version: string): string {
 }
 
 /** Returns the version string as-is. */
-export function getVersionString(version: string = CLI_DEFAULTS.VERSION): string {
+export function getVersionString(
+  version: string = CLI_DEFAULTS.VERSION,
+): string {
   return version;
 }
 
@@ -64,7 +66,9 @@ export function compareVersions(first: string, second: string): number {
 }
 
 /** Parses a semantic version string into a numeric tuple. */
-export function parseVersion(version: string): readonly [number, number, number] {
+export function parseVersion(
+  version: string,
+): readonly [number, number, number] {
   const match = version.trim().match(/^(\d+)\.(\d+)\.(\d+)/);
 
   if (!match) {
@@ -75,6 +79,9 @@ export function parseVersion(version: string): readonly [number, number, number]
 }
 
 /** Returns whether `version` satisfies `minimumVersion`. */
-export function isCompatibleVersion(version: string, minimumVersion: string): boolean {
+export function isCompatibleVersion(
+  version: string,
+  minimumVersion: string,
+): boolean {
   return compareVersions(version, minimumVersion) >= 0;
 }

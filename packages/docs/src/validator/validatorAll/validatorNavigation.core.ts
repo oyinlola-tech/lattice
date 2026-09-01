@@ -14,9 +14,7 @@ export function validateNavigation(
 ): ValidationResult {
   const issues: ValidationIssue[] = [];
 
-  function walk(
-    nodes: readonly DocumentationNavigationItem[],
-  ): void {
+  function walk(nodes: readonly DocumentationNavigationItem[]): void {
     for (const node of nodes) {
       if (node.documentId && !registeredIds.has(node.documentId)) {
         issues.push({

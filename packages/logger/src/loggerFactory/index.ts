@@ -4,4 +4,4 @@
  * Logger creation and configuration.
  */
 
-export * from './loggerFactory.core.js';
+export * from "./loggerFactory.core.js";

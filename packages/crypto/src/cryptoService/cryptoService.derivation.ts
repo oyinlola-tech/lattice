@@ -1,23 +1,15 @@
-import type {
-  DerivedKeyResult,
-} from "../cryptoProvider/index.js";
+import type { DerivedKeyResult } from "../cryptoProvider/index.js";
 
 import type {
   Pbkdf2Options,
   ScryptOptions,
 } from "../cryptoKeyDerivation/cryptoKeyDerivation.type.js";
 
-import {
-  deriveKey,
-} from "../cryptoKeyDerivation/cryptoKeyDerivation.core.js";
+import { deriveKey } from "../cryptoKeyDerivation/cryptoKeyDerivation.core.js";
 
-import {
-  cryptoKeyDerivationError,
-} from "@oyinlola141/lattice-errors";
+import { cryptoKeyDerivationError } from "@oyinlola141/lattice-errors";
 
-import {
-  CryptoAlgorithm,
-} from "../cryptoConstants/cryptoConstants.type.js";
+import { CryptoAlgorithm } from "../cryptoConstants/cryptoConstants.type.js";
 
 export type { DerivedKeyResult, Pbkdf2Options, ScryptOptions };
 
@@ -29,9 +21,6 @@ export async function serviceDeriveKey(
   try {
     return await deriveKey(password, algorithm, options);
   } catch {
-    throw cryptoKeyDerivationError(
-      "Key derivation failed.",
-      algorithm,
-    );
+    throw cryptoKeyDerivationError("Key derivation failed.", algorithm);
   }
 }

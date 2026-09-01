@@ -4,4 +4,4 @@
  * Event handler types and execution.
  */
 
-export * from './eventHandler.core.js';
+export * from "./eventHandler.core.js";

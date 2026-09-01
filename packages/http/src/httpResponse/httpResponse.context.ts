@@ -108,7 +108,11 @@ export class HttpResponseContext {
     return this;
   }
 
-  cookie(name: string, value: string, options?: ResponseCookie["options"]): this {
+  cookie(
+    name: string,
+    value: string,
+    options?: ResponseCookie["options"],
+  ): this {
     this._cookies.push({ name, value, options });
     return this;
   }
@@ -247,4 +251,9 @@ export function createResponseContext(
 export * from "./core/httpResponse.type.js";
 export * from "./core/httpResponse.statusText.js";
 export * from "./httpResponse.helper.js";
-export type { ResponseCookie, CookieOptions, SameSite, CookiePriority } from "./core/httpResponse.type.js";
+export type {
+  ResponseCookie,
+  CookieOptions,
+  SameSite,
+  CookiePriority,
+} from "./core/httpResponse.type.js";

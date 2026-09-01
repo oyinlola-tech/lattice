@@ -4,9 +4,7 @@
  * Assert errors, error types, and error messages.
  */
 
-import type {
-  BaseError,
-} from "@oyinlola141/lattice-errors";
+import type { BaseError } from "@oyinlola141/lattice-errors";
 
 /**
  * Asserts that a function throws an error.
@@ -70,20 +68,17 @@ export async function assertRejects(
  * @param error - The error to check.
  * @param code - Expected error code.
  */
-export function assertErrorCode(
-  error: unknown,
-  code: string,
-): void {
+export function assertErrorCode(error: unknown, code: string): void {
   if (!(error instanceof Error)) {
-    throw new Error(`Expected error to be an Error instance, got ${typeof error}.`);
+    throw new Error(
+      `Expected error to be an Error instance, got ${typeof error}.`,
+    );
   }
 
   const baseError = error as BaseError;
 
   if (baseError.code !== code) {
-    throw new Error(
-      `Expected error code "${code}", got "${baseError.code}".`,
-    );
+    throw new Error(`Expected error code "${code}", got "${baseError.code}".`);
   }
 }
 
@@ -100,7 +95,9 @@ export function assertErrorMetadata(
   value: unknown,
 ): void {
   if (!(error instanceof Error)) {
-    throw new Error(`Expected error to be an Error instance, got ${typeof error}.`);
+    throw new Error(
+      `Expected error to be an Error instance, got ${typeof error}.`,
+    );
   }
 
   const baseError = error as BaseError;

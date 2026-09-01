@@ -1,6 +1,15 @@
 import { describe, it, expect } from "vitest";
-import { sign, verify, signString, verifyString } from "../src/cryptoSignature/index.js";
-import { generateEd25519KeyPair, exportPrivateKeyPem, exportPublicKeyPem } from "../src/node/signing/index.js";
+import {
+  sign,
+  verify,
+  signString,
+  verifyString,
+} from "../src/cryptoSignature/index.js";
+import {
+  generateEd25519KeyPair,
+  exportPrivateKeyPem,
+  exportPublicKeyPem,
+} from "../src/node/signing/index.js";
 
 describe("sign / verify", () => {
   it("signs and verifies data", async () => {

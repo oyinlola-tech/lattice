@@ -8,9 +8,7 @@ import {
  * Error thrown when an invalid runtime state is encountered.
  */
 export class RuntimeStateError extends BaseRuntimeStateError {
-  public constructor(
-    message: string,
-  ) {
+  public constructor(message: string) {
     super(message);
   }
 }
@@ -93,19 +91,13 @@ export class RuntimeTimeoutError extends RuntimeError {
   public readonly operation: string;
   public readonly timeoutMs: number;
 
-  public constructor(
-    operation: string,
-    timeoutMs: number,
-  ) {
-    super(
-      `Runtime operation "${operation}" timed out after ${timeoutMs}ms.`,
-      {
-        metadata: {
-          operation,
-          timeoutMs,
-        },
+  public constructor(operation: string, timeoutMs: number) {
+    super(`Runtime operation "${operation}" timed out after ${timeoutMs}ms.`, {
+      metadata: {
+        operation,
+        timeoutMs,
       },
-    );
+    });
 
     this.operation = operation;
     this.timeoutMs = timeoutMs;
@@ -119,20 +111,14 @@ export class RuntimeRollbackError extends RuntimeError {
   public readonly originalError: Error;
   public readonly rollbackError: Error;
 
-  public constructor(
-    originalError: Error,
-    rollbackError: Error,
-  ) {
-    super(
-      "Runtime rollback failed. Original error suppressed.",
-      {
-        cause: rollbackError,
-        metadata: {
-          originalErrorMessage: originalError.message,
-          rollbackErrorMessage: rollbackError.message,
-        },
+  public constructor(originalError: Error, rollbackError: Error) {
+    super("Runtime rollback failed. Original error suppressed.", {
+      cause: rollbackError,
+      metadata: {
+        originalErrorMessage: originalError.message,
+        rollbackErrorMessage: rollbackError.message,
       },
-    );
+    });
 
     this.originalError = originalError;
     this.rollbackError = rollbackError;
@@ -145,9 +131,7 @@ export class RuntimeRollbackError extends RuntimeError {
 export class RuntimeCircularDependencyError extends RuntimeError {
   public readonly cycle: readonly string[];
 
-  public constructor(
-    cycle: readonly string[],
-  ) {
+  public constructor(cycle: readonly string[]) {
     super(
       `Circular module dependency detected: ${cycle.join(" -> ")} -> ${cycle[0]}.`,
       {
@@ -168,10 +152,7 @@ export class RuntimeDependencyError extends RuntimeError {
   public readonly moduleId: string;
   public readonly dependencyId: string;
 
-  public constructor(
-    moduleId: string,
-    dependencyId: string,
-  ) {
+  public constructor(moduleId: string, dependencyId: string) {
     super(
       `Module "${moduleId}" depends on "${dependencyId}" which is not registered.`,
       {
@@ -193,17 +174,12 @@ export class RuntimeDependencyError extends RuntimeError {
 export class RuntimeSignalError extends RuntimeError {
   public readonly signal: string;
 
-  public constructor(
-    signal: string,
-  ) {
-    super(
-      `Runtime received unexpected signal "${signal}".`,
-      {
-        metadata: {
-          signal,
-        },
+  public constructor(signal: string) {
+    super(`Runtime received unexpected signal "${signal}".`, {
+      metadata: {
+        signal,
       },
-    );
+    });
 
     this.signal = signal;
   }
@@ -220,10 +196,7 @@ export function toRuntimeError(
     return error;
   }
 
-  const message =
-    error instanceof Error
-      ? error.message
-      : String(error);
+  const message = error instanceof Error ? error.message : String(error);
 
   return new RuntimeError(message, {
     cause: error instanceof Error ? error : undefined,

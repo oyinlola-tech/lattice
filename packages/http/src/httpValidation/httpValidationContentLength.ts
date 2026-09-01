@@ -7,60 +7,29 @@
 import type { HTTPValidationResult } from "./httpValidationTypes.type.js";
 
 export function isValidContentLength(
-  value:
-    | number
-    | string
-    | undefined
-    | null,
+  value: number | string | undefined | null,
 ): boolean {
-  if (
-    value ===
-      undefined ||
-    value ===
-      null
-  ) {
+  if (value === undefined || value === null) {
     return false;
   }
 
-  const length =
-    typeof value ===
-    "number"
-      ? value
-      : Number(
-          value,
-        );
+  const length = typeof value === "number" ? value : Number(value);
 
-  return (
-    Number.isSafeInteger(
-      length,
-    ) &&
-    length >=
-      0
-  );
+  return Number.isSafeInteger(length) && length >= 0;
 }
 
 export function validateContentLength(
-  value:
-    | number
-    | string,
+  value: number | string,
 ): HTTPValidationResult {
-  if (
-    !isValidContentLength(
-      value,
-    )
-  ) {
+  if (!isValidContentLength(value)) {
     return {
       valid: false,
-      reason:
-        "Content-Length must be a non-negative safe integer.",
+      reason: "Content-Length must be a non-negative safe integer.",
     };
   }
 
   return {
     valid: true,
-    value:
-      String(
-        value,
-      ),
+    value: String(value),
   };
 }

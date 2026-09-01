@@ -10,11 +10,9 @@ import { splitHeaderValues } from "../list/httpHeaders.list.js";
  * A value with an associated quality weight.
  */
 export interface WeightedValue {
-  readonly value:
-    | string;
+  readonly value: string;
 
-  readonly quality:
-    | number;
+  readonly quality: number;
 }
 
 /**
@@ -24,95 +22,32 @@ export interface WeightedValue {
  * @param value - The raw header value string.
  * @returns An array of weighted values sorted by quality (highest first).
  */
-export function parseWeightedValues(
-  value:
-    | string,
-): WeightedValue[] {
-  return splitHeaderValues(
-    value,
-  )
-    .map(
-      (
-        item,
-      ) => {
-        const parts =
-          item.split(
-            ";",
-          );
+export function parseWeightedValues(value: string): WeightedValue[] {
+  return splitHeaderValues(value)
+    .map((item) => {
+      const parts = item.split(";");
 
-        const name =
-          (
-            parts.shift() ??
-            ""
-          ).trim();
+      const name = (parts.shift() ?? "").trim();
 
-        let quality =
-          1;
+      let quality = 1;
 
-        for (
-          const parameter of parts
-        ) {
-          const [
-            key,
-            rawValue,
-          ] =
-            parameter
-              .split(
-                "=",
-              )
-              .map(
-                (
-                  part,
-                ) =>
-                  part.trim(),
-              );
+      for (const parameter of parts) {
+        const [key, rawValue] = parameter.split("=").map((part) => part.trim());
 
-          if (
-            key?.toLowerCase() ===
-              "q"
-          ) {
-            const parsed =
-              Number(
-                rawValue,
-              );
+        if (key?.toLowerCase() === "q") {
+          const parsed = Number(rawValue);
 
-            if (
-              Number.isFinite(
-                parsed,
-              )
-            ) {
-              quality =
-                Math.min(
-                  1,
-                  Math.max(
-                    0,
-                    parsed,
-                  ),
-                );
-            }
+          if (Number.isFinite(parsed)) {
+            quality = Math.min(1, Math.max(0, parsed));
           }
         }
+      }
 
-        return {
-          value:
-            name,
-          quality,
-        };
-      },
-    )
-    .filter(
-      (
-        item,
-      ) =>
-        item.value.length >
-        0,
-    )
-    .sort(
-      (
-        left,
-        right,
-      ) =>
-        right.quality -
-        left.quality,
-    );
+      return {
+        value: name,
+        quality,
+      };
+    })
+    .filter((item) => item.value.length > 0)
+    .sort((left, right) => right.quality - left.quality);
 }

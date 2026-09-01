@@ -2,12 +2,10 @@
  * CSP parsing functions.
  */
 
-import type { CSPDirectives } from '../types/httpCsp.type.js';
-import { splitPolicy, freezeDirectives } from '../internal/httpCsp.internal.js';
+import type { CSPDirectives } from "../types/httpCsp.type.js";
+import { splitPolicy, freezeDirectives } from "../internal/httpCsp.internal.js";
 
-export function parseCSP(
-  value: string | undefined | null,
-): CSPDirectives {
+export function parseCSP(value: string | undefined | null): CSPDirectives {
   const result: Record<string, readonly string[]> = {};
 
   if (!value || value.trim().length === 0) {
@@ -25,10 +23,7 @@ export function parseCSP(
     const normalized = name.toLowerCase();
 
     if (result[normalized]) {
-      result[normalized] = [
-        ...result[normalized],
-        ...parts,
-      ];
+      result[normalized] = [...result[normalized], ...parts];
     } else {
       result[normalized] = parts;
     }
@@ -41,14 +36,9 @@ export function getCSPDirective(
   policy: string | CSPDirectives,
   directive: string,
 ): readonly string[] {
-  const directives =
-    typeof policy === "string"
-      ? parseCSP(policy)
-      : policy;
+  const directives = typeof policy === "string" ? parseCSP(policy) : policy;
 
-  return (
-    directives[directive.trim().toLowerCase()] ?? []
-  );
+  return directives[directive.trim().toLowerCase()] ?? [];
 }
 
 export function hasCSPDirective(
@@ -64,9 +54,7 @@ export function hasCSPDirective(
   );
 }
 
-function getFallbackDirective(
-  directive: string,
-): string | undefined {
+function getFallbackDirective(directive: string): string | undefined {
   const map: Record<string, string> = {
     "script-src-elem": "script-src",
     "script-src-attr": "script-src",
@@ -83,8 +71,7 @@ export function getEffectiveDirective(
   policy: string | CSPDirectives,
   directive: string,
 ): readonly string[] {
-  const directives =
-    typeof policy === "string" ? parseCSP(policy) : policy;
+  const directives = typeof policy === "string" ? parseCSP(policy) : policy;
 
   const normalized = directive.trim().toLowerCase();
 

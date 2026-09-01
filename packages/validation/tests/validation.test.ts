@@ -42,9 +42,7 @@ import {
   validateAndTransform,
 } from "../src/validationTransformer/validationTransformer.core.js";
 
-import {
-  createValidationRegistry,
-} from "../src/validationRegistry/validationRegistry.core.js";
+import { createValidationRegistry } from "../src/validationRegistry/validationRegistry.core.js";
 
 import {
   composeSchemas,
@@ -366,9 +364,9 @@ describe("Registry", () => {
   it("rejects duplicate rules by default", () => {
     const registry = createValidationRegistry();
     registry.register({ name: "x", schema: z.string() });
-    expect(() =>
-      registry.register({ name: "x", schema: z.number() }),
-    ).toThrow("already registered");
+    expect(() => registry.register({ name: "x", schema: z.number() })).toThrow(
+      "already registered",
+    );
   });
 
   it("allows overwriting rules", () => {
@@ -386,10 +384,7 @@ describe("Registry", () => {
 
 describe("Composer", () => {
   it("composes multiple same-type schemas", () => {
-    const schema = composeSchemas(
-      z.string().min(1),
-      z.string().max(100),
-    );
+    const schema = composeSchemas(z.string().min(1), z.string().max(100));
 
     const result = validate(schema, "hello");
     expect(result.success).toBe(true);
@@ -400,10 +395,7 @@ describe("Composer", () => {
   });
 
   it("fails when composed schema rejects", () => {
-    const schema = composeSchemas(
-      z.string().min(1),
-      z.string().max(5),
-    );
+    const schema = composeSchemas(z.string().min(1), z.string().max(5));
 
     const result = validate(schema, "too long string here");
     expect(result.success).toBe(false);
@@ -446,8 +438,8 @@ describe("Composer", () => {
 
 describe("Transformer", () => {
   it("creates a transformer", () => {
-    const transformer = createValidationTransformer(
-      (s: string) => s.toUpperCase(),
+    const transformer = createValidationTransformer((s: string) =>
+      s.toUpperCase(),
     );
 
     expect(transformer).toBeDefined();
@@ -455,10 +447,8 @@ describe("Transformer", () => {
   });
 
   it("validateAndTransform works", () => {
-    const result = validateAndTransform(
-      z.string(),
-      "hello",
-      (s: string) => s.toUpperCase(),
+    const result = validateAndTransform(z.string(), "hello", (s: string) =>
+      s.toUpperCase(),
     );
     expect(result.success).toBe(true);
     if (result.success) {

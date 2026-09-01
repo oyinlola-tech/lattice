@@ -22,7 +22,9 @@ export class ApplicationError extends Error {
 
 export class NotFoundError extends ApplicationError {
   public constructor(resource: string, id?: string) {
-    const message = id ? `${resource} with id "${id}" not found` : `${resource} not found`;
+    const message = id
+      ? `${resource} with id "${id}" not found`
+      : `${resource} not found`;
     super(message, { code: "NOT_FOUND", statusCode: 404, expose: true });
     this.name = "NotFoundError";
   }
@@ -31,7 +33,10 @@ export class NotFoundError extends ApplicationError {
 export class ValidationError extends ApplicationError {
   public readonly issues: readonly { path: string; message: string }[];
 
-  public constructor(message: string, issues: readonly { path: string; message: string }[] = []) {
+  public constructor(
+    message: string,
+    issues: readonly { path: string; message: string }[] = [],
+  ) {
     super(message, { code: "VALIDATION_ERROR", statusCode: 400, expose: true });
     this.name = "ValidationError";
     this.issues = issues;

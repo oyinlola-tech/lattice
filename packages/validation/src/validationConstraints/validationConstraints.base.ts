@@ -1,6 +1,4 @@
-import type {
-  ValidationIssue,
-} from "../validationResult/validationResult.type.js";
+import type { ValidationIssue } from "../validationResult/validationResult.type.js";
 
 import {
   failure,
@@ -103,10 +101,11 @@ export function combineConstraints<T>(
   ...constraints: readonly ValidationConstraint<T>[]
 ): ValidationConstraint<T> {
   return createConstraint(
-    (value) =>
-      constraints.every((constraint) => constraint.validate(value)),
+    (value) => constraints.every((constraint) => constraint.validate(value)),
     {
-      name: constraints.map((constraint) => constraint.name).join("_and_") || "combined",
+      name:
+        constraints.map((constraint) => constraint.name).join("_and_") ||
+        "combined",
       code: "combined_constraint_failed",
       message: "One or more validation constraints failed.",
     },
@@ -120,14 +119,11 @@ export function not<T>(
   constraint: ValidationConstraint<T>,
   options: ConstraintOptions = {},
 ): ValidationConstraint<T> {
-  return createConstraint(
-    (value) => !constraint.validate(value),
-    {
-      name: options.name ?? `not_${constraint.name}`,
-      code: options.code ?? "negated_constraint_failed",
-      message: options.message ?? `Value must not satisfy ${constraint.name}.`,
-    },
-  );
+  return createConstraint((value) => !constraint.validate(value), {
+    name: options.name ?? `not_${constraint.name}`,
+    code: options.code ?? "negated_constraint_failed",
+    message: options.message ?? `Value must not satisfy ${constraint.name}.`,
+  });
 }
 
 /**
@@ -145,10 +141,7 @@ export const required = createConstraint<unknown>(
 /**
  * Asserts that a value is a non-negative integer.
  */
-export function assertNonNegativeInteger(
-  value: number,
-  name: string,
-): void {
+export function assertNonNegativeInteger(value: number, name: string): void {
   if (!Number.isInteger(value) || value < 0) {
     throw new RangeError(`${name} must be a non-negative integer.`);
   }

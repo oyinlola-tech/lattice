@@ -5,7 +5,10 @@
  */
 
 import type { HTTPHeadersLike } from "../types/httpHeaders.type.js";
-import { getHeaderValues, splitHeaderValues } from "../list/httpHeaders.list.js";
+import {
+  getHeaderValues,
+  splitHeaderValues,
+} from "../list/httpHeaders.list.js";
 
 /**
  * Retrieves all forwarded values for a header, splitting nested comma-separated values.
@@ -15,21 +18,11 @@ import { getHeaderValues, splitHeaderValues } from "../list/httpHeaders.list.js"
  * @returns An array of all forwarded values.
  */
 export function getForwardedValues(
-  headers:
-    | HTTPHeadersLike,
-  name:
-    | string,
+  headers: HTTPHeadersLike,
+  name: string,
 ): string[] {
-  return getHeaderValues(
-    headers,
-    name,
-  ).flatMap(
-    (
-      value,
-    ) =>
-      splitHeaderValues(
-        value,
-      ),
+  return getHeaderValues(headers, name).flatMap((value) =>
+    splitHeaderValues(value),
   );
 }
 
@@ -41,14 +34,8 @@ export function getForwardedValues(
  * @returns The first forwarded value, or `undefined` if none exist.
  */
 export function getFirstForwardedValue(
-  headers:
-    | HTTPHeadersLike,
-  name:
-    | string,
-): string
-  | undefined {
-  return getForwardedValues(
-    headers,
-    name,
-  )[0];
+  headers: HTTPHeadersLike,
+  name: string,
+): string | undefined {
+  return getForwardedValues(headers, name)[0];
 }

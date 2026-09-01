@@ -31,9 +31,7 @@ import {
 
 describe("HTTPRequestBuilder", () => {
   it("should build a GET request", () => {
-    const request = createTestHTTPRequest()
-      .GET("/api/users")
-      .build();
+    const request = createTestHTTPRequest().GET("/api/users").build();
 
     expect(request.method).toBe("GET");
     expect(request.path).toBe("/api/users");
@@ -101,10 +99,7 @@ describe("HTTPResponseBuilder", () => {
   });
 
   it("should build an empty response", () => {
-    const response = createTestHTTPResponse()
-      .status(204)
-      .empty()
-      .build();
+    const response = createTestHTTPResponse().status(204).empty().build();
 
     expect(response.status).toBe(204);
     expect(response.body).toBeUndefined();

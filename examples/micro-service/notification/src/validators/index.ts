@@ -1,11 +1,18 @@
-import type { CreateNotificationDto, MarkNotificationReadDto } from "../dtos/index.js";
+import type {
+  CreateNotificationDto,
+  MarkNotificationReadDto,
+} from "../dtos/index.js";
 import { NotificationValidationError } from "../errors/index.js";
 
-export function validateCreateNotificationDto(dto: unknown): CreateNotificationDto {
+export function validateCreateNotificationDto(
+  dto: unknown,
+): CreateNotificationDto {
   const input = dto as Record<string, unknown>;
 
   if (!input || typeof input !== "object") {
-    throw new NotificationValidationError("Notification data must be an object");
+    throw new NotificationValidationError(
+      "Notification data must be an object",
+    );
   }
 
   if (typeof input.userId !== "string" || input.userId.trim().length === 0) {
@@ -33,14 +40,19 @@ export function validateCreateNotificationDto(dto: unknown): CreateNotificationD
   };
 }
 
-export function validateMarkNotificationReadDto(dto: unknown): MarkNotificationReadDto {
+export function validateMarkNotificationReadDto(
+  dto: unknown,
+): MarkNotificationReadDto {
   const input = dto as Record<string, unknown>;
 
   if (!input || typeof input !== "object") {
     throw new NotificationValidationError("Request body must be an object");
   }
 
-  if (typeof input.notificationId !== "string" || input.notificationId.trim().length === 0) {
+  if (
+    typeof input.notificationId !== "string" ||
+    input.notificationId.trim().length === 0
+  ) {
     throw new NotificationValidationError("notificationId is required");
   }
 

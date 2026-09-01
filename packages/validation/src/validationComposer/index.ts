@@ -4,4 +4,4 @@
  * Schema composition and merging utilities.
  */
 
-export * from './validationComposer.core.js';
+export * from "./validationComposer.core.js";

@@ -24,165 +24,98 @@ export type HttpMethod =
   | "TRACE"
   | string;
 
-export type RequestHeaders =
-  Readonly<
-    Record<string, string>
-  >;
+export type RequestHeaders = Readonly<Record<string, string>>;
 
-export type RequestQuery =
-  Readonly<
-    Record<
-      string,
-      string |
-        readonly string[] |
-        undefined
-    >
-  >;
+export type RequestQuery = Readonly<
+  Record<string, string | readonly string[] | undefined>
+>;
 
-export type RequestParams =
-  Readonly<
-    Record<
-      string,
-      string | undefined
-    >
-  >;
+export type RequestParams = Readonly<Record<string, string | undefined>>;
 
-export type RequestBody =
-  | unknown;
+export type RequestBody = unknown;
 
-export type RequestState =
-  Record<
-    string | symbol,
-    unknown
-  >;
+export type RequestState = Record<string | symbol, unknown>;
 
 export interface RequestContextInit {
-  readonly id?:
-    | string;
+  readonly id?: string;
 
-  readonly method:
-    | HttpMethod;
+  readonly method: HttpMethod;
 
-  readonly url:
-    | string;
+  readonly url: string;
 
-  readonly headers?:
-    | RequestHeaders;
+  readonly headers?: RequestHeaders;
 
-  readonly query?:
-    | RequestQuery;
+  readonly query?: RequestQuery;
 
-  readonly params?:
-    | RequestParams;
+  readonly params?: RequestParams;
 
-  readonly body?:
-    | RequestBody;
+  readonly body?: RequestBody;
 
-  readonly remoteAddress?:
-    | string;
+  readonly remoteAddress?: string;
 
-  readonly protocol?:
-    | string;
+  readonly protocol?: string;
 
-  readonly hostname?:
-    | string;
+  readonly hostname?: string;
 
-  readonly port?:
-    | number;
+  readonly port?: number;
 
-  readonly path?:
-    | string;
+  readonly path?: string;
 
-  readonly signal?:
-    | AbortSignal;
+  readonly signal?: AbortSignal;
 
-  readonly state?:
-    | RequestState;
+  readonly state?: RequestState;
 
-  readonly metadata?:
-    | Readonly<
-        Record<string, unknown>
-      >;
+  readonly metadata?: Readonly<Record<string, unknown>>;
 }
 
 export interface RequestContextSnapshot {
-  readonly id:
-    | string;
+  readonly id: string;
 
-  readonly method:
-    | HttpMethod;
+  readonly method: HttpMethod;
 
-  readonly url:
-    | string;
+  readonly url: string;
 
-  readonly path:
-    | string;
+  readonly path: string;
 
-  readonly headers:
-    | RequestHeaders;
+  readonly headers: RequestHeaders;
 
-  readonly query:
-    | RequestQuery;
+  readonly query: RequestQuery;
 
-  readonly params:
-    | RequestParams;
+  readonly params: RequestParams;
 
-  readonly body:
-    | RequestBody;
+  readonly body: RequestBody;
 
-  readonly remoteAddress:
-    | string
-    | undefined;
+  readonly remoteAddress: string | undefined;
 
-  readonly protocol:
-    | string
-    | undefined;
+  readonly protocol: string | undefined;
 
-  readonly hostname:
-    | string
-    | undefined;
+  readonly hostname: string | undefined;
 
-  readonly port:
-    | number
-    | undefined;
+  readonly port: number | undefined;
 
-  readonly state:
-    | Readonly<RequestState>;
+  readonly state: Readonly<RequestState>;
 
-  readonly metadata:
-    | Readonly<
-        Record<string, unknown>
-      >;
+  readonly metadata: Readonly<Record<string, unknown>>;
 
-  readonly createdAt:
-    | number;
+  readonly createdAt: number;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Constants                                                                  */
 /* -------------------------------------------------------------------------- */
 
-export const REQUEST_CONTEXT =
-  Symbol.for(
-    "lattice.http.request-context",
-  );
+export const REQUEST_CONTEXT = Symbol.for("lattice.http.request-context");
 
-export const REQUEST_ID_HEADER =
-  "x-request-id";
+export const REQUEST_ID_HEADER = "x-request-id";
 
 /* -------------------------------------------------------------------------- */
 /* ID Generation                                                              */
 /* -------------------------------------------------------------------------- */
 
 export function generateRequestId(): string {
-  const cryptoObject =
-    globalThis.crypto;
+  const cryptoObject = globalThis.crypto;
 
-  if (
-    cryptoObject &&
-    typeof cryptoObject.randomUUID ===
-      "function"
-  ) {
+  if (cryptoObject && typeof cryptoObject.randomUUID === "function") {
     return cryptoObject.randomUUID();
   }
 
@@ -206,119 +139,59 @@ export class HttpRequestContext {
 
   readonly createdAt: number;
 
-  private readonly headersMap: Map<
-    string,
-    string
-  >;
+  private readonly headersMap: Map<string, string>;
 
   private readonly queryMap: Map<
     string,
-    string |
-      readonly string[] |
-      undefined
+    string | readonly string[] | undefined
   >;
 
-  private readonly paramsMap: Map<
-    string,
-    string | undefined
-  >;
+  private readonly paramsMap: Map<string, string | undefined>;
 
-  private readonly stateMap: Map<
-    string | symbol,
-    unknown
-  >;
+  private readonly stateMap: Map<string | symbol, unknown>;
 
-  private readonly metadataMap: Map<
-    string,
-    unknown
-  >;
+  private readonly metadataMap: Map<string, unknown>;
 
   private requestBody: unknown;
 
-  private remoteAddressValue:
-    | string
-    | undefined;
+  private remoteAddressValue: string | undefined;
 
-  private protocolValue:
-    | string
-    | undefined;
+  private protocolValue: string | undefined;
 
-  private hostnameValue:
-    | string
-    | undefined;
+  private hostnameValue: string | undefined;
 
-  private portValue:
-    | number
-    | undefined;
+  private portValue: number | undefined;
 
-  constructor(
-    init: RequestContextInit,
-  ) {
-    this.id =
-      init.id ??
-      generateRequestId();
+  constructor(init: RequestContextInit) {
+    this.id = init.id ?? generateRequestId();
 
-    this.method =
-      normalizeMethod(
-        init.method,
-      );
+    this.method = normalizeMethod(init.method);
 
-    this.url =
-      init.url;
+    this.url = init.url;
 
-    this.path =
-      getPathname(
-        init.url,
-      );
+    this.path = getPathname(init.url);
 
-    this.createdAt =
-      Date.now();
+    this.createdAt = Date.now();
 
-    this.headersMap =
-      createHeaderMap(
-        init.headers,
-      );
+    this.headersMap = createHeaderMap(init.headers);
 
-    this.queryMap =
-      createMap(
-        init.query,
-      );
+    this.queryMap = createMap(init.query);
 
-    this.paramsMap =
-      createMap(
-        init.params,
-      );
+    this.paramsMap = createMap(init.params);
 
-    this.stateMap =
-      new Map(
-        Object.entries(
-          init.state ??
-            {},
-        ),
-      );
+    this.stateMap = new Map(Object.entries(init.state ?? {}));
 
-    this.metadataMap =
-      new Map(
-        Object.entries(
-          init.metadata ??
-            {},
-        ),
-      );
+    this.metadataMap = new Map(Object.entries(init.metadata ?? {}));
 
-    this.requestBody =
-      init.body;
+    this.requestBody = init.body;
 
-    this.remoteAddressValue =
-      init.remoteAddress;
+    this.remoteAddressValue = init.remoteAddress;
 
-    this.protocolValue =
-      init.protocol;
+    this.protocolValue = init.protocol;
 
-    this.hostnameValue =
-      init.hostname;
+    this.hostnameValue = init.hostname;
 
-    this.portValue =
-      init.port;
+    this.portValue = init.port;
   }
 
   /* ------------------------------------------------------------------------ */
@@ -326,103 +199,47 @@ export class HttpRequestContext {
   /* ------------------------------------------------------------------------ */
 
   get headers(): RequestHeaders {
-    return Object.freeze(
-      Object.fromEntries(
-        this.headersMap,
-      ),
-    );
+    return Object.freeze(Object.fromEntries(this.headersMap));
   }
 
-  hasHeader(
-    name: string,
-  ): boolean {
-    return this.headersMap.has(
-      normalizeHeaderName(
-        name,
-      ),
-    );
+  hasHeader(name: string): boolean {
+    return this.headersMap.has(normalizeHeaderName(name));
   }
 
-  getHeader(
-    name: string,
-  ): string | undefined {
-    return this.headersMap.get(
-      normalizeHeaderName(
-        name,
-      ),
-    );
+  getHeader(name: string): string | undefined {
+    return this.headersMap.get(normalizeHeaderName(name));
   }
 
-  setHeader(
-    name: string,
-    value: string,
-  ): this {
-    validateHeaderName(
-      name,
-    );
+  setHeader(name: string, value: string): this {
+    validateHeaderName(name);
 
-    validateHeaderValue(
-      value,
-    );
+    validateHeaderValue(value);
 
-    this.headersMap.set(
-      normalizeHeaderName(
-        name,
-      ),
-      value,
-    );
+    this.headersMap.set(normalizeHeaderName(name), value);
 
     return this;
   }
 
-  appendHeader(
-    name: string,
-    value: string,
-  ): this {
-    validateHeaderName(
-      name,
-    );
+  appendHeader(name: string, value: string): this {
+    validateHeaderName(name);
 
-    validateHeaderValue(
-      value,
-    );
+    validateHeaderValue(value);
 
-    const normalized =
-      normalizeHeaderName(
-        name,
-      );
+    const normalized = normalizeHeaderName(name);
 
-    const existing =
-      this.headersMap.get(
-        normalized,
-      );
+    const existing = this.headersMap.get(normalized);
 
-    if (
-      existing ===
-      undefined
-    ) {
-      this.headersMap.set(
-        normalized,
-        value,
-      );
+    if (existing === undefined) {
+      this.headersMap.set(normalized, value);
     } else {
-      this.headersMap.set(
-        normalized,
-        `${existing}, ${value}`,
-      );
+      this.headersMap.set(normalized, `${existing}, ${value}`);
     }
 
     return this;
   }
 
-  removeHeader(
-    name: string,
-  ): boolean {
-    return this.headersMap.delete(
-      normalizeHeaderName(
-        name,
-      ),
-    );
+  removeHeader(name: string): boolean {
+    return this.headersMap.delete(normalizeHeaderName(name));
   }
 
   /* ------------------------------------------------------------------------ */
@@ -430,53 +247,25 @@ export class HttpRequestContext {
   /* ------------------------------------------------------------------------ */
 
   get query(): RequestQuery {
-    return Object.freeze(
-      Object.fromEntries(
-        this.queryMap,
-      ),
-    );
+    return Object.freeze(Object.fromEntries(this.queryMap));
   }
 
-  hasQuery(
-    name: string,
-  ): boolean {
-    return this.queryMap.has(
-      name,
-    );
+  hasQuery(name: string): boolean {
+    return this.queryMap.has(name);
   }
 
-  getQuery(
-    name: string,
-  ):
-    | string
-    | readonly string[]
-    | undefined {
-    return this.queryMap.get(
-      name,
-    );
+  getQuery(name: string): string | readonly string[] | undefined {
+    return this.queryMap.get(name);
   }
 
-  setQuery(
-    name: string,
-    value:
-      | string
-      | readonly string[]
-      | undefined,
-  ): this {
-    this.queryMap.set(
-      name,
-      value,
-    );
+  setQuery(name: string, value: string | readonly string[] | undefined): this {
+    this.queryMap.set(name, value);
 
     return this;
   }
 
-  removeQuery(
-    name: string,
-  ): boolean {
-    return this.queryMap.delete(
-      name,
-    );
+  removeQuery(name: string): boolean {
+    return this.queryMap.delete(name);
   }
 
   /* ------------------------------------------------------------------------ */
@@ -484,49 +273,25 @@ export class HttpRequestContext {
   /* ------------------------------------------------------------------------ */
 
   get params(): RequestParams {
-    return Object.freeze(
-      Object.fromEntries(
-        this.paramsMap,
-      ),
-    );
+    return Object.freeze(Object.fromEntries(this.paramsMap));
   }
 
-  hasParam(
-    name: string,
-  ): boolean {
-    return this.paramsMap.has(
-      name,
-    );
+  hasParam(name: string): boolean {
+    return this.paramsMap.has(name);
   }
 
-  getParam(
-    name: string,
-  ): string | undefined {
-    return this.paramsMap.get(
-      name,
-    );
+  getParam(name: string): string | undefined {
+    return this.paramsMap.get(name);
   }
 
-  setParam(
-    name: string,
-    value:
-      | string
-      | undefined,
-  ): this {
-    this.paramsMap.set(
-      name,
-      value,
-    );
+  setParam(name: string, value: string | undefined): this {
+    this.paramsMap.set(name, value);
 
     return this;
   }
 
-  removeParam(
-    name: string,
-  ): boolean {
-    return this.paramsMap.delete(
-      name,
-    );
+  removeParam(name: string): boolean {
+    return this.paramsMap.delete(name);
   }
 
   /* ------------------------------------------------------------------------ */
@@ -537,11 +302,8 @@ export class HttpRequestContext {
     return this.requestBody;
   }
 
-  setBody(
-    body: unknown,
-  ): this {
-    this.requestBody =
-      body;
+  setBody(body: unknown): this {
+    this.requestBody = body;
 
     return this;
   }
@@ -550,93 +312,57 @@ export class HttpRequestContext {
   /* Network Metadata                                                         */
   /* ------------------------------------------------------------------------ */
 
-  get remoteAddress():
-    | string
-    | undefined {
+  get remoteAddress(): string | undefined {
     return this.remoteAddressValue;
   }
 
-  setRemoteAddress(
-    address:
-      | string
-      | undefined,
-  ): this {
-    this.remoteAddressValue =
-      address;
+  setRemoteAddress(address: string | undefined): this {
+    this.remoteAddressValue = address;
 
     return this;
   }
 
-  get protocol():
-    | string
-    | undefined {
+  get protocol(): string | undefined {
     return this.protocolValue;
   }
 
-  setProtocol(
-    protocol:
-      | string
-      | undefined,
-  ): this {
-    this.protocolValue =
-      protocol;
+  setProtocol(protocol: string | undefined): this {
+    this.protocolValue = protocol;
 
     return this;
   }
 
-  get hostname():
-    | string
-    | undefined {
+  get hostname(): string | undefined {
     return this.hostnameValue;
   }
 
-  setHostname(
-    hostname:
-      | string
-      | undefined,
-  ): this {
-    this.hostnameValue =
-      hostname;
+  setHostname(hostname: string | undefined): this {
+    this.hostnameValue = hostname;
 
     return this;
   }
 
-  get port():
-    | number
-    | undefined {
+  get port(): number | undefined {
     return this.portValue;
   }
 
-  setPort(
-    port:
-      | number
-      | undefined,
-  ): this {
+  setPort(port: number | undefined): this {
     if (
-      port !==
-        undefined &&
-      (!Number.isInteger(
-        port,
-      ) ||
-        port < 1 ||
-        port > 65535)
+      port !== undefined &&
+      (!Number.isInteger(port) || port < 1 || port > 65535)
     ) {
       throw new RangeError(
         "Request port must be an integer between 1 and 65535.",
       );
     }
 
-    this.portValue =
-      port;
+    this.portValue = port;
 
     return this;
   }
 
   get secure(): boolean {
-    return (
-      this.protocolValue?.toLowerCase() ===
-      "https"
-    );
+    return this.protocolValue?.toLowerCase() === "https";
   }
 
   /* ------------------------------------------------------------------------ */
@@ -644,98 +370,51 @@ export class HttpRequestContext {
   /* ------------------------------------------------------------------------ */
 
   get state(): Readonly<RequestState> {
-    return Object.freeze(
-      Object.fromEntries(
-        this.stateMap,
-      ),
-    );
+    return Object.freeze(Object.fromEntries(this.stateMap));
   }
 
-  hasState(
-    key: string | symbol,
-  ): boolean {
-    return this.stateMap.has(
-      key,
-    );
+  hasState(key: string | symbol): boolean {
+    return this.stateMap.has(key);
   }
 
-  getState<T = unknown>(
-    key: string | symbol,
-  ): T | undefined {
-    return this.stateMap.get(
-      key,
-    ) as T | undefined;
+  getState<T = unknown>(key: string | symbol): T | undefined {
+    return this.stateMap.get(key) as T | undefined;
   }
 
-  setState<T>(
-    key: string | symbol,
-    value: T,
-  ): this {
-    this.stateMap.set(
-      key,
-      value,
-    );
+  setState<T>(key: string | symbol, value: T): this {
+    this.stateMap.set(key, value);
 
     return this;
   }
 
-  removeState(
-    key: string | symbol,
-  ): boolean {
-    return this.stateMap.delete(
-      key,
-    );
+  removeState(key: string | symbol): boolean {
+    return this.stateMap.delete(key);
   }
 
   /* ------------------------------------------------------------------------ */
   /* Metadata                                                                 */
   /* ------------------------------------------------------------------------ */
 
-  get metadata():
-    | Readonly<
-        Record<string, unknown>
-      > {
-    return Object.freeze(
-      Object.fromEntries(
-        this.metadataMap,
-      ),
-    );
+  get metadata(): Readonly<Record<string, unknown>> {
+    return Object.freeze(Object.fromEntries(this.metadataMap));
   }
 
-  hasMetadata(
-    key: string,
-  ): boolean {
-    return this.metadataMap.has(
-      key,
-    );
+  hasMetadata(key: string): boolean {
+    return this.metadataMap.has(key);
   }
 
-  getMetadata<T = unknown>(
-    key: string,
-  ): T | undefined {
-    return this.metadataMap.get(
-      key,
-    ) as T | undefined;
+  getMetadata<T = unknown>(key: string): T | undefined {
+    return this.metadataMap.get(key) as T | undefined;
   }
 
-  setMetadata<T>(
-    key: string,
-    value: T,
-  ): this {
-    this.metadataMap.set(
-      key,
-      value,
-    );
+  setMetadata<T>(key: string, value: T): this {
+    this.metadataMap.set(key, value);
 
     return this;
   }
 
-  removeMetadata(
-    key: string,
-  ): boolean {
-    return this.metadataMap.delete(
-      key,
-    );
+  removeMetadata(key: string): boolean {
+    return this.metadataMap.delete(key);
   }
 
   /* ------------------------------------------------------------------------ */
@@ -743,83 +422,43 @@ export class HttpRequestContext {
   /* ------------------------------------------------------------------------ */
 
   get origin(): string | undefined {
-    const protocol =
-      this.protocolValue;
+    const protocol = this.protocolValue;
 
-    const hostname =
-      this.hostnameValue;
+    const hostname = this.hostnameValue;
 
-    if (
-      !protocol ||
-      !hostname
-    ) {
+    if (!protocol || !hostname) {
       return undefined;
     }
 
-    const port =
-      this.portValue;
+    const port = this.portValue;
 
     const defaultPort =
-      protocol ===
-      "http"
-        ? 80
-        : protocol ===
-          "https"
-        ? 443
-        : undefined;
+      protocol === "http" ? 80 : protocol === "https" ? 443 : undefined;
 
     const portSuffix =
-      port !==
-          undefined &&
-      port !==
-          defaultPort
-        ? `:${port}`
-        : "";
+      port !== undefined && port !== defaultPort ? `:${port}` : "";
 
     return `${protocol}://${hostname}${portSuffix}`;
   }
 
-  get userAgent():
-    | string
-    | undefined {
-    return this.getHeader(
-      "user-agent",
-    );
+  get userAgent(): string | undefined {
+    return this.getHeader("user-agent");
   }
 
-  get contentType():
-    | string
-    | undefined {
-    return this.getHeader(
-      "content-type",
-    );
+  get contentType(): string | undefined {
+    return this.getHeader("content-type");
   }
 
-  get contentLength():
-    | number
-    | undefined {
-    const value =
-      this.getHeader(
-        "content-length",
-      );
+  get contentLength(): number | undefined {
+    const value = this.getHeader("content-length");
 
-    if (
-      value ===
-      undefined
-    ) {
+    if (value === undefined) {
       return undefined;
     }
 
-    const length =
-      Number(
-        value,
-      );
+    const length = Number(value);
 
-    return Number.isFinite(
-      length,
-    )
-      ? length
-      : undefined;
+    return Number.isFinite(length) ? length : undefined;
   }
 
   get requestId(): string {
@@ -840,14 +479,10 @@ export class HttpRequestContext {
       query: this.query,
       params: this.params,
       body: this.requestBody,
-      remoteAddress:
-        this.remoteAddressValue,
-      protocol:
-        this.protocolValue,
-      hostname:
-        this.hostnameValue,
-      port:
-        this.portValue,
+      remoteAddress: this.remoteAddressValue,
+      protocol: this.protocolValue,
+      hostname: this.hostnameValue,
+      port: this.portValue,
       state: this.state,
       metadata: this.metadata,
       createdAt: this.createdAt,
@@ -863,23 +498,15 @@ export class HttpRequestContext {
       query: this.query,
       params: this.params,
       body: this.requestBody,
-      remoteAddress:
-        this.remoteAddressValue,
-      protocol:
-        this.protocolValue,
-      hostname:
-        this.hostnameValue,
-      port:
-        this.portValue,
+      remoteAddress: this.remoteAddressValue,
+      protocol: this.protocolValue,
+      hostname: this.hostnameValue,
+      port: this.portValue,
       state: {
-        ...Object.fromEntries(
-          this.stateMap,
-        ),
+        ...Object.fromEntries(this.stateMap),
       },
       metadata: {
-        ...Object.fromEntries(
-          this.metadataMap,
-        ),
+        ...Object.fromEntries(this.metadataMap),
       },
     });
   }
@@ -892,9 +519,7 @@ export class HttpRequestContext {
 export function createRequestContext(
   init: RequestContextInit,
 ): HttpRequestContext {
-  return new HttpRequestContext(
-    init,
-  );
+  return new HttpRequestContext(init);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -904,33 +529,22 @@ export function createRequestContext(
 const asyncContextStorage:
   | {
       getStore(): HttpRequestContext | undefined;
-      run<T>(
-        context: HttpRequestContext,
-        callback: () => T,
-      ): T;
+      run<T>(context: HttpRequestContext, callback: () => T): T;
     }
-  | undefined =
-  createAsyncContextStorage();
+  | undefined = createAsyncContextStorage();
 
 export function runWithRequestContext<T>(
   context: HttpRequestContext,
   callback: () => T,
 ): T {
-  if (
-    asyncContextStorage
-  ) {
-    return asyncContextStorage.run(
-      context,
-      callback,
-    );
+  if (asyncContextStorage) {
+    return asyncContextStorage.run(context, callback);
   }
 
   return callback();
 }
 
-export function getCurrentRequestContext():
-  | HttpRequestContext
-  | undefined {
+export function getCurrentRequestContext(): HttpRequestContext | undefined {
   return asyncContextStorage?.getStore();
 }
 
@@ -939,81 +553,40 @@ export function getCurrentRequestContext():
 /* -------------------------------------------------------------------------- */
 
 export function assertRequestContext(
-  context:
-    | HttpRequestContext
-    | undefined
-    | null,
+  context: HttpRequestContext | undefined | null,
 ): asserts context is HttpRequestContext {
-  if (
-    !context
-  ) {
-    throw new Error(
-      "HTTP request context is not available.",
-    );
+  if (!context) {
+    throw new Error("HTTP request context is not available.");
   }
 }
 
-export function isRequestContext(
-  value: unknown,
-): value is HttpRequestContext {
-  return (
-    value instanceof
-    HttpRequestContext
-  );
+export function isRequestContext(value: unknown): value is HttpRequestContext {
+  return value instanceof HttpRequestContext;
 }
 
 /* -------------------------------------------------------------------------- */
 /* URL Helpers                                                                */
 /* -------------------------------------------------------------------------- */
 
-export function getPathname(
-  url: string,
-): string {
+export function getPathname(url: string): string {
   try {
-    const parsed =
-      new URL(
-        url,
-        "http://lattice.invalid",
-      );
+    const parsed = new URL(url, "http://lattice.invalid");
 
-    return (
-      parsed.pathname ||
-      "/"
-    );
+    return parsed.pathname || "/";
   } catch {
-    const pathname =
-      url.split(
-        "?",
-        1,
-      )[0];
+    const pathname = url.split("?", 1)[0];
 
-    return (
-      pathname ||
-      "/"
-    );
+    return pathname || "/";
   }
 }
 
-export function getSearchParams(
-  url: string,
-): URLSearchParams {
+export function getSearchParams(url: string): URLSearchParams {
   try {
-    return new URL(
-      url,
-      "http://lattice.invalid",
-    ).searchParams;
+    return new URL(url, "http://lattice.invalid").searchParams;
   } catch {
-    const query =
-      url.includes("?")
-        ? url.slice(
-            url.indexOf("?") +
-              1,
-          )
-        : "";
+    const query = url.includes("?") ? url.slice(url.indexOf("?") + 1) : "";
 
-    return new URLSearchParams(
-      query,
-    );
+    return new URLSearchParams(query);
   }
 }
 
@@ -1021,103 +594,48 @@ export function getSearchParams(
 /* Internal Helpers                                                           */
 /* -------------------------------------------------------------------------- */
 
-function normalizeMethod(
-  method: HttpMethod,
-): HttpMethod {
-  return method
-    .trim()
-    .toUpperCase();
+function normalizeMethod(method: HttpMethod): HttpMethod {
+  return method.trim().toUpperCase();
 }
 
-function normalizeHeaderName(
-  name: string,
-): string {
-  return name
-    .trim()
-    .toLowerCase();
+function normalizeHeaderName(name: string): string {
+  return name.trim().toLowerCase();
 }
 
 function createHeaderMap(
-  headers:
-    | RequestHeaders
-    | undefined,
+  headers: RequestHeaders | undefined,
 ): Map<string, string> {
-  const result =
-    new Map<
-      string,
-      string
-    >();
+  const result = new Map<string, string>();
 
-  if (
-    !headers
-  ) {
+  if (!headers) {
     return result;
   }
 
-  for (
-    const [
-      name,
-      value,
-    ] of Object.entries(
-      headers,
-    )
-  ) {
-    validateHeaderName(
-      name,
-    );
+  for (const [name, value] of Object.entries(headers)) {
+    validateHeaderName(name);
 
-    validateHeaderValue(
-      value,
-    );
+    validateHeaderValue(value);
 
-    result.set(
-      normalizeHeaderName(
-        name,
-      ),
-      value,
-    );
+    result.set(normalizeHeaderName(name), value);
   }
 
   return result;
 }
 
 function createMap<T>(
-  value:
-    | Readonly<
-        Record<string, T>
-      >
-    | undefined,
+  value: Readonly<Record<string, T>> | undefined,
 ): Map<string, T> {
-  return new Map(
-    Object.entries(
-      value ??
-        {},
-    ),
-  );
+  return new Map(Object.entries(value ?? {}));
 }
 
-function validateHeaderName(
-  name: string,
-): void {
-  if (
-    !/^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/.test(
-      name,
-    )
-  ) {
-    throw new TypeError(
-      `Invalid HTTP header name: ${name}`,
-    );
+function validateHeaderName(name: string): void {
+  if (!/^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/.test(name)) {
+    throw new TypeError(`Invalid HTTP header name: ${name}`);
   }
 }
 
-function validateHeaderValue(
-  value: string,
-): void {
-  if (
-    /[\r\n]/.test(
-      value,
-    )
-  ) {
+function validateHeaderValue(value: string): void {
+  if (/[\r\n]/.test(value)) {
     throw new TypeError(
       "HTTP header value cannot contain CR or LF characters.",
     );
@@ -1127,10 +645,7 @@ function validateHeaderValue(
 function createAsyncContextStorage():
   | {
       getStore(): HttpRequestContext | undefined;
-      run<T>(
-        context: HttpRequestContext,
-        callback: () => T,
-      ): T;
+      run<T>(context: HttpRequestContext, callback: () => T): T;
     }
   | undefined {
   /*
@@ -1138,40 +653,24 @@ function createAsyncContextStorage():
    * remains usable in browser and non-Node runtimes.
    */
   try {
-    const runtimeRequire =
-      (
-        globalThis as {
-          require?: (
-            moduleName: string,
-          ) => unknown;
-        }
-      ).require;
+    const runtimeRequire = (
+      globalThis as {
+        require?: (moduleName: string) => unknown;
+      }
+    ).require;
 
-    if (
-      typeof runtimeRequire !==
-      "function"
-    ) {
+    if (typeof runtimeRequire !== "function") {
       return undefined;
     }
 
-    const asyncHooks =
-      runtimeRequire(
-        "node:async_hooks",
-      ) as {
-        AsyncLocalStorage?: new () => {
-          getStore():
-            | HttpRequestContext
-            | undefined;
-          run<T>(
-            context: HttpRequestContext,
-            callback: () => T,
-          ): T;
-        };
+    const asyncHooks = runtimeRequire("node:async_hooks") as {
+      AsyncLocalStorage?: new () => {
+        getStore(): HttpRequestContext | undefined;
+        run<T>(context: HttpRequestContext, callback: () => T): T;
       };
+    };
 
-    if (
-      !asyncHooks.AsyncLocalStorage
-    ) {
+    if (!asyncHooks.AsyncLocalStorage) {
       return undefined;
     }
 

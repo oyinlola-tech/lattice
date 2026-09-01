@@ -5,4 +5,3 @@
  */
 
 export * from "./httpRouterGroup.core.js";
-export * from "./httpRouterGroup.method.js";

@@ -4,22 +4,13 @@
  * Logger class helper methods.
  */
 
-export {
-  createEntry,
-} from "./loggerCoreMethods.entry.js";
+export { createEntry } from "./loggerCoreMethods.entry.js";
 
-export {
-  dispatchEntry,
-} from "./loggerCoreMethods.dispatch.js";
+export { dispatchEntry } from "./loggerCoreMethods.dispatch.js";
 
-export {
-  logAtLevel,
-} from "./loggerCoreMethods.level.js";
+export { logAtLevel } from "./loggerCoreMethods.level.js";
 
-export {
-  childLogger,
-  withContextLogger,
-} from "./loggerCoreMethods.child.js";
+export { childLogger, withContextLogger } from "./loggerCoreMethods.child.js";
 
 export {
   setLoggerLevel,

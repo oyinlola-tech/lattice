@@ -59,12 +59,8 @@ export function getClientIp(
 /**
  * Gets the proxy chain from the request.
  */
-export function getProxyChain(
-  request: ProxyRequest,
-): readonly string[] {
-  return getForwardedClientAddresses(request).map(
-    (addr) => addr.address,
-  );
+export function getProxyChain(request: ProxyRequest): readonly string[] {
+  return getForwardedClientAddresses(request).map((addr) => addr.address);
 }
 
 /**

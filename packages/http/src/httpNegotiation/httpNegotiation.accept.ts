@@ -5,127 +5,70 @@
  * including wildcard matching and structured syntax suffix support.
  */
 
-import type {
-  NegotiationPreference,
-} from "./httpNegotiation.types.js";
+import type { NegotiationPreference } from "./httpNegotiation.types.js";
 
-import {
-  parseNegotiationHeader,
-} from "./httpNegotiation.parsing.js";
+import { parseNegotiationHeader } from "./httpNegotiation.parsing.js";
 
 import {
   normalizeMediaType,
   splitMediaType,
 } from "./httpNegotiation.mediaType.js";
 
-import {
-  negotiate,
-} from "./httpNegotiation.negotiate.js";
+import { negotiate } from "./httpNegotiation.negotiate.js";
 
 export function parseAccept(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
 ): NegotiationPreference[] {
-  return parseNegotiationHeader(
-    header,
-  );
+  return parseNegotiationHeader(header);
 }
 
-export function matchesAccept(
-  accepted: string,
-  available: string,
-): boolean {
-  const left =
-    normalizeMediaType(
-      accepted,
-    );
+export function matchesAccept(accepted: string, available: string): boolean {
+  const left = normalizeMediaType(accepted);
 
-  const right =
-    normalizeMediaType(
-      available,
-    );
+  const right = normalizeMediaType(available);
 
-  if (
-    left ===
-    right
-  ) {
+  if (left === right) {
     return true;
   }
 
-  const leftParts =
-    splitMediaType(left);
+  const leftParts = splitMediaType(left);
 
-  const rightParts =
-    splitMediaType(right);
+  const rightParts = splitMediaType(right);
 
-  if (
-    !leftParts ||
-    !rightParts
-  ) {
+  if (!leftParts || !rightParts) {
     return false;
   }
 
-  const [
-    leftType,
-    leftSubtype,
-  ] = leftParts;
+  const [leftType, leftSubtype] = leftParts;
 
-  const [
-    rightType,
-    rightSubtype,
-  ] = rightParts;
+  const [rightType, rightSubtype] = rightParts;
 
-  if (
-    leftType === "*" &&
-    leftSubtype === "*"
-  ) {
+  if (leftType === "*" && leftSubtype === "*") {
     return true;
   }
 
-  if (
-    leftType !== "*" &&
-    leftType !== rightType
-  ) {
+  if (leftType !== "*" && leftType !== rightType) {
     return false;
   }
 
-  if (
-    leftSubtype === "*"
-  ) {
+  if (leftSubtype === "*") {
     return true;
   }
 
-  if (
-    leftSubtype === rightSubtype
-  ) {
+  if (leftSubtype === rightSubtype) {
     return true;
   }
 
-  if (
-    leftSubtype.startsWith(
-      "*+",
-    )
-  ) {
-    return rightSubtype.endsWith(
-      leftSubtype.slice(1),
-    );
+  if (leftSubtype.startsWith("*+")) {
+    return rightSubtype.endsWith(leftSubtype.slice(1));
   }
 
   return false;
 }
 
 export function negotiateAccept(
-  header:
-    | string
-    | undefined
-    | null,
+  header: string | undefined | null,
   available: readonly string[],
 ): string | undefined {
-  return negotiate(
-    parseAccept(header),
-    available,
-    matchesAccept,
-  );
+  return negotiate(parseAccept(header), available, matchesAccept);
 }

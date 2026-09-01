@@ -32,9 +32,7 @@ export type {
   DocumentationVersion,
 } from "./documentationMetadata.js";
 
-export type {
-  DocumentationDocument,
-} from "./documentationDocument.js";
+export type { DocumentationDocument } from "./documentationDocument.js";
 
 export type {
   DocumentationNavigationItem,

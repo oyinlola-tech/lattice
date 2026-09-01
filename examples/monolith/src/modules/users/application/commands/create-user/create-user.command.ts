@@ -10,5 +10,7 @@ export class CreateUserCommand extends AppCommand {
     public readonly name: string,
     public readonly passwordHash: string,
     public readonly role: UserRole,
-  ) { super(); }
+  ) {
+    super();
+  }
 }

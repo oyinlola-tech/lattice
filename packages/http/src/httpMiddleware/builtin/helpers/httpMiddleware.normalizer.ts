@@ -4,87 +4,49 @@
  * @module httpMiddleware/builtin/helpers/normalizers
  */
 
-import type {
-  HttpRequestContext as RequestContext,
-} from "../../../httpRequest/httpRequest.context.js";
+import type { HttpRequestContext as RequestContext } from "../../../httpRequest/httpRequest.context.js";
 
-import type {
-  HttpResponseContext as ResponseContext,
-} from "../../../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../../../httpResponse/httpResponse.context.js";
 
 export function normalizeMiddlewareResult(
-  result:
-    | Response
-    | RequestContext
-    | ResponseContext
-    | undefined,
-  fallback?:
-    | ResponseContext,
-):
-  | ResponseContext {
+  result: Response | RequestContext | ResponseContext | undefined,
+  fallback?: ResponseContext,
+): ResponseContext {
   if (
-    result !==
-      null &&
-    typeof result ===
-      "object" &&
-    (
-      "response" in
-        result ||
-      "status" in
-        result ||
-      "headers" in
-        result
-    )
+    result !== null &&
+    typeof result === "object" &&
+    ("response" in result || "status" in result || "headers" in result)
   ) {
     return result as ResponseContext;
   }
 
   if (
-    typeof result ===
-      "object" &&
-    result !==
-      null &&
-    typeof Response !==
-      "undefined" &&
-    (result as object) instanceof
-      Response
+    typeof result === "object" &&
+    result !== null &&
+    typeof Response !== "undefined" &&
+    (result as object) instanceof Response
   ) {
     return {
-      response:
-        result as Response,
+      response: result as Response,
     } as unknown as ResponseContext;
   }
 
   if (
-    result !==
-      null &&
-    typeof result ===
-      "object" &&
-    (
-      "request" in
-        result ||
-      "method" in
-        result ||
-      "url" in
-        result
-    )
+    result !== null &&
+    typeof result === "object" &&
+    ("request" in result || "method" in result || "url" in result)
   ) {
     return (
       fallback ??
       ({
-        request:
-          result,
+        request: result,
       } as unknown as ResponseContext)
     );
   }
 
-  if (
-    fallback
-  ) {
+  if (fallback) {
     return fallback;
   }
 
-  throw new Error(
-    "Middleware completed without producing a response context.",
-  );
+  throw new Error("Middleware completed without producing a response context.");
 }

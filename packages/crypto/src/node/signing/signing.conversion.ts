@@ -6,9 +6,7 @@ import { isKeyObject } from "./signing.utils.js";
 /**
  * Converts a CryptoKey into a Node.js KeyObject.
  */
-export function cryptoKeyToPrivateKey(
-  key: CryptoKey,
-): KeyObject {
+export function cryptoKeyToPrivateKey(key: CryptoKey): KeyObject {
   if (key.algorithm !== "ed25519") {
     throw new TypeError(
       `CryptoKey algorithm "${key.algorithm}" is not supported for Ed25519 signatures.`,
@@ -16,9 +14,7 @@ export function cryptoKeyToPrivateKey(
   }
 
   if (!key.extractable) {
-    throw new Error(
-      `Cryptographic key "${key.keyId}" is not extractable.`,
-    );
+    throw new Error(`Cryptographic key "${key.keyId}" is not extractable.`);
   }
 
   return createPrivateKey({
@@ -28,9 +24,7 @@ export function cryptoKeyToPrivateKey(
   });
 }
 
-export function toPrivateKey(
-  key: KeyObject | string | Uint8Array,
-): KeyObject {
+export function toPrivateKey(key: KeyObject | string | Uint8Array): KeyObject {
   if (isKeyObject(key)) {
     return key;
   }
@@ -50,9 +44,7 @@ export function toPrivateKey(
   throw new TypeError("Invalid private key.");
 }
 
-export function toPublicKey(
-  key: KeyObject | string | Uint8Array,
-): KeyObject {
+export function toPublicKey(key: KeyObject | string | Uint8Array): KeyObject {
   if (isKeyObject(key)) {
     return key;
   }

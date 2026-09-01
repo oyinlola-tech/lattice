@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { CryptoFactory, createCryptoFactory } from "../src/cryptoFactory/index.js";
+import {
+  CryptoFactory,
+  createCryptoFactory,
+} from "../src/cryptoFactory/index.js";
 
 describe("CryptoFactory", () => {
   const factory = createCryptoFactory();
@@ -60,7 +63,9 @@ describe("CryptoFactory", () => {
     it("creates and verifies password hash", async () => {
       const hash = await factory.createPasswordHash("test-password");
       expect(hash.encoded).toMatch(/^v1\$scrypt\$/);
-      expect(await factory.verifyPassword("test-password", hash.encoded)).toBe(true);
+      expect(await factory.verifyPassword("test-password", hash.encoded)).toBe(
+        true,
+      );
       expect(await factory.verifyPassword("wrong", hash.encoded)).toBe(false);
     });
   });

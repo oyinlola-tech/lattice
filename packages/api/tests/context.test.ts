@@ -18,7 +18,9 @@ describe("createAPIContext", () => {
   });
 
   it("stores and retrieves typed values via typed keys", () => {
-    const context = createAPIContext<string, { tenantId: string }>("req-2", { tenantId: "tenant-1" });
+    const context = createAPIContext<string, { tenantId: string }>("req-2", {
+      tenantId: "tenant-1",
+    });
 
     context.set(TenantIdContextKey, "tenant-2");
 

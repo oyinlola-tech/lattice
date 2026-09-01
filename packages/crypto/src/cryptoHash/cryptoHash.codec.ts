@@ -17,9 +17,7 @@ export function encodeDigest(
     case "base64url":
       return buffer.toString("base64url");
     default:
-      throw new TypeError(
-        `Unsupported hash encoding: ${String(encoding)}.`,
-      );
+      throw new TypeError(`Unsupported hash encoding: ${String(encoding)}.`);
   }
 }
 
@@ -50,8 +48,6 @@ export function decodeDigest(
       return new Uint8Array(Buffer.from(digest, "base64url"));
 
     default:
-      throw new TypeError(
-        `Unsupported hash encoding: ${String(encoding)}.`,
-      );
+      throw new TypeError(`Unsupported hash encoding: ${String(encoding)}.`);
   }
 }

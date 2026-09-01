@@ -19,11 +19,23 @@ export class ProductsModule {
   public initialize(): void {
     const createHandler = new CreateProductHandler(this.products);
     const listHandler = new ListProductsHandler(this.products);
-    this.commandBus.register("products.create", createHandler.execute.bind(createHandler));
-    this.queryBus.register("products.list", listHandler.execute.bind(listHandler));
+    this.commandBus.register(
+      "products.create",
+      createHandler.execute.bind(createHandler),
+    );
+    this.queryBus.register(
+      "products.list",
+      listHandler.execute.bind(listHandler),
+    );
   }
 
-  public getCommandBus(): CommandBus { return this.commandBus; }
-  public getQueryBus(): QueryBus { return this.queryBus; }
-  public getProductRepository(): ProductRepository { return this.products; }
+  public getCommandBus(): CommandBus {
+    return this.commandBus;
+  }
+  public getQueryBus(): QueryBus {
+    return this.queryBus;
+  }
+  public getProductRepository(): ProductRepository {
+    return this.products;
+  }
 }

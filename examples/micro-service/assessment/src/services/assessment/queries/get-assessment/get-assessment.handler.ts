@@ -15,7 +15,10 @@ export interface GetAssessmentResult {
   readonly updatedAt: Date;
 }
 
-export class GetAssessmentHandler extends QueryHandler<GetAssessmentQuery, GetAssessmentResult> {
+export class GetAssessmentHandler extends QueryHandler<
+  GetAssessmentQuery,
+  GetAssessmentResult
+> {
   public readonly queryType = GET_ASSESSMENT_QUERY;
 
   private readonly repository: AssessmentRepository;
@@ -25,7 +28,10 @@ export class GetAssessmentHandler extends QueryHandler<GetAssessmentQuery, GetAs
     this.repository = repository;
   }
 
-  async execute(query: GetAssessmentQuery, _context?: CqrsContext): Promise<GetAssessmentResult> {
+  async execute(
+    query: GetAssessmentQuery,
+    _context?: CqrsContext,
+  ): Promise<GetAssessmentResult> {
     const assessment = await this.repository.findById(query.assessmentId);
     if (!assessment) {
       throw new AssessmentNotFoundError(query.assessmentId);
@@ -37,7 +43,10 @@ export class GetAssessmentHandler extends QueryHandler<GetAssessmentQuery, GetAs
       title: String(assessment["title"]),
       type: String(assessment["type"]),
       totalPoints: Number(assessment["total_points"]),
-      durationMinutes: assessment["duration_minutes"] != null ? Number(assessment["duration_minutes"]) : null,
+      durationMinutes:
+        assessment["duration_minutes"] != null
+          ? Number(assessment["duration_minutes"])
+          : null,
       createdAt: new Date(String(assessment["created_at"])),
       updatedAt: new Date(String(assessment["updated_at"])),
     };

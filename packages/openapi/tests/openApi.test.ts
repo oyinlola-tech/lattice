@@ -21,7 +21,9 @@ describe("toOpenAPIPath", () => {
   });
 
   it("converts multiple path parameters", () => {
-    expect(toOpenAPIPath("/users/:userId/posts/:postId")).toBe("/users/{userId}/posts/{postId}");
+    expect(toOpenAPIPath("/users/:userId/posts/:postId")).toBe(
+      "/users/{userId}/posts/{postId}",
+    );
   });
 
   it("leaves paths without parameters unchanged", () => {
@@ -29,7 +31,9 @@ describe("toOpenAPIPath", () => {
   });
 
   it("throws on optional path parameters", () => {
-    expect(() => toOpenAPIPath("/users/:id?")).toThrow("Optional path parameter");
+    expect(() => toOpenAPIPath("/users/:id?")).toThrow(
+      "Optional path parameter",
+    );
   });
 });
 
@@ -95,7 +99,9 @@ describe("convertSchema", () => {
     });
 
     expect(result.schema.type).toBe("array");
-    expect((result.schema as { items: unknown }).items).toEqual({ type: "string" });
+    expect((result.schema as { items: unknown }).items).toEqual({
+      type: "string",
+    });
   });
 
   it("converts enum schema", () => {
@@ -105,7 +111,10 @@ describe("convertSchema", () => {
     });
 
     expect(result.schema.type).toBe("string");
-    expect((result.schema as { enum: unknown[] }).enum).toEqual(["active", "inactive"]);
+    expect((result.schema as { enum: unknown[] }).enum).toEqual([
+      "active",
+      "inactive",
+    ]);
   });
 
   it("converts union schema", () => {
@@ -153,7 +162,9 @@ describe("OpenAPIValidatorImpl", () => {
     const result = validator.validate({
       openapi: "3.1.0",
       info: { title: "Test", version: "1.0.0" },
-      paths: { "/users": { get: { responses: { "200": { description: "OK" } } } } },
+      paths: {
+        "/users": { get: { responses: { "200": { description: "OK" } } } },
+      },
     });
 
     expect(result.valid).toBe(true);
@@ -180,14 +191,22 @@ describe("OpenAPIValidatorImpl", () => {
       info: { title: "Test", version: "1.0.0" },
       paths: {
         "/users": {
-          get: { operationId: "users.list", responses: { "200": { description: "OK" } } },
-          post: { operationId: "users.list", responses: { "201": { description: "Created" } } },
+          get: {
+            operationId: "users.list",
+            responses: { "200": { description: "OK" } },
+          },
+          post: {
+            operationId: "users.list",
+            responses: { "201": { description: "Created" } },
+          },
         },
       },
     });
 
     expect(result.valid).toBe(false);
-    expect(result.errors.some((e) => e.message.includes("Duplicate operationId"))).toBe(true);
+    expect(
+      result.errors.some((e) => e.message.includes("Duplicate operationId")),
+    ).toBe(true);
   });
 
   it("warns on empty paths", () => {

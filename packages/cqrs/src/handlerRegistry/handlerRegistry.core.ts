@@ -8,9 +8,7 @@ import type {
 /**
  * Supported handler kinds.
  */
-export type HandlerKind =
-  | "command"
-  | "query";
+export type HandlerKind = "command" | "query";
 
 /**
  * Registry entry for a command handler.
@@ -21,10 +19,7 @@ export interface CommandHandlerEntry<
 > {
   readonly kind: "command";
   readonly type: TCommand["type"];
-  readonly handler: CommandHandlerLike<
-    TCommand,
-    TResult
-  >;
+  readonly handler: CommandHandlerLike<TCommand, TResult>;
 }
 
 /**
@@ -36,18 +31,13 @@ export interface QueryHandlerEntry<
 > {
   readonly kind: "query";
   readonly type: TQuery["type"];
-  readonly handler: QueryHandlerLike<
-    TQuery,
-    TResult
-  >;
+  readonly handler: QueryHandlerLike<TQuery, TResult>;
 }
 
 /**
  * Union of all CQRS handler registrations.
  */
-export type HandlerEntry =
-  | CommandHandlerEntry
-  | QueryHandlerEntry;
+export type HandlerEntry = CommandHandlerEntry | QueryHandlerEntry;
 
 /**
  * Central registry for CQRS command and query handlers.
@@ -57,56 +47,26 @@ export type HandlerEntry =
  * one or more buses.
  */
 export class HandlerRegistry {
-  private readonly commandHandlers =
-    new Map<
-      string,
-      CommandHandlerLike
-    >();
+  private readonly commandHandlers = new Map<string, CommandHandlerLike>();
 
-  private readonly queryHandlers =
-    new Map<
-      string,
-      QueryHandlerLike
-    >();
+  private readonly queryHandlers = new Map<string, QueryHandlerLike>();
 
   /**
    * Registers a command handler.
    */
-  public registerCommand<
-    TCommand extends Command,
-    TResult = void,
-  >(
+  public registerCommand<TCommand extends Command, TResult = void>(
     type: TCommand["type"],
-    handler: CommandHandlerLike<
-      TCommand,
-      TResult
-    >,
+    handler: CommandHandlerLike<TCommand, TResult>,
   ): this {
-    this.validateType(
-      type,
-      "command",
-    );
+    this.validateType(type, "command");
 
-    this.validateHandler(
-      handler,
-      "command",
-      type,
-    );
+    this.validateHandler(handler, "command", type);
 
-    if (
-      this.commandHandlers.has(
-        type,
-      )
-    ) {
-      throw new Error(
-        `A command handler is already registered for "${type}".`,
-      );
+    if (this.commandHandlers.has(type)) {
+      throw new Error(`A command handler is already registered for "${type}".`);
     }
 
-    this.commandHandlers.set(
-      type,
-      handler as CommandHandlerLike,
-    );
+    this.commandHandlers.set(type, handler as CommandHandlerLike);
 
     return this;
   }
@@ -114,41 +74,19 @@ export class HandlerRegistry {
   /**
    * Registers a query handler.
    */
-  public registerQuery<
-    TQuery extends Query,
-    TResult = unknown,
-  >(
+  public registerQuery<TQuery extends Query, TResult = unknown>(
     type: TQuery["type"],
-    handler: QueryHandlerLike<
-      TQuery,
-      TResult
-    >,
+    handler: QueryHandlerLike<TQuery, TResult>,
   ): this {
-    this.validateType(
-      type,
-      "query",
-    );
+    this.validateType(type, "query");
 
-    this.validateHandler(
-      handler,
-      "query",
-      type,
-    );
+    this.validateHandler(handler, "query", type);
 
-    if (
-      this.queryHandlers.has(
-        type,
-      )
-    ) {
-      throw new Error(
-        `A query handler is already registered for "${type}".`,
-      );
+    if (this.queryHandlers.has(type)) {
+      throw new Error(`A query handler is already registered for "${type}".`);
     }
 
-    this.queryHandlers.set(
-      type,
-      handler as QueryHandlerLike,
-    );
+    this.queryHandlers.set(type, handler as QueryHandlerLike);
 
     return this;
   }
@@ -156,34 +94,19 @@ export class HandlerRegistry {
   /**
    * Registers a generic handler entry.
    */
-  public register(
-    entry: HandlerEntry,
-  ): this {
-    if (
-      entry.kind ===
-      "command"
-    ) {
-      return this.registerCommand(
-        entry.type,
-        entry.handler,
-      );
+  public register(entry: HandlerEntry): this {
+    if (entry.kind === "command") {
+      return this.registerCommand(entry.type, entry.handler);
     }
 
-    return this.registerQuery(
-      entry.type,
-      entry.handler,
-    );
+    return this.registerQuery(entry.type, entry.handler);
   }
 
   /**
    * Registers multiple handlers.
    */
-  public registerMany(
-    entries: readonly HandlerEntry[],
-  ): this {
-    for (
-      const entry of entries
-    ) {
+  public registerMany(entries: readonly HandlerEntry[]): this {
+    for (const entry of entries) {
       this.register(entry);
     }
 
@@ -193,31 +116,15 @@ export class HandlerRegistry {
   /**
    * Replaces a command handler.
    */
-  public replaceCommand<
-    TCommand extends Command,
-    TResult = void,
-  >(
+  public replaceCommand<TCommand extends Command, TResult = void>(
     type: TCommand["type"],
-    handler: CommandHandlerLike<
-      TCommand,
-      TResult
-    >,
+    handler: CommandHandlerLike<TCommand, TResult>,
   ): this {
-    this.validateType(
-      type,
-      "command",
-    );
+    this.validateType(type, "command");
 
-    this.validateHandler(
-      handler,
-      "command",
-      type,
-    );
+    this.validateHandler(handler, "command", type);
 
-    this.commandHandlers.set(
-      type,
-      handler as CommandHandlerLike,
-    );
+    this.commandHandlers.set(type, handler as CommandHandlerLike);
 
     return this;
   }
@@ -225,31 +132,15 @@ export class HandlerRegistry {
   /**
    * Replaces a query handler.
    */
-  public replaceQuery<
-    TQuery extends Query,
-    TResult = unknown,
-  >(
+  public replaceQuery<TQuery extends Query, TResult = unknown>(
     type: TQuery["type"],
-    handler: QueryHandlerLike<
-      TQuery,
-      TResult
-    >,
+    handler: QueryHandlerLike<TQuery, TResult>,
   ): this {
-    this.validateType(
-      type,
-      "query",
-    );
+    this.validateType(type, "query");
 
-    this.validateHandler(
-      handler,
-      "query",
-      type,
-    );
+    this.validateHandler(handler, "query", type);
 
-    this.queryHandlers.set(
-      type,
-      handler as QueryHandlerLike,
-    );
+    this.queryHandlers.set(type, handler as QueryHandlerLike);
 
     return this;
   }
@@ -257,156 +148,88 @@ export class HandlerRegistry {
   /**
    * Removes a command handler.
    */
-  public unregisterCommand(
-    type: string,
-  ): boolean {
-    return this.commandHandlers.delete(
-      type,
-    );
+  public unregisterCommand(type: string): boolean {
+    return this.commandHandlers.delete(type);
   }
 
   /**
    * Removes a query handler.
    */
-  public unregisterQuery(
-    type: string,
-  ): boolean {
-    return this.queryHandlers.delete(
-      type,
-    );
+  public unregisterQuery(type: string): boolean {
+    return this.queryHandlers.delete(type);
   }
 
   /**
    * Removes either a command or query handler.
    */
-  public unregister(
-    kind: HandlerKind,
-    type: string,
-  ): boolean {
-    return kind ===
-      "command"
-      ? this.unregisterCommand(
-          type,
-        )
-      : this.unregisterQuery(
-          type,
-        );
+  public unregister(kind: HandlerKind, type: string): boolean {
+    return kind === "command"
+      ? this.unregisterCommand(type)
+      : this.unregisterQuery(type);
   }
 
   /**
    * Returns a command handler.
    */
-  public getCommandHandler<
-    TCommand extends Command,
-    TResult = void,
-  >(
+  public getCommandHandler<TCommand extends Command, TResult = void>(
     type: TCommand["type"],
-  ):
-    | CommandHandlerLike<
-        TCommand,
-        TResult
-      >
-    | undefined {
-    return this.commandHandlers.get(
-      type,
-    ) as
-      | CommandHandlerLike<
-          TCommand,
-          TResult
-        >
-      | undefined;
+  ): CommandHandlerLike<TCommand, TResult> | undefined {
+    return this.commandHandlers.get(type) as
+      CommandHandlerLike<TCommand, TResult> | undefined;
   }
 
   /**
    * Returns a query handler.
    */
-  public getQueryHandler<
-    TQuery extends Query,
-    TResult = unknown,
-  >(
+  public getQueryHandler<TQuery extends Query, TResult = unknown>(
     type: TQuery["type"],
-  ):
-    | QueryHandlerLike<
-        TQuery,
-        TResult
-      >
-    | undefined {
-    return this.queryHandlers.get(
-      type,
-    ) as
-      | QueryHandlerLike<
-          TQuery,
-          TResult
-        >
-      | undefined;
+  ): QueryHandlerLike<TQuery, TResult> | undefined {
+    return this.queryHandlers.get(type) as
+      QueryHandlerLike<TQuery, TResult> | undefined;
   }
 
   /**
    * Returns whether a command handler exists.
    */
-  public hasCommand(
-    type: string,
-  ): boolean {
-    return this.commandHandlers.has(
-      type,
-    );
+  public hasCommand(type: string): boolean {
+    return this.commandHandlers.has(type);
   }
 
   /**
    * Returns whether a query handler exists.
    */
-  public hasQuery(
-    type: string,
-  ): boolean {
-    return this.queryHandlers.has(
-      type,
-    );
+  public hasQuery(type: string): boolean {
+    return this.queryHandlers.has(type);
   }
 
   /**
    * Returns whether either kind of handler exists.
    */
-  public has(
-    kind: HandlerKind,
-    type: string,
-  ): boolean {
-    return kind ===
-      "command"
-      ? this.hasCommand(type)
-      : this.hasQuery(type);
+  public has(kind: HandlerKind, type: string): boolean {
+    return kind === "command" ? this.hasCommand(type) : this.hasQuery(type);
   }
 
   /**
    * Returns all registered command types.
    */
   public getCommandTypes(): readonly string[] {
-    return [
-      ...this.commandHandlers.keys(),
-    ];
+    return [...this.commandHandlers.keys()];
   }
 
   /**
    * Returns all registered query types.
    */
   public getQueryTypes(): readonly string[] {
-    return [
-      ...this.queryHandlers.keys(),
-    ];
+    return [...this.queryHandlers.keys()];
   }
 
   /**
    * Returns all registered handlers.
    */
   public getEntries(): readonly HandlerEntry[] {
-    const entries: HandlerEntry[] =
-      [];
+    const entries: HandlerEntry[] = [];
 
-    for (
-      const [
-        type,
-        handler,
-      ] of this.commandHandlers
-    ) {
+    for (const [type, handler] of this.commandHandlers) {
       entries.push({
         kind: "command",
         type,
@@ -414,12 +237,7 @@ export class HandlerRegistry {
       });
     }
 
-    for (
-      const [
-        type,
-        handler,
-      ] of this.queryHandlers
-    ) {
+    for (const [type, handler] of this.queryHandlers) {
       entries.push({
         kind: "query",
         type,
@@ -448,10 +266,7 @@ export class HandlerRegistry {
    * Returns the total number of handlers.
    */
   public size(): number {
-    return (
-      this.commandHandlers.size +
-      this.queryHandlers.size
-    );
+    return this.commandHandlers.size + this.queryHandlers.size;
   }
 
   /**
@@ -476,19 +291,9 @@ export class HandlerRegistry {
     this.queryHandlers.clear();
   }
 
-  private validateType(
-    type: string,
-    kind: HandlerKind,
-  ): void {
-    if (
-      typeof type !==
-        "string" ||
-      type.trim().length ===
-        0
-    ) {
-      throw new TypeError(
-        `${kind} type cannot be empty.`,
-      );
+  private validateType(type: string, kind: HandlerKind): void {
+    if (typeof type !== "string" || type.trim().length === 0) {
+      throw new TypeError(`${kind} type cannot be empty.`);
     }
   }
 
@@ -498,17 +303,10 @@ export class HandlerRegistry {
     type: string,
   ): void {
     if (
-      typeof handler !==
-        "function" &&
-      (
-        typeof handler !==
-          "object" ||
-        handler === null
-      )
+      typeof handler !== "function" &&
+      (typeof handler !== "object" || handler === null)
     ) {
-      throw new TypeError(
-        `A valid ${kind} handler is required for "${type}".`,
-      );
+      throw new TypeError(`A valid ${kind} handler is required for "${type}".`);
     }
   }
 }

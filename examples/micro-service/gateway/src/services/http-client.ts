@@ -91,7 +91,9 @@ export class HttpClient {
   /**
    * Core request method.
    */
-  async request<T = unknown>(options: ProxyRequestOptions): Promise<ServiceResponse<T>> {
+  async request<T = unknown>(
+    options: ProxyRequestOptions,
+  ): Promise<ServiceResponse<T>> {
     const url = new URL(options.path, this.config.url);
     const timeout = options.timeout ?? this.config.timeout;
 
@@ -129,7 +131,9 @@ export class HttpClient {
       return { status: response.status, headers: responseHeaders, data };
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
-        throw new Error(`Request to ${this.config.name} timed out after ${timeout}ms`);
+        throw new Error(
+          `Request to ${this.config.name} timed out after ${timeout}ms`,
+        );
       }
       throw error;
     } finally {

@@ -62,7 +62,10 @@ export function matches(pattern: string, target: string): boolean {
 /**
  * Check if a permission string matches a structured Permission object.
  */
-export function matchesPermission(pattern: string, permission: Permission): boolean {
+export function matchesPermission(
+  pattern: string,
+  permission: Permission,
+): boolean {
   const parsed = parsePermissionSafe(pattern);
   if (!parsed) return false;
 

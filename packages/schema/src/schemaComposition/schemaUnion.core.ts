@@ -16,16 +16,19 @@ type UnionOutput<TSchemas extends readonly Schema<unknown>[]> =
 /**
  * Schema that accepts values matching any of the provided schemas.
  */
-export class UnionSchema<TSchemas extends readonly Schema<unknown>[]> extends Schema<
-  UnionOutput<TSchemas>
-> {
+export class UnionSchema<
+  TSchemas extends readonly Schema<unknown>[],
+> extends Schema<UnionOutput<TSchemas>> {
   public readonly _type = "union";
 
   constructor(private readonly _schemas: TSchemas) {
     super();
   }
 
-  public _parse(ctx: SchemaParseContext, input: unknown): UnionOutput<TSchemas> {
+  public _parse(
+    ctx: SchemaParseContext,
+    input: unknown,
+  ): UnionOutput<TSchemas> {
     for (const schema of this._schemas) {
       const childCtx = createParseContext({
         maxDepth: ctx.options.maxDepth,
@@ -71,7 +74,10 @@ export class DiscriminatedUnionSchema<
     }
   }
 
-  public _parse(ctx: SchemaParseContext, input: unknown): UnionOutput<TSchemas> {
+  public _parse(
+    ctx: SchemaParseContext,
+    input: unknown,
+  ): UnionOutput<TSchemas> {
     if (typeof input !== "object" || input === null) {
       addIssue(ctx, {
         code: SchemaIssueCode.INVALID_TYPE,

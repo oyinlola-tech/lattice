@@ -3,16 +3,32 @@
  */
 
 /** Database connection state. */
-export type ConnectionState = "idle" | "connecting" | "connected" | "disconnecting" | "disconnected" | "error";
+export type ConnectionState =
+  | "idle"
+  | "connecting"
+  | "connected"
+  | "disconnecting"
+  | "disconnected"
+  | "error";
 
 /** Database transaction state. */
 export type TransactionState = "active" | "committed" | "rolledback" | "failed";
 
 /** Transaction isolation levels. */
-export type IsolationLevel = "read-uncommitted" | "read-committed" | "repeatable-read" | "serializable";
+export type IsolationLevel =
+  "read-uncommitted" | "read-committed" | "repeatable-read" | "serializable";
 
 /** Query parameter types. */
-export type QueryParameter = string | number | boolean | null | Date | Buffer | Uint8Array | bigint | QueryParameter[];
+export type QueryParameter =
+  | string
+  | number
+  | boolean
+  | null
+  | Date
+  | Buffer
+  | Uint8Array
+  | bigint
+  | QueryParameter[];
 
 /** A SQL query with parameters. */
 export interface Query {
@@ -100,7 +116,10 @@ export interface Database {
   disconnect(): Promise<void>;
   query<T = Record<string, unknown>>(query: Query): Promise<QueryResult<T>>;
   execute(query: Query): Promise<ExecuteResult>;
-  transaction<T>(callback: (tx: Transaction) => Promise<T>, options?: TransactionOptions): Promise<T>;
+  transaction<T>(
+    callback: (tx: Transaction) => Promise<T>,
+    options?: TransactionOptions,
+  ): Promise<T>;
   healthCheck(): Promise<StorageHealth>;
   getPoolStats(): PoolStats;
 }

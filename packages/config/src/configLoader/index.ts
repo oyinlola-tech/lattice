@@ -4,4 +4,4 @@
  * Configuration loading from sources and caching.
  */
 
-export * from './configLoader.core.js';
+export * from "./configLoader.core.js";

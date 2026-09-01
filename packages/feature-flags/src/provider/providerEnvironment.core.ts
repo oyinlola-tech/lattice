@@ -42,7 +42,8 @@ export function createEnvironmentProvider(
   options: EnvironmentProviderOptions = {},
 ): FeatureFlagProvider {
   const prefix = options.prefix ?? "FEATURE_";
-  const env = options.env ?? (typeof process !== "undefined" ? process.env : {});
+  const env =
+    options.env ?? (typeof process !== "undefined" ? process.env : {});
 
   function readFlags(): FeatureFlag[] {
     const flags: FeatureFlag[] = [];

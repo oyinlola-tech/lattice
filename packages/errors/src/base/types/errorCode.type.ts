@@ -388,23 +388,17 @@ export enum ErrorCode {
 /**
  * Determines whether a value is a valid Lattice error code.
  */
-export function isErrorCode(
-  value: unknown,
-): value is ErrorCode {
+export function isErrorCode(value: unknown): value is ErrorCode {
   return (
     typeof value === "string" &&
-    Object.values(ErrorCode).includes(
-      value as ErrorCode,
-    )
+    Object.values(ErrorCode).includes(value as ErrorCode)
   );
 }
 
 /**
  * Converts an unknown value into a valid error code.
  */
-export function normalizeErrorCode(
-  value: unknown,
-): ErrorCode {
+export function normalizeErrorCode(value: unknown): ErrorCode {
   if (isErrorCode(value)) {
     return value;
   }

@@ -11,13 +11,10 @@ import type {
 /**
  * Creates a transport identifier.
  */
-export function createLoggerTransportId():
-  string {
+export function createLoggerTransportId(): string {
   if (
-    typeof crypto !==
-      "undefined" &&
-    typeof crypto.randomUUID ===
-      "function"
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
   ) {
     return `transport:${crypto.randomUUID()}`;
   }
@@ -25,9 +22,7 @@ export function createLoggerTransportId():
   return [
     "transport",
     Date.now().toString(36),
-    Math.random()
-      .toString(36)
-      .slice(2),
+    Math.random().toString(36).slice(2),
   ].join(":");
 }
 
@@ -35,48 +30,31 @@ export function createLoggerTransportId():
  * Determines whether a value is a function transport.
  */
 export function isLoggerTransportFunction(
-  value:
-    unknown,
-):
-  value is LoggerTransportFunction {
-  return (
-    typeof value ===
-    "function"
-  );
+  value: unknown,
+): value is LoggerTransportFunction {
+  return typeof value === "function";
 }
 
 /**
  * Determines whether a value is a transport object.
  */
 export function isLoggerTransportObject(
-  value:
-    unknown,
-):
-  value is LoggerTransport {
-  if (
-    typeof value !==
-      "object" ||
-    value === null
-  ) {
+  value: unknown,
+): value is LoggerTransport {
+  if (typeof value !== "object" || value === null) {
     return false;
   }
 
-  const candidate =
-    value as {
-      name?:
-        unknown;
+  const candidate = value as {
+    name?: unknown;
 
-      write?:
-        unknown;
-    };
+    write?: unknown;
+  };
 
   return (
-    typeof candidate.name ===
-      "string" &&
-    candidate.name.length >
-      0 &&
-    typeof candidate.write ===
-      "function"
+    typeof candidate.name === "string" &&
+    candidate.name.length > 0 &&
+    typeof candidate.write === "function"
   );
 }
 
@@ -84,16 +62,7 @@ export function isLoggerTransportObject(
  * Checks whether a value is a valid transport.
  */
 export function isLoggerTransport(
-  value:
-    unknown,
-):
-  value is LoggerTransportLike {
-  return (
-    isLoggerTransportFunction(
-      value,
-    ) ||
-    isLoggerTransportObject(
-      value,
-    )
-  );
+  value: unknown,
+): value is LoggerTransportLike {
+  return isLoggerTransportFunction(value) || isLoggerTransportObject(value);
 }

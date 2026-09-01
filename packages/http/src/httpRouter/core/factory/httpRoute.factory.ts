@@ -2,27 +2,18 @@
  * HTTP router factory functions and type guards.
  */
 
-import type {
-  RouteDefinition,
-  RouterOptions,
-} from "./httpRouter.type.js";
+import type { RouteDefinition, RouterOptions } from "./httpRouter.type.js";
 
-import {
-  HttpRouter,
-} from "./httpRouter.manage.js";
+import { HttpRouter } from "./httpRouter.register.js";
 
-import {
-  HttpRouterGroup,
-} from "./httpRouterGroup.core.js";
+import { HttpRouterGroup } from "./httpRouterGroup.core.js";
 
 import {
   RouteConflictError,
   InvalidRoutePatternError,
 } from "./httpRouter.error.js";
 
-import {
-  normalizePath,
-} from "./httpRoute.util.js";
+import { normalizePath } from "./httpRoute.util.js";
 
 /**
  * Creates a new HTTP router instance.
@@ -53,18 +44,21 @@ export function buildRoutePath(
   const normalized = normalizePath(pattern);
 
   return normalized
-    .replace(/:([a-zA-Z_][a-zA-Z0-9_-]*)(\?)?/g, (_match, name: string, optional: string) => {
-      const value = params[name];
+    .replace(
+      /:([a-zA-Z_][a-zA-Z0-9_-]*)(\?)?/g,
+      (_match, name: string, optional: string) => {
+        const value = params[name];
 
-      if (value === undefined || value === null) {
-        if (optional) {
-          return "";
+        if (value === undefined || value === null) {
+          if (optional) {
+            return "";
+          }
+          throw new Error(`Missing route parameter "${name}".`);
         }
-        throw new Error(`Missing route parameter "${name}".`);
-      }
 
-      return encodeURIComponent(String(value));
-    })
+        return encodeURIComponent(String(value));
+      },
+    )
     .replace(/\/+/g, "/");
 }
 
@@ -85,13 +79,17 @@ export function isHttpRouterGroup(value: unknown): value is HttpRouterGroup {
 /**
  * Type guard for RouteConflictError instances.
  */
-export function isRouteConflictError(value: unknown): value is RouteConflictError {
+export function isRouteConflictError(
+  value: unknown,
+): value is RouteConflictError {
   return value instanceof RouteConflictError;
 }
 
 /**
  * Type guard for InvalidRoutePatternError instances.
  */
-export function isInvalidRoutePatternError(value: unknown): value is InvalidRoutePatternError {
+export function isInvalidRoutePatternError(
+  value: unknown,
+): value is InvalidRoutePatternError {
   return value instanceof InvalidRoutePatternError;
 }

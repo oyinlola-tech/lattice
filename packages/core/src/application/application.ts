@@ -74,9 +74,7 @@ export class Application {
     }
 
     if (this._state !== "initialized" && this._state !== "stopped") {
-      throw new Error(
-        `Application cannot start from state "${this._state}".`,
-      );
+      throw new Error(`Application cannot start from state "${this._state}".`);
     }
 
     this._state = "starting";
@@ -102,9 +100,7 @@ export class Application {
     }
 
     if (this._state !== "running" && this._state !== "failed") {
-      throw new Error(
-        `Application cannot stop from state "${this._state}".`,
-      );
+      throw new Error(`Application cannot stop from state "${this._state}".`);
     }
 
     this._state = "stopping";

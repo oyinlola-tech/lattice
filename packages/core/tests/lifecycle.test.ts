@@ -1,5 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
-import { Lifecycle, LifecycleState, type LifecycleParticipant } from "../src/lifecycle/core/lifecycle.js";
+import {
+  Lifecycle,
+  LifecycleState,
+  type LifecycleParticipant,
+} from "../src/lifecycle/core/lifecycle.js";
 
 // ─── Helpers ────────────────────────────────────────────
 
@@ -54,9 +58,7 @@ describe("Lifecycle", () => {
       lifecycle.register(createParticipant("second"));
       lifecycle.register(createParticipant("third"));
 
-      const names = lifecycle
-        .getParticipants()
-        .map((p) => p.name);
+      const names = lifecycle.getParticipants().map((p) => p.name);
       expect(names).toEqual(["first", "second", "third"]);
     });
 
@@ -66,9 +68,9 @@ describe("Lifecycle", () => {
       await lifecycle.initialize();
       await lifecycle.start();
 
-      expect(() =>
-        lifecycle.register(createParticipant("late")),
-      ).toThrow("Cannot register");
+      expect(() => lifecycle.register(createParticipant("late"))).toThrow(
+        "Cannot register",
+      );
     });
   });
 
@@ -78,9 +80,7 @@ describe("Lifecycle", () => {
 
       await lifecycle.initialize();
 
-      expect(lifecycle.getState()).toBe(
-        LifecycleState.INITIALIZED,
-      );
+      expect(lifecycle.getState()).toBe(LifecycleState.INITIALIZED);
     });
 
     it("should call participant.initialize()", async () => {
@@ -139,9 +139,7 @@ describe("Lifecycle", () => {
         }),
       );
 
-      await expect(lifecycle.initialize()).rejects.toThrow(
-        "init failed",
-      );
+      await expect(lifecycle.initialize()).rejects.toThrow("init failed");
       expect(lifecycle.getState()).toBe(LifecycleState.FAILED);
     });
   });
@@ -363,9 +361,7 @@ describe("Lifecycle", () => {
         }),
       );
 
-      await expect(lifecycle.dispose()).rejects.toThrow(
-        AggregateError,
-      );
+      await expect(lifecycle.dispose()).rejects.toThrow(AggregateError);
     });
   });
 

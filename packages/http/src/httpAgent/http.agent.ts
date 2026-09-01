@@ -12,9 +12,7 @@ import {
 /* Types                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export type HTTPAgentProtocol =
-  | "http"
-  | "https";
+export type HTTPAgentProtocol = "http" | "https";
 
 export interface HTTPAgentOptionsBase {
   readonly keepAlive?: boolean;
@@ -26,13 +24,11 @@ export interface HTTPAgentOptionsBase {
   readonly timeout?: number;
 }
 
-export interface HTTPAgentConfig
-  extends HTTPAgentOptionsBase {
+export interface HTTPAgentConfig extends HTTPAgentOptionsBase {
   readonly protocol?: HTTPAgentProtocol;
 }
 
-export interface HTTPSAgentConfig
-  extends HTTPAgentOptionsBase {
+export interface HTTPSAgentConfig extends HTTPAgentOptionsBase {
   readonly protocol?: "https";
   readonly rejectUnauthorized?: boolean;
   readonly ca?: string | Buffer | readonly (string | Buffer)[];
@@ -41,121 +37,71 @@ export interface HTTPSAgentConfig
   readonly servername?: string;
 }
 
-export type HTTPAgentInstance =
-  | HTTPAgent
-  | HTTPSAgent;
+export type HTTPAgentInstance = HTTPAgent | HTTPSAgent;
 
 /* -------------------------------------------------------------------------- */
 /* Defaults                                                                   */
 /* -------------------------------------------------------------------------- */
 
-export const DEFAULT_AGENT_KEEP_ALIVE =
-  true;
+export const DEFAULT_AGENT_KEEP_ALIVE = true;
 
-export const DEFAULT_AGENT_KEEP_ALIVE_MSECS =
-  1_000;
+export const DEFAULT_AGENT_KEEP_ALIVE_MSECS = 1_000;
 
-export const DEFAULT_AGENT_MAX_SOCKETS =
-  50;
+export const DEFAULT_AGENT_MAX_SOCKETS = 50;
 
-export const DEFAULT_AGENT_MAX_FREE_SOCKETS =
-  10;
+export const DEFAULT_AGENT_MAX_FREE_SOCKETS = 10;
 
-export const DEFAULT_AGENT_MAX_TOTAL_SOCKETS =
-  100;
+export const DEFAULT_AGENT_MAX_TOTAL_SOCKETS = 100;
 
-export const DEFAULT_AGENT_SCHEDULING:
-  | "fifo"
-  | "lifo" =
-  "lifo";
+export const DEFAULT_AGENT_SCHEDULING: "fifo" | "lifo" = "lifo";
 
 /* -------------------------------------------------------------------------- */
 /* Factory                                                                    */
 /* -------------------------------------------------------------------------- */
 
-export function createHTTPAgent(
-  options: HTTPAgentConfig = {},
-): HTTPAgent {
-  const agentOptions =
-    normalizeAgentOptions(
-      options,
-    );
+export function createHTTPAgent(options: HTTPAgentConfig = {}): HTTPAgent {
+  const agentOptions = normalizeAgentOptions(options);
 
-  return new HTTPAgent(
-    agentOptions,
-  );
+  return new HTTPAgent(agentOptions);
 }
 
-export function createHTTPSAgent(
-  options: HTTPSAgentConfig = {},
-): HTTPSAgent {
-  const agentOptions =
-    normalizeHTTPSAgentOptions(
-      options,
-    );
+export function createHTTPSAgent(options: HTTPSAgentConfig = {}): HTTPSAgent {
+  const agentOptions = normalizeHTTPSAgentOptions(options);
 
-  return new HTTPSAgent(
-    agentOptions,
-  );
+  return new HTTPSAgent(agentOptions);
 }
 
 export function createAgent(
-  options:
-    | HTTPAgentConfig
-    | HTTPSAgentConfig = {},
+  options: HTTPAgentConfig | HTTPSAgentConfig = {},
 ): HTTPAgentInstance {
-  const protocol =
-    options.protocol ??
-    "http";
+  const protocol = options.protocol ?? "http";
 
-  if (
-    protocol ===
-    "https"
-  ) {
-    return createHTTPSAgent(
-      options as HTTPSAgentConfig,
-    );
+  if (protocol === "https") {
+    return createHTTPSAgent(options as HTTPSAgentConfig);
   }
 
-  return createHTTPAgent(
-    options as HTTPAgentConfig,
-  );
+  return createHTTPAgent(options as HTTPAgentConfig);
 }
 
 /* -------------------------------------------------------------------------- */
 /* Normalization                                                              */
 /* -------------------------------------------------------------------------- */
 
-function normalizeAgentOptions(
-  options: HTTPAgentConfig,
-): HTTPAgentOptions {
+function normalizeAgentOptions(options: HTTPAgentConfig): HTTPAgentOptions {
   return {
-    keepAlive:
-      options.keepAlive ??
-      DEFAULT_AGENT_KEEP_ALIVE,
+    keepAlive: options.keepAlive ?? DEFAULT_AGENT_KEEP_ALIVE,
 
-    keepAliveMsecs:
-      options.keepAliveMsecs ??
-      DEFAULT_AGENT_KEEP_ALIVE_MSECS,
+    keepAliveMsecs: options.keepAliveMsecs ?? DEFAULT_AGENT_KEEP_ALIVE_MSECS,
 
-    maxSockets:
-      options.maxSockets ??
-      DEFAULT_AGENT_MAX_SOCKETS,
+    maxSockets: options.maxSockets ?? DEFAULT_AGENT_MAX_SOCKETS,
 
-    maxFreeSockets:
-      options.maxFreeSockets ??
-      DEFAULT_AGENT_MAX_FREE_SOCKETS,
+    maxFreeSockets: options.maxFreeSockets ?? DEFAULT_AGENT_MAX_FREE_SOCKETS,
 
-    maxTotalSockets:
-      options.maxTotalSockets ??
-      DEFAULT_AGENT_MAX_TOTAL_SOCKETS,
+    maxTotalSockets: options.maxTotalSockets ?? DEFAULT_AGENT_MAX_TOTAL_SOCKETS,
 
-    scheduling:
-      options.scheduling ??
-      DEFAULT_AGENT_SCHEDULING,
+    scheduling: options.scheduling ?? DEFAULT_AGENT_SCHEDULING,
 
-    timeout:
-      options.timeout,
+    timeout: options.timeout,
   };
 }
 
@@ -163,47 +109,29 @@ function normalizeHTTPSAgentOptions(
   options: HTTPSAgentConfig,
 ): HTTPSAgentOptions {
   return {
-    keepAlive:
-      options.keepAlive ??
-      DEFAULT_AGENT_KEEP_ALIVE,
+    keepAlive: options.keepAlive ?? DEFAULT_AGENT_KEEP_ALIVE,
 
-    keepAliveMsecs:
-      options.keepAliveMsecs ??
-      DEFAULT_AGENT_KEEP_ALIVE_MSECS,
+    keepAliveMsecs: options.keepAliveMsecs ?? DEFAULT_AGENT_KEEP_ALIVE_MSECS,
 
-    maxSockets:
-      options.maxSockets ??
-      DEFAULT_AGENT_MAX_SOCKETS,
+    maxSockets: options.maxSockets ?? DEFAULT_AGENT_MAX_SOCKETS,
 
-    maxFreeSockets:
-      options.maxFreeSockets ??
-      DEFAULT_AGENT_MAX_FREE_SOCKETS,
+    maxFreeSockets: options.maxFreeSockets ?? DEFAULT_AGENT_MAX_FREE_SOCKETS,
 
-    maxTotalSockets:
-      options.maxTotalSockets ??
-      DEFAULT_AGENT_MAX_TOTAL_SOCKETS,
+    maxTotalSockets: options.maxTotalSockets ?? DEFAULT_AGENT_MAX_TOTAL_SOCKETS,
 
-    scheduling:
-      options.scheduling ??
-      DEFAULT_AGENT_SCHEDULING,
+    scheduling: options.scheduling ?? DEFAULT_AGENT_SCHEDULING,
 
-    timeout:
-      options.timeout,
+    timeout: options.timeout,
 
-    rejectUnauthorized:
-      options.rejectUnauthorized,
+    rejectUnauthorized: options.rejectUnauthorized,
 
-    ca:
-      options.ca as string | Buffer | (string | Buffer)[],
+    ca: options.ca as string | Buffer | (string | Buffer)[],
 
-    cert:
-      options.cert,
+    cert: options.cert,
 
-    key:
-      options.key,
+    key: options.key,
 
-    servername:
-      options.servername,
+    servername: options.servername,
   };
 }
 
@@ -218,56 +146,25 @@ export interface AgentStats {
   readonly totalSockets: number;
 }
 
-export function getAgentStats(
-  agent: HTTPAgentInstance,
-): AgentStats {
+export function getAgentStats(agent: HTTPAgentInstance): AgentStats {
   return {
-    sockets:
-      countAgentEntries(
-        agent.sockets,
-      ),
+    sockets: countAgentEntries(agent.sockets),
 
-    freeSockets:
-      countAgentEntries(
-        agent.freeSockets,
-      ),
+    freeSockets: countAgentEntries(agent.freeSockets),
 
-    requests:
-      countAgentEntries(
-        agent.requests,
-      ),
+    requests: countAgentEntries(agent.requests),
 
     totalSockets:
-      countAgentEntries(
-        agent.sockets,
-      ) +
-      countAgentEntries(
-        agent.freeSockets,
-      ),
+      countAgentEntries(agent.sockets) + countAgentEntries(agent.freeSockets),
   };
 }
 
-function countAgentEntries(
-  entries:
-    Record<
-      string,
-      unknown
-    >,
-): number {
+function countAgentEntries(entries: Record<string, unknown>): number {
   let total = 0;
 
-  for (
-    const value of Object.values(
-      entries,
-    )
-  ) {
-    if (
-      Array.isArray(
-        value,
-      )
-    ) {
-      total +=
-        value.length;
+  for (const value of Object.values(entries)) {
+    if (Array.isArray(value)) {
+      total += value.length;
     } else {
       total += 1;
     }
@@ -280,15 +177,11 @@ function countAgentEntries(
 /* Agent Lifecycle                                                            */
 /* -------------------------------------------------------------------------- */
 
-export function destroyAgent(
-  agent: HTTPAgentInstance,
-): void {
+export function destroyAgent(agent: HTTPAgentInstance): void {
   agent.destroy();
 }
 
-export function closeAgent(
-  agent: HTTPAgentInstance,
-): void {
+export function closeAgent(agent: HTTPAgentInstance): void {
   agent.destroy();
 }
 
@@ -300,15 +193,8 @@ export function configureAgentTimeout(
   agent: HTTPAgentInstance,
   timeout: number,
 ): void {
-  if (
-    !Number.isFinite(
-      timeout,
-    ) ||
-    timeout < 0
-  ) {
-    throw new RangeError(
-      "Agent timeout must be a non-negative finite number.",
-    );
+  if (!Number.isFinite(timeout) || timeout < 0) {
+    throw new RangeError("Agent timeout must be a non-negative finite number.");
   }
 
   if ("options" in agent) {
@@ -320,11 +206,7 @@ export function configureAgentTimeout(
 /* Shared Agent Registry                                                      */
 /* -------------------------------------------------------------------------- */
 
-const agentRegistry =
-  new Map<
-    string,
-    HTTPAgentInstance
-  >();
+const agentRegistry = new Map<string, HTTPAgentInstance>();
 
 export interface AgentRegistryKey {
   readonly protocol: HTTPAgentProtocol;
@@ -332,118 +214,63 @@ export interface AgentRegistryKey {
 }
 
 export function getOrCreateAgent(
-  key:
-    | string
-    | AgentRegistryKey,
-  options:
-    | HTTPAgentConfig
-    | HTTPSAgentConfig = {},
+  key: string | AgentRegistryKey,
+  options: HTTPAgentConfig | HTTPSAgentConfig = {},
 ): HTTPAgentInstance {
-  const registryKey =
-    normalizeRegistryKey(
-      key,
-    );
+  const registryKey = normalizeRegistryKey(key);
 
-  const existing =
-    agentRegistry.get(
-      registryKey,
-    );
+  const existing = agentRegistry.get(registryKey);
 
-  if (
-    existing
-  ) {
+  if (existing) {
     return existing;
   }
 
-  const agent =
-    createAgent({
-      ...options,
-      protocol:
-        registryKey.startsWith(
-          "https:",
-        )
-          ? "https"
-          : options.protocol ??
-            "http",
-    });
+  const agent = createAgent({
+    ...options,
+    protocol: registryKey.startsWith("https:")
+      ? "https"
+      : (options.protocol ?? "http"),
+  });
 
-  agentRegistry.set(
-    registryKey,
-    agent,
-  );
+  agentRegistry.set(registryKey, agent);
 
   return agent;
 }
 
 export function getAgent(
-  key:
-    | string
-    | AgentRegistryKey,
-): HTTPAgentInstance
-  | undefined {
-  return agentRegistry.get(
-    normalizeRegistryKey(
-      key,
-    ),
-  );
+  key: string | AgentRegistryKey,
+): HTTPAgentInstance | undefined {
+  return agentRegistry.get(normalizeRegistryKey(key));
 }
 
-export function hasAgent(
-  key:
-    | string
-    | AgentRegistryKey,
-): boolean {
-  return agentRegistry.has(
-    normalizeRegistryKey(
-      key,
-    ),
-  );
+export function hasAgent(key: string | AgentRegistryKey): boolean {
+  return agentRegistry.has(normalizeRegistryKey(key));
 }
 
 export function removeAgent(
-  key:
-    | string
-    | AgentRegistryKey,
+  key: string | AgentRegistryKey,
   destroy = true,
 ): boolean {
-  const registryKey =
-    normalizeRegistryKey(
-      key,
-    );
+  const registryKey = normalizeRegistryKey(key);
 
-  const agent =
-    agentRegistry.get(
-      registryKey,
-    );
+  const agent = agentRegistry.get(registryKey);
 
-  if (
-    !agent
-  ) {
+  if (!agent) {
     return false;
   }
 
-  agentRegistry.delete(
-    registryKey,
-  );
+  agentRegistry.delete(registryKey);
 
-  if (
-    destroy
-  ) {
+  if (destroy) {
     agent.destroy();
   }
 
   return true;
 }
 
-export function clearAgents(
-  destroy = true,
-): void {
-  if (
-    destroy
-  ) {
-    for (
-      const agent of agentRegistry.values()
-    ) {
+export function clearAgents(destroy = true): void {
+  if (destroy) {
+    for (const agent of agentRegistry.values()) {
       agent.destroy();
     }
   }
@@ -451,54 +278,27 @@ export function clearAgents(
   agentRegistry.clear();
 }
 
-export function getRegisteredAgentKeys():
-  string[] {
-  return Array.from(
-    agentRegistry.keys(),
-  );
+export function getRegisteredAgentKeys(): string[] {
+  return Array.from(agentRegistry.keys());
 }
 
 /* -------------------------------------------------------------------------- */
 /* Registry Helpers                                                           */
 /* -------------------------------------------------------------------------- */
 
-function normalizeRegistryKey(
-  key:
-    | string
-    | AgentRegistryKey,
-): string {
-  if (
-    typeof key ===
-    "string"
-  ) {
-    return normalizeURLKey(
-      key,
-    );
+function normalizeRegistryKey(key: string | AgentRegistryKey): string {
+  if (typeof key === "string") {
+    return normalizeURLKey(key);
   }
 
-  const protocol =
-    key.protocol ===
-    "https"
-      ? "https:"
-      : "http:";
+  const protocol = key.protocol === "https" ? "https:" : "http:";
 
-  return key.name
-    ? `${protocol}//${key.name}`
-    : protocol;
+  return key.name ? `${protocol}//${key.name}` : protocol;
 }
 
-function normalizeURLKey(
-  value: string,
-): string {
+function normalizeURLKey(value: string): string {
   try {
-    const url =
-      new URL(
-        value.includes(
-          "://",
-        )
-          ? value
-          : `http://${value}`,
-      );
+    const url = new URL(value.includes("://") ? value : `http://${value}`);
 
     return `${url.protocol}//${url.host}`;
   } catch {
@@ -510,77 +310,49 @@ function normalizeURLKey(
 /* Global Defaults                                                            */
 /* -------------------------------------------------------------------------- */
 
-let defaultHTTPAgent:
-  | HTTPAgent
-  | undefined;
+let defaultHTTPAgent: HTTPAgent | undefined;
 
-let defaultHTTPSAgent:
-  | HTTPSAgent
-  | undefined;
+let defaultHTTPSAgent: HTTPSAgent | undefined;
 
-export function getDefaultHTTPAgent():
-  HTTPAgent {
-  if (
-    !defaultHTTPAgent
-  ) {
-    defaultHTTPAgent =
-      createHTTPAgent();
+export function getDefaultHTTPAgent(): HTTPAgent {
+  if (!defaultHTTPAgent) {
+    defaultHTTPAgent = createHTTPAgent();
   }
 
   return defaultHTTPAgent;
 }
 
-export function getDefaultHTTPSAgent():
-  HTTPSAgent {
-  if (
-    !defaultHTTPSAgent
-  ) {
-    defaultHTTPSAgent =
-      createHTTPSAgent();
+export function getDefaultHTTPSAgent(): HTTPSAgent {
+  if (!defaultHTTPSAgent) {
+    defaultHTTPSAgent = createHTTPSAgent();
   }
 
   return defaultHTTPSAgent;
 }
 
-export function setDefaultHTTPAgent(
-  agent: HTTPAgent,
-): void {
-  if (
-    defaultHTTPAgent &&
-    defaultHTTPAgent !==
-      agent
-  ) {
+export function setDefaultHTTPAgent(agent: HTTPAgent): void {
+  if (defaultHTTPAgent && defaultHTTPAgent !== agent) {
     defaultHTTPAgent.destroy();
   }
 
-  defaultHTTPAgent =
-    agent;
+  defaultHTTPAgent = agent;
 }
 
-export function setDefaultHTTPSAgent(
-  agent: HTTPSAgent,
-): void {
-  if (
-    defaultHTTPSAgent &&
-    defaultHTTPSAgent !==
-      agent
-  ) {
+export function setDefaultHTTPSAgent(agent: HTTPSAgent): void {
+  if (defaultHTTPSAgent && defaultHTTPSAgent !== agent) {
     defaultHTTPSAgent.destroy();
   }
 
-  defaultHTTPSAgent =
-    agent;
+  defaultHTTPSAgent = agent;
 }
 
 export function resetDefaultAgents(): void {
   defaultHTTPAgent?.destroy();
   defaultHTTPSAgent?.destroy();
 
-  defaultHTTPAgent =
-    undefined;
+  defaultHTTPAgent = undefined;
 
-  defaultHTTPSAgent =
-    undefined;
+  defaultHTTPSAgent = undefined;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -588,159 +360,84 @@ export function resetDefaultAgents(): void {
 /* -------------------------------------------------------------------------- */
 
 export function getAgentForProtocol(
-  protocol:
-    | string
-    | undefined,
+  protocol: string | undefined,
 ): HTTPAgentInstance {
-  const normalized =
-    protocol?.toLowerCase();
+  const normalized = protocol?.toLowerCase();
 
-  if (
-    normalized ===
-      "https:" ||
-    normalized ===
-      "https"
-  ) {
+  if (normalized === "https:" || normalized === "https") {
     return getDefaultHTTPSAgent();
   }
 
   return getDefaultHTTPAgent();
 }
 
-export function isHTTPAgent(
-  agent: HTTPAgentInstance,
-): agent is HTTPAgent {
-  return (
-    agent instanceof
-    HTTPAgent
-  );
+export function isHTTPAgent(agent: HTTPAgentInstance): agent is HTTPAgent {
+  return agent instanceof HTTPAgent;
 }
 
-export function isHTTPSAgent(
-  agent: HTTPAgentInstance,
-): agent is HTTPSAgent {
-  return (
-    agent instanceof
-    HTTPSAgent
-  );
+export function isHTTPSAgent(agent: HTTPAgentInstance): agent is HTTPSAgent {
+  return agent instanceof HTTPSAgent;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Validation                                                                 */
 /* -------------------------------------------------------------------------- */
 
-export function validateAgentOptions(
-  options:
-    HTTPAgentOptionsBase,
-): void {
-  validateNonNegativeInteger(
-    options.keepAliveMsecs,
-    "keepAliveMsecs",
-  );
+export function validateAgentOptions(options: HTTPAgentOptionsBase): void {
+  validateNonNegativeInteger(options.keepAliveMsecs, "keepAliveMsecs");
 
-  validatePositiveInteger(
-    options.maxSockets,
-    "maxSockets",
-  );
+  validatePositiveInteger(options.maxSockets, "maxSockets");
 
-  validatePositiveInteger(
-    options.maxFreeSockets,
-    "maxFreeSockets",
-  );
+  validatePositiveInteger(options.maxFreeSockets, "maxFreeSockets");
 
-  validatePositiveInteger(
-    options.maxTotalSockets,
-    "maxTotalSockets",
-  );
+  validatePositiveInteger(options.maxTotalSockets, "maxTotalSockets");
 
   if (
-    options.maxFreeSockets !==
-      undefined &&
-    options.maxSockets !==
-      undefined &&
-    options.maxFreeSockets >
-      options.maxSockets
+    options.maxFreeSockets !== undefined &&
+    options.maxSockets !== undefined &&
+    options.maxFreeSockets > options.maxSockets
   ) {
-    throw new RangeError(
-      "maxFreeSockets cannot exceed maxSockets.",
-    );
+    throw new RangeError("maxFreeSockets cannot exceed maxSockets.");
   }
 
   if (
-    options.maxTotalSockets !==
-      undefined &&
-    options.maxSockets !==
-      undefined &&
-    options.maxTotalSockets <
-      options.maxSockets
+    options.maxTotalSockets !== undefined &&
+    options.maxSockets !== undefined &&
+    options.maxTotalSockets < options.maxSockets
   ) {
-    throw new RangeError(
-      "maxTotalSockets cannot be less than maxSockets.",
-    );
+    throw new RangeError("maxTotalSockets cannot be less than maxSockets.");
   }
 
   if (
-    options.timeout !==
-      undefined &&
-    (
-      !Number.isFinite(
-        options.timeout,
-      ) ||
-      options.timeout < 0
-    )
+    options.timeout !== undefined &&
+    (!Number.isFinite(options.timeout) || options.timeout < 0)
   ) {
-    throw new RangeError(
-      "timeout must be a non-negative finite number.",
-    );
+    throw new RangeError("timeout must be a non-negative finite number.");
   }
 }
 
 function validateNonNegativeInteger(
-  value:
-    | number
-    | undefined,
+  value: number | undefined,
   name: string,
 ): void {
-  if (
-    value ===
-    undefined
-  ) {
+  if (value === undefined) {
     return;
   }
 
-  if (
-    !Number.isSafeInteger(
-      value,
-    ) ||
-    value < 0
-  ) {
-    throw new RangeError(
-      `${name} must be a non-negative safe integer.`,
-    );
+  if (!Number.isSafeInteger(value) || value < 0) {
+    throw new RangeError(`${name} must be a non-negative safe integer.`);
   }
 }
 
 function validatePositiveInteger(
-  value:
-    | number
-    | undefined,
+  value: number | undefined,
   name: string,
 ): void {
-  if (
-    value ===
-    undefined
-  ) {
+  if (value === undefined) {
     return;
   }
 
-  if (
-    !Number.isSafeInteger(
-      value,
-    ) ||
-    value <= 0
-  ) {
-    throw new RangeError(
-      `${name} must be a positive safe integer.`,
-    );
+  if (!Number.isSafeInteger(value) || value <= 0) {
+    throw new RangeError(`${name} must be a positive safe integer.`);
   }
 }

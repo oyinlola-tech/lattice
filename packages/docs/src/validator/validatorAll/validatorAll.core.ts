@@ -2,7 +2,10 @@
  * Validates an entire documentation set.
  */
 
-import type { DocumentationDocument, DocumentationNavigationItem } from "../../docsTypes/index.js";
+import type {
+  DocumentationDocument,
+  DocumentationNavigationItem,
+} from "../../docsTypes/index.js";
 import type { ValidationResult, ValidationIssue } from "../validator.types.js";
 import { validateDocument } from "../validatorDocument.core.js";
 import { validateNoDuplicateIds } from "../validatorDuplicates.core.js";

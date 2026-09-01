@@ -40,7 +40,10 @@ export class PluginError extends BaseError {
 }
 
 /** Creates a plugin error. */
-export function createPluginError(message: string, options: PluginErrorOptions = {}): PluginError {
+export function createPluginError(
+  message: string,
+  options: PluginErrorOptions = {},
+): PluginError {
   return new PluginError(message, options);
 }
 

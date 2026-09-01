@@ -11,7 +11,7 @@ npm install @latticejs/queue
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/queue";
+import {} from /* add usage here */ "@latticejs/queue";
 ```
 
 ## License

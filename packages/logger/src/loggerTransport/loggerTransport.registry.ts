@@ -11,9 +11,7 @@ export {
   isLoggerTransport,
 } from "./loggerTransportGuard.js";
 
-export {
-  createConsoleLoggerTransport,
-} from "./loggerTransportConsole/loggerTransportConsole.core.js";
+export { createConsoleLoggerTransport } from "./loggerTransportConsole/loggerTransportConsole.core.js";
 
 export {
   createConditionalLoggerTransport,

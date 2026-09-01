@@ -40,11 +40,11 @@ export function childContext(
 }
 
 /** Pushes an issue into the context. Returns true if the issue was added. */
-export function addIssue(
-  ctx: SchemaParseContext,
-  issue: SchemaIssue,
-): boolean {
-  if (ctx.options.maxIssues !== undefined && ctx.issues.length >= ctx.options.maxIssues) {
+export function addIssue(ctx: SchemaParseContext, issue: SchemaIssue): boolean {
+  if (
+    ctx.options.maxIssues !== undefined &&
+    ctx.issues.length >= ctx.options.maxIssues
+  ) {
     return false;
   }
   ctx.issues.push(issue);

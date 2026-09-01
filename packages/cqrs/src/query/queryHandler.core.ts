@@ -13,10 +13,7 @@ import type {
 export abstract class QueryHandler<
   TQuery extends Query = Query,
   TResult = unknown,
-> implements QueryHandlerContract<
-  TQuery,
-  TResult
-> {
+> implements QueryHandlerContract<TQuery, TResult> {
   /**
    * Query type handled by this handler.
    */
@@ -37,93 +34,55 @@ export abstract class QueryHandler<
 export class FunctionQueryHandler<
   TQuery extends Query = Query,
   TResult = unknown,
-> extends QueryHandler<
-  TQuery,
-  TResult
-> {
+> extends QueryHandler<TQuery, TResult> {
   public readonly queryType: TQuery["type"];
 
   private readonly handler: (
     query: TQuery,
     context?: CqrsContext,
-  ) =>
-    | TResult
-    | Promise<TResult>;
+  ) => TResult | Promise<TResult>;
 
   constructor(
     queryType: TQuery["type"],
     handler: (
       query: TQuery,
       context?: CqrsContext,
-    ) =>
-      | TResult
-      | Promise<TResult>,
+    ) => TResult | Promise<TResult>,
   ) {
     super();
 
-    if (
-      typeof handler !==
-      "function"
-    ) {
-      throw new TypeError(
-        "Query handler must be a function.",
-      );
+    if (typeof handler !== "function") {
+      throw new TypeError("Query handler must be a function.");
     }
 
-    this.queryType =
-      queryType;
+    this.queryType = queryType;
 
-    this.handler =
-      handler;
+    this.handler = handler;
   }
 
   public execute(
     query: TQuery,
     context?: CqrsContext,
-  ):
-    | TResult
-    | Promise<TResult> {
-    return this.handler(
-      query,
-      context,
-    );
+  ): TResult | Promise<TResult> {
+    return this.handler(query, context);
   }
 }
 
 /**
  * Creates a function-based query handler.
  */
-export function createQueryHandler<
-  TQuery extends Query,
-  TResult = unknown,
->(
+export function createQueryHandler<TQuery extends Query, TResult = unknown>(
   queryType: TQuery["type"],
-  handler: (
-    query: TQuery,
-    context?: CqrsContext,
-  ) =>
-    | TResult
-    | Promise<TResult>,
-): FunctionQueryHandler<
-  TQuery,
-  TResult
-> {
-  return new FunctionQueryHandler(
-    queryType,
-    handler,
-  );
+  handler: (query: TQuery, context?: CqrsContext) => TResult | Promise<TResult>,
+): FunctionQueryHandler<TQuery, TResult> {
+  return new FunctionQueryHandler(queryType, handler);
 }
 
 /**
  * Determines whether a value is a query handler instance.
  */
-export function isQueryHandler(
-  value: unknown,
-): value is QueryHandler {
-  return (
-    value instanceof
-    QueryHandler
-  );
+export function isQueryHandler(value: unknown): value is QueryHandler {
+  return value instanceof QueryHandler;
 }
 
 /**
@@ -131,16 +90,8 @@ export function isQueryHandler(
  */
 export function isQueryHandlerLike(
   value: unknown,
-): value is QueryHandler | ((
-  query: Query,
-  context?: CqrsContext,
-) => unknown) {
-  return (
-    value instanceof
-      QueryHandler ||
-    typeof value ===
-      "function"
-  );
+): value is QueryHandler | ((query: Query, context?: CqrsContext) => unknown) {
+  return value instanceof QueryHandler || typeof value === "function";
 }
 
 /**
@@ -152,36 +103,17 @@ export async function executeQueryHandler<
 >(
   handler:
     | QueryHandler<TQuery, TResult>
-    | ((
-        query: TQuery,
-        context?: CqrsContext,
-      ) =>
-        | TResult
-        | Promise<TResult>),
+    | ((query: TQuery, context?: CqrsContext) => TResult | Promise<TResult>),
   query: TQuery,
   context?: CqrsContext,
 ): Promise<TResult> {
-  if (
-    handler instanceof
-    QueryHandler
-  ) {
-    return await handler.execute(
-      query,
-      context,
-    );
+  if (handler instanceof QueryHandler) {
+    return await handler.execute(query, context);
   }
 
-  if (
-    typeof handler ===
-    "function"
-  ) {
-    return await handler(
-      query,
-      context,
-    );
+  if (typeof handler === "function") {
+    return await handler(query, context);
   }
 
-  throw new TypeError(
-    `Invalid query handler for "${query.type}".`,
-  );
+  throw new TypeError(`Invalid query handler for "${query.type}".`);
 }

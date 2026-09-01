@@ -23,7 +23,9 @@ const ALGORITHM = "HS256";
  * Sign a JWT payload with HMAC SHA-256.
  */
 export function signToken(payload: TokenPayload, secret: string): JwtToken {
-  const header = base64UrlEncode(JSON.stringify({ alg: ALGORITHM, typ: "JWT" }));
+  const header = base64UrlEncode(
+    JSON.stringify({ alg: ALGORITHM, typ: "JWT" }),
+  );
   const body = base64UrlEncode(JSON.stringify(payload));
   const signatureInput = `${header}.${body}`;
   const signature = hmacSha256(signatureInput, secret);
@@ -51,8 +53,10 @@ export function verifyToken(
   const sigBuffer = Buffer.from(signature ?? "", "hex");
   const expectedBuffer = Buffer.from(expectedSignature, "hex");
 
-  if (sigBuffer.length !== expectedBuffer.length ||
-      !timingSafeEqual(sigBuffer, expectedBuffer)) {
+  if (
+    sigBuffer.length !== expectedBuffer.length ||
+    !timingSafeEqual(sigBuffer, expectedBuffer)
+  ) {
     return { valid: false, error: "Invalid signature" };
   }
 
@@ -104,5 +108,7 @@ function base64UrlEncode(data: string): string {
 function base64UrlDecode(data: string): string {
   const padded = data.replace(/-/g, "+").replace(/_/g, "/");
   const padLength = (4 - (padded.length % 4)) % 4;
-  return Buffer.from(padded + "=".repeat(padLength), "base64").toString("utf-8");
+  return Buffer.from(padded + "=".repeat(padLength), "base64").toString(
+    "utf-8",
+  );
 }

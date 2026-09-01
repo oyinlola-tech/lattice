@@ -35,9 +35,7 @@ export interface ProcessorRegistry {
     options?: { description?: string },
   ): void;
   /** Get a processor by job name. */
-  get<TData, TResult>(
-    jobName: string,
-  ): Processor<TData, TResult> | undefined;
+  get<TData, TResult>(jobName: string): Processor<TData, TResult> | undefined;
   /** Check if a processor is registered. */
   has(jobName: string): boolean;
   /** Get all registered processor info. */
@@ -51,8 +49,6 @@ export interface ProcessorRegistry {
 /**
  * Checks if a value is a valid Processor.
  */
-export function isProcessor(
-  value: unknown,
-): value is Processor {
+export function isProcessor(value: unknown): value is Processor {
   return typeof value === "function";
 }

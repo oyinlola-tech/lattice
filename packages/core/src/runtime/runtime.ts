@@ -5,10 +5,14 @@ import type { Module } from "../modules/module.js";
 import type { ModuleLoader } from "../modules/moduleLoader/index.js";
 import type { ModuleLifecycleManager } from "../modules/moduleLifecycle/index.js";
 import type { ModuleRegistry } from "../modules/moduleRegistry/index.js";
-import { RuntimeError as BaseRuntimeError, RuntimeStateError as BaseRuntimeStateError } from "@oyinlola141/lattice-errors";
+import {
+  RuntimeError as BaseRuntimeError,
+  RuntimeStateError as BaseRuntimeStateError,
+} from "@oyinlola141/lattice-errors";
 
 /** Runtime lifecycle state. */
-export type RuntimeState = "created" | "bootstrapping" | "ready" | "stopping" | "stopped" | "failed";
+export type RuntimeState =
+  "created" | "bootstrapping" | "ready" | "stopping" | "stopped" | "failed";
 
 /** Dependencies required by the runtime. */
 export interface RuntimeDependencies {
@@ -47,7 +51,9 @@ export interface Runtime {
 
 /** Error thrown for invalid runtime operations. */
 export class RuntimeStateError extends BaseRuntimeStateError {
-  public constructor(message: string) { super(message); }
+  public constructor(message: string) {
+    super(message);
+  }
 }
 
 /** Error thrown when runtime startup/shutdown fails. */
@@ -88,26 +94,48 @@ export class DefaultRuntime implements Runtime {
     this.moduleLifecycle = dependencies.moduleLifecycle;
   }
 
-  public get state(): RuntimeState { return this._state; }
+  public get state(): RuntimeState {
+    return this._state;
+  }
 
   public async start(): Promise<void> {
     if (this._state === "ready") return;
     if (this.startPromise) return this.startPromise;
-    if (this._state === "stopping") throw new RuntimeStateError("Cannot start the runtime while it is stopping.");
-    if (this._state === "stopped") throw new RuntimeStateError("A stopped runtime cannot be started again.");
-    if (this._state === "failed") throw new RuntimeStateError("A failed runtime cannot be restarted.");
+    if (this._state === "stopping")
+      throw new RuntimeStateError(
+        "Cannot start the runtime while it is stopping.",
+      );
+    if (this._state === "stopped")
+      throw new RuntimeStateError("A stopped runtime cannot be started again.");
+    if (this._state === "failed")
+      throw new RuntimeStateError("A failed runtime cannot be restarted.");
     this.startPromise = this.performStart();
-    try { await this.startPromise; } finally { this.startPromise = undefined; }
+    try {
+      await this.startPromise;
+    } finally {
+      this.startPromise = undefined;
+    }
   }
 
   public async stop(): Promise<void> {
     if (this._state === "stopped") return;
     if (this.stopPromise) return this.stopPromise;
-    if (this._state === "created") { this._state = "stopped"; this.stoppedAt = new Date(); return; }
-    if (this._state === "bootstrapping") throw new RuntimeStateError("Cannot stop the runtime while it is bootstrapping.");
+    if (this._state === "created") {
+      this._state = "stopped";
+      this.stoppedAt = new Date();
+      return;
+    }
+    if (this._state === "bootstrapping")
+      throw new RuntimeStateError(
+        "Cannot stop the runtime while it is bootstrapping.",
+      );
     if (this._state === "stopping") return;
     this.stopPromise = this.performStop();
-    try { await this.stopPromise; } finally { this.stopPromise = undefined; }
+    try {
+      await this.stopPromise;
+    } finally {
+      this.stopPromise = undefined;
+    }
   }
 
   private async performStart(): Promise<void> {
@@ -118,10 +146,18 @@ export class DefaultRuntime implements Runtime {
       await this.moduleLoader.loadAll();
 
       const initialization = await this.moduleLifecycle.initialize();
-      if (initialization.failed.length > 0) throw new RuntimeError("One or more modules failed during initialization.", initialization.failed);
+      if (initialization.failed.length > 0)
+        throw new RuntimeError(
+          "One or more modules failed during initialization.",
+          initialization.failed,
+        );
 
       const startup = await this.moduleLifecycle.start();
-      if (startup.failed.length > 0) throw new RuntimeError("One or more modules failed during startup.", startup.failed);
+      if (startup.failed.length > 0)
+        throw new RuntimeError(
+          "One or more modules failed during startup.",
+          startup.failed,
+        );
 
       this.startedAt = new Date();
       this._state = "ready";
@@ -131,8 +167,12 @@ export class DefaultRuntime implements Runtime {
       this.failedAt = new Date();
       this._state = "failed";
       this.logger.error("Application runtime failed to start.", { error });
-      try { await this.moduleLifecycle.stopApplication(); } catch (cleanupError) {
-        this.logger.error("Runtime startup cleanup failed.", { error: cleanupError });
+      try {
+        await this.moduleLifecycle.stopApplication();
+      } catch (cleanupError) {
+        this.logger.error("Runtime startup cleanup failed.", {
+          error: cleanupError,
+        });
       }
       throw error;
     }
@@ -150,22 +190,47 @@ export class DefaultRuntime implements Runtime {
       this.error = error;
       this.failedAt = new Date();
       this._state = "failed";
-      this.logger.error("Application runtime failed to stop cleanly.", { error });
+      this.logger.error("Application runtime failed to stop cleanly.", {
+        error,
+      });
       throw error;
     }
   }
 
-  public getStatus(): RuntimeStatus { return Object.freeze({ state: this._state, startedAt: this.startedAt, stoppedAt: this.stoppedAt, failedAt: this.failedAt, error: this.error }); }
-  public getApplicationContext(): ApplicationContext { return this.application; }
-  public getConfiguration(): ConfigurationManager { return this.configuration; }
-  public getLogger(): Logger { return this.logger; }
-  public getModuleRegistry(): ModuleRegistry { return this.moduleRegistry; }
-  public getModuleLoader(): ModuleLoader { return this.moduleLoader; }
-  public getModuleLifecycle(): ModuleLifecycleManager { return this.moduleLifecycle; }
-  public getModule(moduleId: string): Module | undefined { return this.moduleRegistry.get(moduleId)?.instance; }
+  public getStatus(): RuntimeStatus {
+    return Object.freeze({
+      state: this._state,
+      startedAt: this.startedAt,
+      stoppedAt: this.stoppedAt,
+      failedAt: this.failedAt,
+      error: this.error,
+    });
+  }
+  public getApplicationContext(): ApplicationContext {
+    return this.application;
+  }
+  public getConfiguration(): ConfigurationManager {
+    return this.configuration;
+  }
+  public getLogger(): Logger {
+    return this.logger;
+  }
+  public getModuleRegistry(): ModuleRegistry {
+    return this.moduleRegistry;
+  }
+  public getModuleLoader(): ModuleLoader {
+    return this.moduleLoader;
+  }
+  public getModuleLifecycle(): ModuleLifecycleManager {
+    return this.moduleLifecycle;
+  }
+  public getModule(moduleId: string): Module | undefined {
+    return this.moduleRegistry.get(moduleId)?.instance;
+  }
   public requireModule(moduleId: string): Module {
     const module = this.getModule(moduleId);
-    if (!module) throw new RuntimeError(`Module "${moduleId}" is not loaded.`, [moduleId]);
+    if (!module)
+      throw new RuntimeError(`Module "${moduleId}" is not loaded.`, [moduleId]);
     return module;
   }
 }

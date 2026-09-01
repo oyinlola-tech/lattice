@@ -2,8 +2,8 @@
  * Predefined CSP policies.
  */
 
-import type { CSPResult } from '../types/httpCsp.type.js';
-import { createCSP } from '../formatting/httpCsp.formatting.js';
+import type { CSPResult } from "../types/httpCsp.type.js";
+import { createCSP } from "../formatting/httpCsp.formatting.js";
 
 export function strictCSP(): CSPResult {
   return createCSP({
@@ -24,12 +24,8 @@ export function apiCSP(): CSPResult {
   });
 }
 
-export function browserCSP(
-  nonce: string | undefined,
-): CSPResult {
-  const scriptSrc = nonce
-    ? ["'self'", `'nonce-${nonce}'`]
-    : ["'self'"];
+export function browserCSP(nonce: string | undefined): CSPResult {
+  const scriptSrc = nonce ? ["'self'", `'nonce-${nonce}'`] : ["'self'"];
 
   return createCSP({
     defaultSrc: ["'self'"],

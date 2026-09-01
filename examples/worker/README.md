@@ -68,21 +68,21 @@ npm run dev --workspace=@lattice/example-worker
 
 ## Job Types
 
-| Job | Description | Retry |
-|-----|-------------|-------|
-| `send-email` | Sends an email | No |
+| Job               | Description        | Retry                                 |
+| ----------------- | ------------------ | ------------------------------------- |
+| `send-email`      | Sends an email     | No                                    |
 | `generate-report` | Generates a report | Yes (3 attempts, exponential backoff) |
-| `cleanup` | Cleans up old data | No |
+| `cleanup`         | Cleans up old data | No                                    |
 
 ## Configuration
 
 Environment variables (see `.env.example`):
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `NODE_ENV` | `development` | Environment |
-| `WORKER_CONCURRENCY` | `5` | Max concurrent jobs |
-| `JOB_TIMEOUT_MS` | `30000` | Job timeout in milliseconds |
+| Variable             | Default       | Description                 |
+| -------------------- | ------------- | --------------------------- |
+| `NODE_ENV`           | `development` | Environment                 |
+| `WORKER_CONCURRENCY` | `5`           | Max concurrent jobs         |
+| `JOB_TIMEOUT_MS`     | `30000`       | Job timeout in milliseconds |
 
 ## Queue Statistics
 

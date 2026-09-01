@@ -10,10 +10,13 @@ export class RPCTimeoutError extends RPCError {
   public readonly timeout: number;
 
   constructor(timeout: number, procedureName?: string) {
-    super(
-      `RPC operation timed out after ${timeout}ms.`,
-      { code: ErrorCode.RPC_TIMEOUT, procedureName, metadata: { timeout }, statusCode: 504, expose: false },
-    );
+    super(`RPC operation timed out after ${timeout}ms.`, {
+      code: ErrorCode.RPC_TIMEOUT,
+      procedureName,
+      metadata: { timeout },
+      statusCode: 504,
+      expose: false,
+    });
     this.name = "RPCTimeoutError";
     this.timeout = timeout;
   }
@@ -21,7 +24,10 @@ export class RPCTimeoutError extends RPCError {
 
 /** Error thrown when an RPC operation is cancelled. */
 export class RPCCancelledError extends RPCError {
-  constructor(message = "RPC operation was cancelled.", procedureName?: string) {
+  constructor(
+    message = "RPC operation was cancelled.",
+    procedureName?: string,
+  ) {
     super(message, {
       code: ErrorCode.RPC_CANCELLED,
       procedureName,
@@ -47,7 +53,10 @@ export class RPCTransportError extends RPCError {
 
 /** Error thrown when an RPC service is unavailable. */
 export class RPCUnavailableError extends RPCError {
-  constructor(message = "RPC service is temporarily unavailable.", procedureName?: string) {
+  constructor(
+    message = "RPC service is temporarily unavailable.",
+    procedureName?: string,
+  ) {
     super(message, {
       code: ErrorCode.RPC_UNAVAILABLE,
       procedureName,
@@ -82,10 +91,13 @@ export class RPCRateLimitedError extends RPCError {
 /** Error thrown when an RPC deadline is exceeded. */
 export class RPCDeadlineExceededError extends RPCError {
   constructor(deadline: number, procedureName?: string) {
-    super(
-      `RPC deadline exceeded at ${deadline}.`,
-      { code: ErrorCode.RPC_DEADLINE_EXCEEDED, procedureName, metadata: { deadline }, statusCode: 504, expose: false },
-    );
+    super(`RPC deadline exceeded at ${deadline}.`, {
+      code: ErrorCode.RPC_DEADLINE_EXCEEDED,
+      procedureName,
+      metadata: { deadline },
+      statusCode: 504,
+      expose: false,
+    });
     this.name = "RPCDeadlineExceededError";
   }
 }

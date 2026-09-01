@@ -7,23 +7,9 @@
 
 import { STATUS } from "./httpStatus.statusConstant.js";
 
-export function statusName(
-  status:
-    | number,
-):
-  | string {
-  for (
-    const [
-      name,
-      value,
-    ] of Object.entries(
-      STATUS,
-    )
-  ) {
-    if (
-      value ===
-      status
-    ) {
+export function statusName(status: number): string {
+  for (const [name, value] of Object.entries(STATUS)) {
+    if (value === status) {
       return name;
     }
   }

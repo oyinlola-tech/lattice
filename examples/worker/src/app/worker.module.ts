@@ -10,7 +10,11 @@ import { createQueueName } from "@oyinlola141/lattice-queue";
 import { EmailProcessor } from "../processors/email.processor.js";
 import { ReportProcessor } from "../processors/report.processor.js";
 import { CleanupProcessor } from "../processors/cleanup.processor.js";
-import type { SendEmailJobData, GenerateReportJobData, CleanupJobData } from "../jobs/jobs.types.js";
+import type {
+  SendEmailJobData,
+  GenerateReportJobData,
+  CleanupJobData,
+} from "../jobs/jobs.types.js";
 
 export interface WorkerModuleOptions {
   readonly concurrency?: number;
@@ -41,26 +45,44 @@ export class WorkerModule {
     const jobTimeoutMs = this.options.jobTimeoutMs ?? 30_000;
 
     // Create queues
-    this.emailQueue = createInMemoryQueue<SendEmailJobData>(createQueueName("emails"), {
-      concurrency,
-    });
+    this.emailQueue = createInMemoryQueue<SendEmailJobData>(
+      createQueueName("emails"),
+      {
+        concurrency,
+      },
+    );
 
-    this.reportQueue = createInMemoryQueue<GenerateReportJobData>(createQueueName("reports"), {
-      concurrency,
-    });
+    this.reportQueue = createInMemoryQueue<GenerateReportJobData>(
+      createQueueName("reports"),
+      {
+        concurrency,
+      },
+    );
 
-    this.cleanupQueue = createInMemoryQueue<CleanupJobData>(createQueueName("cleanup"), {
-      concurrency: 1,
-    });
+    this.cleanupQueue = createInMemoryQueue<CleanupJobData>(
+      createQueueName("cleanup"),
+      {
+        concurrency: 1,
+      },
+    );
 
     // Register processors
     const emailProcessor = new EmailProcessor();
     const reportProcessor = new ReportProcessor();
     const cleanupProcessor = new CleanupProcessor();
 
-    this.emailQueue.process(emailProcessor.name, emailProcessor.process.bind(emailProcessor));
-    this.reportQueue.process(reportProcessor.name, reportProcessor.process.bind(reportProcessor));
-    this.cleanupQueue.process(cleanupProcessor.name, cleanupProcessor.process.bind(cleanupProcessor));
+    this.emailQueue.process(
+      emailProcessor.name,
+      emailProcessor.process.bind(emailProcessor),
+    );
+    this.reportQueue.process(
+      reportProcessor.name,
+      reportProcessor.process.bind(reportProcessor),
+    );
+    this.cleanupQueue.process(
+      cleanupProcessor.name,
+      cleanupProcessor.process.bind(cleanupProcessor),
+    );
 
     // Create workers
     this.emailWorker = createWorker("email-worker", this.emailQueue, {

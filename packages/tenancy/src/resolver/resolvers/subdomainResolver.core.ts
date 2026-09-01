@@ -4,7 +4,10 @@
  * @module resolvers/subdomainResolver
  */
 
-import type { TenantResolver, TenantResolution } from "../../tenancyTypes/resolverTypes.js";
+import type {
+  TenantResolver,
+  TenantResolution,
+} from "../../tenancyTypes/resolverTypes.js";
 import { createTenantId } from "../../tenancyTypes/tenantIdentity.js";
 
 /** Context type with a getHost method. */
@@ -33,7 +36,9 @@ export function createSubdomainResolver(
     name: "subdomain",
     priority,
 
-    async resolve(context: SubdomainContext): Promise<TenantResolution | undefined> {
+    async resolve(
+      context: SubdomainContext,
+    ): Promise<TenantResolution | undefined> {
       const host = context.getHost();
       if (!host) return undefined;
 

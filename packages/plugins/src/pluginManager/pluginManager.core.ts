@@ -4,11 +4,25 @@ import type { PluginRegistry } from "../pluginRegistry/pluginRegistry.core.js";
 import type { DependencyResolution } from "../pluginDependencies/dependencyResolver.core.js";
 import type { PluginDependency } from "../pluginTypes/pluginDependency.type.js";
 import { PluginRegistryImpl } from "../pluginRegistry/pluginRegistry.core.js";
-import { DependencyResolver, assertResolutionValid } from "../pluginDependencies/dependencyResolver.core.js";
+import {
+  DependencyResolver,
+  assertResolutionValid,
+} from "../pluginDependencies/dependencyResolver.core.js";
 import { LifecycleController } from "../pluginLifecycle/pluginLifecycle.core.js";
-import { PluginAlreadyRegisteredError, PluginDependencyCycleError, PluginDependencyError, PluginInitializationError, PluginNotFoundError, PluginRegistrationError } from "@oyinlola141/lattice-errors";
+import {
+  PluginAlreadyRegisteredError,
+  PluginDependencyCycleError,
+  PluginDependencyError,
+  PluginInitializationError,
+  PluginNotFoundError,
+  PluginRegistrationError,
+} from "@oyinlola141/lattice-errors";
 import { PLUGIN_EVENTS } from "../pluginEvents/pluginEvent.core.js";
-import { buildDiagnosticReport, createHealthyHealth, createUnhealthyHealth } from "../pluginDiagnostics/pluginDiagnostic.core.js";
+import {
+  buildDiagnosticReport,
+  createHealthyHealth,
+  createUnhealthyHealth,
+} from "../pluginDiagnostics/pluginDiagnostic.core.js";
 import type { PluginDiagnosticReport } from "../pluginDiagnostics/pluginDiagnostic.core.js";
 
 /**
@@ -125,8 +139,20 @@ export class PluginManager {
     return buildDiagnosticReport(plugins);
   }
 
-  private toDependencyMap(): Map<string, { readonly dependencies?: readonly PluginDependency[]; readonly optionalDependencies?: readonly PluginDependency[] }> {
-    const map = new Map<string, { readonly dependencies?: readonly PluginDependency[]; readonly optionalDependencies?: readonly PluginDependency[] }>();
+  private toDependencyMap(): Map<
+    string,
+    {
+      readonly dependencies?: readonly PluginDependency[];
+      readonly optionalDependencies?: readonly PluginDependency[];
+    }
+  > {
+    const map = new Map<
+      string,
+      {
+        readonly dependencies?: readonly PluginDependency[];
+        readonly optionalDependencies?: readonly PluginDependency[];
+      }
+    >();
 
     for (const [name, plugin] of this.plugins) {
       map.set(name, {

@@ -9,86 +9,44 @@ import type {
   RegisteredMiddleware,
 } from "../httpMiddleware.type.js";
 
-import type {
-  HttpRequestContext as RequestContext,
-} from "../../httpRequest/httpRequest.context.js";
+import type { HttpRequestContext as RequestContext } from "../../httpRequest/httpRequest.context.js";
 
-import type {
-  HttpResponseContext as ResponseContext,
-} from "../../httpResponse/httpResponse.context.js";
+import type { HttpResponseContext as ResponseContext } from "../../httpResponse/httpResponse.context.js";
 
 import { HttpMiddlewareError } from "../httpMiddleware.error.js";
 
 export async function nextResult(
-  context:
-    | HttpMiddlewareContext,
-  dispatch:
-    ((
-        index:
-          | number,
-      ) =>
-        Promise<
-          ResponseContext
-        >),
-  index:
-    | number,
-):
-  Promise<
-    ResponseContext
-  > {
-  return dispatch(
-    index + 1,
-  );
+  context: HttpMiddlewareContext,
+  dispatch: (index: number) => Promise<ResponseContext>,
+  index: number,
+): Promise<ResponseContext> {
+  return dispatch(index + 1);
 }
 
 export function normalizeResult(
-  result:
-    | void
-    | Response
-    | RequestContext
-    | ResponseContext
-    | undefined,
-  fallback?:
-    | ResponseContext,
-):
-  | ResponseContext {
-  if (
-    isResponseContext(
-      result,
-    )
-  ) {
+  result: void | Response | RequestContext | ResponseContext | undefined,
+  fallback?: ResponseContext,
+): ResponseContext {
+  if (isResponseContext(result)) {
     return result;
   }
 
-  if (
-    typeof Response !==
-      "undefined" &&
-    result instanceof
-      Response
-  ) {
+  if (typeof Response !== "undefined" && result instanceof Response) {
     return {
-      response:
-        result,
+      response: result,
     } as unknown as ResponseContext;
   }
 
-  if (
-    isRequestContext(
-      result,
-    )
-  ) {
+  if (isRequestContext(result)) {
     return (
       fallback ??
       ({
-        request:
-          result,
+        request: result,
       } as unknown as ResponseContext)
     );
   }
 
-  if (
-    fallback
-  ) {
+  if (fallback) {
     return fallback;
   }
 
@@ -97,97 +55,41 @@ export function normalizeResult(
   );
 }
 
-export function isResponseContext(
-  value:
-    | unknown,
-):
-  value is ResponseContext {
+export function isResponseContext(value: unknown): value is ResponseContext {
   return (
-    value !==
-      null &&
-    typeof value ===
-      "object" &&
-    (
-      "response" in
-        value ||
-      "status" in
-        value ||
-      "headers" in
-        value
-    )
+    value !== null &&
+    typeof value === "object" &&
+    ("response" in value || "status" in value || "headers" in value)
   );
 }
 
-export function isRequestContext(
-  value:
-    | unknown,
-):
-  value is RequestContext {
+export function isRequestContext(value: unknown): value is RequestContext {
   return (
-    value !==
-      null &&
-    typeof value ===
-      "object" &&
-    (
-      "request" in
-        value ||
-      "method" in
-        value ||
-      "url" in
-        value
-    )
+    value !== null &&
+    typeof value === "object" &&
+    ("request" in value || "method" in value || "url" in value)
   );
 }
 
 export function isRegisteredMiddleware(
-  value:
-    | unknown,
-):
-  value is RegisteredMiddleware {
+  value: unknown,
+): value is RegisteredMiddleware {
   return (
-    typeof value ===
-      "object" &&
-    value !==
-      null &&
-    "middleware" in
-      value &&
-    "id" in
-      value
+    typeof value === "object" &&
+    value !== null &&
+    "middleware" in value &&
+    "id" in value
   );
 }
 
-export function normalizePriority(
-  priority?:
-    | number,
-):
-  | number {
-  if (
-    priority ===
-      undefined ||
-    !Number.isFinite(
-      priority,
-    )
-  ) {
+export function normalizePriority(priority?: number): number {
+  if (priority === undefined || !Number.isFinite(priority)) {
     return 0;
   }
 
   return priority;
 }
 
-export function sanitizeName(
-  name:
-    | string,
-):
-  | string {
-  return (
-    name
-      .trim()
-      .replace(
-        /[^a-zA-Z0-9_-]+/g,
-        "-",
-      ) ||
-    "middleware"
-  );
+export function sanitizeName(name: string): string {
+  return name.trim().replace(/[^a-zA-Z0-9_-]+/g, "-") || "middleware";
 }
-
-

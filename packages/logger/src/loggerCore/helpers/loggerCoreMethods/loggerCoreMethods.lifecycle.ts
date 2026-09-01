@@ -2,25 +2,15 @@
  * LatticeLogger lifecycle methods.
  */
 
-import {
-  LoggerLevel,
-} from "../../../loggerLevel/loggerLevel.type.js";
+import { LoggerLevel } from "../../../loggerLevel/loggerLevel.type.js";
 
-import {
-  createLoggerTransport,
-} from "../../../loggerTransport/loggerTransport.core.js";
+import { createLoggerTransport } from "../../../loggerTransport/loggerTransport.core.js";
 
-import {
-  isLoggerTransport,
-} from "../../../loggerTransport/loggerTransportGuard.js";
+import { isLoggerTransport } from "../../../loggerTransport/loggerTransportGuard.js";
 
-import {
-  LoggerConfigurationError,
-} from "../../../loggerErrors/loggerError.base.js";
+import { LoggerConfigurationError } from "../../../loggerErrors/loggerError.base.js";
 
-import type {
-  LatticeLoggerContext,
-} from "../../core/loggerCore.core.js";
+import type { LatticeLoggerContext } from "../../core/loggerCore.core.js";
 
 /**
  * Sets the logger level.
@@ -52,9 +42,7 @@ export function setLoggerLevel(
 /**
  * Enables the logger.
  */
-export function enableLogger(
-  ctx: LatticeLoggerContext,
-): void {
+export function enableLogger(ctx: LatticeLoggerContext): void {
   ctx.assertActive();
   ctx.assertMutable();
 
@@ -67,9 +55,7 @@ export function enableLogger(
 /**
  * Disables the logger.
  */
-export function disableLogger(
-  ctx: LatticeLoggerContext,
-): void {
+export function disableLogger(ctx: LatticeLoggerContext): void {
   ctx.assertActive();
   ctx.assertMutable();
 
@@ -82,9 +68,7 @@ export function disableLogger(
 /**
  * Flushes all transport buffers.
  */
-export async function flushLogger(
-  ctx: LatticeLoggerContext,
-): Promise<void> {
+export async function flushLogger(ctx: LatticeLoggerContext): Promise<void> {
   ctx.assertActive();
 
   for (const transport of ctx.configuration.transports) {
@@ -107,9 +91,7 @@ export async function flushLogger(
 /**
  * Closes all transports and marks logger as disposed.
  */
-export async function closeLogger(
-  ctx: LatticeLoggerContext,
-): Promise<void> {
+export async function closeLogger(ctx: LatticeLoggerContext): Promise<void> {
   if (ctx.isDisposed()) {
     return;
   }

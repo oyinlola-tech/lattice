@@ -11,7 +11,7 @@ npm install @latticejs/errors
 ## Usage
 
 ```typescript
-import { /* add usage here */ } from "@latticejs/errors";
+import {} from /* add usage here */ "@latticejs/errors";
 ```
 
 ## License

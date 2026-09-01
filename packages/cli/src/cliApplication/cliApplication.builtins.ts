@@ -4,8 +4,15 @@
  * Help and version request detection and output.
  */
 
-import type { CLIArguments, CLIContext, CLIWriter } from "../cliType/cliType.type.js";
-import { CLI_COMMANDS, CLI_DEFAULTS } from "../cliConstant/cliConstant.value.js";
+import type {
+  CLIArguments,
+  CLIContext,
+  CLIWriter,
+} from "../cliType/cliType.type.js";
+import {
+  CLI_COMMANDS,
+  CLI_DEFAULTS,
+} from "../cliConstant/cliConstant.value.js";
 
 /** Returns whether the args contain a help request. */
 export function isHelpRequest(args: CLIArguments): boolean {
@@ -17,7 +24,8 @@ export function isHelpRequest(args: CLIArguments): boolean {
 /** Returns whether the args contain a version request. */
 export function isVersionRequest(args: CLIArguments): boolean {
   return args.some(
-    (arg) => arg === CLI_COMMANDS.VERSION || arg === "-v" || arg === "--version",
+    (arg) =>
+      arg === CLI_COMMANDS.VERSION || arg === "-v" || arg === "--version",
   );
 }
 
@@ -32,7 +40,11 @@ export function printHelp(
   name: string,
   version?: string,
   description?: string,
-  commands: readonly { name: string; aliases?: readonly string[]; description?: string }[] = [],
+  commands: readonly {
+    name: string;
+    aliases?: readonly string[];
+    description?: string;
+  }[] = [],
 ): void {
   const lines: string[] = [];
   lines.push(`${name} ${version ? `v${version}` : ""}`.trim());
@@ -48,11 +60,18 @@ export function printHelp(
   } else {
     for (const cmd of sorted) {
       const aliases = cmd.aliases?.length ? ` (${cmd.aliases.join(", ")})` : "";
-      lines.push(`  ${cmd.name}${aliases}${cmd.description ? `  ${cmd.description}` : ""}`);
+      lines.push(
+        `  ${cmd.name}${aliases}${cmd.description ? `  ${cmd.description}` : ""}`,
+      );
     }
   }
 
-  lines.push("", "Options:", "  -h, --help     Show help.", "  -v, --version  Show version.");
+  lines.push(
+    "",
+    "Options:",
+    "  -h, --help     Show help.",
+    "  -v, --version  Show version.",
+  );
 
   writer.writeLine(lines.join("\n"));
 }

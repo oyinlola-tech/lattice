@@ -18,8 +18,12 @@ async function main(): Promise<void> {
 
   try {
     await app.start();
-    console.log(`CampusFlow Gateway running on http://${app.config.host}:${app.config.port}`);
-    console.log(`Health check: http://${app.config.host}:${app.config.port}/health`);
+    console.log(
+      `CampusFlow Gateway running on http://${app.config.host}:${app.config.port}`,
+    );
+    console.log(
+      `Health check: http://${app.config.host}:${app.config.port}/health`,
+    );
   } catch (error) {
     console.error("Failed to start gateway:", error);
     process.exit(1);

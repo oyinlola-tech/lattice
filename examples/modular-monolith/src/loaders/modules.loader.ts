@@ -1,7 +1,15 @@
 import type { Logger } from "@oyinlola141/lattice-logger";
 import type { EventBus } from "@oyinlola141/lattice-events";
 import type { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
-import type { UserRepository, ArticleRepository, CommentRepository, ReactionRepository, TopicRepository, TopicFollowerRepository, NotificationRepository } from "../repositories/index.js";
+import type {
+  UserRepository,
+  ArticleRepository,
+  CommentRepository,
+  ReactionRepository,
+  TopicRepository,
+  TopicFollowerRepository,
+  NotificationRepository,
+} from "../repositories/index.js";
 import {
   registerIdentityModule,
   registerArticlesModule,
@@ -82,5 +90,7 @@ export function loadModules(config: ModuleLoaderConfig): void {
   });
   logger.info("  - notifications module registered");
 
-  logger.info(`All modules registered (${config.commandBus.size()} command handlers)`);
+  logger.info(
+    `All modules registered (${config.commandBus.size()} command handlers)`,
+  );
 }

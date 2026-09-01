@@ -66,12 +66,24 @@ export class CLIParser {
       }
 
       if (isLongOption(token)) {
-        index = parseLongOption(tokens, index, definitions, options, this.allowUnknownOptions);
+        index = parseLongOption(
+          tokens,
+          index,
+          definitions,
+          options,
+          this.allowUnknownOptions,
+        );
         continue;
       }
 
       if (isShortOption(token)) {
-        index = parseShortOption(tokens, index, definitions, options, this.allowUnknownOptions);
+        index = parseShortOption(
+          tokens,
+          index,
+          definitions,
+          options,
+          this.allowUnknownOptions,
+        );
         continue;
       }
 
@@ -85,9 +97,17 @@ export class CLIParser {
       index++;
     }
 
-    const parsedArguments = this.parseArguments(positional, argumentsDefinitions);
+    const parsedArguments = this.parseArguments(
+      positional,
+      argumentsDefinitions,
+    );
 
-    if (!this.allowUnknownCommands && !command && commands.length === 0 && tokens.length > 0) {
+    if (
+      !this.allowUnknownCommands &&
+      !command &&
+      commands.length === 0 &&
+      tokens.length > 0
+    ) {
       const firstToken = tokens.find((value) => !isOption(value));
       if (firstToken) {
         commands.push(firstToken);
@@ -117,7 +137,9 @@ export class CLIParser {
       if (definition.variadic) {
         const remaining = values.slice(valueIndex);
         if (definition.required && remaining.length === 0) {
-          throw new InvalidArgumentsError(`Missing required argument "${definition.name}".`);
+          throw new InvalidArgumentsError(
+            `Missing required argument "${definition.name}".`,
+          );
         }
         result[definition.name] = remaining;
         valueIndex = values.length;
@@ -128,7 +150,9 @@ export class CLIParser {
 
       if (value === undefined) {
         if (definition.required) {
-          throw new InvalidArgumentsError(`Missing required argument "${definition.name}".`);
+          throw new InvalidArgumentsError(
+            `Missing required argument "${definition.name}".`,
+          );
         }
         if (definition.defaultValue !== undefined) {
           result[definition.name] = definition.defaultValue;
@@ -141,7 +165,9 @@ export class CLIParser {
     }
 
     if (valueIndex < values.length) {
-      throw new InvalidArgumentsError(`Unexpected argument "${values[valueIndex]}".`);
+      throw new InvalidArgumentsError(
+        `Unexpected argument "${values[valueIndex]}".`,
+      );
     }
 
     return result;

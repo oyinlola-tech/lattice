@@ -4,15 +4,8 @@
  * Validates ETag header format (strong and weak) per RFC 7232.
  */
 
-export function isValidETag(
-  value:
-    | string
-    | undefined
-    | null,
-): boolean {
-  if (
-    !value
-  ) {
+export function isValidETag(value: string | undefined | null): boolean {
+  if (!value) {
     return false;
   }
 
@@ -20,7 +13,5 @@ export function isValidETag(
    * Strong: "abc"
    * Weak:   W/"abc"
    */
-  return /^(?:W\/)?"[^"\r\n]*"$/.test(
-    value,
-  );
+  return /^(?:W\/)?"[^"\r\n]*"$/.test(value);
 }

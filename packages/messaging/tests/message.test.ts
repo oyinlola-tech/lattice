@@ -84,15 +84,15 @@ describe("message", () => {
     });
 
     it("throws on empty type", () => {
-      expect(() =>
-        createMessage({ type: "", payload: {} }),
-      ).toThrow("Message type must be a non-empty string.");
+      expect(() => createMessage({ type: "", payload: {} })).toThrow(
+        "Message type must be a non-empty string.",
+      );
     });
 
     it("throws on whitespace-only type", () => {
-      expect(() =>
-        createMessage({ type: "   ", payload: {} }),
-      ).toThrow("Message type must be a non-empty string.");
+      expect(() => createMessage({ type: "   ", payload: {} })).toThrow(
+        "Message type must be a non-empty string.",
+      );
     });
   });
 
@@ -150,7 +150,9 @@ describe("message", () => {
     it("returns false for objects missing required fields", () => {
       expect(isMessage({})).toBe(false);
       expect(isMessage({ id: "1", type: "test" })).toBe(false);
-      expect(isMessage({ id: "1", type: "test", timestamp: new Date() })).toBe(false);
+      expect(isMessage({ id: "1", type: "test", timestamp: new Date() })).toBe(
+        false,
+      );
     });
   });
 

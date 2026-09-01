@@ -3,7 +3,9 @@ import type { NotificationType } from "../../../../enums/index.js";
 
 export const CREATE_NOTIFICATION_COMMAND = "notification.create" as const;
 
-export class CreateNotificationCommand extends Command<typeof CREATE_NOTIFICATION_COMMAND> {
+export class CreateNotificationCommand extends Command<
+  typeof CREATE_NOTIFICATION_COMMAND
+> {
   public readonly userId: string;
   public readonly notificationType: NotificationType;
   public readonly title: string;

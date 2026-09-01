@@ -15,7 +15,9 @@ import type { FeatureFlagProvider } from "../featureFlagTypes/featureFlagProvide
  * @param flags - Initial flag definitions.
  * @returns A FeatureFlagProvider backed by a Map.
  */
-export function createMemoryProvider(flags: readonly FeatureFlag[] = []): FeatureFlagProvider {
+export function createMemoryProvider(
+  flags: readonly FeatureFlag[] = [],
+): FeatureFlagProvider {
   const store = new Map<string, FeatureFlag>();
 
   for (const flag of flags) {
@@ -40,5 +42,8 @@ export function createMemoryProvider(flags: readonly FeatureFlag[] = []): Featur
     delete(key: string): boolean {
       return store.delete(key);
     },
-  } as FeatureFlagProvider & { set(flag: FeatureFlag): void; delete(key: string): boolean };
+  } as FeatureFlagProvider & {
+    set(flag: FeatureFlag): void;
+    delete(key: string): boolean;
+  };
 }

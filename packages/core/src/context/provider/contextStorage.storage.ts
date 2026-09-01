@@ -11,8 +11,7 @@ import type { ExecutionContext } from "../core/executionContext.context.js";
  * every function call.
  */
 export class ContextStorage {
-  private readonly storage =
-    new AsyncLocalStorage<ExecutionContext>();
+  private readonly storage = new AsyncLocalStorage<ExecutionContext>();
 
   /**
    * Runs a function inside an execution context.
@@ -20,14 +19,8 @@ export class ContextStorage {
    * The context is automatically available to all asynchronous
    * operations created within the callback.
    */
-  public run<T>(
-    context: ExecutionContext,
-    callback: () => T,
-  ): T {
-    return this.storage.run(
-      context,
-      callback,
-    );
+  public run<T>(context: ExecutionContext, callback: () => T): T {
+    return this.storage.run(context, callback);
   }
 
   /**
@@ -48,9 +41,7 @@ export class ContextStorage {
     const context = this.get();
 
     if (!context) {
-      throw new Error(
-        "No execution context is available.",
-      );
+      throw new Error("No execution context is available.");
     }
 
     return context;
@@ -66,10 +57,7 @@ export class ContextStorage {
   /**
    * Executes a callback with a derived execution context.
    */
-  public runWith<T>(
-    context: ExecutionContext,
-    callback: () => T,
-  ): T {
+  public runWith<T>(context: ExecutionContext, callback: () => T): T {
     return this.run(context, callback);
   }
 
@@ -77,23 +65,15 @@ export class ContextStorage {
    * Executes a callback using the current context with
    * a temporary derived context.
    */
-  public runDerived<T>(
-    context: ExecutionContext,
-    callback: () => T,
-  ): T {
-    return this.storage.run(
-      context,
-      callback,
-    );
+  public runDerived<T>(context: ExecutionContext, callback: () => T): T {
+    return this.storage.run(context, callback);
   }
 
   /**
    * Clears the current execution context by executing the
    * callback outside the current storage context.
    */
-  public runWithoutContext<T>(
-    callback: () => T,
-  ): T {
+  public runWithoutContext<T>(callback: () => T): T {
     return this.storage.exit(callback);
   }
 }

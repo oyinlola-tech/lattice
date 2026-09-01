@@ -4,7 +4,12 @@
  * Result constructors and type guards for schema outcomes.
  */
 
-import type { SchemaResult, SchemaSuccess, SchemaFailure, SchemaIssue } from "./schemaBase.type.js";
+import type {
+  SchemaResult,
+  SchemaSuccess,
+  SchemaFailure,
+  SchemaIssue,
+} from "./schemaBase.type.js";
 
 /** Creates a successful result. */
 export function schemaSuccess<T>(data: T): SchemaSuccess<T> {
@@ -17,12 +22,16 @@ export function schemaFailure(issues: readonly SchemaIssue[]): SchemaFailure {
 }
 
 /** Type guard for successful results. */
-export function isSchemaSuccess<T>(result: SchemaResult<T>): result is SchemaSuccess<T> {
+export function isSchemaSuccess<T>(
+  result: SchemaResult<T>,
+): result is SchemaSuccess<T> {
   return result.success === true;
 }
 
 /** Type guard for failure results. */
-export function isSchemaFailure<T>(result: SchemaResult<T>): result is SchemaFailure {
+export function isSchemaFailure<T>(
+  result: SchemaResult<T>,
+): result is SchemaFailure {
   return result.success === false;
 }
 
@@ -32,8 +41,8 @@ export function unwrapSchemaResult<T>(result: SchemaResult<T>): T {
     return result.data;
   }
   throw new Error(
-    `Schema validation failed with ${result.issues.length} issue(s): ${
-      result.issues.map((i) => i.message).join("; ")
-    }`,
+    `Schema validation failed with ${result.issues.length} issue(s): ${result.issues
+      .map((i) => i.message)
+      .join("; ")}`,
   );
 }
