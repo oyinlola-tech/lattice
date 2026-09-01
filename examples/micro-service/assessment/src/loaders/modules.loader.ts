@@ -1,4 +1,4 @@
-import type { EventBus } from "@lattice/events";
+import type { EventBus } from "@oyinlola141/lattice-events";
 import type { AssessmentRepository } from "../interfaces/index.js";
 import { registerAssessmentService } from "../services/index.js";
 import { createAssessmentRoutes } from "../routes/index.js";

@@ -1,5 +1,5 @@
 /**
- * @lattice/openapi/openApiValidation
+ * @oyinlola141/lattice-openapi/openApiValidation
  *
  * OpenAPI document validation.
  */

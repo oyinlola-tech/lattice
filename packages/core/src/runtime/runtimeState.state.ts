@@ -1,4 +1,4 @@
-import { RuntimeStateError } from "@lattice/errors";
+import { RuntimeStateError } from "@oyinlola141/lattice-errors";
 
 /** Runtime lifecycle states. */
 export enum RuntimeState {

@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Parser Helpers
+ * @oyinlola141/lattice-cli — Parser Helpers
  *
  * Utility functions for parsing CLI arguments, options, and values.
  */

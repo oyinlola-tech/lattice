@@ -1,5 +1,5 @@
 /**
- * @lattice/schema/coerce
+ * @oyinlola141/lattice-schema/coerce
  *
  * Explicit coercion schemas for type conversion.
  */

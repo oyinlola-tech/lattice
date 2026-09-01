@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters/cli
+ * @oyinlola141/lattice-adapters/cli
  *
  * CLI adapter contracts.
  */

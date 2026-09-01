@@ -1,11 +1,13 @@
 import {
   DatabaseError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 import type {
   DatabaseClient,
   DatabaseTransactionContext,
 } from "../databaseClient/databaseClient.core.js";
+
+import { Prisma } from "@prisma/client";
 
 /**
  * Defines a database seed operation.
@@ -487,7 +489,7 @@ export class SeedRunner {
 
     try {
       await this.client.executeRaw(
-        `
+        Prisma.sql`
           CREATE TABLE IF NOT EXISTS ${table} (
             "name" VARCHAR(255) PRIMARY KEY,
             "applied_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -520,14 +522,18 @@ export class SeedRunner {
       );
 
     try {
-      const execute =
-        transaction
-          ? transaction.$queryRawUnsafe
-          : this.client.queryRaw;
-
-      const rows =
-        await execute(
-          `
+      let rows;
+      if (transaction) {
+        rows = await transaction.$queryRawUnsafe(`
+          SELECT
+            "name",
+            "applied_at"
+          FROM ${table}
+          ORDER BY "applied_at" ASC, "name" ASC
+        `);
+      } else {
+        rows = await this.client.queryRaw(
+          Prisma.sql`
             SELECT
               "name",
               "applied_at"
@@ -535,6 +541,7 @@ export class SeedRunner {
             ORDER BY "applied_at" ASC, "name" ASC
           `,
         );
+      }
 
       return (rows as readonly { name: string; applied_at: Date; }[]).map(
         (row) => ({

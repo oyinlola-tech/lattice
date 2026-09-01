@@ -1,12 +1,12 @@
 /**
- * @lattice/cache
+ * @oyinlola141/lattice-cache
  *
  * Cache abstraction layer with memory adapter, tag-based
  * invalidation, distributed locking, and metrics.
  *
  * @example
  * ```ts
- * import { createCacheService, createMemoryCacheAdapter } from "@lattice/cache";
+ * import { createCacheService, createMemoryCacheAdapter } from "@oyinlola141/lattice-cache";
  *
  * const cache = createCacheService({
  *   adapter: createMemoryCacheAdapter(),
@@ -51,16 +51,6 @@ export type {
   CacheAdapterFactory,
   CacheConfig,
   CacheEventType,
-  BaseCacheEvent,
-  CacheHitEvent,
-  CacheMissEvent,
-  CacheSetEvent,
-  CacheDeleteEvent,
-  CacheClearEvent,
-  CacheErrorEvent,
-  CacheEvent,
-  CacheEventHandler,
-  CacheEventSubscription,
   CacheTag,
   CacheTagOptions,
   CacheTagStore,
@@ -70,7 +60,6 @@ export type {
   CacheHealth,
   CacheHealthChecker,
   CacheSerializer,
-  CacheKeyBuilder,
   CacheMetrics,
   CacheOperation,
   CacheMiddlewareContext,
@@ -84,6 +73,23 @@ export type {
   MaybePromise,
   CacheResult,
 } from "./types.js";
+
+export type {
+  BaseCacheEvent,
+  CacheHitEvent,
+  CacheMissEvent,
+  CacheSetEvent,
+  CacheDeleteEvent,
+  CacheClearEvent,
+  CacheErrorEvent,
+  CacheEvent,
+  CacheEventHandler,
+  CacheEventSubscription,
+} from "./types-events.js";
+
+export type {
+  CacheKeyBuilder,
+} from "./types-keys.js";
 
 // Constants
 export {
@@ -106,7 +112,7 @@ export {
   NAMESPACE_PATTERN,
 } from "./constants.js";
 
-// Errors (re-exported from @lattice/errors)
+// Errors (re-exported from @oyinlola141/lattice-errors)
 export {
   CacheError,
   isCacheError,

@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpProtocol
+ * @oyinlola141/lattice-http/httpProtocol
  *
  * HTTP httpProtocol module.
  */

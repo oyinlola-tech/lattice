@@ -4,7 +4,7 @@
  * @module tenancyErrors/tenancyError
  */
 
-import { AuthorizationError, ErrorCode, type ErrorMetadata } from "@lattice/errors";
+import { AuthorizationError, ErrorCode, type ErrorMetadata } from "@oyinlola141/lattice-errors";
 
 /**
  * Base error for all tenancy-related failures.

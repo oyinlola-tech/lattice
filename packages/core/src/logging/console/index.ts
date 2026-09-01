@@ -1,5 +1,5 @@
 /**
- * @lattice/core/logging/console
+ * @oyinlola141/lattice-core/logging/console
  *
  * Console logger implementation and factory.
  */

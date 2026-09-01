@@ -1,6 +1,6 @@
-import type { Logger } from "@lattice/logger";
-import type { EventBus } from "@lattice/events";
-import type { CommandBus, QueryBus } from "@lattice/cqrs";
+import type { Logger } from "@oyinlola141/lattice-logger";
+import type { EventBus } from "@oyinlola141/lattice-events";
+import type { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
 import type { EnrollmentRepository } from "../repositories/index.js";
 import { registerEnrollmentService } from "../services/index.js";
 

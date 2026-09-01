@@ -1,5 +1,5 @@
 /**
- * @lattice/serialization — Serializer factory.
+ * @oyinlola141/lattice-serialization — Serializer factory.
  *
  * Factory function for creating serializer instances by format name.
  * Provides a clean public API for creating serializers without
@@ -8,8 +8,8 @@
 
 import type { Serializer, SerializationFormat } from "../serializerTypes/index.js";
 import { JSONSerializer } from "../serializerJson/index.js";
-import { UnsupportedSerializationFormatError } from "@lattice/errors";
-import { SerializationFormat as Format } from "@lattice/constants";
+import { UnsupportedSerializationFormatError } from "@oyinlola141/lattice-errors";
+import { SerializationFormat as Format } from "@oyinlola141/lattice-constants";
 import { TransformerRegistry } from "../serializerTransforms/index.js";
 import { SerializerRegistry } from "./serializerRegistry.core.js";
 

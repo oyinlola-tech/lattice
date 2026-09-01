@@ -1,5 +1,5 @@
 /**
- * @lattice/openapi/openApiTypes
+ * @oyinlola141/lattice-openapi/openApiTypes
  *
  * All OpenAPI specification types re-exported from split modules.
  */

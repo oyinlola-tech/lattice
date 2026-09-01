@@ -1,5 +1,5 @@
 /**
- * @lattice/serialization — Type definitions.
+ * @oyinlola141/lattice-serialization — Type definitions.
  *
  * Core contracts for serializers, transformers, and serialization options.
  */

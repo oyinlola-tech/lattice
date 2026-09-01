@@ -1,5 +1,5 @@
-import { CommandHandler } from "@lattice/cqrs";
-import type { CqrsContext } from "@lattice/cqrs";
+import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
 import { PublishResultCommand } from "./publish-result.command.js";
 import type { AssessmentRepository } from "../../../../interfaces/index.js";
 import { ResultPublishedEvent } from "../../../../events/index.js";

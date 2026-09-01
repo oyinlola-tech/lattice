@@ -13,7 +13,7 @@
 
 import { loadConfig } from "./config/config.js";
 import { WorkerModule } from "./app/worker.module.js";
-import { BackoffType } from "@lattice/queue";
+import { BackoffType } from "@oyinlola141/lattice-queue";
 
 const config = loadConfig();
 

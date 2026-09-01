@@ -1,5 +1,5 @@
 /**
- * @lattice/plugins/pluginTypes
+ * @oyinlola141/lattice-plugins/pluginTypes
  *
  * Core types for the Lattice plugin system.
  */
@@ -9,4 +9,4 @@ export type { PluginMetadata } from "./pluginMetadata.type.js";
 export type { PluginDependency } from "./pluginDependency.type.js";
 export type { PluginContext, PluginContainer, PluginConfig, PluginLogger, PluginEvents } from "./pluginContext.type.js";
 export type { Plugin } from "./plugin.type.js";
-export type { PluginErrorOptions } from "@lattice/errors";
+export type { PluginErrorOptions } from "@oyinlola141/lattice-errors";

@@ -1,5 +1,5 @@
 /**
- * @lattice/http — HTTP client module.
+ * @oyinlola141/lattice-http — HTTP client module.
  *
  * Request construction, interceptors, retries, response parsing.
  */

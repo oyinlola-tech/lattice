@@ -1,5 +1,5 @@
 {
-  "name": "@lattice/example-basic-api",
+  "name": "@oyinlola141/lattice-example-basic-api",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,10 +10,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@lattice/core": "workspace:*",
-    "@lattice/http": "workspace:*",
-    "@lattice/errors": "workspace:*",
-    "@lattice/validation": "workspace:*"
+    "@oyinlola141/lattice-core": "workspace:*",
+    "@oyinlola141/lattice-http": "workspace:*",
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-validation": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.0.0",

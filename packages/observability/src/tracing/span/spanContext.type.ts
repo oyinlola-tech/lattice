@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Span Context
+ * @oyinlola141/lattice-observability — Span Context
  *
  * Factory for creating span context identifiers.
  */

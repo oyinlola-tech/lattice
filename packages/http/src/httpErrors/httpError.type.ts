@@ -6,7 +6,7 @@
 
 import type {
   ErrorMetadata,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /* -------------------------------------------------------------------------- */
 /* Types                                                                      */

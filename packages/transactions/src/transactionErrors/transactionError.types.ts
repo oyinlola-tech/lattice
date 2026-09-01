@@ -2,7 +2,7 @@
  * Specific transaction error subclasses.
  */
 
-import { ErrorCode } from "@lattice/errors";
+import { ErrorCode } from "@oyinlola141/lattice-errors";
 import { TransactionError } from "./transactionError.base.js";
 
 /**

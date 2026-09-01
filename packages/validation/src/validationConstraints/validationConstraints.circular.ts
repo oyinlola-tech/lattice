@@ -1,11 +1,11 @@
 /**
- * @lattice/validation — Circular reference detection.
+ * @oyinlola141/lattice-validation — Circular reference detection.
  *
  * Detects circular references in object graphs before serialization
  * or validation to prevent stack overflows and provide clear error messages.
  */
 
-import { CircularReferenceError } from "@lattice/errors";
+import { CircularReferenceError } from "@oyinlola141/lattice-errors";
 
 /**
  * Detect circular references in a value graph.

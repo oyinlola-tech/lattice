@@ -1,11 +1,11 @@
 /**
- * @lattice/lifecycle/manager
+ * @oyinlola141/lattice-lifecycle/manager
  *
  * Lifecycle manager — the heart of the lifecycle system.
  * Orchestrates component registration, startup, shutdown, rollback, and signals.
  */
 
-import { LifecycleState, LIFECYCLE_DEFAULT_CONCURRENCY, LIFECYCLE_DEFAULT_SHUTDOWN_TIMEOUT } from "@lattice/constants";
+import { LifecycleState, LIFECYCLE_DEFAULT_CONCURRENCY, LIFECYCLE_DEFAULT_SHUTDOWN_TIMEOUT } from "@oyinlola141/lattice-constants";
 import type { LifecycleComponent, LifecycleRegistrationOptions } from "../lifecycleComponent/lifecycleComponent.type.js";
 import { LifecycleRegistry } from "../lifecycleRegistry/lifecycleRegistry.core.js";
 import { LifecycleStateMachine } from "../lifecycleState/lifecycleState.machine.js";

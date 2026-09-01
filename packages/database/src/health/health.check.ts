@@ -1,10 +1,12 @@
 import {
   DatabaseError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 import type {
   DatabaseClient,
 } from "../databaseClient/databaseClient.core.js";
+
+import { Prisma } from "@prisma/client";
 
 /**
  * Health status of the database.
@@ -275,7 +277,7 @@ async function executeHealthCheck(
         },
       ]
     >(
-      "SELECT 1 AS result",
+      Prisma.sql`SELECT 1 AS result`,
     );
   } catch (error) {
     throw new DatabaseError(

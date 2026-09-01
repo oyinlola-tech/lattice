@@ -1,5 +1,5 @@
 /**
- * @lattice/logger/loggerFormatter/loggerFormatterFormatters
+ * @oyinlola141/lattice-logger/loggerFormatter/loggerFormatterFormatters
  *
  * Built-in formatter implementations.
  */

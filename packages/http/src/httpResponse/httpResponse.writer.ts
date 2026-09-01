@@ -101,7 +101,7 @@ import {
   HttpResponseWriterError as ResponseWriterError,
   ResponseAlreadySentError as ResponseAlreadySentError,
   UnsupportedResponseBodyError as UnsupportedResponseBodyError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export {
   ResponseWriterError,

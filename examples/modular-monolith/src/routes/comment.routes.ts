@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@lattice/cqrs";
+import type { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
 import { CommentController } from "../controllers/comment.controller.js";
 
 export interface Route {

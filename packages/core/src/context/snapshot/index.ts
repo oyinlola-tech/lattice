@@ -1,5 +1,5 @@
 /**
- * @lattice/core/context/snapshot
+ * @oyinlola141/lattice-core/context/snapshot
  *
  * Context snapshots for propagation across
  * asynchronous and distributed boundaries.

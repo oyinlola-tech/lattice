@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Sampling
+ * @oyinlola141/lattice-observability — Sampling
  *
  * Sampling strategies: AlwaysOn, AlwaysOff, Probability, ParentBased.
  */

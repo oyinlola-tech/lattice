@@ -1,12 +1,12 @@
 /**
- * @lattice/serialization — Map transformer.
+ * @oyinlola141/lattice-serialization — Map transformer.
  *
  * Preserves Map instances across serialization boundaries
  * using an array-of-entries representation.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { SerializationTags } from "@lattice/constants";
+import { SerializationTags } from "@oyinlola141/lattice-constants";
 
 const MAP_TYPE = "Map" as const;
 

@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/domain
+ * @oyinlola141/lattice-errors/domain
  *
  * Domain-specific error types (validation, auth, not-found, etc.).
  */

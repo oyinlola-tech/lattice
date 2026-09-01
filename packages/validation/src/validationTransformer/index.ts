@@ -1,5 +1,5 @@
 /**
- * @lattice/validation/validationTransformer
+ * @oyinlola141/lattice-validation/validationTransformer
  *
  * Data transformation after validation.
  */

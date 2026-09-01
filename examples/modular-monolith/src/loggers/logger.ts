@@ -1,5 +1,5 @@
-import { LoggerLevel } from "@lattice/logger";
-import type { Logger } from "@lattice/logger";
+import { LoggerLevel } from "@oyinlola141/lattice-logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
 const LEVEL_MAP: Record<LoggerLevel, string> = {
   [LoggerLevel.FATAL]: "fatal",

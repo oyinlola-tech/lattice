@@ -1,5 +1,5 @@
 /**
- * @lattice/cache — Lock Manager
+ * @oyinlola141/lattice-cache — Lock Manager
  * Distributed lock manager for preventing concurrent cache operations.
  */
 

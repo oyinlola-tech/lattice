@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/cryptoFactory
+ * @oyinlola141/lattice-crypto/cryptoFactory
  *
  * Factory functions for crypto primitives.
  */

@@ -1,10 +1,10 @@
 /**
- * @lattice/http/httpStream — Consume a readable stream via chunk callback.
+ * @oyinlola141/lattice-http/httpStream — Consume a readable stream via chunk callback.
  */
 
 import {
   HttpStreamError as StreamError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 import type {
   HTTPStreamOptions,

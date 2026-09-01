@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters/messaging
+ * @oyinlola141/lattice-adapters/messaging
  *
  * Messaging adapter contracts.
  */

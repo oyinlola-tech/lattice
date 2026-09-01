@@ -3,7 +3,7 @@ import { pbkdf2, scrypt, randomBytes, timingSafeEqual } from "node:crypto";
 import { toBytes, toBase64Url, fromBase64Url } from "../nodeCryptoProvider.helper.js";
 import {
   cryptoKeyDerivationError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export async function deriveKey(options: DeriveKeyOptions): Promise<Uint8Array> {
   const password = toBytes(options.password);

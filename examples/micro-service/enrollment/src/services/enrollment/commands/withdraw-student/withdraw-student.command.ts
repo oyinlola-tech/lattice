@@ -1,4 +1,4 @@
-import { Command } from "@lattice/cqrs";
+import { Command } from "@oyinlola141/lattice-cqrs";
 import type { WithdrawStudentDto } from "../../../../dtos/index.js";
 
 /** Command to withdraw a student from a course. */

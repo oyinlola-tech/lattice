@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/scheduler",
+  "name": "@oyinlola141/lattice-scheduler",
   "version": "0.1.0",
-  "private": true,
   "description": "Time and recurring execution engine for Lattice — job definitions, schedules, triggers, priority queue, cron support, and persistence.",
   "license": "MIT",
   "type": "module",
@@ -28,12 +27,15 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*",
-    "@lattice/types": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-types": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

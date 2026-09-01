@@ -1,5 +1,5 @@
 /**
- * @lattice/storage — Core Types
+ * @oyinlola141/lattice-storage — Core Types
  *
  * All interfaces and type definitions for the storage infrastructure.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/plugins/pluginRegistry
+ * @oyinlola141/lattice-plugins/pluginRegistry
  *
  * Plugin registry for storing and retrieving registered plugins.
  */

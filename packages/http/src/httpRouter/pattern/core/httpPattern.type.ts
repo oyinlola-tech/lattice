@@ -49,7 +49,7 @@ export interface RouteMatch {
 import {
   RoutePatternError as BaseRoutePatternError,
   DuplicateRouteParameterError as BaseDuplicateRouteParameterError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export {
   BaseRoutePatternError as RoutePatternError,

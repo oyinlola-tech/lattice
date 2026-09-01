@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/testing",
+  "name": "@oyinlola141/lattice-testing",
   "version": "0.1.0",
-  "private": true,
   "description": "Testing infrastructure for the Lattice framework — test containers, fakes, fixtures, mocks, assertions, and test utilities.",
   "type": "module",
   "main": "./dist/index.js",
@@ -23,21 +22,21 @@
     "test": "../../node_modules/.bin/vitest run"
   },
   "dependencies": {
-    "@lattice/config": "workspace:*",
-    "@lattice/constants": "workspace:*",
-    "@lattice/container": "workspace:*",
-    "@lattice/errors": "workspace:*",
-    "@lattice/events": "workspace:*",
-    "@lattice/http": "workspace:*",
-    "@lattice/logger": "workspace:*",
-    "@lattice/messaging": "workspace:*",
-    "@lattice/middleware": "workspace:*",
-    "@lattice/queue": "workspace:*",
-    "@lattice/security": "workspace:*",
-    "@lattice/serialization": "workspace:*",
-    "@lattice/storage": "workspace:*",
-    "@lattice/types": "workspace:*",
-    "@lattice/validation": "workspace:*"
+    "@oyinlola141/lattice-config": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-container": "workspace:*",
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-events": "workspace:*",
+    "@oyinlola141/lattice-http": "workspace:*",
+    "@oyinlola141/lattice-logger": "workspace:*",
+    "@oyinlola141/lattice-messaging": "workspace:*",
+    "@oyinlola141/lattice-middleware": "workspace:*",
+    "@oyinlola141/lattice-queue": "workspace:*",
+    "@oyinlola141/lattice-security": "workspace:*",
+    "@oyinlola141/lattice-serialization": "workspace:*",
+    "@oyinlola141/lattice-storage": "workspace:*",
+    "@oyinlola141/lattice-types": "workspace:*",
+    "@oyinlola141/lattice-validation": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
@@ -46,5 +45,8 @@
   "engines": {
     "node": ">=24.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }

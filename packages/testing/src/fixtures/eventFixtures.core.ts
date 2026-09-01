@@ -7,11 +7,11 @@
 import type {
   Event,
   EventInput,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import type {
   EventId,
-} from "@lattice/constants";
+} from "@oyinlola141/lattice-constants";
 
 /**
  * Options for creating a test event.

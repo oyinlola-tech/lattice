@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/domain/event
+ * @oyinlola141/lattice-errors/domain/event
  *
  * Event handling and publishing error types.
  */

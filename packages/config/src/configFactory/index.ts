@@ -1,5 +1,5 @@
 /**
- * @lattice/config/configFactory
+ * @oyinlola141/lattice-config/configFactory
  *
  * Factory functions for creating configuration instances.
  */

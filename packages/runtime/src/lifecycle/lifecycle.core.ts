@@ -1,15 +1,15 @@
 import type {
   Logger,
-} from "@lattice/logger";
+} from "@oyinlola141/lattice-logger";
 
 import type {
   Container,
-} from "@lattice/container";
+} from "@oyinlola141/lattice-container";
 
 import type {
   Module,
   ModuleContext,
-} from "@lattice/core";
+} from "@oyinlola141/lattice-core";
 
 import type {
   LifecycleResult,

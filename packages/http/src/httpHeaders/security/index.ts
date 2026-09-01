@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpHeaders/security
+ * @oyinlola141/lattice-http/httpHeaders/security
  *
  * HTTP headers security utilities.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/openapi/openApiConstants
+ * @oyinlola141/lattice-openapi/openApiConstants
  */
 
 export {

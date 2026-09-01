@@ -1,12 +1,12 @@
 /**
- * @lattice/transactions
+ * @oyinlola141/lattice-transactions
  *
  * Generic transaction abstraction for the Lattice framework.
  *
  * Provides transaction lifecycle management, async context propagation,
  * adapter contracts, savepoints, hooks, and rollback-only semantics.
  *
- * @module @lattice/transactions
+ * @module @oyinlola141/lattice-transactions
  */
 
 export * from "./transactionTypes/index.js";

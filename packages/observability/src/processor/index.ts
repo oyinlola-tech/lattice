@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Processor
+ * @oyinlola141/lattice-observability — Processor
  *
  * Batch span processor for accumulating and exporting spans.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/serialization
+ * @oyinlola141/lattice-serialization
  *
  * Data translation layer for the Lattice framework.
  *
@@ -9,7 +9,7 @@
  *
  * @example
  * ```typescript
- * import { createSerializer, JSONSerializer } from "@lattice/serialization";
+ * import { createSerializer, JSONSerializer } from "@oyinlola141/lattice-serialization";
  *
  * // Fast path (default) — nearly zero overhead over native JSON
  * const serializer = createSerializer("json");

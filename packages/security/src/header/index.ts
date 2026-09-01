@@ -1,5 +1,5 @@
 /**
- * @lattice/security — Header Security Barrel
+ * @oyinlola141/lattice-security — Header Security Barrel
  */
 
 export {

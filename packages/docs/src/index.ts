@@ -1,5 +1,5 @@
 /**
- * @lattice/docs
+ * @oyinlola141/lattice-docs
  *
  * Documentation infrastructure for the Lattice framework.
  *

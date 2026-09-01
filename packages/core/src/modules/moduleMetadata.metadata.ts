@@ -1,5 +1,5 @@
 import type { ModuleId } from "./module.js";
-import type { Environment } from "@lattice/constants";
+import type { Environment } from "@oyinlola141/lattice-constants";
 
 /** Environment in which a module is intended to run. */
 export type ModuleEnvironment = Environment;

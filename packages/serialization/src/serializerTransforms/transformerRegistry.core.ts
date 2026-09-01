@@ -1,13 +1,13 @@
 /**
- * @lattice/serialization — Transformer registry.
+ * @oyinlola141/lattice-serialization — Transformer registry.
  *
  * Manages type transformers that handle custom JS types during
  * serialization and deserialization. Keyed by type tag string.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { TransformerNotFoundError } from "@lattice/errors";
-import { SerializationLimits } from "@lattice/constants";
+import { TransformerNotFoundError } from "@oyinlola141/lattice-errors";
+import { SerializationLimits } from "@oyinlola141/lattice-constants";
 
 /**
  * Registry of type transformers keyed by their type tag.

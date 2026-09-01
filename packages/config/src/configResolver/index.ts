@@ -1,5 +1,5 @@
 /**
- * @lattice/config/configResolver
+ * @oyinlola141/lattice-config/configResolver
  *
  * Configuration resolution with priority and merging.
  */

@@ -4,7 +4,7 @@
  * Registers the UsersService and UsersController.
  */
 
-import { BaseModule } from "@lattice/core";
+import { BaseModule } from "@oyinlola141/lattice-core";
 import { UsersService } from "./users.service.js";
 import { UsersController } from "./users.controller.js";
 

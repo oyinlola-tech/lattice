@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/cryptoSignature
+ * @oyinlola141/lattice-crypto/cryptoSignature
  *
  * Digital signature creation and verification.
  */

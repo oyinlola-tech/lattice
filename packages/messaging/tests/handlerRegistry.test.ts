@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { HandlerRegistryStore } from "../src/handlerRegistry/index.js";
-import { DuplicateMessageHandlerError } from "@lattice/errors";
+import { DuplicateMessageHandlerError } from "@oyinlola141/lattice-errors";
 import type { NamedMessageHandler } from "../src/messageHandler/index.js";
 
 describe("HandlerRegistryStore", () => {

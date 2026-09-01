@@ -7,8 +7,8 @@
  * Uses HMAC SHA-256 for signing.
  */
 
-import { TimeMs } from "@lattice/constants";
-import type { UserId } from "@lattice/constants";
+import { TimeMs } from "@oyinlola141/lattice-constants";
+import type { UserId } from "@oyinlola141/lattice-constants";
 import type {
   JwtToken,
   TokenPair,

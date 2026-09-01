@@ -1,10 +1,10 @@
 /**
- * @lattice/testing — Spy logger for testing.
+ * @oyinlola141/lattice-testing — Spy logger for testing.
  *
  * Records all log calls for assertion without side effects.
  */
 
-import type { LoggerLevel, LogMetadata, ChildLoggerOptions, LoggerContext } from "@lattice/logger";
+import type { LoggerLevel, LogMetadata, ChildLoggerOptions, LoggerContext } from "@oyinlola141/lattice-logger";
 import type { LogCall, SpyLogger } from "./spyLogger.type.js";
 
 function recordCall(

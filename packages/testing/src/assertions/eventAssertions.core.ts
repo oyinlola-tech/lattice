@@ -6,7 +6,7 @@
 
 import type {
   Event,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import type {
   RecordedEvent,

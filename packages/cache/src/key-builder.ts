@@ -1,5 +1,5 @@
 /**
- * @lattice/cache — Key Builder
+ * @oyinlola141/lattice-cache — Key Builder
  *
  * Builds fully qualified cache keys from key parts, namespaces,
  * and prefixes. Ensures keys are well-formed and consistently formatted.
@@ -7,10 +7,10 @@
 
 import type {
   CacheKey,
-  CacheKeyBuilder,
   CacheKeyOptions,
   CacheNamespace,
 } from "./types.js";
+import type { CacheKeyBuilder } from "./types-keys.js";
 import {
   CACHE_KEY_PATTERN,
   DEFAULT_PREFIX,

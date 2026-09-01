@@ -1,11 +1,11 @@
 /**
- * @lattice/database — Database Client Core
+ * @oyinlola141/lattice-database — Database Client Core
  *
  * Prisma-backed database client implementation.
  */
 
 import { PrismaClient, Prisma } from "@prisma/client";
-import { DatabaseError } from "@lattice/errors";
+import { DatabaseError } from "@oyinlola141/lattice-errors";
 import type {
   DatabaseClient as DatabaseClientContract,
   DatabaseConnectionOptions,
@@ -166,7 +166,6 @@ export class DatabaseClient implements DatabaseClientContract<DatabaseTransactio
       case "ReadCommitted": return Prisma.TransactionIsolationLevel.ReadCommitted;
       case "RepeatableRead": return Prisma.TransactionIsolationLevel.RepeatableRead;
       case "Serializable": return Prisma.TransactionIsolationLevel.Serializable;
-      case "Snapshot": return Prisma.TransactionIsolationLevel.Snapshot;
       default: throw new TypeError(`Unsupported transaction isolation level: ${String(level)}`);
     }
   }

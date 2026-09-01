@@ -1,5 +1,5 @@
 /**
- * @lattice/rpc
+ * @oyinlola141/lattice-rpc
  *
  * Remote Procedure Call abstraction for the Lattice framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { RPCServer, RPCClient, createRPCProcedure, RPCMiddlewareStack } from "@lattice/rpc";
+ * import { RPCServer, RPCClient, createRPCProcedure, RPCMiddlewareStack } from "@oyinlola141/lattice-rpc";
  *
  * const server = new RPCServer();
  * server.register(createRPCProcedure("users.getUser", async (input) => {

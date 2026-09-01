@@ -5,9 +5,9 @@
  */
 
 import type { UserId } from "../authTypes/authUser.type.js";
-import type { SessionId } from "@lattice/constants";
+import type { SessionId } from "@oyinlola141/lattice-constants";
 
-export type { SessionId } from "@lattice/constants";
+export type { SessionId } from "@oyinlola141/lattice-constants";
 
 /**
  * Server-side session representation.

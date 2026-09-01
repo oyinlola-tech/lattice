@@ -1,5 +1,5 @@
 /**
- * @lattice/openapi/openApiSchema
+ * @oyinlola141/lattice-openapi/openApiSchema
  *
  * Schema conversion and registry for OpenAPI generation.
  */

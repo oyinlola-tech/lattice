@@ -1,10 +1,10 @@
 /**
- * @lattice/lifecycle/executor
+ * @oyinlola141/lattice-lifecycle/executor
  *
  * Lifecycle executor — runs component hooks with timeout, retry, and error handling.
  */
 
-import type { LifecyclePhase } from "@lattice/constants";
+import type { LifecyclePhase } from "@oyinlola141/lattice-constants";
 import type {
   LifecycleRegistration,
   LifecycleRetryOptions,
@@ -14,7 +14,7 @@ import { withTimeout, withConcurrency } from "../lifecycleInternal/index.js";
 import { getComponentMethod } from "../lifecyclePhase/index.js";
 import {
   LifecycleComponentError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /** Result of executing a component hook. */
 export interface ExecutionResult {

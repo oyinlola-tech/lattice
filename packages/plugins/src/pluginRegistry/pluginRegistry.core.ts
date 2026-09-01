@@ -2,7 +2,7 @@ import type { Plugin } from "../pluginTypes/plugin.type.js";
 import type { PluginMetadata } from "../pluginTypes/pluginMetadata.type.js";
 import type { PluginDependency } from "../pluginTypes/pluginDependency.type.js";
 import type { PluginState } from "../pluginTypes/pluginState.type.js";
-import { PluginAlreadyRegisteredError, PluginNotFoundError, PluginStateError } from "@lattice/errors";
+import { PluginAlreadyRegisteredError, PluginNotFoundError, PluginStateError } from "@oyinlola141/lattice-errors";
 
 /**
  * Internal representation of a registered plugin.

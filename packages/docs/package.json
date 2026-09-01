@@ -1,5 +1,5 @@
 {
-  "name": "@lattice/docs",
+  "name": "@oyinlola141/lattice-docs",
   "version": "0.1.0",
   "description": "Documentation infrastructure — structured document model, registry, validation, navigation, and generation for the Lattice framework",
   "main": "./dist/index.js",
@@ -17,12 +17,21 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.0",
     "vitest": "^3.2.0"
   },
   "license": "MIT",
-  "type": "module"
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
 }

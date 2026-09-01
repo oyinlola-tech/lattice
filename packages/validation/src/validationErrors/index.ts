@@ -1,5 +1,5 @@
 /**
- * @lattice/validation/validationErrors
+ * @oyinlola141/lattice-validation/validationErrors
  *
  * Validation error types and formatting.
  */

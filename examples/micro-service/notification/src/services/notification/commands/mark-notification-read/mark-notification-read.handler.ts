@@ -1,5 +1,5 @@
-import { CommandHandler } from "@lattice/cqrs";
-import type { CqrsContext } from "@lattice/cqrs";
+import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
 import { MarkNotificationReadCommand, MARK_NOTIFICATION_READ_COMMAND } from "./mark-notification-read.command.js";
 import type { INotificationRepository } from "../../../../interfaces/index.js";
 import type { NotificationModel } from "../../../../models/index.js";

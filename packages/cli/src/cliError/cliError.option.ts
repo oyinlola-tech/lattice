@@ -1,10 +1,10 @@
 /**
- * @lattice/cli — Option Errors
+ * @oyinlola141/lattice-cli — Option Errors
  *
  * Error classes for option validation failures.
  */
 
-import { ConflictError } from "@lattice/errors";
+import { ConflictError } from "@oyinlola141/lattice-errors";
 import { CLIError } from "./cliError.base.js";
 import { CLI_ERROR_CODES, CLI_EXIT_CODES } from "../cliConstant/cliConstant.value.js";
 
@@ -70,7 +70,7 @@ export class MissingOptionValueError extends CLIError {
 
 /**
  * Thrown when an option name is already registered.
- * Extends `ConflictError` from `@lattice/errors`.
+ * Extends `ConflictError` from `@oyinlola141/lattice-errors`.
  */
 export class DuplicateOptionError extends ConflictError {
   public readonly exitCode: number;

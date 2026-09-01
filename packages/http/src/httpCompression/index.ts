@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpCompression
+ * @oyinlola141/lattice-http/httpCompression
  *
  * HTTP httpCompression module.
  */

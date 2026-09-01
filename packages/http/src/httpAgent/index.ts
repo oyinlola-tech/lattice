@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpAgent
+ * @oyinlola141/lattice-http/httpAgent
  *
  * HTTP httpAgent module.
  */

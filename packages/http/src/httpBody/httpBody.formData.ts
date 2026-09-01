@@ -1196,7 +1196,7 @@ import {
   HttpFormDataError as HTTPFormDataError,
   HttpFormDataLimitError as HTTPFormDataLimitError,
   HttpFormDataParseError as HTTPFormDataParseError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export {
   HTTPFormDataError,

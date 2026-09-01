@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Command Validator
+ * @oyinlola141/lattice-cli — Command Validator
  *
  * Validation logic and utility functions for CLI commands.
  */

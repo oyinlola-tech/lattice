@@ -1,5 +1,5 @@
 /**
- * @lattice/cache — Metrics
+ * @oyinlola141/lattice-cache — Metrics
  * Tracks cache operation metrics including hit/miss ratios, latency histograms, and error counts.
  */
 

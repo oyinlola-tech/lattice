@@ -1,7 +1,7 @@
 /**
- * @lattice/messaging/errors
+ * @oyinlola141/lattice-messaging/errors
  *
- * Re-exports message-related error types from @lattice/errors.
+ * Re-exports message-related error types from @oyinlola141/lattice-errors.
  */
 
 export {
@@ -21,4 +21,4 @@ export {
   isMessageError,
   toMessageError,
   createMessageHandlerError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";

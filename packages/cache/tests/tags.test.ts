@@ -1,5 +1,5 @@
 /**
- * @lattice/cache — Tags Tests
+ * @oyinlola141/lattice-cache — Tags Tests
  *
  * Tests for InMemoryTagStore: bidirectional tag↔key mapping,
  * add/remove/getKeys/invalidate operations.

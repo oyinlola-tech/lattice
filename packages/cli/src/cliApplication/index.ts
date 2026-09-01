@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Application
+ * @oyinlola141/lattice-cli — CLI Application
  *
  * Main application class, factory, built-in commands, and signal handling.
  */

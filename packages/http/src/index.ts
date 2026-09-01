@@ -1,5 +1,5 @@
 /**
- * @lattice/http
+ * @oyinlola141/lattice-http
  *
  * HTTP primitives, request handling, routing, middleware, and server infrastructure.
  *

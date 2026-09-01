@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/cryptoPassword
+ * @oyinlola141/lattice-crypto/cryptoPassword
  *
  * Password hashing and verification.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/container/containerCore
+ * @oyinlola141/lattice-container/containerCore
  *
  * Core dependency injection container implementation.
  */

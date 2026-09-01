@@ -1,6 +1,6 @@
-import type { CommandBus } from "@lattice/cqrs";
-import type { QueryBus } from "@lattice/cqrs";
-import type { EventBus } from "@lattice/events";
+import type { CommandBus } from "@oyinlola141/lattice-cqrs";
+import type { QueryBus } from "@oyinlola141/lattice-cqrs";
+import type { EventBus } from "@oyinlola141/lattice-events";
 import type { UserRepository } from "../../repositories/index.js";
 import { CreateUserHandler } from "./commands/create-user/create-user.handler.js";
 import { AuthenticateUserHandler } from "./commands/authenticate-user/authenticate-user.handler.js";

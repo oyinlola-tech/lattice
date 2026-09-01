@@ -1,5 +1,5 @@
 /**
- * @lattice/security — Rate Limiting
+ * @oyinlola141/lattice-security — Rate Limiting
  *
  * Implements sliding window rate limiting to prevent abuse.
  */

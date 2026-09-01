@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Built-in Commands
+ * @oyinlola141/lattice-cli — Built-in Commands
  *
  * Help and version request detection and output.
  */

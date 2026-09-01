@@ -1,5 +1,5 @@
 {
-  "name": "@lattice/serialization",
+  "name": "@oyinlola141/lattice-serialization",
   "version": "0.1.0",
   "description": "Serialization framework for Lattice — multiple format support, type preservation, and streaming",
   "type": "module",
@@ -22,10 +22,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/constants": "workspace:*",
-    "@lattice/errors": "workspace:*",
-    "@lattice/types": "workspace:*",
-    "@lattice/validation": "workspace:*"
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-types": "workspace:*",
+    "@oyinlola141/lattice-validation": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.0",
@@ -39,5 +39,11 @@
     "binary",
     "messagepack",
     "type-preservation"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
 }

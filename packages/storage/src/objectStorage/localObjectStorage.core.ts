@@ -1,5 +1,5 @@
 /**
- * @lattice/storage — Local Object Storage
+ * @oyinlola141/lattice-storage — Local Object Storage
  *
  * Filesystem-based object storage for development and testing.
  */

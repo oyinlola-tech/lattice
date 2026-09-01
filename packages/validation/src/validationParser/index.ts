@@ -1,5 +1,5 @@
 /**
- * @lattice/validation/validationParser
+ * @oyinlola141/lattice-validation/validationParser
  *
  * Schema parsing and type inference.
  */

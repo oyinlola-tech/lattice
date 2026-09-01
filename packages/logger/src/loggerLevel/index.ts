@@ -1,5 +1,5 @@
 /**
- * @lattice/logger/loggerLevel
+ * @oyinlola141/lattice-logger/loggerLevel
  *
  * Log level definitions and filtering.
  */

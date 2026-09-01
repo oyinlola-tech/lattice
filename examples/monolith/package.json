@@ -1,5 +1,5 @@
 {
-  "name": "@lattice/example-monolith",
+  "name": "@oyinlola141/lattice-example-monolith",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,21 +11,21 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@lattice/core": "workspace:*",
-    "@lattice/container": "workspace:*",
-    "@lattice/cqrs": "workspace:*",
-    "@lattice/events": "workspace:*",
-    "@lattice/messaging": "workspace:*",
-    "@lattice/http": "workspace:*",
-    "@lattice/config": "workspace:*",
-    "@lattice/logger": "workspace:*",
-    "@lattice/errors": "workspace:*",
-    "@lattice/validation": "workspace:*",
-    "@lattice/schema": "workspace:*",
-    "@lattice/constants": "workspace:*",
-    "@lattice/types": "workspace:*",
-    "@lattice/queue": "workspace:*",
-    "@lattice/lifecycle": "workspace:*"
+    "@oyinlola141/lattice-core": "workspace:*",
+    "@oyinlola141/lattice-container": "workspace:*",
+    "@oyinlola141/lattice-cqrs": "workspace:*",
+    "@oyinlola141/lattice-events": "workspace:*",
+    "@oyinlola141/lattice-messaging": "workspace:*",
+    "@oyinlola141/lattice-http": "workspace:*",
+    "@oyinlola141/lattice-config": "workspace:*",
+    "@oyinlola141/lattice-logger": "workspace:*",
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-validation": "workspace:*",
+    "@oyinlola141/lattice-schema": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-types": "workspace:*",
+    "@oyinlola141/lattice-queue": "workspace:*",
+    "@oyinlola141/lattice-lifecycle": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.7.0",

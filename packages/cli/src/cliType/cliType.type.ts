@@ -1,10 +1,10 @@
 /**
- * @lattice/cli — CLI Type Definitions
+ * @oyinlola141/lattice-cli — CLI Type Definitions
  *
  * Core types, interfaces, and type aliases for the CLI package.
  */
 
-import type { Logger } from "@lattice/logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
 /* -------------------------------------------------------------------------- */
 /* Core CLI Types                                                             */

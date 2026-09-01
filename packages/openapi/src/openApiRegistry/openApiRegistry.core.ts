@@ -22,7 +22,8 @@ export class OpenAPIRegistryImpl implements OpenAPIRegistry {
 
   public registerRoute(route: OpenAPIRoute): void {
     const key = `${route.method}:${route.path}`;
-    if (this.routes.has(key)) throw new OpenAPIOperationError(`Duplicate operation for ${route.method.toUpperCase()} ${route.path}.`, this.routes.get(key)!.operation.operationId);
+    const existing = this.routes.get(key);
+    if (existing) throw new OpenAPIOperationError(`Duplicate operation for ${route.method.toUpperCase()} ${route.path}: ${existing.operation.operationId ?? "unknown"}.`);
     this.routes.set(key, { ...route, operation: Object.freeze({ ...route.operation, responses: Object.freeze({ ...route.operation.responses }) }) });
   }
 

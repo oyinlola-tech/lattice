@@ -1,5 +1,5 @@
-import { BaseError } from "@lattice/errors";
-import type { BaseErrorOptions } from "@lattice/errors";
+import { BaseError } from "@oyinlola141/lattice-errors";
+import type { BaseErrorOptions } from "@oyinlola141/lattice-errors";
 
 export class AssessmentNotFoundError extends BaseError {
   constructor(assessmentId: string, options: BaseErrorOptions = {}) {

@@ -9,7 +9,7 @@ import {
 
 import {
   createCryptoError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export type { CryptoEncoding };
 

@@ -1,5 +1,5 @@
 /**
- * @lattice/container/containerRegistry
+ * @oyinlola141/lattice-container/containerRegistry
  *
  * Service registry storage and lookup.
  */

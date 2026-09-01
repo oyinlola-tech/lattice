@@ -1,5 +1,5 @@
 /**
- * @lattice/plugins/pluginEvents
+ * @oyinlola141/lattice-plugins/pluginEvents
  *
  * Plugin lifecycle event types and event names.
  */

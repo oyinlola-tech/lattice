@@ -15,7 +15,7 @@ import type {
 
 import type {
   Logger,
-} from "@lattice/logger";
+} from "@oyinlola141/lattice-logger";
 
 import {
   createHTTPContext,

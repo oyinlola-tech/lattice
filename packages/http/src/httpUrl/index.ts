@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpUrl
+ * @oyinlola141/lattice-http/httpUrl
  *
  * HTTP httpUrl module.
  */

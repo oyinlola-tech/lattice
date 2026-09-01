@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/database",
+  "name": "@oyinlola141/lattice-database",
   "version": "0.1.0",
-  "private": true,
   "description": "Database infrastructure, clients, repositories, transactions, and persistence utilities for Lattice.",
   "license": "MIT",
   "type": "module",
@@ -39,7 +38,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
+    "@oyinlola141/lattice-errors": "workspace:*",
     "@prisma/client": "^7.10.0"
   },
   "devDependencies": {
@@ -47,5 +46,8 @@
   },
   "engines": {
     "node": ">=24.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -1,5 +1,5 @@
 /**
- * @lattice/security — Body Validation
+ * @oyinlola141/lattice-security — Body Validation
  *
  * Validates request body size and content type against configurable limits.
  */

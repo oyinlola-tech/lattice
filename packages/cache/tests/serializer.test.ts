@@ -1,5 +1,5 @@
 /**
- * @lattice/cache — Serializer Tests
+ * @oyinlola141/lattice-cache — Serializer Tests
  *
  * Tests for JsonCacheSerializer, RawCacheSerializer,
  * and getSerializer utility.

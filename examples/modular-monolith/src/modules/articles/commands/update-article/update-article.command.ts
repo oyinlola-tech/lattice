@@ -1,4 +1,4 @@
-import { Command } from "@lattice/cqrs";
+import { Command } from "@oyinlola141/lattice-cqrs";
 import type { UpdateArticleDto } from "../../../../dtos/index.js";
 import type { ArticleId, UserId } from "../../../../types/index.js";
 

@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/crypto",
+  "name": "@oyinlola141/lattice-crypto",
   "version": "0.1.0",
-  "private": true,
   "description": "Cryptographic primitives and security utilities for the Lattice platform.",
   "type": "module",
   "main": "./dist/index.js",
@@ -27,10 +26,14 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*"
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-errors": "workspace:*"
   },
   "license": "MIT",
   "devDependencies": {
     "typescript": "^7.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

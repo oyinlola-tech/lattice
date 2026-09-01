@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpStream — Backpressure-aware write and drain helpers.
+ * @oyinlola141/lattice-http/httpStream — Backpressure-aware write and drain helpers.
  */
 
 import {

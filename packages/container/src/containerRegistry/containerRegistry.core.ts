@@ -43,7 +43,7 @@ import {
 import {
   DuplicateRegistrationError,
   RegistrationNotFoundError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 import {
   describeRegistryToken,
 } from "./containerRegistry.error.js";

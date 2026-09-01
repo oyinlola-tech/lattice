@@ -1,5 +1,5 @@
 /**
- * @lattice/rpc/types
+ * @oyinlola141/lattice-rpc/types
  *
  * Core types for the Lattice RPC package.
  */

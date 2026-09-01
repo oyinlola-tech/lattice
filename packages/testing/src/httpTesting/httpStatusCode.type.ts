@@ -1,9 +1,9 @@
 /**
- * @lattice/testing — HTTP status code type.
+ * @oyinlola141/lattice-testing — HTTP status code type.
  *
  * Local definition of HTTPStatusCode for testing purposes.
- * When @lattice/http builds cleanly, this should be replaced
- * with an import from @lattice/http.
+ * When @oyinlola141/lattice-http builds cleanly, this should be replaced
+ * with an import from @oyinlola141/lattice-http.
  */
 
 /** HTTP status code number. */

@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/cryptoCipher
+ * @oyinlola141/lattice-crypto/cryptoCipher
  *
  * Symmetric and asymmetric encryption operations.
  */

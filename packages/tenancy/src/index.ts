@@ -1,12 +1,12 @@
 /**
- * @lattice/tenancy
+ * @oyinlola141/lattice-tenancy
  *
  * Multi-tenant context and isolation for the Lattice framework.
  *
  * Provides tenant resolution, context propagation, resolver chains,
  * isolation strategies, and security validation.
  *
- * @module @lattice/tenancy
+ * @module @oyinlola141/lattice-tenancy
  */
 
 export * from "./tenancyTypes/index.js";

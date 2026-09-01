@@ -1,12 +1,12 @@
 /**
- * @lattice/lifecycle/registry
+ * @oyinlola141/lattice-lifecycle/registry
  *
  * Lifecycle registry — manages component registration, validation, and lookup.
  */
 
 import {
   LIFECYCLE_DEFAULT_TIMEOUT,
-} from "@lattice/constants";
+} from "@oyinlola141/lattice-constants";
 import type {
   LifecycleComponent,
   LifecycleRegistration,

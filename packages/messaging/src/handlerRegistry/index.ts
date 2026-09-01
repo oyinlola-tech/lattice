@@ -1,5 +1,5 @@
 /**
- * @lattice/messaging/handlerRegistry
+ * @oyinlola141/lattice-messaging/handlerRegistry
  *
  * HandlerRegistry type definitions and in-memory store.
  */

@@ -1,5 +1,5 @@
-import { QueryHandler } from "@lattice/cqrs";
-import type { CqrsContext } from "@lattice/cqrs";
+import { QueryHandler } from "@oyinlola141/lattice-cqrs";
+import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
 import type { GetUserQuery } from "./get-user.query.js";
 import type { UserRepository } from "../../../../repositories/index.js";
 import type { UserModel } from "../../../../models/user.model.js";

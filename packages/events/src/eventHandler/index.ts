@@ -1,5 +1,5 @@
 /**
- * @lattice/events/eventHandler
+ * @oyinlola141/lattice-events/eventHandler
  *
  * Event handler types and execution.
  */

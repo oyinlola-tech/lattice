@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Log Record
+ * @oyinlola141/lattice-observability — Log Record
  *
  * Factory functions for creating structured log records.
  */

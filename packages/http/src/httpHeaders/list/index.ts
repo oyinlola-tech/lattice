@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpHeaders/list
+ * @oyinlola141/lattice-http/httpHeaders/list
  *
  * HTTP headers list utilities.
  */

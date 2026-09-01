@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpStream — Buffer conversion, chunk size, and readable creation helpers.
+ * @oyinlola141/lattice-http/httpStream — Buffer conversion, chunk size, and readable creation helpers.
  */
 
 import {

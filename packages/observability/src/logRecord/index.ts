@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Log Record
+ * @oyinlola141/lattice-observability — Log Record
  *
  * Structured log record creation and error log records.
  */

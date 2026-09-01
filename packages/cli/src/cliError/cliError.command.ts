@@ -1,11 +1,11 @@
 /**
- * @lattice/cli — Command Errors
+ * @oyinlola141/lattice-cli — Command Errors
  *
  * Error classes for command registration and lookup failures.
- * Extends base errors from `@lattice/errors` where possible.
+ * Extends base errors from `@oyinlola141/lattice-errors` where possible.
  */
 
-import { NotFoundError, ConflictError } from "@lattice/errors";
+import { NotFoundError, ConflictError } from "@oyinlola141/lattice-errors";
 import { CLI_ERROR_CODES, CLI_EXIT_CODES } from "../cliConstant/cliConstant.value.js";
 
 /* -------------------------------------------------------------------------- */
@@ -14,7 +14,7 @@ import { CLI_ERROR_CODES, CLI_EXIT_CODES } from "../cliConstant/cliConstant.valu
 
 /**
  * Thrown when a requested command does not exist.
- * Extends `NotFoundError` from `@lattice/errors`.
+ * Extends `NotFoundError` from `@oyinlola141/lattice-errors`.
  */
 export class CommandNotFoundError extends NotFoundError {
   public readonly exitCode: number;
@@ -44,7 +44,7 @@ export class CommandNotFoundError extends NotFoundError {
 
 /**
  * Thrown when a command name is already registered.
- * Extends `ConflictError` from `@lattice/errors`.
+ * Extends `ConflictError` from `@oyinlola141/lattice-errors`.
  */
 export class DuplicateCommandError extends ConflictError {
   public readonly exitCode: number;

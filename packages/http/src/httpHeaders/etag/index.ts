@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpHeaders/etag
+ * @oyinlola141/lattice-http/httpHeaders/etag
  *
  * HTTP headers etag utilities.
  */

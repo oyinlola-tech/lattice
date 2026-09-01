@@ -4,9 +4,9 @@
  * @module authTypes/authUser
  */
 
-import type { UserId } from "@lattice/constants";
+import type { UserId } from "@oyinlola141/lattice-constants";
 
-export type { UserId } from "@lattice/constants";
+export type { UserId } from "@oyinlola141/lattice-constants";
 
 /**
  * Authenticated user representation.

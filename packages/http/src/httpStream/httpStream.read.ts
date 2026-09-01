@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpStream — Read stream into Buffer or string.
+ * @oyinlola141/lattice-http/httpStream — Read stream into Buffer or string.
  */
 
 import type {

@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpMiddleware
+ * @oyinlola141/lattice-http/httpMiddleware
  *
  * HTTP middleware abstraction and utilities.
  */

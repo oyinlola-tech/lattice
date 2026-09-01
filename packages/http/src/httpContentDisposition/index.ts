@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpContentDisposition
+ * @oyinlola141/lattice-http/httpContentDisposition
  *
  * HTTP httpContentDisposition module.
  */

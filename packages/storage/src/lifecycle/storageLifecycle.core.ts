@@ -1,5 +1,5 @@
 /**
- * @lattice/storage — Storage Lifecycle Manager
+ * @oyinlola141/lattice-storage — Storage Lifecycle Manager
  *
  * Manages the lifecycle phases of storage components:
  * uninitialized → initializing → ready → draining → drained → shutdown

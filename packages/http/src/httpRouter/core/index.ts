@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpRouter/core
+ * @oyinlola141/lattice-http/httpRouter/core
  *
  * HTTP router core module.
  */

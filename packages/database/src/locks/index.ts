@@ -1,5 +1,5 @@
 /**
- * @lattice/database — Locks
+ * @oyinlola141/lattice-database — Locks
  *
  * Advisory and row-level database locking.
  */

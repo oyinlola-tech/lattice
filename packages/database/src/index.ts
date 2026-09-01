@@ -1,5 +1,5 @@
 /**
- * @lattice/database
+ * @oyinlola141/lattice-database
  *
  * Shared database infrastructure for the Lattice platform.
  *

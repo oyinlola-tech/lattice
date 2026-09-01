@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/compare
+ * @oyinlola141/lattice-crypto/compare
  *
  * Constant-time comparison utilities for cryptographic operations.
  */

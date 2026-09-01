@@ -1,4 +1,4 @@
-import { QueryHandler } from "@lattice/cqrs";
+import { QueryHandler } from "@oyinlola141/lattice-cqrs";
 import type { ListStudentEnrollmentsQuery } from "./list-student-enrollments.query.js";
 import type { EnrollmentRepository } from "../../../../repositories/enrollment.repository.js";
 import type { EnrollmentModel } from "../../../../models/enrollment.model.js";

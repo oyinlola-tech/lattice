@@ -1,13 +1,13 @@
 /**
- * @lattice/cache — Serializer
+ * @oyinlola141/lattice-cache — Serializer
  *
  * Provides serializer implementations for converting cache values
- * to and from storable representations. Delegates to @lattice/serialization
+ * to and from storable representations. Delegates to @oyinlola141/lattice-serialization
  * for the actual JSON serialization with type preservation.
  */
 
 import type { CacheSerializer } from "./types.js";
-import { JSONSerializer } from "@lattice/serialization";
+import { JSONSerializer } from "@oyinlola141/lattice-serialization";
 
 /* -------------------------------------------------------------------------- */
 /* JSON Serializer                                                            */
@@ -16,7 +16,7 @@ import { JSONSerializer } from "@lattice/serialization";
 /**
  * Serializes values to JSON strings and deserializes them back.
  *
- * Uses @lattice/serialization's JSONSerializer for type preservation
+ * Uses @oyinlola141/lattice-serialization's JSONSerializer for type preservation
  * (Date, BigInt, Map, Set, Uint8Array) when configured.
  */
 export class JsonCacheSerializer

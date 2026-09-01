@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@lattice/cqrs";
+import type { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { INotificationRepository } from "../interfaces/index.js";
 import { CreateNotificationCommand } from "../services/notification/commands/create-notification/create-notification.command.js";

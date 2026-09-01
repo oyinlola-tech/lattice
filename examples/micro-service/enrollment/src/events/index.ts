@@ -1,4 +1,4 @@
-import { defineEvent } from "@lattice/events";
+import { defineEvent } from "@oyinlola141/lattice-events";
 import type { StudentId, CourseId, EnrollmentId } from "../types/index.js";
 
 /** Event emitted when a student is successfully enrolled in a course. */

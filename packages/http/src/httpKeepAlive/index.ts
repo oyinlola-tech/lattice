@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpKeepAlive
+ * @oyinlola141/lattice-http/httpKeepAlive
  *
  * HTTP httpKeepAlive module.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/storage — In-Memory Lock Manager
+ * @oyinlola141/lattice-storage — In-Memory Lock Manager
  *
  * Provides distributed-style locking for single-process scenarios.
  * For multi-process/multi-node, replace with Redis/Database-backed lock.

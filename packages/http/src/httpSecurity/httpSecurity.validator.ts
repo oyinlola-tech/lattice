@@ -1,5 +1,5 @@
 /**
- * @lattice/http — Request validation functions.
+ * @oyinlola141/lattice-http — Request validation functions.
  *
  * Validates incoming HTTP requests against security constraints:
  * body size, header count, header values, URL length, host, and

@@ -1039,7 +1039,7 @@ import {
   MultipartError,
   MultipartParseError,
   MultipartLimitError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export {
   MultipartError,

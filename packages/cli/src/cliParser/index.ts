@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Parser
+ * @oyinlola141/lattice-cli — CLI Parser
  *
  * Argument parsing, option resolution, and token classification.
  */

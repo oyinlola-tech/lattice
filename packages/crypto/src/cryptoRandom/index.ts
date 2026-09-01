@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/cryptoRandom
+ * @oyinlola141/lattice-crypto/cryptoRandom
  *
  * Secure random number and byte generation.
  */

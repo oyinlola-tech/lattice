@@ -1,5 +1,5 @@
 /**
- * @lattice/storage — Health Barrel
+ * @oyinlola141/lattice-storage — Health Barrel
  */
 
 export { HealthChecker } from "./healthChecker.core.js";

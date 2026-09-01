@@ -1,6 +1,6 @@
 import type { Processor, ProcessorInfo, ProcessorRegistry } from "./processor.type.js";
 
-import { JobError } from "@lattice/errors";
+import { JobError } from "@oyinlola141/lattice-errors";
 
 /**
  * Creates a new ProcessorRegistry.

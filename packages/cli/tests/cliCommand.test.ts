@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Command Tests
+ * @oyinlola141/lattice-cli — CLI Command Tests
  *
  * Tests for CLICommandRegistry, CLICommandBuilder, createCommand,
  * command factory, validateCommand, and sortCommands.

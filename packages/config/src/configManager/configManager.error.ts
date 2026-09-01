@@ -1,7 +1,7 @@
 /**
- * @lattice/config/configManager/configManager.error
+ * @oyinlola141/lattice-config/configManager/configManager.error
  *
- * ConfigurationManager error types re-exported from @lattice/errors.
+ * ConfigurationManager error types re-exported from @oyinlola141/lattice-errors.
  */
 
 import {
@@ -10,13 +10,13 @@ import {
   isConfigurationError,
   missingConfigurationError,
   invalidConfigurationError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when complete configuration validation fails.
  *
  * Re-exported as a configuration-specific variant of
- * the base ConfigurationError from @lattice/errors.
+ * the base ConfigurationError from @oyinlola141/lattice-errors.
  */
 export class ConfigManagerValidationError extends ConfigurationError {
   readonly issues: readonly unknown[];

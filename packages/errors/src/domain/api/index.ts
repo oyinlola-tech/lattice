@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/domain/api
+ * @oyinlola141/lattice-errors/domain/api
  *
  * API-specific error types.
  */

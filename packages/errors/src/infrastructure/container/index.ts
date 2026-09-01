@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/infrastructure/container
+ * @oyinlola141/lattice-errors/infrastructure/container
  *
  * Container and dependency injection error types.
  */

@@ -7,19 +7,19 @@
 
 import type {
   Container,
-} from "@lattice/container";
+} from "@oyinlola141/lattice-container";
 
 import type {
   Logger,
-} from "@lattice/logger";
+} from "@oyinlola141/lattice-logger";
 
 import {
   createStartedContainer,
-} from "@lattice/container";
+} from "@oyinlola141/lattice-container";
 
 import {
   createLogger,
-} from "@lattice/logger";
+} from "@oyinlola141/lattice-logger";
 
 import {
   createCleanupManager,

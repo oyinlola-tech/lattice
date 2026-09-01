@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/plugins",
+  "name": "@oyinlola141/lattice-plugins",
   "version": "0.1.0",
-  "private": true,
   "description": "Controlled extension system for the Lattice framework — plugin registration, dependency resolution, lifecycle management, and orchestration.",
   "license": "MIT",
   "type": "module",
@@ -25,9 +24,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*",
-    "@lattice/types": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-types": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.0",
@@ -36,5 +35,8 @@
   },
   "engines": {
     "node": ">=24.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

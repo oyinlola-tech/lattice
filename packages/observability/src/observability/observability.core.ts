@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Observability Core
+ * @oyinlola141/lattice-observability — Observability Core
  *
  * Central facade that coordinates logging, metrics, tracing, and context
  * propagation. Other Lattice packages depend on this abstraction rather

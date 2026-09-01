@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpRouter/core/group
+ * @oyinlola141/lattice-http/httpRouter/core/group
  *
  * HTTP router group utilities.
  */

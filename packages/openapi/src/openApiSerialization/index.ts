@@ -1,5 +1,5 @@
 /**
- * @lattice/openapi/openApiSerialization
+ * @oyinlola141/lattice-openapi/openApiSerialization
  *
  * OpenAPI document serialization (JSON, YAML).
  */

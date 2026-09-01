@@ -1,12 +1,12 @@
 /**
- * @lattice/adapters/adapter
+ * @oyinlola141/lattice-adapters/adapter
  *
  * Adapter registry — manages adapter registration, lookup, and lifecycle.
  */
 
 import type { Adapter } from "./adapter.type.js";
 import type { AdapterCapabilities } from "../capabilities/capabilities.type.js";
-import { AdapterAlreadyRegisteredError, AdapterNotFoundError } from "@lattice/errors";
+import { AdapterAlreadyRegisteredError, AdapterNotFoundError } from "@oyinlola141/lattice-errors";
 
 /**
  * Registry for Lattice adapters.

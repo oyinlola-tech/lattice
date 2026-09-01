@@ -1,5 +1,5 @@
 /**
- * @lattice/schema/modifiers/refine
+ * @oyinlola141/lattice-schema/modifiers/refine
  *
  * Refine schema — adds custom synchronous validation logic.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@lattice/constants";
+import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
 
 /**
  * Schema that adds a custom refinement check to another schema.

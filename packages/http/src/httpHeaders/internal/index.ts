@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpHeaders/internal
+ * @oyinlola141/lattice-http/httpHeaders/internal
  *
  * HTTP headers internal utilities.
  */

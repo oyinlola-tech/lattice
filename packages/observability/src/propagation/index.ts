@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Propagation
+ * @oyinlola141/lattice-observability — Propagation
  *
  * Context propagation with AsyncLocalStorage for request-scoped IDs.
  */

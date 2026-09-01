@@ -1,4 +1,4 @@
-import { QueryHandler } from "@lattice/cqrs";
+import { QueryHandler } from "@oyinlola141/lattice-cqrs";
 import type { ListCommentsQuery } from "./list-comments.query.js";
 import type { CommentRepository } from "../../../../repositories/comment.repository.js";
 import type { CommentModel } from "../../../../models/comment.model.js";

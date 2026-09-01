@@ -1,6 +1,6 @@
 import type {
   Logger,
-} from "@lattice/logger";
+} from "@oyinlola141/lattice-logger";
 
 /**
  * Signal handler for process lifecycle events.

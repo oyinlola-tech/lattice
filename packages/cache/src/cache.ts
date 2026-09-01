@@ -1,13 +1,14 @@
 /**
- * @lattice/cache — Cache Service
+ * @oyinlola141/lattice-cache — Cache Service
  * High-level cache service combining adapter, serializer, key builder, tags, invalidation, locking, and metrics.
  */
 
 import type {
   CacheAdapter, CacheConfig, CacheDeleteResult, CacheGetResult, CacheHealth,
-  CacheHealthChecker, CacheKeyBuilder, CacheOrComputeOptions, CacheOrComputeResult,
+  CacheHealthChecker, CacheOrComputeOptions, CacheOrComputeResult,
   CacheSetResult, CacheStats, CacheStore, CacheTag,
 } from "./types.js";
+import type { CacheKeyBuilder } from "./types-keys.js";
 import { DEFAULT_TTL_MS } from "./constants.js";
 import { DefaultKeyBuilder } from "./key-builder.js";
 import { createCacheStore, DefaultCacheStore } from "./store.js";

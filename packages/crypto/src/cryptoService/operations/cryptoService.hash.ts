@@ -8,7 +8,7 @@ import {
 
 import {
   cryptoHashError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 const provider = createNodeCryptoProvider();
 

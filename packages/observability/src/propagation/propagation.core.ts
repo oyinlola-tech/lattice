@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Propagation
+ * @oyinlola141/lattice-observability — Propagation
  *
  * Context propagation using AsyncLocalStorage for request-scoped
  * trace, span, request, and correlation IDs.

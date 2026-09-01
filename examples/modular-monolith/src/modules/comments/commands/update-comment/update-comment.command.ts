@@ -1,4 +1,4 @@
-import { Command } from "@lattice/cqrs";
+import { Command } from "@oyinlola141/lattice-cqrs";
 import type { CommentId, UserId } from "../../../../types/index.js";
 
 export class UpdateCommentCommand extends Command<"comments.update"> {

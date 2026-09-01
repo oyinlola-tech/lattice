@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/queue",
+  "name": "@oyinlola141/lattice-queue",
   "version": "0.1.0",
-  "private": true,
   "description": "Background job and asynchronous task infrastructure for the Lattice framework.",
   "license": "MIT",
   "type": "module",
@@ -26,9 +25,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*",
-    "@lattice/serialization": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-serialization": "workspace:*"
   },
   "devDependencies": {
     "typescript": "7.0.2",
@@ -36,5 +35,8 @@
   },
   "engines": {
     "node": ">=24.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -1,5 +1,5 @@
 /**
- * @lattice/database — Database Cache
+ * @oyinlola141/lattice-database — Database Cache
  *
  * In-memory cache for database read results.
  */

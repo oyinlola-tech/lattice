@@ -1,5 +1,5 @@
 /**
- * @lattice/cache — Store Tests
+ * @oyinlola141/lattice-cache — Store Tests
  *
  * Tests for DefaultCacheStore: CRUD operations, events, middleware,
  * metrics integration, and error handling.

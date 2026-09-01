@@ -1,11 +1,11 @@
 /**
- * @lattice/lifecycle/internal/topological-sort
+ * @oyinlola141/lattice-lifecycle/internal/topological-sort
  *
  * Topological sort for dependency-aware ordering with priority support.
  */
 
 import type { DependencyGraph } from "./dependencyGraph.core.js";
-import { LifecycleDependencyError } from "@lattice/errors";
+import { LifecycleDependencyError } from "@oyinlola141/lattice-errors";
 
 /** A sorted stage — components that can run in parallel. */
 export type TopologicalStage = readonly string[];

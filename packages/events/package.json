@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/events",
+  "name": "@oyinlola141/lattice-events",
   "version": "0.1.0",
-  "private": true,
   "description": "Event system and event bus infrastructure for the Lattice framework.",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,8 +23,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*"
   },
   "engines": {
     "node": ">=24.0.0"
@@ -34,5 +33,8 @@
     "vitest": "^4.1.11",
     "typescript": "^7.0.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }

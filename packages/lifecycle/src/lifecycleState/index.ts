@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/state
+ * @oyinlola141/lattice-lifecycle/state
  *
  * Lifecycle state machine for tracking and validating state transitions.
  */

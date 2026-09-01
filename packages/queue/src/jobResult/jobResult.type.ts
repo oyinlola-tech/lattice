@@ -1,4 +1,4 @@
-import type { Timestamp } from "@lattice/constants";
+import type { Timestamp } from "@oyinlola141/lattice-constants";
 
 /**
  * Result of a job execution.

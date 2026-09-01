@@ -1,5 +1,5 @@
 /**
- * @lattice/testing
+ * @oyinlola141/lattice-testing
  *
  * Testing infrastructure for the Lattice framework.
  * Provides test containers, fakes, fixtures, mocks, assertions,

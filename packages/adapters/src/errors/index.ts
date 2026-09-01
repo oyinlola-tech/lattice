@@ -1,7 +1,7 @@
 /**
- * @lattice/adapters/errors
+ * @oyinlola141/lattice-adapters/errors
  *
- * Adapter error types — re-exported from @lattice/errors.
+ * Adapter error types — re-exported from @oyinlola141/lattice-errors.
  */
 
 export {
@@ -18,6 +18,6 @@ export {
   AdapterConfigurationError,
   createAdapterError,
   isAdapterError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
-export type { AdapterErrorOptions } from "@lattice/errors";
+export type { AdapterErrorOptions } from "@oyinlola141/lattice-errors";

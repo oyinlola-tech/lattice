@@ -153,18 +153,18 @@ describe("PluginRegistryImpl", () => {
   it("registers and retrieves plugins", () => {
     const registry = new PluginRegistryImpl();
     const plugin = {
-      metadata: { name: "@lattice/test" },
+      metadata: { name: "@oyinlola141/lattice-test" },
     };
 
     registry.register(plugin);
-    expect(registry.has("@lattice/test")).toBe(true);
-    expect(registry.get("@lattice/test")?.plugin).toBe(plugin);
+    expect(registry.has("@oyinlola141/lattice-test")).toBe(true);
+    expect(registry.get("@oyinlola141/lattice-test")?.plugin).toBe(plugin);
   });
 
   it("rejects duplicate registration", () => {
     const registry = new PluginRegistryImpl();
     const plugin = {
-      metadata: { name: "@lattice/test" },
+      metadata: { name: "@oyinlola141/lattice-test" },
     };
 
     registry.register(plugin);
@@ -182,10 +182,10 @@ describe("PluginRegistryImpl", () => {
 
   it("removes registered plugins", () => {
     const registry = new PluginRegistryImpl();
-    registry.register({ metadata: { name: "@lattice/test" } });
+    registry.register({ metadata: { name: "@oyinlola141/lattice-test" } });
 
-    expect(registry.remove("@lattice/test")).toBe(true);
-    expect(registry.has("@lattice/test")).toBe(false);
+    expect(registry.remove("@oyinlola141/lattice-test")).toBe(true);
+    expect(registry.has("@oyinlola141/lattice-test")).toBe(false);
   });
 });
 
@@ -194,11 +194,11 @@ describe("LifecycleController", () => {
     const controller = new LifecycleController();
     const registry = new PluginRegistryImpl();
     const plugin = {
-      metadata: { name: "@lattice/test" },
+      metadata: { name: "@oyinlola141/lattice-test" },
       install() {},
     };
     registry.register(plugin);
-    const registered = registry.get("@lattice/test")!;
+    const registered = registry.get("@oyinlola141/lattice-test")!;
     const context = createPluginContext(plugin.metadata);
 
     await controller.install(registered, context);
@@ -209,13 +209,13 @@ describe("LifecycleController", () => {
     const controller = new LifecycleController();
     const registry = new PluginRegistryImpl();
     const plugin = {
-      metadata: { name: "@lattice/test" },
+      metadata: { name: "@oyinlola141/lattice-test" },
       install() {
         throw new Error("install failed");
       },
     };
     registry.register(plugin);
-    const registered = registry.get("@lattice/test")!;
+    const registered = registry.get("@oyinlola141/lattice-test")!;
     const context = createPluginContext(plugin.metadata);
 
     await expect(controller.install(registered, context)).rejects.toThrow("install failed");
@@ -226,10 +226,10 @@ describe("LifecycleController", () => {
     const controller = new LifecycleController();
     const registry = new PluginRegistryImpl();
     const plugin = {
-      metadata: { name: "@lattice/test" },
+      metadata: { name: "@oyinlola141/lattice-test" },
     };
     registry.register(plugin);
-    const registered = registry.get("@lattice/test")!;
+    const registered = registry.get("@oyinlola141/lattice-test")!;
     const context = createPluginContext(plugin.metadata);
 
     await expect(controller.start(registered, context)).rejects.toThrow(PluginStateError);
@@ -240,10 +240,10 @@ describe("PluginManager", () => {
   it("registers and lists plugins", async () => {
     const manager = new PluginManager();
     manager.register({
-      metadata: { name: "@lattice/test" },
+      metadata: { name: "@oyinlola141/lattice-test" },
     });
 
-    expect(manager.has("@lattice/test")).toBe(true);
+    expect(manager.has("@oyinlola141/lattice-test")).toBe(true);
     expect(manager.list()).toHaveLength(1);
   });
 
@@ -252,8 +252,8 @@ describe("PluginManager", () => {
     const order: string[] = [];
 
     manager.register({
-      metadata: { name: "@lattice/a" },
-      dependencies: [{ name: "@lattice/b" }],
+      metadata: { name: "@oyinlola141/lattice-a" },
+      dependencies: [{ name: "@oyinlola141/lattice-b" }],
       async initialize() {
         order.push("a");
       },
@@ -263,7 +263,7 @@ describe("PluginManager", () => {
     });
 
     manager.register({
-      metadata: { name: "@lattice/b" },
+      metadata: { name: "@oyinlola141/lattice-b" },
       async initialize() {
         order.push("b");
       },
@@ -272,7 +272,7 @@ describe("PluginManager", () => {
       },
     });
 
-    const context = createPluginContext({ metadata: { name: "@lattice/test" } });
+    const context = createPluginContext({ metadata: { name: "@oyinlola141/lattice-test" } });
     await manager.start(context);
 
     expect(order).toEqual(["b", "a", "b-start", "a-start"]);
@@ -281,12 +281,12 @@ describe("PluginManager", () => {
   it("rejects duplicate plugin registration", () => {
     const manager = new PluginManager();
     manager.register({
-      metadata: { name: "@lattice/test" },
+      metadata: { name: "@oyinlola141/lattice-test" },
     });
 
     expect(() => {
       manager.register({
-        metadata: { name: "@lattice/test" },
+        metadata: { name: "@oyinlola141/lattice-test" },
       });
     }).toThrow();
   });
@@ -294,13 +294,13 @@ describe("PluginManager", () => {
 
 describe("PluginContext", () => {
   it("creates context with plugin metadata", () => {
-    const context = createPluginContext({ name: "@lattice/test" });
-    expect(context.plugin.name).toBe("@lattice/test");
+    const context = createPluginContext({ name: "@oyinlola141/lattice-test" });
+    expect(context.plugin.name).toBe("@oyinlola141/lattice-test");
     expect(context.signal).toBeInstanceOf(AbortSignal);
   });
 
   it("supports onDispose handler", async () => {
-    const context = createPluginContext({ name: "@lattice/test" });
+    const context = createPluginContext({ name: "@oyinlola141/lattice-test" });
     let disposed = false;
 
     context.onDispose(() => {
@@ -311,7 +311,7 @@ describe("PluginContext", () => {
   });
 
   it("supports registerDisposable", () => {
-    const context = createPluginContext({ name: "@lattice/test" });
+    const context = createPluginContext({ name: "@oyinlola141/lattice-test" });
     const disposable = {
       dispose() {
         return undefined;
@@ -328,7 +328,7 @@ describe("PluginContext", () => {
       error: () => {},
     };
 
-    const context = createPluginContext({ name: "@lattice/test" }, {
+    const context = createPluginContext({ name: "@oyinlola141/lattice-test" }, {
       logger,
     });
 
@@ -339,12 +339,12 @@ describe("PluginContext", () => {
 describe("PluginEvents", () => {
   it("creates plugin lifecycle event", () => {
     const event = createPluginLifecycleEvent(
-      { name: "@lattice/test" },
+      { name: "@oyinlola141/lattice-test" },
       "installed",
       "installing",
     );
 
-    expect(event.plugin.name).toBe("@lattice/test");
+    expect(event.plugin.name).toBe("@oyinlola141/lattice-test");
     expect(event.state).toBe("installed");
     expect(event.previousState).toBe("installing");
     expect(event.timestamp).toBeGreaterThan(0);
@@ -352,7 +352,7 @@ describe("PluginEvents", () => {
 
   it("creates event without previous state", () => {
     const event = createPluginLifecycleEvent(
-      { name: "@lattice/test" },
+      { name: "@oyinlola141/lattice-test" },
       "failed",
     );
 
@@ -363,7 +363,7 @@ describe("PluginEvents", () => {
   it("creates event with error", () => {
     const error = new Error("test error");
     const event = createPluginLifecycleEvent(
-      { name: "@lattice/test" },
+      { name: "@oyinlola141/lattice-test" },
       "failed",
       "starting",
       error,
@@ -394,11 +394,11 @@ describe("PluginDiagnostics", () => {
   it("builds diagnostic report", () => {
     const report = buildDiagnosticReport([
       {
-        plugin: { metadata: { name: "@lattice/a" } },
+        plugin: { metadata: { name: "@oyinlola141/lattice-a" } },
         state: "started" as const,
       },
       {
-        plugin: { metadata: { name: "@lattice/b" } },
+        plugin: { metadata: { name: "@oyinlola141/lattice-b" } },
         state: "failed" as const,
       },
     ]);
@@ -414,17 +414,17 @@ describe("PluginDiagnostics", () => {
     const report = buildDiagnosticReport([
       {
         plugin: {
-          metadata: { name: "@lattice/a" },
-          dependencies: [{ name: "@lattice/b" }],
-          optionalDependencies: [{ name: "@lattice/c" }],
+          metadata: { name: "@oyinlola141/lattice-a" },
+          dependencies: [{ name: "@oyinlola141/lattice-b" }],
+          optionalDependencies: [{ name: "@oyinlola141/lattice-c" }],
         },
         state: "started" as const,
       },
     ]);
 
     const diagnostic = report.plugins[0]!;
-    expect(diagnostic.dependencies).toEqual(["@lattice/b"]);
-    expect(diagnostic.optionalDependencies).toEqual(["@lattice/c"]);
+    expect(diagnostic.dependencies).toEqual(["@oyinlola141/lattice-b"]);
+    expect(diagnostic.optionalDependencies).toEqual(["@oyinlola141/lattice-c"]);
   });
 });
 
@@ -432,14 +432,14 @@ describe("PluginManager.diagnostics", () => {
   it("returns diagnostic report", async () => {
     const manager = new PluginManager();
     manager.register({
-      metadata: { name: "@lattice/a" },
+      metadata: { name: "@oyinlola141/lattice-a" },
     });
     manager.register({
-      metadata: { name: "@lattice/b" },
-      dependencies: [{ name: "@lattice/a" }],
+      metadata: { name: "@oyinlola141/lattice-b" },
+      dependencies: [{ name: "@oyinlola141/lattice-a" }],
     });
 
-    const context = createPluginContext({ metadata: { name: "@lattice/test" } });
+    const context = createPluginContext({ metadata: { name: "@oyinlola141/lattice-test" } });
     await manager.start(context);
 
     const report = manager.diagnostics();
@@ -451,13 +451,13 @@ describe("PluginManager.diagnostics", () => {
   it("reflects failed state in diagnostics", async () => {
     const manager = new PluginManager();
     manager.register({
-      metadata: { name: "@lattice/a" },
+      metadata: { name: "@oyinlola141/lattice-a" },
       async install() {
         throw new Error("failed");
       },
     });
 
-    const context = createPluginContext({ metadata: { name: "@lattice/test" } });
+    const context = createPluginContext({ metadata: { name: "@oyinlola141/lattice-test" } });
     await manager.start(context).catch(() => {});
 
     const report = manager.diagnostics();

@@ -7,7 +7,7 @@ export type RuntimeBootstrapErrorCode = "BOOTSTRAP_ALREADY_RUNNING" | "BOOTSTRAP
 
 import {
   RuntimeBootstrapError as BaseRuntimeBootstrapError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export class RuntimeBootstrapError extends BaseRuntimeBootstrapError {
   public readonly bootstrapCode: RuntimeBootstrapErrorCode;

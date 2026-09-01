@@ -1,5 +1,5 @@
 /**
- * @lattice/docs/generator
+ * @oyinlola141/lattice-docs/generator
  *
  * Output generators — markdown and JSON for documentation.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/domain/app
+ * @oyinlola141/lattice-errors/domain/app
  *
  * Application-level error types.
  */

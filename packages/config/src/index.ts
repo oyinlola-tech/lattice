@@ -1,5 +1,5 @@
 /**
- * @lattice/config
+ * @oyinlola141/lattice-config
  *
  * Layered configuration with sources, resolvers, and schema validation for the Lattice framework.
  */

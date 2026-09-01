@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Short Option Parser
+ * @oyinlola141/lattice-cli — Short Option Parser
  *
  * Parses `-v`, `-p 3000`, `-p3000`, and grouped `-abc` style arguments.
  */

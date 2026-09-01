@@ -5,7 +5,7 @@ import type { Module } from "../modules/module.js";
 import type { ModuleLoader } from "../modules/moduleLoader/index.js";
 import type { ModuleLifecycleManager } from "../modules/moduleLifecycle/index.js";
 import type { ModuleRegistry } from "../modules/moduleRegistry/index.js";
-import { RuntimeError as BaseRuntimeError, RuntimeStateError as BaseRuntimeStateError } from "@lattice/errors";
+import { RuntimeError as BaseRuntimeError, RuntimeStateError as BaseRuntimeStateError } from "@oyinlola141/lattice-errors";
 
 /** Runtime lifecycle state. */
 export type RuntimeState = "created" | "bootstrapping" | "ready" | "stopping" | "stopped" | "failed";

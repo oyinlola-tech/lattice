@@ -1,5 +1,5 @@
 /**
- * @lattice/openapi/openApiDocument
+ * @oyinlola141/lattice-openapi/openApiDocument
  *
  * OpenAPI document builder.
  */

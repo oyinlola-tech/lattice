@@ -1,5 +1,5 @@
 /**
- * @lattice/testing — Test context recorder implementations.
+ * @oyinlola141/lattice-testing — Test context recorder implementations.
  *
  * Creates log, event, and message recorders for test contexts.
  */

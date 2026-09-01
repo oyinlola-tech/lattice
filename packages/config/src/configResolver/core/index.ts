@@ -1,5 +1,5 @@
 /**
- * @lattice/config/configResolver/core
+ * @oyinlola141/lattice-config/configResolver/core
  *
  * Core resolver implementation, types, factory, and errors.
  */

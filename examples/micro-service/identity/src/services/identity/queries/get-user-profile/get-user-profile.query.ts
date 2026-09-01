@@ -1,4 +1,4 @@
-import { Query } from "@lattice/cqrs";
+import { Query } from "@oyinlola141/lattice-cqrs";
 
 /**
  * Query to retrieve a user profile by email.

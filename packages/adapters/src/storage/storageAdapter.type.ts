@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters/storage
+ * @oyinlola141/lattice-adapters/storage
  *
  * Storage adapter contracts — bridges Lattice storage to external providers.
  *

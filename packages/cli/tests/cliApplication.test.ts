@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Application Tests
+ * @oyinlola141/lattice-cli — CLI Application Tests
  *
  * Tests for LatticeCLI, builtins, writer, runner, help generator,
  * and version utilities.

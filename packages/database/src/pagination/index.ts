@@ -1,5 +1,5 @@
 /**
- * @lattice/database — Pagination
+ * @oyinlola141/lattice-database — Pagination
  *
  * Offset and cursor pagination utilities.
  */

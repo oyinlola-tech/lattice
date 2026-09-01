@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Core Types
+ * @oyinlola141/lattice-observability — Core Types
  *
  * All shared interfaces, enums, and type aliases for the observability package.
  */

@@ -76,7 +76,7 @@ export interface ModuleLoadResult {
 
 import {
   ModuleLoadError as BaseModuleLoadError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when one or more modules cannot be loaded.

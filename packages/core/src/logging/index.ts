@@ -1,5 +1,5 @@
 /**
- * @lattice/core/logging
+ * @oyinlola141/lattice-core/logging
  *
  * Logging abstractions and structured log output.
  */

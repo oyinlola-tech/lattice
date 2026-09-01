@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters/queue
+ * @oyinlola141/lattice-adapters/queue
  *
  * Queue adapter contracts — bridges Lattice queue to external providers.
  *

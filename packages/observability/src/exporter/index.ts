@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Exporters
+ * @oyinlola141/lattice-observability — Exporters
  *
  * Console exporters for spans, logs, and metrics.
  */

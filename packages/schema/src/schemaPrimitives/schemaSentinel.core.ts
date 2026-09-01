@@ -1,5 +1,5 @@
 /**
- * @lattice/schema/primitives/sentinel
+ * @oyinlola141/lattice-schema/primitives/sentinel
  *
  * Schemas for null, undefined, unknown, any, and never types.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@lattice/constants";
+import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
 
 /**
  * Schema that only accepts null.

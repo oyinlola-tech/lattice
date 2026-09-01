@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters
+ * @oyinlola141/lattice-adapters
  *
  * Boundary layer between Lattice and external platforms.
  *
@@ -10,10 +10,10 @@
  * - Adapter metadata
  * - Lifecycle contracts
  * - Transport-specific adapter interfaces (HTTP, messaging, storage, queue, runtime, WebSocket, CLI, scheduler)
- * - Error types (re-exported from @lattice/errors)
+ * - Error types (re-exported from @oyinlola141/lattice-errors)
  * - Testing utilities
  *
- * @module @lattice/adapters
+ * @module @oyinlola141/lattice-adapters
  */
 
 // Core adapter

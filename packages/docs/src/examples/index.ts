@@ -1,5 +1,5 @@
 /**
- * @lattice/docs/examples
+ * @oyinlola141/lattice-docs/examples
  *
  * Code example modeling, validation, and rendering for documentation.
  */

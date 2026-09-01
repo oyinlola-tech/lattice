@@ -1,17 +1,17 @@
 /**
- * @lattice/storage — JSON Serializer
+ * @oyinlola141/lattice-storage — JSON Serializer
  *
  * Serializes/deserializes data for storage with support for BigInt, Date,
- * Map, Set, and Uint8Array via @lattice/serialization's type preservation.
+ * Map, Set, and Uint8Array via @oyinlola141/lattice-serialization's type preservation.
  */
 
 import type { Serializer, SerializationFormat } from "../types/storage.type.js";
-import { JSONSerializer } from "@lattice/serialization";
+import { JSONSerializer } from "@oyinlola141/lattice-serialization";
 
 /**
  * JSON serializer with extended type support for storage operations.
  *
- * Delegates to @lattice/serialization's JSONSerializer for type preservation
+ * Delegates to @oyinlola141/lattice-serialization's JSONSerializer for type preservation
  * (BigInt, Date, Map, Set, Uint8Array) and wraps the output as Uint8Array
  * to satisfy the storage Serializer contract.
  */

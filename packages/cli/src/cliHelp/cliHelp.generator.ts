@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Help Generator
+ * @oyinlola141/lattice-cli — Help Generator
  *
  * Generates formatted help text for CLI applications and commands.
  */

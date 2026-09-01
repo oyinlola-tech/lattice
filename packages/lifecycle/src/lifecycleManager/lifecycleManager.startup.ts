@@ -1,10 +1,10 @@
 /**
- * @lattice/lifecycle/manager/startup
+ * @oyinlola141/lattice-lifecycle/manager/startup
  *
  * Startup orchestration — initializes, starts, and readies components.
  */
 
-import { LifecyclePhase, LifecycleState } from "@lattice/constants";
+import { LifecyclePhase, LifecycleState } from "@oyinlola141/lattice-constants";
 import { buildExecutionPlan } from "../lifecyclePlan/lifecyclePlan.core.js";
 import { createLifecycleContext } from "../lifecycleContext/lifecycleContext.type.js";
 import type { LifecycleManagerContext } from "./lifecycleManager.context.js";

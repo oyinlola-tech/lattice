@@ -1,5 +1,5 @@
 /**
- * @lattice/storage — Object Storage Barrel
+ * @oyinlola141/lattice-storage — Object Storage Barrel
  */
 
 export { LocalObjectStorage } from "./localObjectStorage.core.js";

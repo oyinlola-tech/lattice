@@ -1,7 +1,7 @@
-import { CommandBus } from "@lattice/cqrs";
-import { QueryBus } from "@lattice/cqrs";
-import { createEventBus } from "@lattice/events";
-import type { Queue } from "@lattice/queue";
+import { CommandBus } from "@oyinlola141/lattice-cqrs";
+import { QueryBus } from "@oyinlola141/lattice-cqrs";
+import { createEventBus } from "@oyinlola141/lattice-events";
+import type { Queue } from "@oyinlola141/lattice-queue";
 import type { INotificationRepository } from "./interfaces/index.js";
 import { registerNotificationService } from "./services/index.js";
 import { registerNotificationRoutes } from "./routes/index.js";

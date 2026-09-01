@@ -3,13 +3,13 @@ import type {
   EventId,
   EventType,
   EventCorrelationId,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import {
   createEvent as baseCreateEvent,
   createEventId as baseCreateEventId,
   isEvent as baseIsEvent,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 /**
  * CQRS-specific event extensions.

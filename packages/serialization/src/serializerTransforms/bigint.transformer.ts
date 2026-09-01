@@ -1,12 +1,12 @@
 /**
- * @lattice/serialization — BigInt transformer.
+ * @oyinlola141/lattice-serialization — BigInt transformer.
  *
  * Preserves BigInt values across serialization boundaries
  * using string representation.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { SerializationTags } from "@lattice/constants";
+import { SerializationTags } from "@oyinlola141/lattice-constants";
 
 const BIGINT_TYPE = "BigInt" as const;
 

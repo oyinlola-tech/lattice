@@ -1,5 +1,5 @@
 /**
- * @lattice/schema/modifiers/optional-nullable
+ * @oyinlola141/lattice-schema/modifiers/optional-nullable
  *
  * Optional and nullable schema wrappers.
  */

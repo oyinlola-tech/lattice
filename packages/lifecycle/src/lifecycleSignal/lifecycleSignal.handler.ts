@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/signal
+ * @oyinlola141/lattice-lifecycle/signal
  *
  * Process signal handler — manages SIGTERM, SIGINT, SIGHUP for graceful shutdown.
  */

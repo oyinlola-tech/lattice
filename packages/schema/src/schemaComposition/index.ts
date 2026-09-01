@@ -1,5 +1,5 @@
 /**
- * @lattice/schema/composition
+ * @oyinlola141/lattice-schema/composition
  *
  * Schema composition: union, discriminated union, intersection, lazy, enum.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/rpc/testing
+ * @oyinlola141/lattice-rpc/testing
  *
  * Testing utilities for the RPC package.
  */

@@ -11,7 +11,7 @@ import {
 import {
   cryptoCipherError,
   CryptoOperation,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export type { CipherOptions, CipherResult };
 

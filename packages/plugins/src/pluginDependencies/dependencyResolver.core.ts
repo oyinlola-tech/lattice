@@ -1,5 +1,5 @@
 import type { PluginDependency } from "../pluginTypes/pluginDependency.type.js";
-import { PluginDependencyCycleError, PluginDependencyError } from "@lattice/errors";
+import { PluginDependencyCycleError, PluginDependencyError } from "@oyinlola141/lattice-errors";
 
 /**
  * Result of dependency resolution.

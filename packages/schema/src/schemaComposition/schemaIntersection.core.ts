@@ -1,5 +1,5 @@
 /**
- * @lattice/schema/composition/intersection
+ * @oyinlola141/lattice-schema/composition/intersection
  *
  * Intersection schema — validates against all schemas, merging results.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@lattice/constants";
+import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
 
 /**
  * Schema that accepts values matching all provided schemas.

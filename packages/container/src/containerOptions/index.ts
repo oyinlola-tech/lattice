@@ -1,5 +1,5 @@
 /**
- * @lattice/container/containerOptions
+ * @oyinlola141/lattice-container/containerOptions
  *
  * Container configuration options and types.
  */

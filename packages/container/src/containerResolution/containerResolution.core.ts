@@ -33,7 +33,7 @@ import type {
 
 import {
   RegistrationNotFoundError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 import {
   describeRegistryToken,
 } from "../containerRegistry/containerRegistry.error.js";
@@ -56,7 +56,7 @@ import type {
 import {
   CircularDependencyError,
   ProviderResolutionError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 import {
   describeToken,
 } from "../containerToken/containerToken.type.js";
@@ -118,7 +118,8 @@ export class ContainerResolver {
       throw new Error("Unsupported container provider.");
     } catch (error) {
       if (error instanceof CircularDependencyError || error instanceof ProviderResolutionError) throw error;
-      throw new ProviderResolutionError(describeRegistryToken(getRegistrationToken(registration)), error);
+      const message = error instanceof Error ? error.message : undefined;
+      throw new ProviderResolutionError(describeRegistryToken(getRegistrationToken(registration)), message, error);
     }
   }
 

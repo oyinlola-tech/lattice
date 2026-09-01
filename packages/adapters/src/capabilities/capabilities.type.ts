@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters/capabilities
+ * @oyinlola141/lattice-adapters/capabilities
  *
  * Adapter capabilities — declares what an adapter supports.
  */

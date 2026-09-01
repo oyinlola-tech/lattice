@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/documentation
+ * @oyinlola141/lattice-errors/documentation
  *
  * Documentation-specific error types.
  */

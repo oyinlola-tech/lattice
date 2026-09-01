@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpInterceptors
+ * @oyinlola141/lattice-http/httpInterceptors
  *
  * HTTP httpInterceptors module.
  */

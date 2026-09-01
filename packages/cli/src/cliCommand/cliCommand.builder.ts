@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Command Builder
+ * @oyinlola141/lattice-cli — Command Builder
  *
  * Fluent builder for constructing CLI commands.
  */

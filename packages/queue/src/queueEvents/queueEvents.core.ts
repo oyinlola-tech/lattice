@@ -1,4 +1,4 @@
-import type { Timestamp } from "@lattice/constants";
+import type { Timestamp } from "@oyinlola141/lattice-constants";
 
 import type { QueueEvent } from "./queueEvents.type.js";
 

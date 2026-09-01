@@ -1,5 +1,5 @@
 /**
- * @lattice/schema/composition/lazy
+ * @oyinlola141/lattice-schema/composition/lazy
  *
  * Lazy schema for recursive and self-referencing data structures.
  */

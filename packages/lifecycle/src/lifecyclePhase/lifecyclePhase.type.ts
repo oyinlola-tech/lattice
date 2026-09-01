@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/lifecyclePhase
+ * @oyinlola141/lattice-lifecycle/lifecyclePhase
  *
  * Lifecycle phase enum.
  */

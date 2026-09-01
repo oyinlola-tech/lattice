@@ -722,7 +722,7 @@ import {
   HttpBodyLimitError as HTTPBodyLimitError,
   HttpBodyAbortedError as HTTPBodyAbortedError,
   HttpBodyParseError as HTTPBodyParseError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export {
   HTTPBodyError,

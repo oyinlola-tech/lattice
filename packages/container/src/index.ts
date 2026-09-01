@@ -1,5 +1,5 @@
 /**
- * @lattice/container
+ * @oyinlola141/lattice-container
  *
  * Dependency injection container with token-based registration for the Lattice framework.
  */

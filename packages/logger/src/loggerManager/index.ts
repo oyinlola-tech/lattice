@@ -1,5 +1,5 @@
 /**
- * @lattice/logger/loggerManager
+ * @oyinlola141/lattice-logger/loggerManager
  *
  * Logger lifecycle and registry management.
  */

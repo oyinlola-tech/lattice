@@ -860,7 +860,7 @@ export function assertValidConfig(
 
 import {
   ConfigurationError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when schema validation fails.

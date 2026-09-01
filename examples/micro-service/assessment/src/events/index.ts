@@ -1,4 +1,4 @@
-import { defineEvent } from "@lattice/events";
+import { defineEvent } from "@oyinlola141/lattice-events";
 
 export interface AssessmentCreatedPayload {
   readonly assessmentId: string;

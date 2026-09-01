@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Version
+ * @oyinlola141/lattice-cli — CLI Version
  *
  * Semantic version parsing, comparison, and formatting.
  */

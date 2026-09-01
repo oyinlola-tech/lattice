@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Constants
+ * @oyinlola141/lattice-cli — CLI Constants
  *
  * Default values, limits, and magic strings used across the CLI package.
  */

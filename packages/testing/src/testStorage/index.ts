@@ -1,5 +1,5 @@
 /**
- * @lattice/testing — Storage testing helpers.
+ * @oyinlola141/lattice-testing — Storage testing helpers.
  *
  * In-memory storage adapter for testing without external dependencies.
  */

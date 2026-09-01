@@ -1,5 +1,5 @@
 /**
- * @lattice/errors
+ * @oyinlola141/lattice-errors
  *
  * Shared error base class, error codes, error categories,
  * and error utilities for the Lattice framework.

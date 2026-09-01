@@ -1,5 +1,5 @@
 /**
- * @lattice/testing — Test context recorder types.
+ * @oyinlola141/lattice-testing — Test context recorder types.
  *
  * Types for log, event, and message recorders used in test contexts.
  */

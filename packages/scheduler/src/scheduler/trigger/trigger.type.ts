@@ -1,5 +1,5 @@
 /**
- * @lattice/scheduler/trigger
+ * @oyinlola141/lattice-scheduler/trigger
  *
  * Trigger types for the scheduler package.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters/scheduler
+ * @oyinlola141/lattice-adapters/scheduler
  *
  * Scheduler adapter contracts.
  */

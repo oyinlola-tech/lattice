@@ -1,5 +1,5 @@
-import type { CommandBus, QueryBus } from "@lattice/cqrs";
-import type { EventBus } from "@lattice/events";
+import type { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
+import type { EventBus } from "@oyinlola141/lattice-events";
 import type { EnrollmentRepository } from "../../repositories/enrollment.repository.js";
 import { EnrollStudentHandler } from "./commands/enroll-student/enroll-student.handler.js";
 import { WithdrawStudentHandler } from "./commands/withdraw-student/withdraw-student.handler.js";

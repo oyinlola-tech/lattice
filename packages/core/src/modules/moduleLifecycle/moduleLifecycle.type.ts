@@ -130,7 +130,7 @@ export interface ModuleLifecycleOptions {
 
 import {
   ModuleLifecycleError as BaseModuleLifecycleError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when a module lifecycle operation fails.

@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters/websocket
+ * @oyinlola141/lattice-adapters/websocket
  *
  * WebSocket adapter contracts.
  */

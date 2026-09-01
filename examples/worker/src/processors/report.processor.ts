@@ -5,8 +5,8 @@
  * Demonstrates retry behavior with simulated failures.
  */
 
-import type { Job } from "@lattice/queue";
-import type { JobContext } from "@lattice/queue";
+import type { Job } from "@oyinlola141/lattice-queue";
+import type { JobContext } from "@oyinlola141/lattice-queue";
 import type { GenerateReportJobData } from "../jobs/jobs.types.js";
 
 function sleep(ms: number): Promise<void> {

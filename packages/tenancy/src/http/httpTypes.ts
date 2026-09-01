@@ -1,18 +1,18 @@
 /**
  * Local HTTP type definitions for the middleware adapter.
  *
- * Mirrors @lattice/http types to avoid hard dependency.
+ * Mirrors @oyinlola141/lattice-http types to avoid hard dependency.
  *
  * @module http/httpTypes
  */
 
-/** HTTP middleware signature from @lattice/http. */
+/** HTTP middleware signature from @oyinlola141/lattice-http. */
 export type HttpMiddleware = (
   context: HttpMiddlewareContext,
   next: () => Promise<HttpResponseContext>,
 ) => void | Response | HttpResponseContext | Promise<void | Response | HttpResponseContext>;
 
-/** HTTP middleware context from @lattice/http. */
+/** HTTP middleware context from @oyinlola141/lattice-http. */
 export interface HttpMiddlewareContext {
   readonly request: HttpRequestContext;
   readonly response: HttpResponseContext;
@@ -21,7 +21,7 @@ export interface HttpMiddlewareContext {
   readonly metadata: Readonly<Record<string, unknown>>;
 }
 
-/** HTTP request context from @lattice/http. */
+/** HTTP request context from @oyinlola141/lattice-http. */
 export interface HttpRequestContext {
   readonly id: string;
   readonly method: string;
@@ -32,14 +32,14 @@ export interface HttpRequestContext {
   readonly query: ReadonlyMap<string, string | readonly string[] | undefined>;
 }
 
-/** HTTP response context from @lattice/http. */
+/** HTTP response context from @oyinlola141/lattice-http. */
 export interface HttpResponseContext {
   readonly status: number;
   readonly headers: Headers | Record<string, string>;
   readonly body?: unknown;
 }
 
-/** HTTP middleware state from @lattice/http. */
+/** HTTP middleware state from @oyinlola141/lattice-http. */
 export interface HttpMiddlewareState {
   get<T = unknown>(key: string): T | undefined;
   set<T = unknown>(key: string, value: T): void;

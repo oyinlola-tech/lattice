@@ -1,12 +1,12 @@
 /**
- * @lattice/lifecycle/internal/dependency-graph
+ * @oyinlola141/lattice-lifecycle/internal/dependency-graph
  *
  * Directed acyclic graph for component dependency tracking.
  */
 
 import {
   LifecycleDependencyError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * A directed acyclic graph of component dependencies.

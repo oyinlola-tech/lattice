@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { CommandBus, QueryBus } from "@lattice/cqrs";
+import type { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
 import { CreateUserCommand } from "../services/identity/commands/create-user/create-user.command.js";
 import { AuthenticateUserCommand } from "../services/identity/commands/authenticate-user/authenticate-user.command.js";
 import { GetUserQuery } from "../services/identity/queries/get-user/get-user.query.js";

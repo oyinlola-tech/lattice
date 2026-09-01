@@ -1,5 +1,5 @@
 /**
- * @lattice/rpc/streaming
+ * @oyinlola141/lattice-rpc/streaming
  *
  * Streaming types for RPC operations.
  */

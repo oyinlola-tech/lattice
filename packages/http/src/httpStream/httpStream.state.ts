@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpStream — Stream state inspection helpers.
+ * @oyinlola141/lattice-http/httpStream — Stream state inspection helpers.
  */
 
 import {

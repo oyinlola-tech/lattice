@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Gauge
+ * @oyinlola141/lattice-observability — Gauge
  *
  * A value that can go up and down, for tracking current state.
  */

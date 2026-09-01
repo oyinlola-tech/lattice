@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/lifecycle",
+  "name": "@oyinlola141/lattice-lifecycle",
   "version": "0.1.0",
-  "private": true,
   "description": "Application and component lifecycle orchestration — state machine, dependency ordering, graceful shutdown, rollback, and signals.",
   "license": "MIT",
   "type": "module",
@@ -25,8 +24,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.0",
@@ -35,5 +34,8 @@
   },
   "engines": {
     "node": ">=24.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

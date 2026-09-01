@@ -1,5 +1,5 @@
 /**
- * @lattice/events/eventSubscription
+ * @oyinlola141/lattice-events/eventSubscription
  *
  * Event subscription management.
  */

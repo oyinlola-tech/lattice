@@ -1,5 +1,5 @@
 /**
- * @lattice/docs/validator/validatorAll
+ * @oyinlola141/lattice-docs/validator/validatorAll
  *
  * Aggregate validators for complete documentation sets.
  */

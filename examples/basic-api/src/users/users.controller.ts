@@ -8,7 +8,7 @@
 import type { User, CreateUserInput } from "./users.types.js";
 import type { UsersService } from "./users.service.js";
 import { CreateUserSchema } from "./users.schema.js";
-import { validate } from "@lattice/validation";
+import { validate } from "@oyinlola141/lattice-validation";
 
 type HttpRequest = {
   method: string;

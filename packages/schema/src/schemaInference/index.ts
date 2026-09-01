@@ -1,5 +1,5 @@
 /**
- * @lattice/schema/inference
+ * @oyinlola141/lattice-schema/inference
  *
  * Type inference utilities for extracting types from schemas.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpTypes
+ * @oyinlola141/lattice-http/httpTypes
  *
  * HTTP httpTypes module.
  */

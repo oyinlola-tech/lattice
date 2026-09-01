@@ -2,11 +2,13 @@
  * Base OpenAPI error and factory functions.
  */
 
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "@lattice/errors";
+import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "@oyinlola141/lattice-errors";
 
 /** Options for creating an OpenAPI error. */
 export interface OpenAPIErrorOptions {
   readonly code?: string;
+  readonly statusCode?: number;
+  readonly expose?: boolean;
   readonly cause?: unknown;
   readonly metadata?: Readonly<Record<string, unknown>>;
 }
@@ -18,10 +20,10 @@ export class OpenAPIError extends BaseError {
       code: (options.code as ErrorCode) ?? ErrorCode.OPENAPI_DOCUMENT,
       category: ErrorCategory.OPENAPI,
       severity: ErrorSeverity.ERROR,
-      statusCode: 500,
-      expose: false,
+      statusCode: options.statusCode ?? 500,
+      expose: options.expose ?? false,
       cause: options.cause,
-      metadata: options.metadata as import("@lattice/errors").ErrorMetadata | undefined,
+      metadata: options.metadata as import("@oyinlola141/lattice-errors").ErrorMetadata | undefined,
     });
     this.name = "OpenAPIError";
   }

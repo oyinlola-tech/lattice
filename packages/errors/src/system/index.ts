@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/system
+ * @oyinlola141/lattice-errors/system
  *
  * System-level error types (crypto, internal, etc.).
  */

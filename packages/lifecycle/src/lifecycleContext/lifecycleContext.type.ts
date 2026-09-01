@@ -1,10 +1,10 @@
 /**
- * @lattice/lifecycle/context
+ * @oyinlola141/lattice-lifecycle/context
  *
  * Lifecycle context — passed to component hooks during phase execution.
  */
 
-import type { LifecyclePhase } from "@lattice/constants";
+import type { LifecyclePhase } from "@oyinlola141/lattice-constants";
 
 /**
  * Context passed to lifecycle component hooks.

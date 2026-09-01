@@ -1,7 +1,7 @@
 import { createServer, type IncomingMessage, type ServerResponse, type Server } from "node:http";
-import { createCommandBus } from "@lattice/cqrs";
-import { createQueryBus } from "@lattice/cqrs";
-import { createEventBus } from "@lattice/events";
+import { createCommandBus } from "@oyinlola141/lattice-cqrs";
+import { createQueryBus } from "@oyinlola141/lattice-cqrs";
+import { createEventBus } from "@oyinlola141/lattice-events";
 import { createAppConfig } from "./config/app.config.js";
 import { createDatabaseConfig } from "./config/database.config.js";
 import { createSecurityConfig } from "./config/security.config.js";

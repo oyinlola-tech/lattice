@@ -2,7 +2,7 @@ import {
   RuntimeError,
   RuntimeStateError as BaseRuntimeStateError,
   ErrorCode,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when an invalid runtime state is encountered.

@@ -1,5 +1,5 @@
 /**
- * @lattice/core/configuration/error
+ * @oyinlola141/lattice-core/configuration/error
  *
  * Configuration errors and redaction.
  */

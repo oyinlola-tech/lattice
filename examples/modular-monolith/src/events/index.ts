@@ -1,4 +1,4 @@
-import { defineEvent } from "@lattice/events";
+import { defineEvent } from "@oyinlola141/lattice-events";
 import type { UserId, ArticleId, TopicId } from "../types/index.js";
 
 export const ArticleCreatedEvent = defineEvent<"article.created", {

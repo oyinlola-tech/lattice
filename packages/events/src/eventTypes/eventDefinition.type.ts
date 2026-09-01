@@ -10,11 +10,11 @@
 import type {
   EventId as BaseEventId,
   CorrelationId as BaseCorrelationId,
-} from "@lattice/constants";
+} from "@oyinlola141/lattice-constants";
 
 /**
  * Unique identifier for an event instance.
- * Re-exported from @lattice/constants for type safety.
+ * Re-exported from @oyinlola141/lattice-constants for type safety.
  */
 export type EventId = BaseEventId;
 
@@ -49,7 +49,7 @@ export type EventSource =
  *
  * Useful for connecting multiple events belonging to the
  * same operation/request/workflow.
- * Re-exported from @lattice/constants for type safety.
+ * Re-exported from @oyinlola141/lattice-constants for type safety.
  */
 export type EventCorrelationId = BaseCorrelationId;
 
@@ -246,7 +246,7 @@ export function isEvent(
 
 /**
  * Creates a unique event identifier.
- * Returns a branded EventId type from @lattice/constants.
+ * Returns a branded EventId type from @oyinlola141/lattice-constants.
  */
 export function createEventId():
   EventId {

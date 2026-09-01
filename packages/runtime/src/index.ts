@@ -1,5 +1,5 @@
 /**
- * @lattice/runtime
+ * @oyinlola141/lattice-runtime
  *
  * Application runtime orchestrator for the Lattice framework.
  *

@@ -1,5 +1,5 @@
 /**
- * @lattice/openapi/openApiRegistry
+ * @oyinlola141/lattice-openapi/openApiRegistry
  *
  * OpenAPI registry for collecting routes, schemas, and components.
  */

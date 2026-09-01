@@ -1,5 +1,5 @@
 /**
- * @lattice/api/constants
+ * @oyinlola141/lattice-api/constants
  *
  * Shared constants for the API package.
  */

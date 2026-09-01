@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/messaging",
+  "name": "@oyinlola141/lattice-messaging",
   "version": "0.1.0",
-  "private": true,
   "description": "In-process message bus infrastructure for the Lattice framework.",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,8 +23,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*"
   },
   "engines": {
     "node": ">=24.0.0"
@@ -33,5 +32,8 @@
   "devDependencies": {
     "vitest": "^4.1.11"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }

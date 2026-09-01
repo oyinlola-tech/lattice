@@ -1,5 +1,5 @@
 /**
- * @lattice/core/configuration/core
+ * @oyinlola141/lattice-core/configuration/core
  *
  * Core configuration types, keys, and source abstractions.
  */

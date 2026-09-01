@@ -4,7 +4,7 @@ import { detectRuntimeEngine, detectPlatform, detectProcessInfo, detectHostInfo,
 
 import {
   RuntimeError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Environment error codes.

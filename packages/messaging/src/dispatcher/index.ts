@@ -1,5 +1,5 @@
 /**
- * @lattice/messaging/dispatcher
+ * @oyinlola141/lattice-messaging/dispatcher
  *
  * Dispatcher type definitions and default implementation.
  */

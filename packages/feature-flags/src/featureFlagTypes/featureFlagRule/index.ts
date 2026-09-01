@@ -1,5 +1,5 @@
 /**
- * @lattice/feature-flags/featureFlagTypes/featureFlagRule
+ * @oyinlola141/lattice-feature-flags/featureFlagTypes/featureFlagRule
  *
  * Feature flag rule and value type definitions.
  */

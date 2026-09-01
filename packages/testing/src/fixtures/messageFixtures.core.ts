@@ -7,11 +7,11 @@
 import type {
   Message,
   MessageInput,
-} from "@lattice/messaging";
+} from "@oyinlola141/lattice-messaging";
 
 import type {
   MessageId,
-} from "@lattice/messaging";
+} from "@oyinlola141/lattice-messaging";
 
 /**
  * Options for creating a test message.

@@ -4,7 +4,7 @@
 
 import type { ValidationIssue } from "../validationResult/validationResult.type.js";
 import { formatIssues, toFieldErrors } from "../validationResult/validationResult.type.js";
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity, type ErrorMetadata } from "@lattice/errors";
+import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity, type ErrorMetadata } from "@oyinlola141/lattice-errors";
 
 /** Error codes used by the validation package. */
 export enum ValidationErrorCode {

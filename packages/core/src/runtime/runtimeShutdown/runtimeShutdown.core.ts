@@ -6,7 +6,7 @@ import { logRuntimeEvent } from "../runtimeLogger.js";
 
 import {
   RuntimeError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export type RuntimeShutdownErrorCode = "SHUTDOWN_ALREADY_RUNNING" | "SHUTDOWN_ALREADY_COMPLETED" | "SHUTDOWN_FAILED" | "SHUTDOWN_TIMEOUT" | "SHUTDOWN_MODULE_ERRORS" | "SHUTDOWN_RESET_WHILE_RUNNING" | "MODULE_STOP_FAILED" | "MODULE_DESTROY_FAILED" | "MODULE_STOP_METHOD_NOT_FOUND" | "MODULE_DESTROY_METHOD_NOT_FOUND";
 

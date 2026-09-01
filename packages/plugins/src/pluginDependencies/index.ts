@@ -1,5 +1,5 @@
 /**
- * @lattice/plugins/pluginDependencies
+ * @oyinlola141/lattice-plugins/pluginDependencies
  *
  * Plugin dependency resolution, topological sorting, and cycle detection.
  */

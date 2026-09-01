@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/component
+ * @oyinlola141/lattice-lifecycle/component
  *
  * Lifecycle component interface and registration types.
  */

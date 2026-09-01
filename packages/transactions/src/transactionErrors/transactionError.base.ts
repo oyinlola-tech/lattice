@@ -2,7 +2,7 @@
  * Base transaction error class.
  */
 
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity, type ErrorMetadata } from "@lattice/errors";
+import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity, type ErrorMetadata } from "@oyinlola141/lattice-errors";
 
 /**
  * Base error for all transaction-related failures.

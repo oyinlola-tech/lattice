@@ -4,7 +4,7 @@ import {
   ErrorCode,
   ErrorSeverity,
   type ErrorMetadata,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Base error for failures originating from the CQRS package.

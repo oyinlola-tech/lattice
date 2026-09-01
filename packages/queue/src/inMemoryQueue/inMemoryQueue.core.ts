@@ -4,7 +4,7 @@ import {
   QueueDisposedError,
   JobDuplicateError,
   JobMaxAttemptsError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 import type { JobId, QueueName, JobState } from "../jobTypes/jobTypes.type.js";
 

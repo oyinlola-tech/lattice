@@ -1,10 +1,10 @@
 /**
- * @lattice/lifecycle/plan
+ * @oyinlola141/lattice-lifecycle/plan
  *
  * Lifecycle execution planner — builds startup/shutdown stages from dependency graph.
  */
 
-import type { LifecyclePhase } from "@lattice/constants";
+import type { LifecyclePhase } from "@oyinlola141/lattice-constants";
 import type { LifecycleRegistration } from "../lifecycleComponent/lifecycleComponent.type.js";
 import {
   DependencyGraph,

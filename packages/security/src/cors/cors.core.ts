@@ -1,5 +1,5 @@
 /**
- * @lattice/security — CORS
+ * @oyinlola141/lattice-security — CORS
  *
  * Validates and generates CORS headers for cross-origin requests.
  */

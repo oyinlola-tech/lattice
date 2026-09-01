@@ -1,5 +1,5 @@
 /**
- * @lattice/logger/loggerErrors
+ * @oyinlola141/lattice-logger/loggerErrors
  *
  * Logger error types.
  */

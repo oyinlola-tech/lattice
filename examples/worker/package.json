@@ -1,5 +1,5 @@
 {
-  "name": "@lattice/example-worker",
+  "name": "@oyinlola141/lattice-example-worker",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,11 +10,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@lattice/core": "workspace:*",
-    "@lattice/errors": "workspace:*",
-    "@lattice/queue": "workspace:*",
-    "@lattice/lifecycle": "workspace:*",
-    "@lattice/logger": "workspace:*"
+    "@oyinlola141/lattice-core": "workspace:*",
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-queue": "workspace:*",
+    "@oyinlola141/lattice-lifecycle": "workspace:*",
+    "@oyinlola141/lattice-logger": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.0.0",

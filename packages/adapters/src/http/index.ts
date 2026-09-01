@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters/http
+ * @oyinlola141/lattice-adapters/http
  *
  * HTTP adapter contracts.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/storage — Health Checker
+ * @oyinlola141/lattice-storage — Health Checker
  *
  * Aggregates health checks from multiple storage components.
  */

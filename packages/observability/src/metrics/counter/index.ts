@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Counter
+ * @oyinlola141/lattice-observability — Counter
  *
  * Monotonically increasing counter for event counts.
  */

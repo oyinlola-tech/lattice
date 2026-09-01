@@ -6,18 +6,18 @@
 
 import {
   EventBus,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import type {
   Event,
   EventInput,
   EventBusOptions,
   EventPublishResult,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import type {
   EventId,
-} from "@lattice/constants";
+} from "@oyinlola141/lattice-constants";
 
 /**
  * A recorded event publication.

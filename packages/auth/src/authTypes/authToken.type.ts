@@ -5,13 +5,13 @@
  */
 
 import type { UserId } from "../authTypes/authUser.type.js";
-import type { TokenId } from "@lattice/constants";
+import type { TokenId } from "@oyinlola141/lattice-constants";
 
 /** JWT token string. */
 export type JwtToken = string;
 
-/** Token identifier. Re-exported from @lattice/constants for type safety. */
-export type { TokenId } from "@lattice/constants";
+/** Token identifier. Re-exported from @oyinlola141/lattice-constants for type safety. */
+export type { TokenId } from "@oyinlola141/lattice-constants";
 
 /**
  * Token payload embedded in JWT.

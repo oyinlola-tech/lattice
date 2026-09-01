@@ -1,10 +1,10 @@
 /**
- * @lattice/lifecycle/internal/async-utils
+ * @oyinlola141/lattice-lifecycle/internal/async-utils
  *
  * Async utilities for timeout, abort, and concurrency control.
  */
 
-import { LifecycleTimeoutError } from "@lattice/errors";
+import { LifecycleTimeoutError } from "@oyinlola141/lattice-errors";
 
 /**
  * Executes an async operation with a timeout.

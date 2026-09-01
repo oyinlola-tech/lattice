@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/tenancy",
+  "name": "@oyinlola141/lattice-tenancy",
   "version": "0.1.0",
-  "private": true,
   "description": "Multi-tenant context and isolation for the Lattice framework — tenant resolution, context propagation, resolver chains, and isolation strategies.",
   "license": "MIT",
   "type": "module",
@@ -26,14 +25,14 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*"
   },
   "peerDependencies": {
-    "@lattice/http": "workspace:*"
+    "@oyinlola141/lattice-http": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@lattice/http": {
+    "@oyinlola141/lattice-http": {
       "optional": true
     }
   },
@@ -43,5 +42,8 @@
   "devDependencies": {
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

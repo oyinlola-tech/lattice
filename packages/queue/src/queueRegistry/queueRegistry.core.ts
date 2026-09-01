@@ -4,7 +4,7 @@ import type { Queue } from "../queue/queue.type.js";
 
 import type { QueueRegistry, QueueInfo } from "./queueRegistry.type.js";
 
-import { QueueError } from "@lattice/errors";
+import { QueueError } from "@oyinlola141/lattice-errors";
 
 /**
  * Creates a new QueueRegistry.

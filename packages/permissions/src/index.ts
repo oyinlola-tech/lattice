@@ -1,12 +1,12 @@
 /**
- * @lattice/permissions
+ * @oyinlola141/lattice-permissions
  *
  * Authorization engine for the Lattice framework.
  *
  * Supports RBAC, ABAC, resource policies, wildcards, role hierarchy,
  * condition combinators, ability compilation, and explain mode.
  *
- * @module @lattice/permissions
+ * @module @oyinlola141/lattice-permissions
  */
 
 export * from "./permissionTypes/index.js";

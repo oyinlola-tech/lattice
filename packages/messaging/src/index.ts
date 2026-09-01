@@ -1,12 +1,12 @@
 /**
- * @lattice/messaging
+ * @oyinlola141/lattice-messaging
  *
  * In-process message bus infrastructure for the Lattice framework.
  *
  * Provides the foundational messaging primitives that CQRS and Events
  * specialize into commands/queries and domain events respectively.
  *
- * @module @lattice/messaging
+ * @module @oyinlola141/lattice-messaging
  */
 
 // Core message types and factory

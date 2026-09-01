@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/adapters",
+  "name": "@oyinlola141/lattice-adapters",
   "version": "0.1.0",
-  "private": true,
   "description": "Boundary layer between Lattice and external platforms — adapter contracts, registry, capabilities, and transport abstractions.",
   "license": "MIT",
   "type": "module",
@@ -28,13 +27,16 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*",
-    "@lattice/types": "workspace:*",
-    "@lattice/lifecycle": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-types": "workspace:*",
+    "@oyinlola141/lattice-lifecycle": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

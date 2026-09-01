@@ -1,5 +1,5 @@
 /**
- * @lattice/logger/loggerTransport/loggerTransportComposite
+ * @oyinlola141/lattice-logger/loggerTransport/loggerTransportComposite
  *
  * Composite transport implementations.
  */

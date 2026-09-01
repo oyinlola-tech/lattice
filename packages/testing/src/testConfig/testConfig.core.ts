@@ -7,13 +7,13 @@
 
 import {
   ConfigManager,
-} from "@lattice/config";
+} from "@oyinlola141/lattice-config";
 
 import type {
   ConfigValue,
   ConfigManagerOptions,
   ConfigManagerStatus,
-} from "@lattice/config";
+} from "@oyinlola141/lattice-config";
 
 /**
  * A test configuration manager with convenience methods.

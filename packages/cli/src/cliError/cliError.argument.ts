@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Argument Errors
+ * @oyinlola141/lattice-cli — Argument Errors
  *
  * Error classes for argument validation failures.
  */

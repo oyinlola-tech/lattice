@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpStream — Create PassThrough and Readable stream instances.
+ * @oyinlola141/lattice-http/httpStream — Create PassThrough and Readable stream instances.
  */
 
 import {

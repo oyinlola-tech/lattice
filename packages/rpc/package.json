@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/rpc",
+  "name": "@oyinlola141/lattice-rpc",
   "version": "0.1.0",
-  "private": true,
   "description": "Remote Procedure Call abstraction for Lattice — transport-agnostic invocation, procedure registry, middleware, and client/server contracts.",
   "license": "MIT",
   "type": "module",
@@ -28,13 +27,16 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*",
-    "@lattice/types": "workspace:*",
-    "@lattice/schema": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-types": "workspace:*",
+    "@oyinlola141/lattice-schema": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

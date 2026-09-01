@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpRouter/core/response
+ * @oyinlola141/lattice-http/httpRouter/core/response
  *
  * HTTP router response utilities.
  */

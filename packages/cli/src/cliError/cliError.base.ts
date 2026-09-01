@@ -1,13 +1,13 @@
 /**
- * @lattice/cli — CLI Error Base
+ * @oyinlola141/lattice-cli — CLI Error Base
  *
  * Base error class for all CLI errors. Extends `ApplicationError`
- * from `@lattice/errors` and adds CLI-specific context (exitCode,
+ * from `@oyinlola141/lattice-errors` and adds CLI-specific context (exitCode,
  * command, option, argument).
  */
 
-import { ApplicationError } from "@lattice/errors";
-import type { BaseErrorOptions } from "@lattice/errors";
+import { ApplicationError } from "@oyinlola141/lattice-errors";
+import type { BaseErrorOptions } from "@oyinlola141/lattice-errors";
 import { CLI_ERROR_CODES, CLI_EXIT_CODES } from "../cliConstant/cliConstant.value.js";
 import type { CLIErrorCode } from "../cliConstant/cliConstant.value.js";
 

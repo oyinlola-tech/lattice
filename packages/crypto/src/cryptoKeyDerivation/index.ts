@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/cryptoKeyDerivation
+ * @oyinlola141/lattice-crypto/cryptoKeyDerivation
  *
  * Key derivation functions (PBKDF2, scrypt, etc.).
  */

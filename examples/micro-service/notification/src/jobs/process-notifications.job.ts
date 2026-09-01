@@ -1,6 +1,6 @@
-import type { Job } from "@lattice/queue";
-import type { JobContext } from "@lattice/queue";
-import type { CommandBus } from "@lattice/cqrs";
+import type { Job } from "@oyinlola141/lattice-queue";
+import type { JobContext } from "@oyinlola141/lattice-queue";
+import type { CommandBus } from "@oyinlola141/lattice-cqrs";
 import { CreateNotificationCommand } from "../services/notification/commands/create-notification/create-notification.command.js";
 import { NotificationType } from "../enums/index.js";
 import {

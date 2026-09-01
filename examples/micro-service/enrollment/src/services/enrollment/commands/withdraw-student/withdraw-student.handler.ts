@@ -1,7 +1,7 @@
-import { CommandHandler } from "@lattice/cqrs";
+import { CommandHandler } from "@oyinlola141/lattice-cqrs";
 import type { WithdrawStudentCommand } from "./withdraw-student.command.js";
 import type { EnrollmentRepository } from "../../../../repositories/enrollment.repository.js";
-import type { EventBus } from "@lattice/events";
+import type { EventBus } from "@oyinlola141/lattice-events";
 import type { EnrollmentModel } from "../../../../models/enrollment.model.js";
 import { EnrollmentStatus } from "../../../../enums/index.js";
 import { NotEnrolledError } from "../../../../errors/index.js";

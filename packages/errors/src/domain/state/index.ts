@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/domain/state
+ * @oyinlola141/lattice-errors/domain/state
  *
  * State-related errors (not found, conflict, validation).
  */

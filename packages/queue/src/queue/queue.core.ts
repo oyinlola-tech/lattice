@@ -8,7 +8,7 @@ import type { Processor, ProcessorRegistry } from "../processor/processor.type.j
 
 import type { Queue, QueueOptions, QueueStats } from "./queue.type.js";
 
-import { QueueClosedError, QueueDisposedError } from "@lattice/errors";
+import { QueueClosedError, QueueDisposedError } from "@oyinlola141/lattice-errors";
 
 import { createInMemoryQueue } from "../inMemoryQueue/inMemoryQueue.core.js";
 

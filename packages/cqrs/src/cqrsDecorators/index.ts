@@ -1,5 +1,5 @@
 /**
- * @lattice/cqrs/cqrsDecorators
+ * @oyinlola141/lattice-cqrs/cqrsDecorators
  *
  * TypeScript decorators for CQRS handler metadata.
  */

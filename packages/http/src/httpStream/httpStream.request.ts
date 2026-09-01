@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpStream — Request/response stream accessors.
+ * @oyinlola141/lattice-http/httpStream — Request/response stream accessors.
  */
 
 import {

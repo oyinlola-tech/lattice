@@ -7,12 +7,12 @@
 
 import {
   createStartedContainer,
-} from "@lattice/container";
+} from "@oyinlola141/lattice-container";
 
 import type {
   Container,
   RegistrationToken,
-} from "@lattice/container";
+} from "@oyinlola141/lattice-container";
 
 /**
  * A dependency override for test containers.

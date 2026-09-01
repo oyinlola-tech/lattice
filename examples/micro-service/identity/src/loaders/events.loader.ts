@@ -1,4 +1,4 @@
-import type { EventBus, Event } from "@lattice/events";
+import type { EventBus, Event } from "@oyinlola141/lattice-events";
 import { UserCreatedEvent, UserAuthenticatedEvent } from "../events/index.js";
 
 /**

@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpStatus
+ * @oyinlola141/lattice-http/httpStatus
  *
  * HTTP status codes and utilities.
  */

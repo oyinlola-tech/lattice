@@ -1,5 +1,5 @@
 /**
- * @lattice/runtime — Tests
+ * @oyinlola141/lattice-runtime — Tests
  *
  * Comprehensive tests for the runtime package.
  */
@@ -26,19 +26,19 @@ import type {
 
 import type {
   Module,
-} from "@lattice/core";
+} from "@oyinlola141/lattice-core";
 
 import {
   createLogger,
-} from "@lattice/logger";
+} from "@oyinlola141/lattice-logger";
 
 import {
   createContainer,
-} from "@lattice/container";
+} from "@oyinlola141/lattice-container";
 
 import {
   createEventBus,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import {
   RuntimeRegistry,

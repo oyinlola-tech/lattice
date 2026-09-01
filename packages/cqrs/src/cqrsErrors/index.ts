@@ -1,5 +1,5 @@
 /**
- * @lattice/cqrs/cqrsErrors
+ * @oyinlola141/lattice-cqrs/cqrsErrors
  *
  * CQRS-specific error types extending BaseError.
  */

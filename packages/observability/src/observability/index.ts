@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Observability
+ * @oyinlola141/lattice-observability — Observability
  *
  * Central facade for logging, metrics, tracing, and context propagation.
  */

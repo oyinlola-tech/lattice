@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpStream — Stream option and result types.
+ * @oyinlola141/lattice-http/httpStream — Stream option and result types.
  */
 
 export interface HTTPStreamOptions {

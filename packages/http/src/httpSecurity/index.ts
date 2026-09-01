@@ -1,5 +1,5 @@
 /**
- * @lattice/http — Security module.
+ * @oyinlola141/lattice-http — Security module.
  *
  * Request validation, guard middleware, and security configuration
  * for the HTTP layer. Enforces body limits, header validation,

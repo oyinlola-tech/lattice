@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/cryptoAlgorithm
+ * @oyinlola141/lattice-crypto/cryptoAlgorithm
  *
  * Cryptographic algorithm definitions and types.
  */

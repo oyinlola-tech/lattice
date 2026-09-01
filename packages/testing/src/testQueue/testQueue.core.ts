@@ -6,7 +6,7 @@
 
 import {
   createInMemoryQueue,
-} from "@lattice/queue";
+} from "@oyinlola141/lattice-queue";
 
 import type {
   Job,
@@ -16,7 +16,7 @@ import type {
   QueueStats,
   Processor,
   JobOptions,
-} from "@lattice/queue";
+} from "@oyinlola141/lattice-queue";
 
 /**
  * A recorded job addition.
@@ -69,7 +69,7 @@ export interface TestQueue<TData = unknown> {
 
 import {
   InMemoryQueue,
-} from "@lattice/queue";
+} from "@oyinlola141/lattice-queue";
 
 /**
  * Creates a test queue with recording.

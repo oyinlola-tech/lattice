@@ -6,7 +6,7 @@ import type { PluginDependency } from "../pluginTypes/pluginDependency.type.js";
 import { PluginRegistryImpl } from "../pluginRegistry/pluginRegistry.core.js";
 import { DependencyResolver, assertResolutionValid } from "../pluginDependencies/dependencyResolver.core.js";
 import { LifecycleController } from "../pluginLifecycle/pluginLifecycle.core.js";
-import { PluginAlreadyRegisteredError, PluginDependencyCycleError, PluginDependencyError, PluginInitializationError, PluginNotFoundError, PluginRegistrationError } from "@lattice/errors";
+import { PluginAlreadyRegisteredError, PluginDependencyCycleError, PluginDependencyError, PluginInitializationError, PluginNotFoundError, PluginRegistrationError } from "@oyinlola141/lattice-errors";
 import { PLUGIN_EVENTS } from "../pluginEvents/pluginEvent.core.js";
 import { buildDiagnosticReport, createHealthyHealth, createUnhealthyHealth } from "../pluginDiagnostics/pluginDiagnostic.core.js";
 import type { PluginDiagnosticReport } from "../pluginDiagnostics/pluginDiagnostic.core.js";

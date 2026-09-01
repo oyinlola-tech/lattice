@@ -1,5 +1,5 @@
 /**
- * @lattice/docs/document
+ * @oyinlola141/lattice-docs/document
  *
  * Document model and builder for creating documentation pages.
  */

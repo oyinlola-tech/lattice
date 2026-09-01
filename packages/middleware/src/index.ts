@@ -1,5 +1,5 @@
 /**
- * @lattice/middleware
+ * @oyinlola141/lattice-middleware
  *
  * Composable middleware pipeline for the Lattice framework.
  *
@@ -7,7 +7,7 @@
  * execution tracking, and built-in middleware for logging,
  * error handling, timeouts, and rate limiting.
  *
- * @module @lattice/middleware
+ * @module @oyinlola141/lattice-middleware
  */
 
 export * from "./middlewareTypes/index.js";

@@ -1,14 +1,14 @@
 /**
- * @lattice/runtime — Test Runtime
+ * @oyinlola141/lattice-runtime — Test Runtime
  *
  * Provides a lightweight runtime for testing purposes with
  * mock infrastructure and easy lifecycle management.
  */
 
-import type { Module } from "@lattice/core";
-import { createLogger } from "@lattice/logger";
-import { createContainer } from "@lattice/container";
-import { createEventBus } from "@lattice/events";
+import type { Module } from "@oyinlola141/lattice-core";
+import { createLogger } from "@oyinlola141/lattice-logger";
+import { createContainer } from "@oyinlola141/lattice-container";
+import { createEventBus } from "@oyinlola141/lattice-events";
 import { DefaultRuntime } from "../runtime/runtime.core.js";
 import type { RuntimeDependencies } from "../runtime/runtime.core.js";
 import type { RuntimeOptions } from "../runtimeOptions/runtimeOptions.type.js";

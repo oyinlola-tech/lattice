@@ -1,5 +1,5 @@
 /**
- * @lattice/database — Default Logger
+ * @oyinlola141/lattice-database — Default Logger
  *
  * Minimal logger for environments where no application logger has been configured yet.
  */

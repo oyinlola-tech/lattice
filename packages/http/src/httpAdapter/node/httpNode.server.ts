@@ -436,7 +436,7 @@ export function getSearchPart(
 
 import {
   RequestBodyTooLargeError as NodeRequestBodyTooLargeError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export { NodeRequestBodyTooLargeError };
 

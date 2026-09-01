@@ -11,3 +11,7 @@ export interface CacheKeyOptions {
   readonly prefix?: string;
   readonly separator?: string;
 }
+
+export interface CacheKeyBuilder {
+  build(key: string, options?: CacheKeyOptions): CacheKey;
+}

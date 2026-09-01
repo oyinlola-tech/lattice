@@ -1,5 +1,5 @@
 /**
- * @lattice/messaging/messageHandler
+ * @oyinlola141/lattice-messaging/messageHandler
  *
  * MessageHandler type definitions and utilities.
  */

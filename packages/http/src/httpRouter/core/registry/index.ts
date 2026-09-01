@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpRouter/core/registry
+ * @oyinlola141/lattice-http/httpRouter/core/registry
  *
  * HTTP route registry.
  */

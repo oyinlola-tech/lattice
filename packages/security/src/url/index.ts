@@ -1,5 +1,5 @@
 /**
- * @lattice/security — URL Validation Barrel
+ * @oyinlola141/lattice-security — URL Validation Barrel
  */
 
 export {

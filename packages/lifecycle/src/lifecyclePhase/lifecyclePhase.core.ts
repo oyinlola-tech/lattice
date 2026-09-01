@@ -1,10 +1,10 @@
 /**
- * @lattice/lifecycle/phase
+ * @oyinlola141/lattice-lifecycle/phase
  *
  * Lifecycle phase ordering for startup and shutdown sequences.
  */
 
-import { LifecyclePhase } from "@lattice/constants";
+import { LifecyclePhase } from "@oyinlola141/lattice-constants";
 
 /** Ordered phases for startup. */
 export const STARTUP_PHASES: readonly LifecyclePhase[] = Object.freeze([

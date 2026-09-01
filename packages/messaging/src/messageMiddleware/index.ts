@@ -1,5 +1,5 @@
 /**
- * @lattice/messaging/messageMiddleware
+ * @oyinlola141/lattice-messaging/messageMiddleware
  *
  * Message middleware type definitions and pipeline execution.
  */

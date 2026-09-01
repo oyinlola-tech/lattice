@@ -1,5 +1,5 @@
-import { CommandHandler } from "@lattice/cqrs";
-import type { CqrsContext } from "@lattice/cqrs";
+import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
 import { randomUUID } from "node:crypto";
 import { SubmitAssessmentCommand } from "./submit-assessment.command.js";
 import type { AssessmentRepository } from "../../../../interfaces/index.js";

@@ -6,7 +6,7 @@
 
 import {
   createMessageBus,
-} from "@lattice/messaging";
+} from "@oyinlola141/lattice-messaging";
 
 import type {
   Message,
@@ -16,7 +16,7 @@ import type {
   MessageId,
   DispatchResult,
   DispatchOptions,
-} from "@lattice/messaging";
+} from "@oyinlola141/lattice-messaging";
 
 /**
  * A recorded message dispatch.

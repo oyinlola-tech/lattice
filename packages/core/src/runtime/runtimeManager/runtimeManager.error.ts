@@ -1,12 +1,12 @@
 /**
- * @lattice/core/runtime/runtimeManager/runtimeManager.error
+ * @oyinlola141/lattice-core/runtime/runtimeManager/runtimeManager.error
  *
- * RuntimeManagerError extends RuntimeError from @lattice/errors.
+ * RuntimeManagerError extends RuntimeError from @oyinlola141/lattice-errors.
  */
 
 import {
   RuntimeError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Runtime manager error.

@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/cryptoToken
+ * @oyinlola141/lattice-crypto/cryptoToken
  *
  * Secure token generation and management.
  */

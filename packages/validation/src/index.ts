@@ -1,5 +1,5 @@
 /**
- * @lattice/validation
+ * @oyinlola141/lattice-validation
  *
  * Schema validation with Zod, constraints, and composition for the Lattice framework.
  */

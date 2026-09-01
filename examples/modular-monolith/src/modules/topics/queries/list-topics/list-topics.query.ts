@@ -1,4 +1,4 @@
-import { Query } from "@lattice/cqrs";
+import { Query } from "@oyinlola141/lattice-cqrs";
 
 export class ListTopicsQuery extends Query<"topics.list"> {
   public readonly limit: number;

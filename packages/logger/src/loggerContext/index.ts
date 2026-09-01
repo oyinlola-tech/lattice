@@ -1,5 +1,5 @@
 /**
- * @lattice/logger/loggerContext
+ * @oyinlola141/lattice-logger/loggerContext
  *
  * Logger context for scoped metadata propagation.
  */

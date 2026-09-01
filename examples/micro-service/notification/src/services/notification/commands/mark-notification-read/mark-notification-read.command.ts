@@ -1,4 +1,4 @@
-import { Command } from "@lattice/cqrs";
+import { Command } from "@oyinlola141/lattice-cqrs";
 
 export const MARK_NOTIFICATION_READ_COMMAND = "notification.markRead" as const;
 

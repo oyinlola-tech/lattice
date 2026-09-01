@@ -777,7 +777,7 @@ export class ConfigResolver {
   }
 }import {
   ConfigurationError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when configuration resolution fails.

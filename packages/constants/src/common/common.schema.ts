@@ -1,5 +1,5 @@
 /**
- * @lattice/constants/schema
+ * @oyinlola141/lattice-constants/schema
  *
  * Schema-related constants, issue codes, and default limits.
  */

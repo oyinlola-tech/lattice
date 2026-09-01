@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpRouter
+ * @oyinlola141/lattice-http/httpRouter
  *
  * HTTP routing system including patterns, matching, and dispatching.
  */

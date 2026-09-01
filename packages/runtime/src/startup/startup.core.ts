@@ -1,14 +1,14 @@
 import type {
   Logger,
-} from "@lattice/logger";
+} from "@oyinlola141/lattice-logger";
 
 import type {
   EventBus,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import {
   createEvent,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import {
   LifecycleManager,

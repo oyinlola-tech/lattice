@@ -1,5 +1,5 @@
 /**
- * @lattice/container/containerToken
+ * @oyinlola141/lattice-container/containerToken
  *
  * Token types for service identification.
  */

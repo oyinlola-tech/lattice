@@ -1,5 +1,5 @@
 /**
- * @lattice/config/configManager
+ * @oyinlola141/lattice-config/configManager
  *
  * Configuration lifecycle management and orchestration.
  */

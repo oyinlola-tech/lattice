@@ -1,5 +1,5 @@
 /**
- * @lattice/rpc/constants
+ * @oyinlola141/lattice-rpc/constants
  *
  * Shared constants for the RPC package.
  */

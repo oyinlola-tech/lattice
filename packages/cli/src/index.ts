@@ -1,11 +1,11 @@
 /**
- * @lattice/cli
+ * @oyinlola141/lattice-cli
  *
  * Command-line interface framework for the Lattice platform.
  *
  * @example
  * ```ts
- * import { createCLI, command } from "@lattice/cli";
+ * import { createCLI, command } from "@oyinlola141/lattice-cli";
  *
  * const app = createCLI({ name: "my-app", version: "1.0.0" });
  *

@@ -1,11 +1,13 @@
 import {
   DatabaseError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 import type {
   DatabaseClient,
   DatabaseTransactionContext,
 } from "../databaseClient/databaseClient.core.js";
+
+import { Prisma } from "@prisma/client";
 
 /**
  * Migration definition.
@@ -427,7 +429,7 @@ export class MigrationRunner {
 
     try {
       await this.client.executeRaw(
-        `
+        Prisma.sql`
           CREATE TABLE IF NOT EXISTS ${table} (
             "version" INTEGER PRIMARY KEY,
             "name" VARCHAR(255) NOT NULL,
@@ -469,7 +471,7 @@ export class MigrationRunner {
             applied_at: Date;
           }[]
         >(
-          `
+          Prisma.sql`
             SELECT
               "version",
               "name",

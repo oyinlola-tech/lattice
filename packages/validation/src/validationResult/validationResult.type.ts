@@ -2,7 +2,7 @@
  * Validation result types and helpers.
  */
 
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "@lattice/errors";
+import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "@oyinlola141/lattice-errors";
 
 /** A single validation issue. */
 export interface ValidationIssue {

@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpMiddleware/pipeline
+ * @oyinlola141/lattice-http/httpMiddleware/pipeline
  *
  * HTTP middleware pipeline.
  */

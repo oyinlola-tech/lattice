@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Version Utilities
+ * @oyinlola141/lattice-cli — Version Utilities
  *
  * Functions for parsing, comparing, and formatting semantic versions.
  */

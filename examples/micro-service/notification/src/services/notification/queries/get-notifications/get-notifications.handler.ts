@@ -1,5 +1,5 @@
-import { QueryHandler } from "@lattice/cqrs";
-import type { CqrsContext } from "@lattice/cqrs";
+import { QueryHandler } from "@oyinlola141/lattice-cqrs";
+import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
 import { GetNotificationsQuery, GET_NOTIFICATIONS_QUERY } from "./get-notifications.query.js";
 import type { INotificationRepository } from "../../../../interfaces/index.js";
 import type { NotificationModel } from "../../../../models/index.js";

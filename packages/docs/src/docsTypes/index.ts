@@ -1,5 +1,5 @@
 /**
- * @lattice/docs/docsTypes
+ * @oyinlola141/lattice-docs/docsTypes
  *
  * Core type definitions for the documentation model.
  */

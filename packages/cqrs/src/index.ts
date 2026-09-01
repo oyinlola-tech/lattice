@@ -1,5 +1,5 @@
 /**
- * @lattice/cqrs
+ * @oyinlola141/lattice-cqrs
  *
  * Command Query Responsibility Segregation primitives for the Lattice framework.
  * Provides buses, handlers, middleware, and execution infrastructure.
@@ -96,7 +96,7 @@ export {
   isEvent,
   createEvent as createBaseEvent,
   createEventId as createBaseEventId,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 export * from "./cqrsEvents/index.js";
 

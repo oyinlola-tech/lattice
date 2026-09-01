@@ -1,5 +1,5 @@
 /**
- * @lattice/messaging/messageContext
+ * @oyinlola141/lattice-messaging/messageContext
  *
  * MessageContext type definitions and factory.
  */

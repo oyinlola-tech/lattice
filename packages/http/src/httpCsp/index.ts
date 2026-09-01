@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpCsp
+ * @oyinlola141/lattice-http/httpCsp
  *
  * Content Security Policy (CSP) utilities — parsing, formatting, validation,
  * and policy helpers for the Content-Security-Policy HTTP response header.

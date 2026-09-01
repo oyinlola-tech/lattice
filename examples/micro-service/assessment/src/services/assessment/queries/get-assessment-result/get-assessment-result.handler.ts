@@ -1,5 +1,5 @@
-import { QueryHandler } from "@lattice/cqrs";
-import type { CqrsContext } from "@lattice/cqrs";
+import { QueryHandler } from "@oyinlola141/lattice-cqrs";
+import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
 import { GetAssessmentResultQuery } from "./get-assessment-result.query.js";
 import type { AssessmentRepository } from "../../../../interfaces/index.js";
 import { SubmissionNotFoundError } from "../../../../errors/index.js";

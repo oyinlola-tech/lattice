@@ -1,5 +1,5 @@
 /**
- * @lattice/schema/structures/object
+ * @oyinlola141/lattice-schema/structures/object
  *
  * Object schema with shape validation, unknown key handling, and composition methods.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue, childContext } from "../schemaBase/index.js";
-import { SchemaIssueCode, SCHEMA_FORBIDDEN_KEYS } from "@lattice/constants";
+import { SchemaIssueCode, SCHEMA_FORBIDDEN_KEYS } from "@oyinlola141/lattice-constants";
 
 /** Shape type — record of property names to schemas. */
 export type SchemaShape = Record<string, Schema<unknown>>;

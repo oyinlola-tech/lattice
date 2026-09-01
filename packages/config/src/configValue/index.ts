@@ -1,5 +1,5 @@
 /**
- * @lattice/config/configValue
+ * @oyinlola141/lattice-config/configValue
  *
  * Configuration value types, paths, and accessors.
  */

@@ -1,12 +1,12 @@
 /**
  * Errors produced by the Lattice logger.
  *
- * LoggerError extends LoggingError from @lattice/errors so all
+ * LoggerError extends LoggingError from @oyinlola141/lattice-errors so all
  * logger failures inherit the shared error infrastructure
  * (code, category, severity, statusCode, metadata, serialization).
  */
 
-import { LoggingError } from "@lattice/errors";
+import { LoggingError } from "@oyinlola141/lattice-errors";
 
 /** Base error for all logger failures. */
 export class LoggerError extends LoggingError {

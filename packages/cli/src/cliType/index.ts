@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Types
+ * @oyinlola141/lattice-cli — CLI Types
  *
  * Core types, interfaces, and type aliases for the CLI package.
  */

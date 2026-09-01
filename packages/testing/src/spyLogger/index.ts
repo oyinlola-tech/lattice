@@ -1,5 +1,5 @@
 /**
- * @lattice/testing — Spy logger for testing.
+ * @oyinlola141/lattice-testing — Spy logger for testing.
  *
  * Records all log calls for assertion.
  */

@@ -1,6 +1,6 @@
 {
-  "name": "@lattice/core",
-  "version": "0.1.0",
+  "name": "@oyinlola141/lattice-core",
+  "version": "0.1.1",
   "description": "Core framework primitives and runtime infrastructure for Lattice.",
   "type": "module",
   "main": "./dist/index.js",
@@ -59,9 +59,15 @@
     "vitest": "^4.1.11"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*",
-    "@lattice/messaging": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-messaging": "workspace:*"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
 }

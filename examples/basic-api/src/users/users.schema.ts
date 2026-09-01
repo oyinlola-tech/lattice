@@ -1,7 +1,7 @@
 /**
  * User validation schemas.
  *
- * Uses Zod for schema definition and @lattice/validation for parsing.
+ * Uses Zod for schema definition and @oyinlola141/lattice-validation for parsing.
  */
 
 import { z } from "zod";

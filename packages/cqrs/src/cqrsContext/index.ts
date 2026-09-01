@@ -1,5 +1,5 @@
 /**
- * @lattice/cqrs/cqrsContext
+ * @oyinlola141/lattice-cqrs/cqrsContext
  *
  * CQRS execution context creation and manipulation utilities.
  */

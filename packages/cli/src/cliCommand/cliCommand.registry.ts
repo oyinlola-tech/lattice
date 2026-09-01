@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Command Registry
+ * @oyinlola141/lattice-cli — Command Registry
  *
  * Registry for managing CLI commands and their aliases.
  */

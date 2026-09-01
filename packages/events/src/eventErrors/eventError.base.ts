@@ -1,7 +1,7 @@
 /**
- * @lattice/events/eventErrors/eventError.base
+ * @oyinlola141/lattice-events/eventErrors/eventError.base
  *
- * All event error types are centralized in @lattice/errors.
+ * All event error types are centralized in @oyinlola141/lattice-errors.
  * This file re-exports them for backward compatibility.
  */
 
@@ -27,4 +27,4 @@ export {
   EventMiddlewareError,
   EventSerializationError,
   EventDeserializationError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";

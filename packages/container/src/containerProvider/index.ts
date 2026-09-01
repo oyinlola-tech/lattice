@@ -1,5 +1,5 @@
 /**
- * @lattice/container/containerProvider
+ * @oyinlola141/lattice-container/containerProvider
  *
  * Dependency provider implementations and factories.
  */

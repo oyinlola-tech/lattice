@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/base
+ * @oyinlola141/lattice-errors/base
  *
  * Base error class, error codes, categories, and severity levels.
  */

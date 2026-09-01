@@ -16,7 +16,7 @@ import type {
 
 /**
  * Creates a unique message identifier.
- * Returns a branded MessageId type from @lattice/constants.
+ * Returns a branded MessageId type from @oyinlola141/lattice-constants.
  */
 export function createMessageId(): MessageId {
   return `msg:${createUuid()}` as MessageId;

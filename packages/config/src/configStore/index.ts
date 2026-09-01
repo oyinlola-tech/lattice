@@ -1,5 +1,5 @@
 /**
- * @lattice/config/configStore
+ * @oyinlola141/lattice-config/configStore
  *
  * In-memory configuration storage and access.
  */

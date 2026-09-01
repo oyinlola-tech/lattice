@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpStream — Shared settle-once guard, cleanup, and abort patterns.
+ * @oyinlola141/lattice-http/httpStream — Shared settle-once guard, cleanup, and abort patterns.
  */
 
 import {

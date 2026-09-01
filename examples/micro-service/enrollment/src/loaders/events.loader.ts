@@ -1,5 +1,5 @@
-import type { Logger } from "@lattice/logger";
-import type { EventBus } from "@lattice/events";
+import type { Logger } from "@oyinlola141/lattice-logger";
+import type { EventBus } from "@oyinlola141/lattice-events";
 import { StudentEnrolledEvent, StudentWithdrawnEvent } from "../events/index.js";
 
 /** Configuration for the event loader. */

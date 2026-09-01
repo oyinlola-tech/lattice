@@ -1,6 +1,6 @@
 import type {
   Environment,
-} from "@lattice/constants";
+} from "@oyinlola141/lattice-constants";
 
 import {
   createRuntimeId as generateRuntimeId,

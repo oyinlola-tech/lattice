@@ -1,5 +1,5 @@
 /**
- * @lattice/cache — Metrics Tests
+ * @oyinlola141/lattice-cache — Metrics Tests
  *
  * Tests for InMemoryCacheMetrics: hit/miss/set/delete/error counters,
  * latency tracking, hot keys, and histograms.

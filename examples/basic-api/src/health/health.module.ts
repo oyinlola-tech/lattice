@@ -4,7 +4,7 @@
  * Provides the /health endpoint.
  */
 
-import { BaseModule } from "@lattice/core";
+import { BaseModule } from "@oyinlola141/lattice-core";
 import { HealthController } from "./health.controller.js";
 
 export class HealthModule extends BaseModule {

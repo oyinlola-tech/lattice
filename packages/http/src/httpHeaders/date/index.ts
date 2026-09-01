@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpHeaders/date
+ * @oyinlola141/lattice-http/httpHeaders/date
  *
  * HTTP headers date utilities.
  */

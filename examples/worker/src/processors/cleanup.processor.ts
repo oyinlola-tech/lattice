@@ -5,8 +5,8 @@
  * Demonstrates scheduled cleanup tasks.
  */
 
-import type { Job } from "@lattice/queue";
-import type { JobContext } from "@lattice/queue";
+import type { Job } from "@oyinlola141/lattice-queue";
+import type { JobContext } from "@oyinlola141/lattice-queue";
 import type { CleanupJobData } from "../jobs/jobs.types.js";
 
 export class CleanupProcessor {

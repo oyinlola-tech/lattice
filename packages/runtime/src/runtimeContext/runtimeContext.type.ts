@@ -1,18 +1,18 @@
 import type {
   Environment,
-} from "@lattice/constants";
+} from "@oyinlola141/lattice-constants";
 
 import type {
   Logger,
-} from "@lattice/logger";
+} from "@oyinlola141/lattice-logger";
 
 import type {
   EventBus,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import type {
   Container,
-} from "@lattice/container";
+} from "@oyinlola141/lattice-container";
 
 import type {
   RuntimeId,

@@ -1,5 +1,5 @@
 /**
- * @lattice/security — Types Barrel
+ * @oyinlola141/lattice-security — Types Barrel
  *
  * Re-exports all security configuration and result types.
  */

@@ -1,7 +1,7 @@
-import { createLogger } from "@lattice/logger";
+import { createLogger, LoggerLevel } from "@oyinlola141/lattice-logger";
 import { createServer } from "node:http";
 
-const logger = createLogger({ name: "hello-world", level: "info" });
+const logger = createLogger({ name: "hello-world", level: LoggerLevel.INFO });
 
 const server = createServer((req, res) => {
   logger.info("Received request", {

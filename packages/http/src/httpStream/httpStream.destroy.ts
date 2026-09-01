@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpStream — Stream destruction helper.
+ * @oyinlola141/lattice-http/httpStream — Stream destruction helper.
  */
 
 import {

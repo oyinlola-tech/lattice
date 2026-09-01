@@ -1,10 +1,10 @@
 /**
- * @lattice/http/httpStream — Stream error helpers.
+ * @oyinlola141/lattice-http/httpStream — Stream error helpers.
  */
 
 import {
   HttpStreamError as StreamError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export { StreamError };
 

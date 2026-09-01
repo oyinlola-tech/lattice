@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle tests
+ * @oyinlola141/lattice-lifecycle tests
  *
  * Comprehensive tests for the lifecycle orchestration system.
  */
@@ -22,7 +22,7 @@ import {
   SHUTDOWN_PHASES,
   installSignalHandlers,
 } from "../src/index.js";
-import { LifecycleState, LifecyclePhase } from "@lattice/constants";
+import { LifecycleState, LifecyclePhase } from "@oyinlola141/lattice-constants";
 import type { LifecycleComponent } from "../src/index.js";
 
 describe("LifecycleStateMachine", () => {

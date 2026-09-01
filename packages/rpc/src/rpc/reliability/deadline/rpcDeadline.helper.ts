@@ -1,5 +1,5 @@
 /**
- * @lattice/rpc/reliability/deadline
+ * @oyinlola141/lattice-rpc/reliability/deadline
  *
  * Deadline utilities for RPC operations.
  */

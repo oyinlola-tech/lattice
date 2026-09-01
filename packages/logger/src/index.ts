@@ -1,5 +1,5 @@
 /**
- * @lattice/logger
+ * @oyinlola141/lattice-logger
  *
  * Structured logging with transports, formatters, and context for the Lattice framework.
  */

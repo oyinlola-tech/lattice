@@ -3,14 +3,14 @@
  *
  * @module authRbac
  *
- * Re-exported from @lattice/permissions for backward compatibility.
- * For new code, import directly from @lattice/permissions.
+ * Re-exported from @oyinlola141/lattice-permissions for backward compatibility.
+ * For new code, import directly from @oyinlola141/lattice-permissions.
  */
 
 import type {
   PermissionString as PermissionsPermissionString,
   RoleDefinition as PermissionsRole,
-} from "@lattice/permissions";
+} from "@oyinlola141/lattice-permissions";
 
 /**
  * Permission string format: "resource:action"

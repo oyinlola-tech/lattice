@@ -1,5 +1,5 @@
 /**
- * @lattice/plugins
+ * @oyinlola141/lattice-plugins
  *
  * Controlled extension system for the Lattice framework.
  *
@@ -8,13 +8,13 @@
  *
  * @example
  * ```ts
- * import { PluginManager, createPluginContext } from "@lattice/plugins";
+ * import { PluginManager, createPluginContext } from "@oyinlola141/lattice-plugins";
  *
  * const manager = new PluginManager();
  *
  * manager.register({
- *   metadata: { name: "@lattice/http" },
- *   dependencies: [{ name: "@lattice/events" }],
+ *   metadata: { name: "@oyinlola141/lattice-http" },
+ *   dependencies: [{ name: "@oyinlola141/lattice-events" }],
  *   async install(context) {
  *     // register services
  *   },
@@ -23,7 +23,7 @@
  *   },
  * });
  *
- * await manager.start(createPluginContext({ metadata: { name: "@lattice/http" } }));
+ * await manager.start(createPluginContext({ metadata: { name: "@oyinlola141/lattice-http" } }));
  * ```
  */
 
@@ -63,7 +63,7 @@ export {
   PluginStateError,
   createPluginError,
   isPluginError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export type {
   PluginState,

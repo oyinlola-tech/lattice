@@ -1,5 +1,5 @@
 /**
- * @lattice/rpc/reliability/cancellation
+ * @oyinlola141/lattice-rpc/reliability/cancellation
  *
  * Cancellation utilities for RPC operations.
  */

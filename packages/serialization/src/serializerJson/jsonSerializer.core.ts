@@ -10,9 +10,9 @@ import type { Serializer, SerializeOptions, DeserializeOptions } from "../serial
 import { TransformerRegistry } from "../serializerTransforms/index.js";
 import { DateTransformer, BigIntTransformer, MapTransformer, SetTransformer } from "../serializerTransforms/index.js";
 import { BufferTransformer, ErrorTransformer } from "../serializerTransformsExt/index.js";
-import { SerializationLimits, SerializationTags } from "@lattice/constants";
-import { isPlainObject } from "@lattice/types";
-import { assertNoCircularReference, assertDepthWithinLimit, assertSizeWithinLimit } from "@lattice/validation";
+import { SerializationLimits, SerializationTags } from "@oyinlola141/lattice-constants";
+import { isPlainObject } from "@oyinlola141/lattice-types";
+import { assertNoCircularReference, assertDepthWithinLimit, assertSizeWithinLimit } from "@oyinlola141/lattice-validation";
 
 /** Default transformer registry with all built-in transformers. */
 function createDefaultTransformers(): TransformerRegistry {

@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpHeaders/range
+ * @oyinlola141/lattice-http/httpHeaders/range
  *
  * HTTP headers range utilities.
  */

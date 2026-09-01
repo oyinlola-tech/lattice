@@ -1,5 +1,5 @@
 /**
- * @lattice/storage — Base Repository
+ * @oyinlola141/lattice-storage — Base Repository
  *
  * Provides a base implementation for repository CRUD operations.
  * Concrete repositories can extend this for domain-specific queries.

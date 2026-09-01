@@ -1,5 +1,5 @@
 /**
- * @lattice/database — Seeds
+ * @oyinlola141/lattice-database — Seeds
  *
  * Database seed runner with execution tracking.
  */

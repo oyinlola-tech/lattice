@@ -1,5 +1,5 @@
 /**
- * @lattice/cache — Memory Adapter Tests
+ * @oyinlola141/lattice-cache — Memory Adapter Tests
  *
  * Tests for MemoryCacheAdapter: get/set/delete/has/clear, TTL expiration,
  * batch operations, keys listing, and eviction behavior.

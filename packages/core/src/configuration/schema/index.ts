@@ -1,5 +1,5 @@
 /**
- * @lattice/core/configuration/schema
+ * @oyinlola141/lattice-core/configuration/schema
  *
  * Configuration schemas and validation.
  */

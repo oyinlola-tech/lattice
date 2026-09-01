@@ -13,7 +13,7 @@ import {
 
 import {
   cryptoKeyDerivationError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 import {
   CryptoAlgorithm,

@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/utils
+ * @oyinlola141/lattice-errors/utils
  *
  * Error handling utilities, mappers, and serializers.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/config/configLoader
+ * @oyinlola141/lattice-config/configLoader
  *
  * Configuration loading from sources and caching.
  */

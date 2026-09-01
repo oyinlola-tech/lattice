@@ -1,4 +1,4 @@
-import { Query } from "@lattice/cqrs";
+import { Query } from "@oyinlola141/lattice-cqrs";
 import type { TopicId } from "../../../../types/index.js";
 
 export class GetTopicQuery extends Query<"topics.get"> {

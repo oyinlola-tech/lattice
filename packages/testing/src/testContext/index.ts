@@ -1,5 +1,5 @@
 /**
- * @lattice/testing — Central test context.
+ * @oyinlola141/lattice-testing — Central test context.
  *
  * Bundles test utilities into one isolated context per test.
  */

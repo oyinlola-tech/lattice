@@ -1,5 +1,5 @@
 /**
- * @lattice/logger/loggerEntry/loggerEntryHelpers
+ * @oyinlola141/lattice-logger/loggerEntry/loggerEntryHelpers
  *
  * Logger entry helper types and utilities.
  */

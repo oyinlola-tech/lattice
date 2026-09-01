@@ -5,7 +5,7 @@
 
 import type { Token } from "../containerToken/containerToken.type.js";
 import { describeToken } from "../containerToken/containerToken.type.js";
-import { ContainerLifecycleError } from "@lattice/errors";
+import { ContainerLifecycleError } from "@oyinlola141/lattice-errors";
 
 export interface Disposable { dispose(): void; }
 export interface AsyncDisposable { [Symbol.asyncDispose]?: () => Promise<void>; }

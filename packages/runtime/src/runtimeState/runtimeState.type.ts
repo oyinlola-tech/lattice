@@ -1,10 +1,10 @@
 import type {
   EntityId,
-} from "@lattice/constants";
+} from "@oyinlola141/lattice-constants";
 
 import type {
   RuntimeError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Extended runtime lifecycle states.

@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpHsts
+ * @oyinlola141/lattice-http/httpHsts
  *
  * HTTP httpHsts module.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/messaging/messageBus
+ * @oyinlola141/lattice-messaging/messageBus
  *
  * MessageBus interface and in-memory implementation.
  */

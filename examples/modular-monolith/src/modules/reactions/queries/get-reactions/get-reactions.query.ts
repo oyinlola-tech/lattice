@@ -1,4 +1,4 @@
-import { Query } from "@lattice/cqrs";
+import { Query } from "@oyinlola141/lattice-cqrs";
 import type { ArticleId } from "../../../../types/index.js";
 
 export class GetReactionsQuery extends Query<"reactions.get"> {

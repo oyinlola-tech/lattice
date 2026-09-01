@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpRouter/core/manage
+ * @oyinlola141/lattice-http/httpRouter/core/manage
  *
  * HTTP router management utilities.
  */

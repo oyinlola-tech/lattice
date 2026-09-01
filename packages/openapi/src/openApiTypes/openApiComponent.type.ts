@@ -2,6 +2,8 @@
  * OpenAPI component types (responses, request bodies, media types, etc.).
  */
 
+import type { OpenAPIParameter } from "./openApiPath.type.js";
+
 export interface OpenAPIComponents {
   readonly schemas?: Readonly<Record<string, import("./openApiSchema.type.js").OpenAPISchema>>;
   readonly responses?: Readonly<Record<string, OpenAPIResponse>>;
@@ -21,18 +23,7 @@ export interface OpenAPIResponse {
   readonly links?: Readonly<Record<string, OpenAPILink>>;
 }
 
-export interface OpenAPIParameter {
-  readonly name: string;
-  readonly in: import("./openApiPath.type.js").OpenAPIParameterLocation;
-  readonly description?: string;
-  readonly required?: boolean;
-  readonly deprecated?: boolean;
-  readonly allowEmptyValue?: boolean;
-  readonly schema?: unknown;
-  readonly example?: unknown;
-  readonly examples?: Readonly<Record<string, OpenAPIExample>>;
-  readonly content?: Readonly<Record<string, OpenAPIMediaType>>;
-}
+export type { OpenAPIParameter, OpenAPIParameterLocation } from "./openApiPath.type.js";
 
 export interface OpenAPIRequestBody {
   readonly description?: string;

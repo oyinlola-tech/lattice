@@ -1,5 +1,5 @@
 /**
- * @lattice/openapi/openApiErrors
+ * @oyinlola141/lattice-openapi/openApiErrors
  *
  * OpenAPI-specific error classes.
  */

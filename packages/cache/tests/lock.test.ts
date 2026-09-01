@@ -1,5 +1,5 @@
 /**
- * @lattice/cache — Lock Manager Tests
+ * @oyinlola141/lattice-cache — Lock Manager Tests
  *
  * Tests for InMemoryLockStore, CacheLockManager acquire/release/extend,
  * withLock execution, and retry behavior.

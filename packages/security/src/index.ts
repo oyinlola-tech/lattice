@@ -1,5 +1,5 @@
 /**
- * @lattice/security
+ * @oyinlola141/lattice-security
  *
  * Security primitives for the Lattice framework.
  *
@@ -9,7 +9,7 @@
  *
  * @example
  * ```ts
- * import { validateHeaders, validateUrl, generateSecurityHeaders } from '@lattice/security';
+ * import { validateHeaders, validateUrl, generateSecurityHeaders } from '@oyinlola141/lattice-security';
  *
  * // Validate request headers
  * const result = validateHeaders(request.headers);
@@ -100,6 +100,7 @@ export {
   isMethodAllowed,
   getDisallowedHeaders,
 } from "./cors/index.js";
+export { cors } from "./cors/cors.namespace.js";
 
 /* ─── CSRF ───────────────────────────────────────────────────────────────── */
 export {
@@ -118,6 +119,7 @@ export {
   createRateLimiter,
   extractClientIp,
 } from "./rateLimit/index.js";
+export { rateLimit } from "./rateLimit/rateLimit.namespace.js";
 
 /* ─── Security Headers ───────────────────────────────────────────────────── */
 export { SECURITY_HEADER_NAMES } from "./headers/index.js";

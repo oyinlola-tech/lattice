@@ -1,11 +1,11 @@
 /**
- * @lattice/validation — Size checking.
+ * @oyinlola141/lattice-validation — Size checking.
  *
  * Estimates serialized payload size to prevent memory exhaustion
  * from excessively large payloads.
  */
 
-import { SerializationPayloadTooLargeError } from "@lattice/errors";
+import { SerializationPayloadTooLargeError } from "@oyinlola141/lattice-errors";
 
 /**
  * Estimate the byte size of a value as JSON without allocating a string.

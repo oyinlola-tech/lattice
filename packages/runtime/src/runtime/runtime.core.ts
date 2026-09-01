@@ -1,18 +1,18 @@
 import type {
   Logger,
-} from "@lattice/logger";
+} from "@oyinlola141/lattice-logger";
 
 import type {
   EventBus,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import type {
   Container,
-} from "@lattice/container";
+} from "@oyinlola141/lattice-container";
 
 import type {
   Module,
-} from "@lattice/core";
+} from "@oyinlola141/lattice-core";
 
 import type {
   RuntimeState,
@@ -78,7 +78,7 @@ import {
 
 import {
   createEvent,
-} from "@lattice/events";
+} from "@oyinlola141/lattice-events";
 
 import {
   RuntimeStartError,

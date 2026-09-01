@@ -1,5 +1,5 @@
 /**
- * @lattice/core/configuration/loader
+ * @oyinlola141/lattice-core/configuration/loader
  *
  * Configuration loading pipeline.
  */

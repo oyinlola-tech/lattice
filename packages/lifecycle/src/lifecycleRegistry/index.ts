@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/registry
+ * @oyinlola141/lattice-lifecycle/registry
  *
  * Lifecycle component registry with validation and dependency tracking.
  */

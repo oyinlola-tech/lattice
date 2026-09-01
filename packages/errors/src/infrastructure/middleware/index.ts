@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/infrastructure/middleware
+ * @oyinlola141/lattice-errors/infrastructure/middleware
  *
  * Middleware error types.
  */

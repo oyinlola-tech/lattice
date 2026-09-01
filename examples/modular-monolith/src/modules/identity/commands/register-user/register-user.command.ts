@@ -1,4 +1,4 @@
-import { Command } from "@lattice/cqrs";
+import { Command } from "@oyinlola141/lattice-cqrs";
 import type { CreateUserDto } from "../../../../dtos/index.js";
 
 export class RegisterUserCommand extends Command<"identity.register-user"> {

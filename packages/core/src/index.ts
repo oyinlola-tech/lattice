@@ -1,5 +1,5 @@
 /**
- * @lattice/core
+ * @oyinlola141/lattice-core
  *
  * Core framework primitives and runtime infrastructure.
  *

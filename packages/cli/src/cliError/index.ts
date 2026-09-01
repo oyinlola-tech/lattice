@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Errors
+ * @oyinlola141/lattice-cli — CLI Errors
  *
  * All CLI error types re-exported from their respective files.
  */

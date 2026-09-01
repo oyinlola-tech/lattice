@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Tracer
+ * @oyinlola141/lattice-observability — Tracer
  *
  * Creates spans and notifies processors on start/end.
  */

@@ -1,4 +1,4 @@
-import { TimeMs } from "@lattice/constants";
+import { TimeMs } from "@oyinlola141/lattice-constants";
 
 /**
  * Supported cryptographic algorithms used by Lattice.

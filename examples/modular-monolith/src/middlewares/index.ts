@@ -1,4 +1,4 @@
-import type { Logger } from "@lattice/logger";
+import type { Logger } from "@oyinlola141/lattice-logger";
 
 export interface MiddlewareContext {
   readonly method: string;

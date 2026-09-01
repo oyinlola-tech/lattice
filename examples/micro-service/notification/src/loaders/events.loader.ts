@@ -1,5 +1,5 @@
-import type { EventBus } from "@lattice/events";
-import type { Queue } from "@lattice/queue";
+import type { EventBus } from "@oyinlola141/lattice-events";
+import type { Queue } from "@oyinlola141/lattice-queue";
 import { UserCreatedEvent, StudentEnrolledEvent, AssessmentSubmittedEvent, ResultPublishedEvent } from "../events/index.js";
 import type { ProcessNotificationJobData } from "../jobs/index.js";
 import { NOTIFICATION_JOB_NAME } from "../constants/index.js";

@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters/adapter
+ * @oyinlola141/lattice-adapters/adapter
  *
  * Core adapter types and registry.
  */

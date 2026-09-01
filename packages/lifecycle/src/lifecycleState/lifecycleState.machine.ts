@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/state-machine
+ * @oyinlola141/lattice-lifecycle/state-machine
  *
  * Lifecycle state machine — validates transitions and tracks current state.
  */
@@ -7,10 +7,10 @@
 import {
   LifecycleState,
   LIFECYCLE_VALID_TRANSITIONS,
-} from "@lattice/constants";
+} from "@oyinlola141/lattice-constants";
 import {
   LifecycleStateError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Manages lifecycle state transitions for a single entity.

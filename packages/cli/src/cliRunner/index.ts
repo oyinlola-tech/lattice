@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Runner
+ * @oyinlola141/lattice-cli — CLI Runner
  *
  * Command execution with lifecycle hooks and error handling.
  */

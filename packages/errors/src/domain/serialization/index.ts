@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/domain/serialization
+ * @oyinlola141/lattice-errors/domain/serialization
  *
  * Serialization, deserialization, and transformer error types.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/openapi
+ * @oyinlola141/lattice-openapi
  *
  * API contract and documentation engine for the Lattice framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { OpenAPIManager } from "@lattice/openapi";
+ * import { OpenAPIManager } from "@oyinlola141/lattice-openapi";
  *
  * const manager = new OpenAPIManager("3.1.0");
  *

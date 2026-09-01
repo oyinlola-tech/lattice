@@ -6,7 +6,7 @@
 
 import type {
   BaseError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Asserts that a function throws an error.

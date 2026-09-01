@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/events
+ * @oyinlola141/lattice-lifecycle/events
  *
  * Lifecycle event emitter for observability integration.
  */

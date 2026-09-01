@@ -4,7 +4,7 @@
  * @module middlewareErrors
  */
 
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "@lattice/errors";
+import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "@oyinlola141/lattice-errors";
 
 /**
  * Error thrown when a middleware pipeline fails.

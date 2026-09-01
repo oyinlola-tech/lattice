@@ -1,5 +1,5 @@
 /**
- * @lattice/serialization — Serialization envelope.
+ * @oyinlola141/lattice-serialization — Serialization envelope.
  *
  * Wraps serialized data with metadata (format, version, encoding)
  * so consumers know how to deserialize the payload. Essential for
@@ -11,7 +11,7 @@ import type {
   SerializationMetadata,
   SerializedValue,
 } from "../serializerTypes/index.js";
-import { SerializationFormat, SerializationContentType, SERIALIZATION_SCHEMA_VERSION } from "@lattice/constants";
+import { SerializationFormat, SerializationContentType, SERIALIZATION_SCHEMA_VERSION } from "@oyinlola141/lattice-constants";
 import { encodeUtf8, decodeUtf8 } from "../serializerTransformsExt/index.js";
 
 /**

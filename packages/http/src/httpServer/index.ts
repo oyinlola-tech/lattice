@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpServer
+ * @oyinlola141/lattice-http/httpServer
  *
  * HTTP httpServer module.
  */

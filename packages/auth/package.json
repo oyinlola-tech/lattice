@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/auth",
+  "name": "@oyinlola141/lattice-auth",
   "version": "0.1.0",
-  "private": true,
   "description": "Authentication and authorization services for the Lattice framework — JWT, sessions, RBAC, OAuth2, and password management.",
   "license": "MIT",
   "type": "module",
@@ -26,9 +25,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*",
-    "@lattice/permissions": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-permissions": "workspace:*"
   },
   "engines": {
     "node": ">=24.0.0"
@@ -36,5 +35,8 @@
   "devDependencies": {
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

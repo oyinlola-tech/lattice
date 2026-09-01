@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Long Option Parser
+ * @oyinlola141/lattice-cli — Long Option Parser
  *
  * Parses `--option`, `--option=value`, and `--no-option` style arguments.
  */

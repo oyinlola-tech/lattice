@@ -1,5 +1,5 @@
 /**
- * @lattice/database — Transactions
+ * @oyinlola141/lattice-database — Transactions
  *
  * Managed transaction execution with retry support.
  */

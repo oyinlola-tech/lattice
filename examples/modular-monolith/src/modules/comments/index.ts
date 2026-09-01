@@ -1,5 +1,5 @@
-import { CommandBus, QueryBus } from "@lattice/cqrs";
-import type { EventBus } from "@lattice/events";
+import { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
+import type { EventBus } from "@oyinlola141/lattice-events";
 import type { CommentRepository } from "../../repositories/comment.repository.js";
 import type { ArticleRepository } from "../../repositories/article.repository.js";
 import { CreateCommentHandler } from "./commands/create-comment/create-comment.handler.js";

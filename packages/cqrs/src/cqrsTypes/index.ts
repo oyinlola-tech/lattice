@@ -1,5 +1,5 @@
 /**
- * @lattice/cqrs/cqrsTypes
+ * @oyinlola141/lattice-cqrs/cqrsTypes
  *
  * Core CQRS type definitions: commands, queries, handlers, middleware, and bus contracts.
  */

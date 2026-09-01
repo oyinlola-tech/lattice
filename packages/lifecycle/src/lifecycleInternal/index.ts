@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/internal
+ * @oyinlola141/lattice-lifecycle/internal
  *
  * Internal utilities: dependency graph, topological sort, async helpers.
  */

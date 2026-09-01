@@ -1,4 +1,4 @@
-import { CommandHandler } from "@lattice/cqrs";
+import { CommandHandler } from "@oyinlola141/lattice-cqrs";
 import type { RegisterUserCommand } from "./register-user.command.js";
 import type { UserRepository } from "../../../../repositories/user.repository.js";
 import { ConflictError } from "../../../../errors/index.js";

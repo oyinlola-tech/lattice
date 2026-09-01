@@ -1,5 +1,5 @@
 /**
- * @lattice/schema/composition/enum
+ * @oyinlola141/lattice-schema/composition/enum
  *
  * Enum schema for constrained value sets.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@lattice/constants";
+import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
 
 /**
  * Schema for a fixed set of allowed values.

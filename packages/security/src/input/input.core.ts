@@ -1,5 +1,5 @@
 /**
- * @lattice/security — Input Sanitization
+ * @oyinlola141/lattice-security — Input Sanitization
  *
  * Sanitizes user input against common attack patterns.
  */

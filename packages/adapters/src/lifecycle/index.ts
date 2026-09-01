@@ -1,5 +1,5 @@
 /**
- * @lattice/adapters/lifecycle
+ * @oyinlola141/lattice-adapters/lifecycle
  *
  * Adapter lifecycle contracts.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpValidation
+ * @oyinlola141/lattice-http/httpValidation
  *
  * HTTP validation module.
  *

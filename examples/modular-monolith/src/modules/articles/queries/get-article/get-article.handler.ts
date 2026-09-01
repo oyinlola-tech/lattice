@@ -1,4 +1,4 @@
-import { QueryHandler } from "@lattice/cqrs";
+import { QueryHandler } from "@oyinlola141/lattice-cqrs";
 import type { GetArticleQuery } from "./get-article.query.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
 import type { ArticleModel } from "../../../../models/article.model.js";

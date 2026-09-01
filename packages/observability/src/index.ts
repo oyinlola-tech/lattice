@@ -1,5 +1,5 @@
 /**
- * @lattice/observability
+ * @oyinlola141/lattice-observability
  *
  * Structured logging, metrics, tracing, context propagation, and
  * telemetry exporters for the Lattice framework.
@@ -11,7 +11,7 @@
  * ## Usage
  *
  * ```typescript
- * import { createObservability, LogLevel } from "@lattice/observability";
+ * import { createObservability, LogLevel } from "@oyinlola141/lattice-observability";
  *
  * const obs = createObservability({
  *   serviceName: "my-api",

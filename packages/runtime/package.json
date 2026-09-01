@@ -1,5 +1,5 @@
 {
-  "name": "@lattice/runtime",
+  "name": "@oyinlola141/lattice-runtime",
   "version": "0.1.0",
   "description": "Application runtime orchestrator for Lattice framework lifecycle management.",
   "type": "module",
@@ -31,13 +31,19 @@
     "vitest": "^4.1.11"
   },
   "dependencies": {
-    "@lattice/errors": "workspace:*",
-    "@lattice/constants": "workspace:*",
-    "@lattice/container": "workspace:*",
-    "@lattice/config": "workspace:*",
-    "@lattice/logger": "workspace:*",
-    "@lattice/events": "workspace:*",
-    "@lattice/core": "workspace:*"
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-container": "workspace:*",
+    "@oyinlola141/lattice-config": "workspace:*",
+    "@oyinlola141/lattice-logger": "workspace:*",
+    "@oyinlola141/lattice-events": "workspace:*",
+    "@oyinlola141/lattice-core": "workspace:*"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
 }

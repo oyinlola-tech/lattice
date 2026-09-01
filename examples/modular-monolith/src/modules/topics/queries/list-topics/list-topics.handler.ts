@@ -1,4 +1,4 @@
-import { QueryHandler } from "@lattice/cqrs";
+import { QueryHandler } from "@oyinlola141/lattice-cqrs";
 import type { ListTopicsQuery } from "./list-topics.query.js";
 import type { TopicRepository } from "../../../../repositories/topic.repository.js";
 import type { TopicModel } from "../../../../models/topic.model.js";

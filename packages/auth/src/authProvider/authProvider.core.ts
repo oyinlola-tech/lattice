@@ -8,7 +8,7 @@ import type { AuthUser, UserCredentials, UserId } from "../authTypes/authUser.ty
 import type { TokenPair, TokenConfig } from "../authTypes/authToken.type.js";
 import type { SessionStore, CreateSessionOptions, SessionId } from "../authTypes/authSession.type.js";
 import type { GuardResult } from "../authTypes/authRbac.type.js";
-import type { PermissionEngine } from "@lattice/permissions";
+import type { PermissionEngine } from "@oyinlola141/lattice-permissions";
 import { hashPassword, verifyPassword } from "../authPassword/authPassword.core.js";
 import { createTokenPair, verifyAccessToken, refreshAccessToken } from "../authToken/authToken.core.js";
 import { InvalidCredentialsError, TokenExpiredError, AccountDeactivatedError } from "../authErrors/authError.base.js";
@@ -117,7 +117,7 @@ export function createAuthService(config: AuthServiceConfig) {
 
     /**
      * Check if a user has a specific permission.
-     * Delegates to @lattice/permissions engine when configured.
+     * Delegates to @oyinlola141/lattice-permissions engine when configured.
      */
     async checkAccess(
       userId: UserId,

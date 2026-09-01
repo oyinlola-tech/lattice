@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpCors
+ * @oyinlola141/lattice-http/httpCors
  *
  * HTTP httpCors module.
  */

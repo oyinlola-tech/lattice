@@ -1,7 +1,7 @@
 /**
  * HTTP middleware error types.
  *
- * Extends the shared MiddlewareError from @lattice/errors with
+ * Extends the shared MiddlewareError from @oyinlola141/lattice-errors with
  * HTTP-specific middleware error information.
  *
  * @module httpMiddleware/errors
@@ -9,7 +9,7 @@
 
 import {
   BaseError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /* -------------------------------------------------------------------------- */
 /* Errors                                                                     */

@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/cryptoEncoding
+ * @oyinlola141/lattice-crypto/cryptoEncoding
  *
  * Encoding and decoding utilities (hex, base64, UTF-8).
  */

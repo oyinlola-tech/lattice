@@ -1,5 +1,5 @@
 /**
- * @lattice/database — Database Types
+ * @oyinlola141/lattice-database — Database Types
  *
  * Core type definitions for the database package.
  */

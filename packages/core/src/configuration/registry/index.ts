@@ -1,5 +1,5 @@
 /**
- * @lattice/core/configuration/registry
+ * @oyinlola141/lattice-core/configuration/registry
  *
  * Configuration registry and provider.
  */

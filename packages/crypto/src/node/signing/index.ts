@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/node/signing
+ * @oyinlola141/lattice-crypto/node/signing
  *
  * Digital signature operations.
  */

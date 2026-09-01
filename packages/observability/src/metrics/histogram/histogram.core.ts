@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Histogram
+ * @oyinlola141/lattice-observability — Histogram
  *
  * Distribution of observed values for tracking latencies, sizes, etc.
  * Memory-bounded by keeping only summary statistics.

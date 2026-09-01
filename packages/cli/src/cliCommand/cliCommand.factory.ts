@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Command Factory
+ * @oyinlola141/lattice-cli — Command Factory
  *
  * Factory functions for creating and executing CLI commands.
  */

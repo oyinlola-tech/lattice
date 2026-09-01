@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/domain/access
+ * @oyinlola141/lattice-errors/domain/access
  *
  * Authentication, authorization, and rate limit errors.
  */

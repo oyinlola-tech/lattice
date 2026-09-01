@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/context
+ * @oyinlola141/lattice-lifecycle/context
  *
  * Lifecycle context type and factory.
  */

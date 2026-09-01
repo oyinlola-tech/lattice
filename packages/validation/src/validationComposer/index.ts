@@ -1,5 +1,5 @@
 /**
- * @lattice/validation/validationComposer
+ * @oyinlola141/lattice-validation/validationComposer
  *
  * Schema composition and merging utilities.
  */

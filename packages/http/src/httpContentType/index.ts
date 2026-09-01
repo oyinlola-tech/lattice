@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpContentType
+ * @oyinlola141/lattice-http/httpContentType
  *
  * HTTP Content-Type parsing, normalization, matching, and media type helpers.
  */

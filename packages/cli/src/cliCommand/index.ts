@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Commands
+ * @oyinlola141/lattice-cli — CLI Commands
  *
  * Command registry, builder, factory, and validation utilities.
  */

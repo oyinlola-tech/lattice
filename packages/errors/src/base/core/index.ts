@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/base/core
+ * @oyinlola141/lattice-errors/base/core
  *
  * Base error class and metadata handling.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Writer
+ * @oyinlola141/lattice-cli — CLI Writer
  *
  * Writer factory and signal handling for the CLI application.
  */

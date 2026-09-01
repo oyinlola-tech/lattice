@@ -20,7 +20,7 @@ import type {
 
 import {
   DuplicateMessageHandlerError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * In-memory store for registered message handlers.

@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/plan
+ * @oyinlola141/lattice-lifecycle/plan
  *
  * Lifecycle execution planner for building startup/shutdown stages.
  */

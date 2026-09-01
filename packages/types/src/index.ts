@@ -1,5 +1,5 @@
 /**
- * @lattice/types
+ * @oyinlola141/lattice-types
  *
  * Shared TypeScript type guards, utility types, and type conversion helpers.
  *
@@ -7,7 +7,7 @@
  * advanced utility types (DeepReadonly, Prettify, NestedKeyOf, etc.),
  * and runtime converters (safeJsonParse, snakeToCamel, toBoolean, etc.).
  *
- * @module @lattice/types
+ * @module @oyinlola141/lattice-types
  */
 
 export * from "./typeGuards/index.js";

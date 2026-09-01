@@ -1,9 +1,9 @@
 /**
- * @lattice/serialization — Core type definitions.
+ * @oyinlola141/lattice-serialization — Core type definitions.
  *
  * Defines the contracts that all serialization implementations
  * must satisfy. These types are serialization-specific and are
- * NOT available in @lattice/types or @lattice/constants.
+ * NOT available in @oyinlola141/lattice-types or @oyinlola141/lattice-constants.
  */
 
 /** Supported serialization format identifiers. */

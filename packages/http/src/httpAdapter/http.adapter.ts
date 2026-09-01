@@ -184,7 +184,7 @@ export interface HttpAdapter {
 
 import {
   HttpAdapterError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export { HttpAdapterError };
 

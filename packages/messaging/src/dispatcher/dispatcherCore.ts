@@ -26,7 +26,7 @@ import {
   MessageDispatchAbortedError,
   MessageHandlerError,
   MessageDispatchError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Default dispatcher implementation.

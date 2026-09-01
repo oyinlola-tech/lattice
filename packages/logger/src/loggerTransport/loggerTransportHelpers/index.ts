@@ -1,5 +1,5 @@
 /**
- * @lattice/logger/loggerTransport/loggerTransportHelpers
+ * @oyinlola141/lattice-logger/loggerTransport/loggerTransportHelpers
  *
  * Transport helper functions.
  */

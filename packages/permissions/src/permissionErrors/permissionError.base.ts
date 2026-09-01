@@ -3,10 +3,10 @@
  *
  * @module permissionErrors/permissionError
  *
- * Extends AuthorizationError from @lattice/errors.
+ * Extends AuthorizationError from @oyinlola141/lattice-errors.
  */
 
-import { AuthorizationError, ErrorCode, type ErrorMetadata } from "@lattice/errors";
+import { AuthorizationError, ErrorCode, type ErrorMetadata } from "@oyinlola141/lattice-errors";
 
 /**
  * Base error for all permission-related failures.

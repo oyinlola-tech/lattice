@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpHeaders/negotiation
+ * @oyinlola141/lattice-http/httpHeaders/negotiation
  *
  * HTTP headers negotiation utilities.
  */

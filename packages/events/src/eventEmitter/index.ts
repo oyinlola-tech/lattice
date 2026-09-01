@@ -1,5 +1,5 @@
 /**
- * @lattice/events/eventEmitter
+ * @oyinlola141/lattice-events/eventEmitter
  *
  * Event emission and handler dispatch.
  */

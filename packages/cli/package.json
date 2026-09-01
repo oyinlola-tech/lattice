@@ -1,7 +1,6 @@
 {
-  "name": "@lattice/cli",
+  "name": "@oyinlola141/lattice-cli",
   "version": "0.1.0",
-  "private": true,
   "description": "Command-line interface for the Lattice framework.",
   "license": "MIT",
   "type": "module",
@@ -29,10 +28,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@lattice/config": "workspace:*",
-    "@lattice/core": "workspace:*",
-    "@lattice/errors": "workspace:*",
-    "@lattice/logger": "workspace:*"
+    "@oyinlola141/lattice-config": "workspace:*",
+    "@oyinlola141/lattice-core": "workspace:*",
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-logger": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.0",
@@ -42,5 +41,8 @@
   },
   "engines": {
     "node": ">=24.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

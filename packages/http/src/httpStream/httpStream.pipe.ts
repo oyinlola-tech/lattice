@@ -1,8 +1,8 @@
 /**
- * @lattice/http/httpStream — Pipe and copy streams between source and destination.
+ * @oyinlola141/lattice-http/httpStream — Pipe and copy streams between source and destination.
  */
 
-import { HttpStreamError as StreamError } from "@lattice/errors";
+import { HttpStreamError as StreamError } from "@oyinlola141/lattice-errors";
 import type { StreamPipeOptions, StreamResult, HTTPStreamOptions } from "./httpStream.types.js";
 import { createAbortError } from "./httpStream.error.js";
 import { isReadableEnded, isWritableFinished } from "./httpStream.state.js";

@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — Help Formatter
+ * @oyinlola141/lattice-cli — Help Formatter
  *
  * Formatting utilities for CLI help text output.
  */

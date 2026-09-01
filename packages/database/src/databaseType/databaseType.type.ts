@@ -15,8 +15,7 @@ export type TransactionIsolationLevel =
   | "ReadUncommitted"
   | "ReadCommitted"
   | "RepeatableRead"
-  | "Serializable"
-  | "Snapshot";
+  | "Serializable";
 
 /**
  * Database operation types.

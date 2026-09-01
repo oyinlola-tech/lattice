@@ -1,5 +1,5 @@
 /**
- * @lattice/cli — CLI Application
+ * @oyinlola141/lattice-cli — CLI Application
  *
  * Main CLI application class that orchestrates command registration,
  * parsing, execution, and built-in help/version handling.
@@ -21,7 +21,7 @@ import { CommandNotFoundError } from "../cliError/cliError.command.js";
 import { CLICommandRegistry } from "../cliCommand/cliCommand.registry.js";
 import { executeCommand } from "../cliCommand/cliCommand.factory.js";
 import { CLIParser, resolveCommand } from "../cliParser/index.js";
-import { createDefaultLogger } from "@lattice/logger";
+import { createDefaultLogger } from "@oyinlola141/lattice-logger";
 import { createCLIWriter } from "./cliApplication.writer.js";
 import {
   isHelpRequest,

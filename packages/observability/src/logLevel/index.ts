@@ -1,5 +1,5 @@
 /**
- * @lattice/observability — Log Level
+ * @oyinlola141/lattice-observability — Log Level
  *
  * Level names, conversion, and filtering utilities.
  */

@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpMethods
+ * @oyinlola141/lattice-http/httpMethods
  *
  * HTTP httpMethods module.
  */

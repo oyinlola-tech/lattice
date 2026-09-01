@@ -16,7 +16,7 @@ import {
 import {
   createCryptoError,
   cryptoHashError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export type { TokenOptions, TokenEncoding };
 

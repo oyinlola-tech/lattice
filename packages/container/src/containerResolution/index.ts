@@ -1,5 +1,5 @@
 /**
- * @lattice/container/containerResolution
+ * @oyinlola141/lattice-container/containerResolution
  *
  * Dependency resolution and injection.
  */

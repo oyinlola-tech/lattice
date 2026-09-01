@@ -1,11 +1,11 @@
 /**
- * @lattice/validation — Depth checking.
+ * @oyinlola141/lattice-validation — Depth checking.
  *
  * Computes and validates the nesting depth of object graphs
  * to prevent stack overflows from deeply nested payloads.
  */
 
-import { SerializationDepthError } from "@lattice/errors";
+import { SerializationDepthError } from "@oyinlola141/lattice-errors";
 
 /**
  * Compute the maximum nesting depth of a value.

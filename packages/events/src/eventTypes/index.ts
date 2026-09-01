@@ -1,5 +1,5 @@
 /**
- * @lattice/events/eventTypes
+ * @oyinlola141/lattice-events/eventTypes
  *
  * Event type definitions and payload types.
  */

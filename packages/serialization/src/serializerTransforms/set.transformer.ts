@@ -1,12 +1,12 @@
 /**
- * @lattice/serialization — Set transformer.
+ * @oyinlola141/lattice-serialization — Set transformer.
  *
  * Preserves Set instances across serialization boundaries
  * using an array representation.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { SerializationTags } from "@lattice/constants";
+import { SerializationTags } from "@oyinlola141/lattice-constants";
 
 const SET_TYPE = "Set" as const;
 

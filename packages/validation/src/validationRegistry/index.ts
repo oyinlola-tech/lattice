@@ -1,5 +1,5 @@
 /**
- * @lattice/validation/validationRegistry
+ * @oyinlola141/lattice-validation/validationRegistry
  *
  * Schema registration and lookup.
  */

@@ -10,7 +10,7 @@ import {
   ErrorCategory,
   ErrorSeverity,
   type ErrorMetadata,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Base error for all auth-related failures.

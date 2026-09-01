@@ -1,5 +1,5 @@
 /**
- * @lattice/security — Header Security
+ * @oyinlola141/lattice-security — Header Security
  *
  * Validates and sanitizes HTTP headers against injection attacks,
  * size limits, and blocked header names.

@@ -1,5 +1,5 @@
 /**
- * @lattice/core/lifecycle/core
+ * @oyinlola141/lattice-core/lifecycle/core
  *
  * Core lifecycle state machine, hooks, and registry.
  */

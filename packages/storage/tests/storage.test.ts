@@ -1,5 +1,5 @@
 /**
- * @lattice/storage — Tests
+ * @oyinlola141/lattice-storage — Tests
  *
  * Comprehensive tests for all storage modules.
  */

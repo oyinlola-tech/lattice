@@ -11,7 +11,7 @@
     "dev": "tsx src/index.ts"
   },
   "dependencies": {
-    "@lattice/logger": "workspace:*"
+    "@oyinlola141/lattice-logger": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

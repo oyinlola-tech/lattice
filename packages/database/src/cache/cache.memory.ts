@@ -1,6 +1,6 @@
 import {
   DatabaseError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Cache entry stored by the database cache.

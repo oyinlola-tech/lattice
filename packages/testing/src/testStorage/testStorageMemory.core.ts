@@ -1,5 +1,5 @@
 /**
- * @lattice/testing — In-memory storage adapter for testing.
+ * @oyinlola141/lattice-testing — In-memory storage adapter for testing.
  *
  * A simple in-memory key-value store that satisfies the basic
  * cache adapter interface for testing without external dependencies.

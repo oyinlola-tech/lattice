@@ -1,5 +1,5 @@
 /**
- * @lattice/lifecycle/phase
+ * @oyinlola141/lattice-lifecycle/phase
  *
  * Lifecycle phase ordering and hook name utilities.
  */

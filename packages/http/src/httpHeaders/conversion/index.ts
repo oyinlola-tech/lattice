@@ -1,5 +1,5 @@
 /**
- * @lattice/http/httpHeaders/conversion
+ * @oyinlola141/lattice-http/httpHeaders/conversion
  *
  * HTTP headers conversion utilities.
  */

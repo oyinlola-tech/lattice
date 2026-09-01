@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/cryptoService
+ * @oyinlola141/lattice-crypto/cryptoService
  *
  * High-level cryptographic service interface.
  */

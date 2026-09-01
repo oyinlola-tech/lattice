@@ -47,7 +47,7 @@ import {
   cryptoCipherError,
   cryptoSignatureError,
   cryptoKeyDerivationError,
-} from "@lattice/errors";
+} from "@oyinlola141/lattice-errors";
 
 export class NodeCryptoProvider implements CryptoProvider {
   readonly name = "node";

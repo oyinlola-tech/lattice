@@ -1,5 +1,5 @@
 /**
- * @lattice/crypto/node/nodeCryptoProvider/operations
+ * @oyinlola141/lattice-crypto/node/nodeCryptoProvider/operations
  *
  * Higher-level crypto operations built on primitives: key derivation and password hashing.
  */

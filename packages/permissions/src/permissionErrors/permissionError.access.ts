@@ -2,7 +2,7 @@
  * Access-related permission errors.
  */
 
-import { ErrorCode } from "@lattice/errors";
+import { ErrorCode } from "@oyinlola141/lattice-errors";
 import { PermissionError } from "./permissionError.base.js";
 
 /**

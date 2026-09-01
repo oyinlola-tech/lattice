@@ -1,5 +1,5 @@
 /**
- * @lattice/errors/domain/body
+ * @oyinlola141/lattice-errors/domain/body
  *
  * HTTP body, form data, and multipart error types.
  */

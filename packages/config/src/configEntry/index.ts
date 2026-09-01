@@ -1,5 +1,5 @@
 /**
- * @lattice/config/configEntry
+ * @oyinlola141/lattice-config/configEntry
  *
  * Configuration entry types and value definitions.
  */
