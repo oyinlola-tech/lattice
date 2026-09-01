@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-schema",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Schema definition and parsing engine for the Lattice framework — type-safe data contracts with validation, transformation, and type inference.",
   "license": "MIT",
   "type": "module",

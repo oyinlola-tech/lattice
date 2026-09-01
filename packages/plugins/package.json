@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-plugins",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Controlled extension system for the Lattice framework — plugin registration, dependency resolution, lifecycle management, and orchestration.",
   "license": "MIT",
   "type": "module",

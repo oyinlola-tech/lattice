@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-observability",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Structured logging, metrics, tracing, context propagation, and telemetry exporters for the Lattice framework.",
   "license": "MIT",
   "type": "module",

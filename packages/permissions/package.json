@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-permissions",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Authorization engine for the Lattice framework — RBAC, ABAC, resource policies, wildcards, role hierarchy, and ability compilation.",
   "license": "MIT",
   "type": "module",

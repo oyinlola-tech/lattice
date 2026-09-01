@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-storage",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Storage infrastructure for the Lattice framework — database, object storage, repository, serialization, locking, and lifecycle abstractions.",
   "license": "MIT",
   "type": "module",
