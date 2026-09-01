@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-security",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Security primitives for the Lattice framework — input validation, header security, URL normalization, CORS, CSRF, rate limiting, and security headers.",
   "license": "MIT",
   "type": "module",

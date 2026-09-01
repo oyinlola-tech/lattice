@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-openapi",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "API contract and documentation engine for the Lattice framework — generates OpenAPI specifications from application routes, schemas, and metadata.",
   "license": "MIT",
   "type": "module",

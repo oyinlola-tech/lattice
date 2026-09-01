@@ -1,5 +1,15 @@
 # @oyinlola141/lattice-core
 
+## 0.1.3
+
+### Patch Changes
+
+- [`8b4c2fe`](https://github.com/oyinlola-tech/lattice/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Fix changeset validation workflow and publish all packages to npm.
+- Updated dependencies [[`8b4c2fe`](https://github.com/oyinlola-tech/lattice/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908)]:
+  - @oyinlola141/lattice-errors@0.1.2
+  - @oyinlola141/lattice-constants@0.1.2
+  - @oyinlola141/lattice-messaging@0.1.2
+
 ## 0.1.2
 
 ### Patch Changes

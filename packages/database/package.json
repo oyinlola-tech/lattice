@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-database",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Database infrastructure, clients, repositories, transactions, and persistence utilities for Lattice.",
   "license": "MIT",
   "type": "module",
