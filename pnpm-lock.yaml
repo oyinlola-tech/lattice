@@ -17,6 +17,9 @@ importers:
       '@changesets/cli':
         specifier: ^3.0.1
         version: 3.0.1
+      '@types/node':
+        specifier: ^26.4.0
+        version: 26.4.0
       prettier:
         specifier: ^3.9.6
         version: 3.9.6
@@ -1154,6 +1157,9 @@ importers:
 
   packages/types:
     devDependencies:
+      '@types/node':
+        specifier: ^26.4.0
+        version: 26.4.0
       typescript:
         specifier: ^7.0.2
         version: 7.0.2
