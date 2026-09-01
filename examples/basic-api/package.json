@@ -16,8 +16,8 @@
     "@oyinlola141/lattice-validation": "workspace:*"
   },
   "devDependencies": {
-    "tsx": "^4.0.0",
-    "@types/node": "^24.0.0",
-    "zod": "^4.4.3"
+    "tsx": "^4.23.13",
+    "@types/node": "^26.4.0",
+    "zod": "^4.5.4"
   }
 }

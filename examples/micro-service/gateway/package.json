@@ -19,12 +19,12 @@
     "@oyinlola141/lattice-constants": "workspace:*",
     "@oyinlola141/lattice-types": "workspace:*",
     "@oyinlola141/lattice-security": "workspace:*",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.3"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.0",
-    "@types/node": "^22.0.0",
-    "tsx": "^4.7.0",
-    "typescript": "^5.7.0"
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^26.4.0",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
   }
 }

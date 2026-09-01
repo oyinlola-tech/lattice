@@ -17,7 +17,7 @@
     "@oyinlola141/lattice-logger": "workspace:*"
   },
   "devDependencies": {
-    "tsx": "^4.0.0",
-    "@types/node": "^24.0.0"
+    "tsx": "^4.23.13",
+    "@types/node": "^26.4.0"
   }
 }
