@@ -2,10 +2,12 @@ packages:
   - "packages/*"
   - "apps/*"
   - "examples/*"
+  - "examples/micro-service/*"
   - "tools/*"
 
 allowBuilds:
   '@prisma/engines': set this to true or false
+  better-sqlite3: true
   esbuild: set this to true or false
   prisma: set this to true or false
 

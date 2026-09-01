@@ -6,21 +6,22 @@
   "type": "module",
   "workspaces": [
     "packages/*",
-    "examples/*"
+    "examples/*",
+    "examples/micro-service/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
-    "typecheck": "npm run typecheck --workspaces",
-    "clean": "npm run clean --workspaces",
-    "build:core": "npm run build --workspace=@lattice/core",
-    "typecheck:core": "npm run typecheck --workspace=@lattice/core",
+    "build": "pnpm -r run build",
+    "typecheck": "pnpm -r run typecheck",
+    "clean": "pnpm -r run clean",
+    "build:core": "pnpm --filter @lattice/core run build",
+    "typecheck:core": "pnpm --filter @lattice/core run typecheck",
     "architect:check": "node scripts/architect-check.js",
     "version-packages": "changeset version",
     "release": "changeset publish",
     "format": "prettier --write \"**/*.{ts,json,md,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,json,md,yml,yaml}\"",
     "lint": "echo 'Lint: no linter configured yet'",
-    "test": "npx vitest run tests/architect"
+    "test": "pnpm vitest run tests/architect"
   },
   "engines": {
     "node": ">=24.0.0",

@@ -1,10 +1,40 @@
-.env
+# Dependencies
 node_modules/
+.pnpm-store/
+
+# Build outputs
 dist/
-coverage
 *.tsbuildinfo
+
+# Test coverage
+coverage/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS files
 .DS_Store
-.claude
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Cache
+.cache/
+
+# AI agents
+.claude/
+.agents/
 skills-lock.json
-.agents
+
+# Generated docs
 AGENTS.md

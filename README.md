@@ -191,13 +191,13 @@ Lattice is organized as an npm workspaces monorepo. Each package has a focused r
 Lattice packages can be installed individually.
 
 ```bash
-npm install @lattice/core
+pnpm add @lattice/core
 ```
 
 Install additional packages depending on the application requirements.
 
 ```bash
-npm install @lattice/http @lattice/config @lattice/logger
+pnpm add @lattice/http @lattice/config @lattice/logger
 ```
 
 ---
@@ -242,31 +242,31 @@ All packages are currently at version `0.1.0` and marked as **Built**.
 ### Prerequisites
 
 - Node.js >= 24
-- npm >= 11
+- pnpm >= 11
 
 ### Setup
 
 ```bash
-git clone https://github.com/lattice-oss/lattice.git
+git clone https://github.com/oyinlola-tech/lattice.git
 cd lattice
-npm install
-npm run build
+pnpm install
+pnpm run build
 ```
 
 ### Useful Commands
 
 ```bash
-npm run build          # Build all packages
-npm run typecheck      # Typecheck all packages
-npm run format         # Format code with Prettier
-npm run test           # Run architect tests
+pnpm run build          # Build all packages
+pnpm run typecheck      # Typecheck all packages
+pnpm run format         # Format code with Prettier
+pnpm run test           # Run architect tests
 ```
 
 ### Per-Package Commands
 
 ```bash
-npm run --workspace=@lattice/http typecheck
-npm run --workspace=@lattice/http build
+pnpm run --filter=@lattice/http typecheck
+pnpm run --filter=@lattice/http build
 ```
 
 ---
