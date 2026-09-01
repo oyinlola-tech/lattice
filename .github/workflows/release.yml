@@ -59,12 +59,6 @@ jobs:
           git push origin main
 
       - name: Publish packages
-        run: |
-          for attempt in 1 2 3 4 5 6; do
-            pnpm changeset publish && break || {
-              echo "::warning::Publish attempt $attempt failed, waiting 45s for rate limit..."
-              sleep 45
-            }
-          done
+        run: pnpm changeset publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
