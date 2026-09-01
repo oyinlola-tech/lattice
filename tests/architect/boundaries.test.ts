@@ -147,8 +147,9 @@ describe("Architecture Boundaries", () => {
     const cycles = [];
 
     for (const pkg of packages) {
-      const deps = Object.keys(pkg.dependencies).filter((d) =>
-        d.startsWith("@lattice/") || d.startsWith("@oyinlola141/lattice-"),
+      const deps = Object.keys(pkg.dependencies).filter(
+        (d) =>
+          d.startsWith("@lattice/") || d.startsWith("@oyinlola141/lattice-"),
       );
       graph.set(pkg.name, deps);
     }
