@@ -25,7 +25,8 @@
     "@oyinlola141/lattice-lifecycle": "workspace:*",
     "@oyinlola141/lattice-permissions": "workspace:*",
     "better-sqlite3": "^13.0.3",
-    "jsonwebtoken": "^9.0.3"
+    "jsonwebtoken": "^9.0.3",
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^9.6.0",
