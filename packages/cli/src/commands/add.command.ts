@@ -169,6 +169,5 @@ function updateLatticeConfig(cwd: string, feature: string): void {
       `$1${featureBlock}\n});`,
     );
   }
-
   writeFileSync(configPath, content);
 }
