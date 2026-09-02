@@ -187,9 +187,9 @@ export function formatStatusLine(status: HTTPStatusLine): string {
 }
 
 export function parseStatusLine(line: string): HTTPStatusLine {
-  const match = /^(HTTP\/\d+\.\d+)[ \t]+(\d{3})(?:[ \t]+(.*))?$/.exec(
-    line.trim(),
-  );
+  const trimmed = line.trim();
+
+  const match = /^(HTTP\/\d+\.\d+) (\d{3})(?: (.+))?$/.exec(trimmed);
 
   if (!match) {
     throw new TypeError("Invalid HTTP status line.");
