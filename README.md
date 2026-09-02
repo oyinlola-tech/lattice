@@ -1,12 +1,12 @@
 # Lattice
 
-A modular TypeScript framework for building scalable, maintainable, and production-ready applications.
+A modular TypeScript framework for building scalable, maintainable, and production-ready applications — backend, frontend, or fullstack.
 
 ---
 
 ## What is Lattice?
 
-Lattice is a modular TypeScript application framework designed to provide a consistent foundation for building backend services, APIs, distributed systems, and large-scale applications.
+Lattice is a modular TypeScript application framework designed to provide a consistent foundation for building backend services, APIs, distributed systems, frontend applications, and fullstack platforms.
 
 Instead of forcing applications into a single architecture, Lattice provides independent packages for common infrastructure concerns such as dependency injection, configuration, HTTP, events, messaging, database access, queues, security, observability, and runtime lifecycle management.
 
@@ -89,24 +89,26 @@ The application is not tightly coupled to a specific database, queue, cloud prov
 - Observability and tracing
 - Multi-tenancy
 - Feature flags
+- **Fullstack project generation**
+- **11 frontend framework adapters**
 
 ---
 
 ## Architecture
 
 ```
-                          Application
-                               |
-                               v
-                           Runtime
-                               |
-            +------------------+------------------+
-            |                  |                  |
-            v                  v                  v
-        Container          Lifecycle           Config
-            |                  |                  |
-            +------------------+------------------+
-                               |
+                           Application
+                                |
+                                v
+                            Runtime
+                                |
+             +------------------+------------------+
+             |                  |                  |
+             v                  v                  v
+         Container          Lifecycle           Config
+             |                  |                  |
+             +------------------+------------------+
+                                |
            +-------------------+-------------------+
            |                   |                   |
            v                   v                   v
@@ -186,23 +188,106 @@ Lattice is organized as an npm workspaces monorepo. Each package has a focused r
 
 ---
 
-## Installation
+## CLI — Project Generation
 
-Lattice packages can be installed individually.
+Lattice includes a CLI for scaffolding projects, adding features, and managing architecture.
 
-```bash
-pnpm add @lattice/core
-```
-
-Install additional packages depending on the application requirements.
+### Installation
 
 ```bash
-pnpm add @lattice/http @lattice/config @lattice/logger
+npm install -g @oyinlola141/lattice-cli
 ```
+
+### Supported Frontend Frameworks
+
+Lattice can generate frontend and fullstack projects with any of the following frameworks:
+
+| Framework       | Adapter               | Build Tool      |
+| --------------- | --------------------- | --------------- |
+| React           | `react`               | Vite            |
+| Next.js         | `next`                | Next.js         |
+| Vue             | `vue`                 | Vite            |
+| Nuxt            | `nuxt`                | Nuxt 3          |
+| Angular         | `angular`             | Angular CLI     |
+| Svelte          | `svelte`              | Vite            |
+| SvelteKit       | `sveltekit`           | SvelteKit       |
+| Astro           | `astro`               | Astro           |
+| Vanilla HTML    | `vanilla`             | Vite            |
+| Flutter         | `flutter`             | Flutter SDK     |
+| React Native    | `react-native`        | Expo            |
+
+### Frontend Architectures
+
+Each framework supports multiple project structures:
+
+- **Lattice Standard** — Global concerns organized by domain (`components/`, `services/`, `utils/`, `types/`, etc.)
+- **Feature Based** — Domain-driven feature folders with shared global utilities
+- **Minimal** — Only essential folders for small projects
+- **Framework Default** — Let the framework decide the structure
+
+### Creating a Project
+
+#### Backend Only
+
+```bash
+lattice create my-api
+```
+
+Options:
+
+```bash
+lattice create my-api \
+  --architecture monolith \
+  --package-manager pnpm \
+  --database postgresql \
+  --api rest
+```
+
+#### Frontend Only
+
+```bash
+lattice create my-web \
+  --type frontend \
+  --frontend react \
+  --frontend-architecture lattice-standard
+```
+
+#### Full Stack
+
+```bash
+lattice create my-system \
+  --type fullstack \
+  --architecture modular-monolith \
+  --frontend next \
+  --database postgresql \
+  --api rest \
+  --package-manager pnpm
+```
+
+### Adding Features
+
+After project creation, add capabilities:
+
+```bash
+lattice add queue
+lattice add database
+lattice add cache
+lattice add storage
+```
+
+### Development Server
+
+```bash
+lattice dev
+```
+
+Starts all applications in the workspace with a single command.
 
 ---
 
 ## Quick Start
+
+### Backend
 
 ```ts
 import { createApplication } from "@lattice/runtime";
@@ -219,6 +304,20 @@ server.get("/", () => {
 await app.start();
 ```
 
+### Fullstack
+
+```bash
+# Create a fullstack project
+lattice create my-fullstack-app \
+  --type fullstack \
+  --frontend react \
+  --architecture monolith
+
+# Navigate and start
+cd my-fullstack-app
+pnpm dev
+```
+
 ---
 
 ## Project Status
@@ -233,7 +332,23 @@ The public API may change before the first stable release. Use packages with cau
 | Beta         | API may change                  |
 | Experimental | Not recommended for production  |
 
-All packages are currently at version `0.1.0` and marked as **Built**.
+All published packages are at version `0.1.x` and marked as **Built**.
+
+---
+
+## Installation
+
+Lattice packages can be installed individually.
+
+```bash
+pnpm add @lattice/core
+```
+
+Install additional packages depending on the application requirements.
+
+```bash
+pnpm add @lattice/http @lattice/config @lattice/logger
+```
 
 ---
 
