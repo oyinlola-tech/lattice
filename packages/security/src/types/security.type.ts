@@ -253,11 +253,13 @@ export const SQL_INJECTION_PATTERNS = [
 
 /** Common XSS patterns. */
 export const XSS_PATTERNS = [
-  /<script\b[^<]*(?:(?!<\/script[\s>])<[^<]*)*<\/script\s*>/gi,
+  /<script\b[^>]*>[\s\S]*?<\/script[^>]*>/gi,
+  /<script\b[^>]*>/gi,
+  /<\/script[^>]*>/gi,
   /javascript:/gi,
   /on\w+\s*=/gi,
   /data:text\/html/gi,
-  /<iframe\b/gi,
-  /<object\b/gi,
-  /<embed\b/gi,
+  /<iframe\b[^>]*>/gi,
+  /<object\b[^>]*>/gi,
+  /<embed\b[^>]*>/gi,
 ] as const;
