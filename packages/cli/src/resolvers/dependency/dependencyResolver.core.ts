@@ -58,6 +58,31 @@ export class DependencyResolver {
       package2: "vite",
       reason: "Angular uses its own build system.",
     },
+    {
+      package1: "sveltekit",
+      package2: "vite",
+      reason: "SvelteKit uses its own build system.",
+    },
+    {
+      package1: "astro",
+      package2: "vite",
+      reason: "Astro uses its own build system.",
+    },
+    {
+      package1: "flutter",
+      package2: "react",
+      reason: "Flutter and React are different frameworks.",
+    },
+    {
+      package1: "flutter",
+      package2: "vue",
+      reason: "Flutter and Vue are different frameworks.",
+    },
+    {
+      package1: "react-native",
+      package2: "react",
+      reason: "React Native uses its own React variant.",
+    },
   ];
 
   /**

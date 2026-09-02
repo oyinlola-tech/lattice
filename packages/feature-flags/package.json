@@ -33,5 +33,6 @@
   },
   "engines": {
     "node": ">=24.0.0"
-  }
+  },
+  "module": "./dist/index.js"
 }

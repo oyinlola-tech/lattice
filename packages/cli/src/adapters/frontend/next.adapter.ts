@@ -139,7 +139,12 @@ export default nextConfig;
             plugins: [{ name: "next" }],
             paths: { "@/*": ["./src/*"] },
           },
-          include: ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+          include: [
+            "next-env.d.ts",
+            "**/*.ts",
+            "**/*.tsx",
+            ".next/types/**/*.ts",
+          ],
           exclude: ["node_modules"],
         },
         null,

@@ -1,7 +1,7 @@
 /**
- * React frontend adapter using Vite.
+ * Vue frontend adapter using Vite.
  *
- * @module adapters/frontend/react
+ * @module adapters/frontend/vue
  */
 
 import { execCommand } from "../../utils/utils.exec.js";
@@ -14,11 +14,11 @@ import type {
 } from "./frontendAdapter.type.js";
 
 /**
- * React adapter using Vite as the build tool.
+ * Vue adapter using Vite as the build tool.
  */
-export class ReactAdapter implements FrontendAdapter {
-  readonly name = "react";
-  readonly framework = "react";
+export class VueAdapter implements FrontendAdapter {
+  readonly name = "vue";
+  readonly framework = "vue";
 
   async isAvailable(): Promise<boolean> {
     try {
@@ -30,32 +30,32 @@ export class ReactAdapter implements FrontendAdapter {
   }
 
   async getLatestVersion(): Promise<string> {
-    return "19.0.0";
+    return "3";
   }
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
-    const files = this.getBaseFiles(context);
-    await writeFileTree(context.projectPath, files);
+    const { projectPath, language } = context;
+    const template = language === "typescript" ? "vue-ts" : "vue";
+
+    await execCommand(
+      `npm create vue@latest . -- --template ${template}`,
+      projectPath,
+    );
   }
 
   getDependencies(
     context: FrontendGenerationContext,
   ): readonly DependencyRequirement[] {
-    const deps: DependencyRequirement[] = [
-      { name: "react", type: "dependency" },
-      { name: "react-dom", type: "dependency" },
-    ];
+    const deps: DependencyRequirement[] = [{ name: "vue", type: "dependency" }];
 
-    if (context.features.stateManagement === "zustand") {
-      deps.push({ name: "zustand", type: "dependency" });
+    if (context.features.stateManagement === "pinia") {
+      deps.push({ name: "pinia", type: "dependency" });
     }
 
     if (context.features.testing) {
       deps.push(
         { name: "vitest", type: "devDependency" },
-        { name: "@testing-library/react", type: "devDependency" },
-        { name: "@testing-library/jest-dom", type: "devDependency" },
-        { name: "@testing-library/user-event", type: "devDependency" },
+        { name: "@vue/test-utils", type: "devDependency" },
         { name: "jsdom", type: "devDependency" },
       );
     }
@@ -64,8 +64,7 @@ export class ReactAdapter implements FrontendAdapter {
       deps.push(
         { name: "eslint", type: "devDependency" },
         { name: "typescript-eslint", type: "devDependency" },
-        { name: "eslint-plugin-react-hooks", type: "devDependency" },
-        { name: "eslint-plugin-react-refresh", type: "devDependency" },
+        { name: "eslint-plugin-vue", type: "devDependency" },
       );
     }
 
@@ -101,96 +100,6 @@ export class ReactAdapter implements FrontendAdapter {
     return { valid: errors.length === 0, errors, warnings };
   }
 
-  private getBaseFiles(
-    context: FrontendGenerationContext,
-  ): Record<string, string> {
-    const useTypeScript = context.language === "typescript";
-
-    return {
-      "package.json": JSON.stringify(
-        {
-          name: context.project.name,
-          version: "0.1.0",
-          private: true,
-          type: "module",
-          scripts: {
-            dev: "vite",
-            build: "tsc && vite build",
-            preview: "vite preview",
-          },
-          dependencies: {
-            react: "^19.0.0",
-            "react-dom": "^19.0.0",
-          },
-          devDependencies: {
-            vite: "^6.0.0",
-            "@vitejs/plugin-react": "^4.3.0",
-            ...(useTypeScript ? { typescript: "^5.0.0" } : {}),
-          },
-        },
-        null,
-        2,
-      ),
-      "vite.config.ts": `import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-
-export default defineConfig({
-  plugins: [react()],
-});
-`,
-      "tsconfig.json": JSON.stringify(
-        {
-          compilerOptions: {
-            target: "ES2020",
-            useDefineForClassFields: true,
-            lib: ["ES2020", "DOM", "DOM.Iterable"],
-            module: "ESNext",
-            skipLibCheck: true,
-            moduleResolution: "bundler",
-            allowImportingTsExtensions: true,
-            resolveJsonModule: true,
-          },
-        },
-        null,
-        2,
-      ),
-      "index.html": `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${context.project.name}</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
-`,
-      "src/main.tsx": `import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
-`,
-      "src/App.tsx": `export default function App() {
-  return (
-    <div>
-      <h1>Hello from Lattice</h1>
-    </div>
-  );
-}
-`,
-      ...(useTypeScript
-        ? { "src/vite-env.d.ts": `/// <reference types="vite/client" />\n` }
-        : {}),
-    };
-  }
-
   private getStructure(
     context: FrontendGenerationContext,
   ): Record<string, string> {
@@ -210,13 +119,12 @@ createRoot(document.getElementById("root")!).render(
   private getLatticeStandardStructure(srcDir: string): Record<string, string> {
     return {
       [`${srcDir}/components/.gitkeep`]: "",
+      [`${srcDir}/composables/.gitkeep`]: "",
       [`${srcDir}/configs/index.ts`]: "// Configuration\nexport {};\n",
       [`${srcDir}/constants/index.ts`]: "// Constants\nexport {};\n",
-      [`${srcDir}/contexts/.gitkeep`]: "",
-      [`${srcDir}/hooks/.gitkeep`]: "",
       [`${srcDir}/layouts/.gitkeep`]: "",
       [`${srcDir}/pages/.gitkeep`]: "",
-      [`${srcDir}/routes/index.tsx`]: "// Routes\nexport {};\n",
+      [`${srcDir}/router/index.ts`]: "// Router\nexport {};\n",
       [`${srcDir}/services/.gitkeep`]: "",
       [`${srcDir}/stores/.gitkeep`]: "",
       [`${srcDir}/types/index.ts`]: "// Types\nexport {};\n",
@@ -228,7 +136,7 @@ createRoot(document.getElementById("root")!).render(
     return {
       [`${srcDir}/features/.gitkeep`]: "",
       [`${srcDir}/components/.gitkeep`]: "",
-      [`${srcDir}/hooks/.gitkeep`]: "",
+      [`${srcDir}/composables/.gitkeep`]: "",
       [`${srcDir}/services/.gitkeep`]: "",
       [`${srcDir}/types/index.ts`]: "// Types\nexport {};\n",
       [`${srcDir}/utils/.gitkeep`]: "",

@@ -35,26 +35,62 @@ app.register(
     ],
     options: [
       {
+        name: "type",
+        short: "t",
+        description: "Project type (backend, frontend, fullstack)",
+        type: "string",
+        defaultValue: "backend",
+      },
+      {
         name: "architecture",
         short: "a",
         description:
-          "Architecture type (monolith, modular-monolith, microservice)",
+          "Backend architecture (monolith, modular-monolith, microservice)",
         type: "string",
         defaultValue: "monolith",
       },
       {
         name: "package-manager",
         short: "p",
-        description: "Package manager (npm, pnpm, yarn)",
+        description: "Package manager (npm, pnpm, yarn, bun)",
         type: "string",
         defaultValue: "pnpm",
       },
       {
         name: "database",
         short: "d",
-        description: "Database engine (postgresql, mysql, sqlite)",
+        description: "Database engine (postgresql, mysql, sqlite, mongodb)",
         type: "string",
         defaultValue: "postgresql",
+      },
+      {
+        name: "api",
+        description: "API style (rest, graphql, rpc)",
+        type: "string",
+        defaultValue: "rest",
+      },
+      {
+        name: "frontend",
+        short: "f",
+        description:
+          "Frontend framework (react, next, vue, nuxt, angular, svelte, sveltekit, astro, vanilla, flutter, react-native)",
+        type: "string",
+        defaultValue: "none",
+      },
+      {
+        name: "frontend-architecture",
+        short: "fa",
+        description:
+          "Frontend architecture (lattice-standard, feature-based, minimal, framework-default)",
+        type: "string",
+        defaultValue: "lattice-standard",
+      },
+      {
+        name: "language",
+        short: "l",
+        description: "Language (typescript, javascript)",
+        type: "string",
+        defaultValue: "typescript",
       },
       {
         name: "no-install",

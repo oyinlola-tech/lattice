@@ -2,17 +2,46 @@
  * Type definitions for the Lattice CLI scaffolding system.
  */
 
-export type ArchitectureType = "monolith" | "modular-monolith" | "microservice";
+import type {
+  ProjectType,
+  BackendArchitecture,
+  FrontendFramework,
+  FrontendArchitecture,
+  PackageManagerType,
+  DatabaseProvider,
+  ApiStyle,
+  ProjectConfiguration,
+} from "./projectConfiguration.type.js";
 
-export type PackageManager = "npm" | "pnpm" | "yarn";
+/**
+ * Backend architecture.
+ */
+export type ArchitectureType = BackendArchitecture;
 
-export type DatabaseEngine = "postgresql" | "mysql" | "sqlite";
+/**
+ * Package manager.
+ */
+export type PackageManager = PackageManagerType;
 
+/**
+ * Database engine.
+ */
+export type DatabaseEngine = DatabaseProvider;
+
+/**
+ * Scaffold options for project generation.
+ */
 export interface ScaffoldOptions {
   readonly projectName: string;
+  readonly projectType?: ProjectType;
   readonly architecture: ArchitectureType;
+  readonly language?: "typescript" | "javascript";
   readonly packageManager: PackageManager;
-  readonly database: DatabaseEngine;
+  readonly database?: DatabaseEngine;
+  readonly api?: ApiStyle;
+  readonly frontend?: FrontendFramework | "none";
+  readonly frontendArchitecture?: FrontendArchitecture;
+  readonly frontendPath?: string;
   readonly services: readonly string[];
   readonly enableCQRS: boolean;
   readonly enableMessaging: boolean;
@@ -25,6 +54,9 @@ export interface ScaffoldOptions {
   readonly initGit: boolean;
 }
 
+/**
+ * Project template metadata.
+ */
 export interface ProjectTemplate {
   readonly name: ArchitectureType;
   readonly description: string;
@@ -32,10 +64,46 @@ export interface ProjectTemplate {
   readonly devDependencies: readonly string[];
 }
 
+/**
+ * Generate options for schematics.
+ */
 export interface GenerateOptions {
   readonly schematic: string;
   readonly name: string;
   readonly service?: string;
   readonly module?: string;
   readonly dryRun: boolean;
+}
+
+/**
+ * Converts ScaffoldOptions to ProjectConfiguration for runtime use.
+ */
+export function toProjectConfiguration(
+  options: ScaffoldOptions,
+): ProjectConfiguration {
+  const hasFrontend =
+    options.frontend !== undefined && options.frontend !== "none";
+
+  return {
+    name: options.projectName,
+    type: hasFrontend ? "fullstack" : "backend",
+    backend: {
+      architecture: options.architecture,
+      api: options.api ?? "rest",
+      database: options.database,
+    },
+    ...(hasFrontend
+      ? {
+          frontend: {
+            framework: options.frontend!,
+            architecture: options.frontendArchitecture ?? "lattice-standard",
+            language: options.language ?? "typescript",
+          },
+        }
+      : {}),
+    workspace: {
+      packageManager: options.packageManager,
+    },
+    features: options.services,
+  };
 }

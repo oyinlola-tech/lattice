@@ -73,18 +73,3 @@ export interface ProjectConfiguration {
   };
   readonly features?: readonly string[];
 }
-
-/**
- * Scaffold options for project generation.
- */
-export interface ScaffoldOptions {
-  readonly projectName: string;
-  readonly architecture: BackendArchitecture;
-  readonly language?: "typescript" | "javascript";
-  readonly packageManager?: PackageManagerType;
-  readonly initGit?: boolean;
-  readonly installDeps?: boolean;
-  readonly features?: readonly string[];
-  readonly frontend?: FrontendFramework;
-  readonly frontendPath?: string;
-}

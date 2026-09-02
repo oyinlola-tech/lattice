@@ -4,27 +4,28 @@
  * Interactive prompt utilities for the CLI.
  */
 
-import type {
-  ArchitectureType,
-  DatabaseEngine,
-  PackageManager,
-} from "../types/index.js";
+import type { ScaffoldOptions } from "../types/index.js";
 
 export interface CreateProjectPrompts {
-  projectName: string;
-  architecture: ArchitectureType;
-  packageManager: PackageManager;
-  database: DatabaseEngine;
-  enableCQRS: boolean;
-  enableMessaging: boolean;
-  enableObservability: boolean;
-  enableOpenAPI: boolean;
-  enableDatabase: boolean;
-  enableQueue: boolean;
-  enableDocker: boolean;
-  installDeps: boolean;
-  initGit: boolean;
-  services: readonly string[];
+  readonly projectName: string;
+  readonly projectType: ScaffoldOptions["projectType"];
+  readonly architecture: ScaffoldOptions["architecture"];
+  readonly packageManager: ScaffoldOptions["packageManager"];
+  readonly database: ScaffoldOptions["database"];
+  readonly api: ScaffoldOptions["api"];
+  readonly frontend: ScaffoldOptions["frontend"];
+  readonly frontendArchitecture: ScaffoldOptions["frontendArchitecture"];
+  readonly language: ScaffoldOptions["language"];
+  readonly enableCQRS: boolean;
+  readonly enableMessaging: boolean;
+  readonly enableObservability: boolean;
+  readonly enableOpenAPI: boolean;
+  readonly enableDatabase: boolean;
+  readonly enableQueue: boolean;
+  readonly enableDocker: boolean;
+  readonly installDeps: boolean;
+  readonly initGit: boolean;
+  readonly services: readonly string[];
 }
 
 export interface PromptChoice {
@@ -76,16 +77,72 @@ export async function promptCreateProject(
 
   const projectName = overrides?.projectName ?? (await ask(`\nProject name: `));
 
+  const projectType = (overrides?.projectType ??
+    (await askChoice(
+      "Select project type",
+      [
+        { value: "backend", label: "Backend" },
+        { value: "frontend", label: "Frontend" },
+        { value: "fullstack", label: "Full Stack" },
+      ],
+      "backend",
+    ))) as CreateProjectPrompts["projectType"];
+
   const architecture = (overrides?.architecture ??
     (await askChoice(
-      "Select architecture",
+      "Select backend architecture",
       [
         { value: "monolith", label: "Monolith" },
         { value: "modular-monolith", label: "Modular Monolith" },
         { value: "microservice", label: "Microservice" },
       ],
       "monolith",
-    ))) as ArchitectureType;
+    ))) as CreateProjectPrompts["architecture"];
+
+  const frontendOptions = [
+    { value: "react", label: "React" },
+    { value: "next", label: "Next.js" },
+    { value: "vue", label: "Vue" },
+    { value: "nuxt", label: "Nuxt" },
+    { value: "angular", label: "Angular" },
+    { value: "svelte", label: "Svelte" },
+    { value: "sveltekit", label: "SvelteKit" },
+    { value: "astro", label: "Astro" },
+    { value: "vanilla", label: "Vanilla HTML" },
+    { value: "flutter", label: "Flutter" },
+    { value: "react-native", label: "React Native" },
+  ];
+
+  const frontend = (overrides?.frontend ??
+    (await askChoice(
+      "Select frontend framework",
+      projectType === "frontend"
+        ? frontendOptions
+        : [{ value: "none", label: "None" }, ...frontendOptions],
+      "none",
+    ))) as CreateProjectPrompts["frontend"];
+
+  const frontendArchitecture = (overrides?.frontendArchitecture ??
+    (await askChoice(
+      "Select frontend architecture",
+      [
+        { value: "lattice-standard", label: "Lattice Standard" },
+        { value: "feature-based", label: "Feature Based" },
+        { value: "minimal", label: "Minimal" },
+        { value: "framework-default", label: "Framework Default" },
+      ],
+      "lattice-standard",
+    ))) as CreateProjectPrompts["frontendArchitecture"];
+
+  const language = (overrides?.language ??
+    (await askChoice(
+      "Select language",
+      [
+        { value: "typescript", label: "TypeScript" },
+        { value: "javascript", label: "JavaScript" },
+      ],
+      "typescript",
+    ))) as CreateProjectPrompts["language"];
 
   const packageManager = (overrides?.packageManager ??
     (await askChoice(
@@ -94,9 +151,10 @@ export async function promptCreateProject(
         { value: "pnpm", label: "pnpm" },
         { value: "npm", label: "npm" },
         { value: "yarn", label: "yarn" },
+        { value: "bun", label: "bun" },
       ],
       "pnpm",
-    ))) as PackageManager;
+    ))) as CreateProjectPrompts["packageManager"];
 
   const database = (overrides?.database ??
     (await askChoice(
@@ -107,7 +165,18 @@ export async function promptCreateProject(
         { value: "sqlite", label: "SQLite" },
       ],
       "postgresql",
-    ))) as DatabaseEngine;
+    ))) as CreateProjectPrompts["database"];
+
+  const api = (overrides?.api ??
+    (await askChoice(
+      "Select API style",
+      [
+        { value: "rest", label: "REST" },
+        { value: "graphql", label: "GraphQL" },
+        { value: "rpc", label: "RPC" },
+      ],
+      "rest",
+    ))) as CreateProjectPrompts["api"];
 
   let services: string[] = [];
 
@@ -154,9 +223,14 @@ export async function promptCreateProject(
 
   return {
     projectName,
+    projectType,
     architecture,
     packageManager,
     database,
+    api,
+    frontend,
+    frontendArchitecture,
+    language,
     enableCQRS,
     enableMessaging,
     enableObservability,

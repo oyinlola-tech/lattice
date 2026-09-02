@@ -141,10 +141,17 @@ export type {
 export {
   ReactAdapter,
   NextAdapter,
+  VueAdapter,
+  NuxtAdapter,
+  AngularAdapter,
+  SvelteAdapter,
+  SvelteKitAdapter,
+  AstroAdapter,
   VanillaAdapter,
+  FlutterAdapter,
+  ReactNativeAdapter,
 } from "./adapters/frontend/index.js";
 
-export type { PackageManager } from "./adapters/package-managers/index.js";
 export {
   PnpmAdapter,
   NpmAdapter,
@@ -187,5 +194,13 @@ export type {
   DatabaseProvider,
   ApiStyle,
   PackageManagerType,
-  ScaffoldOptions,
 } from "./types/projectConfiguration.type.js";
+
+export type {
+  ScaffoldOptions,
+  ArchitectureType,
+  PackageManager,
+  DatabaseEngine,
+  ProjectTemplate,
+  GenerateOptions,
+} from "./types/index.js";

@@ -146,6 +146,26 @@ export const api = {
       return "apps/web/src/services/api-client.ts";
     }
 
+    if (framework === "angular") {
+      return "apps/web/src/app/services/api.service.ts";
+    }
+
+    if (framework === "svelte" || framework === "sveltekit") {
+      return "apps/web/src/lib/services/api-client.ts";
+    }
+
+    if (framework === "astro") {
+      return "apps/web/src/utils/api-client.ts";
+    }
+
+    if (framework === "flutter") {
+      return "apps/web/lib/services/api_client.dart";
+    }
+
+    if (framework === "react-native") {
+      return "apps/web/src/services/api-client.ts";
+    }
+
     return "apps/web/src/services/api-client.ts";
   }
 
