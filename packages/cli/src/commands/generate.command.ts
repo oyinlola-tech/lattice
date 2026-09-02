@@ -58,11 +58,21 @@ export async function runGenerateCommand(context: CLIContext): Promise<void> {
 
   if (architecture) {
     context.logger.info(`Detected architecture: ${architecture}`);
+  } else {
+    context.logger.warn(
+      "No lattice.config.ts found. Run `lattice create` first to scaffold a Lattice project.",
+    );
   }
 
   if (architecture === "microservice" && schematic === "service") {
+    context.logger.warn(
+      'In microservice architecture, prefer "lattice generate module" — services are top-level apps.',
+    );
+  }
+
+  if (architecture === "modular-monolith" && schematic === "service") {
     context.logger.info(
-      'Note: In microservice architecture, use "lattice generate module" instead of "lattice generate service".',
+      'Mapping "service" → "module" for modular-monolith architecture.',
     );
   }
 
