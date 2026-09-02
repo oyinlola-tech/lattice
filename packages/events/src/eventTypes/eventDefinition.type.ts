@@ -329,7 +329,7 @@ export function createDerivedEvent<TPayload>(
     correlationId:
       input.correlationId ??
       sourceEvent.correlationId ??
-      (sourceEvent.id as unknown as BaseCorrelationId),
+      (sourceEvent.id as BaseCorrelationId),
 
     causationId: input.causationId ?? sourceEvent.id,
   });

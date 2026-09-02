@@ -87,7 +87,7 @@ describe("FrameworkError", () => {
       expect(json.name).toBe("FrameworkError");
       expect(json.message).toBe("test");
       expect(json.code).toBe(ErrorCode.INVALID_ARGUMENT);
-      expect(json.status).toBe(400);
+      expect(json.statusCode).toBe(400);
       expect(json.details).toEqual({ reason: "bad" });
     });
 
@@ -96,7 +96,7 @@ describe("FrameworkError", () => {
 
       const json = error.toJSON();
 
-      expect(json.status).toBeUndefined();
+      expect(json.statusCode).toBe(500);
       expect(json.details).toBeUndefined();
       expect(json).not.toHaveProperty("status");
       expect(json).not.toHaveProperty("details");

@@ -5,6 +5,7 @@
  * Concrete repositories can extend this for domain-specific queries.
  */
 
+import { NotFoundError } from "@oyinlola141/lattice-errors";
 import type {
   Database,
   Query,
@@ -94,7 +95,12 @@ export class BaseRepository<
 
     if (keys.length === 0) {
       const existing = await this.findById(id);
-      if (!existing) throw new Error(`Entity not found: ${id}`);
+      if (!existing) {
+        throw new NotFoundError(`Entity not found: ${id}`, {
+          code: "STORAGE_ENTITY_NOT_FOUND",
+          statusCode: 404,
+        });
+      }
       return existing;
     }
 

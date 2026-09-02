@@ -2,6 +2,7 @@
  * Connection pool that manages database connections with backpressure.
  */
 
+import { StorageError } from "@oyinlola141/lattice-errors";
 import type {
   Connection,
   ConnectionPoolOptions,
@@ -48,7 +49,12 @@ export class ConnectionPool {
 
   /** Acquire a connection from the pool. */
   async acquire(): Promise<Connection> {
-    if (this.closed) throw new Error("Pool is closed");
+    if (this.closed) {
+      throw new StorageError("Pool is closed", {
+        code: "STORAGE_CONNECTION_POOL_CLOSED",
+        statusCode: 503,
+      });
+    }
 
     while (this.available.length > 0) {
       const conn = this.available.pop()!;

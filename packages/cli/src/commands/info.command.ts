@@ -4,7 +4,7 @@
  * The `lattice info` command.
  */
 
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import type { CLIContext } from "../cliType/cliType.type.js";
 
@@ -30,7 +30,10 @@ export async function runInfoCommand(context: CLIContext): Promise<void> {
     context.logger.info("");
     context.logger.info(`Project: ${projectName}`);
     context.logger.info(`Version: ${pkg.version ?? "0.0.0"}`);
-    context.logger.info(`Package Manager: pnpm`);
+    const hasPnpm = existsSync(join(context.cwd, "pnpm-lock.yaml"));
+    const hasYarn = existsSync(join(context.cwd, "yarn.lock"));
+    const packageManager = hasPnpm ? "pnpm" : hasYarn ? "yarn" : "npm";
+    context.logger.info(`Package Manager: ${packageManager}`);
     context.logger.info("");
     context.logger.info("Lattice Dependencies:");
 

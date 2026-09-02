@@ -65,7 +65,7 @@ export function generateMicroserviceFiles(
   - services/*
 `;
 
-  files["lattice.config.ts"] = `import { defineConfig } from "@lattice/config";
+  files["lattice.config.ts"] = `import { defineConfig } from "@oyinlola141/lattice-config";
 
 export default defineConfig({
   application: {
@@ -165,7 +165,7 @@ MIT
   const gatewayDeps = [
     "@oyinlola141/lattice-http",
     "@oyinlola141/lattice-config",
-    "@oyinola141/lattice-logger",
+    "@oyinlola141/lattice-logger",
   ];
 
   files["apps/gateway/package.json"] =
@@ -230,7 +230,7 @@ CMD ["node", "dist/server.js"]
     `export { createGateway } from "./app.js";
 `;
 
-  files["apps/gateway/src/app.ts"] = `import { logger } from "@lattice/logger";
+  files["apps/gateway/src/app.ts"] = `import { logger } from "@oyinlola141/lattice-logger";
 
 export async function createGateway() {
   const log = logger.child({ service: "gateway" });
@@ -249,7 +249,7 @@ export async function createGateway() {
 
   files["apps/gateway/src/server.ts"] =
     `import { createGateway } from "./app.js";
-import { createRuntime } from "@lattice/runtime";
+import { createRuntime } from "@oyinlola141/lattice-runtime";
 
 const app = await createGateway();
 
@@ -378,8 +378,8 @@ CMD ["node", "dist/server.js"]
 `;
 
     files[`apps/services/${svcName}/src/app.ts`] =
-      `import { logger } from "@lattice/logger";
-import { createContainer } from "@lattice/container";
+      `import { logger } from "@oyinlola141/lattice-logger";
+import { createContainer } from "@oyinlola141/lattice-container";
 
 export async function createApp() {
   const log = logger.child({ service: "${svcName}" });
@@ -401,7 +401,7 @@ export async function createApp() {
 
     files[`apps/services/${svcName}/src/server.ts`] =
       `import { createApp } from "./app.js";
-import { createRuntime } from "@lattice/runtime";
+import { createRuntime } from "@oyinlola141/lattice-runtime";
 
 const app = await createApp();
 

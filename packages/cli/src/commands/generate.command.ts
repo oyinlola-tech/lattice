@@ -5,6 +5,8 @@
  * Reads lattice.config.ts to determine project architecture.
  */
 
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import type { CLIContext } from "../cliType/cliType.type.js";
 import { generateService } from "../generators/service/service.generator.js";
 import { generateModule } from "../generators/module/module.generator.js";
@@ -18,6 +20,20 @@ interface GenerateOptions {
   readonly service?: string;
   readonly module?: string;
   readonly dryRun: boolean;
+}
+
+function readLatticeArchitecture(cwd: string): string | null {
+  const configPath = join(cwd, "lattice.config.ts");
+  if (!existsSync(configPath)) {
+    const configPathJs = join(cwd, "lattice.config.js");
+    if (!existsSync(configPathJs)) return null;
+    const content = readFileSync(configPathJs, "utf-8");
+    const match = content.match(/architecture:\s*["'](\w[\w-]*)["']/);
+    return match?.[1] ?? null;
+  }
+  const content = readFileSync(configPath, "utf-8");
+  const match = content.match(/architecture:\s*["'](\w[\w-]*)["']/);
+  return match?.[1] ?? null;
 }
 
 export async function runGenerateCommand(context: CLIContext): Promise<void> {
@@ -38,6 +54,17 @@ export async function runGenerateCommand(context: CLIContext): Promise<void> {
   }
 
   const cwd = context.cwd;
+  const architecture = readLatticeArchitecture(cwd);
+
+  if (architecture) {
+    context.logger.info(`Detected architecture: ${architecture}`);
+  }
+
+  if (architecture === "microservice" && schematic === "service") {
+    context.logger.info(
+      'Note: In microservice architecture, use "lattice generate module" instead of "lattice generate service".',
+    );
+  }
 
   const result = await runSchematic(
     schematic,

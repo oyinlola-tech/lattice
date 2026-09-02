@@ -40,8 +40,9 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
   context.logger.info(`Packages: ${packages.join(", ")}`);
 
   try {
-    const { manager, rootPkg } = detectPackageManager();
+    const { manager, rootPkg, isWorkspace } = detectPackageManager();
     const pkgPath = join(context.cwd, rootPkg);
+    const version = isWorkspace ? "workspace:*" : readLatticeVersion();
 
     if (!existsSync(pkgPath)) {
       throw new CLIGenerationError(`Could not find package.json at ${pkgPath}`);
@@ -70,13 +71,15 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
 
     for (const pkg of packages) {
       if (!(pkg in pkgContent.dependencies)) {
-        pkgContent.dependencies[pkg] = "workspace:*";
+        pkgContent.dependencies[pkg] = version;
       }
     }
 
     writeFileSync(pkgPath, JSON.stringify(pkgContent, null, 2) + "\n");
 
     context.logger.info(`Updated ${rootPkg} with new dependencies.`);
+
+    updateLatticeConfig(context.cwd, feature);
 
     if (context.values["skip-install"] !== true) {
       context.logger.info(`Installing dependencies with ${manager}...`);
@@ -97,14 +100,73 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
 function detectPackageManager(): {
   manager: string;
   rootPkg: string;
+  isWorkspace: boolean;
 } {
   if (existsSync("pnpm-workspace.yaml")) {
-    return { manager: "pnpm", rootPkg: "pnpm-workspace.yaml" };
+    return { manager: "pnpm", rootPkg: "package.json", isWorkspace: true };
   }
 
   if (existsSync("yarn.lock")) {
-    return { manager: "yarn", rootPkg: "package.json" };
+    return { manager: "yarn", rootPkg: "package.json", isWorkspace: true };
   }
 
-  return { manager: "npm", rootPkg: "package.json" };
+  if (existsSync("lerna.json")) {
+    return { manager: "npm", rootPkg: "package.json", isWorkspace: true };
+  }
+
+  return { manager: "npm", rootPkg: "package.json", isWorkspace: false };
+}
+
+function readLatticeVersion(): string {
+  try {
+    const rootPkg = join(process.cwd(), "package.json");
+    if (existsSync(rootPkg)) {
+      const pkg = JSON.parse(readFileSync(rootPkg, "utf-8")) as {
+        version?: string;
+      };
+      return pkg.version ?? "latest";
+    }
+  } catch {
+    // ignore
+  }
+  return "latest";
+}
+
+function updateLatticeConfig(cwd: string, feature: string): void {
+  const configPath = join(cwd, "lattice.config.ts");
+  if (!existsSync(configPath)) return;
+
+  let content = readFileSync(configPath, "utf-8");
+
+  const featureMap: Record<string, string> = {
+    database: "database",
+    queue: "queue",
+    messaging: "events",
+    openapi: "openapi",
+    observability: "observability",
+    security: "security",
+  };
+
+  const configKey = featureMap[feature];
+  if (!configKey) return;
+
+  const pattern = new RegExp(`(export\\s+default\\s+defineConfig\\({[\\s\\S]*?)\\n\\});`);
+  const match = content.match(pattern);
+  if (!match) return;
+
+  const featureBlock = `\n  ${configKey}: {\n    enabled: true,\n  },`;
+
+  if (content.includes(`${configKey}:`)) {
+    content = content.replace(
+      new RegExp(`${configKey}:\\s*\\{[^}]*\\}`),
+      `${configKey}: {\n    enabled: true,\n  }`,
+    );
+  } else {
+    content = content.replace(
+      pattern,
+      `$1${featureBlock}\n});`,
+    );
+  }
+
+  writeFileSync(configPath, content);
 }

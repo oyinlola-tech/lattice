@@ -303,7 +303,12 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
 
       this.activeCount++;
       this.runJob(job, processor)
-        .catch(() => {})
+        .catch((error: unknown) => {
+          this.emitter.emit("job:failed", {
+            job,
+            error: error instanceof Error ? error : new Error(String(error)),
+          });
+        })
         .finally(() => {
           this.activeCount--;
         });

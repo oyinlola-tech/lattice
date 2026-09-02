@@ -39,12 +39,19 @@ export class ${nameCamel}Command implements BaseCommand<${nameCamel}CommandPaylo
 `,
 
     [`${servicePath}/commands/${name}/${name}.handler.ts`]: `import type { CommandHandler, CommandResult } from "@oyinlola141/lattice-cqrs";
+import { createLogger } from "@oyinlola141/lattice-logger";
 import { ${nameCamel}Command } from "./${name}.command.js";
 
 export class ${nameCamel}CommandHandler implements CommandHandler<${nameCamel}Command> {
+  private readonly logger = createLogger({ name: "${name}-handler" });
+
   async handle(command: ${nameCamel}Command): Promise<CommandResult> {
-    // TODO: Implement command logic
-    return { success: true, data: command.payload };
+    this.logger.info("Processing ${name} command", { payload: command.payload });
+
+    return {
+      success: true,
+      data: { id: crypto.randomUUID(), ...command.payload },
+    };
   }
 }
 `,

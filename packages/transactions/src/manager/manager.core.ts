@@ -64,6 +64,9 @@ export function createTransactionManager(options: TransactionManagerOptions) {
         (
           transaction as unknown as { _setHandle: (h: unknown) => void }
         )._setHandle(handle);
+        (
+          transaction as unknown as { _transition: (s: string) => void }
+        )._transition("active");
       } catch (error) {
         (
           transaction as unknown as { _transition: (s: string) => void }

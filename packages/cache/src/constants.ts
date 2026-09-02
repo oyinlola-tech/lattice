@@ -54,7 +54,7 @@ export const DEFAULT_LOCK_RETRY_DELAY_MS = 100;
 export const MAX_LATENCY_SAMPLES = 1_000;
 
 /** Bucket boundaries for latency histograms (ms). */
-export const LATENCY_BUCKETS = [1, 5, 10, 25, 50, 100, 250, 500, 1000];
+export const LATENCY_BUCKETS = [1, 5, 10, 25, 50, 100, 250, 500, 1000] as const;
 
 /* -------------------------------------------------------------------------- */
 /* Memory Adapter                                                             */

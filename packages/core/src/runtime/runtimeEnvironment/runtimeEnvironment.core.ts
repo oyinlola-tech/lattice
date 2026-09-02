@@ -14,7 +14,7 @@ import {
   detectContainer,
 } from "./detection/index.js";
 
-import { RuntimeError } from "@oyinlola141/lattice-errors";
+import { RuntimeError, type RuntimeErrorOptions } from "@oyinlola141/lattice-errors";
 
 /**
  * Environment error codes.
@@ -37,9 +37,9 @@ export class RuntimeEnvironmentError extends RuntimeError {
     variableName?: string,
   ) {
     super(message, {
-      code: "RUNTIME_ENVIRONMENT" as any,
+      code: "RUNTIME_ENVIRONMENT",
       phase: "environment",
-    });
+    } as RuntimeErrorOptions);
     this.name = "RuntimeEnvironmentError";
     this.envCode = code;
     this.variableName = variableName;

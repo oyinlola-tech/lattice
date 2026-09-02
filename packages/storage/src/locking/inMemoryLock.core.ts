@@ -6,6 +6,7 @@
  */
 
 import { randomBytes } from "node:crypto";
+import { StorageError } from "@oyinlola141/lattice-errors";
 import type { Lock, LockManager, LockOptions } from "../types/storage.type.js";
 
 /** Default lock options. */
@@ -47,8 +48,12 @@ export class InMemoryLockManager implements LockManager {
       await new Promise((resolve) => setTimeout(resolve, opts.retryInterval));
     }
 
-    throw new Error(
+    throw new StorageError(
       `Failed to acquire lock on "${resource}" within ${opts.timeout}ms`,
+      {
+        code: "STORAGE_LOCK_ACQUIRE_TIMEOUT",
+        statusCode: 504,
+      },
     );
   }
 

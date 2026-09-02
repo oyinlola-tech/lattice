@@ -75,16 +75,8 @@ async function destroyModules(
 async function invokeStopModules(
   moduleLifecycle: ModuleLifecycleManager,
 ): Promise<void> {
-  const l = moduleLifecycle as unknown as {
-    stopAll?: () => Promise<unknown> | unknown;
-    stop?: () => Promise<unknown> | unknown;
-  };
-  if (typeof l.stopAll === "function") {
-    await l.stopAll();
-    return;
-  }
-  if (typeof l.stop === "function") {
-    await l.stop();
+  if (typeof moduleLifecycle.stop === "function") {
+    await moduleLifecycle.stop();
     return;
   }
   throw new RuntimeShutdownError(
@@ -96,30 +88,12 @@ async function invokeStopModules(
 async function invokeDestroyModules(
   moduleLifecycle: ModuleLifecycleManager,
 ): Promise<void> {
-  const l = moduleLifecycle as unknown as {
-    destroyAll?: () => Promise<unknown> | unknown;
-    destroy?: () => Promise<unknown> | unknown;
-    disposeAll?: () => Promise<unknown> | unknown;
-    dispose?: () => Promise<unknown> | unknown;
-  };
-  if (typeof l.destroyAll === "function") {
-    await l.destroyAll();
-    return;
-  }
-  if (typeof l.destroy === "function") {
-    await l.destroy();
-    return;
-  }
-  if (typeof l.disposeAll === "function") {
-    await l.disposeAll();
-    return;
-  }
-  if (typeof l.dispose === "function") {
-    await l.dispose();
+  if (typeof moduleLifecycle.destroy === "function") {
+    await moduleLifecycle.destroy();
     return;
   }
   throw new RuntimeShutdownError(
-    "ModuleLifecycleManager does not expose a supported destroy or dispose method.",
+    "ModuleLifecycleManager does not expose a supported destroy method.",
     "MODULE_DESTROY_METHOD_NOT_FOUND",
   );
 }

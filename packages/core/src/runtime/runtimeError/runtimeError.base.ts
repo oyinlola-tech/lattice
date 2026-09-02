@@ -1,4 +1,5 @@
 import { FrameworkError } from "../../errors/frameworkError.error.js";
+import type { SerializedBaseError } from "@oyinlola141/lattice-errors";
 
 import type {
   RuntimeErrorOptions,
@@ -76,7 +77,15 @@ export class RuntimeError extends FrameworkError {
     return normalizeError(this.cause);
   }
 
-  public override toJSON(): any {
+  public override toJSON(): SerializedBaseError & {
+    readonly operation?: string;
+    readonly phase?: string;
+    readonly runtimeId?: string;
+    readonly runtimeName?: string;
+    readonly moduleName?: string;
+    readonly errorMetadata: RuntimeErrorMetadata;
+    readonly recoverable: boolean;
+  } {
     return {
       ...super.toJSON(),
       operation: this.operation,

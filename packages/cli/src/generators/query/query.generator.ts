@@ -39,12 +39,19 @@ export class ${nameCamel}Query implements BaseQuery<${nameCamel}QueryPayload> {
 `,
 
     [`${servicePath}/queries/${name}/${name}.handler.ts`]: `import type { QueryHandler, QueryResult } from "@oyinlola141/lattice-cqrs";
+import { createLogger } from "@oyinlola141/lattice-logger";
 import { ${nameCamel}Query } from "./${name}.query.js";
 
 export class ${nameCamel}QueryHandler implements QueryHandler<${nameCamel}Query> {
+  private readonly logger = createLogger({ name: "${name}-handler" });
+
   async handle(query: ${nameCamel}Query): Promise<QueryResult> {
-    // TODO: Implement query logic
-    return { success: true, data: null };
+    this.logger.info("Processing ${name} query", { payload: query.payload });
+
+    return {
+      success: true,
+      data: { items: [], total: 0 },
+    };
   }
 }
 `,

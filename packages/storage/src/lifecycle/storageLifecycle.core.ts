@@ -5,6 +5,7 @@
  * uninitialized → initializing → ready → draining → drained → shutdown
  */
 
+import { StorageError } from "@oyinlola141/lattice-errors";
 import type {
   StorageLifecycle,
   StorageLifecyclePhase,
@@ -36,7 +37,10 @@ export class StorageLifecycleManager implements StorageLifecycle {
 
   async start(): Promise<void> {
     if (this.phase !== "ready") {
-      throw new Error(`Cannot start from phase: ${this.phase}`);
+      throw new StorageError(`Cannot start from phase: ${this.phase}`, {
+        code: "STORAGE_LIFECYCLE_INVALID_PHASE",
+        statusCode: 500,
+      });
     }
     for (const component of this.components) {
       await component.start();

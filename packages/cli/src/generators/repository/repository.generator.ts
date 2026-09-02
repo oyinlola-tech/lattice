@@ -22,17 +22,53 @@ export async function generateRepository(
   const files: Record<string, string> = {
     [`repositories/${name}.repository.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
 
+export interface ${nameCamel}Entity {
+  readonly id: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+  [key: string]: unknown;
+}
+
 export class ${nameCamel}Repository {
   private readonly logger = createLogger({ name: "${name}-repository" });
+  private readonly store = new Map<string, ${nameCamel}Entity>();
 
-  async findById(id: string): Promise<unknown | null> {
-    // TODO: Implement repository logic
-    return null;
+  async findById(id: string): Promise<${nameCamel}Entity | null> {
+    this.logger.debug("Finding ${name} by id", { id });
+    return this.store.get(id) ?? null;
   }
 
-  async findAll(): Promise<unknown[]> {
-    // TODO: Implement repository logic
-    return [];
+  async findAll(): Promise<readonly ${nameCamel}Entity[]> {
+    this.logger.debug("Finding all ${name} entities");
+    return [...this.store.values()];
+  }
+
+  async create(data: Omit<${nameCamel}Entity, "id" | "createdAt" | "updatedAt">): Promise<${nameCamel}Entity> {
+    const now = new Date().toISOString();
+    const entity: ${nameCamel}Entity = {
+      id: crypto.randomUUID(),
+      createdAt: now,
+      updatedAt: now,
+      ...data,
+    };
+    this.store.set(entity.id, entity);
+    this.logger.info("Created ${name}", { id: entity.id });
+    return entity;
+  }
+
+  async update(id: string, changes: Partial<${nameCamel}Entity>): Promise<${nameCamel}Entity | null> {
+    const existing = this.store.get(id);
+    if (!existing) return null;
+    const updated = { ...existing, ...changes, updatedAt: new Date().toISOString() };
+    this.store.set(id, updated);
+    this.logger.info("Updated ${name}", { id });
+    return updated;
+  }
+
+  async delete(id: string): Promise<boolean> {
+    const deleted = this.store.delete(id);
+    if (deleted) this.logger.info("Deleted ${name}", { id });
+    return deleted;
   }
 }
 `,

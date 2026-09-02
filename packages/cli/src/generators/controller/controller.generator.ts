@@ -27,8 +27,16 @@ export class ${nameCamel}Controller {
   private readonly logger = createLogger({ name: "${name}-controller" });
 
   async handle(request: Request): Promise<Response> {
-    // TODO: Implement controller logic
-    return new Response(JSON.stringify({ ok: true }), { status: 200 });
+    this.logger.info("${name} request received", { method: request.method, url: request.url });
+
+    try {
+      const body = request.method !== "GET" ? await request.json() : null;
+
+      return Response.json({ ok: true, data: body ?? {} }, { status: 200 });
+    } catch (error) {
+      this.logger.error("Failed to handle ${name} request", { error });
+      return Response.json({ ok: false, error: "Internal server error" }, { status: 500 });
+    }
   }
 }
 `,

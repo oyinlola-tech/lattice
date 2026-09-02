@@ -180,12 +180,63 @@ function checkArchitectureViolations(): DoctorCheck {
     };
   }
 
+  const configPath = join(process.cwd(), "lattice.config.ts");
+  let architecture = "monolith";
+  if (existsSync(configPath)) {
+    const configContent = readFileSync(configPath, "utf-8");
+    const archMatch = configContent.match(/architecture:\s*["'](\w[\w-]*)["']/);
+    if (archMatch?.[1]) {
+      architecture = archMatch[1];
+    }
+  }
+
+  if (architecture === "modular-monolith" || architecture === "microservice") {
+    const servicesDir = join(srcDir, "services");
+    if (existsSync(servicesDir)) {
+      violations.push(
+        "src/services/ should be split into modules/ (modular-monolith) or apps/services/ (microservice)",
+      );
+    }
+  }
+
+  if (architecture === "monolith") {
+    const modulesDir = join(srcDir, "modules");
+    if (existsSync(modulesDir)) {
+      violations.push(
+        "src/modules/ found in monolith architecture — consider modular-monolith or microservice architecture",
+      );
+    }
+  }
+
+  const pkgPath = join(process.cwd(), "package.json");
+  if (existsSync(pkgPath)) {
+    try {
+      const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
+        dependencies?: Record<string, string>;
+        lattice?: { features?: string[] };
+      };
+      const features = pkg.lattice?.features ?? [];
+      const deps = Object.keys(pkg.dependencies ?? {});
+
+      for (const feature of features) {
+        const pkgName = `@oyinlola141/lattice-${feature}`;
+        if (!deps.includes(pkgName)) {
+          violations.push(
+            `Feature "${feature}" declared in package.json#lattice.features but ${pkgName} not in dependencies`,
+          );
+        }
+      }
+    } catch {
+      // ignore parse errors
+    }
+  }
+
   return {
     name: "Architecture",
     passed: violations.length === 0,
     message:
       violations.length === 0
         ? "No violations detected"
-        : `${violations.length} potential violations found`,
+        : `${violations.length} potential violation(s): ${violations.join("; ")}`,
   };
 }

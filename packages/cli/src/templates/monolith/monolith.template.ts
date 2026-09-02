@@ -134,7 +134,7 @@ export function generateMonolithFiles(
 `;
 
   // lattice.config.ts
-  files["lattice.config.ts"] = `import { defineConfig } from "@lattice/config";
+  files["lattice.config.ts"] = `import { defineConfig } from "@oyinlola141/lattice-config";
 
 export default defineConfig({
   application: {
@@ -237,8 +237,8 @@ MIT
 `;
 
   files["src/server.ts"] = `import { createApp } from "./app.js";
-import { createRuntime } from "@lattice/runtime";
-import { logger } from "@lattice/logger";
+import { createRuntime } from "@oyinlola141/lattice-runtime";
+import { logger } from "@oyinlola141/lattice-logger";
 
 const app = await createApp();
 
@@ -258,8 +258,8 @@ process.on("SIGTERM", async () => {
 });
 `;
 
-  files["src/app.ts"] = `import { logger } from "@lattice/logger";
-import { createContainer } from "@lattice/container";
+  files["src/app.ts"] = `import { logger } from "@oyinlola141/lattice-logger";
+import { createContainer } from "@oyinlola141/lattice-container";
 
 export async function createApp() {
   const log = logger.child({ service: "app" });

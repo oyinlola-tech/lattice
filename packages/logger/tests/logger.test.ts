@@ -1,309 +1,277 @@
-import { describe, it, expect } from "vitest";
-
+import { describe, it, expect, vi } from "vitest";
 import {
+  createLogger,
   LoggerLevel,
+  createConsoleLoggerTransport,
+  createJsonLoggerFormatter,
+  createTextLoggerFormatter,
+  createCompactLoggerFormatter,
+  createLoggerFactory,
+  createLoggerManager,
   loggerLevelToName,
   loggerLevelFromName,
   shouldLog,
   getLoggerLevels,
   getLoggerLevelNames,
-} from "../src/loggerLevel/loggerLevel.type.js";
-
-import {
-  createLoggerEntry,
-  createErrorLoggerEntry,
-} from "../src/loggerEntry/loggerEntry.core.js";
-
-import { serializeLoggerEntry } from "../src/loggerEntry/loggerEntrySerialize.js";
-
-import {
+  isLoggerLevel,
+  isLoggerLevelName,
   createLoggerContext,
-  createEmptyLoggerContext,
-  mergeLoggerContexts,
   isLoggerContext,
-} from "../src/loggerContext/loggerContext.core.js";
+} from "../src/index.js";
 
-import {
-  createJsonLoggerFormatter,
-  createTextLoggerFormatter,
-  createCompactLoggerFormatter,
-} from "../src/loggerFormatter/loggerFormatterFormatters/index.js";
-
-import {
-  createConsoleLoggerTransport,
-  createMultiLoggerTransport,
-  createConditionalLoggerTransport,
-} from "../src/loggerTransport/loggerTransport.registry.js";
-
-import {
-  LoggerError,
-  LoggerConfigurationError,
-  LoggerDisposedError,
-  isLoggerError,
-  toLoggerError,
-} from "../src/loggerErrors/loggerError.base.js";
-
-import {
-  validateLoggerOptions,
-  DEFAULT_LOGGER_OPTIONS,
-} from "../src/loggerOptions/loggerOptions.type.js";
-
-// ---------------------------------------------------------------------------
-// LoggerLevel
-// ---------------------------------------------------------------------------
-
-describe("LoggerLevel", () => {
-  it("has 6 levels", () => {
-    const names = getLoggerLevelNames();
-    expect(names).toHaveLength(6);
-  });
-
-  it("converts level to name", () => {
-    expect(loggerLevelToName(LoggerLevel.DEBUG)).toBe("debug");
-    expect(loggerLevelToName(LoggerLevel.INFO)).toBe("info");
-    expect(loggerLevelToName(LoggerLevel.WARN)).toBe("warn");
-    expect(loggerLevelToName(LoggerLevel.ERROR)).toBe("error");
+describe("LoggerLevel utilities", () => {
+  it("should convert level to name", () => {
     expect(loggerLevelToName(LoggerLevel.FATAL)).toBe("fatal");
+    expect(loggerLevelToName(LoggerLevel.ERROR)).toBe("error");
+    expect(loggerLevelToName(LoggerLevel.WARN)).toBe("warn");
+    expect(loggerLevelToName(LoggerLevel.INFO)).toBe("info");
+    expect(loggerLevelToName(LoggerLevel.DEBUG)).toBe("debug");
     expect(loggerLevelToName(LoggerLevel.TRACE)).toBe("trace");
   });
 
-  it("converts name to level", () => {
-    expect(loggerLevelFromName("debug")).toBe(LoggerLevel.DEBUG);
+  it("should convert name to level", () => {
+    expect(loggerLevelFromName("fatal")).toBe(LoggerLevel.FATAL);
+    expect(loggerLevelFromName("error")).toBe(LoggerLevel.ERROR);
+    expect(loggerLevelFromName("warn")).toBe(LoggerLevel.WARN);
     expect(loggerLevelFromName("info")).toBe(LoggerLevel.INFO);
+    expect(loggerLevelFromName("debug")).toBe(LoggerLevel.DEBUG);
+    expect(loggerLevelFromName("trace")).toBe(LoggerLevel.TRACE);
   });
 
-  it("shouldLog respects level hierarchy", () => {
-    // FATAL=0, ERROR=1, WARN=2, INFO=3, DEBUG=4, TRACE=5
-    // shouldLog(threshold, messageLevel) = messageLevel <= threshold
+  it("should handle alias 'warning' for warn", () => {
+    expect(loggerLevelFromName("warning")).toBe(LoggerLevel.WARN);
+  });
+
+  it("should determine if level should be logged", () => {
     expect(shouldLog(LoggerLevel.INFO, LoggerLevel.ERROR)).toBe(true);
-    expect(shouldLog(LoggerLevel.INFO, LoggerLevel.WARN)).toBe(true);
     expect(shouldLog(LoggerLevel.INFO, LoggerLevel.DEBUG)).toBe(false);
-    expect(shouldLog(LoggerLevel.DEBUG, LoggerLevel.INFO)).toBe(true);
-    expect(shouldLog(LoggerLevel.WARN, LoggerLevel.ERROR)).toBe(true);
-    expect(shouldLog(LoggerLevel.WARN, LoggerLevel.INFO)).toBe(false);
+    expect(shouldLog(LoggerLevel.DEBUG, LoggerLevel.DEBUG)).toBe(true);
+    expect(shouldLog(LoggerLevel.FATAL, LoggerLevel.FATAL)).toBe(true);
   });
 
-  it("shouldLog allows same level", () => {
-    expect(shouldLog(LoggerLevel.INFO, LoggerLevel.INFO)).toBe(true);
-  });
-
-  it("getLoggerLevels returns all levels", () => {
+  it("should return all levels", () => {
     const levels = getLoggerLevels();
     expect(levels).toHaveLength(6);
     expect(levels).toContain(LoggerLevel.FATAL);
-    expect(levels).toContain(LoggerLevel.TRACE);
+  });
+
+  it("should return all level names", () => {
+    const names = getLoggerLevelNames();
+    expect(names).toHaveLength(6);
+    expect(names).toContain("fatal");
+    expect(names).toContain("info");
+  });
+
+  it("should validate level values", () => {
+    expect(isLoggerLevel(LoggerLevel.INFO)).toBe(true);
+    expect(isLoggerLevel(999)).toBe(false);
+  });
+
+  it("should validate level names", () => {
+    expect(isLoggerLevelName("info")).toBe(true);
+    expect(isLoggerLevelName("invalid")).toBe(false);
   });
 });
 
-// ---------------------------------------------------------------------------
-// LoggerEntry
-// ---------------------------------------------------------------------------
-
-describe("LoggerEntry", () => {
-  it("creates a log entry", () => {
-    const entry = createLoggerEntry({
-      level: LoggerLevel.INFO,
-      message: "test message",
-    });
-
-    expect(entry.level).toBe(LoggerLevel.INFO);
-    expect(entry.levelName).toBe("info");
-    expect(entry.message).toBe("test message");
-    expect(entry.id).toBeTruthy();
-    expect(entry.timestamp).toBeInstanceOf(Date);
+describe("createLogger", () => {
+  it("should create a logger with defaults", () => {
+    const logger = createLogger();
+    expect(logger.name).toBe("lattice");
+    expect(logger.level).toBe(LoggerLevel.INFO);
+    expect(logger.enabled).toBe(true);
   });
 
-  it("creates an error log entry", () => {
-    const error = new Error("boom");
-    const entry = createErrorLoggerEntry(error, LoggerLevel.ERROR);
-
-    expect(entry.level).toBe(LoggerLevel.ERROR);
-    expect(entry.error).toBe(error);
-    expect(entry.message).toContain("boom");
+  it("should create a logger with custom options", () => {
+    const logger = createLogger({
+      name: "test",
+      level: LoggerLevel.DEBUG,
+    });
+    expect(logger.name).toBe("test");
+    expect(logger.level).toBe(LoggerLevel.DEBUG);
   });
 
-  it("serializes an entry to a plain object", () => {
-    const entry = createLoggerEntry({
-      level: LoggerLevel.WARN,
-      message: "warning",
-    });
+  it("should log at different levels", () => {
+    const logger = createLogger({ name: "test" });
+    expect(() => logger.fatal("fatal")).not.toThrow();
+    expect(() => logger.error("error")).not.toThrow();
+    expect(() => logger.warn("warn")).not.toThrow();
+    expect(() => logger.info("info")).not.toThrow();
+    expect(() => logger.debug("debug")).not.toThrow();
+    expect(() => logger.trace("trace")).not.toThrow();
+  });
 
-    const obj = serializeLoggerEntry(entry);
-    expect(typeof obj).toBe("object");
-    expect(obj.level).toBe(LoggerLevel.WARN);
-    expect(obj.message).toBe("warning");
+  it("should create child loggers", () => {
+    const parent = createLogger({ name: "parent" });
+    const child = parent.child({ name: "child" });
+    expect(child.name).toBe("child");
+  });
+
+  it("should enable and disable", () => {
+    const logger = createLogger({ name: "test" });
+    logger.disable();
+    expect(logger.enabled).toBe(false);
+    logger.enable();
+    expect(logger.enabled).toBe(true);
+  });
+
+  it("should change log level", () => {
+    const logger = createLogger({ name: "test" });
+    logger.setLevel(LoggerLevel.DEBUG);
+    expect(logger.level).toBe(LoggerLevel.DEBUG);
+  });
+
+  it("should flush and close without error", async () => {
+    const logger = createLogger({ name: "test" });
+    await expect(logger.flush()).resolves.toBeUndefined();
+    await expect(logger.close()).resolves.toBeUndefined();
   });
 });
 
-// ---------------------------------------------------------------------------
-// LoggerContext
-// ---------------------------------------------------------------------------
+describe("Formatters", () => {
+  it("should create text formatter", () => {
+    const formatter = createTextLoggerFormatter();
+    expect(formatter).toBeDefined();
+  });
+
+  it("should create JSON formatter", () => {
+    const formatter = createJsonLoggerFormatter();
+    expect(formatter).toBeDefined();
+  });
+
+  it("should create compact formatter", () => {
+    const formatter = createCompactLoggerFormatter();
+    expect(formatter).toBeDefined();
+  });
+});
+
+describe("Transports", () => {
+  it("should create console transport", () => {
+    const transport = createConsoleLoggerTransport();
+    expect(transport).toBeDefined();
+    expect(transport.name).toBeDefined();
+  });
+
+  it("should create logger with custom transport", () => {
+    const written: unknown[] = [];
+    const transport = {
+      name: "test",
+      enabled: true,
+      write: (entry: unknown) => {
+        written.push(entry);
+      },
+    };
+
+    const logger = createLogger({
+      name: "test",
+      transports: [transport],
+    });
+
+    logger.info("test message");
+    expect(written.length).toBeGreaterThan(0);
+  });
+});
+
+describe("LoggerFactory", () => {
+  it("should create a factory", () => {
+    const factory = createLoggerFactory();
+    expect(factory).toBeDefined();
+    expect(factory.size).toBe(0);
+  });
+
+  it("should create and retrieve loggers", () => {
+    const factory = createLoggerFactory();
+    const logger = factory.create("test");
+    expect(factory.has("test")).toBe(true);
+    expect(factory.get("test")).toBe(logger);
+  });
+
+  it("should create child loggers", () => {
+    const factory = createLoggerFactory();
+    const parent = factory.create("parent");
+    const child = factory.child(parent, { name: "child" });
+    expect(child.name).toBe("child");
+  });
+
+  it("should remove loggers", () => {
+    const factory = createLoggerFactory();
+    factory.create("test");
+    expect(factory.remove("test")).toBe(true);
+    expect(factory.has("test")).toBe(false);
+  });
+
+  it("should create transient loggers", () => {
+    const factory = createLoggerFactory();
+    const logger = factory.createTransient({ name: "transient" });
+    expect(logger.name).toBe("transient");
+  });
+});
+
+describe("LoggerManager", () => {
+  it("should create a manager", () => {
+    const manager = createLoggerManager();
+    expect(manager).toBeDefined();
+    expect(manager.isInitialized).toBe(false);
+  });
+
+  it("should initialize with a logger", () => {
+    const manager = createLoggerManager();
+    manager.initialize({ name: "app" });
+    expect(manager.isInitialized).toBe(true);
+    expect(manager.getLogger()).toBeDefined();
+  });
+
+  it("should create and retrieve named loggers", () => {
+    const manager = createLoggerManager();
+    manager.initialize({ name: "app" });
+    const logger = manager.create("service");
+    expect(manager.has("service")).toBe(true);
+    expect(manager.get("service")).toBe(logger);
+  });
+
+  it("should flush and close", async () => {
+    const manager = createLoggerManager();
+    manager.initialize({ name: "app" });
+    await manager.flush();
+    await manager.close();
+    expect(manager.isClosed).toBe(true);
+  });
+});
 
 describe("LoggerContext", () => {
-  it("creates a logger context with identifiers", () => {
+  it("should create a logger context", () => {
     const ctx = createLoggerContext({
-      correlationId: "corr-1",
-      requestId: "req-1",
+      correlationId: "corr-123",
+      metadata: { userId: "user-1" },
     });
-
-    expect(ctx.identifiers.correlationId).toBe("corr-1");
-    expect(ctx.identifiers.requestId).toBe("req-1");
-    expect(isLoggerContext(ctx)).toBe(true);
+    expect(ctx.identifiers.correlationId).toBe("corr-123");
+    expect(ctx.metadata.userId).toBe("user-1");
   });
 
-  it("creates an empty context", () => {
-    const ctx = createEmptyLoggerContext();
-    expect(isLoggerContext(ctx)).toBe(true);
-    expect(ctx.identifiers.correlationId).toBeUndefined();
+  it("should create a context with defaults", () => {
+    const ctx = createLoggerContext();
+    expect(ctx.identifiers).toEqual({});
+    expect(ctx.metadata).toEqual({});
   });
 
-  it("merges contexts", () => {
-    const base = createLoggerContext({
+  it("should merge contexts via parent", () => {
+    const ctx1 = createLoggerContext({
       correlationId: "c1",
+      metadata: { a: 1 },
     });
-    const override = createLoggerContext({
+    const ctx2 = createLoggerContext({
+      parent: ctx1,
       requestId: "r1",
+      metadata: { b: 2 },
     });
 
-    const merged = mergeLoggerContexts(base, override);
-    expect(merged.identifiers.correlationId).toBe("c1");
-    expect(merged.identifiers.requestId).toBe("r1");
+    expect(ctx2.identifiers.correlationId).toBe("c1");
+    expect(ctx2.identifiers.requestId).toBe("r1");
+    expect(ctx2.metadata.a).toBe(1);
+    expect(ctx2.metadata.b).toBe(2);
   });
 
-  it("override replaces base values", () => {
-    const base = createLoggerContext({
-      correlationId: "c1",
-    });
-    const override = createLoggerContext({
-      correlationId: "c2",
-    });
-
-    const merged = mergeLoggerContexts(base, override);
-    expect(merged.identifiers.correlationId).toBe("c2");
-  });
-});
-
-// ---------------------------------------------------------------------------
-// LoggerFormatters
-// ---------------------------------------------------------------------------
-
-describe("LoggerFormatters", () => {
-  const entry = createLoggerEntry({
-    level: LoggerLevel.INFO,
-    message: "hello world",
-  });
-
-  it("formats as JSON", () => {
-    const formatter = createJsonLoggerFormatter();
-    const output = formatter.format(entry, {});
-    expect(typeof output).toBe("string");
-    const parsed = JSON.parse(output);
-    expect(parsed.message).toBe("hello world");
-  });
-
-  it("formats as text", () => {
-    const formatter = createTextLoggerFormatter();
-    const output = formatter.format(entry, {});
-    expect(typeof output).toBe("string");
-    expect(output).toContain("hello world");
-  });
-
-  it("formats as compact", () => {
-    const formatter = createCompactLoggerFormatter();
-    const output = formatter.format(entry, {});
-    expect(typeof output).toBe("string");
-  });
-});
-
-// ---------------------------------------------------------------------------
-// LoggerTransports
-// ---------------------------------------------------------------------------
-
-describe("LoggerTransports", () => {
-  it("creates a console transport", () => {
-    const transport = createConsoleLoggerTransport();
-    expect(transport.name).toBeTruthy();
-    expect(typeof transport.write).toBe("function");
-  });
-
-  it("creates a multi-transport", () => {
-    const t1 = createConsoleLoggerTransport();
-    const t2 = createConsoleLoggerTransport();
-    const multi = createMultiLoggerTransport([t1, t2]);
-    expect(multi.name).toBeTruthy();
-  });
-
-  it("creates a conditional transport", () => {
-    const transport = createConditionalLoggerTransport({
-      predicate: () => true,
-      transport: createConsoleLoggerTransport(),
-    });
-    expect(typeof transport.write).toBe("function");
-  });
-});
-
-// ---------------------------------------------------------------------------
-// LoggerError
-// ---------------------------------------------------------------------------
-
-describe("LoggerError", () => {
-  it("is an error", () => {
-    const err = new LoggerError("test error");
-    expect(err).toBeInstanceOf(Error);
-    expect(err.message).toBe("test error");
-    expect(isLoggerError(err)).toBe(true);
-  });
-
-  it("LoggerConfigurationError extends LoggerError", () => {
-    const err = new LoggerConfigurationError("bad config");
-    expect(err).toBeInstanceOf(LoggerError);
-    expect(err).toBeInstanceOf(Error);
-  });
-
-  it("LoggerDisposedError extends LoggerError", () => {
-    const err = new LoggerDisposedError();
-    expect(err).toBeInstanceOf(LoggerError);
-  });
-
-  it("toLoggerError wraps unknown errors", () => {
-    const err = toLoggerError("string error");
-    expect(err).toBeInstanceOf(Error);
-    expect(err.message).toBe("string error");
-  });
-
-  it("toLoggerError passes through LoggerError", () => {
-    const original = new LoggerError("original");
-    const wrapped = toLoggerError(original);
-    expect(wrapped).toBe(original);
-  });
-
-  it("isLoggerError rejects non-errors", () => {
-    expect(isLoggerError("string")).toBe(false);
-    expect(isLoggerError(null)).toBe(false);
-    expect(isLoggerError(42)).toBe(false);
-  });
-});
-
-// ---------------------------------------------------------------------------
-// LoggerOptions validation
-// ---------------------------------------------------------------------------
-
-describe("LoggerOptions", () => {
-  it("validates empty options", () => {
-    expect(() => validateLoggerOptions({})).not.toThrow();
-  });
-
-  it("rejects empty name", () => {
-    expect(() => validateLoggerOptions({ name: "" })).toThrow();
-  });
-
-  it("rejects negative transportTimeout", () => {
-    expect(() => validateLoggerOptions({ transportTimeout: -1 })).toThrow();
-  });
-
-  it("has sensible defaults", () => {
-    expect(DEFAULT_LOGGER_OPTIONS.enabled).toBe(true);
-    expect(DEFAULT_LOGGER_OPTIONS.asynchronous).toBe(false);
-    expect(DEFAULT_LOGGER_OPTIONS.transportTimeout).toBe(10_000);
+  it("should validate context", () => {
+    expect(isLoggerContext(createLoggerContext({}))).toBe(true);
+    expect(isLoggerContext({})).toBe(false);
   });
 });

@@ -48,14 +48,35 @@ export interface AuthServiceConfig {
   readonly token: TokenConfig;
   /** Session store */
   readonly sessionStore: SessionStore;
-  /** Function to look up a user by identifier (email/username) */
+  /** User lookup function */
   readonly findUser: UserLookup;
-  /** Function to verify a user's password */
+  /** Password verifier function */
   readonly verifyPassword: PasswordVerifier;
-  /** Permission engine for authorization checks */
+  /** Session TTL in seconds */
+  readonly sessionTtlSeconds: number;
+  /** Optional permission engine */
   readonly permissions?: PermissionEngine;
-  /** Default session TTL in seconds */
-  readonly sessionTtlSeconds?: number;
+}
+
+/**
+ * Auth service interface.
+ */
+export interface AuthService {
+  login(
+    credentials: UserCredentials,
+    context?: { readonly userAgent?: string; readonly ip?: string },
+  ): Promise<LoginResult>;
+  verifyToken(token: string): Record<string, unknown>;
+  refresh(refreshToken: string): Promise<TokenPair>;
+  logout(sessionId: SessionId): Promise<void>;
+  checkAccess(
+    userId: UserId,
+    userRoles: readonly string[],
+    permission: string,
+    resourceOwnerId?: UserId,
+  ): Promise<GuardResult>;
+  hashPassword(password: string): Promise<string>;
+  verifyPasswordHash(password: string, hash: string): Promise<boolean>;
 }
 
 /**
@@ -73,7 +94,7 @@ export interface LoginResult {
 /**
  * Create an auth service.
  */
-export function createAuthService(config: AuthServiceConfig) {
+export function createAuthService(config: AuthServiceConfig): AuthService {
   const {
     token: tokenConfig,
     sessionStore,

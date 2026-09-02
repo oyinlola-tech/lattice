@@ -6,7 +6,7 @@
  * error information for HTTP handlers, logging, and observability.
  */
 
-import { ApplicationError } from "@oyinlola141/lattice-errors";
+import { ApplicationError, type SerializedBaseError } from "@oyinlola141/lattice-errors";
 
 /**
  * Options accepted by FrameworkError.
@@ -59,15 +59,18 @@ export class FrameworkError extends ApplicationError {
   /**
    * Converts the error into a structured representation.
    */
-  public override toJSON(): any {
+  public override toJSON(): SerializedBaseError & { readonly details?: unknown } {
     return {
       ...super.toJSON(),
       name: this.name,
       message: this.message,
       code: String(this.code),
-      ...(this.statusCode !== 500 && {
-        status: this.statusCode,
-      }),
+      category: this.category,
+      severity: this.severity,
+      statusCode: this.statusCode,
+      expose: this.expose,
+      isOperational: this.isOperational,
+      metadata: this.metadata,
       ...(this.details !== undefined && {
         details: this.details,
       }),

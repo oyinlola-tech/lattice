@@ -35,13 +35,19 @@ import {
   Router,
   createRouter,
   type RouteHandler,
-  // Middleware
-  cors,
-  csrf,
-  rateLimit,
-  securityHeaders,
-  hsts,
-  csp,
+  // CORS
+  createCorsPolicy,
+  isCorsRequest,
+  isPreflightRequest,
+  // CSP
+  createCSP,
+  strictCSP,
+  apiCSP,
+  // HSTS
+  strictTransportSecurityHeader,
+  // Security Headers
+  createSecurityHeaders,
+  createRecommendedSecurityHeaders,
   // Cookies
   parseCookies,
   serializeCookie,
@@ -57,11 +63,11 @@ import {
 ## Usage
 
 ```typescript
-import { createRouter, HTTP_STATUS, cors } from "@oyinlola141/lattice-http";
+import { createRouter, HTTP_STATUS, createCorsPolicy } from "@oyinlola141/lattice-http";
 
 const router = createRouter();
 router.get("/health", () => new Response("ok", { status: HTTP_STATUS.OK }));
-router.use(cors({ origin: "*" }));
+router.use(createCorsPolicy({ origin: "*" }));
 ```
 
 ## License

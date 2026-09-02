@@ -13,6 +13,7 @@ import {
   readdir,
 } from "node:fs/promises";
 import { join, dirname } from "node:path";
+import { StorageError } from "@oyinlola141/lattice-errors";
 import type {
   ObjectStorage,
   ObjectPutOptions,
@@ -171,7 +172,10 @@ export class LocalObjectStorage implements ObjectStorage {
     // Prevent path traversal
     const resolved = join(this.basePath, key);
     if (!resolved.startsWith(this.basePath)) {
-      throw new Error(`Path traversal detected: ${key}`);
+      throw new StorageError(`Path traversal detected: ${key}`, {
+        code: "STORAGE_PATH_TRAVERSAL",
+        statusCode: 400,
+      });
     }
     return resolved;
   }

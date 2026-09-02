@@ -107,7 +107,7 @@ export function generateModularMonolithFiles(
 }
 `;
 
-  files["lattice.config.ts"] = `import { defineConfig } from "@lattice/config";
+  files["lattice.config.ts"] = `import { defineConfig } from "@oyinlola141/lattice-config";
 
 export default defineConfig({
   application: {
@@ -173,8 +173,8 @@ MIT
   files["src/index.ts"] = `export { createApp } from "./app.js";
 `;
 
-  files["src/app.ts"] = `import { logger } from "@lattice/logger";
-import { createContainer } from "@lattice/container";
+  files["src/app.ts"] = `import { logger } from "@oyinlola141/lattice-logger";
+import { createContainer } from "@oyinlola141/lattice-container";
 
 export async function createApp() {
   const log = logger.child({ service: "app" });
@@ -195,7 +195,7 @@ export async function createApp() {
 `;
 
   files["src/server.ts"] = `import { createApp } from "./app.js";
-import { createRuntime } from "@lattice/runtime";
+import { createRuntime } from "@oyinlola141/lattice-runtime";
 
 const app = await createApp();
 
@@ -247,7 +247,7 @@ process.on("SIGTERM", async () => {
 `;
 
     files[`src/modules/${modName}/${modName}.module.ts`] =
-      `import { logger } from "@lattice/logger";
+      `import { logger } from "@oyinlola141/lattice-logger";
 
 export class ${modNamePascal}Module {
   private readonly log = logger.child({ module: "${modName}" });
