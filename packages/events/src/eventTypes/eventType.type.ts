@@ -130,7 +130,13 @@ export function normalizeEventType(type: string): EventType {
     }
   }
 
-  const trimmed = result.replace(/^\.+|\.+$/g, "");
+  let start = 0;
+  let end = result.length;
+
+  while (start < end && result.charCodeAt(start) === 46) start++;
+  while (end > start && result.charCodeAt(end - 1) === 46) end--;
+
+  const trimmed = result.slice(start, end);
 
   if (!isValidEventType(trimmed)) {
     throw new TypeError(`Invalid event type: "${type}".`);
