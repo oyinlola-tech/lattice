@@ -22,7 +22,7 @@ export class FlutterAdapter implements FrontendAdapter {
 
   async isAvailable(): Promise<boolean> {
     try {
-      await execCommand("flutter --version", ".");
+      await execCommand("flutter", ["--version"], ".");
       return true;
     } catch {
       return false;
@@ -38,7 +38,8 @@ export class FlutterAdapter implements FrontendAdapter {
     const org = "com.lattice";
 
     await execCommand(
-      `flutter create . --org ${org} --project-name ${context.project.name} --platforms android,ios,web`,
+      "flutter",
+      ["create", ".", "--org", org, "--project-name", context.project.name, "--platforms", "android,ios,web"],
       projectPath,
     );
   }
@@ -69,7 +70,7 @@ export class FlutterAdapter implements FrontendAdapter {
     const warnings: string[] = [];
 
     try {
-      await execCommand("flutter --version", ".");
+      await execCommand("flutter", ["--version"], ".");
     } catch {
       errors.push(
         "Flutter SDK is not installed. Please install Flutter first.",

@@ -15,7 +15,7 @@ export class BunAdapter implements PackageManager {
 
   async isInstalled(): Promise<boolean> {
     try {
-      await execCommand("bun --version", ".");
+      await execCommand("bun", ["--version"], ".");
       return true;
     } catch {
       return false;
@@ -23,12 +23,12 @@ export class BunAdapter implements PackageManager {
   }
 
   async install(projectPath: string): Promise<void> {
-    await execCommand("bun install", projectPath);
+    await execCommand("bun", ["install"], projectPath);
   }
 
   async add(projectPath: string, packages: readonly string[]): Promise<void> {
     if (packages.length === 0) return;
-    await execCommand(`bun add ${packages.join(" ")}`, projectPath);
+    await execCommand("bun", ["add", ...packages], projectPath);
   }
 
   async addDev(
@@ -36,11 +36,11 @@ export class BunAdapter implements PackageManager {
     packages: readonly string[],
   ): Promise<void> {
     if (packages.length === 0) return;
-    await execCommand(`bun add -d ${packages.join(" ")}`, projectPath);
+    await execCommand("bun", ["add", "-d", ...packages], projectPath);
   }
 
   async run(projectPath: string, script: string): Promise<void> {
-    await execCommand(`bun run ${script}`, projectPath);
+    await execCommand("bun", ["run", script], projectPath);
   }
 
   getInstallCommand(): string {

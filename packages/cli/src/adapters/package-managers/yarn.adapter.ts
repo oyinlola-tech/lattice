@@ -15,7 +15,7 @@ export class YarnAdapter implements PackageManager {
 
   async isInstalled(): Promise<boolean> {
     try {
-      await execCommand("yarn --version", ".");
+      await execCommand("yarn", ["--version"], ".");
       return true;
     } catch {
       return false;
@@ -23,12 +23,12 @@ export class YarnAdapter implements PackageManager {
   }
 
   async install(projectPath: string): Promise<void> {
-    await execCommand("yarn install", projectPath);
+    await execCommand("yarn", ["install"], projectPath);
   }
 
   async add(projectPath: string, packages: readonly string[]): Promise<void> {
     if (packages.length === 0) return;
-    await execCommand(`yarn add ${packages.join(" ")}`, projectPath);
+    await execCommand("yarn", ["add", ...packages], projectPath);
   }
 
   async addDev(
@@ -36,11 +36,11 @@ export class YarnAdapter implements PackageManager {
     packages: readonly string[],
   ): Promise<void> {
     if (packages.length === 0) return;
-    await execCommand(`yarn add -D ${packages.join(" ")}`, projectPath);
+    await execCommand("yarn", ["add", "-D", ...packages], projectPath);
   }
 
   async run(projectPath: string, script: string): Promise<void> {
-    await execCommand(`yarn ${script}`, projectPath);
+    await execCommand("yarn", [script], projectPath);
   }
 
   getInstallCommand(): string {

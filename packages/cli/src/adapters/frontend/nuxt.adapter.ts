@@ -4,7 +4,6 @@
  * @module adapters/frontend/nuxt
  */
 
-import { execCommand } from "../../utils/utils.exec.js";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
 import type {
   FrontendAdapter,
@@ -14,32 +13,23 @@ import type {
 } from "./frontendAdapter.type.js";
 
 /**
- * Nuxt adapter with server-side rendering support.
+ * Nuxt adapter with Nuxt 3 support.
  */
 export class NuxtAdapter implements FrontendAdapter {
   readonly name = "nuxt";
   readonly framework = "nuxt";
 
   async isAvailable(): Promise<boolean> {
-    try {
-      await execCommand("node --version", ".");
-      return true;
-    } catch {
-      return false;
-    }
+    return true;
   }
 
   async getLatestVersion(): Promise<string> {
-    return "3";
+    return "3.15.0";
   }
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
-    const { projectPath } = context;
-
-    await execCommand(
-      `npx nuxi@latest init . --force --packageManager ${context.packageManager}`,
-      projectPath,
-    );
+    const files = this.getBaseFiles(context);
+    await writeFileTree(context.projectPath, files);
   }
 
   getDependencies(
@@ -48,13 +38,14 @@ export class NuxtAdapter implements FrontendAdapter {
     const deps: DependencyRequirement[] = [];
 
     if (context.features.stateManagement === "pinia") {
-      deps.push({ name: "@pinia/nuxt", type: "dependency" });
+      deps.push({ name: "pinia", type: "dependency" });
     }
 
     if (context.features.testing) {
       deps.push(
-        { name: "@nuxt/test-utils", type: "devDependency" },
         { name: "vitest", type: "devDependency" },
+        { name: "@vue/test-utils", type: "devDependency" },
+        { name: "jsdom", type: "devDependency" },
       );
     }
 
@@ -86,6 +77,44 @@ export class NuxtAdapter implements FrontendAdapter {
     return { valid: errors.length === 0, errors, warnings };
   }
 
+  private getBaseFiles(
+    context: FrontendGenerationContext,
+  ): Record<string, string> {
+    return {
+      "package.json": JSON.stringify(
+        {
+          name: context.project.name,
+          version: "0.1.0",
+          private: true,
+          scripts: {
+            dev: "nuxt dev",
+            build: "nuxt build",
+            preview: "nuxt preview",
+          },
+          dependencies: {
+            nuxt: "^3.15.0",
+          },
+          devDependencies: {
+            "@nuxt/devtools": "latest",
+          },
+        },
+        null,
+        2,
+      ),
+      "nuxt.config.ts": `export default defineNuxtConfig({
+  compatibilityDate: "2024-11-01",
+  devtools: { enabled: true },
+});
+`,
+      "app.vue": `<template>
+  <div>
+    <h1>Hello from Lattice</h1>
+  </div>
+</template>
+`,
+    };
+  }
+
   private getStructure(
     context: FrontendGenerationContext,
   ): Record<string, string> {
@@ -94,9 +123,7 @@ export class NuxtAdapter implements FrontendAdapter {
       "composables/.gitkeep": "",
       "layouts/.gitkeep": "",
       "pages/.gitkeep": "",
-      "plugins/.gitkeep": "",
-      "server/api/.gitkeep": "",
-      "server/middleware/.gitkeep": "",
+      "server/.gitkeep": "",
       "stores/.gitkeep": "",
       "types/index.ts": "// Types\nexport {};\n",
       "utils/.gitkeep": "",
@@ -111,11 +138,11 @@ export class NuxtAdapter implements FrontendAdapter {
     if (context.project.type === "fullstack") {
       files[".env.example"] = `NUXT_PUBLIC_API_URL=http://localhost:3000\n`;
 
-      files["services/api-client.ts"] = `/**
+      files["composables/useApi.ts"] = `/**
  * API Client for backend communication.
  */
 
-const API_URL = useRuntimeConfig().public.apiUrl || "http://localhost:3000";
+const API_URL = import.meta.env.NUXT_PUBLIC_API_URL || "http://localhost:3000";
 
 export interface ApiResponse<T> {
   readonly data: T;
@@ -123,16 +150,19 @@ export interface ApiResponse<T> {
 }
 
 export async function apiGet<T>(path: string): Promise<ApiResponse<T>> {
-  const response = await $fetch<T>(\`\${API_URL}\${path}\`);
-  return { data: response as T, status: 200 };
+  const response = await fetch(\`\${API_URL}\${path}\`);
+  const data = await response.json() as T;
+  return { data, status: response.status };
 }
 
 export async function apiPost<T>(path: string, body: unknown): Promise<ApiResponse<T>> {
-  const response = await $fetch<T>(\`\${API_URL}\${path}\`, {
+  const response = await fetch(\`\${API_URL}\${path}\`, {
     method: "POST",
-    body,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
   });
-  return { data: response as T, status: 200 };
+  const data = await response.json() as T;
+  return { data, status: response.status };
 }
 `;
     }

@@ -8,6 +8,7 @@ import { generateMonolithFiles } from "../../templates/monolith/index.js";
 import { generateModularMonolithFiles } from "../../templates/modular-monolith/index.js";
 import { generateMicroserviceFiles } from "../../templates/microservice/index.js";
 import { CLIGenerationError } from "../../errors/index.js";
+import { getInstallCommand } from "../../installers/dependency.installer.js";
 
 export interface GenerateProjectResult {
   readonly projectPath: string;
@@ -57,12 +58,13 @@ export async function generateProject(
 
   if (options.initGit) {
     try {
-      await execCommand("git init", projectPath);
-      await execCommand(`git config user.name "Lattice CLI"`, projectPath);
-      await execCommand(`git config user.email "cli@lattice.dev"`, projectPath);
-      await execCommand("git add -A", projectPath);
+      await execCommand("git", ["init"], projectPath);
+      await execCommand("git", ["config", "user.name", "Lattice CLI"], projectPath);
+      await execCommand("git", ["config", "user.email", "cli@lattice.dev"], projectPath);
+      await execCommand("git", ["add", "-A"], projectPath);
       await execCommand(
-        'git commit -m "chore: initial commit from Lattice CLI"',
+        "git",
+        ["commit", "-m", "chore: initial commit from Lattice CLI"],
         projectPath,
       );
     } catch {
@@ -72,14 +74,8 @@ export async function generateProject(
 
   if (options.installDeps) {
     try {
-      const installCmd =
-        options.packageManager === "pnpm"
-          ? "pnpm install"
-          : options.packageManager === "yarn"
-            ? "yarn install"
-            : "npm install";
-
-      await execCommand(installCmd, projectPath);
+      const [installFile, ...installArgs] = getInstallCommand(options.packageManager);
+      await execCommand(installFile, installArgs, projectPath);
     } catch (error) {
       throw new CLIGenerationError(
         `Failed to install dependencies. Run manually: cd ${options.projectName} && ${options.packageManager} install`,

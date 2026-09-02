@@ -288,17 +288,17 @@ async function generateFullstackProject(
   await writeFileTreeSafe(join(projectPath, "apps/api"), backendFiles);
 
   if (options.installDeps) {
-    const installCmd =
+    const installFile =
       options.packageManager === "pnpm"
-        ? "pnpm install"
+        ? "pnpm"
         : options.packageManager === "yarn"
-          ? "yarn install"
+          ? "yarn"
           : options.packageManager === "bun"
-            ? "bun install"
-            : "npm install";
+            ? "bun"
+            : "npm";
 
     try {
-      await execCommand(installCmd, projectPath);
+      await execCommand(installFile, ["install"], projectPath);
     } catch {
       // Best-effort
     }
@@ -341,17 +341,17 @@ async function generateFrontendProject(
   }
 
   if (options.installDeps) {
-    const installCmd =
+    const installFile =
       options.packageManager === "pnpm"
-        ? "pnpm install"
+        ? "pnpm"
         : options.packageManager === "yarn"
-          ? "yarn install"
+          ? "yarn"
           : options.packageManager === "bun"
-            ? "bun install"
-            : "npm install";
+            ? "bun"
+            : "npm";
 
     try {
-      await execCommand(installCmd, projectPath);
+      await execCommand(installFile, ["install"], projectPath);
     } catch {
       // Best-effort
     }

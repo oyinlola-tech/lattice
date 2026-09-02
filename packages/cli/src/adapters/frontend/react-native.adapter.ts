@@ -22,7 +22,7 @@ export class ReactNativeAdapter implements FrontendAdapter {
 
   async isAvailable(): Promise<boolean> {
     try {
-      await execCommand("npx expo --version", ".");
+      await execCommand("npx", ["expo", "--version"], ".");
       return true;
     } catch {
       return false;
@@ -37,7 +37,8 @@ export class ReactNativeAdapter implements FrontendAdapter {
     const { projectPath } = context;
 
     await execCommand(
-      `npx create-expo-app@latest . --template blank-typescript`,
+      "npx",
+      ["create-expo-app@latest", ".", "--template", "blank-typescript"],
       projectPath,
     );
   }

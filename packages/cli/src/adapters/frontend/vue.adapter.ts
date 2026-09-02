@@ -4,7 +4,6 @@
  * @module adapters/frontend/vue
  */
 
-import { execCommand } from "../../utils/utils.exec.js";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
 import type {
   FrontendAdapter,
@@ -21,36 +20,24 @@ export class VueAdapter implements FrontendAdapter {
   readonly framework = "vue";
 
   async isAvailable(): Promise<boolean> {
-    try {
-      await execCommand("node --version", ".");
-      return true;
-    } catch {
-      return false;
-    }
+    return true;
   }
 
   async getLatestVersion(): Promise<string> {
-    return "3";
+    return "3.5.0";
   }
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
-    const { projectPath, language } = context;
-    const template = language === "typescript" ? "vue-ts" : "vue";
-
-    await execCommand(
-      `npm create vue@latest . -- --template ${template}`,
-      projectPath,
-    );
+    const files = this.getBaseFiles(context);
+    await writeFileTree(context.projectPath, files);
   }
 
   getDependencies(
     context: FrontendGenerationContext,
   ): readonly DependencyRequirement[] {
-    const deps: DependencyRequirement[] = [{ name: "vue", type: "dependency" }];
-
-    if (context.features.stateManagement === "pinia") {
-      deps.push({ name: "pinia", type: "dependency" });
-    }
+    const deps: DependencyRequirement[] = [
+      { name: "vue", type: "dependency" },
+    ];
 
     if (context.features.testing) {
       deps.push(
@@ -63,7 +50,6 @@ export class VueAdapter implements FrontendAdapter {
     if (context.features.linting) {
       deps.push(
         { name: "eslint", type: "devDependency" },
-        { name: "typescript-eslint", type: "devDependency" },
         { name: "eslint-plugin-vue", type: "devDependency" },
       );
     }
@@ -100,6 +86,92 @@ export class VueAdapter implements FrontendAdapter {
     return { valid: errors.length === 0, errors, warnings };
   }
 
+  private getBaseFiles(
+    context: FrontendGenerationContext,
+  ): Record<string, string> {
+    const useTypeScript = context.language === "typescript";
+
+    return {
+      "package.json": JSON.stringify(
+        {
+          name: context.project.name,
+          version: "0.1.0",
+          private: true,
+          type: "module",
+          scripts: {
+            dev: "vite",
+            build: "vite build",
+            preview: "vite preview",
+          },
+          dependencies: {
+            vue: "^3.5.0",
+          },
+          devDependencies: {
+            vite: "^6.0.0",
+            "@vitejs/plugin-vue": "^4.5.0",
+            ...(useTypeScript ? { typescript: "^5.0.0" } : {}),
+          },
+        },
+        null,
+        2,
+      ),
+      "vite.config.ts": `import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+
+export default defineConfig({
+  plugins: [vue()],
+});
+`,
+      "tsconfig.json": JSON.stringify(
+        {
+          compilerOptions: {
+            target: "ES2020",
+            useDefineForClassFields: true,
+            lib: ["ES2020", "DOM", "DOM.Iterable"],
+            module: "ESNext",
+            skipLibCheck: true,
+            moduleResolution: "bundler",
+            allowImportingTsExtensions: true,
+            resolveJsonModule: true,
+            strict: true,
+          },
+        },
+        null,
+        2,
+      ),
+      "index.html": `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${context.project.name}</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+`,
+      "src/main.ts": `import { createApp } from "vue";
+import App from "./App.vue";
+
+createApp(App).mount("#app");
+`,
+      "src/App.vue": `<template>
+  <div>
+    <h1>Hello from Lattice</h1>
+  </div>
+</template>
+
+<script setup lang="ts">
+</script>
+`,
+      ...(useTypeScript
+        ? { "src/vite-env.d.ts": `/// <reference types="vite/client" />\n` }
+        : {}),
+    };
+  }
+
   private getStructure(
     context: FrontendGenerationContext,
   ): Record<string, string> {
@@ -122,6 +194,7 @@ export class VueAdapter implements FrontendAdapter {
       [`${srcDir}/composables/.gitkeep`]: "",
       [`${srcDir}/configs/index.ts`]: "// Configuration\nexport {};\n",
       [`${srcDir}/constants/index.ts`]: "// Constants\nexport {};\n",
+      [`${srcDir}/hooks/.gitkeep`]: "",
       [`${srcDir}/layouts/.gitkeep`]: "",
       [`${srcDir}/pages/.gitkeep`]: "",
       [`${srcDir}/router/index.ts`]: "// Router\nexport {};\n",
@@ -137,6 +210,7 @@ export class VueAdapter implements FrontendAdapter {
       [`${srcDir}/features/.gitkeep`]: "",
       [`${srcDir}/components/.gitkeep`]: "",
       [`${srcDir}/composables/.gitkeep`]: "",
+      [`${srcDir}/hooks/.gitkeep`]: "",
       [`${srcDir}/services/.gitkeep`]: "",
       [`${srcDir}/types/index.ts`]: "// Types\nexport {};\n",
       [`${srcDir}/utils/.gitkeep`]: "",
@@ -180,24 +254,6 @@ export async function apiPost<T>(path: string, body: unknown): Promise<ApiRespon
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-  });
-  const data = await response.json() as T;
-  return { data, status: response.status };
-}
-
-export async function apiPut<T>(path: string, body: unknown): Promise<ApiResponse<T>> {
-  const response = await fetch(\`\${API_URL}\${path}\`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  const data = await response.json() as T;
-  return { data, status: response.status };
-}
-
-export async function apiDelete<T>(path: string): Promise<ApiResponse<T>> {
-  const response = await fetch(\`\${API_URL}\${path}\`, {
-    method: "DELETE",
   });
   const data = await response.json() as T;
   return { data, status: response.status };

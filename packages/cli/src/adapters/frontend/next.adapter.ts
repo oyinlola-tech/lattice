@@ -22,7 +22,7 @@ export class NextAdapter implements FrontendAdapter {
 
   async isAvailable(): Promise<boolean> {
     try {
-      await execCommand("node --version", ".");
+      await execCommand("node", ["--version"], ".");
       return true;
     } catch {
       return false;

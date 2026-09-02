@@ -4,7 +4,6 @@
  * @module adapters/frontend/sveltekit
  */
 
-import { execCommand } from "../../utils/utils.exec.js";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
 import type {
   FrontendAdapter,
@@ -14,47 +13,35 @@ import type {
 } from "./frontendAdapter.type.js";
 
 /**
- * SvelteKit adapter with server-side rendering support.
+ * SvelteKit adapter with SSR support.
  */
 export class SvelteKitAdapter implements FrontendAdapter {
   readonly name = "sveltekit";
   readonly framework = "sveltekit";
 
   async isAvailable(): Promise<boolean> {
-    try {
-      await execCommand("node --version", ".");
-      return true;
-    } catch {
-      return false;
-    }
+    return true;
   }
 
   async getLatestVersion(): Promise<string> {
-    return "2";
+    return "2.15.0";
   }
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
-    const { projectPath, language } = context;
-    const template = language === "typescript" ? "ts" : "default";
-
-    await execCommand(
-      `npx sv@latest create . --template ${template} --types ${language === "typescript" ? "ts" : "js"} --no-install`,
-      projectPath,
-    );
+    const files = this.getBaseFiles(context);
+    await writeFileTree(context.projectPath, files);
   }
 
   getDependencies(
     context: FrontendGenerationContext,
   ): readonly DependencyRequirement[] {
-    const deps: DependencyRequirement[] = [
-      { name: "@sveltejs/kit", type: "dependency" },
-      { name: "svelte", type: "dependency" },
-    ];
+    const deps: DependencyRequirement[] = [];
 
     if (context.features.testing) {
       deps.push(
         { name: "vitest", type: "devDependency" },
-        { name: "@sveltejs/vite-plugin-svelte", type: "devDependency" },
+        { name: "@testing-library/svelte", type: "devDependency" },
+        { name: "jsdom", type: "devDependency" },
       );
     }
 
@@ -86,17 +73,78 @@ export class SvelteKitAdapter implements FrontendAdapter {
     return { valid: errors.length === 0, errors, warnings };
   }
 
+  private getBaseFiles(
+    context: FrontendGenerationContext,
+  ): Record<string, string> {
+    return {
+      "package.json": JSON.stringify(
+        {
+          name: context.project.name,
+          version: "0.1.0",
+          private: true,
+          type: "module",
+          scripts: {
+            dev: "vite dev",
+            build: "vite build",
+            preview: "vite preview",
+          },
+          dependencies: {
+            "@sveltejs/kit": "^2.15.0",
+            svelte: "^5.0.0",
+          },
+          devDependencies: {
+            "@sveltejs/vite-plugin-svelte": "^4.0.0",
+            vite: "^6.0.0",
+          },
+        },
+        null,
+        2,
+      ),
+      "svelte.config.js": `import adapter from "@sveltejs/adapter-auto";
+
+export default {
+  kit: {
+    adapter: adapter(),
+  },
+};
+`,
+      "vite.config.ts": `import { sveltekit } from "@sveltejs/kit/vite";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [sveltekit()],
+});
+`,
+      "src/routes/+page.svelte": `<h1>Hello from Lattice</h1>
+`,
+      "src/routes/+layout.svelte": `<slot />
+`,
+      "src/app.html": `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${context.project.name}</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    {% include 'src/app.html' %}
+  </body>
+</html>
+`,
+    };
+  }
+
   private getStructure(
     context: FrontendGenerationContext,
   ): Record<string, string> {
     return {
+      "src/lib/.gitkeep": "",
       "src/lib/components/.gitkeep": "",
-      "src/lib/stores/.gitkeep": "",
       "src/lib/utils/.gitkeep": "",
       "src/lib/types/index.ts": "// Types\nexport {};\n",
-      "src/lib/services/.gitkeep": "",
       "src/routes/.gitkeep": "",
-      "src/routes/api/.gitkeep": "",
+      "static/.gitkeep": "",
     };
   }
 
@@ -112,9 +160,7 @@ export class SvelteKitAdapter implements FrontendAdapter {
  * API Client for backend communication.
  */
 
-import { PUBLIC_API_URL } from "$env/static/public";
-
-const API_URL = PUBLIC_API_URL || "http://localhost:3000";
+const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:3000";
 
 export interface ApiResponse<T> {
   readonly data: T;

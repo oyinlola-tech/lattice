@@ -15,7 +15,7 @@ export class PnpmAdapter implements PackageManager {
 
   async isInstalled(): Promise<boolean> {
     try {
-      await execCommand("pnpm --version", ".");
+      await execCommand("pnpm", ["--version"], ".");
       return true;
     } catch {
       return false;
@@ -23,12 +23,12 @@ export class PnpmAdapter implements PackageManager {
   }
 
   async install(projectPath: string): Promise<void> {
-    await execCommand("pnpm install", projectPath);
+    await execCommand("pnpm", ["install"], projectPath);
   }
 
   async add(projectPath: string, packages: readonly string[]): Promise<void> {
     if (packages.length === 0) return;
-    await execCommand(`pnpm add ${packages.join(" ")}`, projectPath);
+    await execCommand("pnpm", ["add", ...packages], projectPath);
   }
 
   async addDev(
@@ -36,11 +36,11 @@ export class PnpmAdapter implements PackageManager {
     packages: readonly string[],
   ): Promise<void> {
     if (packages.length === 0) return;
-    await execCommand(`pnpm add -D ${packages.join(" ")}`, projectPath);
+    await execCommand("pnpm", ["add", "-D", ...packages], projectPath);
   }
 
   async run(projectPath: string, script: string): Promise<void> {
-    await execCommand(`pnpm run ${script}`, projectPath);
+    await execCommand("pnpm", ["run", script], projectPath);
   }
 
   getInstallCommand(): string {

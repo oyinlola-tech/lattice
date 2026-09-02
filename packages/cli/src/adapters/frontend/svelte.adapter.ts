@@ -4,7 +4,6 @@
  * @module adapters/frontend/svelte
  */
 
-import { execCommand } from "../../utils/utils.exec.js";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
 import type {
   FrontendAdapter,
@@ -21,26 +20,16 @@ export class SvelteAdapter implements FrontendAdapter {
   readonly framework = "svelte";
 
   async isAvailable(): Promise<boolean> {
-    try {
-      await execCommand("node --version", ".");
-      return true;
-    } catch {
-      return false;
-    }
+    return true;
   }
 
   async getLatestVersion(): Promise<string> {
-    return "5";
+    return "5.0.0";
   }
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
-    const { projectPath, language } = context;
-    const template = language === "typescript" ? "ts" : "default";
-
-    await execCommand(
-      `npx sv@latest create . --template ${template} --no-install`,
-      projectPath,
-    );
+    const files = this.getBaseFiles(context);
+    await writeFileTree(context.projectPath, files);
   }
 
   getDependencies(
@@ -49,10 +38,6 @@ export class SvelteAdapter implements FrontendAdapter {
     const deps: DependencyRequirement[] = [
       { name: "svelte", type: "dependency" },
     ];
-
-    if (context.features.stateManagement === "svelte-store") {
-      // Svelte stores are built-in
-    }
 
     if (context.features.testing) {
       deps.push(
@@ -71,6 +56,7 @@ export class SvelteAdapter implements FrontendAdapter {
 
     if (context.features.formatting) {
       deps.push({ name: "prettier", type: "devDependency" });
+      deps.push({ name: "prettier-plugin-svelte", type: "devDependency" });
     }
 
     return deps;
@@ -101,6 +87,98 @@ export class SvelteAdapter implements FrontendAdapter {
     return { valid: errors.length === 0, errors, warnings };
   }
 
+  private getBaseFiles(
+    context: FrontendGenerationContext,
+  ): Record<string, string> {
+    const useTypeScript = context.language === "typescript";
+
+    return {
+      "package.json": JSON.stringify(
+        {
+          name: context.project.name,
+          version: "0.1.0",
+          private: true,
+          type: "module",
+          scripts: {
+            dev: "vite dev",
+            build: "vite build",
+            preview: "vite preview",
+          },
+          dependencies: {
+            svelte: "^5.0.0",
+          },
+          devDependencies: {
+            vite: "^6.0.0",
+            "@sveltejs/vite-plugin-svelte": "^4.0.0",
+            ...(useTypeScript ? { typescript: "^5.0.0" } : {}),
+          },
+        },
+        null,
+        2,
+      ),
+      "vite.config.ts": `import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+
+export default defineConfig({
+  plugins: [svelte()],
+});
+`,
+      "tsconfig.json": JSON.stringify(
+        {
+          compilerOptions: {
+            target: "ES2020",
+            lib: ["ES2020", "DOM", "DOM.Iterable"],
+            module: "ESNext",
+            skipLibCheck: true,
+            moduleResolution: "bundler",
+            allowImportingTsExtensions: true,
+            resolveJsonModule: true,
+            strict: true,
+          },
+        },
+        null,
+        2,
+      ),
+      "index.html": `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${context.project.name}</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+`,
+      "src/main.ts": `import App from "./App.svelte";
+
+const app = new App({
+  target: document.getElementById("app")!,
+});
+
+export default app;
+`,
+      "src/App.svelte": `<script${useTypeScript ? " lang=\"ts\"" : ""}>
+</script>
+
+<template>
+  <div>
+    <h1>Hello from Lattice</h1>
+  </div>
+</template>
+
+<style>
+  div {
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+</style>
+`,
+      ...(useTypeScript ? { "src/vite-env.d.ts": `/// <reference types="svelte" />\n/// <reference types="vite/client" />\n` } : {}),
+    };
+  }
+
   private getStructure(
     context: FrontendGenerationContext,
   ): Record<string, string> {
@@ -119,30 +197,35 @@ export class SvelteAdapter implements FrontendAdapter {
 
   private getLatticeStandardStructure(srcDir: string): Record<string, string> {
     return {
-      [`${srcDir}/lib/components/.gitkeep`]: "",
-      [`${srcDir}/lib/stores/.gitkeep`]: "",
-      [`${srcDir}/lib/utils/.gitkeep`]: "",
-      [`${srcDir}/lib/types/index.ts`]: "// Types\nexport {};\n",
+      [`${srcDir}/components/.gitkeep`]: "",
+      [`${srcDir}/configs/index.ts`]: "// Configuration\nexport {};\n",
+      [`${srcDir}/constants/index.ts`]: "// Constants\nexport {};\n",
+      [`${srcDir}/hooks/.gitkeep`]: "",
+      [`${srcDir}/layouts/.gitkeep`]: "",
+      [`${srcDir}/pages/.gitkeep`]: "",
       [`${srcDir}/routes/.gitkeep`]: "",
       [`${srcDir}/services/.gitkeep`]: "",
+      [`${srcDir}/stores/.gitkeep`]: "",
+      [`${srcDir}/types/index.ts`]: "// Types\nexport {};\n",
+      [`${srcDir}/utils/.gitkeep`]: "",
     };
   }
 
   private getFeatureBasedStructure(srcDir: string): Record<string, string> {
     return {
-      [`${srcDir}/lib/features/.gitkeep`]: "",
-      [`${srcDir}/lib/components/.gitkeep`]: "",
-      [`${srcDir}/lib/stores/.gitkeep`]: "",
-      [`${srcDir}/lib/services/.gitkeep`]: "",
-      [`${srcDir}/lib/types/index.ts`]: "// Types\nexport {};\n",
-      [`${srcDir}/lib/utils/.gitkeep`]: "",
+      [`${srcDir}/features/.gitkeep`]: "",
+      [`${srcDir}/components/.gitkeep`]: "",
+      [`${srcDir}/hooks/.gitkeep`]: "",
+      [`${srcDir}/services/.gitkeep`]: "",
+      [`${srcDir}/types/index.ts`]: "// Types\nexport {};\n",
+      [`${srcDir}/utils/.gitkeep`]: "",
     };
   }
 
   private getMinimalStructure(srcDir: string): Record<string, string> {
     return {
-      [`${srcDir}/lib/components/.gitkeep`]: "",
-      [`${srcDir}/lib/utils/.gitkeep`]: "",
+      [`${srcDir}/components/.gitkeep`]: "",
+      [`${srcDir}/utils/.gitkeep`]: "",
     };
   }
 
@@ -154,7 +237,7 @@ export class SvelteAdapter implements FrontendAdapter {
     if (context.project.type === "fullstack") {
       files[".env.example"] = `VITE_API_URL=http://localhost:3000\n`;
 
-      files["src/lib/services/api-client.ts"] = `/**
+      files["src/services/api-client.ts"] = `/**
  * API Client for backend communication.
  */
 

@@ -15,7 +15,7 @@ export class NpmAdapter implements PackageManager {
 
   async isInstalled(): Promise<boolean> {
     try {
-      await execCommand("npm --version", ".");
+      await execCommand("npm", ["--version"], ".");
       return true;
     } catch {
       return false;
@@ -23,12 +23,12 @@ export class NpmAdapter implements PackageManager {
   }
 
   async install(projectPath: string): Promise<void> {
-    await execCommand("npm install", projectPath);
+    await execCommand("npm", ["install"], projectPath);
   }
 
   async add(projectPath: string, packages: readonly string[]): Promise<void> {
     if (packages.length === 0) return;
-    await execCommand(`npm install ${packages.join(" ")}`, projectPath);
+    await execCommand("npm", ["install", ...packages], projectPath);
   }
 
   async addDev(
@@ -36,11 +36,11 @@ export class NpmAdapter implements PackageManager {
     packages: readonly string[],
   ): Promise<void> {
     if (packages.length === 0) return;
-    await execCommand(`npm install -D ${packages.join(" ")}`, projectPath);
+    await execCommand("npm", ["install", "-D", ...packages], projectPath);
   }
 
   async run(projectPath: string, script: string): Promise<void> {
-    await execCommand(`npm run ${script}`, projectPath);
+    await execCommand("npm", ["run", script], projectPath);
   }
 
   getInstallCommand(): string {

@@ -1,32 +1,32 @@
 import type { PackageManager } from "../types/index.js";
 import { execCommand } from "../utils/utils.exec.js";
 
-export function getInstallCommand(packageManager: PackageManager): string {
+export function getInstallCommand(packageManager: PackageManager): [string, ...string[]] {
   switch (packageManager) {
     case "pnpm":
-      return "pnpm install";
+      return ["pnpm", "install"];
     case "npm":
-      return "npm install";
+      return ["npm", "install"];
     case "yarn":
-      return "yarn install";
+      return ["yarn", "install"];
     default:
-      return "pnpm install";
+      return ["pnpm", "install"];
   }
 }
 
 export function getAddCommand(
   packageManager: PackageManager,
   pkg: string,
-): string {
+): [string, ...string[]] {
   switch (packageManager) {
     case "pnpm":
-      return `pnpm add ${pkg}`;
+      return ["pnpm", "add", pkg];
     case "npm":
-      return `npm install ${pkg}`;
+      return ["npm", "install", pkg];
     case "yarn":
-      return `yarn add ${pkg}`;
+      return ["yarn", "add", pkg];
     default:
-      return `pnpm add ${pkg}`;
+      return ["pnpm", "add", pkg];
   }
 }
 
@@ -34,6 +34,6 @@ export async function installDependencies(
   packageManager: PackageManager,
   cwd: string,
 ): Promise<void> {
-  const cmd = getInstallCommand(packageManager);
-  await execCommand(cmd, cwd);
+  const [file, ...args] = getInstallCommand(packageManager);
+  await execCommand(file, args, cwd);
 }

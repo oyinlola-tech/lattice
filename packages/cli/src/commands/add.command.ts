@@ -83,7 +83,7 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
 
     if (context.values["skip-install"] !== true) {
       context.logger.info(`Installing dependencies with ${manager}...`);
-      await execCommand(`${manager} install`, context.cwd);
+      await execCommand(manager, ["install"], context.cwd);
     }
 
     context.logger.info(`Feature "${feature}" added successfully.`);

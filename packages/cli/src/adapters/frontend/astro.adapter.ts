@@ -4,7 +4,6 @@
  * @module adapters/frontend/astro
  */
 
-import { execCommand } from "../../utils/utils.exec.js";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
 import type {
   FrontendAdapter,
@@ -14,45 +13,34 @@ import type {
 } from "./frontendAdapter.type.js";
 
 /**
- * Astro adapter for content-focused websites.
+ * Astro adapter with island architecture support.
  */
 export class AstroAdapter implements FrontendAdapter {
   readonly name = "astro";
   readonly framework = "astro";
 
   async isAvailable(): Promise<boolean> {
-    try {
-      await execCommand("node --version", ".");
-      return true;
-    } catch {
-      return false;
-    }
+    return true;
   }
 
   async getLatestVersion(): Promise<string> {
-    return "5";
+    return "5.0.0";
   }
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
-    const { projectPath } = context;
-
-    await execCommand(
-      `npm create astro@latest . -- --template basics --no-install --yes`,
-      projectPath,
-    );
+    const files = this.getBaseFiles(context);
+    await writeFileTree(context.projectPath, files);
   }
 
   getDependencies(
     context: FrontendGenerationContext,
   ): readonly DependencyRequirement[] {
-    const deps: DependencyRequirement[] = [
-      { name: "astro", type: "dependency" },
-    ];
+    const deps: DependencyRequirement[] = [];
 
     if (context.features.testing) {
       deps.push(
         { name: "vitest", type: "devDependency" },
-        { name: "@testing-library/dom", type: "devDependency" },
+        { name: "jsdom", type: "devDependency" },
       );
     }
 
@@ -84,6 +72,79 @@ export class AstroAdapter implements FrontendAdapter {
     return { valid: errors.length === 0, errors, warnings };
   }
 
+  private getBaseFiles(
+    context: FrontendGenerationContext,
+  ): Record<string, string> {
+    return {
+      "package.json": JSON.stringify(
+        {
+          name: context.project.name,
+          version: "0.1.0",
+          private: true,
+          type: "module",
+          scripts: {
+            dev: "astro dev",
+            build: "astro build",
+            preview: "astro preview",
+          },
+          dependencies: {
+            astro: "^5.0.0",
+          },
+          devDependencies: {
+            "@astrojs/check": "^0.9.0",
+            typescript: "^5.0.0",
+          },
+        },
+        null,
+        2,
+      ),
+      "astro.config.mjs": `import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  output: "static",
+});
+`,
+      "tsconfig.json": JSON.stringify(
+        {
+          extends: "astro/tsconfigs/strict",
+          compilerOptions: {
+            strict: true,
+          },
+        },
+        null,
+        2,
+      ),
+      "src/layouts/Layout.astro": `---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>\${title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+`,
+      "src/pages/index.astro": `---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="${context.project.name}">
+  <h1>Hello from Lattice</h1>
+</Layout>
+`,
+    };
+  }
+
   private getStructure(
     context: FrontendGenerationContext,
   ): Record<string, string> {
@@ -91,11 +152,9 @@ export class AstroAdapter implements FrontendAdapter {
       "src/components/.gitkeep": "",
       "src/layouts/.gitkeep": "",
       "src/pages/.gitkeep": "",
-      "src/content/.gitkeep": "",
       "src/styles/.gitkeep": "",
-      "src/utils/.gitkeep": "",
       "src/types/index.ts": "// Types\nexport {};\n",
-      "public/.gitkeep": "",
+      "src/utils/.gitkeep": "",
     };
   }
 
@@ -111,9 +170,7 @@ export class AstroAdapter implements FrontendAdapter {
  * API Client for backend communication.
  */
 
-import { PUBLIC_API_URL } from "astro:env/client";
-
-const API_URL = PUBLIC_API_URL || "http://localhost:3000";
+const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:3000";
 
 export interface ApiResponse<T> {
   readonly data: T;

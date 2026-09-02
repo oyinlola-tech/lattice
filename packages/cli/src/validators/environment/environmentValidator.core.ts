@@ -57,7 +57,7 @@ export class EnvironmentValidator {
 
   private async checkNode(): Promise<EnvironmentCheck> {
     try {
-      const result = await execCommand("node --version", ".");
+      const result = await execCommand("node", ["--version"], ".");
       return {
         name: "Node.js",
         installed: true,
@@ -75,7 +75,7 @@ export class EnvironmentValidator {
 
   private async checkGit(): Promise<EnvironmentCheck> {
     try {
-      const result = await execCommand("git --version", ".");
+      const result = await execCommand("git", ["--version"], ".");
       return {
         name: "Git",
         installed: true,
@@ -93,38 +93,38 @@ export class EnvironmentValidator {
 
   private async checkPackageManager(): Promise<EnvironmentCheck> {
     try {
-      const version = await execCommand("pnpm --version", ".");
+      const result = await execCommand("pnpm", ["--version"], ".");
       return {
         name: "pnpm",
         installed: true,
-        version: version.stdout.trim(),
+        version: result.stdout.trim(),
         required: true,
       };
     } catch {
       try {
-        const version = await execCommand("yarn --version", ".");
+        const result = await execCommand("yarn", ["--version"], ".");
         return {
           name: "yarn",
           installed: true,
-          version: version.stdout.trim(),
+          version: result.stdout.trim(),
           required: true,
         };
       } catch {
         try {
-          const version = await execCommand("bun --version", ".");
+          const result = await execCommand("bun", ["--version"], ".");
           return {
             name: "bun",
             installed: true,
-            version: version.stdout.trim(),
+            version: result.stdout.trim(),
             required: true,
           };
         } catch {
           try {
-            const version = await execCommand("npm --version", ".");
+            const result = await execCommand("npm", ["--version"], ".");
             return {
               name: "npm",
               installed: true,
-              version: version.stdout.trim(),
+              version: result.stdout.trim(),
               required: true,
             };
           } catch {

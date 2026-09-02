@@ -4,7 +4,6 @@
  * @module adapters/frontend/angular
  */
 
-import { execCommand } from "../../utils/utils.exec.js";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
 import type {
   FrontendAdapter,
@@ -14,33 +13,23 @@ import type {
 } from "./frontendAdapter.type.js";
 
 /**
- * Angular adapter using Angular CLI.
+ * Angular adapter with standalone support.
  */
 export class AngularAdapter implements FrontendAdapter {
   readonly name = "angular";
   readonly framework = "angular";
 
   async isAvailable(): Promise<boolean> {
-    try {
-      await execCommand("node --version", ".");
-      return true;
-    } catch {
-      return false;
-    }
+    return true;
   }
 
   async getLatestVersion(): Promise<string> {
-    return "19";
+    return "19.0.0";
   }
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
-    const { projectPath, language } = context;
-    const style = "scss";
-
-    await execCommand(
-      `npx @angular/cli@latest new . --style=${style} --routing --ssr --skip-git --skip-install`,
-      projectPath,
-    );
+    const files = this.getBaseFiles(context);
+    await writeFileTree(context.projectPath, files);
   }
 
   getDependencies(
@@ -49,16 +38,15 @@ export class AngularAdapter implements FrontendAdapter {
     const deps: DependencyRequirement[] = [];
 
     if (context.features.stateManagement === "ngrx") {
-      deps.push(
-        { name: "@ngrx/store", type: "dependency" },
-        { name: "@ngrx/effects", type: "dependency" },
-      );
+      deps.push({ name: "@ngrx/store", type: "dependency" });
     }
 
     if (context.features.testing) {
       deps.push(
-        { name: "jasmine-core", type: "devDependency" },
-        { name: "@angular/testing", type: "devDependency" },
+        { name: "@angular/core", type: "dependency" },
+        { name: "@angular/common", type: "dependency" },
+        { name: "jest", type: "devDependency" },
+        { name: "@angular-builders/jest", type: "devDependency" },
       );
     }
 
@@ -90,16 +78,120 @@ export class AngularAdapter implements FrontendAdapter {
     return { valid: errors.length === 0, errors, warnings };
   }
 
+  private getBaseFiles(
+    context: FrontendGenerationContext,
+  ): Record<string, string> {
+    return {
+      "package.json": JSON.stringify(
+        {
+          name: context.project.name,
+          version: "0.0.0",
+          private: true,
+          scripts: {
+            start: "ng serve",
+            build: "ng build",
+            test: "ng test",
+          },
+          dependencies: {
+            "@angular/animations": "^19.0.0",
+            "@angular/common": "^19.0.0",
+            "@angular/compiler": "^19.0.0",
+            "@angular/core": "^19.0.0",
+            "@angular/forms": "^19.0.0",
+            "@angular/platform-browser": "^19.0.0",
+            "@angular/platform-browser-dynamic": "^19.0.0",
+            "@angular/router": "^19.0.0",
+            "rxjs": "~7.8.0",
+            "tslib": "^2.3.0",
+            "zone.js": "~0.15.0",
+          },
+          devDependencies: {
+            "@angular-devkit/build-angular": "^19.0.0",
+            "@angular/cli": "^19.0.0",
+            "@angular/compiler-cli": "^19.0.0",
+            "@types/jasmine": "~5.1.0",
+            "jasmine-core": "~5.1.0",
+            "karma": "~6.4.0",
+            "typescript": "~5.6.0",
+          },
+        },
+        null,
+        2,
+      ),
+      "tsconfig.json": JSON.stringify(
+        {
+          compileOnSave: false,
+          compilerOptions: {
+            outDir: "./dist/out-tsc",
+            strict: true,
+            noImplicitOverride: true,
+            noPropertyAccessFromIndexSignature: true,
+            noImplicitReturns: true,
+            noFallthroughCasesInSwitch: true,
+            esModuleInterop: true,
+            sourceMap: true,
+            declaration: false,
+            downlevelIteration: true,
+            experimentalDecorators: true,
+            moduleResolution: "bundler",
+            importHelpers: true,
+            target: "ES2022",
+            module: "ES2022",
+            lib: ["ES2022", "dom"],
+            useDefineForClassFields: true,
+          },
+          angularCompilerOptions: {
+            enableI18nLegacyMessageIdFormat: false,
+            strictInjectionParameters: true,
+            strictInputAccessModifiers: true,
+            strictTemplates: true,
+          },
+        },
+        null,
+        2,
+      ),
+      "src/main.ts": `import { bootstrapApplication } from "@angular/platform-browser";
+import { AppComponent } from "./app/app.component";
+
+bootstrapApplication(AppComponent);
+`,
+      "src/index.html": `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>${context.project.name}</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>
+`,
+      "src/app/app.component.ts": `import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  template: "<h1>Hello from Lattice</h1>",
+})
+export class AppComponent {}
+`,
+    };
+  }
+
   private getStructure(
     context: FrontendGenerationContext,
   ): Record<string, string> {
     return {
-      "src/app/core/.gitkeep": "",
-      "src/app/shared/.gitkeep": "",
-      "src/app/features/.gitkeep": "",
+      "src/app/components/.gitkeep": "",
+      "src/app/pages/.gitkeep": "",
       "src/app/services/.gitkeep": "",
-      "src/app/models/.gitkeep": "",
       "src/app/utils/.gitkeep": "",
+      "src/app/types/index.ts": "// Types\nexport {};\n",
+      "src/assets/.gitkeep": "",
+      "src/environments/.gitkeep": "",
     };
   }
 
@@ -109,53 +201,33 @@ export class AngularAdapter implements FrontendAdapter {
     const files: Record<string, string> = {};
 
     if (context.project.type === "fullstack") {
-      files["src/environments/environment.ts"] = `export const environment = {
-  production: false,
-  apiUrl: "http://localhost:3000",
-};
-`;
+      files[".env.example"] = `API_URL=http://localhost:3000\n`;
 
-      files["src/environments/environment.prod.ts"] =
-        `export const environment = {
-  production: true,
-  apiUrl: "",
-};
-`;
+      files["src/app/services/api-client.ts"] = `/**
+ * API Client for backend communication.
+ */
 
-      files["src/app/services/api.service.ts"] =
-        `import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { environment } from "../../environments/environment";
+const API_URL = "http://localhost:3000";
 
 export interface ApiResponse<T> {
   readonly data: T;
   readonly status: number;
 }
 
-@Injectable({
-  providedIn: "root",
-})
-export class ApiService {
-  private readonly apiUrl = environment.apiUrl;
+export async function apiGet<T>(path: string): Promise<ApiResponse<T>> {
+  const response = await fetch(\`\${API_URL}\${path}\`);
+  const data = await response.json() as T;
+  return { data, status: response.status };
+}
 
-  constructor(private readonly http: HttpClient) {}
-
-  get<T>(path: string): Observable<T> {
-    return this.http.get<T>(\`\${this.apiUrl}\${path}\`);
-  }
-
-  post<T>(path: string, body: unknown): Observable<T> {
-    return this.http.post<T>(\`\${this.apiUrl}\${path}\`, body);
-  }
-
-  put<T>(path: string, body: unknown): Observable<T> {
-    return this.http.put<T>(\`\${this.apiUrl}\${path}\`, body);
-  }
-
-  delete<T>(path: string): Observable<T> {
-    return this.http.delete<T>(\`\${this.apiUrl}\${path}\`);
-  }
+export async function apiPost<T>(path: string, body: unknown): Promise<ApiResponse<T>> {
+  const response = await fetch(\`\${API_URL}\${path}\`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = await response.json() as T;
+  return { data, status: response.status };
 }
 `;
     }
