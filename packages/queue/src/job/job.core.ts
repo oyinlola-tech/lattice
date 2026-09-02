@@ -1,3 +1,4 @@
+import { randomBytes } from "node:crypto";
 import type { Timestamp } from "@oyinlola141/lattice-constants";
 
 import type { JobId, JobState } from "../jobTypes/jobTypes.type.js";
@@ -19,8 +20,7 @@ export function createJob<TData>(
   const now = new Date().toISOString() as Timestamp;
   const options = input.options;
   const jobId =
-    id ??
-    createJobId(`job_${Date.now()}_${Math.random().toString(36).slice(2)}`);
+    id ?? createJobId(`job_${Date.now()}_${randomBytes(6).toString("hex")}`);
 
   return {
     id: jobId,

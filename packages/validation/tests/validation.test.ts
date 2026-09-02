@@ -5,23 +5,26 @@ import {
   success,
   failure,
   issue,
-  isSuccess,
-  isFailure,
+  isValidationSuccess,
+  isValidationFailure,
   formatIssues,
   toFieldErrors,
-  unwrap,
+  unwrapValidation,
   map,
   combine,
 } from "../src/validationResult/validationResult.type.js";
 
 import {
   ValidationError,
-  SchemaValidationError,
-  ConstraintValidationError,
   ValidationErrorCode,
   isValidationError,
   toValidationError,
 } from "../src/validationErrors/validationError.base.js";
+
+import {
+  SchemaValidationError,
+  ConstraintValidationError,
+} from "../src/validationErrors/validationError.types.js";
 
 import {
   validate,
@@ -94,10 +97,10 @@ describe("ValidationResult", () => {
   });
 
   it("isSuccess and isFailure type guards", () => {
-    expect(isSuccess(success(1))).toBe(true);
-    expect(isSuccess(failure([issue("x")]))).toBe(false);
-    expect(isFailure(failure([issue("x")]))).toBe(true);
-    expect(isFailure(success(1))).toBe(false);
+    expect(isValidationSuccess(success(1))).toBe(true);
+    expect(isValidationSuccess(failure([issue("x")]))).toBe(false);
+    expect(isValidationFailure(failure([issue("x")]))).toBe(true);
+    expect(isValidationFailure(success(1))).toBe(false);
   });
 
   it("formatIssues returns a string", () => {
@@ -123,12 +126,12 @@ describe("ValidationResult", () => {
 
   it("unwrap returns data from success", () => {
     const result = success("hello");
-    expect(unwrap(result)).toBe("hello");
+    expect(unwrapValidation(result)).toBe("hello");
   });
 
   it("unwrap throws on failure", () => {
     const result = failure([issue("bad")]);
-    expect(() => unwrap(result)).toThrow();
+    expect(() => unwrapValidation(result)).toThrow();
   });
 
   it("map transforms success data", () => {

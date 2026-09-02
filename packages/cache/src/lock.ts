@@ -3,6 +3,7 @@
  * Distributed lock manager for preventing concurrent cache operations.
  */
 
+import { randomBytes, randomUUID } from "node:crypto";
 import type {
   CacheLock,
   CacheLockOptions,
@@ -17,17 +18,10 @@ import {
 import { CacheError, CacheOperation } from "./errors.js";
 
 function generateToken(): string {
-  if (
-    typeof globalThis.crypto !== "undefined" &&
-    typeof globalThis.crypto.randomUUID === "function"
-  ) {
-    return globalThis.crypto.randomUUID();
+  if (typeof randomUUID === "function") {
+    return randomUUID();
   }
-  const bytes = new Uint8Array(16);
-  for (let i = 0; i < 16; i++) bytes[i] = Math.floor(Math.random() * 256);
-  return Array.from(bytes)
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+  return randomBytes(16).toString("hex");
 }
 
 export class InMemoryLockStore implements CacheLockStore {

@@ -8,6 +8,8 @@
  * does not know how events are dispatched.
  */
 
+import { randomBytes } from "node:crypto";
+
 /**
  * Unique identifier assigned to a subscription.
  */
@@ -154,7 +156,7 @@ function randomId(): string {
     return crypto.randomUUID();
   }
 
-  return Math.random().toString(36).slice(2, 12);
+  return randomBytes(8).toString("hex");
 }
 
 /**
