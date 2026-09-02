@@ -40,7 +40,10 @@ describe("Transaction utilities", () => {
 
   describe("isTransactionActive", () => {
     it("should return true for active status", () => {
-      const context = { ...createTransactionContext(), status: "active" as const };
+      const context = {
+        ...createTransactionContext(),
+        status: "active" as const,
+      };
       expect(isTransactionActive(context)).toBe(true);
     });
 
@@ -52,7 +55,10 @@ describe("Transaction utilities", () => {
 
   describe("isTransactionCommitted", () => {
     it("should return true for committed status", () => {
-      const context = { ...createTransactionContext(), status: "committed" as const };
+      const context = {
+        ...createTransactionContext(),
+        status: "committed" as const,
+      };
       expect(isTransactionCommitted(context)).toBe(true);
     });
 
@@ -64,7 +70,10 @@ describe("Transaction utilities", () => {
 
   describe("isTransactionFailed", () => {
     it("should return true for failed status", () => {
-      const context = { ...createTransactionContext(), status: "failed" as const };
+      const context = {
+        ...createTransactionContext(),
+        status: "failed" as const,
+      };
       expect(isTransactionFailed(context)).toBe(true);
     });
 

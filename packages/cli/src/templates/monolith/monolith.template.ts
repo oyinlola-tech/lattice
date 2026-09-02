@@ -134,7 +134,8 @@ export function generateMonolithFiles(
 `;
 
   // lattice.config.ts
-  files["lattice.config.ts"] = `import { defineConfig } from "@oyinlola141/lattice-config";
+  files["lattice.config.ts"] =
+    `import { defineConfig } from "@oyinlola141/lattice-config";
 
 export default defineConfig({
   application: {

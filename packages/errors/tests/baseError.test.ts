@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "../src/index.js";
+import {
+  BaseError,
+  ErrorCode,
+  ErrorCategory,
+  ErrorSeverity,
+} from "../src/index.js";
 
 class TestError extends BaseError {}
 
@@ -59,11 +64,15 @@ describe("BaseError", () => {
     });
 
     it("throws on out-of-range status codes", () => {
-      expect(() => new TestError("x", { statusCode: 1000 })).toThrow(RangeError);
+      expect(() => new TestError("x", { statusCode: 1000 })).toThrow(
+        RangeError,
+      );
     });
 
     it("throws on non-integer status codes", () => {
-      expect(() => new TestError("x", { statusCode: 200.5 })).toThrow(RangeError);
+      expect(() => new TestError("x", { statusCode: 200.5 })).toThrow(
+        RangeError,
+      );
     });
 
     it("preserves the prototype chain", () => {

@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { BaseError, ErrorCode, ErrorCategory, ErrorSeverity } from "../src/index.js";
+import {
+  BaseError,
+  ErrorCode,
+  ErrorCategory,
+  ErrorSeverity,
+} from "../src/index.js";
 import {
   isErrorLike,
   isOperationalError,

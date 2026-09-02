@@ -76,7 +76,9 @@ function cryptoInt(max: number): number {
 
 function randomString(length: number, alphabet: string): string {
   if (!Number.isInteger(length) || length < 0) {
-    throw new RangeError("Random.string(length) requires a non-negative integer");
+    throw new RangeError(
+      "Random.string(length) requires a non-negative integer",
+    );
   }
   if (alphabet.length === 0) {
     throw new RangeError("alphabet must not be empty");
@@ -118,7 +120,9 @@ export class SeededRandom implements Random {
   }
   int(max: number): number {
     if (!Number.isInteger(max) || max <= 0) {
-      throw new RangeError("SeededRandom.int(max) requires a positive integer max");
+      throw new RangeError(
+        "SeededRandom.int(max) requires a positive integer max",
+      );
     }
     this.state = (this.state * 1103515245 + 12345) & 0x7fffffff;
     return this.state % max;

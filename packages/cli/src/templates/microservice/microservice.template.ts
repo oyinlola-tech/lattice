@@ -65,7 +65,8 @@ export function generateMicroserviceFiles(
   - services/*
 `;
 
-  files["lattice.config.ts"] = `import { defineConfig } from "@oyinlola141/lattice-config";
+  files["lattice.config.ts"] =
+    `import { defineConfig } from "@oyinlola141/lattice-config";
 
 export default defineConfig({
   application: {
@@ -230,7 +231,8 @@ CMD ["node", "dist/server.js"]
     `export { createGateway } from "./app.js";
 `;
 
-  files["apps/gateway/src/app.ts"] = `import { logger } from "@oyinlola141/lattice-logger";
+  files["apps/gateway/src/app.ts"] =
+    `import { logger } from "@oyinlola141/lattice-logger";
 
 export async function createGateway() {
   const log = logger.child({ service: "gateway" });

@@ -1,8 +1,15 @@
 import { DatabaseError } from "@oyinlola141/lattice-errors";
-import type { DatabaseClient, DatabaseTransactionContext } from "../databaseClient/databaseClient.core.js";
+import type {
+  DatabaseClient,
+  DatabaseTransactionContext,
+} from "../databaseClient/databaseClient.core.js";
 import { Prisma } from "@prisma/client";
 
-import type { Migration, MigrationRecord, MigrationRunnerOptions } from "./migration.types.js";
+import type {
+  Migration,
+  MigrationRecord,
+  MigrationRunnerOptions,
+} from "./migration.types.js";
 import {
   DEFAULT_MIGRATION_TABLE,
   DEFAULT_MIGRATION_LOCK,
@@ -32,7 +39,11 @@ export class MigrationRunner {
   private readonly tableName: string;
   private readonly lockKey: string;
 
-  constructor(client: DatabaseClient, migrations: readonly Migration[], options: MigrationRunnerOptions = {}) {
+  constructor(
+    client: DatabaseClient,
+    migrations: readonly Migration[],
+    options: MigrationRunnerOptions = {},
+  ) {
     if (!client) throw new TypeError("A database client is required.");
     this.client = client;
     this.migrations = normalizeMigrations(migrations);
@@ -50,11 +61,15 @@ export class MigrationRunner {
     validateIdentifier(this.tableName, "migration table name");
   }
 
-  public async status(): Promise<import("./migration.types.js").MigrationStatus> {
+  public async status(): Promise<
+    import("./migration.types.js").MigrationStatus
+  > {
     await this.ensureMigrationTable();
     const applied = await this.getAppliedMigrations();
     const appliedVersions = new Set(applied.map((m) => m.version));
-    const pending = this.migrations.filter((m) => !appliedVersions.has(m.version));
+    const pending = this.migrations.filter(
+      (m) => !appliedVersions.has(m.version),
+    );
     return {
       currentVersion: getCurrentVersion(applied),
       latestVersion: getLatestVersion(this.migrations),
@@ -63,11 +78,15 @@ export class MigrationRunner {
     };
   }
 
-  public async migrate(): Promise<import("./migration.types.js").MigrationResult> {
+  public async migrate(): Promise<
+    import("./migration.types.js").MigrationResult
+  > {
     await this.ensureMigrationTable();
     const applied = await this.getAppliedMigrations();
     const appliedVersions = new Set(applied.map((m) => m.version));
-    const pending = this.migrations.filter((m) => !appliedVersions.has(m.version));
+    const pending = this.migrations.filter(
+      (m) => !appliedVersions.has(m.version),
+    );
     if (pending.length === 0) return { applied: [], skipped: applied };
 
     const newlyApplied: MigrationRecord[] = [];
@@ -92,14 +111,20 @@ export class MigrationRunner {
 
     const migration = this.migrations.find((c) => c.version === latest.version);
     if (!migration) {
-      throw new DatabaseError(`Migration "${latest.name}" is recorded as applied but is not registered.`, {
-        metadata: { version: latest.version },
-      });
+      throw new DatabaseError(
+        `Migration "${latest.name}" is recorded as applied but is not registered.`,
+        {
+          metadata: { version: latest.version },
+        },
+      );
     }
     if (!migration.down) {
-      throw new DatabaseError(`Migration "${migration.name}" does not define a rollback operation.`, {
-        metadata: { version: migration.version },
-      });
+      throw new DatabaseError(
+        `Migration "${migration.name}" does not define a rollback operation.`,
+        {
+          metadata: { version: migration.version },
+        },
+      );
     }
 
     await this.client.transaction(async (transaction) => {
@@ -122,16 +147,24 @@ export class MigrationRunner {
         const record = applied[index];
         if (!record) continue;
 
-        const migration = this.migrations.find((c) => c.version === record.version);
+        const migration = this.migrations.find(
+          (c) => c.version === record.version,
+        );
         if (!migration) {
-          throw new DatabaseError(`Migration "${record.name}" is not registered.`, {
-            metadata: { version: record.version },
-          });
+          throw new DatabaseError(
+            `Migration "${record.name}" is not registered.`,
+            {
+              metadata: { version: record.version },
+            },
+          );
         }
         if (!migration.down) {
-          throw new DatabaseError(`Migration "${migration.name}" does not define a rollback operation.`, {
-            metadata: { version: migration.version },
-          });
+          throw new DatabaseError(
+            `Migration "${migration.name}" does not define a rollback operation.`,
+            {
+              metadata: { version: migration.version },
+            },
+          );
         }
 
         await migration.down(transaction);
@@ -163,7 +196,9 @@ export class MigrationRunner {
   public async getAppliedMigrations(): Promise<readonly MigrationRecord[]> {
     const table = quoteIdentifier(this.tableName);
     try {
-      const rows = await this.client.queryRaw<readonly { version: number; name: string; applied_at: Date }[]>(
+      const rows = await this.client.queryRaw<
+        readonly { version: number; name: string; applied_at: Date }[]
+      >(
         Prisma.sql`SELECT "version", "name", "applied_at" FROM ${table} ORDER BY "version" ASC`,
       );
       return rows.map((row) => ({
@@ -179,7 +214,10 @@ export class MigrationRunner {
     }
   }
 
-  private async executeMigration(transaction: DatabaseTransactionContext, migration: Migration): Promise<void> {
+  private async executeMigration(
+    transaction: DatabaseTransactionContext,
+    migration: Migration,
+  ): Promise<void> {
     try {
       await migration.up(transaction);
     } catch (error) {
@@ -190,7 +228,10 @@ export class MigrationRunner {
     }
   }
 
-  private async recordMigration(transaction: DatabaseTransactionContext, migration: Migration): Promise<MigrationRecord> {
+  private async recordMigration(
+    transaction: DatabaseTransactionContext,
+    migration: Migration,
+  ): Promise<MigrationRecord> {
     const table = quoteIdentifier(this.tableName);
     try {
       await transaction.$executeRawUnsafe(
@@ -198,36 +239,57 @@ export class MigrationRunner {
         migration.version,
         migration.name,
       );
-      return { version: migration.version, name: migration.name, appliedAt: new Date() };
+      return {
+        version: migration.version,
+        name: migration.name,
+        appliedAt: new Date(),
+      };
     } catch (error) {
-      throw new DatabaseError(`Failed to record migration "${migration.name}".`, {
-        cause: error,
-        metadata: { version: migration.version },
-      });
+      throw new DatabaseError(
+        `Failed to record migration "${migration.name}".`,
+        {
+          cause: error,
+          metadata: { version: migration.version },
+        },
+      );
     }
   }
 
-  private async deleteMigrationRecord(transaction: DatabaseTransactionContext, version: number): Promise<void> {
+  private async deleteMigrationRecord(
+    transaction: DatabaseTransactionContext,
+    version: number,
+  ): Promise<void> {
     const table = quoteIdentifier(this.tableName);
     try {
-      await transaction.$executeRawUnsafe(`DELETE FROM ${table} WHERE "version" = $1`, version);
+      await transaction.$executeRawUnsafe(
+        `DELETE FROM ${table} WHERE "version" = $1`,
+        version,
+      );
     } catch (error) {
-      throw new DatabaseError(`Failed to remove migration record for version ${version}.`, {
-        cause: error,
-        metadata: { version },
-      });
+      throw new DatabaseError(
+        `Failed to remove migration record for version ${version}.`,
+        {
+          cause: error,
+          metadata: { version },
+        },
+      );
     }
   }
 
-  private async acquireMigrationLock(transaction: DatabaseTransactionContext): Promise<void> {
+  private async acquireMigrationLock(
+    transaction: DatabaseTransactionContext,
+  ): Promise<void> {
     try {
       const lock = hashLockKey(this.lockKey);
       await transaction.$executeRaw`SELECT pg_advisory_xact_lock(${lock})`;
     } catch (error) {
-      throw new DatabaseError("Failed to acquire the database migration lock.", {
-        cause: error,
-        metadata: { lockKey: this.lockKey },
-      });
+      throw new DatabaseError(
+        "Failed to acquire the database migration lock.",
+        {
+          cause: error,
+          metadata: { lockKey: this.lockKey },
+        },
+      );
     }
   }
 }

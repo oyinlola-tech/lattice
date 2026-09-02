@@ -63,7 +63,11 @@ import {
 ## Usage
 
 ```typescript
-import { createRouter, HTTP_STATUS, createCorsPolicy } from "@oyinlola141/lattice-http";
+import {
+  createRouter,
+  HTTP_STATUS,
+  createCorsPolicy,
+} from "@oyinlola141/lattice-http";
 
 const router = createRouter();
 router.get("/health", () => new Response("ok", { status: HTTP_STATUS.OK }));

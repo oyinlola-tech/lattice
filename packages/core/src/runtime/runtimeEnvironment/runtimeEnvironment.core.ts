@@ -14,7 +14,10 @@ import {
   detectContainer,
 } from "./detection/index.js";
 
-import { RuntimeError, type RuntimeErrorOptions } from "@oyinlola141/lattice-errors";
+import {
+  RuntimeError,
+  type RuntimeErrorOptions,
+} from "@oyinlola141/lattice-errors";
 
 /**
  * Environment error codes.

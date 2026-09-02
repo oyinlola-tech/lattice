@@ -27,13 +27,17 @@ describe("createTransaction", () => {
   it("transitions pending -> active when started", () => {
     const txn = createTransaction();
     // simulate adapter activating it
-    (txn as unknown as { _transition: (s: string) => void })._transition("active");
+    (txn as unknown as { _transition: (s: string) => void })._transition(
+      "active",
+    );
     expect(txn.state).toBe("active");
   });
 
   it("commits successfully and fires afterCommit callbacks", async () => {
     const txn = createTransaction();
-    (txn as unknown as { _transition: (s: string) => void })._transition("active");
+    (txn as unknown as { _transition: (s: string) => void })._transition(
+      "active",
+    );
     const calls: string[] = [];
     txn.afterCommit(async () => {
       calls.push("commit-1");
@@ -54,7 +58,9 @@ describe("createTransaction", () => {
 
   it("rolls back when marked rollback-only and commit is called", async () => {
     const txn = createTransaction();
-    (txn as unknown as { _transition: (s: string) => void })._transition("active");
+    (txn as unknown as { _transition: (s: string) => void })._transition(
+      "active",
+    );
     txn.markRollbackOnly("explicit reason");
     expect(txn.isRollbackOnly()).toBe(true);
     await txn.commit();
@@ -63,7 +69,9 @@ describe("createTransaction", () => {
 
   it("rolls back and fires afterRollback callbacks", async () => {
     const txn = createTransaction();
-    (txn as unknown as { _transition: (s: string) => void })._transition("active");
+    (txn as unknown as { _transition: (s: string) => void })._transition(
+      "active",
+    );
     const calls: string[] = [];
     txn.afterRollback(async () => {
       calls.push("rb-1");
@@ -75,7 +83,9 @@ describe("createTransaction", () => {
 
   it("rollback is idempotent after success", async () => {
     const txn = createTransaction();
-    (txn as unknown as { _transition: (s: string) => void })._transition("active");
+    (txn as unknown as { _transition: (s: string) => void })._transition(
+      "active",
+    );
     await txn.rollback();
     expect(txn.state).toBe("rolled_back");
     // second rollback is a no-op
@@ -85,7 +95,9 @@ describe("createTransaction", () => {
 
   it("fails commit with TransactionCommitError when commit throws", async () => {
     const txn = createTransaction();
-    (txn as unknown as { _transition: (s: string) => void })._transition("active");
+    (txn as unknown as { _transition: (s: string) => void })._transition(
+      "active",
+    );
     txn.afterCommit(async () => {
       throw new Error("hook failed");
     });

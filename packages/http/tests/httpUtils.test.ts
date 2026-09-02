@@ -3,7 +3,9 @@ import { describe, it, expect } from "vitest";
 describe("CORS utilities", () => {
   it("should normalize origins", async () => {
     const { normalizeOrigin } = await import("../src/httpCors/http.cors.js");
-    expect(normalizeOrigin(" https://example.com ")).toBe("https://example.com");
+    expect(normalizeOrigin(" https://example.com ")).toBe(
+      "https://example.com",
+    );
     expect(normalizeOrigin("")).toBeUndefined();
     expect(normalizeOrigin(null)).toBeUndefined();
   });
@@ -36,7 +38,8 @@ describe("CORS utilities", () => {
   });
 
   it("should normalize header names", async () => {
-    const { normalizeHeaderNames } = await import("../src/httpCors/http.cors.js");
+    const { normalizeHeaderNames } =
+      await import("../src/httpCors/http.cors.js");
     const headers = normalizeHeaderNames("Content-Type, Authorization");
     expect(headers).toContain("content-type");
     expect(headers).toContain("authorization");
@@ -44,8 +47,12 @@ describe("CORS utilities", () => {
 
   it("should check if headers are allowed", async () => {
     const { areHeadersAllowed } = await import("../src/httpCors/http.cors.js");
-    expect(areHeadersAllowed(["content-type"], ["content-type", "authorization"])).toBe(true);
-    expect(areHeadersAllowed(["x-custom"], ["content-type", "authorization"])).toBe(false);
+    expect(
+      areHeadersAllowed(["content-type"], ["content-type", "authorization"]),
+    ).toBe(true);
+    expect(
+      areHeadersAllowed(["x-custom"], ["content-type", "authorization"]),
+    ).toBe(false);
     expect(areHeadersAllowed(["anything"], ["*"])).toBe(true);
   });
 
@@ -58,21 +65,31 @@ describe("CORS utilities", () => {
 
   it("should detect preflight requests", async () => {
     const { isPreflightRequest } = await import("../src/httpCors/http.cors.js");
-    expect(isPreflightRequest({ origin: "http://example.com", method: "OPTIONS", requestMethod: "POST" })).toBe(true);
-    expect(isPreflightRequest({ origin: "http://example.com", method: "GET" })).toBe(false);
+    expect(
+      isPreflightRequest({
+        origin: "http://example.com",
+        method: "OPTIONS",
+        requestMethod: "POST",
+      }),
+    ).toBe(true);
+    expect(
+      isPreflightRequest({ origin: "http://example.com", method: "GET" }),
+    ).toBe(false);
   });
 });
 
 describe("CSP utilities", () => {
   it("should parse CSP header", async () => {
-    const { parseCSP } = await import("../src/httpCsp/parsing/httpCsp.parsing.js");
+    const { parseCSP } =
+      await import("../src/httpCsp/parsing/httpCsp.parsing.js");
     const directives = parseCSP("default-src 'self'; script-src 'self'");
     expect(directives["default-src"]).toContain("'self'");
     expect(directives["script-src"]).toContain("'self'");
   });
 
   it("should format CSP directives", async () => {
-    const { formatCSP } = await import("../src/httpCsp/formatting/httpCsp.formatting.js");
+    const { formatCSP } =
+      await import("../src/httpCsp/formatting/httpCsp.formatting.js");
     const policy = formatCSP({
       "default-src": ["'self'"],
       "script-src": ["'self'"],
@@ -82,73 +99,85 @@ describe("CSP utilities", () => {
   });
 
   it("should generate CSP nonce", async () => {
-    const { generateCSPNonce } = await import("../src/httpCsp/nonce/httpCsp.nonce.js");
+    const { generateCSPNonce } =
+      await import("../src/httpCsp/nonce/httpCsp.nonce.js");
     const nonce = generateCSPNonce();
     expect(typeof nonce).toBe("string");
     expect(nonce.length).toBeGreaterThan(0);
   });
 
   it("should validate nonce", async () => {
-    const { isValidNonce } = await import("../src/httpCsp/nonce/httpCsp.nonce.js");
+    const { isValidNonce } =
+      await import("../src/httpCsp/nonce/httpCsp.nonce.js");
     expect(isValidNonce("abc123")).toBe(true);
     expect(isValidNonce("abc 123")).toBe(false);
   });
 
   it("should create nonce source", async () => {
-    const { createNonceSource } = await import("../src/httpCsp/nonce/httpCsp.nonce.js");
+    const { createNonceSource } =
+      await import("../src/httpCsp/nonce/httpCsp.nonce.js");
     const source = createNonceSource("abc123");
     expect(source).toContain("nonce-abc123");
   });
 
   it("should create hash source", async () => {
-    const { createHashSource } = await import("../src/httpCsp/nonce/httpCsp.nonce.js");
+    const { createHashSource } =
+      await import("../src/httpCsp/nonce/httpCsp.nonce.js");
     const source = createHashSource("sha256", "abc123");
     expect(source).toContain("sha256-abc123");
   });
 
   it("should detect self source", async () => {
-    const { isSelfSource } = await import("../src/httpCsp/sources/httpCsp.sources.js");
+    const { isSelfSource } =
+      await import("../src/httpCsp/sources/httpCsp.sources.js");
     expect(isSelfSource("'self'")).toBe(true);
     expect(isSelfSource("'none'")).toBe(false);
   });
 
   it("should detect none source", async () => {
-    const { isNoneSource } = await import("../src/httpCsp/sources/httpCsp.sources.js");
+    const { isNoneSource } =
+      await import("../src/httpCsp/sources/httpCsp.sources.js");
     expect(isNoneSource("'none'")).toBe(true);
     expect(isNoneSource("'self'")).toBe(false);
   });
 
   it("should detect unsafe-inline source", async () => {
-    const { isUnsafeInlineSource } = await import("../src/httpCsp/sources/httpCsp.sources.js");
+    const { isUnsafeInlineSource } =
+      await import("../src/httpCsp/sources/httpCsp.sources.js");
     expect(isUnsafeInlineSource("'unsafe-inline'")).toBe(true);
     expect(isUnsafeInlineSource("'self'")).toBe(false);
   });
 
   it("should detect unsafe-eval source", async () => {
-    const { isUnsafeEvalSource } = await import("../src/httpCsp/sources/httpCsp.sources.js");
+    const { isUnsafeEvalSource } =
+      await import("../src/httpCsp/sources/httpCsp.sources.js");
     expect(isUnsafeEvalSource("'unsafe-eval'")).toBe(true);
     expect(isUnsafeEvalSource("'self'")).toBe(false);
   });
 
   it("should detect nonce source", async () => {
-    const { isNonceSource } = await import("../src/httpCsp/sources/httpCsp.sources.js");
+    const { isNonceSource } =
+      await import("../src/httpCsp/sources/httpCsp.sources.js");
     expect(isNonceSource("'nonce-abc123'")).toBe(true);
     expect(isNonceSource("'self'")).toBe(false);
   });
 
   it("should detect hash source", async () => {
-    const { isHashSource } = await import("../src/httpCsp/sources/httpCsp.sources.js");
+    const { isHashSource } =
+      await import("../src/httpCsp/sources/httpCsp.sources.js");
     expect(isHashSource("'sha256-abc123'")).toBe(true);
     expect(isHashSource("'self'")).toBe(false);
   });
 
   it("should validate CSP", async () => {
-    const { validateCSP } = await import("../src/httpCsp/validation/httpCsp.validate.js");
+    const { validateCSP } =
+      await import("../src/httpCsp/validation/httpCsp.validate.js");
     expect(validateCSP({ "default-src": ["'self'"] })).toBe(true);
   });
 
   it("should validate directive names", async () => {
-    const { isValidDirectiveName } = await import("../src/httpCsp/validation/httpCsp.validation.js");
+    const { isValidDirectiveName } =
+      await import("../src/httpCsp/validation/httpCsp.validation.js");
     expect(isValidDirectiveName("default-src")).toBe(true);
     expect(isValidDirectiveName("script-src")).toBe(true);
     expect(isValidDirectiveName("INVALID")).toBe(true);
@@ -175,7 +204,11 @@ describe("HSTS utilities", () => {
 
   it("should format HSTS options", async () => {
     const { formatHSTS } = await import("../src/httpHsts/http.hsts.js");
-    const header = formatHSTS({ maxAge: 31536000, includeSubDomains: true, preload: false });
+    const header = formatHSTS({
+      maxAge: 31536000,
+      includeSubDomains: true,
+      preload: false,
+    });
     expect(header).toContain("max-age=31536000");
     expect(header).toContain("includeSubDomains");
   });
@@ -199,8 +232,11 @@ describe("HSTS utilities", () => {
   });
 
   it("should detect includeSubDomains", async () => {
-    const { hasIncludeSubDomains } = await import("../src/httpHsts/http.hsts.js");
-    expect(hasIncludeSubDomains("max-age=31536000; includeSubDomains")).toBe(true);
+    const { hasIncludeSubDomains } =
+      await import("../src/httpHsts/http.hsts.js");
+    expect(hasIncludeSubDomains("max-age=31536000; includeSubDomains")).toBe(
+      true,
+    );
     expect(hasIncludeSubDomains("max-age=31536000")).toBe(false);
   });
 
@@ -232,26 +268,30 @@ describe("HSTS utilities", () => {
   });
 
   it("should create removal header", async () => {
-    const { createHSTSRemovalHeader } = await import("../src/httpHsts/http.hsts.js");
+    const { createHSTSRemovalHeader } =
+      await import("../src/httpHsts/http.hsts.js");
     expect(createHSTSRemovalHeader()).toBe("max-age=0");
   });
 });
 
 describe("Security Headers", () => {
   it("should create individual headers", async () => {
-    const { xContentTypeOptionsHeader, xFrameOptionsHeader } = await import("../src/httpSecurityHeaders/httpSecurityHeader.individual.js");
+    const { xContentTypeOptionsHeader, xFrameOptionsHeader } =
+      await import("../src/httpSecurityHeaders/httpSecurityHeader.individual.js");
     expect(xContentTypeOptionsHeader()).toBe("nosniff");
     expect(xFrameOptionsHeader()).toBe("DENY");
   });
 
   it("should validate header names", async () => {
-    const { validateHeaderName } = await import("../src/httpSecurityHeaders/core/httpSecurityHeader.validation.js");
+    const { validateHeaderName } =
+      await import("../src/httpSecurityHeaders/core/httpSecurityHeader.validation.js");
     expect(validateHeaderName("Content-Type").valid).toBe(true);
     expect(validateHeaderName("Content Type").valid).toBe(false);
   });
 
   it("should validate header values", async () => {
-    const { validateHeaderValue } = await import("../src/httpSecurityHeaders/core/httpSecurityHeader.validation.js");
+    const { validateHeaderValue } =
+      await import("../src/httpSecurityHeaders/core/httpSecurityHeader.validation.js");
     expect(validateHeaderValue("text/html").valid).toBe(true);
     expect(validateHeaderValue("text\r\nhtml").valid).toBe(false);
   });
@@ -307,21 +347,24 @@ describe("URL Utilities", () => {
 
 describe("Request Utilities", () => {
   it("should normalize HTTP method", async () => {
-    const { normalizeHTTPMethod } = await import("../src/httpRequest/http.request.js");
+    const { normalizeHTTPMethod } =
+      await import("../src/httpRequest/http.request.js");
     expect(normalizeHTTPMethod("get")).toBe("GET");
     expect(normalizeHTTPMethod("post")).toBe("POST");
     expect(normalizeHTTPMethod(undefined)).toBe("GET");
   });
 
   it("should parse accept header", async () => {
-    const { parseAcceptHeader } = await import("../src/httpRequest/http.request.js");
+    const { parseAcceptHeader } =
+      await import("../src/httpRequest/http.request.js");
     const types = parseAcceptHeader("text/html, application/json");
     expect(types).toContain("text/html");
     expect(types).toContain("application/json");
   });
 
   it("should match media types", async () => {
-    const { mediaTypeMatches } = await import("../src/httpRequest/http.request.js");
+    const { mediaTypeMatches } =
+      await import("../src/httpRequest/http.request.js");
     expect(mediaTypeMatches("text/html", "text/html")).toBe(true);
     expect(mediaTypeMatches("text/html", "application/json")).toBe(false);
     expect(mediaTypeMatches("*/*", "text/html")).toBe(true);
@@ -331,13 +374,15 @@ describe("Request Utilities", () => {
 
 describe("HTTPHeaders", () => {
   it("should create headers from object", async () => {
-    const { createHeaders } = await import("../src/httpHeaders/http.headers.js");
+    const { createHeaders } =
+      await import("../src/httpHeaders/http.headers.js");
     const headers = createHeaders({ "content-type": "text/html" });
     expect(headers.get("content-type")).toBe("text/html");
   });
 
   it("should normalize header names", async () => {
-    const { normalizeHeaderName } = await import("../src/httpHeaders/http.headers.js");
+    const { normalizeHeaderName } =
+      await import("../src/httpHeaders/http.headers.js");
     expect(normalizeHeaderName("Content-Type")).toBe("content-type");
     expect(normalizeHeaderName("CONTENT-TYPE")).toBe("content-type");
   });
@@ -358,14 +403,16 @@ describe("HTTPHeaders", () => {
   });
 
   it("should clone headers", async () => {
-    const { createHeaders } = await import("../src/httpHeaders/http.headers.js");
+    const { createHeaders } =
+      await import("../src/httpHeaders/http.headers.js");
     const headers = createHeaders({ "content-type": "text/html" });
     const cloned = headers.clone();
     expect(cloned.get("content-type")).toBe("text/html");
   });
 
   it("should convert to object", async () => {
-    const { createHeaders } = await import("../src/httpHeaders/http.headers.js");
+    const { createHeaders } =
+      await import("../src/httpHeaders/http.headers.js");
     const headers = createHeaders({ "content-type": "text/html" });
     const obj = headers.toObject();
     expect(obj["content-type"]).toBe("text/html");

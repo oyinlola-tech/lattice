@@ -95,7 +95,10 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
     }
     const message = error instanceof Error ? error.message : String(error);
     context.logger.error(`Failed to add feature: ${feature} - ${message}`);
-    throw new CLIGenerationError(`Failed to add feature: ${feature}: ${message}`, error);
+    throw new CLIGenerationError(
+      `Failed to add feature: ${feature}: ${message}`,
+      error,
+    );
   }
 }
 
@@ -164,10 +167,7 @@ function updateLatticeConfig(cwd: string, feature: string): void {
       `${configKey}: {\n    enabled: true,\n  }`,
     );
   } else {
-    content = content.replace(
-      pattern,
-      `$1${featureBlock}\n});`,
-    );
+    content = content.replace(pattern, `$1${featureBlock}\n});`);
   }
   writeFileSync(configPath, content);
 }

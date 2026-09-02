@@ -15,7 +15,10 @@ import type { Serializer } from "../serializer/serializer.type.js";
 import type { QueueMiddleware } from "../middleware/middleware.type.js";
 
 import { createJob } from "../job/job.core.js";
-import { JobState as JobStateEnum, createJobName } from "../jobTypes/jobTypes.type.js";
+import {
+  JobState as JobStateEnum,
+  createJobName,
+} from "../jobTypes/jobTypes.type.js";
 import { JsonSerializer } from "../serializer/serializer.core.js";
 import { createInMemoryDeadLetterStore } from "../deadLetter/deadLetter.core.js";
 import { createNoopQueueEventEmitter } from "../queueEmitter/queueEmitter.core.js";
@@ -23,7 +26,10 @@ import type { QueueEventEmitter } from "../queueEmitter/queueEmitter.type.js";
 import type { DeadLetterStore } from "../deadLetter/deadLetter.type.js";
 
 import { processJob } from "./inMemoryQueue.processing.js";
-import { scheduleJob, scheduleDelayedJobs } from "./inMemoryQueue.scheduling.js";
+import {
+  scheduleJob,
+  scheduleDelayedJobs,
+} from "./inMemoryQueue.scheduling.js";
 
 /**
  * In-memory queue implementation.
@@ -42,9 +48,11 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
   private disposed = false;
   private activeCount = 0;
   private pollTimer: ReturnType<typeof setTimeout> | null = null;
-  private scheduledTimers: Map<JobId, ReturnType<typeof setTimeout>> = new Map();
+  private scheduledTimers: Map<JobId, ReturnType<typeof setTimeout>> =
+    new Map();
   private readonly deduplicationIndex: Map<string, JobId> = new Map();
-  private readonly deadLetterStore: DeadLetterStore<TData> = createInMemoryDeadLetterStore<TData>();
+  private readonly deadLetterStore: DeadLetterStore<TData> =
+    createInMemoryDeadLetterStore<TData>();
   private processedCount = 0;
   private succeededCount = 0;
   private failedCount = 0;
@@ -58,21 +66,41 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
     this.emitter = options?.eventEmitter ?? createNoopQueueEventEmitter();
   }
 
-  async add(jobName: string, data: TData, options?: JobOptions): Promise<Job<TData>> {
+  async add(
+    jobName: string,
+    data: TData,
+    options?: JobOptions,
+  ): Promise<Job<TData>> {
     if (this.disposed) throw new QueueDisposedError(this.name);
-    if (this.paused) throw new QueueError(`Queue "${this.name}" is paused.`, { queueName: this.name });
+    if (this.paused)
+      throw new QueueError(`Queue "${this.name}" is paused.`, {
+        queueName: this.name,
+      });
 
     const mergedOptions = { ...this.options.defaultJobOptions, ...options };
 
     if (mergedOptions.deduplicationKey) {
-      const existing = this.deduplicationIndex.get(mergedOptions.deduplicationKey);
+      const existing = this.deduplicationIndex.get(
+        mergedOptions.deduplicationKey,
+      );
       if (existing && this.jobs.has(existing)) {
-        throw new JobDuplicateError(existing, mergedOptions.deduplicationKey, { queueName: this.name });
+        throw new JobDuplicateError(existing, mergedOptions.deduplicationKey, {
+          queueName: this.name,
+        });
       }
     }
 
-    const jobId = `job_${Date.now()}_${randomBytes(6).toString("hex")}` as JobId;
-    const job = createJob<TData>({ name: createJobName(jobName), queueName: this.name, data, options: mergedOptions }, jobId);
+    const jobId =
+      `job_${Date.now()}_${randomBytes(6).toString("hex")}` as JobId;
+    const job = createJob<TData>(
+      {
+        name: createJobName(jobName),
+        queueName: this.name,
+        data,
+        options: mergedOptions,
+      },
+      jobId,
+    );
     this.jobs.set(jobId, job);
     this.emitter.emit("job:created", { job });
 
@@ -104,7 +132,8 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
 
     for (const job of this.jobs.values()) {
       if (job.state !== JobStateEnum.WAITING) continue;
-      if (job.scheduledAt && new Date(job.scheduledAt).getTime() > now) continue;
+      if (job.scheduledAt && new Date(job.scheduledAt).getTime() > now)
+        continue;
       if (job.priority > nextPriority) {
         nextPriority = job.priority;
         nextJob = job;
@@ -126,16 +155,27 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
     return {
       waiting: allJobs.filter((j) => j.state === JobStateEnum.WAITING).length,
       active: allJobs.filter((j) => j.state === JobStateEnum.ACTIVE).length,
-      completed: allJobs.filter((j) => j.state === JobStateEnum.COMPLETED).length,
-      failed: allJobs.filter((j) => j.state === JobStateEnum.FAILED || j.state === JobStateEnum.DEAD_LETTER).length,
+      completed: allJobs.filter((j) => j.state === JobStateEnum.COMPLETED)
+        .length,
+      failed: allJobs.filter(
+        (j) =>
+          j.state === JobStateEnum.FAILED ||
+          j.state === JobStateEnum.DEAD_LETTER,
+      ).length,
       delayed: allJobs.filter((j) => j.state === JobStateEnum.SCHEDULED).length,
       retrying: allJobs.filter((j) => j.state === JobStateEnum.RETRYING).length,
     };
   }
 
-  async pause(): Promise<void> { this.paused = true; }
-  async resume(): Promise<void> { this.paused = false; }
-  isPaused(): boolean { return this.paused; }
+  async pause(): Promise<void> {
+    this.paused = true;
+  }
+  async resume(): Promise<void> {
+    this.paused = false;
+  }
+  isPaused(): boolean {
+    return this.paused;
+  }
 
   async close(): Promise<void> {
     this.stopPolling();
@@ -163,7 +203,10 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
   }
 
   private stopPolling(): void {
-    if (this.pollTimer) { clearTimeout(this.pollTimer); this.pollTimer = null; }
+    if (this.pollTimer) {
+      clearTimeout(this.pollTimer);
+      this.pollTimer = null;
+    }
   }
 
   private async processTick(): Promise<void> {
@@ -178,13 +221,28 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
 
       this.activeCount++;
       processJob(
-        job, processor, this.middleware, this.jobs,
+        job,
+        processor,
+        this.middleware,
+        this.jobs,
         { timeoutMs: job.timeoutMs },
-        this.emitter, this.deadLetterStore,
-        { processedCount: this.processedCount, succeededCount: this.succeededCount, failedCount: this.failedCount },
-      ).catch((error: unknown) => {
-        this.emitter.emit("job:failed", { job, error: error instanceof Error ? error : new Error(String(error)) });
-      }).finally(() => { this.activeCount--; });
+        this.emitter,
+        this.deadLetterStore,
+        {
+          processedCount: this.processedCount,
+          succeededCount: this.succeededCount,
+          failedCount: this.failedCount,
+        },
+      )
+        .catch((error: unknown) => {
+          this.emitter.emit("job:failed", {
+            job,
+            error: error instanceof Error ? error : new Error(String(error)),
+          });
+        })
+        .finally(() => {
+          this.activeCount--;
+        });
     }
 
     scheduleDelayedJobs(this.jobs);
@@ -194,6 +252,9 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
 /**
  * Creates an InMemoryQueue.
  */
-export function createInMemoryQueue<TData>(name: QueueName, options?: QueueOptions): InMemoryQueue<TData> {
+export function createInMemoryQueue<TData>(
+  name: QueueName,
+  options?: QueueOptions,
+): InMemoryQueue<TData> {
   return new InMemoryQueue<TData>(name, options);
 }

@@ -7,8 +7,14 @@ import { updateJobState } from "../job/job.core.js";
 import { JobState as JobStateEnum } from "../jobTypes/jobTypes.type.js";
 
 import { createJobContext } from "../jobContext/jobContext.core.js";
-import { createMiddlewareChain, createTimeoutMiddleware } from "../middleware/middleware.core.js";
-import { calculateRetryDelay, shouldRetry } from "../retryPolicy/retryPolicy.core.js";
+import {
+  createMiddlewareChain,
+  createTimeoutMiddleware,
+} from "../middleware/middleware.core.js";
+import {
+  calculateRetryDelay,
+  shouldRetry,
+} from "../retryPolicy/retryPolicy.core.js";
 import { moveToDeadLetter } from "../deadLetter/deadLetter.core.js";
 
 import { JobMaxAttemptsError } from "@oyinlola141/lattice-errors";
@@ -24,7 +30,11 @@ export async function processJob<TData>(
   options: { timeoutMs?: number },
   emitter: import("../queueEmitter/queueEmitter.type.js").QueueEventEmitter,
   deadLetterStore: import("../deadLetter/deadLetter.type.js").DeadLetterStore<TData>,
-  counters: { processedCount: number; succeededCount: number; failedCount: number },
+  counters: {
+    processedCount: number;
+    succeededCount: number;
+    failedCount: number;
+  },
 ): Promise<void> {
   const updatedJob = updateJobState(job, JobStateEnum.ACTIVE, {
     startedAt: new Date().toISOString() as never,
@@ -34,16 +44,12 @@ export async function processJob<TData>(
   emitter.emit("job:started", { job: updatedJob });
 
   const abortController = new AbortController();
-  const context = createJobContext<TData>(
-    updatedJob,
-    abortController.signal,
-    {
-      onProgress: async () => {
-        const progressJob = updateJobState(updatedJob, JobStateEnum.ACTIVE);
-        jobs.set(updatedJob.id, progressJob);
-      },
+  const context = createJobContext<TData>(updatedJob, abortController.signal, {
+    onProgress: async () => {
+      const progressJob = updateJobState(updatedJob, JobStateEnum.ACTIVE);
+      jobs.set(updatedJob.id, progressJob);
     },
-  );
+  });
 
   const timeoutMs = options.timeoutMs ?? 30_000;
   const timeoutMiddleware = createTimeoutMiddleware(timeoutMs);
@@ -62,25 +68,27 @@ export async function processJob<TData>(
     });
 
     if (result && "success" in result && result.success) {
-      const completedJob = updateJobState(
-        updatedJob,
-        JobStateEnum.COMPLETED,
-        { completedAt: new Date().toISOString() as never },
-      );
+      const completedJob = updateJobState(updatedJob, JobStateEnum.COMPLETED, {
+        completedAt: new Date().toISOString() as never,
+      });
       jobs.set(updatedJob.id, completedJob);
       counters.succeededCount++;
       emitter.emit("job:completed", { job: completedJob, result: result.data });
     } else if (result && "success" in result && !result.success) {
       await handleJobFailure(
-        updatedJob, result.error ?? "Job failed", processor, abortController,
-        jobs, emitter, deadLetterStore, counters,
+        updatedJob,
+        result.error ?? "Job failed",
+        processor,
+        abortController,
+        jobs,
+        emitter,
+        deadLetterStore,
+        counters,
       );
     } else {
-      const completedJob = updateJobState(
-        updatedJob,
-        JobStateEnum.COMPLETED,
-        { completedAt: new Date().toISOString() as never },
-      );
+      const completedJob = updateJobState(updatedJob, JobStateEnum.COMPLETED, {
+        completedAt: new Date().toISOString() as never,
+      });
       jobs.set(updatedJob.id, completedJob);
       counters.succeededCount++;
       emitter.emit("job:completed", { job: completedJob, result: undefined });
@@ -88,8 +96,14 @@ export async function processJob<TData>(
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     await handleJobFailure(
-      updatedJob, errorMessage, processor, abortController,
-      jobs, emitter, deadLetterStore, counters,
+      updatedJob,
+      errorMessage,
+      processor,
+      abortController,
+      jobs,
+      emitter,
+      deadLetterStore,
+      counters,
     );
   } finally {
     counters.processedCount++;
@@ -109,7 +123,8 @@ export async function handleJobFailure<TData>(
   deadLetterStore: import("../deadLetter/deadLetter.type.js").DeadLetterStore<TData>,
   counters: { failedCount: number },
 ): Promise<void> {
-  const { updateJobState: update, incrementJobAttempt } = await import("../job/job.core.js");
+  const { updateJobState: update, incrementJobAttempt } =
+    await import("../job/job.core.js");
 
   const failedJob = update(job, JobStateEnum.FAILED, {
     error: errorMessage,
@@ -118,7 +133,10 @@ export async function handleJobFailure<TData>(
   jobs.set(job.id, failedJob);
   counters.failedCount++;
 
-  emitter.emit("job:failed", { job: failedJob, error: new Error(errorMessage) });
+  emitter.emit("job:failed", {
+    job: failedJob,
+    error: new Error(errorMessage),
+  });
 
   const incrementedJob = incrementJobAttempt(failedJob);
   jobs.set(job.id, incrementedJob);
@@ -127,7 +145,10 @@ export async function handleJobFailure<TData>(
     const retryingJob = update(incrementedJob, JobStateEnum.RETRYING);
     jobs.set(job.id, retryingJob);
 
-    emitter.emit("job:retrying", { job: retryingJob, attempt: incrementedJob.attempt });
+    emitter.emit("job:retrying", {
+      job: retryingJob,
+      attempt: incrementedJob.attempt,
+    });
 
     const backoff = incrementedJob.backoff;
     const delay = calculateRetryDelay(incrementedJob.attempt, backoff);

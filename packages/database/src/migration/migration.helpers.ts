@@ -13,7 +13,9 @@ export const DEFAULT_MIGRATION_LOCK = "database:migrations";
 /**
  * Normalizes and validates migrations.
  */
-export function normalizeMigrations(migrations: readonly Migration[]): readonly Migration[] {
+export function normalizeMigrations(
+  migrations: readonly Migration[],
+): readonly Migration[] {
   if (!Array.isArray(migrations)) {
     throw new TypeError("Migrations must be an array.");
   }
@@ -46,17 +48,24 @@ export function validateMigration(migration: Migration): void {
   if (!Number.isInteger(migration.version) || migration.version <= 0) {
     throw new TypeError("Migration version must be a positive integer.");
   }
-  if (typeof migration.name !== "string" || migration.name.trim().length === 0) {
+  if (
+    typeof migration.name !== "string" ||
+    migration.name.trim().length === 0
+  ) {
     throw new TypeError("Migration name is required.");
   }
   if (migration.name.length > 255) {
     throw new TypeError("Migration name cannot exceed 255 characters.");
   }
   if (typeof migration.up !== "function") {
-    throw new TypeError(`Migration "${migration.name}" requires an up function.`);
+    throw new TypeError(
+      `Migration "${migration.name}" requires an up function.`,
+    );
   }
   if (migration.down !== undefined && typeof migration.down !== "function") {
-    throw new TypeError(`Migration "${migration.name}" has an invalid down function.`);
+    throw new TypeError(
+      `Migration "${migration.name}" has an invalid down function.`,
+    );
   }
 }
 
@@ -71,7 +80,9 @@ export function getLatestVersion(migrations: readonly Migration[]): number {
 /**
  * Returns the current applied migration version.
  */
-export function getCurrentVersion(migrations: readonly MigrationRecord[]): number {
+export function getCurrentVersion(
+  migrations: readonly MigrationRecord[],
+): number {
   if (migrations.length === 0) return 0;
   return migrations[migrations.length - 1]!.version;
 }
@@ -88,7 +99,10 @@ export function quoteIdentifier(identifier: string): string {
  * Validates an SQL identifier.
  */
 export function validateIdentifier(identifier: string, name: string): void {
-  if (typeof identifier !== "string" || !/^[A-Za-z_][A-Za-z0-9_]*$/.test(identifier)) {
+  if (
+    typeof identifier !== "string" ||
+    !/^[A-Za-z_][A-Za-z0-9_]*$/.test(identifier)
+  ) {
     throw new TypeError(`Invalid ${name}: "${identifier}".`);
   }
 }

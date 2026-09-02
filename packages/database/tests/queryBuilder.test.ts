@@ -68,27 +68,20 @@ describe("QueryBuilder", () => {
   });
 
   it("should set pagination", () => {
-    const state = createQueryBuilder<TestField>()
-      .page(2)
-      .limit(20)
-      .build();
+    const state = createQueryBuilder<TestField>().page(2).limit(20).build();
 
     expect(state.pagination).toEqual({ page: 2, limit: 20 });
   });
 
   it("should set sort order", () => {
-    const state = createQueryBuilder<TestField>()
-      .orderByAsc("name")
-      .build();
+    const state = createQueryBuilder<TestField>().orderByAsc("name").build();
 
     expect(state.sort).toHaveLength(1);
     expect(state.sort?.[0]).toEqual({ field: "name", direction: "asc" });
   });
 
   it("should set descending sort", () => {
-    const state = createQueryBuilder<TestField>()
-      .orderByDesc("age")
-      .build();
+    const state = createQueryBuilder<TestField>().orderByDesc("age").build();
 
     expect(state.sort?.[0].direction).toBe("desc");
   });

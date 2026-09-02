@@ -117,23 +117,6 @@ export {
   registerCLIInterruptHandler,
 } from "./cliApplication/index.js";
 
-// Runner
-export {
-  CLIRunner,
-  createCLIRunner,
-  runCLICommand,
-  type CLIRunnerOptions,
-} from "./cliRunner/index.js";
-
-// Help
-export {
-  CLIHelpGenerator,
-  createHelpGenerator,
-  generateCLIHelp,
-  generateCommandHelp,
-  type CLIHelpOptions,
-} from "./cliHelp/index.js";
-
 // Version
 export {
   getCLIVersion,

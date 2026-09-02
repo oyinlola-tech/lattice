@@ -24,7 +24,9 @@ describe("Domain Errors", () => {
     });
 
     it("preserves custom options", () => {
-      const err = new NotFoundError("missing", { severity: ErrorSeverity.WARNING });
+      const err = new NotFoundError("missing", {
+        severity: ErrorSeverity.WARNING,
+      });
       expect(err.severity).toBe(ErrorSeverity.WARNING);
     });
 
@@ -114,7 +116,9 @@ describe("Domain Errors", () => {
     });
 
     it("rejects negative timeoutMs", () => {
-      expect(() => new TimeoutError("x", { timeoutMs: -1 })).toThrow(RangeError);
+      expect(() => new TimeoutError("x", { timeoutMs: -1 })).toThrow(
+        RangeError,
+      );
     });
   });
 });

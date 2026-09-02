@@ -80,21 +80,39 @@ describe("RelationRegistry", () => {
 
   it("should return all relations", () => {
     const registry = createRelationRegistry();
-    registry.register(oneToOne({
-      name: "a", parent: "A", child: "B", foreignKey: "aId", referencedKey: "id",
-    }));
-    registry.register(oneToMany({
-      name: "b", parent: "B", child: "C", foreignKey: "bId", referencedKey: "id",
-    }));
+    registry.register(
+      oneToOne({
+        name: "a",
+        parent: "A",
+        child: "B",
+        foreignKey: "aId",
+        referencedKey: "id",
+      }),
+    );
+    registry.register(
+      oneToMany({
+        name: "b",
+        parent: "B",
+        child: "C",
+        foreignKey: "bId",
+        referencedKey: "id",
+      }),
+    );
 
     expect(registry.all()).toHaveLength(2);
   });
 
   it("should remove relations", () => {
     const registry = createRelationRegistry();
-    registry.register(oneToOne({
-      name: "userProfile", parent: "User", child: "Profile", foreignKey: "userId", referencedKey: "id",
-    }));
+    registry.register(
+      oneToOne({
+        name: "userProfile",
+        parent: "User",
+        child: "Profile",
+        foreignKey: "userId",
+        referencedKey: "id",
+      }),
+    );
 
     expect(registry.remove("userProfile")).toBe(true);
     expect(registry.has("userProfile")).toBe(false);
@@ -102,9 +120,15 @@ describe("RelationRegistry", () => {
 
   it("should clear all relations", () => {
     const registry = createRelationRegistry();
-    registry.register(oneToOne({
-      name: "a", parent: "A", child: "B", foreignKey: "aId", referencedKey: "id",
-    }));
+    registry.register(
+      oneToOne({
+        name: "a",
+        parent: "A",
+        child: "B",
+        foreignKey: "aId",
+        referencedKey: "id",
+      }),
+    );
 
     registry.clear();
     expect(registry.size).toBe(0);
@@ -113,10 +137,18 @@ describe("RelationRegistry", () => {
   it("should filter by parent", () => {
     const registry = createRelationRegistry();
     const rel1 = oneToOne({
-      name: "userProfile", parent: "User", child: "Profile", foreignKey: "userId", referencedKey: "id",
+      name: "userProfile",
+      parent: "User",
+      child: "Profile",
+      foreignKey: "userId",
+      referencedKey: "id",
     });
     const rel2 = oneToMany({
-      name: "userPosts", parent: "User", child: "Post", foreignKey: "authorId", referencedKey: "id",
+      name: "userPosts",
+      parent: "User",
+      child: "Post",
+      foreignKey: "authorId",
+      referencedKey: "id",
     });
     registry.register(rel1);
     registry.register(rel2);
@@ -128,8 +160,20 @@ describe("RelationRegistry", () => {
   it("should register multiple relations at once", () => {
     const registry = createRelationRegistry();
     registry.registerMany([
-      oneToOne({ name: "a", parent: "A", child: "B", foreignKey: "aId", referencedKey: "id" }),
-      oneToMany({ name: "b", parent: "B", child: "C", foreignKey: "bId", referencedKey: "id" }),
+      oneToOne({
+        name: "a",
+        parent: "A",
+        child: "B",
+        foreignKey: "aId",
+        referencedKey: "id",
+      }),
+      oneToMany({
+        name: "b",
+        parent: "B",
+        child: "C",
+        foreignKey: "bId",
+        referencedKey: "id",
+      }),
     ]);
 
     expect(registry.size).toBe(2);
@@ -147,13 +191,25 @@ describe("Relation type guards", () => {
 
   it("isCollectionRelation should identify collection relations", () => {
     const oneToManyRel = oneToMany({
-      name: "a", parent: "A", child: "B", foreignKey: "aId", referencedKey: "id",
+      name: "a",
+      parent: "A",
+      child: "B",
+      foreignKey: "aId",
+      referencedKey: "id",
     });
     const manyToManyRel = manyToMany({
-      name: "b", parent: "B", child: "C", foreignKey: "bId", referencedKey: "id",
+      name: "b",
+      parent: "B",
+      child: "C",
+      foreignKey: "bId",
+      referencedKey: "id",
     });
     const oneToOneRel = oneToOne({
-      name: "c", parent: "C", child: "D", foreignKey: "cId", referencedKey: "id",
+      name: "c",
+      parent: "C",
+      child: "D",
+      foreignKey: "cId",
+      referencedKey: "id",
     });
 
     expect(isCollectionRelation(oneToManyRel)).toBe(true);
@@ -163,13 +219,25 @@ describe("Relation type guards", () => {
 
   it("isSingleRelation should identify single relations", () => {
     const oneToOneRel = oneToOne({
-      name: "a", parent: "A", child: "B", foreignKey: "aId", referencedKey: "id",
+      name: "a",
+      parent: "A",
+      child: "B",
+      foreignKey: "aId",
+      referencedKey: "id",
     });
     const manyToOneRel = manyToOne({
-      name: "b", parent: "B", child: "C", foreignKey: "bId", referencedKey: "id",
+      name: "b",
+      parent: "B",
+      child: "C",
+      foreignKey: "bId",
+      referencedKey: "id",
     });
     const oneToManyRel = oneToMany({
-      name: "c", parent: "C", child: "D", foreignKey: "cId", referencedKey: "id",
+      name: "c",
+      parent: "C",
+      child: "D",
+      foreignKey: "cId",
+      referencedKey: "id",
     });
 
     expect(isSingleRelation(oneToOneRel)).toBe(true);
@@ -181,7 +249,11 @@ describe("Relation type guards", () => {
 describe("validateRelation", () => {
   it("should validate a correct relation", () => {
     const rel = oneToOne({
-      name: "userProfile", parent: "User", child: "Profile", foreignKey: "userId", referencedKey: "id",
+      name: "userProfile",
+      parent: "User",
+      child: "Profile",
+      foreignKey: "userId",
+      referencedKey: "id",
     });
     expect(() => validateRelation(rel)).not.toThrow();
   });
