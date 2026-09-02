@@ -259,12 +259,17 @@ export class Configuration {
     let current: Record<string, ConfigurationValue> = result;
     for (let index = 0; index < parts.length - 1; index++) {
       const part = parts[index]!;
+      if (part === "__proto__" || part === "constructor" || part === "prototype")
+        return result;
       const next = current[part];
       if (next === null || typeof next !== "object" || Array.isArray(next))
         return result;
       current = next as Record<string, ConfigurationValue>;
     }
-    delete current[parts[parts.length - 1]!];
+    const lastPart = parts[parts.length - 1]!;
+    if (lastPart === "__proto__" || lastPart === "constructor" || lastPart === "prototype")
+      return result;
+    delete current[lastPart];
     return result;
   }
 }
