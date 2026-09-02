@@ -15,10 +15,11 @@ export function createRuntimeId(name: string): string {
   const random = Math.random().toString(36).slice(2, 10);
 
   const normalizedName = name
+    .slice(0, 100)
     .trim()
     .toLowerCase()
-    .replace(/[^a-z0-9]+/, "-")
-    .replace(/^-+|-+$/, "");
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
   return [normalizedName || "runtime", timestamp, random].join("-");
 }

@@ -18,16 +18,41 @@ export function validateLinks(
     return { valid: true, issues: [] };
   }
 
-  const linkPattern = /\[([^\]]*)\]\(([^)]+)\)/g;
   const content = document.content.value;
-  let match: RegExpExecArray | null;
 
-  while ((match = linkPattern.exec(content)) !== null) {
-    const target = match[2];
+  if (content.length > 100_000) {
+    return { valid: true, issues: [] };
+  }
 
-    if (!target) continue;
+  let pos = 0;
+
+  while (pos < content.length) {
+    const openBracket = content.indexOf("[", pos);
+
+    if (openBracket === -1) break;
+
+    const closeBracket = content.indexOf("]", openBracket + 1);
+
+    if (closeBracket === -1) break;
+
+    if (content[closeBracket + 1] !== "(") {
+      pos = closeBracket + 1;
+      continue;
+    }
+
+    const closeParen = content.indexOf(")", closeBracket + 2);
+
+    if (closeParen === -1) break;
+
+    const target = content.slice(closeBracket + 2, closeParen);
+
+    if (!target) {
+      pos = closeParen + 1;
+      continue;
+    }
 
     if (target.startsWith("http://") || target.startsWith("https://")) {
+      pos = closeParen + 1;
       continue;
     }
 
@@ -41,6 +66,8 @@ export function validateLinks(
         documentId: document.id,
       });
     }
+
+    pos = closeParen + 1;
   }
 
   return {
