@@ -93,7 +93,9 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
     if (error instanceof CLIValidationError) {
       throw error;
     }
-    throw new CLIGenerationError(`Failed to add feature: ${feature}`, error);
+    const message = error instanceof Error ? error.message : String(error);
+    context.logger.error(`Failed to add feature: ${feature} - ${message}`);
+    throw new CLIGenerationError(`Failed to add feature: ${feature}: ${message}`, error);
   }
 }
 
@@ -150,7 +152,7 @@ function updateLatticeConfig(cwd: string, feature: string): void {
   const configKey = featureMap[feature];
   if (!configKey) return;
 
-  const pattern = new RegExp(`(export\\s+default\\s+defineConfig\\({[\\s\\S]*?)\\n\\});`);
+  const pattern = /(export\s+default\s+defineConfig\(\{[\s\S]*?)\n\}\);/;
   const match = content.match(pattern);
   if (!match) return;
 

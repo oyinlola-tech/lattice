@@ -87,12 +87,16 @@ export class CLIParser {
         continue;
       }
 
-      if (!this.stopAtFirstArgument && !command && commands.length === 0) {
+      if (
+        !this.stopAtFirstArgument &&
+        !command &&
+        commands.length === 0 &&
+        positional.length === 0
+      ) {
         commands.push(token);
         index++;
         continue;
       }
-
       positional.push(token);
       index++;
     }

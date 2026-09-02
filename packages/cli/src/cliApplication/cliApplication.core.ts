@@ -148,7 +148,11 @@ export class LatticeCLI implements CLIApplication {
     } catch (error) {
       const normalized = normalizeCLIError(error);
 
-      const fallbackContext = this.createContext(args, this.findCommand(args));
+      const command = this.findCommand(args);
+      const commandArgs = command
+        ? this.getCommandArguments(args, command)
+        : args;
+      const fallbackContext = this.createContext(commandArgs, command);
 
       if (this.hooks.onError) {
         await this.hooks.onError(normalized, fallbackContext);
