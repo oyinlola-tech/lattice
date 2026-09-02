@@ -30,17 +30,12 @@ export class ReactAdapter implements FrontendAdapter {
   }
 
   async getLatestVersion(): Promise<string> {
-    return "19";
+    return "19.0.0";
   }
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
-    const { projectPath, language } = context;
-    const template = language === "typescript" ? "react-ts" : "react";
-
-    await execCommand(
-      `npm create vite@latest . -- --template ${template}`,
-      projectPath,
-    );
+    const files = this.getBaseFiles(context);
+    await writeFileTree(context.projectPath, files);
   }
 
   getDependencies(
@@ -104,6 +99,94 @@ export class ReactAdapter implements FrontendAdapter {
     }
 
     return { valid: errors.length === 0, errors, warnings };
+  }
+
+  private getBaseFiles(
+    context: FrontendGenerationContext,
+  ): Record<string, string> {
+    const useTypeScript = context.language === "typescript";
+
+    return {
+      "package.json": JSON.stringify(
+        {
+          name: context.project.name,
+          version: "0.1.0",
+          private: true,
+          type: "module",
+          scripts: {
+            dev: "vite",
+            build: "tsc && vite build",
+            preview: "vite preview",
+          },
+          dependencies: {
+            react: "^19.0.0",
+            "react-dom": "^19.0.0",
+          },
+          devDependencies: {
+            vite: "^6.0.0",
+            "@vitejs/plugin-react": "^4.3.0",
+            ...(useTypeScript ? { typescript: "^5.0.0" } : {}),
+          },
+        },
+        null,
+        2,
+      ),
+      "vite.config.ts": `import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+});
+`,
+      "tsconfig.json": JSON.stringify(
+        {
+          compilerOptions: {
+            target: "ES2020",
+            useDefineForClassFields: true,
+            lib: ["ES2020", "DOM", "DOM.Iterable"],
+            module: "ESNext",
+            skipLibCheck: true,
+            moduleResolution: "bundler",
+            allowImportingTsExtensions: true,
+            resolveJsonModule: true,
+          },
+        },
+        null,
+        2,
+      ),
+      "index.html": `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${context.project.name}</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+`,
+      "src/main.tsx": `import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);
+`,
+      "src/App.tsx": `export default function App() {
+  return (
+    <div>
+      <h1>Hello from Lattice</h1>
+    </div>
+  );
+}
+`,
+      ...(useTypeScript ? { "src/vite-env.d.ts": `/// <reference types="vite/client" />\n` } : {}),
+    };
   }
 
   private getStructure(

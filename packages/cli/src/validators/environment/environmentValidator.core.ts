@@ -93,28 +93,48 @@ export class EnvironmentValidator {
 
   private async checkPackageManager(): Promise<EnvironmentCheck> {
     try {
-      const result = await execCommand("pnpm --version", ".");
+      const version = await execCommand("pnpm --version", ".");
       return {
         name: "pnpm",
         installed: true,
-        version: result.stdout.trim(),
+        version: version.stdout.trim(),
         required: true,
       };
     } catch {
       try {
-        const result = await execCommand("npm --version", ".");
+        const version = await execCommand("yarn --version", ".");
         return {
-          name: "npm",
+          name: "yarn",
           installed: true,
-          version: result.stdout.trim(),
+          version: version.stdout.trim(),
           required: true,
         };
       } catch {
-        return {
-          name: "Package Manager",
-          installed: false,
-          required: true,
-        };
+        try {
+          const version = await execCommand("bun --version", ".");
+          return {
+            name: "bun",
+            installed: true,
+            version: version.stdout.trim(),
+            required: true,
+          };
+        } catch {
+          try {
+            const version = await execCommand("npm --version", ".");
+            return {
+              name: "npm",
+              installed: true,
+              version: version.stdout.trim(),
+              required: true,
+            };
+          } catch {
+            return {
+              name: "Package Manager",
+              installed: false,
+              required: true,
+            };
+          }
+        }
       }
     }
   }

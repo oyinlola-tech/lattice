@@ -85,4 +85,6 @@ export interface ScaffoldOptions {
   readonly initGit?: boolean;
   readonly installDeps?: boolean;
   readonly features?: readonly string[];
+  readonly frontend?: FrontendFramework;
+  readonly frontendPath?: string;
 }
