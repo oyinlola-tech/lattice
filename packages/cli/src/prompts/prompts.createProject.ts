@@ -137,14 +137,11 @@ export async function promptCreateProject(
     overrides?.enableObservability ??
     (await askConfirm("\nEnable observability?", true));
   const enableOpenAPI =
-    overrides?.enableOpenAPI ??
-    (await askConfirm("\nEnable OpenAPI?", true));
+    overrides?.enableOpenAPI ?? (await askConfirm("\nEnable OpenAPI?", true));
   const enableDatabase =
-    overrides?.enableDatabase ??
-    (await askConfirm("\nEnable database?", true));
+    overrides?.enableDatabase ?? (await askConfirm("\nEnable database?", true));
   const enableQueue =
-    overrides?.enableQueue ??
-    (await askConfirm("\nEnable job queue?", false));
+    overrides?.enableQueue ?? (await askConfirm("\nEnable job queue?", false));
   const enableDocker =
     overrides?.enableDocker ??
     (await askConfirm("\nEnable Docker?", architecture === "microservice"));

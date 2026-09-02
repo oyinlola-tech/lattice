@@ -50,10 +50,7 @@ export async function generateProject(
   try {
     await writeFileTree(projectPath, templateFiles);
   } catch (error) {
-    throw new CLIGenerationError(
-      `Failed to write project files:`,
-      error,
-    );
+    throw new CLIGenerationError(`Failed to write project files:`, error);
   }
 
   const filesCreated = Object.keys(templateFiles);
@@ -61,14 +58,8 @@ export async function generateProject(
   if (options.initGit) {
     try {
       await execCommand("git init", projectPath);
-      await execCommand(
-        `git config user.name "Lattice CLI"`,
-        projectPath,
-      );
-      await execCommand(
-        `git config user.email "cli@lattice.dev"`,
-        projectPath,
-      );
+      await execCommand(`git config user.name "Lattice CLI"`, projectPath);
+      await execCommand(`git config user.email "cli@lattice.dev"`, projectPath);
       await execCommand("git add -A", projectPath);
       await execCommand(
         'git commit -m "chore: initial commit from Lattice CLI"',

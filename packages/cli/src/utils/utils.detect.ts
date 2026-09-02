@@ -1,9 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-export async function detectArchitecture(
-  cwd: string,
-): Promise<string | null> {
+export async function detectArchitecture(cwd: string): Promise<string | null> {
   try {
     const configPath = join(cwd, "lattice.config.json");
     const content = await readFile(configPath, "utf-8");

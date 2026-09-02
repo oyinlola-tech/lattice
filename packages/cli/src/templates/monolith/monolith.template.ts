@@ -88,31 +88,30 @@ export function generateMonolithFiles(
   const files: Record<string, string> = {};
 
   // Root files
-  files["package.json"] = JSON.stringify(
-    {
-      name: nameSlug,
-      version: "0.1.0",
-      private: true,
-      type: "module",
-      license: "MIT",
-      scripts: {
-        dev: "node --import tsx watch src/server.ts",
-        start: "node dist/server.js",
-        build: "tsc",
-        typecheck: "tsc --noEmit",
-        test: "vitest run",
-        lint: "tsc --noEmit",
+  files["package.json"] =
+    JSON.stringify(
+      {
+        name: nameSlug,
+        version: "0.1.0",
+        private: true,
+        type: "module",
+        license: "MIT",
+        scripts: {
+          dev: "node --import tsx watch src/server.ts",
+          start: "node dist/server.js",
+          build: "tsc",
+          typecheck: "tsc --noEmit",
+          test: "vitest run",
+          lint: "tsc --noEmit",
+        },
+        dependencies: Object.fromEntries(
+          [...new Set(deps)].map((d) => [d, "workspace:*"]),
+        ),
+        devDependencies: Object.fromEntries(devDeps.map((d) => [d, "^1.0.0"])),
       },
-      dependencies: Object.fromEntries(
-        [...new Set(deps)].map((d) => [d, "workspace:*"]),
-      ),
-      devDependencies: Object.fromEntries(
-        devDeps.map((d) => [d, "^1.0.0"]),
-      ),
-    },
-    null,
-    2,
-  ) + "\n";
+      null,
+      2,
+    ) + "\n";
 
   // tsconfig
   files["tsconfig.json"] = `{
@@ -311,14 +310,16 @@ export async function createApp() {
   files["src/services/index.ts"] = ``;
 
   // Controllers
-  files["src/controllers/health.controller.ts"] = `export class HealthController {
+  files["src/controllers/health.controller.ts"] =
+    `export class HealthController {
   check() {
     return { status: "ok", timestamp: new Date().toISOString() };
   }
 }
 `;
 
-  files["src/controllers/index.ts"] = `export { HealthController } from "./health.controller.js";
+  files["src/controllers/index.ts"] =
+    `export { HealthController } from "./health.controller.js";
 `;
 
   // Tests

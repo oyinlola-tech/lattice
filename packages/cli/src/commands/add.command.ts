@@ -28,7 +28,7 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
     );
   }
 
-    const packages = FEATURE_PACKAGES[feature];
+  const packages = FEATURE_PACKAGES[feature];
 
   if (!packages) {
     throw new CLIValidationError(

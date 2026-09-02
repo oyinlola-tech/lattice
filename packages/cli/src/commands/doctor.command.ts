@@ -91,7 +91,8 @@ function checkPackageManager(): DoctorCheck {
 }
 
 function checkTypeScriptConfig(): DoctorCheck {
-  const passed = existsSync("tsconfig.json") || existsSync("tsconfig.base.json");
+  const passed =
+    existsSync("tsconfig.json") || existsSync("tsconfig.base.json");
   return {
     name: "TypeScript configuration",
     passed,
@@ -101,7 +102,8 @@ function checkTypeScriptConfig(): DoctorCheck {
 
 function checkLatticeConfig(): DoctorCheck {
   const hasPkgConfig = checkLatticeInPackageJson();
-  const hasConfig = existsSync("lattice.config.ts") || existsSync("lattice.config.js");
+  const hasConfig =
+    existsSync("lattice.config.ts") || existsSync("lattice.config.js");
   const passed = hasPkgConfig || hasConfig;
 
   let message = "No Lattice configuration found.";
@@ -120,7 +122,9 @@ function checkLatticeInPackageJson(): boolean {
   try {
     const pkgPath = join(process.cwd(), "package.json");
     if (!existsSync(pkgPath)) return false;
-    const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as { lattice?: unknown };
+    const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
+      lattice?: unknown;
+    };
     return typeof pkg.lattice === "object" && pkg.lattice !== null;
   } catch {
     return false;
@@ -131,7 +135,11 @@ function checkDependencies(context: CLIContext): DoctorCheck {
   const pkgPath = join(context.cwd, "package.json");
 
   if (!existsSync(pkgPath)) {
-    return { name: "Dependencies", passed: false, message: "No package.json found" };
+    return {
+      name: "Dependencies",
+      passed: false,
+      message: "No package.json found",
+    };
   }
 
   try {
@@ -152,7 +160,11 @@ function checkDependencies(context: CLIContext): DoctorCheck {
         : "No Lattice packages found",
     };
   } catch {
-    return { name: "Dependencies", passed: false, message: "Failed to read package.json" };
+    return {
+      name: "Dependencies",
+      passed: false,
+      message: "Failed to read package.json",
+    };
   }
 }
 
@@ -161,14 +173,19 @@ function checkArchitectureViolations(): DoctorCheck {
   const violations: string[] = [];
 
   if (!existsSync(srcDir)) {
-    return { name: "Architecture", passed: true, message: "No src/ directory (not a Lattice project?)" };
+    return {
+      name: "Architecture",
+      passed: true,
+      message: "No src/ directory (not a Lattice project?)",
+    };
   }
 
   return {
     name: "Architecture",
     passed: violations.length === 0,
-    message: violations.length === 0
-      ? "No violations detected"
-      : `${violations.length} potential violations found`,
+    message:
+      violations.length === 0
+        ? "No violations detected"
+        : `${violations.length} potential violations found`,
   };
 }

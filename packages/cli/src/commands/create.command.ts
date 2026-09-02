@@ -7,7 +7,12 @@
 import { join } from "node:path";
 import { existsSync } from "node:fs";
 import type { CLIContext } from "../cliType/cliType.type.js";
-import type { ScaffoldOptions, ArchitectureType, PackageManager, DatabaseEngine } from "../types/index.js";
+import type {
+  ScaffoldOptions,
+  ArchitectureType,
+  PackageManager,
+  DatabaseEngine,
+} from "../types/index.js";
 import { generateProject } from "../generators/project/project.generator.js";
 import { promptCreateProject } from "../prompts/index.js";
 import { CLIValidationError, CLIGenerationError } from "../errors/index.js";
@@ -18,7 +23,8 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
     (context.values.architecture as string | undefined) ?? "monolith";
   const packageManager =
     (context.values["package-manager"] as string | undefined) ?? "pnpm";
-  const database = (context.values.database as string | undefined) ?? "postgresql";
+  const database =
+    (context.values.database as string | undefined) ?? "postgresql";
   const noInstall = context.values["no-install"] === true;
   const noGit = context.values["no-git"] === true;
   const servicesRaw = context.values.services as string | undefined;
@@ -35,14 +41,22 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
     );
   }
 
-  const validPackageManagers: readonly PackageManager[] = ["npm", "pnpm", "yarn"];
+  const validPackageManagers: readonly PackageManager[] = [
+    "npm",
+    "pnpm",
+    "yarn",
+  ];
   if (!validPackageManagers.includes(packageManager as PackageManager)) {
     throw new CLIValidationError(
       `Invalid package manager: ${packageManager}. Valid: ${validPackageManagers.join(", ")}`,
     );
   }
 
-  const validDatabases: readonly DatabaseEngine[] = ["postgresql", "mysql", "sqlite"];
+  const validDatabases: readonly DatabaseEngine[] = [
+    "postgresql",
+    "mysql",
+    "sqlite",
+  ];
   if (!validDatabases.includes(database as DatabaseEngine)) {
     throw new CLIValidationError(
       `Invalid database: ${database}. Valid: ${validDatabases.join(", ")}`,
@@ -76,7 +90,7 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
       enableDocker: false,
       installDeps: !noInstall,
       initGit: !noGit,
-       services: services,
+      services: services,
     };
   }
 
@@ -100,7 +114,10 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
   await createProject(opts, context);
 }
 
-async function createProject(options: ScaffoldOptions, context: CLIContext): Promise<void> {
+async function createProject(
+  options: ScaffoldOptions,
+  context: CLIContext,
+): Promise<void> {
   const { projectName, packageManager } = options;
   const targetPath = join(context.cwd, projectName);
 

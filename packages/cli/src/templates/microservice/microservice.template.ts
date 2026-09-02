@@ -28,7 +28,9 @@ import type { ScaffoldOptions } from "../../types/index.js";
 export function generateMicroserviceFiles(
   options: ScaffoldOptions,
 ): Record<string, string> {
-  const nameSlug = options.projectName.replace(/[^a-z0-9-]+/gi, "-").toLowerCase();
+  const nameSlug = options.projectName
+    .replace(/[^a-z0-9-]+/gi, "-")
+    .toLowerCase();
   const services =
     options.services.length > 0
       ? options.services
@@ -37,25 +39,26 @@ export function generateMicroserviceFiles(
   const files: Record<string, string> = {};
 
   // Root package.json (workspace root)
-  files["package.json"] = JSON.stringify(
-    {
-      name: nameSlug,
-      version: "0.1.0",
-      private: true,
-      description: `Microservice architecture built with Lattice framework`,
-      scripts: {
-        dev: "pnpm -r run dev",
-        build: "pnpm -r run build",
-        typecheck: "pnpm -r run typecheck",
+  files["package.json"] =
+    JSON.stringify(
+      {
+        name: nameSlug,
+        version: "0.1.0",
+        private: true,
+        description: `Microservice architecture built with Lattice framework`,
+        scripts: {
+          dev: "pnpm -r run dev",
+          build: "pnpm -r run build",
+          typecheck: "pnpm -r run typecheck",
+        },
+        devDependencies: {
+          tsx: "^4.7.0",
+          typescript: "^5.7.0",
+        },
       },
-      devDependencies: {
-        tsx: "^4.7.0",
-        typescript: "^5.7.0",
-      },
-    },
-    null,
-    2,
-  ) + "\n";
+      null,
+      2,
+    ) + "\n";
 
   files["pnpm-workspace.yaml"] = `packages:
   - gateway
@@ -165,30 +168,31 @@ MIT
     "@oyinola141/lattice-logger",
   ];
 
-  files["apps/gateway/package.json"] = JSON.stringify(
-    {
-      name: "@latticejs/gateway",
-      version: "0.1.0",
-      private: true,
-      type: "module",
-      scripts: {
-        dev: "node --import tsx watch src/server.ts",
-        start: "node dist/server.js",
-        build: "tsc",
-        typecheck: "tsc --noEmit",
+  files["apps/gateway/package.json"] =
+    JSON.stringify(
+      {
+        name: "@latticejs/gateway",
+        version: "0.1.0",
+        private: true,
+        type: "module",
+        scripts: {
+          dev: "node --import tsx watch src/server.ts",
+          start: "node dist/server.js",
+          build: "tsc",
+          typecheck: "tsc --noEmit",
+        },
+        dependencies: Object.fromEntries(
+          gatewayDeps.map((d) => [d, "workspace:*"]),
+        ),
+        devDependencies: {
+          tsx: "^4.7.0",
+          typescript: "^5.7.0",
+          "@types/node": "^22.0.0",
+        },
       },
-      dependencies: Object.fromEntries(
-        gatewayDeps.map((d) => [d, "workspace:*"]),
-      ),
-      devDependencies: {
-        tsx: "^4.7.0",
-        typescript: "^5.7.0",
-        "@types/node": "^22.0.0",
-      },
-    },
-    null,
-    2,
-  ) + "\n";
+      null,
+      2,
+    ) + "\n";
 
   files["apps/gateway/tsconfig.json"] = `{
   "compilerOptions": {
@@ -222,7 +226,8 @@ EXPOSE 3000
 CMD ["node", "dist/server.js"]
 `;
 
-  files["apps/gateway/src/index.ts"] = `export { createGateway } from "./app.js";
+  files["apps/gateway/src/index.ts"] =
+    `export { createGateway } from "./app.js";
 `;
 
   files["apps/gateway/src/app.ts"] = `import { logger } from "@lattice/logger";
@@ -242,7 +247,8 @@ export async function createGateway() {
 }
 `;
 
-  files["apps/gateway/src/server.ts"] = `import { createGateway } from "./app.js";
+  files["apps/gateway/src/server.ts"] =
+    `import { createGateway } from "./app.js";
 import { createRuntime } from "@lattice/runtime";
 
 const app = await createGateway();
@@ -285,30 +291,31 @@ process.on("SIGTERM", async () => {
     const svcIndex = services.indexOf(svcName);
     const port = 3000 + svcIndex + 1;
 
-    files[`apps/services/${svcName}/package.json`] = JSON.stringify(
-      {
-        name: `@latticejs/${nameSlug}-${svcName}`,
-        version: "0.1.0",
-        private: true,
-        type: "module",
-        scripts: {
-          dev: "node --import tsx watch src/server.ts",
-          start: "node dist/server.js",
-          build: "tsc",
-          typecheck: "tsc --noEmit",
+    files[`apps/services/${svcName}/package.json`] =
+      JSON.stringify(
+        {
+          name: `@latticejs/${nameSlug}-${svcName}`,
+          version: "0.1.0",
+          private: true,
+          type: "module",
+          scripts: {
+            dev: "node --import tsx watch src/server.ts",
+            start: "node dist/server.js",
+            build: "tsc",
+            typecheck: "tsc --noEmit",
+          },
+          dependencies: Object.fromEntries(
+            [...new Set(serviceDeps)].map((d) => [d, "workspace:*"]),
+          ),
+          devDependencies: {
+            tsx: "^4.7.0",
+            typescript: "^5.7.0",
+            "@types/node": "^22.0.0",
+          },
         },
-        dependencies: Object.fromEntries(
-          [...new Set(serviceDeps)].map((d) => [d, "workspace:*"]),
-        ),
-        devDependencies: {
-          tsx: "^4.7.0",
-          typescript: "^5.7.0",
-          "@types/node": "^22.0.0",
-        },
-      },
-      null,
-      2,
-    ) + "\n";
+        null,
+        2,
+      ) + "\n";
 
     files[`apps/services/${svcName}/tsconfig.json`] = `{
   "compilerOptions": {
@@ -327,7 +334,8 @@ process.on("SIGTERM", async () => {
 }
 `;
 
-    files[`apps/services/${svcName}/Dockerfile`] = `FROM node:24-alpine AS builder
+    files[`apps/services/${svcName}/Dockerfile`] =
+      `FROM node:24-alpine AS builder
 WORKDIR /app
 COPY apps/services/${svcName}/package*.json ./
 RUN npm ci
@@ -365,10 +373,12 @@ CMD ["node", "dist/server.js"]
       "validators",
     ];
 
-    files[`apps/services/${svcName}/src/index.ts`] = `export { createApp } from "./app.js";
+    files[`apps/services/${svcName}/src/index.ts`] =
+      `export { createApp } from "./app.js";
 `;
 
-    files[`apps/services/${svcName}/src/app.ts`] = `import { logger } from "@lattice/logger";
+    files[`apps/services/${svcName}/src/app.ts`] =
+      `import { logger } from "@lattice/logger";
 import { createContainer } from "@lattice/container";
 
 export async function createApp() {
@@ -389,7 +399,8 @@ export async function createApp() {
 }
 `;
 
-    files[`apps/services/${svcName}/src/server.ts`] = `import { createApp } from "./app.js";
+    files[`apps/services/${svcName}/src/server.ts`] =
+      `import { createApp } from "./app.js";
 import { createRuntime } from "@lattice/runtime";
 
 const app = await createApp();

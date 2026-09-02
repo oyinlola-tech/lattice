@@ -10,7 +10,9 @@ export async function detectArchitecture(
   if (existsSync(configPath)) {
     try {
       const content = await readFile(configPath, "utf-8");
-      const match = content.match(/architecture:\s*["'](monolith|modular-monolith|microservice)["']/);
+      const match = content.match(
+        /architecture:\s*["'](monolith|modular-monolith|microservice)["']/,
+      );
       if (match) {
         return match[1] as "monolith" | "modular-monolith" | "microservice";
       }

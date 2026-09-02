@@ -7,7 +7,10 @@
 import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
-import { CLIGenerationError, CLINotInProjectError } from "../../errors/index.js";
+import {
+  CLIGenerationError,
+  CLINotInProjectError,
+} from "../../errors/index.js";
 
 export interface GenerateModuleOptions {
   readonly name: string;
@@ -23,7 +26,13 @@ export async function generateModule(
   const files: Record<string, string> = {
     [`modules/${name}/${name}.module.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
 
-export class ${name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).charAt(0).toUpperCase() + name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).slice(1)}Module {
+export class ${
+      name
+        .replace(/-([a-z])/g, (_, c) => c.toUpperCase())
+        .charAt(0)
+        .toUpperCase() +
+      name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).slice(1)
+    }Module {
   private readonly logger = createLogger({ name: "${name}-module" });
 
   id = "${name}-module";
@@ -34,20 +43,39 @@ export class ${name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).charAt(0).to
 }
 `,
 
-    [`modules/${name}/index.ts`]: `export { ${name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).charAt(0).toUpperCase() + name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).slice(1)}Module } from "./${name}.module.js";
+    [`modules/${name}/index.ts`]: `export { ${
+      name
+        .replace(/-([a-z])/g, (_, c) => c.toUpperCase())
+        .charAt(0)
+        .toUpperCase() +
+      name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).slice(1)
+    }Module } from "./${name}.module.js";
 `,
   };
 
   if (options.feature) {
     const featureName = `${name}.feature`;
-    files[`modules/${name}/features/${featureName}.ts`] = `import { createLogger } from "@oyinlola141/lattice-logger";
+    files[`modules/${name}/features/${featureName}.ts`] =
+      `import { createLogger } from "@oyinlola141/lattice-logger";
 
-export class ${name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).charAt(0).toUpperCase() + name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).slice(1)}Feature {
+export class ${
+        name
+          .replace(/-([a-z])/g, (_, c) => c.toUpperCase())
+          .charAt(0)
+          .toUpperCase() +
+        name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).slice(1)
+      }Feature {
   private readonly logger = createLogger({ name: "${name}-feature" });
 }
 `;
 
-    files[`modules/${name}/features/index.ts`] = `export { ${name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).charAt(0).toUpperCase() + name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).slice(1)}Feature } from "./${featureName}.js";
+    files[`modules/${name}/features/index.ts`] = `export { ${
+      name
+        .replace(/-([a-z])/g, (_, c) => c.toUpperCase())
+        .charAt(0)
+        .toUpperCase() +
+      name.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).slice(1)
+    }Feature } from "./${featureName}.js";
 `;
   }
 

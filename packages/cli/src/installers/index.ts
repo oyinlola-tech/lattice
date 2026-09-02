@@ -4,4 +4,7 @@
  * Dependency installation utilities.
  */
 
-export { installDependencies, getInstallCommand } from "./dependency.installer.js";
+export {
+  installDependencies,
+  getInstallCommand,
+} from "./dependency.installer.js";

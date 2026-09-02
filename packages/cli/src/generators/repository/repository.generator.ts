@@ -45,6 +45,9 @@ export class ${nameCamel}Repository {
     await writeFileTree(cwd, files);
     return Object.keys(files);
   } catch (error) {
-    throw new CLIGenerationError(`Failed to generate repository: ${name}`, error);
+    throw new CLIGenerationError(
+      `Failed to generate repository: ${name}`,
+      error,
+    );
   }
 }

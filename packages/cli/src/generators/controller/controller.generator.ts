@@ -41,6 +41,9 @@ export class ${nameCamel}Controller {
     await writeFileTree(cwd, files);
     return Object.keys(files);
   } catch (error) {
-    throw new CLIGenerationError(`Failed to generate controller: ${name}`, error);
+    throw new CLIGenerationError(
+      `Failed to generate controller: ${name}`,
+      error,
+    );
   }
 }

@@ -1,17 +1,67 @@
-# @latticejs/http
+# @oyinlola141/lattice-http
 
-HTTP primitives, request handling, routing, middleware, and server abstractions for the Lattice framework.
+HTTP primitives — request/response, headers, status codes, routing, middleware, CORS, CSRF, and security headers. Engine-agnostic (no Fastify/Express coupling).
+
+## When to use
+
+Import this when you need:
+
+- typed request/response, headers, and query parsing
+- routing with path params and constraints
+- built-in CORS, CSRF, rate limit, CSP, HSTS
+- secure defaults (HttpOnly cookies, frame deny, content-type nosniff)
+
+For the higher-level application/router, see `@oyinlola141/lattice-runtime`. For API contracts, see `@oyinlola141/lattice-api`.
 
 ## Installation
 
 ```bash
-npm install @latticejs/http
+npm install @oyinlola141/lattice-http
+```
+
+## Public API
+
+```typescript
+import {
+  // Request / response
+  createRequest,
+  createResponse,
+  type LatticeRequest,
+  type LatticeResponse,
+  // Methods / status
+  HTTP_METHOD,
+  HTTP_STATUS,
+  // Routing
+  Router,
+  createRouter,
+  type RouteHandler,
+  // Middleware
+  cors,
+  csrf,
+  rateLimit,
+  securityHeaders,
+  hsts,
+  csp,
+  // Cookies
+  parseCookies,
+  serializeCookie,
+  // Negotiation
+  acceptContentType,
+  acceptEncoding,
+  // Validation
+  validateQuery,
+  validateBody,
+} from "@oyinlola141/lattice-http";
 ```
 
 ## Usage
 
 ```typescript
-import {} from /* add usage here */ "@latticejs/http";
+import { createRouter, HTTP_STATUS, cors } from "@oyinlola141/lattice-http";
+
+const router = createRouter();
+router.get("/health", () => new Response("ok", { status: HTTP_STATUS.OK }));
+router.use(cors({ origin: "*" }));
 ```
 
 ## License

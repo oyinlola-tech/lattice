@@ -1,7 +1,9 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 
-export function findProjectRoot(startDir: string = process.cwd()): string | null {
+export function findProjectRoot(
+  startDir: string = process.cwd(),
+): string | null {
   let dir = startDir;
 
   while (true) {
@@ -20,9 +22,6 @@ export function findProjectRoot(startDir: string = process.cwd()): string | null
   }
 }
 
-export function resolveProjectPath(
-  cwd: string,
-  name: string,
-): string {
+export function resolveProjectPath(cwd: string, name: string): string {
   return join(cwd, name);
 }

@@ -38,7 +38,9 @@ import type { ScaffoldOptions } from "../../types/index.js";
 export function generateModularMonolithFiles(
   options: ScaffoldOptions,
 ): Record<string, string> {
-  const nameSlug = options.projectName.replace(/[^a-z0-9-]+/gi, "-").toLowerCase();
+  const nameSlug = options.projectName
+    .replace(/[^a-z0-9-]+/gi, "-")
+    .toLowerCase();
   const modules =
     options.services.length > 0
       ? options.services
@@ -64,28 +66,27 @@ export function generateModularMonolithFiles(
   const files: Record<string, string> = {};
 
   // package.json
-  files["package.json"] = JSON.stringify(
-    {
-      name: nameSlug,
-      version: "0.1.0",
-      private: true,
-      type: "module",
-      license: "MIT",
-      scripts: {
-        dev: "node --import tsx watch src/server.ts",
-        start: "node dist/server.js",
-        build: "tsc",
-        typecheck: "tsc --noEmit",
-        test: "vitest run",
+  files["package.json"] =
+    JSON.stringify(
+      {
+        name: nameSlug,
+        version: "0.1.0",
+        private: true,
+        type: "module",
+        license: "MIT",
+        scripts: {
+          dev: "node --import tsx watch src/server.ts",
+          start: "node dist/server.js",
+          build: "tsc",
+          typecheck: "tsc --noEmit",
+          test: "vitest run",
+        },
+        dependencies: Object.fromEntries(deps.map((d) => [d, "workspace:*"])),
+        devDependencies: Object.fromEntries(devDeps.map((d) => [d, "^1.0.0"])),
       },
-      dependencies: Object.fromEntries(deps.map((d) => [d, "workspace:*"])),
-      devDependencies: Object.fromEntries(
-        devDeps.map((d) => [d, "^1.0.0"]),
-      ),
-    },
-    null,
-    2,
-  ) + "\n";
+      null,
+      2,
+    ) + "\n";
 
   files["tsconfig.json"] = `{
   "compilerOptions": {
@@ -241,10 +242,12 @@ process.on("SIGTERM", async () => {
       .replace(/-([a-z])/g, (_m: string, c: string) => c.toUpperCase())
       .replace(/^./, (c: string) => c.toUpperCase());
 
-    files[`src/modules/${modName}/index.ts`] = `export { ${modNamePascal}Module } from "./${modName}.module.js";
+    files[`src/modules/${modName}/index.ts`] =
+      `export { ${modNamePascal}Module } from "./${modName}.module.js";
 `;
 
-    files[`src/modules/${modName}/${modName}.module.ts`] = `import { logger } from "@lattice/logger";
+    files[`src/modules/${modName}/${modName}.module.ts`] =
+      `import { logger } from "@lattice/logger";
 
 export class ${modNamePascal}Module {
   private readonly log = logger.child({ module: "${modName}" });

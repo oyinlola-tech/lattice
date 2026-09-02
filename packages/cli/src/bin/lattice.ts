@@ -70,7 +70,8 @@ app.register(
       },
       {
         name: "services",
-        description: "Comma-separated service names (microservice architecture only)",
+        description:
+          "Comma-separated service names (microservice architecture only)",
         type: "string",
         defaultValue: "gateway,api",
       },

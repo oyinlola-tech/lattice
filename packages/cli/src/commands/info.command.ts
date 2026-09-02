@@ -46,6 +46,8 @@ export async function runInfoCommand(context: CLIContext): Promise<void> {
     context.logger.info("");
     context.logger.info("Not in a Lattice project directory.");
     context.logger.info("");
-    context.logger.info("Run `lattice create <project-name>` to create a new project.");
+    context.logger.info(
+      "Run `lattice create <project-name>` to create a new project.",
+    );
   }
 }
