@@ -8,6 +8,7 @@ import { normalizeName } from "../../utils/utils.name.js";
 
 export interface GenerateRepositoryOptions {
   readonly name: string;
+  readonly basePath?: string;
 }
 
 export async function generateRepository(
@@ -18,9 +19,10 @@ export async function generateRepository(
   const nameCamel = name
     .replace(/-([a-z])/g, (_m: string, c: string) => c.toUpperCase())
     .replace(/^./, (c: string) => c.toUpperCase());
+  const basePath = options.basePath ?? "";
 
   const files: Record<string, string> = {
-    [`repositories/${name}.repository.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
+    [`${basePath ? `${basePath}/` : ""}repositories/${name}.repository.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
 
 export interface ${nameCamel}Entity {
   readonly id: string;
@@ -73,7 +75,7 @@ export class ${nameCamel}Repository {
 }
 `,
 
-    [`repositories/index.ts`]: `export { ${nameCamel}Repository } from "./${name}.repository.js";
+    [`${basePath ? `${basePath}/` : ""}repositories/index.ts`]: `export { ${nameCamel}Repository } from "./${name}.repository.js";
 `,
   };
 

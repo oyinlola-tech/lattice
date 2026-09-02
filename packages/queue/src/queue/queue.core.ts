@@ -16,7 +16,7 @@ import {
   QueueDisposedError,
 } from "@oyinlola141/lattice-errors";
 
-import { createInMemoryQueue } from "../inMemoryQueue/inMemoryQueue.core.js";
+import { createInMemoryQueue } from "../inMemoryQueue/index.js";
 
 /**
  * Creates a new queue.

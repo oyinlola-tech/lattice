@@ -248,13 +248,3 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
     scheduleDelayedJobs(this.jobs);
   }
 }
-
-/**
- * Creates an InMemoryQueue.
- */
-export function createInMemoryQueue<TData>(
-  name: QueueName,
-  options?: QueueOptions,
-): InMemoryQueue<TData> {
-  return new InMemoryQueue<TData>(name, options);
-}

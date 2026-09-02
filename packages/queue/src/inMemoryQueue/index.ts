@@ -1,7 +1,8 @@
 /**
- * In-memory queue implementation.
+ * @oyinlola141/lattice-queue/inMemoryQueue
  *
- * Good for testing, development, and simple applications.
- * Jobs are lost when the application crashes.
+ * In-memory queue module.
  */
-export { InMemoryQueue, createInMemoryQueue } from "./inMemoryQueue.core.js";
+
+export * from "./inMemoryQueue.core.js";
+export * from "./inMemoryQueue.factory.js";

@@ -11,6 +11,7 @@ import { normalizeName } from "../../utils/utils.name.js";
 export interface GenerateCommandOptions {
   readonly name: string;
   readonly service?: string;
+  readonly basePath?: string;
 }
 
 export async function generateCommand(
@@ -22,7 +23,8 @@ export async function generateCommand(
     .replace(/-([a-z])/g, (_m: string, c: string) => c.toUpperCase())
     .replace(/^./, (c: string) => c.toUpperCase());
   const service = options.service ?? "default";
-  const servicePath = `services/${service}`;
+  const basePath = options.basePath ?? "services";
+  const servicePath = `${basePath}/${service}`;
 
   const files: Record<string, string> = {
     [`${servicePath}/commands/${name}/${name}.command.ts`]: `import type { BaseCommand } from "@oyinlola141/lattice-cqrs";

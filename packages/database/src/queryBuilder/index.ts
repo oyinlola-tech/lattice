@@ -12,6 +12,9 @@ export {
   type QueryOperator,
   type QueryBuilderState,
 } from "./queryBuilder.core.js";
+
+export { cloneFilter } from "./queryBuilder.factory.js";
+
 export {
   equals,
   notEquals,
@@ -40,5 +43,4 @@ export {
   optionalContains,
   hasConditions,
   flattenAnd,
-  cloneFilter,
 } from "./queryBuilder.filter.js";

@@ -9,19 +9,21 @@ import { CLIGenerationError } from "../../errors/index.js";
 
 export interface GenerateServiceOptions {
   readonly name: string;
+  readonly basePath?: string;
 }
 
 export async function generateService(
   options: GenerateServiceOptions,
   cwd: string,
 ): Promise<string[]> {
+  const basePath = options.basePath ?? "services";
   const name = options.name.toLowerCase().replace(/[^a-z0-9-]/g, "-");
   const namePascal = name
     .replace(/-([a-z])/g, (_, c) => c.toUpperCase())
     .replace(/^./, (c) => c.toUpperCase());
 
   const files: Record<string, string> = {
-    [`services/${name}/${name}.service.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
+    [`${basePath}/${name}/${name}.service.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
 
 export class ${namePascal}Service {
   private readonly logger = createLogger({ name: "${name}-service" });
@@ -32,12 +34,12 @@ export class ${namePascal}Service {
 }
 `,
 
-    [`services/${name}/index.ts`]: `export { ${namePascal}Service } from "./${name}.service.js";
+    [`${basePath}/${name}/index.ts`]: `export { ${namePascal}Service } from "./${name}.service.js";
 `,
 
-    [`services/${name}/commands/index.ts`]: ``,
+    [`${basePath}/${name}/commands/index.ts`]: ``,
 
-    [`services/${name}/queries/index.ts`]: ``,
+    [`${basePath}/${name}/queries/index.ts`]: ``,
   };
 
   try {

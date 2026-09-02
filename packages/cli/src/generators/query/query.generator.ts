@@ -11,6 +11,7 @@ import { normalizeName } from "../../utils/utils.name.js";
 export interface GenerateQueryOptions {
   readonly name: string;
   readonly service?: string;
+  readonly basePath?: string;
 }
 
 export async function generateQuery(
@@ -22,7 +23,8 @@ export async function generateQuery(
     .replace(/-([a-z])/g, (_m: string, c: string) => c.toUpperCase())
     .replace(/^./, (c: string) => c.toUpperCase());
   const service = options.service ?? "default";
-  const servicePath = `services/${service}`;
+  const basePath = options.basePath ?? "services";
+  const servicePath = `${basePath}/${service}`;
 
   const files: Record<string, string> = {
     [`${servicePath}/queries/${name}/${name}.query.ts`]: `import type { BaseQuery } from "@oyinlola141/lattice-cqrs";

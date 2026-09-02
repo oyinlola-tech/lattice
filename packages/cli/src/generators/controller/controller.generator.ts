@@ -9,6 +9,7 @@ import { normalizeName } from "../../utils/utils.name.js";
 export interface GenerateControllerOptions {
   readonly name: string;
   readonly service?: string;
+  readonly basePath?: string;
 }
 
 export async function generateController(
@@ -19,9 +20,10 @@ export async function generateController(
   const nameCamel = name
     .replace(/-([a-z])/g, (_m: string, c: string) => c.toUpperCase())
     .replace(/^./, (c: string) => c.toUpperCase());
+  const basePath = options.basePath ?? "";
 
   const files: Record<string, string> = {
-    [`controllers/${name}.controller.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
+    [`${basePath ? `${basePath}/` : ""}controllers/${name}.controller.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
 
 export class ${nameCamel}Controller {
   private readonly logger = createLogger({ name: "${name}-controller" });
@@ -41,7 +43,7 @@ export class ${nameCamel}Controller {
 }
 `,
 
-    [`controllers/index.ts`]: `export { ${nameCamel}Controller } from "./${name}.controller.js";
+    [`${basePath ? `${basePath}/` : ""}controllers/index.ts`]: `export { ${nameCamel}Controller } from "./${name}.controller.js";
 `,
   };
 

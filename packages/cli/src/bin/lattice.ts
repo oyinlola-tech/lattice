@@ -11,6 +11,7 @@ import { CLI_DEFAULTS } from "../cliConstant/cliConstant.value.js";
 import { createCommand } from "../cliCommand/index.js";
 import type { CLIContext } from "../cliType/cliType.type.js";
 import { runCreateCommand } from "../commands/create.command.js";
+import { runDevCommand } from "../commands/dev.command.js";
 import { runGenerateCommand } from "../commands/generate.command.js";
 import { runAddCommand } from "../commands/add.command.js";
 import { runDoctorCommand } from "../commands/doctor.command.js";
@@ -114,6 +115,37 @@ app.register(
     ],
     execute: async (context: CLIContext): Promise<void> => {
       await runCreateCommand(context);
+    },
+  }),
+);
+
+app.register(
+  createCommand({
+    name: "dev",
+    description: "Start development servers",
+    aliases: ["d"],
+    options: [
+      {
+        name: "frontend-only",
+        description: "Start only the frontend dev server",
+        type: "boolean",
+        defaultValue: false,
+      },
+      {
+        name: "backend-only",
+        description: "Start only the backend dev server",
+        type: "boolean",
+        defaultValue: false,
+      },
+      {
+        name: "port",
+        short: "p",
+        description: "Port for the backend server",
+        type: "number",
+      },
+    ],
+    execute: async (context: CLIContext): Promise<void> => {
+      await runDevCommand(context);
     },
   }),
 );

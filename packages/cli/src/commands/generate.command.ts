@@ -20,6 +20,30 @@ interface GenerateOptions {
   readonly service?: string;
   readonly module?: string;
   readonly dryRun: boolean;
+  readonly architecture?: string;
+}
+
+function getBasePath(architecture: string | undefined, schematic: string): string {
+  switch (architecture) {
+    case "modular-monolith":
+      if (schematic === "module") {
+        return "src/modules";
+      }
+      return "src";
+
+    case "microservice":
+      if (schematic === "service") {
+        return "apps";
+      }
+      return "apps/default";
+
+    case "monolith":
+    default:
+      if (schematic === "module") {
+        return "src/modules";
+      }
+      return "src";
+  }
 }
 
 function readLatticeArchitecture(cwd: string): string | null {
@@ -79,7 +103,7 @@ export async function runGenerateCommand(context: CLIContext): Promise<void> {
   const result = await runSchematic(
     schematic,
     name,
-    { service, module: moduleName, dryRun },
+    { service, module: moduleName, dryRun, architecture },
     cwd,
   );
 
@@ -96,33 +120,36 @@ async function runSchematic(
   cwd: string,
 ): Promise<string[]> {
   try {
+    const basePath = getBasePath(options.architecture, schematic);
+    const moduleName = options.module ?? name;
+
     switch (schematic) {
       case "service":
-        return await generateService({ name }, cwd);
+        return await generateService({ name, basePath }, cwd);
 
       case "module":
-        return await generateModule({ name, feature: true }, cwd);
+        return await generateModule({ name, feature: true, basePath }, cwd);
 
       case "command":
         return await generateCommand(
-          { name, service: options.service ?? "default" },
+          { name, service: options.service ?? "default", basePath },
           cwd,
         );
 
       case "query":
         return await generateQuery(
-          { name, service: options.service ?? "default" },
+          { name, service: options.service ?? "default", basePath },
           cwd,
         );
 
       case "controller":
         return await generateController(
-          { name, service: options.service },
+          { name, basePath },
           cwd,
         );
 
       case "repository":
-        return await generateRepository({ name }, cwd);
+        return await generateRepository({ name, basePath }, cwd);
 
       default:
         throw new CLIValidationError(

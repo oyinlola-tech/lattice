@@ -15,16 +15,18 @@ import {
 export interface GenerateModuleOptions {
   readonly name: string;
   readonly feature?: boolean;
+  readonly basePath?: string;
 }
 
 export async function generateModule(
   options: GenerateModuleOptions,
   cwd: string,
 ): Promise<string[]> {
+  const basePath = options.basePath ?? "modules";
   const name = options.name.toLowerCase().replace(/[^a-z0-9-]/g, "-");
 
   const files: Record<string, string> = {
-    [`modules/${name}/${name}.module.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
+    [`${basePath}/${name}/${name}.module.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
 
 export class ${
       name
@@ -43,7 +45,7 @@ export class ${
 }
 `,
 
-    [`modules/${name}/index.ts`]: `export { ${
+    [`${basePath}/${name}/index.ts`]: `export { ${
       name
         .replace(/-([a-z])/g, (_, c) => c.toUpperCase())
         .charAt(0)
@@ -55,7 +57,7 @@ export class ${
 
   if (options.feature) {
     const featureName = `${name}.feature`;
-    files[`modules/${name}/features/${featureName}.ts`] =
+    files[`${basePath}/${name}/features/${featureName}.ts`] =
       `import { createLogger } from "@oyinlola141/lattice-logger";
 
 export class ${
@@ -69,7 +71,7 @@ export class ${
 }
 `;
 
-    files[`modules/${name}/features/index.ts`] = `export { ${
+    files[`${basePath}/${name}/features/index.ts`] = `export { ${
       name
         .replace(/-([a-z])/g, (_, c) => c.toUpperCase())
         .charAt(0)

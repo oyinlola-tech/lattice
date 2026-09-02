@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 
-import { createInMemoryQueue } from "../src/inMemoryQueue/inMemoryQueue.core.js";
+import { createInMemoryQueue } from "../src/inMemoryQueue/index.js";
 
 import {
   createQueueName,

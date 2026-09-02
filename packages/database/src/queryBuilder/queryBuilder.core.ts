@@ -1,56 +1,15 @@
 import type {
+  QueryOperator,
+  QueryCondition,
+  QueryFilter,
+  QueryBuilderState,
   PaginationInput,
-  QueryOptions,
   SortDirection,
   SortInput,
-} from "../databaseType/databaseType.type.js";
+  QueryOptions,
+} from "./queryBuilder.type.js";
 
-/**
- * A generic query condition.
- */
-export type QueryOperator =
-  | "equals"
-  | "not"
-  | "in"
-  | "notIn"
-  | "lt"
-  | "lte"
-  | "gt"
-  | "gte"
-  | "contains"
-  | "startsWith"
-  | "endsWith"
-  | "isNull"
-  | "isNotNull";
-
-/**
- * Generic filter condition.
- */
-export interface QueryCondition {
-  readonly field: string;
-  readonly operator: QueryOperator;
-  readonly value?: unknown;
-}
-
-/**
- * Generic logical filter.
- */
-export interface QueryFilter {
-  readonly conditions?: readonly QueryCondition[];
-  readonly and?: readonly QueryFilter[];
-  readonly or?: readonly QueryFilter[];
-  readonly not?: QueryFilter;
-}
-
-/**
- * Query builder state.
- */
-export interface QueryBuilderState<TField extends string = string> {
-  readonly filter?: QueryFilter;
-  readonly pagination?: PaginationInput;
-  readonly sort?: readonly SortInput<TField>[];
-  readonly select?: readonly TField[];
-}
+import { cloneFilter } from "./queryBuilder.factory.js";
 
 /**
  * Query builder used to construct database-neutral query definitions.
@@ -436,43 +395,4 @@ export class QueryBuilder<TField extends string = string> {
 
     return this;
   }
-}
-
-/**
- * Creates a new query builder.
- */
-export function createQueryBuilder<
-  TField extends string = string,
->(): QueryBuilder<TField> {
-  return new QueryBuilder<TField>();
-}
-
-/**
- * Clones a query filter without sharing mutable arrays.
- */
-function cloneFilter(filter?: QueryFilter): QueryFilter | undefined {
-  if (!filter) {
-    return undefined;
-  }
-
-  return {
-    conditions: filter.conditions
-      ? filter.conditions.map((condition) => ({
-          ...condition,
-          ...(Array.isArray(condition.value)
-            ? {
-                value: [...condition.value],
-              }
-            : {}),
-        }))
-      : undefined,
-
-    and: filter.and
-      ? filter.and.map((child) => cloneFilter(child)!)
-      : undefined,
-
-    or: filter.or ? filter.or.map((child) => cloneFilter(child)!) : undefined,
-
-    not: filter.not ? cloneFilter(filter.not) : undefined,
-  };
 }
