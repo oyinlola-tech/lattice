@@ -35,9 +35,7 @@ export class VueAdapter implements FrontendAdapter {
   getDependencies(
     context: FrontendGenerationContext,
   ): readonly DependencyRequirement[] {
-    const deps: DependencyRequirement[] = [
-      { name: "vue", type: "dependency" },
-    ];
+    const deps: DependencyRequirement[] = [{ name: "vue", type: "dependency" }];
 
     if (context.features.testing) {
       deps.push(

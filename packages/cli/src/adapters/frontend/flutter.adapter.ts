@@ -39,7 +39,16 @@ export class FlutterAdapter implements FrontendAdapter {
 
     await execCommand(
       "flutter",
-      ["create", ".", "--org", org, "--project-name", context.project.name, "--platforms", "android,ios,web"],
+      [
+        "create",
+        ".",
+        "--org",
+        org,
+        "--project-name",
+        context.project.name,
+        "--platforms",
+        "android,ios,web",
+      ],
       projectPath,
     );
   }

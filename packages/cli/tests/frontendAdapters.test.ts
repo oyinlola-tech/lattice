@@ -22,7 +22,9 @@ vi.mock("../src/utils/utils.exec.js", () => ({
   execCommand: vi.fn(async () => ({ stdout: "test", stderr: "" })),
 }));
 
-const mockContext = (overrides?: Partial<FrontendGenerationContext>): FrontendGenerationContext => ({
+const mockContext = (
+  overrides?: Partial<FrontendGenerationContext>,
+): FrontendGenerationContext => ({
   project: {
     name: "test-app",
     type: "fullstack",
@@ -216,6 +218,8 @@ describe("ReactNativeAdapter", () => {
   });
 
   it("applyLatticeStructure does not throw", async () => {
-    await expect(adapter.applyLatticeStructure(mockContext())).resolves.toBeUndefined();
+    await expect(
+      adapter.applyLatticeStructure(mockContext()),
+    ).resolves.toBeUndefined();
   });
 });

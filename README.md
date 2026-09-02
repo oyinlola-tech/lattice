@@ -202,19 +202,19 @@ npm install -g @oyinlola141/lattice-cli
 
 Lattice can generate frontend and fullstack projects with any of the following frameworks:
 
-| Framework       | Adapter               | Build Tool      |
-| --------------- | --------------------- | --------------- |
-| React           | `react`               | Vite            |
-| Next.js         | `next`                | Next.js         |
-| Vue             | `vue`                 | Vite            |
-| Nuxt            | `nuxt`                | Nuxt 3          |
-| Angular         | `angular`             | Angular CLI     |
-| Svelte          | `svelte`              | Vite            |
-| SvelteKit       | `sveltekit`           | SvelteKit       |
-| Astro           | `astro`               | Astro           |
-| Vanilla HTML    | `vanilla`             | Vite            |
-| Flutter         | `flutter`             | Flutter SDK     |
-| React Native    | `react-native`        | Expo            |
+| Framework    | Adapter        | Build Tool  |
+| ------------ | -------------- | ----------- |
+| React        | `react`        | Vite        |
+| Next.js      | `next`         | Next.js     |
+| Vue          | `vue`          | Vite        |
+| Nuxt         | `nuxt`         | Nuxt 3      |
+| Angular      | `angular`      | Angular CLI |
+| Svelte       | `svelte`       | Vite        |
+| SvelteKit    | `sveltekit`    | SvelteKit   |
+| Astro        | `astro`        | Astro       |
+| Vanilla HTML | `vanilla`      | Vite        |
+| Flutter      | `flutter`      | Flutter SDK |
+| React Native | `react-native` | Expo        |
 
 ### Frontend Architectures
 

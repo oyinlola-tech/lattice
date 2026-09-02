@@ -1,7 +1,9 @@
 import type { PackageManager } from "../types/index.js";
 import { execCommand } from "../utils/utils.exec.js";
 
-export function getInstallCommand(packageManager: PackageManager): [string, ...string[]] {
+export function getInstallCommand(
+  packageManager: PackageManager,
+): [string, ...string[]] {
   switch (packageManager) {
     case "pnpm":
       return ["pnpm", "install"];

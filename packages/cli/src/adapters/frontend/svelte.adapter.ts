@@ -160,7 +160,7 @@ const app = new App({
 
 export default app;
 `,
-      "src/App.svelte": `<script${useTypeScript ? " lang=\"ts\"" : ""}>
+      "src/App.svelte": `<script${useTypeScript ? ' lang="ts"' : ""}>
 </script>
 
 <template>
@@ -175,7 +175,11 @@ export default app;
   }
 </style>
 `,
-      ...(useTypeScript ? { "src/vite-env.d.ts": `/// <reference types="svelte" />\n/// <reference types="vite/client" />\n` } : {}),
+      ...(useTypeScript
+        ? {
+            "src/vite-env.d.ts": `/// <reference types="svelte" />\n/// <reference types="vite/client" />\n`,
+          }
+        : {}),
     };
   }
 
