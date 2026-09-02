@@ -19,24 +19,7 @@ import type {
  * Returns a branded MessageId type from @oyinlola141/lattice-constants.
  */
 export function createMessageId(): MessageId {
-  return `msg:${createUuid()}` as MessageId;
-}
-
-/**
- * Generates a UUID when available.
- */
-function createUuid(): string {
-  if (
-    typeof crypto !== "undefined" &&
-    typeof crypto.randomUUID === "function"
-  ) {
-    return crypto.randomUUID();
-  }
-  return [
-    Date.now().toString(36),
-    Math.random().toString(36).slice(2),
-    Math.random().toString(36).slice(2),
-  ].join("-");
+  return `msg:${crypto.randomUUID()}` as MessageId;
 }
 
 /**

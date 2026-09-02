@@ -196,29 +196,9 @@ export function isEvent(value: unknown): value is Event {
  * Returns a branded EventId type from @oyinlola141/lattice-constants.
  */
 export function createEventId(): EventId {
-  const uuid = createUuid();
+  const uuid = crypto.randomUUID();
 
   return `event:${uuid}` as EventId;
-}
-
-/**
- * Generates a UUID when available.
- */
-function createUuid(): string {
-  if (
-    typeof crypto !== "undefined" &&
-    typeof crypto.randomUUID === "function"
-  ) {
-    return crypto.randomUUID();
-  }
-
-  return [
-    Date.now().toString(36),
-
-    Math.random().toString(36).slice(2),
-
-    Math.random().toString(36).slice(2),
-  ].join("-");
 }
 
 /**
