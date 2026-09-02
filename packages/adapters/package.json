@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-adapters",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Boundary layer between Lattice and external platforms — adapter contracts, registry, capabilities, and transport abstractions.",
   "license": "MIT",
   "type": "module",
