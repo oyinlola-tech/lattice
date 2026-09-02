@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-cli",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Command-line interface for the Lattice framework.",
   "license": "MIT",
   "type": "module",
@@ -14,7 +14,7 @@
     }
   },
   "bin": {
-    "lattice": "./dist/bin/lattice.js"
+    "lattice": "./dist/src/bin/lattice.js"
   },
   "files": [
     "dist"
