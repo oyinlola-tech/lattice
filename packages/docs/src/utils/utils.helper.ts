@@ -52,7 +52,7 @@ export function resolveDocumentLink(baseId: string, link: string): string {
  * Extracts the title from markdown content (first heading).
  */
 export function extractTitleFromMarkdown(markdown: string): string | undefined {
-  const match = markdown.match(/^#\s+(.+)$/m);
+  const match = markdown.match(/^# ([^\n]+)$/m);
   return match?.[1]?.trim();
 }
 
