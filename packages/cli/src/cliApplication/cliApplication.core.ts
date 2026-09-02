@@ -115,8 +115,6 @@ export class LatticeCLI implements CLIApplication {
         return CLI_EXIT_CODES.SUCCESS;
       }
 
-      const context = this.createContext(args);
-
       const command = this.findCommand(args);
 
       if (!command) {
@@ -134,7 +132,7 @@ export class LatticeCLI implements CLIApplication {
       }
 
       const commandArgs = this.getCommandArguments(args, command);
-      const commandContext = this.createContext(commandArgs, command.name);
+      const commandContext = this.createContext(commandArgs, command);
 
       if (this.hooks.beforeRun) {
         await this.hooks.beforeRun(commandContext);
@@ -150,7 +148,10 @@ export class LatticeCLI implements CLIApplication {
     } catch (error) {
       const normalized = normalizeCLIError(error);
 
-      const fallbackContext = this.createContext(args);
+      const fallbackContext = this.createContext(
+        args,
+        this.findCommand(args),
+      );
 
       if (this.hooks.onError) {
         await this.hooks.onError(normalized, fallbackContext);
@@ -185,12 +186,12 @@ export class LatticeCLI implements CLIApplication {
     return args.slice(index + 1);
   }
 
-  private createContext(args: CLIArguments, command?: string): CLIContext {
-    const parsed = this.parser.parse(args);
+  private createContext(args: CLIArguments, command?: CLICommand): CLIContext {
+    const parsed = this.parser.parse(args, command);
     return {
       args,
       values: parsed.options,
-      command,
+      command: command?.name,
       cwd: this.cwd,
       env: this.env,
       logger: this.logger,
