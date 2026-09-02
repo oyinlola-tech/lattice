@@ -1,0 +1,39 @@
+{
+  "name": "test-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node --import tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@oyinlola141/lattice-core": "workspace:*",
+    "@oyinlola141/lattice-container": "workspace:*",
+    "@oyinlola141/lattice-config": "workspace:*",
+    "@oyinlola141/lattice-logger": "workspace:*",
+    "@oyinlola141/lattice-errors": "workspace:*",
+    "@oyinlola141/lattice-constants": "workspace:*",
+    "@oyinlola141/lattice-types": "workspace:*",
+    "@oyinlola141/lattice-validation": "workspace:*",
+    "@oyinlola141/lattice-schema": "workspace:*",
+    "@oyinlola141/lattice-http": "workspace:*",
+    "@oyinlola141/lattice-cqrs": "workspace:*",
+    "@oyinlola141/lattice-events": "workspace:*",
+    "@oyinlola141/lattice-messaging": "workspace:*",
+    "@oyinlola141/lattice-database": "workspace:*",
+    "@oyinlola141/lattice-observability": "workspace:*",
+    "@oyinlola141/lattice-openapi": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^1.0.0",
+    "typescript": "^1.0.0",
+    "@types/node": "^1.0.0",
+    "vitest": "^1.0.0"
+  }
+}
