@@ -128,3 +128,64 @@ export {
   isCompatibleVersion,
   type CLIVersionInfo,
 } from "./cliVersion/index.js";
+
+// Adapters
+export type {
+  FrontendAdapter,
+  FrontendGenerationContext,
+  FrontendFeatures,
+  DependencyRequirement,
+  ValidationResult,
+} from "./adapters/frontend/index.js";
+
+export {
+  ReactAdapter,
+  NextAdapter,
+  VanillaAdapter,
+} from "./adapters/frontend/index.js";
+
+export type { PackageManager } from "./adapters/package-managers/index.js";
+export {
+  PnpmAdapter,
+  NpmAdapter,
+  YarnAdapter,
+  BunAdapter,
+} from "./adapters/package-managers/index.js";
+
+// Resolvers
+export {
+  DependencyResolver,
+  type DependencyResolutionResult,
+  type ResolvedDependency,
+  type DependencyConflict,
+} from "./resolvers/dependency/index.js";
+
+// Validators
+export {
+  EnvironmentValidator,
+  type EnvironmentCheck,
+  type EnvironmentValidationResult,
+} from "./validators/index.js";
+
+export {
+  ProjectValidator,
+  type ProjectCheck,
+  type ProjectValidationResult,
+} from "./validators/index.js";
+
+// Registries
+export { FrontendAdapterRegistry } from "./registries/index.js";
+export { PackageManagerRegistry } from "./registries/index.js";
+
+// Types
+export type {
+  ProjectConfiguration,
+  ProjectType,
+  BackendArchitecture,
+  FrontendFramework,
+  FrontendArchitecture,
+  DatabaseProvider,
+  ApiStyle,
+  PackageManagerType,
+  ScaffoldOptions,
+} from "./types/projectConfiguration.type.js";
