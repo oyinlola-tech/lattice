@@ -17,8 +17,8 @@ export function createRuntimeId(name: string): string {
   const normalizedName = name
     .trim()
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .replace(/[^a-z0-9]+/, "-")
+    .replace(/^-+|-+$/, "");
 
   return [normalizedName || "runtime", timestamp, random].join("-");
 }
