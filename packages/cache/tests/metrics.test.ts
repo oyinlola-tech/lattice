@@ -1,5 +1,5 @@
 /**
- * @zudo/cache — Metrics Tests
+ * @zudolib/cache — Metrics Tests
  *
  * Tests for InMemoryCacheMetrics: hit/miss/set/delete/error counters,
  * latency tracking, hot keys, and histograms.

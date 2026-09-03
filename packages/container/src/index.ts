@@ -1,5 +1,5 @@
 /**
- * @zudo/container
+ * @zudolib/container
  *
  * Dependency injection container with token-based registration for the Zudo framework.
  */

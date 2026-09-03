@@ -1,8 +1,8 @@
 /**
- * @zudo/http/httpStream — Pipe and copy streams between source and destination.
+ * @zudolib/http/httpStream — Pipe and copy streams between source and destination.
  */
 
-import { HttpStreamError as StreamError } from "@zudo/errors";
+import { HttpStreamError as StreamError } from "@zudolib/errors";
 import type {
   StreamPipeOptions,
   StreamResult,

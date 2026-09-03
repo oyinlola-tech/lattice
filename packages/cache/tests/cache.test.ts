@@ -1,5 +1,5 @@
 /**
- * @zudo/cache — CacheService Tests
+ * @zudolib/cache — CacheService Tests
  *
  * Integration tests for CacheService: getOrSet, tags, patterns,
  * locking, stats, and health checks.

@@ -1,17 +1,17 @@
-# @zudo/docs
+# @zudolib/docs
 
 Documentation infrastructure with structured document model, registry, validation, navigation, frontmatter parsing, and markdown/JSON generation.
 
 ## Installation
 
 ```bash
-npm install @zudo/docs
+npm install @zudolib/docs
 ```
 
 ## Quick Start
 
 ```typescript
-import { createDocumentRegistry } from "@zudo/docs";
+import { createDocumentRegistry } from "@zudolib/docs";
 
 const registry = createDocumentRegistry();
 

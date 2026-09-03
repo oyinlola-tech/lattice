@@ -1,5 +1,5 @@
 /**
- * @zudo/errors/infrastructure/service
+ * @zudolib/errors/infrastructure/service
  *
  * Service and external service error types.
  */

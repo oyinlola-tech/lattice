@@ -1,4 +1,4 @@
-import { Command } from "@zudo/cqrs";
+import { Command } from "@zudolib/cqrs";
 import type { UpdateProfileDto } from "../../../../dtos/index.js";
 import type { UserId } from "../../../../types/index.js";
 

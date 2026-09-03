@@ -1,5 +1,5 @@
 {
-  "name": "@zudo/testing",
+  "name": "@zudolib/testing",
   "version": "0.1.3",
   "description": "Test helpers, fixtures, mocks, and utilities for testing Zudo applications.",
   "type": "module",
@@ -22,21 +22,21 @@
     "test": "../../node_modules/.bin/vitest run"
   },
   "dependencies": {
-    "@zudo/config": "workspace:*",
-    "@zudo/constants": "workspace:*",
-    "@zudo/container": "workspace:*",
-    "@zudo/errors": "workspace:*",
-    "@zudo/events": "workspace:*",
-    "@zudo/http": "workspace:*",
-    "@zudo/logger": "workspace:*",
-    "@zudo/messaging": "workspace:*",
-    "@zudo/middleware": "workspace:*",
-    "@zudo/queue": "workspace:*",
-    "@zudo/security": "workspace:*",
-    "@zudo/serialization": "workspace:*",
-    "@zudo/storage": "workspace:*",
-    "@zudo/types": "workspace:*",
-    "@zudo/validation": "workspace:*"
+    "@zudolib/config": "workspace:*",
+    "@zudolib/constants": "workspace:*",
+    "@zudolib/container": "workspace:*",
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/events": "workspace:*",
+    "@zudolib/http": "workspace:*",
+    "@zudolib/logger": "workspace:*",
+    "@zudolib/messaging": "workspace:*",
+    "@zudolib/middleware": "workspace:*",
+    "@zudolib/queue": "workspace:*",
+    "@zudolib/security": "workspace:*",
+    "@zudolib/serialization": "workspace:*",
+    "@zudolib/storage": "workspace:*",
+    "@zudolib/types": "workspace:*",
+    "@zudolib/validation": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

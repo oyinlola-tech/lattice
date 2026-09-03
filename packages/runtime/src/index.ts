@@ -1,5 +1,5 @@
 /**
- * @zudo/runtime
+ * @zudolib/runtime
  *
  * Application runtime orchestrator for the Zudo framework.
  *

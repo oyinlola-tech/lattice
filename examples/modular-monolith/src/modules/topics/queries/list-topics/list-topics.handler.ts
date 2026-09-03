@@ -1,4 +1,4 @@
-import { QueryHandler } from "@zudo/cqrs";
+import { QueryHandler } from "@zudolib/cqrs";
 import type { ListTopicsQuery } from "./list-topics.query.js";
 import type { TopicRepository } from "../../../../repositories/topic.repository.js";
 import type { TopicModel } from "../../../../models/topic.model.js";

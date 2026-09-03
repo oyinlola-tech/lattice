@@ -1,4 +1,4 @@
-import { Command } from "@zudo/cqrs";
+import { Command } from "@zudolib/cqrs";
 import type { ArticleId, UserId } from "../../../../types/index.js";
 
 export class PublishArticleCommand extends Command<"articles.publish"> {

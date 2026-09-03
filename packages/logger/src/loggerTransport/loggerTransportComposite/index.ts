@@ -1,5 +1,5 @@
 /**
- * @zudo/logger/loggerTransport/loggerTransportComposite
+ * @zudolib/logger/loggerTransport/loggerTransportComposite
  *
  * Composite transport implementations.
  */

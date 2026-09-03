@@ -1,5 +1,5 @@
 /**
- * @zudo/cache — Invalidation Tests
+ * @zudolib/cache — Invalidation Tests
  *
  * Tests for CacheInvalidationManager: tag-based, pattern-based,
  * namespace-based, key-based, and full flush invalidation.

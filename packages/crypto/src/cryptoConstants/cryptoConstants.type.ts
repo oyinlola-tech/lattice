@@ -1,4 +1,4 @@
-import { TimeMs } from "@zudo/constants";
+import { TimeMs } from "@zudolib/constants";
 
 /**
  * Supported cryptographic algorithms used by Zudo.

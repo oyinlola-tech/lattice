@@ -1,5 +1,5 @@
 /**
- * @zudo/adapters/queue
+ * @zudolib/adapters/queue
  *
  * Queue adapter contracts — bridges Zudo queue to external providers.
  *

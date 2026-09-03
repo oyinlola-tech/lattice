@@ -1,5 +1,5 @@
 /**
- * @zudo/runtime — Tests
+ * @zudolib/runtime — Tests
  *
  * Comprehensive tests for the runtime package.
  */
@@ -12,13 +12,13 @@ import type { RuntimeDependencies } from "../src/runtime/runtime.core.js";
 
 import type { RuntimeOptions } from "../src/runtimeOptions/runtimeOptions.type.js";
 
-import type { Module } from "@zudo/core";
+import type { Module } from "@zudolib/core";
 
-import { createLogger } from "@zudo/logger";
+import { createLogger } from "@zudolib/logger";
 
-import { createContainer } from "@zudo/container";
+import { createContainer } from "@zudolib/container";
 
-import { createEventBus } from "@zudo/events";
+import { createEventBus } from "@zudolib/events";
 
 import { RuntimeRegistry } from "../src/registry/index.js";
 

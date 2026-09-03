@@ -1,5 +1,5 @@
 /**
- * @zudo/openapi/openApiComponents
+ * @zudolib/openapi/openApiComponents
  *
  * Reusable OpenAPI component helpers.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudo/plugins
+ * @zudolib/plugins
  *
  * Controlled extension system for the Zudo framework.
  *
@@ -8,13 +8,13 @@
  *
  * @example
  * ```ts
- * import { PluginManager, createPluginContext } from "@zudo/plugins";
+ * import { PluginManager, createPluginContext } from "@zudolib/plugins";
  *
  * const manager = new PluginManager();
  *
  * manager.register({
- *   metadata: { name: "@zudo/http" },
- *   dependencies: [{ name: "@zudo/events" }],
+ *   metadata: { name: "@zudolib/http" },
+ *   dependencies: [{ name: "@zudolib/events" }],
  *   async install(context) {
  *     // register services
  *   },
@@ -23,7 +23,7 @@
  *   },
  * });
  *
- * await manager.start(createPluginContext({ metadata: { name: "@zudo/http" } }));
+ * await manager.start(createPluginContext({ metadata: { name: "@zudolib/http" } }));
  * ```
  */
 
@@ -85,7 +85,7 @@ export {
   PluginStateError,
   createPluginError,
   isPluginError,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 export type {
   PluginState,

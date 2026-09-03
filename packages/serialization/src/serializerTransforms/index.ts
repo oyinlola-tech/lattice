@@ -1,5 +1,5 @@
 /**
- * @zudo/serialization — Core type transformers.
+ * @zudolib/serialization — Core type transformers.
  *
  * Built-in transformers for Date, BigInt, Map, and Set types.
  */

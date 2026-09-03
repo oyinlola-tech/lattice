@@ -1,5 +1,5 @@
 /**
- * @zudo/http/httpConstants
+ * @zudolib/http/httpConstants
  *
  * HTTP httpConstants module.
  */

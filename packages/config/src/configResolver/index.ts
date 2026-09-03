@@ -1,5 +1,5 @@
 /**
- * @zudo/config/configResolver
+ * @zudolib/config/configResolver
  *
  * Configuration resolution with priority and merging.
  */

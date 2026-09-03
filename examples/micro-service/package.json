@@ -1,5 +1,5 @@
 {
-  "name": "@zudo/example-micro-service",
+  "name": "@zudolib/example-micro-service",
   "version": "0.1.1",
   "private": true,
   "type": "module",

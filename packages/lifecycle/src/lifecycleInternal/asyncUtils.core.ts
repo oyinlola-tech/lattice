@@ -1,10 +1,10 @@
 /**
- * @zudo/lifecycle/internal/async-utils
+ * @zudolib/lifecycle/internal/async-utils
  *
  * Async utilities for timeout, abort, and concurrency control.
  */
 
-import { LifecycleTimeoutError } from "@zudo/errors";
+import { LifecycleTimeoutError } from "@zudolib/errors";
 
 /**
  * Executes an async operation with a timeout.

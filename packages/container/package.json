@@ -1,5 +1,5 @@
 {
-  "name": "@zudo/container",
+  "name": "@zudolib/container",
   "version": "0.1.4",
   "description": "Token-based dependency injection container for managing application dependencies and service lifetimes.",
   "type": "module",
@@ -20,7 +20,7 @@
     "clean": "tsc -p tsconfig.json --clean"
   },
   "dependencies": {
-    "@zudo/errors": "workspace:*"
+    "@zudolib/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2"

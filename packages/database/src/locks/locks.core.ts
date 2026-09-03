@@ -1,4 +1,4 @@
-import { DatabaseError } from "@zudo/errors";
+import { DatabaseError } from "@zudolib/errors";
 
 import type {
   DatabaseClient,

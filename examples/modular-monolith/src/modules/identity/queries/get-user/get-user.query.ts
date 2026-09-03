@@ -1,4 +1,4 @@
-import { Query } from "@zudo/cqrs";
+import { Query } from "@zudolib/cqrs";
 import type { UserId } from "../../../../types/index.js";
 
 export class GetUserQuery extends Query<"identity.get-user"> {

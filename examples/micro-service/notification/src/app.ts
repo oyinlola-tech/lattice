@@ -1,7 +1,7 @@
-import { CommandBus } from "@zudo/cqrs";
-import { QueryBus } from "@zudo/cqrs";
-import { createEventBus } from "@zudo/events";
-import type { Queue } from "@zudo/queue";
+import { CommandBus } from "@zudolib/cqrs";
+import { QueryBus } from "@zudolib/cqrs";
+import { createEventBus } from "@zudolib/events";
+import type { Queue } from "@zudolib/queue";
 import type { INotificationRepository } from "./interfaces/index.js";
 import { registerNotificationService } from "./services/index.js";
 import { registerNotificationRoutes } from "./routes/index.js";

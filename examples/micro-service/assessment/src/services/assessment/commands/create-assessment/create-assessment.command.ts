@@ -1,4 +1,4 @@
-import { Command } from "@zudo/cqrs";
+import { Command } from "@zudolib/cqrs";
 import type { CreateAssessmentDto } from "../../../../dtos/index.js";
 
 export const CREATE_ASSESSMENT_COMMAND = "assessment.create" as const;

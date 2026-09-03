@@ -1,7 +1,7 @@
 /**
- * @zudo/messaging/errors
+ * @zudolib/messaging/errors
  *
- * Re-exports message-related error types from @zudo/errors.
+ * Re-exports message-related error types from @zudolib/errors.
  */
 
 export {
@@ -21,4 +21,4 @@ export {
   isMessageError,
   toMessageError,
   createMessageHandlerError,
-} from "@zudo/errors";
+} from "@zudolib/errors";

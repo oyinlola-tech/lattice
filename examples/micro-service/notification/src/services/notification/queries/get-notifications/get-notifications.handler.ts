@@ -1,5 +1,5 @@
-import { QueryHandler } from "@zudo/cqrs";
-import type { CqrsContext } from "@zudo/cqrs";
+import { QueryHandler } from "@zudolib/cqrs";
+import type { CqrsContext } from "@zudolib/cqrs";
 import {
   GetNotificationsQuery,
   GET_NOTIFICATIONS_QUERY,

@@ -1,5 +1,5 @@
 {
-  "name": "@zudo/core",
+  "name": "@zudolib/core",
   "version": "0.1.5",
   "description": "Application lifecycle management, execution context propagation, and runtime orchestration for Zudo applications.",
   "type": "module",
@@ -59,9 +59,9 @@
     "vitest": "^4.1.11"
   },
   "dependencies": {
-    "@zudo/errors": "workspace:*",
-    "@zudo/constants": "workspace:*",
-    "@zudo/messaging": "workspace:*"
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/constants": "workspace:*",
+    "@zudolib/messaging": "workspace:*"
   },
   "license": "MIT",
   "publishConfig": {

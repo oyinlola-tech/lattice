@@ -1,5 +1,5 @@
 /**
- * @zudo/plugins/pluginEvents
+ * @zudolib/plugins/pluginEvents
  *
  * Plugin lifecycle event types and event names.
  */

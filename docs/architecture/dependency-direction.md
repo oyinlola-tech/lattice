@@ -24,10 +24,10 @@ This is sometimes called **"inward dependency direction"** or **"dependency inve
 
 Zudo is a framework. Applications depend on it. That means:
 
-- **Breaking changes propagate outward.** If `@zudo/core` depends on `@zudo/http`, then every application using `@zudo/core` indirectly depends on `@zudo/http`. A breaking change in `@zudo/http` breaks `@zudo/core`, which breaks every application.
-- **Circular dependencies become inevitable.** If `@zudo/http` depends on `@zudo/core`, and `@zudo/core` depends on `@zudo/events`, and `@zudo/events` depends on `@zudo/http` (to publish request events), you have a cycle. Cycles make builds fragile, testing difficult, and refactoring dangerous.
-- **Foundation code must remain stable.** The packages at the bottom of the dependency graph (`@zudo/errors`, `@zudo/types`, `@zudo/constants`) are imported by everything. If they depend on higher-level packages, they become unstable and drag the entire framework down with them.
-- **Replaceability requires abstraction.** If `@zudo/http` directly imports `@zudo/postgres`, you cannot swap databases without modifying the HTTP package. By depending on `@zudo/database` abstractions instead, `@zudo/http` stays platform-agnostic.
+- **Breaking changes propagate outward.** If `@zudolib/core` depends on `@zudolib/http`, then every application using `@zudolib/core` indirectly depends on `@zudolib/http`. A breaking change in `@zudolib/http` breaks `@zudolib/core`, which breaks every application.
+- **Circular dependencies become inevitable.** If `@zudolib/http` depends on `@zudolib/core`, and `@zudolib/core` depends on `@zudolib/events`, and `@zudolib/events` depends on `@zudolib/http` (to publish request events), you have a cycle. Cycles make builds fragile, testing difficult, and refactoring dangerous.
+- **Foundation code must remain stable.** The packages at the bottom of the dependency graph (`@zudolib/errors`, `@zudolib/types`, `@zudolib/constants`) are imported by everything. If they depend on higher-level packages, they become unstable and drag the entire framework down with them.
+- **Replaceability requires abstraction.** If `@zudolib/http` directly imports `@zudolib/postgres`, you cannot swap databases without modifying the HTTP package. By depending on `@zudolib/database` abstractions instead, `@zudolib/http` stays platform-agnostic.
 
 ---
 
@@ -62,14 +62,14 @@ Every arrow points downward. There are no upward arrows.
 A package A **depends on** package B when A imports from B:
 
 ```ts
-// @zudo/http imports from @zudo/core
-import { ApplicationContext } from "@zudo/core";
+// @zudolib/http imports from @zudolib/core
+import { ApplicationContext } from "@zudolib/core";
 ```
 
 This means:
 
-- `@zudo/http` → `@zudo/core` is allowed (higher → lower)
-- `@zudo/core` → `@zudo/http` is forbidden (lower → higher)
+- `@zudolib/http` → `@zudolib/core` is allowed (higher → lower)
+- `@zudolib/core` → `@zudolib/http` is forbidden (lower → higher)
 
 ---
 
@@ -91,7 +91,7 @@ Before adding a dependency, ask:
 Trace the dependency chain:
 
 ```
-@zudo/http → @zudo/core → @zudo/events → @zudo/http
+@zudolib/http → @zudolib/core → @zudolib/events → @zudolib/http
 ```
 
 If you can follow imports from the new dependency back to the original package, you have a cycle.
@@ -106,7 +106,7 @@ Before depending on a higher-tier package, ask:
 
 ### 5.4 Will this affect applications?
 
-If `@zudo/http` depends on `@zudo/database`, then every application using `@zudo/http` must also install and configure `@zudo/database`. That is a hidden coupling that violates the framework's modularity.
+If `@zudolib/http` depends on `@zudolib/database`, then every application using `@zudolib/http` must also install and configure `@zudolib/database`. That is a hidden coupling that violates the framework's modularity.
 
 ---
 
@@ -115,39 +115,39 @@ If `@zudo/http` depends on `@zudo/database`, then every application using `@zudo
 ### 6.1 Foundation Depending on Application
 
 ```
-❌ @zudo/core → @zudo/http
+❌ @zudolib/core → @zudolib/http
 ```
 
-`@zudo/core` is the application context. It should not know about HTTP.
+`@zudolib/core` is the application context. It should not know about HTTP.
 
-**Fix:** Move HTTP-specific logic to `@zudo/http` or a lower-tier package.
+**Fix:** Move HTTP-specific logic to `@zudolib/http` or a lower-tier package.
 
 ### 6.2 Transport Depending on Transport
 
 ```
-❌ @zudo/http → @zudo/rpc
-❌ @zudo/rpc → @zudo/http
+❌ @zudolib/http → @zudolib/rpc
+❌ @zudolib/rpc → @zudolib/http
 ```
 
 Transport packages must be independent. They translate external requests into internal calls.
 
-**Fix:** Extract shared transport logic into `@zudo/adapters` or a new lower-tier package.
+**Fix:** Extract shared transport logic into `@zudolib/adapters` or a new lower-tier package.
 
 ### 6.3 Application Depending on Transport
 
 ```
-❌ @zudo/cqrs → @zudo/http
+❌ @zudolib/cqrs → @zudolib/http
 ```
 
 CQRS commands and queries should not know about HTTP.
 
-**Fix:** Use `@zudo/adapters` or event-driven integration instead of direct imports.
+**Fix:** Use `@zudolib/adapters` or event-driven integration instead of direct imports.
 
 ### 6.4 Infrastructure Depending on Transport
 
 ```
-❌ @zudo/database → @zudo/http
-❌ @zudo/queue → @zudo/http
+❌ @zudolib/database → @zudolib/http
+❌ @zudolib/queue → @zudolib/http
 ```
 
 Infrastructure packages must not know about transport.
@@ -157,11 +157,11 @@ Infrastructure packages must not know about transport.
 ### 6.5 Leaf Packages Depending on Anything
 
 ```
-❌ @zudo/errors → @zudo/types
-❌ @zudo/types → @zudo/constants
+❌ @zudolib/errors → @zudolib/types
+❌ @zudolib/types → @zudolib/constants
 ```
 
-Leaf packages must have no `@zudo/*` dependencies.
+Leaf packages must have no `@zudolib/*` dependencies.
 
 **Fix:** Move shared code to the leaf package or create a new leaf package.
 
@@ -173,23 +173,23 @@ Leaf packages must have no `@zudo/*` dependencies.
 
 | Tier | Name                     | Can Import From         | Examples                                                   |
 | ---- | ------------------------ | ----------------------- | ---------------------------------------------------------- |
-| 0    | Leaf                     | Nothing (external only) | `@zudo/errors`, `@zudo/types`                        |
-| 1    | Foundation               | Tier 0                  | `@zudo/container`, `@zudo/logger`, `@zudo/events` |
-| 2    | Application Architecture | Tier 0, Tier 1          | `@zudo/core`, `@zudo/cqrs`, `@zudo/runtime`       |
-| 3    | Transport                | Tier 0, Tier 1, Tier 2  | `@zudo/http`, `@zudo/cli`                            |
-| 4    | Developer Experience     | Any                     | `@zudo/testing`, `@zudo/docs`                        |
+| 0    | Leaf                     | Nothing (external only) | `@zudolib/errors`, `@zudolib/types`                        |
+| 1    | Foundation               | Tier 0                  | `@zudolib/container`, `@zudolib/logger`, `@zudolib/events` |
+| 2    | Application Architecture | Tier 0, Tier 1          | `@zudolib/core`, `@zudolib/cqrs`, `@zudolib/runtime`       |
+| 3    | Transport                | Tier 0, Tier 1, Tier 2  | `@zudolib/http`, `@zudolib/cli`                            |
+| 4    | Developer Experience     | Any                     | `@zudolib/testing`, `@zudolib/docs`                        |
 
 ### 7.2 Determining a Package's Tier
 
 A package's tier is determined by the **highest tier of its dependencies**.
 
 ```
-If @zudo/http imports from:
-  - @zudo/core (Tier 2)
-  - @zudo/errors (Tier 0)
-  - @zudo/logger (Tier 1)
+If @zudolib/http imports from:
+  - @zudolib/core (Tier 2)
+  - @zudolib/errors (Tier 0)
+  - @zudolib/logger (Tier 1)
 
-Then @zudo/http belongs in Tier 3 (Transport)
+Then @zudolib/http belongs in Tier 3 (Transport)
 ```
 
 ### 7.3 Current Package Tiers
@@ -210,8 +210,8 @@ Peer dependencies are allowed when:
 
 | Package                | Peer            | Tier | Purpose                         |
 | ---------------------- | --------------- | ---- | ------------------------------- |
-| `@zudo/permissions` | `@zudo/http` | 3    | HTTP-specific permission guards |
-| `@zudo/tenancy`     | `@zudo/http` | 3    | HTTP-specific tenant resolution |
+| `@zudolib/permissions` | `@zudolib/http` | 3    | HTTP-specific permission guards |
+| `@zudolib/tenancy`     | `@zudolib/http` | 3    | HTTP-specific tenant resolution |
 
 ### 8.2 Peer Dependency Rules
 
@@ -248,12 +248,12 @@ Example:
 
 ```
 Before (circular):
-  @zudo/http → @zudo/permissions → @zudo/http
+  @zudolib/http → @zudolib/permissions → @zudolib/http
 
 After (resolved):
-  @zudo/permissions-core (Tier 1) — shared authorization logic
-  @zudo/permissions (Tier 1) — imports permissions-core
-  @zudo/http (Tier 3) — imports permissions
+  @zudolib/permissions-core (Tier 1) — shared authorization logic
+  @zudolib/permissions (Tier 1) — imports permissions-core
+  @zudolib/http (Tier 3) — imports permissions
 ```
 
 ### 9.4 Prevention
@@ -269,7 +269,7 @@ After (resolved):
 ### 10.1 Good: HTTP depending on Core
 
 ```
-@zudo/http → @zudo/core → @zudo/events → @zudo/errors
+@zudolib/http → @zudolib/core → @zudolib/events → @zudolib/errors
 ```
 
 HTTP imports core for application context. Core imports events for event emission. Events import errors for error handling.
@@ -279,17 +279,17 @@ This is correct. Dependencies flow inward.
 ### 10.2 Bad: Core depending on HTTP
 
 ```
-@zudo/core → @zudo/http → @zudo/core
+@zudolib/core → @zudolib/http → @zudolib/core
 ```
 
 Core should not know about HTTP. This creates a circular dependency and violates the tier system.
 
-**Fix:** Move HTTP-specific context into `@zudo/http`. Core provides generic context interfaces.
+**Fix:** Move HTTP-specific context into `@zudolib/http`. Core provides generic context interfaces.
 
 ### 10.3 Good: Database depending on Storage
 
 ```
-@zudo/database → @zudo/storage → @zudo/serialization → @zudo/errors
+@zudolib/database → @zudolib/storage → @zudolib/serialization → @zudolib/errors
 ```
 
 Database imports storage abstractions. Storage imports serialization. Serialization imports errors.
@@ -299,12 +299,12 @@ This is correct.
 ### 10.4 Bad: Storage depending on Database
 
 ```
-@zudo/storage → @zudo/database → @zudo/storage
+@zudolib/storage → @zudolib/database → @zudolib/storage
 ```
 
 Storage should provide abstractions that database implements. Database should not depend on storage.
 
-**Fix:** Define storage interfaces in `@zudo/storage`. Implement them in `@zudo/database`.
+**Fix:** Define storage interfaces in `@zudolib/storage`. Implement them in `@zudolib/database`.
 
 ---
 
@@ -316,8 +316,8 @@ The tier system exists to serve the framework, not the other way around.
 
 | Exception         | Condition                        | Example                                           |
 | ----------------- | -------------------------------- | ------------------------------------------------- |
-| Peer dependencies | Optional, documented, justified  | `@zudo/permissions` peers with `@zudo/http` |
-| Testing imports   | Tier 4 only, never in production | `@zudo/testing` imports any package            |
+| Peer dependencies | Optional, documented, justified  | `@zudolib/permissions` peers with `@zudolib/http` |
+| Testing imports   | Tier 4 only, never in production | `@zudolib/testing` imports any package            |
 | Developer tooling | Not part of production bundle    | Build scripts, CLI tools                          |
 
 ### 11.2 Unacceptable Excuses
@@ -326,7 +326,7 @@ The tier system exists to serve the framework, not the other way around.
 | ----------------------------- | ----------------------------------------------------------------------------- |
 | "It's just one small import"  | Small imports create hidden coupling that grows over time.                    |
 | "We need it for convenience"  | Convenience for one package becomes maintenance burden for all.               |
-| "It's only used in tests"     | If it's only used in tests, put it in `@zudo/testing` or a dev dependency. |
+| "It's only used in tests"     | If it's only used in tests, put it in `@zudolib/testing` or a dev dependency. |
 | "The other package is stable" | Stability is not a reason to violate architecture.                            |
 | "We'll refactor it later"     | Dependency direction is hard to refactor after the fact.                      |
 
@@ -359,6 +359,6 @@ Before merging any PR that adds, removes, or changes a dependency:
 | Command                                        | Purpose                                     |
 | ---------------------------------------------- | ------------------------------------------- |
 | `npm run architect:check`                      | Verify dependency direction and tier rules. |
-| `npm run typecheck --workspace=@zudo/<pkg>` | Verify TypeScript compilation.              |
+| `npm run typecheck --workspace=@zudolib/<pkg>` | Verify TypeScript compilation.              |
 | `npm test`                                     | Run all tests.                              |
 | `pnpm install`                                 | Install dependencies and update lockfile.   |

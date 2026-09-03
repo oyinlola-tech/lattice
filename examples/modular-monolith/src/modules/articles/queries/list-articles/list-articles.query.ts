@@ -1,4 +1,4 @@
-import { Query } from "@zudo/cqrs";
+import { Query } from "@zudolib/cqrs";
 import type { TopicId } from "../../../../types/index.js";
 import type { ArticleStatus } from "../../../../enums/index.js";
 

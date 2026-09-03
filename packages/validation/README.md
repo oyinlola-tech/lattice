@@ -1,17 +1,17 @@
-# @zudo/validation
+# @zudolib/validation
 
 Schema validation with Zod integration, constraints, parsers, composers, circular detection, and depth/size checks.
 
 ## Installation
 
 ```bash
-npm install @zudo/validation
+npm install @zudolib/validation
 ```
 
 ## Quick Start
 
 ```typescript
-import { validate, z } from "@zudo/validation";
+import { validate, z } from "@zudolib/validation";
 
 const schema = z.object({
   email: z.string().email(),

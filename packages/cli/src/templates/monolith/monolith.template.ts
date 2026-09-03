@@ -47,36 +47,36 @@ export function generateMonolithFiles(
   const nameSlug = name.replace(/[^a-z0-9-]+/gi, "-").toLowerCase();
 
   const deps = [
-    "@zudo/core",
-    "@zudo/container",
-    "@zudo/config",
-    "@zudo/logger",
-    "@zudo/errors",
-    "@zudo/constants",
-    "@zudo/types",
-    "@zudo/validation",
-    "@zudo/schema",
-    "@zudo/http",
+    "@zudolib/core",
+    "@zudolib/container",
+    "@zudolib/config",
+    "@zudolib/logger",
+    "@zudolib/errors",
+    "@zudolib/constants",
+    "@zudolib/types",
+    "@zudolib/validation",
+    "@zudolib/schema",
+    "@zudolib/http",
   ];
 
   if (options.enableCQRS) {
-    deps.push("@zudo/cqrs", "@zudo/events", "@zudo/messaging");
+    deps.push("@zudolib/cqrs", "@zudolib/events", "@zudolib/messaging");
   }
 
   if (options.enableDatabase) {
-    deps.push("@zudo/database");
+    deps.push("@zudolib/database");
   }
 
   if (options.enableQueue) {
-    deps.push("@zudo/queue");
+    deps.push("@zudolib/queue");
   }
 
   if (options.enableObservability) {
-    deps.push("@zudo/observability");
+    deps.push("@zudolib/observability");
   }
 
   if (options.enableOpenAPI) {
-    deps.push("@zudo/openapi");
+    deps.push("@zudolib/openapi");
   }
 
   const devDeps = ["tsx", "typescript", "@types/node", "vitest"];
@@ -130,7 +130,7 @@ export function generateMonolithFiles(
 `;
 
   // zudo.config.ts
-  files["zudo.config.ts"] = `import { defineConfig } from "@zudo/config";
+  files["zudo.config.ts"] = `import { defineConfig } from "@zudolib/config";
 
 export default defineConfig({
   application: {
@@ -233,8 +233,8 @@ MIT
 `;
 
   files["src/server.ts"] = `import { createApp } from "./app.js";
-import { createRuntime } from "@zudo/runtime";
-import { logger } from "@zudo/logger";
+import { createRuntime } from "@zudolib/runtime";
+import { logger } from "@zudolib/logger";
 
 const app = await createApp();
 
@@ -254,8 +254,8 @@ process.on("SIGTERM", async () => {
 });
 `;
 
-  files["src/app.ts"] = `import { logger } from "@zudo/logger";
-import { createContainer } from "@zudo/container";
+  files["src/app.ts"] = `import { logger } from "@zudolib/logger";
+import { createContainer } from "@zudolib/container";
 
 export async function createApp() {
   const log = logger.child({ service: "app" });

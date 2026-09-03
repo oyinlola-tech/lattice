@@ -1,4 +1,4 @@
-import type { Event } from "@zudo/events";
+import type { Event } from "@zudolib/events";
 
 import type { CqrsEvent } from "./cqrsEvents.type.js";
 

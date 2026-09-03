@@ -1,5 +1,5 @@
 /**
- * @zudo/http — HTTP client module.
+ * @zudolib/http — HTTP client module.
  *
  * Request construction, interceptors, retries, response parsing.
  */

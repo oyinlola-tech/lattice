@@ -22,13 +22,13 @@ import {
   BufferTransformer,
   ErrorTransformer,
 } from "../serializerTransformsExt/index.js";
-import { SerializationLimits, SerializationTags } from "@zudo/constants";
-import { isPlainObject } from "@zudo/types";
+import { SerializationLimits, SerializationTags } from "@zudolib/constants";
+import { isPlainObject } from "@zudolib/types";
 import {
   assertNoCircularReference,
   assertDepthWithinLimit,
   assertSizeWithinLimit,
-} from "@zudo/validation";
+} from "@zudolib/validation";
 
 /** Default transformer registry with all built-in transformers. */
 function createDefaultTransformers(): TransformerRegistry {

@@ -10,11 +10,11 @@
 import type {
   EventId as BaseEventId,
   CorrelationId as BaseCorrelationId,
-} from "@zudo/constants";
+} from "@zudolib/constants";
 
 /**
  * Unique identifier for an event instance.
- * Re-exported from @zudo/constants for type safety.
+ * Re-exported from @zudolib/constants for type safety.
  */
 export type EventId = BaseEventId;
 
@@ -46,7 +46,7 @@ export type EventSource = string;
  *
  * Useful for connecting multiple events belonging to the
  * same operation/request/workflow.
- * Re-exported from @zudo/constants for type safety.
+ * Re-exported from @zudolib/constants for type safety.
  */
 export type EventCorrelationId = BaseCorrelationId;
 
@@ -193,7 +193,7 @@ export function isEvent(value: unknown): value is Event {
 
 /**
  * Creates a unique event identifier.
- * Returns a branded EventId type from @zudo/constants.
+ * Returns a branded EventId type from @zudolib/constants.
  */
 export function createEventId(): EventId {
   const uuid = crypto.randomUUID();

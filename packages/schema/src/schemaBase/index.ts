@@ -1,5 +1,5 @@
 /**
- * @zudo/schema/schemaBase
+ * @zudolib/schema/schemaBase
  *
  * Core schema types, result helpers, context, and the abstract base Schema class.
  */

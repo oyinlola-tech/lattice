@@ -1,5 +1,5 @@
 /**
- * @zudo/validation/validationNormalizer
+ * @zudolib/validation/validationNormalizer
  *
  * Input normalization before validation.
  */

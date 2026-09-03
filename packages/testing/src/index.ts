@@ -1,5 +1,5 @@
 /**
- * @zudo/testing
+ * @zudolib/testing
  *
  * Testing infrastructure for the Zudo framework.
  * Provides test containers, fakes, fixtures, mocks, assertions,

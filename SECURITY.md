@@ -50,22 +50,22 @@ Not every bug qualifies as a security vulnerability. Issues that do not create a
 
 Security testing and review are particularly valuable for the following packages:
 
-- `@zudo/http`
-- `@zudo/crypto`
-- `@zudo/security`
-- `@zudo/serialization`
-- `@zudo/storage`
-- `@zudo/rpc`
-- `@zudo/permissions`
-- `@zudo/transactions`
-- `@zudo/tenancy`
-- `@zudo/plugins`
-- `@zudo/runtime`
-- `@zudo/database`
-- `@zudo/auth`
-- `@zudo/validation`
-- `@zudo/queue`
-- `@zudo/messaging`
+- `@zudolib/http`
+- `@zudolib/crypto`
+- `@zudolib/security`
+- `@zudolib/serialization`
+- `@zudolib/storage`
+- `@zudolib/rpc`
+- `@zudolib/permissions`
+- `@zudolib/transactions`
+- `@zudolib/tenancy`
+- `@zudolib/plugins`
+- `@zudolib/runtime`
+- `@zudolib/database`
+- `@zudolib/auth`
+- `@zudolib/validation`
+- `@zudolib/queue`
+- `@zudolib/messaging`
 
 This does not mean every bug in these packages is automatically a vulnerability. It indicates where security review is especially important.
 

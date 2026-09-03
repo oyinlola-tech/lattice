@@ -1,5 +1,5 @@
 /**
- * @zudo/testing — HTTP response types.
+ * @zudolib/testing — HTTP response types.
  *
  * Types for test HTTP responses and response builders.
  */

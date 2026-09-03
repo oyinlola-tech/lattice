@@ -1,11 +1,11 @@
 /**
- * @zudo/lifecycle/manager/context
+ * @zudolib/lifecycle/manager/context
  *
  * Internal context shared between startup and shutdown orchestration modules,
  * plus helper functions for component state transitions and event emission.
  */
 
-import { LifecycleState } from "@zudo/constants";
+import { LifecycleState } from "@zudolib/constants";
 import type { LifecycleStateMachine } from "../lifecycleState/lifecycleState.machine.js";
 import type { LifecycleRegistry } from "../lifecycleRegistry/lifecycleRegistry.core.js";
 import type { LifecycleExecutor } from "../lifecycleExecutor/lifecycleExecutor.core.js";

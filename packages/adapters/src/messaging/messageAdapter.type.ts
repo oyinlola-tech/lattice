@@ -1,5 +1,5 @@
 /**
- * @zudo/adapters/messaging
+ * @zudolib/adapters/messaging
  *
  * Messaging adapter contracts — bridges Zudo messaging to external providers.
  */

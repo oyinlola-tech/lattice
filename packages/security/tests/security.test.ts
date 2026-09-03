@@ -1,5 +1,5 @@
 /**
- * @zudo/security — Tests
+ * @zudolib/security — Tests
  *
  * Comprehensive tests for all security modules.
  */

@@ -3,7 +3,7 @@ import {
   ErrorCategory,
   ErrorCode,
   ErrorSeverity,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 import type {
   Command,

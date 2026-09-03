@@ -36,7 +36,7 @@ src/
 ### Key Patterns
 
 - **Feature-first modules** — Each module owns its domain, application, and infrastructure
-- **CQRS** — Commands write state; queries read state (via `@zudo/cqrs`)
+- **CQRS** — Commands write state; queries read state (via `@zudolib/cqrs`)
 - **Domain Events** — Cross-module communication via `DomainEvent` on aggregate roots
 - **Aggregate Roots** — Business rules enforced at the aggregate boundary
 - **Repository Pattern** — Domain defines contracts; infrastructure provides implementations
@@ -59,12 +59,12 @@ npx tsx src/main.ts
 
 - TypeScript 7.x (strict, ESM)
 - Node.js ≥ 24
-- `@zudo/cqrs` — Command/query buses
-- `@zudo/events` — Event bus with middleware
-- `@zudo/config` — Layered configuration
-- `@zudo/errors` — Structured error hierarchy
-- `@zudo/validation` — Zod-based validation
-- `@zudo/logger` — Structured logging
+- `@zudolib/cqrs` — Command/query buses
+- `@zudolib/events` — Event bus with middleware
+- `@zudolib/config` — Layered configuration
+- `@zudolib/errors` — Structured error hierarchy
+- `@zudolib/validation` — Zod-based validation
+- `@zudolib/logger` — Structured logging
 
 ## Demo Flow
 
@@ -78,7 +78,7 @@ npx tsx src/main.ts
 
 ## Configuration
 
-Copy `.env.example` to `.env` and adjust values. The app uses `@zudo/config` to resolve sources in priority order:
+Copy `.env.example` to `.env` and adjust values. The app uses `@zudolib/config` to resolve sources in priority order:
 
 1. Environment variables
 2. Config files (`.env`, `config.json`)

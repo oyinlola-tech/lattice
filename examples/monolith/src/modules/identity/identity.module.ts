@@ -1,4 +1,4 @@
-import { CommandBus } from "@zudo/cqrs";
+import { CommandBus } from "@zudolib/cqrs";
 import { AppCommand } from "../../shared/application/command.js";
 import { createUserId } from "../../shared/domain/ids.js";
 import type { UserRepository } from "../users/domain/repositories/user.repository.js";

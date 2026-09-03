@@ -1,5 +1,5 @@
-import { QueryHandler } from "@zudo/cqrs";
-import type { CqrsContext } from "@zudo/cqrs";
+import { QueryHandler } from "@zudolib/cqrs";
+import type { CqrsContext } from "@zudolib/cqrs";
 import { GetAssessmentQuery } from "./get-assessment.query.js";
 import type { AssessmentRepository } from "../../../../interfaces/index.js";
 import { AssessmentNotFoundError } from "../../../../errors/index.js";

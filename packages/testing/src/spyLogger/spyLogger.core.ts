@@ -1,5 +1,5 @@
 /**
- * @zudo/testing — Spy logger for testing.
+ * @zudolib/testing — Spy logger for testing.
  *
  * Records all log calls for assertion without side effects.
  */
@@ -9,7 +9,7 @@ import type {
   LogMetadata,
   ChildLoggerOptions,
   LoggerContext,
-} from "@zudo/logger";
+} from "@zudolib/logger";
 import type { LogCall, SpyLogger } from "./spyLogger.type.js";
 
 function recordCall(

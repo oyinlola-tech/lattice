@@ -25,7 +25,7 @@ import {
   createPermissionEngine,
   createRoleRegistry,
   type PermissionEngine,
-} from "@zudo/permissions";
+} from "@zudolib/permissions";
 
 const TEST_TOKEN_CONFIG: TokenConfig = {
   accessSecret: "test-access-secret-key-for-testing-32chars!",
@@ -211,7 +211,7 @@ describe("Session Management", () => {
   });
 });
 
-// ─── Permissions Engine (via @zudo/permissions) ──────────────────────────
+// ─── Permissions Engine (via @zudolib/permissions) ──────────────────────────
 
 describe("Permissions Engine", () => {
   const engine = createPermissionEngine({

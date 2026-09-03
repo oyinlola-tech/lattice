@@ -30,7 +30,7 @@ import {
   InvalidHttpServerStateError,
   HttpServerStartError,
   HttpServerStopError,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 import {
   withTimeout,

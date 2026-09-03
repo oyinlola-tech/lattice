@@ -1,10 +1,10 @@
 /**
- * @zudo/testing — Serialization assertions.
+ * @zudolib/testing — Serialization assertions.
  *
  * Helpers for testing serialization round-trips and type preservation.
  */
 
-import { JSONSerializer } from "@zudo/serialization";
+import { JSONSerializer } from "@zudolib/serialization";
 
 const defaultSerializer = new JSONSerializer();
 

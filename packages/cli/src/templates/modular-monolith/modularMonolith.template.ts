@@ -47,18 +47,18 @@ export function generateModularMonolithFiles(
       : ["identity", "enrollment", "assessment"];
 
   const deps = [
-    "@zudo/core",
-    "@zudo/container",
-    "@zudo/config",
-    "@zudo/logger",
-    "@zudo/errors",
-    "@zudo/constants",
-    "@zudo/types",
-    "@zudo/validation",
-    "@zudo/cqrs",
-    "@zudo/events",
-    "@zudo/messaging",
-    "@zudo/http",
+    "@zudolib/core",
+    "@zudolib/container",
+    "@zudolib/config",
+    "@zudolib/logger",
+    "@zudolib/errors",
+    "@zudolib/constants",
+    "@zudolib/types",
+    "@zudolib/validation",
+    "@zudolib/cqrs",
+    "@zudolib/events",
+    "@zudolib/messaging",
+    "@zudolib/http",
   ];
 
   const devDeps = ["tsx", "typescript", "@types/node", "vitest"];
@@ -107,7 +107,7 @@ export function generateModularMonolithFiles(
 }
 `;
 
-  files["zudo.config.ts"] = `import { defineConfig } from "@zudo/config";
+  files["zudo.config.ts"] = `import { defineConfig } from "@zudolib/config";
 
 export default defineConfig({
   application: {
@@ -173,8 +173,8 @@ MIT
   files["src/index.ts"] = `export { createApp } from "./app.js";
 `;
 
-  files["src/app.ts"] = `import { logger } from "@zudo/logger";
-import { createContainer } from "@zudo/container";
+  files["src/app.ts"] = `import { logger } from "@zudolib/logger";
+import { createContainer } from "@zudolib/container";
 
 export async function createApp() {
   const log = logger.child({ service: "app" });
@@ -195,7 +195,7 @@ export async function createApp() {
 `;
 
   files["src/server.ts"] = `import { createApp } from "./app.js";
-import { createRuntime } from "@zudo/runtime";
+import { createRuntime } from "@zudolib/runtime";
 
 const app = await createApp();
 
@@ -247,7 +247,7 @@ process.on("SIGTERM", async () => {
 `;
 
     files[`src/modules/${modName}/${modName}.module.ts`] =
-      `import { logger } from "@zudo/logger";
+      `import { logger } from "@zudolib/logger";
 
 export class ${modNamePascal}Module {
   private readonly log = logger.child({ module: "${modName}" });

@@ -2,7 +2,7 @@ import type { PluginDependency } from "../pluginTypes/pluginDependency.type.js";
 import {
   PluginDependencyCycleError,
   PluginDependencyError,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 /**
  * Result of dependency resolution.

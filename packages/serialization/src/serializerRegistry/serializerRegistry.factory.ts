@@ -1,5 +1,5 @@
 /**
- * @zudo/serialization — Serializer factory.
+ * @zudolib/serialization — Serializer factory.
  *
  * Factory function for creating serializer instances by format name.
  * Provides a clean public API for creating serializers without
@@ -11,8 +11,8 @@ import type {
   SerializationFormat,
 } from "../serializerTypes/index.js";
 import { JSONSerializer } from "../serializerJson/index.js";
-import { UnsupportedSerializationFormatError } from "@zudo/errors";
-import { SerializationFormat as Format } from "@zudo/constants";
+import { UnsupportedSerializationFormatError } from "@zudolib/errors";
+import { SerializationFormat as Format } from "@zudolib/constants";
 import { TransformerRegistry } from "../serializerTransforms/index.js";
 import { SerializerRegistry } from "./serializerRegistry.core.js";
 

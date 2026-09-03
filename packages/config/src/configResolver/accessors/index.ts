@@ -1,5 +1,5 @@
 /**
- * @zudo/config/configResolver/accessors
+ * @zudolib/config/configResolver/accessors
  *
  * Configuration accessors and scoped resolver.
  */

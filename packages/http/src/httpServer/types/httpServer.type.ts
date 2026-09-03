@@ -9,7 +9,7 @@ import {
   InvalidHttpServerStateError,
   HttpServerStartError,
   HttpServerStopError,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 import type {
   HttpAdapter,

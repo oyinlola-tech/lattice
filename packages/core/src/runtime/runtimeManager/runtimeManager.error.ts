@@ -1,10 +1,10 @@
 /**
- * @zudo/core/runtime/runtimeManager/runtimeManager.error
+ * @zudolib/core/runtime/runtimeManager/runtimeManager.error
  *
- * RuntimeManagerError extends RuntimeError from @zudo/errors.
+ * RuntimeManagerError extends RuntimeError from @zudolib/errors.
  */
 
-import { RuntimeError } from "@zudo/errors";
+import { RuntimeError } from "@zudolib/errors";
 
 /**
  * Runtime manager error.

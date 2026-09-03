@@ -1,5 +1,5 @@
 /**
- * @zudo/observability — Log Level
+ * @zudolib/observability — Log Level
  *
  * Level names, conversion, and filtering utilities.
  */

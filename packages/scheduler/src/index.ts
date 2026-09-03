@@ -1,5 +1,5 @@
 /**
- * @zudo/scheduler
+ * @zudolib/scheduler
  *
  * Time and recurring execution engine for the Zudo framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { Scheduler, JobRegistry, JobExecutor, SystemClock } from "@zudo/scheduler";
+ * import { Scheduler, JobRegistry, JobExecutor, SystemClock } from "@zudolib/scheduler";
  *
  * const scheduler = new Scheduler();
  * scheduler.define({

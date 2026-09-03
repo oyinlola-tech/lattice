@@ -1,4 +1,4 @@
-import { Command } from "@zudo/cqrs";
+import { Command } from "@zudolib/cqrs";
 import type { CreateUserDto } from "../../../../dtos/index.js";
 
 export class RegisterUserCommand extends Command<"identity.register-user"> {

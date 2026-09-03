@@ -574,7 +574,7 @@ export function assertValidConfig(
   return result.value as ConfigValue;
 }
 
-import { ConfigurationError } from "@zudo/errors";
+import { ConfigurationError } from "@zudolib/errors";
 
 /**
  * Error thrown when schema validation fails.

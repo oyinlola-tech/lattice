@@ -1,5 +1,5 @@
 /**
- * @zudo/observability
+ * @zudolib/observability
  *
  * Structured logging, metrics, tracing, context propagation, and
  * telemetry exporters for the Zudo framework.
@@ -11,7 +11,7 @@
  * ## Usage
  *
  * ```typescript
- * import { createObservability, LogLevel } from "@zudo/observability";
+ * import { createObservability, LogLevel } from "@zudolib/observability";
  *
  * const obs = createObservability({
  *   serviceName: "my-api",

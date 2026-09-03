@@ -1,13 +1,13 @@
 /**
  * HTTP middleware error types.
  *
- * Extends the shared MiddlewareError from @zudo/errors with
+ * Extends the shared MiddlewareError from @zudolib/errors with
  * HTTP-specific middleware error information.
  *
  * @module httpMiddleware/errors
  */
 
-import { BaseError } from "@zudo/errors";
+import { BaseError } from "@zudolib/errors";
 
 /* -------------------------------------------------------------------------- */
 /* Errors                                                                     */

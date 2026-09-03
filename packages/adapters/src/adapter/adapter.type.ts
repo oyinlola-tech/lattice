@@ -1,5 +1,5 @@
 /**
- * @zudo/adapters/adapter
+ * @zudolib/adapters/adapter
  *
  * Core adapter contract — the base interface all adapters implement.
  */

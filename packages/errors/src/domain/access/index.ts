@@ -1,5 +1,5 @@
 /**
- * @zudo/errors/domain/access
+ * @zudolib/errors/domain/access
  *
  * Authentication, authorization, and rate limit errors.
  */

@@ -5,7 +5,7 @@ A Zudo application is the top-level container for all modules, plugins, and infr
 ## Creating an Application
 
 ```typescript
-import { createApplication } from "@zudo/core";
+import { createApplication } from "@zudolib/core";
 
 const app = await createApplication({
   config: loadConfig(),

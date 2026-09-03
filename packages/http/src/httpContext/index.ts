@@ -1,5 +1,5 @@
 /**
- * @zudo/http/httpContext
+ * @zudolib/http/httpContext
  *
  * HTTP httpContext module.
  */

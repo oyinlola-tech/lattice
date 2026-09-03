@@ -1,5 +1,5 @@
 /**
- * @zudo/errors/domain/state
+ * @zudolib/errors/domain/state
  *
  * State-related errors (not found, conflict, validation).
  */

@@ -1,4 +1,4 @@
-import { Command } from "@zudo/cqrs";
+import { Command } from "@zudolib/cqrs";
 import type { AddReactionDto } from "../../../../dtos/index.js";
 
 export class AddReactionCommand extends Command<"reactions.add"> {

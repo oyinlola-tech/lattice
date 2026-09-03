@@ -1,17 +1,17 @@
-# @zudo/openapi
+# @zudolib/openapi
 
 OpenAPI 3.1 specification generation, validation, and SDK generation for Zudo applications.
 
 ## Installation
 
 ```bash
-npm install @zudo/openapi
+npm install @zudolib/openapi
 ```
 
 ## Quick Start
 
 ```typescript
-import { createOpenAPIRouter } from "@zudo/openapi";
+import { createOpenAPIRouter } from "@zudolib/openapi";
 
 const router = createOpenAPIRouter({
   info: { title: "My API", version: "1.0.0" },
@@ -32,7 +32,7 @@ router.get(
 
 - OpenAPI 3.1 spec generation
 - Route documentation decorators
-- Schema integration with `@zudo/schema`
+- Schema integration with `@zudolib/schema`
 - Request/response validation
 - SDK generation
 

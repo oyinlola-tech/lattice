@@ -8,7 +8,7 @@ import {
   AuthorizationError,
   ErrorCode,
   type ErrorMetadata,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 /**
  * Base error for all tenancy-related failures.

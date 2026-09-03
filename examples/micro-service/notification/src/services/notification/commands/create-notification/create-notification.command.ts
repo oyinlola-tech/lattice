@@ -1,4 +1,4 @@
-import { Command } from "@zudo/cqrs";
+import { Command } from "@zudolib/cqrs";
 import type { NotificationType } from "../../../../enums/index.js";
 
 export const CREATE_NOTIFICATION_COMMAND = "notification.create" as const;

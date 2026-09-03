@@ -6,64 +6,64 @@ Zudo packages are organized into dependency tiers. Dependencies flow inward — 
 
 ### Tier 0 — Leaf
 
-No `@zudo/*` dependencies.
+No `@zudolib/*` dependencies.
 
-- `@zudo/errors` — BaseError, ErrorCode, error categories
-- `@zudo/types` — type guards, utility types
+- `@zudolib/errors` — BaseError, ErrorCode, error categories
+- `@zudolib/types` — type guards, utility types
 
 ### Tier 1 — Foundation
 
 Depends only on Tier 0.
 
-- `@zudo/constants` — shared constants and branded types
-- `@zudo/container` — DI container
-- `@zudo/logger` — structured logging
-- `@zudo/crypto` — cryptographic primitives
-- `@zudo/validation` — schema validation
-- `@zudo/schema` — schema definitions
-- `@zudo/config` — layered configuration
-- `@zudo/middleware` — composable middleware
-- `@zudo/serialization` — JSON serializer and transformers
-- `@zudo/events` — event bus, emitter, middleware, registry
-- `@zudo/messaging` — message bus
-- `@zudo/lifecycle` — lifecycle orchestration
-- `@zudo/transactions` — transaction coordination
-- `@zudo/permissions` — RBAC/ABAC
-- `@zudo/feature-flags` — feature flag evaluation
-- `@zudo/plugins` — plugin manager
-- `@zudo/security` — input validation, CORS, CSRF, rate limiting
-- `@zudo/tenancy` — multi-tenant context
-- `@zudo/docs` — documentation infrastructure
-- `@zudo/cache` — cache abstraction
-- `@zudo/storage` — storage abstraction
-- `@zudo/adapters` — boundary to external platforms
-- `@zudo/queue` — background jobs
-- `@zudo/scheduler` — scheduling
-- `@zudo/database` — DB infrastructure
-- `@zudo/observability` — metrics/tracing
+- `@zudolib/constants` — shared constants and branded types
+- `@zudolib/container` — DI container
+- `@zudolib/logger` — structured logging
+- `@zudolib/crypto` — cryptographic primitives
+- `@zudolib/validation` — schema validation
+- `@zudolib/schema` — schema definitions
+- `@zudolib/config` — layered configuration
+- `@zudolib/middleware` — composable middleware
+- `@zudolib/serialization` — JSON serializer and transformers
+- `@zudolib/events` — event bus, emitter, middleware, registry
+- `@zudolib/messaging` — message bus
+- `@zudolib/lifecycle` — lifecycle orchestration
+- `@zudolib/transactions` — transaction coordination
+- `@zudolib/permissions` — RBAC/ABAC
+- `@zudolib/feature-flags` — feature flag evaluation
+- `@zudolib/plugins` — plugin manager
+- `@zudolib/security` — input validation, CORS, CSRF, rate limiting
+- `@zudolib/tenancy` — multi-tenant context
+- `@zudolib/docs` — documentation infrastructure
+- `@zudolib/cache` — cache abstraction
+- `@zudolib/storage` — storage abstraction
+- `@zudolib/adapters` — boundary to external platforms
+- `@zudolib/queue` — background jobs
+- `@zudolib/scheduler` — scheduling
+- `@zudolib/database` — DB infrastructure
+- `@zudolib/observability` — metrics/tracing
 
 ### Tier 2 — Application
 
 Depends on Tier 1.
 
-- `@zudo/core` — application lifecycle, execution context, runtime
-- `@zudo/cqrs` — commands/queries/handlers
-- `@zudo/auth` — JWT/sessions/RBAC
-- `@zudo/runtime` — lifecycle orchestrator
-- `@zudo/openapi` — OpenAPI generation
-- `@zudo/rpc` — RPC
-- `@zudo/api` — API framework
+- `@zudolib/core` — application lifecycle, execution context, runtime
+- `@zudolib/cqrs` — commands/queries/handlers
+- `@zudolib/auth` — JWT/sessions/RBAC
+- `@zudolib/runtime` — lifecycle orchestrator
+- `@zudolib/openapi` — OpenAPI generation
+- `@zudolib/rpc` — RPC
+- `@zudolib/api` — API framework
 
 ### Tier 3 — Transport
 
 Depends on Tier 2.
 
-- `@zudo/http` — HTTP primitives, routing, middleware
+- `@zudolib/http` — HTTP primitives, routing, middleware
 - `zudo-cli` — CLI scaffolding/generators
 
 ### Tier 4 — Developer Experience
 
-- `@zudo/testing` — test helpers
+- `@zudolib/testing` — test helpers
 
 ## Rules
 

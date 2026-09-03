@@ -7,7 +7,7 @@ import {
   ErrorCode,
   ErrorCategory,
   ErrorSeverity,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 /** A single validation issue. */
 export interface ValidationIssue {

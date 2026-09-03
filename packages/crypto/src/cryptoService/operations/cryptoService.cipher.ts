@@ -5,7 +5,7 @@ import type {
 
 import { encrypt, decrypt } from "../../cryptoCipher/cryptoCipher.core.js";
 
-import { cryptoCipherError, CryptoOperation } from "@zudo/errors";
+import { cryptoCipherError, CryptoOperation } from "@zudolib/errors";
 
 export type { CipherOptions, CipherResult };
 

@@ -1,5 +1,5 @@
 /**
- * @zudo/cqrs
+ * @zudolib/cqrs
  *
  * Command Query Responsibility Segregation primitives for the Zudo framework.
  * Provides buses, handlers, middleware, and execution infrastructure.
@@ -96,7 +96,7 @@ export {
   isEvent,
   createEvent as createBaseEvent,
   createEventId as createBaseEventId,
-} from "@zudo/events";
+} from "@zudolib/events";
 
 export * from "./cqrsEvents/index.js";
 

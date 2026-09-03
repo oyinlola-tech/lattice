@@ -11,7 +11,7 @@ import type {
 
 import type { Queue, QueueOptions, QueueStats } from "./queue.type.js";
 
-import { QueueClosedError, QueueDisposedError } from "@zudo/errors";
+import { QueueClosedError, QueueDisposedError } from "@zudolib/errors";
 
 import { createInMemoryQueue } from "../inMemoryQueue/index.js";
 

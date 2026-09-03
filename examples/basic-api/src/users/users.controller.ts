@@ -8,7 +8,7 @@
 import type { User, CreateUserInput } from "./users.types.js";
 import type { UsersService } from "./users.service.js";
 import { CreateUserSchema } from "./users.schema.js";
-import { validate } from "@zudo/validation";
+import { validate } from "@zudolib/validation";
 
 type HttpRequest = {
   method: string;

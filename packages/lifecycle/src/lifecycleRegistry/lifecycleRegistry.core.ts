@@ -1,10 +1,10 @@
 /**
- * @zudo/lifecycle/registry
+ * @zudolib/lifecycle/registry
  *
  * Lifecycle registry — manages component registration, validation, and lookup.
  */
 
-import { LIFECYCLE_DEFAULT_TIMEOUT } from "@zudo/constants";
+import { LIFECYCLE_DEFAULT_TIMEOUT } from "@zudolib/constants";
 import type {
   LifecycleComponent,
   LifecycleRegistration,

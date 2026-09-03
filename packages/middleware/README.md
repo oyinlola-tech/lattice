@@ -1,11 +1,11 @@
-# @zudo/middleware
+# @zudolib/middleware
 
 Composable middleware pipeline with composition, timing, error handling, and context propagation.
 
 ## Installation
 
 ```bash
-npm install @zudo/middleware
+npm install @zudolib/middleware
 ```
 
 ## Quick Start
@@ -14,7 +14,7 @@ npm install @zudo/middleware
 import {
   createMiddlewarePipeline,
   createTimeoutMiddleware,
-} from "@zudo/middleware";
+} from "@zudolib/middleware";
 
 const pipeline = createMiddlewarePipeline([
   createTimeoutMiddleware(5000),

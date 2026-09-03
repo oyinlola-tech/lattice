@@ -1,4 +1,4 @@
-import type { Logger } from "@zudo/logger";
+import type { Logger } from "@zudolib/logger";
 
 /** Context passed to each middleware invocation. */
 export interface MiddlewareContext {

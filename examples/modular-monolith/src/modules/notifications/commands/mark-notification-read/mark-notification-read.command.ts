@@ -1,4 +1,4 @@
-import { Command } from "@zudo/cqrs";
+import { Command } from "@zudolib/cqrs";
 import type { NotificationId } from "../../../../types/index.js";
 
 export class MarkNotificationReadCommand extends Command<"notifications.mark-read"> {

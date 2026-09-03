@@ -8,7 +8,7 @@ import {
   ErrorCategory,
   ErrorSeverity,
   type ErrorMetadata,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 /**
  * Base error for all transaction-related failures.

@@ -1,5 +1,5 @@
 /**
- * @zudo/http/httpStream — Read stream into Buffer or string.
+ * @zudolib/http/httpStream — Read stream into Buffer or string.
  */
 
 import type { HTTPStreamOptions } from "./httpStream.types.js";

@@ -1,5 +1,5 @@
 /**
- * @zudo/serialization — Serialization envelope.
+ * @zudolib/serialization — Serialization envelope.
  *
  * Wraps serialized data with metadata (format, version, encoding)
  * so consumers know how to deserialize the payload. Essential for
@@ -15,7 +15,7 @@ import {
   SerializationFormat,
   SerializationContentType,
   SERIALIZATION_SCHEMA_VERSION,
-} from "@zudo/constants";
+} from "@zudolib/constants";
 import { encodeUtf8, decodeUtf8 } from "../serializerTransformsExt/index.js";
 
 /**

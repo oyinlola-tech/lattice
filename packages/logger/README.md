@@ -1,17 +1,17 @@
-# @zudo/logger
+# @zudolib/logger
 
 Structured logging with transports, log levels, and context propagation for Zudo applications.
 
 ## Installation
 
 ```bash
-npm install @zudo/logger
+npm install @zudolib/logger
 ```
 
 ## Quick Start
 
 ```typescript
-import { createLogger } from "@zudo/logger";
+import { createLogger } from "@zudolib/logger";
 
 const logger = createLogger({ name: "api" });
 

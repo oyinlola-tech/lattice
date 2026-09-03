@@ -7,7 +7,7 @@ Zudo applications are composed of modules.
 A module is a self-contained unit of functionality with explicit imports, exports, providers, and controllers.
 
 ```typescript
-import { Module } from "@zudo/core";
+import { Module } from "@zudolib/core";
 
 @Module({
   imports: [DatabaseModule, EventsModule],

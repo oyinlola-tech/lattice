@@ -1,5 +1,5 @@
 /**
- * @zudo/lifecycle/phase
+ * @zudolib/lifecycle/phase
  *
  * Lifecycle phase ordering and hook name utilities.
  */

@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@zudo/cqrs";
+import type { CommandBus, QueryBus } from "@zudolib/cqrs";
 import type { ArticleId, UserId } from "../types/index.js";
 import { AddReactionCommand } from "../modules/reactions/commands/add-reaction/add-reaction.command.js";
 import { RemoveReactionCommand } from "../modules/reactions/commands/remove-reaction/remove-reaction.command.js";

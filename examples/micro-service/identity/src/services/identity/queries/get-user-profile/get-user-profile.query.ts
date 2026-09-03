@@ -1,4 +1,4 @@
-import { Query } from "@zudo/cqrs";
+import { Query } from "@zudolib/cqrs";
 
 /**
  * Query to retrieve a user profile by email.

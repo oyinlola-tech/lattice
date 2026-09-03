@@ -1,5 +1,5 @@
 /**
- * @zudo/database — Transactions
+ * @zudolib/database — Transactions
  *
  * Managed transaction execution with retry support.
  */

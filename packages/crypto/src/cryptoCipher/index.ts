@@ -1,5 +1,5 @@
 /**
- * @zudo/crypto/cryptoCipher
+ * @zudolib/crypto/cryptoCipher
  *
  * Symmetric and asymmetric encryption operations.
  */

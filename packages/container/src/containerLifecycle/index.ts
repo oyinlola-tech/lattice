@@ -1,5 +1,5 @@
 /**
- * @zudo/container/containerLifecycle
+ * @zudolib/container/containerLifecycle
  *
  * Container lifecycle management and scoping.
  */

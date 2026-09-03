@@ -16,4 +16,4 @@ export {
   EventBusState,
   type EventBusEvent,
   type EventBusListener,
-} from "@zudo/events";
+} from "@zudolib/events";

@@ -1,5 +1,5 @@
 /**
- * @zudo/database — Repository
+ * @zudolib/database — Repository
  *
  * Generic repository pattern with Prisma delegate support.
  */

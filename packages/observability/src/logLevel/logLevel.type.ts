@@ -1,5 +1,5 @@
 /**
- * @zudo/observability — Log Level
+ * @zudolib/observability — Log Level
  *
  * Utility functions for converting between log levels and names,
  * and checking whether a message should be logged.

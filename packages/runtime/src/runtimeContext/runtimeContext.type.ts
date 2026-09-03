@@ -1,10 +1,10 @@
-import type { Environment } from "@zudo/constants";
+import type { Environment } from "@zudolib/constants";
 
-import type { Logger } from "@zudo/logger";
+import type { Logger } from "@zudolib/logger";
 
-import type { EventBus } from "@zudo/events";
+import type { EventBus } from "@zudolib/events";
 
-import type { Container } from "@zudo/container";
+import type { Container } from "@zudolib/container";
 
 import type {
   RuntimeId,

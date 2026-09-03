@@ -55,7 +55,7 @@ npm install
 npm run dev
 
 # Or from the repository root
-npm run dev --workspace=@zudo/example-worker
+npm run dev --workspace=@zudolib/example-worker
 ```
 
 ## What It Does

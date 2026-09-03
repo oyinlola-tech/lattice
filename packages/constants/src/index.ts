@@ -1,5 +1,5 @@
 /**
- * @zudo/constants
+ * @zudolib/constants
  *
  * Shared constants, enums, and type-safe literals for the Zudo framework.
  *
@@ -7,7 +7,7 @@
  * time durations and timeouts, branded domain identifiers, validation patterns
  * and limits, cache strategies, and priority levels.
  *
- * @module @zudo/constants
+ * @module @zudolib/constants
  */
 
 export * from "./http/index.js";

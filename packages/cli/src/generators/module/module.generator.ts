@@ -26,7 +26,7 @@ export async function generateModule(
   const name = options.name.toLowerCase().replace(/[^a-z0-9-]/g, "-");
 
   const files: Record<string, string> = {
-    [`${basePath}/${name}/${name}.module.ts`]: `import { createLogger } from "@zudo/logger";
+    [`${basePath}/${name}/${name}.module.ts`]: `import { createLogger } from "@zudolib/logger";
 
 export class ${
       name
@@ -58,7 +58,7 @@ export class ${
   if (options.feature) {
     const featureName = `${name}.feature`;
     files[`${basePath}/${name}/features/${featureName}.ts`] =
-      `import { createLogger } from "@zudo/logger";
+      `import { createLogger } from "@zudolib/logger";
 
 export class ${
         name

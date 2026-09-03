@@ -6,7 +6,7 @@ import type { QueueEventMap } from "../queue/queue.type.js";
  * Emitter for queue lifecycle events.
  *
  * Provides a simple event emission interface that can be
- * implemented by different backends (in-memory, @zudo/events, etc.).
+ * implemented by different backends (in-memory, @zudolib/events, etc.).
  */
 export interface QueueEventEmitter {
   /** Emit an event. */

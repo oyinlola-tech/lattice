@@ -1,17 +1,17 @@
-# @zudo/serialization
+# @zudolib/serialization
 
 Data translation layer with JSON serializer, type transformers, envelopes, and registry for Zudo applications.
 
 ## Installation
 
 ```bash
-npm install @zudo/serialization
+npm install @zudolib/serialization
 ```
 
 ## Quick Start
 
 ```typescript
-import { createSerializer } from "@zudo/serialization";
+import { createSerializer } from "@zudolib/serialization";
 
 const serializer = createSerializer({
   format: "json",

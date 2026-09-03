@@ -1,4 +1,4 @@
-import { Query } from "@zudo/cqrs";
+import { Query } from "@zudolib/cqrs";
 
 export class SearchArticlesQuery extends Query<"articles.search"> {
   public readonly searchTerm: string;

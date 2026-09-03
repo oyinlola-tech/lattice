@@ -48,7 +48,7 @@ npm install
 npm run dev
 
 # Or from the repository root
-npm run dev --workspace=@zudo/example-basic-api
+npm run dev --workspace=@zudolib/example-basic-api
 ```
 
 The server starts at `http://localhost:3000`.
@@ -145,7 +145,7 @@ AppModule
 
 Each module:
 
-- Extends `BaseModule` from `@zudo/core`
+- Extends `BaseModule` from `@zudolib/core`
 - Implements lifecycle hooks (`onInitialize`, `onShutdown`)
 - Encapsulates its own controllers and services
 - Manages its own dependencies

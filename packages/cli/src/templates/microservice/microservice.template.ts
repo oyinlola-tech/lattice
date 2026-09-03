@@ -65,7 +65,7 @@ export function generateMicroserviceFiles(
   - services/*
 `;
 
-  files["zudo.config.ts"] = `import { defineConfig } from "@zudo/config";
+  files["zudo.config.ts"] = `import { defineConfig } from "@zudolib/config";
 
 export default defineConfig({
   application: {
@@ -162,7 +162,7 @@ MIT
   files["src/types/index.ts"] = ``;
 
   // Gateway service
-  const gatewayDeps = ["@zudo/http", "@zudo/config", "@zudo/logger"];
+  const gatewayDeps = ["@zudolib/http", "@zudolib/config", "@zudolib/logger"];
 
   files["apps/gateway/package.json"] =
     JSON.stringify(
@@ -226,7 +226,7 @@ CMD ["node", "dist/server.js"]
     `export { createGateway } from "./app.js";
 `;
 
-  files["apps/gateway/src/app.ts"] = `import { logger } from "@zudo/logger";
+  files["apps/gateway/src/app.ts"] = `import { logger } from "@zudolib/logger";
 
 export async function createGateway() {
   const log = logger.child({ service: "gateway" });
@@ -245,7 +245,7 @@ export async function createGateway() {
 
   files["apps/gateway/src/server.ts"] =
     `import { createGateway } from "./app.js";
-import { createRuntime } from "@zudo/runtime";
+import { createRuntime } from "@zudolib/runtime";
 
 const app = await createGateway();
 
@@ -266,17 +266,17 @@ process.on("SIGTERM", async () => {
 
   // Generate each service
   const serviceDeps = [
-    "@zudo/core",
-    "@zudo/container",
-    "@zudo/config",
-    "@zudo/logger",
-    "@zudo/errors",
-    "@zudo/constants",
-    "@zudo/http",
+    "@zudolib/core",
+    "@zudolib/container",
+    "@zudolib/config",
+    "@zudolib/logger",
+    "@zudolib/errors",
+    "@zudolib/constants",
+    "@zudolib/http",
   ];
 
   if (options.enableCQRS) {
-    serviceDeps.push("@zudo/cqrs", "@zudo/events");
+    serviceDeps.push("@zudolib/cqrs", "@zudolib/events");
   }
 
   for (const svc of services) {
@@ -371,8 +371,8 @@ CMD ["node", "dist/server.js"]
 `;
 
     files[`apps/services/${svcName}/src/app.ts`] =
-      `import { logger } from "@zudo/logger";
-import { createContainer } from "@zudo/container";
+      `import { logger } from "@zudolib/logger";
+import { createContainer } from "@zudolib/container";
 
 export async function createApp() {
   const log = logger.child({ service: "${svcName}" });
@@ -394,7 +394,7 @@ export async function createApp() {
 
     files[`apps/services/${svcName}/src/server.ts`] =
       `import { createApp } from "./app.js";
-import { createRuntime } from "@zudo/runtime";
+import { createRuntime } from "@zudolib/runtime";
 
 const app = await createApp();
 

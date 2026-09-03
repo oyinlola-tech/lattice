@@ -1,5 +1,5 @@
 /**
- * @zudo/validation/validationParser
+ * @zudolib/validation/validationParser
  *
  * Schema parsing and type inference.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudo/testing — HTTP testing helpers.
+ * @zudolib/testing — HTTP testing helpers.
  *
  * Request and response builders for HTTP testing.
  */

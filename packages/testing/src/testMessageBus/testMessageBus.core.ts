@@ -4,7 +4,7 @@
  * Wraps the real MessageBus with recording and assertion support.
  */
 
-import { createMessageBus } from "@zudo/messaging";
+import { createMessageBus } from "@zudolib/messaging";
 
 import type {
   Message,
@@ -14,7 +14,7 @@ import type {
   MessageId,
   DispatchResult,
   DispatchOptions,
-} from "@zudo/messaging";
+} from "@zudolib/messaging";
 
 /**
  * A recorded message dispatch.

@@ -1,5 +1,5 @@
 /**
- * @zudo/adapters/metadata
+ * @zudolib/adapters/metadata
  *
  * Adapter metadata types.
  */

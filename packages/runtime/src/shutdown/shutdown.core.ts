@@ -1,8 +1,8 @@
-import type { Logger } from "@zudo/logger";
+import type { Logger } from "@zudolib/logger";
 
-import type { EventBus } from "@zudo/events";
+import type { EventBus } from "@zudolib/events";
 
-import { createEvent } from "@zudo/events";
+import { createEvent } from "@zudolib/events";
 
 import { LifecycleManager } from "../lifecycle/index.js";
 

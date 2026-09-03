@@ -1,5 +1,5 @@
 /**
- * @zudo/http/httpResponse
+ * @zudolib/http/httpResponse
  *
  * HTTP response abstraction, context, and writer.
  */

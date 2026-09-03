@@ -5,13 +5,13 @@
  * contexts without the full Runtime lifecycle.
  */
 
-import type { Container } from "@zudo/container";
+import type { Container } from "@zudolib/container";
 
-import type { Logger } from "@zudo/logger";
+import type { Logger } from "@zudolib/logger";
 
-import { createStartedContainer } from "@zudo/container";
+import { createStartedContainer } from "@zudolib/container";
 
-import { createLogger } from "@zudo/logger";
+import { createLogger } from "@zudolib/logger";
 
 import { createCleanupManager } from "../cleanupManager/cleanupManager.core.js";
 

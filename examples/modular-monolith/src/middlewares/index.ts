@@ -1,4 +1,4 @@
-import type { Logger } from "@zudo/logger";
+import type { Logger } from "@zudolib/logger";
 
 export interface MiddlewareContext {
   readonly method: string;

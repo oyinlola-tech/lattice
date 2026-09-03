@@ -33,10 +33,10 @@ Use only what the application needs. Every package is independent.
 ```
 Application
      |
-     +-- @zudo/core
-     +-- @zudo/http
-     +-- @zudo/database
-     +-- @zudo/events
+     +-- @zudolib/core
+     +-- @zudolib/http
+     +-- @zudolib/database
+     +-- @zudolib/events
 ```
 
 No need to install everything.
@@ -64,7 +64,7 @@ Runtime
 
 ### Infrastructure-Neutral
 
-The application is not tightly coupled to a specific database, queue, cloud provider, or storage backend. The `@zudo/adapters` package defines the boundary between Zudo and external platforms.
+The application is not tightly coupled to a specific database, queue, cloud provider, or storage backend. The `@zudolib/adapters` package defines the boundary between Zudo and external platforms.
 
 ---
 
@@ -128,63 +128,63 @@ Zudo is organized as an npm workspaces monorepo. Each package has a focused resp
 
 | Package               | Description                                           |
 | --------------------- | ----------------------------------------------------- |
-| `@zudo/core`       | Lifecycle, context, runtime, modules                  |
-| `@zudo/runtime`    | Application lifecycle orchestrator                    |
-| `@zudo/container`  | DI container with token-based registration            |
-| `@zudo/config`     | Layered configuration with sources                    |
-| `@zudo/errors`     | Shared error base class and utilities                 |
-| `@zudo/validation` | Schema validation with Zod                            |
-| `@zudo/logger`     | Structured logging with transports                    |
-| `@zudo/lifecycle`  | State machine, dependency ordering, graceful shutdown |
-| `@zudo/constants`  | Shared constants, enums, and type-safe literals       |
-| `@zudo/types`      | Shared type guards and utility types                  |
-| `@zudo/middleware` | Composable middleware pipeline                        |
+| `@zudolib/core`       | Lifecycle, context, runtime, modules                  |
+| `@zudolib/runtime`    | Application lifecycle orchestrator                    |
+| `@zudolib/container`  | DI container with token-based registration            |
+| `@zudolib/config`     | Layered configuration with sources                    |
+| `@zudolib/errors`     | Shared error base class and utilities                 |
+| `@zudolib/validation` | Schema validation with Zod                            |
+| `@zudolib/logger`     | Structured logging with transports                    |
+| `@zudolib/lifecycle`  | State machine, dependency ordering, graceful shutdown |
+| `@zudolib/constants`  | Shared constants, enums, and type-safe literals       |
+| `@zudolib/types`      | Shared type guards and utility types                  |
+| `@zudolib/middleware` | Composable middleware pipeline                        |
 
 ### Application
 
 | Package                  | Description                                |
 | ------------------------ | ------------------------------------------ |
-| `@zudo/http`          | HTTP primitives, request handling, routing |
-| `@zudo/schema`        | Schema definition and parsing engine       |
-| `@zudo/serialization` | Data translation layer                     |
-| `@zudo/cqrs`          | Command query responsibility segregation   |
-| `@zudo/cli`           | Command-line interface                     |
+| `@zudolib/http`          | HTTP primitives, request handling, routing |
+| `@zudolib/schema`        | Schema definition and parsing engine       |
+| `@zudolib/serialization` | Data translation layer                     |
+| `@zudolib/cqrs`          | Command query responsibility segregation   |
+| `@zudolib/cli`           | Command-line interface                     |
 
 ### Data and Infrastructure
 
 | Package                 | Description                                  |
 | ----------------------- | -------------------------------------------- |
-| `@zudo/database`     | Database clients, repositories, transactions |
-| `@zudo/storage`      | Storage abstractions and lifecycle           |
-| `@zudo/queue`        | Background job infrastructure                |
-| `@zudo/messaging`    | In-process message bus                       |
-| `@zudo/transactions` | Transaction lifecycle and coordination       |
-| `@zudo/cache`        | Cache abstraction with adapters              |
+| `@zudolib/database`     | Database clients, repositories, transactions |
+| `@zudolib/storage`      | Storage abstractions and lifecycle           |
+| `@zudolib/queue`        | Background job infrastructure                |
+| `@zudolib/messaging`    | In-process message bus                       |
+| `@zudolib/transactions` | Transaction lifecycle and coordination       |
+| `@zudolib/cache`        | Cache abstraction with adapters              |
 
 ### Security
 
 | Package                | Description                                 |
 | ---------------------- | ------------------------------------------- |
-| `@zudo/security`    | Input validation, CORS, CSRF, rate limiting |
-| `@zudo/crypto`      | Cryptographic primitives                    |
-| `@zudo/auth`        | JWT, sessions, password hashing             |
-| `@zudo/permissions` | RBAC, ABAC, resource authorization          |
+| `@zudolib/security`    | Input validation, CORS, CSRF, rate limiting |
+| `@zudolib/crypto`      | Cryptographic primitives                    |
+| `@zudolib/auth`        | JWT, sessions, password hashing             |
+| `@zudolib/permissions` | RBAC, ABAC, resource authorization          |
 
 ### Platform
 
 | Package                  | Description                           |
 | ------------------------ | ------------------------------------- |
-| `@zudo/observability` | Metrics, tracing, context propagation |
-| `@zudo/tenancy`       | Multi-tenant context and isolation    |
-| `@zudo/feature-flags` | Feature flag evaluation and rollouts  |
-| `@zudo/adapters`      | Boundary layer for external platforms |
+| `@zudolib/observability` | Metrics, tracing, context propagation |
+| `@zudolib/tenancy`       | Multi-tenant context and isolation    |
+| `@zudolib/feature-flags` | Feature flag evaluation and rollouts  |
+| `@zudolib/adapters`      | Boundary layer for external platforms |
 
 ### Development
 
 | Package            | Description                   |
 | ------------------ | ----------------------------- |
-| `@zudo/testing` | Test helpers, fixtures, mocks |
-| `@zudo/docs`    | Documentation infrastructure  |
+| `@zudolib/testing` | Test helpers, fixtures, mocks |
+| `@zudolib/docs`    | Documentation infrastructure  |
 
 ---
 
@@ -364,8 +364,8 @@ zudo dev --port 3000       # Custom port for backend
 ### Backend
 
 ```ts
-import { createApplication } from "@zudo/runtime";
-import { createHTTPServer } from "@zudo/http";
+import { createApplication } from "@zudolib/runtime";
+import { createHTTPServer } from "@zudolib/http";
 
 const app = await createApplication();
 
@@ -415,13 +415,13 @@ All published packages are at version `0.1.x` and marked as **Built**.
 Zudo packages can be installed individually.
 
 ```bash
-pnpm add @zudo/core
+pnpm add @zudolib/core
 ```
 
 Install additional packages depending on the application requirements.
 
 ```bash
-pnpm add @zudo/http @zudo/config @zudo/logger
+pnpm add @zudolib/http @zudolib/config @zudolib/logger
 ```
 
 ---
@@ -454,8 +454,8 @@ pnpm run test           # Run architect tests
 ### Per-Package Commands
 
 ```bash
-pnpm run --filter=@zudo/http typecheck
-pnpm run --filter=@zudo/http build
+pnpm run --filter=@zudolib/http typecheck
+pnpm run --filter=@zudolib/http build
 ```
 
 ---

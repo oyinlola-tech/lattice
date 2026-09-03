@@ -1,5 +1,5 @@
 {
-  "name": "@zudo/rpc",
+  "name": "@zudolib/rpc",
   "version": "0.1.3",
   "description": "Remote procedure call infrastructure for Zudo applications.",
   "license": "MIT",
@@ -27,10 +27,10 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@zudo/errors": "workspace:*",
-    "@zudo/constants": "workspace:*",
-    "@zudo/types": "workspace:*",
-    "@zudo/schema": "workspace:*"
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/constants": "workspace:*",
+    "@zudolib/types": "workspace:*",
+    "@zudolib/schema": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

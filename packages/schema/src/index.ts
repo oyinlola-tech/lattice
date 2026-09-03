@@ -1,5 +1,5 @@
 /**
- * @zudo/schema
+ * @zudolib/schema
  *
  * Schema definition and parsing engine for the Zudo framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { schema, type Infer } from "@zudo/schema";
+ * import { schema, type Infer } from "@zudolib/schema";
  *
  * const UserSchema = schema.object({
  *   id: schema.string().uuid(),

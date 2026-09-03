@@ -1,5 +1,5 @@
 /**
- * @zudo/security — Body Validation
+ * @zudolib/security — Body Validation
  *
  * Validates request body size and content type against configurable limits.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudo/http/httpRouter/core/factory
+ * @zudolib/http/httpRouter/core/factory
  *
  * HTTP route factory utilities.
  */

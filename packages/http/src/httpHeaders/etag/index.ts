@@ -1,5 +1,5 @@
 /**
- * @zudo/http/httpHeaders/etag
+ * @zudolib/http/httpHeaders/etag
  *
  * HTTP headers etag utilities.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudo/http — Security tests.
+ * @zudolib/http — Security tests.
  *
  * Tests for request guard, header validation, host validation,
  * body limits, request ID validation, and smuggling protection.

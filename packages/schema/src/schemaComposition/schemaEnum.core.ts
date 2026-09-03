@@ -1,5 +1,5 @@
 /**
- * @zudo/schema/composition/enum
+ * @zudolib/schema/composition/enum
  *
  * Enum schema for constrained value sets.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudo/constants";
+import { SchemaIssueCode } from "@zudolib/constants";
 
 /**
  * Schema for a fixed set of allowed values.

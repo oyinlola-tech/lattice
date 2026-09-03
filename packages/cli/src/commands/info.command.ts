@@ -23,7 +23,7 @@ export async function runInfoCommand(context: CLIContext): Promise<void> {
     projectName = pkg.name ?? "unknown";
 
     const zudoDeps = Object.entries(pkg.dependencies ?? {})
-      .filter(([name]) => name.startsWith("@zudo/"))
+      .filter(([name]) => name.startsWith("@zudolib/"))
       .sort(([a], [b]) => a.localeCompare(b));
 
     context.logger.info("Zudo Project Info");

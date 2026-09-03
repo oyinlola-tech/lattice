@@ -1,5 +1,5 @@
 /**
- * @zudo/openapi
+ * @zudolib/openapi
  *
  * API contract and documentation engine for the Zudo framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { OpenAPIManager } from "@zudo/openapi";
+ * import { OpenAPIManager } from "@zudolib/openapi";
  *
  * const manager = new OpenAPIManager("3.1.0");
  *

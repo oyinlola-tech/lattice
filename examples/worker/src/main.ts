@@ -13,7 +13,7 @@
 
 import { loadConfig } from "./config/config.js";
 import { WorkerModule } from "./app/worker.module.js";
-import { BackoffType } from "@zudo/queue";
+import { BackoffType } from "@zudolib/queue";
 
 const config = loadConfig();
 

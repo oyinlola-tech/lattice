@@ -1,5 +1,5 @@
 /**
- * @zudo/openapi/openApiHttp
+ * @zudolib/openapi/openApiHttp
  *
  * HTTP integration for OpenAPI document serving.
  */

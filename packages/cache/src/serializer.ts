@@ -1,13 +1,13 @@
 /**
- * @zudo/cache — Serializer
+ * @zudolib/cache — Serializer
  *
  * Provides serializer implementations for converting cache values
- * to and from storable representations. Delegates to @zudo/serialization
+ * to and from storable representations. Delegates to @zudolib/serialization
  * for the actual JSON serialization with type preservation.
  */
 
 import type { CacheSerializer } from "./types.js";
-import { JSONSerializer } from "@zudo/serialization";
+import { JSONSerializer } from "@zudolib/serialization";
 
 /* -------------------------------------------------------------------------- */
 /* JSON Serializer                                                            */
@@ -16,7 +16,7 @@ import { JSONSerializer } from "@zudo/serialization";
 /**
  * Serializes values to JSON strings and deserializes them back.
  *
- * Uses @zudo/serialization's JSONSerializer for type preservation
+ * Uses @zudolib/serialization's JSONSerializer for type preservation
  * (Date, BigInt, Map, Set, Uint8Array) when configured.
  */
 export class JsonCacheSerializer implements CacheSerializer<unknown, string> {

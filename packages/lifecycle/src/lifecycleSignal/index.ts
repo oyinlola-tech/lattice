@@ -1,5 +1,5 @@
 /**
- * @zudo/lifecycle/signal
+ * @zudolib/lifecycle/signal
  *
  * Process signal handler for graceful shutdown.
  */

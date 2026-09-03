@@ -1,5 +1,5 @@
 /**
- * @zudo/crypto/node
+ * @zudolib/crypto/node
  *
  * Node.js-specific crypto provider implementation.
  */

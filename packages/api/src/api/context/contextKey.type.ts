@@ -1,5 +1,5 @@
 /**
- * @zudo/api/context-key
+ * @zudolib/api/context-key
  *
  * Typed context keys for the API context system.
  *

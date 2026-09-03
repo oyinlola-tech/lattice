@@ -1,5 +1,5 @@
 /**
- * @zudo/config/configLoader
+ * @zudolib/config/configLoader
  *
  * Configuration loading from sources and caching.
  */

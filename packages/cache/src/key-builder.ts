@@ -1,5 +1,5 @@
 /**
- * @zudo/cache — Key Builder
+ * @zudolib/cache — Key Builder
  *
  * Builds fully qualified cache keys from key parts, namespaces,
  * and prefixes. Ensures keys are well-formed and consistently formatted.

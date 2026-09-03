@@ -1,5 +1,5 @@
 /**
- * @zudo/schema/composition/intersection
+ * @zudolib/schema/composition/intersection
  *
  * Intersection schema — validates against all schemas, merging results.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudo/constants";
+import { SchemaIssueCode } from "@zudolib/constants";
 
 /**
  * Schema that accepts values matching all provided schemas.

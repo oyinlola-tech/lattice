@@ -1,5 +1,5 @@
 /**
- * @zudo/errors/domain/event
+ * @zudolib/errors/domain/event
  *
  * Event handling and publishing error types.
  */

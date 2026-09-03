@@ -1,5 +1,5 @@
-import { CommandHandler } from "@zudo/cqrs";
-import type { CqrsContext } from "@zudo/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
+import type { CqrsContext } from "@zudolib/cqrs";
 import type { CreateUserCommand } from "./create-user.command.js";
 import type { UserRepository } from "../../../../repositories/index.js";
 import type { UserId } from "../../../../types/index.js";
@@ -7,7 +7,7 @@ import { createUserId } from "../../../../types/index.js";
 import { generateId, hashPassword } from "../../../../utils/index.js";
 import { UserRole } from "../../../../enums/index.js";
 import { ConflictError } from "../../../../errors/index.js";
-import type { EventBus } from "@zudo/events";
+import type { EventBus } from "@zudolib/events";
 import { UserCreatedEvent } from "../../../../events/index.js";
 
 /**

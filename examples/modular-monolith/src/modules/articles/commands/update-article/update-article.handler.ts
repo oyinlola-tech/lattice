@@ -1,4 +1,4 @@
-import { CommandHandler } from "@zudo/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
 import type { UpdateArticleCommand } from "./update-article.command.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
 import { NotFoundError, ForbiddenError } from "../../../../errors/index.js";

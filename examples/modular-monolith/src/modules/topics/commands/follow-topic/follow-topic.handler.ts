@@ -1,10 +1,10 @@
-import { CommandHandler } from "@zudo/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
 import type { FollowTopicCommand } from "./follow-topic.command.js";
 import type {
   TopicRepository,
   TopicFollowerRepository,
 } from "../../../../repositories/topic.repository.js";
-import type { EventBus } from "@zudo/events";
+import type { EventBus } from "@zudolib/events";
 import { NotFoundError } from "../../../../errors/index.js";
 import { TopicFollowedEvent } from "../../../../events/index.js";
 

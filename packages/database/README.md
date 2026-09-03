@@ -1,17 +1,17 @@
-# @zudo/database
+# @zudolib/database
 
 Database abstraction layer with clients, repositories, transactions, and query building for Zudo applications.
 
 ## Installation
 
 ```bash
-npm install @zudo/database
+npm install @zudolib/database
 ```
 
 ## Quick Start
 
 ```typescript
-import { createDatabaseClient } from "@zudo/database";
+import { createDatabaseClient } from "@zudolib/database";
 
 const client = await createDatabaseClient({
   connection: { url: "postgresql://localhost/mydb" },

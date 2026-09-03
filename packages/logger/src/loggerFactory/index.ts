@@ -1,5 +1,5 @@
 /**
- * @zudo/logger/loggerFactory
+ * @zudolib/logger/loggerFactory
  *
  * Logger creation and configuration.
  */

@@ -8,7 +8,7 @@ import {
   verifyPassword,
 } from "../../cryptoPassword/cryptoPassword.core.js";
 
-import { createCryptoError } from "@zudo/errors";
+import { createCryptoError } from "@zudolib/errors";
 
 export type { PasswordHashOptions, PasswordHashResult };
 

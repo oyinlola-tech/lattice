@@ -1,5 +1,5 @@
 /**
- * @zudo/schema/modifiers/transform
+ * @zudolib/schema/modifiers/transform
  *
  * Transform modifier — applies a transformation function to validated output.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudo/constants";
+import { SchemaIssueCode } from "@zudolib/constants";
 
 /**
  * Schema that transforms the output of an inner schema.

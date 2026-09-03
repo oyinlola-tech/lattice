@@ -1,5 +1,5 @@
 /**
- * @zudo/core
+ * @zudolib/core
  *
  * Core framework primitives and runtime infrastructure.
  *

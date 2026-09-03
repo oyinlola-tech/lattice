@@ -1,4 +1,4 @@
-import type { Timestamp } from "@zudo/constants";
+import type { Timestamp } from "@zudolib/constants";
 
 import type { QueueEvent } from "./queueEvents.type.js";
 

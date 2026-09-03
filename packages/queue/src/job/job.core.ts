@@ -1,5 +1,5 @@
 import { randomBytes } from "node:crypto";
-import type { Timestamp } from "@zudo/constants";
+import type { Timestamp } from "@zudolib/constants";
 
 import type { JobId, JobState } from "../jobTypes/jobTypes.type.js";
 

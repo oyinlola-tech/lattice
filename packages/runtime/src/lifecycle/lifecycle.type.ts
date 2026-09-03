@@ -1,4 +1,4 @@
-import type { Module } from "@zudo/core";
+import type { Module } from "@zudolib/core";
 
 /**
  * Lifecycle hook phases for modules.
@@ -33,8 +33,8 @@ export interface LifecycleContext {
   readonly environment: string;
   readonly phase: LifecyclePhase;
   readonly moduleId: string;
-  readonly container: import("@zudo/container").Container;
-  readonly logger: import("@zudo/logger").Logger;
+  readonly container: import("@zudolib/container").Container;
+  readonly logger: import("@zudolib/logger").Logger;
 }
 
 /**

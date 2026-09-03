@@ -12,7 +12,7 @@ import {
   ConflictError,
   AuthorizationError,
   ConfigurationError,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 import {
   CLIError,
@@ -198,7 +198,7 @@ describe("getCLIErrorCode", () => {
 // ─── Command Errors ────────────────────────────────────────────────────────
 
 describe("CommandNotFoundError", () => {
-  it("extends NotFoundError from @zudo/errors", () => {
+  it("extends NotFoundError from @zudolib/errors", () => {
     const error = new CommandNotFoundError("deploy");
     expect(error).toBeInstanceOf(NotFoundError);
     expect(error).toBeInstanceOf(Error);
@@ -222,7 +222,7 @@ describe("CommandNotFoundError", () => {
 });
 
 describe("DuplicateCommandError", () => {
-  it("extends ConflictError from @zudo/errors", () => {
+  it("extends ConflictError from @zudolib/errors", () => {
     const error = new DuplicateCommandError("deploy");
     expect(error).toBeInstanceOf(ConflictError);
   });
@@ -234,7 +234,7 @@ describe("DuplicateCommandError", () => {
 });
 
 describe("InvalidCommandNameError", () => {
-  it("extends NotFoundError from @zudo/errors", () => {
+  it("extends NotFoundError from @zudolib/errors", () => {
     const error = new InvalidCommandNameError("");
     expect(error).toBeInstanceOf(NotFoundError);
   });
@@ -316,7 +316,7 @@ describe("MissingOptionValueError", () => {
 });
 
 describe("DuplicateOptionError", () => {
-  it("extends ConflictError from @zudo/errors", () => {
+  it("extends ConflictError from @zudolib/errors", () => {
     const error = new DuplicateOptionError("--verbose");
     expect(error).toBeInstanceOf(ConflictError);
   });
@@ -348,7 +348,7 @@ describe("CLIExecutionError", () => {
 });
 
 describe("CLIPermissionError", () => {
-  it("extends AuthorizationError from @zudo/errors", () => {
+  it("extends AuthorizationError from @zudolib/errors", () => {
     const error = new CLIPermissionError();
     expect(error).toBeInstanceOf(AuthorizationError);
   });
@@ -372,7 +372,7 @@ describe("CLIInterruptedError", () => {
 });
 
 describe("CLIConfigurationError", () => {
-  it("extends ConfigurationError from @zudo/errors", () => {
+  it("extends ConfigurationError from @zudolib/errors", () => {
     const error = new CLIConfigurationError();
     expect(error).toBeInstanceOf(ConfigurationError);
   });

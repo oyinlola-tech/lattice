@@ -1,5 +1,5 @@
 /**
- * @zudo/testing — HTTP response builder for testing.
+ * @zudolib/testing — HTTP response builder for testing.
  *
  * Provides a fluent API for constructing test HTTP responses.
  */

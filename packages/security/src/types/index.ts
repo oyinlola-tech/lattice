@@ -1,5 +1,5 @@
 /**
- * @zudo/security — Types Barrel
+ * @zudolib/security — Types Barrel
  *
  * Re-exports all security configuration and result types.
  */

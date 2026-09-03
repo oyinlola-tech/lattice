@@ -1,5 +1,5 @@
 /**
- * @zudo/cqrs/cqrsErrors
+ * @zudolib/cqrs/cqrsErrors
  *
  * CQRS-specific error types extending BaseError.
  */

@@ -1,8 +1,8 @@
-import { CommandHandler } from "@zudo/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
 import type { CreateCommentCommand } from "./create-comment.command.js";
 import type { CommentRepository } from "../../../../repositories/comment.repository.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
-import type { EventBus } from "@zudo/events";
+import type { EventBus } from "@zudolib/events";
 import type { CommentModel } from "../../../../models/comment.model.js";
 import type { CommentId } from "../../../../types/index.js";
 import { createCommentId } from "../../../../types/index.js";

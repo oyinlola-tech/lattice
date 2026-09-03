@@ -1,5 +1,5 @@
 /**
- * @zudo/logger
+ * @zudolib/logger
  *
  * Structured logging with transports, formatters, and context for the Zudo framework.
  */

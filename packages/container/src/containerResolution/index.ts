@@ -1,5 +1,5 @@
 /**
- * @zudo/container/containerResolution
+ * @zudolib/container/containerResolution
  *
  * Dependency resolution and injection.
  */

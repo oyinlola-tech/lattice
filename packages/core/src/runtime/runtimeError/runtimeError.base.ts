@@ -1,5 +1,5 @@
 import { FrameworkError } from "../../errors/frameworkError.error.js";
-import type { SerializedBaseError } from "@zudo/errors";
+import type { SerializedBaseError } from "@zudolib/errors";
 
 import type {
   RuntimeErrorOptions,

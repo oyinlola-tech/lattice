@@ -1,5 +1,5 @@
-import type { Logger } from "@zudo/logger";
-import type { EventBus } from "@zudo/events";
+import type { Logger } from "@zudolib/logger";
+import type { EventBus } from "@zudolib/events";
 import {
   ArticleCreatedEvent,
   ArticlePublishedEvent,

@@ -1,5 +1,5 @@
 /**
- * @zudo/security — CORS Namespace
+ * @zudolib/security — CORS Namespace
  *
  * Convenience namespace for CORS utilities.
  */

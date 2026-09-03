@@ -2,12 +2,12 @@
  * zudo-cli — CLI Error Base
  *
  * Base error class for all CLI errors. Extends `ApplicationError`
- * from `@zudo/errors` and adds CLI-specific context (exitCode,
+ * from `@zudolib/errors` and adds CLI-specific context (exitCode,
  * command, option, argument).
  */
 
-import { ApplicationError } from "@zudo/errors";
-import type { BaseErrorOptions } from "@zudo/errors";
+import { ApplicationError } from "@zudolib/errors";
+import type { BaseErrorOptions } from "@zudolib/errors";
 import {
   CLI_ERROR_CODES,
   CLI_EXIT_CODES,

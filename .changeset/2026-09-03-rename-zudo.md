@@ -1,57 +1,57 @@
 ---
-"@zudo/cli": major
-"@zudo/adapters": major
-"@zudo/api": major
-"@zudo/auth": major
-"@zudo/cache": major
-"@zudo/config": major
-"@zudo/constants": major
-"@zudo/container": major
-"@zudo/core": major
-"@zudo/cqrs": major
-"@zudo/crypto": major
-"@zudo/database": major
-"@zudo/docs": major
-"@zudo/errors": major
-"@zudo/events": major
-"@zudo/feature-flags": major
-"@zudo/http": major
-"@zudo/lifecycle": major
-"@zudo/logger": major
-"@zudo/messaging": major
-"@zudo/middleware": major
-"@zudo/observability": major
-"@zudo/openapi": major
-"@zudo/permissions": major
-"@zudo/plugins": major
-"@zudo/queue": major
-"@zudo/rpc": major
-"@zudo/runtime": major
-"@zudo/scheduler": major
-"@zudo/schema": major
-"@zudo/security": major
-"@zudo/serialization": major
-"@zudo/storage": major
-"@zudo/tenancy": major
-"@zudo/testing": major
-"@zudo/transactions": major
-"@zudo/types": major
-"@zudo/validation": major
+"@zudolib/cli": major
+"@zudolib/adapters": major
+"@zudolib/api": major
+"@zudolib/auth": major
+"@zudolib/cache": major
+"@zudolib/config": major
+"@zudolib/constants": major
+"@zudolib/container": major
+"@zudolib/core": major
+"@zudolib/cqrs": major
+"@zudolib/crypto": major
+"@zudolib/database": major
+"@zudolib/docs": major
+"@zudolib/errors": major
+"@zudolib/events": major
+"@zudolib/feature-flags": major
+"@zudolib/http": major
+"@zudolib/lifecycle": major
+"@zudolib/logger": major
+"@zudolib/messaging": major
+"@zudolib/middleware": major
+"@zudolib/observability": major
+"@zudolib/openapi": major
+"@zudolib/permissions": major
+"@zudolib/plugins": major
+"@zudolib/queue": major
+"@zudolib/rpc": major
+"@zudolib/runtime": major
+"@zudolib/scheduler": major
+"@zudolib/schema": major
+"@zudolib/security": major
+"@zudolib/serialization": major
+"@zudolib/storage": major
+"@zudolib/tenancy": major
+"@zudolib/testing": major
+"@zudolib/transactions": major
+"@zudolib/types": major
+"@zudolib/validation": major
 ---
 
-BREAKING CHANGE: Rename all packages from `@zudo/*` to `@zudo/*` and `@zudo/cli` to `zudo-cli`.
+BREAKING CHANGE: Rename all packages from `@zudolib/*` to `@zudolib/*` and `@zudolib/cli` to `zudo-cli`.
 
-- Scoped packages: `@zudo/adapters`, `@zudo/api`, `@zudo/auth`, etc.
+- Scoped packages: `@zudolib/adapters`, `@zudolib/api`, `@zudolib/auth`, etc.
 - CLI package: `zudo-cli` (unscoped)
 - All internal imports, docs, CI, and examples updated
 
 Migration:
 ```bash
 # Old
-npm install @zudo/cli
-npm install @zudo/errors
+npm install @zudolib/cli
+npm install @zudolib/errors
 
 # New
 npm install zudo-cli
-npm install @zudo/errors
+npm install @zudolib/errors
 ```

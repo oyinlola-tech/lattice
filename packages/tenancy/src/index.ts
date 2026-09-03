@@ -1,12 +1,12 @@
 /**
- * @zudo/tenancy
+ * @zudolib/tenancy
  *
  * Multi-tenant context and isolation for the Zudo framework.
  *
  * Provides tenant resolution, context propagation, resolver chains,
  * isolation strategies, and security validation.
  *
- * @module @zudo/tenancy
+ * @module @zudolib/tenancy
  */
 
 export * from "./tenancyTypes/index.js";

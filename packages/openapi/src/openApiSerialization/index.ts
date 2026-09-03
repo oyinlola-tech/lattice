@@ -1,5 +1,5 @@
 /**
- * @zudo/openapi/openApiSerialization
+ * @zudolib/openapi/openApiSerialization
  *
  * OpenAPI document serialization (JSON, YAML).
  */

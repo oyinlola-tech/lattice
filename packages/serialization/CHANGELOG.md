@@ -1,4 +1,4 @@
-# @zudo/serialization
+# @zudolib/serialization
 
 ## 0.1.2
 
@@ -6,10 +6,10 @@
 
 - [`8b4c2fe`](https://github.com/oyinlola-tech/zudo/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Fix changeset validation workflow and publish all packages to npm.
 - Updated dependencies [[`8b4c2fe`](https://github.com/oyinlola-tech/zudo/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908)]:
-  - @zudo/errors@0.1.2
-  - @zudo/types@0.1.2
-  - @zudo/constants@0.1.2
-  - @zudo/validation@0.1.2
+  - @zudolib/errors@0.1.2
+  - @zudolib/types@0.1.2
+  - @zudolib/constants@0.1.2
+  - @zudolib/validation@0.1.2
 
 ## 0.1.1
 
@@ -17,7 +17,7 @@
 
 - [`35faf04`](https://github.com/oyinlola-tech/zudo/commit/35faf049b7ff9e300cf2030f48ac108813c912c4) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Initial publication of all Zudo packages with namespace migration, new middleware, and fixes.
 - Updated dependencies [[`35faf04`](https://github.com/oyinlola-tech/zudo/commit/35faf049b7ff9e300cf2030f48ac108813c912c4)]:
-  - @zudo/errors@0.1.1
-  - @zudo/types@0.1.1
-  - @zudo/constants@0.1.1
-  - @zudo/validation@0.1.1
+  - @zudolib/errors@0.1.1
+  - @zudolib/types@0.1.1
+  - @zudolib/constants@0.1.1
+  - @zudolib/validation@0.1.1

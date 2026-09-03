@@ -1,5 +1,5 @@
 {
-  "name": "@zudo/cache",
+  "name": "@zudolib/cache",
   "version": "0.1.3",
   "description": "Caching primitives, abstractions, and adapters for the Zudo framework.",
   "license": "MIT",
@@ -24,9 +24,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudo/errors": "workspace:*",
-    "@zudo/types": "workspace:*",
-    "@zudo/serialization": "workspace:*"
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/types": "workspace:*",
+    "@zudolib/serialization": "workspace:*"
   },
   "devDependencies": {
     "typescript": "7.0.2",

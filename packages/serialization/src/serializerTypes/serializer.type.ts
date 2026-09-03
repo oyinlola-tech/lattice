@@ -1,9 +1,9 @@
 /**
- * @zudo/serialization — Core type definitions.
+ * @zudolib/serialization — Core type definitions.
  *
  * Defines the contracts that all serialization implementations
  * must satisfy. These types are serialization-specific and are
- * NOT available in @zudo/types or @zudo/constants.
+ * NOT available in @zudolib/types or @zudolib/constants.
  */
 
 /** Supported serialization format identifiers. */

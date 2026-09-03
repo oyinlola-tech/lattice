@@ -1,5 +1,5 @@
 /**
- * @zudo/http/httpServer/core
+ * @zudolib/http/httpServer/core
  *
  * HTTP server core module.
  */

@@ -1,17 +1,17 @@
-# @zudo/errors
+# @zudolib/errors
 
 Shared error base class, error codes, and error handling utilities for the Zudo framework.
 
 ## Installation
 
 ```bash
-npm install @zudo/errors
+npm install @zudolib/errors
 ```
 
 ## Quick Start
 
 ```typescript
-import { ApplicationError, ErrorCode } from "@zudo/errors";
+import { ApplicationError, ErrorCode } from "@zudolib/errors";
 
 throw new ApplicationError("Something went wrong", {
   code: ErrorCode.INTERNAL_SERVER_ERROR,

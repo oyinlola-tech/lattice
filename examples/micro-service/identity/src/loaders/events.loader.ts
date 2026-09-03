@@ -1,4 +1,4 @@
-import type { EventBus, Event } from "@zudo/events";
+import type { EventBus, Event } from "@zudolib/events";
 import { UserCreatedEvent, UserAuthenticatedEvent } from "../events/index.js";
 
 /**

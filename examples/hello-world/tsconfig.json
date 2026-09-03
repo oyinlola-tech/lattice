@@ -16,9 +16,9 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "paths": {
-      "@zudo/http": ["../../packages/http/src/index.ts"],
-      "@zudo/logger": ["../../packages/logger/src/index.ts"],
-      "@zudo/errors": ["../../packages/errors/src/index.ts"]
+      "@zudolib/http": ["../../packages/http/src/index.ts"],
+      "@zudolib/logger": ["../../packages/logger/src/index.ts"],
+      "@zudolib/errors": ["../../packages/errors/src/index.ts"]
     }
   },
   "include": ["src/**/*.ts"]

@@ -12,11 +12,11 @@ import type {
   MessageId as BaseEntityMessageId,
   CorrelationId as BaseCorrelationId,
   MessageCausationId as BaseEntityCausationId,
-} from "@zudo/constants";
+} from "@zudolib/constants";
 
 /**
  * Unique identifier for a message instance.
- * Re-exported from @zudo/constants for type safety.
+ * Re-exported from @zudolib/constants for type safety.
  */
 export type MessageId = BaseEntityMessageId;
 
@@ -47,7 +47,7 @@ export type MessageSource = string;
  *
  * Useful for connecting multiple messages belonging to the
  * same operation/request/workflow.
- * Re-exported from @zudo/constants for type safety.
+ * Re-exported from @zudolib/constants for type safety.
  */
 export type MessageCorrelationId = BaseCorrelationId;
 
@@ -55,7 +55,7 @@ export type MessageCorrelationId = BaseCorrelationId;
  * Causation identifier.
  *
  * Identifies the message or operation that caused this message.
- * Re-exported from @zudo/constants for type safety.
+ * Re-exported from @zudolib/constants for type safety.
  */
 export type MessageCausationId = BaseEntityCausationId;
 

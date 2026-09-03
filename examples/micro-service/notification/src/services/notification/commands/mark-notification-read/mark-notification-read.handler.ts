@@ -1,5 +1,5 @@
-import { CommandHandler } from "@zudo/cqrs";
-import type { CqrsContext } from "@zudo/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
+import type { CqrsContext } from "@zudolib/cqrs";
 import {
   MarkNotificationReadCommand,
   MARK_NOTIFICATION_READ_COMMAND,

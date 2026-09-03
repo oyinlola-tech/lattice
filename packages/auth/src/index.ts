@@ -1,12 +1,12 @@
 /**
- * @zudo/auth
+ * @zudolib/auth
  *
  * Authentication and authorization services for the Zudo framework.
  *
  * Provides JWT token management (access + refresh), password hashing (scrypt),
  * session management, RBAC (role-based access control), and auth utilities.
  *
- * @module @zudo/auth
+ * @module @zudolib/auth
  */
 
 export * from "./authTypes/index.js";

@@ -1,5 +1,5 @@
 /**
- * @zudo/storage — Tests
+ * @zudolib/storage — Tests
  *
  * Comprehensive tests for all storage modules.
  */

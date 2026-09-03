@@ -1,10 +1,10 @@
-import type { Logger } from "@zudo/logger";
+import type { Logger } from "@zudolib/logger";
 
-import type { EventBus } from "@zudo/events";
+import type { EventBus } from "@zudolib/events";
 
-import type { Container } from "@zudo/container";
+import type { Container } from "@zudolib/container";
 
-import type { Module } from "@zudo/core";
+import type { Module } from "@zudolib/core";
 
 import type {
   RuntimeState,
@@ -49,7 +49,7 @@ import {
   createReadinessEventPayload,
 } from "../runtimeEvents/index.js";
 
-import { createEvent } from "@zudo/events";
+import { createEvent } from "@zudolib/events";
 
 import {
   RuntimeStartError,

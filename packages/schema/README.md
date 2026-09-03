@@ -1,17 +1,17 @@
-# @zudo/schema
+# @zudolib/schema
 
 Type-safe schema definition, parsing, and validation engine for data contracts.
 
 ## Installation
 
 ```bash
-npm install @zudo/schema
+npm install @zudolib/schema
 ```
 
 ## Quick Start
 
 ```typescript
-import { Schema } from "@zudo/schema";
+import { Schema } from "@zudolib/schema";
 
 const UserSchema = Schema.object({
   id: Schema.string().uuid(),

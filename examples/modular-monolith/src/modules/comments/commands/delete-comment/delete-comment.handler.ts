@@ -1,4 +1,4 @@
-import { CommandHandler } from "@zudo/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
 import type { DeleteCommentCommand } from "./delete-comment.command.js";
 import type { CommentRepository } from "../../../../repositories/comment.repository.js";
 import { NotFoundError, ForbiddenError } from "../../../../errors/index.js";

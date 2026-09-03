@@ -1,5 +1,5 @@
 /**
- * @zudo/database — Database Types
+ * @zudolib/database — Database Types
  *
  * Core type definitions for the database package.
  */

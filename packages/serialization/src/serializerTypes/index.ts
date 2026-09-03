@@ -1,5 +1,5 @@
 /**
- * @zudo/serialization — Type definitions.
+ * @zudolib/serialization — Type definitions.
  *
  * Core contracts for serializers, transformers, and serialization options.
  */

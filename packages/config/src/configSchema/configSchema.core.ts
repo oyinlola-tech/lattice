@@ -1,5 +1,5 @@
 /**
- * @zudo/config/configSchema/configSchema.core
+ * @zudolib/config/configSchema/configSchema.core
  *
  * Re-exports from type and validator modules for backward compatibility.
  */

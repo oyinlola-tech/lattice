@@ -19,22 +19,22 @@ body:
       label: Affected Package
       description: Which Zudo package is affected?
       options:
-        - "@zudo/core"
-        - "@zudo/config"
-        - "@zudo/container"
-        - "@zudo/logger"
-        - "@zudo/errors"
-        - "@zudo/validation"
-        - "@zudo/cqrs"
-        - "@zudo/events"
-        - "@zudo/database"
-        - "@zudo/http"
-        - "@zudo/runtime"
-        - "@zudo/messaging"
-        - "@zudo/queue"
-        - "@zudo/storage"
-        - "@zudo/security"
-        - "@zudo/observability"
+        - "@zudolib/core"
+        - "@zudolib/config"
+        - "@zudolib/container"
+        - "@zudolib/logger"
+        - "@zudolib/errors"
+        - "@zudolib/validation"
+        - "@zudolib/cqrs"
+        - "@zudolib/events"
+        - "@zudolib/database"
+        - "@zudolib/http"
+        - "@zudolib/runtime"
+        - "@zudolib/messaging"
+        - "@zudolib/queue"
+        - "@zudolib/storage"
+        - "@zudolib/security"
+        - "@zudolib/observability"
         - Other
     validations:
       required: true

@@ -1,5 +1,5 @@
 /**
- * @zudo/adapters/lifecycle
+ * @zudolib/adapters/lifecycle
  *
  * Adapter lifecycle contracts — health, operation options, and lifecycle hooks.
  */

@@ -1,4 +1,4 @@
-import { QueryHandler } from "@zudo/cqrs";
+import { QueryHandler } from "@zudolib/cqrs";
 import type { GetReactionsQuery } from "./get-reactions.query.js";
 import type { ReactionRepository } from "../../../../repositories/reaction.repository.js";
 import type { ReactionModel } from "../../../../models/reaction.model.js";

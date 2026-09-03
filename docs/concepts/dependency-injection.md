@@ -7,7 +7,7 @@ Zudo uses a token-based DI container for managing service lifetimes and dependen
 Services are registered with tokens:
 
 ```typescript
-import { Container } from "@zudo/container";
+import { Container } from "@zudolib/container";
 
 const container = new Container();
 

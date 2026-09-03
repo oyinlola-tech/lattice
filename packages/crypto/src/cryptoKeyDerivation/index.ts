@@ -1,5 +1,5 @@
 /**
- * @zudo/crypto/cryptoKeyDerivation
+ * @zudolib/crypto/cryptoKeyDerivation
  *
  * Key derivation functions (PBKDF2, scrypt, etc.).
  */

@@ -1,4 +1,4 @@
-import { Command } from "@zudo/cqrs";
+import { Command } from "@zudolib/cqrs";
 
 export const MARK_NOTIFICATION_READ_COMMAND = "notification.markRead" as const;
 

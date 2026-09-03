@@ -1,5 +1,5 @@
 /**
- * @zudo/storage — Health Checker
+ * @zudolib/storage — Health Checker
  *
  * Aggregates health checks from multiple storage components.
  */

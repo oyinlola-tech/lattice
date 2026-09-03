@@ -3,7 +3,7 @@ import type { PluginContext } from "../pluginTypes/pluginContext.type.js";
 import type { PluginState } from "../pluginTypes/pluginState.type.js";
 import type { RegisteredPlugin } from "../pluginRegistry/pluginRegistry.core.js";
 import { VALID_STATE_TRANSITIONS } from "../pluginTypes/pluginState.type.js";
-import { PluginStateError } from "@zudo/errors";
+import { PluginStateError } from "@zudolib/errors";
 import {
   PLUGIN_EVENTS,
   createPluginLifecycleEvent,

@@ -1,5 +1,5 @@
 /**
- * @zudo/cache — Tags Tests
+ * @zudolib/cache — Tags Tests
  *
  * Tests for InMemoryTagStore: bidirectional tag↔key mapping,
  * add/remove/getKeys/invalidate operations.

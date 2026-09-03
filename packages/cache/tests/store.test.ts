@@ -1,5 +1,5 @@
 /**
- * @zudo/cache — Store Tests
+ * @zudolib/cache — Store Tests
  *
  * Tests for DefaultCacheStore: CRUD operations, events, middleware,
  * metrics integration, and error handling.

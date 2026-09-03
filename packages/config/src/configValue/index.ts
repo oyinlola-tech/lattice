@@ -1,5 +1,5 @@
 /**
- * @zudo/config/configValue
+ * @zudolib/config/configValue
  *
  * Configuration value types, paths, and accessors.
  */

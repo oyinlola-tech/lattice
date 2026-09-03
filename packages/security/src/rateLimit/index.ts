@@ -1,5 +1,5 @@
 /**
- * @zudo/security — Rate Limiting Barrel
+ * @zudolib/security — Rate Limiting Barrel
  */
 
 export {

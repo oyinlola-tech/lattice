@@ -1,5 +1,5 @@
 /**
- * @zudo/security — CSRF Protection
+ * @zudolib/security — CSRF Protection
  *
  * Generates and validates CSRF tokens for state-changing requests.
  */

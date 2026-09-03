@@ -1,5 +1,5 @@
 /**
- * @zudo/messaging/messageContext
+ * @zudolib/messaging/messageContext
  *
  * MessageContext type definitions and factory.
  */

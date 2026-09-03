@@ -1,5 +1,5 @@
 /**
- * @zudo/events/eventSubscription
+ * @zudolib/events/eventSubscription
  *
  * Event subscription management.
  */

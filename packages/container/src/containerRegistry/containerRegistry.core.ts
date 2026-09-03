@@ -33,7 +33,7 @@ import { RegistryOperation } from "./containerRegistry.type.js";
 import {
   DuplicateRegistrationError,
   RegistrationNotFoundError,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 import { describeRegistryToken } from "./containerRegistry.error.js";
 
 export class ContainerRegistry {

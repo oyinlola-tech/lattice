@@ -1,4 +1,4 @@
-import { Query } from "@zudo/cqrs";
+import { Query } from "@zudolib/cqrs";
 import type { ArticleId } from "../../../../types/index.js";
 
 export class ListCommentsQuery extends Query<"comments.list"> {

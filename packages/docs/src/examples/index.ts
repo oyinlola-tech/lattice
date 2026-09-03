@@ -1,5 +1,5 @@
 /**
- * @zudo/docs/examples
+ * @zudolib/docs/examples
  *
  * Code example modeling, validation, and rendering for documentation.
  */

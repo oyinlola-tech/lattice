@@ -17,7 +17,7 @@ import {
 } from "../retryPolicy/retryPolicy.core.js";
 import { moveToDeadLetter } from "../deadLetter/deadLetter.core.js";
 
-import { JobMaxAttemptsError } from "@zudo/errors";
+import { JobMaxAttemptsError } from "@zudolib/errors";
 
 /**
  * Process a single job with middleware, retry, and failure handling.

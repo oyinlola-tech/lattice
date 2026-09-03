@@ -1,5 +1,5 @@
 /**
- * @zudo/logger/loggerManager
+ * @zudolib/logger/loggerManager
  *
  * Logger lifecycle and registry management.
  */

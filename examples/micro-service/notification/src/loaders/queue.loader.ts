@@ -1,6 +1,6 @@
-import type { Queue } from "@zudo/queue";
-import type { CommandBus } from "@zudo/cqrs";
-import { createInMemoryQueue, createQueueName } from "@zudo/queue";
+import type { Queue } from "@zudolib/queue";
+import type { CommandBus } from "@zudolib/cqrs";
+import { createInMemoryQueue, createQueueName } from "@zudolib/queue";
 import { createProcessNotificationProcessor } from "../jobs/index.js";
 import type { ProcessNotificationJobData } from "../jobs/index.js";
 import {

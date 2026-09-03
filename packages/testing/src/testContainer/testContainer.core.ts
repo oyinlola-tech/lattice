@@ -5,9 +5,9 @@
  * and override support for dependency injection testing.
  */
 
-import { createStartedContainer } from "@zudo/container";
+import { createStartedContainer } from "@zudolib/container";
 
-import type { Container, RegistrationToken } from "@zudo/container";
+import type { Container, RegistrationToken } from "@zudolib/container";
 
 /**
  * A dependency override for test containers.

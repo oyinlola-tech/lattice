@@ -1,17 +1,17 @@
-# @zudo/storage
+# @zudolib/storage
 
 Storage abstractions including database, object storage, repository, serialization, locking, and lifecycle.
 
 ## Installation
 
 ```bash
-npm install @zudo/storage
+npm install @zudolib/storage
 ```
 
 ## Quick Start
 
 ```typescript
-import { createStorage } from "@zudo/storage";
+import { createStorage } from "@zudolib/storage";
 
 const storage = createStorage({
   database: { url: process.env.DATABASE_URL },

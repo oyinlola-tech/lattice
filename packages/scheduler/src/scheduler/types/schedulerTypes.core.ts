@@ -1,5 +1,5 @@
 /**
- * @zudo/scheduler/types
+ * @zudolib/scheduler/types
  *
  * Core types for the Zudo scheduler package.
  */

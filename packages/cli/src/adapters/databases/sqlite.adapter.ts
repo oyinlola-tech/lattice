@@ -13,7 +13,7 @@ export class SqliteAdapter implements DatabaseAdapter {
   }
 
   getDependencies(): readonly string[] {
-    return ["@zudo/database"];
+    return ["@zudolib/database"];
   }
 
   getEnvironmentVariables(): Record<string, string> {

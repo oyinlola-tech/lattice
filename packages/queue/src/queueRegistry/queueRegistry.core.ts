@@ -4,7 +4,7 @@ import type { Queue } from "../queue/queue.type.js";
 
 import type { QueueRegistry, QueueInfo } from "./queueRegistry.type.js";
 
-import { QueueError } from "@zudo/errors";
+import { QueueError } from "@zudolib/errors";
 
 /**
  * Creates a new QueueRegistry.

@@ -1,5 +1,5 @@
 /**
- * @zudo/openapi/openApiRouting
+ * @zudolib/openapi/openApiRouting
  *
  * Route metadata, conversion, and scanning for OpenAPI generation.
  */

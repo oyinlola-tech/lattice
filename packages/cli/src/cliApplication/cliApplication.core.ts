@@ -24,7 +24,7 @@ import { CommandNotFoundError } from "../cliError/cliError.command.js";
 import { CLICommandRegistry } from "../cliCommand/cliCommand.registry.js";
 import { executeCommand } from "../cliCommand/cliCommand.factory.js";
 import { CLIParser, resolveCommand } from "../cliParser/index.js";
-import { createDefaultLogger } from "@zudo/logger";
+import { createDefaultLogger } from "@zudolib/logger";
 import { createCLIWriter } from "./cliApplication.writer.js";
 import {
   isHelpRequest,

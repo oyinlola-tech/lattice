@@ -1,6 +1,6 @@
-import type { EntityId } from "@zudo/constants";
+import type { EntityId } from "@zudolib/constants";
 
-import type { RuntimeError } from "@zudo/errors";
+import type { RuntimeError } from "@zudolib/errors";
 
 /**
  * Extended runtime lifecycle states.

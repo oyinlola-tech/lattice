@@ -3,14 +3,14 @@
  *
  * @module permissionErrors/permissionError
  *
- * Extends AuthorizationError from @zudo/errors.
+ * Extends AuthorizationError from @zudolib/errors.
  */
 
 import {
   AuthorizationError,
   ErrorCode,
   type ErrorMetadata,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 /**
  * Base error for all permission-related failures.

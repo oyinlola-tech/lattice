@@ -1,17 +1,17 @@
-# @zudo/cqrs
+# @zudolib/cqrs
 
 Command Query Responsibility Segregation (CQRS) primitives for separating read and write operations.
 
 ## Installation
 
 ```bash
-npm install @zudo/cqrs
+npm install @zudolib/cqrs
 ```
 
 ## Quick Start
 
 ```typescript
-import { createCommandBus, createQueryBus } from "@zudo/cqrs";
+import { createCommandBus, createQueryBus } from "@zudolib/cqrs";
 
 const commandBus = createCommandBus();
 const queryBus = createQueryBus();

@@ -363,7 +363,7 @@ import {
   BodyParserError,
   UnsupportedBodyTypeError,
   InvalidContentLengthError,
-} from "@zudo/errors";
+} from "@zudolib/errors";
 
 export { BodyParserError, UnsupportedBodyTypeError, InvalidContentLengthError };
 

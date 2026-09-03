@@ -1,5 +1,5 @@
 /**
- * @zudo/http/httpCacheControl
+ * @zudolib/http/httpCacheControl
  *
  * HTTP httpCacheControl module.
  */

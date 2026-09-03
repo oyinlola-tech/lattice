@@ -1,5 +1,5 @@
 /**
- * @zudo/testing — Test context recorder types.
+ * @zudolib/testing — Test context recorder types.
  *
  * Types for log, event, and message recorders used in test contexts.
  */

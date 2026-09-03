@@ -1,5 +1,5 @@
 /**
- * @zudo/adapters/http
+ * @zudolib/adapters/http
  *
  * HTTP adapter contracts — request/response translation and server lifecycle.
  */
@@ -14,7 +14,7 @@ import type {
  * Minimal HTTP request shape.
  *
  * Concrete adapters map platform-specific requests to this shape.
- * The actual Zudo HTTPRequest lives in @zudo/http.
+ * The actual Zudo HTTPRequest lives in @zudolib/http.
  */
 export interface HTTPRequestLike {
   readonly method: string;

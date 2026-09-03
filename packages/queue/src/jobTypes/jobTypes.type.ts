@@ -1,4 +1,4 @@
-import type { EntityId, Timestamp } from "@zudo/constants";
+import type { EntityId, Timestamp } from "@zudolib/constants";
 
 /**
  * Unique identifier for a job.
