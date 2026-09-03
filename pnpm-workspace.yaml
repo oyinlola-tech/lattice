@@ -8,6 +8,7 @@ packages:
 overrides:
   "deepmerge-ts": "8.0.2"
   "mysql2": "^3.22.0"
+  "fast-uri": "^3.1.7"
 
 allowBuilds:
   "@prisma/engines": true
@@ -18,3 +19,6 @@ allowBuilds:
 catalog:
   typescript: ^7.0.2
   "@types/node": ^26.4.0
+
+minimumReleaseAgeExclude:
+  - fast-uri@3.1.7
