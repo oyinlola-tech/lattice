@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-constants",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Shared constants, enums, and type-safe literals for the Lattice framework.",
   "license": "MIT",
   "type": "module",

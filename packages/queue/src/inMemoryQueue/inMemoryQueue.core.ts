@@ -58,6 +58,10 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
   private failedCount = 0;
   private readonly emitter: QueueEventEmitter;
 
+  private emptySince = 0;
+
+  private backoffMs = 50;
+
   constructor(name: QueueName, options?: QueueOptions) {
     this.name = name;
     this.options = options ?? {};
@@ -110,6 +114,10 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
     if (job.state === JobStateEnum.SCHEDULED && job.scheduledAt) {
       scheduleJob(job, this.scheduledTimers, this.jobs);
     }
+
+    this.backoffMs = 50;
+    this.emptySince = 0;
+
     return job;
   }
 
@@ -190,6 +198,8 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
     this.failedCount = 0;
     this.paused = false;
     this.disposed = true;
+    this.emptySince = 0;
+    this.backoffMs = 50;
   }
 
   private startPolling(): void {
@@ -197,9 +207,20 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
     this.pollTimer = setTimeout(() => {
       this.pollTimer = null;
       this.processTick().finally(() => {
-        if (!this.disposed && this.processors.size > 0) this.startPolling();
+        if (!this.disposed && this.processors.size > 0) this.scheduleNextTick();
       });
     }, pollInterval);
+  }
+
+  private scheduleNextTick(): void {
+    if (this.disposed) return;
+    const interval = this.backoffMs;
+    this.pollTimer = setTimeout(() => {
+      this.pollTimer = null;
+      this.processTick().finally(() => {
+        if (!this.disposed && this.processors.size > 0) this.scheduleNextTick();
+      });
+    }, interval);
   }
 
   private stopPolling(): void {
@@ -213,6 +234,7 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
     if (this.paused || this.disposed) return;
     const concurrency = Math.max(1, this.options.concurrency ?? 1);
 
+    let processed = 0;
     while (this.activeCount < concurrency) {
       const job = await this.getNextJob();
       if (!job) break;
@@ -220,6 +242,7 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
       if (!processor) continue;
 
       this.activeCount++;
+      processed++;
       processJob(
         job,
         processor,
@@ -245,6 +268,21 @@ export class InMemoryQueue<TData = unknown> implements Queue<TData> {
         });
     }
 
-    scheduleDelayedJobs(this.jobs);
+    if (processed > 0) {
+      this.backoffMs = 50;
+      this.emptySince = 0;
+    } else if (this.emptySince === 0) {
+      this.emptySince = Date.now();
+      this.backoffMs = 50;
+    } else {
+      const elapsed = Date.now() - this.emptySince;
+      if (elapsed > 500) {
+        this.backoffMs = Math.min(this.backoffMs * 2, 2000);
+      }
+    }
+
+    if (this.scheduledTimers.size > 0) {
+      scheduleDelayedJobs(this.jobs);
+    }
   }
 }

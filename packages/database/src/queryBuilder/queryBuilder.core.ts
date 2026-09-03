@@ -27,6 +27,15 @@ export class QueryBuilder<TField extends string = string> {
 
   private selectState: TField[] = [];
 
+  private _revision = 0;
+
+  private _cachedBuild?: QueryBuilderState<TField>;
+
+  private invalidateCache(): void {
+    this._cachedBuild = undefined;
+    this._revision++;
+  }
+
   /**
    * Adds an equality condition.
    */
@@ -153,6 +162,8 @@ export class QueryBuilder<TField extends string = string> {
         }
       : group;
 
+    this.invalidateCache();
+
     return this;
   }
 
@@ -171,6 +182,8 @@ export class QueryBuilder<TField extends string = string> {
           and: [existing, group],
         }
       : group;
+
+    this.invalidateCache();
 
     return this;
   }
@@ -191,6 +204,8 @@ export class QueryBuilder<TField extends string = string> {
         }
       : group;
 
+    this.invalidateCache();
+
     return this;
   }
 
@@ -202,6 +217,8 @@ export class QueryBuilder<TField extends string = string> {
       ...this.paginationState,
       page,
     };
+
+    this.invalidateCache();
 
     return this;
   }
@@ -215,6 +232,8 @@ export class QueryBuilder<TField extends string = string> {
       limit,
     };
 
+    this.invalidateCache();
+
     return this;
   }
 
@@ -225,6 +244,8 @@ export class QueryBuilder<TField extends string = string> {
     this.paginationState = {
       ...pagination,
     };
+
+    this.invalidateCache();
 
     return this;
   }
@@ -252,6 +273,8 @@ export class QueryBuilder<TField extends string = string> {
       direction,
     });
 
+    this.invalidateCache();
+
     return this;
   }
 
@@ -260,6 +283,8 @@ export class QueryBuilder<TField extends string = string> {
    */
   public sort(sort: readonly SortInput<TField>[]): this {
     this.sortState = [...sort];
+
+    this.invalidateCache();
 
     return this;
   }
@@ -270,6 +295,8 @@ export class QueryBuilder<TField extends string = string> {
   public select(...fields: TField[]): this {
     this.selectState = [...new Set(fields)];
 
+    this.invalidateCache();
+
     return this;
   }
 
@@ -278,6 +305,8 @@ export class QueryBuilder<TField extends string = string> {
    */
   public clearFilters(): this {
     this.filterState = undefined;
+
+    this.invalidateCache();
 
     return this;
   }
@@ -288,6 +317,8 @@ export class QueryBuilder<TField extends string = string> {
   public clearPagination(): this {
     this.paginationState = undefined;
 
+    this.invalidateCache();
+
     return this;
   }
 
@@ -296,6 +327,8 @@ export class QueryBuilder<TField extends string = string> {
    */
   public clearSort(): this {
     this.sortState = [];
+
+    this.invalidateCache();
 
     return this;
   }
@@ -306,6 +339,8 @@ export class QueryBuilder<TField extends string = string> {
   public clearSelect(): this {
     this.selectState = [];
 
+    this.invalidateCache();
+
     return this;
   }
 
@@ -313,7 +348,11 @@ export class QueryBuilder<TField extends string = string> {
    * Returns the immutable query definition.
    */
   public build(): QueryBuilderState<TField> {
-    return Object.freeze({
+    if (this._cachedBuild) {
+      return this._cachedBuild;
+    }
+
+    const result = Object.freeze({
       filter: cloneFilter(this.filterState),
       pagination: this.paginationState
         ? Object.freeze({
@@ -329,6 +368,10 @@ export class QueryBuilder<TField extends string = string> {
           ? Object.freeze([...this.selectState])
           : undefined,
     });
+
+    this._cachedBuild = result;
+
+    return result;
   }
 
   /**
@@ -373,6 +416,8 @@ export class QueryBuilder<TField extends string = string> {
         conditions: [condition],
       };
 
+      this.invalidateCache();
+
       return this;
     }
 
@@ -380,6 +425,8 @@ export class QueryBuilder<TField extends string = string> {
       this.filterState = {
         conditions: [...existing.conditions, condition],
       };
+
+      this.invalidateCache();
 
       return this;
     }
@@ -392,6 +439,8 @@ export class QueryBuilder<TField extends string = string> {
         },
       ],
     };
+
+    this.invalidateCache();
 
     return this;
   }

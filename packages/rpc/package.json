@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-rpc",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Remote Procedure Call abstraction for Lattice — transport-agnostic invocation, procedure registry, middleware, and client/server contracts.",
   "license": "MIT",
   "type": "module",

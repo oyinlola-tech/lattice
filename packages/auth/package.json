@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-auth",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Authentication and authorization services for the Lattice framework — JWT, sessions, RBAC, OAuth2, and password management.",
   "license": "MIT",
   "type": "module",

@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-runtime",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Application runtime orchestrator for Lattice framework lifecycle management.",
   "type": "module",
   "main": "./dist/index.js",

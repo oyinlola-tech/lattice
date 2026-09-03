@@ -1,6 +1,6 @@
 {
   "name": "examples-hello-world",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Minimal Lattice HTTP server example",
   "type": "module",

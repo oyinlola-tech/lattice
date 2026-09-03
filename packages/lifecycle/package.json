@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-lifecycle",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Application and component lifecycle orchestration — state machine, dependency ordering, graceful shutdown, rollback, and signals.",
   "license": "MIT",
   "type": "module",

@@ -42,6 +42,24 @@ const VALID_FRONTEND_ARCHITECTURES = [
 const VALID_LANGUAGES = ["typescript", "javascript"] as const;
 const VALID_APIS = ["rest", "graphql", "rpc"] as const;
 
+function validateProjectName(name: string): void {
+  if (!name || name.trim().length === 0) {
+    throw new CLIValidationError("Project name is required.");
+  }
+
+  if (name.includes("..") || name.includes("/") || name.includes("\\")) {
+    throw new CLIValidationError(
+      "Project name must not contain path separators or '..'.",
+    );
+  }
+
+  if (!/^[a-zA-Z0-9_-]+$/.test(name)) {
+    throw new CLIValidationError(
+      "Project name must contain only alphanumeric characters, hyphens, and underscores.",
+    );
+  }
+}
+
 export async function runCreateCommand(context: CLIContext): Promise<void> {
   const projectName = context.values["project-name"] as string | undefined;
   const projectType = (context.values.type as string | undefined) ?? "backend";
@@ -67,6 +85,10 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
         .map((s) => s.trim())
         .filter(Boolean)
     : [];
+
+  if (projectName) {
+    validateProjectName(projectName);
+  }
 
   if (
     !VALID_PROJECT_TYPES.includes(

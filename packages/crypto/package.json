@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-crypto",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Cryptographic primitives and security utilities for the Lattice platform.",
   "type": "module",
   "main": "./dist/index.js",

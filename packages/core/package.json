@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-core",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Core framework primitives and runtime infrastructure for Lattice.",
   "type": "module",
   "main": "./dist/index.js",

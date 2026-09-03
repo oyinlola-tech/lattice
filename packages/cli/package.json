@@ -1,6 +1,6 @@
 {
   "name": "@oyinlola141/lattice-cli",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Command-line interface for the Lattice framework.",
   "license": "MIT",
   "type": "module",

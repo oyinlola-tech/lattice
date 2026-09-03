@@ -202,19 +202,19 @@ npm install -g @oyinlola141/lattice-cli
 
 Lattice can generate frontend and fullstack projects with any of the following frameworks:
 
-| Framework    | Adapter        | Build Tool  |
-| ------------ | -------------- | ----------- |
-| React        | `react`        | Vite        |
-| Next.js      | `next`         | Next.js     |
-| Vue          | `vue`          | Vite        |
-| Nuxt         | `nuxt`         | Nuxt 3      |
-| Angular      | `angular`      | Angular CLI |
-| Svelte       | `svelte`       | Vite        |
-| SvelteKit    | `sveltekit`    | SvelteKit   |
-| Astro        | `astro`        | Astro       |
-| Vanilla HTML | `vanilla`      | Vite        |
-| Flutter      | `flutter`      | Flutter SDK |
-| React Native | `react-native` | Expo        |
+| Framework    | Adapter        | Build Tool  | Language     |
+| ------------ | -------------- | ----------- | ------------ |
+| React        | `react`        | Vite        | TS / JS      |
+| Next.js      | `next`         | Next.js     | TS / JS      |
+| Vue          | `vue`          | Vite        | TS / JS      |
+| Nuxt         | `nuxt`         | Nuxt 3      | TS / JS      |
+| Angular      | `angular`      | Angular CLI | TS / JS      |
+| Svelte       | `svelte`       | Vite        | TS / JS      |
+| SvelteKit    | `sveltekit`    | SvelteKit   | TS / JS      |
+| Astro        | `astro`        | Astro       | TS / JS      |
+| Vanilla HTML | `vanilla`      | Vite        | TS / JS      |
+| Flutter      | `flutter`      | Flutter SDK | Dart         |
+| React Native | `react-native` | Expo        | TS / JS      |
 
 ### Frontend Architectures
 
@@ -224,6 +224,68 @@ Each framework supports multiple project structures:
 - **Feature Based** — Domain-driven feature folders with shared global utilities
 - **Minimal** — Only essential folders for small projects
 - **Framework Default** — Let the framework decide the structure
+
+### How Frontend Generation Works
+
+When you create a frontend or fullstack project, Lattice:
+
+1. **Scaffolds the framework** using the official project template (Vite, Next.js CLI, Angular CLI, etc.)
+2. **Applies Lattice structure** on top of the generated project:
+   - Standardized folder layout based on the selected architecture
+   - Type-safe service layer with dependency injection
+   - API client configuration (REST, GraphQL, or RPC)
+   - Environment variable management
+   - Build and development scripts
+3. **Configures the workspace** for fullstack projects:
+   - Monorepo structure with `apps/backend` and `apps/web`
+   - Shared TypeScript configuration
+   - Proxy configuration for local API development
+   - Shared type definitions between frontend and backend
+
+### How Fullstack Generation Works
+
+Fullstack projects combine a backend API with a frontend application in a single workspace:
+
+```bash
+lattice create my-system \
+  --type fullstack \
+  --architecture modular-monolith \
+  --frontend next \
+  --database postgresql \
+  --api rest \
+  --package-manager pnpm
+```
+
+This creates:
+
+```
+my-system/
+├── apps/
+│   ├── web/              # Frontend application
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── ...
+│   └── gateway/          # Backend API gateway (microservice)
+│       ├── src/
+│       ├── package.json
+│       └── ...
+├── packages/
+│   └── shared/           # Shared types and utilities
+├── package.json          # Workspace root
+├── pnpm-workspace.yaml
+└── tsconfig.base.json
+```
+
+For **modular-monolith** and **monolith** architectures, the backend lives under `apps/backend/` instead of `apps/gateway/`.
+
+### Frontend-Backend Integration
+
+Lattice configures the generated frontend to communicate with the backend:
+
+- **Development proxy** — API requests are proxied to the backend during development
+- **Type-safe client** — Generated API client from backend schema (when using OpenAPI)
+- **Shared types** — Common TypeScript types in the workspace `packages/shared/` directory
+- **Environment management** — Separate `.env` files for development, staging, and production
 
 ### Creating a Project
 
@@ -282,6 +344,18 @@ lattice dev
 ```
 
 Starts all applications in the workspace with a single command.
+
+- **Backend only** — Starts the API server with hot reload
+- **Frontend only** — Starts the frontend dev server
+- **Fullstack** — Starts both backend and frontend concurrently
+
+Options:
+
+```bash
+lattice dev --frontend-only   # Start only the frontend
+lattice dev --backend-only    # Start only the backend
+lattice dev --port 3000       # Custom port for backend
+```
 
 ---
 

@@ -337,6 +337,10 @@ export class HttpServer {
   }
 
   snapshot(): HttpServerSnapshot {
+    const address = this.addressValue;
+    const startedAt = this.startedAtValue;
+    const stoppedAt = this.stoppedAtValue;
+
     return {
       name: this.name,
 
@@ -344,17 +348,17 @@ export class HttpServer {
 
       adapter: this.adapter.name,
 
-      address: this.addressValue,
+      address: address === undefined ? undefined : { ...address },
 
-      startedAt: this.startedAtValue,
+      startedAt: startedAt === undefined ? undefined : new Date(startedAt.getTime()),
 
-      stoppedAt: this.stoppedAtValue,
+      stoppedAt: stoppedAt === undefined ? undefined : new Date(stoppedAt.getTime()),
 
       uptime: this.uptime,
 
       requests: this.requestCount,
 
-      metadata: this.metadata,
+      metadata: Object.freeze({ ...this.metadata }),
     };
   }
 
