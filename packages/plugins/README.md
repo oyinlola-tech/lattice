@@ -40,10 +40,7 @@ import {
 ## Usage
 
 ```typescript
-import {
-  PluginManager,
-  createPluginContext,
-} from "@zudolib/plugins";
+import { PluginManager, createPluginContext } from "@zudolib/plugins";
 
 const ctx = createPluginContext({ logger, config });
 const manager = new PluginManager(ctx);

@@ -358,7 +358,10 @@ describe("PluginEvents", () => {
   });
 
   it("creates event without previous state", () => {
-    const event = createPluginLifecycleEvent({ name: "@zudolib/test" }, "failed");
+    const event = createPluginLifecycleEvent(
+      { name: "@zudolib/test" },
+      "failed",
+    );
 
     expect(event.state).toBe("failed");
     expect(event.previousState).toBeUndefined();

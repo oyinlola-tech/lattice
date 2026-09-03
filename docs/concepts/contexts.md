@@ -55,6 +55,7 @@ child.info("Processing request");
 ## Principle
 
 Contexts are:
+
 - **Implicit** — flow through async calls without manual passing
 - **Controlled** — only the values that need to propagate are stored
 - **Isolated** — each context type is independent

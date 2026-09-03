@@ -88,10 +88,7 @@ describe("Architecture Boundaries", () => {
       const allDeps = { ...pkg.dependencies, ...pkg.peerDependencies };
 
       for (const [depName, version] of Object.entries(allDeps)) {
-        if (
-          depName.startsWith("@zudolib/") &&
-          version === "*"
-        ) {
+        if (depName.startsWith("@zudolib/") && version === "*") {
           errors.push(`${pkg.name}: ${depName}@${version}`);
         }
       }
@@ -143,8 +140,8 @@ describe("Architecture Boundaries", () => {
     const cycles = [];
 
     for (const pkg of packages) {
-      const deps = Object.keys(pkg.dependencies).filter(
-        (d) => d.startsWith("@zudolib/"),
+      const deps = Object.keys(pkg.dependencies).filter((d) =>
+        d.startsWith("@zudolib/"),
       );
       graph.set(pkg.name, deps);
     }

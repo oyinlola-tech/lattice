@@ -102,7 +102,7 @@ function checkWildcardVersions(packages) {
     for (const [depName, version] of Object.entries(allDeps)) {
       if (depName.startsWith("@zudolib/") && version === "*") {
         errors.push(
-          `Wildcard version in ${pkg.name}: ${depName}: "${version}". Use exact version "0.1.0".`
+          `Wildcard version in ${pkg.name}: ${depName}: "${version}". Use exact version "0.1.0".`,
         );
       }
     }
@@ -139,7 +139,7 @@ function checkTierViolations(packages) {
 
       if (depTier > pkgTier) {
         errors.push(
-          `Tier violation: ${pkg.name} (tier ${pkgTier}) depends on ${depName} (tier ${depTier})`
+          `Tier violation: ${pkg.name} (tier ${pkgTier}) depends on ${depName} (tier ${depTier})`,
         );
       }
     }
@@ -157,7 +157,9 @@ function checkCircularDependencies(packages) {
 
   // Build adjacency list
   for (const pkg of packages) {
-    const deps = Object.keys(pkg.dependencies).filter((d) => d.startsWith("@zudolib/"));
+    const deps = Object.keys(pkg.dependencies).filter((d) =>
+      d.startsWith("@zudolib/"),
+    );
     graph.set(pkg.name, deps);
   }
 

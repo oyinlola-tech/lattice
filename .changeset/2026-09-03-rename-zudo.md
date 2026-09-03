@@ -46,6 +46,7 @@ BREAKING CHANGE: Rename all packages from `@zudolib/*` to `@zudolib/*` and `@zud
 - All internal imports, docs, CI, and examples updated
 
 Migration:
+
 ```bash
 # Old
 npm install @zudolib/cli

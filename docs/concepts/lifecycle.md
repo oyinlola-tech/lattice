@@ -59,6 +59,7 @@ Lifecycle transitions are enforced by a state machine. Invalid transitions throw
 ## Graceful Shutdown
 
 On SIGINT or SIGTERM:
+
 1. Mark the application as draining.
 2. Finish in-flight requests up to a deadline.
 3. Stop modules in reverse dependency order.

@@ -37,7 +37,10 @@ import type {
   ResolutionResult,
 } from "./containerResolution.type.js";
 
-import { CircularDependencyError, ProviderResolutionError } from "@zudolib/errors";
+import {
+  CircularDependencyError,
+  ProviderResolutionError,
+} from "@zudolib/errors";
 import { describeToken } from "../containerToken/containerToken.type.js";
 
 export class ContainerResolver {

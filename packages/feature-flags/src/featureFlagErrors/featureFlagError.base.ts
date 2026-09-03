@@ -5,7 +5,11 @@
  */
 
 import { ApplicationError, ErrorCode } from "@zudolib/errors";
-import type { ErrorCategory, ErrorSeverity, ErrorMetadata } from "@zudolib/errors";
+import type {
+  ErrorCategory,
+  ErrorSeverity,
+  ErrorMetadata,
+} from "@zudolib/errors";
 
 /** Options for creating a feature flag error. */
 export interface FeatureFlagErrorOptions {

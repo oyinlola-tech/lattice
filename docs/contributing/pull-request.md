@@ -3,6 +3,7 @@
 ## Before Submitting
 
 1. Ensure all checks pass:
+
    ```bash
    npm run typecheck
    npm run architect:check
@@ -10,6 +11,7 @@
    ```
 
 2. Run formatting:
+
    ```bash
    npm run format
    ```

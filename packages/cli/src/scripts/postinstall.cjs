@@ -49,9 +49,7 @@ async function main() {
     console.log(
       `\n  zudolib ${installed} is installed, but version ${latest} is available.`,
     );
-    console.log(
-      `   Run: npm install -g @zudolib/cli@latest\n`,
-    );
+    console.log(`   Run: npm install -g @zudolib/cli@latest\n`);
   }
 }
 
