@@ -85,7 +85,7 @@ jobs:
           fi
 
       - name: Version packages
-        run: pnpm changeset version || true
+        run: pnpm changeset version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -105,15 +105,21 @@ jobs:
       - name: Publish packages
         if: github.ref == 'refs/heads/main'
         run: |
+          PUBLISHED=false
           for attempt in 1 2 3 4 5; do
             echo "Publish attempt $attempt"
             if pnpm changeset publish -- --provenance; then
               echo "All packages published successfully"
+              PUBLISHED=true
               break
             else
               echo "Some packages failed, waiting 60s before retry..."
               sleep 60
             fi
           done
+          if [ "$PUBLISHED" = "false" ]; then
+            echo "Failed to publish packages after 5 attempts"
+            exit 1
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
