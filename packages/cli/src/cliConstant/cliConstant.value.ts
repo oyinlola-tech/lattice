@@ -9,14 +9,14 @@
 /* -------------------------------------------------------------------------- */
 
 /** CLI application name. */
-export const CLI_NAME = "lattice";
+export const CLI_NAME = "zudo";
 
 /** Default application configuration. */
 export const CLI_DEFAULTS = {
-  NAME: "lattice",
+  NAME: "zudo",
   VERSION: "0.1.0",
-  DESCRIPTION: "Command-line interface for the Lattice framework.",
-  COMMAND_PREFIX: "lattice",
+  DESCRIPTION: "Command-line interface for the Zudo framework.",
+  COMMAND_PREFIX: "zudo",
   DEFAULT_CWD: process.cwd(),
   EXIT_CODE: 0,
 } as const;

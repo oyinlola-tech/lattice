@@ -1,7 +1,7 @@
 /**
  * @zudo/adapters/websocket
  *
- * WebSocket adapter contracts — bridges Lattice to WebSocket providers.
+ * WebSocket adapter contracts — bridges Zudo to WebSocket providers.
  */
 
 import type {

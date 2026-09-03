@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a reproducible problem in Lattice
+description: Report a reproducible problem in Zudo
 title: "[Bug]: "
 labels:
   - bug
@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting a bug in Lattice.
+        Thanks for reporting a bug in Zudo.
 
         Please provide enough information for us to reproduce and investigate
         the issue. Before submitting, check whether a similar issue already
@@ -17,24 +17,24 @@ body:
     id: package
     attributes:
       label: Affected Package
-      description: Which Lattice package is affected?
+      description: Which Zudo package is affected?
       options:
-        - "@lattice/core"
-        - "@lattice/config"
-        - "@lattice/container"
-        - "@lattice/logger"
-        - "@lattice/errors"
-        - "@lattice/validation"
-        - "@lattice/cqrs"
-        - "@lattice/events"
-        - "@lattice/database"
-        - "@lattice/http"
-        - "@lattice/runtime"
-        - "@lattice/messaging"
-        - "@lattice/queue"
-        - "@lattice/storage"
-        - "@lattice/security"
-        - "@lattice/observability"
+        - "@zudo/core"
+        - "@zudo/config"
+        - "@zudo/container"
+        - "@zudo/logger"
+        - "@zudo/errors"
+        - "@zudo/validation"
+        - "@zudo/cqrs"
+        - "@zudo/events"
+        - "@zudo/database"
+        - "@zudo/http"
+        - "@zudo/runtime"
+        - "@zudo/messaging"
+        - "@zudo/queue"
+        - "@zudo/storage"
+        - "@zudo/security"
+        - "@zudo/observability"
         - Other
     validations:
       required: true
@@ -42,8 +42,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: Lattice Version
-      description: Which version of Lattice are you using?
+      label: Zudo Version
+      description: Which version of Zudo are you using?
       placeholder: "e.g. 0.1.0"
     validations:
       required: true

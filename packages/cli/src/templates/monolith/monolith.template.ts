@@ -33,7 +33,7 @@
  * ├── tests/
  * ├── package.json
  * ├── tsconfig.json
- * ├── lattice.config.ts
+ * ├── zudo.config.ts
  * └── README.md
  * ```
  */
@@ -129,8 +129,8 @@ export function generateMonolithFiles(
 }
 `;
 
-  // lattice.config.ts
-  files["lattice.config.ts"] = `import { defineConfig } from "@zudo/config";
+  // zudo.config.ts
+  files["zudo.config.ts"] = `import { defineConfig } from "@zudo/config";
 
 export default defineConfig({
   application: {
@@ -186,7 +186,7 @@ dist/
 
   files["README.md"] = `# ${name}
 
-A Lattice framework application.
+A Zudo framework application.
 
 ## Getting Started
 

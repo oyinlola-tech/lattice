@@ -1,5 +1,5 @@
 /**
- * Log levels used throughout Lattice.
+ * Log levels used throughout Zudo.
  *
  * Lower numeric values represent more severe messages.
  * Higher numeric values represent more verbose messages.

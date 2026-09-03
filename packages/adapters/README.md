@@ -1,6 +1,6 @@
 # @zudo/adapters
 
-Boundary layer between Lattice and external platforms with adapter contracts, registry, capabilities, and transport abstractions.
+Boundary layer between Zudo and external platforms with adapter contracts, registry, capabilities, and transport abstractions.
 
 ## Installation
 

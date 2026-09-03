@@ -39,14 +39,14 @@
     "access": "public"
   },
   "keywords": [
-    "lattice",
+    "zudo",
     "scheduler",
     "cron",
     "jobs"
   ],
-  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/lattice"
+    "url": "https://github.com/oyinlola-tech/zudo"
   }
 }

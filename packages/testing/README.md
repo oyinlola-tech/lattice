@@ -1,6 +1,6 @@
 # @zudo/testing
 
-Test helpers, fixtures, mocks, and utilities for testing Lattice applications.
+Test helpers, fixtures, mocks, and utilities for testing Zudo applications.
 
 ## Installation
 
@@ -29,7 +29,7 @@ const logger = createTestLogger();
 
 ## Use Cases
 
-- Unit testing Lattice components
+- Unit testing Zudo components
 - Integration testing
 - Mocking dependencies
 - Test fixtures

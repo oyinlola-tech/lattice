@@ -1,5 +1,5 @@
 /**
- * Serialization-specific constants shared across the Lattice framework.
+ * Serialization-specific constants shared across the Zudo framework.
  *
  * @module common/common.serialization
  */

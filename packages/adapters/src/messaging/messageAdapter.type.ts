@@ -1,7 +1,7 @@
 /**
  * @zudo/adapters/messaging
  *
- * Messaging adapter contracts — bridges Lattice messaging to external providers.
+ * Messaging adapter contracts — bridges Zudo messaging to external providers.
  */
 
 import type {
@@ -11,7 +11,7 @@ import type {
 } from "../index.js";
 
 /**
- * Messaging adapter — connects Lattice message bus to external providers.
+ * Messaging adapter — connects Zudo message bus to external providers.
  *
  * Examples: RabbitMQ, Kafka, Redis Streams, NATS, AWS SQS, Google Pub/Sub.
  */

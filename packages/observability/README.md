@@ -1,6 +1,6 @@
 # @zudo/observability
 
-Structured logging, metrics, tracing, context propagation, and exporters for Lattice applications.
+Structured logging, metrics, tracing, context propagation, and exporters for Zudo applications.
 
 ## Installation
 

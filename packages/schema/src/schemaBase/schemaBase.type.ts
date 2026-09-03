@@ -1,7 +1,7 @@
 /**
  * @zudo/schema/types
  *
- * Core types for the Lattice schema system.
+ * Core types for the Zudo schema system.
  */
 
 import type { SchemaIssueCode } from "@zudo/constants";

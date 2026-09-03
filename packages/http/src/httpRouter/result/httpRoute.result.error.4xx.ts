@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP route result 4xx error factory functions.
+ * Zudo HTTP route result 4xx error factory functions.
  */
 
 import { HttpRouteResult } from "./httpRoute.result.class.js";

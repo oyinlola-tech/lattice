@@ -1,6 +1,6 @@
 # Dependency Direction
 
-> Dependencies in Lattice flow inward, from higher-level packages to lower-level packages.
+> Dependencies in Zudo flow inward, from higher-level packages to lower-level packages.
 > This document explains why this matters, how to evaluate dependency decisions,
 > and how to recognize and fix violations.
 
@@ -22,18 +22,18 @@ This is sometimes called **"inward dependency direction"** or **"dependency inve
 
 ## 2. Why This Matters for a Framework
 
-Lattice is a framework. Applications depend on it. That means:
+Zudo is a framework. Applications depend on it. That means:
 
-- **Breaking changes propagate outward.** If `@lattice/core` depends on `@lattice/http`, then every application using `@lattice/core` indirectly depends on `@lattice/http`. A breaking change in `@lattice/http` breaks `@lattice/core`, which breaks every application.
-- **Circular dependencies become inevitable.** If `@lattice/http` depends on `@lattice/core`, and `@lattice/core` depends on `@lattice/events`, and `@lattice/events` depends on `@lattice/http` (to publish request events), you have a cycle. Cycles make builds fragile, testing difficult, and refactoring dangerous.
-- **Foundation code must remain stable.** The packages at the bottom of the dependency graph (`@lattice/errors`, `@lattice/types`, `@lattice/constants`) are imported by everything. If they depend on higher-level packages, they become unstable and drag the entire framework down with them.
-- **Replaceability requires abstraction.** If `@lattice/http` directly imports `@lattice/postgres`, you cannot swap databases without modifying the HTTP package. By depending on `@lattice/database` abstractions instead, `@lattice/http` stays platform-agnostic.
+- **Breaking changes propagate outward.** If `@zudo/core` depends on `@zudo/http`, then every application using `@zudo/core` indirectly depends on `@zudo/http`. A breaking change in `@zudo/http` breaks `@zudo/core`, which breaks every application.
+- **Circular dependencies become inevitable.** If `@zudo/http` depends on `@zudo/core`, and `@zudo/core` depends on `@zudo/events`, and `@zudo/events` depends on `@zudo/http` (to publish request events), you have a cycle. Cycles make builds fragile, testing difficult, and refactoring dangerous.
+- **Foundation code must remain stable.** The packages at the bottom of the dependency graph (`@zudo/errors`, `@zudo/types`, `@zudo/constants`) are imported by everything. If they depend on higher-level packages, they become unstable and drag the entire framework down with them.
+- **Replaceability requires abstraction.** If `@zudo/http` directly imports `@zudo/postgres`, you cannot swap databases without modifying the HTTP package. By depending on `@zudo/database` abstractions instead, `@zudo/http` stays platform-agnostic.
 
 ---
 
 ## 3. Visualizing the Dependency Graph
 
-The Lattice dependency graph is a directed acyclic graph (DAG) flowing inward:
+The Zudo dependency graph is a directed acyclic graph (DAG) flowing inward:
 
 ```
  Tier 4 (DX)          testing, docs
@@ -62,14 +62,14 @@ Every arrow points downward. There are no upward arrows.
 A package A **depends on** package B when A imports from B:
 
 ```ts
-// @lattice/http imports from @lattice/core
-import { ApplicationContext } from "@lattice/core";
+// @zudo/http imports from @zudo/core
+import { ApplicationContext } from "@zudo/core";
 ```
 
 This means:
 
-- `@lattice/http` → `@lattice/core` is allowed (higher → lower)
-- `@lattice/core` → `@lattice/http` is forbidden (lower → higher)
+- `@zudo/http` → `@zudo/core` is allowed (higher → lower)
+- `@zudo/core` → `@zudo/http` is forbidden (lower → higher)
 
 ---
 
@@ -91,7 +91,7 @@ Before adding a dependency, ask:
 Trace the dependency chain:
 
 ```
-@lattice/http → @lattice/core → @lattice/events → @lattice/http
+@zudo/http → @zudo/core → @zudo/events → @zudo/http
 ```
 
 If you can follow imports from the new dependency back to the original package, you have a cycle.
@@ -106,7 +106,7 @@ Before depending on a higher-tier package, ask:
 
 ### 5.4 Will this affect applications?
 
-If `@lattice/http` depends on `@lattice/database`, then every application using `@lattice/http` must also install and configure `@lattice/database`. That is a hidden coupling that violates the framework's modularity.
+If `@zudo/http` depends on `@zudo/database`, then every application using `@zudo/http` must also install and configure `@zudo/database`. That is a hidden coupling that violates the framework's modularity.
 
 ---
 
@@ -115,39 +115,39 @@ If `@lattice/http` depends on `@lattice/database`, then every application using 
 ### 6.1 Foundation Depending on Application
 
 ```
-❌ @lattice/core → @lattice/http
+❌ @zudo/core → @zudo/http
 ```
 
-`@lattice/core` is the application context. It should not know about HTTP.
+`@zudo/core` is the application context. It should not know about HTTP.
 
-**Fix:** Move HTTP-specific logic to `@lattice/http` or a lower-tier package.
+**Fix:** Move HTTP-specific logic to `@zudo/http` or a lower-tier package.
 
 ### 6.2 Transport Depending on Transport
 
 ```
-❌ @lattice/http → @lattice/rpc
-❌ @lattice/rpc → @lattice/http
+❌ @zudo/http → @zudo/rpc
+❌ @zudo/rpc → @zudo/http
 ```
 
 Transport packages must be independent. They translate external requests into internal calls.
 
-**Fix:** Extract shared transport logic into `@lattice/adapters` or a new lower-tier package.
+**Fix:** Extract shared transport logic into `@zudo/adapters` or a new lower-tier package.
 
 ### 6.3 Application Depending on Transport
 
 ```
-❌ @lattice/cqrs → @lattice/http
+❌ @zudo/cqrs → @zudo/http
 ```
 
 CQRS commands and queries should not know about HTTP.
 
-**Fix:** Use `@lattice/adapters` or event-driven integration instead of direct imports.
+**Fix:** Use `@zudo/adapters` or event-driven integration instead of direct imports.
 
 ### 6.4 Infrastructure Depending on Transport
 
 ```
-❌ @lattice/database → @lattice/http
-❌ @lattice/queue → @lattice/http
+❌ @zudo/database → @zudo/http
+❌ @zudo/queue → @zudo/http
 ```
 
 Infrastructure packages must not know about transport.
@@ -157,11 +157,11 @@ Infrastructure packages must not know about transport.
 ### 6.5 Leaf Packages Depending on Anything
 
 ```
-❌ @lattice/errors → @lattice/types
-❌ @lattice/types → @lattice/constants
+❌ @zudo/errors → @zudo/types
+❌ @zudo/types → @zudo/constants
 ```
 
-Leaf packages must have no `@lattice/*` dependencies.
+Leaf packages must have no `@zudo/*` dependencies.
 
 **Fix:** Move shared code to the leaf package or create a new leaf package.
 
@@ -173,23 +173,23 @@ Leaf packages must have no `@lattice/*` dependencies.
 
 | Tier | Name                     | Can Import From         | Examples                                                   |
 | ---- | ------------------------ | ----------------------- | ---------------------------------------------------------- |
-| 0    | Leaf                     | Nothing (external only) | `@lattice/errors`, `@lattice/types`                        |
-| 1    | Foundation               | Tier 0                  | `@lattice/container`, `@lattice/logger`, `@lattice/events` |
-| 2    | Application Architecture | Tier 0, Tier 1          | `@lattice/core`, `@lattice/cqrs`, `@lattice/runtime`       |
-| 3    | Transport                | Tier 0, Tier 1, Tier 2  | `@lattice/http`, `@lattice/cli`                            |
-| 4    | Developer Experience     | Any                     | `@lattice/testing`, `@lattice/docs`                        |
+| 0    | Leaf                     | Nothing (external only) | `@zudo/errors`, `@zudo/types`                        |
+| 1    | Foundation               | Tier 0                  | `@zudo/container`, `@zudo/logger`, `@zudo/events` |
+| 2    | Application Architecture | Tier 0, Tier 1          | `@zudo/core`, `@zudo/cqrs`, `@zudo/runtime`       |
+| 3    | Transport                | Tier 0, Tier 1, Tier 2  | `@zudo/http`, `@zudo/cli`                            |
+| 4    | Developer Experience     | Any                     | `@zudo/testing`, `@zudo/docs`                        |
 
 ### 7.2 Determining a Package's Tier
 
 A package's tier is determined by the **highest tier of its dependencies**.
 
 ```
-If @lattice/http imports from:
-  - @lattice/core (Tier 2)
-  - @lattice/errors (Tier 0)
-  - @lattice/logger (Tier 1)
+If @zudo/http imports from:
+  - @zudo/core (Tier 2)
+  - @zudo/errors (Tier 0)
+  - @zudo/logger (Tier 1)
 
-Then @lattice/http belongs in Tier 3 (Transport)
+Then @zudo/http belongs in Tier 3 (Transport)
 ```
 
 ### 7.3 Current Package Tiers
@@ -210,8 +210,8 @@ Peer dependencies are allowed when:
 
 | Package                | Peer            | Tier | Purpose                         |
 | ---------------------- | --------------- | ---- | ------------------------------- |
-| `@lattice/permissions` | `@lattice/http` | 3    | HTTP-specific permission guards |
-| `@lattice/tenancy`     | `@lattice/http` | 3    | HTTP-specific tenant resolution |
+| `@zudo/permissions` | `@zudo/http` | 3    | HTTP-specific permission guards |
+| `@zudo/tenancy`     | `@zudo/http` | 3    | HTTP-specific tenant resolution |
 
 ### 8.2 Peer Dependency Rules
 
@@ -248,12 +248,12 @@ Example:
 
 ```
 Before (circular):
-  @lattice/http → @lattice/permissions → @lattice/http
+  @zudo/http → @zudo/permissions → @zudo/http
 
 After (resolved):
-  @lattice/permissions-core (Tier 1) — shared authorization logic
-  @lattice/permissions (Tier 1) — imports permissions-core
-  @lattice/http (Tier 3) — imports permissions
+  @zudo/permissions-core (Tier 1) — shared authorization logic
+  @zudo/permissions (Tier 1) — imports permissions-core
+  @zudo/http (Tier 3) — imports permissions
 ```
 
 ### 9.4 Prevention
@@ -269,7 +269,7 @@ After (resolved):
 ### 10.1 Good: HTTP depending on Core
 
 ```
-@lattice/http → @lattice/core → @lattice/events → @lattice/errors
+@zudo/http → @zudo/core → @zudo/events → @zudo/errors
 ```
 
 HTTP imports core for application context. Core imports events for event emission. Events import errors for error handling.
@@ -279,17 +279,17 @@ This is correct. Dependencies flow inward.
 ### 10.2 Bad: Core depending on HTTP
 
 ```
-@lattice/core → @lattice/http → @lattice/core
+@zudo/core → @zudo/http → @zudo/core
 ```
 
 Core should not know about HTTP. This creates a circular dependency and violates the tier system.
 
-**Fix:** Move HTTP-specific context into `@lattice/http`. Core provides generic context interfaces.
+**Fix:** Move HTTP-specific context into `@zudo/http`. Core provides generic context interfaces.
 
 ### 10.3 Good: Database depending on Storage
 
 ```
-@lattice/database → @lattice/storage → @lattice/serialization → @lattice/errors
+@zudo/database → @zudo/storage → @zudo/serialization → @zudo/errors
 ```
 
 Database imports storage abstractions. Storage imports serialization. Serialization imports errors.
@@ -299,12 +299,12 @@ This is correct.
 ### 10.4 Bad: Storage depending on Database
 
 ```
-@lattice/storage → @lattice/database → @lattice/storage
+@zudo/storage → @zudo/database → @zudo/storage
 ```
 
 Storage should provide abstractions that database implements. Database should not depend on storage.
 
-**Fix:** Define storage interfaces in `@lattice/storage`. Implement them in `@lattice/database`.
+**Fix:** Define storage interfaces in `@zudo/storage`. Implement them in `@zudo/database`.
 
 ---
 
@@ -316,8 +316,8 @@ The tier system exists to serve the framework, not the other way around.
 
 | Exception         | Condition                        | Example                                           |
 | ----------------- | -------------------------------- | ------------------------------------------------- |
-| Peer dependencies | Optional, documented, justified  | `@lattice/permissions` peers with `@lattice/http` |
-| Testing imports   | Tier 4 only, never in production | `@lattice/testing` imports any package            |
+| Peer dependencies | Optional, documented, justified  | `@zudo/permissions` peers with `@zudo/http` |
+| Testing imports   | Tier 4 only, never in production | `@zudo/testing` imports any package            |
 | Developer tooling | Not part of production bundle    | Build scripts, CLI tools                          |
 
 ### 11.2 Unacceptable Excuses
@@ -326,7 +326,7 @@ The tier system exists to serve the framework, not the other way around.
 | ----------------------------- | ----------------------------------------------------------------------------- |
 | "It's just one small import"  | Small imports create hidden coupling that grows over time.                    |
 | "We need it for convenience"  | Convenience for one package becomes maintenance burden for all.               |
-| "It's only used in tests"     | If it's only used in tests, put it in `@lattice/testing` or a dev dependency. |
+| "It's only used in tests"     | If it's only used in tests, put it in `@zudo/testing` or a dev dependency. |
 | "The other package is stable" | Stability is not a reason to violate architecture.                            |
 | "We'll refactor it later"     | Dependency direction is hard to refactor after the fact.                      |
 
@@ -359,6 +359,6 @@ Before merging any PR that adds, removes, or changes a dependency:
 | Command                                        | Purpose                                     |
 | ---------------------------------------------- | ------------------------------------------- |
 | `npm run architect:check`                      | Verify dependency direction and tier rules. |
-| `npm run typecheck --workspace=@lattice/<pkg>` | Verify TypeScript compilation.              |
+| `npm run typecheck --workspace=@zudo/<pkg>` | Verify TypeScript compilation.              |
 | `npm test`                                     | Run all tests.                              |
 | `pnpm install`                                 | Install dependencies and update lockfile.   |

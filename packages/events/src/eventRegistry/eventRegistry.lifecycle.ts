@@ -1,5 +1,5 @@
 /**
- * Event registry lifecycle methods for Lattice.
+ * Event registry lifecycle methods for Zudo.
  */
 
 import type { EventType } from "../eventTypes/eventDefinition.type.js";

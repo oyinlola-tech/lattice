@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP route result utility helpers.
+ * Zudo HTTP route result utility helpers.
  */
 
 /* -------------------------------------------------------------------------- */

@@ -1,7 +1,7 @@
 /**
  * @zudo/adapters/storage
  *
- * Storage adapter contracts — bridges Lattice storage to external providers.
+ * Storage adapter contracts — bridges Zudo storage to external providers.
  *
  * Examples: Local filesystem, AWS S3, Cloudflare R2, Google Cloud Storage, Azure Blob.
  */
@@ -13,7 +13,7 @@ import type {
 } from "../index.js";
 
 /**
- * Storage adapter — connects Lattice storage abstractions to external providers.
+ * Storage adapter — connects Zudo storage abstractions to external providers.
  */
 export interface StorageAdapter extends Adapter {
   /** Retrieves an object by key. */

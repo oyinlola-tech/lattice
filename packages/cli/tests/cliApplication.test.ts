@@ -1,14 +1,14 @@
 /**
  * zudo-cli — CLI Application Tests
  *
- * Tests for LatticeCLI, builtins, writer, runner, help generator,
+ * Tests for ZudoCLI, builtins, writer, runner, help generator,
  * and version utilities.
  */
 
 import { describe, it, expect, vi } from "vitest";
 
 import {
-  LatticeCLI,
+  ZudoCLI,
   createCLI,
 } from "../src/cliApplication/cliApplication.core.js";
 import {
@@ -159,17 +159,17 @@ describe("createCLIWriter", () => {
   });
 });
 
-// ─── LatticeCLI ────────────────────────────────────────────────────────────
+// ─── ZudoCLI ────────────────────────────────────────────────────────────
 
-describe("LatticeCLI", () => {
+describe("ZudoCLI", () => {
   it("creates with default options", () => {
-    const cli = new LatticeCLI();
-    expect(cli.name).toBe("lattice");
+    const cli = new ZudoCLI();
+    expect(cli.name).toBe("zudo");
     expect(cli.version).toBeTruthy();
   });
 
   it("creates with custom options", () => {
-    const cli = new LatticeCLI({
+    const cli = new ZudoCLI({
       name: "my-app",
       version: "2.0.0",
       description: "My application",
@@ -180,14 +180,14 @@ describe("LatticeCLI", () => {
   });
 
   it("registers commands", () => {
-    const cli = new LatticeCLI();
+    const cli = new ZudoCLI();
     const cmd = createCommand({ name: "test", execute: () => {} });
     cli.register(cmd);
     expect(cli.commandCount).toBe(1);
   });
 
   it("registers multiple commands", () => {
-    const cli = new LatticeCLI();
+    const cli = new ZudoCLI();
     cli.registerMany([
       createCommand({ name: "a", execute: () => {} }),
       createCommand({ name: "b", execute: () => {} }),
@@ -196,32 +196,32 @@ describe("LatticeCLI", () => {
   });
 
   it("returns exit code 0 for --help", async () => {
-    const cli = new LatticeCLI();
+    const cli = new ZudoCLI();
     const code = await cli.run(["--help"]);
     expect(code).toBe(CLI_EXIT_CODES.SUCCESS);
   });
 
   it("returns exit code 0 for --version", async () => {
-    const cli = new LatticeCLI({ version: "1.0.0" });
+    const cli = new ZudoCLI({ version: "1.0.0" });
     const code = await cli.run(["--version"]);
     expect(code).toBe(CLI_EXIT_CODES.SUCCESS);
   });
 
   it("returns exit code 0 for no args (shows help)", async () => {
-    const cli = new LatticeCLI();
+    const cli = new ZudoCLI();
     const code = await cli.run([]);
     expect(code).toBe(CLI_EXIT_CODES.SUCCESS);
   });
 
   it("returns error exit code for unknown command", async () => {
-    const cli = new LatticeCLI();
+    const cli = new ZudoCLI();
     const code = await cli.run(["nonexistent"]);
     expect(code).not.toBe(CLI_EXIT_CODES.SUCCESS);
   });
 
   it("executes a registered command", async () => {
     let executed = false;
-    const cli = new LatticeCLI();
+    const cli = new ZudoCLI();
     cli.register(
       createCommand({
         name: "test",
@@ -236,7 +236,7 @@ describe("LatticeCLI", () => {
   });
 
   it("returns general error for command execution failure", async () => {
-    const cli = new LatticeCLI();
+    const cli = new ZudoCLI();
     cli.register(
       createCommand({
         name: "fail",
@@ -250,7 +250,7 @@ describe("LatticeCLI", () => {
   });
 
   it("prevents concurrent runs", async () => {
-    const cli = new LatticeCLI();
+    const cli = new ZudoCLI();
     cli.register(
       createCommand({
         name: "slow",
@@ -268,7 +268,7 @@ describe("LatticeCLI", () => {
   });
 
   it("reports isRunning correctly", async () => {
-    const cli = new LatticeCLI();
+    const cli = new ZudoCLI();
     cli.register(
       createCommand({
         name: "slow",
@@ -287,7 +287,7 @@ describe("LatticeCLI", () => {
   it("calls lifecycle hooks", async () => {
     const beforeRun = vi.fn();
     const afterRun = vi.fn();
-    const cli = new LatticeCLI();
+    const cli = new ZudoCLI();
     cli.use({ beforeRun, afterRun });
     cli.register(createCommand({ name: "test", execute: () => {} }));
     await cli.run(["test"]);
@@ -297,9 +297,9 @@ describe("LatticeCLI", () => {
 });
 
 describe("createCLI", () => {
-  it("creates a LatticeCLI instance", () => {
+  it("creates a ZudoCLI instance", () => {
     const cli = createCLI({ name: "test-app" });
-    expect(cli).toBeInstanceOf(LatticeCLI);
+    expect(cli).toBeInstanceOf(ZudoCLI);
     expect(cli.name).toBe("test-app");
   });
 });

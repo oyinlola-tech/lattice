@@ -1,6 +1,6 @@
 /**
  * Defines the lifetime of a dependency registered
- * with the Lattice dependency injection container.
+ * with the Zudo dependency injection container.
  */
 export type Scope =
   /**

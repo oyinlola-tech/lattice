@@ -1,9 +1,9 @@
 /**
  * @zudo/testing
  *
- * Testing infrastructure for the Lattice framework.
+ * Testing infrastructure for the Zudo framework.
  * Provides test containers, fakes, fixtures, mocks, assertions,
- * and utilities for consistent testing across all Lattice packages.
+ * and utilities for consistent testing across all Zudo packages.
  */
 
 export * from "./cleanupManager/index.js";

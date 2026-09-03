@@ -51,7 +51,7 @@ import {
 /**
  * Internal context passed to extracted methods.
  */
-export interface LatticeLoggerContext {
+export interface ZudoLoggerContext {
   readonly configuration: LoggerConfiguration;
   readonly contextStorage: LoggerContextStorage;
   assertActive(): void;
@@ -66,7 +66,7 @@ export interface LatticeLoggerContext {
 /**
  * Logger implementation.
  */
-export class LatticeLogger implements Logger, LatticeLoggerContext {
+export class ZudoLogger implements Logger, ZudoLoggerContext {
   private _configuration: LoggerConfiguration;
   private readonly _contextStorage: LoggerContextStorage;
   private _disposed = false;
@@ -166,13 +166,13 @@ export class LatticeLogger implements Logger, LatticeLoggerContext {
   }
 
   createChildLogger(options: LoggerOptions): Logger {
-    return new LatticeLogger(options, this._contextStorage);
+    return new ZudoLogger(options, this._contextStorage);
   }
 }
 
 /**
- * Creates a Lattice logger.
+ * Creates a Zudo logger.
  */
 export function createLogger(options: LoggerOptions = {}): Logger {
-  return new LatticeLogger(options);
+  return new ZudoLogger(options);
 }

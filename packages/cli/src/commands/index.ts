@@ -1,7 +1,7 @@
 /**
  * zudo-cli — Commands
  *
- * Built-in commands for the Lattice CLI.
+ * Built-in commands for the Zudo CLI.
  */
 
 export { runCreateCommand } from "./create.command.js";

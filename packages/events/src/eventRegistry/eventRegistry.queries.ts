@@ -1,5 +1,5 @@
 /**
- * Event registry query functions for Lattice.
+ * Event registry query functions for Zudo.
  */
 
 import type { Event, EventType } from "../eventTypes/eventDefinition.type.js";

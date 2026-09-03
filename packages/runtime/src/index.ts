@@ -1,7 +1,7 @@
 /**
  * @zudo/runtime
  *
- * Application runtime orchestrator for the Lattice framework.
+ * Application runtime orchestrator for the Zudo framework.
  *
  * The runtime manages the complete application lifecycle:
  * - Deterministic startup with dependency ordering

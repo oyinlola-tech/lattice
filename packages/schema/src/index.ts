@@ -1,7 +1,7 @@
 /**
  * @zudo/schema
  *
- * Schema definition and parsing engine for the Lattice framework.
+ * Schema definition and parsing engine for the Zudo framework.
  *
  * Provides type-safe data contracts with validation, transformation,
  * type inference, and structured error reporting.

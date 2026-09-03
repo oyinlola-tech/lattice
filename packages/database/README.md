@@ -1,6 +1,6 @@
 # @zudo/database
 
-Database abstraction layer with clients, repositories, transactions, and query building for Lattice applications.
+Database abstraction layer with clients, repositories, transactions, and query building for Zudo applications.
 
 ## Installation
 

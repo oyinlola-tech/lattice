@@ -27,7 +27,7 @@ export class LoggerManager {
     if (this.closed) throw new Error("LoggerManager has been closed.");
     if (this.initialized && this.defaultLogger) return this.defaultLogger;
 
-    const logger = this.factory.create(options.name ?? "lattice", options);
+    const logger = this.factory.create(options.name ?? "zudo", options);
     this.defaultLogger = logger;
     this.initialized = true;
     return logger;
@@ -126,7 +126,7 @@ export function initializeLoggerManager(
 }
 
 /** Creates the default application logger. */
-export function createManagedDefaultLogger(name = "lattice"): Logger {
+export function createManagedDefaultLogger(name = "zudo"): Logger {
   return createDefaultLogger(name);
 }
 
@@ -141,7 +141,7 @@ export function createLoggerManagerFromLogger(logger: Logger): LoggerManager {
 /** Returns a logger from a manager or creates a fallback logger when no manager is supplied. */
 export function resolveManagedLogger(
   manager?: LoggerManager,
-  name = "lattice",
+  name = "zudo",
 ): Logger {
   if (manager) return manager.get(name);
   return createLogger({ name });

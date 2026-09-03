@@ -1,6 +1,6 @@
 # @zudo/constants
 
-Shared constants, enums, branded types, and type-safe literals for the Lattice framework.
+Shared constants, enums, branded types, and type-safe literals for the Zudo framework.
 
 ## Installation
 

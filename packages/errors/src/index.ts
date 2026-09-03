@@ -2,7 +2,7 @@
  * @zudo/errors
  *
  * Shared error base class, error codes, error categories,
- * and error utilities for the Lattice framework.
+ * and error utilities for the Zudo framework.
  */
 
 // Base types and classes

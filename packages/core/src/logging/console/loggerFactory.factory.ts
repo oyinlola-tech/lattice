@@ -24,7 +24,7 @@ export interface LoggerFactoryOptions extends LoggerOptions {
 }
 
 /**
- * Creates and configures Lattice logger instances.
+ * Creates and configures Zudo logger instances.
  *
  * The factory keeps logger selection separate from the rest
  * of the framework.

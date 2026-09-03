@@ -1,7 +1,7 @@
 {
   "name": "@zudo/serialization",
   "version": "0.1.4",
-  "description": "Data translation layer with JSON serializer, type transformers, envelopes, and registry for Lattice applications.",
+  "description": "Data translation layer with JSON serializer, type transformers, envelopes, and registry for Zudo applications.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -33,7 +33,7 @@
   },
   "license": "MIT",
   "keywords": [
-    "lattice",
+    "zudo",
     "serialization",
     "json",
     "transformers"
@@ -45,9 +45,9 @@
     "node": ">=24.0.0"
   },
   "module": "./dist/index.js",
-  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/lattice"
+    "url": "https://github.com/oyinlola-tech/zudo"
   }
 }

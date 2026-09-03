@@ -1,7 +1,7 @@
 /**
  * @zudo/security
  *
- * Security primitives for the Lattice framework.
+ * Security primitives for the Zudo framework.
  *
  * Provides input validation, header security, URL normalization,
  * body limits, cookie security, CORS, CSRF, rate limiting, and

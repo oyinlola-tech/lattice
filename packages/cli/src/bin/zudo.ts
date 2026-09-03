@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Lattice CLI entry point.
+ * Zudo CLI entry point.
  *
- * @module bin/lattice
+ * @module bin/zudo
  */
 
 import { createCLI } from "../cliApplication/index.js";
@@ -19,15 +19,15 @@ import { runDoctorCommand } from "../commands/doctor.command.js";
 import { runInfoCommand } from "../commands/info.command.js";
 
 const app = createCLI({
-  name: "Lattice",
+  name: "Zudo",
   version: "0.1.0",
-  description: "Command-line interface for the Lattice framework.",
+  description: "Command-line interface for the Zudo framework.",
 });
 
 app.register(
   createCommand({
     name: "create",
-    description: "Create a new Lattice project",
+    description: "Create a new Zudo project",
     arguments: [
       {
         name: "project-name",
@@ -83,9 +83,9 @@ app.register(
         name: "frontend-architecture",
         short: "fa",
         description:
-          "Frontend architecture (lattice-standard, feature-based, minimal, framework-default)",
+          "Frontend architecture (zudo-standard, feature-based, minimal, framework-default)",
         type: "string",
-        defaultValue: "lattice-standard",
+        defaultValue: "zudo-standard",
       },
       {
         name: "language",
@@ -154,7 +154,7 @@ app.register(
 app.register(
   createCommand({
     name: "generate",
-    description: "Generate files within a Lattice project",
+    description: "Generate files within a Zudo project",
     aliases: ["g"],
     arguments: [
       {
@@ -198,7 +198,7 @@ app.register(
 app.register(
   createCommand({
     name: "add",
-    description: "Add a feature package to a Lattice project",
+    description: "Add a feature package to a Zudo project",
     arguments: [
       {
         name: "feature",
@@ -230,7 +230,7 @@ app.register(
 app.register(
   createCommand({
     name: "doctor",
-    description: "Run diagnostics on a Lattice project",
+    description: "Run diagnostics on a Zudo project",
     execute: async (context: CLIContext): Promise<void> => {
       await runDoctorCommand(context);
     },
@@ -240,7 +240,7 @@ app.register(
 app.register(
   createCommand({
     name: "build",
-    description: "Build a Lattice project",
+    description: "Build a Zudo project",
     aliases: ["b"],
     execute: async (context: CLIContext): Promise<void> => {
       await runBuildCommand(context);
@@ -251,7 +251,7 @@ app.register(
 app.register(
   createCommand({
     name: "info",
-    description: "Show information about the Lattice CLI and project",
+    description: "Show information about the Zudo CLI and project",
     execute: async (context: CLIContext): Promise<void> => {
       await runInfoCommand(context);
     },

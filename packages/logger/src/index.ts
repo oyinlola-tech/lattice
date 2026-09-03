@@ -1,7 +1,7 @@
 /**
  * @zudo/logger
  *
- * Structured logging with transports, formatters, and context for the Lattice framework.
+ * Structured logging with transports, formatters, and context for the Zudo framework.
  */
 
 // Core logger

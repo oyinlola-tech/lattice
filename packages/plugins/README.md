@@ -1,6 +1,6 @@
 # @zudo/plugins
 
-Plugin manager, registry, dependency resolver, lifecycle controller, events, and integration context. The basis for extending a Lattice app with third-party functionality.
+Plugin manager, registry, dependency resolver, lifecycle controller, events, and integration context. The basis for extending a Zudo app with third-party functionality.
 
 ## When to use
 
@@ -43,7 +43,7 @@ import {
 import {
   PluginManager,
   createPluginContext,
-} from "@oyinlattice141/lattice-plugins";
+} from "@zudo/plugins";
 
 const ctx = createPluginContext({ logger, config });
 const manager = new PluginManager(ctx);

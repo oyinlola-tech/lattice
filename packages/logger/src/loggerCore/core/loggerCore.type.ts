@@ -14,7 +14,7 @@ import type {
 } from "../../loggerOptions/loggerOptions.type.js";
 
 /**
- * Main Lattice logger contract.
+ * Main Zudo logger contract.
  */
 export interface Logger {
   readonly name: string;

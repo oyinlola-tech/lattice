@@ -1,5 +1,5 @@
 /**
- * LatticeLogger lifecycle methods.
+ * ZudoLogger lifecycle methods.
  */
 
 import { LoggerLevel } from "../../../loggerLevel/loggerLevel.type.js";
@@ -10,13 +10,13 @@ import { isLoggerTransport } from "../../../loggerTransport/loggerTransportGuard
 
 import { LoggerConfigurationError } from "../../../loggerErrors/loggerError.base.js";
 
-import type { LatticeLoggerContext } from "../../core/loggerCore.core.js";
+import type { ZudoLoggerContext } from "../../core/loggerCore.core.js";
 
 /**
  * Sets the logger level.
  */
 export function setLoggerLevel(
-  ctx: LatticeLoggerContext,
+  ctx: ZudoLoggerContext,
   level: LoggerLevel,
 ): void {
   ctx.assertActive();
@@ -42,7 +42,7 @@ export function setLoggerLevel(
 /**
  * Enables the logger.
  */
-export function enableLogger(ctx: LatticeLoggerContext): void {
+export function enableLogger(ctx: ZudoLoggerContext): void {
   ctx.assertActive();
   ctx.assertMutable();
 
@@ -55,7 +55,7 @@ export function enableLogger(ctx: LatticeLoggerContext): void {
 /**
  * Disables the logger.
  */
-export function disableLogger(ctx: LatticeLoggerContext): void {
+export function disableLogger(ctx: ZudoLoggerContext): void {
   ctx.assertActive();
   ctx.assertMutable();
 
@@ -68,7 +68,7 @@ export function disableLogger(ctx: LatticeLoggerContext): void {
 /**
  * Flushes all transport buffers.
  */
-export async function flushLogger(ctx: LatticeLoggerContext): Promise<void> {
+export async function flushLogger(ctx: ZudoLoggerContext): Promise<void> {
   ctx.assertActive();
 
   for (const transport of ctx.configuration.transports) {
@@ -91,7 +91,7 @@ export async function flushLogger(ctx: LatticeLoggerContext): Promise<void> {
 /**
  * Closes all transports and marks logger as disposed.
  */
-export async function closeLogger(ctx: LatticeLoggerContext): Promise<void> {
+export async function closeLogger(ctx: ZudoLoggerContext): Promise<void> {
   if (ctx.isDisposed()) {
     return;
   }

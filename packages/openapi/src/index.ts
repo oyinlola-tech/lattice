@@ -1,7 +1,7 @@
 /**
  * @zudo/openapi
  *
- * API contract and documentation engine for the Lattice framework.
+ * API contract and documentation engine for the Zudo framework.
  *
  * Generates OpenAPI specifications from application routes, schemas,
  * and metadata. Supports OpenAPI 3.0 and 3.1.
@@ -73,7 +73,7 @@ export {
 export {
   toOpenAPIPath,
   convertRouteToOpenAPI,
-  LATTICE_TO_OPENAPI_METHODS,
+  ZUDO_TO_OPENAPI_METHODS,
   OpenAPIRouteScannerImpl,
 } from "./openApiRouting/index.js";
 export type {

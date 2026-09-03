@@ -1,7 +1,7 @@
 /**
  * CQRS event bus.
  *
- * Re-exports the Lattice EventBus and factory functions.
+ * Re-exports the Zudo EventBus and factory functions.
  * The base EventBus supports all CQRS publishing needs with
  * middleware, registry, and emitter infrastructure.
  */

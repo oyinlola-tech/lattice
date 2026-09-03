@@ -1,6 +1,6 @@
 # zudo-cli
 
-Command-line interface for scaffolding, generating, and managing Lattice framework projects.
+Command-line interface for scaffolding, generating, and managing Zudo framework projects.
 
 ## Installation
 
@@ -12,7 +12,7 @@ npm install -g zudo-cli
 
 ### Upgrading from an old version?
 
-If `lattice -v` doesn't match the latest npm version, clear the cache:
+If `zudo -v` doesn't match the latest npm version, clear the cache:
 
 ```bash
 npm cache clean --force
@@ -35,22 +35,22 @@ npm install -g zudo-cli@latest
 
 ```bash
 # Create a new backend project
-lattice create my-api
+zudo create my-api
 
 # Create a frontend project
-lattice create my-web --type frontend --frontend react
+zudo create my-web --type frontend --frontend react
 
 # Create a fullstack project
-lattice create my-system --type fullstack --frontend next --architecture monolith
+zudo create my-system --type fullstack --frontend next --architecture monolith
 
 # Start development servers
-lattice dev
+zudo dev
 
 # Generate a module
-lattice generate module users
+zudo generate module users
 
 # Add a feature
-lattice add database
+zudo add database
 ```
 
 ## Commands
@@ -72,4 +72,4 @@ lattice add database
 
 ## Documentation
 
-See the [Lattice README](https://github.com/oyinlola-tech/lattice) for full documentation.
+See the [Zudo README](https://github.com/oyinlola-tech/zudo) for full documentation.

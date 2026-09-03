@@ -1,5 +1,5 @@
 /**
- * LatticeLogger log level convenience methods.
+ * ZudoLogger log level convenience methods.
  */
 
 import { LoggerLevel } from "../../loggerLevel/loggerLevel.type.js";
@@ -8,14 +8,14 @@ import type { LogMetadata } from "../../loggerEntry/loggerEntry.type.js";
 
 import { logAtLevel } from "./loggerCoreMethods/index.js";
 
-import type { LatticeLoggerContext } from "../core/loggerCore.core.js";
+import type { ZudoLoggerContext } from "../core/loggerCore.core.js";
 
 import type { LogOptions } from "../../loggerOptions/loggerOptions.type.js";
 
 /**
  * Creates bound log methods for a given context.
  */
-export function createLogMethods(ctx: LatticeLoggerContext) {
+export function createLogMethods(ctx: ZudoLoggerContext) {
   return {
     fatal: (message: string, metadata?: LogMetadata) =>
       logAtLevel(ctx, LoggerLevel.FATAL, message, { metadata }),

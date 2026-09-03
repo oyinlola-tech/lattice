@@ -1,5 +1,5 @@
 /**
- * Event registry registration methods for Lattice.
+ * Event registry registration methods for Zudo.
  */
 
 import type {

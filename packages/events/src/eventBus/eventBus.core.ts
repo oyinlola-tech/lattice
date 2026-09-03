@@ -1,5 +1,5 @@
 /**
- * Event bus core class for Lattice.
+ * Event bus core class for Zudo.
  */
 
 import type {

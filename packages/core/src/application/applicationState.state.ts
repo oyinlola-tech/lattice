@@ -1,5 +1,5 @@
 /**
- * Represents the lifecycle state of a Lattice application.
+ * Represents the lifecycle state of a Zudo application.
  */
 export type ApplicationState =
   | "created"

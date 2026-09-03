@@ -1,7 +1,7 @@
 /**
  * zudo-cli — Doctor Command
  *
- * The `lattice doctor` command for project diagnostics.
+ * The `zudo doctor` command for project diagnostics.
  */
 
 import { existsSync, readFileSync } from "node:fs";
@@ -23,11 +23,11 @@ export async function runDoctorCommand(context: CLIContext): Promise<void> {
   checks.push(checkNodeVersion());
   checks.push(checkPackageManager());
   checks.push(checkTypeScriptConfig());
-  checks.push(checkLatticeConfig());
+  checks.push(checkZudoConfig());
   checks.push(checkDependencies(context));
   checks.push(checkArchitectureViolations());
 
-  context.logger.info("Lattice Doctor - Project Diagnostics");
+  context.logger.info("Zudo Doctor - Project Diagnostics");
   context.logger.info("");
 
   for (const check of checks) {
@@ -100,32 +100,32 @@ function checkTypeScriptConfig(): DoctorCheck {
   };
 }
 
-function checkLatticeConfig(): DoctorCheck {
-  const hasPkgConfig = checkLatticeInPackageJson();
+function checkZudoConfig(): DoctorCheck {
+  const hasPkgConfig = checkZudoInPackageJson();
   const hasConfig =
-    existsSync("lattice.config.ts") || existsSync("lattice.config.js");
+    existsSync("zudo.config.ts") || existsSync("zudo.config.js");
   const passed = hasPkgConfig || hasConfig;
 
-  let message = "No Lattice configuration found.";
+  let message = "No Zudo configuration found.";
   if (passed) {
     message = hasPkgConfig
-      ? "Lattice config in package.json"
+      ? "Zudo config in package.json"
       : hasConfig
-        ? "lattice.config.ts found"
-        : "Lattice config in package.json";
+        ? "zudo.config.ts found"
+        : "Zudo config in package.json";
   }
 
-  return { name: "Lattice configuration", passed, message };
+  return { name: "Zudo configuration", passed, message };
 }
 
-function checkLatticeInPackageJson(): boolean {
+function checkZudoInPackageJson(): boolean {
   try {
     const pkgPath = join(process.cwd(), "package.json");
     if (!existsSync(pkgPath)) return false;
     const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
-      lattice?: unknown;
+      zudo?: unknown;
     };
-    return typeof pkg.lattice === "object" && pkg.lattice !== null;
+    return typeof pkg.zudo === "object" && pkg.zudo !== null;
   } catch {
     return false;
   }
@@ -147,17 +147,17 @@ function checkDependencies(context: CLIContext): DoctorCheck {
       dependencies?: Record<string, string>;
     };
 
-    const latticeDeps = Object.keys(pkg.dependencies ?? {}).filter((d) =>
+    const zudoDeps = Object.keys(pkg.dependencies ?? {}).filter((d) =>
       d.startsWith("@zudo/"),
     );
 
-    const passed = latticeDeps.length > 0;
+    const passed = zudoDeps.length > 0;
     return {
-      name: "Lattice dependencies",
+      name: "Zudo dependencies",
       passed,
       message: passed
-        ? `${latticeDeps.length} Lattice packages installed`
-        : "No Lattice packages found",
+        ? `${zudoDeps.length} Zudo packages installed`
+        : "No Zudo packages found",
     };
   } catch {
     return {
@@ -176,11 +176,11 @@ function checkArchitectureViolations(): DoctorCheck {
     return {
       name: "Architecture",
       passed: true,
-      message: "No src/ directory (not a Lattice project?)",
+      message: "No src/ directory (not a Zudo project?)",
     };
   }
 
-  const configPath = join(process.cwd(), "lattice.config.ts");
+  const configPath = join(process.cwd(), "zudo.config.ts");
   let architecture = "monolith";
   if (existsSync(configPath)) {
     const configContent = readFileSync(configPath, "utf-8");
@@ -213,16 +213,16 @@ function checkArchitectureViolations(): DoctorCheck {
     try {
       const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
         dependencies?: Record<string, string>;
-        lattice?: { features?: string[] };
+        zudo?: { features?: string[] };
       };
-      const features = pkg.lattice?.features ?? [];
+      const features = pkg.zudo?.features ?? [];
       const deps = Object.keys(pkg.dependencies ?? {});
 
       for (const feature of features) {
         const pkgName = `@zudo/${feature}`;
         if (!deps.includes(pkgName)) {
           violations.push(
-            `Feature "${feature}" declared in package.json#lattice.features but ${pkgName} not in dependencies`,
+            `Feature "${feature}" declared in package.json#zudo.features but ${pkgName} not in dependencies`,
           );
         }
       }

@@ -2,7 +2,7 @@
  * @zudo/observability
  *
  * Structured logging, metrics, tracing, context propagation, and
- * telemetry exporters for the Lattice framework.
+ * telemetry exporters for the Zudo framework.
  *
  * Provides the instrumentation and abstraction layer without coupling
  * to any specific telemetry provider. Exporters for OpenTelemetry,

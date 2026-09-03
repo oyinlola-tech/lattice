@@ -1,14 +1,14 @@
-# Lattice Architecture
+# Zudo Architecture
 
-> This document describes the conceptual architecture of the Lattice framework.
+> This document describes the conceptual architecture of the Zudo framework.
 > It explains how the major components fit together, the design principles that guide the system,
-> and the lifecycle of a Lattice application from startup to shutdown.
+> and the lifecycle of a Zudo application from startup to shutdown.
 
 ---
 
 ## 1. Overview
 
-Lattice is a modular TypeScript application framework designed for building scalable, maintainable backend systems.
+Zudo is a modular TypeScript application framework designed for building scalable, maintainable backend systems.
 
 It provides:
 
@@ -21,7 +21,7 @@ It provides:
 - **Cross-cutting concerns** including observability, security, permissions, multi-tenancy, and feature flags.
 - A **plugin system** for controlled extensibility.
 
-Lattice is built on three core beliefs:
+Zudo is built on three core beliefs:
 
 1. **Explicit over implicit** — dependencies, boundaries, and lifecycles should be visible and enforceable.
 2. **Composition over inheritance** — behavior is assembled through composition, not class hierarchies.
@@ -35,7 +35,7 @@ Lattice is built on three core beliefs:
 
 Dependencies flow inward.
 
-Foundation packages have no `@lattice/*` dependencies.
+Foundation packages have no `@zudo/*` dependencies.
 Higher-level packages may depend on lower-level packages.
 No package may depend on a package in a higher tier.
 
@@ -89,7 +89,7 @@ This enforces architectural boundaries and prevents hidden coupling.
 ### 2.6 Errors as Values
 
 Errors are first-class citizens.
-Every package defines its own error hierarchy rooted in `@lattice/errors`.
+Every package defines its own error hierarchy rooted in `@zudo/errors`.
 
 Errors carry:
 
@@ -105,14 +105,14 @@ Logging, metrics, and tracing are built into the framework, not bolted on.
 
 ### 2.8 Security in the Foundation
 
-Input validation, CORS, CSRF protection, rate limiting, and security headers are provided by `@lattice/security`.
+Input validation, CORS, CSRF protection, rate limiting, and security headers are provided by `@zudo/security`.
 Application code should never reimplement these primitives.
 
 ---
 
 ## 3. Architectural Layers
 
-Lattice is organized into five conceptual layers.
+Zudo is organized into five conceptual layers.
 
 ### 3.1 Foundation Layer
 
@@ -120,70 +120,70 @@ The base of the framework.
 
 Provides:
 
-- Error handling (`@lattice/errors`)
-- Type utilities (`@lattice/types`)
-- Constants and branded types (`@lattice/constants`)
-- Dependency injection (`@lattice/container`)
-- Configuration (`@lattice/config`)
-- Logging (`@lattice/logger`)
-- Validation (`@lattice/validation`)
-- Serialization (`@lattice/serialization`)
+- Error handling (`@zudo/errors`)
+- Type utilities (`@zudo/types`)
+- Constants and branded types (`@zudo/constants`)
+- Dependency injection (`@zudo/container`)
+- Configuration (`@zudo/config`)
+- Logging (`@zudo/logger`)
+- Validation (`@zudo/validation`)
+- Serialization (`@zudo/serialization`)
 
-These packages have no `@lattice/*` dependencies (except `@lattice/errors`).
+These packages have no `@zudo/*` dependencies (except `@zudo/errors`).
 
 ### 3.2 Runtime Primitives Layer
 
 Provides the runtime building blocks.
 
-- **Lifecycle** (`@lattice/lifecycle`) — state machines, dependency ordering, graceful shutdown.
-- **Events** (`@lattice/events`) — event bus, emitter, middleware, registry.
-- **Messaging** (`@lattice/messaging`) — in-process message bus with handlers and middleware.
-- **Transactions** (`@lattice/transactions`) — transaction lifecycle, context propagation, savepoints.
-- **Schema** (`@lattice/schema`) — type-safe data contracts with validation.
-- **Crypto** (`@lattice/crypto`) — hashing, encryption, tokens.
-- **Cache** (`@lattice/cache`) — cache abstraction with adapters, tags, locking.
-- **Storage** (`@lattice/storage`) — database and object storage abstractions.
-- **Queue** (`@lattice/queue`) — background job infrastructure.
-- **Scheduler** (`@lattice/scheduler`) — job scheduling, cron, triggers.
+- **Lifecycle** (`@zudo/lifecycle`) — state machines, dependency ordering, graceful shutdown.
+- **Events** (`@zudo/events`) — event bus, emitter, middleware, registry.
+- **Messaging** (`@zudo/messaging`) — in-process message bus with handlers and middleware.
+- **Transactions** (`@zudo/transactions`) — transaction lifecycle, context propagation, savepoints.
+- **Schema** (`@zudo/schema`) — type-safe data contracts with validation.
+- **Crypto** (`@zudo/crypto`) — hashing, encryption, tokens.
+- **Cache** (`@zudo/cache`) — cache abstraction with adapters, tags, locking.
+- **Storage** (`@zudo/storage`) — database and object storage abstractions.
+- **Queue** (`@zudo/queue`) — background job infrastructure.
+- **Scheduler** (`@zudo/scheduler`) — job scheduling, cron, triggers.
 
 ### 3.3 Application Architecture Layer
 
 Provides patterns for structuring applications.
 
-- **Core** (`@lattice/core`) — application context, modules, lifecycle integration.
-- **CQRS** (`@lattice/cqrs`) — command/query separation, handlers, bus integration.
-- **Auth** (`@lattice/auth`) — JWT, sessions, password hashing.
-- **Permissions** (`@lattice/permissions`) — RBAC, ABAC, resource authorization.
-- **Runtime** (`@lattice/runtime`) — application lifecycle orchestrator.
-- **Plugins** (`@lattice/plugins`) — plugin registration, lifecycle, orchestration.
-- **Feature Flags** (`@lattice/feature-flags`) — feature flag evaluation, rule engine.
-- **Tenancy** (`@lattice/tenancy`) — multi-tenant context and isolation.
-- **Security** (`@lattice/security`) — input validation, CORS, CSRF, rate limiting.
-- **Adapters** (`@lattice/adapters`) — boundary layer between Lattice and external platforms.
+- **Core** (`@zudo/core`) — application context, modules, lifecycle integration.
+- **CQRS** (`@zudo/cqrs`) — command/query separation, handlers, bus integration.
+- **Auth** (`@zudo/auth`) — JWT, sessions, password hashing.
+- **Permissions** (`@zudo/permissions`) — RBAC, ABAC, resource authorization.
+- **Runtime** (`@zudo/runtime`) — application lifecycle orchestrator.
+- **Plugins** (`@zudo/plugins`) — plugin registration, lifecycle, orchestration.
+- **Feature Flags** (`@zudo/feature-flags`) — feature flag evaluation, rule engine.
+- **Tenancy** (`@zudo/tenancy`) — multi-tenant context and isolation.
+- **Security** (`@zudo/security`) — input validation, CORS, CSRF, rate limiting.
+- **Adapters** (`@zudo/adapters`) — boundary layer between Zudo and external platforms.
 
 ### 3.4 Transport Layer
 
 Translates external requests into internal application calls.
 
-- **HTTP** (`@lattice/http`) — request handling, routing, middleware.
-- **RPC** (`@lattice/rpc`) — RPC primitives.
-- **API** (`@lattice/api`) — API abstraction layer.
-- **OpenAPI** (`@lattice/openapi`) — OpenAPI document generation.
-- **CLI** (`@lattice/cli`) — command-line interface.
+- **HTTP** (`@zudo/http`) — request handling, routing, middleware.
+- **RPC** (`@zudo/rpc`) — RPC primitives.
+- **API** (`@zudo/api`) — API abstraction layer.
+- **OpenAPI** (`@zudo/openapi`) — OpenAPI document generation.
+- **CLI** (`@zudo/cli`) — command-line interface.
 
 ### 3.5 Developer Experience Layer
 
-Tools for building, testing, and documenting Lattice applications.
+Tools for building, testing, and documenting Zudo applications.
 
-- **Testing** (`@lattice/testing`) — test helpers, fixtures, mocks.
-- **Docs** (`@lattice/docs`) — documentation infrastructure.
-- **Observability** (`@lattice/observability`) — structured logging, metrics, tracing, exporters.
+- **Testing** (`@zudo/testing`) — test helpers, fixtures, mocks.
+- **Docs** (`@zudo/docs`) — documentation infrastructure.
+- **Observability** (`@zudo/observability`) — structured logging, metrics, tracing, exporters.
 
 ---
 
 ## 4. Application Lifecycle
 
-A Lattice application follows a strict lifecycle managed by `@lattice/runtime`.
+A Zudo application follows a strict lifecycle managed by `@zudo/runtime`.
 
 ### 4.1 Startup
 
@@ -257,7 +257,7 @@ During the running phase:
 
 ## 5. Request Lifecycle
 
-A typical request flows through Lattice as follows:
+A typical request flows through Zudo as follows:
 
 ```
 Incoming Request
@@ -308,7 +308,7 @@ Key principles:
 
 ## 6. Module System
 
-Lattice applications are composed of modules.
+Zudo applications are composed of modules.
 
 ### 6.1 Module Definition
 
@@ -371,7 +371,7 @@ Application
 
 ## 7. Dependency Injection
 
-Lattice uses a token-based DI container (`@lattice/container`).
+Zudo uses a token-based DI container (`@zudo/container`).
 
 ### 7.1 Registration
 
@@ -409,7 +409,7 @@ The container detects circular dependencies at resolution time and throws a clea
 
 ## 8. Runtime Model
 
-The runtime (`@lattice/runtime`) orchestrates the entire application.
+The runtime (`@zudo/runtime`) orchestrates the entire application.
 
 ### 8.1 Responsibilities
 
@@ -441,7 +441,7 @@ The runtime emits events for observability:
 
 ## 9. Transport Layer
 
-The transport layer is the boundary between the outside world and the Lattice application.
+The transport layer is the boundary between the outside world and the Zudo application.
 
 ### 9.1 Principle
 
@@ -524,7 +524,7 @@ Infrastructure packages provide integrations with external systems.
 
 ## 11. Extensibility
 
-Lattice provides multiple extension points.
+Zudo provides multiple extension points.
 
 ### 11.1 Modules
 
@@ -533,7 +533,7 @@ Modules encapsulate features and compose into applications.
 
 ### 11.2 Plugins
 
-A controlled extension system (`@lattice/plugins`).
+A controlled extension system (`@zudo/plugins`).
 
 Plugins:
 
@@ -565,7 +565,7 @@ Lifecycle hooks allow code to run at specific points:
 
 ### 12.1 Error Hierarchy
 
-All errors extend `BaseError` from `@lattice/errors`.
+All errors extend `BaseError` from `@zudo/errors`.
 
 ```
 BaseError
@@ -604,12 +604,12 @@ Internal errors are never exposed to clients.
 Each package defines domain-specific errors.
 
 ```ts
-// @lattice/database
+// @zudo/database
 DatabaseConnectionError;
 QueryExecutionError;
 TransactionError;
 
-// @lattice/auth
+// @zudo/auth
 AuthenticationError;
 InvalidTokenError;
 SessionExpiredError;
@@ -659,7 +659,7 @@ app.runtime.diagnostics();
 
 ### 14.1 Input Validation
 
-All external input is validated at the boundary using `@lattice/security`.
+All external input is validated at the boundary using `@zudo/security`.
 
 ### 14.2 Authentication
 
@@ -721,7 +721,7 @@ All external input is validated at the boundary using `@lattice/security`.
 
 ## 16. Package Structure
 
-Every Lattice package follows a consistent structure.
+Every Zudo package follows a consistent structure.
 
 ```
 packages/<package-name>/
@@ -756,7 +756,7 @@ Rules:
 
 ### 17.1 Why ESM?
 
-Lattice uses ECMAScript modules (ESM) for:
+Zudo uses ECMAScript modules (ESM) for:
 
 - Native browser compatibility.
 - Better tree-shaking.
@@ -791,7 +791,7 @@ Vitest provides:
 
 ### 17.5 Why Not NestJS?
 
-Lattice differs from NestJS in:
+Zudo differs from NestJS in:
 
 - No decorator-heavy configuration.
 - Explicit dependency direction.
@@ -805,7 +805,7 @@ Lattice differs from NestJS in:
 
 ### 18.1 AsyncLocalStorage
 
-Lattice uses `AsyncLocalStorage` for context propagation:
+Zudo uses `AsyncLocalStorage` for context propagation:
 
 - Execution context.
 - Tenant context.
@@ -843,7 +843,7 @@ State machines prevent invalid transitions and make debugging easier.
 
 ### 19.1 Edge Runtime Support
 
-Lattice aims to support edge runtimes (Vercel Edge, Cloudflare Workers) through adapter abstractions.
+Zudo aims to support edge runtimes (Vercel Edge, Cloudflare Workers) through adapter abstractions.
 
 ### 19.2 Plugin Marketplace
 

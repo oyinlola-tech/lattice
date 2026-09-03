@@ -187,7 +187,7 @@ export class ContainerRegistry {
     this.registrations.clear();
     this.emit({
       operation: RegistryOperation.CLEAR,
-      token: Symbol.for("lattice:container:registry"),
+      token: Symbol.for("zudo:container:registry"),
       timestamp: new Date(),
     });
   }

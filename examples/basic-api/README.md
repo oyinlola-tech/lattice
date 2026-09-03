@@ -1,6 +1,6 @@
 # Basic API Example
 
-A minimal REST API built with Lattice.
+A minimal REST API built with Zudo.
 
 ## Features
 
@@ -48,7 +48,7 @@ npm install
 npm run dev
 
 # Or from the repository root
-npm run dev --workspace=@lattice/example-basic-api
+npm run dev --workspace=@zudo/example-basic-api
 ```
 
 The server starts at `http://localhost:3000`.
@@ -130,7 +130,7 @@ Environment variables (see `.env.example`):
 
 ## Architecture
 
-This example demonstrates the Lattice module system:
+This example demonstrates the Zudo module system:
 
 ```
 AppModule
@@ -145,7 +145,7 @@ AppModule
 
 Each module:
 
-- Extends `BaseModule` from `@lattice/core`
+- Extends `BaseModule` from `@zudo/core`
 - Implements lifecycle hooks (`onInitialize`, `onShutdown`)
 - Encapsulates its own controllers and services
 - Manages its own dependencies

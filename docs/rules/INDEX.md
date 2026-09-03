@@ -1,6 +1,6 @@
-# Lattice Package Rules
+# Zudo Package Rules
 
-> This document defines the internal development standards for every `@lattice/*` package.
+> This document defines the internal development standards for every `@zudo/*` package.
 > All packages must follow these rules to ensure consistency, maintainability, and architectural integrity.
 
 ---
@@ -58,8 +58,8 @@ packages/events/src/
 
 ### 2.1 No Internal Leaking
 
-- Do not import files from another package's internal folders (e.g., `@lattice/events/src/internal/...`).
-- Always import from the package's public API (`@lattice/events`).
+- Do not import files from another package's internal folders (e.g., `@zudo/events/src/internal/...`).
+- Always import from the package's public API (`@zudo/events`).
 - If you need access to something not exported publicly, it should be exported.
 
 ### 2.2 No Circular Dependencies
@@ -114,10 +114,10 @@ Always use explicit imports. Do not use wildcard imports.
 
 ```ts
 // ✅ Correct
-import { createEventBus } from "@lattice/events";
+import { createEventBus } from "@zudo/events";
 
 // ❌ Wrong
-import * as Events from "@lattice/events";
+import * as Events from "@zudo/events";
 ```
 
 ### 3.4 Type-Only Imports
@@ -126,10 +126,10 @@ Use `import type` for type-only imports.
 
 ```ts
 // ✅ Correct
-import type { EventBus } from "@lattice/events";
+import type { EventBus } from "@zudo/events";
 
 // ❌ Wrong
-import { EventBus } from "@lattice/events";
+import { EventBus } from "@zudo/events";
 ```
 
 ### 3.5 Stable API
@@ -148,7 +148,7 @@ Imports must be ordered as follows:
 
 1. Node.js built-ins
 2. External packages
-3. `@lattice/*` packages (alphabetical)
+3. `@zudo/*` packages (alphabetical)
 4. Internal imports (same package, relative paths)
 
 ```ts
@@ -158,9 +158,9 @@ import { randomBytes } from "node:crypto";
 // 2. External packages
 import { z } from "zod";
 
-// 3. Shared @lattice/* packages
-import { BaseError, ErrorCode } from "@lattice/errors.js";
-import type { EventBus } from "@lattice/events.js";
+// 3. Shared @zudo/* packages
+import { BaseError, ErrorCode } from "@zudo/errors.js";
+import type { EventBus } from "@zudo/events.js";
 
 // 4. Internal imports (same package, with .js extension)
 import { createEventBus } from "./eventBus/eventBus.factory.js";
@@ -172,10 +172,10 @@ Do not import from internal paths of other packages.
 
 ```ts
 // ✅ Correct
-import { EventBus } from "@lattice/events";
+import { EventBus } from "@zudo/events";
 
 // ❌ Wrong
-import { EventBus } from "@lattice/events/src/eventBus/eventBus.type.js";
+import { EventBus } from "@zudo/events/src/eventBus/eventBus.type.js";
 ```
 
 ### 4.3 Relative Imports Only for Same Package
@@ -207,7 +207,7 @@ When re-exporting types from dependencies, use `export type`.
 
 ```ts
 // src/index.ts
-export type { EventBus } from "@lattice/events.js";
+export type { EventBus } from "@zudo/events.js";
 ```
 
 ### 5.3 No Side Effects in Barrel Files
@@ -332,7 +332,7 @@ Every folder (at any depth) gets an `index.ts` barrel file with JSDoc.
 
 ```ts
 /**
- * @lattice/events/eventBus
+ * @zudo/events/eventBus
  *
  * Event bus creation, configuration, and management.
  */
@@ -448,7 +448,7 @@ import { helper } from "./utils/helper";
 
 See `DEPENDENCIES.md` for the complete tier system.
 
-- Tier 0 packages must not depend on any `@lattice/*` package.
+- Tier 0 packages must not depend on any `@zudo/*` package.
 - Tier 1 packages may depend only on Tier 0.
 - Tier 2 packages may depend on Tier 0 and Tier 1.
 - Tier 3 packages may depend on Tier 0, Tier 1, and Tier 2.
@@ -456,12 +456,12 @@ See `DEPENDENCIES.md` for the complete tier system.
 
 ### 9.2 Use Exact Versions
 
-All `@lattice/*` dependencies must use exact versions (`0.1.0`).
+All `@zudo/*` dependencies must use exact versions (`0.1.0`).
 
 ```json
 {
   "dependencies": {
-    "@lattice/errors": "0.1.0"
+    "@zudo/errors": "0.1.0"
   }
 }
 ```
@@ -478,14 +478,14 @@ Peer dependencies must be:
 
 ## 10. Error Handling
 
-### 10.1 Use @lattice/errors
+### 10.1 Use @zudo/errors
 
-All error types must live in `@lattice/errors`.
+All error types must live in `@zudo/errors`.
 No package should create its own error classes that extend `Error` or `BaseError`.
 
 ### 10.2 Domain Errors
 
-Each package may define lightweight wrapper classes for package-specific context, but the base error must come from `@lattice/errors`.
+Each package may define lightweight wrapper classes for package-specific context, but the base error must come from `@zudo/errors`.
 
 ```ts
 // ✅ Correct
@@ -640,7 +640,7 @@ describe("EventBus", () => {
 
 ### 13.6 No Test Code in Production
 
-Test utilities must live in `@lattice/testing`.
+Test utilities must live in `@zudo/testing`.
 Test code must not be imported by production packages.
 
 ---
@@ -679,7 +679,7 @@ Provide examples for common use cases.
 
 ```ts
 // examples/hello-world/src/main.ts
-import { createApplication } from "@lattice/core";
+import { createApplication } from "@zudo/core";
 
 const app = createApplication();
 await app.start();

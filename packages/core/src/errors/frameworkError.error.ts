@@ -1,5 +1,5 @@
 /**
- * Base error type for all Lattice framework errors.
+ * Base error type for all Zudo framework errors.
  *
  * FrameworkError extends ApplicationError from @zudo/errors
  * to maintain backward compatibility while providing structured
@@ -30,7 +30,7 @@ export interface FrameworkErrorJSON {
 }
 
 /**
- * Base error class for all Lattice framework errors.
+ * Base error class for all Zudo framework errors.
  *
  * FrameworkError extends ApplicationError from @zudo/errors
  * so all framework errors inherit BaseError properties (code,

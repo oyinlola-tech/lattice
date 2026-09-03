@@ -2,7 +2,7 @@ import type { OpenAPIOperation } from "../openApiTypes/openApiTypes.core.js";
 import type { RouteMetadata } from "./routeMetadata.type.js";
 
 /**
- * Converts a Lattice-style route path to an OpenAPI path template.
+ * Converts a Zudo-style route path to an OpenAPI path template.
  *
  * Example:
  *   "/users/:id" -> "/users/{id}"
@@ -31,9 +31,9 @@ export function toOpenAPIPath(path: string): string {
 }
 
 /**
- * Maps Lattice HTTP methods to OpenAPI methods.
+ * Maps Zudo HTTP methods to OpenAPI methods.
  */
-export const LATTICE_TO_OPENAPI_METHODS = [
+export const ZUDO_TO_OPENAPI_METHODS = [
   "get",
   "put",
   "post",

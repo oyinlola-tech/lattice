@@ -1,5 +1,5 @@
 /**
- * Configuration values used throughout Lattice.
+ * Configuration values used throughout Zudo.
  *
  * This module provides the common value types and utilities used by
  * the configuration system. Values remain JSON-compatible where
@@ -27,7 +27,7 @@ export type ConfigJsonValue =
     };
 
 /**
- * Values accepted by the Lattice configuration system.
+ * Values accepted by the Zudo configuration system.
  */
 export type ConfigValue =
   | ConfigPrimitive

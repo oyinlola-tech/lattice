@@ -38,7 +38,7 @@ export interface ModuleDependencyDefinition {
 }
 
 /**
- * Complete static definition of a Lattice module.
+ * Complete static definition of a Zudo module.
  */
 export interface ModuleDefinition<TModule extends Module = Module> {
   /**

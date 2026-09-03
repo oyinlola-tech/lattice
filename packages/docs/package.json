@@ -36,14 +36,14 @@
   },
   "module": "./dist/index.js",
   "keywords": [
-    "lattice",
+    "zudo",
     "docs",
     "documentation",
     "markdown"
   ],
-  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/lattice"
+    "url": "https://github.com/oyinlola-tech/zudo"
   }
 }

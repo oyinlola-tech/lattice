@@ -2,7 +2,7 @@
   "name": "examples-hello-world",
   "version": "0.1.1",
   "private": true,
-  "description": "Minimal Lattice HTTP server example",
+  "description": "Minimal Zudo HTTP server example",
   "type": "module",
   "main": "./dist/index.js",
   "scripts": {

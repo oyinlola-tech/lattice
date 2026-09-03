@@ -1,7 +1,7 @@
 /**
  * @zudo/adapters/runtime
  *
- * Runtime adapter contracts — bridges Lattice to execution environments.
+ * Runtime adapter contracts — bridges Zudo to execution environments.
  *
  * Examples: Node.js, Bun, Deno, AWS Lambda, Cloudflare Workers.
  */

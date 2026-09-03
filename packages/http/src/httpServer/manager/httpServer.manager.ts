@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP server manager.
+ * Zudo HTTP server manager.
  *
  * @module httpServer/manager
  */

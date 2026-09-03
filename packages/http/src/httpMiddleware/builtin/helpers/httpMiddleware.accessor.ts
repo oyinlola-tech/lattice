@@ -80,7 +80,7 @@ export function getContextSignal(
 
 export function extractPathname(value: string): string {
   try {
-    return new URL(value, "http://lattice.local").pathname;
+    return new URL(value, "http://zudo.local").pathname;
   } catch {
     return value.split("?")[0] ?? value;
   }

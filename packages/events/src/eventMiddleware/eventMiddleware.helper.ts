@@ -1,5 +1,5 @@
 /**
- * Event middleware core helpers for Lattice.
+ * Event middleware core helpers for Zudo.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

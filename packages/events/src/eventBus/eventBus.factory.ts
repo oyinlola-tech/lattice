@@ -1,5 +1,5 @@
 /**
- * Event bus factory functions for Lattice.
+ * Event bus factory functions for Zudo.
  */
 
 import type { EventBusOptions } from "./eventBus.type.js";

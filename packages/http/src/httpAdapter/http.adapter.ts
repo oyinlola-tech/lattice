@@ -1,11 +1,11 @@
 /**
  * HTTP runtime adapter contract.
  *
- * The adapter layer keeps Lattice's HTTP core independent from a concrete
+ * The adapter layer keeps Zudo's HTTP core independent from a concrete
  * runtime such as Node.js, Bun, Deno, or a custom server implementation.
  *
  * An adapter is responsible for translating runtime-native requests and
- * responses into Lattice's request/response contexts and for invoking the
+ * responses into Zudo's request/response contexts and for invoking the
  * application handler.
  */
 

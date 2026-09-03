@@ -32,9 +32,9 @@ function getRequestSignal(request: RequestContext): AbortSignal | undefined {
 
 function parseUrl(value: string): URL {
   try {
-    return new URL(value, "http://lattice.local");
+    return new URL(value, "http://zudo.local");
   } catch {
-    return new URL("/", "http://lattice.local");
+    return new URL("/", "http://zudo.local");
   }
 }
 

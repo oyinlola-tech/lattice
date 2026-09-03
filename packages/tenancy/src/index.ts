@@ -1,7 +1,7 @@
 /**
  * @zudo/tenancy
  *
- * Multi-tenant context and isolation for the Lattice framework.
+ * Multi-tenant context and isolation for the Zudo framework.
  *
  * Provides tenant resolution, context propagation, resolver chains,
  * isolation strategies, and security validation.

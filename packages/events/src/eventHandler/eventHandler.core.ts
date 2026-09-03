@@ -1,5 +1,5 @@
 /**
- * Event handler primitives for Lattice.
+ * Event handler primitives for Zudo.
  *
  * Handlers are responsible for processing events.
  * They do not own event registration or event dispatching.

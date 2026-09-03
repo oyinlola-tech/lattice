@@ -1,6 +1,6 @@
 # @zudo/core
 
-Application lifecycle management, execution context propagation, and runtime orchestration for Lattice applications.
+Application lifecycle management, execution context propagation, and runtime orchestration for Zudo applications.
 
 ## Installation
 
@@ -28,6 +28,6 @@ await app.stop();
 
 ## Use Cases
 
-- Bootstrapping Lattice applications
+- Bootstrapping Zudo applications
 - Managing application lifecycle in serverless environments
 - Coordinating startup and shutdown of multiple services

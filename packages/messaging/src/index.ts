@@ -1,7 +1,7 @@
 /**
  * @zudo/messaging
  *
- * In-process message bus infrastructure for the Lattice framework.
+ * In-process message bus infrastructure for the Zudo framework.
  *
  * Provides the foundational messaging primitives that CQRS and Events
  * specialize into commands/queries and domain events respectively.

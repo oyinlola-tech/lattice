@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP server core.
+ * Zudo HTTP server core.
  *
  * @module httpServer/core
  */
@@ -71,7 +71,7 @@ export class HttpServer {
       throw new TypeError("HttpServer requires a valid HTTP adapter.");
     }
 
-    this.name = options.name ?? "lattice-http";
+    this.name = options.name ?? "zudo-http";
 
     this.adapter = options.adapter;
 

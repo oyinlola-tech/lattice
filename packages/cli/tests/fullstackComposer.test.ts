@@ -47,7 +47,7 @@ describe("FullstackComposer", () => {
       },
       frontend: {
         framework: "react",
-        architecture: "lattice-standard",
+        architecture: "zudo-standard",
         language: "typescript",
       },
       workspace: {
@@ -101,7 +101,7 @@ describe("FullstackComposer", () => {
       },
       frontend: {
         framework: "react",
-        architecture: "lattice-standard",
+        architecture: "zudo-standard",
         language: "typescript",
       },
       workspace: {
@@ -129,7 +129,7 @@ describe("FullstackComposer", () => {
       },
       frontend: {
         framework: "next",
-        architecture: "lattice-standard",
+        architecture: "zudo-standard",
         language: "typescript",
       },
       workspace: {
@@ -157,7 +157,7 @@ describe("FullstackComposer", () => {
       },
       frontend: {
         framework: "react",
-        architecture: "lattice-standard",
+        architecture: "zudo-standard",
         language: "typescript",
       },
       workspace: {
@@ -173,7 +173,7 @@ describe("FullstackComposer", () => {
     expect(result.success).toBe(true);
     expect(result.files).toContain("package.json");
     expect(result.files).toContain("pnpm-workspace.yaml");
-    expect(result.files).toContain("lattice.config.ts");
+    expect(result.files).toContain("zudo.config.ts");
   });
 
   it("returns errors for invalid configuration", async () => {
@@ -219,7 +219,7 @@ describe("FrontendGenerator", () => {
         type: "frontend",
         frontend: {
           framework: "react",
-          architecture: "lattice-standard",
+          architecture: "zudo-standard",
           language: "typescript",
         },
         workspace: {
@@ -228,7 +228,7 @@ describe("FrontendGenerator", () => {
       },
       projectPath: "/tmp/test-frontend-react-gen",
       framework: "react",
-      architecture: "lattice-standard",
+      architecture: "zudo-standard",
       language: "typescript",
       packageManager: "pnpm",
     });
@@ -246,7 +246,7 @@ describe("FrontendGenerator", () => {
         type: "frontend",
         frontend: {
           framework: "vue",
-          architecture: "lattice-standard",
+          architecture: "zudo-standard",
           language: "typescript",
         },
         workspace: {
@@ -255,7 +255,7 @@ describe("FrontendGenerator", () => {
       },
       projectPath: "/tmp/test-frontend-vue-gen",
       framework: "vue",
-      architecture: "lattice-standard",
+      architecture: "zudo-standard",
       language: "typescript",
       packageManager: "pnpm",
     });
@@ -273,7 +273,7 @@ describe("FrontendGenerator", () => {
           type: "frontend",
           frontend: {
             framework: "unknown-framework" as FrontendFramework,
-            architecture: "lattice-standard",
+            architecture: "zudo-standard",
             language: "typescript",
           },
           workspace: {
@@ -282,7 +282,7 @@ describe("FrontendGenerator", () => {
         },
         projectPath: "/tmp/test-unknown-gen",
         framework: "unknown-framework",
-        architecture: "lattice-standard",
+        architecture: "zudo-standard",
         language: "typescript",
         packageManager: "pnpm",
       }),

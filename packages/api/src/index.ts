@@ -1,7 +1,7 @@
 /**
  * @zudo/api
  *
- * Application-facing API layer for the Lattice framework.
+ * Application-facing API layer for the Zudo framework.
  *
  * Provides transport-agnostic operation definitions, execution context,
  * interceptors, policies, and result types.

@@ -1,7 +1,7 @@
 /**
  * @zudo/database
  *
- * Shared database infrastructure for the Lattice platform.
+ * Shared database infrastructure for the Zudo platform.
  *
  * This package provides:
  *   • Database client and connection management

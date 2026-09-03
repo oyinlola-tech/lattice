@@ -13,6 +13,6 @@ export type {
 export {
   toOpenAPIPath,
   convertRouteToOpenAPI,
-  LATTICE_TO_OPENAPI_METHODS,
+  ZUDO_TO_OPENAPI_METHODS,
 } from "./routeConverter.core.js";
 export { OpenAPIRouteScannerImpl } from "./routeScanner.core.js";

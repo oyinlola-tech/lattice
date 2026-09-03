@@ -61,7 +61,7 @@ import {
 } from "../runtimeError/index.js";
 
 /**
- * Lattice runtime interface.
+ * Zudo runtime interface.
  *
  * The runtime is the orchestrator that manages the complete
  * application lifecycle from creation through shutdown.

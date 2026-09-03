@@ -32,8 +32,8 @@ const TEST_TOKEN_CONFIG: TokenConfig = {
   refreshSecret: "test-refresh-secret-key-for-testing-32ch!",
   accessTtl: 900,
   refreshTtl: 604_800,
-  issuer: "lattice-test",
-  audience: "lattice-test-client",
+  issuer: "zudo-test",
+  audience: "zudo-test-client",
 };
 
 const TEST_USER: AuthUser = {

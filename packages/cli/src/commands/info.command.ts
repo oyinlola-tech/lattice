@@ -1,7 +1,7 @@
 /**
  * zudo-cli — Info Command
  *
- * The `lattice info` command.
+ * The `zudo info` command.
  */
 
 import { readFileSync, existsSync } from "node:fs";
@@ -22,11 +22,11 @@ export async function runInfoCommand(context: CLIContext): Promise<void> {
 
     projectName = pkg.name ?? "unknown";
 
-    const latticeDeps = Object.entries(pkg.dependencies ?? {})
+    const zudoDeps = Object.entries(pkg.dependencies ?? {})
       .filter(([name]) => name.startsWith("@zudo/"))
       .sort(([a], [b]) => a.localeCompare(b));
 
-    context.logger.info("Lattice Project Info");
+    context.logger.info("Zudo Project Info");
     context.logger.info("");
     context.logger.info(`Project: ${projectName}`);
     context.logger.info(`Version: ${pkg.version ?? "0.0.0"}`);
@@ -35,22 +35,22 @@ export async function runInfoCommand(context: CLIContext): Promise<void> {
     const packageManager = hasPnpm ? "pnpm" : hasYarn ? "yarn" : "npm";
     context.logger.info(`Package Manager: ${packageManager}`);
     context.logger.info("");
-    context.logger.info("Lattice Dependencies:");
+    context.logger.info("Zudo Dependencies:");
 
-    if (latticeDeps.length === 0) {
+    if (zudoDeps.length === 0) {
       context.logger.info("  (none)");
     } else {
-      for (const [name, version] of latticeDeps) {
+      for (const [name, version] of zudoDeps) {
         context.logger.info(`  ${name}: ${version}`);
       }
     }
   } catch {
-    context.logger.info("Lattice CLI Info");
+    context.logger.info("Zudo CLI Info");
     context.logger.info("");
-    context.logger.info("Not in a Lattice project directory.");
+    context.logger.info("Not in a Zudo project directory.");
     context.logger.info("");
     context.logger.info(
-      "Run `lattice create <project-name>` to create a new project.",
+      "Run `zudo create <project-name>` to create a new project.",
     );
   }
 }

@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP route result body serialization helpers.
+ * Zudo HTTP route result body serialization helpers.
  */
 
 import type { RouteResultBody } from "./httpRoute.result.type.js";

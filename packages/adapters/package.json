@@ -1,7 +1,7 @@
 {
   "name": "@zudo/adapters",
   "version": "0.1.5",
-  "description": "Boundary layer between Lattice and external platforms — adapter contracts, registry, capabilities, and transport abstractions.",
+  "description": "Boundary layer between Zudo and external platforms — adapter contracts, registry, capabilities, and transport abstractions.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -40,15 +40,15 @@
     "access": "public"
   },
   "keywords": [
-    "lattice",
+    "zudo",
     "adapter",
     "boundary",
     "external",
     "integration"
   ],
-  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/lattice"
+    "url": "https://github.com/oyinlola-tech/zudo"
   }
 }

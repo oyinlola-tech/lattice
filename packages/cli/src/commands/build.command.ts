@@ -1,7 +1,7 @@
 /**
  * zudo-cli — Build Command
  *
- * The `lattice build` command for building Lattice projects.
+ * The `zudo build` command for building Zudo projects.
  */
 
 import { existsSync } from "node:fs";
@@ -15,7 +15,7 @@ export async function runBuildCommand(context: CLIContext): Promise<void> {
 
   if (!projectRoot) {
     context.logger.error(
-      "No Lattice project found. Run this command from a Lattice project directory.",
+      "No Zudo project found. Run this command from a Zudo project directory.",
     );
     return;
   }

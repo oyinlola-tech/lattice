@@ -1,13 +1,13 @@
 /**
  * zudo-cli — Manifest System
  *
- * Machine-managed project manifest for Lattice projects.
+ * Machine-managed project manifest for Zudo projects.
  */
 
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-export interface LatticeManifest {
+export interface ZudoManifest {
   readonly version: string;
   readonly architecture: string;
   readonly backend?: {
@@ -33,14 +33,14 @@ export class ManifestManager {
   private readonly manifestPath: string;
 
   constructor(cwd: string) {
-    this.manifestPath = join(cwd, ".lattice", "manifest.json");
+    this.manifestPath = join(cwd, ".zudo", "manifest.json");
   }
 
   async create(
-    manifest: Omit<LatticeManifest, "generatedAt" | "updatedAt">,
+    manifest: Omit<ZudoManifest, "generatedAt" | "updatedAt">,
   ): Promise<void> {
     const now = new Date().toISOString();
-    const fullManifest: LatticeManifest = {
+    const fullManifest: ZudoManifest = {
       ...manifest,
       generatedAt: now,
       updatedAt: now,
@@ -49,27 +49,27 @@ export class ManifestManager {
     await this.write(fullManifest);
   }
 
-  async read(): Promise<LatticeManifest | null> {
+  async read(): Promise<ZudoManifest | null> {
     if (!existsSync(this.manifestPath)) {
       return null;
     }
 
     try {
       const content = readFileSync(this.manifestPath, "utf-8");
-      return JSON.parse(content) as LatticeManifest;
+      return JSON.parse(content) as ZudoManifest;
     } catch {
       return null;
     }
   }
 
-  async update(updates: Partial<LatticeManifest>): Promise<void> {
+  async update(updates: Partial<ZudoManifest>): Promise<void> {
     const existing = await this.read();
 
     if (!existing) {
       return;
     }
 
-    const updated: LatticeManifest = {
+    const updated: ZudoManifest = {
       ...existing,
       ...updates,
       updatedAt: new Date().toISOString(),
@@ -92,7 +92,7 @@ export class ManifestManager {
     await this.update({ capabilities });
   }
 
-  private async write(manifest: LatticeManifest): Promise<void> {
+  private async write(manifest: ZudoManifest): Promise<void> {
     const dir = join(this.manifestPath, "..");
     const { mkdir } = await import("node:fs/promises");
     await mkdir(dir, { recursive: true });

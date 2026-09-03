@@ -1,7 +1,7 @@
 /**
  * zudo-cli — Module Generator
  *
- * Generates a new feature module within a Lattice project.
+ * Generates a new feature module within a Zudo project.
  */
 
 import { mkdir } from "node:fs/promises";

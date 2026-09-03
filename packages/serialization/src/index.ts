@@ -1,7 +1,7 @@
 /**
  * @zudo/serialization
  *
- * Data translation layer for the Lattice framework.
+ * Data translation layer for the Zudo framework.
  *
  * Provides JSON serialization with type preservation, a transformer
  * system for custom types, serialization envelopes for cross-service

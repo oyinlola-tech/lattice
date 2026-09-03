@@ -41,7 +41,7 @@ export class RegisterHandler {
   }
 
   private async hashPassword(password: string): Promise<string> {
-    const data = new TextEncoder().encode(password + "lattice-salt");
+    const data = new TextEncoder().encode(password + "zudo-salt");
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     return Array.from(new Uint8Array(hashBuffer))
       .map((b) => b.toString(16).padStart(2, "0"))

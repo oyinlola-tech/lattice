@@ -49,7 +49,7 @@ const TIERS = {
 
 function packageNameToKey(name) {
   return name
-    .replace(/^@oyinlola141\/lattice-/, "")
+    .replace(/^@oyinlola141\/zudo-/, "")
     .replace(/^@zudo\//, "")
     .replace(/^zudo-/, "")
     .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
@@ -81,7 +81,7 @@ function getPackages() {
 describe("Architecture Boundaries", () => {
   const packages = getPackages();
 
-  it("has no wildcard @lattice/* dependency versions", () => {
+  it("has no wildcard @zudo/* dependency versions", () => {
     const errors = [];
 
     for (const pkg of packages) {
@@ -89,7 +89,7 @@ describe("Architecture Boundaries", () => {
 
       for (const [depName, version] of Object.entries(allDeps)) {
         if (
-          (depName.startsWith("@lattice/") || depName.startsWith("@zudo/")) &&
+          (depName.startsWith("@zudo/") || depName.startsWith("@zudo/")) &&
           version === "*"
         ) {
           errors.push(`${pkg.name}: ${depName}@${version}`);
@@ -115,7 +115,7 @@ describe("Architecture Boundaries", () => {
       }
 
       for (const depName of Object.keys(pkg.dependencies)) {
-        if (!depName.startsWith("@lattice/") && !depName.startsWith("@zudo/"))
+        if (!depName.startsWith("@zudo/") && !depName.startsWith("@zudo/"))
           continue;
 
         const depKey = packageNameToKey(depName);
@@ -145,7 +145,7 @@ describe("Architecture Boundaries", () => {
 
     for (const pkg of packages) {
       const deps = Object.keys(pkg.dependencies).filter(
-        (d) => d.startsWith("@lattice/") || d.startsWith("@zudo/"),
+        (d) => d.startsWith("@zudo/") || d.startsWith("@zudo/"),
       );
       graph.set(pkg.name, deps);
     }

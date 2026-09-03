@@ -1,5 +1,5 @@
 /**
- * Represents a generic operation that can be executed by Lattice.
+ * Represents a generic operation that can be executed by Zudo.
  *
  * A handler receives an input and produces an output.
  *

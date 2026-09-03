@@ -1,6 +1,6 @@
-# Contributing to Lattice
+# Contributing to Zudo
 
-> Thank you for your interest in contributing to Lattice.
+> Thank you for your interest in contributing to Zudo.
 > This document explains how to set up the project, follow our conventions, and submit changes.
 
 ---
@@ -25,8 +25,8 @@
 ### 2.2 Clone the Repository
 
 ```bash
-git clone https://github.com/lattice-framework/lattice.git
-cd lattice
+git clone https://github.com/zudo-framework/zudo.git
+cd zudo
 ```
 
 ### 2.3 Install Dependencies
@@ -50,8 +50,8 @@ All checks must pass before starting work.
 ## 3. Project Structure
 
 ```
-lattice/
-├── packages/           # All @lattice/* packages
+zudo/
+├── packages/           # All @zudo/* packages
 │   ├── errors/
 │   ├── types/
 │   ├── constants/
@@ -138,7 +138,7 @@ Branch naming:
    ```bash
    npm run typecheck
    npm run architect:check
-   npm run test --workspace=@lattice/<package-name>
+   npm run test --workspace=@zudo/<package-name>
    ```
 
 ### 5.4 Commit
@@ -191,7 +191,7 @@ Before implementing a new package:
 
 See `DEPENDENCIES.md` for the tier system.
 
-1. Identify which existing `@lattice/*` packages the new package needs.
+1. Identify which existing `@zudo/*` packages the new package needs.
 2. The new package belongs in the highest tier of its dependencies.
 3. Document the tier in `DEPENDENCIES.md`.
 
@@ -227,7 +227,7 @@ Follow `PACKAGE_RULES.md` for implementation standards.
 
 ### 7.1 Internal Dependencies
 
-When adding a dependency on another `@lattice/*` package:
+When adding a dependency on another `@zudo/*` package:
 
 1. Verify the dependency is in a lower or equal tier.
 2. Use exact version `0.1.0`.
@@ -273,10 +273,10 @@ describe("EventBus", () => {
 npm test
 
 # Run tests for a specific package
-npm run test --workspace=@lattice/events
+npm run test --workspace=@zudo/events
 
 # Run tests in watch mode
-npm run test:watch --workspace=@lattice/events
+npm run test:watch --workspace=@zudo/events
 ```
 
 ---
@@ -314,7 +314,7 @@ function parse(input: any): Result { ... }
 Use `import type` for type-only imports.
 
 ```ts
-import type { EventBus } from "@lattice/events.js";
+import type { EventBus } from "@zudo/events.js";
 ```
 
 ### 9.4 File Extensions
@@ -329,9 +329,9 @@ import { helper } from "./utils/helper.js";
 
 ## 10. Error Handling
 
-### 10.1 Use @lattice/errors
+### 10.1 Use @zudo/errors
 
-All errors must extend `BaseError` from `@lattice/errors`.
+All errors must extend `BaseError` from `@zudo/errors`.
 
 ### 10.2 Domain Errors
 
@@ -385,7 +385,7 @@ Limit concurrency to prevent resource exhaustion.
 
 ### 12.1 Input Validation
 
-All external input must be validated at the boundary using `@lattice/security`.
+All external input must be validated at the boundary using `@zudo/security`.
 
 ### 12.2 Secrets
 
@@ -485,8 +485,8 @@ Every PR must pass:
 
 ## 16. Getting Help
 
-- **Issues:** https://github.com/lattice-framework/lattice/issues
-- **Discussions:** https://github.com/lattice-framework/lattice/discussions
+- **Issues:** https://github.com/zudo-framework/zudo/issues
+- **Discussions:** https://github.com/zudo-framework/zudo/discussions
 - **Documentation:** See `ARCHITECTURE.md`, `DEPENDENCIES.md`, `PACKAGE_RULES.md`
 
 ---

@@ -1,7 +1,7 @@
 /**
  * Basic API Example — Entry Point
  *
- * A minimal REST API built with Lattice.
+ * A minimal REST API built with Zudo.
  *
  * This example demonstrates:
  * - Module system with lifecycle hooks

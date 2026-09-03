@@ -6,7 +6,7 @@ import type {
 } from "../loggerOptions/loggerOptions.type.js";
 
 /**
- * Factory responsible for creating and managing Lattice loggers.
+ * Factory responsible for creating and managing Zudo loggers.
  *
  * The factory keeps logger creation consistent across the application
  * and provides a simple place for global logger defaults.
@@ -30,7 +30,7 @@ export class LoggerFactory {
    * instance is returned unless `forceNew` is enabled.
    */
   create(name?: string, options: LoggerOptions = {}, forceNew = false): Logger {
-    const loggerName = name ?? options.name ?? this.defaults.name ?? "lattice";
+    const loggerName = name ?? options.name ?? this.defaults.name ?? "zudo";
 
     if (!forceNew && this.loggers.has(loggerName)) {
       return this.loggers.get(loggerName) as Logger;

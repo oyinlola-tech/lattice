@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP route result class.
+ * Zudo HTTP route result class.
  */
 
 import type {

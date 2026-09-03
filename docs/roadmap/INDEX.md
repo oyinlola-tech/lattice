@@ -1,6 +1,6 @@
-# Lattice Roadmap
+# Zudo Roadmap
 
-> This document tracks the implementation status of the Lattice framework.
+> This document tracks the implementation status of the Zudo framework.
 > It is updated as packages are completed, modified, or deprecated.
 
 ---
@@ -16,21 +16,21 @@
 
 ## Phase 1 — Foundation
 
-The foundational layer. These packages have no `@lattice/*` dependencies (except `@lattice/errors`).
+The foundational layer. These packages have no `@zudo/*` dependencies (except `@zudo/errors`).
 
 | Package                  | Status      | Notes                                                  |
 | ------------------------ | ----------- | ------------------------------------------------------ |
-| `@lattice/errors`        | ✅ Complete | Shared error base class, error codes, error categories |
-| `@lattice/types`         | ✅ Complete | Type guards, utility types, converters                 |
-| `@lattice/constants`     | ✅ Complete | Branded IDs, enums, serialization constants            |
-| `@lattice/container`     | ✅ Complete | DI container with token-based registration             |
-| `@lattice/logger`        | ✅ Complete | Structured logging with transports                     |
-| `@lattice/crypto`        | ✅ Complete | Hashing, encryption, tokens                            |
-| `@lattice/validation`    | ✅ Complete | Schema validation with Zod                             |
-| `@lattice/schema`        | ✅ Complete | Schema definition, parsing, type inference             |
-| `@lattice/config`        | ✅ Complete | Layered configuration with sources                     |
-| `@lattice/middleware`    | ✅ Complete | Composable middleware pipeline                         |
-| `@lattice/serialization` | ✅ Complete | JSON serializer, type transformers, envelopes          |
+| `@zudo/errors`        | ✅ Complete | Shared error base class, error codes, error categories |
+| `@zudo/types`         | ✅ Complete | Type guards, utility types, converters                 |
+| `@zudo/constants`     | ✅ Complete | Branded IDs, enums, serialization constants            |
+| `@zudo/container`     | ✅ Complete | DI container with token-based registration             |
+| `@zudo/logger`        | ✅ Complete | Structured logging with transports                     |
+| `@zudo/crypto`        | ✅ Complete | Hashing, encryption, tokens                            |
+| `@zudo/validation`    | ✅ Complete | Schema validation with Zod                             |
+| `@zudo/schema`        | ✅ Complete | Schema definition, parsing, type inference             |
+| `@zudo/config`        | ✅ Complete | Layered configuration with sources                     |
+| `@zudo/middleware`    | ✅ Complete | Composable middleware pipeline                         |
+| `@zudo/serialization` | ✅ Complete | JSON serializer, type transformers, envelopes          |
 
 **Phase 1 Goal:** Provide the building blocks for all higher-level packages.
 
@@ -42,17 +42,17 @@ Runtime building blocks that depend on foundation packages.
 
 | Package                  | Status      | Notes                                                 |
 | ------------------------ | ----------- | ----------------------------------------------------- |
-| `@lattice/events`        | ✅ Complete | Event bus, emitter, middleware, registry              |
-| `@lattice/messaging`     | ✅ Complete | In-process message bus                                |
-| `@lattice/lifecycle`     | ✅ Complete | State machine, dependency ordering, graceful shutdown |
-| `@lattice/transactions`  | ✅ Complete | Transaction lifecycle, AsyncLocalStorage context      |
-| `@lattice/cache`         | ✅ Complete | Cache abstraction with memory adapter                 |
-| `@lattice/storage`       | ✅ Complete | Database, object storage, repository abstractions     |
-| `@lattice/queue`         | ✅ Complete | Background job and async task infrastructure          |
-| `@lattice/scheduler`     | ✅ Complete | Job scheduling, cron, triggers                        |
-| `@lattice/adapters`      | ✅ Complete | Adapter contracts, registry, transport abstractions   |
-| `@lattice/database`      | ✅ Complete | Database clients, repositories, transactions          |
-| `@lattice/observability` | ✅ Complete | Structured logging, metrics, tracing, exporters       |
+| `@zudo/events`        | ✅ Complete | Event bus, emitter, middleware, registry              |
+| `@zudo/messaging`     | ✅ Complete | In-process message bus                                |
+| `@zudo/lifecycle`     | ✅ Complete | State machine, dependency ordering, graceful shutdown |
+| `@zudo/transactions`  | ✅ Complete | Transaction lifecycle, AsyncLocalStorage context      |
+| `@zudo/cache`         | ✅ Complete | Cache abstraction with memory adapter                 |
+| `@zudo/storage`       | ✅ Complete | Database, object storage, repository abstractions     |
+| `@zudo/queue`         | ✅ Complete | Background job and async task infrastructure          |
+| `@zudo/scheduler`     | ✅ Complete | Job scheduling, cron, triggers                        |
+| `@zudo/adapters`      | ✅ Complete | Adapter contracts, registry, transport abstractions   |
+| `@zudo/database`      | ✅ Complete | Database clients, repositories, transactions          |
+| `@zudo/observability` | ✅ Complete | Structured logging, metrics, tracing, exporters       |
 
 **Phase 2 Goal:** Provide the runtime infrastructure for application architecture.
 
@@ -64,18 +64,18 @@ Patterns and structures for building applications.
 
 | Package                  | Status      | Notes                                         |
 | ------------------------ | ----------- | --------------------------------------------- |
-| `@lattice/core`          | ✅ Complete | Lifecycle, context, runtime, modules          |
-| `@lattice/cqrs`          | ✅ Complete | Commands, queries, handlers                   |
-| `@lattice/auth`          | ✅ Complete | JWT, sessions, password hashing               |
-| `@lattice/runtime`       | ✅ Complete | Application lifecycle orchestrator            |
-| `@lattice/permissions`   | ✅ Complete | RBAC, ABAC, resource authorization            |
-| `@lattice/security`      | ✅ Complete | Input validation, CORS, CSRF, rate limiting   |
-| `@lattice/tenancy`       | ✅ Complete | Multi-tenant context and isolation            |
-| `@lattice/feature-flags` | ✅ Complete | Feature flag evaluation, rule engine          |
-| `@lattice/plugins`       | ✅ Complete | Plugin registration, lifecycle, orchestration |
-| `@lattice/openapi`       | ✅ Complete | OpenAPI document generation                   |
-| `@lattice/rpc`           | ✅ Complete | RPC primitives                                |
-| `@lattice/api`           | ✅ Complete | API abstraction layer                         |
+| `@zudo/core`          | ✅ Complete | Lifecycle, context, runtime, modules          |
+| `@zudo/cqrs`          | ✅ Complete | Commands, queries, handlers                   |
+| `@zudo/auth`          | ✅ Complete | JWT, sessions, password hashing               |
+| `@zudo/runtime`       | ✅ Complete | Application lifecycle orchestrator            |
+| `@zudo/permissions`   | ✅ Complete | RBAC, ABAC, resource authorization            |
+| `@zudo/security`      | ✅ Complete | Input validation, CORS, CSRF, rate limiting   |
+| `@zudo/tenancy`       | ✅ Complete | Multi-tenant context and isolation            |
+| `@zudo/feature-flags` | ✅ Complete | Feature flag evaluation, rule engine          |
+| `@zudo/plugins`       | ✅ Complete | Plugin registration, lifecycle, orchestration |
+| `@zudo/openapi`       | ✅ Complete | OpenAPI document generation                   |
+| `@zudo/rpc`           | ✅ Complete | RPC primitives                                |
+| `@zudo/api`           | ✅ Complete | API abstraction layer                         |
 
 **Phase 3 Goal:** Provide the application architecture layer.
 
@@ -87,21 +87,21 @@ External interface packages.
 
 | Package         | Status      | Notes                                      |
 | --------------- | ----------- | ------------------------------------------ |
-| `@lattice/http` | ✅ Complete | HTTP request handling, routing, middleware |
-| `@lattice/cli`  | ✅ Complete | Command-line interface                     |
+| `@zudo/http` | ✅ Complete | HTTP request handling, routing, middleware |
+| `@zudo/cli`  | ✅ Complete | Command-line interface                     |
 
-**Phase 4 Goal:** Provide external interfaces for Lattice applications.
+**Phase 4 Goal:** Provide external interfaces for Zudo applications.
 
 ---
 
 ## Phase 5 — Developer Experience
 
-Tooling for building, testing, and documenting Lattice applications.
+Tooling for building, testing, and documenting Zudo applications.
 
 | Package            | Status      | Notes                         |
 | ------------------ | ----------- | ----------------------------- |
-| `@lattice/testing` | ✅ Complete | Test helpers, fixtures, mocks |
-| `@lattice/docs`    | ✅ Complete | Documentation infrastructure  |
+| `@zudo/testing` | ✅ Complete | Test helpers, fixtures, mocks |
+| `@zudo/docs`    | ✅ Complete | Documentation infrastructure  |
 
 **Phase 5 Goal:** Provide excellent developer experience.
 

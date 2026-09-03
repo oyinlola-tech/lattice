@@ -1,6 +1,6 @@
 # Worker Example
 
-A background worker application built with Lattice.
+A background worker application built with Zudo.
 
 ## Demonstrates
 
@@ -55,7 +55,7 @@ npm install
 npm run dev
 
 # Or from the repository root
-npm run dev --workspace=@lattice/example-worker
+npm run dev --workspace=@zudo/example-worker
 ```
 
 ## What It Does

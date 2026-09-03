@@ -16,7 +16,7 @@ interface ProviderRegistration {
 }
 
 /**
- * Dependency Injection container for Lattice applications.
+ * Dependency Injection container for Zudo applications.
  *
  * The container is responsible for registering and resolving
  * application dependencies.

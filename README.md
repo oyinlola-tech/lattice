@@ -1,26 +1,26 @@
-# Lattice
+# Zudo
 
 A modular TypeScript framework for building scalable, maintainable, and production-ready applications — backend, frontend, or fullstack.
 
 ---
 
-## What is Lattice?
+## What is Zudo?
 
-Lattice is a modular TypeScript application framework designed to provide a consistent foundation for building backend services, APIs, distributed systems, frontend applications, and fullstack platforms.
+Zudo is a modular TypeScript application framework designed to provide a consistent foundation for building backend services, APIs, distributed systems, frontend applications, and fullstack platforms.
 
-Instead of forcing applications into a single architecture, Lattice provides independent packages for common infrastructure concerns such as dependency injection, configuration, HTTP, events, messaging, database access, queues, security, observability, and runtime lifecycle management.
+Instead of forcing applications into a single architecture, Zudo provides independent packages for common infrastructure concerns such as dependency injection, configuration, HTTP, events, messaging, database access, queues, security, observability, and runtime lifecycle management.
 
 Applications can use only the packages they need while maintaining consistent contracts across the ecosystem.
 
 ---
 
-## Why Lattice?
+## Why Zudo?
 
 Modern applications often need more than an HTTP server.
 
 As systems grow, concerns such as configuration, dependency injection, background jobs, events, messaging, transactions, observability, security, storage, multi-tenancy, and feature flags need to work together consistently.
 
-Lattice provides a modular foundation for these concerns without requiring every application to adopt the same runtime or deployment model.
+Zudo provides a modular foundation for these concerns without requiring every application to adopt the same runtime or deployment model.
 
 ---
 
@@ -33,10 +33,10 @@ Use only what the application needs. Every package is independent.
 ```
 Application
      |
-     +-- @lattice/core
-     +-- @lattice/http
-     +-- @lattice/database
-     +-- @lattice/events
+     +-- @zudo/core
+     +-- @zudo/http
+     +-- @zudo/database
+     +-- @zudo/events
 ```
 
 No need to install everything.
@@ -64,7 +64,7 @@ Runtime
 
 ### Infrastructure-Neutral
 
-The application is not tightly coupled to a specific database, queue, cloud provider, or storage backend. The `@lattice/adapters` package defines the boundary between Lattice and external platforms.
+The application is not tightly coupled to a specific database, queue, cloud provider, or storage backend. The `@zudo/adapters` package defines the boundary between Zudo and external platforms.
 
 ---
 
@@ -118,7 +118,7 @@ The application is not tightly coupled to a specific database, queue, cloud prov
          Router             Storage           Messaging
 ```
 
-Lattice is organized as an npm workspaces monorepo. Each package has a focused responsibility and a clear dependency boundary.
+Zudo is organized as an npm workspaces monorepo. Each package has a focused responsibility and a clear dependency boundary.
 
 ---
 
@@ -128,69 +128,69 @@ Lattice is organized as an npm workspaces monorepo. Each package has a focused r
 
 | Package               | Description                                           |
 | --------------------- | ----------------------------------------------------- |
-| `@lattice/core`       | Lifecycle, context, runtime, modules                  |
-| `@lattice/runtime`    | Application lifecycle orchestrator                    |
-| `@lattice/container`  | DI container with token-based registration            |
-| `@lattice/config`     | Layered configuration with sources                    |
-| `@lattice/errors`     | Shared error base class and utilities                 |
-| `@lattice/validation` | Schema validation with Zod                            |
-| `@lattice/logger`     | Structured logging with transports                    |
-| `@lattice/lifecycle`  | State machine, dependency ordering, graceful shutdown |
-| `@lattice/constants`  | Shared constants, enums, and type-safe literals       |
-| `@lattice/types`      | Shared type guards and utility types                  |
-| `@lattice/middleware` | Composable middleware pipeline                        |
+| `@zudo/core`       | Lifecycle, context, runtime, modules                  |
+| `@zudo/runtime`    | Application lifecycle orchestrator                    |
+| `@zudo/container`  | DI container with token-based registration            |
+| `@zudo/config`     | Layered configuration with sources                    |
+| `@zudo/errors`     | Shared error base class and utilities                 |
+| `@zudo/validation` | Schema validation with Zod                            |
+| `@zudo/logger`     | Structured logging with transports                    |
+| `@zudo/lifecycle`  | State machine, dependency ordering, graceful shutdown |
+| `@zudo/constants`  | Shared constants, enums, and type-safe literals       |
+| `@zudo/types`      | Shared type guards and utility types                  |
+| `@zudo/middleware` | Composable middleware pipeline                        |
 
 ### Application
 
 | Package                  | Description                                |
 | ------------------------ | ------------------------------------------ |
-| `@lattice/http`          | HTTP primitives, request handling, routing |
-| `@lattice/schema`        | Schema definition and parsing engine       |
-| `@lattice/serialization` | Data translation layer                     |
-| `@lattice/cqrs`          | Command query responsibility segregation   |
-| `@lattice/cli`           | Command-line interface                     |
+| `@zudo/http`          | HTTP primitives, request handling, routing |
+| `@zudo/schema`        | Schema definition and parsing engine       |
+| `@zudo/serialization` | Data translation layer                     |
+| `@zudo/cqrs`          | Command query responsibility segregation   |
+| `@zudo/cli`           | Command-line interface                     |
 
 ### Data and Infrastructure
 
 | Package                 | Description                                  |
 | ----------------------- | -------------------------------------------- |
-| `@lattice/database`     | Database clients, repositories, transactions |
-| `@lattice/storage`      | Storage abstractions and lifecycle           |
-| `@lattice/queue`        | Background job infrastructure                |
-| `@lattice/messaging`    | In-process message bus                       |
-| `@lattice/transactions` | Transaction lifecycle and coordination       |
-| `@lattice/cache`        | Cache abstraction with adapters              |
+| `@zudo/database`     | Database clients, repositories, transactions |
+| `@zudo/storage`      | Storage abstractions and lifecycle           |
+| `@zudo/queue`        | Background job infrastructure                |
+| `@zudo/messaging`    | In-process message bus                       |
+| `@zudo/transactions` | Transaction lifecycle and coordination       |
+| `@zudo/cache`        | Cache abstraction with adapters              |
 
 ### Security
 
 | Package                | Description                                 |
 | ---------------------- | ------------------------------------------- |
-| `@lattice/security`    | Input validation, CORS, CSRF, rate limiting |
-| `@lattice/crypto`      | Cryptographic primitives                    |
-| `@lattice/auth`        | JWT, sessions, password hashing             |
-| `@lattice/permissions` | RBAC, ABAC, resource authorization          |
+| `@zudo/security`    | Input validation, CORS, CSRF, rate limiting |
+| `@zudo/crypto`      | Cryptographic primitives                    |
+| `@zudo/auth`        | JWT, sessions, password hashing             |
+| `@zudo/permissions` | RBAC, ABAC, resource authorization          |
 
 ### Platform
 
 | Package                  | Description                           |
 | ------------------------ | ------------------------------------- |
-| `@lattice/observability` | Metrics, tracing, context propagation |
-| `@lattice/tenancy`       | Multi-tenant context and isolation    |
-| `@lattice/feature-flags` | Feature flag evaluation and rollouts  |
-| `@lattice/adapters`      | Boundary layer for external platforms |
+| `@zudo/observability` | Metrics, tracing, context propagation |
+| `@zudo/tenancy`       | Multi-tenant context and isolation    |
+| `@zudo/feature-flags` | Feature flag evaluation and rollouts  |
+| `@zudo/adapters`      | Boundary layer for external platforms |
 
 ### Development
 
 | Package            | Description                   |
 | ------------------ | ----------------------------- |
-| `@lattice/testing` | Test helpers, fixtures, mocks |
-| `@lattice/docs`    | Documentation infrastructure  |
+| `@zudo/testing` | Test helpers, fixtures, mocks |
+| `@zudo/docs`    | Documentation infrastructure  |
 
 ---
 
 ## CLI — Project Generation
 
-Lattice includes a CLI for scaffolding projects, adding features, and managing architecture.
+Zudo includes a CLI for scaffolding projects, adding features, and managing architecture.
 
 ### Installation
 
@@ -200,7 +200,7 @@ npm install -g zudo-cli
 
 ### Supported Frontend Frameworks
 
-Lattice can generate frontend and fullstack projects with any of the following frameworks:
+Zudo can generate frontend and fullstack projects with any of the following frameworks:
 
 | Framework    | Adapter        | Build Tool  | Language |
 | ------------ | -------------- | ----------- | -------- |
@@ -220,17 +220,17 @@ Lattice can generate frontend and fullstack projects with any of the following f
 
 Each framework supports multiple project structures:
 
-- **Lattice Standard** — Global concerns organized by domain (`components/`, `services/`, `utils/`, `types/`, etc.)
+- **Zudo Standard** — Global concerns organized by domain (`components/`, `services/`, `utils/`, `types/`, etc.)
 - **Feature Based** — Domain-driven feature folders with shared global utilities
 - **Minimal** — Only essential folders for small projects
 - **Framework Default** — Let the framework decide the structure
 
 ### How Frontend Generation Works
 
-When you create a frontend or fullstack project, Lattice:
+When you create a frontend or fullstack project, Zudo:
 
 1. **Scaffolds the framework** using the official project template (Vite, Next.js CLI, Angular CLI, etc.)
-2. **Applies Lattice structure** on top of the generated project:
+2. **Applies Zudo structure** on top of the generated project:
    - Standardized folder layout based on the selected architecture
    - Type-safe service layer with dependency injection
    - API client configuration (REST, GraphQL, or RPC)
@@ -247,7 +247,7 @@ When you create a frontend or fullstack project, Lattice:
 Fullstack projects combine a backend API with a frontend application in a single workspace:
 
 ```bash
-lattice create my-system \
+zudo create my-system \
   --type fullstack \
   --architecture modular-monolith \
   --frontend next \
@@ -280,7 +280,7 @@ For **modular-monolith** and **monolith** architectures, the backend lives under
 
 ### Frontend-Backend Integration
 
-Lattice configures the generated frontend to communicate with the backend:
+Zudo configures the generated frontend to communicate with the backend:
 
 - **Development proxy** — API requests are proxied to the backend during development
 - **Type-safe client** — Generated API client from backend schema (when using OpenAPI)
@@ -292,13 +292,13 @@ Lattice configures the generated frontend to communicate with the backend:
 #### Backend Only
 
 ```bash
-lattice create my-api
+zudo create my-api
 ```
 
 Options:
 
 ```bash
-lattice create my-api \
+zudo create my-api \
   --architecture monolith \
   --package-manager pnpm \
   --database postgresql \
@@ -308,16 +308,16 @@ lattice create my-api \
 #### Frontend Only
 
 ```bash
-lattice create my-web \
+zudo create my-web \
   --type frontend \
   --frontend react \
-  --frontend-architecture lattice-standard
+  --frontend-architecture zudo-standard
 ```
 
 #### Full Stack
 
 ```bash
-lattice create my-system \
+zudo create my-system \
   --type fullstack \
   --architecture modular-monolith \
   --frontend next \
@@ -331,16 +331,16 @@ lattice create my-system \
 After project creation, add capabilities:
 
 ```bash
-lattice add queue
-lattice add database
-lattice add cache
-lattice add storage
+zudo add queue
+zudo add database
+zudo add cache
+zudo add storage
 ```
 
 ### Development Server
 
 ```bash
-lattice dev
+zudo dev
 ```
 
 Starts all applications in the workspace with a single command.
@@ -352,9 +352,9 @@ Starts all applications in the workspace with a single command.
 Options:
 
 ```bash
-lattice dev --frontend-only   # Start only the frontend
-lattice dev --backend-only    # Start only the backend
-lattice dev --port 3000       # Custom port for backend
+zudo dev --frontend-only   # Start only the frontend
+zudo dev --backend-only    # Start only the backend
+zudo dev --port 3000       # Custom port for backend
 ```
 
 ---
@@ -364,15 +364,15 @@ lattice dev --port 3000       # Custom port for backend
 ### Backend
 
 ```ts
-import { createApplication } from "@lattice/runtime";
-import { createHTTPServer } from "@lattice/http";
+import { createApplication } from "@zudo/runtime";
+import { createHTTPServer } from "@zudo/http";
 
 const app = await createApplication();
 
 const server = createHTTPServer({ app });
 
 server.get("/", () => {
-  return { message: "Hello from Lattice" };
+  return { message: "Hello from Zudo" };
 });
 
 await app.start();
@@ -382,7 +382,7 @@ await app.start();
 
 ```bash
 # Create a fullstack project
-lattice create my-fullstack-app \
+zudo create my-fullstack-app \
   --type fullstack \
   --frontend react \
   --architecture monolith
@@ -396,7 +396,7 @@ pnpm dev
 
 ## Project Status
 
-Lattice is currently under active development.
+Zudo is currently under active development.
 
 The public API may change before the first stable release. Use packages with caution in production.
 
@@ -412,16 +412,16 @@ All published packages are at version `0.1.x` and marked as **Built**.
 
 ## Installation
 
-Lattice packages can be installed individually.
+Zudo packages can be installed individually.
 
 ```bash
-pnpm add @lattice/core
+pnpm add @zudo/core
 ```
 
 Install additional packages depending on the application requirements.
 
 ```bash
-pnpm add @lattice/http @lattice/config @lattice/logger
+pnpm add @zudo/http @zudo/config @zudo/logger
 ```
 
 ---
@@ -436,8 +436,8 @@ pnpm add @lattice/http @lattice/config @lattice/logger
 ### Setup
 
 ```bash
-git clone https://github.com/oyinlola-tech/lattice.git
-cd lattice
+git clone https://github.com/oyinlola-tech/zudo.git
+cd zudo
 pnpm install
 pnpm run build
 ```
@@ -454,8 +454,8 @@ pnpm run test           # Run architect tests
 ### Per-Package Commands
 
 ```bash
-pnpm run --filter=@lattice/http typecheck
-pnpm run --filter=@lattice/http build
+pnpm run --filter=@zudo/http typecheck
+pnpm run --filter=@zudo/http build
 ```
 
 ---
@@ -480,6 +480,6 @@ See [SECURITY.md](./SECURITY.md) for instructions on responsible vulnerability d
 
 ## License
 
-Lattice is licensed under the MIT License.
+Zudo is licensed under the MIT License.
 
 See [LICENSE](./LICENSE) for details.

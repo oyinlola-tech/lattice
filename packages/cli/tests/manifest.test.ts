@@ -7,7 +7,7 @@
 import { describe, it, expect, vi } from "vitest";
 import {
   ManifestManager,
-  type LatticeManifest,
+  type ZudoManifest,
 } from "../src/manifest/manifestManager.core.js";
 
 describe("ManifestManager", () => {

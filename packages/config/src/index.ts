@@ -1,7 +1,7 @@
 /**
  * @zudo/config
  *
- * Layered configuration with sources, resolvers, and schema validation for the Lattice framework.
+ * Layered configuration with sources, resolvers, and schema validation for the Zudo framework.
  */
 
 export * from "./configSchema/index.js";

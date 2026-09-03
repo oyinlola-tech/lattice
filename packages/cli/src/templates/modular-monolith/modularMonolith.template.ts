@@ -28,7 +28,7 @@
  * ├── tests/
  * ├── package.json
  * ├── tsconfig.json
- * ├── lattice.config.ts
+ * ├── zudo.config.ts
  * └── README.md
  * ```
  */
@@ -107,7 +107,7 @@ export function generateModularMonolithFiles(
 }
 `;
 
-  files["lattice.config.ts"] = `import { defineConfig } from "@zudo/config";
+  files["zudo.config.ts"] = `import { defineConfig } from "@zudo/config";
 
 export default defineConfig({
   application: {
@@ -149,7 +149,7 @@ dist/
 
   files["README.md"] = `# ${options.projectName}
 
-A modular monolith built with the Lattice framework.
+A modular monolith built with the Zudo framework.
 
 ## Architecture
 

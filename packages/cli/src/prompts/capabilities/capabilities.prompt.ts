@@ -1,7 +1,7 @@
 /**
  * zudo-cli — Capabilities Prompt
  *
- * Prompts for selecting Lattice capabilities.
+ * Prompts for selecting Zudo capabilities.
  */
 
 import * as p from "@clack/prompts";

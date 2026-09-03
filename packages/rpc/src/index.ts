@@ -1,7 +1,7 @@
 /**
  * @zudo/rpc
  *
- * Remote Procedure Call abstraction for the Lattice framework.
+ * Remote Procedure Call abstraction for the Zudo framework.
  *
  * Provides transport-agnostic procedure invocation, middleware,
  * client/server contracts, and reliability utilities.

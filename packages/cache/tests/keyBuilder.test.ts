@@ -36,7 +36,7 @@ describe("DefaultKeyBuilder", () => {
   it("builds a key with custom separator", () => {
     const builder = new DefaultKeyBuilder({ separator: "." });
     const key = builder.build("user:123");
-    expect(key).toBe(`lattice.user:123`);
+    expect(key).toBe(`zudo.user:123`);
   });
 
   it("builds a key with no prefix", () => {
@@ -48,7 +48,7 @@ describe("DefaultKeyBuilder", () => {
   it("builds a key with namespace", () => {
     const builder = new DefaultKeyBuilder({ namespace: "auth" });
     const key = builder.build("token:abc");
-    expect(key).toBe("lattice:auth:token:abc");
+    expect(key).toBe("zudo:auth:token:abc");
   });
 
   it("builds a key with prefix, namespace, and custom separator", () => {
@@ -64,13 +64,13 @@ describe("DefaultKeyBuilder", () => {
   it("overrides namespace per-build", () => {
     const builder = new DefaultKeyBuilder({ namespace: "auth" });
     const key = builder.build("token", { namespace: "users" });
-    expect(key).toBe("lattice:users:token");
+    expect(key).toBe("zudo:users:token");
   });
 
   it("overrides separator per-build", () => {
     const builder = new DefaultKeyBuilder();
     const key = builder.build("key", { separator: "." });
-    expect(key).toBe("lattice.key");
+    expect(key).toBe("zudo.key");
   });
 
   it("overrides prefix per-build", () => {
@@ -87,7 +87,7 @@ describe("DefaultKeyBuilder namespace", () => {
     const root = new DefaultKeyBuilder();
     const scoped = root.namespace("users");
     const key = scoped.build("profile");
-    expect(key).toBe("lattice:users:profile");
+    expect(key).toBe("zudo:users:profile");
   });
 
   it("namespaced builder preserves prefix and separator", () => {
@@ -102,8 +102,8 @@ describe("DefaultKeyBuilder namespace", () => {
     const scoped = root.namespace("scope1");
     const rootKey = root.build("key");
     const scopedKey = scoped.build("key");
-    expect(rootKey).toBe("lattice:key");
-    expect(scopedKey).toBe("lattice:scope1:key");
+    expect(rootKey).toBe("zudo:key");
+    expect(scopedKey).toBe("zudo:scope1:key");
   });
 });
 
@@ -152,6 +152,6 @@ describe("createKeyBuilder", () => {
 describe("defaultKeyBuilder", () => {
   it("is a singleton", () => {
     expect(defaultKeyBuilder).toBeInstanceOf(DefaultKeyBuilder);
-    expect(defaultKeyBuilder.build("key")).toBe("lattice:key");
+    expect(defaultKeyBuilder.build("key")).toBe("zudo:key");
   });
 });

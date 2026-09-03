@@ -41,7 +41,7 @@ import {
  * Main CLI application that registers commands, parses arguments,
  * and executes handlers.
  */
-export class LatticeCLI implements CLIApplication {
+export class ZudoCLI implements CLIApplication {
   public readonly name: string;
   public readonly version?: string;
   public readonly description?: string;
@@ -215,6 +215,6 @@ export class LatticeCLI implements CLIApplication {
 /* -------------------------------------------------------------------------- */
 
 /** Creates a new CLI application. */
-export function createCLI(options: CLIApplicationOptions = {}): LatticeCLI {
-  return new LatticeCLI(options);
+export function createCLI(options: CLIApplicationOptions = {}): ZudoCLI {
+  return new ZudoCLI(options);
 }

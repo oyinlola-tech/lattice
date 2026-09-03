@@ -269,7 +269,7 @@ describe("OpenAPIManager", () => {
 
     const json = manager.toJSON();
     expect(json).toContain('"openapi": "3.1.0"');
-    expect(json).toContain('"title": "Lattice API"');
+    expect(json).toContain('"title": "Zudo API"');
   });
 
   it("invalidates the cache", () => {

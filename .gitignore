@@ -38,3 +38,6 @@ skills-lock.json
 
 # Generated docs
 AGENTS.md
+
+# Compiled JS in src (should only be in dist)
+packages/*/src/**/*.js

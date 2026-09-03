@@ -1,5 +1,5 @@
 /**
- * LatticeLogger normalization and assertion helpers.
+ * ZudoLogger normalization and assertion helpers.
  */
 
 import { isLoggerFormatter } from "../../loggerFormatter/loggerFormatterGuard.js";

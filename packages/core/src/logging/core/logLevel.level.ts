@@ -1,5 +1,5 @@
 /**
- * Supported logging severity levels in Lattice.
+ * Supported logging severity levels in Zudo.
  *
  * Levels are ordered from least severe to most severe.
  */
@@ -13,7 +13,7 @@ export const LogLevel = {
 } as const;
 
 /**
- * Union of all supported Lattice log levels.
+ * Union of all supported Zudo log levels.
  */
 export type LogLevel = (typeof LogLevel)[keyof typeof LogLevel];
 

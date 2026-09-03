@@ -1,7 +1,7 @@
 /**
  * @zudo/constants
  *
- * Shared constants, enums, and type-safe literals for the Lattice framework.
+ * Shared constants, enums, and type-safe literals for the Zudo framework.
  *
  * Provides HTTP methods/status/headers/content types, environment detection,
  * time durations and timeouts, branded domain identifiers, validation patterns

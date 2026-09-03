@@ -1,5 +1,5 @@
 /**
- * Event emitter abort error helper for Lattice.
+ * Event emitter abort error helper for Zudo.
  */
 
 /**

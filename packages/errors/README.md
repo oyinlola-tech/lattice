@@ -1,6 +1,6 @@
 # @zudo/errors
 
-Shared error base class, error codes, and error handling utilities for the Lattice framework.
+Shared error base class, error codes, and error handling utilities for the Zudo framework.
 
 ## Installation
 

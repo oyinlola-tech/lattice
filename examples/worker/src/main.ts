@@ -1,7 +1,7 @@
 /**
  * Worker Example — Entry Point
  *
- * A background worker application built with Lattice.
+ * A background worker application built with Zudo.
  *
  * This example demonstrates:
  * - Background job processing with queues
@@ -38,8 +38,8 @@ async function bootstrap(): Promise<void> {
   // Queue email jobs
   await emailQueue.add("send-email", {
     to: "user@example.com",
-    subject: "Welcome to Lattice",
-    body: "Hello! Welcome to the Lattice framework.",
+    subject: "Welcome to Zudo",
+    body: "Hello! Welcome to the Zudo framework.",
   });
 
   await emailQueue.add("send-email", {

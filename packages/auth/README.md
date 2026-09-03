@@ -26,7 +26,7 @@ const token = await strategy.sign({ sub: user.id, role: user.role });
 - JWT creation and verification
 - Session management with stores
 - Password hashing and verification
-- RBAC delegation to `@lattice/permissions`
+- RBAC delegation to `@zudo/permissions`
 - Token refresh and revocation
 
 ## Use Cases

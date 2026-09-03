@@ -1,7 +1,7 @@
 /**
  * @zudo/lifecycle
  *
- * Application and component lifecycle orchestration for the Lattice framework.
+ * Application and component lifecycle orchestration for the Zudo framework.
  *
  * Manages state machines, dependency ordering, graceful shutdown, rollback,
  * timeouts, retries, and process signals.

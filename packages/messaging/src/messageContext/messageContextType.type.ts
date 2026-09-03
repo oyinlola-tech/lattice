@@ -1,5 +1,5 @@
 /**
- * MessageContext type definitions for Lattice.
+ * MessageContext type definitions for Zudo.
  *
  * The context carries correlation and causation identifiers
  * through the dispatch chain, enabling distributed tracing

@@ -126,12 +126,12 @@ export async function promptCreateProject(
     (await askChoice(
       "Select frontend architecture",
       [
-        { value: "lattice-standard", label: "Lattice Standard" },
+        { value: "zudo-standard", label: "Zudo Standard" },
         { value: "feature-based", label: "Feature Based" },
         { value: "minimal", label: "Minimal" },
         { value: "framework-default", label: "Framework Default" },
       ],
-      "lattice-standard",
+      "zudo-standard",
     ))) as CreateProjectPrompts["frontendArchitecture"];
 
   const language = (overrides?.language ??

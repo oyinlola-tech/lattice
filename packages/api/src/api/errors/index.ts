@@ -1,7 +1,7 @@
 /**
  * @zudo/api/errors
  *
- * API-specific error classes for the Lattice framework.
+ * API-specific error classes for the Zudo framework.
  *
  * Re-exported from @zudo/errors for convenience.
  */

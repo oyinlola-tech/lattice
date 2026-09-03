@@ -1,5 +1,5 @@
 /**
- * Event registry type definitions for Lattice.
+ * Event registry type definitions for Zudo.
  */
 
 import type {

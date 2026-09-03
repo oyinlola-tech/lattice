@@ -1,7 +1,7 @@
 /**
  * @zudo/container
  *
- * Dependency injection container with token-based registration for the Lattice framework.
+ * Dependency injection container with token-based registration for the Zudo framework.
  */
 
 export * from "./containerCore/index.js";

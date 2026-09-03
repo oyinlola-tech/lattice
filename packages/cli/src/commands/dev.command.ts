@@ -1,7 +1,7 @@
 /**
  * zudo-cli — Dev Command
  *
- * The `lattice dev` command.
+ * The `zudo dev` command.
  * Starts development servers based on project configuration.
  */
 
@@ -33,7 +33,7 @@ export async function runDevCommand(context: CLIContext): Promise<void> {
 
   if (!config) {
     throw new CLIValidationError(
-      "No Lattice project found. Run `lattice create` first.",
+      "No Zudo project found. Run `zudo create` first.",
     );
   }
 
@@ -93,8 +93,8 @@ function readProjectConfig(cwd: string): {
   readonly backend?: { readonly architecture: string };
   readonly frontend?: { readonly framework: string };
 } | null {
-  const configPath = join(cwd, "lattice.config.ts");
-  const configPathJs = join(cwd, "lattice.config.js");
+  const configPath = join(cwd, "zudo.config.ts");
+  const configPathJs = join(cwd, "zudo.config.js");
 
   if (existsSync(configPath)) {
     const content = readFileSync(configPath, "utf-8");
@@ -110,22 +110,22 @@ function readProjectConfig(cwd: string): {
   if (existsSync(pkgPath)) {
     const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
       name?: string;
-      lattice?: {
+      zudo?: {
         projectType?: string;
         architecture?: string;
         frontend?: string;
       };
     };
 
-    if (pkg.lattice) {
+    if (pkg.zudo) {
       return {
         name: pkg.name ?? "unknown",
-        type: pkg.lattice.projectType ?? "backend",
-        backend: pkg.lattice.architecture
-          ? { architecture: pkg.lattice.architecture }
+        type: pkg.zudo.projectType ?? "backend",
+        backend: pkg.zudo.architecture
+          ? { architecture: pkg.zudo.architecture }
           : undefined,
-        frontend: pkg.lattice.frontend
-          ? { framework: pkg.lattice.frontend }
+        frontend: pkg.zudo.frontend
+          ? { framework: pkg.zudo.frontend }
           : undefined,
       };
     }

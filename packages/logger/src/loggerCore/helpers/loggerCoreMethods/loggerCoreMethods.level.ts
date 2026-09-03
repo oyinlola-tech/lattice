@@ -1,5 +1,5 @@
 /**
- * LatticeLogger level methods.
+ * ZudoLogger level methods.
  */
 
 import {
@@ -15,13 +15,13 @@ import { createEntry } from "./loggerCoreMethods.entry.js";
 
 import { dispatchEntry } from "./loggerCoreMethods.dispatch.js";
 
-import type { LatticeLoggerContext } from "../../core/loggerCore.core.js";
+import type { ZudoLoggerContext } from "../../core/loggerCore.core.js";
 
 /**
- * Level logging methods extracted from LatticeLogger.
+ * Level logging methods extracted from ZudoLogger.
  */
 export function logAtLevel(
-  ctx: LatticeLoggerContext,
+  ctx: ZudoLoggerContext,
   level: LoggerLevel,
   message: string,
   options: LogOptions = {},

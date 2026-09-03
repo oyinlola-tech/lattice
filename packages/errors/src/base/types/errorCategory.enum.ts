@@ -1,5 +1,5 @@
 /**
- * High-level categories used to classify errors across Lattice.
+ * High-level categories used to classify errors across Zudo.
  *
  * Categories describe where an error originated or what subsystem
  * is primarily responsible for handling it.

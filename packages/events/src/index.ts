@@ -1,7 +1,7 @@
 /**
  * @zudo/events
  *
- * Event bus, emitter, middleware, and registry for the Lattice framework.
+ * Event bus, emitter, middleware, and registry for the Zudo framework.
  */
 
 export * from "./eventBus/index.js";

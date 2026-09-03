@@ -1,5 +1,5 @@
 /**
- * HandlerRegistry type definitions for Lattice.
+ * HandlerRegistry type definitions for Zudo.
  *
  * The registry manages message handler registration and resolution.
  * It supports both single-handler (commands/queries) and multi-handler

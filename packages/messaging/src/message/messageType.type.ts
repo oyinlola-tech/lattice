@@ -1,5 +1,5 @@
 /**
- * Core message type definitions for Lattice.
+ * Core message type definitions for Zudo.
  *
  * Messages are the fundamental unit of communication in the
  * messaging infrastructure. They carry type information, a
@@ -67,7 +67,7 @@ export type MessagePayload = unknown;
 /**
  * Base message contract.
  *
- * Every Lattice message must contain a type, unique identifier,
+ * Every Zudo message must contain a type, unique identifier,
  * timestamp, and payload.
  */
 export interface Message<TPayload = MessagePayload> {

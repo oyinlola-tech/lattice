@@ -17,7 +17,7 @@ export interface FrontendGenerationContext {
   readonly framework: string;
   readonly language: "typescript" | "javascript";
   readonly architecture:
-    "lattice-standard" | "feature-based" | "minimal" | "framework-default";
+    "zudo-standard" | "feature-based" | "minimal" | "framework-default";
   readonly packageManager: "pnpm" | "npm" | "yarn" | "bun";
   readonly features: FrontendFeatures;
 }
@@ -76,9 +76,9 @@ export interface FrontendAdapter {
   ): readonly DependencyRequirement[];
 
   /**
-   * Applies Lattice architecture structure over the scaffolded project.
+   * Applies Zudo architecture structure over the scaffolded project.
    */
-  applyLatticeStructure(context: FrontendGenerationContext): Promise<void>;
+  applyZudoStructure(context: FrontendGenerationContext): Promise<void>;
 
   /**
    * Generates integration files (API client, env files, etc.).

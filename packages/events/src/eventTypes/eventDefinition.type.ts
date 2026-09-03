@@ -1,5 +1,5 @@
 /**
- * Core event primitives for Lattice.
+ * Core event primitives for Zudo.
  *
  * Events are immutable messages that describe something that
  * happened inside the application or framework.
@@ -65,7 +65,7 @@ export type EventPayload = unknown;
 /**
  * Base event contract.
  *
- * Every Lattice event must contain a type, unique identifier,
+ * Every Zudo event must contain a type, unique identifier,
  * timestamp, and payload.
  */
 export interface Event<TPayload = EventPayload> {

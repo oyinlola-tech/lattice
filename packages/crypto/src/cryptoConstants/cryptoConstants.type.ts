@@ -1,7 +1,7 @@
 import { TimeMs } from "@zudo/constants";
 
 /**
- * Supported cryptographic algorithms used by Lattice.
+ * Supported cryptographic algorithms used by Zudo.
  */
 export enum CryptoAlgorithm {
   AES_256_GCM = "aes-256-gcm",

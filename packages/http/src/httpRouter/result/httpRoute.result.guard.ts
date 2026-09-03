@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP route result type guards.
+ * Zudo HTTP route result type guards.
  */
 
 import { HttpRouteResult } from "./httpRoute.result.class.js";

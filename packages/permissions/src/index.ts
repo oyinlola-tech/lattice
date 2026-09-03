@@ -1,7 +1,7 @@
 /**
  * @zudo/permissions
  *
- * Authorization engine for the Lattice framework.
+ * Authorization engine for the Zudo framework.
  *
  * Supports RBAC, ABAC, resource policies, wildcards, role hierarchy,
  * condition combinators, ability compilation, and explain mode.

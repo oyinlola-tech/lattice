@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP server factory and utilities.
+ * Zudo HTTP server factory and utilities.
  *
  * @module httpServer/factory
  */

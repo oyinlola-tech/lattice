@@ -6,5 +6,5 @@
 
 export {
   ManifestManager,
-  type LatticeManifest,
+  type ZudoManifest,
 } from "./manifestManager.core.js";

@@ -1,5 +1,5 @@
 /**
- * Dependency injection provider definitions for Lattice.
+ * Dependency injection provider definitions for Zudo.
  * Providers describe how a dependency should be created or retrieved.
  */
 

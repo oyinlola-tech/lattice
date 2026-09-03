@@ -1,7 +1,7 @@
 import type { Disposable } from "./disposable.js";
 
 /**
- * Describes an adapter that connects Lattice to an
+ * Describes an adapter that connects Zudo to an
  * external technology or runtime.
  *
  * Examples:

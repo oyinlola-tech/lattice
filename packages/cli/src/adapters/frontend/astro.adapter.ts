@@ -63,7 +63,7 @@ export class AstroAdapter implements FrontendAdapter {
     return deps;
   }
 
-  async applyLatticeStructure(
+  async applyZudoStructure(
     context: FrontendGenerationContext,
   ): Promise<void> {
     const structure = this.getStructure(context);
@@ -155,7 +155,7 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="${context.project.name}">
-  <h1>Hello from Lattice</h1>
+  <h1>Hello from Zudo</h1>
 </Layout>
 `,
     };

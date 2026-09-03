@@ -5,7 +5,7 @@ import { join } from "node:path";
 export async function detectArchitecture(
   cwd: string,
 ): Promise<"monolith" | "modular-monolith" | "microservice" | null> {
-  const configPath = join(cwd, "lattice.config.ts");
+  const configPath = join(cwd, "zudo.config.ts");
 
   if (existsSync(configPath)) {
     try {

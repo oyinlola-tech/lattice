@@ -1,7 +1,7 @@
 /**
  * @zudo/docs
  *
- * Documentation infrastructure for the Lattice framework.
+ * Documentation infrastructure for the Zudo framework.
  *
  * Provides a structured document model, registry, validation,
  * navigation, examples, frontmatter parsing, and output generation

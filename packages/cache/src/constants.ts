@@ -25,7 +25,7 @@ export const MIN_TTL_MS = 1_000;
 export const DEFAULT_SEPARATOR = ":";
 
 /** Default key prefix. */
-export const DEFAULT_PREFIX = "lattice";
+export const DEFAULT_PREFIX = "zudo";
 
 /** Maximum key length in characters. */
 export const MAX_KEY_LENGTH = 256;

@@ -39,7 +39,7 @@
 "@zudo/validation": major
 ---
 
-BREAKING CHANGE: Rename all packages from `@oyinlola141/lattice-*` to `@zudo/*` and `@oyinlola141/lattice-cli` to `zudo-cli`.
+BREAKING CHANGE: Rename all packages from `@zudo/*` to `@zudo/*` and `@zudo/cli` to `zudo-cli`.
 
 - Scoped packages: `@zudo/adapters`, `@zudo/api`, `@zudo/auth`, etc.
 - CLI package: `zudo-cli` (unscoped)
@@ -48,8 +48,8 @@ BREAKING CHANGE: Rename all packages from `@oyinlola141/lattice-*` to `@zudo/*` 
 Migration:
 ```bash
 # Old
-npm install @oyinlola141/lattice-cli
-npm install @oyinlola141/lattice-errors
+npm install @zudo/cli
+npm install @zudo/errors
 
 # New
 npm install zudo-cli

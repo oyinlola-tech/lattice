@@ -1,7 +1,7 @@
 /**
  * zudo-cli
  *
- * Command-line interface framework for the Lattice platform.
+ * Command-line interface framework for the Zudo platform.
  *
  * @example
  * ```ts
@@ -111,7 +111,7 @@ export {
 
 // Application
 export {
-  LatticeCLI,
+  ZudoCLI,
   createCLI,
   createCLIWriter,
   registerCLIInterruptHandler,
@@ -246,7 +246,7 @@ export {
 export { RollbackManager, type RollbackEntry } from "./rollback/index.js";
 
 // Manifest
-export { ManifestManager, type LatticeManifest } from "./manifest/index.js";
+export { ManifestManager, type ZudoManifest } from "./manifest/index.js";
 
 // Types
 export type {

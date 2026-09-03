@@ -1,6 +1,6 @@
 # Modular Monolith Example
 
-A **Community Knowledge Platform** demonstrating Lattice's modular monolith architecture.
+A **Community Knowledge Platform** demonstrating Zudo's modular monolith architecture.
 
 ## What this example demonstrates
 

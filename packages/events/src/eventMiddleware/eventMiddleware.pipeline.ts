@@ -1,5 +1,5 @@
 /**
- * Event middleware pipeline execution for Lattice.
+ * Event middleware pipeline execution for Zudo.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

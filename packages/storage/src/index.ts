@@ -1,7 +1,7 @@
 /**
  * @zudo/storage
  *
- * Storage infrastructure for the Lattice framework.
+ * Storage infrastructure for the Zudo framework.
  *
  * Provides database, object storage, repository, serialization, locking,
  * and lifecycle abstractions with driver-independent interfaces.

@@ -1,5 +1,5 @@
 /**
- * Event emitter type definitions for Lattice.
+ * Event emitter type definitions for Zudo.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

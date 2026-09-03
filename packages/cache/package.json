@@ -1,7 +1,7 @@
 {
   "name": "@zudo/cache",
   "version": "0.1.3",
-  "description": "Caching primitives, abstractions, and adapters for the Lattice framework.",
+  "description": "Caching primitives, abstractions, and adapters for the Zudo framework.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -39,15 +39,15 @@
     "access": "public"
   },
   "keywords": [
-    "lattice",
+    "zudo",
     "cache",
     "redis",
     "memory",
     "tags"
   ],
-  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/lattice"
+    "url": "https://github.com/oyinlola-tech/zudo"
   }
 }

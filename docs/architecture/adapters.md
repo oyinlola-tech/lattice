@@ -1,14 +1,14 @@
 # Adapters
 
-> Adapters are the boundary layer between Lattice and external platforms.
+> Adapters are the boundary layer between Zudo and external platforms.
 > They provide contracts, registries, capabilities, and transport abstractions
-> that let Lattice run on different runtimes without changing application code.
+> that let Zudo run on different runtimes without changing application code.
 
 ---
 
 ## 1. Purpose
 
-Lattice applications should not depend on platform-specific APIs.
+Zudo applications should not depend on platform-specific APIs.
 An application written for Node.js should be portable to edge runtimes,
 serverless environments, or test harnesses without rewriting business logic.
 
@@ -17,7 +17,7 @@ Adapters solve this by:
 - Defining **platform-agnostic contracts** for external interactions.
 - Providing a **registry** for discovering and managing adapters.
 - Declaring **capabilities** so runtime code can adapt behavior.
-- Offering **lifecycle contracts** that integrate with `@lattice/lifecycle`.
+- Offering **lifecycle contracts** that integrate with `@zudo/lifecycle`.
 
 ---
 
@@ -41,7 +41,7 @@ interface Adapter {
 }
 ```
 
-The lifecycle methods map to the standard Lattice lifecycle:
+The lifecycle methods map to the standard Zudo lifecycle:
 
 ```
 initialize → start → running → stop → dispose
@@ -121,7 +121,7 @@ The registry:
 
 ### 3.1 HTTP Adapter
 
-The `HTTPAdapter` translates platform-specific HTTP requests into Lattice's normalized shapes.
+The `HTTPAdapter` translates platform-specific HTTP requests into Zudo's normalized shapes.
 
 ```ts
 interface HTTPRequestLike {
@@ -158,7 +158,7 @@ interface HTTPAdapter extends Adapter {
 Key adapters:
 
 - `HTTPRequestAdapter` — adapts a single platform request.
-- `HTTPResponseAdapter` — translates a Lattice response to platform output.
+- `HTTPResponseAdapter` — translates a Zudo response to platform output.
 - `HTTPServerAdapter` — manages HTTP server lifecycle.
 
 ### 3.2 Messaging Adapter
@@ -316,7 +316,7 @@ interface ScheduledJob {
 
 ## 4. Lifecycle Integration
 
-Adapters participate in the Lattice lifecycle through `@lattice/lifecycle`:
+Adapters participate in the Zudo lifecycle through `@zudo/lifecycle`:
 
 ```ts
 interface LifecycleAdapter extends Adapter {
@@ -340,7 +340,7 @@ Health status is used by diagnostics and readiness checks.
 
 ## 5. Error Handling
 
-Adapters define a dedicated error hierarchy rooted in `@lattice/errors`:
+Adapters define a dedicated error hierarchy rooted in `@zudo/errors`:
 
 | Error Class                     | Meaning                     |
 | ------------------------------- | --------------------------- |
@@ -367,14 +367,14 @@ All errors carry:
 
 ## 6. Testing
 
-`@lattice/adapters` provides testing utilities for adapter implementations:
+`@zudo/adapters` provides testing utilities for adapter implementations:
 
 ```ts
 import {
   createMockAdapter,
   createMockAdapterRegistry,
   createMockHealth,
-} from "@lattice/adapters/testing";
+} from "@zudo/adapters/testing";
 
 const mockRegistry = createMockAdapterRegistry();
 mockRegistry.register(createMockAdapter("http", { http: true }));
@@ -390,16 +390,16 @@ Mock adapters implement the base `Adapter` interface and can be configured with:
 
 ## 7. Package Dependencies
 
-`@lattice/adapters` depends on:
+`@zudo/adapters` depends on:
 
 | Package              | Purpose                       |
 | -------------------- | ----------------------------- |
-| `@lattice/errors`    | Error hierarchy               |
-| `@lattice/constants` | Branded types and constants   |
-| `@lattice/types`     | Type guards and utility types |
-| `@lattice/lifecycle` | Lifecycle contracts           |
+| `@zudo/errors`    | Error hierarchy               |
+| `@zudo/constants` | Branded types and constants   |
+| `@zudo/types`     | Type guards and utility types |
+| `@zudo/lifecycle` | Lifecycle contracts           |
 
-Adapters do **not** depend on transport packages (`@lattice/http`, `@lattice/messaging`, etc.).
+Adapters do **not** depend on transport packages (`@zudo/http`, `@zudo/messaging`, etc.).
 Transport packages depend on adapters, not the reverse.
 
 ---
@@ -408,14 +408,14 @@ Transport packages depend on adapters, not the reverse.
 
 Create a new adapter when:
 
-- Lattice must support a new platform or runtime.
+- Zudo must support a new platform or runtime.
 - External behavior cannot be expressed through existing transport packages.
 - Platform-specific APIs need a uniform interface for application code.
 - Testing requires a mock or fake implementation of an external dependency.
 
 Do **not** create adapters for:
 
-- Internal Lattice abstractions — use modules and plugins instead.
+- Internal Zudo abstractions — use modules and plugins instead.
 - Business logic — adapters only translate, never decide.
 - One-off integrations — consider whether a transport package extension is sufficient.
 

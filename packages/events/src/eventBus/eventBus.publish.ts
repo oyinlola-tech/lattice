@@ -1,5 +1,5 @@
 /**
- * Event bus publish methods for Lattice.
+ * Event bus publish methods for Zudo.
  */
 
 import type {

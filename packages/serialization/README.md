@@ -1,6 +1,6 @@
 # @zudo/serialization
 
-Data translation layer with JSON serializer, type transformers, envelopes, and registry for Lattice applications.
+Data translation layer with JSON serializer, type transformers, envelopes, and registry for Zudo applications.
 
 ## Installation
 

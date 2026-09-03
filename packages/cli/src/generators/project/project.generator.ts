@@ -60,18 +60,18 @@ export async function generateProject(
       await execCommand("git", ["init"], projectPath);
       await execCommand(
         "git",
-        ["config", "user.name", "Lattice CLI"],
+        ["config", "user.name", "Zudo CLI"],
         projectPath,
       );
       await execCommand(
         "git",
-        ["config", "user.email", "cli@lattice.dev"],
+        ["config", "user.email", "cli@zudo.dev"],
         projectPath,
       );
       await execCommand("git", ["add", "-A"], projectPath);
       await execCommand(
         "git",
-        ["commit", "-m", "chore: initial commit from Lattice CLI"],
+        ["commit", "-m", "chore: initial commit from Zudo CLI"],
         projectPath,
       );
     } catch {
@@ -96,6 +96,6 @@ export async function generateProject(
   };
 }
 
-export function getLatticeVersion(): string {
+export function getZudoVersion(): string {
   return CLI_VERSION;
 }

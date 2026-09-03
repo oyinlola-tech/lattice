@@ -1,7 +1,7 @@
 /**
  * @zudo/queue - Background job and asynchronous task infrastructure.
  *
- * This package provides the core queue system for the Lattice framework,
+ * This package provides the core queue system for the Zudo framework,
  * enabling asynchronous job processing with support for retries, backoff,
  * concurrency, and lifecycle management.
  *

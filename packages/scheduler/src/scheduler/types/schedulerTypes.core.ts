@@ -1,7 +1,7 @@
 /**
  * @zudo/scheduler/types
  *
- * Core types for the Lattice scheduler package.
+ * Core types for the Zudo scheduler package.
  */
 
 /**

@@ -14,7 +14,7 @@ import type {
  * Minimal HTTP request shape.
  *
  * Concrete adapters map platform-specific requests to this shape.
- * The actual Lattice HTTPRequest lives in @zudo/http.
+ * The actual Zudo HTTPRequest lives in @zudo/http.
  */
 export interface HTTPRequestLike {
   readonly method: string;
@@ -86,7 +86,7 @@ export interface HTTPRequestAdapter {
 }
 
 /**
- * Response adapter — translates a Lattice response to platform output.
+ * Response adapter — translates a Zudo response to platform output.
  */
 export interface HTTPResponseAdapter {
   readonly name: string;

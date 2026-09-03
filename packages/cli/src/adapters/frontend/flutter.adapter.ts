@@ -35,7 +35,7 @@ export class FlutterAdapter implements FrontendAdapter {
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
     const { projectPath } = context;
-    const org = "com.lattice";
+    const org = "com.zudo";
 
     await execCommand(
       "flutter",
@@ -60,7 +60,7 @@ export class FlutterAdapter implements FrontendAdapter {
     return [];
   }
 
-  async applyLatticeStructure(
+  async applyZudoStructure(
     context: FrontendGenerationContext,
   ): Promise<void> {
     const structure = this.getStructure(context);

@@ -1,6 +1,6 @@
 # @zudo/logger
 
-Structured logging with transports, log levels, and context propagation for Lattice applications.
+Structured logging with transports, log levels, and context propagation for Zudo applications.
 
 ## Installation
 

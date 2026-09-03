@@ -1,7 +1,7 @@
 /**
  * @zudo/auth
  *
- * Authentication and authorization services for the Lattice framework.
+ * Authentication and authorization services for the Zudo framework.
  *
  * Provides JWT token management (access + refresh), password hashing (scrypt),
  * session management, RBAC (role-based access control), and auth utilities.

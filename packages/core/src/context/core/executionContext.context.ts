@@ -1,6 +1,6 @@
 /**
  * Represents the execution context of a single operation
- * within a Lattice application.
+ * within a Zudo application.
  *
  * An execution can represent:
  *

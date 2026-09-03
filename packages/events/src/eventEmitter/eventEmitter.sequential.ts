@@ -1,5 +1,5 @@
 /**
- * Sequential event handler dispatch for Lattice.
+ * Sequential event handler dispatch for Zudo.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

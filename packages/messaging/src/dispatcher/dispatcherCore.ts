@@ -1,5 +1,5 @@
 /**
- * Dispatcher implementation for Lattice.
+ * Dispatcher implementation for Zudo.
  *
  * @module dispatcher/dispatcherCore
  */

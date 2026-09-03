@@ -1,7 +1,7 @@
 /**
  * @zudo/errors/schema
  *
- * Schema error types for the Lattice schema system.
+ * Schema error types for the Zudo schema system.
  */
 
 export {

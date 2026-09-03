@@ -1,5 +1,5 @@
 /**
- * MessageHandler type definitions for Lattice.
+ * MessageHandler type definitions for Zudo.
  *
  * Handlers are the consumer side of the messaging system.
  * They receive messages and produce results.

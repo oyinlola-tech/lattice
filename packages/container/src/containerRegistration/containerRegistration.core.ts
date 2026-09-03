@@ -1,5 +1,5 @@
 /**
- * Dependency registration definitions for Lattice.
+ * Dependency registration definitions for Zudo.
  * A registration is the container's normalized description of a dependency.
  */
 

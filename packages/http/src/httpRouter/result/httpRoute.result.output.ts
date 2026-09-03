@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP route result output methods.
+ * Zudo HTTP route result output methods.
  *
  * Extends HttpRouteResult with serialization methods via prototype.
  */

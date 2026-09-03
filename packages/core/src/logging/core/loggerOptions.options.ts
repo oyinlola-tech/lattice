@@ -1,5 +1,5 @@
 /**
- * Configuration options for the Lattice logging system.
+ * Configuration options for the Zudo logging system.
  *
  * These options describe logger behavior without coupling the core
  * to a specific logging implementation.

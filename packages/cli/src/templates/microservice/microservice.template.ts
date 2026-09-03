@@ -18,7 +18,7 @@
  * ├── package.json
  * ├── pnpm-workspace.yaml
  * ├── docker-compose.yml
- * ├── lattice.config.ts
+ * ├── zudo.config.ts
  * └── README.md
  * ```
  */
@@ -45,7 +45,7 @@ export function generateMicroserviceFiles(
         name: nameSlug,
         version: "0.1.0",
         private: true,
-        description: `Microservice architecture built with Lattice framework`,
+        description: `Microservice architecture built with Zudo framework`,
         scripts: {
           dev: "pnpm -r run dev",
           build: "pnpm -r run build",
@@ -65,7 +65,7 @@ export function generateMicroserviceFiles(
   - services/*
 `;
 
-  files["lattice.config.ts"] = `import { defineConfig } from "@zudo/config";
+  files["zudo.config.ts"] = `import { defineConfig } from "@zudo/config";
 
 export default defineConfig({
   application: {
@@ -134,7 +134,7 @@ dist/
 
   files["README.md"] = `# ${options.projectName}
 
-A microservice architecture built with the Lattice framework.
+A microservice architecture built with the Zudo framework.
 
 ## Services
 
@@ -167,7 +167,7 @@ MIT
   files["apps/gateway/package.json"] =
     JSON.stringify(
       {
-        name: "@latticejs/gateway",
+        name: "@zudojs/gateway",
         version: "0.1.0",
         private: true,
         type: "module",
@@ -287,7 +287,7 @@ process.on("SIGTERM", async () => {
     files[`apps/services/${svcName}/package.json`] =
       JSON.stringify(
         {
-          name: `@latticejs/${nameSlug}-${svcName}`,
+          name: `@zudojs/${nameSlug}-${svcName}`,
           version: "0.1.0",
           private: true,
           type: "module",

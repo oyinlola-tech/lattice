@@ -1,7 +1,7 @@
 /**
  * zudo-cli — Types
  *
- * Type definitions for the Lattice CLI scaffolding system.
+ * Type definitions for the Zudo CLI scaffolding system.
  */
 
 export type {

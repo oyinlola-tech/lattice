@@ -10,7 +10,7 @@ import type { AdapterMetadata } from "../metadata/metadata.type.js";
 /**
  * Base adapter interface.
  *
- * Every adapter in the Lattice ecosystem must implement this contract.
+ * Every adapter in the Zudo ecosystem must implement this contract.
  * Platform-specific adapters extend this with transport-specific methods.
  */
 export interface Adapter {

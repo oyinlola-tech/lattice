@@ -1,5 +1,5 @@
 /**
- * Event bus type definitions for Lattice.
+ * Event bus type definitions for Zudo.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

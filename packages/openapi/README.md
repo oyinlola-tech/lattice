@@ -1,6 +1,6 @@
 # @zudo/openapi
 
-OpenAPI 3.1 specification generation, validation, and SDK generation for Lattice applications.
+OpenAPI 3.1 specification generation, validation, and SDK generation for Zudo applications.
 
 ## Installation
 
@@ -32,7 +32,7 @@ router.get(
 
 - OpenAPI 3.1 spec generation
 - Route documentation decorators
-- Schema integration with `@lattice/schema`
+- Schema integration with `@zudo/schema`
 - Request/response validation
 - SDK generation
 

@@ -22,7 +22,7 @@ export interface ResolvedConfiguration {
 
 export class ConfigurationResolver {
   resolve(cwd: string): ResolvedConfiguration | null {
-    const configPath = join(cwd, "lattice.config.ts");
+    const configPath = join(cwd, "zudo.config.ts");
 
     if (!existsSync(configPath)) {
       return null;

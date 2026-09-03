@@ -1,7 +1,7 @@
 /**
  * @zudo/crypto
  *
- * Cryptographic primitives for the Lattice framework.
+ * Cryptographic primitives for the Zudo framework.
  * Provides symmetric/asymmetric encryption, hashing, password hashing,
  * digital signatures, key derivation, and secure random generation.
  */

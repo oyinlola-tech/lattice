@@ -1,7 +1,7 @@
 /**
  * @zudo/rpc/types
  *
- * Core types for the Lattice RPC package.
+ * Core types for the Zudo RPC package.
  */
 
 export type { RPCProcedureName } from "./rpcProcedureName.type.js";

@@ -118,7 +118,7 @@ describe("CacheService — patterns", () => {
     await service.set("user:2", "bob");
     await service.set("post:1", "hello");
 
-    // Keys are prefixed with lattice: by the key builder
+    // Keys are prefixed with zudo: by the key builder
     await service.invalidateByPattern("*:user:*");
     expect((await service.get("user:1")).hit).toBe(false);
     expect((await service.get("user:2")).hit).toBe(false);

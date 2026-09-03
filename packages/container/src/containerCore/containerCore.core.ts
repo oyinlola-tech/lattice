@@ -1,5 +1,5 @@
 /**
- * Core dependency injection container for Lattice.
+ * Core dependency injection container for Zudo.
  */
 
 import type {

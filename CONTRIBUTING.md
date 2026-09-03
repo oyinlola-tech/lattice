@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to Lattice.
+Thank you for your interest in contributing to Zudo.
 
 Please see [docs/contributing/INDEX.md](docs/contributing/INDEX.md) for the full contributing guide, including:
 
@@ -15,8 +15,8 @@ Please see [docs/contributing/INDEX.md](docs/contributing/INDEX.md) for the full
 ## Quick Start
 
 ```bash
-git clone https://github.com/oyinlola-tech/lattice.git
-cd lattice
+git clone https://github.com/oyinlola-tech/zudo.git
+cd zudo
 pnpm install
 pnpm run typecheck
 pnpm test

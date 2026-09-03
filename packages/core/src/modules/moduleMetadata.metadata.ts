@@ -16,7 +16,7 @@ export type ModuleCategory =
   | "system"
   | "custom";
 
-/** Metadata describing a Lattice module. */
+/** Metadata describing a Zudo module. */
 export interface ModuleMetadata {
   readonly description?: string;
   readonly author?: string;

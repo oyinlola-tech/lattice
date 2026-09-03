@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Postinstall Version Check
+ * @zudo/cli — Postinstall Version Check
  *
  * Runs after `npm install -g` to warn users if a newer version is available.
  */
@@ -43,14 +43,14 @@ async function checkLatestVersion(packageName) {
 
 async function main() {
   const installed = getInstalledVersion();
-  const latest = await checkLatestVersion("@oyinlola141/lattice-cli");
+  const latest = await checkLatestVersion("@zudo/cli");
 
   if (latest && latest !== installed) {
     console.log(
-      `\n  lattice ${installed} is installed, but version ${latest} is available.`,
+      `\n  zudo ${installed} is installed, but version ${latest} is available.`,
     );
     console.log(
-      `   Run: npm install -g @oyinlola141/lattice-cli@latest\n`,
+      `   Run: npm install -g @zudo/cli@latest\n`,
     );
   }
 }

@@ -1,7 +1,7 @@
 /**
  * @zudo/adapters
  *
- * Boundary layer between Lattice and external platforms.
+ * Boundary layer between Zudo and external platforms.
  *
  * Provides:
  * - Adapter contracts and base interface

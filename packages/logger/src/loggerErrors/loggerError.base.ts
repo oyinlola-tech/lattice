@@ -1,5 +1,5 @@
 /**
- * Errors produced by the Lattice logger.
+ * Errors produced by the Zudo logger.
  *
  * LoggerError extends LoggingError from @zudo/errors so all
  * logger failures inherit the shared error infrastructure

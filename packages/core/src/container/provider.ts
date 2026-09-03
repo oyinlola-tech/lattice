@@ -1,7 +1,7 @@
 import type { Container } from "./container.js";
 
 /**
- * Creates a dependency using the Lattice dependency container.
+ * Creates a dependency using the Zudo dependency container.
  */
 export interface FactoryProvider<T> {
   readonly useFactory: (container: Container) => T;
@@ -27,7 +27,7 @@ export interface ClassProvider<T> {
 export type Constructor<T> = new (...args: never[]) => T;
 
 /**
- * A dependency provider understood by the Lattice container.
+ * A dependency provider understood by the Zudo container.
  */
 export type Provider<T> =
   ClassProvider<T> | FactoryProvider<T> | ValueProvider<T>;

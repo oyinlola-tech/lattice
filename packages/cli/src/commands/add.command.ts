@@ -1,7 +1,7 @@
 /**
  * zudo-cli — Add Command
  *
- * The `lattice add` command for adding feature packages.
+ * The `zudo add` command for adding feature packages.
  */
 
 import { join, dirname } from "node:path";
@@ -47,7 +47,7 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
   try {
     const { manager, rootPkg, isWorkspace } = detectPackageManager();
     const pkgPath = join(context.cwd, rootPkg);
-    const version = isWorkspace ? "workspace:*" : readLatticeVersion();
+    const version = isWorkspace ? "workspace:*" : readZudoVersion();
 
     if (!existsSync(pkgPath)) {
       throw new CLIGenerationError(`Could not find package.json at ${pkgPath}`);
@@ -56,22 +56,22 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
     const pkgContent = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
       dependencies?: Record<string, string>;
       devDependencies?: Record<string, string>;
-      lattice?: Record<string, unknown>;
+      zudo?: Record<string, unknown>;
     };
 
     pkgContent.dependencies ??= {};
-    pkgContent.lattice ??= {
+    pkgContent.zudo ??= {
       features: [],
     };
 
-    const latticeConfig = pkgContent.lattice as {
+    const zudoConfig = pkgContent.zudo as {
       features: string[];
     };
 
-    const features = new Set(latticeConfig.features);
+    const features = new Set(zudoConfig.features);
     if (!features.has(feature)) {
       features.add(feature);
-      latticeConfig.features = [...features];
+      zudoConfig.features = [...features];
     }
 
     for (const pkg of packages) {
@@ -84,7 +84,7 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
 
     context.logger.info(`Updated ${rootPkg} with new dependencies.`);
 
-    updateLatticeConfig(context.cwd, feature);
+    updateZudoConfig(context.cwd, feature);
 
     const manifest = new ManifestManager(context.cwd);
     const current = await manifest.read();
@@ -133,7 +133,7 @@ function detectPackageManager(): {
   return { manager: "npm", rootPkg: "package.json", isWorkspace: false };
 }
 
-function readLatticeVersion(): string {
+function readZudoVersion(): string {
   try {
     const rootPkg = join(process.cwd(), "package.json");
     if (existsSync(rootPkg)) {
@@ -148,8 +148,8 @@ function readLatticeVersion(): string {
   return "latest";
 }
 
-function updateLatticeConfig(cwd: string, feature: string): void {
-  const configPath = join(cwd, "lattice.config.ts");
+function updateZudoConfig(cwd: string, feature: string): void {
+  const configPath = join(cwd, "zudo.config.ts");
   if (!existsSync(configPath)) return;
 
   let content = readFileSync(configPath, "utf-8");

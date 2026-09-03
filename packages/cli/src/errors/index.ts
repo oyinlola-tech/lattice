@@ -20,7 +20,7 @@ export class CLIGenerationError extends ApplicationError {
 
 export class CLINotInProjectError extends ApplicationError {
   constructor() {
-    super("This command must be run inside a Lattice project directory.", {
+    super("This command must be run inside a Zudo project directory.", {
       isOperational: true,
     });
   }

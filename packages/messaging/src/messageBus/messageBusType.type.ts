@@ -1,5 +1,5 @@
 /**
- * MessageBus type definitions for Lattice.
+ * MessageBus type definitions for Zudo.
  *
  * The bus is the primary API surface for sending messages.
  * It wraps the dispatcher with publish semantics.

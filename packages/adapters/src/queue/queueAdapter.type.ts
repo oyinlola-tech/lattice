@@ -1,7 +1,7 @@
 /**
  * @zudo/adapters/queue
  *
- * Queue adapter contracts — bridges Lattice queue to external providers.
+ * Queue adapter contracts — bridges Zudo queue to external providers.
  *
  * Examples: BullMQ, RabbitMQ, AWS SQS, Redis, Kafka.
  */
@@ -13,7 +13,7 @@ import type {
 } from "../index.js";
 
 /**
- * Queue adapter — connects Lattice queue abstractions to external providers.
+ * Queue adapter — connects Zudo queue abstractions to external providers.
  */
 export interface QueueAdapter extends Adapter {
   /** Enqueues a job. */

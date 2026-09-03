@@ -79,7 +79,7 @@ jobs:
             echo '---' >> "$CHANGESET"
             echo '' >> "$CHANGESET"
             echo "$SUMMARY" >> "$CHANGESET"
-            echo "Generated changeset: $LEVEL bump for lattice-cli"
+            echo "Generated changeset: $LEVEL bump for zudo-cli"
           else
             echo "No conventional commit detected in PR title, skipping changeset generation"
           fi

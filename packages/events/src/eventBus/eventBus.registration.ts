@@ -1,5 +1,5 @@
 /**
- * Event bus registration and subscription methods for Lattice.
+ * Event bus registration and subscription methods for Zudo.
  */
 
 import type {

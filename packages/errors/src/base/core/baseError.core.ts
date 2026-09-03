@@ -12,7 +12,7 @@ import type {
 } from "../types/baseError.type.js";
 
 /**
- * Base error class shared by all Lattice application errors.
+ * Base error class shared by all Zudo application errors.
  *
  * Provides a consistent structure for error handling, logging,
  * HTTP responses, monitoring, and serialization.

@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP route result factory functions.
+ * Zudo HTTP route result factory functions.
  */
 
 import { HttpRouteResult } from "./httpRoute.result.class.js";

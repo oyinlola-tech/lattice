@@ -4,9 +4,9 @@
 
 ### Patch Changes
 
-- [`5af5beb`](https://github.com/oyinlola-tech/lattice/commit/5af5bebfbf89d48424d8658a670598d348589fad) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Add fullstack project generation, 11 frontend adapters, and security hardening
+- [`5af5beb`](https://github.com/oyinlola-tech/zudo/commit/5af5bebfbf89d48424d8658a670598d348589fad) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Add fullstack project generation, 11 frontend adapters, and security hardening
 
-  - Add `--type`, `--frontend`, `--api`, `--language` options to `lattice create`
+  - Add `--type`, `--frontend`, `--api`, `--language` options to `zudo create`
   - Add frontend adapters: React, Next, Vue, Nuxt, Angular, Svelte, SvelteKit, Astro, Vanilla, Flutter, React Native
   - Add `FullstackComposer` and `FrontendGenerator` for project composition
   - Fix shell injection: switch `exec()` to `execFile()` across CLI package
@@ -20,8 +20,8 @@
 
 ### Patch Changes
 
-- [`8b4c2fe`](https://github.com/oyinlola-tech/lattice/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Fix changeset validation workflow and publish all packages to npm.
-- Updated dependencies [[`8b4c2fe`](https://github.com/oyinlola-tech/lattice/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908)]:
+- [`8b4c2fe`](https://github.com/oyinlola-tech/zudo/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Fix changeset validation workflow and publish all packages to npm.
+- Updated dependencies [[`8b4c2fe`](https://github.com/oyinlola-tech/zudo/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908)]:
   - @zudo/errors@0.1.2
   - @zudo/types@0.1.2
   - @zudo/constants@0.1.2
@@ -31,8 +31,8 @@
 
 ### Patch Changes
 
-- [`35faf04`](https://github.com/oyinlola-tech/lattice/commit/35faf049b7ff9e300cf2030f48ac108813c912c4) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Initial publication of all Lattice packages with namespace migration, new middleware, and fixes.
-- Updated dependencies [[`35faf04`](https://github.com/oyinlola-tech/lattice/commit/35faf049b7ff9e300cf2030f48ac108813c912c4)]:
+- [`35faf04`](https://github.com/oyinlola-tech/zudo/commit/35faf049b7ff9e300cf2030f48ac108813c912c4) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Initial publication of all Zudo packages with namespace migration, new middleware, and fixes.
+- Updated dependencies [[`35faf04`](https://github.com/oyinlola-tech/zudo/commit/35faf049b7ff9e300cf2030f48ac108813c912c4)]:
   - @zudo/errors@0.1.1
   - @zudo/types@0.1.1
   - @zudo/constants@0.1.1

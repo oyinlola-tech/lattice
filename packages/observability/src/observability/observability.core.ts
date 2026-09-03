@@ -2,7 +2,7 @@
  * @zudo/observability — Observability Core
  *
  * Central facade that coordinates logging, metrics, tracing, and context
- * propagation. Other Lattice packages depend on this abstraction rather
+ * propagation. Other Zudo packages depend on this abstraction rather
  * than on specific telemetry implementations.
  */
 
@@ -30,7 +30,7 @@ import { BatchSpanProcessor } from "../processor/index.js";
  * Default observability implementation.
  *
  * Provides a unified API for logging, metrics, tracing, and context propagation.
- * Use this as the single entry point for all telemetry in a Lattice application.
+ * Use this as the single entry point for all telemetry in a Zudo application.
  */
 export class DefaultObservability implements Observability {
   readonly logger: Logger;

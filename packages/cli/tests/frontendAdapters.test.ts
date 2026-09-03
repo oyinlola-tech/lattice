@@ -31,7 +31,7 @@ const mockContext = (
   },
   projectPath: "/tmp/test-app",
   language: "typescript",
-  architecture: "lattice-standard",
+  architecture: "zudo-standard",
   features: {
     testing: true,
     linting: true,
@@ -217,9 +217,9 @@ describe("ReactNativeAdapter", () => {
     expect(version).toBeTruthy();
   });
 
-  it("applyLatticeStructure does not throw", async () => {
+  it("applyZudoStructure does not throw", async () => {
     await expect(
-      adapter.applyLatticeStructure(mockContext()),
+      adapter.applyZudoStructure(mockContext()),
     ).resolves.toBeUndefined();
   });
 });

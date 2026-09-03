@@ -1,7 +1,7 @@
 /**
  * @zudo/transactions
  *
- * Generic transaction abstraction for the Lattice framework.
+ * Generic transaction abstraction for the Zudo framework.
  *
  * Provides transaction lifecycle management, async context propagation,
  * adapter contracts, savepoints, hooks, and rollback-only semantics.

@@ -1,6 +1,6 @@
 # @zudo/http
 
-HTTP primitives, request handling, routing, middleware, and server infrastructure for Lattice applications.
+HTTP primitives, request handling, routing, middleware, and server infrastructure for Zudo applications.
 
 ## Installation
 
@@ -16,7 +16,7 @@ import { createHTTPServer } from "@zudo/http";
 const server = createHTTPServer({
   handler: {
     async fetch(request) {
-      return new Response("Hello from Lattice");
+      return new Response("Hello from Zudo");
     },
   },
 });

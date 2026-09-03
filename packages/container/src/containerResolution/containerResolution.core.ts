@@ -1,5 +1,5 @@
 /**
- * Dependency resolver for Lattice.
+ * Dependency resolver for Zudo.
  */
 
 import type { ContainerProvider } from "../containerProvider/containerProvider.core.js";

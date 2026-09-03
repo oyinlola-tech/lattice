@@ -1,8 +1,8 @@
 /**
  * zudo-cli — Generate Command
  *
- * The `lattice generate` (alias: `g`) command.
- * Reads lattice.config.ts to determine project architecture.
+ * The `zudo generate` (alias: `g`) command.
+ * Reads zudo.config.ts to determine project architecture.
  */
 
 import { existsSync, readFileSync } from "node:fs";
@@ -73,10 +73,10 @@ function getBasePath(
   }
 }
 
-function readLatticeArchitecture(cwd: string): string | null {
-  const configPath = join(cwd, "lattice.config.ts");
+function readZudoArchitecture(cwd: string): string | null {
+  const configPath = join(cwd, "zudo.config.ts");
   if (!existsSync(configPath)) {
-    const configPathJs = join(cwd, "lattice.config.js");
+    const configPathJs = join(cwd, "zudo.config.js");
     if (!existsSync(configPathJs)) return null;
     const content = readFileSync(configPathJs, "utf-8");
     const match = content.match(/architecture:\s*["'](\w[\w-]*)["']/);
@@ -108,20 +108,20 @@ export async function runGenerateCommand(context: CLIContext): Promise<void> {
   }
 
   const cwd = context.cwd;
-  const architecture = readLatticeArchitecture(cwd);
+  const architecture = readZudoArchitecture(cwd);
   const manifest = await new ManifestManager(cwd).read();
 
   if (architecture) {
     context.logger.info(`Detected architecture: ${architecture}`);
   } else {
     context.logger.warn(
-      "No lattice.config.ts found. Run `lattice create` first to scaffold a Lattice project.",
+      "No zudo.config.ts found. Run `zudo create` first to scaffold a Zudo project.",
     );
   }
 
   if (architecture === "microservice" && schematic === "service") {
     context.logger.warn(
-      'In microservice architecture, prefer "lattice generate module" — services are top-level apps.',
+      'In microservice architecture, prefer "zudo generate module" — services are top-level apps.',
     );
   }
 

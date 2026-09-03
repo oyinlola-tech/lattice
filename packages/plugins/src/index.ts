@@ -1,10 +1,10 @@
 /**
  * @zudo/plugins
  *
- * Controlled extension system for the Lattice framework.
+ * Controlled extension system for the Zudo framework.
  *
  * Provides plugin registration, dependency resolution, lifecycle management,
- * and orchestration for Lattice applications.
+ * and orchestration for Zudo applications.
  *
  * @example
  * ```ts

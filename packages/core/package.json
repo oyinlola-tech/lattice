@@ -1,7 +1,7 @@
 {
   "name": "@zudo/core",
   "version": "0.1.5",
-  "description": "Application lifecycle management, execution context propagation, and runtime orchestration for Lattice applications.",
+  "description": "Application lifecycle management, execution context propagation, and runtime orchestration for Zudo applications.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -72,14 +72,14 @@
   },
   "module": "./dist/index.js",
   "keywords": [
-    "lattice",
+    "zudo",
     "core",
     "lifecycle",
     "context"
   ],
-  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/lattice"
+    "url": "https://github.com/oyinlola-tech/zudo"
   }
 }

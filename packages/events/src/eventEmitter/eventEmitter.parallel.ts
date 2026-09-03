@@ -1,5 +1,5 @@
 /**
- * Parallel event handler dispatch for Lattice.
+ * Parallel event handler dispatch for Zudo.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

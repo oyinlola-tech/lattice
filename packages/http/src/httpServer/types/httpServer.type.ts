@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP server types.
+ * Zudo HTTP server types.
  *
  * @module httpServer/types
  */

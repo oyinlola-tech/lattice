@@ -1,5 +1,5 @@
 /**
- * Lattice HTTP route result normalization.
+ * Zudo HTTP route result normalization.
  */
 
 import { HttpRouteResult } from "./httpRoute.result.class.js";

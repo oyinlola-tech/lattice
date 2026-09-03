@@ -1,7 +1,7 @@
 /**
  * @zudo/adapters/scheduler
  *
- * Scheduler adapter contracts — bridges Lattice to scheduling providers.
+ * Scheduler adapter contracts — bridges Zudo to scheduling providers.
  */
 
 import type {

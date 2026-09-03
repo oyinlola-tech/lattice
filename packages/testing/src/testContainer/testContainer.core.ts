@@ -1,7 +1,7 @@
 /**
  * Test container helpers.
  *
- * Wraps the real Lattice container with test-friendly defaults
+ * Wraps the real Zudo container with test-friendly defaults
  * and override support for dependency injection testing.
  */
 

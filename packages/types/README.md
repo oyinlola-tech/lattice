@@ -1,6 +1,6 @@
 # @zudo/types
 
-Shared type guards, utility types, and type converters for the Lattice framework.
+Shared type guards, utility types, and type converters for the Zudo framework.
 
 ## Installation
 

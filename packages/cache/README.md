@@ -1,6 +1,6 @@
 # @zudo/cache
 
-Cache abstraction with memory adapter, tags, locking, and metrics for Lattice applications.
+Cache abstraction with memory adapter, tags, locking, and metrics for Zudo applications.
 
 ## Installation
 

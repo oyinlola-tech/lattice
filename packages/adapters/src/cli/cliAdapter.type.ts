@@ -1,7 +1,7 @@
 /**
  * @zudo/adapters/cli
  *
- * CLI adapter contracts — bridges Lattice to command-line interfaces.
+ * CLI adapter contracts — bridges Zudo to command-line interfaces.
  */
 
 import type { Adapter, AdapterCapabilities } from "../index.js";

@@ -1,7 +1,7 @@
 /**
  * @zudo/cqrs
  *
- * Command Query Responsibility Segregation primitives for the Lattice framework.
+ * Command Query Responsibility Segregation primitives for the Zudo framework.
  * Provides buses, handlers, middleware, and execution infrastructure.
  */
 
@@ -86,7 +86,7 @@ export {
   withQueryResultMetadata,
 } from "./query/index.js";
 
-// Events — re-exports base Lattice Event types + CQRS extensions
+// Events — re-exports base Zudo Event types + CQRS extensions
 export {
   type Event,
   type EventInput,

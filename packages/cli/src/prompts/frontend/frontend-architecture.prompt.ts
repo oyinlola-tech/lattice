@@ -16,8 +16,8 @@ export async function promptFrontendArchitecture(
       message: "Select frontend architecture",
       options: [
         {
-          value: "lattice-standard",
-          label: "Lattice Standard",
+          value: "zudo-standard",
+          label: "Zudo Standard",
           hint: "Global folders for shared concerns",
         },
         {
@@ -36,7 +36,7 @@ export async function promptFrontendArchitecture(
           hint: "Use framework defaults",
         },
       ],
-      initialValue: "lattice-standard",
+      initialValue: "zudo-standard",
     }));
 
   if (p.isCancel(value)) {

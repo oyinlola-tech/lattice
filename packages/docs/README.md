@@ -18,7 +18,7 @@ const registry = createDocumentRegistry();
 registry.register({
   id: "getting-started",
   title: "Getting Started",
-  content: "# Getting Started\n\nWelcome to Lattice...",
+  content: "# Getting Started\n\nWelcome to Zudo...",
 });
 ```
 

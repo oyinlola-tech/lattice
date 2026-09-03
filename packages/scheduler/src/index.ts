@@ -1,7 +1,7 @@
 /**
  * @zudo/scheduler
  *
- * Time and recurring execution engine for the Lattice framework.
+ * Time and recurring execution engine for the Zudo framework.
  *
  * Provides job definitions, schedules, triggers, priority queue,
  * cron support, and persistence abstractions.

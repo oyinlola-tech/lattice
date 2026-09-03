@@ -12,7 +12,7 @@ import {
 } from "@zudo/errors";
 
 /**
- * Registry for Lattice adapters.
+ * Registry for Zudo adapters.
  *
  * Ensures adapters are uniquely registered and provides lookup by name.
  */

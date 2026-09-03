@@ -1,6 +1,6 @@
-# Lattice Package Dependencies
+# Zudo Package Dependencies
 
-> This document defines the dependency rules for the Lattice framework.
+> This document defines the dependency rules for the Zudo framework.
 > It is the single source of truth for allowed cross-package imports.
 > All contributors must follow these rules.
 
@@ -10,7 +10,7 @@
 
 ### 1.1 Dependencies Flow Inward
 
-Foundation packages have no `@lattice/*` dependencies.
+Foundation packages have no `@zudo/*` dependencies.
 Higher-level packages may depend on lower-level packages.
 No package may depend on a package in a higher tier.
 
@@ -33,18 +33,18 @@ Foundation → Runtime Primitives → Application Architecture → Infrastructur
 
 ## 2. Package Tiers
 
-### Tier 0 — Leaf (no @lattice dependencies)
+### Tier 0 — Leaf (no @zudo dependencies)
 
 These packages depend on nothing except Node.js built-ins and external libraries.
 
 | Package           | Purpose                                                                 |
 | ----------------- | ----------------------------------------------------------------------- |
-| `@lattice/errors` | Shared error base class, error codes, error categories, error utilities |
-| `@lattice/types`  | Type guards, utility types, converters, branded types                   |
+| `@zudo/errors` | Shared error base class, error codes, error categories, error utilities |
+| `@zudo/types`  | Type guards, utility types, converters, branded types                   |
 
 **Rules:**
 
-- Must not import from any other `@lattice/*` package.
+- Must not import from any other `@zudo/*` package.
 - External dependencies only.
 - These are the foundation of the entire framework.
 
@@ -56,32 +56,32 @@ Depends only on Tier 0.
 
 | Package                  | Depends On                              | Purpose                                               |
 | ------------------------ | --------------------------------------- | ----------------------------------------------------- |
-| `@lattice/constants`     | errors                                  | Branded IDs, enums, serialization constants           |
-| `@lattice/container`     | errors                                  | DI container with token-based registration            |
-| `@lattice/logger`        | errors                                  | Structured logging with transports                    |
-| `@lattice/crypto`        | errors                                  | Hashing, encryption, tokens                           |
-| `@lattice/validation`    | errors                                  | Schema validation with Zod                            |
-| `@lattice/schema`        | errors, constants, types                | Schema definition, parsing, type inference            |
-| `@lattice/config`        | errors                                  | Layered configuration with sources                    |
-| `@lattice/middleware`    | errors                                  | Composable middleware pipeline                        |
-| `@lattice/serialization` | errors, constants, types, validation    | JSON serializer, type transformers, envelopes         |
-| `@lattice/events`        | errors, constants                       | Event bus, emitter, middleware, registry              |
-| `@lattice/messaging`     | errors, constants                       | In-process message bus                                |
-| `@lattice/lifecycle`     | errors, constants                       | State machine, dependency ordering, graceful shutdown |
-| `@lattice/transactions`  | errors                                  | Transaction lifecycle, AsyncLocalStorage context      |
-| `@lattice/permissions`   | errors, constants                       | RBAC, ABAC, resource authorization                    |
-| `@lattice/feature-flags` | errors                                  | Feature flag evaluation, rule engine                  |
-| `@lattice/plugins`       | errors, constants, types                | Plugin registration, lifecycle, orchestration         |
-| `@lattice/security`      | errors, constants                       | Input validation, CORS, CSRF, rate limiting           |
-| `@lattice/tenancy`       | errors, constants                       | Multi-tenant context and isolation                    |
-| `@lattice/docs`          | errors                                  | Documentation infrastructure                          |
-| `@lattice/cache`         | errors, types, serialization            | Cache abstraction with memory adapter                 |
-| `@lattice/storage`       | errors, constants, types, serialization | Database, object storage, repository abstractions     |
-| `@lattice/adapters`      | errors, constants, types, lifecycle     | Adapter contracts, registry, transport abstractions   |
-| `@lattice/queue`         | errors, constants, serialization        | Background job and async task infrastructure          |
-| `@lattice/scheduler`     | errors, constants, types                | Job scheduling, cron, triggers                        |
-| `@lattice/database`      | errors                                  | Database clients, repositories, transactions          |
-| `@lattice/observability` | errors                                  | Structured logging, metrics, tracing, exporters       |
+| `@zudo/constants`     | errors                                  | Branded IDs, enums, serialization constants           |
+| `@zudo/container`     | errors                                  | DI container with token-based registration            |
+| `@zudo/logger`        | errors                                  | Structured logging with transports                    |
+| `@zudo/crypto`        | errors                                  | Hashing, encryption, tokens                           |
+| `@zudo/validation`    | errors                                  | Schema validation with Zod                            |
+| `@zudo/schema`        | errors, constants, types                | Schema definition, parsing, type inference            |
+| `@zudo/config`        | errors                                  | Layered configuration with sources                    |
+| `@zudo/middleware`    | errors                                  | Composable middleware pipeline                        |
+| `@zudo/serialization` | errors, constants, types, validation    | JSON serializer, type transformers, envelopes         |
+| `@zudo/events`        | errors, constants                       | Event bus, emitter, middleware, registry              |
+| `@zudo/messaging`     | errors, constants                       | In-process message bus                                |
+| `@zudo/lifecycle`     | errors, constants                       | State machine, dependency ordering, graceful shutdown |
+| `@zudo/transactions`  | errors                                  | Transaction lifecycle, AsyncLocalStorage context      |
+| `@zudo/permissions`   | errors, constants                       | RBAC, ABAC, resource authorization                    |
+| `@zudo/feature-flags` | errors                                  | Feature flag evaluation, rule engine                  |
+| `@zudo/plugins`       | errors, constants, types                | Plugin registration, lifecycle, orchestration         |
+| `@zudo/security`      | errors, constants                       | Input validation, CORS, CSRF, rate limiting           |
+| `@zudo/tenancy`       | errors, constants                       | Multi-tenant context and isolation                    |
+| `@zudo/docs`          | errors                                  | Documentation infrastructure                          |
+| `@zudo/cache`         | errors, types, serialization            | Cache abstraction with memory adapter                 |
+| `@zudo/storage`       | errors, constants, types, serialization | Database, object storage, repository abstractions     |
+| `@zudo/adapters`      | errors, constants, types, lifecycle     | Adapter contracts, registry, transport abstractions   |
+| `@zudo/queue`         | errors, constants, serialization        | Background job and async task infrastructure          |
+| `@zudo/scheduler`     | errors, constants, types                | Job scheduling, cron, triggers                        |
+| `@zudo/database`      | errors                                  | Database clients, repositories, transactions          |
+| `@zudo/observability` | errors                                  | Structured logging, metrics, tracing, exporters       |
 
 **Rules:**
 
@@ -97,20 +97,20 @@ Depends on Tier 0 + Tier 1.
 
 | Package            | Depends On                                                 | Purpose                              |
 | ------------------ | ---------------------------------------------------------- | ------------------------------------ |
-| `@lattice/core`    | errors, constants, messaging                               | Lifecycle, context, runtime, modules |
-| `@lattice/cqrs`    | errors, events, messaging                                  | Commands, queries, handlers          |
-| `@lattice/auth`    | errors, constants, permissions                             | JWT, sessions, password hashing      |
-| `@lattice/runtime` | errors, constants, container, config, logger, events, core | Application lifecycle orchestrator   |
-| `@lattice/openapi` | errors, constants, schema                                  | OpenAPI document generation          |
-| `@lattice/rpc`     | errors, constants, types, schema                           | RPC primitives                       |
-| `@lattice/api`     | errors, constants, types, schema                           | API abstraction layer                |
+| `@zudo/core`    | errors, constants, messaging                               | Lifecycle, context, runtime, modules |
+| `@zudo/cqrs`    | errors, events, messaging                                  | Commands, queries, handlers          |
+| `@zudo/auth`    | errors, constants, permissions                             | JWT, sessions, password hashing      |
+| `@zudo/runtime` | errors, constants, container, config, logger, events, core | Application lifecycle orchestrator   |
+| `@zudo/openapi` | errors, constants, schema                                  | OpenAPI document generation          |
+| `@zudo/rpc`     | errors, constants, types, schema                           | RPC primitives                       |
+| `@zudo/api`     | errors, constants, types, schema                           | API abstraction layer                |
 
 **Rules:**
 
 - May import from Tier 0 and Tier 1 only.
 - Must not import from Tier 3+ packages.
 - Must not import from transport packages (`http`, `rpc`, `api`, `openapi`) unless explicitly documented.
-- Must not import from `@lattice/testing` or `@lattice/cli`.
+- Must not import from `@zudo/testing` or `@zudo/cli`.
 
 ---
 
@@ -120,8 +120,8 @@ Depends on Tier 0 + Tier 1 + Tier 2.
 
 | Package         | Depends On                     | Purpose                                    |
 | --------------- | ------------------------------ | ------------------------------------------ |
-| `@lattice/http` | core, errors, logger, security | HTTP request handling, routing, middleware |
-| `@lattice/cli`  | config, core, errors, logger   | Command-line interface                     |
+| `@zudo/http` | core, errors, logger, security | HTTP request handling, routing, middleware |
+| `@zudo/cli`  | config, core, errors, logger   | Command-line interface                     |
 
 **Rules:**
 
@@ -138,14 +138,14 @@ Depends on any tier.
 
 | Package            | Depends On | Purpose                       |
 | ------------------ | ---------- | ----------------------------- |
-| `@lattice/testing` | many       | Test helpers, fixtures, mocks |
-| `@lattice/docs`    | errors     | Documentation generation      |
+| `@zudo/testing` | many       | Test helpers, fixtures, mocks |
+| `@zudo/docs`    | errors     | Documentation generation      |
 
 **Rules:**
 
 - May import from any package.
 - Must not be imported by production runtime packages (testing only).
-- `@lattice/testing` must not be listed as a dependency in any production package.
+- `@zudo/testing` must not be listed as a dependency in any production package.
 
 ---
 
@@ -179,9 +179,9 @@ These patterns must **never** occur:
 
 | Pattern                  | Reason                                           |
 | ------------------------ | ------------------------------------------------ |
-| `errors → @lattice/*`    | Leaf package must stay leaf                      |
-| `constants → @lattice/*` | Leaf package must stay leaf                      |
-| `types → @lattice/*`     | Leaf package must stay leaf                      |
+| `errors → @zudo/*`    | Leaf package must stay leaf                      |
+| `constants → @zudo/*` | Leaf package must stay leaf                      |
+| `types → @zudo/*`     | Leaf package must stay leaf                      |
 | `core → http`            | Core must not know about transport               |
 | `core → rpc`             | Core must not know about transport               |
 | `cqrs → http`            | CQRS must not know about transport               |
@@ -208,8 +208,8 @@ Current peer dependencies:
 
 | Package                | Peer            | Tier | Purpose                         |
 | ---------------------- | --------------- | ---- | ------------------------------- |
-| `@lattice/permissions` | `@lattice/http` | 3    | HTTP-specific permission guards |
-| `@lattice/tenancy`     | `@lattice/http` | 3    | HTTP-specific tenant resolution |
+| `@zudo/permissions` | `@zudo/http` | 3    | HTTP-specific permission guards |
+| `@zudo/tenancy`     | `@zudo/http` | 3    | HTTP-specific tenant resolution |
 
 **Rules:**
 
@@ -223,11 +223,11 @@ Current peer dependencies:
 
 ### 6.1 External Dependencies
 
-External dependencies (non-`@lattice/*`) should use caret ranges (`^`) for SemVer-compatible libraries.
+External dependencies (non-`@zudo/*`) should use caret ranges (`^`) for SemVer-compatible libraries.
 
 ### 6.2 Internal Dependencies
 
-Internal `@lattice/*` dependencies must use exact versions (`0.1.0`), not wildcards (`*`) or ranges.
+Internal `@zudo/*` dependencies must use exact versions (`0.1.0`), not wildcards (`*`) or ranges.
 
 This ensures:
 
@@ -237,7 +237,7 @@ This ensures:
 
 ### 6.3 Future Versioning
 
-When Lattice reaches `1.0.0`:
+When Zudo reaches `1.0.0`:
 
 - Internal dependencies should use caret ranges (`^1.0.0`).
 - Breaking changes require coordinated version bumps across affected packages.
@@ -271,12 +271,12 @@ Example:
 
 ```
 Before (circular):
-  @lattice/http → @lattice/permissions → @lattice/http
+  @zudo/http → @zudo/permissions → @zudo/http
 
 After (resolved):
-  @lattice/permissions-core (Tier 1) — shared authorization logic
-  @lattice/permissions (Tier 1) — imports permissions-core
-  @lattice/http (Tier 3) — imports permissions
+  @zudo/permissions-core (Tier 1) — shared authorization logic
+  @zudo/permissions (Tier 1) — imports permissions-core
+  @zudo/http (Tier 3) — imports permissions
 ```
 
 ### 7.4 Prevention
@@ -306,9 +306,9 @@ Bad:
 Peer dependencies flow upward but are optional.
 
 ```
-  @lattice/permissions (Tier 1)
+  @zudo/permissions (Tier 1)
       ↑ (peer, optional)
-  @lattice/http (Tier 3)
+  @zudo/http (Tier 3)
 ```
 
 This is allowed because:
@@ -319,13 +319,13 @@ This is allowed because:
 
 ### 8.3 Exception: Developer Experience
 
-`@lattice/testing` may import from any package.
+`@zudo/testing` may import from any package.
 
 ```
-  @lattice/testing (Tier 4)
-      → @lattice/http
-      → @lattice/database
-      → @lattice/events
+  @zudo/testing (Tier 4)
+      → @zudo/http
+      → @zudo/database
+      → @zudo/events
       → ...
 ```
 
@@ -342,7 +342,7 @@ This is allowed because:
 
 The following automated checks enforce these rules:
 
-1. **Wildcard version check** — ensures all `@lattice/*` dependencies use exact versions.
+1. **Wildcard version check** — ensures all `@zudo/*` dependencies use exact versions.
 2. **Tier violation check** — ensures no package depends on a higher-tier package.
 3. **Circular dependency check** — ensures no circular dependencies exist.
 
@@ -373,12 +373,12 @@ Reviewers must verify:
 
 ## 10. Adding a New Package
 
-When adding a new package to Lattice:
+When adding a new package to Zudo:
 
 ### 10.1 Determine the Tier
 
 1. What does the package do?
-2. What existing `@lattice/*` packages does it need to import?
+2. What existing `@zudo/*` packages does it need to import?
 3. What is the highest tier of those dependencies?
 4. The new package belongs in that tier or higher.
 
@@ -391,7 +391,7 @@ When adding a new package to Lattice:
 
 ### 10.3 Implement the Package
 
-1. Create `packages/<name>/package.json` with exact `@lattice/*` versions.
+1. Create `packages/<name>/package.json` with exact `@zudo/*` versions.
 2. Implement the package following `PACKAGE_RULES.md`.
 3. Write tests.
 4. Run `npm run architect:check` to verify compliance.
@@ -437,6 +437,6 @@ When changing a package's dependencies:
 | Action             | Command                                        |
 | ------------------ | ---------------------------------------------- |
 | Check architecture | `npm run architect:check`                      |
-| Check types        | `npm run typecheck --workspace=@lattice/<pkg>` |
-| Run tests          | `npm run test --workspace=@lattice/<pkg>`      |
-| Build package      | `npm run build --workspace=@lattice/<pkg>`     |
+| Check types        | `npm run typecheck --workspace=@zudo/<pkg>` |
+| Run tests          | `npm run test --workspace=@zudo/<pkg>`      |
+| Build package      | `npm run build --workspace=@zudo/<pkg>`     |

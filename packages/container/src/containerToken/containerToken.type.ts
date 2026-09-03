@@ -1,5 +1,5 @@
 /**
- * Dependency injection token definitions for Lattice.
+ * Dependency injection token definitions for Zudo.
  * Tokens identify dependencies within the container.
  */
 

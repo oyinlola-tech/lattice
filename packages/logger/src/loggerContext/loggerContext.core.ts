@@ -1,5 +1,5 @@
 /**
- * Logger context for Lattice.
+ * Logger context for Zudo.
  */
 
 import type { LogMetadata } from "../loggerEntry/loggerEntry.type.js";

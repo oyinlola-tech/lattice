@@ -76,7 +76,7 @@ describe("LoggerLevel utilities", () => {
 describe("createLogger", () => {
   it("should create a logger with defaults", () => {
     const logger = createLogger();
-    expect(logger.name).toBe("lattice");
+    expect(logger.name).toBe("zudo");
     expect(logger.level).toBe(LoggerLevel.INFO);
     expect(logger.enabled).toBe(true);
   });

@@ -5,7 +5,7 @@ export interface AppConfig {
 }
 export function createAppConfig(): AppConfig {
   return {
-    name: "lattice-monolith",
+    name: "zudo-monolith",
     version: "0.1.0",
     env: (process.env["NODE_ENV"] as AppConfig["env"]) ?? "development",
   };

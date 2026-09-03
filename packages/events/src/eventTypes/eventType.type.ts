@@ -1,5 +1,5 @@
 /**
- * Event type utilities for Lattice.
+ * Event type utilities for Zudo.
  *
  * EventType is the string identifier used to route events.
  * This module provides validation, normalization, matching,
@@ -46,7 +46,7 @@ export type EventUnion<TMap extends EventPayloadMap> = {
 /**
  * Validates an event type string.
  *
- * Lattice event types use dot-separated lowercase names.
+ * Zudo event types use dot-separated lowercase names.
  *
  * Examples:
  *

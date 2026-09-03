@@ -1,7 +1,7 @@
 {
   "name": "@zudo/api",
   "version": "0.1.3",
-  "description": "Application-facing API layer for Lattice — operation definitions, execution context, interceptors, policies, and transport-agnostic contracts.",
+  "description": "Application-facing API layer for Zudo — operation definitions, execution context, interceptors, policies, and transport-agnostic contracts.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -40,14 +40,14 @@
     "access": "public"
   },
   "keywords": [
-    "lattice",
+    "zudo",
     "api",
     "operations",
     "interceptors"
   ],
-  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/lattice"
+    "url": "https://github.com/oyinlola-tech/zudo"
   }
 }

@@ -4,7 +4,7 @@
  * Main application class, factory, built-in commands, and signal handling.
  */
 
-export { LatticeCLI, createCLI } from "./cliApplication.core.js";
+export { ZudoCLI, createCLI } from "./cliApplication.core.js";
 
 export {
   createCLIWriter,

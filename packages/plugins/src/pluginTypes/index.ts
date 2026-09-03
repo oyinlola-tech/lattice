@@ -1,7 +1,7 @@
 /**
  * @zudo/plugins/pluginTypes
  *
- * Core types for the Lattice plugin system.
+ * Core types for the Zudo plugin system.
  */
 
 export type { PluginState } from "./pluginState.type.js";

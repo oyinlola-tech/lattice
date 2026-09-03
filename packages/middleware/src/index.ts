@@ -1,7 +1,7 @@
 /**
  * @zudo/middleware
  *
- * Composable middleware pipeline for the Lattice framework.
+ * Composable middleware pipeline for the Zudo framework.
  *
  * Provides middleware composition, chaining, priority ordering,
  * execution tracking, and built-in middleware for logging,

@@ -1,5 +1,5 @@
 /**
- * Standard context fields that Lattice can attach to log entries.
+ * Standard context fields that Zudo can attach to log entries.
  *
  * These fields provide consistent metadata across HTTP requests,
  * background jobs, workers, RPC calls, and microservices.

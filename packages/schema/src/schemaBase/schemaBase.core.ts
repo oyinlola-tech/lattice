@@ -1,7 +1,7 @@
 /**
  * @zudo/schema/base
  *
- * Abstract base class for all Lattice schemas.
+ * Abstract base class for all Zudo schemas.
  * Defines the core parsing pipeline: Input → validate → Output.
  */
 

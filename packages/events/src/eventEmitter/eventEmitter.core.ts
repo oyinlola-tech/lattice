@@ -1,5 +1,5 @@
 /**
- * Event emitter core class for Lattice.
+ * Event emitter core class for Zudo.
  */
 
 import type { Event, EventInput } from "../eventTypes/eventDefinition.type.js";

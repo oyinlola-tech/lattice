@@ -1,10 +1,10 @@
 /**
- * Architecture boundary checker for Lattice.
+ * Architecture boundary checker for Zudo.
  *
  * Validates:
  * 1. No package depends on a package from a higher tier.
  * 2. No circular dependencies exist.
- * 3. All @lattice/* dependencies use exact versions (not wildcards).
+ * 3. All @zudo/* dependencies use exact versions (not wildcards).
  *
  * Run with: node architect:check.js
  */
@@ -62,8 +62,8 @@ const TIERS = {
 // Convert package name to key used in TIERS
 function packageNameToKey(name) {
   return name
-    .replace(/^@oyinlola141\/lattice-/, "")
-    .replace(/^@lattice\//, "")
+    .replace(/^@oyinlola141\/zudo-/, "")
+    .replace(/^@zudo\//, "")
     .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 }
 
@@ -99,7 +99,7 @@ function checkWildcardVersions(packages) {
     const allDeps = { ...pkg.dependencies, ...pkg.peerDependencies };
 
     for (const [depName, version] of Object.entries(allDeps)) {
-      if (depName.startsWith("@lattice/") && version === "*") {
+      if (depName.startsWith("@zudo/") && version === "*") {
         errors.push(
           `Wildcard version in ${pkg.name}: ${depName}: "${version}". Use exact version "0.1.0".`
         );
@@ -126,7 +126,7 @@ function checkTierViolations(packages) {
     const deps = Object.keys(pkg.dependencies);
 
     for (const depName of deps) {
-      if (!depName.startsWith("@lattice/")) continue;
+      if (!depName.startsWith("@zudo/")) continue;
 
       const depKey = packageNameToKey(depName);
       const depTier = TIERS[depKey];
@@ -156,7 +156,7 @@ function checkCircularDependencies(packages) {
 
   // Build adjacency list
   for (const pkg of packages) {
-    const deps = Object.keys(pkg.dependencies).filter((d) => d.startsWith("@lattice/"));
+    const deps = Object.keys(pkg.dependencies).filter((d) => d.startsWith("@zudo/"));
     graph.set(pkg.name, deps);
   }
 
@@ -189,7 +189,7 @@ function checkCircularDependencies(packages) {
 
 // Main
 function main() {
-  console.log("Running Lattice architecture boundary check...\n");
+  console.log("Running Zudo architecture boundary check...\n");
 
   const packages = getPackages();
   console.log(`Found ${packages.length} packages.\n`);

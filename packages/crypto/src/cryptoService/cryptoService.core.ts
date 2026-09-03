@@ -22,7 +22,7 @@ import {
   serviceVerifyToken,
 } from "./operations/cryptoService.token.js";
 import { serviceEncode, serviceDecode } from "./cryptoService.encoding.js";
-import type { CryptoKey as LatticeCryptoKey } from "../cryptoKey/cryptoKey.type.js";
+import type { CryptoKey as ZudoCryptoKey } from "../cryptoKey/cryptoKey.type.js";
 
 const provider = createNodeCryptoProvider();
 
@@ -33,7 +33,7 @@ export class CryptoService {
   /** Generates a cryptographic key. */
   async generateKey(
     algorithm: CryptoAlgorithm = CryptoAlgorithm.AES_256_GCM,
-  ): Promise<LatticeCryptoKey> {
+  ): Promise<ZudoCryptoKey> {
     const length = algorithm.includes("256")
       ? 32
       : algorithm.includes("384")

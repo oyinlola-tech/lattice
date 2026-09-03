@@ -32,8 +32,8 @@ export interface AdapterMetadata {
   /** License identifier. */
   readonly license?: string;
 
-  /** Lattice version compatibility range. */
-  readonly lattice?: string;
+  /** Zudo version compatibility range. */
+  readonly zudo?: string;
 
   /** Runtime version compatibility (e.g., "node >=18", "bun", "deno"). */
   readonly runtime?: string;
