@@ -5,6 +5,7 @@
  */
 
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
+import { scaffoldWithFallback } from "../../scaffolders/scaffolder.helper.js";
 import type {
   FrontendAdapter,
   FrontendGenerationContext,
@@ -29,7 +30,12 @@ export class SvelteKitAdapter implements FrontendAdapter {
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
     const files = this.getBaseFiles(context);
-    await writeFileTree(context.projectPath, files);
+    await scaffoldWithFallback({
+      command: "npm",
+      args: ["create", "svelte@latest", ".", "--typescript", "--no-eslint", "--no-prettier", "--no-playwright", "--no-vitest", "--no-git", "--no-install"],
+      targetPath: context.projectPath,
+      fallbackFiles: files,
+    });
   }
 
   getDependencies(

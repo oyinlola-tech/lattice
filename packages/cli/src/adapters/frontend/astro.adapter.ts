@@ -5,6 +5,7 @@
  */
 
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
+import { scaffoldWithFallback } from "../../scaffolders/scaffolder.helper.js";
 import type {
   FrontendAdapter,
   FrontendGenerationContext,
@@ -29,7 +30,12 @@ export class AstroAdapter implements FrontendAdapter {
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
     const files = this.getBaseFiles(context);
-    await writeFileTree(context.projectPath, files);
+    await scaffoldWithFallback({
+      command: "npm",
+      args: ["create", "astro@latest", ".", "--template", "minimal", "--no-install", "--no-git", "--typescript", "strict"],
+      targetPath: context.projectPath,
+      fallbackFiles: files,
+    });
   }
 
   getDependencies(

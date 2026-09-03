@@ -74,7 +74,7 @@ export class ConfigurationResolver {
     const pattern = new RegExp(`${key}:\\s*\\[([^\\]]+)\\]`);
     const match = content.match(pattern);
 
-    if (!match) return undefined;
+    if (!match || !match[1]) return undefined;
 
     return match[1]
       .split(",")

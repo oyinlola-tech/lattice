@@ -6,6 +6,7 @@
 
 import { execCommand } from "../../utils/utils.exec.js";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
+import { scaffoldWithFallback } from "../../scaffolders/scaffolder.helper.js";
 import type {
   FrontendAdapter,
   FrontendGenerationContext,
@@ -34,13 +35,12 @@ export class ReactNativeAdapter implements FrontendAdapter {
   }
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
-    const { projectPath } = context;
-
-    await execCommand(
-      "npx",
-      ["create-expo-app@latest", ".", "--template", "blank-typescript"],
-      projectPath,
-    );
+    await scaffoldWithFallback({
+      command: "npx",
+      args: ["create-expo-app@latest", ".", "--template", "blank-typescript"],
+      targetPath: context.projectPath,
+      fallbackFiles: {},
+    });
   }
 
   getDependencies(

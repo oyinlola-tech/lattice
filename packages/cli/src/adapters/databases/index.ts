@@ -1,3 +1,3 @@
-export * from "./postgres.adapter.js";
-export * from "./mysql.adapter.js";
-export * from "./sqlite.adapter.js";
+export { PostgresAdapter } from "./postgres.adapter.js";
+export { MySqlAdapter } from "./mysql.adapter.js";
+export { SqliteAdapter } from "./sqlite.adapter.js";

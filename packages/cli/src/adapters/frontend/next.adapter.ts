@@ -6,6 +6,7 @@
 
 import { execCommand } from "../../utils/utils.exec.js";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
+import { scaffoldWithFallback } from "../../scaffolders/scaffolder.helper.js";
 import type {
   FrontendAdapter,
   FrontendGenerationContext,
@@ -35,7 +36,12 @@ export class NextAdapter implements FrontendAdapter {
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
     const files = this.getBaseFiles(context);
-    await writeFileTree(context.projectPath, files);
+    await scaffoldWithFallback({
+      command: "npx",
+      args: ["create-next-app@latest", ".", "--typescript", "--no-eslint", "--no-tailwind", "--no-src-dir", "--app", "--no-import-alias", "--no-turbopack"],
+      targetPath: context.projectPath,
+      fallbackFiles: files,
+    });
   }
 
   getDependencies(
