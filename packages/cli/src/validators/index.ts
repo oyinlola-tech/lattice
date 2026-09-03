@@ -1,17 +1,23 @@
 /**
- * Environment and project validators.
+ * @oyinlola141/lattice-cli — Validators
  *
- * @module validators
+ * Environment, project, and compatibility validators.
  */
 
 export {
   EnvironmentValidator,
   type EnvironmentCheck,
   type EnvironmentValidationResult,
-} from "./environment/environmentValidator.core.js";
+} from "./environment/index.js";
 
 export {
   ProjectValidator,
   type ProjectCheck,
   type ProjectValidationResult,
-} from "./project/projectValidator.core.js";
+} from "./project/index.js";
+
+export {
+  CompatibilityValidator,
+  type CompatibilityCheck,
+  type CompatibilityResult,
+} from "./compatibility/index.js";

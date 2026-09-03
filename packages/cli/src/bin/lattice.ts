@@ -14,6 +14,7 @@ import { runCreateCommand } from "../commands/create.command.js";
 import { runDevCommand } from "../commands/dev.command.js";
 import { runGenerateCommand } from "../commands/generate.command.js";
 import { runAddCommand } from "../commands/add.command.js";
+import { runBuildCommand } from "../commands/build.command.js";
 import { runDoctorCommand } from "../commands/doctor.command.js";
 import { runInfoCommand } from "../commands/info.command.js";
 
@@ -232,6 +233,17 @@ app.register(
     description: "Run diagnostics on a Lattice project",
     execute: async (context: CLIContext): Promise<void> => {
       await runDoctorCommand(context);
+    },
+  }),
+);
+
+app.register(
+  createCommand({
+    name: "build",
+    description: "Build a Lattice project",
+    aliases: ["b"],
+    execute: async (context: CLIContext): Promise<void> => {
+      await runBuildCommand(context);
     },
   }),
 );

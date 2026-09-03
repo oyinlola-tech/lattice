@@ -4,7 +4,7 @@
  * Tracks generation operations and supports rollback on failure.
  */
 
-import { existsSync, rm, stat } from "node:fs/promises";
+import { existsSync, rm, stat } from "node:fs";
 import { join } from "node:path";
 
 export interface RollbackEntry {
