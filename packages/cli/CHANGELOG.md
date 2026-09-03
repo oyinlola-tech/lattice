@@ -1,5 +1,14 @@
 # @oyinlola141/lattice-cli
 
+## 0.2.1
+
+### Patch Changes
+
+- - Convert postinstall script to CommonJS for Node.js v24 compatibility
+  - Restore postinstall hook pointing to src/scripts/postinstall.cjs
+  - Add --provenance flag to npm publish for better CDN cache invalidation
+  - Fix Prettier formatting in release.yml and packages/cli/README.md
+
 ## 0.2.0
 
 ### Minor Changes
