@@ -1,17 +1,17 @@
-# @zudolib/lifecycle
+# @zudoliblib/lifecycle
 
 Application and component lifecycle orchestration with state machine, dependency ordering, graceful shutdown, rollback, and signals.
 
 ## Installation
 
 ```bash
-npm install @zudolib/lifecycle
+npm install @zudoliblib/lifecycle
 ```
 
 ## Quick Start
 
 ```typescript
-import { createLifecycleManager } from "@zudolib/lifecycle";
+import { createLifecycleManager } from "@zudoliblib/lifecycle";
 
 const manager = createLifecycleManager({
   components: [database, server, worker],

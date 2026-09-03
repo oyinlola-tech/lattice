@@ -1,7 +1,7 @@
 /**
- * @zudolib/scheduler/types
+ * @zudoliblib/scheduler/types
  *
- * Core types for the Zudo scheduler package.
+ * Core types for the Zudolib scheduler package.
  */
 
 /**

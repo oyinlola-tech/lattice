@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRange
+ * @zudoliblib/http/httpRange
  *
  * HTTP httpRange module.
  */

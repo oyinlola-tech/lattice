@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Rollback Manager Tests
+ * zudolib-cli — Rollback Manager Tests
  *
  * Tests for RollbackManager.
  */
@@ -13,7 +13,7 @@ import { join } from "node:path";
 describe("RollbackManager", () => {
   it("tracks files and directories", async () => {
     const manager = new RollbackManager();
-    const tempDir = await mkdtemp(join(tmpdir(), "zudo-rollback-"));
+    const tempDir = await mkdtemp(join(tmpdir(), "zudolib-rollback-"));
 
     const filePath = join(tempDir, "test.txt");
     await writeFile(filePath, "test");
@@ -26,7 +26,7 @@ describe("RollbackManager", () => {
 
   it("rolls back tracked files and directories", async () => {
     const manager = new RollbackManager();
-    const tempDir = await mkdtemp(join(tmpdir(), "zudo-rollback-"));
+    const tempDir = await mkdtemp(join(tmpdir(), "zudolib-rollback-"));
 
     const filePath = join(tempDir, "test.txt");
     await writeFile(filePath, "test");

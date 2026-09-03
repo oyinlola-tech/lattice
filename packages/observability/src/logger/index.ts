@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Logger
+ * @zudoliblib/observability — Logger
  *
  * Structured logger with level filtering, child loggers, and transport support.
  */

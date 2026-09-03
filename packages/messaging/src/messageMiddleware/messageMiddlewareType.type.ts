@@ -1,5 +1,5 @@
 /**
- * Message middleware type definitions for Zudo.
+ * Message middleware type definitions for Zudolib.
  *
  * Middleware wraps message dispatch with cross-cutting concerns
  * like logging, validation, timeouts, and error handling.

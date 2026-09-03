@@ -1,8 +1,8 @@
 /**
- * @zudolib/observability
+ * @zudoliblib/observability
  *
  * Structured logging, metrics, tracing, context propagation, and
- * telemetry exporters for the Zudo framework.
+ * telemetry exporters for the Zudolib framework.
  *
  * Provides the instrumentation and abstraction layer without coupling
  * to any specific telemetry provider. Exporters for OpenTelemetry,
@@ -11,7 +11,7 @@
  * ## Usage
  *
  * ```typescript
- * import { createObservability, LogLevel } from "@zudolib/observability";
+ * import { createObservability, LogLevel } from "@zudoliblib/observability";
  *
  * const obs = createObservability({
  *   serviceName: "my-api",

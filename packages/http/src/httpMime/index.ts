@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpMime
+ * @zudoliblib/http/httpMime
  *
  * HTTP httpMime module.
  */

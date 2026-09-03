@@ -45,7 +45,7 @@ export interface ModuleLifecycle {
 }
 
 /**
- * Base contract implemented by Zudo modules.
+ * Base contract implemented by Zudolib modules.
  *
  * A module represents an independently manageable unit of
  * application functionality.

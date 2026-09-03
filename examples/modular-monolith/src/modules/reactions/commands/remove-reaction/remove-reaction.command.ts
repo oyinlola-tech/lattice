@@ -1,4 +1,4 @@
-import { Command } from "@zudolib/cqrs";
+import { Command } from "@zudoliblib/cqrs";
 import type { ArticleId, UserId } from "../../../../types/index.js";
 
 export class RemoveReactionCommand extends Command<"reactions.remove"> {

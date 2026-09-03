@@ -1,5 +1,5 @@
 /**
- * @zudolib/openapi/openApiErrors
+ * @zudoliblib/openapi/openApiErrors
  *
  * OpenAPI-specific error classes.
  */

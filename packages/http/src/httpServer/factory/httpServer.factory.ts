@@ -1,10 +1,10 @@
 /**
- * Zudo HTTP server factory and utilities.
+ * Zudolib HTTP server factory and utilities.
  *
  * @module httpServer/factory
  */
 
-import { HttpServerLifecycleError } from "@zudolib/errors";
+import { HttpServerLifecycleError } from "@zudoliblib/errors";
 
 import { HttpServer } from "../core/httpServer.core.js";
 import type {

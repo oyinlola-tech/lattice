@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — Input Sanitization
+ * @zudoliblib/security — Input Sanitization
  *
  * Sanitizes user input against common attack patterns.
  */

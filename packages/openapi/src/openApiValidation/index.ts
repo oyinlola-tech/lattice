@@ -1,5 +1,5 @@
 /**
- * @zudolib/openapi/openApiValidation
+ * @zudoliblib/openapi/openApiValidation
  *
  * OpenAPI document validation.
  */

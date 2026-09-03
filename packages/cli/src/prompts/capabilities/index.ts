@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Capabilities Prompts
+ * zudolib-cli — Capabilities Prompts
  *
  * Barrel exports for capabilities prompts.
  */

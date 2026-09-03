@@ -1,22 +1,22 @@
-# zudo-cli
+# zudolib-cli
 
-Command-line interface for scaffolding, generating, and managing Zudo framework projects.
+Command-line interface for scaffolding, generating, and managing Zudolib framework projects.
 
 ## Installation
 
 ### First time
 
 ```bash
-npm install -g zudo-cli
+npm install -g zudolib-cli
 ```
 
 ### Upgrading from an old version?
 
-If `zudo -v` doesn't match the latest npm version, clear the cache:
+If `zudolib -v` doesn't match the latest npm version, clear the cache:
 
 ```bash
 npm cache clean --force
-npm install -g zudo-cli@latest
+npm install -g zudolib-cli@latest
 ```
 
 ### Getting permission errors?
@@ -28,29 +28,29 @@ mkdir -p ~/.npm-global
 npm config set prefix '~/.npm-global'
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
-npm install -g zudo-cli@latest
+npm install -g zudolib-cli@latest
 ```
 
 ## Quick Start
 
 ```bash
 # Create a new backend project
-zudo create my-api
+zudolib create my-api
 
 # Create a frontend project
-zudo create my-web --type frontend --frontend react
+zudolib create my-web --type frontend --frontend react
 
 # Create a fullstack project
-zudo create my-system --type fullstack --frontend next --architecture monolith
+zudolib create my-system --type fullstack --frontend next --architecture monolith
 
 # Start development servers
-zudo dev
+zudolib dev
 
 # Generate a module
-zudo generate module users
+zudolib generate module users
 
 # Add a feature
-zudo add database
+zudolib add database
 ```
 
 ## Commands
@@ -72,4 +72,4 @@ zudo add database
 
 ## Documentation
 
-See the [Zudo README](https://github.com/oyinlola-tech/zudo) for full documentation.
+See the [Zudolib README](https://github.com/oyinlola-tech/zudolib) for full documentation.

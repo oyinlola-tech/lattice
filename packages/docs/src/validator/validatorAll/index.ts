@@ -1,5 +1,5 @@
 /**
- * @zudolib/docs/validator/validatorAll
+ * @zudoliblib/docs/validator/validatorAll
  *
  * Aggregate validators for complete documentation sets.
  */

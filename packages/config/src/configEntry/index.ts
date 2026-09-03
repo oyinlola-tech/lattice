@@ -1,5 +1,5 @@
 /**
- * @zudolib/config/configEntry
+ * @zudoliblib/config/configEntry
  *
  * Configuration entry types and value definitions.
  */

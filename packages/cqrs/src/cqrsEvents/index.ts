@@ -1,9 +1,9 @@
 /**
- * @zudolib/cqrs/cqrsEvents
+ * @zudoliblib/cqrs/cqrsEvents
  *
  * CQRS event types, event bus, and event result types.
  *
- * Re-uses the base Zudo EventBus and Event types,
+ * Re-uses the base Zudolib EventBus and Event types,
  * extending them with aggregate-specific fields.
  */
 

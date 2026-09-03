@@ -1,5 +1,5 @@
 /**
- * @zudolib/container/containerProvider
+ * @zudoliblib/container/containerProvider
  *
  * Dependency provider implementations and factories.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/plan
+ * @zudoliblib/lifecycle/plan
  *
  * Lifecycle execution planner for building startup/shutdown stages.
  */

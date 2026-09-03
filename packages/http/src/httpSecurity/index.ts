@@ -1,5 +1,5 @@
 /**
- * @zudolib/http — Security module.
+ * @zudoliblib/http — Security module.
  *
  * Request validation, guard middleware, and security configuration
  * for the HTTP layer. Enforces body limits, header validation,

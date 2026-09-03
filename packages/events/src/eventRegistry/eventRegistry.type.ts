@@ -1,5 +1,5 @@
 /**
- * Event registry type definitions for Zudo.
+ * Event registry type definitions for Zudolib.
  */
 
 import type {

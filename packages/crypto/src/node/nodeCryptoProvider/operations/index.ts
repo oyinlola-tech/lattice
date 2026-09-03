@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/node/nodeCryptoProvider/operations
+ * @zudoliblib/crypto/node/nodeCryptoProvider/operations
  *
  * Higher-level crypto operations built on primitives: key derivation and password hashing.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/testing — Storage testing helpers.
+ * @zudoliblib/testing — Storage testing helpers.
  *
  * In-memory storage adapter for testing without external dependencies.
  */

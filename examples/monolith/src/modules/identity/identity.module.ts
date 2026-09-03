@@ -1,4 +1,4 @@
-import { CommandBus } from "@zudolib/cqrs";
+import { CommandBus } from "@zudoliblib/cqrs";
 import { AppCommand } from "../../shared/application/command.js";
 import { createUserId } from "../../shared/domain/ids.js";
 import type { UserRepository } from "../users/domain/repositories/user.repository.js";
@@ -41,7 +41,7 @@ export class RegisterHandler {
   }
 
   private async hashPassword(password: string): Promise<string> {
-    const data = new TextEncoder().encode(password + "zudo-salt");
+    const data = new TextEncoder().encode(password + "zudolib-salt");
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     return Array.from(new Uint8Array(hashBuffer))
       .map((b) => b.toString(16).padStart(2, "0"))

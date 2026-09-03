@@ -6,7 +6,7 @@ Please do not report security vulnerabilities through public GitHub issues.
 
 Report security vulnerabilities privately through:
 
-- [GitHub Security Advisories](https://github.com/oyinlola-tech/zudo/security/advisories)
+- [GitHub Security Advisories](https://github.com/oyinlola-tech/zudolib/security/advisories)
 
 If you are unable to use GitHub Security Advisories, please use the dedicated security contact listed in the repository settings rather than opening a public issue.
 
@@ -26,7 +26,7 @@ Security vulnerabilities include, but are not limited to:
 - HTTP response splitting
 - Header injection
 - Server-side request forgery (SSRF)
-- Cross-site scripting (XSS) caused by Zudo APIs
+- Cross-site scripting (XSS) caused by Zudolib APIs
 - Cross-site request forgery (CSRF) vulnerabilities
 - Insecure deserialization
 - Cryptographic weaknesses
@@ -44,28 +44,28 @@ Security vulnerabilities include, but are not limited to:
 - Sandbox escape
 - Unsafe plugin execution
 
-Not every bug qualifies as a security vulnerability. Issues that do not create a meaningful security impact for Zudo users may be better handled as regular bug reports or feature requests.
+Not every bug qualifies as a security vulnerability. Issues that do not create a meaningful security impact for Zudolib users may be better handled as regular bug reports or feature requests.
 
 ## Security-Sensitive Components
 
 Security testing and review are particularly valuable for the following packages:
 
-- `@zudolib/http`
-- `@zudolib/crypto`
-- `@zudolib/security`
-- `@zudolib/serialization`
-- `@zudolib/storage`
-- `@zudolib/rpc`
-- `@zudolib/permissions`
-- `@zudolib/transactions`
-- `@zudolib/tenancy`
-- `@zudolib/plugins`
-- `@zudolib/runtime`
-- `@zudolib/database`
-- `@zudolib/auth`
-- `@zudolib/validation`
-- `@zudolib/queue`
-- `@zudolib/messaging`
+- `@zudoliblib/http`
+- `@zudoliblib/crypto`
+- `@zudoliblib/security`
+- `@zudoliblib/serialization`
+- `@zudoliblib/storage`
+- `@zudoliblib/rpc`
+- `@zudoliblib/permissions`
+- `@zudoliblib/transactions`
+- `@zudoliblib/tenancy`
+- `@zudoliblib/plugins`
+- `@zudoliblib/runtime`
+- `@zudoliblib/database`
+- `@zudoliblib/auth`
+- `@zudoliblib/validation`
+- `@zudoliblib/queue`
+- `@zudoliblib/messaging`
 
 This does not mean every bug in these packages is automatically a vulnerability. It indicates where security review is especially important.
 
@@ -140,15 +140,15 @@ GitHub Security Advisories are the primary source for security-related announcem
 
 ## Dependency Security
 
-Zudo depends on third-party packages and runtime components.
+Zudolib depends on third-party packages and runtime components.
 
-Security vulnerabilities in dependencies may affect Zudo even when the vulnerable code is not maintained by the Zudo project.
+Security vulnerabilities in dependencies may affect Zudolib even when the vulnerable code is not maintained by the Zudolib project.
 
-Dependency security issues are evaluated based on whether the affected dependency is reachable through Zudo and whether the vulnerability creates a meaningful security impact for Zudo users.
+Dependency security issues are evaluated based on whether the affected dependency is reachable through Zudolib and whether the vulnerability creates a meaningful security impact for Zudolib users.
 
 ## Security Design Principles
 
-Zudo is designed with the following security principles:
+Zudolib is designed with the following security principles:
 
 - Secure by default
 - Least privilege

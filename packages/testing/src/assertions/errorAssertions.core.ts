@@ -4,7 +4,7 @@
  * Assert errors, error types, and error messages.
  */
 
-import type { BaseError } from "@zudolib/errors";
+import type { BaseError } from "@zudoliblib/errors";
 
 /**
  * Asserts that a function throws an error.

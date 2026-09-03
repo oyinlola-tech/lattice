@@ -1,7 +1,7 @@
 /**
- * @zudolib/schema/base
+ * @zudoliblib/schema/base
  *
- * Abstract base class for all Zudo schemas.
+ * Abstract base class for all Zudolib schemas.
  * Defines the core parsing pipeline: Input → validate → Output.
  */
 
@@ -13,7 +13,7 @@ import type {
 } from "./schemaBase.type.js";
 import { createParseContext } from "./schemaBase.context.js";
 import { schemaSuccess, schemaFailure } from "./schemaBase.result.js";
-import { SchemaError } from "@zudolib/errors";
+import { SchemaError } from "@zudoliblib/errors";
 
 /**
  * Base schema class. All schema types extend this.

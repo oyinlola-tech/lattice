@@ -17,7 +17,7 @@ export interface LogEntry {
 }
 
 /**
- * Logger contract used throughout Zudo.
+ * Logger contract used throughout Zudolib.
  *
  * The core does not depend on a particular logging implementation.
  * Adapters can later connect this interface to Pino, Winston,

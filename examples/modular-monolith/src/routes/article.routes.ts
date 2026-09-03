@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@zudolib/cqrs";
+import type { CommandBus, QueryBus } from "@zudoliblib/cqrs";
 import { ArticleController } from "../controllers/article.controller.js";
 
 export interface Route {

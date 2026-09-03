@@ -1,4 +1,4 @@
-import { Query } from "@zudolib/cqrs";
+import { Query } from "@zudoliblib/cqrs";
 
 export class ListTopicsQuery extends Query<"topics.list"> {
   public readonly limit: number;

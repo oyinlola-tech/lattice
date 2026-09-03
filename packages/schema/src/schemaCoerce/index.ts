@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/coerce
+ * @zudoliblib/schema/coerce
  *
  * Explicit coercion schemas for type conversion.
  */

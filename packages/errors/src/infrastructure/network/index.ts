@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/infrastructure/network
+ * @zudoliblib/errors/infrastructure/network
  *
  * Network, HTTP, and timeout error types.
  */

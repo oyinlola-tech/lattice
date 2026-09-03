@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import jwt from "jsonwebtoken";
-import { createLogger } from "@zudolib/logger";
+import { createLogger } from "@zudoliblib/logger";
 
 const logger = createLogger({ name: "gateway:auth" });
 

@@ -1,5 +1,5 @@
 /**
- * @zudolib/validation/validationComposer
+ * @zudoliblib/validation/validationComposer
  *
  * Schema composition and merging utilities.
  */

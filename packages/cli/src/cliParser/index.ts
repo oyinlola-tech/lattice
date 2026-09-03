@@ -1,5 +1,5 @@
 /**
- * zudo-cli — CLI Parser
+ * zudolib-cli — CLI Parser
  *
  * Argument parsing, option resolution, and token classification.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/modifiers
+ * @zudoliblib/schema/modifiers
  *
  * Schema modifiers: optional, nullable, default, refine, transform.
  */

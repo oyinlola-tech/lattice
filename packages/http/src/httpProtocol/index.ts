@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpProtocol
+ * @zudoliblib/http/httpProtocol
  *
  * HTTP httpProtocol module.
  */

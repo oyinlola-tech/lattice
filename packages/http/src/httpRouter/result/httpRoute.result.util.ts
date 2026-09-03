@@ -1,5 +1,5 @@
 /**
- * Zudo HTTP route result utility helpers.
+ * Zudolib HTTP route result utility helpers.
  */
 
 /* -------------------------------------------------------------------------- */

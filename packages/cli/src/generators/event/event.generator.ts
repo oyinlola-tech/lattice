@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Event Generator
+ * zudolib-cli — Event Generator
  *
  * Generates event files.
  */

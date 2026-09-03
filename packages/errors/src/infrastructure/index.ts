@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/infrastructure
+ * @zudoliblib/errors/infrastructure
  *
  * Infrastructure error types (database, HTTP, network, etc.).
  */

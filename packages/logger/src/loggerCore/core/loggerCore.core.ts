@@ -51,7 +51,7 @@ import {
 /**
  * Internal context passed to extracted methods.
  */
-export interface ZudoLoggerContext {
+export interface ZudolibLoggerContext {
   readonly configuration: LoggerConfiguration;
   readonly contextStorage: LoggerContextStorage;
   assertActive(): void;
@@ -66,7 +66,7 @@ export interface ZudoLoggerContext {
 /**
  * Logger implementation.
  */
-export class ZudoLogger implements Logger, ZudoLoggerContext {
+export class ZudolibLogger implements Logger, ZudolibLoggerContext {
   private _configuration: LoggerConfiguration;
   private readonly _contextStorage: LoggerContextStorage;
   private _disposed = false;
@@ -166,13 +166,13 @@ export class ZudoLogger implements Logger, ZudoLoggerContext {
   }
 
   createChildLogger(options: LoggerOptions): Logger {
-    return new ZudoLogger(options, this._contextStorage);
+    return new ZudolibLogger(options, this._contextStorage);
   }
 }
 
 /**
- * Creates a Zudo logger.
+ * Creates a Zudolib logger.
  */
 export function createLogger(options: LoggerOptions = {}): Logger {
-  return new ZudoLogger(options);
+  return new ZudolibLogger(options);
 }

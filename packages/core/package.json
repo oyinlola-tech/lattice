@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/core",
+  "name": "@zudoliblib/core",
   "version": "0.1.5",
-  "description": "Application lifecycle management, execution context propagation, and runtime orchestration for Zudo applications.",
+  "description": "Application lifecycle management, execution context propagation, and runtime orchestration for Zudolib applications.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -59,9 +59,9 @@
     "vitest": "^4.1.11"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/messaging": "workspace:*"
+    "@zudoliblib/errors": "workspace:*",
+    "@zudoliblib/constants": "workspace:*",
+    "@zudoliblib/messaging": "workspace:*"
   },
   "license": "MIT",
   "publishConfig": {
@@ -72,14 +72,14 @@
   },
   "module": "./dist/index.js",
   "keywords": [
-    "zudo",
+    "zudolib",
     "core",
     "lifecycle",
     "context"
   ],
-  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudo"
+    "url": "https://github.com/oyinlola-tech/zudolib"
   }
 }

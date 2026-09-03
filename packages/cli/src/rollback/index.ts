@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Rollback
+ * zudolib-cli — Rollback
  *
  * Rollback system barrel exports.
  */

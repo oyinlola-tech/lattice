@@ -7,24 +7,24 @@
 
 ## Install a Package
 
-Install any Zudo package from npm:
+Install any Zudolib package from npm:
 
 ```bash
-npm install @zudolib/core
-npm install @zudolib/http
-npm install @zudolib/events
+npm install @zudoliblib/core
+npm install @zudoliblib/http
+npm install @zudoliblib/events
 ```
 
 ## Install the CLI
 
 ```bash
-npm install -g zudo-cli
+npm install -g zudolib-cli
 ```
 
 ## Verify Installation
 
 ```bash
-npx zudo --version
+npx zudolib --version
 ```
 
 ## What's Next

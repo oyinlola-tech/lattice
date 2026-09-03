@@ -1,5 +1,5 @@
 /**
- * Event emitter core class for Zudo.
+ * Event emitter core class for Zudolib.
  */
 
 import type { Event, EventInput } from "../eventTypes/eventDefinition.type.js";

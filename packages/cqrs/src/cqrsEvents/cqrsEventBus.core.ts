@@ -1,7 +1,7 @@
 /**
  * CQRS event bus.
  *
- * Re-exports the Zudo EventBus and factory functions.
+ * Re-exports the Zudolib EventBus and factory functions.
  * The base EventBus supports all CQRS publishing needs with
  * middleware, registry, and emitter infrastructure.
  */
@@ -16,4 +16,4 @@ export {
   EventBusState,
   type EventBusEvent,
   type EventBusListener,
-} from "@zudolib/events";
+} from "@zudoliblib/events";

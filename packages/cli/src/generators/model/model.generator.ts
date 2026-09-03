@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Model Generator
+ * zudolib-cli — Model Generator
  *
  * Generates model files.
  */

@@ -38,7 +38,7 @@ export interface RouterContextOptions {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Runtime context passed through the Zudo HTTP router.
+ * Runtime context passed through the Zudolib HTTP router.
  *
  * The context is intentionally small and request-scoped.
  * It provides handlers with access to the request, route parameters,

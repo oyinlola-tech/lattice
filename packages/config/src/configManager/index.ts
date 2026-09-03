@@ -1,5 +1,5 @@
 /**
- * @zudolib/config/configManager
+ * @zudoliblib/config/configManager
  *
  * Configuration lifecycle management and orchestration.
  */

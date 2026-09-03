@@ -3,7 +3,7 @@ import type { LoggerContextData } from "../loggerContext/loggerContext.core.js";
 import type { LoggerFormatterLike } from "../loggerFormatter/loggerFormatter.type.js";
 import type { LoggerTransportLike } from "../loggerTransport/loggerTransport.type.js";
 
-/** Options used to configure a Zudo logger. */
+/** Options used to configure a Zudolib logger. */
 export interface LoggerOptions {
   readonly name?: string;
   readonly level?: LoggerLevel;
@@ -111,7 +111,7 @@ export function resolveLoggerOptions(
   validateLoggerOptions(options);
 
   return Object.freeze({
-    name: options.name ?? "zudo",
+    name: options.name ?? "zudolib",
     level: options.level ?? 3,
     environment: options.environment,
     metadata: Object.freeze({ ...(options.metadata ?? {}) }),

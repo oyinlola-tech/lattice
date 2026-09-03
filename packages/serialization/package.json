@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/serialization",
+  "name": "@zudoliblib/serialization",
   "version": "0.1.4",
-  "description": "Data translation layer with JSON serializer, type transformers, envelopes, and registry for Zudo applications.",
+  "description": "Data translation layer with JSON serializer, type transformers, envelopes, and registry for Zudolib applications.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -22,10 +22,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/types": "workspace:*",
-    "@zudolib/validation": "workspace:*"
+    "@zudoliblib/constants": "workspace:*",
+    "@zudoliblib/errors": "workspace:*",
+    "@zudoliblib/types": "workspace:*",
+    "@zudoliblib/validation": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.0",
@@ -33,7 +33,7 @@
   },
   "license": "MIT",
   "keywords": [
-    "zudo",
+    "zudolib",
     "serialization",
     "json",
     "transformers"
@@ -45,9 +45,9 @@
     "node": ">=24.0.0"
   },
   "module": "./dist/index.js",
-  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudo"
+    "url": "https://github.com/oyinlola-tech/zudolib"
   }
 }

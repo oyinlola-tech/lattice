@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Service Generator
+ * zudolib-cli — Service Generator
  *
  * Generates a new service with CQRS structure.
  */
@@ -23,7 +23,7 @@ export async function generateService(
     .replace(/^./, (c) => c.toUpperCase());
 
   const files: Record<string, string> = {
-    [`${basePath}/${name}/${name}.service.ts`]: `import { createLogger } from "@zudolib/logger";
+    [`${basePath}/${name}/${name}.service.ts`]: `import { createLogger } from "@zudoliblib/logger";
 
 export class ${namePascal}Service {
   private readonly logger = createLogger({ name: "${name}-service" });

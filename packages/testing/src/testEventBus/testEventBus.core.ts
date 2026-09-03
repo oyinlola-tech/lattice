@@ -4,16 +4,16 @@
  * Wraps the real EventBus with recording and assertion support.
  */
 
-import { EventBus } from "@zudolib/events";
+import { EventBus } from "@zudoliblib/events";
 
 import type {
   Event,
   EventInput,
   EventBusOptions,
   EventPublishResult,
-} from "@zudolib/events";
+} from "@zudoliblib/events";
 
-import type { EventId } from "@zudolib/constants";
+import type { EventId } from "@zudoliblib/constants";
 
 /**
  * A recorded event publication.

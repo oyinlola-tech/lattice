@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/adapter
+ * @zudoliblib/adapters/adapter
  *
  * Core adapter types and registry.
  */

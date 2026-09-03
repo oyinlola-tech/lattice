@@ -1,7 +1,7 @@
 /**
- * @zudolib/adapters/errors
+ * @zudoliblib/adapters/errors
  *
- * Adapter error types — re-exported from @zudolib/errors.
+ * Adapter error types — re-exported from @zudoliblib/errors.
  */
 
 export {
@@ -18,6 +18,6 @@ export {
   AdapterConfigurationError,
   createAdapterError,
   isAdapterError,
-} from "@zudolib/errors";
+} from "@zudoliblib/errors";
 
-export type { AdapterErrorOptions } from "@zudolib/errors";
+export type { AdapterErrorOptions } from "@zudoliblib/errors";

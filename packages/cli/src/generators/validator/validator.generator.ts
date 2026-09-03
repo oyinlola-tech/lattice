@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Validator Generator
+ * zudolib-cli — Validator Generator
  *
  * Generates validator files.
  */

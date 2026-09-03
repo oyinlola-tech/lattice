@@ -255,12 +255,12 @@ describe("ConfigManager", () => {
   it("gets values set before load", async () => {
     const manager = createConfigManager({
       initialValues: {
-        "app.name": "zudo",
+        "app.name": "zudolib",
       },
     });
 
     // Initial values are in the store before load
-    expect(manager.get("app.name")).toBe("zudo");
+    expect(manager.get("app.name")).toBe("zudolib");
 
     await manager.load();
     expect(manager.isReady).toBe(true);

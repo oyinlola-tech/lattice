@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/example-worker",
+  "name": "@zudoliblib/example-worker",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -10,11 +10,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@zudolib/core": "workspace:*",
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/queue": "workspace:*",
-    "@zudolib/lifecycle": "workspace:*",
-    "@zudolib/logger": "workspace:*"
+    "@zudoliblib/core": "workspace:*",
+    "@zudoliblib/errors": "workspace:*",
+    "@zudoliblib/queue": "workspace:*",
+    "@zudoliblib/lifecycle": "workspace:*",
+    "@zudoliblib/logger": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.23.13",

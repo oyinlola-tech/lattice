@@ -1,4 +1,4 @@
-import { TimeMs } from "@zudolib/constants";
+import { TimeMs } from "@zudoliblib/constants";
 
 /**
  * Password hashing constants.

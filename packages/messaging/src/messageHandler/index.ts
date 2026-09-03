@@ -1,5 +1,5 @@
 /**
- * @zudolib/messaging/messageHandler
+ * @zudoliblib/messaging/messageHandler
  *
  * MessageHandler type definitions and utilities.
  */

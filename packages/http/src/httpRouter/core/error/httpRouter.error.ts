@@ -1,7 +1,7 @@
 /**
  * HTTP router error types.
  *
- * Re-exports from @zudolib/errors.
+ * Re-exports from @zudoliblib/errors.
  */
 
 export {
@@ -10,4 +10,4 @@ export {
   InvalidRoutePatternError,
   createHttpRouterError,
   isHttpRouterError,
-} from "@zudolib/errors";
+} from "@zudoliblib/errors";

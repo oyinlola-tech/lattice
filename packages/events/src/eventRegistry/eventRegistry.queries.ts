@@ -1,5 +1,5 @@
 /**
- * Event registry query functions for Zudo.
+ * Event registry query functions for Zudolib.
  */
 
 import type { Event, EventType } from "../eventTypes/eventDefinition.type.js";

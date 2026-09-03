@@ -1,4 +1,4 @@
-import { defineEvent } from "@zudolib/events";
+import { defineEvent } from "@zudoliblib/events";
 import type { StudentId, CourseId, EnrollmentId } from "../types/index.js";
 
 /** Event emitted when a student is successfully enrolled in a course. */

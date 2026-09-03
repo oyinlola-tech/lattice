@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Database Client
+ * @zudoliblib/database — Database Client
  *
  * Prisma-backed database client and connection infrastructure.
  */

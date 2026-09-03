@@ -1,12 +1,12 @@
 /**
- * @zudolib/serialization — Buffer transformer.
+ * @zudoliblib/serialization — Buffer transformer.
  *
  * Preserves Uint8Array and Buffer instances across serialization boundaries
  * using base64 encoding.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { SerializationTags } from "@zudolib/constants";
+import { SerializationTags } from "@zudoliblib/constants";
 import { toBase64, fromBase64 } from "./encoding.utils.js";
 
 const BUFFER_TYPE = "Buffer" as const;

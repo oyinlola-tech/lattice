@@ -5,8 +5,8 @@
  * Demonstrates retry behavior with simulated failures.
  */
 
-import type { Job } from "@zudolib/queue";
-import type { JobContext } from "@zudolib/queue";
+import type { Job } from "@zudoliblib/queue";
+import type { JobContext } from "@zudoliblib/queue";
 import type { GenerateReportJobData } from "../jobs/jobs.types.js";
 
 function sleep(ms: number): Promise<void> {

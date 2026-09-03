@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/base/core
+ * @zudoliblib/errors/base/core
  *
  * Base error class and metadata handling.
  */

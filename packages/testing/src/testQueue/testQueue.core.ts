@@ -4,7 +4,7 @@
  * Wraps the real InMemoryQueue with recording and assertion support.
  */
 
-import { createInMemoryQueue, InMemoryQueue } from "@zudolib/queue";
+import { createInMemoryQueue, InMemoryQueue } from "@zudoliblib/queue";
 
 import type {
   Job,
@@ -14,7 +14,7 @@ import type {
   QueueStats,
   Processor,
   JobOptions,
-} from "@zudolib/queue";
+} from "@zudoliblib/queue";
 
 /**
  * A recorded job addition.

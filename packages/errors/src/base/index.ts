@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/base
+ * @zudoliblib/errors/base
  *
  * Base error class, error codes, categories, and severity levels.
  */

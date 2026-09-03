@@ -1,5 +1,5 @@
 /**
- * Event handler primitives for Zudo.
+ * Event handler primitives for Zudolib.
  *
  * Handlers are responsible for processing events.
  * They do not own event registration or event dispatching.

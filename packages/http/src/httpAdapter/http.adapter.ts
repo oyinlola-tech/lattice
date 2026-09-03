@@ -1,11 +1,11 @@
 /**
  * HTTP runtime adapter contract.
  *
- * The adapter layer keeps Zudo's HTTP core independent from a concrete
+ * The adapter layer keeps Zudolib's HTTP core independent from a concrete
  * runtime such as Node.js, Bun, Deno, or a custom server implementation.
  *
  * An adapter is responsible for translating runtime-native requests and
- * responses into Zudo's request/response contexts and for invoking the
+ * responses into Zudolib's request/response contexts and for invoking the
  * application handler.
  */
 
@@ -124,7 +124,7 @@ export interface HttpAdapter {
 /* Adapter Error                                                              */
 /* -------------------------------------------------------------------------- */
 
-import { HttpAdapterError } from "@zudolib/errors";
+import { HttpAdapterError } from "@zudoliblib/errors";
 
 export { HttpAdapterError };
 

@@ -1,7 +1,7 @@
 /**
- * @zudolib/adapters/runtime
+ * @zudoliblib/adapters/runtime
  *
- * Runtime adapter contracts — bridges Zudo to execution environments.
+ * Runtime adapter contracts — bridges Zudolib to execution environments.
  *
  * Examples: Node.js, Bun, Deno, AWS Lambda, Cloudflare Workers.
  */

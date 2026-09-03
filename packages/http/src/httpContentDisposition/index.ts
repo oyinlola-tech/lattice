@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpContentDisposition
+ * @zudoliblib/http/httpContentDisposition
  *
  * HTTP httpContentDisposition module.
  */

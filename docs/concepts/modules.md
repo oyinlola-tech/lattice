@@ -1,13 +1,13 @@
 # Modules
 
-Modules are the primary building blocks of a Zudo application.
+Modules are the primary building blocks of a Zudolib application.
 
 ## Definition
 
 A module is a self-contained unit of functionality:
 
 ```typescript
-import { Module } from "@zudolib/core";
+import { Module } from "@zudoliblib/core";
 
 @Module({
   imports: [DatabaseModule, EventsModule],

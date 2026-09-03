@@ -4,7 +4,7 @@ import type { ErrorSeverity } from "./errorSeverity.type.js";
 import type { ErrorMetadata } from "../core/errorMetadata.type.js";
 
 /**
- * Options used to construct a Zudo application error.
+ * Options used to construct a Zudolib application error.
  */
 export interface BaseErrorOptions {
   readonly code?: ErrorCode | string;

@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/primitives/sentinel
+ * @zudoliblib/schema/primitives/sentinel
  *
  * Schemas for null, undefined, unknown, any, and never types.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudolib/constants";
+import { SchemaIssueCode } from "@zudoliblib/constants";
 
 /**
  * Schema that only accepts null.

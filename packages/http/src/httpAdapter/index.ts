@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpAdapter
+ * @zudoliblib/http/httpAdapter
  *
  * HTTP adapter abstraction and implementations.
  */

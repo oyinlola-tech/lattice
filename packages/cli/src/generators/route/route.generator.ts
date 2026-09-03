@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Route Generator
+ * zudolib-cli — Route Generator
  *
  * Generates route files.
  */

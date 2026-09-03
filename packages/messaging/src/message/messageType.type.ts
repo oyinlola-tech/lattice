@@ -1,5 +1,5 @@
 /**
- * Core message type definitions for Zudo.
+ * Core message type definitions for Zudolib.
  *
  * Messages are the fundamental unit of communication in the
  * messaging infrastructure. They carry type information, a
@@ -12,11 +12,11 @@ import type {
   MessageId as BaseEntityMessageId,
   CorrelationId as BaseCorrelationId,
   MessageCausationId as BaseEntityCausationId,
-} from "@zudolib/constants";
+} from "@zudoliblib/constants";
 
 /**
  * Unique identifier for a message instance.
- * Re-exported from @zudolib/constants for type safety.
+ * Re-exported from @zudoliblib/constants for type safety.
  */
 export type MessageId = BaseEntityMessageId;
 
@@ -47,7 +47,7 @@ export type MessageSource = string;
  *
  * Useful for connecting multiple messages belonging to the
  * same operation/request/workflow.
- * Re-exported from @zudolib/constants for type safety.
+ * Re-exported from @zudoliblib/constants for type safety.
  */
 export type MessageCorrelationId = BaseCorrelationId;
 
@@ -55,7 +55,7 @@ export type MessageCorrelationId = BaseCorrelationId;
  * Causation identifier.
  *
  * Identifies the message or operation that caused this message.
- * Re-exported from @zudolib/constants for type safety.
+ * Re-exported from @zudoliblib/constants for type safety.
  */
 export type MessageCausationId = BaseEntityCausationId;
 
@@ -67,7 +67,7 @@ export type MessagePayload = unknown;
 /**
  * Base message contract.
  *
- * Every Zudo message must contain a type, unique identifier,
+ * Every Zudolib message must contain a type, unique identifier,
  * timestamp, and payload.
  */
 export interface Message<TPayload = MessagePayload> {

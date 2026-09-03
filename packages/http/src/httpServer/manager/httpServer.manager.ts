@@ -1,10 +1,10 @@
 /**
- * Zudo HTTP server manager.
+ * Zudolib HTTP server manager.
  *
  * @module httpServer/manager
  */
 
-import { HttpServerLifecycleError } from "@zudolib/errors";
+import { HttpServerLifecycleError } from "@zudoliblib/errors";
 
 import { HttpServer } from "../core/httpServer.core.js";
 

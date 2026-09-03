@@ -49,9 +49,9 @@ const TIERS = {
 
 function packageNameToKey(name) {
   return name
-    .replace(/^@oyinlola141\/zudo-/, "")
-    .replace(/^@zudo\//, "")
-    .replace(/^zudo-/, "")
+    .replace(/^@oyinlola141\/zudolib-/, "")
+    .replace(/^@zudolib\//, "")
+    .replace(/^zudolib-/, "")
     .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 }
 
@@ -81,7 +81,7 @@ function getPackages() {
 describe("Architecture Boundaries", () => {
   const packages = getPackages();
 
-  it("has no wildcard @zudolib/* dependency versions", () => {
+  it("has no wildcard @zudoliblib/* dependency versions", () => {
     const errors = [];
 
     for (const pkg of packages) {
@@ -89,7 +89,7 @@ describe("Architecture Boundaries", () => {
 
       for (const [depName, version] of Object.entries(allDeps)) {
         if (
-          depName.startsWith("@zudolib/") &&
+          depName.startsWith("@zudoliblib/") &&
           version === "*"
         ) {
           errors.push(`${pkg.name}: ${depName}@${version}`);
@@ -115,7 +115,7 @@ describe("Architecture Boundaries", () => {
       }
 
       for (const depName of Object.keys(pkg.dependencies)) {
-        if (!depName.startsWith("@zudolib/")) continue;
+        if (!depName.startsWith("@zudoliblib/")) continue;
 
         const depKey = packageNameToKey(depName);
         const depTier = TIERS[depKey];
@@ -144,7 +144,7 @@ describe("Architecture Boundaries", () => {
 
     for (const pkg of packages) {
       const deps = Object.keys(pkg.dependencies).filter(
-        (d) => d.startsWith("@zudolib/"),
+        (d) => d.startsWith("@zudoliblib/"),
       );
       graph.set(pkg.name, deps);
     }

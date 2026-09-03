@@ -1,12 +1,12 @@
 /**
- * @zudolib/permissions
+ * @zudoliblib/permissions
  *
- * Authorization engine for the Zudo framework.
+ * Authorization engine for the Zudolib framework.
  *
  * Supports RBAC, ABAC, resource policies, wildcards, role hierarchy,
  * condition combinators, ability compilation, and explain mode.
  *
- * @module @zudolib/permissions
+ * @module @zudoliblib/permissions
  */
 
 export * from "./permissionTypes/index.js";

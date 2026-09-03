@@ -1,5 +1,5 @@
-import { CommandBus, QueryBus } from "@zudolib/cqrs";
-import type { EventBus } from "@zudolib/events";
+import { CommandBus, QueryBus } from "@zudoliblib/cqrs";
+import type { EventBus } from "@zudoliblib/events";
 import type {
   TopicRepository,
   TopicFollowerRepository,

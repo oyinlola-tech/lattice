@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — URL Validation
+ * @zudoliblib/security — URL Validation
  *
  * Validates and normalizes URLs, prevents path traversal attacks,
  * and ensures request targets are safe.

@@ -1,5 +1,5 @@
 /**
- * MessageContext type definitions for Zudo.
+ * MessageContext type definitions for Zudolib.
  *
  * The context carries correlation and causation identifiers
  * through the dispatch chain, enabling distributed tracing

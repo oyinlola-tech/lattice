@@ -1,9 +1,9 @@
 /**
- * @zudolib/api/errors
+ * @zudoliblib/api/errors
  *
- * API-specific error classes for the Zudo framework.
+ * API-specific error classes for the Zudolib framework.
  *
- * Re-exported from @zudolib/errors for convenience.
+ * Re-exported from @zudoliblib/errors for convenience.
  */
 
 export {
@@ -23,6 +23,6 @@ export {
   APIIdempotencyError,
   createAPIError,
   isAPIError,
-} from "@zudolib/errors";
+} from "@zudoliblib/errors";
 
-export type { APIErrorOptions } from "@zudolib/errors";
+export type { APIErrorOptions } from "@zudoliblib/errors";

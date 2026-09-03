@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Confirmation Prompt
+ * zudolib-cli — Confirmation Prompt
  *
  * Prompts for confirmation before generation.
  */

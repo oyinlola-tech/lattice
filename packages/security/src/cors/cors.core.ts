@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — CORS
+ * @zudoliblib/security — CORS
  *
  * Validates and generates CORS headers for cross-origin requests.
  */

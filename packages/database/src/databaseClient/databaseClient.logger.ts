@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Default Logger
+ * @zudoliblib/database — Default Logger
  *
  * Minimal logger for environments where no application logger has been configured yet.
  */

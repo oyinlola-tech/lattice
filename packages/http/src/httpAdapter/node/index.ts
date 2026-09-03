@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpAdapter/node
+ * @zudoliblib/http/httpAdapter/node
  *
  * Node.js HTTP adapter.
  */

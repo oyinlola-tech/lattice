@@ -1,5 +1,5 @@
 /**
- * @zudolib/logger/loggerCore
+ * @zudoliblib/logger/loggerCore
  *
  * Core logger implementation and interface.
  */

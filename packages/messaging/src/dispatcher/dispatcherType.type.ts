@@ -1,5 +1,5 @@
 /**
- * Dispatcher type definitions for Zudo.
+ * Dispatcher type definitions for Zudolib.
  *
  * The dispatcher is the core coordination point that validates
  * messages, creates context, runs middleware, and invokes handlers.

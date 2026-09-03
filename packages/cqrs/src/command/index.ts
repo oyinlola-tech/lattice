@@ -1,5 +1,5 @@
 /**
- * @zudolib/cqrs/command
+ * @zudoliblib/cqrs/command
  *
  * Command implementation: abstract command, handler, bus, and result types.
  */

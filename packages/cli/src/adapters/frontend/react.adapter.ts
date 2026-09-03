@@ -88,7 +88,7 @@ export class ReactAdapter implements FrontendAdapter {
     return deps;
   }
 
-  async applyZudoStructure(
+  async applyZudolibStructure(
     context: FrontendGenerationContext,
   ): Promise<void> {
     const structure = this.getStructure(context);
@@ -192,7 +192,7 @@ createRoot(document.getElementById("root")!).render(
       "src/App.tsx": `export default function App() {
   return (
     <div>
-      <h1>Hello from Zudo</h1>
+      <h1>Hello from Zudolib</h1>
     </div>
   );
 }
@@ -216,10 +216,10 @@ createRoot(document.getElementById("root")!).render(
       return this.getMinimalStructure(srcDir);
     }
 
-    return this.getZudoStandardStructure(srcDir);
+    return this.getZudolibStandardStructure(srcDir);
   }
 
-  private getZudoStandardStructure(srcDir: string): Record<string, string> {
+  private getZudolibStandardStructure(srcDir: string): Record<string, string> {
     return {
       [`${srcDir}/components/.gitkeep`]: "",
       [`${srcDir}/configs/index.ts`]: "// Configuration\nexport {};\n",

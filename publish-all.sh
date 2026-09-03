@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "Publishing all Zudo packages to npm..."
+echo "Publishing all Zudolib packages to npm..."
 
 PACKAGES=(
   "packages/http"
@@ -23,7 +23,7 @@ PACKAGES=(
 for pkg in "${PACKAGES[@]}"; do
   echo ""
   echo "Publishing $pkg..."
-  cd "/home/oyinlola/Desktop/Zudo/$pkg"
+  cd "/home/oyinlola/Desktop/Zudolib/$pkg"
   npm publish --access public
 done
 

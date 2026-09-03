@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpMultipart
+ * @zudoliblib/http/httpMultipart
  *
  * HTTP httpMultipart module.
  */

@@ -19,7 +19,7 @@ export interface FrontendGenerationOptions {
   readonly projectPath: string;
   readonly framework: string;
   readonly architecture?:
-    "zudo-standard" | "feature-based" | "minimal" | "framework-default";
+    "zudolib-standard" | "feature-based" | "minimal" | "framework-default";
   readonly language?: "typescript" | "javascript";
   readonly packageManager?: "pnpm" | "npm" | "yarn" | "bun";
 }
@@ -67,7 +67,7 @@ export class FrontendGenerator {
       projectPath: options.projectPath,
       framework: adapter.framework,
       language: options.language ?? "typescript",
-      architecture: options.architecture ?? "zudo-standard",
+      architecture: options.architecture ?? "zudolib-standard",
       packageManager: options.packageManager ?? "pnpm",
       features: {
         testing: true,
@@ -84,8 +84,8 @@ export class FrontendGenerator {
       await adapter.scaffold(context);
       files.push("scaffold");
 
-      // 2. Apply Zudo structure
-      await adapter.applyZudoStructure(context);
+      // 2. Apply Zudolib structure
+      await adapter.applyZudolibStructure(context);
       files.push("structure");
 
       // 3. Resolve and install dependencies

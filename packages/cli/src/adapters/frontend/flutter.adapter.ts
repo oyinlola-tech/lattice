@@ -35,7 +35,7 @@ export class FlutterAdapter implements FrontendAdapter {
 
   async scaffold(context: FrontendGenerationContext): Promise<void> {
     const { projectPath } = context;
-    const org = "com.zudo";
+    const org = "com.zudolib";
 
     await execCommand(
       "flutter",
@@ -60,7 +60,7 @@ export class FlutterAdapter implements FrontendAdapter {
     return [];
   }
 
-  async applyZudoStructure(
+  async applyZudolibStructure(
     context: FrontendGenerationContext,
   ): Promise<void> {
     const structure = this.getStructure(context);

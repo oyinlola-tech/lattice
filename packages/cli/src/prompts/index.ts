@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Prompts Index
+ * zudolib-cli — Prompts Index
  */
 
 export {

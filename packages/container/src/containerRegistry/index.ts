@@ -1,5 +1,5 @@
 /**
- * @zudolib/container/containerRegistry
+ * @zudoliblib/container/containerRegistry
  *
  * Service registry storage and lookup.
  */

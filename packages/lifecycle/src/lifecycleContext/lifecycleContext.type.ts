@@ -1,10 +1,10 @@
 /**
- * @zudolib/lifecycle/context
+ * @zudoliblib/lifecycle/context
  *
  * Lifecycle context — passed to component hooks during phase execution.
  */
 
-import type { LifecyclePhase } from "@zudolib/constants";
+import type { LifecyclePhase } from "@zudoliblib/constants";
 
 /**
  * Context passed to lifecycle component hooks.

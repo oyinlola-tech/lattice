@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoUtils/encoding
+ * @zudoliblib/crypto/cryptoUtils/encoding
  *
  * Encoding utilities for converting between binary data and
  * textual representations (hex, base64, base64url).

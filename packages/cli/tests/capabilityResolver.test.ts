@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Capability Resolver Tests
+ * zudolib-cli — Capability Resolver Tests
  *
  * Tests for CapabilityResolver.
  */

@@ -1,5 +1,5 @@
 /**
- * zudo-cli — MySQL Database Adapter
+ * zudolib-cli — MySQL Database Adapter
  */
 
 import type { DatabaseAdapter } from "./postgres.adapter.js";
@@ -13,7 +13,7 @@ export class MySqlAdapter implements DatabaseAdapter {
   }
 
   getDependencies(): readonly string[] {
-    return ["@zudolib/database"];
+    return ["@zudoliblib/database"];
   }
 
   getEnvironmentVariables(): Record<string, string> {

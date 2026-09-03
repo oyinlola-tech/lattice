@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Registries
+ * zudolib-cli — Registries
  *
  * Registries for adapters, generators, and dependencies.
  */

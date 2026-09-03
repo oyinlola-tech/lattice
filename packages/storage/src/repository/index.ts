@@ -1,5 +1,5 @@
 /**
- * @zudolib/storage — Repository Barrel
+ * @zudoliblib/storage — Repository Barrel
  */
 
 export { BaseRepository } from "./baseRepository.core.js";

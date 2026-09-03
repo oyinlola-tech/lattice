@@ -6,7 +6,7 @@ import {
   PluginAlreadyRegisteredError,
   PluginNotFoundError,
   PluginStateError,
-} from "@zudolib/errors";
+} from "@zudoliblib/errors";
 
 /**
  * Internal representation of a registered plugin.

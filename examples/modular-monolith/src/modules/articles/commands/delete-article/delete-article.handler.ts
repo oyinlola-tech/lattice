@@ -1,7 +1,7 @@
-import { CommandHandler } from "@zudolib/cqrs";
+import { CommandHandler } from "@zudoliblib/cqrs";
 import type { DeleteArticleCommand } from "./delete-article.command.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
-import type { EventBus } from "@zudolib/events";
+import type { EventBus } from "@zudoliblib/events";
 import { NotFoundError, ForbiddenError } from "../../../../errors/index.js";
 import { ArticleDeletedEvent } from "../../../../events/index.js";
 

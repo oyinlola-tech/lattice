@@ -1,4 +1,4 @@
-import type { Timestamp } from "@zudolib/constants";
+import type { Timestamp } from "@zudoliblib/constants";
 
 /**
  * Result of a job execution.

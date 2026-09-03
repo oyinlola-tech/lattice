@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "oyinlola-tech/zudo"
+      "repo": "oyinlola-tech/zudolib"
     }
   ],
   "commit": false,

@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/internal
+ * @zudoliblib/lifecycle/internal
  *
  * Internal utilities: dependency graph, topological sort, async helpers.
  */

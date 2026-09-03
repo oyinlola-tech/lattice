@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Tracer
+ * @zudoliblib/observability — Tracer
  *
  * Creates spans and notifies processors on start/end.
  */

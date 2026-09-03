@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Observability
+ * @zudoliblib/observability — Observability
  *
  * Central facade for logging, metrics, tracing, and context propagation.
  */

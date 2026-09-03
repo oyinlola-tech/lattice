@@ -4,9 +4,9 @@ import {
   type ServerResponse,
   type Server,
 } from "node:http";
-import { createCommandBus } from "@zudolib/cqrs";
-import { createQueryBus } from "@zudolib/cqrs";
-import { createEventBus } from "@zudolib/events";
+import { createCommandBus } from "@zudoliblib/cqrs";
+import { createQueryBus } from "@zudoliblib/cqrs";
+import { createEventBus } from "@zudoliblib/events";
 import { createAppConfig } from "./config/app.config.js";
 import { createDatabaseConfig } from "./config/database.config.js";
 import { createSecurityConfig } from "./config/security.config.js";

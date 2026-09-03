@@ -616,7 +616,7 @@ import {
   HttpFormDataError as HTTPFormDataError,
   HttpFormDataLimitError as HTTPFormDataLimitError,
   HttpFormDataParseError as HTTPFormDataParseError,
-} from "@zudolib/errors";
+} from "@zudoliblib/errors";
 
 export { HTTPFormDataError, HTTPFormDataLimitError, HTTPFormDataParseError };
 

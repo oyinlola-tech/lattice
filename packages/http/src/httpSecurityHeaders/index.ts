@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpSecurityHeaders
+ * @zudoliblib/http/httpSecurityHeaders
  *
  * HTTP httpSecurityHeaders module.
  */

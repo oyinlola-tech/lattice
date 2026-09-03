@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/container",
+  "name": "@zudoliblib/container",
   "version": "0.1.4",
   "description": "Token-based dependency injection container for managing application dependencies and service lifetimes.",
   "type": "module",
@@ -20,7 +20,7 @@
     "clean": "tsc -p tsconfig.json --clean"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*"
+    "@zudoliblib/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2"
@@ -34,14 +34,14 @@
   },
   "module": "./dist/index.js",
   "keywords": [
-    "zudo",
+    "zudolib",
     "di",
     "dependency-injection",
     "container"
   ],
-  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudo"
+    "url": "https://github.com/oyinlola-tech/zudolib"
   }
 }

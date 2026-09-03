@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpMiddleware/pipeline
+ * @zudoliblib/http/httpMiddleware/pipeline
  *
  * HTTP middleware pipeline.
  */

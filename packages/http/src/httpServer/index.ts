@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpServer
+ * @zudoliblib/http/httpServer
  *
  * HTTP httpServer module.
  */

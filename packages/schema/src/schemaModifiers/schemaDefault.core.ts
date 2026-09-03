@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/modifiers/default
+ * @zudoliblib/schema/modifiers/default
  *
  * Default value schema — applies a default when input is undefined.
  */

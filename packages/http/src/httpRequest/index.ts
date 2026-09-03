@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRequest
+ * @zudoliblib/http/httpRequest
  *
  * HTTP request abstraction and context.
  */

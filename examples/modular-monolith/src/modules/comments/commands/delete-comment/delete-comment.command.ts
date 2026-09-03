@@ -1,4 +1,4 @@
-import { Command } from "@zudolib/cqrs";
+import { Command } from "@zudoliblib/cqrs";
 import type { CommentId, UserId } from "../../../../types/index.js";
 
 export class DeleteCommentCommand extends Command<"comments.delete"> {

@@ -1,17 +1,17 @@
-# @zudolib/tenancy
+# @zudoliblib/tenancy
 
 Multi-tenant context and isolation with tenant resolution, AsyncLocalStorage propagation, resolver chains, trust levels, and guard middleware.
 
 ## Installation
 
 ```bash
-npm install @zudolib/tenancy
+npm install @zudoliblib/tenancy
 ```
 
 ## Quick Start
 
 ```typescript
-import { createTenantContextManager } from "@zudolib/tenancy";
+import { createTenantContextManager } from "@zudoliblib/tenancy";
 
 const manager = createTenantContextManager({
   resolvers: [headerResolver, subdomainResolver, jwtResolver],

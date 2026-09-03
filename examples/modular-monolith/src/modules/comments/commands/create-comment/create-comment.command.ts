@@ -1,4 +1,4 @@
-import { Command } from "@zudolib/cqrs";
+import { Command } from "@zudoliblib/cqrs";
 import type { CreateCommentDto } from "../../../../dtos/index.js";
 
 export class CreateCommentCommand extends Command<"comments.create"> {

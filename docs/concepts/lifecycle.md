@@ -1,6 +1,6 @@
 # Lifecycle
 
-Every major Zudo component has a well-defined lifecycle.
+Every major Zudolib component has a well-defined lifecycle.
 
 ## States
 

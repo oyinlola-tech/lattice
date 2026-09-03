@@ -1,5 +1,5 @@
 /**
- * Dependency injection token definitions for Zudo.
+ * Dependency injection token definitions for Zudolib.
  * Tokens identify dependencies within the container.
  */
 

@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Prompts
+ * zudolib-cli — Prompts
  *
  * Interactive prompt utilities for the CLI.
  */
@@ -126,12 +126,12 @@ export async function promptCreateProject(
     (await askChoice(
       "Select frontend architecture",
       [
-        { value: "zudo-standard", label: "Zudo Standard" },
+        { value: "zudolib-standard", label: "Zudolib Standard" },
         { value: "feature-based", label: "Feature Based" },
         { value: "minimal", label: "Minimal" },
         { value: "framework-default", label: "Framework Default" },
       ],
-      "zudo-standard",
+      "zudolib-standard",
     ))) as CreateProjectPrompts["frontendArchitecture"];
 
   const language = (overrides?.language ??

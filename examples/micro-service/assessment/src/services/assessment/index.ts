@@ -1,4 +1,4 @@
-import type { EventBus } from "@zudolib/events";
+import type { EventBus } from "@zudoliblib/events";
 import type { AssessmentRepository } from "../../interfaces/index.js";
 import { CreateAssessmentHandler } from "./commands/create-assessment/create-assessment.handler.js";
 import { SubmitAssessmentHandler } from "./commands/submit-assessment/submit-assessment.handler.js";

@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Rollback System
+ * zudolib-cli — Rollback System
  *
  * Tracks generation operations and supports rollback on failure.
  */

@@ -1,5 +1,5 @@
 /**
- * ZudoLogger child and context methods.
+ * ZudolibLogger child and context methods.
  */
 
 import type { LoggerContext } from "../../../loggerContext/loggerContext.core.js";
@@ -12,13 +12,13 @@ import type { Logger } from "../../core/loggerCore.type.js";
 
 import { ContextLogger } from "../../core/loggerCore.context.js";
 
-import type { ZudoLoggerContext } from "../../core/loggerCore.core.js";
+import type { ZudolibLoggerContext } from "../../core/loggerCore.core.js";
 
 /**
  * Creates a child logger.
  */
 export function childLogger(
-  ctx: ZudoLoggerContext,
+  ctx: ZudolibLoggerContext,
   options: ChildLoggerOptions = {},
 ): Logger {
   ctx.assertActive();
@@ -32,7 +32,7 @@ export function childLogger(
  * Creates a logger with scoped context.
  */
 export function withContextLogger(
-  ctx: ZudoLoggerContext,
+  ctx: ZudolibLoggerContext,
   context: LoggerContext,
 ): Logger {
   ctx.assertActive();

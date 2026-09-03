@@ -16,7 +16,7 @@ export interface ExecutionMetadata {
 }
 
 /**
- * Represents one unit of execution inside a Zudo application.
+ * Represents one unit of execution inside a Zudolib application.
  *
  * An execution context can represent an HTTP request, background job,
  * queue message, RPC call, CLI command, or another execution source.

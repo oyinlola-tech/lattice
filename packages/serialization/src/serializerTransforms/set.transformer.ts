@@ -1,12 +1,12 @@
 /**
- * @zudolib/serialization — Set transformer.
+ * @zudoliblib/serialization — Set transformer.
  *
  * Preserves Set instances across serialization boundaries
  * using an array representation.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { SerializationTags } from "@zudolib/constants";
+import { SerializationTags } from "@zudoliblib/constants";
 
 const SET_TYPE = "Set" as const;
 

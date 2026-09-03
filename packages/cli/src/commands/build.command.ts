@@ -1,7 +1,7 @@
 /**
- * zudo-cli — Build Command
+ * zudolib-cli — Build Command
  *
- * The `zudo build` command for building Zudo projects.
+ * The `zudolib build` command for building Zudolib projects.
  */
 
 import { existsSync } from "node:fs";
@@ -15,7 +15,7 @@ export async function runBuildCommand(context: CLIContext): Promise<void> {
 
   if (!projectRoot) {
     context.logger.error(
-      "No Zudo project found. Run this command from a Zudo project directory.",
+      "No Zudolib project found. Run this command from a Zudolib project directory.",
     );
     return;
   }

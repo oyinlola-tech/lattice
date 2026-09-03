@@ -1,5 +1,5 @@
 /**
- * zudo-cli — CLI Commands
+ * zudolib-cli — CLI Commands
  *
  * Command registry, builder, factory, and validation utilities.
  */

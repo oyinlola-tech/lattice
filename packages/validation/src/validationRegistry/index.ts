@@ -1,5 +1,5 @@
 /**
- * @zudolib/validation/validationRegistry
+ * @zudoliblib/validation/validationRegistry
  *
  * Schema registration and lookup.
  */

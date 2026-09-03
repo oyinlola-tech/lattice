@@ -1,5 +1,5 @@
 /**
- * @zudolib/messaging/messageBus
+ * @zudoliblib/messaging/messageBus
  *
  * MessageBus interface and in-memory implementation.
  */

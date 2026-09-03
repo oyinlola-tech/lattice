@@ -1,7 +1,7 @@
 /**
- * @zudolib/container
+ * @zudoliblib/container
  *
- * Dependency injection container with token-based registration for the Zudo framework.
+ * Dependency injection container with token-based registration for the Zudolib framework.
  */
 
 export * from "./containerCore/index.js";

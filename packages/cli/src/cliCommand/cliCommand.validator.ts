@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Command Validator
+ * zudolib-cli — Command Validator
  *
  * Validation logic and utility functions for CLI commands.
  */

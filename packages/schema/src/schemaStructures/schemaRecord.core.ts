@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/structures/record
+ * @zudoliblib/schema/structures/record
  *
  * Record schema for objects with constrained keys and values.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue, childContext } from "../schemaBase/index.js";
-import { SchemaIssueCode, SCHEMA_FORBIDDEN_KEYS } from "@zudolib/constants";
+import { SchemaIssueCode, SCHEMA_FORBIDDEN_KEYS } from "@zudoliblib/constants";
 import { StringSchema } from "../schemaPrimitives/index.js";
 
 /**

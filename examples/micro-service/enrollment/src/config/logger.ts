@@ -1,5 +1,5 @@
-import { LoggerLevel } from "@zudolib/logger";
-import type { Logger } from "@zudolib/logger";
+import { LoggerLevel } from "@zudoliblib/logger";
+import type { Logger } from "@zudoliblib/logger";
 
 const LEVEL_MAP: Record<LoggerLevel, string> = {
   [LoggerLevel.FATAL]: "fatal",

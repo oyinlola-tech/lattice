@@ -1,5 +1,5 @@
 /**
- * Configuration options for the Zudo dependency injection container.
+ * Configuration options for the Zudolib dependency injection container.
  */
 
 import type { ContainerLifecycleOptions } from "../containerLifecycle/containerLifecycle.core.js";
@@ -48,7 +48,7 @@ export interface ResolvedContainerOptions {
   readonly metadata: Readonly<Record<string, unknown>>;
 }
 
-export const DEFAULT_CONTAINER_NAME = "zudo-container";
+export const DEFAULT_CONTAINER_NAME = "zudolib-container";
 export const DEFAULT_AUTO_DISPOSE = true;
 export const DEFAULT_ALLOW_SCOPES = true;
 export const DEFAULT_FREEZE_REGISTRATIONS = false;

@@ -1,5 +1,5 @@
 /**
- * @zudolib/logger/loggerEntry
+ * @zudoliblib/logger/loggerEntry
  *
  * Log entry structure and formatting.
  */

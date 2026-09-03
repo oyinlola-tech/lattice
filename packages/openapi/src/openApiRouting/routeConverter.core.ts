@@ -2,7 +2,7 @@ import type { OpenAPIOperation } from "../openApiTypes/openApiTypes.core.js";
 import type { RouteMetadata } from "./routeMetadata.type.js";
 
 /**
- * Converts a Zudo-style route path to an OpenAPI path template.
+ * Converts a Zudolib-style route path to an OpenAPI path template.
  *
  * Example:
  *   "/users/:id" -> "/users/{id}"
@@ -31,7 +31,7 @@ export function toOpenAPIPath(path: string): string {
 }
 
 /**
- * Maps Zudo HTTP methods to OpenAPI methods.
+ * Maps Zudolib HTTP methods to OpenAPI methods.
  */
 export const ZUDO_TO_OPENAPI_METHODS = [
   "get",

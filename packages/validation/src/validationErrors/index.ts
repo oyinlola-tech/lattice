@@ -1,5 +1,5 @@
 /**
- * @zudolib/validation/validationErrors
+ * @zudoliblib/validation/validationErrors
  *
  * Validation error types and formatting.
  */

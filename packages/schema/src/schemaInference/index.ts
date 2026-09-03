@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/inference
+ * @zudoliblib/schema/inference
  *
  * Type inference utilities for extracting types from schemas.
  */

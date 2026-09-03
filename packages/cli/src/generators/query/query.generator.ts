@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Query Generator
+ * zudolib-cli — Query Generator
  *
  * Generates a CQRS query with handler.
  */
@@ -27,7 +27,7 @@ export async function generateQuery(
   const servicePath = `${basePath}/${service}`;
 
   const files: Record<string, string> = {
-    [`${servicePath}/queries/${name}/${name}.query.ts`]: `import type { BaseQuery } from "@zudolib/cqrs";
+    [`${servicePath}/queries/${name}/${name}.query.ts`]: `import type { BaseQuery } from "@zudoliblib/cqrs";
 
 export interface ${nameCamel}QueryPayload {
   readonly [key: string]: unknown;
@@ -40,8 +40,8 @@ export class ${nameCamel}Query implements BaseQuery<${nameCamel}QueryPayload> {
 }
 `,
 
-    [`${servicePath}/queries/${name}/${name}.handler.ts`]: `import type { QueryHandler, QueryResult } from "@zudolib/cqrs";
-import { createLogger } from "@zudolib/logger";
+    [`${servicePath}/queries/${name}/${name}.handler.ts`]: `import type { QueryHandler, QueryResult } from "@zudoliblib/cqrs";
+import { createLogger } from "@zudoliblib/logger";
 import { ${nameCamel}Query } from "./${name}.query.js";
 
 export class ${nameCamel}QueryHandler implements QueryHandler<${nameCamel}Query> {

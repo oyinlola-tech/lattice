@@ -1,4 +1,4 @@
-import { Command } from "@zudolib/cqrs";
+import { Command } from "@zudoliblib/cqrs";
 import type { CreateNotificationDto } from "../../../../dtos/index.js";
 
 export class CreateNotificationCommand extends Command<"notifications.create"> {

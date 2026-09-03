@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/system/logging
+ * @zudoliblib/errors/system/logging
  *
  * Logging subsystem error types.
  */

@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Frontend Adapter Tests
+ * zudolib-cli — Frontend Adapter Tests
  *
  * Tests for frontend adapters.
  */
@@ -31,7 +31,7 @@ const mockContext = (
   },
   projectPath: "/tmp/test-app",
   language: "typescript",
-  architecture: "zudo-standard",
+  architecture: "zudolib-standard",
   features: {
     testing: true,
     linting: true,
@@ -217,9 +217,9 @@ describe("ReactNativeAdapter", () => {
     expect(version).toBeTruthy();
   });
 
-  it("applyZudoStructure does not throw", async () => {
+  it("applyZudolibStructure does not throw", async () => {
     await expect(
-      adapter.applyZudoStructure(mockContext()),
+      adapter.applyZudolibStructure(mockContext()),
     ).resolves.toBeUndefined();
   });
 });

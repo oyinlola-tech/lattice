@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpCookies
+ * @zudoliblib/http/httpCookies
  *
  * HTTP httpCookies module.
  */

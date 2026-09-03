@@ -1,5 +1,5 @@
 /**
- * @zudolib/cache — Constants
+ * @zudoliblib/cache — Constants
  *
  * Default values, limits, and magic numbers used across the cache package.
  */
@@ -25,7 +25,7 @@ export const MIN_TTL_MS = 1_000;
 export const DEFAULT_SEPARATOR = ":";
 
 /** Default key prefix. */
-export const DEFAULT_PREFIX = "zudo";
+export const DEFAULT_PREFIX = "zudolib";
 
 /** Maximum key length in characters. */
 export const MAX_KEY_LENGTH = 256;

@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Framework Scaffolders
+ * zudolib-cli — Framework Scaffolders
  *
  * Barrel exports for framework scaffolders.
  */

@@ -1,16 +1,16 @@
 {
-  "name": "@zudolib/example-micro-service",
+  "name": "@zudoliblib/example-micro-service",
   "version": "0.1.1",
   "private": true,
   "type": "module",
   "license": "MIT",
-  "description": "CampusFlow - University Learning & Assessment Platform demonstrating Zudo microservice architecture",
+  "description": "CampusFlow - University Learning & Assessment Platform demonstrating Zudolib microservice architecture",
   "scripts": {
-    "dev:gateway": "pnpm --filter @zudojs/campusflow-gateway dev",
-    "dev:identity": "pnpm --filter @zudojs/campusflow-identity dev",
-    "dev:enrollment": "pnpm --filter @zudojs/campusflow-enrollment dev",
-    "dev:assessment": "pnpm --filter @zudojs/campusflow-assessment dev",
-    "dev:notification": "pnpm --filter @zudojs/campusflow-notification dev",
+    "dev:gateway": "pnpm --filter @zudolibjs/campusflow-gateway dev",
+    "dev:identity": "pnpm --filter @zudolibjs/campusflow-identity dev",
+    "dev:enrollment": "pnpm --filter @zudolibjs/campusflow-enrollment dev",
+    "dev:assessment": "pnpm --filter @zudolibjs/campusflow-assessment dev",
+    "dev:notification": "pnpm --filter @zudolibjs/campusflow-notification dev",
     "dev": "concurrently \"pnpm dev:gateway\" \"pnpm dev:identity\" \"pnpm dev:enrollment\" \"pnpm dev:assessment\" \"pnpm dev:notification\"",
     "typecheck": "pnpm -r run typecheck",
     "build": "pnpm -r run build"

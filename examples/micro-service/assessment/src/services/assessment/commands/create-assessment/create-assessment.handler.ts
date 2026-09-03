@@ -1,5 +1,5 @@
-import { CommandHandler } from "@zudolib/cqrs";
-import type { CqrsContext } from "@zudolib/cqrs";
+import { CommandHandler } from "@zudoliblib/cqrs";
+import type { CqrsContext } from "@zudoliblib/cqrs";
 import { randomUUID } from "node:crypto";
 import { CreateAssessmentCommand } from "./create-assessment.command.js";
 import type { AssessmentRepository } from "../../../../interfaces/index.js";

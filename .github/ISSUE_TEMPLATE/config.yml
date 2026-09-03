@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Security Policy
-    url: https://github.com/oyinlola-tech/zudo/blob/main/SECURITY.md
+    url: https://github.com/oyinlola-tech/zudolib/blob/main/SECURITY.md
     about: Please report security vulnerabilities here.
   - name: Discussions
-    url: https://github.com/oyinlola-tech/zudo/discussions
+    url: https://github.com/oyinlola-tech/zudolib/discussions
     about: Ask questions and share ideas with the community.

@@ -1,7 +1,7 @@
-import { TimeMs } from "@zudolib/constants";
+import { TimeMs } from "@zudoliblib/constants";
 
 /**
- * Supported cryptographic algorithms used by Zudo.
+ * Supported cryptographic algorithms used by Zudolib.
  */
 export enum CryptoAlgorithm {
   AES_256_GCM = "aes-256-gcm",

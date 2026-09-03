@@ -1,5 +1,5 @@
 /**
- * MessageBus type definitions for Zudo.
+ * MessageBus type definitions for Zudolib.
  *
  * The bus is the primary API surface for sending messages.
  * It wraps the dispatcher with publish semantics.

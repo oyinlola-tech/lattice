@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/database",
+  "name": "@zudoliblib/database",
   "version": "0.1.3",
-  "description": "Database abstraction layer with clients, repositories, transactions, and query building for Zudo applications.",
+  "description": "Database abstraction layer with clients, repositories, transactions, and query building for Zudolib applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -39,7 +39,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
+    "@zudoliblib/errors": "workspace:*",
     "@prisma/client": "^7.10.0"
   },
   "devDependencies": {
@@ -52,15 +52,15 @@
     "access": "public"
   },
   "keywords": [
-    "zudo",
+    "zudolib",
     "database",
     "repository",
     "query",
     "transactions"
   ],
-  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudo"
+    "url": "https://github.com/oyinlola-tech/zudolib"
   }
 }

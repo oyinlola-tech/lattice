@@ -104,7 +104,7 @@ export interface RequestContextSnapshot {
 /* Constants                                                                  */
 /* -------------------------------------------------------------------------- */
 
-export const REQUEST_CONTEXT = Symbol.for("zudo.http.request-context");
+export const REQUEST_CONTEXT = Symbol.for("zudolib.http.request-context");
 
 export const REQUEST_ID_HEADER = "x-request-id";
 
@@ -570,7 +570,7 @@ export function isRequestContext(value: unknown): value is HttpRequestContext {
 
 export function getPathname(url: string): string {
   try {
-    const parsed = new URL(url, "http://zudo.invalid");
+    const parsed = new URL(url, "http://zudolib.invalid");
 
     return parsed.pathname || "/";
   } catch {
@@ -582,7 +582,7 @@ export function getPathname(url: string): string {
 
 export function getSearchParams(url: string): URLSearchParams {
   try {
-    return new URL(url, "http://zudo.invalid").searchParams;
+    return new URL(url, "http://zudolib.invalid").searchParams;
   } catch {
     const query = url.includes("?") ? url.slice(url.indexOf("?") + 1) : "";
 

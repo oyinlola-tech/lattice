@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Build Command Tests
+ * zudolib-cli — Build Command Tests
  *
  * Tests for the build command.
  */

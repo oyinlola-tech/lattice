@@ -1,5 +1,5 @@
 /**
- * Zudo HTTP server core.
+ * Zudolib HTTP server core.
  *
  * @module httpServer/core
  */
@@ -30,7 +30,7 @@ import {
   InvalidHttpServerStateError,
   HttpServerStartError,
   HttpServerStopError,
-} from "@zudolib/errors";
+} from "@zudoliblib/errors";
 
 import {
   withTimeout,
@@ -71,7 +71,7 @@ export class HttpServer {
       throw new TypeError("HttpServer requires a valid HTTP adapter.");
     }
 
-    this.name = options.name ?? "zudo-http";
+    this.name = options.name ?? "zudolib-http";
 
     this.adapter = options.adapter;
 

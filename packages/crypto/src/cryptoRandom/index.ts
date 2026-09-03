@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoRandom
+ * @zudoliblib/crypto/cryptoRandom
  *
  * Secure random number and byte generation.
  */

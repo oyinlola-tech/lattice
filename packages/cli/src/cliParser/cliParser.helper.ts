@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Parser Helpers
+ * zudolib-cli — Parser Helpers
  *
  * Utility functions for parsing CLI arguments, options, and values.
  */

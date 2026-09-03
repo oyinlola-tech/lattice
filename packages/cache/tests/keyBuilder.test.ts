@@ -1,5 +1,5 @@
 /**
- * @zudolib/cache — Key Builder Tests
+ * @zudoliblib/cache — Key Builder Tests
  *
  * Tests for DefaultKeyBuilder, key validation, namespace scoping,
  * and prefix/separator configuration.
@@ -36,7 +36,7 @@ describe("DefaultKeyBuilder", () => {
   it("builds a key with custom separator", () => {
     const builder = new DefaultKeyBuilder({ separator: "." });
     const key = builder.build("user:123");
-    expect(key).toBe(`zudo.user:123`);
+    expect(key).toBe(`zudolib.user:123`);
   });
 
   it("builds a key with no prefix", () => {
@@ -48,7 +48,7 @@ describe("DefaultKeyBuilder", () => {
   it("builds a key with namespace", () => {
     const builder = new DefaultKeyBuilder({ namespace: "auth" });
     const key = builder.build("token:abc");
-    expect(key).toBe("zudo:auth:token:abc");
+    expect(key).toBe("zudolib:auth:token:abc");
   });
 
   it("builds a key with prefix, namespace, and custom separator", () => {
@@ -64,13 +64,13 @@ describe("DefaultKeyBuilder", () => {
   it("overrides namespace per-build", () => {
     const builder = new DefaultKeyBuilder({ namespace: "auth" });
     const key = builder.build("token", { namespace: "users" });
-    expect(key).toBe("zudo:users:token");
+    expect(key).toBe("zudolib:users:token");
   });
 
   it("overrides separator per-build", () => {
     const builder = new DefaultKeyBuilder();
     const key = builder.build("key", { separator: "." });
-    expect(key).toBe("zudo.key");
+    expect(key).toBe("zudolib.key");
   });
 
   it("overrides prefix per-build", () => {
@@ -87,7 +87,7 @@ describe("DefaultKeyBuilder namespace", () => {
     const root = new DefaultKeyBuilder();
     const scoped = root.namespace("users");
     const key = scoped.build("profile");
-    expect(key).toBe("zudo:users:profile");
+    expect(key).toBe("zudolib:users:profile");
   });
 
   it("namespaced builder preserves prefix and separator", () => {
@@ -102,8 +102,8 @@ describe("DefaultKeyBuilder namespace", () => {
     const scoped = root.namespace("scope1");
     const rootKey = root.build("key");
     const scopedKey = scoped.build("key");
-    expect(rootKey).toBe("zudo:key");
-    expect(scopedKey).toBe("zudo:scope1:key");
+    expect(rootKey).toBe("zudolib:key");
+    expect(scopedKey).toBe("zudolib:scope1:key");
   });
 });
 
@@ -152,6 +152,6 @@ describe("createKeyBuilder", () => {
 describe("defaultKeyBuilder", () => {
   it("is a singleton", () => {
     expect(defaultKeyBuilder).toBeInstanceOf(DefaultKeyBuilder);
-    expect(defaultKeyBuilder.build("key")).toBe("zudo:key");
+    expect(defaultKeyBuilder.build("key")).toBe("zudolib:key");
   });
 });

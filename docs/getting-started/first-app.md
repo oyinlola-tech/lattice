@@ -1,11 +1,11 @@
-# Your First Zudo App
+# Your First Zudolib App
 
 ## Scaffold a Project
 
-Use the Zudo CLI to create a new project:
+Use the Zudolib CLI to create a new project:
 
 ```bash
-npx zudo create my-app
+npx zudolib create my-app
 cd my-app
 ```
 
@@ -27,15 +27,15 @@ my-app/
 │   └── main.ts
 ├── package.json
 ├── tsconfig.json
-└── zudo.config.ts
+└── zudolib.config.ts
 ```
 
 ## Add Features
 
 ```bash
-npx zudo add database
-npx zudo add events
-npx zudo add queue
+npx zudolib add database
+npx zudolib add events
+npx zudolib add queue
 ```
 
 ## Next Steps

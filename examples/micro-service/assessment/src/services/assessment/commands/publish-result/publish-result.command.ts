@@ -1,4 +1,4 @@
-import { Command } from "@zudolib/cqrs";
+import { Command } from "@zudoliblib/cqrs";
 import type { PublishResultDto } from "../../../../dtos/index.js";
 
 export const PUBLISH_RESULT_COMMAND = "result.publish" as const;

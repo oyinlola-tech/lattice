@@ -1,5 +1,5 @@
 /**
- * Event middleware builder functions for Zudo.
+ * Event middleware builder functions for Zudolib.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

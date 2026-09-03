@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — Rate Limit Namespace
+ * @zudoliblib/security — Rate Limit Namespace
  *
  * Convenience namespace for rate limiting utilities.
  */

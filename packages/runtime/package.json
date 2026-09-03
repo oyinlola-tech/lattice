@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/runtime",
+  "name": "@zudoliblib/runtime",
   "version": "0.1.4",
   "description": "Application lifecycle orchestrator with dependency ordering, rollback, signals, and readiness checks.",
   "type": "module",
@@ -31,13 +31,13 @@
     "vitest": "^4.1.11"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/container": "workspace:*",
-    "@zudolib/config": "workspace:*",
-    "@zudolib/logger": "workspace:*",
-    "@zudolib/events": "workspace:*",
-    "@zudolib/core": "workspace:*"
+    "@zudoliblib/errors": "workspace:*",
+    "@zudoliblib/constants": "workspace:*",
+    "@zudoliblib/container": "workspace:*",
+    "@zudoliblib/config": "workspace:*",
+    "@zudoliblib/logger": "workspace:*",
+    "@zudoliblib/events": "workspace:*",
+    "@zudoliblib/core": "workspace:*"
   },
   "license": "MIT",
   "publishConfig": {
@@ -48,14 +48,14 @@
   },
   "module": "./dist/index.js",
   "keywords": [
-    "zudo",
+    "zudolib",
     "runtime",
     "orchestrator",
     "services"
   ],
-  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudo"
+    "url": "https://github.com/oyinlola-tech/zudolib"
   }
 }

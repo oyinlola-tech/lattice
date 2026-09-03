@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Capability Resolver
+ * zudolib-cli — Capability Resolver
  *
  * Resolves capability dependencies and feature requirements.
  */

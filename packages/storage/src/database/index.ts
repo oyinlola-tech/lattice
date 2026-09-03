@@ -1,5 +1,5 @@
 /**
- * @zudolib/storage — Database Barrel
+ * @zudoliblib/storage — Database Barrel
  */
 
 export { ConnectionPool } from "./connectionPool.core.js";

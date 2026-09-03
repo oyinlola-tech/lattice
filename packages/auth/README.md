@@ -1,17 +1,17 @@
-# @zudolib/auth
+# @zudoliblib/auth
 
 Authentication primitives including JWT, sessions, password hashing, and RBAC delegation.
 
 ## Installation
 
 ```bash
-npm install @zudolib/auth
+npm install @zudoliblib/auth
 ```
 
 ## Quick Start
 
 ```typescript
-import { createJWTStrategy, createSessionStore } from "@zudolib/auth";
+import { createJWTStrategy, createSessionStore } from "@zudoliblib/auth";
 
 const strategy = createJWTStrategy({
   secret: process.env.JWT_SECRET,
@@ -26,7 +26,7 @@ const token = await strategy.sign({ sub: user.id, role: user.role });
 - JWT creation and verification
 - Session management with stores
 - Password hashing and verification
-- RBAC delegation to `@zudolib/permissions`
+- RBAC delegation to `@zudoliblib/permissions`
 - Token refresh and revocation
 
 ## Use Cases

@@ -1,5 +1,5 @@
 /**
- * @zudolib/messaging/messageMiddleware
+ * @zudoliblib/messaging/messageMiddleware
  *
  * Message middleware type definitions and pipeline execution.
  */

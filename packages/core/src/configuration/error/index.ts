@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/configuration/error
+ * @zudoliblib/core/configuration/error
  *
  * Configuration errors and redaction.
  */

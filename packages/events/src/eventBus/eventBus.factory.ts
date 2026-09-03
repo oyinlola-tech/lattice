@@ -1,5 +1,5 @@
 /**
- * Event bus factory functions for Zudo.
+ * Event bus factory functions for Zudolib.
  */
 
 import type { EventBusOptions } from "./eventBus.type.js";

@@ -71,7 +71,7 @@ export class VueAdapter implements FrontendAdapter {
     return deps;
   }
 
-  async applyZudoStructure(
+  async applyZudolibStructure(
     context: FrontendGenerationContext,
   ): Promise<void> {
     const structure = this.getStructure(context);
@@ -169,7 +169,7 @@ createApp(App).mount("#app");
 `,
       "src/App.vue": `<template>
   <div>
-    <h1>Hello from Zudo</h1>
+    <h1>Hello from Zudolib</h1>
   </div>
 </template>
 
@@ -195,10 +195,10 @@ createApp(App).mount("#app");
       return this.getMinimalStructure(srcDir);
     }
 
-    return this.getZudoStandardStructure(srcDir);
+    return this.getZudolibStandardStructure(srcDir);
   }
 
-  private getZudoStandardStructure(srcDir: string): Record<string, string> {
+  private getZudolibStandardStructure(srcDir: string): Record<string, string> {
     return {
       [`${srcDir}/components/.gitkeep`]: "",
       [`${srcDir}/composables/.gitkeep`]: "",

@@ -6,7 +6,7 @@
 
 import { DEFAULT_MAX_BODY_SIZE } from "./httpFetch.type.js";
 
-import { RequestBodyTooLargeError as FetchRequestBodyTooLargeError } from "@zudolib/errors";
+import { RequestBodyTooLargeError as FetchRequestBodyTooLargeError } from "@zudoliblib/errors";
 
 export { FetchRequestBodyTooLargeError };
 

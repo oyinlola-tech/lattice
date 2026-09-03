@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/testing
+ * @zudoliblib/adapters/testing
  *
  * Testing utilities for adapter implementations.
  */

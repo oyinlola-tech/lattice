@@ -1,5 +1,5 @@
 /**
- * @zudolib/runtime — Test Runtime Barrel
+ * @zudoliblib/runtime — Test Runtime Barrel
  */
 
 export {

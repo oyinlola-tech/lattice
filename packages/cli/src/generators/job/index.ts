@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Job Generator
+ * zudolib-cli — Job Generator
  */
 
 export { generateJob, type GenerateJobOptions } from "./job.generator.js";

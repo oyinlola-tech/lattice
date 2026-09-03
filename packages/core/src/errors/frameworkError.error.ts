@@ -1,12 +1,12 @@
 /**
- * Base error type for all Zudo framework errors.
+ * Base error type for all Zudolib framework errors.
  *
- * FrameworkError extends ApplicationError from @zudolib/errors
+ * FrameworkError extends ApplicationError from @zudoliblib/errors
  * to maintain backward compatibility while providing structured
  * error information for HTTP handlers, logging, and observability.
  */
 
-import { ApplicationError, type SerializedBaseError } from "@zudolib/errors";
+import { ApplicationError, type SerializedBaseError } from "@zudoliblib/errors";
 
 /**
  * Options accepted by FrameworkError.
@@ -30,9 +30,9 @@ export interface FrameworkErrorJSON {
 }
 
 /**
- * Base error class for all Zudo framework errors.
+ * Base error class for all Zudolib framework errors.
  *
- * FrameworkError extends ApplicationError from @zudolib/errors
+ * FrameworkError extends ApplicationError from @zudoliblib/errors
  * so all framework errors inherit BaseError properties (code,
  * category, severity, statusCode, metadata, serialization).
  */

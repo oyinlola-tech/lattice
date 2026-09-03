@@ -1,5 +1,5 @@
 /**
- * zudo-cli — DTO Generator
+ * zudolib-cli — DTO Generator
  */
 
 export { generateDto, type GenerateDtoOptions } from "./dto.generator.js";

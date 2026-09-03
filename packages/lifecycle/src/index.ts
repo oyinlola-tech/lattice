@@ -1,14 +1,14 @@
 /**
- * @zudolib/lifecycle
+ * @zudoliblib/lifecycle
  *
- * Application and component lifecycle orchestration for the Zudo framework.
+ * Application and component lifecycle orchestration for the Zudolib framework.
  *
  * Manages state machines, dependency ordering, graceful shutdown, rollback,
  * timeouts, retries, and process signals.
  *
  * @example
  * ```ts
- * import { createLifecycleManager } from "@zudolib/lifecycle";
+ * import { createLifecycleManager } from "@zudoliblib/lifecycle";
  *
  * const lifecycle = createLifecycleManager();
  *

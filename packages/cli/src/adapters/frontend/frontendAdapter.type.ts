@@ -17,7 +17,7 @@ export interface FrontendGenerationContext {
   readonly framework: string;
   readonly language: "typescript" | "javascript";
   readonly architecture:
-    "zudo-standard" | "feature-based" | "minimal" | "framework-default";
+    "zudolib-standard" | "feature-based" | "minimal" | "framework-default";
   readonly packageManager: "pnpm" | "npm" | "yarn" | "bun";
   readonly features: FrontendFeatures;
 }
@@ -76,9 +76,9 @@ export interface FrontendAdapter {
   ): readonly DependencyRequirement[];
 
   /**
-   * Applies Zudo architecture structure over the scaffolded project.
+   * Applies Zudolib architecture structure over the scaffolded project.
    */
-  applyZudoStructure(context: FrontendGenerationContext): Promise<void>;
+  applyZudolibStructure(context: FrontendGenerationContext): Promise<void>;
 
   /**
    * Generates integration files (API client, env files, etc.).

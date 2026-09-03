@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Constants
+ * zudolib-cli — Constants
  *
  * Constants used by the CLI scaffolding system.
  */

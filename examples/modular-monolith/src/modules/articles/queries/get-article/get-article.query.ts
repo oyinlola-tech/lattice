@@ -1,4 +1,4 @@
-import { Query } from "@zudolib/cqrs";
+import { Query } from "@zudoliblib/cqrs";
 import type { ArticleId } from "../../../../types/index.js";
 
 export class GetArticleQuery extends Query<"articles.get"> {

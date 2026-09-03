@@ -1,5 +1,5 @@
 /**
- * zudo-cli — SQLite Database Adapter
+ * zudolib-cli — SQLite Database Adapter
  */
 
 import type { DatabaseAdapter } from "./postgres.adapter.js";
@@ -13,7 +13,7 @@ export class SqliteAdapter implements DatabaseAdapter {
   }
 
   getDependencies(): readonly string[] {
-    return ["@zudolib/database"];
+    return ["@zudoliblib/database"];
   }
 
   getEnvironmentVariables(): Record<string, string> {

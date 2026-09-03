@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/node/nodeCryptoProvider/primitives
+ * @zudoliblib/crypto/node/nodeCryptoProvider/primitives
  *
  * Primitive crypto operations: hashing, encryption, signing, and random generation.
  */

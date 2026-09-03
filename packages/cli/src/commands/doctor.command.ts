@@ -1,7 +1,7 @@
 /**
- * zudo-cli — Doctor Command
+ * zudolib-cli — Doctor Command
  *
- * The `zudo doctor` command for project diagnostics.
+ * The `zudolib doctor` command for project diagnostics.
  */
 
 import { existsSync, readFileSync } from "node:fs";
@@ -23,11 +23,11 @@ export async function runDoctorCommand(context: CLIContext): Promise<void> {
   checks.push(checkNodeVersion());
   checks.push(checkPackageManager());
   checks.push(checkTypeScriptConfig());
-  checks.push(checkZudoConfig());
+  checks.push(checkZudolibConfig());
   checks.push(checkDependencies(context));
   checks.push(checkArchitectureViolations());
 
-  context.logger.info("Zudo Doctor - Project Diagnostics");
+  context.logger.info("Zudolib Doctor - Project Diagnostics");
   context.logger.info("");
 
   for (const check of checks) {
@@ -100,32 +100,32 @@ function checkTypeScriptConfig(): DoctorCheck {
   };
 }
 
-function checkZudoConfig(): DoctorCheck {
-  const hasPkgConfig = checkZudoInPackageJson();
+function checkZudolibConfig(): DoctorCheck {
+  const hasPkgConfig = checkZudolibInPackageJson();
   const hasConfig =
-    existsSync("zudo.config.ts") || existsSync("zudo.config.js");
+    existsSync("zudolib.config.ts") || existsSync("zudolib.config.js");
   const passed = hasPkgConfig || hasConfig;
 
-  let message = "No Zudo configuration found.";
+  let message = "No Zudolib configuration found.";
   if (passed) {
     message = hasPkgConfig
-      ? "Zudo config in package.json"
+      ? "Zudolib config in package.json"
       : hasConfig
-        ? "zudo.config.ts found"
-        : "Zudo config in package.json";
+        ? "zudolib.config.ts found"
+        : "Zudolib config in package.json";
   }
 
-  return { name: "Zudo configuration", passed, message };
+  return { name: "Zudolib configuration", passed, message };
 }
 
-function checkZudoInPackageJson(): boolean {
+function checkZudolibInPackageJson(): boolean {
   try {
     const pkgPath = join(process.cwd(), "package.json");
     if (!existsSync(pkgPath)) return false;
     const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
-      zudo?: unknown;
+      zudolib?: unknown;
     };
-    return typeof pkg.zudo === "object" && pkg.zudo !== null;
+    return typeof pkg.zudolib === "object" && pkg.zudolib !== null;
   } catch {
     return false;
   }
@@ -147,17 +147,17 @@ function checkDependencies(context: CLIContext): DoctorCheck {
       dependencies?: Record<string, string>;
     };
 
-    const zudoDeps = Object.keys(pkg.dependencies ?? {}).filter((d) =>
-      d.startsWith("@zudolib/"),
+    const zudolibDeps = Object.keys(pkg.dependencies ?? {}).filter((d) =>
+      d.startsWith("@zudoliblib/"),
     );
 
-    const passed = zudoDeps.length > 0;
+    const passed = zudolibDeps.length > 0;
     return {
-      name: "Zudo dependencies",
+      name: "Zudolib dependencies",
       passed,
       message: passed
-        ? `${zudoDeps.length} Zudo packages installed`
-        : "No Zudo packages found",
+        ? `${zudolibDeps.length} Zudolib packages installed`
+        : "No Zudolib packages found",
     };
   } catch {
     return {
@@ -176,11 +176,11 @@ function checkArchitectureViolations(): DoctorCheck {
     return {
       name: "Architecture",
       passed: true,
-      message: "No src/ directory (not a Zudo project?)",
+      message: "No src/ directory (not a Zudolib project?)",
     };
   }
 
-  const configPath = join(process.cwd(), "zudo.config.ts");
+  const configPath = join(process.cwd(), "zudolib.config.ts");
   let architecture = "monolith";
   if (existsSync(configPath)) {
     const configContent = readFileSync(configPath, "utf-8");
@@ -213,16 +213,16 @@ function checkArchitectureViolations(): DoctorCheck {
     try {
       const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
         dependencies?: Record<string, string>;
-        zudo?: { features?: string[] };
+        zudolib?: { features?: string[] };
       };
-      const features = pkg.zudo?.features ?? [];
+      const features = pkg.zudolib?.features ?? [];
       const deps = Object.keys(pkg.dependencies ?? {});
 
       for (const feature of features) {
-        const pkgName = `@zudolib/${feature}`;
+        const pkgName = `@zudoliblib/${feature}`;
         if (!deps.includes(pkgName)) {
           violations.push(
-            `Feature "${feature}" declared in package.json#zudo.features but ${pkgName} not in dependencies`,
+            `Feature "${feature}" declared in package.json#zudolib.features but ${pkgName} not in dependencies`,
           );
         }
       }

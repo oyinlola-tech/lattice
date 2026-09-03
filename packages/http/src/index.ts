@@ -1,5 +1,5 @@
 /**
- * @zudolib/http
+ * @zudoliblib/http
  *
  * HTTP primitives, request handling, routing, middleware, and server infrastructure.
  *

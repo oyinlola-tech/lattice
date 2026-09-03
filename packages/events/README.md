@@ -1,17 +1,17 @@
-# @zudolib/events
+# @zudoliblib/events
 
 Event-driven architecture with event bus, emitter, middleware, and registry for decoupled communication.
 
 ## Installation
 
 ```bash
-npm install @zudolib/events
+npm install @zudoliblib/events
 ```
 
 ## Quick Start
 
 ```typescript
-import { createEventBus } from "@zudolib/events";
+import { createEventBus } from "@zudoliblib/events";
 
 const bus = createEventBus();
 

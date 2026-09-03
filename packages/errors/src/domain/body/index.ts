@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/domain/body
+ * @zudoliblib/errors/domain/body
  *
  * HTTP body, form data, and multipart error types.
  */

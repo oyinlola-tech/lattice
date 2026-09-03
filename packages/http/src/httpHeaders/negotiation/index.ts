@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpHeaders/negotiation
+ * @zudoliblib/http/httpHeaders/negotiation
  *
  * HTTP headers negotiation utilities.
  */

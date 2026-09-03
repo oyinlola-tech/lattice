@@ -1,5 +1,5 @@
 /**
- * High-level categories used to classify errors across Zudo.
+ * High-level categories used to classify errors across Zudolib.
  *
  * Categories describe where an error originated or what subsystem
  * is primarily responsible for handling it.

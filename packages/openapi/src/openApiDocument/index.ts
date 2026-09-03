@@ -1,5 +1,5 @@
 /**
- * @zudolib/openapi/openApiDocument
+ * @zudoliblib/openapi/openApiDocument
  *
  * OpenAPI document builder.
  */

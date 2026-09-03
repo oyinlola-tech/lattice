@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Command Registry
+ * zudolib-cli — Command Registry
  *
  * Registry for managing CLI commands and their aliases.
  */

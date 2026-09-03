@@ -1,5 +1,5 @@
 /**
- * zudo-cli — CLI Parser Tests
+ * zudolib-cli — CLI Parser Tests
  *
  * Tests for CLIParser, long/short option parsing, and helper utilities.
  */

@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/observability",
+  "name": "@zudoliblib/observability",
   "version": "0.1.3",
-  "description": "Structured logging, metrics, tracing, context propagation, and exporters for Zudo applications.",
+  "description": "Structured logging, metrics, tracing, context propagation, and exporters for Zudolib applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,7 +24,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*"
+    "@zudoliblib/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "7.0.2",
@@ -38,15 +38,15 @@
     "access": "public"
   },
   "keywords": [
-    "zudo",
+    "zudolib",
     "observability",
     "metrics",
     "tracing",
     "logs"
   ],
-  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudo"
+    "url": "https://github.com/oyinlola-tech/zudolib"
   }
 }

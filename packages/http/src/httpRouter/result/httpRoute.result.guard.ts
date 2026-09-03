@@ -1,5 +1,5 @@
 /**
- * Zudo HTTP route result type guards.
+ * Zudolib HTTP route result type guards.
  */
 
 import { HttpRouteResult } from "./httpRoute.result.class.js";

@@ -1,5 +1,5 @@
 /**
- * zudo-cli — CLI Parser
+ * zudolib-cli — CLI Parser
  *
  * Parses CLI arguments into structured commands, options, and positional
  * arguments. Delegates option parsing to longOption and shortOption modules.

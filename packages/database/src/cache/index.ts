@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Database Cache
+ * @zudoliblib/database — Database Cache
  *
  * In-memory cache for database read results.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpCors
+ * @zudoliblib/http/httpCors
  *
  * HTTP httpCors module.
  */

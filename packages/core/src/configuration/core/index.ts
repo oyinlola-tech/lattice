@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/configuration/core
+ * @zudoliblib/core/configuration/core
  *
  * Core configuration types, keys, and source abstractions.
  */

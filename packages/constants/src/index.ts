@@ -1,13 +1,13 @@
 /**
- * @zudolib/constants
+ * @zudoliblib/constants
  *
- * Shared constants, enums, and type-safe literals for the Zudo framework.
+ * Shared constants, enums, and type-safe literals for the Zudolib framework.
  *
  * Provides HTTP methods/status/headers/content types, environment detection,
  * time durations and timeouts, branded domain identifiers, validation patterns
  * and limits, cache strategies, and priority levels.
  *
- * @module @zudolib/constants
+ * @module @zudoliblib/constants
  */
 
 export * from "./http/index.js";

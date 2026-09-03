@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/coerce
+ * @zudoliblib/schema/coerce
  *
  * Explicit coercion schemas — convert string/number inputs to the expected type.
  * Useful for HTTP query parameters and form data.
@@ -8,7 +8,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudolib/constants";
+import { SchemaIssueCode } from "@zudoliblib/constants";
 
 /**
  * Coerces input to a number before validating.

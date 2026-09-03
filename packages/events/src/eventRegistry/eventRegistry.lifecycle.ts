@@ -1,5 +1,5 @@
 /**
- * Event registry lifecycle methods for Zudo.
+ * Event registry lifecycle methods for Zudolib.
  */
 
 import type { EventType } from "../eventTypes/eventDefinition.type.js";

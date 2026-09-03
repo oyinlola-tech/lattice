@@ -1,5 +1,5 @@
 /**
- * Event registry registration methods for Zudo.
+ * Event registry registration methods for Zudolib.
  */
 
 import type {

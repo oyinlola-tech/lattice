@@ -1,10 +1,10 @@
 /**
- * Architecture boundary checker for Zudo.
+ * Architecture boundary checker for Zudolib.
  *
  * Validates:
  * 1. No package depends on a package from a higher tier.
  * 2. No circular dependencies exist.
- * 3. All @zudolib/* dependencies use exact versions (not wildcards).
+ * 3. All @zudoliblib/* dependencies use exact versions (not wildcards).
  *
  * Run with: node architect:check.js
  */
@@ -62,9 +62,9 @@ const TIERS = {
 // Convert package name to key used in TIERS
 function packageNameToKey(name) {
   return name
-    .replace(/^@oyinlola141\/zudo-/, "")
-    .replace(/^@zudo\//, "")
-    .replace(/^zudo-/, "")
+    .replace(/^@oyinlola141\/zudolib-/, "")
+    .replace(/^@zudolib\//, "")
+    .replace(/^zudolib-/, "")
     .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 }
 
@@ -100,7 +100,7 @@ function checkWildcardVersions(packages) {
     const allDeps = { ...pkg.dependencies, ...pkg.peerDependencies };
 
     for (const [depName, version] of Object.entries(allDeps)) {
-      if (depName.startsWith("@zudolib/") && version === "*") {
+      if (depName.startsWith("@zudoliblib/") && version === "*") {
         errors.push(
           `Wildcard version in ${pkg.name}: ${depName}: "${version}". Use exact version "0.1.0".`
         );
@@ -127,7 +127,7 @@ function checkTierViolations(packages) {
     const deps = Object.keys(pkg.dependencies);
 
     for (const depName of deps) {
-      if (!depName.startsWith("@zudolib/")) continue;
+      if (!depName.startsWith("@zudoliblib/")) continue;
 
       const depKey = packageNameToKey(depName);
       const depTier = TIERS[depKey];
@@ -157,7 +157,7 @@ function checkCircularDependencies(packages) {
 
   // Build adjacency list
   for (const pkg of packages) {
-    const deps = Object.keys(pkg.dependencies).filter((d) => d.startsWith("@zudolib/"));
+    const deps = Object.keys(pkg.dependencies).filter((d) => d.startsWith("@zudoliblib/"));
     graph.set(pkg.name, deps);
   }
 
@@ -190,7 +190,7 @@ function checkCircularDependencies(packages) {
 
 // Main
 function main() {
-  console.log("Running Zudo architecture boundary check...\n");
+  console.log("Running Zudolib architecture boundary check...\n");
 
   const packages = getPackages();
   console.log(`Found ${packages.length} packages.\n`);

@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Frontend Prompts
+ * zudolib-cli — Frontend Prompts
  *
  * Barrel exports for frontend prompts.
  */

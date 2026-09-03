@@ -1,5 +1,5 @@
 /**
- * @zudolib/config/configResolver/core
+ * @zudoliblib/config/configResolver/core
  *
  * Core resolver implementation, types, factory, and errors.
  */

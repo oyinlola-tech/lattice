@@ -1,17 +1,17 @@
-# @zudolib/queue
+# @zudoliblib/queue
 
 Background job and asynchronous task infrastructure with in-memory and adapter-based queue implementations.
 
 ## Installation
 
 ```bash
-npm install @zudolib/queue
+npm install @zudoliblib/queue
 ```
 
 ## Quick Start
 
 ```typescript
-import { createInMemoryQueue } from "@zudolib/queue";
+import { createInMemoryQueue } from "@zudoliblib/queue";
 
 const queue = createInMemoryQueue("emails", {
   concurrency: 5,

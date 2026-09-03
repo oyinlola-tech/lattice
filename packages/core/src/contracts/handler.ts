@@ -1,5 +1,5 @@
 /**
- * Represents a generic operation that can be executed by Zudo.
+ * Represents a generic operation that can be executed by Zudolib.
  *
  * A handler receives an input and produces an output.
  *

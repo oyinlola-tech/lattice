@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpStream — Buffer conversion, chunk size, and readable creation helpers.
+ * @zudoliblib/http/httpStream — Buffer conversion, chunk size, and readable creation helpers.
  */
 
 import { Readable } from "node:stream";

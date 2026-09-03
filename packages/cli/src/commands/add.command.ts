@@ -1,7 +1,7 @@
 /**
- * zudo-cli — Add Command
+ * zudolib-cli — Add Command
  *
- * The `zudo add` command for adding feature packages.
+ * The `zudolib add` command for adding feature packages.
  */
 
 import { join, dirname } from "node:path";
@@ -12,16 +12,16 @@ import { CLIValidationError, CLIGenerationError } from "../errors/index.js";
 import { ManifestManager } from "../manifest/manifestManager.core.js";
 
 const FEATURE_PACKAGES: Readonly<Record<string, readonly string[]>> = {
-  database: ["@zudolib/database"],
-  queue: ["@zudolib/queue"],
-  messaging: ["@zudolib/messaging"],
-  openapi: ["@zudolib/openapi"],
-  observability: ["@zudolib/observability"],
-  security: ["@zudolib/security"],
-  cache: ["@zudolib/cache"],
-  storage: ["@zudolib/storage"],
-  scheduler: ["@zudolib/queue"],
-  docs: ["@zudolib/docs"],
+  database: ["@zudoliblib/database"],
+  queue: ["@zudoliblib/queue"],
+  messaging: ["@zudoliblib/messaging"],
+  openapi: ["@zudoliblib/openapi"],
+  observability: ["@zudoliblib/observability"],
+  security: ["@zudoliblib/security"],
+  cache: ["@zudoliblib/cache"],
+  storage: ["@zudoliblib/storage"],
+  scheduler: ["@zudoliblib/queue"],
+  docs: ["@zudoliblib/docs"],
 };
 
 export async function runAddCommand(context: CLIContext): Promise<void> {
@@ -47,7 +47,7 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
   try {
     const { manager, rootPkg, isWorkspace } = detectPackageManager();
     const pkgPath = join(context.cwd, rootPkg);
-    const version = isWorkspace ? "workspace:*" : readZudoVersion();
+    const version = isWorkspace ? "workspace:*" : readZudolibVersion();
 
     if (!existsSync(pkgPath)) {
       throw new CLIGenerationError(`Could not find package.json at ${pkgPath}`);
@@ -56,22 +56,22 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
     const pkgContent = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
       dependencies?: Record<string, string>;
       devDependencies?: Record<string, string>;
-      zudo?: Record<string, unknown>;
+      zudolib?: Record<string, unknown>;
     };
 
     pkgContent.dependencies ??= {};
-    pkgContent.zudo ??= {
+    pkgContent.zudolib ??= {
       features: [],
     };
 
-    const zudoConfig = pkgContent.zudo as {
+    const zudolibConfig = pkgContent.zudolib as {
       features: string[];
     };
 
-    const features = new Set(zudoConfig.features);
+    const features = new Set(zudolibConfig.features);
     if (!features.has(feature)) {
       features.add(feature);
-      zudoConfig.features = [...features];
+      zudolibConfig.features = [...features];
     }
 
     for (const pkg of packages) {
@@ -84,7 +84,7 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
 
     context.logger.info(`Updated ${rootPkg} with new dependencies.`);
 
-    updateZudoConfig(context.cwd, feature);
+    updateZudolibConfig(context.cwd, feature);
 
     const manifest = new ManifestManager(context.cwd);
     const current = await manifest.read();
@@ -133,7 +133,7 @@ function detectPackageManager(): {
   return { manager: "npm", rootPkg: "package.json", isWorkspace: false };
 }
 
-function readZudoVersion(): string {
+function readZudolibVersion(): string {
   try {
     const rootPkg = join(process.cwd(), "package.json");
     if (existsSync(rootPkg)) {
@@ -148,8 +148,8 @@ function readZudoVersion(): string {
   return "latest";
 }
 
-function updateZudoConfig(cwd: string, feature: string): void {
-  const configPath = join(cwd, "zudo.config.ts");
+function updateZudolibConfig(cwd: string, feature: string): void {
+  const configPath = join(cwd, "zudolib.config.ts");
   if (!existsSync(configPath)) return;
 
   let content = readFileSync(configPath, "utf-8");

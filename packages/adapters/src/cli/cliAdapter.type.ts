@@ -1,7 +1,7 @@
 /**
- * @zudolib/adapters/cli
+ * @zudoliblib/adapters/cli
  *
- * CLI adapter contracts — bridges Zudo to command-line interfaces.
+ * CLI adapter contracts — bridges Zudolib to command-line interfaces.
  */
 
 import type { Adapter, AdapterCapabilities } from "../index.js";

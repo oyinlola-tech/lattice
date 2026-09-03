@@ -1,5 +1,5 @@
 /**
- * Event bus registration and subscription methods for Zudo.
+ * Event bus registration and subscription methods for Zudolib.
  */
 
 import type {

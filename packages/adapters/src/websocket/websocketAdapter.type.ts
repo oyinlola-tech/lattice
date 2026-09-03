@@ -1,7 +1,7 @@
 /**
- * @zudolib/adapters/websocket
+ * @zudoliblib/adapters/websocket
  *
- * WebSocket adapter contracts — bridges Zudo to WebSocket providers.
+ * WebSocket adapter contracts — bridges Zudolib to WebSocket providers.
  */
 
 import type {

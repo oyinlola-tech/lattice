@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Manifest Manager Tests
+ * zudolib-cli — Manifest Manager Tests
  *
  * Tests for ManifestManager.
  */
@@ -7,7 +7,7 @@
 import { describe, it, expect, vi } from "vitest";
 import {
   ManifestManager,
-  type ZudoManifest,
+  type ZudolibManifest,
 } from "../src/manifest/manifestManager.core.js";
 
 describe("ManifestManager", () => {

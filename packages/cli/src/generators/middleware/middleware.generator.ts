@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Middleware Generator
+ * zudolib-cli — Middleware Generator
  *
  * Generates middleware files.
  */

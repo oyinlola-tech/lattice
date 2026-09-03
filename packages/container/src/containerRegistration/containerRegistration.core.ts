@@ -1,5 +1,5 @@
 /**
- * Dependency registration definitions for Zudo.
+ * Dependency registration definitions for Zudolib.
  * A registration is the container's normalized description of a dependency.
  */
 

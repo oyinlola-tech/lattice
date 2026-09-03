@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/result
+ * @zudoliblib/schema/result
  *
  * Result constructors and type guards for schema outcomes.
  */

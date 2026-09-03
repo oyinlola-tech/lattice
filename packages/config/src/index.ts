@@ -1,7 +1,7 @@
 /**
- * @zudolib/config
+ * @zudoliblib/config
  *
- * Layered configuration with sources, resolvers, and schema validation for the Zudo framework.
+ * Layered configuration with sources, resolvers, and schema validation for the Zudolib framework.
  */
 
 export * from "./configSchema/index.js";

@@ -1,12 +1,12 @@
 /**
- * @zudolib/serialization — BigInt transformer.
+ * @zudoliblib/serialization — BigInt transformer.
  *
  * Preserves BigInt values across serialization boundaries
  * using string representation.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { SerializationTags } from "@zudolib/constants";
+import { SerializationTags } from "@zudoliblib/constants";
 
 const BIGINT_TYPE = "BigInt" as const;
 

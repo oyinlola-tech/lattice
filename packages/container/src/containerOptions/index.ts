@@ -1,5 +1,5 @@
 /**
- * @zudolib/container/containerOptions
+ * @zudoliblib/container/containerOptions
  *
  * Container configuration options and types.
  */

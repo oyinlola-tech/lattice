@@ -1,5 +1,5 @@
 /**
- * @zudolib/cache — Memory Adapter
+ * @zudoliblib/cache — Memory Adapter
  * In-memory cache adapter using a Map. Suitable for development, testing, and single-process deployments.
  */
 

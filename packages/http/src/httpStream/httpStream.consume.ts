@@ -1,8 +1,8 @@
 /**
- * @zudolib/http/httpStream — Consume a readable stream via chunk callback.
+ * @zudoliblib/http/httpStream — Consume a readable stream via chunk callback.
  */
 
-import { HttpStreamError as StreamError } from "@zudolib/errors";
+import { HttpStreamError as StreamError } from "@zudoliblib/errors";
 
 import type { HTTPStreamOptions } from "./httpStream.types.js";
 

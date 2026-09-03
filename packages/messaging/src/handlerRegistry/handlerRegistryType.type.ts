@@ -1,5 +1,5 @@
 /**
- * HandlerRegistry type definitions for Zudo.
+ * HandlerRegistry type definitions for Zudolib.
  *
  * The registry manages message handler registration and resolution.
  * It supports both single-handler (commands/queries) and multi-handler

@@ -1,22 +1,22 @@
-# @zudolib/http
+# @zudoliblib/http
 
-HTTP primitives, request handling, routing, middleware, and server infrastructure for Zudo applications.
+HTTP primitives, request handling, routing, middleware, and server infrastructure for Zudolib applications.
 
 ## Installation
 
 ```bash
-npm install @zudolib/http
+npm install @zudoliblib/http
 ```
 
 ## Quick Start
 
 ```typescript
-import { createHTTPServer } from "@zudolib/http";
+import { createHTTPServer } from "@zudoliblib/http";
 
 const server = createHTTPServer({
   handler: {
     async fetch(request) {
-      return new Response("Hello from Zudo");
+      return new Response("Hello from Zudolib");
     },
   },
 });

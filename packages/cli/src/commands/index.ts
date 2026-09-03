@@ -1,7 +1,7 @@
 /**
- * zudo-cli — Commands
+ * zudolib-cli — Commands
  *
- * Built-in commands for the Zudo CLI.
+ * Built-in commands for the Zudolib CLI.
  */
 
 export { runCreateCommand } from "./create.command.js";

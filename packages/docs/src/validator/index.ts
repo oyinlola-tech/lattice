@@ -1,5 +1,5 @@
 /**
- * @zudolib/docs/validator
+ * @zudoliblib/docs/validator
  *
  * Document validation for IDs, links, metadata, and navigation.
  */

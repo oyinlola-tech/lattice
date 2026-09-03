@@ -1,11 +1,11 @@
 /**
- * HTTP middleware adapter for @zudolib/tenancy.
+ * HTTP middleware adapter for @zudoliblib/tenancy.
  *
  * Provides middleware factories that resolve and enforce tenant context.
  *
  * @module http/tenancyMiddleware
  *
- * Requires @zudolib/http as a peer dependency.
+ * Requires @zudoliblib/http as a peer dependency.
  */
 
 import type { TenantId } from "../tenancyTypes/tenantIdentity.js";

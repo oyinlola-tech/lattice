@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/primitives/boolean
+ * @zudoliblib/schema/primitives/boolean
  *
  * Boolean schema with optional coercion.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudolib/constants";
+import { SchemaIssueCode } from "@zudoliblib/constants";
 
 /** Configuration for boolean schema. */
 interface BooleanSchemaConfig {

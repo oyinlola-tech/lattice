@@ -1,10 +1,10 @@
 /**
- * @zudolib/lifecycle/manager/shutdown
+ * @zudoliblib/lifecycle/manager/shutdown
  *
  * Shutdown orchestration — stops and disposes components in reverse order.
  */
 
-import { LifecyclePhase, LifecycleState } from "@zudolib/constants";
+import { LifecyclePhase, LifecycleState } from "@zudoliblib/constants";
 import { buildExecutionPlan } from "../lifecyclePlan/lifecyclePlan.core.js";
 import { createLifecycleContext } from "../lifecycleContext/lifecycleContext.type.js";
 import type { LifecycleManagerContext } from "./lifecycleManager.context.js";

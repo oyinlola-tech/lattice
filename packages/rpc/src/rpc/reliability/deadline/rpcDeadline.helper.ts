@@ -1,5 +1,5 @@
 /**
- * @zudolib/rpc/reliability/deadline
+ * @zudoliblib/rpc/reliability/deadline
  *
  * Deadline utilities for RPC operations.
  */

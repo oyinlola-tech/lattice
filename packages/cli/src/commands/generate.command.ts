@@ -1,8 +1,8 @@
 /**
- * zudo-cli — Generate Command
+ * zudolib-cli — Generate Command
  *
- * The `zudo generate` (alias: `g`) command.
- * Reads zudo.config.ts to determine project architecture.
+ * The `zudolib generate` (alias: `g`) command.
+ * Reads zudolib.config.ts to determine project architecture.
  */
 
 import { existsSync, readFileSync } from "node:fs";
@@ -73,10 +73,10 @@ function getBasePath(
   }
 }
 
-function readZudoArchitecture(cwd: string): string | null {
-  const configPath = join(cwd, "zudo.config.ts");
+function readZudolibArchitecture(cwd: string): string | null {
+  const configPath = join(cwd, "zudolib.config.ts");
   if (!existsSync(configPath)) {
-    const configPathJs = join(cwd, "zudo.config.js");
+    const configPathJs = join(cwd, "zudolib.config.js");
     if (!existsSync(configPathJs)) return null;
     const content = readFileSync(configPathJs, "utf-8");
     const match = content.match(/architecture:\s*["'](\w[\w-]*)["']/);
@@ -108,20 +108,20 @@ export async function runGenerateCommand(context: CLIContext): Promise<void> {
   }
 
   const cwd = context.cwd;
-  const architecture = readZudoArchitecture(cwd);
+  const architecture = readZudolibArchitecture(cwd);
   const manifest = await new ManifestManager(cwd).read();
 
   if (architecture) {
     context.logger.info(`Detected architecture: ${architecture}`);
   } else {
     context.logger.warn(
-      "No zudo.config.ts found. Run `zudo create` first to scaffold a Zudo project.",
+      "No zudolib.config.ts found. Run `zudolib create` first to scaffold a Zudolib project.",
     );
   }
 
   if (architecture === "microservice" && schematic === "service") {
     context.logger.warn(
-      'In microservice architecture, prefer "zudo generate module" — services are top-level apps.',
+      'In microservice architecture, prefer "zudolib generate module" — services are top-level apps.',
     );
   }
 

@@ -1,12 +1,12 @@
 /**
- * @zudolib/storage — In-Memory Lock Manager
+ * @zudoliblib/storage — In-Memory Lock Manager
  *
  * Provides distributed-style locking for single-process scenarios.
  * For multi-process/multi-node, replace with Redis/Database-backed lock.
  */
 
 import { randomBytes } from "node:crypto";
-import { StorageError } from "@zudolib/errors";
+import { StorageError } from "@zudoliblib/errors";
 import type { Lock, LockManager, LockOptions } from "../types/storage.type.js";
 
 /** Default lock options. */

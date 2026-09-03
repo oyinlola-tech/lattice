@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/state
+ * @zudoliblib/lifecycle/state
  *
  * Lifecycle state machine for tracking and validating state transitions.
  */

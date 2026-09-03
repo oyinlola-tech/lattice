@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a reproducible problem in Zudo
+description: Report a reproducible problem in Zudolib
 title: "[Bug]: "
 labels:
   - bug
@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting a bug in Zudo.
+        Thanks for reporting a bug in Zudolib.
 
         Please provide enough information for us to reproduce and investigate
         the issue. Before submitting, check whether a similar issue already
@@ -17,24 +17,24 @@ body:
     id: package
     attributes:
       label: Affected Package
-      description: Which Zudo package is affected?
+      description: Which Zudolib package is affected?
       options:
-        - "@zudolib/core"
-        - "@zudolib/config"
-        - "@zudolib/container"
-        - "@zudolib/logger"
-        - "@zudolib/errors"
-        - "@zudolib/validation"
-        - "@zudolib/cqrs"
-        - "@zudolib/events"
-        - "@zudolib/database"
-        - "@zudolib/http"
-        - "@zudolib/runtime"
-        - "@zudolib/messaging"
-        - "@zudolib/queue"
-        - "@zudolib/storage"
-        - "@zudolib/security"
-        - "@zudolib/observability"
+        - "@zudoliblib/core"
+        - "@zudoliblib/config"
+        - "@zudoliblib/container"
+        - "@zudoliblib/logger"
+        - "@zudoliblib/errors"
+        - "@zudoliblib/validation"
+        - "@zudoliblib/cqrs"
+        - "@zudoliblib/events"
+        - "@zudoliblib/database"
+        - "@zudoliblib/http"
+        - "@zudoliblib/runtime"
+        - "@zudoliblib/messaging"
+        - "@zudoliblib/queue"
+        - "@zudoliblib/storage"
+        - "@zudoliblib/security"
+        - "@zudoliblib/observability"
         - Other
     validations:
       required: true
@@ -42,8 +42,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: Zudo Version
-      description: Which version of Zudo are you using?
+      label: Zudolib Version
+      description: Which version of Zudolib are you using?
       placeholder: "e.g. 0.1.0"
     validations:
       required: true

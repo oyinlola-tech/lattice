@@ -1,7 +1,7 @@
 /**
  * Worker Example — Entry Point
  *
- * A background worker application built with Zudo.
+ * A background worker application built with Zudolib.
  *
  * This example demonstrates:
  * - Background job processing with queues
@@ -13,7 +13,7 @@
 
 import { loadConfig } from "./config/config.js";
 import { WorkerModule } from "./app/worker.module.js";
-import { BackoffType } from "@zudolib/queue";
+import { BackoffType } from "@zudoliblib/queue";
 
 const config = loadConfig();
 
@@ -38,8 +38,8 @@ async function bootstrap(): Promise<void> {
   // Queue email jobs
   await emailQueue.add("send-email", {
     to: "user@example.com",
-    subject: "Welcome to Zudo",
-    body: "Hello! Welcome to the Zudo framework.",
+    subject: "Welcome to Zudolib",
+    body: "Hello! Welcome to the Zudolib framework.",
   });
 
   await emailQueue.add("send-email", {

@@ -1,5 +1,5 @@
 /**
- * @zudolib/events/eventErrors
+ * @zudoliblib/events/eventErrors
  *
  * Event system error types.
  */

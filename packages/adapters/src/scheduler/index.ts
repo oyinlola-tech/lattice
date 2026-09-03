@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/scheduler
+ * @zudoliblib/adapters/scheduler
  *
  * Scheduler adapter contracts.
  */

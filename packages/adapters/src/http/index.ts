@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/http
+ * @zudoliblib/adapters/http
  *
  * HTTP adapter contracts.
  */

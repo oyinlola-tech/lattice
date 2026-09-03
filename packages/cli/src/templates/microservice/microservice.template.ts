@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Microservice Template
+ * zudolib-cli — Microservice Template
  *
  * Generated structure:
  * ```
@@ -18,7 +18,7 @@
  * ├── package.json
  * ├── pnpm-workspace.yaml
  * ├── docker-compose.yml
- * ├── zudo.config.ts
+ * ├── zudolib.config.ts
  * └── README.md
  * ```
  */
@@ -45,7 +45,7 @@ export function generateMicroserviceFiles(
         name: nameSlug,
         version: "0.1.0",
         private: true,
-        description: `Microservice architecture built with Zudo framework`,
+        description: `Microservice architecture built with Zudolib framework`,
         scripts: {
           dev: "pnpm -r run dev",
           build: "pnpm -r run build",
@@ -65,7 +65,7 @@ export function generateMicroserviceFiles(
   - services/*
 `;
 
-  files["zudo.config.ts"] = `import { defineConfig } from "@zudolib/config";
+  files["zudolib.config.ts"] = `import { defineConfig } from "@zudoliblib/config";
 
 export default defineConfig({
   application: {
@@ -134,7 +134,7 @@ dist/
 
   files["README.md"] = `# ${options.projectName}
 
-A microservice architecture built with the Zudo framework.
+A microservice architecture built with the Zudolib framework.
 
 ## Services
 
@@ -162,12 +162,12 @@ MIT
   files["src/types/index.ts"] = ``;
 
   // Gateway service
-  const gatewayDeps = ["@zudolib/http", "@zudolib/config", "@zudolib/logger"];
+  const gatewayDeps = ["@zudoliblib/http", "@zudoliblib/config", "@zudoliblib/logger"];
 
   files["apps/gateway/package.json"] =
     JSON.stringify(
       {
-        name: "@zudojs/gateway",
+        name: "@zudolibjs/gateway",
         version: "0.1.0",
         private: true,
         type: "module",
@@ -226,7 +226,7 @@ CMD ["node", "dist/server.js"]
     `export { createGateway } from "./app.js";
 `;
 
-  files["apps/gateway/src/app.ts"] = `import { logger } from "@zudolib/logger";
+  files["apps/gateway/src/app.ts"] = `import { logger } from "@zudoliblib/logger";
 
 export async function createGateway() {
   const log = logger.child({ service: "gateway" });
@@ -245,7 +245,7 @@ export async function createGateway() {
 
   files["apps/gateway/src/server.ts"] =
     `import { createGateway } from "./app.js";
-import { createRuntime } from "@zudolib/runtime";
+import { createRuntime } from "@zudoliblib/runtime";
 
 const app = await createGateway();
 
@@ -266,17 +266,17 @@ process.on("SIGTERM", async () => {
 
   // Generate each service
   const serviceDeps = [
-    "@zudolib/core",
-    "@zudolib/container",
-    "@zudolib/config",
-    "@zudolib/logger",
-    "@zudolib/errors",
-    "@zudolib/constants",
-    "@zudolib/http",
+    "@zudoliblib/core",
+    "@zudoliblib/container",
+    "@zudoliblib/config",
+    "@zudoliblib/logger",
+    "@zudoliblib/errors",
+    "@zudoliblib/constants",
+    "@zudoliblib/http",
   ];
 
   if (options.enableCQRS) {
-    serviceDeps.push("@zudolib/cqrs", "@zudolib/events");
+    serviceDeps.push("@zudoliblib/cqrs", "@zudoliblib/events");
   }
 
   for (const svc of services) {
@@ -287,7 +287,7 @@ process.on("SIGTERM", async () => {
     files[`apps/services/${svcName}/package.json`] =
       JSON.stringify(
         {
-          name: `@zudojs/${nameSlug}-${svcName}`,
+          name: `@zudolibjs/${nameSlug}-${svcName}`,
           version: "0.1.0",
           private: true,
           type: "module",
@@ -371,8 +371,8 @@ CMD ["node", "dist/server.js"]
 `;
 
     files[`apps/services/${svcName}/src/app.ts`] =
-      `import { logger } from "@zudolib/logger";
-import { createContainer } from "@zudolib/container";
+      `import { logger } from "@zudoliblib/logger";
+import { createContainer } from "@zudoliblib/container";
 
 export async function createApp() {
   const log = logger.child({ service: "${svcName}" });
@@ -394,7 +394,7 @@ export async function createApp() {
 
     files[`apps/services/${svcName}/src/server.ts`] =
       `import { createApp } from "./app.js";
-import { createRuntime } from "@zudolib/runtime";
+import { createRuntime } from "@zudoliblib/runtime";
 
 const app = await createApp();
 

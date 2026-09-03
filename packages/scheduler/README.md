@@ -1,17 +1,17 @@
-# @zudolib/scheduler
+# @zudoliblib/scheduler
 
 Scheduled task and job infrastructure with cron-like scheduling, persistence, and worker management.
 
 ## Installation
 
 ```bash
-npm install @zudolib/scheduler
+npm install @zudoliblib/scheduler
 ```
 
 ## Quick Start
 
 ```typescript
-import { createScheduler } from "@zudolib/scheduler";
+import { createScheduler } from "@zudoliblib/scheduler";
 
 const scheduler = createScheduler();
 

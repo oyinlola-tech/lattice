@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Integration Generator
+ * zudolib-cli — Integration Generator
  *
  * Generates integration files between frontend and backend (API client, CORS, env files, proxy).
  */

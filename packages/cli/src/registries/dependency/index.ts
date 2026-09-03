@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Dependency Registries
+ * zudolib-cli — Dependency Registries
  *
  * Registries for dependency management.
  */

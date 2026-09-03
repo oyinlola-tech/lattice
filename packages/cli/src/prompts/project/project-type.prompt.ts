@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Project Type Prompt
+ * zudolib-cli — Project Type Prompt
  *
  * Prompts for the project type.
  */

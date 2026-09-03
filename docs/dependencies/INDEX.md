@@ -1,6 +1,6 @@
-# Zudo Package Dependencies
+# Zudolib Package Dependencies
 
-> This document defines the dependency rules for the Zudo framework.
+> This document defines the dependency rules for the Zudolib framework.
 > It is the single source of truth for allowed cross-package imports.
 > All contributors must follow these rules.
 
@@ -10,7 +10,7 @@
 
 ### 1.1 Dependencies Flow Inward
 
-Foundation packages have no `@zudolib/*` dependencies.
+Foundation packages have no `@zudoliblib/*` dependencies.
 Higher-level packages may depend on lower-level packages.
 No package may depend on a package in a higher tier.
 
@@ -33,18 +33,18 @@ Foundation → Runtime Primitives → Application Architecture → Infrastructur
 
 ## 2. Package Tiers
 
-### Tier 0 — Leaf (no @zudo dependencies)
+### Tier 0 — Leaf (no @zudolib dependencies)
 
 These packages depend on nothing except Node.js built-ins and external libraries.
 
 | Package           | Purpose                                                                 |
 | ----------------- | ----------------------------------------------------------------------- |
-| `@zudolib/errors` | Shared error base class, error codes, error categories, error utilities |
-| `@zudolib/types`  | Type guards, utility types, converters, branded types                   |
+| `@zudoliblib/errors` | Shared error base class, error codes, error categories, error utilities |
+| `@zudoliblib/types`  | Type guards, utility types, converters, branded types                   |
 
 **Rules:**
 
-- Must not import from any other `@zudolib/*` package.
+- Must not import from any other `@zudoliblib/*` package.
 - External dependencies only.
 - These are the foundation of the entire framework.
 
@@ -56,32 +56,32 @@ Depends only on Tier 0.
 
 | Package                  | Depends On                              | Purpose                                               |
 | ------------------------ | --------------------------------------- | ----------------------------------------------------- |
-| `@zudolib/constants`     | errors                                  | Branded IDs, enums, serialization constants           |
-| `@zudolib/container`     | errors                                  | DI container with token-based registration            |
-| `@zudolib/logger`        | errors                                  | Structured logging with transports                    |
-| `@zudolib/crypto`        | errors                                  | Hashing, encryption, tokens                           |
-| `@zudolib/validation`    | errors                                  | Schema validation with Zod                            |
-| `@zudolib/schema`        | errors, constants, types                | Schema definition, parsing, type inference            |
-| `@zudolib/config`        | errors                                  | Layered configuration with sources                    |
-| `@zudolib/middleware`    | errors                                  | Composable middleware pipeline                        |
-| `@zudolib/serialization` | errors, constants, types, validation    | JSON serializer, type transformers, envelopes         |
-| `@zudolib/events`        | errors, constants                       | Event bus, emitter, middleware, registry              |
-| `@zudolib/messaging`     | errors, constants                       | In-process message bus                                |
-| `@zudolib/lifecycle`     | errors, constants                       | State machine, dependency ordering, graceful shutdown |
-| `@zudolib/transactions`  | errors                                  | Transaction lifecycle, AsyncLocalStorage context      |
-| `@zudolib/permissions`   | errors, constants                       | RBAC, ABAC, resource authorization                    |
-| `@zudolib/feature-flags` | errors                                  | Feature flag evaluation, rule engine                  |
-| `@zudolib/plugins`       | errors, constants, types                | Plugin registration, lifecycle, orchestration         |
-| `@zudolib/security`      | errors, constants                       | Input validation, CORS, CSRF, rate limiting           |
-| `@zudolib/tenancy`       | errors, constants                       | Multi-tenant context and isolation                    |
-| `@zudolib/docs`          | errors                                  | Documentation infrastructure                          |
-| `@zudolib/cache`         | errors, types, serialization            | Cache abstraction with memory adapter                 |
-| `@zudolib/storage`       | errors, constants, types, serialization | Database, object storage, repository abstractions     |
-| `@zudolib/adapters`      | errors, constants, types, lifecycle     | Adapter contracts, registry, transport abstractions   |
-| `@zudolib/queue`         | errors, constants, serialization        | Background job and async task infrastructure          |
-| `@zudolib/scheduler`     | errors, constants, types                | Job scheduling, cron, triggers                        |
-| `@zudolib/database`      | errors                                  | Database clients, repositories, transactions          |
-| `@zudolib/observability` | errors                                  | Structured logging, metrics, tracing, exporters       |
+| `@zudoliblib/constants`     | errors                                  | Branded IDs, enums, serialization constants           |
+| `@zudoliblib/container`     | errors                                  | DI container with token-based registration            |
+| `@zudoliblib/logger`        | errors                                  | Structured logging with transports                    |
+| `@zudoliblib/crypto`        | errors                                  | Hashing, encryption, tokens                           |
+| `@zudoliblib/validation`    | errors                                  | Schema validation with Zod                            |
+| `@zudoliblib/schema`        | errors, constants, types                | Schema definition, parsing, type inference            |
+| `@zudoliblib/config`        | errors                                  | Layered configuration with sources                    |
+| `@zudoliblib/middleware`    | errors                                  | Composable middleware pipeline                        |
+| `@zudoliblib/serialization` | errors, constants, types, validation    | JSON serializer, type transformers, envelopes         |
+| `@zudoliblib/events`        | errors, constants                       | Event bus, emitter, middleware, registry              |
+| `@zudoliblib/messaging`     | errors, constants                       | In-process message bus                                |
+| `@zudoliblib/lifecycle`     | errors, constants                       | State machine, dependency ordering, graceful shutdown |
+| `@zudoliblib/transactions`  | errors                                  | Transaction lifecycle, AsyncLocalStorage context      |
+| `@zudoliblib/permissions`   | errors, constants                       | RBAC, ABAC, resource authorization                    |
+| `@zudoliblib/feature-flags` | errors                                  | Feature flag evaluation, rule engine                  |
+| `@zudoliblib/plugins`       | errors, constants, types                | Plugin registration, lifecycle, orchestration         |
+| `@zudoliblib/security`      | errors, constants                       | Input validation, CORS, CSRF, rate limiting           |
+| `@zudoliblib/tenancy`       | errors, constants                       | Multi-tenant context and isolation                    |
+| `@zudoliblib/docs`          | errors                                  | Documentation infrastructure                          |
+| `@zudoliblib/cache`         | errors, types, serialization            | Cache abstraction with memory adapter                 |
+| `@zudoliblib/storage`       | errors, constants, types, serialization | Database, object storage, repository abstractions     |
+| `@zudoliblib/adapters`      | errors, constants, types, lifecycle     | Adapter contracts, registry, transport abstractions   |
+| `@zudoliblib/queue`         | errors, constants, serialization        | Background job and async task infrastructure          |
+| `@zudoliblib/scheduler`     | errors, constants, types                | Job scheduling, cron, triggers                        |
+| `@zudoliblib/database`      | errors                                  | Database clients, repositories, transactions          |
+| `@zudoliblib/observability` | errors                                  | Structured logging, metrics, tracing, exporters       |
 
 **Rules:**
 
@@ -97,20 +97,20 @@ Depends on Tier 0 + Tier 1.
 
 | Package            | Depends On                                                 | Purpose                              |
 | ------------------ | ---------------------------------------------------------- | ------------------------------------ |
-| `@zudolib/core`    | errors, constants, messaging                               | Lifecycle, context, runtime, modules |
-| `@zudolib/cqrs`    | errors, events, messaging                                  | Commands, queries, handlers          |
-| `@zudolib/auth`    | errors, constants, permissions                             | JWT, sessions, password hashing      |
-| `@zudolib/runtime` | errors, constants, container, config, logger, events, core | Application lifecycle orchestrator   |
-| `@zudolib/openapi` | errors, constants, schema                                  | OpenAPI document generation          |
-| `@zudolib/rpc`     | errors, constants, types, schema                           | RPC primitives                       |
-| `@zudolib/api`     | errors, constants, types, schema                           | API abstraction layer                |
+| `@zudoliblib/core`    | errors, constants, messaging                               | Lifecycle, context, runtime, modules |
+| `@zudoliblib/cqrs`    | errors, events, messaging                                  | Commands, queries, handlers          |
+| `@zudoliblib/auth`    | errors, constants, permissions                             | JWT, sessions, password hashing      |
+| `@zudoliblib/runtime` | errors, constants, container, config, logger, events, core | Application lifecycle orchestrator   |
+| `@zudoliblib/openapi` | errors, constants, schema                                  | OpenAPI document generation          |
+| `@zudoliblib/rpc`     | errors, constants, types, schema                           | RPC primitives                       |
+| `@zudoliblib/api`     | errors, constants, types, schema                           | API abstraction layer                |
 
 **Rules:**
 
 - May import from Tier 0 and Tier 1 only.
 - Must not import from Tier 3+ packages.
 - Must not import from transport packages (`http`, `rpc`, `api`, `openapi`) unless explicitly documented.
-- Must not import from `@zudolib/testing` or `@zudolib/cli`.
+- Must not import from `@zudoliblib/testing` or `@zudoliblib/cli`.
 
 ---
 
@@ -120,8 +120,8 @@ Depends on Tier 0 + Tier 1 + Tier 2.
 
 | Package         | Depends On                     | Purpose                                    |
 | --------------- | ------------------------------ | ------------------------------------------ |
-| `@zudolib/http` | core, errors, logger, security | HTTP request handling, routing, middleware |
-| `@zudolib/cli`  | config, core, errors, logger   | Command-line interface                     |
+| `@zudoliblib/http` | core, errors, logger, security | HTTP request handling, routing, middleware |
+| `@zudoliblib/cli`  | config, core, errors, logger   | Command-line interface                     |
 
 **Rules:**
 
@@ -138,14 +138,14 @@ Depends on any tier.
 
 | Package            | Depends On | Purpose                       |
 | ------------------ | ---------- | ----------------------------- |
-| `@zudolib/testing` | many       | Test helpers, fixtures, mocks |
-| `@zudolib/docs`    | errors     | Documentation generation      |
+| `@zudoliblib/testing` | many       | Test helpers, fixtures, mocks |
+| `@zudoliblib/docs`    | errors     | Documentation generation      |
 
 **Rules:**
 
 - May import from any package.
 - Must not be imported by production runtime packages (testing only).
-- `@zudolib/testing` must not be listed as a dependency in any production package.
+- `@zudoliblib/testing` must not be listed as a dependency in any production package.
 
 ---
 
@@ -179,9 +179,9 @@ These patterns must **never** occur:
 
 | Pattern                  | Reason                                           |
 | ------------------------ | ------------------------------------------------ |
-| `errors → @zudolib/*`    | Leaf package must stay leaf                      |
-| `constants → @zudolib/*` | Leaf package must stay leaf                      |
-| `types → @zudolib/*`     | Leaf package must stay leaf                      |
+| `errors → @zudoliblib/*`    | Leaf package must stay leaf                      |
+| `constants → @zudoliblib/*` | Leaf package must stay leaf                      |
+| `types → @zudoliblib/*`     | Leaf package must stay leaf                      |
 | `core → http`            | Core must not know about transport               |
 | `core → rpc`             | Core must not know about transport               |
 | `cqrs → http`            | CQRS must not know about transport               |
@@ -208,8 +208,8 @@ Current peer dependencies:
 
 | Package                | Peer            | Tier | Purpose                         |
 | ---------------------- | --------------- | ---- | ------------------------------- |
-| `@zudolib/permissions` | `@zudolib/http` | 3    | HTTP-specific permission guards |
-| `@zudolib/tenancy`     | `@zudolib/http` | 3    | HTTP-specific tenant resolution |
+| `@zudoliblib/permissions` | `@zudoliblib/http` | 3    | HTTP-specific permission guards |
+| `@zudoliblib/tenancy`     | `@zudoliblib/http` | 3    | HTTP-specific tenant resolution |
 
 **Rules:**
 
@@ -223,11 +223,11 @@ Current peer dependencies:
 
 ### 6.1 External Dependencies
 
-External dependencies (non-`@zudolib/*`) should use caret ranges (`^`) for SemVer-compatible libraries.
+External dependencies (non-`@zudoliblib/*`) should use caret ranges (`^`) for SemVer-compatible libraries.
 
 ### 6.2 Internal Dependencies
 
-Internal `@zudolib/*` dependencies must use exact versions (`0.1.0`), not wildcards (`*`) or ranges.
+Internal `@zudoliblib/*` dependencies must use exact versions (`0.1.0`), not wildcards (`*`) or ranges.
 
 This ensures:
 
@@ -237,7 +237,7 @@ This ensures:
 
 ### 6.3 Future Versioning
 
-When Zudo reaches `1.0.0`:
+When Zudolib reaches `1.0.0`:
 
 - Internal dependencies should use caret ranges (`^1.0.0`).
 - Breaking changes require coordinated version bumps across affected packages.
@@ -271,12 +271,12 @@ Example:
 
 ```
 Before (circular):
-  @zudolib/http → @zudolib/permissions → @zudolib/http
+  @zudoliblib/http → @zudoliblib/permissions → @zudoliblib/http
 
 After (resolved):
-  @zudolib/permissions-core (Tier 1) — shared authorization logic
-  @zudolib/permissions (Tier 1) — imports permissions-core
-  @zudolib/http (Tier 3) — imports permissions
+  @zudoliblib/permissions-core (Tier 1) — shared authorization logic
+  @zudoliblib/permissions (Tier 1) — imports permissions-core
+  @zudoliblib/http (Tier 3) — imports permissions
 ```
 
 ### 7.4 Prevention
@@ -306,9 +306,9 @@ Bad:
 Peer dependencies flow upward but are optional.
 
 ```
-  @zudolib/permissions (Tier 1)
+  @zudoliblib/permissions (Tier 1)
       ↑ (peer, optional)
-  @zudolib/http (Tier 3)
+  @zudoliblib/http (Tier 3)
 ```
 
 This is allowed because:
@@ -319,13 +319,13 @@ This is allowed because:
 
 ### 8.3 Exception: Developer Experience
 
-`@zudolib/testing` may import from any package.
+`@zudoliblib/testing` may import from any package.
 
 ```
-  @zudolib/testing (Tier 4)
-      → @zudolib/http
-      → @zudolib/database
-      → @zudolib/events
+  @zudoliblib/testing (Tier 4)
+      → @zudoliblib/http
+      → @zudoliblib/database
+      → @zudoliblib/events
       → ...
 ```
 
@@ -342,7 +342,7 @@ This is allowed because:
 
 The following automated checks enforce these rules:
 
-1. **Wildcard version check** — ensures all `@zudolib/*` dependencies use exact versions.
+1. **Wildcard version check** — ensures all `@zudoliblib/*` dependencies use exact versions.
 2. **Tier violation check** — ensures no package depends on a higher-tier package.
 3. **Circular dependency check** — ensures no circular dependencies exist.
 
@@ -373,12 +373,12 @@ Reviewers must verify:
 
 ## 10. Adding a New Package
 
-When adding a new package to Zudo:
+When adding a new package to Zudolib:
 
 ### 10.1 Determine the Tier
 
 1. What does the package do?
-2. What existing `@zudolib/*` packages does it need to import?
+2. What existing `@zudoliblib/*` packages does it need to import?
 3. What is the highest tier of those dependencies?
 4. The new package belongs in that tier or higher.
 
@@ -391,7 +391,7 @@ When adding a new package to Zudo:
 
 ### 10.3 Implement the Package
 
-1. Create `packages/<name>/package.json` with exact `@zudolib/*` versions.
+1. Create `packages/<name>/package.json` with exact `@zudoliblib/*` versions.
 2. Implement the package following `PACKAGE_RULES.md`.
 3. Write tests.
 4. Run `npm run architect:check` to verify compliance.
@@ -437,6 +437,6 @@ When changing a package's dependencies:
 | Action             | Command                                        |
 | ------------------ | ---------------------------------------------- |
 | Check architecture | `npm run architect:check`                      |
-| Check types        | `npm run typecheck --workspace=@zudolib/<pkg>` |
-| Run tests          | `npm run test --workspace=@zudolib/<pkg>`      |
-| Build package      | `npm run build --workspace=@zudolib/<pkg>`     |
+| Check types        | `npm run typecheck --workspace=@zudoliblib/<pkg>` |
+| Run tests          | `npm run test --workspace=@zudoliblib/<pkg>`      |
+| Build package      | `npm run build --workspace=@zudoliblib/<pkg>`     |

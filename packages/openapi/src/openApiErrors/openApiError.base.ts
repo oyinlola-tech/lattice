@@ -7,7 +7,7 @@ import {
   ErrorCode,
   ErrorCategory,
   ErrorSeverity,
-} from "@zudolib/errors";
+} from "@zudoliblib/errors";
 
 /** Options for creating an OpenAPI error. */
 export interface OpenAPIErrorOptions {
@@ -29,7 +29,7 @@ export class OpenAPIError extends BaseError {
       expose: options.expose ?? false,
       cause: options.cause,
       metadata: options.metadata as
-        import("@zudolib/errors").ErrorMetadata | undefined,
+        import("@zudoliblib/errors").ErrorMetadata | undefined,
     });
     this.name = "OpenAPIError";
   }

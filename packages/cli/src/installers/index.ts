@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Installers
+ * zudolib-cli — Installers
  *
  * Dependency installation utilities.
  */

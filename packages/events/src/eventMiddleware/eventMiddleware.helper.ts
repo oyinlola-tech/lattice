@@ -1,5 +1,5 @@
 /**
- * Event middleware core helpers for Zudo.
+ * Event middleware core helpers for Zudolib.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

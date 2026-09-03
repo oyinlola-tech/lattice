@@ -1,5 +1,5 @@
 name: Feature Request
-description: Suggest an idea or improvement for Zudo
+description: Suggest an idea or improvement for Zudolib
 title: "[Feature]: "
 labels:
   - enhancement
@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for suggesting an improvement to Zudo.
+        Thanks for suggesting an improvement to Zudolib.
 
         Before submitting, please check whether a similar feature request or
         discussion already exists.
@@ -20,24 +20,24 @@ body:
     id: package
     attributes:
       label: Related Package
-      description: Which Zudo package would this feature affect?
+      description: Which Zudolib package would this feature affect?
       options:
-        - "@zudolib/core"
-        - "@zudolib/config"
-        - "@zudolib/container"
-        - "@zudolib/logger"
-        - "@zudolib/errors"
-        - "@zudolib/validation"
-        - "@zudolib/cqrs"
-        - "@zudolib/events"
-        - "@zudolib/database"
-        - "@zudolib/http"
-        - "@zudolib/runtime"
-        - "@zudolib/messaging"
-        - "@zudolib/queue"
-        - "@zudolib/storage"
-        - "@zudolib/security"
-        - "@zudolib/observability"
+        - "@zudoliblib/core"
+        - "@zudoliblib/config"
+        - "@zudoliblib/container"
+        - "@zudoliblib/logger"
+        - "@zudoliblib/errors"
+        - "@zudoliblib/validation"
+        - "@zudoliblib/cqrs"
+        - "@zudoliblib/events"
+        - "@zudoliblib/database"
+        - "@zudoliblib/http"
+        - "@zudoliblib/runtime"
+        - "@zudoliblib/messaging"
+        - "@zudoliblib/queue"
+        - "@zudoliblib/storage"
+        - "@zudoliblib/security"
+        - "@zudoliblib/observability"
         - Multiple packages
         - New package
         - Not sure

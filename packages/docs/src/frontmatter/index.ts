@@ -1,5 +1,5 @@
 /**
- * @zudolib/docs/frontmatter
+ * @zudoliblib/docs/frontmatter
  *
  * YAML frontmatter parsing and serialization for markdown documentation.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/validation/validationResult
+ * @zudoliblib/validation/validationResult
  *
  * Validation result types and helpers.
  */

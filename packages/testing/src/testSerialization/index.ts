@@ -1,5 +1,5 @@
 /**
- * @zudolib/testing — Serialization testing helpers.
+ * @zudoliblib/testing — Serialization testing helpers.
  *
  * Assertions for testing serialization round-trips and type preservation.
  */

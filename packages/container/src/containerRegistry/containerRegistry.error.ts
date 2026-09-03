@@ -1,7 +1,7 @@
 /**
- * @zudolib/container/containerRegistry/containerRegistry.error
+ * @zudoliblib/container/containerRegistry/containerRegistry.error
  *
- * Error classes re-exported from @zudolib/errors.
+ * Error classes re-exported from @zudoliblib/errors.
  * This file retains the token description helper used by the registry.
  */
 

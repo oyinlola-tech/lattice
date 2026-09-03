@@ -1,7 +1,7 @@
 /**
  * Basic API Example — Entry Point
  *
- * A minimal REST API built with Zudo.
+ * A minimal REST API built with Zudolib.
  *
  * This example demonstrates:
  * - Module system with lifecycle hooks

@@ -1,5 +1,5 @@
 /**
- * Zudo HTTP route result factory functions.
+ * Zudolib HTTP route result factory functions.
  */
 
 import { HttpRouteResult } from "./httpRoute.result.class.js";

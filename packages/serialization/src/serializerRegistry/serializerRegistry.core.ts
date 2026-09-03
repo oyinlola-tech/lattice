@@ -1,12 +1,12 @@
 /**
- * @zudolib/serialization — Serializer registry.
+ * @zudoliblib/serialization — Serializer registry.
  *
  * Central registry for named serializer instances. Other packages
  * look up serializers by name instead of importing concrete classes.
  */
 
 import type { Serializer } from "../serializerTypes/index.js";
-import { SerializerNotFoundError } from "@zudolib/errors";
+import { SerializerNotFoundError } from "@zudoliblib/errors";
 
 /**
  * Registry of serializer instances keyed by canonical name.

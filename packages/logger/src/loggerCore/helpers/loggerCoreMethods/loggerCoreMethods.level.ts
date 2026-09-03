@@ -1,5 +1,5 @@
 /**
- * ZudoLogger level methods.
+ * ZudolibLogger level methods.
  */
 
 import {
@@ -15,13 +15,13 @@ import { createEntry } from "./loggerCoreMethods.entry.js";
 
 import { dispatchEntry } from "./loggerCoreMethods.dispatch.js";
 
-import type { ZudoLoggerContext } from "../../core/loggerCore.core.js";
+import type { ZudolibLoggerContext } from "../../core/loggerCore.core.js";
 
 /**
- * Level logging methods extracted from ZudoLogger.
+ * Level logging methods extracted from ZudolibLogger.
  */
 export function logAtLevel(
-  ctx: ZudoLoggerContext,
+  ctx: ZudolibLoggerContext,
   level: LoggerLevel,
   message: string,
   options: LogOptions = {},

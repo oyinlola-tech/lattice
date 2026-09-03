@@ -1,5 +1,5 @@
 /**
- * Event payload primitives for Zudo.
+ * Event payload primitives for Zudolib.
  *
  * Payloads contain the application data carried by an event.
  * This module provides type-safe payload contracts and helpers

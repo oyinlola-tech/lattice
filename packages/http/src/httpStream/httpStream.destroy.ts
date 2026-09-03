@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpStream — Stream destruction helper.
+ * @zudoliblib/http/httpStream — Stream destruction helper.
  */
 
 import { Readable, Writable } from "node:stream";

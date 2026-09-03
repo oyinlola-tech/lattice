@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoSignature
+ * @zudoliblib/crypto/cryptoSignature
  *
  * Digital signature creation and verification.
  */

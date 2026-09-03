@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoProvider/types
+ * @zudoliblib/crypto/cryptoProvider/types
  *
  * Type definitions for crypto provider capabilities,
  * algorithms, and operation options.

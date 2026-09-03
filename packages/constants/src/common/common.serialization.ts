@@ -1,5 +1,5 @@
 /**
- * Serialization-specific constants shared across the Zudo framework.
+ * Serialization-specific constants shared across the Zudolib framework.
  *
  * @module common/common.serialization
  */

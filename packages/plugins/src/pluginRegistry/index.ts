@@ -1,5 +1,5 @@
 /**
- * @zudolib/plugins/pluginRegistry
+ * @zudoliblib/plugins/pluginRegistry
  *
  * Plugin registry for storing and retrieving registered plugins.
  */

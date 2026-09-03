@@ -1,7 +1,7 @@
 /**
- * @zudolib/rpc/types
+ * @zudoliblib/rpc/types
  *
- * Core types for the Zudo RPC package.
+ * Core types for the Zudolib RPC package.
  */
 
 export type { RPCProcedureName } from "./rpcProcedureName.type.js";

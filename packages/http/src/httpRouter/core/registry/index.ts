@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRouter/core/registry
+ * @zudoliblib/http/httpRouter/core/registry
  *
  * HTTP route registry.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpKeepAlive
+ * @zudoliblib/http/httpKeepAlive
  *
  * HTTP httpKeepAlive module.
  */

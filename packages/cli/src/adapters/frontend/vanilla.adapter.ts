@@ -61,7 +61,7 @@ export class VanillaAdapter implements FrontendAdapter {
     return deps;
   }
 
-  async applyZudoStructure(
+  async applyZudolibStructure(
     context: FrontendGenerationContext,
   ): Promise<void> {
     const structure = this.getStructure(context);
@@ -114,7 +114,7 @@ app.mount("#app");
     mount(selector) {
       const root = document.querySelector(selector);
       if (root) {
-        root.innerHTML = "<h1>Hello from Zudo</h1>";
+        root.innerHTML = "<h1>Hello from Zudolib</h1>";
       }
     },
   };

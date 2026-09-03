@@ -1,5 +1,5 @@
 /**
- * Event emitter type definitions for Zudo.
+ * Event emitter type definitions for Zudolib.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

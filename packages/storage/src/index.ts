@@ -1,14 +1,14 @@
 /**
- * @zudolib/storage
+ * @zudoliblib/storage
  *
- * Storage infrastructure for the Zudo framework.
+ * Storage infrastructure for the Zudolib framework.
  *
  * Provides database, object storage, repository, serialization, locking,
  * and lifecycle abstractions with driver-independent interfaces.
  *
  * @example
  * ```ts
- * import { Database, ConnectionPool, BaseRepository } from '@zudolib/storage';
+ * import { Database, ConnectionPool, BaseRepository } from '@zudoliblib/storage';
  *
  * // Use database abstraction
  * const result = await database.query({ text: 'SELECT * FROM users' });

@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Package Manager Runner
+ * zudolib-cli — Package Manager Runner
  *
  * Runner for package manager operations (install, add, remove, run).
  */

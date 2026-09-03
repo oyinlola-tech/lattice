@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Relations
+ * @zudoliblib/database — Relations
  *
  * Entity relation definitions and registry.
  */

@@ -1,4 +1,4 @@
-import { CommandHandler } from "@zudolib/cqrs";
+import { CommandHandler } from "@zudoliblib/cqrs";
 import type { UpdateCommentCommand } from "./update-comment.command.js";
 import type { CommentRepository } from "../../../../repositories/comment.repository.js";
 import { NotFoundError, ForbiddenError } from "../../../../errors/index.js";

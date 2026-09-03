@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRouter/core/match
+ * @zudoliblib/http/httpRouter/core/match
  *
  * HTTP route matching utilities.
  */

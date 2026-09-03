@@ -3,7 +3,7 @@ import {
   type IncomingMessage,
   type ServerResponse,
 } from "node:http";
-import { createLogger } from "@zudolib/logger";
+import { createLogger } from "@zudoliblib/logger";
 import { createGatewayConfig } from "./config/index.js";
 import { findRoute } from "./loaders/index.js";
 import { requestIdMiddleware } from "./middlewares/request-id.middleware.js";

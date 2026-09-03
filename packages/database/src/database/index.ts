@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Database Facade
+ * @zudoliblib/database — Database Facade
  *
  * High-level database lifecycle entry point.
  */

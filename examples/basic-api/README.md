@@ -1,6 +1,6 @@
 # Basic API Example
 
-A minimal REST API built with Zudo.
+A minimal REST API built with Zudolib.
 
 ## Features
 
@@ -48,7 +48,7 @@ npm install
 npm run dev
 
 # Or from the repository root
-npm run dev --workspace=@zudolib/example-basic-api
+npm run dev --workspace=@zudoliblib/example-basic-api
 ```
 
 The server starts at `http://localhost:3000`.
@@ -130,7 +130,7 @@ Environment variables (see `.env.example`):
 
 ## Architecture
 
-This example demonstrates the Zudo module system:
+This example demonstrates the Zudolib module system:
 
 ```
 AppModule
@@ -145,7 +145,7 @@ AppModule
 
 Each module:
 
-- Extends `BaseModule` from `@zudolib/core`
+- Extends `BaseModule` from `@zudoliblib/core`
 - Implements lifecycle hooks (`onInitialize`, `onShutdown`)
 - Encapsulates its own controllers and services
 - Manages its own dependencies

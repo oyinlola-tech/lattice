@@ -2,7 +2,7 @@ import { createNodeCryptoProvider } from "../../node/index.js";
 
 import { encode } from "../../cryptoEncoding/cryptoEncoding.core.js";
 
-import { cryptoHashError } from "@zudolib/errors";
+import { cryptoHashError } from "@zudoliblib/errors";
 
 const provider = createNodeCryptoProvider();
 

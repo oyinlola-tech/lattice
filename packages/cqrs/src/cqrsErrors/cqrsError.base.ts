@@ -4,7 +4,7 @@ import {
   ErrorCode,
   ErrorSeverity,
   type ErrorMetadata,
-} from "@zudolib/errors";
+} from "@zudoliblib/errors";
 
 /**
  * Base error for failures originating from the CQRS package.

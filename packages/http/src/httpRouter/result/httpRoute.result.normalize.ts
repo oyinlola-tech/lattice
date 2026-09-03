@@ -1,5 +1,5 @@
 /**
- * Zudo HTTP route result normalization.
+ * Zudolib HTTP route result normalization.
  */
 
 import { HttpRouteResult } from "./httpRoute.result.class.js";

@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Task Runner
+ * zudolib-cli — Task Runner
  *
  * Runner for executing development tasks (dev servers, builds, tests).
  */

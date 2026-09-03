@@ -1,5 +1,5 @@
 /**
- * @zudolib/cache — Metrics
+ * @zudoliblib/cache — Metrics
  * Tracks cache operation metrics including hit/miss ratios, latency histograms, and error counts.
  */
 

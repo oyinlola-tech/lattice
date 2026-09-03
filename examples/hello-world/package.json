@@ -2,7 +2,7 @@
   "name": "examples-hello-world",
   "version": "0.1.1",
   "private": true,
-  "description": "Minimal Zudo HTTP server example",
+  "description": "Minimal Zudolib HTTP server example",
   "type": "module",
   "main": "./dist/index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "dev": "tsx src/index.ts"
   },
   "dependencies": {
-    "@zudolib/logger": "workspace:*"
+    "@zudoliblib/logger": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

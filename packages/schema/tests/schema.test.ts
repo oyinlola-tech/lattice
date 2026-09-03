@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema tests
+ * @zudoliblib/schema tests
  *
  * Comprehensive tests for the schema definition and parsing engine.
  */

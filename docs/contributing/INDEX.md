@@ -1,6 +1,6 @@
-# Contributing to Zudo
+# Contributing to Zudolib
 
-> Thank you for your interest in contributing to Zudo.
+> Thank you for your interest in contributing to Zudolib.
 > This document explains how to set up the project, follow our conventions, and submit changes.
 
 ---
@@ -25,8 +25,8 @@
 ### 2.2 Clone the Repository
 
 ```bash
-git clone https://github.com/zudo-framework/zudo.git
-cd zudo
+git clone https://github.com/zudolib-framework/zudolib.git
+cd zudolib
 ```
 
 ### 2.3 Install Dependencies
@@ -50,8 +50,8 @@ All checks must pass before starting work.
 ## 3. Project Structure
 
 ```
-zudo/
-├── packages/           # All @zudolib/* packages
+zudolib/
+├── packages/           # All @zudoliblib/* packages
 │   ├── errors/
 │   ├── types/
 │   ├── constants/
@@ -138,7 +138,7 @@ Branch naming:
    ```bash
    npm run typecheck
    npm run architect:check
-   npm run test --workspace=@zudolib/<package-name>
+   npm run test --workspace=@zudoliblib/<package-name>
    ```
 
 ### 5.4 Commit
@@ -191,7 +191,7 @@ Before implementing a new package:
 
 See `DEPENDENCIES.md` for the tier system.
 
-1. Identify which existing `@zudolib/*` packages the new package needs.
+1. Identify which existing `@zudoliblib/*` packages the new package needs.
 2. The new package belongs in the highest tier of its dependencies.
 3. Document the tier in `DEPENDENCIES.md`.
 
@@ -227,7 +227,7 @@ Follow `PACKAGE_RULES.md` for implementation standards.
 
 ### 7.1 Internal Dependencies
 
-When adding a dependency on another `@zudolib/*` package:
+When adding a dependency on another `@zudoliblib/*` package:
 
 1. Verify the dependency is in a lower or equal tier.
 2. Use exact version `0.1.0`.
@@ -273,10 +273,10 @@ describe("EventBus", () => {
 npm test
 
 # Run tests for a specific package
-npm run test --workspace=@zudolib/events
+npm run test --workspace=@zudoliblib/events
 
 # Run tests in watch mode
-npm run test:watch --workspace=@zudolib/events
+npm run test:watch --workspace=@zudoliblib/events
 ```
 
 ---
@@ -314,7 +314,7 @@ function parse(input: any): Result { ... }
 Use `import type` for type-only imports.
 
 ```ts
-import type { EventBus } from "@zudolib/events.js";
+import type { EventBus } from "@zudoliblib/events.js";
 ```
 
 ### 9.4 File Extensions
@@ -329,9 +329,9 @@ import { helper } from "./utils/helper.js";
 
 ## 10. Error Handling
 
-### 10.1 Use @zudolib/errors
+### 10.1 Use @zudoliblib/errors
 
-All errors must extend `BaseError` from `@zudolib/errors`.
+All errors must extend `BaseError` from `@zudoliblib/errors`.
 
 ### 10.2 Domain Errors
 
@@ -385,7 +385,7 @@ Limit concurrency to prevent resource exhaustion.
 
 ### 12.1 Input Validation
 
-All external input must be validated at the boundary using `@zudolib/security`.
+All external input must be validated at the boundary using `@zudoliblib/security`.
 
 ### 12.2 Secrets
 
@@ -485,8 +485,8 @@ Every PR must pass:
 
 ## 16. Getting Help
 
-- **Issues:** https://github.com/zudo-framework/zudo/issues
-- **Discussions:** https://github.com/zudo-framework/zudo/discussions
+- **Issues:** https://github.com/zudolib-framework/zudolib/issues
+- **Discussions:** https://github.com/zudolib-framework/zudolib/discussions
 - **Documentation:** See `ARCHITECTURE.md`, `DEPENDENCIES.md`, `PACKAGE_RULES.md`
 
 ---

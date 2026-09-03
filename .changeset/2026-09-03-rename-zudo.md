@@ -1,57 +1,57 @@
 ---
-"@zudolib/cli": major
-"@zudolib/adapters": major
-"@zudolib/api": major
-"@zudolib/auth": major
-"@zudolib/cache": major
-"@zudolib/config": major
-"@zudolib/constants": major
-"@zudolib/container": major
-"@zudolib/core": major
-"@zudolib/cqrs": major
-"@zudolib/crypto": major
-"@zudolib/database": major
-"@zudolib/docs": major
-"@zudolib/errors": major
-"@zudolib/events": major
-"@zudolib/feature-flags": major
-"@zudolib/http": major
-"@zudolib/lifecycle": major
-"@zudolib/logger": major
-"@zudolib/messaging": major
-"@zudolib/middleware": major
-"@zudolib/observability": major
-"@zudolib/openapi": major
-"@zudolib/permissions": major
-"@zudolib/plugins": major
-"@zudolib/queue": major
-"@zudolib/rpc": major
-"@zudolib/runtime": major
-"@zudolib/scheduler": major
-"@zudolib/schema": major
-"@zudolib/security": major
-"@zudolib/serialization": major
-"@zudolib/storage": major
-"@zudolib/tenancy": major
-"@zudolib/testing": major
-"@zudolib/transactions": major
-"@zudolib/types": major
-"@zudolib/validation": major
+"@zudoliblib/cli": major
+"@zudoliblib/adapters": major
+"@zudoliblib/api": major
+"@zudoliblib/auth": major
+"@zudoliblib/cache": major
+"@zudoliblib/config": major
+"@zudoliblib/constants": major
+"@zudoliblib/container": major
+"@zudoliblib/core": major
+"@zudoliblib/cqrs": major
+"@zudoliblib/crypto": major
+"@zudoliblib/database": major
+"@zudoliblib/docs": major
+"@zudoliblib/errors": major
+"@zudoliblib/events": major
+"@zudoliblib/feature-flags": major
+"@zudoliblib/http": major
+"@zudoliblib/lifecycle": major
+"@zudoliblib/logger": major
+"@zudoliblib/messaging": major
+"@zudoliblib/middleware": major
+"@zudoliblib/observability": major
+"@zudoliblib/openapi": major
+"@zudoliblib/permissions": major
+"@zudoliblib/plugins": major
+"@zudoliblib/queue": major
+"@zudoliblib/rpc": major
+"@zudoliblib/runtime": major
+"@zudoliblib/scheduler": major
+"@zudoliblib/schema": major
+"@zudoliblib/security": major
+"@zudoliblib/serialization": major
+"@zudoliblib/storage": major
+"@zudoliblib/tenancy": major
+"@zudoliblib/testing": major
+"@zudoliblib/transactions": major
+"@zudoliblib/types": major
+"@zudoliblib/validation": major
 ---
 
-BREAKING CHANGE: Rename all packages from `@zudolib/*` to `@zudolib/*` and `@zudolib/cli` to `zudo-cli`.
+BREAKING CHANGE: Rename all packages from `@zudoliblib/*` to `@zudoliblib/*` and `@zudoliblib/cli` to `zudolib-cli`.
 
-- Scoped packages: `@zudolib/adapters`, `@zudolib/api`, `@zudolib/auth`, etc.
-- CLI package: `zudo-cli` (unscoped)
+- Scoped packages: `@zudoliblib/adapters`, `@zudoliblib/api`, `@zudoliblib/auth`, etc.
+- CLI package: `zudolib-cli` (unscoped)
 - All internal imports, docs, CI, and examples updated
 
 Migration:
 ```bash
 # Old
-npm install @zudolib/cli
-npm install @zudolib/errors
+npm install @zudoliblib/cli
+npm install @zudoliblib/errors
 
 # New
-npm install zudo-cli
-npm install @zudolib/errors
+npm install zudolib-cli
+npm install @zudoliblib/errors
 ```

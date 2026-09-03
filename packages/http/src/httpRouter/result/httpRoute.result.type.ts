@@ -1,5 +1,5 @@
 /**
- * Zudo HTTP route result types and constants.
+ * Zudolib HTTP route result types and constants.
  */
 
 import type { HttpMethod, MatchedRoute } from "../core/httpRouter.type.js";

@@ -2,7 +2,7 @@ import {
   RuntimeError,
   RuntimeStateError as BaseRuntimeStateError,
   ErrorCode,
-} from "@zudolib/errors";
+} from "@zudoliblib/errors";
 
 /**
  * Error thrown when an invalid runtime state is encountered.

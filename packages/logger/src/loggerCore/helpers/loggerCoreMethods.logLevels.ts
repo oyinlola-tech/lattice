@@ -1,5 +1,5 @@
 /**
- * ZudoLogger log level convenience methods.
+ * ZudolibLogger log level convenience methods.
  */
 
 import { LoggerLevel } from "../../loggerLevel/loggerLevel.type.js";
@@ -8,14 +8,14 @@ import type { LogMetadata } from "../../loggerEntry/loggerEntry.type.js";
 
 import { logAtLevel } from "./loggerCoreMethods/index.js";
 
-import type { ZudoLoggerContext } from "../core/loggerCore.core.js";
+import type { ZudolibLoggerContext } from "../core/loggerCore.core.js";
 
 import type { LogOptions } from "../../loggerOptions/loggerOptions.type.js";
 
 /**
  * Creates bound log methods for a given context.
  */
-export function createLogMethods(ctx: ZudoLoggerContext) {
+export function createLogMethods(ctx: ZudolibLoggerContext) {
   return {
     fatal: (message: string, metadata?: LogMetadata) =>
       logAtLevel(ctx, LoggerLevel.FATAL, message, { metadata }),

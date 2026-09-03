@@ -5,13 +5,13 @@
  * for loading configuration in tests.
  */
 
-import { ConfigManager } from "@zudolib/config";
+import { ConfigManager } from "@zudoliblib/config";
 
 import type {
   ConfigValue,
   ConfigManagerOptions,
   ConfigManagerStatus,
-} from "@zudolib/config";
+} from "@zudoliblib/config";
 
 /**
  * A test configuration manager with convenience methods.

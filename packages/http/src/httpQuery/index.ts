@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpQuery
+ * @zudoliblib/http/httpQuery
  *
  * HTTP query string parsing and utilities.
  */

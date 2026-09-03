@@ -9,7 +9,7 @@ import {
   toBase64Url,
   fromBase64Url,
 } from "../nodeCryptoProvider.helper.js";
-import { cryptoKeyDerivationError } from "@zudolib/errors";
+import { cryptoKeyDerivationError } from "@zudoliblib/errors";
 
 export async function deriveKey(
   options: DeriveKeyOptions,

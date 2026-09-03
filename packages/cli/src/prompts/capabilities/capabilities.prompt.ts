@@ -1,7 +1,7 @@
 /**
- * zudo-cli — Capabilities Prompt
+ * zudolib-cli — Capabilities Prompt
  *
- * Prompts for selecting Zudo capabilities.
+ * Prompts for selecting Zudolib capabilities.
  */
 
 import * as p from "@clack/prompts";

@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/http",
+  "name": "@zudoliblib/http",
   "version": "0.1.3",
-  "description": "HTTP primitives, request handling, routing, middleware, and server infrastructure for Zudo applications.",
+  "description": "HTTP primitives, request handling, routing, middleware, and server infrastructure for Zudolib applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,10 +24,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/core": "workspace:*",
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/logger": "workspace:*",
-    "@zudolib/security": "workspace:*"
+    "@zudoliblib/core": "workspace:*",
+    "@zudoliblib/errors": "workspace:*",
+    "@zudoliblib/logger": "workspace:*",
+    "@zudoliblib/security": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
@@ -43,15 +43,15 @@
     "access": "public"
   },
   "keywords": [
-    "zudo",
+    "zudolib",
     "http",
     "server",
     "middleware",
     "routing"
   ],
-  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudo"
+    "url": "https://github.com/oyinlola-tech/zudolib"
   }
 }

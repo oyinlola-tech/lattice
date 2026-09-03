@@ -1,5 +1,5 @@
 /**
- * @zudolib/cqrs/query
+ * @zudoliblib/cqrs/query
  *
  * Query implementation: abstract query, handler, bus, and result types.
  */

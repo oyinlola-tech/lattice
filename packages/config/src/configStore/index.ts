@@ -1,5 +1,5 @@
 /**
- * @zudolib/config/configStore
+ * @zudoliblib/config/configStore
  *
  * In-memory configuration storage and access.
  */

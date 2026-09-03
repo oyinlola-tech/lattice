@@ -63,7 +63,7 @@ export class FullstackComposer {
     try {
       // 1. Create workspace structure
       await this.createWorkspace(context);
-      files.push("package.json", "pnpm-workspace.yaml", "zudo.config.ts");
+      files.push("package.json", "pnpm-workspace.yaml", "zudolib.config.ts");
 
       // 2. Generate shared packages
       await this.generateSharedPackages(context);
@@ -128,7 +128,7 @@ export class FullstackComposer {
   - "packages/*"
 `;
 
-    const zudoConfig = `export default {
+    const zudolibConfig = `export default {
   version: 1,
   project: {
     name: "${context.project.name}",
@@ -140,7 +140,7 @@ export class FullstackComposer {
   },
   frontend: {
     framework: "${context.project.frontend?.framework ?? "react"}",
-    architecture: "${context.project.frontend?.architecture ?? "zudo-standard"}",
+    architecture: "${context.project.frontend?.architecture ?? "zudolib-standard"}",
   },
   database: {
     provider: "${context.project.backend?.database ?? "postgresql"}",
@@ -154,7 +154,7 @@ export class FullstackComposer {
     await writeFileTree(context.projectPath, {
       "package.json": JSON.stringify(rootPackageJson, null, 2),
       "pnpm-workspace.yaml": workspaceYaml,
-      "zudo.config.ts": zudoConfig,
+      "zudolib.config.ts": zudolibConfig,
     });
   }
 
@@ -224,7 +224,7 @@ export type Timestamp = string;
     };
 
     await adapter.scaffold(frontendContext);
-    await adapter.applyZudoStructure(frontendContext);
+    await adapter.applyZudolibStructure(frontendContext);
     await adapter.generateIntegration(frontendContext);
 
     return ["apps/web/"];

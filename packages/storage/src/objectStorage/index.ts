@@ -1,5 +1,5 @@
 /**
- * @zudolib/storage — Object Storage Barrel
+ * @zudoliblib/storage — Object Storage Barrel
  */
 
 export { LocalObjectStorage } from "./localObjectStorage.core.js";

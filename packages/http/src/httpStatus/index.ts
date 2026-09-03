@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpStatus
+ * @zudoliblib/http/httpStatus
  *
  * HTTP status codes and utilities.
  */

@@ -1,5 +1,5 @@
 /**
- * Zudo HTTP route matcher.
+ * Zudolib HTTP route matcher.
  *
  * Responsible only for selecting and matching registered routes against an
  * incoming HTTP method and pathname.

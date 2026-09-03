@@ -1,12 +1,12 @@
 /**
- * @zudolib/serialization — Error transformer.
+ * @zudoliblib/serialization — Error transformer.
  *
  * Preserves Error instances across serialization boundaries.
  * Stack traces are controlled via options for security.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { SerializationTags } from "@zudolib/constants";
+import { SerializationTags } from "@zudoliblib/constants";
 
 const ERROR_TYPE = "Error" as const;
 

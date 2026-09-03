@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Processor
+ * @zudoliblib/observability — Processor
  *
  * Batch span processor for accumulating and exporting spans.
  */

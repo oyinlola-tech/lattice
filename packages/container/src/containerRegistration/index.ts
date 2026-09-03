@@ -1,5 +1,5 @@
 /**
- * @zudolib/container/containerRegistration
+ * @zudoliblib/container/containerRegistration
  *
  * Service registration and token binding.
  */

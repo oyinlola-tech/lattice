@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/component
+ * @zudoliblib/lifecycle/component
  *
  * Lifecycle component interface — the contract for managed resources.
  */

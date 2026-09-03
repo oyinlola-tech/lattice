@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpCompression
+ * @zudoliblib/http/httpCompression
  *
  * HTTP httpCompression module.
  */

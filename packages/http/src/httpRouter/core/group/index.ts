@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRouter/core/group
+ * @zudoliblib/http/httpRouter/core/group
  *
  * HTTP router group utilities.
  */

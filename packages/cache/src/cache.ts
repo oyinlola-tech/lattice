@@ -1,5 +1,5 @@
 /**
- * @zudolib/cache — Cache Service
+ * @zudoliblib/cache — Cache Service
  * High-level cache service combining adapter, serializer, key builder, tags, invalidation, locking, and metrics.
  */
 

@@ -1,5 +1,5 @@
 /**
- * ZudoLogger normalization and assertion helpers.
+ * ZudolibLogger normalization and assertion helpers.
  */
 
 import { isLoggerFormatter } from "../../loggerFormatter/loggerFormatterGuard.js";

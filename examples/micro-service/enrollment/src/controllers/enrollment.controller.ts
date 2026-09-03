@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@zudolib/cqrs";
+import type { CommandBus, QueryBus } from "@zudoliblib/cqrs";
 import type { EnrollmentId, StudentId } from "../types/index.js";
 import { EnrollStudentCommand } from "../services/enrollment/commands/enroll-student/enroll-student.command.js";
 import { WithdrawStudentCommand } from "../services/enrollment/commands/withdraw-student/withdraw-student.command.js";

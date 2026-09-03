@@ -1,5 +1,5 @@
 /**
- * @zudolib/validation/validationFactory
+ * @zudoliblib/validation/validationFactory
  *
  * Validation schema factory functions.
  */

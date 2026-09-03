@@ -1,5 +1,5 @@
 /**
- * @zudolib/events/eventMiddleware
+ * @zudoliblib/events/eventMiddleware
  *
  * Event middleware pipeline and processing.
  */

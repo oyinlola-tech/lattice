@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpMethods
+ * @zudoliblib/http/httpMethods
  *
  * HTTP httpMethods module.
  */

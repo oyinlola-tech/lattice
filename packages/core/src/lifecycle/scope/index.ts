@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/lifecycle/scope
+ * @zudoliblib/core/lifecycle/scope
  *
  * Isolated lifecycle boundaries for applications,
  * modules, plugins, workers, and services.

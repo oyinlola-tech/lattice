@@ -1,6 +1,6 @@
 # Project Structure
 
-Zudo projects follow a consistent layout regardless of architecture.
+Zudolib projects follow a consistent layout regardless of architecture.
 
 ## Standard Layout
 
@@ -18,7 +18,7 @@ my-app/
 │   └── <feature>.test.ts
 ├── package.json
 ├── tsconfig.json
-└── zudo.config.ts
+└── zudolib.config.ts
 ```
 
 ## Architecture Variants
@@ -45,7 +45,7 @@ apps/
 
 ## Configuration
 
-`zudo.config.ts` defines the application architecture:
+`zudolib.config.ts` defines the application architecture:
 
 ```typescript
 export default {
@@ -55,9 +55,9 @@ export default {
 };
 ```
 
-## Zudo Manifest
+## Zudolib Manifest
 
-The CLI generates `.zudo/manifest.json` to track generated code:
+The CLI generates `.zudolib/manifest.json` to track generated code:
 
 ```json
 {
@@ -70,7 +70,7 @@ The CLI generates `.zudo/manifest.json` to track generated code:
 
 ## Package Structure
 
-Each Zudo package follows the same internal layout:
+Each Zudolib package follows the same internal layout:
 
 ```
 packages/<name>/

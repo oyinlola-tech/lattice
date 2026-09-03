@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Command Generator
+ * zudolib-cli — Command Generator
  *
  * Generates a CQRS command with handler.
  */
@@ -27,7 +27,7 @@ export async function generateCommand(
   const servicePath = `${basePath}/${service}`;
 
   const files: Record<string, string> = {
-    [`${servicePath}/commands/${name}/${name}.command.ts`]: `import type { BaseCommand } from "@zudolib/cqrs";
+    [`${servicePath}/commands/${name}/${name}.command.ts`]: `import type { BaseCommand } from "@zudoliblib/cqrs";
 
 export interface ${nameCamel}CommandPayload {
   readonly [key: string]: unknown;
@@ -40,8 +40,8 @@ export class ${nameCamel}Command implements BaseCommand<${nameCamel}CommandPaylo
 }
 `,
 
-    [`${servicePath}/commands/${name}/${name}.handler.ts`]: `import type { CommandHandler, CommandResult } from "@zudolib/cqrs";
-import { createLogger } from "@zudolib/logger";
+    [`${servicePath}/commands/${name}/${name}.handler.ts`]: `import type { CommandHandler, CommandResult } from "@zudoliblib/cqrs";
+import { createLogger } from "@zudoliblib/logger";
 import { ${nameCamel}Command } from "./${name}.command.js";
 
 export class ${nameCamel}CommandHandler implements CommandHandler<${nameCamel}Command> {

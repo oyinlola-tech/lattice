@@ -1,5 +1,5 @@
 /**
- * zudo-cli — CLI Version
+ * zudolib-cli — CLI Version
  *
  * Semantic version parsing, comparison, and formatting.
  */

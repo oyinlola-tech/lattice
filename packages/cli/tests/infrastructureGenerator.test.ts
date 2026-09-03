@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Infrastructure Generator Tests
+ * zudolib-cli — Infrastructure Generator Tests
  *
  * Tests for InfrastructureGenerator.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRouter/core/manage
+ * @zudoliblib/http/httpRouter/core/manage
  *
  * HTTP router management utilities.
  */

@@ -1,10 +1,10 @@
 /**
- * zudo-cli — Errors
+ * zudolib-cli — Errors
  *
  * Error classes for the CLI scaffolding system.
  */
 
-import { ApplicationError } from "@zudolib/errors";
+import { ApplicationError } from "@zudoliblib/errors";
 
 export class CLIValidationError extends ApplicationError {
   constructor(message: string) {
@@ -20,7 +20,7 @@ export class CLIGenerationError extends ApplicationError {
 
 export class CLINotInProjectError extends ApplicationError {
   constructor() {
-    super("This command must be run inside a Zudo project directory.", {
+    super("This command must be run inside a Zudolib project directory.", {
       isOperational: true,
     });
   }

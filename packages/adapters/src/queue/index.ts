@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/queue
+ * @zudoliblib/adapters/queue
  *
  * Queue adapter contracts.
  */

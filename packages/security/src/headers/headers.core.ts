@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — Security Headers
+ * @zudoliblib/security — Security Headers
  *
  * Generates security-related HTTP response headers with secure defaults.
  */

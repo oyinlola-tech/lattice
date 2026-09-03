@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Monolith Templates
+ * zudolib-cli — Monolith Templates
  *
  * Template file generators for monolith architecture projects.
  *
@@ -33,7 +33,7 @@
  * ├── tests/
  * ├── package.json
  * ├── tsconfig.json
- * ├── zudo.config.ts
+ * ├── zudolib.config.ts
  * └── README.md
  * ```
  */
@@ -47,36 +47,36 @@ export function generateMonolithFiles(
   const nameSlug = name.replace(/[^a-z0-9-]+/gi, "-").toLowerCase();
 
   const deps = [
-    "@zudolib/core",
-    "@zudolib/container",
-    "@zudolib/config",
-    "@zudolib/logger",
-    "@zudolib/errors",
-    "@zudolib/constants",
-    "@zudolib/types",
-    "@zudolib/validation",
-    "@zudolib/schema",
-    "@zudolib/http",
+    "@zudoliblib/core",
+    "@zudoliblib/container",
+    "@zudoliblib/config",
+    "@zudoliblib/logger",
+    "@zudoliblib/errors",
+    "@zudoliblib/constants",
+    "@zudoliblib/types",
+    "@zudoliblib/validation",
+    "@zudoliblib/schema",
+    "@zudoliblib/http",
   ];
 
   if (options.enableCQRS) {
-    deps.push("@zudolib/cqrs", "@zudolib/events", "@zudolib/messaging");
+    deps.push("@zudoliblib/cqrs", "@zudoliblib/events", "@zudoliblib/messaging");
   }
 
   if (options.enableDatabase) {
-    deps.push("@zudolib/database");
+    deps.push("@zudoliblib/database");
   }
 
   if (options.enableQueue) {
-    deps.push("@zudolib/queue");
+    deps.push("@zudoliblib/queue");
   }
 
   if (options.enableObservability) {
-    deps.push("@zudolib/observability");
+    deps.push("@zudoliblib/observability");
   }
 
   if (options.enableOpenAPI) {
-    deps.push("@zudolib/openapi");
+    deps.push("@zudoliblib/openapi");
   }
 
   const devDeps = ["tsx", "typescript", "@types/node", "vitest"];
@@ -129,8 +129,8 @@ export function generateMonolithFiles(
 }
 `;
 
-  // zudo.config.ts
-  files["zudo.config.ts"] = `import { defineConfig } from "@zudolib/config";
+  // zudolib.config.ts
+  files["zudolib.config.ts"] = `import { defineConfig } from "@zudoliblib/config";
 
 export default defineConfig({
   application: {
@@ -186,7 +186,7 @@ dist/
 
   files["README.md"] = `# ${name}
 
-A Zudo framework application.
+A Zudolib framework application.
 
 ## Getting Started
 
@@ -233,8 +233,8 @@ MIT
 `;
 
   files["src/server.ts"] = `import { createApp } from "./app.js";
-import { createRuntime } from "@zudolib/runtime";
-import { logger } from "@zudolib/logger";
+import { createRuntime } from "@zudoliblib/runtime";
+import { logger } from "@zudoliblib/logger";
 
 const app = await createApp();
 
@@ -254,8 +254,8 @@ process.on("SIGTERM", async () => {
 });
 `;
 
-  files["src/app.ts"] = `import { logger } from "@zudolib/logger";
-import { createContainer } from "@zudolib/container";
+  files["src/app.ts"] = `import { logger } from "@zudoliblib/logger";
+import { createContainer } from "@zudoliblib/container";
 
 export async function createApp() {
   const log = logger.child({ service: "app" });

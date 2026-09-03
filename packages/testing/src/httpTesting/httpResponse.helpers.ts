@@ -1,5 +1,5 @@
 /**
- * @zudolib/testing — HTTP response helper functions.
+ * @zudoliblib/testing — HTTP response helper functions.
  *
  * Convenience functions for creating common test HTTP responses.
  */

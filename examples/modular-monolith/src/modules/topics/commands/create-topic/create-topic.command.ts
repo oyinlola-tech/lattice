@@ -1,4 +1,4 @@
-import { Command } from "@zudolib/cqrs";
+import { Command } from "@zudoliblib/cqrs";
 import type { CreateTopicDto } from "../../../../dtos/index.js";
 
 export class CreateTopicCommand extends Command<"topics.create"> {

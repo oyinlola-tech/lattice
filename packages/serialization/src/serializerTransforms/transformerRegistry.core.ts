@@ -1,13 +1,13 @@
 /**
- * @zudolib/serialization — Transformer registry.
+ * @zudoliblib/serialization — Transformer registry.
  *
  * Manages type transformers that handle custom JS types during
  * serialization and deserialization. Keyed by type tag string.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { TransformerNotFoundError } from "@zudolib/errors";
-import { SerializationLimits } from "@zudolib/constants";
+import { TransformerNotFoundError } from "@zudoliblib/errors";
+import { SerializationLimits } from "@zudoliblib/constants";
 
 /**
  * Registry of type transformers keyed by their type tag.

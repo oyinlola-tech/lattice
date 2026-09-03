@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/root
+ * @zudoliblib/schema/root
  *
  * The schema namespace — primary entry point for creating schemas.
  */
@@ -39,7 +39,7 @@ import {
  * The schema namespace — primary API for creating schemas.
  *
  * @example
- * import { schema } from "@zudolib/schema";
+ * import { schema } from "@zudoliblib/schema";
  *
  * const UserSchema = schema.object({
  *   id: schema.string().uuid(),

@@ -1,6 +1,6 @@
-# Zudo Roadmap
+# Zudolib Roadmap
 
-> This document tracks the implementation status of the Zudo framework.
+> This document tracks the implementation status of the Zudolib framework.
 > It is updated as packages are completed, modified, or deprecated.
 
 ---
@@ -16,21 +16,21 @@
 
 ## Phase 1 — Foundation
 
-The foundational layer. These packages have no `@zudolib/*` dependencies (except `@zudolib/errors`).
+The foundational layer. These packages have no `@zudoliblib/*` dependencies (except `@zudoliblib/errors`).
 
 | Package                  | Status      | Notes                                                  |
 | ------------------------ | ----------- | ------------------------------------------------------ |
-| `@zudolib/errors`        | ✅ Complete | Shared error base class, error codes, error categories |
-| `@zudolib/types`         | ✅ Complete | Type guards, utility types, converters                 |
-| `@zudolib/constants`     | ✅ Complete | Branded IDs, enums, serialization constants            |
-| `@zudolib/container`     | ✅ Complete | DI container with token-based registration             |
-| `@zudolib/logger`        | ✅ Complete | Structured logging with transports                     |
-| `@zudolib/crypto`        | ✅ Complete | Hashing, encryption, tokens                            |
-| `@zudolib/validation`    | ✅ Complete | Schema validation with Zod                             |
-| `@zudolib/schema`        | ✅ Complete | Schema definition, parsing, type inference             |
-| `@zudolib/config`        | ✅ Complete | Layered configuration with sources                     |
-| `@zudolib/middleware`    | ✅ Complete | Composable middleware pipeline                         |
-| `@zudolib/serialization` | ✅ Complete | JSON serializer, type transformers, envelopes          |
+| `@zudoliblib/errors`        | ✅ Complete | Shared error base class, error codes, error categories |
+| `@zudoliblib/types`         | ✅ Complete | Type guards, utility types, converters                 |
+| `@zudoliblib/constants`     | ✅ Complete | Branded IDs, enums, serialization constants            |
+| `@zudoliblib/container`     | ✅ Complete | DI container with token-based registration             |
+| `@zudoliblib/logger`        | ✅ Complete | Structured logging with transports                     |
+| `@zudoliblib/crypto`        | ✅ Complete | Hashing, encryption, tokens                            |
+| `@zudoliblib/validation`    | ✅ Complete | Schema validation with Zod                             |
+| `@zudoliblib/schema`        | ✅ Complete | Schema definition, parsing, type inference             |
+| `@zudoliblib/config`        | ✅ Complete | Layered configuration with sources                     |
+| `@zudoliblib/middleware`    | ✅ Complete | Composable middleware pipeline                         |
+| `@zudoliblib/serialization` | ✅ Complete | JSON serializer, type transformers, envelopes          |
 
 **Phase 1 Goal:** Provide the building blocks for all higher-level packages.
 
@@ -42,17 +42,17 @@ Runtime building blocks that depend on foundation packages.
 
 | Package                  | Status      | Notes                                                 |
 | ------------------------ | ----------- | ----------------------------------------------------- |
-| `@zudolib/events`        | ✅ Complete | Event bus, emitter, middleware, registry              |
-| `@zudolib/messaging`     | ✅ Complete | In-process message bus                                |
-| `@zudolib/lifecycle`     | ✅ Complete | State machine, dependency ordering, graceful shutdown |
-| `@zudolib/transactions`  | ✅ Complete | Transaction lifecycle, AsyncLocalStorage context      |
-| `@zudolib/cache`         | ✅ Complete | Cache abstraction with memory adapter                 |
-| `@zudolib/storage`       | ✅ Complete | Database, object storage, repository abstractions     |
-| `@zudolib/queue`         | ✅ Complete | Background job and async task infrastructure          |
-| `@zudolib/scheduler`     | ✅ Complete | Job scheduling, cron, triggers                        |
-| `@zudolib/adapters`      | ✅ Complete | Adapter contracts, registry, transport abstractions   |
-| `@zudolib/database`      | ✅ Complete | Database clients, repositories, transactions          |
-| `@zudolib/observability` | ✅ Complete | Structured logging, metrics, tracing, exporters       |
+| `@zudoliblib/events`        | ✅ Complete | Event bus, emitter, middleware, registry              |
+| `@zudoliblib/messaging`     | ✅ Complete | In-process message bus                                |
+| `@zudoliblib/lifecycle`     | ✅ Complete | State machine, dependency ordering, graceful shutdown |
+| `@zudoliblib/transactions`  | ✅ Complete | Transaction lifecycle, AsyncLocalStorage context      |
+| `@zudoliblib/cache`         | ✅ Complete | Cache abstraction with memory adapter                 |
+| `@zudoliblib/storage`       | ✅ Complete | Database, object storage, repository abstractions     |
+| `@zudoliblib/queue`         | ✅ Complete | Background job and async task infrastructure          |
+| `@zudoliblib/scheduler`     | ✅ Complete | Job scheduling, cron, triggers                        |
+| `@zudoliblib/adapters`      | ✅ Complete | Adapter contracts, registry, transport abstractions   |
+| `@zudoliblib/database`      | ✅ Complete | Database clients, repositories, transactions          |
+| `@zudoliblib/observability` | ✅ Complete | Structured logging, metrics, tracing, exporters       |
 
 **Phase 2 Goal:** Provide the runtime infrastructure for application architecture.
 
@@ -64,18 +64,18 @@ Patterns and structures for building applications.
 
 | Package                  | Status      | Notes                                         |
 | ------------------------ | ----------- | --------------------------------------------- |
-| `@zudolib/core`          | ✅ Complete | Lifecycle, context, runtime, modules          |
-| `@zudolib/cqrs`          | ✅ Complete | Commands, queries, handlers                   |
-| `@zudolib/auth`          | ✅ Complete | JWT, sessions, password hashing               |
-| `@zudolib/runtime`       | ✅ Complete | Application lifecycle orchestrator            |
-| `@zudolib/permissions`   | ✅ Complete | RBAC, ABAC, resource authorization            |
-| `@zudolib/security`      | ✅ Complete | Input validation, CORS, CSRF, rate limiting   |
-| `@zudolib/tenancy`       | ✅ Complete | Multi-tenant context and isolation            |
-| `@zudolib/feature-flags` | ✅ Complete | Feature flag evaluation, rule engine          |
-| `@zudolib/plugins`       | ✅ Complete | Plugin registration, lifecycle, orchestration |
-| `@zudolib/openapi`       | ✅ Complete | OpenAPI document generation                   |
-| `@zudolib/rpc`           | ✅ Complete | RPC primitives                                |
-| `@zudolib/api`           | ✅ Complete | API abstraction layer                         |
+| `@zudoliblib/core`          | ✅ Complete | Lifecycle, context, runtime, modules          |
+| `@zudoliblib/cqrs`          | ✅ Complete | Commands, queries, handlers                   |
+| `@zudoliblib/auth`          | ✅ Complete | JWT, sessions, password hashing               |
+| `@zudoliblib/runtime`       | ✅ Complete | Application lifecycle orchestrator            |
+| `@zudoliblib/permissions`   | ✅ Complete | RBAC, ABAC, resource authorization            |
+| `@zudoliblib/security`      | ✅ Complete | Input validation, CORS, CSRF, rate limiting   |
+| `@zudoliblib/tenancy`       | ✅ Complete | Multi-tenant context and isolation            |
+| `@zudoliblib/feature-flags` | ✅ Complete | Feature flag evaluation, rule engine          |
+| `@zudoliblib/plugins`       | ✅ Complete | Plugin registration, lifecycle, orchestration |
+| `@zudoliblib/openapi`       | ✅ Complete | OpenAPI document generation                   |
+| `@zudoliblib/rpc`           | ✅ Complete | RPC primitives                                |
+| `@zudoliblib/api`           | ✅ Complete | API abstraction layer                         |
 
 **Phase 3 Goal:** Provide the application architecture layer.
 
@@ -87,21 +87,21 @@ External interface packages.
 
 | Package         | Status      | Notes                                      |
 | --------------- | ----------- | ------------------------------------------ |
-| `@zudolib/http` | ✅ Complete | HTTP request handling, routing, middleware |
-| `@zudolib/cli`  | ✅ Complete | Command-line interface                     |
+| `@zudoliblib/http` | ✅ Complete | HTTP request handling, routing, middleware |
+| `@zudoliblib/cli`  | ✅ Complete | Command-line interface                     |
 
-**Phase 4 Goal:** Provide external interfaces for Zudo applications.
+**Phase 4 Goal:** Provide external interfaces for Zudolib applications.
 
 ---
 
 ## Phase 5 — Developer Experience
 
-Tooling for building, testing, and documenting Zudo applications.
+Tooling for building, testing, and documenting Zudolib applications.
 
 | Package            | Status      | Notes                         |
 | ------------------ | ----------- | ----------------------------- |
-| `@zudolib/testing` | ✅ Complete | Test helpers, fixtures, mocks |
-| `@zudolib/docs`    | ✅ Complete | Documentation infrastructure  |
+| `@zudoliblib/testing` | ✅ Complete | Test helpers, fixtures, mocks |
+| `@zudoliblib/docs`    | ✅ Complete | Documentation infrastructure  |
 
 **Phase 5 Goal:** Provide excellent developer experience.
 

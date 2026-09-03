@@ -5,9 +5,9 @@
  */
 
 import type { UserId } from "../authTypes/authUser.type.js";
-import type { SessionId } from "@zudolib/constants";
+import type { SessionId } from "@zudoliblib/constants";
 
-export type { SessionId } from "@zudolib/constants";
+export type { SessionId } from "@zudoliblib/constants";
 
 /**
  * Server-side session representation.

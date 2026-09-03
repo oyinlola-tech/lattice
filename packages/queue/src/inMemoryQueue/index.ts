@@ -1,5 +1,5 @@
 /**
- * @zudolib/queue/inMemoryQueue
+ * @zudoliblib/queue/inMemoryQueue
  *
  * In-memory queue module.
  */

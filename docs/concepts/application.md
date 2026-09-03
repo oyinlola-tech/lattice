@@ -1,11 +1,11 @@
 # Application
 
-A Zudo application is the top-level container for all modules, plugins, and infrastructure.
+A Zudolib application is the top-level container for all modules, plugins, and infrastructure.
 
 ## Creating an Application
 
 ```typescript
-import { createApplication } from "@zudolib/core";
+import { createApplication } from "@zudoliblib/core";
 
 const app = await createApplication({
   config: loadConfig(),

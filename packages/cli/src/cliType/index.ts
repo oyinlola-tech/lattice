@@ -1,5 +1,5 @@
 /**
- * zudo-cli — CLI Types
+ * zudolib-cli — CLI Types
  *
  * Core types, interfaces, and type aliases for the CLI package.
  */

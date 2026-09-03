@@ -1,5 +1,5 @@
 /**
- * Zudo HTTP route stack.
+ * Zudolib HTTP route stack.
  *
  * Maintains the ordered execution layers associated with a route.
  * Middleware ordering is explicit and deterministic.

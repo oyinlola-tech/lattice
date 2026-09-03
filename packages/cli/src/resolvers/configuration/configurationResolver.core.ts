@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Configuration Resolver
+ * zudolib-cli — Configuration Resolver
  *
  * Resolves and validates project configuration from multiple sources.
  */
@@ -22,7 +22,7 @@ export interface ResolvedConfiguration {
 
 export class ConfigurationResolver {
   resolve(cwd: string): ResolvedConfiguration | null {
-    const configPath = join(cwd, "zudo.config.ts");
+    const configPath = join(cwd, "zudolib.config.ts");
 
     if (!existsSync(configPath)) {
       return null;

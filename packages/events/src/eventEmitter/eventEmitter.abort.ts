@@ -1,5 +1,5 @@
 /**
- * Event emitter abort error helper for Zudo.
+ * Event emitter abort error helper for Zudolib.
  */
 
 /**

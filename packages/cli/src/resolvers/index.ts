@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Resolvers
+ * zudolib-cli — Resolvers
  *
  * Architecture and project resolution utilities.
  */

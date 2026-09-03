@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Job Generator
+ * zudolib-cli — Job Generator
  *
  * Generates job files.
  */

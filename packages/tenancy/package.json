@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/tenancy",
+  "name": "@zudoliblib/tenancy",
   "version": "0.1.3",
   "description": "Multi-tenant context and isolation with tenant resolution, AsyncLocalStorage propagation, resolver chains, trust levels, and guard middleware.",
   "license": "MIT",
@@ -25,14 +25,14 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*"
+    "@zudoliblib/errors": "workspace:*",
+    "@zudoliblib/constants": "workspace:*"
   },
   "peerDependencies": {
-    "@zudolib/http": "workspace:*"
+    "@zudoliblib/http": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@zudolib/http": {
+    "@zudoliblib/http": {
       "optional": true
     }
   },
@@ -47,14 +47,14 @@
     "access": "public"
   },
   "keywords": [
-    "zudo",
+    "zudolib",
     "tenancy",
     "multi-tenant",
     "saas"
   ],
-  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudo"
+    "url": "https://github.com/oyinlola-tech/zudolib"
   }
 }

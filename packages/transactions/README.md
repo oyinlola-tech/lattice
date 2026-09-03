@@ -1,17 +1,17 @@
-# @zudolib/transactions
+# @zudoliblib/transactions
 
 Transaction lifecycle and coordination with state machine, AsyncLocalStorage context propagation, savepoints, hooks, and adapter abstraction.
 
 ## Installation
 
 ```bash
-npm install @zudolib/transactions
+npm install @zudoliblib/transactions
 ```
 
 ## Quick Start
 
 ```typescript
-import { createTransactionManager } from "@zudolib/transactions";
+import { createTransactionManager } from "@zudoliblib/transactions";
 
 const manager = createTransactionManager({
   adapter: databaseAdapter,

@@ -1,6 +1,6 @@
-# Zudo Package Rules
+# Zudolib Package Rules
 
-> This document defines the internal development standards for every `@zudolib/*` package.
+> This document defines the internal development standards for every `@zudoliblib/*` package.
 > All packages must follow these rules to ensure consistency, maintainability, and architectural integrity.
 
 ---
@@ -58,8 +58,8 @@ packages/events/src/
 
 ### 2.1 No Internal Leaking
 
-- Do not import files from another package's internal folders (e.g., `@zudolib/events/src/internal/...`).
-- Always import from the package's public API (`@zudolib/events`).
+- Do not import files from another package's internal folders (e.g., `@zudoliblib/events/src/internal/...`).
+- Always import from the package's public API (`@zudoliblib/events`).
 - If you need access to something not exported publicly, it should be exported.
 
 ### 2.2 No Circular Dependencies
@@ -114,10 +114,10 @@ Always use explicit imports. Do not use wildcard imports.
 
 ```ts
 // ✅ Correct
-import { createEventBus } from "@zudolib/events";
+import { createEventBus } from "@zudoliblib/events";
 
 // ❌ Wrong
-import * as Events from "@zudolib/events";
+import * as Events from "@zudoliblib/events";
 ```
 
 ### 3.4 Type-Only Imports
@@ -126,10 +126,10 @@ Use `import type` for type-only imports.
 
 ```ts
 // ✅ Correct
-import type { EventBus } from "@zudolib/events";
+import type { EventBus } from "@zudoliblib/events";
 
 // ❌ Wrong
-import { EventBus } from "@zudolib/events";
+import { EventBus } from "@zudoliblib/events";
 ```
 
 ### 3.5 Stable API
@@ -148,7 +148,7 @@ Imports must be ordered as follows:
 
 1. Node.js built-ins
 2. External packages
-3. `@zudolib/*` packages (alphabetical)
+3. `@zudoliblib/*` packages (alphabetical)
 4. Internal imports (same package, relative paths)
 
 ```ts
@@ -158,9 +158,9 @@ import { randomBytes } from "node:crypto";
 // 2. External packages
 import { z } from "zod";
 
-// 3. Shared @zudolib/* packages
-import { BaseError, ErrorCode } from "@zudolib/errors.js";
-import type { EventBus } from "@zudolib/events.js";
+// 3. Shared @zudoliblib/* packages
+import { BaseError, ErrorCode } from "@zudoliblib/errors.js";
+import type { EventBus } from "@zudoliblib/events.js";
 
 // 4. Internal imports (same package, with .js extension)
 import { createEventBus } from "./eventBus/eventBus.factory.js";
@@ -172,10 +172,10 @@ Do not import from internal paths of other packages.
 
 ```ts
 // ✅ Correct
-import { EventBus } from "@zudolib/events";
+import { EventBus } from "@zudoliblib/events";
 
 // ❌ Wrong
-import { EventBus } from "@zudolib/events/src/eventBus/eventBus.type.js";
+import { EventBus } from "@zudoliblib/events/src/eventBus/eventBus.type.js";
 ```
 
 ### 4.3 Relative Imports Only for Same Package
@@ -207,7 +207,7 @@ When re-exporting types from dependencies, use `export type`.
 
 ```ts
 // src/index.ts
-export type { EventBus } from "@zudolib/events.js";
+export type { EventBus } from "@zudoliblib/events.js";
 ```
 
 ### 5.3 No Side Effects in Barrel Files
@@ -332,7 +332,7 @@ Every folder (at any depth) gets an `index.ts` barrel file with JSDoc.
 
 ```ts
 /**
- * @zudolib/events/eventBus
+ * @zudoliblib/events/eventBus
  *
  * Event bus creation, configuration, and management.
  */
@@ -448,7 +448,7 @@ import { helper } from "./utils/helper";
 
 See `DEPENDENCIES.md` for the complete tier system.
 
-- Tier 0 packages must not depend on any `@zudolib/*` package.
+- Tier 0 packages must not depend on any `@zudoliblib/*` package.
 - Tier 1 packages may depend only on Tier 0.
 - Tier 2 packages may depend on Tier 0 and Tier 1.
 - Tier 3 packages may depend on Tier 0, Tier 1, and Tier 2.
@@ -456,12 +456,12 @@ See `DEPENDENCIES.md` for the complete tier system.
 
 ### 9.2 Use Exact Versions
 
-All `@zudolib/*` dependencies must use exact versions (`0.1.0`).
+All `@zudoliblib/*` dependencies must use exact versions (`0.1.0`).
 
 ```json
 {
   "dependencies": {
-    "@zudolib/errors": "0.1.0"
+    "@zudoliblib/errors": "0.1.0"
   }
 }
 ```
@@ -478,14 +478,14 @@ Peer dependencies must be:
 
 ## 10. Error Handling
 
-### 10.1 Use @zudolib/errors
+### 10.1 Use @zudoliblib/errors
 
-All error types must live in `@zudolib/errors`.
+All error types must live in `@zudoliblib/errors`.
 No package should create its own error classes that extend `Error` or `BaseError`.
 
 ### 10.2 Domain Errors
 
-Each package may define lightweight wrapper classes for package-specific context, but the base error must come from `@zudolib/errors`.
+Each package may define lightweight wrapper classes for package-specific context, but the base error must come from `@zudoliblib/errors`.
 
 ```ts
 // ✅ Correct
@@ -640,7 +640,7 @@ describe("EventBus", () => {
 
 ### 13.6 No Test Code in Production
 
-Test utilities must live in `@zudolib/testing`.
+Test utilities must live in `@zudoliblib/testing`.
 Test code must not be imported by production packages.
 
 ---
@@ -679,7 +679,7 @@ Provide examples for common use cases.
 
 ```ts
 // examples/hello-world/src/main.ts
-import { createApplication } from "@zudolib/core";
+import { createApplication } from "@zudoliblib/core";
 
 const app = createApplication();
 await app.start();

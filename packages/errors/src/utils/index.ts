@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/utils
+ * @zudoliblib/errors/utils
  *
  * Error handling utilities, mappers, and serializers.
  */

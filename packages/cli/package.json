@@ -1,7 +1,7 @@
 {
-  "name": "zudo-cli",
+  "name": "zudolib-cli",
   "version": "0.2.1",
-  "description": "Command-line interface for scaffolding, generating, and managing Zudo framework projects.",
+  "description": "Command-line interface for scaffolding, generating, and managing Zudolib framework projects.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -14,7 +14,7 @@
     }
   },
   "bin": {
-    "zudo": "./dist/src/bin/zudo.js"
+    "zudolib": "./dist/src/bin/zudolib.js"
   },
   "files": [
     "dist",
@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json && mkdir -p dist/src/scripts && cp src/scripts/postinstall.cjs dist/src/scripts/postinstall.cjs",
-    "dev": "tsx src/bin/zudo.ts",
+    "dev": "tsx src/bin/zudolib.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf dist",
     "test": "vitest run",
@@ -31,10 +31,10 @@
   },
   "dependencies": {
     "@clack/prompts": "^1.7.0",
-    "@zudolib/config": "workspace:*",
-    "@zudolib/core": "workspace:*",
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/logger": "workspace:*"
+    "@zudoliblib/config": "workspace:*",
+    "@zudoliblib/core": "workspace:*",
+    "@zudoliblib/errors": "workspace:*",
+    "@zudoliblib/logger": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
@@ -49,15 +49,15 @@
     "access": "public"
   },
   "keywords": [
-    "zudo",
+    "zudolib",
     "cli",
     "scaffold",
     "generate",
     "dev"
   ],
-  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudo"
+    "url": "https://github.com/oyinlola-tech/zudolib"
   }
 }

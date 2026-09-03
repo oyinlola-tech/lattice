@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Counter
+ * @zudoliblib/observability — Counter
  *
  * Monotonically increasing counter for tracking event counts.
  */

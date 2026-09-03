@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/executor
+ * @zudoliblib/lifecycle/executor
  *
  * Lifecycle executor — runs component hooks with timeout, retry, and concurrency.
  */

@@ -2,68 +2,68 @@
 
 ## Package Tiers
 
-Zudo packages are organized into dependency tiers. Dependencies flow inward — higher-tier packages may depend on lower-tier packages, but never the reverse.
+Zudolib packages are organized into dependency tiers. Dependencies flow inward — higher-tier packages may depend on lower-tier packages, but never the reverse.
 
 ### Tier 0 — Leaf
 
-No `@zudolib/*` dependencies.
+No `@zudoliblib/*` dependencies.
 
-- `@zudolib/errors` — BaseError, ErrorCode, error categories
-- `@zudolib/types` — type guards, utility types
+- `@zudoliblib/errors` — BaseError, ErrorCode, error categories
+- `@zudoliblib/types` — type guards, utility types
 
 ### Tier 1 — Foundation
 
 Depends only on Tier 0.
 
-- `@zudolib/constants` — shared constants and branded types
-- `@zudolib/container` — DI container
-- `@zudolib/logger` — structured logging
-- `@zudolib/crypto` — cryptographic primitives
-- `@zudolib/validation` — schema validation
-- `@zudolib/schema` — schema definitions
-- `@zudolib/config` — layered configuration
-- `@zudolib/middleware` — composable middleware
-- `@zudolib/serialization` — JSON serializer and transformers
-- `@zudolib/events` — event bus, emitter, middleware, registry
-- `@zudolib/messaging` — message bus
-- `@zudolib/lifecycle` — lifecycle orchestration
-- `@zudolib/transactions` — transaction coordination
-- `@zudolib/permissions` — RBAC/ABAC
-- `@zudolib/feature-flags` — feature flag evaluation
-- `@zudolib/plugins` — plugin manager
-- `@zudolib/security` — input validation, CORS, CSRF, rate limiting
-- `@zudolib/tenancy` — multi-tenant context
-- `@zudolib/docs` — documentation infrastructure
-- `@zudolib/cache` — cache abstraction
-- `@zudolib/storage` — storage abstraction
-- `@zudolib/adapters` — boundary to external platforms
-- `@zudolib/queue` — background jobs
-- `@zudolib/scheduler` — scheduling
-- `@zudolib/database` — DB infrastructure
-- `@zudolib/observability` — metrics/tracing
+- `@zudoliblib/constants` — shared constants and branded types
+- `@zudoliblib/container` — DI container
+- `@zudoliblib/logger` — structured logging
+- `@zudoliblib/crypto` — cryptographic primitives
+- `@zudoliblib/validation` — schema validation
+- `@zudoliblib/schema` — schema definitions
+- `@zudoliblib/config` — layered configuration
+- `@zudoliblib/middleware` — composable middleware
+- `@zudoliblib/serialization` — JSON serializer and transformers
+- `@zudoliblib/events` — event bus, emitter, middleware, registry
+- `@zudoliblib/messaging` — message bus
+- `@zudoliblib/lifecycle` — lifecycle orchestration
+- `@zudoliblib/transactions` — transaction coordination
+- `@zudoliblib/permissions` — RBAC/ABAC
+- `@zudoliblib/feature-flags` — feature flag evaluation
+- `@zudoliblib/plugins` — plugin manager
+- `@zudoliblib/security` — input validation, CORS, CSRF, rate limiting
+- `@zudoliblib/tenancy` — multi-tenant context
+- `@zudoliblib/docs` — documentation infrastructure
+- `@zudoliblib/cache` — cache abstraction
+- `@zudoliblib/storage` — storage abstraction
+- `@zudoliblib/adapters` — boundary to external platforms
+- `@zudoliblib/queue` — background jobs
+- `@zudoliblib/scheduler` — scheduling
+- `@zudoliblib/database` — DB infrastructure
+- `@zudoliblib/observability` — metrics/tracing
 
 ### Tier 2 — Application
 
 Depends on Tier 1.
 
-- `@zudolib/core` — application lifecycle, execution context, runtime
-- `@zudolib/cqrs` — commands/queries/handlers
-- `@zudolib/auth` — JWT/sessions/RBAC
-- `@zudolib/runtime` — lifecycle orchestrator
-- `@zudolib/openapi` — OpenAPI generation
-- `@zudolib/rpc` — RPC
-- `@zudolib/api` — API framework
+- `@zudoliblib/core` — application lifecycle, execution context, runtime
+- `@zudoliblib/cqrs` — commands/queries/handlers
+- `@zudoliblib/auth` — JWT/sessions/RBAC
+- `@zudoliblib/runtime` — lifecycle orchestrator
+- `@zudoliblib/openapi` — OpenAPI generation
+- `@zudoliblib/rpc` — RPC
+- `@zudoliblib/api` — API framework
 
 ### Tier 3 — Transport
 
 Depends on Tier 2.
 
-- `@zudolib/http` — HTTP primitives, routing, middleware
-- `zudo-cli` — CLI scaffolding/generators
+- `@zudoliblib/http` — HTTP primitives, routing, middleware
+- `zudolib-cli` — CLI scaffolding/generators
 
 ### Tier 4 — Developer Experience
 
-- `@zudolib/testing` — test helpers
+- `@zudoliblib/testing` — test helpers
 
 ## Rules
 

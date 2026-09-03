@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@zudolib/cqrs";
+import type { CommandBus, QueryBus } from "@zudoliblib/cqrs";
 import type { TopicId, UserId } from "../types/index.js";
 import { CreateTopicCommand } from "../modules/topics/commands/create-topic/create-topic.command.js";
 import { FollowTopicCommand } from "../modules/topics/commands/follow-topic/follow-topic.command.js";

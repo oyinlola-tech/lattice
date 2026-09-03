@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpHeaders/date
+ * @zudoliblib/http/httpHeaders/date
  *
  * HTTP headers date utilities.
  */

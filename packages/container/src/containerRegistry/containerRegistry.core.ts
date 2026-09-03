@@ -33,7 +33,7 @@ import { RegistryOperation } from "./containerRegistry.type.js";
 import {
   DuplicateRegistrationError,
   RegistrationNotFoundError,
-} from "@zudolib/errors";
+} from "@zudoliblib/errors";
 import { describeRegistryToken } from "./containerRegistry.error.js";
 
 export class ContainerRegistry {
@@ -187,7 +187,7 @@ export class ContainerRegistry {
     this.registrations.clear();
     this.emit({
       operation: RegistryOperation.CLEAR,
-      token: Symbol.for("zudo:container:registry"),
+      token: Symbol.for("zudolib:container:registry"),
       timestamp: new Date(),
     });
   }

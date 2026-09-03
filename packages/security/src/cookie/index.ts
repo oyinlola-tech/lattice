@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — Cookie Security Barrel
+ * @zudoliblib/security — Cookie Security Barrel
  */
 
 export {

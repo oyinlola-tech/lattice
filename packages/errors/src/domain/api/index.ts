@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/domain/api
+ * @zudoliblib/errors/domain/api
  *
  * API-specific error types.
  */

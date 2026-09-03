@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Framework Prompt
+ * zudolib-cli — Framework Prompt
  *
  * Prompts for frontend framework selection.
  */

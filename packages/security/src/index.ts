@@ -1,7 +1,7 @@
 /**
- * @zudolib/security
+ * @zudoliblib/security
  *
- * Security primitives for the Zudo framework.
+ * Security primitives for the Zudolib framework.
  *
  * Provides input validation, header security, URL normalization,
  * body limits, cookie security, CORS, CSRF, rate limiting, and
@@ -9,7 +9,7 @@
  *
  * @example
  * ```ts
- * import { validateHeaders, validateUrl, generateSecurityHeaders } from '@zudolib/security';
+ * import { validateHeaders, validateUrl, generateSecurityHeaders } from '@zudoliblib/security';
  *
  * // Validate request headers
  * const result = validateHeaders(request.headers);

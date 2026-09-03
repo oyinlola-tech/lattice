@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpTypes
+ * @zudoliblib/http/httpTypes
  *
  * HTTP httpTypes module.
  */

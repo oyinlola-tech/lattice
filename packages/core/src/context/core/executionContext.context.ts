@@ -1,6 +1,6 @@
 /**
  * Represents the execution context of a single operation
- * within a Zudo application.
+ * within a Zudolib application.
  *
  * An execution can represent:
  *

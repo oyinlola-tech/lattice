@@ -30,16 +30,16 @@ importers:
 
   examples/basic-api:
     dependencies:
-      "@zudo/core":
+      "@zudolib/core":
         specifier: workspace:*
         version: link:../../packages/core
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../../packages/errors
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../../packages/http
-      "@zudo/validation":
+      "@zudolib/validation":
         specifier: workspace:*
         version: link:../../packages/validation
     devDependencies:
@@ -55,7 +55,7 @@ importers:
 
   examples/hello-world:
     dependencies:
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../../packages/logger
     devDependencies:
@@ -77,31 +77,31 @@ importers:
 
   examples/micro-service/assessment:
     dependencies:
-      "@zudo/config":
+      "@zudolib/config":
         specifier: workspace:*
         version: link:../../../packages/config
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../../../packages/constants
-      "@zudo/cqrs":
+      "@zudolib/cqrs":
         specifier: workspace:*
         version: link:../../../packages/cqrs
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../../../packages/errors
-      "@zudo/events":
+      "@zudolib/events":
         specifier: workspace:*
         version: link:../../../packages/events
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../../../packages/http
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../../../packages/logger
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../../../packages/types
-      "@zudo/validation":
+      "@zudolib/validation":
         specifier: workspace:*
         version: link:../../../packages/validation
       better-sqlite3:
@@ -123,31 +123,31 @@ importers:
 
   examples/micro-service/enrollment:
     dependencies:
-      "@zudo/config":
+      "@zudolib/config":
         specifier: workspace:*
         version: link:../../../packages/config
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../../../packages/constants
-      "@zudo/cqrs":
+      "@zudolib/cqrs":
         specifier: workspace:*
         version: link:../../../packages/cqrs
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../../../packages/errors
-      "@zudo/events":
+      "@zudolib/events":
         specifier: workspace:*
         version: link:../../../packages/events
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../../../packages/http
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../../../packages/logger
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../../../packages/types
-      "@zudo/validation":
+      "@zudolib/validation":
         specifier: workspace:*
         version: link:../../../packages/validation
       better-sqlite3:
@@ -172,28 +172,28 @@ importers:
 
   examples/micro-service/gateway:
     dependencies:
-      "@zudo/config":
+      "@zudolib/config":
         specifier: workspace:*
         version: link:../../../packages/config
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../../../packages/constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../../../packages/errors
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../../../packages/http
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../../../packages/logger
-      "@zudo/security":
+      "@zudolib/security":
         specifier: workspace:*
         version: link:../../../packages/security
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../../../packages/types
-      "@zudo/validation":
+      "@zudolib/validation":
         specifier: workspace:*
         version: link:../../../packages/validation
       jsonwebtoken:
@@ -218,43 +218,43 @@ importers:
 
   examples/micro-service/identity:
     dependencies:
-      "@zudo/config":
+      "@zudolib/config":
         specifier: workspace:*
         version: link:../../../packages/config
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../../../packages/constants
-      "@zudo/container":
+      "@zudolib/container":
         specifier: workspace:*
         version: link:../../../packages/container
-      "@zudo/cqrs":
+      "@zudolib/cqrs":
         specifier: workspace:*
         version: link:../../../packages/cqrs
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../../../packages/errors
-      "@zudo/events":
+      "@zudolib/events":
         specifier: workspace:*
         version: link:../../../packages/events
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../../../packages/http
-      "@zudo/lifecycle":
+      "@zudolib/lifecycle":
         specifier: workspace:*
         version: link:../../../packages/lifecycle
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../../../packages/logger
-      "@zudo/permissions":
+      "@zudolib/permissions":
         specifier: workspace:*
         version: link:../../../packages/permissions
-      "@zudo/queue":
+      "@zudolib/queue":
         specifier: workspace:*
         version: link:../../../packages/queue
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../../../packages/types
-      "@zudo/validation":
+      "@zudolib/validation":
         specifier: workspace:*
         version: link:../../../packages/validation
       better-sqlite3:
@@ -285,34 +285,34 @@ importers:
 
   examples/micro-service/notification:
     dependencies:
-      "@zudo/config":
+      "@zudolib/config":
         specifier: workspace:*
         version: link:../../../packages/config
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../../../packages/constants
-      "@zudo/cqrs":
+      "@zudolib/cqrs":
         specifier: workspace:*
         version: link:../../../packages/cqrs
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../../../packages/errors
-      "@zudo/events":
+      "@zudolib/events":
         specifier: workspace:*
         version: link:../../../packages/events
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../../../packages/http
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../../../packages/logger
-      "@zudo/queue":
+      "@zudolib/queue":
         specifier: workspace:*
         version: link:../../../packages/queue
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../../../packages/types
-      "@zudo/validation":
+      "@zudolib/validation":
         specifier: workspace:*
         version: link:../../../packages/validation
     devDependencies:
@@ -328,43 +328,43 @@ importers:
 
   examples/modular-monolith:
     dependencies:
-      "@zudo/config":
+      "@zudolib/config":
         specifier: workspace:*
         version: link:../../packages/config
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../../packages/constants
-      "@zudo/container":
+      "@zudolib/container":
         specifier: workspace:*
         version: link:../../packages/container
-      "@zudo/cqrs":
+      "@zudolib/cqrs":
         specifier: workspace:*
         version: link:../../packages/cqrs
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../../packages/errors
-      "@zudo/events":
+      "@zudolib/events":
         specifier: workspace:*
         version: link:../../packages/events
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../../packages/http
-      "@zudo/lifecycle":
+      "@zudolib/lifecycle":
         specifier: workspace:*
         version: link:../../packages/lifecycle
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../../packages/logger
-      "@zudo/permissions":
+      "@zudolib/permissions":
         specifier: workspace:*
         version: link:../../packages/permissions
-      "@zudo/queue":
+      "@zudolib/queue":
         specifier: workspace:*
         version: link:../../packages/queue
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../../packages/types
-      "@zudo/validation":
+      "@zudolib/validation":
         specifier: workspace:*
         version: link:../../packages/validation
       better-sqlite3:
@@ -392,49 +392,49 @@ importers:
 
   examples/monolith:
     dependencies:
-      "@zudo/config":
+      "@zudolib/config":
         specifier: workspace:*
         version: link:../../packages/config
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../../packages/constants
-      "@zudo/container":
+      "@zudolib/container":
         specifier: workspace:*
         version: link:../../packages/container
-      "@zudo/core":
+      "@zudolib/core":
         specifier: workspace:*
         version: link:../../packages/core
-      "@zudo/cqrs":
+      "@zudolib/cqrs":
         specifier: workspace:*
         version: link:../../packages/cqrs
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../../packages/errors
-      "@zudo/events":
+      "@zudolib/events":
         specifier: workspace:*
         version: link:../../packages/events
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../../packages/http
-      "@zudo/lifecycle":
+      "@zudolib/lifecycle":
         specifier: workspace:*
         version: link:../../packages/lifecycle
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../../packages/logger
-      "@zudo/messaging":
+      "@zudolib/messaging":
         specifier: workspace:*
         version: link:../../packages/messaging
-      "@zudo/queue":
+      "@zudolib/queue":
         specifier: workspace:*
         version: link:../../packages/queue
-      "@zudo/schema":
+      "@zudolib/schema":
         specifier: workspace:*
         version: link:../../packages/schema
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../../packages/types
-      "@zudo/validation":
+      "@zudolib/validation":
         specifier: workspace:*
         version: link:../../packages/validation
     devDependencies:
@@ -447,19 +447,19 @@ importers:
 
   examples/worker:
     dependencies:
-      "@zudo/core":
+      "@zudolib/core":
         specifier: workspace:*
         version: link:../../packages/core
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../../packages/errors
-      "@zudo/lifecycle":
+      "@zudolib/lifecycle":
         specifier: workspace:*
         version: link:../../packages/lifecycle
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../../packages/logger
-      "@zudo/queue":
+      "@zudolib/queue":
         specifier: workspace:*
         version: link:../../packages/queue
     devDependencies:
@@ -472,16 +472,16 @@ importers:
 
   packages/adapters:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/lifecycle":
+      "@zudolib/lifecycle":
         specifier: workspace:*
         version: link:../lifecycle
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -494,16 +494,16 @@ importers:
 
   packages/api:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/schema":
+      "@zudolib/schema":
         specifier: workspace:*
         version: link:../schema
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -516,13 +516,13 @@ importers:
 
   packages/auth:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/permissions":
+      "@zudolib/permissions":
         specifier: workspace:*
         version: link:../permissions
     devDependencies:
@@ -535,13 +535,13 @@ importers:
 
   packages/cache:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/serialization":
+      "@zudolib/serialization":
         specifier: workspace:*
         version: link:../serialization
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -557,16 +557,16 @@ importers:
       "@clack/prompts":
         specifier: ^1.7.0
         version: 1.7.0
-      "@zudo/config":
+      "@zudolib/config":
         specifier: workspace:*
         version: link:../config
-      "@zudo/core":
+      "@zudolib/core":
         specifier: workspace:*
         version: link:../core
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../logger
     devDependencies:
@@ -585,7 +585,7 @@ importers:
 
   packages/config:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -598,7 +598,7 @@ importers:
 
   packages/constants:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -611,7 +611,7 @@ importers:
 
   packages/container:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -621,13 +621,13 @@ importers:
 
   packages/core:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/messaging":
+      "@zudolib/messaging":
         specifier: workspace:*
         version: link:../messaging
     devDependencies:
@@ -643,13 +643,13 @@ importers:
 
   packages/cqrs:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/events":
+      "@zudolib/events":
         specifier: workspace:*
         version: link:../events
-      "@zudo/messaging":
+      "@zudolib/messaging":
         specifier: workspace:*
         version: link:../messaging
     devDependencies:
@@ -662,10 +662,10 @@ importers:
 
   packages/crypto:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -678,7 +678,7 @@ importers:
       "@prisma/client":
         specifier: ^7.10.0
         version: 7.10.0(prisma@7.10.0(@types/node@26.4.0)(@types/react@19.2.18)(better-sqlite3@13.0.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))(typescript@7.0.2)
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -688,7 +688,7 @@ importers:
 
   packages/docs:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -707,10 +707,10 @@ importers:
 
   packages/events:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -723,7 +723,7 @@ importers:
 
   packages/feature-flags:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -736,16 +736,16 @@ importers:
 
   packages/http:
     dependencies:
-      "@zudo/core":
+      "@zudolib/core":
         specifier: workspace:*
         version: link:../core
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../logger
-      "@zudo/security":
+      "@zudolib/security":
         specifier: workspace:*
         version: link:../security
     devDependencies:
@@ -767,10 +767,10 @@ importers:
 
   packages/lifecycle:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -786,7 +786,7 @@ importers:
 
   packages/logger:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -799,10 +799,10 @@ importers:
 
   packages/messaging:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -812,7 +812,7 @@ importers:
 
   packages/middleware:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -825,7 +825,7 @@ importers:
 
   packages/observability:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -841,13 +841,13 @@ importers:
 
   packages/openapi:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/schema":
+      "@zudolib/schema":
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -863,13 +863,13 @@ importers:
 
   packages/permissions:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../http
     devDependencies:
@@ -882,13 +882,13 @@ importers:
 
   packages/plugins:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -904,13 +904,13 @@ importers:
 
   packages/queue:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/serialization":
+      "@zudolib/serialization":
         specifier: workspace:*
         version: link:../serialization
     devDependencies:
@@ -923,16 +923,16 @@ importers:
 
   packages/rpc:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/schema":
+      "@zudolib/schema":
         specifier: workspace:*
         version: link:../schema
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -945,25 +945,25 @@ importers:
 
   packages/runtime:
     dependencies:
-      "@zudo/config":
+      "@zudolib/config":
         specifier: workspace:*
         version: link:../config
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/container":
+      "@zudolib/container":
         specifier: workspace:*
         version: link:../container
-      "@zudo/core":
+      "@zudolib/core":
         specifier: workspace:*
         version: link:../core
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/events":
+      "@zudolib/events":
         specifier: workspace:*
         version: link:../events
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../logger
     devDependencies:
@@ -979,13 +979,13 @@ importers:
 
   packages/scheduler:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -998,13 +998,13 @@ importers:
 
   packages/schema:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -1020,10 +1020,10 @@ importers:
 
   packages/security:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -1039,16 +1039,16 @@ importers:
 
   packages/serialization:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../types
-      "@zudo/validation":
+      "@zudolib/validation":
         specifier: workspace:*
         version: link:../validation
     devDependencies:
@@ -1061,16 +1061,16 @@ importers:
 
   packages/storage:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/serialization":
+      "@zudolib/serialization":
         specifier: workspace:*
         version: link:../serialization
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -1086,13 +1086,13 @@ importers:
 
   packages/tenancy:
     dependencies:
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../http
     devDependencies:
@@ -1105,49 +1105,49 @@ importers:
 
   packages/testing:
     dependencies:
-      "@zudo/config":
+      "@zudolib/config":
         specifier: workspace:*
         version: link:../config
-      "@zudo/constants":
+      "@zudolib/constants":
         specifier: workspace:*
         version: link:../constants
-      "@zudo/container":
+      "@zudolib/container":
         specifier: workspace:*
         version: link:../container
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
-      "@zudo/events":
+      "@zudolib/events":
         specifier: workspace:*
         version: link:../events
-      "@zudo/http":
+      "@zudolib/http":
         specifier: workspace:*
         version: link:../http
-      "@zudo/logger":
+      "@zudolib/logger":
         specifier: workspace:*
         version: link:../logger
-      "@zudo/messaging":
+      "@zudolib/messaging":
         specifier: workspace:*
         version: link:../messaging
-      "@zudo/middleware":
+      "@zudolib/middleware":
         specifier: workspace:*
         version: link:../middleware
-      "@zudo/queue":
+      "@zudolib/queue":
         specifier: workspace:*
         version: link:../queue
-      "@zudo/security":
+      "@zudolib/security":
         specifier: workspace:*
         version: link:../security
-      "@zudo/serialization":
+      "@zudolib/serialization":
         specifier: workspace:*
         version: link:../serialization
-      "@zudo/storage":
+      "@zudolib/storage":
         specifier: workspace:*
         version: link:../storage
-      "@zudo/types":
+      "@zudolib/types":
         specifier: workspace:*
         version: link:../types
-      "@zudo/validation":
+      "@zudolib/validation":
         specifier: workspace:*
         version: link:../validation
     devDependencies:
@@ -1160,7 +1160,7 @@ importers:
 
   packages/transactions:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -1185,7 +1185,7 @@ importers:
 
   packages/validation:
     dependencies:
-      "@zudo/errors":
+      "@zudolib/errors":
         specifier: workspace:*
         version: link:../errors
       zod:

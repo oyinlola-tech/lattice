@@ -1,7 +1,7 @@
 /**
- * zudo-cli — Dev Command
+ * zudolib-cli — Dev Command
  *
- * The `zudo dev` command.
+ * The `zudolib dev` command.
  * Starts development servers based on project configuration.
  */
 
@@ -33,7 +33,7 @@ export async function runDevCommand(context: CLIContext): Promise<void> {
 
   if (!config) {
     throw new CLIValidationError(
-      "No Zudo project found. Run `zudo create` first.",
+      "No Zudolib project found. Run `zudolib create` first.",
     );
   }
 
@@ -93,8 +93,8 @@ function readProjectConfig(cwd: string): {
   readonly backend?: { readonly architecture: string };
   readonly frontend?: { readonly framework: string };
 } | null {
-  const configPath = join(cwd, "zudo.config.ts");
-  const configPathJs = join(cwd, "zudo.config.js");
+  const configPath = join(cwd, "zudolib.config.ts");
+  const configPathJs = join(cwd, "zudolib.config.js");
 
   if (existsSync(configPath)) {
     const content = readFileSync(configPath, "utf-8");
@@ -110,22 +110,22 @@ function readProjectConfig(cwd: string): {
   if (existsSync(pkgPath)) {
     const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
       name?: string;
-      zudo?: {
+      zudolib?: {
         projectType?: string;
         architecture?: string;
         frontend?: string;
       };
     };
 
-    if (pkg.zudo) {
+    if (pkg.zudolib) {
       return {
         name: pkg.name ?? "unknown",
-        type: pkg.zudo.projectType ?? "backend",
-        backend: pkg.zudo.architecture
-          ? { architecture: pkg.zudo.architecture }
+        type: pkg.zudolib.projectType ?? "backend",
+        backend: pkg.zudolib.architecture
+          ? { architecture: pkg.zudolib.architecture }
           : undefined,
-        frontend: pkg.zudo.frontend
-          ? { framework: pkg.zudo.frontend }
+        frontend: pkg.zudolib.frontend
+          ? { framework: pkg.zudolib.frontend }
           : undefined,
       };
     }

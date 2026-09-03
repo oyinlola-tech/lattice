@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — Input Sanitization Barrel
+ * @zudoliblib/security — Input Sanitization Barrel
  */
 
 export {

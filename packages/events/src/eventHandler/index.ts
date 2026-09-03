@@ -1,5 +1,5 @@
 /**
- * @zudolib/events/eventHandler
+ * @zudoliblib/events/eventHandler
  *
  * Event handler types and execution.
  */

@@ -1,5 +1,5 @@
 /**
- * Zudo HTTP route result class.
+ * Zudolib HTTP route result class.
  */
 
 import type {

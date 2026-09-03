@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpFormData
+ * @zudoliblib/http/httpFormData
  *
  * HTTP form data parsing and handling.
  */

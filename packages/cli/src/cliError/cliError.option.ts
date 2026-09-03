@@ -1,10 +1,10 @@
 /**
- * zudo-cli — Option Errors
+ * zudolib-cli — Option Errors
  *
  * Error classes for option validation failures.
  */
 
-import { ConflictError } from "@zudolib/errors";
+import { ConflictError } from "@zudoliblib/errors";
 import { CLIError } from "./cliError.base.js";
 import {
   CLI_ERROR_CODES,
@@ -73,7 +73,7 @@ export class MissingOptionValueError extends CLIError {
 
 /**
  * Thrown when an option name is already registered.
- * Extends `ConflictError` from `@zudolib/errors`.
+ * Extends `ConflictError` from `@zudoliblib/errors`.
  */
 export class DuplicateOptionError extends ConflictError {
   public readonly exitCode: number;

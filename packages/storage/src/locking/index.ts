@@ -1,5 +1,5 @@
 /**
- * @zudolib/storage — Locking Barrel
+ * @zudoliblib/storage — Locking Barrel
  */
 
 export { InMemoryLockManager } from "./inMemoryLock.core.js";

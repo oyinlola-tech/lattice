@@ -1,5 +1,5 @@
 /**
- * @zudolib/storage — Types Barrel
+ * @zudoliblib/storage — Types Barrel
  *
  * Re-exports all storage type definitions.
  */

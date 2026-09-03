@@ -1,4 +1,4 @@
-import { BaseError, ErrorCode, ErrorCategory } from "@zudolib/errors";
+import { BaseError, ErrorCode, ErrorCategory } from "@zudoliblib/errors";
 
 /**
  * Error thrown when a gateway-specific failure occurs.

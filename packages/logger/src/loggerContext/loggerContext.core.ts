@@ -1,5 +1,5 @@
 /**
- * Logger context for Zudo.
+ * Logger context for Zudolib.
  */
 
 import type { LogMetadata } from "../loggerEntry/loggerEntry.type.js";

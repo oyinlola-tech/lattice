@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Configuration Resolvers
+ * zudolib-cli — Configuration Resolvers
  *
  * Resolves and validates project configuration.
  */

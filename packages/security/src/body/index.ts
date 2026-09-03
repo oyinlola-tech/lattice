@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — Body Validation Barrel
+ * @zudoliblib/security — Body Validation Barrel
  */
 
 export {

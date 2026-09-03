@@ -1,11 +1,11 @@
 /**
- * zudo-cli
+ * zudolib-cli
  *
- * Command-line interface framework for the Zudo platform.
+ * Command-line interface framework for the Zudolib platform.
  *
  * @example
  * ```ts
- * import { createCLI, command } from "zudo-cli";
+ * import { createCLI, command } from "zudolib-cli";
  *
  * const app = createCLI({ name: "my-app", version: "1.0.0" });
  *
@@ -111,7 +111,7 @@ export {
 
 // Application
 export {
-  ZudoCLI,
+  ZudolibCLI,
   createCLI,
   createCLIWriter,
   registerCLIInterruptHandler,
@@ -246,7 +246,7 @@ export {
 export { RollbackManager, type RollbackEntry } from "./rollback/index.js";
 
 // Manifest
-export { ManifestManager, type ZudoManifest } from "./manifest/index.js";
+export { ManifestManager, type ZudolibManifest } from "./manifest/index.js";
 
 // Types
 export type {

@@ -69,7 +69,7 @@ export class AngularAdapter implements FrontendAdapter {
     return deps;
   }
 
-  async applyZudoStructure(
+  async applyZudolibStructure(
     context: FrontendGenerationContext,
   ): Promise<void> {
     const structure = this.getStructure(context);
@@ -190,7 +190,7 @@ bootstrapApplication(AppComponent);
 @Component({
   selector: "app-root",
   standalone: true,
-  template: "<h1>Hello from Zudo</h1>",
+  template: "<h1>Hello from Zudolib</h1>",
 })
 export class AppComponent {}
 `,

@@ -1,5 +1,5 @@
 /**
- * @zudolib/cqrs/cqrsDecorators
+ * @zudoliblib/cqrs/cqrsDecorators
  *
  * TypeScript decorators for CQRS handler metadata.
  */

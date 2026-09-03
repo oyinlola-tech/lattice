@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/base/types
+ * @zudoliblib/errors/base/types
  *
  * Error type definitions (codes, categories, severity, metadata).
  */

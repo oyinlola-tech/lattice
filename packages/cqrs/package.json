@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/cqrs",
+  "name": "@zudoliblib/cqrs",
   "version": "0.1.3",
   "description": "Command Query Responsibility Segregation (CQRS) primitives for separating read and write operations.",
   "license": "MIT",
@@ -24,9 +24,9 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/events": "workspace:*",
-    "@zudolib/messaging": "workspace:*"
+    "@zudoliblib/errors": "workspace:*",
+    "@zudoliblib/events": "workspace:*",
+    "@zudoliblib/messaging": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
@@ -39,14 +39,14 @@
     "node": ">=24.0.0"
   },
   "keywords": [
-    "zudo",
+    "zudolib",
     "cqrs",
     "commands",
     "queries"
   ],
-  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudo"
+    "url": "https://github.com/oyinlola-tech/zudolib"
   }
 }

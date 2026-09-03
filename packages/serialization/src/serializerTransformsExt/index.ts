@@ -1,5 +1,5 @@
 /**
- * @zudolib/serialization — Extended type transformers.
+ * @zudoliblib/serialization — Extended type transformers.
  *
  * Built-in transformers for Buffer/Uint8Array and Error types,
  * plus encoding utilities.

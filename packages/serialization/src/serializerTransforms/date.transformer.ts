@@ -1,12 +1,12 @@
 /**
- * @zudolib/serialization — Date transformer.
+ * @zudoliblib/serialization — Date transformer.
  *
  * Preserves Date instances across serialization boundaries
  * using ISO-8601 string representation.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { SerializationTags } from "@zudolib/constants";
+import { SerializationTags } from "@zudoliblib/constants";
 
 const DATE_TYPE = "Date" as const;
 

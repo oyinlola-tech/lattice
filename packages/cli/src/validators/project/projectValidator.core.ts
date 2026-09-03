@@ -1,5 +1,5 @@
 /**
- * zudo-cli — Project Validator
+ * zudolib-cli — Project Validator
  *
  * Validates a generated project by checking structure, configuration, and buildability.
  */

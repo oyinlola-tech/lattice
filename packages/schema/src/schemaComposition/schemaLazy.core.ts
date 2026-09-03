@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/composition/lazy
+ * @zudoliblib/schema/composition/lazy
  *
  * Lazy schema for recursive and self-referencing data structures.
  */

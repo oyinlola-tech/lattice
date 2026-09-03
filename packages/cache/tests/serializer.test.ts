@@ -1,5 +1,5 @@
 /**
- * @zudolib/cache — Serializer Tests
+ * @zudoliblib/cache — Serializer Tests
  *
  * Tests for JsonCacheSerializer, RawCacheSerializer,
  * and getSerializer utility.

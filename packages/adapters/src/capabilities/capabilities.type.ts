@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/capabilities
+ * @zudoliblib/adapters/capabilities
  *
  * Adapter capabilities — declares what an adapter supports.
  */
