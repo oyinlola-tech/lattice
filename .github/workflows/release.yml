@@ -85,7 +85,12 @@ jobs:
           fi
 
       - name: Version packages
-        run: pnpm changeset version
+        run: |
+          if [ -z "$(find .changeset -name '*.md' -not -name 'config.json' -type f 2>/dev/null)" ]; then
+            echo "No unreleased changesets found, skipping version step"
+            exit 0
+          fi
+          pnpm changeset version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -105,6 +110,10 @@ jobs:
       - name: Publish packages
         if: github.ref == 'refs/heads/main'
         run: |
+          if [ -z "$(find .changeset -name '*.md' -not -name 'config.json' -type f 2>/dev/null)" ]; then
+            echo "No changesets to publish, skipping"
+            exit 0
+          fi
           PUBLISHED=false
           for attempt in 1 2 3 4 5; do
             echo "Publish attempt $attempt"
