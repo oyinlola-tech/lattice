@@ -65,7 +65,10 @@ export function createTestQueue<TData = unknown>(
   name: QueueName,
   options?: QueueOptions,
 ): TestQueue<TData> {
-  const queue = createInMemoryQueue<TData>(name, options) as InMemoryQueue<TData>;
+  const queue = createInMemoryQueue<TData>(
+    name,
+    options,
+  ) as InMemoryQueue<TData>;
   const recordedJobs: RecordedJob<TData>[] = [];
 
   const add = async (

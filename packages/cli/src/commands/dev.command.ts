@@ -79,9 +79,7 @@ export async function runDevCommand(context: CLIContext): Promise<void> {
   }
 }
 
-function readProjectConfig(
-  cwd: string,
-): {
+function readProjectConfig(cwd: string): {
   readonly name: string;
   readonly type: string;
   readonly backend?: { readonly architecture: string };
