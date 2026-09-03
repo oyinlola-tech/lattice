@@ -436,7 +436,7 @@ pnpm add @zudolib/http @zudolib/config @zudolib/logger
 ### Setup
 
 ```bash
-git clone https://github.com/oyinlola-tech/zudolib.git
+git clone https://github.com/oyinlola-tech/zudo.git
 cd zudolib
 pnpm install
 pnpm run build

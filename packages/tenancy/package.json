@@ -52,9 +52,9 @@
     "multi-tenant",
     "saas"
   ],
-  "homepage": "https://github.com/oyinlola-tech/zudolib#readme",
+  "homepage": "https://github.com/oyinlola-tech/zudo#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oyinlola-tech/zudolib"
+    "url": "https://github.com/oyinlola-tech/zudo"
   }
 }

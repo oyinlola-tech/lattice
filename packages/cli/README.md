@@ -72,4 +72,4 @@ zudolib add database
 
 ## Documentation
 
-See the [Zudolib README](https://github.com/oyinlola-tech/zudolib) for full documentation.
+See the [Zudolib README](https://github.com/oyinlola-tech/zudo) for full documentation.

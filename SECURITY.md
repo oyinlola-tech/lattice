@@ -6,7 +6,7 @@ Please do not report security vulnerabilities through public GitHub issues.
 
 Report security vulnerabilities privately through:
 
-- [GitHub Security Advisories](https://github.com/oyinlola-tech/zudolib/security/advisories)
+- [GitHub Security Advisories](https://github.com/oyinlola-tech/zudo/security/advisories)
 
 If you are unable to use GitHub Security Advisories, please use the dedicated security contact listed in the repository settings rather than opening a public issue.
 

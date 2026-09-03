@@ -27,7 +27,7 @@
 
 ### Patch Changes
 
-- [`5af5beb`](https://github.com/oyinlola-tech/zudolib/commit/5af5bebfbf89d48424d8658a670598d348589fad) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Add fullstack project generation, 11 frontend adapters, and security hardening
+- [`5af5beb`](https://github.com/oyinlola-tech/zudo/commit/5af5bebfbf89d48424d8658a670598d348589fad) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Add fullstack project generation, 11 frontend adapters, and security hardening
 
   - Add `--type`, `--frontend`, `--api`, `--language` options to `zudolib create`
   - Add frontend adapters: React, Next, Vue, Nuxt, Angular, Svelte, SvelteKit, Astro, Vanilla, Flutter, React Native
@@ -43,8 +43,8 @@
 
 ### Patch Changes
 
-- [`8b4c2fe`](https://github.com/oyinlola-tech/zudolib/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Fix changeset validation workflow and publish all packages to npm.
-- Updated dependencies [[`8b4c2fe`](https://github.com/oyinlola-tech/zudolib/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908)]:
+- [`8b4c2fe`](https://github.com/oyinlola-tech/zudo/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Fix changeset validation workflow and publish all packages to npm.
+- Updated dependencies [[`8b4c2fe`](https://github.com/oyinlola-tech/zudo/commit/8b4c2febb0d91668bc23fd69f06fc94647abb908)]:
   - @zudolib/core@0.1.3
   - @zudolib/errors@0.1.2
   - @zudolib/config@0.1.2
@@ -54,8 +54,8 @@
 
 ### Patch Changes
 
-- [`35faf04`](https://github.com/oyinlola-tech/zudolib/commit/35faf049b7ff9e300cf2030f48ac108813c912c4) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Initial publication of all Zudolib packages with namespace migration, new middleware, and fixes.
-- Updated dependencies [[`35faf04`](https://github.com/oyinlola-tech/zudolib/commit/35faf049b7ff9e300cf2030f48ac108813c912c4)]:
+- [`35faf04`](https://github.com/oyinlola-tech/zudo/commit/35faf049b7ff9e300cf2030f48ac108813c912c4) Thanks [@oyinlola-tech](https://github.com/oyinlola-tech)! - Initial publication of all Zudolib packages with namespace migration, new middleware, and fixes.
+- Updated dependencies [[`35faf04`](https://github.com/oyinlola-tech/zudo/commit/35faf049b7ff9e300cf2030f48ac108813c912c4)]:
   - @zudolib/core@0.1.2
   - @zudolib/errors@0.1.1
   - @zudolib/config@0.1.1

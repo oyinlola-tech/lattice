@@ -23,7 +23,7 @@ PACKAGES=(
 for pkg in "${PACKAGES[@]}"; do
   echo ""
   echo "Publishing $pkg..."
-  cd "/home/oyinlola/Desktop/Zudolib/$pkg"
+  cd "/home/oyinlola/Desktop/Zudo/$pkg"
   npm publish --access public
 done
 
