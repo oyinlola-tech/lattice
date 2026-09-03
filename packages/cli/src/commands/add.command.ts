@@ -9,6 +9,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import type { CLIContext } from "../cliType/cliType.type.js";
 import { execCommand } from "../utils/utils.exec.js";
 import { CLIValidationError, CLIGenerationError } from "../errors/index.js";
+import { ManifestManager } from "../manifest/manifestManager.core.js";
 
 const FEATURE_PACKAGES: Readonly<Record<string, readonly string[]>> = {
   database: ["@oyinlola141/lattice-database"],
@@ -17,6 +18,10 @@ const FEATURE_PACKAGES: Readonly<Record<string, readonly string[]>> = {
   openapi: ["@oyinlola141/lattice-openapi"],
   observability: ["@oyinlola141/lattice-observability"],
   security: ["@oyinlola141/lattice-security"],
+  cache: ["@oyinlola141/lattice-cache"],
+  storage: ["@oyinlola141/lattice-storage"],
+  scheduler: ["@oyinlola141/lattice-queue"],
+  docs: ["@oyinlola141/lattice-docs"],
 };
 
 export async function runAddCommand(context: CLIContext): Promise<void> {
@@ -80,6 +85,12 @@ export async function runAddCommand(context: CLIContext): Promise<void> {
     context.logger.info(`Updated ${rootPkg} with new dependencies.`);
 
     updateLatticeConfig(context.cwd, feature);
+
+    const manifest = new ManifestManager(context.cwd);
+    const current = await manifest.read();
+    if (current) {
+      await manifest.addCapability(feature);
+    }
 
     if (context.values["skip-install"] !== true) {
       context.logger.info(`Installing dependencies with ${manager}...`);
@@ -150,6 +161,10 @@ function updateLatticeConfig(cwd: string, feature: string): void {
     openapi: "openapi",
     observability: "observability",
     security: "security",
+    cache: "cache",
+    storage: "storage",
+    scheduler: "scheduler",
+    docs: "docs",
   };
 
   const configKey = featureMap[feature];

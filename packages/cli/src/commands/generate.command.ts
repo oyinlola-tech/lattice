@@ -14,7 +14,31 @@ import { generateCommand } from "../generators/command/command.generator.js";
 import { generateQuery } from "../generators/query/query.generator.js";
 import { generateController } from "../generators/controller/controller.generator.js";
 import { generateRepository } from "../generators/repository/repository.generator.js";
+import { generateMiddleware } from "../generators/middleware/middleware.generator.js";
+import { generateEvent } from "../generators/event/event.generator.js";
+import { generateJob } from "../generators/job/job.generator.js";
+import { generateRoute } from "../generators/route/route.generator.js";
+import { generateModel } from "../generators/model/model.generator.js";
+import { generateDto } from "../generators/dto/dto.generator.js";
+import { generateValidator } from "../generators/validator/validator.generator.js";
+import { ManifestManager } from "../manifest/manifestManager.core.js";
 import { CLIGenerationError, CLIValidationError } from "../errors/index.js";
+
+const VALID_SCHEMATICS = [
+  "service",
+  "module",
+  "command",
+  "query",
+  "controller",
+  "repository",
+  "middleware",
+  "event",
+  "job",
+  "route",
+  "model",
+  "dto",
+  "validator",
+] as const;
 
 interface GenerateOptions {
   readonly service?: string;
@@ -70,9 +94,9 @@ export async function runGenerateCommand(context: CLIContext): Promise<void> {
   const moduleName = context.values.module as string | undefined;
   const dryRun = context.values["dry-run"] === true;
 
-  if (!schematic) {
+  if (!schematic || !VALID_SCHEMATICS.includes(schematic as (typeof VALID_SCHEMATICS)[number])) {
     throw new CLIValidationError(
-      "Schematic name is required. Available: service, module, command, query, controller, repository",
+      `Schematic name is required. Available: ${VALID_SCHEMATICS.join(", ")}`,
     );
   }
 
@@ -82,6 +106,7 @@ export async function runGenerateCommand(context: CLIContext): Promise<void> {
 
   const cwd = context.cwd;
   const architecture = readLatticeArchitecture(cwd);
+  const manifest = await new ManifestManager(cwd).read();
 
   if (architecture) {
     context.logger.info(`Detected architecture: ${architecture}`);
@@ -156,9 +181,30 @@ async function runSchematic(
       case "repository":
         return await generateRepository({ name, basePath }, cwd);
 
+      case "middleware":
+        return await generateMiddleware({ name, basePath }, cwd);
+
+      case "event":
+        return await generateEvent({ name, basePath }, cwd);
+
+      case "job":
+        return await generateJob({ name, basePath }, cwd);
+
+      case "route":
+        return await generateRoute({ name, basePath }, cwd);
+
+      case "model":
+        return await generateModel({ name, basePath }, cwd);
+
+      case "dto":
+        return await generateDto({ name, basePath }, cwd);
+
+      case "validator":
+        return await generateValidator({ name, basePath }, cwd);
+
       default:
         throw new CLIValidationError(
-          `Unknown schematic: "${schematic}". Available: service, module, command, query, controller, repository.`,
+          `Unknown schematic: "${schematic}". Available: ${VALID_SCHEMATICS.join(", ")}.`,
         );
     }
   } catch (error) {

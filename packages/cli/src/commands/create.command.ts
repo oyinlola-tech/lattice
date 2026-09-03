@@ -7,12 +7,31 @@
 import { join } from "node:path";
 import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
+import * as p from "@clack/prompts";
 import type { CLIContext } from "../cliType/cliType.type.js";
 import type { ScaffoldOptions } from "../types/index.js";
+import type { FrontendFramework, ProjectConfiguration } from "../types/projectConfiguration.type.js";
 import { generateProject } from "../generators/project/project.generator.js";
 import { FrontendGenerator } from "../generators/frontend/frontendGenerator.core.js";
 import { FullstackComposer } from "../generators/fullstack/fullstackComposer.core.js";
-import { promptCreateProject, type CreateProjectPrompts } from "../prompts/index.js";
+import { IntegrationGenerator } from "../generators/integration/integrationGenerator.core.js";
+import { InfrastructureGenerator } from "../generators/infrastructure/infrastructure.generator.js";
+import { BackendGenerator } from "../generators/backend/backend.generator.js";
+import { ManifestManager } from "../manifest/manifestManager.core.js";
+import { RollbackManager } from "../rollback/rollbackManager.core.js";
+import {
+  promptProjectName,
+  promptProjectType,
+  promptConfirmation,
+} from "../prompts/project/index.js";
+import {
+  promptBackendArchitecture,
+  promptDatabase,
+  promptApiStyle,
+} from "../prompts/backend/index.js";
+import { promptFramework, promptFrontendArchitecture } from "../prompts/frontend/index.js";
+import { promptPackageManager } from "../prompts/workspace/index.js";
+import { promptCapabilities } from "../prompts/capabilities/index.js";
 import { CLIValidationError, CLIGenerationError } from "../errors/index.js";
 import { execCommand } from "../utils/utils.exec.js";
 import { writeFileTree } from "../utils/utils.fileSystem.js";
@@ -183,58 +202,130 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
     explicitOverrides.language = language;
   }
 
-  const answers = process.stdin.isTTY
-    ? await promptCreateProject(explicitOverrides as Partial<CreateProjectPrompts>)
-    : {
-        projectName: projectName ?? "",
-        projectType: projectType as any,
-        architecture: architecture as any,
-        packageManager: packageManager as any,
-        database: database as any,
-        api: api as any,
-        frontend: resolvedFrontend as any,
-        frontendArchitecture: frontendArchitecture as any,
-        language: language as any,
-        enableCQRS: true,
-        enableMessaging: true,
-        enableObservability: true,
-        enableOpenAPI: true,
-        enableDatabase: true,
-        enableQueue: false,
-        enableDocker: false,
-        installDeps: !noInstall,
-        initGit: !noGit,
-        services,
-      };
+  const isInteractive = process.stdin.isTTY;
+
+  let answers: ScaffoldOptions;
+
+  if (isInteractive) {
+    p.intro("Lattice");
+
+    const name =
+      (await promptProjectName(projectName ?? undefined)) as string;
+    const type = await promptProjectType(
+      explicitOverrides.projectType as ScaffoldOptions["projectType"],
+    );
+
+    const arch =
+      type === "backend"
+        ? await promptBackendArchitecture(
+            explicitOverrides.architecture as ScaffoldOptions["architecture"],
+          )
+        : (explicitOverrides.architecture as ScaffoldOptions["architecture"]);
+
+    const db =
+      type === "backend" || type === "fullstack"
+        ? await promptDatabase(
+            explicitOverrides.database as ScaffoldOptions["database"],
+          )
+        : (explicitOverrides.database as ScaffoldOptions["database"]);
+
+    const apiStyle =
+      type === "backend" || type === "fullstack"
+        ? await promptApiStyle(
+            explicitOverrides.api as ScaffoldOptions["api"],
+          )
+        : (explicitOverrides.api as ScaffoldOptions["api"]);
+
+    const frontend =
+      type === "frontend" || type === "fullstack"
+        ? await promptFramework(
+            type,
+            explicitOverrides.frontend as FrontendFramework | "none" | undefined,
+          )
+        : (resolvedFrontend ?? "none");
+
+    const frontendArch =
+      type === "frontend" || type === "fullstack"
+        ? await promptFrontendArchitecture(
+            explicitOverrides.frontendArchitecture as ScaffoldOptions["frontendArchitecture"],
+          )
+        : (explicitOverrides.frontendArchitecture as ScaffoldOptions["frontendArchitecture"]);
+
+    const pkgManager = await promptPackageManager(
+      explicitOverrides.packageManager as ScaffoldOptions["packageManager"],
+    );
+
+    const capabilities = await promptCapabilities([]);
+    const enableCQRS = capabilities.includes("cqrs");
+    const enableMessaging = capabilities.includes("messaging");
+    const enableObservability = capabilities.includes("observability");
+    const enableOpenAPI = capabilities.includes("openapi");
+    const enableDatabase = capabilities.includes("database");
+    const enableQueue = capabilities.includes("queue");
+    const enableDocker = arch === "microservice";
+
+    const confirmed = await promptConfirmation(
+      `Create project "${name}"?`,
+      true,
+    );
+
+    if (!confirmed) {
+      p.cancel("Project creation cancelled.");
+      return;
+    }
+
+    answers = {
+      projectName: name,
+      projectType: type,
+      architecture: arch,
+      packageManager: pkgManager,
+      database: db,
+      api: apiStyle,
+      frontend: frontend as ScaffoldOptions["frontend"],
+      frontendArchitecture: frontendArch,
+      frontendPath: "apps/web",
+      language: (explicitOverrides.language ?? "typescript") as ScaffoldOptions["language"],
+      services: [],
+      enableCQRS,
+      enableMessaging,
+      enableObservability,
+      enableOpenAPI,
+      enableDatabase,
+      enableQueue,
+      enableDocker,
+      installDeps: !noInstall,
+      initGit: !noGit,
+    };
+  } else {
+    answers = {
+      projectName: projectName ?? "",
+      projectType: projectType as any,
+      architecture: architecture as any,
+      packageManager: packageManager as any,
+      database: database as any,
+      api: api as any,
+      frontend: resolvedFrontend as any,
+      frontendArchitecture: frontendArchitecture as any,
+      frontendPath: "apps/web",
+      language: language as any,
+      services,
+      enableCQRS: true,
+      enableMessaging: true,
+      enableObservability: true,
+      enableOpenAPI: true,
+      enableDatabase: true,
+      enableQueue: false,
+      enableDocker: false,
+      installDeps: !noInstall,
+      initGit: !noGit,
+    };
+  }
 
   if (!answers.projectName) {
     throw new CLIValidationError("Project name is required.");
   }
 
-  const opts: ScaffoldOptions = {
-    projectName: answers.projectName,
-    projectType: answers.projectType,
-    architecture: answers.architecture,
-    packageManager: answers.packageManager,
-    database: answers.database,
-    api: answers.api,
-    frontend: answers.frontend,
-    frontendArchitecture: answers.frontendArchitecture,
-    frontendPath: "apps/web",
-    language: answers.language,
-    services: answers.services ?? [],
-    enableCQRS: answers.enableCQRS,
-    enableMessaging: answers.enableMessaging,
-    enableObservability: answers.enableObservability,
-    enableOpenAPI: answers.enableOpenAPI,
-    enableDatabase: answers.enableDatabase,
-    enableQueue: answers.enableQueue,
-    enableDocker: answers.enableDocker,
-    installDeps: answers.installDeps,
-    initGit: answers.initGit,
-  };
-
-  await createProject(opts, context);
+  await createProject(answers, context);
 }
 
 async function createProject(
@@ -250,58 +341,111 @@ async function createProject(
     );
   }
 
-  context.logger.info(`Creating Lattice project: ${projectName}`);
-  context.logger.info(`Type: ${options.projectType ?? "backend"}`);
-  context.logger.info(`Architecture: ${options.architecture}`);
-  context.logger.info(`Package manager: ${packageManager}`);
+  const rollback = new RollbackManager();
+  rollback.trackDirectory(targetPath);
 
-  if (options.frontend && options.frontend !== "none") {
-    context.logger.info(`Frontend: ${options.frontend}`);
-  }
+  const spinner = p.spinner();
 
   try {
+    spinner.start("Creating project structure");
     await mkdir(targetPath, { recursive: true });
+    rollback.trackDirectory(targetPath);
+    spinner.stop("Project structure created");
 
     if (
       options.projectType === "fullstack" &&
       options.frontend &&
       options.frontend !== "none"
     ) {
-      await generateFullstackProject(options, targetPath);
+      spinner.start("Generating fullstack project");
+      await generateFullstackProject(options, targetPath, rollback);
+      spinner.stop("Fullstack project generated");
     } else if (
       options.projectType === "frontend" &&
       options.frontend &&
       options.frontend !== "none"
     ) {
+      spinner.start("Generating frontend project");
       await generateFrontendProject(options, targetPath);
+      spinner.stop("Frontend project generated");
     } else {
+      spinner.start("Generating backend project");
       const result = await generateProject(options, targetPath);
-      context.logger.info(`Project created at: ${result.projectPath}`);
       context.logger.info(`Files created: ${result.filesCreated.length}`);
+      spinner.stop("Backend project generated");
     }
 
-    context.logger.info("");
-    context.logger.info("Next steps:");
-    context.logger.info(`  cd ${projectName}`);
+    spinner.start("Creating manifest");
+    const manifest = new ManifestManager(targetPath);
+    await manifest.create({
+      version: "1",
+      architecture: options.architecture,
+      backend: {
+        architecture: options.architecture,
+        api: options.api ?? "rest",
+      },
+      frontend: options.frontend && options.frontend !== "none"
+        ? {
+            framework: options.frontend,
+            architecture: options.frontendArchitecture ?? "lattice-standard",
+          }
+        : undefined,
+      database: {
+        provider: options.database ?? "postgresql",
+      },
+      workspace: {
+        packageManager: options.packageManager,
+      },
+      capabilities: [
+        options.enableCQRS && "cqrs",
+        options.enableMessaging && "messaging",
+        options.enableObservability && "observability",
+        options.enableOpenAPI && "openapi",
+        options.enableDatabase && "database",
+        options.enableQueue && "queue",
+      ].filter(Boolean) as string[],
+    });
+    spinner.stop("Manifest created");
 
-    if (!options.installDeps) {
-      const installCmd =
+    if (options.installDeps) {
+      spinner.start("Installing dependencies");
+      const installFile =
         packageManager === "pnpm"
-          ? "pnpm install"
+          ? "pnpm"
           : packageManager === "yarn"
-            ? "yarn install"
+            ? "yarn"
             : packageManager === "bun"
-              ? "bun install"
-              : "npm install";
-      context.logger.info(`  ${installCmd}`);
+              ? "bun"
+              : "npm";
+
+      try {
+        await execCommand(installFile, ["install"], targetPath);
+        spinner.stop("Dependencies installed");
+      } catch {
+        spinner.stop("Dependencies installation skipped");
+      }
     }
 
-    context.logger.info(
-      `  ${packageManager === "pnpm" ? "pnpm" : packageManager === "yarn" ? "yarn" : packageManager === "bun" ? "bun" : "npm"} dev`,
+    if (options.initGit) {
+      spinner.start("Initializing git repository");
+      try {
+        await execCommand("git", ["init"], targetPath);
+        spinner.stop("Git repository initialized");
+      } catch {
+        spinner.stop("Git initialization skipped");
+      }
+    }
+
+    p.note(
+      `cd ${projectName}\n${packageManager === "pnpm" ? "pnpm" : packageManager === "yarn" ? "yarn" : packageManager === "bun" ? "bun" : "npm"} dev`,
+      "Next steps",
     );
+
+    p.outro("Project created successfully.");
   } catch (error) {
+    await rollback.rollback();
     const message = error instanceof Error ? error.message : String(error);
-    context.logger.error(`Failed to create project: ${message}`);
+    p.cancel(`Failed to create project: ${message}`);
     throw new CLIGenerationError(
       `Failed to create project "${projectName}"`,
       error,
@@ -312,6 +456,7 @@ async function createProject(
 async function generateFullstackProject(
   options: ScaffoldOptions,
   projectPath: string,
+  rollback: RollbackManager,
 ): Promise<void> {
   const composer = new FullstackComposer();
 
@@ -359,23 +504,47 @@ async function generateFullstackProject(
   }
 
   await writeFileTree(join(projectPath, "apps/api"), backendFiles);
+  rollback.trackDirectory(join(projectPath, "apps/api"));
 
-  if (options.installDeps) {
-    const installFile =
-      options.packageManager === "pnpm"
-        ? "pnpm"
-        : options.packageManager === "yarn"
-          ? "yarn"
-          : options.packageManager === "bun"
-            ? "bun"
-            : "npm";
+  const integrationGenerator = new IntegrationGenerator();
+  await integrationGenerator.generate({
+    project: {
+      name: options.projectName,
+      type: "fullstack",
+      backend: {
+        architecture: options.architecture,
+        api: options.api ?? "rest",
+        database: options.database,
+      },
+      frontend:
+        options.frontend && options.frontend !== "none"
+          ? {
+              framework: options.frontend,
+              architecture: options.frontendArchitecture ?? "lattice-standard",
+              language: options.language ?? "typescript",
+            }
+          : undefined,
+      workspace: {
+        packageManager: options.packageManager,
+      },
+      features: options.services,
+    } as ProjectConfiguration,
+    projectPath,
+    backendPort: 3000,
+    frontendPort: options.frontend === "next" ? 3000 : 5173,
+  });
 
-    try {
-      await execCommand(installFile, ["install"], projectPath);
-    } catch {
-      // Best-effort
-    }
-  }
+  const infrastructureGenerator = new InfrastructureGenerator();
+  await infrastructureGenerator.generate(
+    {
+      projectName: options.projectName,
+      architecture: options.architecture,
+      database: options.database ?? "postgresql",
+      packageManager: options.packageManager,
+      services: options.services,
+    },
+    projectPath,
+  );
 }
 
 async function generateFrontendProject(
@@ -411,22 +580,5 @@ async function generateFrontendProject(
     throw new CLIGenerationError(
       `Frontend generation failed:\n${result.errors.join("\n")}`,
     );
-  }
-
-  if (options.installDeps) {
-    const installFile =
-      options.packageManager === "pnpm"
-        ? "pnpm"
-        : options.packageManager === "yarn"
-          ? "yarn"
-          : options.packageManager === "bun"
-            ? "bun"
-            : "npm";
-
-    try {
-      await execCommand(installFile, ["install"], projectPath);
-    } catch {
-      // Best-effort
-    }
   }
 }

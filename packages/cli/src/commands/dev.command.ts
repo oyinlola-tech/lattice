@@ -10,6 +10,7 @@ import { join } from "node:path";
 import { execCommand } from "../utils/utils.exec.js";
 import type { CLIContext } from "../cliType/cliType.type.js";
 import { CLIValidationError, CLIGenerationError } from "../errors/index.js";
+import { ManifestManager } from "../manifest/manifestManager.core.js";
 
 interface DevOptions {
   readonly frontendOnly: boolean;
@@ -47,13 +48,20 @@ export async function runDevCommand(context: CLIContext): Promise<void> {
     context.logger.info(`Frontend: ${config.frontend.framework}`);
   }
 
+  const manifest = await new ManifestManager(context.cwd).read();
+  const services = manifest?.capabilities ?? [];
+
   const processes: Promise<void>[] = [];
 
   if (
     (!frontendOnly && config.type === "backend") ||
     config.type === "fullstack"
   ) {
-    processes.push(startBackendDev(context.cwd, config, port));
+    if (config.backend?.architecture === "microservice") {
+      processes.push(...startMicroserviceDev(context.cwd, services));
+    } else {
+      processes.push(startBackendDev(context.cwd, config, port));
+    }
   }
 
   if (
@@ -178,6 +186,22 @@ async function startBackendDev(
   } else {
     await execCommand("tsx", ["watch", "src", ...portFlag], cwd);
   }
+}
+
+function startMicroserviceDev(
+  cwd: string,
+  services: readonly string[],
+): Promise<void>[] {
+  const serviceDirs = services.map((service) => join(cwd, "apps", service));
+  const promises: Promise<void>[] = [];
+
+  for (const dir of serviceDirs) {
+    if (existsSync(join(dir, "src"))) {
+      promises.push(execCommand("tsx", ["watch", "src"], dir).then(() => {}));
+    }
+  }
+
+  return promises;
 }
 
 async function startFrontendDev(

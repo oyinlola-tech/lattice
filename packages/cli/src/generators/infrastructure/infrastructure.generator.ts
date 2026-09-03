@@ -29,12 +29,60 @@ export class InfrastructureGenerator {
     if (options.architecture === "microservice") {
       files["docker-compose.yml"] = this.getDockerCompose(options);
       files[".dockerignore"] = "node_modules\ndist\n.git\n.env\n";
+
+      const services = options.services ?? ["gateway"];
+      for (const service of services) {
+        files[`apps/${service}/Dockerfile`] = this.getServiceDockerfile(options);
+      }
     } else {
       files["docker-compose.yml"] = this.getSimpleDockerCompose(options);
       files[".dockerignore"] = "node_modules\ndist\n.git\n.env\n";
+      files["Dockerfile"] = this.getAppDockerfile(options);
     }
 
+    files["migrations/.gitkeep"] = "";
+
     return files;
+  }
+
+  private getAppDockerfile(
+    options: InfrastructureOptions,
+  ): string {
+    return `FROM node:24-alpine AS builder
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN ${options.packageManager === "pnpm" ? "pnpm" : options.packageManager === "yarn" ? "yarn" : "npm"} install --frozen-lockfile
+COPY . .
+RUN ${options.packageManager === "pnpm" ? "pnpm" : options.packageManager === "yarn" ? "yarn" : "npm"} run build
+
+FROM node:24-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+EXPOSE 3000
+CMD ["node", "dist/server.js"]
+`;
+  }
+
+  private getServiceDockerfile(
+    options: InfrastructureOptions,
+  ): string {
+    return `FROM node:24-alpine AS builder
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN ${options.packageManager === "pnpm" ? "pnpm" : options.packageManager === "yarn" ? "yarn" : "npm"} install --frozen-lockfile
+COPY . .
+RUN ${options.packageManager === "pnpm" ? "pnpm" : options.packageManager === "yarn" ? "yarn" : "npm"} run build
+
+FROM node:24-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+EXPOSE 3000
+CMD ["node", "dist/server.js"]
+`;
   }
 
   private getSimpleDockerCompose(

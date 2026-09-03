@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
 
 concurrency:
   group: release-main
@@ -45,20 +50,61 @@ jobs:
       - name: Build packages
         run: pnpm run build
 
+      - name: Auto-generate changeset from merged PRs
+        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_BODY="${{ github.event.pull_request.body }}"
+          MERGED_BY="${{ github.event.pull_request.merged_by.login }}"
+          
+          if [[ "$PR_TITLE" =~ ^(feat|fix|chore|docs|refactor|perf|test)\(.*\):\ .* ]] || [[ "$PR_TITLE" =~ ^(feat|fix|chore|docs|refactor|perf|test):\ .* ]]; then
+            TYPE=$(echo "$PR_TITLE" | sed -E 's/^(feat|fix|chore|docs|refactor|perf|test).*/\1/')
+            SCOPE=$(echo "$PR_TITLE" | sed -E 's/^[^\(]*\(([^\)]*)\).*/\1/' | tr -d ' ')
+            SCOPE=${SCOPE:-"cli"}
+            
+            case $TYPE in
+              feat) LEVEL="minor" ;;
+              fix) LEVEL="patch" ;;
+              major) LEVEL="major" ;;
+              *) LEVEL="patch" ;;
+            esac
+            
+            SUMMARY=$(echo "$PR_TITLE" | sed -E 's/^[^:]*:\s*//' | sed -E 's/^[^\)]*\)\s*//')
+            
+            cat > .changeset/$(date +%Y-%m-%d)-auto-generated.md << EOF
+---
+"@oyinlola141/lattice-cli": $LEVEL
+---
+
+$SUMMARY
+EOF
+            echo "Generated changeset: $LEVEL bump for lattice-cli"
+          else
+            echo "No conventional commit detected in PR title, skipping changeset generation"
+          fi
+
       - name: Version packages
         run: pnpm changeset version || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push version changes
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "chore: version packages" || true
-          git push origin main
+          if git diff --cached --quiet; then
+            echo "No version changes to commit"
+          else
+            git commit -m "chore: version packages"
+            git push origin main
+          fi
 
       - name: Publish packages
+        if: github.ref == 'refs/heads/main'
         run: |
           for attempt in 1 2 3 4 5; do
             echo "Publish attempt $attempt"

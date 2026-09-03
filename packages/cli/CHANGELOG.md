@@ -1,5 +1,19 @@
 # @oyinlola141/lattice-cli
 
+## 0.2.0
+
+### Minor Changes
+
+- - Replace number-based prompts with @clack/prompts (arrow-key selects, spinners, intro/outro)
+  - Restructure prompts into modular folders (project/, backend/, frontend/, workspace/, capabilities/)
+  - Add conditional interactive flow for Backend / Frontend / Full Stack project types
+  - Wire .lattice manifest into dev, add, generate, and create commands
+  - Expand infrastructure generator with per-service Dockerfiles and migrations placeholder
+  - Add microservice support to `lattice dev` command
+  - Expand `lattice generate` from 6 to 13 schematics (middleware, event, job, route, model, dto, validator)
+  - Expand `lattice add` from 6 to 10 features (cache, storage, scheduler, docs)
+  - Add tests for build command, manifest manager, rollback manager, capability resolver, infrastructure generator, and compatibility validator (247 tests total)
+
 ## 0.1.5
 
 ### Patch Changes
