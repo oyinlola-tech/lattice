@@ -58,7 +58,7 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           PR_BODY="${{ github.event.pull_request.body }}"
           MERGED_BY="${{ github.event.pull_request.merged_by.login }}"
-          
+
           if [[ "$PR_TITLE" =~ ^(feat|fix|chore|docs|refactor|perf|test)\(.*\):\ .* ]] || [[ "$PR_TITLE" =~ ^(feat|fix|chore|docs|refactor|perf|test):\ .* ]]; then
             TYPE=$(echo "$PR_TITLE" | sed -E 's/^(feat|fix|chore|docs|refactor|perf|test).*/\1/')
             SCOPE=$(echo "$PR_TITLE" | sed -E 's/^[^\(]*\(([^\)]*)\).*/\1/' | tr -d ' ')
@@ -73,13 +73,12 @@ jobs:
             
             SUMMARY=$(echo "$PR_TITLE" | sed -E 's/^[^:]*:\s*//' | sed -E 's/^[^\)]*\)\s*//')
             
-            cat > .changeset/$(date +%Y-%m-%d)-auto-generated.md << EOF
----
-"@oyinlola141/lattice-cli": $LEVEL
----
-
-$SUMMARY
-EOF
+            CHANGESET=".changeset/$(date +%Y-%m-%d)-auto-generated.md"
+            echo '---' > "$CHANGESET"
+            echo "\"@oyinlola141/lattice-cli\": $LEVEL" >> "$CHANGESET"
+            echo '---' >> "$CHANGESET"
+            echo '' >> "$CHANGESET"
+            echo "$SUMMARY" >> "$CHANGESET"
             echo "Generated changeset: $LEVEL bump for lattice-cli"
           else
             echo "No conventional commit detected in PR title, skipping changeset generation"
