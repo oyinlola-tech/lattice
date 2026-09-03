@@ -239,7 +239,7 @@ async function createProject(
     ) {
       await generateFrontendProject(options, targetPath);
     } else {
-      const result = await generateProject(options, context.cwd);
+      const result = await generateProject(options, targetPath);
       context.logger.info(`Project created at: ${result.projectPath}`);
       context.logger.info(`Files created: ${result.filesCreated.length}`);
     }

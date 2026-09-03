@@ -85,11 +85,8 @@ export async function generateProject(
         options.packageManager,
       );
       await execCommand(installFile, installArgs, projectPath);
-    } catch (error) {
-      throw new CLIGenerationError(
-        `Failed to install dependencies. Run manually: cd ${options.projectName} && ${options.packageManager} install`,
-        error,
-      );
+    } catch {
+      // Best-effort: project files are already created.
     }
   }
 
