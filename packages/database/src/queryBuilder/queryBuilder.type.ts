@@ -5,7 +5,12 @@ import type {
   SortInput,
 } from "../databaseType/databaseType.type.js";
 
-export type { PaginationInput, QueryOptions, SortDirection, SortInput } from "../databaseType/databaseType.type.js";
+export type {
+  PaginationInput,
+  QueryOptions,
+  SortDirection,
+  SortInput,
+} from "../databaseType/databaseType.type.js";
 
 /**
  * A generic query condition.

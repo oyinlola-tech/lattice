@@ -32,14 +32,14 @@ lattice add database
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `create` | Scaffold a new project (backend, frontend, or fullstack) |
+| Command    | Description                                                              |
+| ---------- | ------------------------------------------------------------------------ |
+| `create`   | Scaffold a new project (backend, frontend, or fullstack)                 |
 | `generate` | Generate files (service, module, command, query, controller, repository) |
-| `add` | Add feature packages (database, queue, messaging, etc.) |
-| `dev` | Start development servers |
-| `doctor` | Run project diagnostics |
-| `info` | Show project information |
+| `add`      | Add feature packages (database, queue, messaging, etc.)                  |
+| `dev`      | Start development servers                                                |
+| `doctor`   | Run project diagnostics                                                  |
+| `info`     | Show project information                                                 |
 
 ## Supported Frameworks
 

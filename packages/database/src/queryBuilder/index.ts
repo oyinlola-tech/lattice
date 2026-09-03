@@ -4,14 +4,9 @@
  * Database-neutral query construction and filter helpers.
  */
 
-export {
-  QueryBuilder,
-} from "./queryBuilder.core.js";
+export { QueryBuilder } from "./queryBuilder.core.js";
 
-export {
-  createQueryBuilder,
-  cloneFilter,
-} from "./queryBuilder.factory.js";
+export { createQueryBuilder, cloneFilter } from "./queryBuilder.factory.js";
 
 export type {
   QueryCondition,

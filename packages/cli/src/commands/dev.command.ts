@@ -49,11 +49,17 @@ export async function runDevCommand(context: CLIContext): Promise<void> {
 
   const processes: Promise<void>[] = [];
 
-  if (!frontendOnly && config.type === "backend" || config.type === "fullstack") {
+  if (
+    (!frontendOnly && config.type === "backend") ||
+    config.type === "fullstack"
+  ) {
     processes.push(startBackendDev(context.cwd, config, port));
   }
 
-  if (!backendOnly && (config.type === "frontend" || config.type === "fullstack")) {
+  if (
+    !backendOnly &&
+    (config.type === "frontend" || config.type === "fullstack")
+  ) {
     if (config.frontend && config.frontend.framework !== "none") {
       processes.push(startFrontendDev(context.cwd, config));
     }
@@ -69,16 +75,18 @@ export async function runDevCommand(context: CLIContext): Promise<void> {
   try {
     await Promise.all(processes);
   } catch (error) {
-    throw new CLIGenerationError(
-      "Development server failed to start.",
-      error,
-    );
+    throw new CLIGenerationError("Development server failed to start.", error);
   }
 }
 
 function readProjectConfig(
   cwd: string,
-): { readonly name: string; readonly type: string; readonly backend?: { readonly architecture: string }; readonly frontend?: { readonly framework: string } } | null {
+): {
+  readonly name: string;
+  readonly type: string;
+  readonly backend?: { readonly architecture: string };
+  readonly frontend?: { readonly framework: string };
+} | null {
   const configPath = join(cwd, "lattice.config.ts");
   const configPathJs = join(cwd, "lattice.config.js");
 
@@ -96,7 +104,11 @@ function readProjectConfig(
   if (existsSync(pkgPath)) {
     const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
       name?: string;
-      lattice?: { projectType?: string; architecture?: string; frontend?: string };
+      lattice?: {
+        projectType?: string;
+        architecture?: string;
+        frontend?: string;
+      };
     };
 
     if (pkg.lattice) {
@@ -119,18 +131,27 @@ function readProjectConfig(
 function parseConfigContent(
   content: string,
   cwd: string,
-): { readonly name: string; readonly type: string; readonly backend?: { readonly architecture: string }; readonly frontend?: { readonly framework: string } } {
+): {
+  readonly name: string;
+  readonly type: string;
+  readonly backend?: { readonly architecture: string };
+  readonly frontend?: { readonly framework: string };
+} {
   const nameMatch = content.match(/name:\s*["']([^"']+)["']/);
   const typeMatch = content.match(/projectType:\s*["'](\w+)["']/);
   const architectureMatch = content.match(/architecture:\s*["'](\w+)["']/);
-  const frontendMatch = content.match(/frontend:\s*\{[\s\S]*?framework:\s*["']([^"']+)["']/);
+  const frontendMatch = content.match(
+    /frontend:\s*\{[\s\S]*?framework:\s*["']([^"']+)["']/,
+  );
 
   const pkgPath = join(cwd, "package.json");
   let name = "unknown";
 
   if (existsSync(pkgPath)) {
     try {
-      const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as { name?: string };
+      const pkg = JSON.parse(readFileSync(pkgPath, "utf-8")) as {
+        name?: string;
+      };
       name = pkg.name ?? name;
     } catch {
       // ignore
@@ -143,9 +164,7 @@ function parseConfigContent(
     backend: architectureMatch?.[1]
       ? { architecture: architectureMatch[1] }
       : undefined,
-    frontend: frontendMatch?.[1]
-      ? { framework: frontendMatch[1] }
-      : undefined,
+    frontend: frontendMatch?.[1] ? { framework: frontendMatch[1] } : undefined,
   };
 }
 

@@ -4,7 +4,7 @@
  * Wraps the real InMemoryQueue with recording and assertion support.
  */
 
-import { createInMemoryQueue } from "@oyinlola141/lattice-queue";
+import { createInMemoryQueue, InMemoryQueue } from "@oyinlola141/lattice-queue";
 
 import type {
   Job,
@@ -61,36 +61,11 @@ export interface TestQueue<TData = unknown> {
   close: () => Promise<void>;
 }
 
-import { InMemoryQueue } from "@oyinlola141/lattice-queue";
-
-/**
- * Creates a test queue with recording.
- *
- * @param name - Queue name.
- * @param options - Queue options.
- * @returns A TestQueue instance.
- *
- * @example
- * ```ts
- * const testQueue = createTestQueue("emails");
- *
- * testQueue.queue.process("send-email", async (job) => {
- *   await sendEmail(job.data);
- * });
- *
- * await testQueue.add("send-email", { to: "user@example.com" });
- *
- * expect(testQueue.jobs).toHaveLength(1);
- * expect(testQueue.findByName("send-email")).toHaveLength(1);
- *
- * await testQueue.close();
- * ```
- */
 export function createTestQueue<TData = unknown>(
   name: QueueName,
   options?: QueueOptions,
 ): TestQueue<TData> {
-  const queue = createInMemoryQueue<TData>(name, options);
+  const queue = createInMemoryQueue<TData>(name, options) as InMemoryQueue<TData>;
   const recordedJobs: RecordedJob<TData>[] = [];
 
   const add = async (

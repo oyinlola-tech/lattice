@@ -11,7 +11,10 @@ npm install @oyinlola141/lattice-testing
 ## Quick Start
 
 ```typescript
-import { createMockContainer, createTestLogger } from "@oyinlola141/lattice-testing";
+import {
+  createMockContainer,
+  createTestLogger,
+} from "@oyinlola141/lattice-testing";
 
 const container = createMockContainer();
 container.register("database", mockDatabase);

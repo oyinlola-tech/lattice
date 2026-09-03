@@ -11,7 +11,10 @@ npm install @oyinlola141/lattice-middleware
 ## Quick Start
 
 ```typescript
-import { createMiddlewarePipeline, createTimeoutMiddleware } from "@oyinlola141/lattice-middleware";
+import {
+  createMiddlewarePipeline,
+  createTimeoutMiddleware,
+} from "@oyinlola141/lattice-middleware";
 
 const pipeline = createMiddlewarePipeline([
   createTimeoutMiddleware(5000),

@@ -4,12 +4,13 @@
  * @module httpServer/factory
  */
 
-import {
-  HttpServerLifecycleError,
-} from "@oyinlola141/lattice-errors";
+import { HttpServerLifecycleError } from "@oyinlola141/lattice-errors";
 
 import { HttpServer } from "../core/httpServer.core.js";
-import type { HttpServerState, HttpServerAddress } from "../types/httpServer.type.js";
+import type {
+  HttpServerState,
+  HttpServerAddress,
+} from "../types/httpServer.type.js";
 
 export function createHttpServer(options: {
   readonly name?: string;

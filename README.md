@@ -202,19 +202,19 @@ npm install -g @oyinlola141/lattice-cli
 
 Lattice can generate frontend and fullstack projects with any of the following frameworks:
 
-| Framework    | Adapter        | Build Tool  | Language     |
-| ------------ | -------------- | ----------- | ------------ |
-| React        | `react`        | Vite        | TS / JS      |
-| Next.js      | `next`         | Next.js     | TS / JS      |
-| Vue          | `vue`          | Vite        | TS / JS      |
-| Nuxt         | `nuxt`         | Nuxt 3      | TS / JS      |
-| Angular      | `angular`      | Angular CLI | TS / JS      |
-| Svelte       | `svelte`       | Vite        | TS / JS      |
-| SvelteKit    | `sveltekit`    | SvelteKit   | TS / JS      |
-| Astro        | `astro`        | Astro       | TS / JS      |
-| Vanilla HTML | `vanilla`      | Vite        | TS / JS      |
-| Flutter      | `flutter`      | Flutter SDK | Dart         |
-| React Native | `react-native` | Expo        | TS / JS      |
+| Framework    | Adapter        | Build Tool  | Language |
+| ------------ | -------------- | ----------- | -------- |
+| React        | `react`        | Vite        | TS / JS  |
+| Next.js      | `next`         | Next.js     | TS / JS  |
+| Vue          | `vue`          | Vite        | TS / JS  |
+| Nuxt         | `nuxt`         | Nuxt 3      | TS / JS  |
+| Angular      | `angular`      | Angular CLI | TS / JS  |
+| Svelte       | `svelte`       | Vite        | TS / JS  |
+| SvelteKit    | `sveltekit`    | SvelteKit   | TS / JS  |
+| Astro        | `astro`        | Astro       | TS / JS  |
+| Vanilla HTML | `vanilla`      | Vite        | TS / JS  |
+| Flutter      | `flutter`      | Flutter SDK | Dart     |
+| React Native | `react-native` | Expo        | TS / JS  |
 
 ### Frontend Architectures
 

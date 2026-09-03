@@ -18,7 +18,9 @@ const registry = createAdapterRegistry();
 registry.register({
   name: "postgres",
   capabilities: ["query", "transaction"],
-  connect: async () => { /* ... */ },
+  connect: async () => {
+    /* ... */
+  },
 });
 ```
 

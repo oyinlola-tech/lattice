@@ -11,7 +11,10 @@ npm install @oyinlola141/lattice-auth
 ## Quick Start
 
 ```typescript
-import { createJWTStrategy, createSessionStore } from "@oyinlola141/lattice-auth";
+import {
+  createJWTStrategy,
+  createSessionStore,
+} from "@oyinlola141/lattice-auth";
 
 const strategy = createJWTStrategy({
   secret: process.env.JWT_SECRET,

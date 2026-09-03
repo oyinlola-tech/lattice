@@ -17,11 +17,15 @@ const router = createOpenAPIRouter({
   info: { title: "My API", version: "1.0.0" },
 });
 
-router.get("/users/:id", {
-  responses: { 200: { schema: UserSchema } },
-}, async (ctx) => {
-  return ctx.params.id;
-});
+router.get(
+  "/users/:id",
+  {
+    responses: { 200: { schema: UserSchema } },
+  },
+  async (ctx) => {
+    return ctx.params.id;
+  },
+);
 ```
 
 ## Features

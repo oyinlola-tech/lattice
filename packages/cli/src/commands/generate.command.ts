@@ -23,7 +23,10 @@ interface GenerateOptions {
   readonly architecture?: string;
 }
 
-function getBasePath(architecture: string | undefined, schematic: string): string {
+function getBasePath(
+  architecture: string | undefined,
+  schematic: string,
+): string {
   switch (architecture) {
     case "modular-monolith":
       if (schematic === "module") {
@@ -103,7 +106,12 @@ export async function runGenerateCommand(context: CLIContext): Promise<void> {
   const result = await runSchematic(
     schematic,
     name,
-    { service, module: moduleName, dryRun, architecture: architecture ?? undefined },
+    {
+      service,
+      module: moduleName,
+      dryRun,
+      architecture: architecture ?? undefined,
+    },
     cwd,
   );
 
@@ -143,10 +151,7 @@ async function runSchematic(
         );
 
       case "controller":
-        return await generateController(
-          { name, basePath },
-          cwd,
-        );
+        return await generateController({ name, basePath }, cwd);
 
       case "repository":
         return await generateRepository({ name, basePath }, cwd);

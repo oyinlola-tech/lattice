@@ -32,7 +32,10 @@ import {
   HttpServerStopError,
 } from "@oyinlola141/lattice-errors";
 
-import { withTimeout, validateShutdownTimeout } from "../factory/httpServer.factory.js";
+import {
+  withTimeout,
+  validateShutdownTimeout,
+} from "../factory/httpServer.factory.js";
 
 export class HttpServer {
   readonly name: string;
@@ -350,9 +353,11 @@ export class HttpServer {
 
       address: address === undefined ? undefined : { ...address },
 
-      startedAt: startedAt === undefined ? undefined : new Date(startedAt.getTime()),
+      startedAt:
+        startedAt === undefined ? undefined : new Date(startedAt.getTime()),
 
-      stoppedAt: stoppedAt === undefined ? undefined : new Date(stoppedAt.getTime()),
+      stoppedAt:
+        stoppedAt === undefined ? undefined : new Date(stoppedAt.getTime()),
 
       uptime: this.uptime,
 

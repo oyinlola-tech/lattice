@@ -4,9 +4,7 @@
  * @module httpServer/manager
  */
 
-import {
-  HttpServerLifecycleError,
-} from "@oyinlola141/lattice-errors";
+import { HttpServerLifecycleError } from "@oyinlola141/lattice-errors";
 
 import { HttpServer } from "../core/httpServer.core.js";
 
@@ -46,9 +44,12 @@ export class HttpServerManager {
     const server = this.get(name);
 
     if (!server) {
-      throw new HttpServerLifecycleError(`HTTP server "${name}" is not registered.`, {
-        code: "HTTP_SERVER_NOT_FOUND",
-      });
+      throw new HttpServerLifecycleError(
+        `HTTP server "${name}" is not registered.`,
+        {
+          code: "HTTP_SERVER_NOT_FOUND",
+        },
+      );
     }
 
     return server;

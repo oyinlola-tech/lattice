@@ -11,7 +11,11 @@ npm install @oyinlola141/lattice-security
 ## Quick Start
 
 ```typescript
-import { createRateLimiter, cors, securityHeaders } from "@oyinlola141/lattice-security";
+import {
+  createRateLimiter,
+  cors,
+  securityHeaders,
+} from "@oyinlola141/lattice-security";
 
 const limiter = createRateLimiter({ windowMs: 60000, max: 100 });
 

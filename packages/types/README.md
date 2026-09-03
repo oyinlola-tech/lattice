@@ -11,7 +11,13 @@ npm install @oyinlola141/lattice-types
 ## Quick Start
 
 ```typescript
-import { isPlainObject, isDate, isEmail, Maybe, DeepReadonly } from "@oyinlola141/lattice-types";
+import {
+  isPlainObject,
+  isDate,
+  isEmail,
+  Maybe,
+  DeepReadonly,
+} from "@oyinlola141/lattice-types";
 
 if (isPlainObject(value)) {
   console.log(value.keys());

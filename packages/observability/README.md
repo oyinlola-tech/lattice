@@ -11,7 +11,10 @@ npm install @oyinlola141/lattice-observability
 ## Quick Start
 
 ```typescript
-import { createTracer, createMetricsRegistry } from "@oyinlola141/lattice-observability";
+import {
+  createTracer,
+  createMetricsRegistry,
+} from "@oyinlola141/lattice-observability";
 
 const tracer = createTracer({ service: "api" });
 const metrics = createMetricsRegistry();

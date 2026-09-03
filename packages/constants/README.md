@@ -11,7 +11,12 @@ npm install @oyinlola141/lattice-constants
 ## Quick Start
 
 ```typescript
-import { EntityId, Timestamp, HttpStatus, ErrorCode } from "@oyinlola141/lattice-constants";
+import {
+  EntityId,
+  Timestamp,
+  HttpStatus,
+  ErrorCode,
+} from "@oyinlola141/lattice-constants";
 
 const id: EntityId = "user_123";
 const now: Timestamp = new Date();
