@@ -30,7 +30,19 @@ export class GeneratorRegistry {
     this.register({
       name: "frontend",
       generator: new FrontendGenerator(),
-      capabilities: ["react", "next", "vue", "nuxt", "angular", "svelte", "sveltekit", "astro", "vanilla", "flutter", "react-native"],
+      capabilities: [
+        "react",
+        "next",
+        "vue",
+        "nuxt",
+        "angular",
+        "svelte",
+        "sveltekit",
+        "astro",
+        "vanilla",
+        "flutter",
+        "react-native",
+      ],
     });
 
     this.register({

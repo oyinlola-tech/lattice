@@ -22,7 +22,10 @@ describe("CompatibilityValidator", () => {
   });
 
   it("passes for compatible options", () => {
-    const result = validator.validate({ framework: "react", buildTool: "vite" });
+    const result = validator.validate({
+      framework: "react",
+      buildTool: "vite",
+    });
     expect(result.valid).toBe(true);
   });
 });

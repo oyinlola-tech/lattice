@@ -5,7 +5,10 @@
  */
 
 import { describe, it, expect, vi } from "vitest";
-import { ManifestManager, type LatticeManifest } from "../src/manifest/manifestManager.core.js";
+import {
+  ManifestManager,
+  type LatticeManifest,
+} from "../src/manifest/manifestManager.core.js";
 
 describe("ManifestManager", () => {
   it("creates a manifest file", async () => {

@@ -4,4 +4,7 @@
  * Generates Docker, docker-compose, and database infrastructure files.
  */
 
-export { InfrastructureGenerator, type InfrastructureOptions } from "./infrastructure.generator.js";
+export {
+  InfrastructureGenerator,
+  type InfrastructureOptions,
+} from "./infrastructure.generator.js";

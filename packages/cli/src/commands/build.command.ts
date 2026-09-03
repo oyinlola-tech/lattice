@@ -14,7 +14,9 @@ export async function runBuildCommand(context: CLIContext): Promise<void> {
   const projectRoot = findProjectRoot(context.cwd);
 
   if (!projectRoot) {
-    context.logger.error("No Lattice project found. Run this command from a Lattice project directory.");
+    context.logger.error(
+      "No Lattice project found. Run this command from a Lattice project directory.",
+    );
     return;
   }
 

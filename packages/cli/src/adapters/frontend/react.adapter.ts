@@ -38,7 +38,13 @@ export class ReactAdapter implements FrontendAdapter {
     const files = this.getBaseFiles(context);
     await scaffoldWithFallback({
       command: "npm",
-      args: ["create", "vite@latest", ".", "--template", context.language === "javascript" ? "react" : "react-ts"],
+      args: [
+        "create",
+        "vite@latest",
+        ".",
+        "--template",
+        context.language === "javascript" ? "react" : "react-ts",
+      ],
       targetPath: context.projectPath,
       fallbackFiles: files,
     });

@@ -45,9 +45,7 @@ export class TaskRunner {
   async runParallel(
     tasks: readonly TaskDefinition[],
   ): Promise<readonly TaskResult[]> {
-    const results = await Promise.all(
-      tasks.map((task) => this.run(task)),
-    );
+    const results = await Promise.all(tasks.map((task) => this.run(task)));
     return results;
   }
 }

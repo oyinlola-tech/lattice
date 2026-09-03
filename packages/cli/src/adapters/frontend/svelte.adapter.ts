@@ -32,7 +32,13 @@ export class SvelteAdapter implements FrontendAdapter {
     const files = this.getBaseFiles(context);
     await scaffoldWithFallback({
       command: "npm",
-      args: ["create", "vite@latest", ".", "--template", context.language === "javascript" ? "svelte" : "svelte-ts"],
+      args: [
+        "create",
+        "vite@latest",
+        ".",
+        "--template",
+        context.language === "javascript" ? "svelte" : "svelte-ts",
+      ],
       targetPath: context.projectPath,
       fallbackFiles: files,
     });

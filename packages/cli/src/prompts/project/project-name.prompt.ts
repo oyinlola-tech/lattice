@@ -6,9 +6,7 @@
 
 import * as p from "@clack/prompts";
 
-export async function promptProjectName(
-  overrides?: string,
-): Promise<string> {
+export async function promptProjectName(overrides?: string): Promise<string> {
   const value =
     overrides ??
     (await p.text({

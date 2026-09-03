@@ -4,4 +4,7 @@
  * Barrel exports for capabilities prompts.
  */
 
-export { promptCapabilities, type CapabilityOption } from "./capabilities.prompt.js";
+export {
+  promptCapabilities,
+  type CapabilityOption,
+} from "./capabilities.prompt.js";

@@ -7,9 +7,7 @@
 import * as p from "@clack/prompts";
 import type { ApiStyle } from "../../types/projectConfiguration.type.js";
 
-export async function promptApiStyle(
-  overrides?: ApiStyle,
-): Promise<ApiStyle> {
+export async function promptApiStyle(overrides?: ApiStyle): Promise<ApiStyle> {
   const value =
     overrides ??
     (await p.select({

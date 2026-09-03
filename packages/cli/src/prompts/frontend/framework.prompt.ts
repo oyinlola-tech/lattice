@@ -32,17 +32,20 @@ export async function promptFramework(
   const options =
     projectType === "frontend"
       ? FRONTEND_OPTIONS
-      : [{ value: "none", label: "None", hint: "Skip frontend" }, ...FRONTEND_OPTIONS];
+      : [
+          { value: "none", label: "None", hint: "Skip frontend" },
+          ...FRONTEND_OPTIONS,
+        ];
 
   const value =
     overrides ??
     (await p.select({
       message: "Select frontend framework",
       options: [...options].map((opt) => ({
-      value: opt.value,
-      label: opt.label,
-      hint: opt.hint,
-    })),
+        value: opt.value,
+        label: opt.label,
+        hint: opt.hint,
+      })),
     }));
 
   if (p.isCancel(value)) {

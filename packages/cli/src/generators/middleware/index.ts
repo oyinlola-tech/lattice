@@ -2,4 +2,7 @@
  * @oyinlola141/lattice-cli — Middleware Generator
  */
 
-export { generateMiddleware, type GenerateMiddlewareOptions } from "./middleware.generator.js";
+export {
+  generateMiddleware,
+  type GenerateMiddlewareOptions,
+} from "./middleware.generator.js";

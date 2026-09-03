@@ -32,7 +32,17 @@ export class AngularAdapter implements FrontendAdapter {
     const files = this.getBaseFiles(context);
     await scaffoldWithFallback({
       command: "npx",
-      args: ["@angular/cli@latest", "new", ".", "--skip-git", "--skip-install", "--routing", "--style", "css", "--standalone"],
+      args: [
+        "@angular/cli@latest",
+        "new",
+        ".",
+        "--skip-git",
+        "--skip-install",
+        "--routing",
+        "--style",
+        "css",
+        "--standalone",
+      ],
       targetPath: context.projectPath,
       fallbackFiles: files,
     });

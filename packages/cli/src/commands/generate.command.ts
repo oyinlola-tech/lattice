@@ -94,7 +94,10 @@ export async function runGenerateCommand(context: CLIContext): Promise<void> {
   const moduleName = context.values.module as string | undefined;
   const dryRun = context.values["dry-run"] === true;
 
-  if (!schematic || !VALID_SCHEMATICS.includes(schematic as (typeof VALID_SCHEMATICS)[number])) {
+  if (
+    !schematic ||
+    !VALID_SCHEMATICS.includes(schematic as (typeof VALID_SCHEMATICS)[number])
+  ) {
     throw new CLIValidationError(
       `Schematic name is required. Available: ${VALID_SCHEMATICS.join(", ")}`,
     );

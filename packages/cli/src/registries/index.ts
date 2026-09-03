@@ -6,5 +6,11 @@
 
 export { FrontendAdapterRegistry } from "./adapter/frontendAdapterRegistry.core.js";
 export { PackageManagerRegistry } from "./adapter/packageManagerRegistry.core.js";
-export { GeneratorRegistry, type GeneratorRegistryEntry } from "./generator/index.js";
-export { DependencyRegistry, type DependencyRecord } from "./dependency/index.js";
+export {
+  GeneratorRegistry,
+  type GeneratorRegistryEntry,
+} from "./generator/index.js";
+export {
+  DependencyRegistry,
+  type DependencyRecord,
+} from "./dependency/index.js";

@@ -36,7 +36,9 @@ export class ManifestManager {
     this.manifestPath = join(cwd, ".lattice", "manifest.json");
   }
 
-  async create(manifest: Omit<LatticeManifest, "generatedAt" | "updatedAt">): Promise<void> {
+  async create(
+    manifest: Omit<LatticeManifest, "generatedAt" | "updatedAt">,
+  ): Promise<void> {
     const now = new Date().toISOString();
     const fullManifest: LatticeManifest = {
       ...manifest,

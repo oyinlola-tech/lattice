@@ -32,7 +32,13 @@ export class VueAdapter implements FrontendAdapter {
     const files = this.getBaseFiles(context);
     await scaffoldWithFallback({
       command: "npm",
-      args: ["create", "vite@latest", ".", "--template", context.language === "javascript" ? "vue" : "vue-ts"],
+      args: [
+        "create",
+        "vite@latest",
+        ".",
+        "--template",
+        context.language === "javascript" ? "vue" : "vue-ts",
+      ],
       targetPath: context.projectPath,
       fallbackFiles: files,
     });

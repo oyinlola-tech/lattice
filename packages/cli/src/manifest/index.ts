@@ -4,4 +4,7 @@
  * Manifest system barrel exports.
  */
 
-export { ManifestManager, type LatticeManifest } from "./manifestManager.core.js";
+export {
+  ManifestManager,
+  type LatticeManifest,
+} from "./manifestManager.core.js";

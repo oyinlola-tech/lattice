@@ -4,4 +4,7 @@
  * Registries for dependency management.
  */
 
-export { DependencyRegistry, type DependencyRecord } from "./dependencyRegistry.core.js";
+export {
+  DependencyRegistry,
+  type DependencyRecord,
+} from "./dependencyRegistry.core.js";

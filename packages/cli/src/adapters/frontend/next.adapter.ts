@@ -38,7 +38,17 @@ export class NextAdapter implements FrontendAdapter {
     const files = this.getBaseFiles(context);
     await scaffoldWithFallback({
       command: "npx",
-      args: ["create-next-app@latest", ".", "--typescript", "--no-eslint", "--no-tailwind", "--no-src-dir", "--app", "--no-import-alias", "--no-turbopack"],
+      args: [
+        "create-next-app@latest",
+        ".",
+        "--typescript",
+        "--no-eslint",
+        "--no-tailwind",
+        "--no-src-dir",
+        "--app",
+        "--no-import-alias",
+        "--no-turbopack",
+      ],
       targetPath: context.projectPath,
       fallbackFiles: files,
     });

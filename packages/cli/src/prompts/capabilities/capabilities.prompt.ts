@@ -13,14 +13,26 @@ export interface CapabilityOption {
 }
 
 const CAPABILITY_OPTIONS: readonly CapabilityOption[] = [
-  { value: "cqrs", label: "CQRS", hint: "Command Query Responsibility Segregation" },
+  {
+    value: "cqrs",
+    label: "CQRS",
+    hint: "Command Query Responsibility Segregation",
+  },
   { value: "events", label: "Events", hint: "Event bus and middleware" },
   { value: "messaging", label: "Messaging", hint: "In-process message bus" },
   { value: "queue", label: "Queue", hint: "Background job processing" },
-  { value: "observability", label: "Observability", hint: "Logging, metrics, tracing" },
+  {
+    value: "observability",
+    label: "Observability",
+    hint: "Logging, metrics, tracing",
+  },
   { value: "openapi", label: "OpenAPI", hint: "API documentation" },
   { value: "database", label: "Database", hint: "Database abstraction" },
-  { value: "security", label: "Security", hint: "Input validation, CORS, CSRF" },
+  {
+    value: "security",
+    label: "Security",
+    hint: "Input validation, CORS, CSRF",
+  },
 ];
 
 export async function promptCapabilities(

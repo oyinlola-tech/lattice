@@ -39,7 +39,11 @@ export class ConfigurationResolver {
         database: this.extractValue(content, "provider") ?? "postgresql",
         api: this.extractValue(content, "api") ?? "rest",
         frontend: this.extractValue(content, "framework"),
-        frontendArchitecture: this.extractValue(content, "architecture", "frontend"),
+        frontendArchitecture: this.extractValue(
+          content,
+          "architecture",
+          "frontend",
+        ),
         language: this.extractValue(content, "language"),
         features: this.extractArray(content, "features") ?? [],
       };
@@ -56,9 +60,7 @@ export class ConfigurationResolver {
     let pattern: RegExp;
 
     if (section) {
-      pattern = new RegExp(
-        `${section}[\\s\\S]*?${key}:\\s*["']([^"']+)["']`,
-      );
+      pattern = new RegExp(`${section}[\\s\\S]*?${key}:\\s*["']([^"']+)["']`);
     } else {
       pattern = new RegExp(`${key}:\\s*["']([^"']+)["']`);
     }
@@ -67,10 +69,7 @@ export class ConfigurationResolver {
     return match?.[1];
   }
 
-  private extractArray(
-    content: string,
-    key: string,
-  ): string[] | undefined {
+  private extractArray(content: string, key: string): string[] | undefined {
     const pattern = new RegExp(`${key}:\\s*\\[([^\\]]+)\\]`);
     const match = content.match(pattern);
 

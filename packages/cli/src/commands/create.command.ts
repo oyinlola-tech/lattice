@@ -10,7 +10,10 @@ import { mkdir } from "node:fs/promises";
 import * as p from "@clack/prompts";
 import type { CLIContext } from "../cliType/cliType.type.js";
 import type { ScaffoldOptions } from "../types/index.js";
-import type { FrontendFramework, ProjectConfiguration } from "../types/projectConfiguration.type.js";
+import type {
+  FrontendFramework,
+  ProjectConfiguration,
+} from "../types/projectConfiguration.type.js";
 import { generateProject } from "../generators/project/project.generator.js";
 import { FrontendGenerator } from "../generators/frontend/frontendGenerator.core.js";
 import { FullstackComposer } from "../generators/fullstack/fullstackComposer.core.js";
@@ -29,7 +32,10 @@ import {
   promptDatabase,
   promptApiStyle,
 } from "../prompts/backend/index.js";
-import { promptFramework, promptFrontendArchitecture } from "../prompts/frontend/index.js";
+import {
+  promptFramework,
+  promptFrontendArchitecture,
+} from "../prompts/frontend/index.js";
 import { promptPackageManager } from "../prompts/workspace/index.js";
 import { promptCapabilities } from "../prompts/capabilities/index.js";
 import { CLIValidationError, CLIGenerationError } from "../errors/index.js";
@@ -209,8 +215,7 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
   if (isInteractive) {
     p.intro("Lattice");
 
-    const name =
-      (await promptProjectName(projectName ?? undefined)) as string;
+    const name = (await promptProjectName(projectName ?? undefined)) as string;
     const type = await promptProjectType(
       explicitOverrides.projectType as ScaffoldOptions["projectType"],
     );
@@ -231,16 +236,15 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
 
     const apiStyle =
       type === "backend" || type === "fullstack"
-        ? await promptApiStyle(
-            explicitOverrides.api as ScaffoldOptions["api"],
-          )
+        ? await promptApiStyle(explicitOverrides.api as ScaffoldOptions["api"])
         : (explicitOverrides.api as ScaffoldOptions["api"]);
 
     const frontend =
       type === "frontend" || type === "fullstack"
         ? await promptFramework(
             type,
-            explicitOverrides.frontend as FrontendFramework | "none" | undefined,
+            explicitOverrides.frontend as
+              FrontendFramework | "none" | undefined,
           )
         : (resolvedFrontend ?? "none");
 
@@ -284,7 +288,8 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
       frontend: frontend as ScaffoldOptions["frontend"],
       frontendArchitecture: frontendArch,
       frontendPath: "apps/web",
-      language: (explicitOverrides.language ?? "typescript") as ScaffoldOptions["language"],
+      language: (explicitOverrides.language ??
+        "typescript") as ScaffoldOptions["language"],
       services: [],
       enableCQRS,
       enableMessaging,
@@ -384,12 +389,13 @@ async function createProject(
         architecture: options.architecture,
         api: options.api ?? "rest",
       },
-      frontend: options.frontend && options.frontend !== "none"
-        ? {
-            framework: options.frontend,
-            architecture: options.frontendArchitecture ?? "lattice-standard",
-          }
-        : undefined,
+      frontend:
+        options.frontend && options.frontend !== "none"
+          ? {
+              framework: options.frontend,
+              architecture: options.frontendArchitecture ?? "lattice-standard",
+            }
+          : undefined,
       database: {
         provider: options.database ?? "postgresql",
       },

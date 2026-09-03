@@ -47,9 +47,7 @@ export class CapabilityResolver {
     },
   ];
 
-  resolve(
-    capabilities: readonly string[],
-  ): CapabilityResolutionResult {
+  resolve(capabilities: readonly string[]): CapabilityResolutionResult {
     const resolved = new Set<string>();
     const dependencies = new Set<string>();
     const conflicts: string[] = [];
@@ -59,9 +57,7 @@ export class CapabilityResolver {
 
       resolved.add(capability);
 
-      const dep = this.dependencyGraph.find(
-        (d) => d.capability === capability,
-      );
+      const dep = this.dependencyGraph.find((d) => d.capability === capability);
 
       if (dep) {
         for (const req of dep.requires) {

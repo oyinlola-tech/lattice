@@ -32,7 +32,8 @@ export class InfrastructureGenerator {
 
       const services = options.services ?? ["gateway"];
       for (const service of services) {
-        files[`apps/${service}/Dockerfile`] = this.getServiceDockerfile(options);
+        files[`apps/${service}/Dockerfile`] =
+          this.getServiceDockerfile(options);
       }
     } else {
       files["docker-compose.yml"] = this.getSimpleDockerCompose(options);
@@ -45,9 +46,7 @@ export class InfrastructureGenerator {
     return files;
   }
 
-  private getAppDockerfile(
-    options: InfrastructureOptions,
-  ): string {
+  private getAppDockerfile(options: InfrastructureOptions): string {
     return `FROM node:24-alpine AS builder
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
@@ -65,9 +64,7 @@ CMD ["node", "dist/server.js"]
 `;
   }
 
-  private getServiceDockerfile(
-    options: InfrastructureOptions,
-  ): string {
+  private getServiceDockerfile(options: InfrastructureOptions): string {
     return `FROM node:24-alpine AS builder
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
@@ -85,9 +82,7 @@ CMD ["node", "dist/server.js"]
 `;
   }
 
-  private getSimpleDockerCompose(
-    options: InfrastructureOptions,
-  ): string {
+  private getSimpleDockerCompose(options: InfrastructureOptions): string {
     const dbImage =
       options.database === "postgresql"
         ? "postgres:16-alpine"
@@ -127,9 +122,7 @@ volumes:
 `;
   }
 
-  private getDockerCompose(
-    options: InfrastructureOptions,
-  ): string {
+  private getDockerCompose(options: InfrastructureOptions): string {
     const services = options.services ?? ["gateway"];
     const dbImage =
       options.database === "postgresql"

@@ -32,7 +32,17 @@ export class AstroAdapter implements FrontendAdapter {
     const files = this.getBaseFiles(context);
     await scaffoldWithFallback({
       command: "npm",
-      args: ["create", "astro@latest", ".", "--template", "minimal", "--no-install", "--no-git", "--typescript", "strict"],
+      args: [
+        "create",
+        "astro@latest",
+        ".",
+        "--template",
+        "minimal",
+        "--no-install",
+        "--no-git",
+        "--typescript",
+        "strict",
+      ],
       targetPath: context.projectPath,
       fallbackFiles: files,
     });

@@ -86,9 +86,7 @@ export class CompatibilityValidator {
     },
   ];
 
-  validate(
-    options: Record<string, string>,
-  ): CompatibilityResult {
+  validate(options: Record<string, string>): CompatibilityResult {
     const checks: CompatibilityCheck[] = [];
     const values = Object.values(options);
 

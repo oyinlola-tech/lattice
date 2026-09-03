@@ -59,10 +59,7 @@ export class PackageManagerRunner {
     await execCommand(this.manager, args, options.cwd);
   }
 
-  async run(
-    script: string,
-    options: PackageManagerRunOptions,
-  ): Promise<void> {
+  async run(script: string, options: PackageManagerRunOptions): Promise<void> {
     const args =
       this.manager === "pnpm"
         ? ["run", script]

@@ -43,7 +43,15 @@ export class ViteVueScaffolder extends FrameworkScaffolder {
 export class NextScaffolder extends FrameworkScaffolder {
   readonly name = "next";
   readonly command = "npx";
-  readonly args = ["create-next-app@latest", ".", "--typescript", "--no-eslint", "--no-tailwind", "--no-src-dir", "--no-app"];
+  readonly args = [
+    "create-next-app@latest",
+    ".",
+    "--typescript",
+    "--no-eslint",
+    "--no-tailwind",
+    "--no-src-dir",
+    "--no-app",
+  ];
 }
 
 export class NuxtScaffolder extends FrameworkScaffolder {
@@ -55,7 +63,16 @@ export class NuxtScaffolder extends FrameworkScaffolder {
 export class AngularScaffolder extends FrameworkScaffolder {
   readonly name = "angular";
   readonly command = "npx";
-  readonly args = ["@angular/cli@latest", "new", ".", "--skip-git", "--skip-install", "--routing", "--style", "css"];
+  readonly args = [
+    "@angular/cli@latest",
+    "new",
+    ".",
+    "--skip-git",
+    "--skip-install",
+    "--routing",
+    "--style",
+    "css",
+  ];
 }
 
 export class AstroScaffolder extends FrameworkScaffolder {

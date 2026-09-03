@@ -21,4 +21,7 @@ export { promptFrontendArchitecture } from "./frontend/frontend-architecture.pro
 
 export { promptPackageManager } from "./workspace/package-manager.prompt.js";
 
-export { promptCapabilities, type CapabilityOption } from "./capabilities/capabilities.prompt.js";
+export {
+  promptCapabilities,
+  type CapabilityOption,
+} from "./capabilities/capabilities.prompt.js";

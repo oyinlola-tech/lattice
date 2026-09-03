@@ -18,7 +18,11 @@ export async function scaffoldWithFallback(
   options: ScaffolderOptions,
 ): Promise<boolean> {
   try {
-    await execCommand(options.command, Array.from(options.args), options.targetPath);
+    await execCommand(
+      options.command,
+      Array.from(options.args),
+      options.targetPath,
+    );
     return true;
   } catch {
     await writeFileTree(options.targetPath, options.fallbackFiles);

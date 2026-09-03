@@ -80,7 +80,8 @@ export class FullstackComposer {
         project: context.project,
         projectPath: context.projectPath,
         backendPort: 3000,
-        frontendPort: context.project.frontend?.framework === "next" ? 3000 : 5173,
+        frontendPort:
+          context.project.frontend?.framework === "next" ? 3000 : 5173,
       });
       files.push(
         ".env.example",

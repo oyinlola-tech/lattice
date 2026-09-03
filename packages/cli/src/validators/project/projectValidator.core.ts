@@ -48,16 +48,30 @@ export class ProjectValidator {
 
   private async checkPackageJson(projectPath: string): Promise<ProjectCheck> {
     try {
-      const content = await readFile(join(projectPath, "package.json"), "utf-8");
-      const pkg = JSON.parse(content) as { name?: string; scripts?: Record<string, string> };
+      const content = await readFile(
+        join(projectPath, "package.json"),
+        "utf-8",
+      );
+      const pkg = JSON.parse(content) as {
+        name?: string;
+        scripts?: Record<string, string>;
+      };
 
       if (!pkg.name) {
-        return { name: "package.json", passed: false, message: "Missing package name" };
+        return {
+          name: "package.json",
+          passed: false,
+          message: "Missing package name",
+        };
       }
 
       return { name: "package.json", passed: true };
     } catch {
-      return { name: "package.json", passed: false, message: "package.json not found" };
+      return {
+        name: "package.json",
+        passed: false,
+        message: "package.json not found",
+      };
     }
   }
 
@@ -66,7 +80,11 @@ export class ProjectValidator {
       await readFile(join(projectPath, "tsconfig.json"), "utf-8");
       return { name: "tsconfig.json", passed: true };
     } catch {
-      return { name: "tsconfig.json", passed: false, message: "tsconfig.json not found" };
+      return {
+        name: "tsconfig.json",
+        passed: false,
+        message: "tsconfig.json not found",
+      };
     }
   }
 
@@ -75,7 +93,11 @@ export class ProjectValidator {
       await stat(join(projectPath, "node_modules"));
       return { name: "node_modules", passed: true };
     } catch {
-      return { name: "node_modules", passed: false, message: "Dependencies not installed" };
+      return {
+        name: "node_modules",
+        passed: false,
+        message: "Dependencies not installed",
+      };
     }
   }
 
@@ -84,20 +106,32 @@ export class ProjectValidator {
       await stat(join(projectPath, "src"));
       return { name: "source files", passed: true };
     } catch {
-      return { name: "source files", passed: false, message: "src directory not found" };
+      return {
+        name: "source files",
+        passed: false,
+        message: "src directory not found",
+      };
     }
   }
 
   private async checkTypeScript(projectPath: string): Promise<ProjectCheck> {
     if (!existsSync(join(projectPath, "tsconfig.json"))) {
-      return { name: "typescript", passed: true, message: "Skipped (no tsconfig)" };
+      return {
+        name: "typescript",
+        passed: true,
+        message: "Skipped (no tsconfig)",
+      };
     }
 
     try {
       await execCommand("npx", ["tsc", "--noEmit"], projectPath);
       return { name: "typescript", passed: true };
     } catch {
-      return { name: "typescript", passed: false, message: "TypeScript compilation failed" };
+      return {
+        name: "typescript",
+        passed: false,
+        message: "TypeScript compilation failed",
+      };
     }
   }
 }
