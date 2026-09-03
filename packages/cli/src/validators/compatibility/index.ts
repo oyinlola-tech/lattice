@@ -4,4 +4,4 @@
  * Validates compatibility between selected options.
  */
 
-export { CompatibilityValidator } from "./compatibilityValidator.core.js";
+export { CompatibilityValidator, type CompatibilityCheck, type CompatibilityResult } from "./compatibilityValidator.core.js";

@@ -5,11 +5,11 @@
  */
 
 import type { ScaffoldOptions } from "../../types/index.js";
-import { BackendGenerator } from "../backend/backend.generator.js";
-import { FrontendGenerator } from "../frontend/frontendGenerator.core.js";
-import { FullstackComposer } from "../fullstack/fullstackComposer.core.js";
-import { IntegrationGenerator } from "../integration/integrationGenerator.core.js";
-import { InfrastructureGenerator } from "../infrastructure/infrastructure.generator.js";
+import { BackendGenerator } from "../../generators/backend/backend.generator.js";
+import { FrontendGenerator } from "../../generators/frontend/frontendGenerator.core.js";
+import { FullstackComposer } from "../../generators/fullstack/fullstackComposer.core.js";
+import { IntegrationGenerator } from "../../generators/integration/integrationGenerator.core.js";
+import { InfrastructureGenerator } from "../../generators/infrastructure/infrastructure.generator.js";
 
 export interface GeneratorRegistryEntry {
   readonly name: string;

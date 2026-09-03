@@ -4,4 +4,4 @@
  * Resolves and validates project configuration.
  */
 
-export { ConfigurationResolver } from "./configurationResolver.core.js";
+export { ConfigurationResolver, type ResolvedConfiguration } from "./configurationResolver.core.js";

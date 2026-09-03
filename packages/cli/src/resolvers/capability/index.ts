@@ -4,4 +4,4 @@
  * Resolves capability dependencies and feature requirements.
  */
 
-export { CapabilityResolver } from "./capabilityResolver.core.js";
+export { CapabilityResolver, type CapabilityDependency, type CapabilityResolutionResult } from "./capabilityResolver.core.js";
