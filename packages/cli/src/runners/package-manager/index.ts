@@ -4,4 +4,4 @@
  * Runners for package manager operations.
  */
 
-export { PackageManagerRunner } from "./packageManagerRunner.core.js";
+export { PackageManagerRunner, type PackageManagerRunOptions } from "./packageManagerRunner.core.js";

@@ -1,7 +1,7 @@
 /**
- * @oyinlola141/lattice-cli — Infrastructure Generators
+ * @oyinlola141/lattice-cli — Infrastructure Generator
  *
- * Infrastructure generators for Docker, database, and deployment configurations.
+ * Generates Docker, docker-compose, and database infrastructure files.
  */
 
-export { InfrastructureGenerator } from "./infrastructure.generator.js";
+export { InfrastructureGenerator, type InfrastructureOptions } from "./infrastructure.generator.js";

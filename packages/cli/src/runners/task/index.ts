@@ -4,4 +4,4 @@
  * Runners for executing development tasks.
  */
 
-export { TaskRunner } from "./taskRunner.core.js";
+export { TaskRunner, type TaskDefinition, type TaskResult } from "./taskRunner.core.js";

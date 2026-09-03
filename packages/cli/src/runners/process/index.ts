@@ -4,4 +4,4 @@
  * Runners for executing system processes.
  */
 
-export { ProcessRunner } from "./processRunner.core.js";
+export { ProcessRunner, type ProcessOptions } from "./processRunner.core.js";

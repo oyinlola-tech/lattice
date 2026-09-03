@@ -5,7 +5,8 @@
  */
 
 import { readFile } from "node:fs/promises";
-import { existsSync, stat } from "node:fs";
+import { existsSync } from "node:fs";
+import { stat } from "node:fs/promises";
 import { join } from "node:path";
 import { execCommand } from "../../utils/utils.exec.js";
 
