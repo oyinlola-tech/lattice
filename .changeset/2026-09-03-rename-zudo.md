@@ -1,5 +1,5 @@
 ---
-"@zudolib/cli": major
+"zudolib-cli": major
 "@zudolib/adapters": major
 "@zudolib/api": major
 "@zudolib/auth": major
