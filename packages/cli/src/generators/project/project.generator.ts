@@ -1,5 +1,4 @@
 import { mkdir } from "node:fs/promises";
-import { join } from "node:path";
 import type { ScaffoldOptions } from "../../types/index.js";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
 import { execCommand } from "../../utils/utils.exec.js";
@@ -37,7 +36,7 @@ export async function generateProject(
       );
   }
 
-  const projectPath = join(basePath, options.projectName);
+  const projectPath = basePath;
 
   try {
     await mkdir(projectPath, { recursive: true });

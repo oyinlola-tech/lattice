@@ -17,6 +17,8 @@ import { CLIValidationError, CLIGenerationError } from "../errors/index.js";
 import { execCommand } from "../utils/utils.exec.js";
 import { writeFileTree } from "../utils/utils.fileSystem.js";
 import { generateMonolithFiles } from "../templates/monolith/index.js";
+import { generateModularMonolithFiles } from "../templates/modular-monolith/index.js";
+import { generateMicroserviceFiles } from "../templates/microservice/index.js";
 
 const VALID_PROJECT_TYPES = ["backend", "frontend", "fullstack"] as const;
 const VALID_FRONTENDS = [
@@ -135,39 +137,39 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
         : frontend
       : undefined;
 
-  const answers =
-    !projectName && process.stdin.isTTY
-      ? await promptCreateProject({
-          projectType: projectType as any,
-          architecture: architecture as any,
-          packageManager: packageManager as any,
-          database: database as any,
-          api: api as any,
-          frontend: resolvedFrontend as any,
-          frontendArchitecture: frontendArchitecture as any,
-          language: language as any,
-        })
-      : {
-          projectName: projectName ?? "",
-          projectType: projectType as any,
-          architecture: architecture as any,
-          packageManager: packageManager as any,
-          database: database as any,
-          api: api as any,
-          frontend: resolvedFrontend as any,
-          frontendArchitecture: frontendArchitecture as any,
-          language: language as any,
-          enableCQRS: true,
-          enableMessaging: true,
-          enableObservability: true,
-          enableOpenAPI: true,
-          enableDatabase: true,
-          enableQueue: false,
-          enableDocker: false,
-          installDeps: !noInstall,
-          initGit: !noGit,
-          services,
-        };
+  const answers = process.stdin.isTTY
+    ? await promptCreateProject({
+        projectName,
+        projectType: projectType as any,
+        architecture: architecture as any,
+        packageManager: packageManager as any,
+        database: database as any,
+        api: api as any,
+        frontend: resolvedFrontend as any,
+        frontendArchitecture: frontendArchitecture as any,
+        language: language as any,
+      })
+    : {
+        projectName: projectName ?? "",
+        projectType: projectType as any,
+        architecture: architecture as any,
+        packageManager: packageManager as any,
+        database: database as any,
+        api: api as any,
+        frontend: resolvedFrontend as any,
+        frontendArchitecture: frontendArchitecture as any,
+        language: language as any,
+        enableCQRS: true,
+        enableMessaging: true,
+        enableObservability: true,
+        enableOpenAPI: true,
+        enableDatabase: true,
+        enableQueue: false,
+        enableDocker: false,
+        installDeps: !noInstall,
+        initGit: !noGit,
+        services,
+      };
 
   if (!answers.projectName) {
     throw new CLIValidationError("Project name is required.");
@@ -237,7 +239,7 @@ async function createProject(
     ) {
       await generateFrontendProject(options, targetPath);
     } else {
-      const result = await generateProject(options, targetPath);
+      const result = await generateProject(options, context.cwd);
       context.logger.info(`Project created at: ${result.projectPath}`);
       context.logger.info(`Files created: ${result.filesCreated.length}`);
     }
@@ -262,6 +264,8 @@ async function createProject(
       `  ${packageManager === "pnpm" ? "pnpm" : packageManager === "yarn" ? "yarn" : packageManager === "bun" ? "bun" : "npm"} dev`,
     );
   } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    context.logger.error(`Failed to create project: ${message}`);
     throw new CLIGenerationError(
       `Failed to create project "${projectName}"`,
       error,
@@ -306,8 +310,19 @@ async function generateFullstackProject(
     );
   }
 
-  const backendFiles = generateMonolithFiles(options);
-  await writeFileTreeSafe(join(projectPath, "apps/api"), backendFiles);
+  let backendFiles: Record<string, string>;
+  switch (options.architecture) {
+    case "modular-monolith":
+      backendFiles = generateModularMonolithFiles(options);
+      break;
+    case "microservice":
+      backendFiles = generateMicroserviceFiles(options);
+      break;
+    default:
+      backendFiles = generateMonolithFiles(options);
+  }
+
+  await writeFileTree(join(projectPath, "apps/api"), backendFiles);
 
   if (options.installDeps) {
     const installFile =
@@ -377,17 +392,5 @@ async function generateFrontendProject(
     } catch {
       // Best-effort
     }
-  }
-}
-
-async function writeFileTreeSafe(
-  basePath: string,
-  files: Readonly<Record<string, string>>,
-): Promise<void> {
-  for (const [filePath, content] of Object.entries(files)) {
-    const fullPath = join(basePath, filePath);
-    const dir = join(fullPath, "..");
-    await mkdir(dir, { recursive: true });
-    await writeFileTree(basePath, { [filePath]: content });
   }
 }
