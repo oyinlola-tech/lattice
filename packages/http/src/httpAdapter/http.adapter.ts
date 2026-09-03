@@ -124,7 +124,7 @@ export interface HttpAdapter {
 /* Adapter Error                                                              */
 /* -------------------------------------------------------------------------- */
 
-import { HttpAdapterError } from "@oyinlola141/lattice-errors";
+import { HttpAdapterError } from "@zudo/errors";
 
 export { HttpAdapterError };
 

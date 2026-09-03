@@ -1,11 +1,11 @@
-# @oyinlola141/lattice-types
+# @zudo/types
 
 Shared type guards, utility types, and type converters for the Lattice framework.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-types
+npm install @zudo/types
 ```
 
 ## Quick Start
@@ -17,7 +17,7 @@ import {
   isEmail,
   Maybe,
   DeepReadonly,
-} from "@oyinlola141/lattice-types";
+} from "@zudo/types";
 
 if (isPlainObject(value)) {
   console.log(value.keys());

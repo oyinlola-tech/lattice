@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-plugins/pluginEvents
+ * @zudo/plugins/pluginEvents
  *
  * Plugin lifecycle event types and event names.
  */

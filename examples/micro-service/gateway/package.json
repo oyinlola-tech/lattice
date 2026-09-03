@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-campusflow-gateway",
+  "name": "@zudo/campusflow-gateway",
   "version": "0.1.1",
   "private": true,
   "type": "module",
@@ -11,14 +11,14 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@oyinlola141/lattice-http": "workspace:*",
-    "@oyinlola141/lattice-config": "workspace:*",
-    "@oyinlola141/lattice-logger": "workspace:*",
-    "@oyinlola141/lattice-errors": "workspace:*",
-    "@oyinlola141/lattice-validation": "workspace:*",
-    "@oyinlola141/lattice-constants": "workspace:*",
-    "@oyinlola141/lattice-types": "workspace:*",
-    "@oyinlola141/lattice-security": "workspace:*",
+    "@zudo/http": "workspace:*",
+    "@zudo/config": "workspace:*",
+    "@zudo/logger": "workspace:*",
+    "@zudo/errors": "workspace:*",
+    "@zudo/validation": "workspace:*",
+    "@zudo/constants": "workspace:*",
+    "@zudo/types": "workspace:*",
+    "@zudo/security": "workspace:*",
     "jsonwebtoken": "^9.0.3",
     "zod": "^4.5.4"
   },

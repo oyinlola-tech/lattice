@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpNegotiation
+ * @zudo/http/httpNegotiation
  *
  * HTTP httpNegotiation module.
  */

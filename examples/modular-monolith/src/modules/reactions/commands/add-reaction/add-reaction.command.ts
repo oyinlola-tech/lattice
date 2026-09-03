@@ -1,4 +1,4 @@
-import { Command } from "@oyinlola141/lattice-cqrs";
+import { Command } from "@zudo/cqrs";
 import type { AddReactionDto } from "../../../../dtos/index.js";
 
 export class AddReactionCommand extends Command<"reactions.add"> {

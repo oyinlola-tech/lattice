@@ -13,7 +13,7 @@ import {
   ErrorCategory,
   ErrorSeverity,
   type ErrorMetadata,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /** Error codes used by the validation package. */
 export enum ValidationErrorCode {

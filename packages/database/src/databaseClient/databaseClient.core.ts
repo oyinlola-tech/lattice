@@ -1,11 +1,11 @@
 /**
- * @oyinlola141/lattice-database — Database Client Core
+ * @zudo/database — Database Client Core
  *
  * Prisma-backed database client implementation.
  */
 
 import { PrismaClient, Prisma } from "@prisma/client";
-import { DatabaseError } from "@oyinlola141/lattice-errors";
+import { DatabaseError } from "@zudo/errors";
 import type {
   DatabaseClient as DatabaseClientContract,
   DatabaseConnectionOptions,

@@ -1,8 +1,8 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Stream error helpers.
+ * @zudo/http/httpStream — Stream error helpers.
  */
 
-import { HttpStreamError as StreamError } from "@oyinlola141/lattice-errors";
+import { HttpStreamError as StreamError } from "@zudo/errors";
 
 export { StreamError };
 

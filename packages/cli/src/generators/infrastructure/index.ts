@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Infrastructure Generator
+ * zudo-cli — Infrastructure Generator
  *
  * Generates Docker, docker-compose, and database infrastructure files.
  */

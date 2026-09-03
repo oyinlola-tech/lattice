@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-runtime — Runtime Registry
+ * @zudo/runtime — Runtime Registry
  *
  * Manages multiple runtime instances for scenarios where Lattice
  * runs multiple applications or workers in a single process.

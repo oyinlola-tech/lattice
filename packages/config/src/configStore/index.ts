@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configStore
+ * @zudo/config/configStore
  *
  * In-memory configuration storage and access.
  */

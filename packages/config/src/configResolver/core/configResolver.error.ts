@@ -1,12 +1,9 @@
 /**
- * @oyinlola141/lattice-config/configResolver/configResolver.error
+ * @zudo/config/configResolver/configResolver.error
  *
  * Configuration resolution error types.
  */
 
-export {
-  ConfigurationError,
-  isConfigurationError,
-} from "@oyinlola141/lattice-errors";
+export { ConfigurationError, isConfigurationError } from "@zudo/errors";
 
 export { ConfigResolutionError } from "./configResolver.core.js";

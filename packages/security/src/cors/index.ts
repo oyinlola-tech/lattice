@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — CORS Barrel
+ * @zudo/security — CORS Barrel
  */
 
 export type { CorsHeaders } from "./cors.core.js";

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-api
+ * @zudo/api
  *
  * Application-facing API layer for the Lattice framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { defineOperation, APIOperationRegistry, APIExecutor } from "@oyinlola141/lattice-api";
+ * import { defineOperation, APIOperationRegistry, APIExecutor } from "@zudo/api";
  *
  * const getUser = defineOperation({
  *   name: "users.get",

@@ -1,11 +1,11 @@
 /**
- * @oyinlola141/lattice-cli — Command Errors
+ * zudo-cli — Command Errors
  *
  * Error classes for command registration and lookup failures.
- * Extends base errors from `@oyinlola141/lattice-errors` where possible.
+ * Extends base errors from `@zudo/errors` where possible.
  */
 
-import { NotFoundError, ConflictError } from "@oyinlola141/lattice-errors";
+import { NotFoundError, ConflictError } from "@zudo/errors";
 import {
   CLI_ERROR_CODES,
   CLI_EXIT_CODES,
@@ -17,7 +17,7 @@ import {
 
 /**
  * Thrown when a requested command does not exist.
- * Extends `NotFoundError` from `@oyinlola141/lattice-errors`.
+ * Extends `NotFoundError` from `@zudo/errors`.
  */
 export class CommandNotFoundError extends NotFoundError {
   public readonly exitCode: number;
@@ -47,7 +47,7 @@ export class CommandNotFoundError extends NotFoundError {
 
 /**
  * Thrown when a command name is already registered.
- * Extends `ConflictError` from `@oyinlola141/lattice-errors`.
+ * Extends `ConflictError` from `@zudo/errors`.
  */
 export class DuplicateCommandError extends ConflictError {
   public readonly exitCode: number;

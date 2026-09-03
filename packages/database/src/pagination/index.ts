@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Pagination
+ * @zudo/database — Pagination
  *
  * Offset and cursor pagination utilities.
  */

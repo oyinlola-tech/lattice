@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-lifecycle/registry
+ * @zudo/lifecycle/registry
  *
  * Lifecycle component registry with validation and dependency tracking.
  */

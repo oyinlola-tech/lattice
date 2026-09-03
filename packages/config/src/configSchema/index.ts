@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configSchema
+ * @zudo/config/configSchema
  *
  * Configuration schema validation with Zod.
  */

@@ -1,10 +1,10 @@
 /**
- * @oyinlola141/lattice-core/runtime/runtimeManager/runtimeManager.error
+ * @zudo/core/runtime/runtimeManager/runtimeManager.error
  *
- * RuntimeManagerError extends RuntimeError from @oyinlola141/lattice-errors.
+ * RuntimeManagerError extends RuntimeError from @zudo/errors.
  */
 
-import { RuntimeError } from "@oyinlola141/lattice-errors";
+import { RuntimeError } from "@zudo/errors";
 
 /**
  * Runtime manager error.

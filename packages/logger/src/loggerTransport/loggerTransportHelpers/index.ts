@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerTransport/loggerTransportHelpers
+ * @zudo/logger/loggerTransport/loggerTransportHelpers
  *
  * Transport helper functions.
  */

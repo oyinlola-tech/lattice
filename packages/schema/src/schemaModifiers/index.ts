@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/modifiers
+ * @zudo/schema/modifiers
  *
  * Schema modifiers: optional, nullable, default, refine, transform.
  */

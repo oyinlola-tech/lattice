@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-validation/validationNormalizer
+ * @zudo/validation/validationNormalizer
  *
  * Input normalization before validation.
  */

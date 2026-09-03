@@ -1,12 +1,12 @@
 /**
- * @oyinlola141/lattice-cache
+ * @zudo/cache
  *
  * Cache abstraction layer with memory adapter, tag-based
  * invalidation, distributed locking, and metrics.
  *
  * @example
  * ```ts
- * import { createCacheService, createMemoryCacheAdapter } from "@oyinlola141/lattice-cache";
+ * import { createCacheService, createMemoryCacheAdapter } from "@zudo/cache";
  *
  * const cache = createCacheService({
  *   adapter: createMemoryCacheAdapter(),
@@ -110,7 +110,7 @@ export {
   NAMESPACE_PATTERN,
 } from "./constants.js";
 
-// Errors (re-exported from @oyinlola141/lattice-errors)
+// Errors (re-exported from @zudo/errors)
 export {
   CacheError,
   isCacheError,

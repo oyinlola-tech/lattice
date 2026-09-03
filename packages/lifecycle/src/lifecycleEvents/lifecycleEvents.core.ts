@@ -1,10 +1,10 @@
 /**
- * @oyinlola141/lattice-lifecycle/events
+ * @zudo/lifecycle/events
  *
  * Lifecycle event emitter — emits typed events for observability integration.
  */
 
-import type { LifecyclePhase } from "@oyinlola141/lattice-constants";
+import type { LifecyclePhase } from "@zudo/constants";
 
 /** Lifecycle event types. */
 export type LifecycleEventType =

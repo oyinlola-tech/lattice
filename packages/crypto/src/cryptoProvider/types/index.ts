@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-crypto/cryptoProvider/types
+ * @zudo/crypto/cryptoProvider/types
  *
  * Type definitions for crypto provider capabilities,
  * algorithms, and operation options.

@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-cqrs
+# @zudo/cqrs
 
 Command Query Responsibility Segregation (CQRS) primitives for separating read and write operations.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-cqrs
+npm install @zudo/cqrs
 ```
 
 ## Quick Start
 
 ```typescript
-import { createCommandBus, createQueryBus } from "@oyinlola141/lattice-cqrs";
+import { createCommandBus, createQueryBus } from "@zudo/cqrs";
 
 const commandBus = createCommandBus();
 const queryBus = createQueryBus();

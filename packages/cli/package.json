@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-cli",
+  "name": "zudo-cli",
   "version": "0.2.1",
   "description": "Command-line interface for scaffolding, generating, and managing Lattice framework projects.",
   "license": "MIT",
@@ -31,10 +31,10 @@
   },
   "dependencies": {
     "@clack/prompts": "^1.7.0",
-    "@oyinlola141/lattice-config": "workspace:*",
-    "@oyinlola141/lattice-core": "workspace:*",
-    "@oyinlola141/lattice-errors": "workspace:*",
-    "@oyinlola141/lattice-logger": "workspace:*"
+    "@zudo/config": "workspace:*",
+    "@zudo/core": "workspace:*",
+    "@zudo/errors": "workspace:*",
+    "@zudo/logger": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",

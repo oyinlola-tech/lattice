@@ -1,9 +1,6 @@
-import type { Queue } from "@oyinlola141/lattice-queue";
-import type { CommandBus } from "@oyinlola141/lattice-cqrs";
-import {
-  createInMemoryQueue,
-  createQueueName,
-} from "@oyinlola141/lattice-queue";
+import type { Queue } from "@zudo/queue";
+import type { CommandBus } from "@zudo/cqrs";
+import { createInMemoryQueue, createQueueName } from "@zudo/queue";
 import { createProcessNotificationProcessor } from "../jobs/index.js";
 import type { ProcessNotificationJobData } from "../jobs/index.js";
 import {

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/primitives/literal
+ * @zudo/schema/primitives/literal
  *
  * Literal schema for exact value matching.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
+import { SchemaIssueCode } from "@zudo/constants";
 
 /**
  * Schema for a specific literal value.

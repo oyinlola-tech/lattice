@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Generate Command
+ * zudo-cli — Generate Command
  *
  * The `lattice generate` (alias: `g`) command.
  * Reads lattice.config.ts to determine project architecture.

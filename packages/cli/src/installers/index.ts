@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Installers
+ * zudo-cli — Installers
  *
  * Dependency installation utilities.
  */

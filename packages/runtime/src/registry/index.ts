@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-runtime — Registry Barrel
+ * @zudo/runtime — Registry Barrel
  */
 
 export { RuntimeRegistry } from "./registry.core.js";

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Route Generator
+ * zudo-cli — Route Generator
  *
  * Generates route files.
  */

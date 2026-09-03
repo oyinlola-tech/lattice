@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-database",
+  "name": "@zudo/database",
   "version": "0.1.3",
   "description": "Database abstraction layer with clients, repositories, transactions, and query building for Lattice applications.",
   "license": "MIT",
@@ -39,7 +39,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@oyinlola141/lattice-errors": "workspace:*",
+    "@zudo/errors": "workspace:*",
     "@prisma/client": "^7.10.0"
   },
   "devDependencies": {

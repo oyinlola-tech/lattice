@@ -1,4 +1,4 @@
-import { Command } from "@oyinlola141/lattice-cqrs";
+import { Command } from "@zudo/cqrs";
 import type { EnrollStudentDto } from "../../../../dtos/index.js";
 
 /** Command to enroll a student in a course. */

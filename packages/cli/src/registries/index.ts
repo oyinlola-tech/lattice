@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Registries
+ * zudo-cli — Registries
  *
  * Registries for adapters, generators, and dependencies.
  */

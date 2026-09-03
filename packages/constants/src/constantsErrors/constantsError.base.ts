@@ -10,7 +10,7 @@ import {
   ErrorCategory,
   ErrorSeverity,
   type ErrorMetadata,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /**
  * Error thrown when an invalid constant value is used.

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Package Manager Runner
+ * zudo-cli — Package Manager Runner
  *
  * Runner for package manager operations (install, add, remove, run).
  */

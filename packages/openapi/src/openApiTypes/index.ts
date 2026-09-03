@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-openapi/openApiTypes
+ * @zudo/openapi/openApiTypes
  *
  * Core OpenAPI specification types.
  */

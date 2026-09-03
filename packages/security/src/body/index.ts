@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — Body Validation Barrel
+ * @zudo/security — Body Validation Barrel
  */
 
 export {

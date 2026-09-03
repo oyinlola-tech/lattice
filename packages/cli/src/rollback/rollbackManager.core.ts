@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Rollback System
+ * zudo-cli — Rollback System
  *
  * Tracks generation operations and supports rollback on failure.
  */

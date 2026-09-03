@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-cache
+# @zudo/cache
 
 Cache abstraction with memory adapter, tags, locking, and metrics for Lattice applications.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-cache
+npm install @zudo/cache
 ```
 
 ## Quick Start
 
 ```typescript
-import { createMemoryCache } from "@oyinlola141/lattice-cache";
+import { createMemoryCache } from "@zudo/cache";
 
 const cache = createMemoryCache({
   ttl: 60000,

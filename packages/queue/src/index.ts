@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-queue - Background job and asynchronous task infrastructure.
+ * @zudo/queue - Background job and asynchronous task infrastructure.
  *
  * This package provides the core queue system for the Lattice framework,
  * enabling asynchronous job processing with support for retries, backoff,

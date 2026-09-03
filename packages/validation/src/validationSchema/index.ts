@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-validation/validationSchema
+ * @zudo/validation/validationSchema
  *
  * Schema definitions and Zod integration.
  */

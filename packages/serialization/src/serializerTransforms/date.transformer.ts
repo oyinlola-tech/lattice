@@ -1,12 +1,12 @@
 /**
- * @oyinlola141/lattice-serialization — Date transformer.
+ * @zudo/serialization — Date transformer.
  *
  * Preserves Date instances across serialization boundaries
  * using ISO-8601 string representation.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { SerializationTags } from "@oyinlola141/lattice-constants";
+import { SerializationTags } from "@zudo/constants";
 
 const DATE_TYPE = "Date" as const;
 

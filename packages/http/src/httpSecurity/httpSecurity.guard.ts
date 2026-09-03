@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http — Request guard middleware.
+ * @zudo/http — Request guard middleware.
  *
  * Validates incoming requests against security constraints at the
  * first security boundary. Rejects malformed, oversized, or

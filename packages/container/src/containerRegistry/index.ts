@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-container/containerRegistry
+ * @zudo/container/containerRegistry
  *
  * Service registry storage and lookup.
  */

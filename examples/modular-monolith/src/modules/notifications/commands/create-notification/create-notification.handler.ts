@@ -1,4 +1,4 @@
-import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import { CommandHandler } from "@zudo/cqrs";
 import type { CreateNotificationCommand } from "./create-notification.command.js";
 import type { NotificationRepository } from "../../../../repositories/notification.repository.js";
 import type { NotificationModel } from "../../../../models/notification.model.js";

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-messaging/message
+ * @zudo/messaging/message
  *
  * Core message types, factory functions, and identity primitives.
  */

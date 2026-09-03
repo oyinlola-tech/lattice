@@ -8,7 +8,7 @@ import {
   verifyPassword,
 } from "../../cryptoPassword/cryptoPassword.core.js";
 
-import { createCryptoError } from "@oyinlola141/lattice-errors";
+import { createCryptoError } from "@zudo/errors";
 
 export type { PasswordHashOptions, PasswordHashResult };
 

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security
+ * @zudo/security
  *
  * Security primitives for the Lattice framework.
  *
@@ -9,7 +9,7 @@
  *
  * @example
  * ```ts
- * import { validateHeaders, validateUrl, generateSecurityHeaders } from '@oyinlola141/lattice-security';
+ * import { validateHeaders, validateUrl, generateSecurityHeaders } from '@zudo/security';
  *
  * // Validate request headers
  * const result = validateHeaders(request.headers);

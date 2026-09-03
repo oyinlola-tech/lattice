@@ -1,10 +1,10 @@
 /**
- * @oyinlola141/lattice-lifecycle/manager/shutdown
+ * @zudo/lifecycle/manager/shutdown
  *
  * Shutdown orchestration — stops and disposes components in reverse order.
  */
 
-import { LifecyclePhase, LifecycleState } from "@oyinlola141/lattice-constants";
+import { LifecyclePhase, LifecycleState } from "@zudo/constants";
 import { buildExecutionPlan } from "../lifecyclePlan/lifecyclePlan.core.js";
 import { createLifecycleContext } from "../lifecycleContext/lifecycleContext.type.js";
 import type { LifecycleManagerContext } from "./lifecycleManager.context.js";

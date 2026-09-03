@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-lifecycle/executor
+ * @zudo/lifecycle/executor
  *
  * Lifecycle executor — runs component hooks with timeout, retry, and concurrency.
  */

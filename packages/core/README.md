@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-core
+# @zudo/core
 
 Application lifecycle management, execution context propagation, and runtime orchestration for Lattice applications.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-core
+npm install @zudo/core
 ```
 
 ## Quick Start
 
 ```typescript
-import { createApplication } from "@oyinlola141/lattice-core";
+import { createApplication } from "@zudo/core";
 
 const app = await createApplication();
 

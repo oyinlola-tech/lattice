@@ -23,7 +23,7 @@ import type {
 import { createMessage } from "../message/messageFactory.js";
 import { HandlerRegistryStore } from "../handlerRegistry/handlerRegistryStore.js";
 import { DefaultDispatcher } from "../dispatcher/dispatcherCore.js";
-import { MessageDispatchError } from "@oyinlola141/lattice-errors";
+import { MessageDispatchError } from "@zudo/errors";
 
 /** Default in-memory message bus. */
 export class InMemoryMessageBus implements MessageBus {

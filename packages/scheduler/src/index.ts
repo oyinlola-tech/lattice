@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-scheduler
+ * @zudo/scheduler
  *
  * Time and recurring execution engine for the Lattice framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { Scheduler, JobRegistry, JobExecutor, SystemClock } from "@oyinlola141/lattice-scheduler";
+ * import { Scheduler, JobRegistry, JobExecutor, SystemClock } from "@zudo/scheduler";
  *
  * const scheduler = new Scheduler();
  * scheduler.define({

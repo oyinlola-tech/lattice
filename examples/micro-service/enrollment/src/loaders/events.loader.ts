@@ -1,5 +1,5 @@
-import type { Logger } from "@oyinlola141/lattice-logger";
-import type { EventBus } from "@oyinlola141/lattice-events";
+import type { Logger } from "@zudo/logger";
+import type { EventBus } from "@zudo/events";
 import {
   StudentEnrolledEvent,
   StudentWithdrawnEvent,

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerEntry/loggerEntryHelpers
+ * @zudo/logger/loggerEntry/loggerEntryHelpers
  *
  * Logger entry helper types and utilities.
  */

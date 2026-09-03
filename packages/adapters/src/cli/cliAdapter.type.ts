@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/cli
+ * @zudo/adapters/cli
  *
  * CLI adapter contracts — bridges Lattice to command-line interfaces.
  */

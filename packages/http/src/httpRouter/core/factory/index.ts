@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpRouter/core/factory
+ * @zudo/http/httpRouter/core/factory
  *
  * HTTP route factory utilities.
  */

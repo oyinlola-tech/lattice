@@ -101,7 +101,7 @@ export interface ModuleLifecycleOptions {
   readonly continueOnDestroyError?: boolean;
 }
 
-import { ModuleLifecycleError as BaseModuleLifecycleError } from "@oyinlola141/lattice-errors";
+import { ModuleLifecycleError as BaseModuleLifecycleError } from "@zudo/errors";
 
 /**
  * Error thrown when a module lifecycle operation fails.

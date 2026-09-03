@@ -1,5 +1,5 @@
-import type { EventBus } from "@oyinlola141/lattice-events";
-import type { Queue } from "@oyinlola141/lattice-queue";
+import type { EventBus } from "@zudo/events";
+import type { Queue } from "@zudo/queue";
 import {
   UserCreatedEvent,
   StudentEnrolledEvent,

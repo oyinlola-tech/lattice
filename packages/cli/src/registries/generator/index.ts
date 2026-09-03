@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Generator Registries
+ * zudo-cli — Generator Registries
  *
  * Registries for project generators.
  */

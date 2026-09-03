@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/structures/array
+ * @zudo/schema/structures/array
  *
  * Array schema with item validation and length constraints.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue, childContext } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
+import { SchemaIssueCode } from "@zudo/constants";
 
 /** Configuration for array schema. */
 interface ArraySchemaConfig<T> {

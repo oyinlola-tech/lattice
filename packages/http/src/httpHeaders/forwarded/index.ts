@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpHeaders/forwarded
+ * @zudo/http/httpHeaders/forwarded
  *
  * HTTP headers forwarded utilities.
  */

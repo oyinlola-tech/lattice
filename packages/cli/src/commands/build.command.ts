@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Build Command
+ * zudo-cli — Build Command
  *
  * The `lattice build` command for building Lattice projects.
  */

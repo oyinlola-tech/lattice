@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-core/context/provider
+ * @zudo/core/context/provider
  *
  * Async context storage and provider.
  */

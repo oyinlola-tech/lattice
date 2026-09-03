@@ -4,7 +4,7 @@
  * Wraps the real MessageBus with recording and assertion support.
  */
 
-import { createMessageBus } from "@oyinlola141/lattice-messaging";
+import { createMessageBus } from "@zudo/messaging";
 
 import type {
   Message,
@@ -14,7 +14,7 @@ import type {
   MessageId,
   DispatchResult,
   DispatchOptions,
-} from "@oyinlola141/lattice-messaging";
+} from "@zudo/messaging";
 
 /**
  * A recorded message dispatch.

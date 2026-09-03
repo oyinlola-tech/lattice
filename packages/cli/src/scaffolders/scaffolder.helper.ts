@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Framework Scaffolder Utilities
+ * zudo-cli — Framework Scaffolder Utilities
  *
  * Utilities for invoking official framework scaffolders.
  */

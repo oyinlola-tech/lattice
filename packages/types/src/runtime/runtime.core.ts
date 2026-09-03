@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-types/runtime
+ * @zudo/types/runtime
  *
  * Injectable runtime primitives — Clock and Random — that let packages
  * avoid direct `Date.now()` and `Math.random()` calls. Tests can substitute

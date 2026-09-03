@@ -4,9 +4,9 @@
  * Composes processors and manages the worker lifecycle.
  */
 
-import { createInMemoryQueue, createWorker } from "@oyinlola141/lattice-queue";
-import type { Queue, Worker } from "@oyinlola141/lattice-queue";
-import { createQueueName } from "@oyinlola141/lattice-queue";
+import { createInMemoryQueue, createWorker } from "@zudo/queue";
+import type { Queue, Worker } from "@zudo/queue";
+import { createQueueName } from "@zudo/queue";
 import { EmailProcessor } from "../processors/email.processor.js";
 import { ReportProcessor } from "../processors/report.processor.js";
 import { CleanupProcessor } from "../processors/cleanup.processor.js";

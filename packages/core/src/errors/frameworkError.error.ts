@@ -1,15 +1,12 @@
 /**
  * Base error type for all Lattice framework errors.
  *
- * FrameworkError extends ApplicationError from @oyinlola141/lattice-errors
+ * FrameworkError extends ApplicationError from @zudo/errors
  * to maintain backward compatibility while providing structured
  * error information for HTTP handlers, logging, and observability.
  */
 
-import {
-  ApplicationError,
-  type SerializedBaseError,
-} from "@oyinlola141/lattice-errors";
+import { ApplicationError, type SerializedBaseError } from "@zudo/errors";
 
 /**
  * Options accepted by FrameworkError.
@@ -35,7 +32,7 @@ export interface FrameworkErrorJSON {
 /**
  * Base error class for all Lattice framework errors.
  *
- * FrameworkError extends ApplicationError from @oyinlola141/lattice-errors
+ * FrameworkError extends ApplicationError from @zudo/errors
  * so all framework errors inherit BaseError properties (code,
  * category, severity, statusCode, metadata, serialization).
  */

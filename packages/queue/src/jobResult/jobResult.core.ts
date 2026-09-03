@@ -1,4 +1,4 @@
-import type { Timestamp } from "@oyinlola141/lattice-constants";
+import type { Timestamp } from "@zudo/constants";
 
 import type { JobResult, JobProgress } from "./jobResult.type.js";
 

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-campusflow-gateway
+ * @zudo/campusflow-gateway
  *
  * CampusFlow Gateway - Public entry point for the microservice architecture.
  * Handles authentication, request validation, and service orchestration.

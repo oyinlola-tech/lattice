@@ -1,20 +1,17 @@
-# @oyinlola141/lattice-auth
+# @zudo/auth
 
 Authentication primitives including JWT, sessions, password hashing, and RBAC delegation.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-auth
+npm install @zudo/auth
 ```
 
 ## Quick Start
 
 ```typescript
-import {
-  createJWTStrategy,
-  createSessionStore,
-} from "@oyinlola141/lattice-auth";
+import { createJWTStrategy, createSessionStore } from "@zudo/auth";
 
 const strategy = createJWTStrategy({
   secret: process.env.JWT_SECRET,

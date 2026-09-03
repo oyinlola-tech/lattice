@@ -2,7 +2,7 @@ import type { CryptoEncoding } from "../cryptoEncoding/cryptoEncoding.core.js";
 
 import { encode, decode } from "../cryptoEncoding/cryptoEncoding.core.js";
 
-import { createCryptoError } from "@oyinlola141/lattice-errors";
+import { createCryptoError } from "@zudo/errors";
 
 export type { CryptoEncoding };
 

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-openapi/openApiRouting
+ * @zudo/openapi/openApiRouting
  *
  * Route metadata, conversion, and scanning for OpenAPI generation.
  */

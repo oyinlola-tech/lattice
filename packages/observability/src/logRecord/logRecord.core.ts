@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Log Record
+ * @zudo/observability — Log Record
  *
  * Factory functions for creating structured log records.
  */

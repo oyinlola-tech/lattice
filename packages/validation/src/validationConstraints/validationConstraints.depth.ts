@@ -1,11 +1,11 @@
 /**
- * @oyinlola141/lattice-validation — Depth checking.
+ * @zudo/validation — Depth checking.
  *
  * Computes and validates the nesting depth of object graphs
  * to prevent stack overflows from deeply nested payloads.
  */
 
-import { SerializationDepthError } from "@oyinlola141/lattice-errors";
+import { SerializationDepthError } from "@zudo/errors";
 
 /**
  * Compute the maximum nesting depth of a value.

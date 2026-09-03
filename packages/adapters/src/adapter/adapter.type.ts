@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/adapter
+ * @zudo/adapters/adapter
  *
  * Core adapter contract — the base interface all adapters implement.
  */

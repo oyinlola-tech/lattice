@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Backend Generator
+ * zudo-cli — Backend Generator
  *
  * Generates backend projects for monolith, modular monolith, and microservice architectures.
  */

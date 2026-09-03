@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-crypto/cryptoService/operations
+ * @zudo/crypto/cryptoService/operations
  *
  * High-level cryptographic service operation wrappers
  * that add error handling and logging around core primitives.

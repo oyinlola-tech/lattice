@@ -25,7 +25,7 @@ import {
   createPermissionEngine,
   createRoleRegistry,
   type PermissionEngine,
-} from "@oyinlola141/lattice-permissions";
+} from "@zudo/permissions";
 
 const TEST_TOKEN_CONFIG: TokenConfig = {
   accessSecret: "test-access-secret-key-for-testing-32chars!",
@@ -211,7 +211,7 @@ describe("Session Management", () => {
   });
 });
 
-// ─── Permissions Engine (via @oyinlola141/lattice-permissions) ──────────────────────────
+// ─── Permissions Engine (via @zudo/permissions) ──────────────────────────
 
 describe("Permissions Engine", () => {
   const engine = createPermissionEngine({

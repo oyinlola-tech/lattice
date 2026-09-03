@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-container
+# @zudo/container
 
 Token-based dependency injection container for managing application dependencies and service lifetimes.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-container
+npm install @zudo/container
 ```
 
 ## Quick Start
 
 ```typescript
-import { createContainer } from "@oyinlola141/lattice-container";
+import { createContainer } from "@zudo/container";
 
 const container = createContainer();
 

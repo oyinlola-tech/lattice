@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Process Runners
+ * zudo-cli — Process Runners
  *
  * Runners for executing system processes.
  */

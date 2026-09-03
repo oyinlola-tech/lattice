@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Read stream into Buffer or string.
+ * @zudo/http/httpStream — Read stream into Buffer or string.
  */
 
 import type { HTTPStreamOptions } from "./httpStream.types.js";

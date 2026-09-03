@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Constants
+ * zudo-cli — Constants
  *
  * Constants used by the CLI scaffolding system.
  */

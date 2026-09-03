@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — Cookie Security Barrel
+ * @zudo/security — Cookie Security Barrel
  */
 
 export {

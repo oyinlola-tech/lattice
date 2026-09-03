@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerCore/core
+ * @zudo/logger/loggerCore/core
  *
  * Core logger types, implementation, and context wrapper.
  */

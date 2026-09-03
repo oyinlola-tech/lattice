@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Rollback
+ * zudo-cli — Rollback
  *
  * Rollback system barrel exports.
  */

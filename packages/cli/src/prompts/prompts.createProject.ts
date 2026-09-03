@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Prompts
+ * zudo-cli — Prompts
  *
  * Interactive prompt utilities for the CLI.
  */

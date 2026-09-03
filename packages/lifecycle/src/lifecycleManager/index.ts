@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-lifecycle/manager
+ * @zudo/lifecycle/manager
  *
  * Lifecycle manager — the main orchestration entry point.
  */

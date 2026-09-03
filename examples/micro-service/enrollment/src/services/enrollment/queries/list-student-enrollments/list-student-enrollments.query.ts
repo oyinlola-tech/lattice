@@ -1,4 +1,4 @@
-import { Query } from "@oyinlola141/lattice-cqrs";
+import { Query } from "@zudo/cqrs";
 import type { StudentId } from "../../../../types/index.js";
 
 /** Query to list all enrollments for a specific student. */

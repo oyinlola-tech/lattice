@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpRouter/core/types
+ * @zudo/http/httpRouter/core/types
  *
  * HTTP router type definitions.
  */

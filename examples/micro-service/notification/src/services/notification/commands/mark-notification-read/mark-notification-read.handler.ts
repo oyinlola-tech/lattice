@@ -1,5 +1,5 @@
-import { CommandHandler } from "@oyinlola141/lattice-cqrs";
-import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
+import { CommandHandler } from "@zudo/cqrs";
+import type { CqrsContext } from "@zudo/cqrs";
 import {
   MarkNotificationReadCommand,
   MARK_NOTIFICATION_READ_COMMAND,

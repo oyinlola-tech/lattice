@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-docs
+# @zudo/docs
 
 Documentation infrastructure with structured document model, registry, validation, navigation, frontmatter parsing, and markdown/JSON generation.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-docs
+npm install @zudo/docs
 ```
 
 ## Quick Start
 
 ```typescript
-import { createDocumentRegistry } from "@oyinlola141/lattice-docs";
+import { createDocumentRegistry } from "@zudo/docs";
 
 const registry = createDocumentRegistry();
 

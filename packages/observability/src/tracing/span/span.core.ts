@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Span
+ * @zudo/observability — Span
  *
  * In-memory span that records attributes, events, status, and errors.
  * Exported as a ReadableSpan when ended.

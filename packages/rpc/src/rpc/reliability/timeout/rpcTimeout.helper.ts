@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-rpc/reliability/timeout
+ * @zudo/rpc/reliability/timeout
  *
  * Timeout utilities for RPC operations.
  */

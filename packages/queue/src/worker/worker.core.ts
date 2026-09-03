@@ -9,7 +9,7 @@ import type {
 
 import { WorkerState } from "../jobTypes/jobTypes.type.js";
 
-import { WorkerLifecycleError } from "@oyinlola141/lattice-errors";
+import { WorkerLifecycleError } from "@zudo/errors";
 
 /**
  * Creates a new Worker.

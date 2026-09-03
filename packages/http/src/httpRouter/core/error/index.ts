@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpRouter/core/error
+ * @zudo/http/httpRouter/core/error
  *
  * HTTP router error types.
  */

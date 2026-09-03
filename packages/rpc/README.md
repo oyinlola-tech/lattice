@@ -1,4 +1,4 @@
-# @oyinlola141/lattice-rpc
+# @zudo/rpc
 
 Type-safe RPC — define procedures, apply middleware, dispatch calls, and serve over HTTP or your own transport.
 
@@ -11,12 +11,12 @@ Import this when you need:
 - a dispatcher that picks the right transport
 - structured RPC errors
 
-For request/response inside one process, prefer `@oyinlola141/lattice-api`.
+For request/response inside one process, prefer `@zudo/api`.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-rpc
+npm install @zudo/rpc
 ```
 
 ## Public API
@@ -34,13 +34,13 @@ import {
   type RPCRequest,
   type RPCResponse,
   type RPCErrorOptions,
-} from "@oyinlola141/lattice-rpc";
+} from "@zudo/rpc";
 ```
 
 ## Usage
 
 ```typescript
-import { createRPCProcedure, RPCDispatcher } from "@oyinlola141/lattice-rpc";
+import { createRPCProcedure, RPCDispatcher } from "@zudo/rpc";
 
 const sum = createRPCProcedure({
   name: "sum",

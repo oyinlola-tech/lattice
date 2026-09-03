@@ -1,11 +1,11 @@
 /**
- * @oyinlola141/lattice-storage — Storage Lifecycle Manager
+ * @zudo/storage — Storage Lifecycle Manager
  *
  * Manages the lifecycle phases of storage components:
  * uninitialized → initializing → ready → draining → drained → shutdown
  */
 
-import { StorageError } from "@oyinlola141/lattice-errors";
+import { StorageError } from "@zudo/errors";
 import type {
   StorageLifecycle,
   StorageLifecyclePhase,

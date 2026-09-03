@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-events/eventBus
+ * @zudo/events/eventBus
  *
  * Event bus for publishing and subscribing to events.
  */

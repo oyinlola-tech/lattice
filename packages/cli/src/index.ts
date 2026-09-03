@@ -1,11 +1,11 @@
 /**
- * @oyinlola141/lattice-cli
+ * zudo-cli
  *
  * Command-line interface framework for the Lattice platform.
  *
  * @example
  * ```ts
- * import { createCLI, command } from "@oyinlola141/lattice-cli";
+ * import { createCLI, command } from "zudo-cli";
  *
  * const app = createCLI({ name: "my-app", version: "1.0.0" });
  *

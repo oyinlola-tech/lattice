@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-types",
+  "name": "@zudo/types",
   "version": "0.1.3",
   "description": "Shared type guards, utility types, and type converters for the Lattice framework.",
   "license": "MIT",

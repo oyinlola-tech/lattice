@@ -1,4 +1,4 @@
-import { ErrorSeverity, ErrorCategory } from "@oyinlola141/lattice-errors";
+import { ErrorSeverity, ErrorCategory } from "@zudo/errors";
 
 export class NotificationNotFoundError extends Error {
   readonly statusCode = 404;

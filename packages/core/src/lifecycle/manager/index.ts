@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-core/lifecycle/manager
+ * @zudo/core/lifecycle/manager
  *
  * Lifecycle orchestration.
  */

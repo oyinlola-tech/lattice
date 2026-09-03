@@ -13,10 +13,7 @@ import {
   verifyTokenHash,
 } from "../../cryptoToken/cryptoToken.hash.js";
 
-import {
-  createCryptoError,
-  cryptoHashError,
-} from "@oyinlola141/lattice-errors";
+import { createCryptoError, cryptoHashError } from "@zudo/errors";
 
 export type { TokenOptions, TokenEncoding };
 

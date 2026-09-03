@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Job Generator
+ * zudo-cli — Job Generator
  *
  * Generates job files.
  */

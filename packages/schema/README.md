@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-schema
+# @zudo/schema
 
 Type-safe schema definition, parsing, and validation engine for data contracts.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-schema
+npm install @zudo/schema
 ```
 
 ## Quick Start
 
 ```typescript
-import { Schema } from "@oyinlola141/lattice-schema";
+import { Schema } from "@zudo/schema";
 
 const UserSchema = Schema.object({
   id: Schema.string().uuid(),

@@ -574,7 +574,7 @@ export function assertValidConfig(
   return result.value as ConfigValue;
 }
 
-import { ConfigurationError } from "@oyinlola141/lattice-errors";
+import { ConfigurationError } from "@zudo/errors";
 
 /**
  * Error thrown when schema validation fails.

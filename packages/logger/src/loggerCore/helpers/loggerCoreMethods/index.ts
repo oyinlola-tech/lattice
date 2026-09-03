@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerCore/loggerCoreMethods
+ * @zudo/logger/loggerCore/loggerCoreMethods
  *
  * Logger class helper methods.
  */

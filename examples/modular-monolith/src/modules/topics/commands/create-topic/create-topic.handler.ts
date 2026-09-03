@@ -1,4 +1,4 @@
-import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import { CommandHandler } from "@zudo/cqrs";
 import type { CreateTopicCommand } from "./create-topic.command.js";
 import type { TopicRepository } from "../../../../repositories/topic.repository.js";
 import type { TopicModel } from "../../../../models/topic.model.js";

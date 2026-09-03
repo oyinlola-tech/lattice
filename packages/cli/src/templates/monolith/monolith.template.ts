@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Monolith Templates
+ * zudo-cli — Monolith Templates
  *
  * Template file generators for monolith architecture projects.
  *
@@ -47,40 +47,36 @@ export function generateMonolithFiles(
   const nameSlug = name.replace(/[^a-z0-9-]+/gi, "-").toLowerCase();
 
   const deps = [
-    "@oyinlola141/lattice-core",
-    "@oyinlola141/lattice-container",
-    "@oyinlola141/lattice-config",
-    "@oyinlola141/lattice-logger",
-    "@oyinlola141/lattice-errors",
-    "@oyinlola141/lattice-constants",
-    "@oyinlola141/lattice-types",
-    "@oyinlola141/lattice-validation",
-    "@oyinlola141/lattice-schema",
-    "@oyinlola141/lattice-http",
+    "@zudo/core",
+    "@zudo/container",
+    "@zudo/config",
+    "@zudo/logger",
+    "@zudo/errors",
+    "@zudo/constants",
+    "@zudo/types",
+    "@zudo/validation",
+    "@zudo/schema",
+    "@zudo/http",
   ];
 
   if (options.enableCQRS) {
-    deps.push(
-      "@oyinlola141/lattice-cqrs",
-      "@oyinlola141/lattice-events",
-      "@oyinlola141/lattice-messaging",
-    );
+    deps.push("@zudo/cqrs", "@zudo/events", "@zudo/messaging");
   }
 
   if (options.enableDatabase) {
-    deps.push("@oyinlola141/lattice-database");
+    deps.push("@zudo/database");
   }
 
   if (options.enableQueue) {
-    deps.push("@oyinlola141/lattice-queue");
+    deps.push("@zudo/queue");
   }
 
   if (options.enableObservability) {
-    deps.push("@oyinlola141/lattice-observability");
+    deps.push("@zudo/observability");
   }
 
   if (options.enableOpenAPI) {
-    deps.push("@oyinlola141/lattice-openapi");
+    deps.push("@zudo/openapi");
   }
 
   const devDeps = ["tsx", "typescript", "@types/node", "vitest"];
@@ -134,8 +130,7 @@ export function generateMonolithFiles(
 `;
 
   // lattice.config.ts
-  files["lattice.config.ts"] =
-    `import { defineConfig } from "@oyinlola141/lattice-config";
+  files["lattice.config.ts"] = `import { defineConfig } from "@zudo/config";
 
 export default defineConfig({
   application: {
@@ -238,8 +233,8 @@ MIT
 `;
 
   files["src/server.ts"] = `import { createApp } from "./app.js";
-import { createRuntime } from "@oyinlola141/lattice-runtime";
-import { logger } from "@oyinlola141/lattice-logger";
+import { createRuntime } from "@zudo/runtime";
+import { logger } from "@zudo/logger";
 
 const app = await createApp();
 
@@ -259,8 +254,8 @@ process.on("SIGTERM", async () => {
 });
 `;
 
-  files["src/app.ts"] = `import { logger } from "@oyinlola141/lattice-logger";
-import { createContainer } from "@oyinlola141/lattice-container";
+  files["src/app.ts"] = `import { logger } from "@zudo/logger";
+import { createContainer } from "@zudo/container";
 
 export async function createApp() {
   const log = logger.child({ service: "app" });

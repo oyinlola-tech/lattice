@@ -1,6 +1,6 @@
-# @oyinlola141/lattice-api
+# @zudo/api
 
-Higher-level API layer — operation definitions, execution context, interceptors, policies, and a transport-agnostic executor. Sits above `@oyinlola141/lattice-http` and `@oyinlola141/lattice-cqrs`.
+Higher-level API layer — operation definitions, execution context, interceptors, policies, and a transport-agnostic executor. Sits above `@zudo/http` and `@zudo/cqrs`.
 
 ## When to use
 
@@ -13,7 +13,7 @@ Import this when you need:
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-api
+npm install @zudo/api
 ```
 
 ## Public API
@@ -31,16 +31,13 @@ import {
   type APIInterceptor,
   type OperationDefinition,
   type APIErrorOptions,
-} from "@oyinlola141/lattice-api";
+} from "@zudo/api";
 ```
 
 ## Usage
 
 ```typescript
-import {
-  defineOperation,
-  APIOperationRegistry,
-} from "@oyinlola141/lattice-api";
+import { defineOperation, APIOperationRegistry } from "@zudo/api";
 
 const getUser = defineOperation({
   name: "GetUser",

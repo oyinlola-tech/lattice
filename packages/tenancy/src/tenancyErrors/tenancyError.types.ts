@@ -4,7 +4,7 @@
  * @module tenancyErrors/tenancyError.types
  */
 
-import { ErrorCode } from "@oyinlola141/lattice-errors";
+import { ErrorCode } from "@zudo/errors";
 import { TenantError } from "./tenancyError.base.js";
 import type { TenantId, TenantStatus } from "../tenancyTypes/tenantIdentity.js";
 

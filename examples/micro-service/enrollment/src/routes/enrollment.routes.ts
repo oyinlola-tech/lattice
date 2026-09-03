@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
+import type { CommandBus, QueryBus } from "@zudo/cqrs";
 import { EnrollmentController } from "../controllers/enrollment.controller.js";
 
 /** A registered HTTP route. */

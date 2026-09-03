@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-openapi
+ * @zudo/openapi
  *
  * API contract and documentation engine for the Lattice framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { OpenAPIManager } from "@oyinlola141/lattice-openapi";
+ * import { OpenAPIManager } from "@zudo/openapi";
  *
  * const manager = new OpenAPIManager("3.1.0");
  *

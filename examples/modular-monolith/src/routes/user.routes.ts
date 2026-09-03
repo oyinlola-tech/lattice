@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
+import type { CommandBus, QueryBus } from "@zudo/cqrs";
 import { UserController } from "../controllers/user.controller.js";
 
 export interface Route {

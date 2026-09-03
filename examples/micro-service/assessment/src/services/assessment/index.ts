@@ -1,4 +1,4 @@
-import type { EventBus } from "@oyinlola141/lattice-events";
+import type { EventBus } from "@zudo/events";
 import type { AssessmentRepository } from "../../interfaces/index.js";
 import { CreateAssessmentHandler } from "./commands/create-assessment/create-assessment.handler.js";
 import { SubmitAssessmentHandler } from "./commands/submit-assessment/submit-assessment.handler.js";

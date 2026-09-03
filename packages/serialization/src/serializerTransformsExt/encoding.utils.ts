@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-serialization — Encoding utilities.
+ * @zudo/serialization — Encoding utilities.
  *
  * Base64 and UTF-8 encoding/decoding helpers.
  */

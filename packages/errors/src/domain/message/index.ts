@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/domain/message
+ * @zudo/errors/domain/message
  *
  * Message handling and dispatch error types.
  */

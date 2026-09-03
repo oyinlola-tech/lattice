@@ -17,6 +17,6 @@ export {
   RPCDuplicateProcedureError,
   createRPCError,
   isRPCError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
-export type { RPCErrorOptions } from "@oyinlola141/lattice-errors";
+export type { RPCErrorOptions } from "@zudo/errors";

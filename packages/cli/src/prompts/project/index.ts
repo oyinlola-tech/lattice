@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Project Prompts
+ * zudo-cli — Project Prompts
  *
  * Barrel exports for project prompts.
  */

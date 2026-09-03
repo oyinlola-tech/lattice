@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cache — Store
+ * @zudo/cache — Store
  * Wraps a CacheAdapter with metrics, events, middleware, and error handling.
  */
 

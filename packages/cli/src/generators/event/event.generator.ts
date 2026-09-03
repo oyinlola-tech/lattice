@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Event Generator
+ * zudo-cli — Event Generator
  *
  * Generates event files.
  */

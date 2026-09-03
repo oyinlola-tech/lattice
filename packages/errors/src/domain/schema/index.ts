@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/schema
+ * @zudo/errors/schema
  *
  * Schema error types for the Lattice schema system.
  */

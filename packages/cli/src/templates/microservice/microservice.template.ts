@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Microservice Template
+ * zudo-cli — Microservice Template
  *
  * Generated structure:
  * ```
@@ -65,8 +65,7 @@ export function generateMicroserviceFiles(
   - services/*
 `;
 
-  files["lattice.config.ts"] =
-    `import { defineConfig } from "@oyinlola141/lattice-config";
+  files["lattice.config.ts"] = `import { defineConfig } from "@zudo/config";
 
 export default defineConfig({
   application: {
@@ -163,11 +162,7 @@ MIT
   files["src/types/index.ts"] = ``;
 
   // Gateway service
-  const gatewayDeps = [
-    "@oyinlola141/lattice-http",
-    "@oyinlola141/lattice-config",
-    "@oyinlola141/lattice-logger",
-  ];
+  const gatewayDeps = ["@zudo/http", "@zudo/config", "@zudo/logger"];
 
   files["apps/gateway/package.json"] =
     JSON.stringify(
@@ -231,8 +226,7 @@ CMD ["node", "dist/server.js"]
     `export { createGateway } from "./app.js";
 `;
 
-  files["apps/gateway/src/app.ts"] =
-    `import { logger } from "@oyinlola141/lattice-logger";
+  files["apps/gateway/src/app.ts"] = `import { logger } from "@zudo/logger";
 
 export async function createGateway() {
   const log = logger.child({ service: "gateway" });
@@ -251,7 +245,7 @@ export async function createGateway() {
 
   files["apps/gateway/src/server.ts"] =
     `import { createGateway } from "./app.js";
-import { createRuntime } from "@oyinlola141/lattice-runtime";
+import { createRuntime } from "@zudo/runtime";
 
 const app = await createGateway();
 
@@ -272,20 +266,17 @@ process.on("SIGTERM", async () => {
 
   // Generate each service
   const serviceDeps = [
-    "@oyinlola141/lattice-core",
-    "@oyinlola141/lattice-container",
-    "@oyinlola141/lattice-config",
-    "@oyinlola141/lattice-logger",
-    "@oyinlola141/lattice-errors",
-    "@oyinlola141/lattice-constants",
-    "@oyinlola141/lattice-http",
+    "@zudo/core",
+    "@zudo/container",
+    "@zudo/config",
+    "@zudo/logger",
+    "@zudo/errors",
+    "@zudo/constants",
+    "@zudo/http",
   ];
 
   if (options.enableCQRS) {
-    serviceDeps.push(
-      "@oyinlola141/lattice-cqrs",
-      "@oyinlola141/lattice-events",
-    );
+    serviceDeps.push("@zudo/cqrs", "@zudo/events");
   }
 
   for (const svc of services) {
@@ -380,8 +371,8 @@ CMD ["node", "dist/server.js"]
 `;
 
     files[`apps/services/${svcName}/src/app.ts`] =
-      `import { logger } from "@oyinlola141/lattice-logger";
-import { createContainer } from "@oyinlola141/lattice-container";
+      `import { logger } from "@zudo/logger";
+import { createContainer } from "@zudo/container";
 
 export async function createApp() {
   const log = logger.child({ service: "${svcName}" });
@@ -403,7 +394,7 @@ export async function createApp() {
 
     files[`apps/services/${svcName}/src/server.ts`] =
       `import { createApp } from "./app.js";
-import { createRuntime } from "@oyinlola141/lattice-runtime";
+import { createRuntime } from "@zudo/runtime";
 
 const app = await createApp();
 

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-openapi/openApiHttp
+ * @zudo/openapi/openApiHttp
  *
  * HTTP integration for OpenAPI document serving.
  */

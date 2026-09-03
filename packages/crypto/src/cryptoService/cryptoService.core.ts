@@ -1,7 +1,7 @@
 import { createNodeCryptoProvider } from "../node/index.js";
 import { generateCryptoKey } from "../cryptoKey/cryptoKey.factory.js";
 import { CryptoAlgorithm } from "../cryptoConstants/cryptoConstants.type.js";
-import { createCryptoError } from "@oyinlola141/lattice-errors";
+import { createCryptoError } from "@zudo/errors";
 import {
   serviceEncrypt,
   serviceDecrypt,

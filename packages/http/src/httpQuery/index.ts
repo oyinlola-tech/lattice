@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpQuery
+ * @zudo/http/httpQuery
  *
  * HTTP query string parsing and utilities.
  */

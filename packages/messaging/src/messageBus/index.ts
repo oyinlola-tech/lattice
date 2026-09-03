@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-messaging/messageBus
+ * @zudo/messaging/messageBus
  *
  * MessageBus interface and in-memory implementation.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema
+ * @zudo/schema
  *
  * Schema definition and parsing engine for the Lattice framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { schema, type Infer } from "@oyinlola141/lattice-schema";
+ * import { schema, type Infer } from "@zudo/schema";
  *
  * const UserSchema = schema.object({
  *   id: schema.string().uuid(),

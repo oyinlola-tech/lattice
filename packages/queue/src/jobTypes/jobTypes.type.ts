@@ -1,4 +1,4 @@
-import type { EntityId, Timestamp } from "@oyinlola141/lattice-constants";
+import type { EntityId, Timestamp } from "@zudo/constants";
 
 /**
  * Unique identifier for a job.

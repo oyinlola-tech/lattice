@@ -3,14 +3,14 @@
  *
  * @module authRbac
  *
- * Re-exported from @oyinlola141/lattice-permissions for backward compatibility.
- * For new code, import directly from @oyinlola141/lattice-permissions.
+ * Re-exported from @zudo/permissions for backward compatibility.
+ * For new code, import directly from @zudo/permissions.
  */
 
 import type {
   PermissionString as PermissionsPermissionString,
   RoleDefinition as PermissionsRole,
-} from "@oyinlola141/lattice-permissions";
+} from "@zudo/permissions";
 
 /**
  * Permission string format: "resource:action"

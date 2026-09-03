@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http — Security configuration types.
+ * @zudo/http — Security configuration types.
  *
  * Defines the configuration for HTTP security features:
  * body limits, header validation, host validation, proxy trust,

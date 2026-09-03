@@ -1,20 +1,17 @@
-# @oyinlola141/lattice-testing
+# @zudo/testing
 
 Test helpers, fixtures, mocks, and utilities for testing Lattice applications.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-testing
+npm install @zudo/testing
 ```
 
 ## Quick Start
 
 ```typescript
-import {
-  createMockContainer,
-  createTestLogger,
-} from "@oyinlola141/lattice-testing";
+import { createMockContainer, createTestLogger } from "@zudo/testing";
 
 const container = createMockContainer();
 container.register("database", mockDatabase);

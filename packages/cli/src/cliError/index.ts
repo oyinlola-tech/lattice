@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — CLI Errors
+ * zudo-cli — CLI Errors
  *
  * All CLI error types re-exported from their respective files.
  */

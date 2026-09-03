@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Database Prompt
+ * zudo-cli — Database Prompt
  *
  * Prompts for database selection.
  */

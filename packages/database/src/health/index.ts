@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Health Checks
+ * @zudo/database — Health Checks
  *
  * Database health and readiness monitoring.
  */

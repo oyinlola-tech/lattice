@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Middleware Generator
+ * zudo-cli — Middleware Generator
  *
  * Generates middleware files.
  */

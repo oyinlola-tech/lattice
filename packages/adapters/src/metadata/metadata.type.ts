@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/metadata
+ * @zudo/adapters/metadata
  *
  * Adapter metadata — identification and compatibility information.
  */

@@ -3,14 +3,14 @@
  *
  * @module permissionErrors/permissionError
  *
- * Extends AuthorizationError from @oyinlola141/lattice-errors.
+ * Extends AuthorizationError from @zudo/errors.
  */
 
 import {
   AuthorizationError,
   ErrorCode,
   type ErrorMetadata,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /**
  * Base error for all permission-related failures.

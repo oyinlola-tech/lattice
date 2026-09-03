@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Task Runners
+ * zudo-cli — Task Runners
  *
  * Runners for executing development tasks.
  */

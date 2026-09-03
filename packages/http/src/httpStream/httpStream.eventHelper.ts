@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Shared settle-once guard, cleanup, and abort patterns.
+ * @zudo/http/httpStream — Shared settle-once guard, cleanup, and abort patterns.
  */
 
 import { destroyStream } from "./httpStream.destroy.js";

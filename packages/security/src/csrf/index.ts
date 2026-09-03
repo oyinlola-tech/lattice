@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — CSRF Protection Barrel
+ * @zudo/security — CSRF Protection Barrel
  */
 
 export {

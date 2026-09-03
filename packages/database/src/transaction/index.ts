@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Transactions
+ * @zudo/database — Transactions
  *
  * Managed transaction execution with retry support.
  */

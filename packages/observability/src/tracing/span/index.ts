@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Span
+ * @zudo/observability — Span
  *
  * Span implementation and context creation.
  */

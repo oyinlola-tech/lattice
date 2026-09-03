@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Create Command
+ * zudo-cli — Create Command
  *
  * The `lattice create` command.
  */

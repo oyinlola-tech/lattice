@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpBody
+ * @zudo/http/httpBody
  *
  * HTTP body handling, parsing, and streaming.
  */

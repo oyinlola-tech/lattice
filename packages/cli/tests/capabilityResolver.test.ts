@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Capability Resolver Tests
+ * zudo-cli — Capability Resolver Tests
  *
  * Tests for CapabilityResolver.
  */

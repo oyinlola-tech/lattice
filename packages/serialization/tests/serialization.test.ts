@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-serialization — Tests.
+ * @zudo/serialization — Tests.
  *
  * Comprehensive test suite covering JSON serializer, type transformers,
  * transformer registry, serializer registry, envelope, and validation.

@@ -1,4 +1,4 @@
-import { Command } from "@oyinlola141/lattice-cqrs";
+import { Command } from "@zudo/cqrs";
 import type { UpdateProfileDto } from "../../../../dtos/index.js";
 import type { UserId } from "../../../../types/index.js";
 

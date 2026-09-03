@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-core/configuration/loader
+ * @zudo/core/configuration/loader
  *
  * Configuration loading pipeline.
  */

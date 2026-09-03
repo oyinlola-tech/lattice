@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-runtime — Tests
+ * @zudo/runtime — Tests
  *
  * Comprehensive tests for the runtime package.
  */
@@ -12,13 +12,13 @@ import type { RuntimeDependencies } from "../src/runtime/runtime.core.js";
 
 import type { RuntimeOptions } from "../src/runtimeOptions/runtimeOptions.type.js";
 
-import type { Module } from "@oyinlola141/lattice-core";
+import type { Module } from "@zudo/core";
 
-import { createLogger } from "@oyinlola141/lattice-logger";
+import { createLogger } from "@zudo/logger";
 
-import { createContainer } from "@oyinlola141/lattice-container";
+import { createContainer } from "@zudo/container";
 
-import { createEventBus } from "@oyinlola141/lattice-events";
+import { createEventBus } from "@zudo/events";
 
 import { RuntimeRegistry } from "../src/registry/index.js";
 

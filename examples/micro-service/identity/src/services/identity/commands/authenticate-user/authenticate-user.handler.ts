@@ -1,11 +1,11 @@
-import { CommandHandler } from "@oyinlola141/lattice-cqrs";
-import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
+import { CommandHandler } from "@zudo/cqrs";
+import type { CqrsContext } from "@zudo/cqrs";
 import jwt from "jsonwebtoken";
 import type { AuthenticateUserCommand } from "./authenticate-user.command.js";
 import type { UserRepository } from "../../../../repositories/index.js";
 import { comparePassword } from "../../../../utils/index.js";
 import { UnauthorizedError } from "../../../../errors/index.js";
-import type { EventBus } from "@oyinlola141/lattice-events";
+import type { EventBus } from "@zudo/events";
 import { UserAuthenticatedEvent } from "../../../../events/index.js";
 
 /**

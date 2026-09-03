@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Logger
+ * @zudo/observability — Logger
  *
  * Structured logger with level filtering, child loggers, and transport support.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — Cookie Security
+ * @zudo/security — Cookie Security
  *
  * Parses, validates, and serializes HTTP cookies with security best practices.
  */

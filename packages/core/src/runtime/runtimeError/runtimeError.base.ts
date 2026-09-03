@@ -1,5 +1,5 @@
 import { FrameworkError } from "../../errors/frameworkError.error.js";
-import type { SerializedBaseError } from "@oyinlola141/lattice-errors";
+import type { SerializedBaseError } from "@zudo/errors";
 
 import type {
   RuntimeErrorOptions,

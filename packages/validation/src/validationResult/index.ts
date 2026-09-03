@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-validation/validationResult
+ * @zudo/validation/validationResult
  *
  * Validation result types and helpers.
  */

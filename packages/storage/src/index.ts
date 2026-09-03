@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-storage
+ * @zudo/storage
  *
  * Storage infrastructure for the Lattice framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { Database, ConnectionPool, BaseRepository } from '@oyinlola141/lattice-storage';
+ * import { Database, ConnectionPool, BaseRepository } from '@zudo/storage';
  *
  * // Use database abstraction
  * const result = await database.query({ text: 'SELECT * FROM users' });

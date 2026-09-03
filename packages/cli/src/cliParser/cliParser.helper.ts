@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Parser Helpers
+ * zudo-cli — Parser Helpers
  *
  * Utility functions for parsing CLI arguments, options, and values.
  */

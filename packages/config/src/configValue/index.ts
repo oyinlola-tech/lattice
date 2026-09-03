@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configValue
+ * @zudo/config/configValue
  *
  * Configuration value types, paths, and accessors.
  */

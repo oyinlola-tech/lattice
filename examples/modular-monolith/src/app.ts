@@ -1,7 +1,7 @@
-import { CommandBus, createCommandBus } from "@oyinlola141/lattice-cqrs";
-import { QueryBus, createQueryBus } from "@oyinlola141/lattice-cqrs";
-import { createEventBus } from "@oyinlola141/lattice-events";
-import { LoggerLevel } from "@oyinlola141/lattice-logger";
+import { CommandBus, createCommandBus } from "@zudo/cqrs";
+import { QueryBus, createQueryBus } from "@zudo/cqrs";
+import { createEventBus } from "@zudo/events";
+import { LoggerLevel } from "@zudo/logger";
 import { createAppLogger } from "./loggers/logger.js";
 import { createAppConfig } from "./config/index.js";
 import { initDatabase } from "./databases/database.js";

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpHeaders/cacheControl
+ * @zudo/http/httpHeaders/cacheControl
  *
  * HTTP headers cacheControl utilities.
  */

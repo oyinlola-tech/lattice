@@ -16,7 +16,7 @@ import type {
   SessionId,
 } from "../authTypes/authSession.type.js";
 import type { GuardResult } from "../authTypes/authRbac.type.js";
-import type { PermissionEngine } from "@oyinlola141/lattice-permissions";
+import type { PermissionEngine } from "@zudo/permissions";
 import {
   hashPassword,
   verifyPassword,
@@ -171,7 +171,7 @@ export function createAuthService(config: AuthServiceConfig): AuthService {
 
     /**
      * Check if a user has a specific permission.
-     * Delegates to @oyinlola141/lattice-permissions engine when configured.
+     * Delegates to @zudo/permissions engine when configured.
      */
     async checkAccess(
       userId: UserId,

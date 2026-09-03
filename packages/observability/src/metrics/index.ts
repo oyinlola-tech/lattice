@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Metrics
+ * @zudo/observability — Metrics
  *
  * Counters, gauges, histograms, and the metrics registry.
  */

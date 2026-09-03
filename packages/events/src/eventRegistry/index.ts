@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-events/eventRegistry
+ * @zudo/events/eventRegistry
  *
  * Event definition registration and lookup.
  */

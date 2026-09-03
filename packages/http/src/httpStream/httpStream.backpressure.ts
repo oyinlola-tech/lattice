@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Backpressure-aware write and drain helpers.
+ * @zudo/http/httpStream — Backpressure-aware write and drain helpers.
  */
 
 import { Writable } from "node:stream";

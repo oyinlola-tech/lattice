@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-http
+# @zudo/http
 
 HTTP primitives, request handling, routing, middleware, and server infrastructure for Lattice applications.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-http
+npm install @zudo/http
 ```
 
 ## Quick Start
 
 ```typescript
-import { createHTTPServer } from "@oyinlola141/lattice-http";
+import { createHTTPServer } from "@zudo/http";
 
 const server = createHTTPServer({
   handler: {

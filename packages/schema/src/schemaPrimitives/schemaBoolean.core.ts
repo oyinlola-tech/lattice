@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/primitives/boolean
+ * @zudo/schema/primitives/boolean
  *
  * Boolean schema with optional coercion.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
+import { SchemaIssueCode } from "@zudo/constants";
 
 /** Configuration for boolean schema. */
 interface BooleanSchemaConfig {

@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-runtime
+# @zudo/runtime
 
 Application lifecycle orchestrator with dependency ordering, rollback, signals, and readiness checks.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-runtime
+npm install @zudo/runtime
 ```
 
 ## Quick Start
 
 ```typescript
-import { createRuntime } from "@oyinlola141/lattice-runtime";
+import { createRuntime } from "@zudo/runtime";
 
 const runtime = createRuntime({
   services: [api, database, queue],

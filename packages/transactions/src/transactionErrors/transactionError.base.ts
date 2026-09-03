@@ -8,7 +8,7 @@ import {
   ErrorCategory,
   ErrorSeverity,
   type ErrorMetadata,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /**
  * Base error for all transaction-related failures.

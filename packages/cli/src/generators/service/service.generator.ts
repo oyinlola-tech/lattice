@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Service Generator
+ * zudo-cli — Service Generator
  *
  * Generates a new service with CQRS structure.
  */
@@ -23,7 +23,7 @@ export async function generateService(
     .replace(/^./, (c) => c.toUpperCase());
 
   const files: Record<string, string> = {
-    [`${basePath}/${name}/${name}.service.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
+    [`${basePath}/${name}/${name}.service.ts`]: `import { createLogger } from "@zudo/logger";
 
 export class ${namePascal}Service {
   private readonly logger = createLogger({ name: "${name}-service" });

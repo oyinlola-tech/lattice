@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Validators
+ * zudo-cli — Validators
  *
  * Environment, project, and compatibility validators.
  */

@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-example-monolith",
+  "name": "@zudo/example-monolith",
   "version": "0.1.1",
   "private": true,
   "type": "module",
@@ -11,21 +11,21 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@oyinlola141/lattice-core": "workspace:*",
-    "@oyinlola141/lattice-container": "workspace:*",
-    "@oyinlola141/lattice-cqrs": "workspace:*",
-    "@oyinlola141/lattice-events": "workspace:*",
-    "@oyinlola141/lattice-messaging": "workspace:*",
-    "@oyinlola141/lattice-http": "workspace:*",
-    "@oyinlola141/lattice-config": "workspace:*",
-    "@oyinlola141/lattice-logger": "workspace:*",
-    "@oyinlola141/lattice-errors": "workspace:*",
-    "@oyinlola141/lattice-validation": "workspace:*",
-    "@oyinlola141/lattice-schema": "workspace:*",
-    "@oyinlola141/lattice-constants": "workspace:*",
-    "@oyinlola141/lattice-types": "workspace:*",
-    "@oyinlola141/lattice-queue": "workspace:*",
-    "@oyinlola141/lattice-lifecycle": "workspace:*"
+    "@zudo/core": "workspace:*",
+    "@zudo/container": "workspace:*",
+    "@zudo/cqrs": "workspace:*",
+    "@zudo/events": "workspace:*",
+    "@zudo/messaging": "workspace:*",
+    "@zudo/http": "workspace:*",
+    "@zudo/config": "workspace:*",
+    "@zudo/logger": "workspace:*",
+    "@zudo/errors": "workspace:*",
+    "@zudo/validation": "workspace:*",
+    "@zudo/schema": "workspace:*",
+    "@zudo/constants": "workspace:*",
+    "@zudo/types": "workspace:*",
+    "@zudo/queue": "workspace:*",
+    "@zudo/lifecycle": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.7.0",

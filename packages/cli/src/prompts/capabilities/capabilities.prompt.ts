@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Capabilities Prompt
+ * zudo-cli — Capabilities Prompt
  *
  * Prompts for selecting Lattice capabilities.
  */

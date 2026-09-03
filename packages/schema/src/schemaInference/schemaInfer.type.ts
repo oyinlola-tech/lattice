@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/inference
+ * @zudo/schema/inference
  *
  * Type inference utilities for extracting TypeScript types from schemas.
  */

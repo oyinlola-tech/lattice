@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configStore/configStore.factory
+ * @zudo/config/configStore/configStore.factory
  *
  * Factory and utility functions for ConfigStore.
  */

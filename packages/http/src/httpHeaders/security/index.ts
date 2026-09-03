@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpHeaders/security
+ * @zudo/http/httpHeaders/security
  *
  * HTTP headers security utilities.
  */

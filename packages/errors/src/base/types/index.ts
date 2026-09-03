@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/base/types
+ * @zudo/errors/base/types
  *
  * Error type definitions (codes, categories, severity, metadata).
  */

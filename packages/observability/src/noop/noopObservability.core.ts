@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Noop Implementations
+ * @zudo/observability — Noop Implementations
  *
  * No-op implementations that discard all telemetry.
  * Allows instrumentation code to remain simple without null checks.

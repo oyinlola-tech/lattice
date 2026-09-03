@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-tenancy
+# @zudo/tenancy
 
 Multi-tenant context and isolation with tenant resolution, AsyncLocalStorage propagation, resolver chains, trust levels, and guard middleware.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-tenancy
+npm install @zudo/tenancy
 ```
 
 ## Quick Start
 
 ```typescript
-import { createTenantContextManager } from "@oyinlola141/lattice-tenancy";
+import { createTenantContextManager } from "@zudo/tenancy";
 
 const manager = createTenantContextManager({
   resolvers: [headerResolver, subdomainResolver, jwtResolver],

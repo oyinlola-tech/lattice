@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Pipe streams with progress reporting.
+ * @zudo/http/httpStream — Pipe streams with progress reporting.
  */
 
 import type {

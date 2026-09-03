@@ -1,8 +1,8 @@
-import type { Logger } from "@oyinlola141/lattice-logger";
+import type { Logger } from "@zudo/logger";
 
-import type { Container } from "@oyinlola141/lattice-container";
+import type { Container } from "@zudo/container";
 
-import type { Module, ModuleContext } from "@oyinlola141/lattice-core";
+import type { Module, ModuleContext } from "@zudo/core";
 
 import type {
   LifecycleResult,

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Log Record
+ * @zudo/observability — Log Record
  *
  * Structured log record creation and error log records.
  */

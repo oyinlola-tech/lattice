@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Frontend Architecture Prompt
+ * zudo-cli — Frontend Architecture Prompt
  *
  * Prompts for frontend project structure.
  */

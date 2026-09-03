@@ -1,11 +1,11 @@
 /**
- * @oyinlola141/lattice-storage — Base Repository
+ * @zudo/storage — Base Repository
  *
  * Provides a base implementation for repository CRUD operations.
  * Concrete repositories can extend this for domain-specific queries.
  */
 
-import { NotFoundError } from "@oyinlola141/lattice-errors";
+import { NotFoundError } from "@zudo/errors";
 import type {
   Database,
   Query,

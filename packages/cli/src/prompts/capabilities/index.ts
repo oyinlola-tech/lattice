@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Capabilities Prompts
+ * zudo-cli — Capabilities Prompts
  *
  * Barrel exports for capabilities prompts.
  */

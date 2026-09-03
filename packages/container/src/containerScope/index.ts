@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-container/containerScope
+ * @zudo/container/containerScope
  *
  * Scope management for dependency lifetimes.
  */

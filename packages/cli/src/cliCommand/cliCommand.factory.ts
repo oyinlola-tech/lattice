@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Command Factory
+ * zudo-cli — Command Factory
  *
  * Factory functions for creating and executing CLI commands.
  */

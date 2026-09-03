@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpConstants
+ * @zudo/http/httpConstants
  *
  * HTTP httpConstants module.
  */

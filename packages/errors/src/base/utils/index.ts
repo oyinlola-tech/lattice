@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/base/utils
+ * @zudo/errors/base/utils
  *
  * Error utility functions.
  */

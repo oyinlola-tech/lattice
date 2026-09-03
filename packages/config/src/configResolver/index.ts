@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configResolver
+ * @zudo/config/configResolver
  *
  * Configuration resolution with priority and merging.
  */

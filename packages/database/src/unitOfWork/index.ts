@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Unit of Work
+ * @zudo/database — Unit of Work
  *
  * Groups multiple repository operations into a single transaction.
  */

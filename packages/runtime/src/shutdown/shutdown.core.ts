@@ -1,8 +1,8 @@
-import type { Logger } from "@oyinlola141/lattice-logger";
+import type { Logger } from "@zudo/logger";
 
-import type { EventBus } from "@oyinlola141/lattice-events";
+import type { EventBus } from "@zudo/events";
 
-import { createEvent } from "@oyinlola141/lattice-events";
+import { createEvent } from "@zudo/events";
 
 import { LifecycleManager } from "../lifecycle/index.js";
 

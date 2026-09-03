@@ -23,7 +23,7 @@ import { getRegistrationToken } from "../containerRegistration/containerRegistra
 
 import type { ContainerRegistry } from "../containerRegistry/containerRegistry.core.js";
 
-import { RegistrationNotFoundError } from "@oyinlola141/lattice-errors";
+import { RegistrationNotFoundError } from "@zudo/errors";
 import { describeRegistryToken } from "../containerRegistry/containerRegistry.error.js";
 
 import { unwrapToken } from "../containerToken/containerToken.type.js";
@@ -37,10 +37,7 @@ import type {
   ResolutionResult,
 } from "./containerResolution.type.js";
 
-import {
-  CircularDependencyError,
-  ProviderResolutionError,
-} from "@oyinlola141/lattice-errors";
+import { CircularDependencyError, ProviderResolutionError } from "@zudo/errors";
 import { describeToken } from "../containerToken/containerToken.type.js";
 
 export class ContainerResolver {

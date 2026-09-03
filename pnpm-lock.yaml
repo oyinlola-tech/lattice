@@ -30,16 +30,16 @@ importers:
 
   examples/basic-api:
     dependencies:
-      "@oyinlola141/lattice-core":
+      "@zudo/core":
         specifier: workspace:*
         version: link:../../packages/core
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../../packages/errors
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../../packages/http
-      "@oyinlola141/lattice-validation":
+      "@zudo/validation":
         specifier: workspace:*
         version: link:../../packages/validation
     devDependencies:
@@ -55,7 +55,7 @@ importers:
 
   examples/hello-world:
     dependencies:
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../../packages/logger
     devDependencies:
@@ -77,31 +77,31 @@ importers:
 
   examples/micro-service/assessment:
     dependencies:
-      "@oyinlola141/lattice-config":
+      "@zudo/config":
         specifier: workspace:*
         version: link:../../../packages/config
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../../../packages/constants
-      "@oyinlola141/lattice-cqrs":
+      "@zudo/cqrs":
         specifier: workspace:*
         version: link:../../../packages/cqrs
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../../../packages/errors
-      "@oyinlola141/lattice-events":
+      "@zudo/events":
         specifier: workspace:*
         version: link:../../../packages/events
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../../../packages/http
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../../../packages/logger
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../../../packages/types
-      "@oyinlola141/lattice-validation":
+      "@zudo/validation":
         specifier: workspace:*
         version: link:../../../packages/validation
       better-sqlite3:
@@ -123,31 +123,31 @@ importers:
 
   examples/micro-service/enrollment:
     dependencies:
-      "@oyinlola141/lattice-config":
+      "@zudo/config":
         specifier: workspace:*
         version: link:../../../packages/config
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../../../packages/constants
-      "@oyinlola141/lattice-cqrs":
+      "@zudo/cqrs":
         specifier: workspace:*
         version: link:../../../packages/cqrs
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../../../packages/errors
-      "@oyinlola141/lattice-events":
+      "@zudo/events":
         specifier: workspace:*
         version: link:../../../packages/events
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../../../packages/http
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../../../packages/logger
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../../../packages/types
-      "@oyinlola141/lattice-validation":
+      "@zudo/validation":
         specifier: workspace:*
         version: link:../../../packages/validation
       better-sqlite3:
@@ -172,28 +172,28 @@ importers:
 
   examples/micro-service/gateway:
     dependencies:
-      "@oyinlola141/lattice-config":
+      "@zudo/config":
         specifier: workspace:*
         version: link:../../../packages/config
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../../../packages/constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../../../packages/errors
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../../../packages/http
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../../../packages/logger
-      "@oyinlola141/lattice-security":
+      "@zudo/security":
         specifier: workspace:*
         version: link:../../../packages/security
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../../../packages/types
-      "@oyinlola141/lattice-validation":
+      "@zudo/validation":
         specifier: workspace:*
         version: link:../../../packages/validation
       jsonwebtoken:
@@ -218,43 +218,43 @@ importers:
 
   examples/micro-service/identity:
     dependencies:
-      "@oyinlola141/lattice-config":
+      "@zudo/config":
         specifier: workspace:*
         version: link:../../../packages/config
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../../../packages/constants
-      "@oyinlola141/lattice-container":
+      "@zudo/container":
         specifier: workspace:*
         version: link:../../../packages/container
-      "@oyinlola141/lattice-cqrs":
+      "@zudo/cqrs":
         specifier: workspace:*
         version: link:../../../packages/cqrs
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../../../packages/errors
-      "@oyinlola141/lattice-events":
+      "@zudo/events":
         specifier: workspace:*
         version: link:../../../packages/events
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../../../packages/http
-      "@oyinlola141/lattice-lifecycle":
+      "@zudo/lifecycle":
         specifier: workspace:*
         version: link:../../../packages/lifecycle
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../../../packages/logger
-      "@oyinlola141/lattice-permissions":
+      "@zudo/permissions":
         specifier: workspace:*
         version: link:../../../packages/permissions
-      "@oyinlola141/lattice-queue":
+      "@zudo/queue":
         specifier: workspace:*
         version: link:../../../packages/queue
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../../../packages/types
-      "@oyinlola141/lattice-validation":
+      "@zudo/validation":
         specifier: workspace:*
         version: link:../../../packages/validation
       better-sqlite3:
@@ -285,34 +285,34 @@ importers:
 
   examples/micro-service/notification:
     dependencies:
-      "@oyinlola141/lattice-config":
+      "@zudo/config":
         specifier: workspace:*
         version: link:../../../packages/config
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../../../packages/constants
-      "@oyinlola141/lattice-cqrs":
+      "@zudo/cqrs":
         specifier: workspace:*
         version: link:../../../packages/cqrs
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../../../packages/errors
-      "@oyinlola141/lattice-events":
+      "@zudo/events":
         specifier: workspace:*
         version: link:../../../packages/events
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../../../packages/http
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../../../packages/logger
-      "@oyinlola141/lattice-queue":
+      "@zudo/queue":
         specifier: workspace:*
         version: link:../../../packages/queue
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../../../packages/types
-      "@oyinlola141/lattice-validation":
+      "@zudo/validation":
         specifier: workspace:*
         version: link:../../../packages/validation
     devDependencies:
@@ -328,43 +328,43 @@ importers:
 
   examples/modular-monolith:
     dependencies:
-      "@oyinlola141/lattice-config":
+      "@zudo/config":
         specifier: workspace:*
         version: link:../../packages/config
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../../packages/constants
-      "@oyinlola141/lattice-container":
+      "@zudo/container":
         specifier: workspace:*
         version: link:../../packages/container
-      "@oyinlola141/lattice-cqrs":
+      "@zudo/cqrs":
         specifier: workspace:*
         version: link:../../packages/cqrs
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../../packages/errors
-      "@oyinlola141/lattice-events":
+      "@zudo/events":
         specifier: workspace:*
         version: link:../../packages/events
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../../packages/http
-      "@oyinlola141/lattice-lifecycle":
+      "@zudo/lifecycle":
         specifier: workspace:*
         version: link:../../packages/lifecycle
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../../packages/logger
-      "@oyinlola141/lattice-permissions":
+      "@zudo/permissions":
         specifier: workspace:*
         version: link:../../packages/permissions
-      "@oyinlola141/lattice-queue":
+      "@zudo/queue":
         specifier: workspace:*
         version: link:../../packages/queue
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../../packages/types
-      "@oyinlola141/lattice-validation":
+      "@zudo/validation":
         specifier: workspace:*
         version: link:../../packages/validation
       better-sqlite3:
@@ -392,49 +392,49 @@ importers:
 
   examples/monolith:
     dependencies:
-      "@oyinlola141/lattice-config":
+      "@zudo/config":
         specifier: workspace:*
         version: link:../../packages/config
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../../packages/constants
-      "@oyinlola141/lattice-container":
+      "@zudo/container":
         specifier: workspace:*
         version: link:../../packages/container
-      "@oyinlola141/lattice-core":
+      "@zudo/core":
         specifier: workspace:*
         version: link:../../packages/core
-      "@oyinlola141/lattice-cqrs":
+      "@zudo/cqrs":
         specifier: workspace:*
         version: link:../../packages/cqrs
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../../packages/errors
-      "@oyinlola141/lattice-events":
+      "@zudo/events":
         specifier: workspace:*
         version: link:../../packages/events
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../../packages/http
-      "@oyinlola141/lattice-lifecycle":
+      "@zudo/lifecycle":
         specifier: workspace:*
         version: link:../../packages/lifecycle
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../../packages/logger
-      "@oyinlola141/lattice-messaging":
+      "@zudo/messaging":
         specifier: workspace:*
         version: link:../../packages/messaging
-      "@oyinlola141/lattice-queue":
+      "@zudo/queue":
         specifier: workspace:*
         version: link:../../packages/queue
-      "@oyinlola141/lattice-schema":
+      "@zudo/schema":
         specifier: workspace:*
         version: link:../../packages/schema
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../../packages/types
-      "@oyinlola141/lattice-validation":
+      "@zudo/validation":
         specifier: workspace:*
         version: link:../../packages/validation
     devDependencies:
@@ -447,19 +447,19 @@ importers:
 
   examples/worker:
     dependencies:
-      "@oyinlola141/lattice-core":
+      "@zudo/core":
         specifier: workspace:*
         version: link:../../packages/core
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../../packages/errors
-      "@oyinlola141/lattice-lifecycle":
+      "@zudo/lifecycle":
         specifier: workspace:*
         version: link:../../packages/lifecycle
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../../packages/logger
-      "@oyinlola141/lattice-queue":
+      "@zudo/queue":
         specifier: workspace:*
         version: link:../../packages/queue
     devDependencies:
@@ -472,16 +472,16 @@ importers:
 
   packages/adapters:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-lifecycle":
+      "@zudo/lifecycle":
         specifier: workspace:*
         version: link:../lifecycle
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -494,16 +494,16 @@ importers:
 
   packages/api:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-schema":
+      "@zudo/schema":
         specifier: workspace:*
         version: link:../schema
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -516,13 +516,13 @@ importers:
 
   packages/auth:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-permissions":
+      "@zudo/permissions":
         specifier: workspace:*
         version: link:../permissions
     devDependencies:
@@ -535,13 +535,13 @@ importers:
 
   packages/cache:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-serialization":
+      "@zudo/serialization":
         specifier: workspace:*
         version: link:../serialization
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -557,16 +557,16 @@ importers:
       "@clack/prompts":
         specifier: ^1.7.0
         version: 1.7.0
-      "@oyinlola141/lattice-config":
+      "@zudo/config":
         specifier: workspace:*
         version: link:../config
-      "@oyinlola141/lattice-core":
+      "@zudo/core":
         specifier: workspace:*
         version: link:../core
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../logger
     devDependencies:
@@ -585,7 +585,7 @@ importers:
 
   packages/config:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -598,7 +598,7 @@ importers:
 
   packages/constants:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -611,7 +611,7 @@ importers:
 
   packages/container:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -621,13 +621,13 @@ importers:
 
   packages/core:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-messaging":
+      "@zudo/messaging":
         specifier: workspace:*
         version: link:../messaging
     devDependencies:
@@ -643,13 +643,13 @@ importers:
 
   packages/cqrs:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-events":
+      "@zudo/events":
         specifier: workspace:*
         version: link:../events
-      "@oyinlola141/lattice-messaging":
+      "@zudo/messaging":
         specifier: workspace:*
         version: link:../messaging
     devDependencies:
@@ -662,10 +662,10 @@ importers:
 
   packages/crypto:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -675,12 +675,12 @@ importers:
 
   packages/database:
     dependencies:
-      "@oyinlola141/lattice-errors":
-        specifier: workspace:*
-        version: link:../errors
       "@prisma/client":
         specifier: ^7.10.0
         version: 7.10.0(prisma@7.10.0(@types/node@26.4.0)(@types/react@19.2.18)(better-sqlite3@13.0.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))(typescript@7.0.2)
+      "@zudo/errors":
+        specifier: workspace:*
+        version: link:../errors
     devDependencies:
       prisma:
         specifier: ^7.10.0
@@ -688,7 +688,7 @@ importers:
 
   packages/docs:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -707,10 +707,10 @@ importers:
 
   packages/events:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -723,7 +723,7 @@ importers:
 
   packages/feature-flags:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -736,16 +736,16 @@ importers:
 
   packages/http:
     dependencies:
-      "@oyinlola141/lattice-core":
+      "@zudo/core":
         specifier: workspace:*
         version: link:../core
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../logger
-      "@oyinlola141/lattice-security":
+      "@zudo/security":
         specifier: workspace:*
         version: link:../security
     devDependencies:
@@ -767,10 +767,10 @@ importers:
 
   packages/lifecycle:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -786,7 +786,7 @@ importers:
 
   packages/logger:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -799,10 +799,10 @@ importers:
 
   packages/messaging:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -812,7 +812,7 @@ importers:
 
   packages/middleware:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -825,7 +825,7 @@ importers:
 
   packages/observability:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -841,13 +841,13 @@ importers:
 
   packages/openapi:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-schema":
+      "@zudo/schema":
         specifier: workspace:*
         version: link:../schema
     devDependencies:
@@ -863,13 +863,13 @@ importers:
 
   packages/permissions:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../http
     devDependencies:
@@ -882,13 +882,13 @@ importers:
 
   packages/plugins:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -904,13 +904,13 @@ importers:
 
   packages/queue:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-serialization":
+      "@zudo/serialization":
         specifier: workspace:*
         version: link:../serialization
     devDependencies:
@@ -923,16 +923,16 @@ importers:
 
   packages/rpc:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-schema":
+      "@zudo/schema":
         specifier: workspace:*
         version: link:../schema
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -945,25 +945,25 @@ importers:
 
   packages/runtime:
     dependencies:
-      "@oyinlola141/lattice-config":
+      "@zudo/config":
         specifier: workspace:*
         version: link:../config
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-container":
+      "@zudo/container":
         specifier: workspace:*
         version: link:../container
-      "@oyinlola141/lattice-core":
+      "@zudo/core":
         specifier: workspace:*
         version: link:../core
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-events":
+      "@zudo/events":
         specifier: workspace:*
         version: link:../events
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../logger
     devDependencies:
@@ -979,13 +979,13 @@ importers:
 
   packages/scheduler:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -998,13 +998,13 @@ importers:
 
   packages/schema:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -1020,10 +1020,10 @@ importers:
 
   packages/security:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -1039,16 +1039,16 @@ importers:
 
   packages/serialization:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../types
-      "@oyinlola141/lattice-validation":
+      "@zudo/validation":
         specifier: workspace:*
         version: link:../validation
     devDependencies:
@@ -1061,16 +1061,16 @@ importers:
 
   packages/storage:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-serialization":
+      "@zudo/serialization":
         specifier: workspace:*
         version: link:../serialization
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -1086,13 +1086,13 @@ importers:
 
   packages/tenancy:
     dependencies:
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../http
     devDependencies:
@@ -1105,49 +1105,49 @@ importers:
 
   packages/testing:
     dependencies:
-      "@oyinlola141/lattice-config":
+      "@zudo/config":
         specifier: workspace:*
         version: link:../config
-      "@oyinlola141/lattice-constants":
+      "@zudo/constants":
         specifier: workspace:*
         version: link:../constants
-      "@oyinlola141/lattice-container":
+      "@zudo/container":
         specifier: workspace:*
         version: link:../container
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
-      "@oyinlola141/lattice-events":
+      "@zudo/events":
         specifier: workspace:*
         version: link:../events
-      "@oyinlola141/lattice-http":
+      "@zudo/http":
         specifier: workspace:*
         version: link:../http
-      "@oyinlola141/lattice-logger":
+      "@zudo/logger":
         specifier: workspace:*
         version: link:../logger
-      "@oyinlola141/lattice-messaging":
+      "@zudo/messaging":
         specifier: workspace:*
         version: link:../messaging
-      "@oyinlola141/lattice-middleware":
+      "@zudo/middleware":
         specifier: workspace:*
         version: link:../middleware
-      "@oyinlola141/lattice-queue":
+      "@zudo/queue":
         specifier: workspace:*
         version: link:../queue
-      "@oyinlola141/lattice-security":
+      "@zudo/security":
         specifier: workspace:*
         version: link:../security
-      "@oyinlola141/lattice-serialization":
+      "@zudo/serialization":
         specifier: workspace:*
         version: link:../serialization
-      "@oyinlola141/lattice-storage":
+      "@zudo/storage":
         specifier: workspace:*
         version: link:../storage
-      "@oyinlola141/lattice-types":
+      "@zudo/types":
         specifier: workspace:*
         version: link:../types
-      "@oyinlola141/lattice-validation":
+      "@zudo/validation":
         specifier: workspace:*
         version: link:../validation
     devDependencies:
@@ -1160,7 +1160,7 @@ importers:
 
   packages/transactions:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
     devDependencies:
@@ -1185,7 +1185,7 @@ importers:
 
   packages/validation:
     dependencies:
-      "@oyinlola141/lattice-errors":
+      "@zudo/errors":
         specifier: workspace:*
         version: link:../errors
       zod:

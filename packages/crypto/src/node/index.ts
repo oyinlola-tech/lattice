@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-crypto/node
+ * @zudo/crypto/node
  *
  * Node.js-specific crypto provider implementation.
  */

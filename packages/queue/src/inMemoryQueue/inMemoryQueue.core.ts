@@ -4,7 +4,7 @@ import {
   QueueClosedError,
   QueueDisposedError,
   JobDuplicateError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 import type { JobId, QueueName } from "../jobTypes/jobTypes.type.js";
 import type { Job } from "../job/job.type.js";

@@ -6,7 +6,7 @@
 
 import { DEFAULT_MAX_BODY_SIZE } from "./httpFetch.type.js";
 
-import { RequestBodyTooLargeError as FetchRequestBodyTooLargeError } from "@oyinlola141/lattice-errors";
+import { RequestBodyTooLargeError as FetchRequestBodyTooLargeError } from "@zudo/errors";
 
 export { FetchRequestBodyTooLargeError };
 

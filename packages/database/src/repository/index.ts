@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Repository
+ * @zudo/database — Repository
  *
  * Generic repository pattern with Prisma delegate support.
  */

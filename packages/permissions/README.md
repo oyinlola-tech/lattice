@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-permissions
+# @zudo/permissions
 
 Generic authorization engine with RBAC, ABAC, resource authorization, wildcards, role hierarchy, policies, and abilities.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-permissions
+npm install @zudo/permissions
 ```
 
 ## Quick Start
 
 ```typescript
-import { createPermissionEngine } from "@oyinlola141/lattice-permissions";
+import { createPermissionEngine } from "@zudo/permissions";
 
 const engine = createPermissionEngine({
   roles: {

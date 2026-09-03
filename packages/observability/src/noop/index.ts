@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Noop
+ * @zudo/observability — Noop
  *
  * No-op implementations that discard all telemetry.
  */

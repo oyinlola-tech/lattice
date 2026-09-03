@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-runtime",
+  "name": "@zudo/runtime",
   "version": "0.1.4",
   "description": "Application lifecycle orchestrator with dependency ordering, rollback, signals, and readiness checks.",
   "type": "module",
@@ -31,13 +31,13 @@
     "vitest": "^4.1.11"
   },
   "dependencies": {
-    "@oyinlola141/lattice-errors": "workspace:*",
-    "@oyinlola141/lattice-constants": "workspace:*",
-    "@oyinlola141/lattice-container": "workspace:*",
-    "@oyinlola141/lattice-config": "workspace:*",
-    "@oyinlola141/lattice-logger": "workspace:*",
-    "@oyinlola141/lattice-events": "workspace:*",
-    "@oyinlola141/lattice-core": "workspace:*"
+    "@zudo/errors": "workspace:*",
+    "@zudo/constants": "workspace:*",
+    "@zudo/container": "workspace:*",
+    "@zudo/config": "workspace:*",
+    "@zudo/logger": "workspace:*",
+    "@zudo/events": "workspace:*",
+    "@zudo/core": "workspace:*"
   },
   "license": "MIT",
   "publishConfig": {

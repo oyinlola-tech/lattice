@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpMultipart
+ * @zudo/http/httpMultipart
  *
  * HTTP httpMultipart module.
  */

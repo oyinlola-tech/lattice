@@ -1,6 +1,6 @@
-import type { EntityId } from "@oyinlola141/lattice-constants";
+import type { EntityId } from "@zudo/constants";
 
-import type { RuntimeError } from "@oyinlola141/lattice-errors";
+import type { RuntimeError } from "@zudo/errors";
 
 /**
  * Extended runtime lifecycle states.

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerTransport/loggerTransportComposite
+ * @zudo/logger/loggerTransport/loggerTransportComposite
  *
  * Composite transport implementations.
  */

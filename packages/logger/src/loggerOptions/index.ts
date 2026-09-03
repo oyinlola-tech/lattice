@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerOptions
+ * @zudo/logger/loggerOptions
  *
  * Logger configuration options and types.
  */

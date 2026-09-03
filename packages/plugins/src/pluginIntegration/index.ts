@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-plugins/pluginIntegration
+ * @zudo/plugins/pluginIntegration
  *
  * Plugin context factory and integration helpers.
  */

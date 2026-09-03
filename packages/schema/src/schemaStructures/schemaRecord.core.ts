@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/structures/record
+ * @zudo/schema/structures/record
  *
  * Record schema for objects with constrained keys and values.
  */
@@ -7,10 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue, childContext } from "../schemaBase/index.js";
-import {
-  SchemaIssueCode,
-  SCHEMA_FORBIDDEN_KEYS,
-} from "@oyinlola141/lattice-constants";
+import { SchemaIssueCode, SCHEMA_FORBIDDEN_KEYS } from "@zudo/constants";
 import { StringSchema } from "../schemaPrimitives/index.js";
 
 /**

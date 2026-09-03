@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpRange
+ * @zudo/http/httpRange
  *
  * HTTP httpRange module.
  */

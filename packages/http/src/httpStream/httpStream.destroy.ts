@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Stream destruction helper.
+ * @zudo/http/httpStream — Stream destruction helper.
  */
 
 import { Readable, Writable } from "node:stream";

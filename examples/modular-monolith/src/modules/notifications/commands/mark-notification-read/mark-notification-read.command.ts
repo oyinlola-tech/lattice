@@ -1,4 +1,4 @@
-import { Command } from "@oyinlola141/lattice-cqrs";
+import { Command } from "@zudo/cqrs";
 import type { NotificationId } from "../../../../types/index.js";
 
 export class MarkNotificationReadCommand extends Command<"notifications.mark-read"> {

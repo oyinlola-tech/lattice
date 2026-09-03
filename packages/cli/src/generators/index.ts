@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Generators Index
+ * zudo-cli — Generators Index
  */
 
 export { generateProject } from "./project/project.generator.js";

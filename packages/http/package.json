@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-http",
+  "name": "@zudo/http",
   "version": "0.1.3",
   "description": "HTTP primitives, request handling, routing, middleware, and server infrastructure for Lattice applications.",
   "license": "MIT",
@@ -24,10 +24,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@oyinlola141/lattice-core": "workspace:*",
-    "@oyinlola141/lattice-errors": "workspace:*",
-    "@oyinlola141/lattice-logger": "workspace:*",
-    "@oyinlola141/lattice-security": "workspace:*"
+    "@zudo/core": "workspace:*",
+    "@zudo/errors": "workspace:*",
+    "@zudo/logger": "workspace:*",
+    "@zudo/security": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",

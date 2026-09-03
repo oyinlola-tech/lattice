@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-core/configuration/schema
+ * @zudo/core/configuration/schema
  *
  * Configuration schemas and validation.
  */

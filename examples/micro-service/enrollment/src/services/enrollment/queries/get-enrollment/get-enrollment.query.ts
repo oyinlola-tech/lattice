@@ -1,4 +1,4 @@
-import { Query } from "@oyinlola141/lattice-cqrs";
+import { Query } from "@zudo/cqrs";
 import type { EnrollmentId } from "../../../../types/index.js";
 
 /** Query to retrieve a single enrollment by its identifier. */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Database Connection
+ * @zudo/database — Database Connection
  *
  * Connection lifecycle management with health checks.
  */

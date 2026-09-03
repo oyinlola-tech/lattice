@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Capability Resolver
+ * zudo-cli — Capability Resolver
  *
  * Resolves capability dependencies and feature requirements.
  */

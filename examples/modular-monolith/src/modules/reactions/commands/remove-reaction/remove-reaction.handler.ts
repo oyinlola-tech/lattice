@@ -1,4 +1,4 @@
-import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import { CommandHandler } from "@zudo/cqrs";
 import type { RemoveReactionCommand } from "./remove-reaction.command.js";
 import type { ReactionRepository } from "../../../../repositories/reaction.repository.js";
 

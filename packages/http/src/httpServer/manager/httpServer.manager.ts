@@ -4,7 +4,7 @@
  * @module httpServer/manager
  */
 
-import { HttpServerLifecycleError } from "@oyinlola141/lattice-errors";
+import { HttpServerLifecycleError } from "@zudo/errors";
 
 import { HttpServer } from "../core/httpServer.core.js";
 

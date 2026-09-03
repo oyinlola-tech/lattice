@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpRequest
+ * @zudo/http/httpRequest
  *
  * HTTP request abstraction and context.
  */

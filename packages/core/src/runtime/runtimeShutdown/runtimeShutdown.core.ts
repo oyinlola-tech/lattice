@@ -12,7 +12,7 @@ import { Context, createContext } from "../../context/core/context.js";
 import { executeShutdownPipeline } from "./pipeline/index.js";
 import { logRuntimeEvent } from "../runtimeLogger.js";
 
-import { RuntimeError } from "@oyinlola141/lattice-errors";
+import { RuntimeError } from "@zudo/errors";
 
 export type RuntimeShutdownErrorCode =
   | "SHUTDOWN_ALREADY_RUNNING"

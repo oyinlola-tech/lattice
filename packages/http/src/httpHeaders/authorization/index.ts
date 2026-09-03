@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpHeaders/authorization
+ * @zudo/http/httpHeaders/authorization
  *
  * HTTP headers authorization utilities.
  */

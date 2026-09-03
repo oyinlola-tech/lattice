@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — CLI Constants
+ * zudo-cli — CLI Constants
  *
  * Default values, limits, and magic strings used across the CLI package.
  */

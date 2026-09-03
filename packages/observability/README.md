@@ -1,20 +1,17 @@
-# @oyinlola141/lattice-observability
+# @zudo/observability
 
 Structured logging, metrics, tracing, context propagation, and exporters for Lattice applications.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-observability
+npm install @zudo/observability
 ```
 
 ## Quick Start
 
 ```typescript
-import {
-  createTracer,
-  createMetricsRegistry,
-} from "@oyinlola141/lattice-observability";
+import { createTracer, createMetricsRegistry } from "@zudo/observability";
 
 const tracer = createTracer({ service: "api" });
 const metrics = createMetricsRegistry();

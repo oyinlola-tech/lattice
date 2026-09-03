@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Request/response stream accessors.
+ * @zudo/http/httpStream — Request/response stream accessors.
  */
 
 import { Readable, Writable } from "node:stream";

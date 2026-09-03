@@ -1,10 +1,10 @@
 /**
- * @oyinlola141/lattice-lifecycle/registry
+ * @zudo/lifecycle/registry
  *
  * Lifecycle registry — manages component registration, validation, and lookup.
  */
 
-import { LIFECYCLE_DEFAULT_TIMEOUT } from "@oyinlola141/lattice-constants";
+import { LIFECYCLE_DEFAULT_TIMEOUT } from "@zudo/constants";
 import type {
   LifecycleComponent,
   LifecycleRegistration,

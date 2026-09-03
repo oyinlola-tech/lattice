@@ -9,7 +9,7 @@ import {
   ErrorCode,
   ErrorCategory,
   ErrorSeverity,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /**
  * Error thrown when a middleware pipeline fails.

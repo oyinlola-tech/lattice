@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/context
+ * @zudo/schema/context
  *
  * Context creation and manipulation for schema parsing.
  */
@@ -10,7 +10,7 @@ import type {
   SchemaIssue,
   SchemaPathSegment,
 } from "./schemaBase.type.js";
-import { SCHEMA_DEFAULT_MAX_DEPTH } from "@oyinlola141/lattice-constants";
+import { SCHEMA_DEFAULT_MAX_DEPTH } from "@zudo/constants";
 
 /** Creates a fresh parse context from options. */
 export function createParseContext(

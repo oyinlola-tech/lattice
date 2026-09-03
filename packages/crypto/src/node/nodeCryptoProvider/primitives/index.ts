@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-crypto/node/nodeCryptoProvider/primitives
+ * @zudo/crypto/node/nodeCryptoProvider/primitives
  *
  * Primitive crypto operations: hashing, encryption, signing, and random generation.
  */

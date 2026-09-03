@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/testing
+ * @zudo/adapters/testing
  *
  * Testing utilities for adapter implementations.
  */

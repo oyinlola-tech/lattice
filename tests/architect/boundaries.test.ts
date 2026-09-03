@@ -50,7 +50,8 @@ const TIERS = {
 function packageNameToKey(name) {
   return name
     .replace(/^@oyinlola141\/lattice-/, "")
-    .replace(/^@lattice\//, "")
+    .replace(/^@zudo\//, "")
+    .replace(/^zudo-/, "")
     .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 }
 
@@ -88,8 +89,7 @@ describe("Architecture Boundaries", () => {
 
       for (const [depName, version] of Object.entries(allDeps)) {
         if (
-          (depName.startsWith("@lattice/") ||
-            depName.startsWith("@oyinlola141/lattice-")) &&
+          (depName.startsWith("@lattice/") || depName.startsWith("@zudo/")) &&
           version === "*"
         ) {
           errors.push(`${pkg.name}: ${depName}@${version}`);
@@ -115,10 +115,7 @@ describe("Architecture Boundaries", () => {
       }
 
       for (const depName of Object.keys(pkg.dependencies)) {
-        if (
-          !depName.startsWith("@lattice/") &&
-          !depName.startsWith("@oyinlola141/lattice-")
-        )
+        if (!depName.startsWith("@lattice/") && !depName.startsWith("@zudo/"))
           continue;
 
         const depKey = packageNameToKey(depName);
@@ -148,8 +145,7 @@ describe("Architecture Boundaries", () => {
 
     for (const pkg of packages) {
       const deps = Object.keys(pkg.dependencies).filter(
-        (d) =>
-          d.startsWith("@lattice/") || d.startsWith("@oyinlola141/lattice-"),
+        (d) => d.startsWith("@lattice/") || d.startsWith("@zudo/"),
       );
       graph.set(pkg.name, deps);
     }

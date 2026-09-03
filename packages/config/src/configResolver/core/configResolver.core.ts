@@ -457,7 +457,7 @@ export class ConfigResolver {
     return fallback;
   }
 }
-import { ConfigurationError } from "@oyinlola141/lattice-errors";
+import { ConfigurationError } from "@zudo/errors";
 
 /**
  * Error thrown when configuration resolution fails.

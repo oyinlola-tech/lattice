@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-testing — HTTP response types.
+ * @zudo/testing — HTTP response types.
  *
  * Types for test HTTP responses and response builders.
  */

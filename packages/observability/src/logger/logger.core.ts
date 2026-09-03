@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Logger Core
+ * @zudo/observability — Logger Core
  *
  * Structured logger implementation with level filtering, transport support,
  * child loggers, and persistent context.

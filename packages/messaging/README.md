@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-messaging
+# @zudo/messaging
 
 In-process message bus infrastructure with handlers, middleware, and publish/subscribe patterns.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-messaging
+npm install @zudo/messaging
 ```
 
 ## Quick Start
 
 ```typescript
-import { createMessageBus } from "@oyinlola141/lattice-messaging";
+import { createMessageBus } from "@zudo/messaging";
 
 const bus = createMessageBus();
 

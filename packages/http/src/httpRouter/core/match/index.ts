@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpRouter/core/match
+ * @zudo/http/httpRouter/core/match
  *
  * HTTP route matching utilities.
  */

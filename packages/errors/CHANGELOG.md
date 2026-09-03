@@ -1,4 +1,4 @@
-# @oyinlola141/lattice-errors
+# @zudo/errors
 
 ## 0.1.2
 

@@ -1,7 +1,7 @@
 /**
  * HTTP router error types.
  *
- * Re-exports from @oyinlola141/lattice-errors.
+ * Re-exports from @zudo/errors.
  */
 
 export {
@@ -10,4 +10,4 @@ export {
   InvalidRoutePatternError,
   createHttpRouterError,
   isHttpRouterError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";

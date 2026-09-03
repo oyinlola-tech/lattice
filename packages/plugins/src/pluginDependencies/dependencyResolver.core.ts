@@ -2,7 +2,7 @@ import type { PluginDependency } from "../pluginTypes/pluginDependency.type.js";
 import {
   PluginDependencyCycleError,
   PluginDependencyError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /**
  * Result of dependency resolution.

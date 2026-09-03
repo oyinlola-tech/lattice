@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Database Cache
+ * @zudo/database — Database Cache
  *
  * In-memory cache for database read results.
  */

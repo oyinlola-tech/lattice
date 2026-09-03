@@ -1,8 +1,8 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Consume a readable stream via chunk callback.
+ * @zudo/http/httpStream — Consume a readable stream via chunk callback.
  */
 
-import { HttpStreamError as StreamError } from "@oyinlola141/lattice-errors";
+import { HttpStreamError as StreamError } from "@zudo/errors";
 
 import type { HTTPStreamOptions } from "./httpStream.types.js";
 

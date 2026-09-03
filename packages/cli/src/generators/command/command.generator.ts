@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Command Generator
+ * zudo-cli — Command Generator
  *
  * Generates a CQRS command with handler.
  */
@@ -27,7 +27,7 @@ export async function generateCommand(
   const servicePath = `${basePath}/${service}`;
 
   const files: Record<string, string> = {
-    [`${servicePath}/commands/${name}/${name}.command.ts`]: `import type { BaseCommand } from "@oyinlola141/lattice-cqrs";
+    [`${servicePath}/commands/${name}/${name}.command.ts`]: `import type { BaseCommand } from "@zudo/cqrs";
 
 export interface ${nameCamel}CommandPayload {
   readonly [key: string]: unknown;
@@ -40,8 +40,8 @@ export class ${nameCamel}Command implements BaseCommand<${nameCamel}CommandPaylo
 }
 `,
 
-    [`${servicePath}/commands/${name}/${name}.handler.ts`]: `import type { CommandHandler, CommandResult } from "@oyinlola141/lattice-cqrs";
-import { createLogger } from "@oyinlola141/lattice-logger";
+    [`${servicePath}/commands/${name}/${name}.handler.ts`]: `import type { CommandHandler, CommandResult } from "@zudo/cqrs";
+import { createLogger } from "@zudo/logger";
 import { ${nameCamel}Command } from "./${name}.command.js";
 
 export class ${nameCamel}CommandHandler implements CommandHandler<${nameCamel}Command> {

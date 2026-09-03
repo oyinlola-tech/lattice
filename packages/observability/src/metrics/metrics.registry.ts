@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Metrics Registry
+ * @zudo/observability — Metrics Registry
  *
  * Central registry for all metrics. Creates and caches metrics by name+labels.
  */

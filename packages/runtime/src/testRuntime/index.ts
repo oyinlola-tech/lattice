@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-runtime — Test Runtime Barrel
+ * @zudo/runtime — Test Runtime Barrel
  */
 
 export {

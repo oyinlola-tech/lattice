@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpTrustProxy
+ * @zudo/http/httpTrustProxy
  *
  * HTTP httpTrustProxy module.
  */

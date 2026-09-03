@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-docs",
+  "name": "@zudo/docs",
   "version": "0.1.4",
   "description": "Documentation infrastructure with structured document model, registry, validation, navigation, and generation.",
   "main": "./dist/index.js",
@@ -17,7 +17,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@oyinlola141/lattice-errors": "workspace:*"
+    "@zudo/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.0",

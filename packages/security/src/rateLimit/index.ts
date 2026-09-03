@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — Rate Limiting Barrel
+ * @zudo/security — Rate Limiting Barrel
  */
 
 export {

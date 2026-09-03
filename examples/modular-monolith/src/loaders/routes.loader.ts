@@ -1,4 +1,4 @@
-import type { Logger } from "@oyinlola141/lattice-logger";
+import type { Logger } from "@zudo/logger";
 import type { Route } from "../routes/index.js";
 
 export interface RouteLoaderConfig {

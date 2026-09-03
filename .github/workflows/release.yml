@@ -75,7 +75,7 @@ jobs:
             
             CHANGESET=".changeset/$(date +%Y-%m-%d)-auto-generated.md"
             echo '---' > "$CHANGESET"
-            echo "\"@oyinlola141/lattice-cli\": $LEVEL" >> "$CHANGESET"
+            echo "\"zudo-cli\": $LEVEL" >> "$CHANGESET"
             echo '---' >> "$CHANGESET"
             echo '' >> "$CHANGESET"
             echo "$SUMMARY" >> "$CHANGESET"

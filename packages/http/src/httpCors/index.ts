@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpCors
+ * @zudo/http/httpCors
  *
  * HTTP httpCors module.
  */

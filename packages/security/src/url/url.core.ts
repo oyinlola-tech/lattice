@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — URL Validation
+ * @zudo/security — URL Validation
  *
  * Validates and normalizes URLs, prevents path traversal attacks,
  * and ensures request targets are safe.

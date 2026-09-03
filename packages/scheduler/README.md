@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-scheduler
+# @zudo/scheduler
 
 Scheduled task and job infrastructure with cron-like scheduling, persistence, and worker management.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-scheduler
+npm install @zudo/scheduler
 ```
 
 ## Quick Start
 
 ```typescript
-import { createScheduler } from "@oyinlola141/lattice-scheduler";
+import { createScheduler } from "@zudo/scheduler";
 
 const scheduler = createScheduler();
 

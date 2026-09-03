@@ -1,4 +1,4 @@
-import { QueryHandler } from "@oyinlola141/lattice-cqrs";
+import { QueryHandler } from "@zudo/cqrs";
 import type { GetEnrollmentQuery } from "./get-enrollment.query.js";
 import type { EnrollmentRepository } from "../../../../repositories/enrollment.repository.js";
 import type { EnrollmentModel } from "../../../../models/enrollment.model.js";

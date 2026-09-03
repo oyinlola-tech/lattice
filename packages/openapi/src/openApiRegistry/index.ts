@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-openapi/openApiRegistry
+ * @zudo/openapi/openApiRegistry
  *
  * OpenAPI registry for collecting routes, schemas, and components.
  */

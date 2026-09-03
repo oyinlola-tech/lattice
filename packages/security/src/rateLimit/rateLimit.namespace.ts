@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — Rate Limit Namespace
+ * @zudo/security — Rate Limit Namespace
  *
  * Convenience namespace for rate limiting utilities.
  */

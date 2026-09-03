@@ -16,7 +16,7 @@ import type {
 
 /**
  * Creates a unique message identifier.
- * Returns a branded MessageId type from @oyinlola141/lattice-constants.
+ * Returns a branded MessageId type from @zudo/constants.
  */
 export function createMessageId(): MessageId {
   return `msg:${crypto.randomUUID()}` as MessageId;

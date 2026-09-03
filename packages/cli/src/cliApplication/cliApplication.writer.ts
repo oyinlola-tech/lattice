@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — CLI Writer
+ * zudo-cli — CLI Writer
  *
  * Writer factory and signal handling for the CLI application.
  */

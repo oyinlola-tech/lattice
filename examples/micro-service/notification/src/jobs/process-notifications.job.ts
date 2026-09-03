@@ -1,6 +1,6 @@
-import type { Job } from "@oyinlola141/lattice-queue";
-import type { JobContext } from "@oyinlola141/lattice-queue";
-import type { CommandBus } from "@oyinlola141/lattice-cqrs";
+import type { Job } from "@zudo/queue";
+import type { JobContext } from "@zudo/queue";
+import type { CommandBus } from "@zudo/cqrs";
 import { CreateNotificationCommand } from "../services/notification/commands/create-notification/create-notification.command.js";
 import { NotificationType } from "../enums/index.js";
 import {

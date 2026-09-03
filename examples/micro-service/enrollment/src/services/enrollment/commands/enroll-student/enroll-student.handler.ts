@@ -1,8 +1,8 @@
-import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import { CommandHandler } from "@zudo/cqrs";
 import { randomUUID } from "node:crypto";
 import type { EnrollStudentCommand } from "./enroll-student.command.js";
 import type { EnrollmentRepository } from "../../../../repositories/enrollment.repository.js";
-import type { EventBus } from "@oyinlola141/lattice-events";
+import type { EventBus } from "@zudo/events";
 import type { EnrollmentModel } from "../../../../models/enrollment.model.js";
 import type { EnrollmentId } from "../../../../types/index.js";
 import { EnrollmentStatus } from "../../../../enums/index.js";

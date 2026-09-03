@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/structures/tuple
+ * @zudo/schema/structures/tuple
  *
  * Tuple schema for fixed-length arrays with per-position types.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue, childContext } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
+import { SchemaIssueCode } from "@zudo/constants";
 
 /** Helper type to infer tuple output type. */
 type InferTuple<T extends readonly Schema<unknown>[]> = {

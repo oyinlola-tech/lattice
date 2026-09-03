@@ -1,4 +1,4 @@
-import { Query } from "@oyinlola141/lattice-cqrs";
+import { Query } from "@zudo/cqrs";
 
 export class SearchArticlesQuery extends Query<"articles.search"> {
   public readonly searchTerm: string;

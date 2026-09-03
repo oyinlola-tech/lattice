@@ -1,6 +1,6 @@
-import type { CommandBus } from "@oyinlola141/lattice-cqrs";
-import type { QueryBus } from "@oyinlola141/lattice-cqrs";
-import type { EventBus } from "@oyinlola141/lattice-events";
+import type { CommandBus } from "@zudo/cqrs";
+import type { QueryBus } from "@zudo/cqrs";
+import type { EventBus } from "@zudo/events";
 import type { UserRepository } from "../repositories/index.js";
 import { registerIdentityService } from "../services/index.js";
 

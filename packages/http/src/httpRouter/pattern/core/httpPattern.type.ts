@@ -47,7 +47,7 @@ export interface RouteMatch {
 import {
   RoutePatternError as BaseRoutePatternError,
   DuplicateRouteParameterError as BaseDuplicateRouteParameterError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 export {
   BaseRoutePatternError as RoutePatternError,

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-plugins
+ * @zudo/plugins
  *
  * Controlled extension system for the Lattice framework.
  *
@@ -8,13 +8,13 @@
  *
  * @example
  * ```ts
- * import { PluginManager, createPluginContext } from "@oyinlola141/lattice-plugins";
+ * import { PluginManager, createPluginContext } from "@zudo/plugins";
  *
  * const manager = new PluginManager();
  *
  * manager.register({
- *   metadata: { name: "@oyinlola141/lattice-http" },
- *   dependencies: [{ name: "@oyinlola141/lattice-events" }],
+ *   metadata: { name: "@zudo/http" },
+ *   dependencies: [{ name: "@zudo/events" }],
  *   async install(context) {
  *     // register services
  *   },
@@ -23,7 +23,7 @@
  *   },
  * });
  *
- * await manager.start(createPluginContext({ metadata: { name: "@oyinlola141/lattice-http" } }));
+ * await manager.start(createPluginContext({ metadata: { name: "@zudo/http" } }));
  * ```
  */
 
@@ -85,7 +85,7 @@ export {
   PluginStateError,
   createPluginError,
   isPluginError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 export type {
   PluginState,

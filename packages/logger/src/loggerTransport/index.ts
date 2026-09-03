@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerTransport
+ * @zudo/logger/loggerTransport
  *
  * Log transport implementations (console, file, etc.).
  */

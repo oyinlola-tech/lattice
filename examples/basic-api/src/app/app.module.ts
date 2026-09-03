@@ -4,7 +4,7 @@
  * Imports and composes feature modules.
  */
 
-import { BaseModule } from "@oyinlola141/lattice-core";
+import { BaseModule } from "@zudo/core";
 import { UsersModule } from "../users/users.module.js";
 import { HealthModule } from "../health/health.module.js";
 

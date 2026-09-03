@@ -22,7 +22,7 @@ import {
   MessageDispatchAbortedError,
   MessageHandlerError,
   MessageDispatchError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /**
  * Default dispatcher implementation.

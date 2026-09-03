@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/infrastructure/storage
+ * @zudo/errors/infrastructure/storage
  *
  * Database and storage error types.
  */

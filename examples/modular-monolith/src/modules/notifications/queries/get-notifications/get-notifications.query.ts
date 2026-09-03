@@ -1,4 +1,4 @@
-import { Query } from "@oyinlola141/lattice-cqrs";
+import { Query } from "@zudo/cqrs";
 import type { UserId } from "../../../../types/index.js";
 
 export class GetNotificationsQuery extends Query<"notifications.get"> {

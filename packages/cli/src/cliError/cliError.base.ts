@@ -1,13 +1,13 @@
 /**
- * @oyinlola141/lattice-cli — CLI Error Base
+ * zudo-cli — CLI Error Base
  *
  * Base error class for all CLI errors. Extends `ApplicationError`
- * from `@oyinlola141/lattice-errors` and adds CLI-specific context (exitCode,
+ * from `@zudo/errors` and adds CLI-specific context (exitCode,
  * command, option, argument).
  */
 
-import { ApplicationError } from "@oyinlola141/lattice-errors";
-import type { BaseErrorOptions } from "@oyinlola141/lattice-errors";
+import { ApplicationError } from "@zudo/errors";
+import type { BaseErrorOptions } from "@zudo/errors";
 import {
   CLI_ERROR_CODES,
   CLI_EXIT_CODES,

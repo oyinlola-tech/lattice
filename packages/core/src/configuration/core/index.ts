@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-core/configuration/core
+ * @zudo/core/configuration/core
  *
  * Core configuration types, keys, and source abstractions.
  */

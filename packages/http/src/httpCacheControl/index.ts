@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpCacheControl
+ * @zudo/http/httpCacheControl
  *
  * HTTP httpCacheControl module.
  */

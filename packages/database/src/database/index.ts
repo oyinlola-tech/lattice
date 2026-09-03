@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Database Facade
+ * @zudo/database — Database Facade
  *
  * High-level database lifecycle entry point.
  */

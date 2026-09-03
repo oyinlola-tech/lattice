@@ -1,4 +1,4 @@
-import { Command } from "@oyinlola141/lattice-cqrs";
+import { Command } from "@zudo/cqrs";
 import type { FollowTopicDto } from "../../../../dtos/index.js";
 
 export class FollowTopicCommand extends Command<"topics.follow"> {

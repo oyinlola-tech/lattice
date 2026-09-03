@@ -1,14 +1,14 @@
 /**
- * @oyinlola141/lattice-runtime — Test Runtime
+ * @zudo/runtime — Test Runtime
  *
  * Provides a lightweight runtime for testing purposes with
  * mock infrastructure and easy lifecycle management.
  */
 
-import type { Module } from "@oyinlola141/lattice-core";
-import { createLogger } from "@oyinlola141/lattice-logger";
-import { createContainer } from "@oyinlola141/lattice-container";
-import { createEventBus } from "@oyinlola141/lattice-events";
+import type { Module } from "@zudo/core";
+import { createLogger } from "@zudo/logger";
+import { createContainer } from "@zudo/container";
+import { createEventBus } from "@zudo/events";
 import { DefaultRuntime } from "../runtime/runtime.core.js";
 import type { RuntimeDependencies } from "../runtime/runtime.core.js";
 import type { RuntimeOptions } from "../runtimeOptions/runtimeOptions.type.js";

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Counter
+ * @zudo/observability — Counter
  *
  * Monotonically increasing counter for event counts.
  */

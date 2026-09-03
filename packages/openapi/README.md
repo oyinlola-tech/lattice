@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-openapi
+# @zudo/openapi
 
 OpenAPI 3.1 specification generation, validation, and SDK generation for Lattice applications.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-openapi
+npm install @zudo/openapi
 ```
 
 ## Quick Start
 
 ```typescript
-import { createOpenAPIRouter } from "@oyinlola141/lattice-openapi";
+import { createOpenAPIRouter } from "@zudo/openapi";
 
 const router = createOpenAPIRouter({
   info: { title: "My API", version: "1.0.0" },

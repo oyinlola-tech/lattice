@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
+import type { CommandBus, QueryBus } from "@zudo/cqrs";
 import { createUserRoutes } from "./user.routes.js";
 import { createArticleRoutes } from "./article.routes.js";
 import { createCommentRoutes } from "./comment.routes.js";

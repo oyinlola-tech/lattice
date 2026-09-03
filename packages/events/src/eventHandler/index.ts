@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-events/eventHandler
+ * @zudo/events/eventHandler
  *
  * Event handler types and execution.
  */

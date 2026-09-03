@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Migrations
+ * @zudo/database — Migrations
  *
  * Database migration runner with version tracking.
  */

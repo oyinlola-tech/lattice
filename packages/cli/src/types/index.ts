@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Types
+ * zudo-cli — Types
  *
  * Type definitions for the Lattice CLI scaffolding system.
  */

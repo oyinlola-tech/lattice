@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpAdapter/node
+ * @zudo/http/httpAdapter/node
  *
  * Node.js HTTP adapter.
  */

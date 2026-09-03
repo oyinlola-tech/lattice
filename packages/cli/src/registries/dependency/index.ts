@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Dependency Registries
+ * zudo-cli — Dependency Registries
  *
  * Registries for dependency management.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerEntry
+ * @zudo/logger/loggerEntry
  *
  * Log entry structure and formatting.
  */

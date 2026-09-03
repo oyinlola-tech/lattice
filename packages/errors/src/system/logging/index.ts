@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/system/logging
+ * @zudo/errors/system/logging
  *
  * Logging subsystem error types.
  */

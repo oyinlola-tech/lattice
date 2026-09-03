@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpMiddleware
+ * @zudo/http/httpMiddleware
  *
  * HTTP middleware abstraction and utilities.
  */

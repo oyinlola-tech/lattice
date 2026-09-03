@@ -1,5 +1,5 @@
-import { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
-import type { EventBus } from "@oyinlola141/lattice-events";
+import { CommandBus, QueryBus } from "@zudo/cqrs";
+import type { EventBus } from "@zudo/events";
 import type { ReactionRepository } from "../../repositories/reaction.repository.js";
 import type { ArticleRepository } from "../../repositories/article.repository.js";
 import { AddReactionHandler } from "./commands/add-reaction/add-reaction.handler.js";

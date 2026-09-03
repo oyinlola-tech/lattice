@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/result
+ * @zudo/schema/result
  *
  * Result constructors and type guards for schema outcomes.
  */

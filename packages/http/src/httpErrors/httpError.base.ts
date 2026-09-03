@@ -1,13 +1,13 @@
 /**
  * Base HTTP error class for the HTTP package.
  *
- * Extends the shared HttpError from @oyinlola141/lattice-errors with HTTP-specific
+ * Extends the shared HttpError from @zudo/errors with HTTP-specific
  * response properties like statusText, headers, and details.
  *
  * @module httpErrors/base
  */
 
-import { HttpError as BaseHttpError } from "@oyinlola141/lattice-errors";
+import { HttpError as BaseHttpError } from "@zudo/errors";
 
 import type { HttpErrorOptions } from "./httpError.type.js";
 
@@ -16,7 +16,7 @@ import { normalizeHeaders, getStatusText } from "./httpError.helper.js";
 /**
  * HTTP error with response-specific properties.
  *
- * Extends the shared HttpError from @oyinlola141/lattice-errors with additional
+ * Extends the shared HttpError from @zudo/errors with additional
  * properties for HTTP response construction.
  */
 export class HttpError extends BaseHttpError {

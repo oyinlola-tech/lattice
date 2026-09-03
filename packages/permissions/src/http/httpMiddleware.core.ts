@@ -1,8 +1,8 @@
 /**
- * HTTP middleware adapter for @oyinlola141/lattice-permissions.
+ * HTTP middleware adapter for @zudo/permissions.
  *
  * Provides middleware factories that integrate the authorization engine
- * with @oyinlola141/lattice-http's middleware pipeline.
+ * with @zudo/http's middleware pipeline.
  *
  * @module http/httpMiddleware
  */

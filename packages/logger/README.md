@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-logger
+# @zudo/logger
 
 Structured logging with transports, log levels, and context propagation for Lattice applications.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-logger
+npm install @zudo/logger
 ```
 
 ## Quick Start
 
 ```typescript
-import { createLogger } from "@oyinlola141/lattice-logger";
+import { createLogger } from "@zudo/logger";
 
 const logger = createLogger({ name: "api" });
 

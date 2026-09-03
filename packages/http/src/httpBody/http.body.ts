@@ -388,7 +388,7 @@ import {
   HttpBodyLimitError as HTTPBodyLimitError,
   HttpBodyAbortedError as HTTPBodyAbortedError,
   HttpBodyParseError as HTTPBodyParseError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 export {
   HTTPBodyError,

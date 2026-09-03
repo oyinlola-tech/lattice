@@ -1,4 +1,4 @@
-# @oyinlola141/lattice-plugins
+# @zudo/plugins
 
 Plugin manager, registry, dependency resolver, lifecycle controller, events, and integration context. The basis for extending a Lattice app with third-party functionality.
 
@@ -14,7 +14,7 @@ Import this when you need:
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-plugins
+npm install @zudo/plugins
 ```
 
 ## Public API
@@ -34,7 +34,7 @@ import {
   type DependencyResolution,
   type CreatePluginContextOptions,
   type PluginHooks,
-} from "@oyinlola141/lattice-plugins";
+} from "@zudo/plugins";
 ```
 
 ## Usage

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Database Adapters
+ * zudo-cli — Database Adapters
  *
  * Database adapters for project generation.
  */
@@ -24,7 +24,7 @@ export class PostgresAdapter implements DatabaseAdapter {
   }
 
   getDependencies(): readonly string[] {
-    return ["@oyinlola141/lattice-database"];
+    return ["@zudo/database"];
   }
 
   getEnvironmentVariables(): Record<string, string> {
@@ -43,7 +43,7 @@ export class MySqlAdapter implements DatabaseAdapter {
   }
 
   getDependencies(): readonly string[] {
-    return ["@oyinlola141/lattice-database"];
+    return ["@zudo/database"];
   }
 
   getEnvironmentVariables(): Record<string, string> {
@@ -62,7 +62,7 @@ export class SqliteAdapter implements DatabaseAdapter {
   }
 
   getDependencies(): readonly string[] {
-    return ["@oyinlola141/lattice-database"];
+    return ["@zudo/database"];
   }
 
   getEnvironmentVariables(): Record<string, string> {

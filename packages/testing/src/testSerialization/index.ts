@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-testing — Serialization testing helpers.
+ * @zudo/testing — Serialization testing helpers.
  *
  * Assertions for testing serialization round-trips and type preservation.
  */

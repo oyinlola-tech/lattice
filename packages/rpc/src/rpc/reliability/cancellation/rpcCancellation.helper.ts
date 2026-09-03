@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-rpc/reliability/cancellation
+ * @zudo/rpc/reliability/cancellation
  *
  * Cancellation utilities for RPC operations.
  */

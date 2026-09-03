@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Backend Architecture Prompt
+ * zudo-cli — Backend Architecture Prompt
  *
  * Prompts for backend architecture selection.
  */

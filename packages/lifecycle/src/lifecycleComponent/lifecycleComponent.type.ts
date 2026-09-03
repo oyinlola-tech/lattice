@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-lifecycle/component
+ * @zudo/lifecycle/component
  *
  * Lifecycle component interface — the contract for managed resources.
  */

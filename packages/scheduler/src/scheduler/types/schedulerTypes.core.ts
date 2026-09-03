@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-scheduler/types
+ * @zudo/scheduler/types
  *
  * Core types for the Lattice scheduler package.
  */

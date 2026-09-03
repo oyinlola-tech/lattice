@@ -4,9 +4,9 @@ import {
   type ServerResponse,
   type Server,
 } from "node:http";
-import { createCommandBus } from "@oyinlola141/lattice-cqrs";
-import { createQueryBus } from "@oyinlola141/lattice-cqrs";
-import { createEventBus } from "@oyinlola141/lattice-events";
+import { createCommandBus } from "@zudo/cqrs";
+import { createQueryBus } from "@zudo/cqrs";
+import { createEventBus } from "@zudo/events";
 import { createAppConfig } from "./config/app.config.js";
 import { createDatabaseConfig } from "./config/database.config.js";
 import { createSecurityConfig } from "./config/security.config.js";

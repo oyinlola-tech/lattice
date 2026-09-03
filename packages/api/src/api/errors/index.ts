@@ -1,9 +1,9 @@
 /**
- * @oyinlola141/lattice-api/errors
+ * @zudo/api/errors
  *
  * API-specific error classes for the Lattice framework.
  *
- * Re-exported from @oyinlola141/lattice-errors for convenience.
+ * Re-exported from @zudo/errors for convenience.
  */
 
 export {
@@ -23,6 +23,6 @@ export {
   APIIdempotencyError,
   createAPIError,
   isAPIError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
-export type { APIErrorOptions } from "@oyinlola141/lattice-errors";
+export type { APIErrorOptions } from "@zudo/errors";

@@ -1,10 +1,10 @@
 /**
- * @oyinlola141/lattice-testing — Serialization assertions.
+ * @zudo/testing — Serialization assertions.
  *
  * Helpers for testing serialization round-trips and type preservation.
  */
 
-import { JSONSerializer } from "@oyinlola141/lattice-serialization";
+import { JSONSerializer } from "@zudo/serialization";
 
 const defaultSerializer = new JSONSerializer();
 

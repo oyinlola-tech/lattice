@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpServer/factory
+ * @zudo/http/httpServer/factory
  *
  * HTTP server factory module.
  */

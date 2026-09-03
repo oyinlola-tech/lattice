@@ -5,7 +5,7 @@
 
 import type { Token } from "../containerToken/containerToken.type.js";
 import { describeToken } from "../containerToken/containerToken.type.js";
-import { ContainerLifecycleError } from "@oyinlola141/lattice-errors";
+import { ContainerLifecycleError } from "@zudo/errors";
 
 export interface Disposable {
   dispose(): void;

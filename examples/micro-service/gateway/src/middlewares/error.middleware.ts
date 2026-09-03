@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createLogger } from "@oyinlola141/lattice-logger";
+import { createLogger } from "@zudo/logger";
 
 const logger = createLogger({ name: "gateway:error" });
 

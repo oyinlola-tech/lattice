@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpMiddleware/builtin/image
+ * @zudo/http/httpMiddleware/builtin/image
  *
  * Image compression middleware using Sharp.
  */

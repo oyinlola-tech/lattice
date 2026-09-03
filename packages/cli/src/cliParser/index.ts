@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — CLI Parser
+ * zudo-cli — CLI Parser
  *
  * Argument parsing, option resolution, and token classification.
  */

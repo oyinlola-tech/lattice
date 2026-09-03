@@ -1,7 +1,7 @@
 /**
- * @oyinlola141/lattice-cache — Error Types
+ * @zudo/cache — Error Types
  *
- * All cache error types are defined in @oyinlola141/lattice-errors and re-exported here
+ * All cache error types are defined in @zudo/errors and re-exported here
  * for convenience. No local error classes are created in this package.
  */
 
@@ -15,6 +15,6 @@ export {
   cacheInvalidKeyError,
   cacheAdapterNotConfiguredError,
   CacheOperation,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
-export type { CacheErrorOptions } from "@oyinlola141/lattice-errors";
+export type { CacheErrorOptions } from "@zudo/errors";

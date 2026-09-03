@@ -1,4 +1,4 @@
-import type { Logger } from "@oyinlola141/lattice-logger";
+import type { Logger } from "@zudo/logger";
 
 export interface MiddlewareContext {
   readonly method: string;

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cache — CacheService Tests
+ * @zudo/cache — CacheService Tests
  *
  * Integration tests for CacheService: getOrSet, tags, patterns,
  * locking, stats, and health checks.

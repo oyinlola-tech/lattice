@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/modifiers/transform
+ * @zudo/schema/modifiers/transform
  *
  * Transform modifier — applies a transformation function to validated output.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
+import { SchemaIssueCode } from "@zudo/constants";
 
 /**
  * Schema that transforms the output of an inner schema.

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Frontend Generator
+ * zudo-cli — Frontend Generator
  *
  * Frontend project generator using framework adapters.
  */

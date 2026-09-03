@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/capabilities
+ * @zudo/adapters/capabilities
  *
  * Adapter capabilities types.
  */

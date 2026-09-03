@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpStream
+ * @zudo/http/httpStream
  *
  * HTTP stream helpers — Readable, Writable, PassThrough, pipe, consume, progress, backpressure, state, destroy, and conversion utilities.
  */

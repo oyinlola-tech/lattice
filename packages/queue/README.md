@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-queue
+# @zudo/queue
 
 Background job and asynchronous task infrastructure with in-memory and adapter-based queue implementations.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-queue
+npm install @zudo/queue
 ```
 
 ## Quick Start
 
 ```typescript
-import { createInMemoryQueue } from "@oyinlola141/lattice-queue";
+import { createInMemoryQueue } from "@zudo/queue";
 
 const queue = createInMemoryQueue("emails", {
   concurrency: 5,

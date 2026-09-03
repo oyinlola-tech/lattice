@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-docs/document
+ * @zudo/docs/document
  *
  * Document model and builder for creating documentation pages.
  */

@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-config
+# @zudo/config
 
 Layered configuration management with multiple sources, validation, and environment-specific overrides.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-config
+npm install @zudo/config
 ```
 
 ## Quick Start
 
 ```typescript
-import { createConfig } from "@oyinlola141/lattice-config";
+import { createConfig } from "@zudo/config";
 
 const config = await createConfig({
   sources: [

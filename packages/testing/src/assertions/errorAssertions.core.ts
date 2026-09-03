@@ -4,7 +4,7 @@
  * Assert errors, error types, and error messages.
  */
 
-import type { BaseError } from "@oyinlola141/lattice-errors";
+import type { BaseError } from "@zudo/errors";
 
 /**
  * Asserts that a function throws an error.

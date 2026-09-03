@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/composition/union
+ * @zudo/schema/composition/union
  *
  * Union schema — validates against multiple schemas, returning the first match.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue, createParseContext } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
+import { SchemaIssueCode } from "@zudo/constants";
 
 /** Helper type to infer union output from schema array. */
 type UnionOutput<TSchemas extends readonly Schema<unknown>[]> =

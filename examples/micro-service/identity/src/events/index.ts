@@ -1,4 +1,4 @@
-import { defineEvent } from "@oyinlola141/lattice-events";
+import { defineEvent } from "@zudo/events";
 
 /**
  * Event emitted when a new user is created.

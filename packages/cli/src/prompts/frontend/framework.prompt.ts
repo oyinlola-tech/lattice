@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Framework Prompt
+ * zudo-cli — Framework Prompt
  *
  * Prompts for frontend framework selection.
  */

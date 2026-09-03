@@ -1,8 +1,8 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Pipe and copy streams between source and destination.
+ * @zudo/http/httpStream — Pipe and copy streams between source and destination.
  */
 
-import { HttpStreamError as StreamError } from "@oyinlola141/lattice-errors";
+import { HttpStreamError as StreamError } from "@zudo/errors";
 import type {
   StreamPipeOptions,
   StreamResult,

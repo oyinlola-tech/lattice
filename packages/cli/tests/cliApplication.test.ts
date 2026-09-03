@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — CLI Application Tests
+ * zudo-cli — CLI Application Tests
  *
  * Tests for LatticeCLI, builtins, writer, runner, help generator,
  * and version utilities.

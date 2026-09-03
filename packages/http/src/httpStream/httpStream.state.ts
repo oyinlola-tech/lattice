@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Stream state inspection helpers.
+ * @zudo/http/httpStream — Stream state inspection helpers.
  */
 
 import { Readable, Writable } from "node:stream";

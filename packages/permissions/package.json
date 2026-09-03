@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-permissions",
+  "name": "@zudo/permissions",
   "version": "0.1.3",
   "description": "Generic authorization engine with RBAC, ABAC, resource authorization, wildcards, role hierarchy, policies, and abilities.",
   "license": "MIT",
@@ -25,14 +25,14 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@oyinlola141/lattice-errors": "workspace:*",
-    "@oyinlola141/lattice-constants": "workspace:*"
+    "@zudo/errors": "workspace:*",
+    "@zudo/constants": "workspace:*"
   },
   "peerDependencies": {
-    "@oyinlola141/lattice-http": "workspace:*"
+    "@zudo/http": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@oyinlola141/lattice-http": {
+    "@zudo/http": {
       "optional": true
     }
   },

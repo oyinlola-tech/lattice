@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — Core Types
+ * @zudo/security — Core Types
  *
  * Security configuration interfaces and type definitions.
  */

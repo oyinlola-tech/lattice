@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-plugins/pluginTypes
+ * @zudo/plugins/pluginTypes
  *
  * Core types for the Lattice plugin system.
  */
@@ -15,4 +15,4 @@ export type {
   PluginEvents,
 } from "./pluginContext.type.js";
 export type { Plugin } from "./plugin.type.js";
-export type { PluginErrorOptions } from "@oyinlola141/lattice-errors";
+export type { PluginErrorOptions } from "@zudo/errors";

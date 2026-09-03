@@ -1,4 +1,4 @@
-# @oyinlola141/lattice-cli
+# zudo-cli
 
 Command-line interface for scaffolding, generating, and managing Lattice framework projects.
 
@@ -7,7 +7,7 @@ Command-line interface for scaffolding, generating, and managing Lattice framewo
 ### First time
 
 ```bash
-npm install -g @oyinlola141/lattice-cli
+npm install -g zudo-cli
 ```
 
 ### Upgrading from an old version?
@@ -16,7 +16,7 @@ If `lattice -v` doesn't match the latest npm version, clear the cache:
 
 ```bash
 npm cache clean --force
-npm install -g @oyinlola141/lattice-cli@latest
+npm install -g zudo-cli@latest
 ```
 
 ### Getting permission errors?
@@ -28,7 +28,7 @@ mkdir -p ~/.npm-global
 npm config set prefix '~/.npm-global'
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
-npm install -g @oyinlola141/lattice-cli@latest
+npm install -g zudo-cli@latest
 ```
 
 ## Quick Start

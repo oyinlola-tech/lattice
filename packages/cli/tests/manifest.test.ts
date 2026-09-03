@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Manifest Manager Tests
+ * zudo-cli — Manifest Manager Tests
  *
  * Tests for ManifestManager.
  */

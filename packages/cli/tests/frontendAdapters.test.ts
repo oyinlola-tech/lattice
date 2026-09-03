@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Frontend Adapter Tests
+ * zudo-cli — Frontend Adapter Tests
  *
  * Tests for frontend adapters.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/structures/map-set
+ * @zudo/schema/structures/map-set
  *
  * Map and Set schemas.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@oyinlola141/lattice-constants";
+import { SchemaIssueCode } from "@zudo/constants";
 
 /**
  * Schema for Map objects.

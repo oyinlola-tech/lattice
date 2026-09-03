@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-docs/frontmatter
+ * @zudo/docs/frontmatter
  *
  * YAML frontmatter parsing and serialization for markdown documentation.
  */

@@ -1,7 +1,7 @@
 /**
- * HTTP middleware adapter for @oyinlola141/lattice-permissions.
+ * HTTP middleware adapter for @zudo/permissions.
  *
- * Requires @oyinlola141/lattice-http as a peer dependency.
+ * Requires @zudo/http as a peer dependency.
  *
  * @module http
  */

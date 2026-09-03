@@ -14,7 +14,7 @@ import type { NamedMessageHandler } from "../messageHandler/messageHandlerType.t
 
 import type { Message } from "../message/messageType.type.js";
 
-import { DuplicateMessageHandlerError } from "@oyinlola141/lattice-errors";
+import { DuplicateMessageHandlerError } from "@zudo/errors";
 
 /**
  * In-memory store for registered message handlers.

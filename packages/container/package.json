@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-container",
+  "name": "@zudo/container",
   "version": "0.1.4",
   "description": "Token-based dependency injection container for managing application dependencies and service lifetimes.",
   "type": "module",
@@ -20,7 +20,7 @@
     "clean": "tsc -p tsconfig.json --clean"
   },
   "dependencies": {
-    "@oyinlola141/lattice-errors": "workspace:*"
+    "@zudo/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2"

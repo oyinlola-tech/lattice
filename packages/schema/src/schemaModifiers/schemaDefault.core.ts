@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/modifiers/default
+ * @zudo/schema/modifiers/default
  *
  * Default value schema — applies a default when input is undefined.
  */

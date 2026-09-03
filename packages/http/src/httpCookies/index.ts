@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpCookies
+ * @zudo/http/httpCookies
  *
  * HTTP httpCookies module.
  */

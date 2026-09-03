@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/infrastructure/network
+ * @zudo/errors/infrastructure/network
  *
  * Network, HTTP, and timeout error types.
  */

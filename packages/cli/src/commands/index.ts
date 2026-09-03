@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Commands
+ * zudo-cli — Commands
  *
  * Built-in commands for the Lattice CLI.
  */

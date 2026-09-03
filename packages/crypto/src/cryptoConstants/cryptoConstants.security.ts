@@ -1,4 +1,4 @@
-import { TimeMs } from "@oyinlola141/lattice-constants";
+import { TimeMs } from "@zudo/constants";
 
 /**
  * Password hashing constants.

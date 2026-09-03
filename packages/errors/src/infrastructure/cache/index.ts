@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors — Cache Error Types
+ * @zudo/errors — Cache Error Types
  *
  * Error classes and helpers for cache subsystem failures.
  */

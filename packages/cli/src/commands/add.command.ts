@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Add Command
+ * zudo-cli — Add Command
  *
  * The `lattice add` command for adding feature packages.
  */
@@ -12,16 +12,16 @@ import { CLIValidationError, CLIGenerationError } from "../errors/index.js";
 import { ManifestManager } from "../manifest/manifestManager.core.js";
 
 const FEATURE_PACKAGES: Readonly<Record<string, readonly string[]>> = {
-  database: ["@oyinlola141/lattice-database"],
-  queue: ["@oyinlola141/lattice-queue"],
-  messaging: ["@oyinlola141/lattice-messaging"],
-  openapi: ["@oyinlola141/lattice-openapi"],
-  observability: ["@oyinlola141/lattice-observability"],
-  security: ["@oyinlola141/lattice-security"],
-  cache: ["@oyinlola141/lattice-cache"],
-  storage: ["@oyinlola141/lattice-storage"],
-  scheduler: ["@oyinlola141/lattice-queue"],
-  docs: ["@oyinlola141/lattice-docs"],
+  database: ["@zudo/database"],
+  queue: ["@zudo/queue"],
+  messaging: ["@zudo/messaging"],
+  openapi: ["@zudo/openapi"],
+  observability: ["@zudo/observability"],
+  security: ["@zudo/security"],
+  cache: ["@zudo/cache"],
+  storage: ["@zudo/storage"],
+  scheduler: ["@zudo/queue"],
+  docs: ["@zudo/docs"],
 };
 
 export async function runAddCommand(context: CLIContext): Promise<void> {

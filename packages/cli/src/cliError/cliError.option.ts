@@ -1,10 +1,10 @@
 /**
- * @oyinlola141/lattice-cli — Option Errors
+ * zudo-cli — Option Errors
  *
  * Error classes for option validation failures.
  */
 
-import { ConflictError } from "@oyinlola141/lattice-errors";
+import { ConflictError } from "@zudo/errors";
 import { CLIError } from "./cliError.base.js";
 import {
   CLI_ERROR_CODES,
@@ -73,7 +73,7 @@ export class MissingOptionValueError extends CLIError {
 
 /**
  * Thrown when an option name is already registered.
- * Extends `ConflictError` from `@oyinlola141/lattice-errors`.
+ * Extends `ConflictError` from `@zudo/errors`.
  */
 export class DuplicateOptionError extends ConflictError {
   public readonly exitCode: number;

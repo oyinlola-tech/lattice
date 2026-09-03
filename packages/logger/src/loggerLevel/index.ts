@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerLevel
+ * @zudo/logger/loggerLevel
  *
  * Log level definitions and filtering.
  */

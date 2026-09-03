@@ -11,10 +11,7 @@ import type {
 
 import type { Queue, QueueOptions, QueueStats } from "./queue.type.js";
 
-import {
-  QueueClosedError,
-  QueueDisposedError,
-} from "@oyinlola141/lattice-errors";
+import { QueueClosedError, QueueDisposedError } from "@zudo/errors";
 
 import { createInMemoryQueue } from "../inMemoryQueue/index.js";
 

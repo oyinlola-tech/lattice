@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Confirmation Prompt
+ * zudo-cli — Confirmation Prompt
  *
  * Prompts for confirmation before generation.
  */

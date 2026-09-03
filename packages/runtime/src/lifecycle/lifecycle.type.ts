@@ -1,4 +1,4 @@
-import type { Module } from "@oyinlola141/lattice-core";
+import type { Module } from "@zudo/core";
 
 /**
  * Lifecycle hook phases for modules.
@@ -33,8 +33,8 @@ export interface LifecycleContext {
   readonly environment: string;
   readonly phase: LifecyclePhase;
   readonly moduleId: string;
-  readonly container: import("@oyinlola141/lattice-container").Container;
-  readonly logger: import("@oyinlola141/lattice-logger").Logger;
+  readonly container: import("@zudo/container").Container;
+  readonly logger: import("@zudo/logger").Logger;
 }
 
 /**

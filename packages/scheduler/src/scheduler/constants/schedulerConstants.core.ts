@@ -3,7 +3,7 @@ import type { MisfirePolicy } from "../types/schedulerTypes.core.js";
 import type { OverlapPolicy } from "../types/schedulerTypes.core.js";
 
 /**
- * @oyinlola141/lattice-scheduler/constants
+ * @zudo/scheduler/constants
  *
  * Shared constants for the scheduler package.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-auth — JWT Namespace
+ * @zudo/auth — JWT Namespace
  *
  * Convenience namespace for all JWT-related utilities.
  */

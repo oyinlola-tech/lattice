@@ -1,4 +1,4 @@
-import { QueryHandler } from "@oyinlola141/lattice-cqrs";
+import { QueryHandler } from "@zudo/cqrs";
 import type { GetUserQuery } from "./get-user.query.js";
 import type { UserRepository } from "../../../../repositories/user.repository.js";
 import type { UserModel } from "../../../../models/user.model.js";

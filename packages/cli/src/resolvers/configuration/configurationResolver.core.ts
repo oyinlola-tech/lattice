@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Configuration Resolver
+ * zudo-cli — Configuration Resolver
  *
  * Resolves and validates project configuration from multiple sources.
  */

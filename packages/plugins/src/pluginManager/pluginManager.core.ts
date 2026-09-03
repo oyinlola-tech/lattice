@@ -16,7 +16,7 @@ import {
   PluginInitializationError,
   PluginNotFoundError,
   PluginRegistrationError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 import { PLUGIN_EVENTS } from "../pluginEvents/pluginEvent.core.js";
 import {
   buildDiagnosticReport,

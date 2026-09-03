@@ -7,7 +7,7 @@ import {
   ErrorCode,
   ErrorCategory,
   ErrorSeverity,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /** Options for creating an OpenAPI error. */
 export interface OpenAPIErrorOptions {
@@ -29,7 +29,7 @@ export class OpenAPIError extends BaseError {
       expose: options.expose ?? false,
       cause: options.cause,
       metadata: options.metadata as
-        import("@oyinlola141/lattice-errors").ErrorMetadata | undefined,
+        import("@zudo/errors").ErrorMetadata | undefined,
     });
     this.name = "OpenAPIError";
   }

@@ -4,16 +4,16 @@
  * Wraps the real EventBus with recording and assertion support.
  */
 
-import { EventBus } from "@oyinlola141/lattice-events";
+import { EventBus } from "@zudo/events";
 
 import type {
   Event,
   EventInput,
   EventBusOptions,
   EventPublishResult,
-} from "@oyinlola141/lattice-events";
+} from "@zudo/events";
 
-import type { EventId } from "@oyinlola141/lattice-constants";
+import type { EventId } from "@zudo/constants";
 
 /**
  * A recorded event publication.

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-constants
+ * @zudo/constants
  *
  * Shared constants, enums, and type-safe literals for the Lattice framework.
  *
@@ -7,7 +7,7 @@
  * time durations and timeouts, branded domain identifiers, validation patterns
  * and limits, cache strategies, and priority levels.
  *
- * @module @oyinlola141/lattice-constants
+ * @module @zudo/constants
  */
 
 export * from "./http/index.js";

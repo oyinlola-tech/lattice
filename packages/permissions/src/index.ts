@@ -1,12 +1,12 @@
 /**
- * @oyinlola141/lattice-permissions
+ * @zudo/permissions
  *
  * Authorization engine for the Lattice framework.
  *
  * Supports RBAC, ABAC, resource policies, wildcards, role hierarchy,
  * condition combinators, ability compilation, and explain mode.
  *
- * @module @oyinlola141/lattice-permissions
+ * @module @zudo/permissions
  */
 
 export * from "./permissionTypes/index.js";

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Tracer
+ * @zudo/observability — Tracer
  *
  * Span creation and processor notification.
  */

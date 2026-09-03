@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-feature-flags
+# @zudo/feature-flags
 
 Feature flag system with deterministic rollouts, rule engine, providers, variants, snapshots, and evaluation context.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-feature-flags
+npm install @zudo/feature-flags
 ```
 
 ## Quick Start
 
 ```typescript
-import { createFeatureFlags } from "@oyinlola141/lattice-feature-flags";
+import { createFeatureFlags } from "@zudo/feature-flags";
 
 const flags = createFeatureFlags({
   rules: [

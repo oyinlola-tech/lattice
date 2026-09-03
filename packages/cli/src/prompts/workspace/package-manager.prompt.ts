@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Package Manager Prompt
+ * zudo-cli — Package Manager Prompt
  *
  * Prompts for package manager selection.
  */

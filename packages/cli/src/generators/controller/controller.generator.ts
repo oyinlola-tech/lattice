@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Controller Generator
+ * zudo-cli — Controller Generator
  */
 
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
@@ -23,7 +23,7 @@ export async function generateController(
   const basePath = options.basePath ?? "";
 
   const files: Record<string, string> = {
-    [`${basePath ? `${basePath}/` : ""}controllers/${name}.controller.ts`]: `import { createLogger } from "@oyinlola141/lattice-logger";
+    [`${basePath ? `${basePath}/` : ""}controllers/${name}.controller.ts`]: `import { createLogger } from "@zudo/logger";
 
 export class ${nameCamel}Controller {
   private readonly logger = createLogger({ name: "${name}-controller" });

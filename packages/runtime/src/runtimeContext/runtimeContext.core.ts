@@ -1,4 +1,4 @@
-import type { Environment } from "@oyinlola141/lattice-constants";
+import type { Environment } from "@zudo/constants";
 
 import { createRuntimeId as generateRuntimeId } from "./runtimeContext.factory.js";
 

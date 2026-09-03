@@ -4,12 +4,8 @@
  * @module featureFlagErrors/featureFlagError.base
  */
 
-import { ApplicationError, ErrorCode } from "@oyinlola141/lattice-errors";
-import type {
-  ErrorCategory,
-  ErrorSeverity,
-  ErrorMetadata,
-} from "@oyinlola141/lattice-errors";
+import { ApplicationError, ErrorCode } from "@zudo/errors";
+import type { ErrorCategory, ErrorSeverity, ErrorMetadata } from "@zudo/errors";
 
 /** Options for creating a feature flag error. */
 export interface FeatureFlagErrorOptions {
@@ -23,7 +19,7 @@ export interface FeatureFlagErrorOptions {
 
 /**
  * Base class for all feature flag errors.
- * Extends ApplicationError from @oyinlola141/lattice-errors.
+ * Extends ApplicationError from @zudo/errors.
  */
 export class FeatureFlagError extends ApplicationError {
   public constructor(message: string, options: FeatureFlagErrorOptions = {}) {

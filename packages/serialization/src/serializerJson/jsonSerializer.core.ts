@@ -22,16 +22,13 @@ import {
   BufferTransformer,
   ErrorTransformer,
 } from "../serializerTransformsExt/index.js";
-import {
-  SerializationLimits,
-  SerializationTags,
-} from "@oyinlola141/lattice-constants";
-import { isPlainObject } from "@oyinlola141/lattice-types";
+import { SerializationLimits, SerializationTags } from "@zudo/constants";
+import { isPlainObject } from "@zudo/types";
 import {
   assertNoCircularReference,
   assertDepthWithinLimit,
   assertSizeWithinLimit,
-} from "@oyinlola141/lattice-validation";
+} from "@zudo/validation";
 
 /** Default transformer registry with all built-in transformers. */
 function createDefaultTransformers(): TransformerRegistry {

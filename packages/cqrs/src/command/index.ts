@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cqrs/command
+ * @zudo/cqrs/command
  *
  * Command implementation: abstract command, handler, bus, and result types.
  */

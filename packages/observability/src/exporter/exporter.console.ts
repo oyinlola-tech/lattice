@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Console Exporter
+ * @zudo/observability — Console Exporter
  *
  * Exports telemetry to the console for development and debugging.
  */

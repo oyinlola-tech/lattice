@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — CLI Application
+ * zudo-cli — CLI Application
  *
  * Main application class, factory, built-in commands, and signal handling.
  */

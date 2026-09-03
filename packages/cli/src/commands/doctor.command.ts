@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Doctor Command
+ * zudo-cli — Doctor Command
  *
  * The `lattice doctor` command for project diagnostics.
  */
@@ -148,7 +148,7 @@ function checkDependencies(context: CLIContext): DoctorCheck {
     };
 
     const latticeDeps = Object.keys(pkg.dependencies ?? {}).filter((d) =>
-      d.startsWith("@oyinlola141/lattice-"),
+      d.startsWith("@zudo/"),
     );
 
     const passed = latticeDeps.length > 0;
@@ -219,7 +219,7 @@ function checkArchitectureViolations(): DoctorCheck {
       const deps = Object.keys(pkg.dependencies ?? {});
 
       for (const feature of features) {
-        const pkgName = `@oyinlola141/lattice-${feature}`;
+        const pkgName = `@zudo/${feature}`;
         if (!deps.includes(pkgName)) {
           violations.push(
             `Feature "${feature}" declared in package.json#lattice.features but ${pkgName} not in dependencies`,

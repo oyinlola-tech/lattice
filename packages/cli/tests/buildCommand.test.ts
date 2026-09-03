@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Build Command Tests
+ * zudo-cli — Build Command Tests
  *
  * Tests for the build command.
  */

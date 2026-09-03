@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Resolvers
+ * zudo-cli — Resolvers
  *
  * Architecture and project resolution utilities.
  */

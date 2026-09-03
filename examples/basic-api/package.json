@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-example-basic-api",
+  "name": "@zudo/example-basic-api",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -10,10 +10,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@oyinlola141/lattice-core": "workspace:*",
-    "@oyinlola141/lattice-http": "workspace:*",
-    "@oyinlola141/lattice-errors": "workspace:*",
-    "@oyinlola141/lattice-validation": "workspace:*"
+    "@zudo/core": "workspace:*",
+    "@zudo/http": "workspace:*",
+    "@zudo/errors": "workspace:*",
+    "@zudo/validation": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.23.13",

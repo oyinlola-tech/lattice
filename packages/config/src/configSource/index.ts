@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configSource
+ * @zudo/config/configSource
  *
  * Configuration source abstractions and implementations.
  */

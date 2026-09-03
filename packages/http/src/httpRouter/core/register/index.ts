@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpRouter/core/register
+ * @zudo/http/httpRouter/core/register
  *
  * HTTP route registration utilities.
  */

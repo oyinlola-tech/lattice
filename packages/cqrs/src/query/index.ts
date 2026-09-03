@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cqrs/query
+ * @zudo/cqrs/query
  *
  * Query implementation: abstract query, handler, bus, and result types.
  */

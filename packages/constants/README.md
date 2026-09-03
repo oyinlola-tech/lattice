@@ -1,22 +1,17 @@
-# @oyinlola141/lattice-constants
+# @zudo/constants
 
 Shared constants, enums, branded types, and type-safe literals for the Lattice framework.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-constants
+npm install @zudo/constants
 ```
 
 ## Quick Start
 
 ```typescript
-import {
-  EntityId,
-  Timestamp,
-  HttpStatus,
-  ErrorCode,
-} from "@oyinlola141/lattice-constants";
+import { EntityId, Timestamp, HttpStatus, ErrorCode } from "@zudo/constants";
 
 const id: EntityId = "user_123";
 const now: Timestamp = new Date();

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Validator Generator
+ * zudo-cli — Validator Generator
  *
  * Generates validator files.
  */

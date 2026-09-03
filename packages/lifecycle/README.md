@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-lifecycle
+# @zudo/lifecycle
 
 Application and component lifecycle orchestration with state machine, dependency ordering, graceful shutdown, rollback, and signals.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-lifecycle
+npm install @zudo/lifecycle
 ```
 
 ## Quick Start
 
 ```typescript
-import { createLifecycleManager } from "@oyinlola141/lattice-lifecycle";
+import { createLifecycleManager } from "@zudo/lifecycle";
 
 const manager = createLifecycleManager({
   components: [database, server, worker],

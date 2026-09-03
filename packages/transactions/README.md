@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-transactions
+# @zudo/transactions
 
 Transaction lifecycle and coordination with state machine, AsyncLocalStorage context propagation, savepoints, hooks, and adapter abstraction.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-transactions
+npm install @zudo/transactions
 ```
 
 ## Quick Start
 
 ```typescript
-import { createTransactionManager } from "@oyinlola141/lattice-transactions";
+import { createTransactionManager } from "@zudo/transactions";
 
 const manager = createTransactionManager({
   adapter: databaseAdapter,

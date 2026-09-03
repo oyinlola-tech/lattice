@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-lifecycle",
+  "name": "@zudo/lifecycle",
   "version": "0.1.3",
   "description": "Application and component lifecycle orchestration with state machine, dependency ordering, graceful shutdown, rollback, and signals.",
   "license": "MIT",
@@ -24,8 +24,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@oyinlola141/lattice-errors": "workspace:*",
-    "@oyinlola141/lattice-constants": "workspace:*"
+    "@zudo/errors": "workspace:*",
+    "@zudo/constants": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",

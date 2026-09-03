@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-api/context-key
+ * @zudo/api/context-key
  *
  * Typed context keys for the API context system.
  *

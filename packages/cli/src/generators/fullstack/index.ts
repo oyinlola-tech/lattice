@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Fullstack Composer
+ * zudo-cli — Fullstack Composer
  *
  * Composes fullstack projects by orchestrating backend, frontend, and integration generators.
  */

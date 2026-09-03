@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpStream — Create PassThrough and Readable stream instances.
+ * @zudo/http/httpStream — Create PassThrough and Readable stream instances.
  */
 
 import { Readable, PassThrough } from "node:stream";

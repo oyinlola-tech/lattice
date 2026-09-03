@@ -1,22 +1,17 @@
-# @oyinlola141/lattice-crypto
+# @zudo/crypto
 
 Cryptographic primitives for hashing, encryption, tokens, and secure random generation.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-crypto
+npm install @zudo/crypto
 ```
 
 ## Quick Start
 
 ```typescript
-import {
-  hash,
-  encrypt,
-  decrypt,
-  randomBytes,
-} from "@oyinlola141/lattice-crypto";
+import { hash, encrypt, decrypt, randomBytes } from "@zudo/crypto";
 
 const hashed = await hash("password", "salt");
 const token = randomBytes(32);

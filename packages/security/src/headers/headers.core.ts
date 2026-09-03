@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — Security Headers
+ * @zudo/security — Security Headers
  *
  * Generates security-related HTTP response headers with secure defaults.
  */

@@ -1,4 +1,4 @@
-import { Query } from "@oyinlola141/lattice-cqrs";
+import { Query } from "@zudo/cqrs";
 import type { UserId } from "../../../../types/index.js";
 
 export class GetProfileQuery extends Query<"identity.get-profile"> {

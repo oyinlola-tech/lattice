@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — CORS Namespace
+ * @zudo/security — CORS Namespace
  *
  * Convenience namespace for CORS utilities.
  */

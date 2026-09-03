@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpContext
+ * @zudo/http/httpContext
  *
  * HTTP httpContext module.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-messaging/handlerRegistry
+ * @zudo/messaging/handlerRegistry
  *
  * HandlerRegistry type definitions and in-memory store.
  */

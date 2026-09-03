@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-core/configuration/events
+ * @zudo/core/configuration/events
  *
  * Configuration lifecycle events.
  */

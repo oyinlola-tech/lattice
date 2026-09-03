@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-core/context/core
+ * @zudo/core/context/core
  *
  * Core context types and key management.
  */

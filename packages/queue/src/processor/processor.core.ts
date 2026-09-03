@@ -4,7 +4,7 @@ import type {
   ProcessorRegistry,
 } from "./processor.type.js";
 
-import { JobError } from "@oyinlola141/lattice-errors";
+import { JobError } from "@zudo/errors";
 
 /**
  * Creates a new ProcessorRegistry.

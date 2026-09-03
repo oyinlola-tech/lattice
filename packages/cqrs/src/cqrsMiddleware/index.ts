@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cqrs/cqrsMiddleware
+ * @zudo/cqrs/cqrsMiddleware
  *
  * Built-in CQRS middleware: timing, error handling, validation, and composition.
  */

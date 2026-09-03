@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/domain/api
+ * @zudo/errors/domain/api
  *
  * API-specific error types.
  */

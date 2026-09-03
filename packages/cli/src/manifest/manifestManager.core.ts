@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Manifest System
+ * zudo-cli — Manifest System
  *
  * Machine-managed project manifest for Lattice projects.
  */

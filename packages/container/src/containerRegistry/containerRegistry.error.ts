@@ -1,7 +1,7 @@
 /**
- * @oyinlola141/lattice-container/containerRegistry/containerRegistry.error
+ * @zudo/container/containerRegistry/containerRegistry.error
  *
- * Error classes re-exported from @oyinlola141/lattice-errors.
+ * Error classes re-exported from @zudo/errors.
  * This file retains the token description helper used by the registry.
  */
 

@@ -1,5 +1,5 @@
-import { QueryHandler } from "@oyinlola141/lattice-cqrs";
-import type { CqrsContext } from "@oyinlola141/lattice-cqrs";
+import { QueryHandler } from "@zudo/cqrs";
+import type { CqrsContext } from "@zudo/cqrs";
 import {
   GetNotificationsQuery,
   GET_NOTIFICATIONS_QUERY,

@@ -1,12 +1,12 @@
 /**
- * @oyinlola141/lattice-messaging
+ * @zudo/messaging
  *
  * In-process message bus infrastructure for the Lattice framework.
  *
  * Provides the foundational messaging primitives that CQRS and Events
  * specialize into commands/queries and domain events respectively.
  *
- * @module @oyinlola141/lattice-messaging
+ * @module @zudo/messaging
  */
 
 // Core message types and factory

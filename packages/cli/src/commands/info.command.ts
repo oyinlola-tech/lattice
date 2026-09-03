@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Info Command
+ * zudo-cli — Info Command
  *
  * The `lattice info` command.
  */
@@ -23,7 +23,7 @@ export async function runInfoCommand(context: CLIContext): Promise<void> {
     projectName = pkg.name ?? "unknown";
 
     const latticeDeps = Object.entries(pkg.dependencies ?? {})
-      .filter(([name]) => name.startsWith("@oyinlola141/lattice-"))
+      .filter(([name]) => name.startsWith("@zudo/"))
       .sort(([a], [b]) => a.localeCompare(b));
 
     context.logger.info("Lattice Project Info");

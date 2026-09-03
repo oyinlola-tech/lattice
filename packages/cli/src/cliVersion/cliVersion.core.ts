@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Version Utilities
+ * zudo-cli — Version Utilities
  *
  * Functions for parsing, comparing, and formatting semantic versions.
  */

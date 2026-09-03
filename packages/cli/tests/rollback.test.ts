@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Rollback Manager Tests
+ * zudo-cli — Rollback Manager Tests
  *
  * Tests for RollbackManager.
  */

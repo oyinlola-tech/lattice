@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-plugins/pluginDiagnostics
+ * @zudo/plugins/pluginDiagnostics
  *
  * Plugin health checks and diagnostic reporting.
  */

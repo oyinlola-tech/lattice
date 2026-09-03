@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-storage — Types Barrel
+ * @zudo/storage — Types Barrel
  *
  * Re-exports all storage type definitions.
  */

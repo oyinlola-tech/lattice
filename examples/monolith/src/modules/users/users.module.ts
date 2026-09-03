@@ -1,4 +1,4 @@
-import { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
+import { CommandBus, QueryBus } from "@zudo/cqrs";
 import type { UserRepository } from "./domain/repositories/user.repository.js";
 import { InMemoryUserRepository } from "./infrastructure/repositories/in-memory-user.repository.js";
 import { CreateUserHandler } from "./application/commands/create-user/create-user.handler.js";

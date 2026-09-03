@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-errors
+# @zudo/errors
 
 Shared error base class, error codes, and error handling utilities for the Lattice framework.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-errors
+npm install @zudo/errors
 ```
 
 ## Quick Start
 
 ```typescript
-import { ApplicationError, ErrorCode } from "@oyinlola141/lattice-errors";
+import { ApplicationError, ErrorCode } from "@zudo/errors";
 
 throw new ApplicationError("Something went wrong", {
   code: ErrorCode.INTERNAL_SERVER_ERROR,

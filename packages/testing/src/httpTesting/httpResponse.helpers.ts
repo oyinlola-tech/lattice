@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-testing — HTTP response helper functions.
+ * @zudo/testing — HTTP response helper functions.
  *
  * Convenience functions for creating common test HTTP responses.
  */

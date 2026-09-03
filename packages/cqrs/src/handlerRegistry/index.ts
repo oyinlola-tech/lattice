@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cqrs/handlerRegistry
+ * @zudo/cqrs/handlerRegistry
  *
  * Central registry for command and query handlers.
  */

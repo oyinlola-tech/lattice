@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-openapi/openApiConstants
+ * @zudo/openapi/openApiConstants
  *
  * Shared constants for OpenAPI generation.
  */

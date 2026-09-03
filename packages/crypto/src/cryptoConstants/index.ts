@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-crypto/cryptoConstants
+ * @zudo/crypto/cryptoConstants
  *
  * Cryptographic constants and default parameters.
  */

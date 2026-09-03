@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-serialization — Extended type transformers.
+ * @zudo/serialization — Extended type transformers.
  *
  * Built-in transformers for Buffer/Uint8Array and Error types,
  * plus encoding utilities.

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpMiddleware/builtin
+ * @zudo/http/httpMiddleware/builtin
  *
  * Built-in HTTP middleware factories.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-messaging/dispatcher
+ * @zudo/messaging/dispatcher
  *
  * Dispatcher type definitions and default implementation.
  */

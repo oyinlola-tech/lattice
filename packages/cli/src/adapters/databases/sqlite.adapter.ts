@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — SQLite Database Adapter
+ * zudo-cli — SQLite Database Adapter
  */
 
 import type { DatabaseAdapter } from "./postgres.adapter.js";
@@ -13,7 +13,7 @@ export class SqliteAdapter implements DatabaseAdapter {
   }
 
   getDependencies(): readonly string[] {
-    return ["@oyinlola141/lattice-database"];
+    return ["@zudo/database"];
   }
 
   getEnvironmentVariables(): Record<string, string> {

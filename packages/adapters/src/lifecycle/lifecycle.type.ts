@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/lifecycle
+ * @zudo/adapters/lifecycle
  *
  * Adapter lifecycle contracts — health, operation options, and lifecycle hooks.
  */

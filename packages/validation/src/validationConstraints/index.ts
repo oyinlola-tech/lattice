@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-validation/validationConstraints
+ * @zudo/validation/validationConstraints
  *
  * Built-in validation constraints and rules.
  */

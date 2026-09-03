@@ -1,7 +1,7 @@
 import type { CacheKey } from "./types-keys.js";
 
-import type { CacheOperation } from "@oyinlola141/lattice-errors";
-export type { CacheOperation } from "@oyinlola141/lattice-errors";
+import type { CacheOperation } from "@zudo/errors";
+export type { CacheOperation } from "@zudo/errors";
 
 export interface CacheMetrics {
   incrementHit(key?: CacheKey): void;

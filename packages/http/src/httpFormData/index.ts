@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpFormData
+ * @zudo/http/httpFormData
  *
  * HTTP form data parsing and handling.
  */

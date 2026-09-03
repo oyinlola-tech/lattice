@@ -363,7 +363,7 @@ import {
   BodyParserError,
   UnsupportedBodyTypeError,
   InvalidContentLengthError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 export { BodyParserError, UnsupportedBodyTypeError, InvalidContentLengthError };
 

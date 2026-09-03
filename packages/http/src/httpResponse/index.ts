@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpResponse
+ * @zudo/http/httpResponse
  *
  * HTTP response abstraction, context, and writer.
  */

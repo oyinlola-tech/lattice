@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-feature-flags
+ * @zudo/feature-flags
  *
  * Feature flag system with deterministic rollouts, rule engine, providers, and evaluation context.
  *

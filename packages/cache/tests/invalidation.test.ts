@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cache — Invalidation Tests
+ * @zudo/cache — Invalidation Tests
  *
  * Tests for CacheInvalidationManager: tag-based, pattern-based,
  * namespace-based, key-based, and full flush invalidation.

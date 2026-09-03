@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-docs/registry
+ * @zudo/docs/registry
  *
  * Document registry for storing, retrieving, and filtering documentation.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Query Generator
+ * zudo-cli — Query Generator
  *
  * Generates a CQRS query with handler.
  */
@@ -27,7 +27,7 @@ export async function generateQuery(
   const servicePath = `${basePath}/${service}`;
 
   const files: Record<string, string> = {
-    [`${servicePath}/queries/${name}/${name}.query.ts`]: `import type { BaseQuery } from "@oyinlola141/lattice-cqrs";
+    [`${servicePath}/queries/${name}/${name}.query.ts`]: `import type { BaseQuery } from "@zudo/cqrs";
 
 export interface ${nameCamel}QueryPayload {
   readonly [key: string]: unknown;
@@ -40,8 +40,8 @@ export class ${nameCamel}Query implements BaseQuery<${nameCamel}QueryPayload> {
 }
 `,
 
-    [`${servicePath}/queries/${name}/${name}.handler.ts`]: `import type { QueryHandler, QueryResult } from "@oyinlola141/lattice-cqrs";
-import { createLogger } from "@oyinlola141/lattice-logger";
+    [`${servicePath}/queries/${name}/${name}.handler.ts`]: `import type { QueryHandler, QueryResult } from "@zudo/cqrs";
+import { createLogger } from "@zudo/logger";
 import { ${nameCamel}Query } from "./${name}.query.js";
 
 export class ${nameCamel}QueryHandler implements QueryHandler<${nameCamel}Query> {

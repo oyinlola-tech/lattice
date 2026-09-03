@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-lifecycle
+ * @zudo/lifecycle
  *
  * Application and component lifecycle orchestration for the Lattice framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { createLifecycleManager } from "@oyinlola141/lattice-lifecycle";
+ * import { createLifecycleManager } from "@zudo/lifecycle";
  *
  * const lifecycle = createLifecycleManager();
  *

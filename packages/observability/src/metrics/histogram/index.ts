@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Histogram
+ * @zudo/observability — Histogram
  *
  * Distribution of observed values for latencies and sizes.
  */

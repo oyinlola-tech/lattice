@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Query Builder
+ * @zudo/database — Query Builder
  *
  * Database-neutral query construction and filter helpers.
  */

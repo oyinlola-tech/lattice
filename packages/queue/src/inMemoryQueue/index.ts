@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-queue/inMemoryQueue
+ * @zudo/queue/inMemoryQueue
  *
  * In-memory queue module.
  */

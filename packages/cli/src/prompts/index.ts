@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Prompts Index
+ * zudo-cli — Prompts Index
  */
 
 export {

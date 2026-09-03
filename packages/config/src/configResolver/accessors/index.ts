@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configResolver/accessors
+ * @zudo/config/configResolver/accessors
  *
  * Configuration accessors and scoped resolver.
  */

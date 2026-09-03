@@ -226,7 +226,7 @@ export function getSearchPart(url: string): string {
 /* Body Errors                                                                */
 /* -------------------------------------------------------------------------- */
 
-import { RequestBodyTooLargeError as NodeRequestBodyTooLargeError } from "@oyinlola141/lattice-errors";
+import { RequestBodyTooLargeError as NodeRequestBodyTooLargeError } from "@zudo/errors";
 
 export { NodeRequestBodyTooLargeError };
 

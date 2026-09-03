@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-crypto
+ * @zudo/crypto
  *
  * Cryptographic primitives for the Lattice framework.
  * Provides symmetric/asymmetric encryption, hashing, password hashing,

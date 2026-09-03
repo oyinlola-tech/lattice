@@ -1,10 +1,10 @@
 /**
- * @oyinlola141/lattice-cli — Errors
+ * zudo-cli — Errors
  *
  * Error classes for the CLI scaffolding system.
  */
 
-import { ApplicationError } from "@oyinlola141/lattice-errors";
+import { ApplicationError } from "@zudo/errors";
 
 export class CLIValidationError extends ApplicationError {
   constructor(message: string) {

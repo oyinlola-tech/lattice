@@ -1,9 +1,9 @@
 /**
- * @oyinlola141/lattice-serialization — Core type definitions.
+ * @zudo/serialization — Core type definitions.
  *
  * Defines the contracts that all serialization implementations
  * must satisfy. These types are serialization-specific and are
- * NOT available in @oyinlola141/lattice-types or @oyinlola141/lattice-constants.
+ * NOT available in @zudo/types or @zudo/constants.
  */
 
 /** Supported serialization format identifiers. */

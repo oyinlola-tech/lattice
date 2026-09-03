@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Argument Errors
+ * zudo-cli — Argument Errors
  *
  * Error classes for argument validation failures.
  */

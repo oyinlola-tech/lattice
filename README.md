@@ -195,7 +195,7 @@ Lattice includes a CLI for scaffolding projects, adding features, and managing a
 ### Installation
 
 ```bash
-npm install -g @oyinlola141/lattice-cli
+npm install -g zudo-cli
 ```
 
 ### Supported Frontend Frameworks

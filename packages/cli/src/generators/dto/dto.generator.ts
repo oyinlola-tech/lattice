@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — DTO Generator
+ * zudo-cli — DTO Generator
  *
  * Generates DTO files.
  */

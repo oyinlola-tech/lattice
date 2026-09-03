@@ -1,9 +1,9 @@
 /**
- * @oyinlola141/lattice-scheduler/errors
+ * @zudo/scheduler/errors
  *
  * Scheduler-specific error classes for the Lattice framework.
  *
- * Re-exported from @oyinlola141/lattice-errors for convenience.
+ * Re-exported from @zudo/errors for convenience.
  */
 
 export {
@@ -26,6 +26,6 @@ export {
   SchedulerLockError,
   createSchedulerError,
   isSchedulerError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
-export type { SchedulerErrorOptions } from "@oyinlola141/lattice-errors";
+export type { SchedulerErrorOptions } from "@zudo/errors";

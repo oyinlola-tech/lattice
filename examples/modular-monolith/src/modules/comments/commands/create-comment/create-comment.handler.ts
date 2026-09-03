@@ -1,8 +1,8 @@
-import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import { CommandHandler } from "@zudo/cqrs";
 import type { CreateCommentCommand } from "./create-comment.command.js";
 import type { CommentRepository } from "../../../../repositories/comment.repository.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
-import type { EventBus } from "@oyinlola141/lattice-events";
+import type { EventBus } from "@zudo/events";
 import type { CommentModel } from "../../../../models/comment.model.js";
 import type { CommentId } from "../../../../types/index.js";
 import { createCommentId } from "../../../../types/index.js";

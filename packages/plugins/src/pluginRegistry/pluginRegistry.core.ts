@@ -6,7 +6,7 @@ import {
   PluginAlreadyRegisteredError,
   PluginNotFoundError,
   PluginStateError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /**
  * Internal representation of a registered plugin.

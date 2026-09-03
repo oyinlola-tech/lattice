@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpValidation
+ * @zudo/http/httpValidation
  *
  * HTTP validation module.
  *

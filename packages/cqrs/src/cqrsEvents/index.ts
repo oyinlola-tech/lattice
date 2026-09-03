@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cqrs/cqrsEvents
+ * @zudo/cqrs/cqrsEvents
  *
  * CQRS event types, event bus, and event result types.
  *

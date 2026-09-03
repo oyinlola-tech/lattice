@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-storage — Repository Barrel
+ * @zudo/storage — Repository Barrel
  */
 
 export { BaseRepository } from "./baseRepository.core.js";

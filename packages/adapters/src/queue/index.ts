@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/queue
+ * @zudo/adapters/queue
  *
  * Queue adapter contracts.
  */

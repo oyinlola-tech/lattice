@@ -4,7 +4,7 @@
  * @module featureFlagErrors/featureFlagError.types
  */
 
-import { ErrorCode } from "@oyinlola141/lattice-errors";
+import { ErrorCode } from "@zudo/errors";
 import { FeatureFlagError } from "./featureFlagError.base.js";
 
 /** Thrown when a requested feature flag does not exist. */

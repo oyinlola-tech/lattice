@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/messaging
+ * @zudo/adapters/messaging
  *
  * Messaging adapter contracts.
  */

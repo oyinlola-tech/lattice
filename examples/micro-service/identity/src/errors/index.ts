@@ -1,7 +1,7 @@
 /**
  * Error re-exports for the Identity service.
  *
- * All error classes are imported from @oyinlola141/lattice-errors to avoid duplication.
+ * All error classes are imported from @zudo/errors to avoid duplication.
  */
 
 import {
@@ -9,8 +9,8 @@ import {
   NotFoundError as BaseNotFoundError,
   ConflictError as BaseConflictError,
   AuthenticationError as BaseUnauthorizedError,
-} from "@oyinlola141/lattice-errors";
-import type { ErrorMetadata } from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
+import type { ErrorMetadata } from "@zudo/errors";
 
 /**
  * Generic application error for the identity domain.

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/infrastructure/service
+ * @zudo/errors/infrastructure/service
  *
  * Service and external service error types.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/domain/body
+ * @zudo/errors/domain/body
  *
  * HTTP body, form data, and multipart error types.
  */

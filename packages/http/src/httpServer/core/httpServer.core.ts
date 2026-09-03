@@ -30,7 +30,7 @@ import {
   InvalidHttpServerStateError,
   HttpServerStartError,
   HttpServerStopError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 import {
   withTimeout,

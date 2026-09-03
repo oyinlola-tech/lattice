@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-docs/navigation
+ * @zudo/docs/navigation
  *
  * Navigation tree utilities — breadcrumbs, flattening, sibling resolution.
  */

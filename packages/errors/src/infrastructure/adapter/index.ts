@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/infrastructure/adapter
+ * @zudo/errors/infrastructure/adapter
  *
  * Adapter error types.
  */

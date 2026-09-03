@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-adapters
+# @zudo/adapters
 
 Boundary layer between Lattice and external platforms with adapter contracts, registry, capabilities, and transport abstractions.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-adapters
+npm install @zudo/adapters
 ```
 
 ## Quick Start
 
 ```typescript
-import { createAdapterRegistry } from "@oyinlola141/lattice-adapters";
+import { createAdapterRegistry } from "@zudo/adapters";
 
 const registry = createAdapterRegistry();
 

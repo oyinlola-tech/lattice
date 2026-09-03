@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-lifecycle/plan
+ * @zudo/lifecycle/plan
  *
  * Lifecycle execution planner for building startup/shutdown stages.
  */

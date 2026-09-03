@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Tracing
+ * @zudo/observability — Tracing
  *
  * Distributed tracing with spans, context, and exporters.
  */

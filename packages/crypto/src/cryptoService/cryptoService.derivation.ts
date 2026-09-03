@@ -7,7 +7,7 @@ import type {
 
 import { deriveKey } from "../cryptoKeyDerivation/cryptoKeyDerivation.core.js";
 
-import { cryptoKeyDerivationError } from "@oyinlola141/lattice-errors";
+import { cryptoKeyDerivationError } from "@zudo/errors";
 
 import { CryptoAlgorithm } from "../cryptoConstants/cryptoConstants.type.js";
 

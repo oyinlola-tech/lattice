@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Utils
+ * zudo-cli — Utils
  *
  * Shared utility functions for the CLI scaffolding system.
  */

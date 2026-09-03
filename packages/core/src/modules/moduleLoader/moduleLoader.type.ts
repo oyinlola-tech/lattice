@@ -59,7 +59,7 @@ export interface ModuleLoadResult {
   readonly order: readonly ModuleId[];
 }
 
-import { ModuleLoadError as BaseModuleLoadError } from "@oyinlola141/lattice-errors";
+import { ModuleLoadError as BaseModuleLoadError } from "@zudo/errors";
 
 /**
  * Error thrown when one or more modules cannot be loaded.

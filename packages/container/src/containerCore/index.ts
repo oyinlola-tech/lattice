@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-container/containerCore
+ * @zudo/container/containerCore
  *
  * Core dependency injection container implementation.
  */

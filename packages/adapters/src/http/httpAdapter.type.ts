@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/http
+ * @zudo/adapters/http
  *
  * HTTP adapter contracts — request/response translation and server lifecycle.
  */
@@ -14,7 +14,7 @@ import type {
  * Minimal HTTP request shape.
  *
  * Concrete adapters map platform-specific requests to this shape.
- * The actual Lattice HTTPRequest lives in @oyinlola141/lattice-http.
+ * The actual Lattice HTTPRequest lives in @zudo/http.
  */
 export interface HTTPRequestLike {
   readonly method: string;

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configLoader
+ * @zudo/config/configLoader
  *
  * Configuration loading from sources and caching.
  */

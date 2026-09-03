@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Manifest
+ * zudo-cli — Manifest
  *
  * Manifest system barrel exports.
  */

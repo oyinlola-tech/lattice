@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-container/containerRegistration
+ * @zudo/container/containerRegistration
  *
  * Service registration and token binding.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Relations
+ * @zudo/database — Relations
  *
  * Entity relation definitions and registry.
  */

@@ -1,11 +1,11 @@
 /**
- * HTTP middleware adapter for @oyinlola141/lattice-tenancy.
+ * HTTP middleware adapter for @zudo/tenancy.
  *
  * Provides middleware factories that resolve and enforce tenant context.
  *
  * @module http/tenancyMiddleware
  *
- * Requires @oyinlola141/lattice-http as a peer dependency.
+ * Requires @zudo/http as a peer dependency.
  */
 
 import type { TenantId } from "../tenancyTypes/tenantIdentity.js";

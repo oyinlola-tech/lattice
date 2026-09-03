@@ -1,12 +1,12 @@
 /**
- * @oyinlola141/lattice-serialization — Serializer registry.
+ * @zudo/serialization — Serializer registry.
  *
  * Central registry for named serializer instances. Other packages
  * look up serializers by name instead of importing concrete classes.
  */
 
 import type { Serializer } from "../serializerTypes/index.js";
-import { SerializerNotFoundError } from "@oyinlola141/lattice-errors";
+import { SerializerNotFoundError } from "@zudo/errors";
 
 /**
  * Registry of serializer instances keyed by canonical name.

@@ -1,4 +1,4 @@
-import type { Event } from "@oyinlola141/lattice-events";
+import type { Event } from "@zudo/events";
 
 import type { CqrsEvent } from "./cqrsEvents.type.js";
 

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-lifecycle/state
+ * @zudo/lifecycle/state
  *
  * Lifecycle state machine for tracking and validating state transitions.
  */

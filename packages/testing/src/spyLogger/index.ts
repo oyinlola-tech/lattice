@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-testing — Spy logger for testing.
+ * @zudo/testing — Spy logger for testing.
  *
  * Records all log calls for assertion.
  */

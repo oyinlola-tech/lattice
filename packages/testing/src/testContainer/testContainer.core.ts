@@ -5,12 +5,9 @@
  * and override support for dependency injection testing.
  */
 
-import { createStartedContainer } from "@oyinlola141/lattice-container";
+import { createStartedContainer } from "@zudo/container";
 
-import type {
-  Container,
-  RegistrationToken,
-} from "@oyinlola141/lattice-container";
+import type { Container, RegistrationToken } from "@zudo/container";
 
 /**
  * A dependency override for test containers.

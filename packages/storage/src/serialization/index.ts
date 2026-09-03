@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-storage — Serialization Barrel
+ * @zudo/storage — Serialization Barrel
  */
 
 export { JsonSerializer } from "./jsonSerializer.core.js";

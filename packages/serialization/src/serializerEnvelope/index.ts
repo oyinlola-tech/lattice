@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-serialization — Serialization envelope.
+ * @zudo/serialization — Serialization envelope.
  *
  * Wraps serialized data with metadata for cross-service communication.
  */

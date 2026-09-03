@@ -5,13 +5,13 @@
  * contexts without the full Runtime lifecycle.
  */
 
-import type { Container } from "@oyinlola141/lattice-container";
+import type { Container } from "@zudo/container";
 
-import type { Logger } from "@oyinlola141/lattice-logger";
+import type { Logger } from "@zudo/logger";
 
-import { createStartedContainer } from "@oyinlola141/lattice-container";
+import { createStartedContainer } from "@zudo/container";
 
-import { createLogger } from "@oyinlola141/lattice-logger";
+import { createLogger } from "@zudo/logger";
 
 import { createCleanupManager } from "../cleanupManager/cleanupManager.core.js";
 

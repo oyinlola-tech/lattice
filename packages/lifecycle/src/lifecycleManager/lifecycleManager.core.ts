@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-lifecycle/manager
+ * @zudo/lifecycle/manager
  *
  * Lifecycle manager — the heart of the lifecycle system.
  * Orchestrates component registration, startup, shutdown, rollback, and signals.
@@ -9,7 +9,7 @@ import {
   LifecycleState,
   LIFECYCLE_DEFAULT_CONCURRENCY,
   LIFECYCLE_DEFAULT_SHUTDOWN_TIMEOUT,
-} from "@oyinlola141/lattice-constants";
+} from "@zudo/constants";
 import type {
   LifecycleComponent,
   LifecycleRegistrationOptions,

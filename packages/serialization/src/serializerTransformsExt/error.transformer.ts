@@ -1,12 +1,12 @@
 /**
- * @oyinlola141/lattice-serialization — Error transformer.
+ * @zudo/serialization — Error transformer.
  *
  * Preserves Error instances across serialization boundaries.
  * Stack traces are controlled via options for security.
  */
 
 import type { TypeTransformer } from "../serializerTypes/index.js";
-import { SerializationTags } from "@oyinlola141/lattice-constants";
+import { SerializationTags } from "@zudo/constants";
 
 const ERROR_TYPE = "Error" as const;
 

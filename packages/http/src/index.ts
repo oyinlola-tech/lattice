@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http
+ * @zudo/http
  *
  * HTTP primitives, request handling, routing, middleware, and server infrastructure.
  *

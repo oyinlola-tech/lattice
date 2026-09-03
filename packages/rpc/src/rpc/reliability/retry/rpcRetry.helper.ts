@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-rpc/reliability/retry
+ * @zudo/rpc/reliability/retry
  *
  * Retry utilities for RPC operations.
  */

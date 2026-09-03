@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Compatibility Validator Tests
+ * zudo-cli — Compatibility Validator Tests
  *
  * Tests for CompatibilityValidator.
  */

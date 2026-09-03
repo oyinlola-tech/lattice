@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpRouter/core/util
+ * @zudo/http/httpRouter/core/util
  *
  * HTTP router utility functions.
  */

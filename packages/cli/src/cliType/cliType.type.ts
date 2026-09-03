@@ -1,10 +1,10 @@
 /**
- * @oyinlola141/lattice-cli — CLI Type Definitions
+ * zudo-cli — CLI Type Definitions
  *
  * Core types, interfaces, and type aliases for the CLI package.
  */
 
-import type { Logger } from "@oyinlola141/lattice-logger";
+import type { Logger } from "@zudo/logger";
 
 /* -------------------------------------------------------------------------- */
 /* Core CLI Types                                                             */

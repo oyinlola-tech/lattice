@@ -1,13 +1,13 @@
 /**
  * HTTP middleware error types.
  *
- * Extends the shared MiddlewareError from @oyinlola141/lattice-errors with
+ * Extends the shared MiddlewareError from @zudo/errors with
  * HTTP-specific middleware error information.
  *
  * @module httpMiddleware/errors
  */
 
-import { BaseError } from "@oyinlola141/lattice-errors";
+import { BaseError } from "@zudo/errors";
 
 /* -------------------------------------------------------------------------- */
 /* Errors                                                                     */

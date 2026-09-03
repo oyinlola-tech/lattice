@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configEntry
+ * @zudo/config/configEntry
  *
  * Configuration entry types and value definitions.
  */

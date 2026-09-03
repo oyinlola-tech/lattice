@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-errors/infrastructure
+ * @zudo/errors/infrastructure
  *
  * Infrastructure error types (database, HTTP, network, etc.).
  */

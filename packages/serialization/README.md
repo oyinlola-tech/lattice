@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-serialization
+# @zudo/serialization
 
 Data translation layer with JSON serializer, type transformers, envelopes, and registry for Lattice applications.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-serialization
+npm install @zudo/serialization
 ```
 
 ## Quick Start
 
 ```typescript
-import { createSerializer } from "@oyinlola141/lattice-serialization";
+import { createSerializer } from "@zudo/serialization";
 
 const serializer = createSerializer({
   format: "json",

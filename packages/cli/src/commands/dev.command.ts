@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Dev Command
+ * zudo-cli — Dev Command
  *
  * The `lattice dev` command.
  * Starts development servers based on project configuration.

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-docs/utils
+ * @zudo/docs/utils
  *
  * Utility helpers for document ID normalization, link resolution, and markdown parsing.
  */

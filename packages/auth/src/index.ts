@@ -1,12 +1,12 @@
 /**
- * @oyinlola141/lattice-auth
+ * @zudo/auth
  *
  * Authentication and authorization services for the Lattice framework.
  *
  * Provides JWT token management (access + refresh), password hashing (scrypt),
  * session management, RBAC (role-based access control), and auth utilities.
  *
- * @module @oyinlola141/lattice-auth
+ * @module @zudo/auth
  */
 
 export * from "./authTypes/index.js";

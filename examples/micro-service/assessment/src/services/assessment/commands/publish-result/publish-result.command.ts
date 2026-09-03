@@ -1,4 +1,4 @@
-import { Command } from "@oyinlola141/lattice-cqrs";
+import { Command } from "@zudo/cqrs";
 import type { PublishResultDto } from "../../../../dtos/index.js";
 
 export const PUBLISH_RESULT_COMMAND = "result.publish" as const;

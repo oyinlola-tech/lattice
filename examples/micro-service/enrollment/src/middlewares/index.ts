@@ -1,4 +1,4 @@
-import type { Logger } from "@oyinlola141/lattice-logger";
+import type { Logger } from "@zudo/logger";
 
 /** Context passed to each middleware invocation. */
 export interface MiddlewareContext {

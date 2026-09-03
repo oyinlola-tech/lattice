@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cache — Constants
+ * @zudo/cache — Constants
  *
  * Default values, limits, and magic numbers used across the cache package.
  */

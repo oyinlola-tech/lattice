@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpHeaders
+ * @zudo/http/httpHeaders
  *
  * HTTP headers abstraction and utilities.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Modular Monolith Template
+ * zudo-cli — Modular Monolith Template
  *
  * Generated structure:
  * ```
@@ -47,18 +47,18 @@ export function generateModularMonolithFiles(
       : ["identity", "enrollment", "assessment"];
 
   const deps = [
-    "@oyinlola141/lattice-core",
-    "@oyinlola141/lattice-container",
-    "@oyinlola141/lattice-config",
-    "@oyinlola141/lattice-logger",
-    "@oyinlola141/lattice-errors",
-    "@oyinlola141/lattice-constants",
-    "@oyinlola141/lattice-types",
-    "@oyinlola141/lattice-validation",
-    "@oyinlola141/lattice-cqrs",
-    "@oyinlola141/lattice-events",
-    "@oyinlola141/lattice-messaging",
-    "@oyinlola141/lattice-http",
+    "@zudo/core",
+    "@zudo/container",
+    "@zudo/config",
+    "@zudo/logger",
+    "@zudo/errors",
+    "@zudo/constants",
+    "@zudo/types",
+    "@zudo/validation",
+    "@zudo/cqrs",
+    "@zudo/events",
+    "@zudo/messaging",
+    "@zudo/http",
   ];
 
   const devDeps = ["tsx", "typescript", "@types/node", "vitest"];
@@ -107,8 +107,7 @@ export function generateModularMonolithFiles(
 }
 `;
 
-  files["lattice.config.ts"] =
-    `import { defineConfig } from "@oyinlola141/lattice-config";
+  files["lattice.config.ts"] = `import { defineConfig } from "@zudo/config";
 
 export default defineConfig({
   application: {
@@ -174,8 +173,8 @@ MIT
   files["src/index.ts"] = `export { createApp } from "./app.js";
 `;
 
-  files["src/app.ts"] = `import { logger } from "@oyinlola141/lattice-logger";
-import { createContainer } from "@oyinlola141/lattice-container";
+  files["src/app.ts"] = `import { logger } from "@zudo/logger";
+import { createContainer } from "@zudo/container";
 
 export async function createApp() {
   const log = logger.child({ service: "app" });
@@ -196,7 +195,7 @@ export async function createApp() {
 `;
 
   files["src/server.ts"] = `import { createApp } from "./app.js";
-import { createRuntime } from "@oyinlola141/lattice-runtime";
+import { createRuntime } from "@zudo/runtime";
 
 const app = await createApp();
 
@@ -248,7 +247,7 @@ process.on("SIGTERM", async () => {
 `;
 
     files[`src/modules/${modName}/${modName}.module.ts`] =
-      `import { logger } from "@oyinlola141/lattice-logger";
+      `import { logger } from "@zudo/logger";
 
 export class ${modNamePascal}Module {
   private readonly log = logger.child({ module: "${modName}" });

@@ -1,4 +1,4 @@
-# @oyinlola141/lattice-types
+# @zudo/types
 
 ## 0.1.2
 

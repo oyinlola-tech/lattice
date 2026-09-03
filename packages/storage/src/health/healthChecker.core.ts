@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-storage — Health Checker
+ * @zudo/storage — Health Checker
  *
  * Aggregates health checks from multiple storage components.
  */

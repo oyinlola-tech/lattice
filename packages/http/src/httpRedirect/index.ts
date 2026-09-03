@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpRedirect
+ * @zudo/http/httpRedirect
  *
  * HTTP httpRedirect module.
  */

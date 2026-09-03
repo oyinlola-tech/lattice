@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Integration Generator
+ * zudo-cli — Integration Generator
  *
  * Generates integration files between frontend and backend (API client, CORS, env files, proxy).
  */

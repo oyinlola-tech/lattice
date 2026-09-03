@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-testing — HTTP response builder for testing.
+ * @zudo/testing — HTTP response builder for testing.
  *
  * Provides a fluent API for constructing test HTTP responses.
  */

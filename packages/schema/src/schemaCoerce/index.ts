@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/coerce
+ * @zudo/schema/coerce
  *
  * Explicit coercion schemas for type conversion.
  */

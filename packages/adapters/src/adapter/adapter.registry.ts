@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/adapter
+ * @zudo/adapters/adapter
  *
  * Adapter registry — manages adapter registration, lookup, and lifecycle.
  */
@@ -9,7 +9,7 @@ import type { AdapterCapabilities } from "../capabilities/capabilities.type.js";
 import {
   AdapterAlreadyRegisteredError,
   AdapterNotFoundError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /**
  * Registry for Lattice adapters.

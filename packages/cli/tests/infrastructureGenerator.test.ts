@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Infrastructure Generator Tests
+ * zudo-cli — Infrastructure Generator Tests
  *
  * Tests for InfrastructureGenerator.
  */

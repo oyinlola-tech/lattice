@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — CLI Command Tests
+ * zudo-cli — CLI Command Tests
  *
  * Tests for CLICommandRegistry, CLICommandBuilder, createCommand,
  * command factory, validateCommand, and sortCommands.

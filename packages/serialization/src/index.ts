@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-serialization
+ * @zudo/serialization
  *
  * Data translation layer for the Lattice framework.
  *
@@ -9,7 +9,7 @@
  *
  * @example
  * ```typescript
- * import { createSerializer, JSONSerializer } from "@oyinlola141/lattice-serialization";
+ * import { createSerializer, JSONSerializer } from "@zudo/serialization";
  *
  * // Fast path (default) — nearly zero overhead over native JSON
  * const serializer = createSerializer("json");

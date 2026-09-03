@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — CSRF Protection
+ * @zudo/security — CSRF Protection
  *
  * Generates and validates CSRF tokens for state-changing requests.
  */

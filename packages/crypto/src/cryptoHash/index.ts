@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-crypto/cryptoHash
+ * @zudo/crypto/cryptoHash
  *
  * Hashing algorithms (SHA-256, SHA-512, etc.).
  */

@@ -16,4 +16,4 @@ export {
   EventBusState,
   type EventBusEvent,
   type EventBusListener,
-} from "@oyinlola141/lattice-events";
+} from "@zudo/events";

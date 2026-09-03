@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cache — Cache Service
+ * @zudo/cache — Cache Service
  * High-level cache service combining adapter, serializer, key builder, tags, invalidation, locking, and metrics.
  */
 

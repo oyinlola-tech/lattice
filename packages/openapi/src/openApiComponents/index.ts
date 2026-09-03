@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-openapi/openApiComponents
+ * @zudo/openapi/openApiComponents
  *
  * Reusable OpenAPI component helpers.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Fullstack Composer Tests
+ * zudo-cli — Fullstack Composer Tests
  *
  * Tests for FullstackComposer and FrontendGenerator.
  */

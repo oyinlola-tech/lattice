@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — API Style Prompt
+ * zudo-cli — API Style Prompt
  *
  * Prompts for API style selection.
  */

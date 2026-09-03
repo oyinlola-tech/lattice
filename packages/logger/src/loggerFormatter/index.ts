@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerFormatter
+ * @zudo/logger/loggerFormatter
  *
  * Log output formatting and serialization.
  */

@@ -1,4 +1,4 @@
-import { CommandBus, QueryBus } from "@oyinlola141/lattice-cqrs";
+import { CommandBus, QueryBus } from "@zudo/cqrs";
 import type { ProductRepository } from "./domain/repositories/product.repository.js";
 import { InMemoryProductRepository } from "./infrastructure/repositories/in-memory-product.repository.js";
 import { CreateProductHandler } from "./application/commands/create-product/create-product.handler.js";

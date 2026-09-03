@@ -1,10 +1,10 @@
 /**
- * @oyinlola141/lattice-schema/types
+ * @zudo/schema/types
  *
  * Core types for the Lattice schema system.
  */
 
-import type { SchemaIssueCode } from "@oyinlola141/lattice-constants";
+import type { SchemaIssueCode } from "@zudo/constants";
 
 /** A single segment in a validation path. */
 export type SchemaPathSegment = string | number;

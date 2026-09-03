@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-docs/validator
+ * @zudo/docs/validator
  *
  * Document validation for IDs, links, metadata, and navigation.
  */

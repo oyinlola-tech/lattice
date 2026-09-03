@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema tests
+ * @zudo/schema tests
  *
  * Comprehensive tests for the schema definition and parsing engine.
  */

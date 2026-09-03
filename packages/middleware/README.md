@@ -1,11 +1,11 @@
-# @oyinlola141/lattice-middleware
+# @zudo/middleware
 
 Composable middleware pipeline with composition, timing, error handling, and context propagation.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-middleware
+npm install @zudo/middleware
 ```
 
 ## Quick Start
@@ -14,7 +14,7 @@ npm install @oyinlola141/lattice-middleware
 import {
   createMiddlewarePipeline,
   createTimeoutMiddleware,
-} from "@oyinlola141/lattice-middleware";
+} from "@zudo/middleware";
 
 const pipeline = createMiddlewarePipeline([
   createTimeoutMiddleware(5000),

@@ -1,4 +1,4 @@
-import { Command } from "@oyinlola141/lattice-cqrs";
+import { Command } from "@zudo/cqrs";
 import type { CreateNotificationDto } from "../../../../dtos/index.js";
 
 export class CreateNotificationCommand extends Command<"notifications.create"> {

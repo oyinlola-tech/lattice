@@ -4,7 +4,7 @@
  * Assert events, event types, and event payloads.
  */
 
-import type { Event } from "@oyinlola141/lattice-events";
+import type { Event } from "@zudo/events";
 
 import type { RecordedEvent } from "../testEventBus/testEventBus.core.js";
 

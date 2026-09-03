@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Frontend Prompts
+ * zudo-cli — Frontend Prompts
  *
  * Barrel exports for frontend prompts.
  */

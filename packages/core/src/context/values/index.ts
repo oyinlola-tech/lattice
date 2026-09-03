@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-core/context/values
+ * @zudo/core/context/values
  *
  * Immutable typed context value collection.
  */

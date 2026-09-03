@@ -1,4 +1,4 @@
-import { Command } from "@oyinlola141/lattice-cqrs";
+import { Command } from "@zudo/cqrs";
 import type { SubmitAssessmentDto } from "../../../../dtos/index.js";
 
 export const SUBMIT_ASSESSMENT_COMMAND = "assessment.submit" as const;

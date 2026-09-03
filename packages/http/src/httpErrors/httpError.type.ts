@@ -4,7 +4,7 @@
  * @module httpErrors/types
  */
 
-import type { ErrorMetadata } from "@oyinlola141/lattice-errors";
+import type { ErrorMetadata } from "@zudo/errors";
 
 /* -------------------------------------------------------------------------- */
 /* Types                                                                      */

@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-database
+# @zudo/database
 
 Database abstraction layer with clients, repositories, transactions, and query building for Lattice applications.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-database
+npm install @zudo/database
 ```
 
 ## Quick Start
 
 ```typescript
-import { createDatabaseClient } from "@oyinlola141/lattice-database";
+import { createDatabaseClient } from "@zudo/database";
 
 const client = await createDatabaseClient({
   connection: { url: "postgresql://localhost/mydb" },

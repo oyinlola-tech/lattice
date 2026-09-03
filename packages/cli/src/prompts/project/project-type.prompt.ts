@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Project Type Prompt
+ * zudo-cli — Project Type Prompt
  *
  * Prompts for the project type.
  */

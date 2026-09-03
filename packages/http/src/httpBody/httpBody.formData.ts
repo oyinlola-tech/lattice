@@ -616,7 +616,7 @@ import {
   HttpFormDataError as HTTPFormDataError,
   HttpFormDataLimitError as HTTPFormDataLimitError,
   HttpFormDataParseError as HTTPFormDataParseError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 export { HTTPFormDataError, HTTPFormDataLimitError, HTTPFormDataParseError };
 

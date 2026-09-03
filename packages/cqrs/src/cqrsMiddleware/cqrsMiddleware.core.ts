@@ -3,7 +3,7 @@ import {
   ErrorCategory,
   ErrorCode,
   ErrorSeverity,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 import type {
   Command,

@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-adapters",
+  "name": "@zudo/adapters",
   "version": "0.1.5",
   "description": "Boundary layer between Lattice and external platforms — adapter contracts, registry, capabilities, and transport abstractions.",
   "license": "MIT",
@@ -27,10 +27,10 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@oyinlola141/lattice-errors": "workspace:*",
-    "@oyinlola141/lattice-constants": "workspace:*",
-    "@oyinlola141/lattice-types": "workspace:*",
-    "@oyinlola141/lattice-lifecycle": "workspace:*"
+    "@zudo/errors": "workspace:*",
+    "@zudo/constants": "workspace:*",
+    "@zudo/types": "workspace:*",
+    "@zudo/lifecycle": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

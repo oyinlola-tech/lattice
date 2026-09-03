@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-events
+# @zudo/events
 
 Event-driven architecture with event bus, emitter, middleware, and registry for decoupled communication.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-events
+npm install @zudo/events
 ```
 
 ## Quick Start
 
 ```typescript
-import { createEventBus } from "@oyinlola141/lattice-events";
+import { createEventBus } from "@zudo/events";
 
 const bus = createEventBus();
 

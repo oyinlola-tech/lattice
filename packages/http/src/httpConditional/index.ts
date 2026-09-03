@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpConditional
+ * @zudo/http/httpConditional
  *
  * HTTP httpConditional module.
  */

@@ -1,13 +1,10 @@
 /**
- * @oyinlola141/lattice-cli — Execution Errors
+ * zudo-cli — Execution Errors
  *
  * Error classes for runtime execution, permissions, and interrupts.
  */
 
-import {
-  AuthorizationError,
-  ConfigurationError,
-} from "@oyinlola141/lattice-errors";
+import { AuthorizationError, ConfigurationError } from "@zudo/errors";
 import { CLIError } from "./cliError.base.js";
 import {
   CLI_ERROR_CODES,
@@ -43,7 +40,7 @@ export class CLIExecutionError extends CLIError {
 
 /**
  * Thrown when a CLI operation is not permitted.
- * Extends `AuthorizationError` from `@oyinlola141/lattice-errors`.
+ * Extends `AuthorizationError` from `@zudo/errors`.
  */
 export class CLIPermissionError extends AuthorizationError {
   public readonly exitCode: number;
@@ -93,7 +90,7 @@ export class CLIInterruptedError extends CLIError {
 
 /**
  * Thrown when CLI configuration is invalid.
- * Extends `ConfigurationError` from `@oyinlola141/lattice-errors`.
+ * Extends `ConfigurationError` from `@zudo/errors`.
  */
 export class CLIConfigurationError extends ConfigurationError {
   public readonly exitCode: number;

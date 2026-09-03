@@ -1,7 +1,7 @@
 /**
  * HTTP client error classes.
  *
- * Re-exported from @oyinlola141/lattice-errors for convenience.
+ * Re-exported from @zudo/errors for convenience.
  *
  * @module httpClient/errors
  */
@@ -11,4 +11,4 @@ export {
   HttpClientTimeoutError,
   HttpClientAbortError,
   HttpClientNetworkError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";

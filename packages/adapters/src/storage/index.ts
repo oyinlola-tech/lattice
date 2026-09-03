@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/storage
+ * @zudo/adapters/storage
  *
  * Storage adapter contracts.
  */

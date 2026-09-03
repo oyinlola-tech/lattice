@@ -33,7 +33,7 @@ import { RegistryOperation } from "./containerRegistry.type.js";
 import {
   DuplicateRegistrationError,
   RegistrationNotFoundError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 import { describeRegistryToken } from "./containerRegistry.error.js";
 
 export class ContainerRegistry {

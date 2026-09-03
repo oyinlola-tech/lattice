@@ -5,13 +5,13 @@
  * for loading configuration in tests.
  */
 
-import { ConfigManager } from "@oyinlola141/lattice-config";
+import { ConfigManager } from "@zudo/config";
 
 import type {
   ConfigValue,
   ConfigManagerOptions,
   ConfigManagerStatus,
-} from "@oyinlola141/lattice-config";
+} from "@zudo/config";
 
 /**
  * A test configuration manager with convenience methods.

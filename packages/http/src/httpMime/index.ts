@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpMime
+ * @zudo/http/httpMime
  *
  * HTTP httpMime module.
  */

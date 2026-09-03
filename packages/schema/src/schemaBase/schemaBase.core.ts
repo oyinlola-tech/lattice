@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/base
+ * @zudo/schema/base
  *
  * Abstract base class for all Lattice schemas.
  * Defines the core parsing pipeline: Input → validate → Output.
@@ -13,7 +13,7 @@ import type {
 } from "./schemaBase.type.js";
 import { createParseContext } from "./schemaBase.context.js";
 import { schemaSuccess, schemaFailure } from "./schemaBase.result.js";
-import { SchemaError } from "@oyinlola141/lattice-errors";
+import { SchemaError } from "@zudo/errors";
 
 /**
  * Base schema class. All schema types extend this.

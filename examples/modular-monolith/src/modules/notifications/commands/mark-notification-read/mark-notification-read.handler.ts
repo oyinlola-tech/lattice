@@ -1,4 +1,4 @@
-import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import { CommandHandler } from "@zudo/cqrs";
 import type { MarkNotificationReadCommand } from "./mark-notification-read.command.js";
 import type { NotificationRepository } from "../../../../repositories/notification.repository.js";
 

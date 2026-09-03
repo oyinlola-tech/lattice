@@ -1,4 +1,4 @@
-import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import { CommandHandler } from "@zudo/cqrs";
 import type { UpdateArticleCommand } from "./update-article.command.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
 import { NotFoundError, ForbiddenError } from "../../../../errors/index.js";

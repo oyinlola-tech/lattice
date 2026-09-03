@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-observability — Redaction
+ * @zudo/observability — Redaction
  *
  * Sensitive field redaction for logs and traces.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-container/containerLifecycle
+ * @zudo/container/containerLifecycle
  *
  * Container lifecycle management and scoping.
  */

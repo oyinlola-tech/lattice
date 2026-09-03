@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/scheduler
+ * @zudo/adapters/scheduler
  *
  * Scheduler adapter contracts — bridges Lattice to scheduling providers.
  */

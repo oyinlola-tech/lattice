@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Model Generator
+ * zudo-cli — Model Generator
  *
  * Generates model files.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — CLI Commands
+ * zudo-cli — CLI Commands
  *
  * Command registry, builder, factory, and validation utilities.
  */

@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpAdapter
+ * @zudo/http/httpAdapter
  *
  * HTTP adapter abstraction and implementations.
  */

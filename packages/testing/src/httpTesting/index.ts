@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-testing — HTTP testing helpers.
+ * @zudo/testing — HTTP testing helpers.
  *
  * Request and response builders for HTTP testing.
  */

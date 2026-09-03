@@ -1,13 +1,13 @@
 /**
- * @oyinlola141/lattice-queue — Serializer
+ * @zudo/queue — Serializer
  *
- * Job payload serialization using @oyinlola141/lattice-serialization's JSONSerializer.
+ * Job payload serialization using @zudo/serialization's JSONSerializer.
  */
 
 import type { Serializer } from "./serializer.type.js";
-import { JSONSerializer } from "@oyinlola141/lattice-serialization";
+import { JSONSerializer } from "@zudo/serialization";
 
-/** Default JSON serializer backed by @oyinlola141/lattice-serialization. */
+/** Default JSON serializer backed by @zudo/serialization. */
 export const JsonSerializer: Serializer = Object.freeze({
   serialize<T>(data: T): string {
     return new JSONSerializer().serialize(data);

@@ -1,14 +1,11 @@
 /**
- * @oyinlola141/lattice-lifecycle/state-machine
+ * @zudo/lifecycle/state-machine
  *
  * Lifecycle state machine — validates transitions and tracks current state.
  */
 
-import {
-  LifecycleState,
-  LIFECYCLE_VALID_TRANSITIONS,
-} from "@oyinlola141/lattice-constants";
-import { LifecycleStateError } from "@oyinlola141/lattice-errors";
+import { LifecycleState, LIFECYCLE_VALID_TRANSITIONS } from "@zudo/constants";
+import { LifecycleStateError } from "@zudo/errors";
 
 /**
  * Manages lifecycle state transitions for a single entity.

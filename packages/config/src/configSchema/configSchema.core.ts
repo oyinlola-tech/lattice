@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configSchema/configSchema.core
+ * @zudo/config/configSchema/configSchema.core
  *
  * Re-exports from type and validator modules for backward compatibility.
  */

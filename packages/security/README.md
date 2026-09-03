@@ -1,21 +1,17 @@
-# @oyinlola141/lattice-security
+# @zudo/security
 
 Security primitives for input validation, header security, CORS, CSRF protection, rate limiting, and security headers.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-security
+npm install @zudo/security
 ```
 
 ## Quick Start
 
 ```typescript
-import {
-  createRateLimiter,
-  cors,
-  securityHeaders,
-} from "@oyinlola141/lattice-security";
+import { createRateLimiter, cors, securityHeaders } from "@zudo/security";
 
 const limiter = createRateLimiter({ windowMs: 60000, max: 100 });
 

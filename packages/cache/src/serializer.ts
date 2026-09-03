@@ -1,13 +1,13 @@
 /**
- * @oyinlola141/lattice-cache — Serializer
+ * @zudo/cache — Serializer
  *
  * Provides serializer implementations for converting cache values
- * to and from storable representations. Delegates to @oyinlola141/lattice-serialization
+ * to and from storable representations. Delegates to @zudo/serialization
  * for the actual JSON serialization with type preservation.
  */
 
 import type { CacheSerializer } from "./types.js";
-import { JSONSerializer } from "@oyinlola141/lattice-serialization";
+import { JSONSerializer } from "@zudo/serialization";
 
 /* -------------------------------------------------------------------------- */
 /* JSON Serializer                                                            */
@@ -16,7 +16,7 @@ import { JSONSerializer } from "@oyinlola141/lattice-serialization";
 /**
  * Serializes values to JSON strings and deserializes them back.
  *
- * Uses @oyinlola141/lattice-serialization's JSONSerializer for type preservation
+ * Uses @zudo/serialization's JSONSerializer for type preservation
  * (Date, BigInt, Map, Set, Uint8Array) when configured.
  */
 export class JsonCacheSerializer implements CacheSerializer<unknown, string> {

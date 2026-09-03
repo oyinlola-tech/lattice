@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Workspace Prompts
+ * zudo-cli — Workspace Prompts
  *
  * Barrel exports for workspace prompts.
  */

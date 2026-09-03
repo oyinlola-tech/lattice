@@ -1,5 +1,5 @@
 import type { CacheKey } from "./types-keys.js";
-import type { MaybePromise as BaseMaybePromise } from "@oyinlola141/lattice-types";
+import type { MaybePromise as BaseMaybePromise } from "@zudo/types";
 import type {
   CacheDeleteOptions,
   CacheGetOptions,

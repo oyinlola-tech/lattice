@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-config/configManager
+ * @zudo/config/configManager
  *
  * Configuration lifecycle management and orchestration.
  */

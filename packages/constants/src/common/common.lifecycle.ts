@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-constants/lifecycle
+ * @zudo/constants/lifecycle
  *
  * Lifecycle states, phases, valid transitions, and defaults.
  */

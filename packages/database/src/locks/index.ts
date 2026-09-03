@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-database — Locks
+ * @zudo/database — Locks
  *
  * Advisory and row-level database locking.
  */

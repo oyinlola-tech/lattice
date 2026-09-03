@@ -70,7 +70,7 @@ import {
   HttpResponseWriterError as ResponseWriterError,
   ResponseAlreadySentError as ResponseAlreadySentError,
   UnsupportedResponseBodyError as UnsupportedResponseBodyError,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 export {
   ResponseWriterError,

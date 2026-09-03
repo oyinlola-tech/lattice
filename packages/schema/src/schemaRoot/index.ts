@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/root
+ * @zudo/schema/root
  *
  * The schema namespace entry point.
  */

@@ -8,7 +8,7 @@ import {
   AuthorizationError,
   ErrorCode,
   type ErrorMetadata,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /**
  * Base error for all tenancy-related failures.

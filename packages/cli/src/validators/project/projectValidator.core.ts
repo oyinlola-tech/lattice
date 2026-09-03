@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Project Validator
+ * zudo-cli — Project Validator
  *
  * Validates a generated project by checking structure, configuration, and buildability.
  */

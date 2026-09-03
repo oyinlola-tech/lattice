@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-core/errors
+ * @zudo/core/errors
  *
  * Core error types and error handling utilities.
  */

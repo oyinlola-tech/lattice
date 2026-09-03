@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-crypto/cryptoKey
+ * @zudo/crypto/cryptoKey
  *
  * Cryptographic key types and management.
  */

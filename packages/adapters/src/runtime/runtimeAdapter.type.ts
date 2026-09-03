@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-adapters/runtime
+ * @zudo/adapters/runtime
  *
  * Runtime adapter contracts — bridges Lattice to execution environments.
  *

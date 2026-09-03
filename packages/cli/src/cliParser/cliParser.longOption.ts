@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — Long Option Parser
+ * zudo-cli — Long Option Parser
  *
  * Parses `--option`, `--option=value`, and `--no-option` style arguments.
  */

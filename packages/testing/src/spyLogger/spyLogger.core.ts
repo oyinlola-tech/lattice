@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-testing — Spy logger for testing.
+ * @zudo/testing — Spy logger for testing.
  *
  * Records all log calls for assertion without side effects.
  */
@@ -9,7 +9,7 @@ import type {
   LogMetadata,
   ChildLoggerOptions,
   LoggerContext,
-} from "@oyinlola141/lattice-logger";
+} from "@zudo/logger";
 import type { LogCall, SpyLogger } from "./spyLogger.type.js";
 
 function recordCall(

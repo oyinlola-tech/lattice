@@ -1,10 +1,10 @@
-import type { Logger } from "@oyinlola141/lattice-logger";
+import type { Logger } from "@zudo/logger";
 
-import type { EventBus } from "@oyinlola141/lattice-events";
+import type { EventBus } from "@zudo/events";
 
-import type { Container } from "@oyinlola141/lattice-container";
+import type { Container } from "@zudo/container";
 
-import type { Module } from "@oyinlola141/lattice-core";
+import type { Module } from "@zudo/core";
 
 import type {
   RuntimeState,
@@ -49,7 +49,7 @@ import {
   createReadinessEventPayload,
 } from "../runtimeEvents/index.js";
 
-import { createEvent } from "@oyinlola141/lattice-events";
+import { createEvent } from "@zudo/events";
 
 import {
   RuntimeStartError,

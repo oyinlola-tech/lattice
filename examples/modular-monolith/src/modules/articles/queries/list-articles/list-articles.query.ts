@@ -1,4 +1,4 @@
-import { Query } from "@oyinlola141/lattice-cqrs";
+import { Query } from "@zudo/cqrs";
 import type { TopicId } from "../../../../types/index.js";
 import type { ArticleStatus } from "../../../../enums/index.js";
 

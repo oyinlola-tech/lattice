@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — Tests
+ * @zudo/security — Tests
  *
  * Comprehensive tests for all security modules.
  */

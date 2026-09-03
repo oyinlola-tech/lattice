@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-logger/loggerFactory
+ * @zudo/logger/loggerFactory
  *
  * Logger creation and configuration.
  */

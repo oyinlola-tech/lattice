@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-auth",
+  "name": "@zudo/auth",
   "version": "0.1.3",
   "description": "Authentication and authorization services for the Lattice framework — JWT, sessions, RBAC, OAuth2, and password management.",
   "license": "MIT",
@@ -25,9 +25,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@oyinlola141/lattice-errors": "workspace:*",
-    "@oyinlola141/lattice-constants": "workspace:*",
-    "@oyinlola141/lattice-permissions": "workspace:*"
+    "@zudo/errors": "workspace:*",
+    "@zudo/constants": "workspace:*",
+    "@zudo/permissions": "workspace:*"
   },
   "engines": {
     "node": ">=24.0.0"

@@ -1,17 +1,17 @@
-# @oyinlola141/lattice-storage
+# @zudo/storage
 
 Storage abstractions including database, object storage, repository, serialization, locking, and lifecycle.
 
 ## Installation
 
 ```bash
-npm install @oyinlola141/lattice-storage
+npm install @zudo/storage
 ```
 
 ## Quick Start
 
 ```typescript
-import { createStorage } from "@oyinlola141/lattice-storage";
+import { createStorage } from "@zudo/storage";
 
 const storage = createStorage({
   database: { url: process.env.DATABASE_URL },

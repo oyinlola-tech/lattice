@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-events/eventErrors
+ * @zudo/events/eventErrors
  *
  * Event system error types.
  */

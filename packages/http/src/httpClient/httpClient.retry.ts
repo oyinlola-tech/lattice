@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http — HTTP client retry logic.
+ * @zudo/http — HTTP client retry logic.
  *
  * Handles retry configuration, status-based retry decisions,
  * exponential backoff, and delay utilities.

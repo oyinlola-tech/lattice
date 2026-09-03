@@ -1,5 +1,5 @@
 {
-  "name": "@oyinlola141/lattice-crypto",
+  "name": "@zudo/crypto",
   "version": "0.1.3",
   "description": "Cryptographic primitives for hashing, encryption, tokens, and secure random generation.",
   "type": "module",
@@ -26,8 +26,8 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@oyinlola141/lattice-constants": "workspace:*",
-    "@oyinlola141/lattice-errors": "workspace:*"
+    "@zudo/constants": "workspace:*",
+    "@zudo/errors": "workspace:*"
   },
   "license": "MIT",
   "devDependencies": {

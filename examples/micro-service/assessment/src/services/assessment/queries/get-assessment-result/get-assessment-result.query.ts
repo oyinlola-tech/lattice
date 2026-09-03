@@ -1,4 +1,4 @@
-import { Query } from "@oyinlola141/lattice-cqrs";
+import { Query } from "@zudo/cqrs";
 
 export const GET_ASSESSMENT_RESULT_QUERY = "assessment.result.get" as const;
 

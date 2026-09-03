@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cache — Metrics
+ * @zudo/cache — Metrics
  * Tracks cache operation metrics including hit/miss ratios, latency histograms, and error counts.
  */
 

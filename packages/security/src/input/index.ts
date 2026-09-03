@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-security — Input Sanitization Barrel
+ * @zudo/security — Input Sanitization Barrel
  */
 
 export {

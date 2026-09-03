@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-validation/validationFactory
+ * @zudo/validation/validationFactory
  *
  * Validation schema factory functions.
  */

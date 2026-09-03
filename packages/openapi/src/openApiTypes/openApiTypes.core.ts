@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-openapi/openApiTypes
+ * @zudo/openapi/openApiTypes
  *
  * All OpenAPI specification types re-exported from split modules.
  */

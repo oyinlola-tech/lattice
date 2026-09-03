@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-events
+ * @zudo/events
  *
  * Event bus, emitter, middleware, and registry for the Lattice framework.
  */

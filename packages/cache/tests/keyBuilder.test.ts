@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cache — Key Builder Tests
+ * @zudo/cache — Key Builder Tests
  *
  * Tests for DefaultKeyBuilder, key validation, namespace scoping,
  * and prefix/separator configuration.

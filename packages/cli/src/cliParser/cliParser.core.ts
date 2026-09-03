@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-cli — CLI Parser
+ * zudo-cli — CLI Parser
  *
  * Parses CLI arguments into structured commands, options, and positional
  * arguments. Delegates option parsing to longOption and shortOption modules.

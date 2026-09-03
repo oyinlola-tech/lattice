@@ -1,7 +1,7 @@
-import { CommandHandler } from "@oyinlola141/lattice-cqrs";
+import { CommandHandler } from "@zudo/cqrs";
 import type { CreateArticleCommand } from "./create-article.command.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
-import type { EventBus } from "@oyinlola141/lattice-events";
+import type { EventBus } from "@zudo/events";
 import type { ArticleModel } from "../../../../models/article.model.js";
 import type { ArticleId } from "../../../../types/index.js";
 import { ArticleStatus } from "../../../../enums/index.js";

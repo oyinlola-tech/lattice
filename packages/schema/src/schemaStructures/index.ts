@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-schema/structures
+ * @zudo/schema/structures
  *
  * Complex schema types: object, array, tuple, record, map, set.
  */

@@ -1,4 +1,4 @@
-import { DatabaseError } from "@oyinlola141/lattice-errors";
+import { DatabaseError } from "@zudo/errors";
 
 import type {
   DatabaseClient,

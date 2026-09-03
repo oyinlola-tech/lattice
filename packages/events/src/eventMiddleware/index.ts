@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-events/eventMiddleware
+ * @zudo/events/eventMiddleware
  *
  * Event middleware pipeline and processing.
  */

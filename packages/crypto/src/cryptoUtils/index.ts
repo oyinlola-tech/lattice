@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-crypto/cryptoUtils
+ * @zudo/crypto/cryptoUtils
  *
  * Utility functions for encoding, decoding, and validating
  * binary data and text representations.

@@ -4,7 +4,7 @@ import {
   ErrorCode,
   ErrorSeverity,
   type ErrorMetadata,
-} from "@oyinlola141/lattice-errors";
+} from "@zudo/errors";
 
 /**
  * Base error for failures originating from the CQRS package.

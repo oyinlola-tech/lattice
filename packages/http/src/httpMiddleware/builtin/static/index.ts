@@ -1,5 +1,5 @@
 /**
- * @oyinlola141/lattice-http/httpMiddleware/builtin/static
+ * @zudo/http/httpMiddleware/builtin/static
  *
  * Static file serving middleware.
  */
