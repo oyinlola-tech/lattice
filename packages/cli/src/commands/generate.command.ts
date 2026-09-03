@@ -103,7 +103,7 @@ export async function runGenerateCommand(context: CLIContext): Promise<void> {
   const result = await runSchematic(
     schematic,
     name,
-    { service, module: moduleName, dryRun, architecture },
+    { service, module: moduleName, dryRun, architecture: architecture ?? undefined },
     cwd,
   );
 

@@ -6,14 +6,19 @@
 
 export {
   QueryBuilder,
-  createQueryBuilder,
-  type QueryCondition,
-  type QueryFilter,
-  type QueryOperator,
-  type QueryBuilderState,
 } from "./queryBuilder.core.js";
 
-export { cloneFilter } from "./queryBuilder.factory.js";
+export {
+  createQueryBuilder,
+  cloneFilter,
+} from "./queryBuilder.factory.js";
+
+export type {
+  QueryCondition,
+  QueryFilter,
+  QueryOperator,
+  QueryBuilderState,
+} from "./queryBuilder.type.js";
 
 export {
   equals,

@@ -1,4 +1,5 @@
 import type { QueryBuilderState, QueryFilter } from "./queryBuilder.type.js";
+import { QueryBuilder } from "./queryBuilder.core.js";
 
 /**
  * Creates a new query builder.

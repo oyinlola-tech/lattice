@@ -2,7 +2,7 @@ import type {
   QueryCondition,
   QueryFilter,
   QueryOperator,
-} from "./queryBuilder.core.js";
+} from "./queryBuilder.type.js";
 
 /**
  * Creates an equality filter.
