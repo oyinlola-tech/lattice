@@ -18,16 +18,16 @@
   },
   "files": [
     "dist",
-    "src/scripts/postinstall.js"
+    "src/scripts/postinstall.cjs"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && mkdir -p dist/src/scripts && cp src/scripts/postinstall.cjs dist/src/scripts/postinstall.cjs",
     "dev": "tsx src/bin/lattice.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest",
-    "postinstall": "node src/scripts/postinstall.js"
+    "postinstall": "node src/scripts/postinstall.cjs"
   },
   "dependencies": {
     "@clack/prompts": "^1.7.0",

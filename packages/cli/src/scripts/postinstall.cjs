@@ -4,24 +4,22 @@
  * Runs after `npm install -g` to warn users if a newer version is available.
  */
 
-import { readFileSync } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+const fs = require("node:fs");
+const path = require("node:path");
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const packageJsonPath = join(__dirname, "package.json");
+const packageJsonPath = path.join(__dirname, "..", "..", "package.json");
 
-function getInstalledVersion(): string {
+function getInstalledVersion() {
   try {
-    const content = readFileSync(packageJsonPath, "utf-8");
-    const pkg = JSON.parse(content) as { version?: string };
-    return pkg.version ?? "unknown";
+    const content = fs.readFileSync(packageJsonPath, "utf-8");
+    const pkg = JSON.parse(content);
+    return pkg.version || "unknown";
   } catch {
     return "unknown";
   }
 }
 
-async function checkLatestVersion(packageName: string): Promise<string | null> {
+async function checkLatestVersion(packageName) {
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
@@ -36,14 +34,14 @@ async function checkLatestVersion(packageName: string): Promise<string | null> {
       return null;
     }
 
-    const data = (await response.json()) as { version?: string };
-    return data.version ?? null;
+    const data = await response.json();
+    return data.version || null;
   } catch {
     return null;
   }
 }
 
-async function main(): Promise<void> {
+async function main() {
   const installed = getInstalledVersion();
   const latest = await checkLatestVersion("@oyinlola141/lattice-cli");
 
