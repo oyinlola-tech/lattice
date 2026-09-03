@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/schema/modifiers/refine
+ * @zudolib/schema/modifiers/refine
  *
  * Refine schema — adds custom synchronous validation logic.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudoliblib/constants";
+import { SchemaIssueCode } from "@zudolib/constants";
 
 /**
  * Schema that adds a custom refinement check to another schema.

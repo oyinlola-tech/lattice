@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/config
+ * @zudolib/config
  *
  * Layered configuration with sources, resolvers, and schema validation for the Zudolib framework.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/logger/loggerTransport
+ * @zudolib/logger/loggerTransport
  *
  * Log transport implementations (console, file, etc.).
  */

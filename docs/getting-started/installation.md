@@ -10,9 +10,9 @@
 Install any Zudolib package from npm:
 
 ```bash
-npm install @zudoliblib/core
-npm install @zudoliblib/http
-npm install @zudoliblib/events
+npm install @zudolib/core
+npm install @zudolib/http
+npm install @zudolib/events
 ```
 
 ## Install the CLI

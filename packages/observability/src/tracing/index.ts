@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Tracing
+ * @zudolib/observability — Tracing
  *
  * Distributed tracing with spans, context, and exporters.
  */

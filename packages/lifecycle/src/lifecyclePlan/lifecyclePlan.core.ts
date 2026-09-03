@@ -1,10 +1,10 @@
 /**
- * @zudoliblib/lifecycle/plan
+ * @zudolib/lifecycle/plan
  *
  * Lifecycle execution planner — builds startup/shutdown stages from dependency graph.
  */
 
-import type { LifecyclePhase } from "@zudoliblib/constants";
+import type { LifecyclePhase } from "@zudolib/constants";
 import type { LifecycleRegistration } from "../lifecycleComponent/lifecycleComponent.type.js";
 import {
   DependencyGraph,

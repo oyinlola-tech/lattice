@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpHeaders/cacheControl
+ * @zudolib/http/httpHeaders/cacheControl
  *
  * HTTP headers cacheControl utilities.
  */

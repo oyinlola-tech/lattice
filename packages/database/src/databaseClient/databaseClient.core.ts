@@ -1,11 +1,11 @@
 /**
- * @zudoliblib/database — Database Client Core
+ * @zudolib/database — Database Client Core
  *
  * Prisma-backed database client implementation.
  */
 
 import { PrismaClient, Prisma } from "@prisma/client";
-import { DatabaseError } from "@zudoliblib/errors";
+import { DatabaseError } from "@zudolib/errors";
 import type {
   DatabaseClient as DatabaseClientContract,
   DatabaseConnectionOptions,

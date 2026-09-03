@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpConditional
+ * @zudolib/http/httpConditional
  *
  * HTTP httpConditional module.
  */

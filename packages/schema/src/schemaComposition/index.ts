@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/schema/composition
+ * @zudolib/schema/composition
  *
  * Schema composition: union, discriminated union, intersection, lazy, enum.
  */

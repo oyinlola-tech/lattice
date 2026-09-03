@@ -31,10 +31,10 @@
   },
   "dependencies": {
     "@clack/prompts": "^1.7.0",
-    "@zudoliblib/config": "workspace:*",
-    "@zudoliblib/core": "workspace:*",
-    "@zudoliblib/errors": "workspace:*",
-    "@zudoliblib/logger": "workspace:*"
+    "@zudolib/config": "workspace:*",
+    "@zudolib/core": "workspace:*",
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/logger": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",

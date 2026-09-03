@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/events/eventEmitter
+ * @zudolib/events/eventEmitter
  *
  * Event emission and handler dispatch.
  */

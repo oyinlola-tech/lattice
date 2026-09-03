@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/adapters/storage
+ * @zudolib/adapters/storage
  *
  * Storage adapter contracts — bridges Zudolib storage to external providers.
  *

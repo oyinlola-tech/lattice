@@ -7,7 +7,7 @@ Zudolib applications are composed of modules.
 A module is a self-contained unit of functionality with explicit imports, exports, providers, and controllers.
 
 ```typescript
-import { Module } from "@zudoliblib/core";
+import { Module } from "@zudolib/core";
 
 @Module({
   imports: [DatabaseModule, EventsModule],

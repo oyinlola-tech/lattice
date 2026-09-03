@@ -9,7 +9,7 @@ import type {
 
 import { WorkerState } from "../jobTypes/jobTypes.type.js";
 
-import { WorkerLifecycleError } from "@zudoliblib/errors";
+import { WorkerLifecycleError } from "@zudolib/errors";
 
 /**
  * Creates a new Worker.

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/errors/documentation
+ * @zudolib/errors/documentation
  *
  * Documentation-specific error types.
  */

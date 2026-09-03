@@ -1,5 +1,5 @@
 {
-  "name": "@zudoliblib/auth",
+  "name": "@zudolib/auth",
   "version": "0.1.3",
   "description": "Authentication and authorization services for the Zudolib framework — JWT, sessions, RBAC, OAuth2, and password management.",
   "license": "MIT",
@@ -25,9 +25,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudoliblib/errors": "workspace:*",
-    "@zudoliblib/constants": "workspace:*",
-    "@zudoliblib/permissions": "workspace:*"
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/constants": "workspace:*",
+    "@zudolib/permissions": "workspace:*"
   },
   "engines": {
     "node": ">=24.0.0"

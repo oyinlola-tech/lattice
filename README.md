@@ -33,10 +33,10 @@ Use only what the application needs. Every package is independent.
 ```
 Application
      |
-     +-- @zudoliblib/core
-     +-- @zudoliblib/http
-     +-- @zudoliblib/database
-     +-- @zudoliblib/events
+     +-- @zudolib/core
+     +-- @zudolib/http
+     +-- @zudolib/database
+     +-- @zudolib/events
 ```
 
 No need to install everything.
@@ -64,7 +64,7 @@ Runtime
 
 ### Infrastructure-Neutral
 
-The application is not tightly coupled to a specific database, queue, cloud provider, or storage backend. The `@zudoliblib/adapters` package defines the boundary between Zudolib and external platforms.
+The application is not tightly coupled to a specific database, queue, cloud provider, or storage backend. The `@zudolib/adapters` package defines the boundary between Zudolib and external platforms.
 
 ---
 
@@ -128,63 +128,63 @@ Zudolib is organized as an npm workspaces monorepo. Each package has a focused r
 
 | Package               | Description                                           |
 | --------------------- | ----------------------------------------------------- |
-| `@zudoliblib/core`       | Lifecycle, context, runtime, modules                  |
-| `@zudoliblib/runtime`    | Application lifecycle orchestrator                    |
-| `@zudoliblib/container`  | DI container with token-based registration            |
-| `@zudoliblib/config`     | Layered configuration with sources                    |
-| `@zudoliblib/errors`     | Shared error base class and utilities                 |
-| `@zudoliblib/validation` | Schema validation with Zod                            |
-| `@zudoliblib/logger`     | Structured logging with transports                    |
-| `@zudoliblib/lifecycle`  | State machine, dependency ordering, graceful shutdown |
-| `@zudoliblib/constants`  | Shared constants, enums, and type-safe literals       |
-| `@zudoliblib/types`      | Shared type guards and utility types                  |
-| `@zudoliblib/middleware` | Composable middleware pipeline                        |
+| `@zudolib/core`       | Lifecycle, context, runtime, modules                  |
+| `@zudolib/runtime`    | Application lifecycle orchestrator                    |
+| `@zudolib/container`  | DI container with token-based registration            |
+| `@zudolib/config`     | Layered configuration with sources                    |
+| `@zudolib/errors`     | Shared error base class and utilities                 |
+| `@zudolib/validation` | Schema validation with Zod                            |
+| `@zudolib/logger`     | Structured logging with transports                    |
+| `@zudolib/lifecycle`  | State machine, dependency ordering, graceful shutdown |
+| `@zudolib/constants`  | Shared constants, enums, and type-safe literals       |
+| `@zudolib/types`      | Shared type guards and utility types                  |
+| `@zudolib/middleware` | Composable middleware pipeline                        |
 
 ### Application
 
 | Package                  | Description                                |
 | ------------------------ | ------------------------------------------ |
-| `@zudoliblib/http`          | HTTP primitives, request handling, routing |
-| `@zudoliblib/schema`        | Schema definition and parsing engine       |
-| `@zudoliblib/serialization` | Data translation layer                     |
-| `@zudoliblib/cqrs`          | Command query responsibility segregation   |
-| `@zudoliblib/cli`           | Command-line interface                     |
+| `@zudolib/http`          | HTTP primitives, request handling, routing |
+| `@zudolib/schema`        | Schema definition and parsing engine       |
+| `@zudolib/serialization` | Data translation layer                     |
+| `@zudolib/cqrs`          | Command query responsibility segregation   |
+| `@zudolib/cli`           | Command-line interface                     |
 
 ### Data and Infrastructure
 
 | Package                 | Description                                  |
 | ----------------------- | -------------------------------------------- |
-| `@zudoliblib/database`     | Database clients, repositories, transactions |
-| `@zudoliblib/storage`      | Storage abstractions and lifecycle           |
-| `@zudoliblib/queue`        | Background job infrastructure                |
-| `@zudoliblib/messaging`    | In-process message bus                       |
-| `@zudoliblib/transactions` | Transaction lifecycle and coordination       |
-| `@zudoliblib/cache`        | Cache abstraction with adapters              |
+| `@zudolib/database`     | Database clients, repositories, transactions |
+| `@zudolib/storage`      | Storage abstractions and lifecycle           |
+| `@zudolib/queue`        | Background job infrastructure                |
+| `@zudolib/messaging`    | In-process message bus                       |
+| `@zudolib/transactions` | Transaction lifecycle and coordination       |
+| `@zudolib/cache`        | Cache abstraction with adapters              |
 
 ### Security
 
 | Package                | Description                                 |
 | ---------------------- | ------------------------------------------- |
-| `@zudoliblib/security`    | Input validation, CORS, CSRF, rate limiting |
-| `@zudoliblib/crypto`      | Cryptographic primitives                    |
-| `@zudoliblib/auth`        | JWT, sessions, password hashing             |
-| `@zudoliblib/permissions` | RBAC, ABAC, resource authorization          |
+| `@zudolib/security`    | Input validation, CORS, CSRF, rate limiting |
+| `@zudolib/crypto`      | Cryptographic primitives                    |
+| `@zudolib/auth`        | JWT, sessions, password hashing             |
+| `@zudolib/permissions` | RBAC, ABAC, resource authorization          |
 
 ### Platform
 
 | Package                  | Description                           |
 | ------------------------ | ------------------------------------- |
-| `@zudoliblib/observability` | Metrics, tracing, context propagation |
-| `@zudoliblib/tenancy`       | Multi-tenant context and isolation    |
-| `@zudoliblib/feature-flags` | Feature flag evaluation and rollouts  |
-| `@zudoliblib/adapters`      | Boundary layer for external platforms |
+| `@zudolib/observability` | Metrics, tracing, context propagation |
+| `@zudolib/tenancy`       | Multi-tenant context and isolation    |
+| `@zudolib/feature-flags` | Feature flag evaluation and rollouts  |
+| `@zudolib/adapters`      | Boundary layer for external platforms |
 
 ### Development
 
 | Package            | Description                   |
 | ------------------ | ----------------------------- |
-| `@zudoliblib/testing` | Test helpers, fixtures, mocks |
-| `@zudoliblib/docs`    | Documentation infrastructure  |
+| `@zudolib/testing` | Test helpers, fixtures, mocks |
+| `@zudolib/docs`    | Documentation infrastructure  |
 
 ---
 
@@ -364,8 +364,8 @@ zudolib dev --port 3000       # Custom port for backend
 ### Backend
 
 ```ts
-import { createApplication } from "@zudoliblib/runtime";
-import { createHTTPServer } from "@zudoliblib/http";
+import { createApplication } from "@zudolib/runtime";
+import { createHTTPServer } from "@zudolib/http";
 
 const app = await createApplication();
 
@@ -415,13 +415,13 @@ All published packages are at version `0.1.x` and marked as **Built**.
 Zudolib packages can be installed individually.
 
 ```bash
-pnpm add @zudoliblib/core
+pnpm add @zudolib/core
 ```
 
 Install additional packages depending on the application requirements.
 
 ```bash
-pnpm add @zudoliblib/http @zudoliblib/config @zudoliblib/logger
+pnpm add @zudolib/http @zudolib/config @zudolib/logger
 ```
 
 ---
@@ -454,8 +454,8 @@ pnpm run test           # Run architect tests
 ### Per-Package Commands
 
 ```bash
-pnpm run --filter=@zudoliblib/http typecheck
-pnpm run --filter=@zudoliblib/http build
+pnpm run --filter=@zudolib/http typecheck
+pnpm run --filter=@zudolib/http build
 ```
 
 ---

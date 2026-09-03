@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/rpc/types
+ * @zudolib/rpc/types
  *
  * Core types for the Zudolib RPC package.
  */

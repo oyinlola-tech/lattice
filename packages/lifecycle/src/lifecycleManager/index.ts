@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/lifecycle/manager
+ * @zudolib/lifecycle/manager
  *
  * Lifecycle manager — the main orchestration entry point.
  */

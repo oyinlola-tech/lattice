@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Histogram
+ * @zudolib/observability — Histogram
  *
  * Distribution of observed values for latencies and sizes.
  */

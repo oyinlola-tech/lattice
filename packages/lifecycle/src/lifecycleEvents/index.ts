@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/lifecycle/events
+ * @zudolib/lifecycle/events
  *
  * Lifecycle event emitter for observability integration.
  */

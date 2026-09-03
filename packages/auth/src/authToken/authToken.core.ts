@@ -7,8 +7,8 @@
  * Uses HMAC SHA-256 for signing.
  */
 
-import { TimeMs } from "@zudoliblib/constants";
-import type { UserId } from "@zudoliblib/constants";
+import { TimeMs } from "@zudolib/constants";
+import type { UserId } from "@zudolib/constants";
 import type {
   JwtToken,
   TokenPair,

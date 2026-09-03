@@ -1,10 +1,10 @@
 /**
- * @zudoliblib/lifecycle/phase
+ * @zudolib/lifecycle/phase
  *
  * Lifecycle phase ordering for startup and shutdown sequences.
  */
 
-import { LifecyclePhase } from "@zudoliblib/constants";
+import { LifecyclePhase } from "@zudolib/constants";
 
 /** Ordered phases for startup. */
 export const STARTUP_PHASES: readonly LifecyclePhase[] = Object.freeze([

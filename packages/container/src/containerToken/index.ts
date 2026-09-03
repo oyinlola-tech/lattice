@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/container/containerToken
+ * @zudolib/container/containerToken
  *
  * Token types for service identification.
  */

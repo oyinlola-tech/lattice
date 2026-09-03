@@ -1,13 +1,13 @@
 /**
  * Local HTTP type definitions for the middleware adapter.
  *
- * These mirror the types from @zudoliblib/http so the permissions package
+ * These mirror the types from @zudolib/http so the permissions package
  * can reference them without a hard dependency on the HTTP package.
  *
  * @module http/httpTypes
  */
 
-/** HTTP middleware signature from @zudoliblib/http. */
+/** HTTP middleware signature from @zudolib/http. */
 export type HttpMiddleware = (
   context: HttpMiddlewareContext,
   next: () => Promise<HttpResponseContext>,
@@ -17,7 +17,7 @@ export type HttpMiddleware = (
   | HttpResponseContext
   | Promise<void | Response | HttpResponseContext>;
 
-/** HTTP middleware context from @zudoliblib/http. */
+/** HTTP middleware context from @zudolib/http. */
 export interface HttpMiddlewareContext {
   readonly request: HttpRequestContext;
   readonly response: HttpResponseContext;
@@ -26,7 +26,7 @@ export interface HttpMiddlewareContext {
   readonly metadata: Readonly<Record<string, unknown>>;
 }
 
-/** HTTP request context from @zudoliblib/http. */
+/** HTTP request context from @zudolib/http. */
 export interface HttpRequestContext {
   readonly id: string;
   readonly method: string;
@@ -37,14 +37,14 @@ export interface HttpRequestContext {
   readonly query: ReadonlyMap<string, string | readonly string[] | undefined>;
 }
 
-/** HTTP response context from @zudoliblib/http. */
+/** HTTP response context from @zudolib/http. */
 export interface HttpResponseContext {
   readonly status: number;
   readonly headers: Headers | Record<string, string>;
   readonly body?: unknown;
 }
 
-/** HTTP middleware state from @zudoliblib/http. */
+/** HTTP middleware state from @zudolib/http. */
 export interface HttpMiddlewareState {
   get<T = unknown>(key: string): T | undefined;
   set<T = unknown>(key: string, value: T): void;

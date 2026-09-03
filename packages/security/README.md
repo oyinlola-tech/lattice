@@ -1,17 +1,17 @@
-# @zudoliblib/security
+# @zudolib/security
 
 Security primitives for input validation, header security, CORS, CSRF protection, rate limiting, and security headers.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/security
+npm install @zudolib/security
 ```
 
 ## Quick Start
 
 ```typescript
-import { createRateLimiter, cors, securityHeaders } from "@zudoliblib/security";
+import { createRateLimiter, cors, securityHeaders } from "@zudolib/security";
 
 const limiter = createRateLimiter({ windowMs: 60000, max: 100 });
 

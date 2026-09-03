@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/rpc/reliability/retry
+ * @zudolib/rpc/reliability/retry
  *
  * Retry utilities for RPC operations.
  */

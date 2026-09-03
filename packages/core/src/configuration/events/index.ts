@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/core/configuration/events
+ * @zudolib/core/configuration/events
  *
  * Configuration lifecycle events.
  */

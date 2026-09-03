@@ -1,17 +1,17 @@
-# @zudoliblib/messaging
+# @zudolib/messaging
 
 In-process message bus infrastructure with handlers, middleware, and publish/subscribe patterns.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/messaging
+npm install @zudolib/messaging
 ```
 
 ## Quick Start
 
 ```typescript
-import { createMessageBus } from "@zudoliblib/messaging";
+import { createMessageBus } from "@zudolib/messaging";
 
 const bus = createMessageBus();
 

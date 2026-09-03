@@ -17,6 +17,6 @@ export {
   RPCDuplicateProcedureError,
   createRPCError,
   isRPCError,
-} from "@zudoliblib/errors";
+} from "@zudolib/errors";
 
-export type { RPCErrorOptions } from "@zudoliblib/errors";
+export type { RPCErrorOptions } from "@zudolib/errors";

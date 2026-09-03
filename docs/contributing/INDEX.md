@@ -51,7 +51,7 @@ All checks must pass before starting work.
 
 ```
 zudolib/
-├── packages/           # All @zudoliblib/* packages
+├── packages/           # All @zudolib/* packages
 │   ├── errors/
 │   ├── types/
 │   ├── constants/
@@ -138,7 +138,7 @@ Branch naming:
    ```bash
    npm run typecheck
    npm run architect:check
-   npm run test --workspace=@zudoliblib/<package-name>
+   npm run test --workspace=@zudolib/<package-name>
    ```
 
 ### 5.4 Commit
@@ -191,7 +191,7 @@ Before implementing a new package:
 
 See `DEPENDENCIES.md` for the tier system.
 
-1. Identify which existing `@zudoliblib/*` packages the new package needs.
+1. Identify which existing `@zudolib/*` packages the new package needs.
 2. The new package belongs in the highest tier of its dependencies.
 3. Document the tier in `DEPENDENCIES.md`.
 
@@ -227,7 +227,7 @@ Follow `PACKAGE_RULES.md` for implementation standards.
 
 ### 7.1 Internal Dependencies
 
-When adding a dependency on another `@zudoliblib/*` package:
+When adding a dependency on another `@zudolib/*` package:
 
 1. Verify the dependency is in a lower or equal tier.
 2. Use exact version `0.1.0`.
@@ -273,10 +273,10 @@ describe("EventBus", () => {
 npm test
 
 # Run tests for a specific package
-npm run test --workspace=@zudoliblib/events
+npm run test --workspace=@zudolib/events
 
 # Run tests in watch mode
-npm run test:watch --workspace=@zudoliblib/events
+npm run test:watch --workspace=@zudolib/events
 ```
 
 ---
@@ -314,7 +314,7 @@ function parse(input: any): Result { ... }
 Use `import type` for type-only imports.
 
 ```ts
-import type { EventBus } from "@zudoliblib/events.js";
+import type { EventBus } from "@zudolib/events.js";
 ```
 
 ### 9.4 File Extensions
@@ -329,9 +329,9 @@ import { helper } from "./utils/helper.js";
 
 ## 10. Error Handling
 
-### 10.1 Use @zudoliblib/errors
+### 10.1 Use @zudolib/errors
 
-All errors must extend `BaseError` from `@zudoliblib/errors`.
+All errors must extend `BaseError` from `@zudolib/errors`.
 
 ### 10.2 Domain Errors
 
@@ -385,7 +385,7 @@ Limit concurrency to prevent resource exhaustion.
 
 ### 12.1 Input Validation
 
-All external input must be validated at the boundary using `@zudoliblib/security`.
+All external input must be validated at the boundary using `@zudolib/security`.
 
 ### 12.2 Secrets
 

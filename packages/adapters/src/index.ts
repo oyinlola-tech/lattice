@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/adapters
+ * @zudolib/adapters
  *
  * Boundary layer between Zudolib and external platforms.
  *
@@ -10,10 +10,10 @@
  * - Adapter metadata
  * - Lifecycle contracts
  * - Transport-specific adapter interfaces (HTTP, messaging, storage, queue, runtime, WebSocket, CLI, scheduler)
- * - Error types (re-exported from @zudoliblib/errors)
+ * - Error types (re-exported from @zudolib/errors)
  * - Testing utilities
  *
- * @module @zudoliblib/adapters
+ * @module @zudolib/adapters
  */
 
 // Core adapter

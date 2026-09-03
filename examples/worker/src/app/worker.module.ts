@@ -4,9 +4,9 @@
  * Composes processors and manages the worker lifecycle.
  */
 
-import { createInMemoryQueue, createWorker } from "@zudoliblib/queue";
-import type { Queue, Worker } from "@zudoliblib/queue";
-import { createQueueName } from "@zudoliblib/queue";
+import { createInMemoryQueue, createWorker } from "@zudolib/queue";
+import type { Queue, Worker } from "@zudolib/queue";
+import { createQueueName } from "@zudolib/queue";
 import { EmailProcessor } from "../processors/email.processor.js";
 import { ReportProcessor } from "../processors/report.processor.js";
 import { CleanupProcessor } from "../processors/cleanup.processor.js";

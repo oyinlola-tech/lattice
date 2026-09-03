@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/crypto
+ * @zudolib/crypto
  *
  * Cryptographic primitives for the Zudolib framework.
  * Provides symmetric/asymmetric encryption, hashing, password hashing,

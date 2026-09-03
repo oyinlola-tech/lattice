@@ -4,7 +4,7 @@
  * Registers the UsersService and UsersController.
  */
 
-import { BaseModule } from "@zudoliblib/core";
+import { BaseModule } from "@zudolib/core";
 import { UsersService } from "./users.service.js";
 import { UsersController } from "./users.controller.js";
 

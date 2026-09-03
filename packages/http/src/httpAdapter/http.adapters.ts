@@ -10,7 +10,7 @@ import type {
   HTTPState,
 } from "../httpTypes/http.types.js";
 
-import type { Logger } from "@zudoliblib/logger";
+import type { Logger } from "@zudolib/logger";
 
 import { createHTTPContext } from "../httpContext/http.context.js";
 

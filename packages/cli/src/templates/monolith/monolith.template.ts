@@ -47,36 +47,36 @@ export function generateMonolithFiles(
   const nameSlug = name.replace(/[^a-z0-9-]+/gi, "-").toLowerCase();
 
   const deps = [
-    "@zudoliblib/core",
-    "@zudoliblib/container",
-    "@zudoliblib/config",
-    "@zudoliblib/logger",
-    "@zudoliblib/errors",
-    "@zudoliblib/constants",
-    "@zudoliblib/types",
-    "@zudoliblib/validation",
-    "@zudoliblib/schema",
-    "@zudoliblib/http",
+    "@zudolib/core",
+    "@zudolib/container",
+    "@zudolib/config",
+    "@zudolib/logger",
+    "@zudolib/errors",
+    "@zudolib/constants",
+    "@zudolib/types",
+    "@zudolib/validation",
+    "@zudolib/schema",
+    "@zudolib/http",
   ];
 
   if (options.enableCQRS) {
-    deps.push("@zudoliblib/cqrs", "@zudoliblib/events", "@zudoliblib/messaging");
+    deps.push("@zudolib/cqrs", "@zudolib/events", "@zudolib/messaging");
   }
 
   if (options.enableDatabase) {
-    deps.push("@zudoliblib/database");
+    deps.push("@zudolib/database");
   }
 
   if (options.enableQueue) {
-    deps.push("@zudoliblib/queue");
+    deps.push("@zudolib/queue");
   }
 
   if (options.enableObservability) {
-    deps.push("@zudoliblib/observability");
+    deps.push("@zudolib/observability");
   }
 
   if (options.enableOpenAPI) {
-    deps.push("@zudoliblib/openapi");
+    deps.push("@zudolib/openapi");
   }
 
   const devDeps = ["tsx", "typescript", "@types/node", "vitest"];
@@ -130,7 +130,7 @@ export function generateMonolithFiles(
 `;
 
   // zudolib.config.ts
-  files["zudolib.config.ts"] = `import { defineConfig } from "@zudoliblib/config";
+  files["zudolib.config.ts"] = `import { defineConfig } from "@zudolib/config";
 
 export default defineConfig({
   application: {
@@ -233,8 +233,8 @@ MIT
 `;
 
   files["src/server.ts"] = `import { createApp } from "./app.js";
-import { createRuntime } from "@zudoliblib/runtime";
-import { logger } from "@zudoliblib/logger";
+import { createRuntime } from "@zudolib/runtime";
+import { logger } from "@zudolib/logger";
 
 const app = await createApp();
 
@@ -254,8 +254,8 @@ process.on("SIGTERM", async () => {
 });
 `;
 
-  files["src/app.ts"] = `import { logger } from "@zudoliblib/logger";
-import { createContainer } from "@zudoliblib/container";
+  files["src/app.ts"] = `import { logger } from "@zudolib/logger";
+import { createContainer } from "@zudolib/container";
 
 export async function createApp() {
   const log = logger.child({ service: "app" });

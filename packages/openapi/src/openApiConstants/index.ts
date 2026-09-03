@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/openapi/openApiConstants
+ * @zudolib/openapi/openApiConstants
  */
 
 export {

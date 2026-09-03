@@ -1,6 +1,6 @@
-import type { Logger } from "@zudoliblib/logger";
-import type { EventBus } from "@zudoliblib/events";
-import type { CommandBus, QueryBus } from "@zudoliblib/cqrs";
+import type { Logger } from "@zudolib/logger";
+import type { EventBus } from "@zudolib/events";
+import type { CommandBus, QueryBus } from "@zudolib/cqrs";
 import type { EnrollmentRepository } from "../repositories/index.js";
 import { registerEnrollmentService } from "../services/index.js";
 

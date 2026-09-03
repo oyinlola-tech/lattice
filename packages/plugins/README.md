@@ -1,4 +1,4 @@
-# @zudoliblib/plugins
+# @zudolib/plugins
 
 Plugin manager, registry, dependency resolver, lifecycle controller, events, and integration context. The basis for extending a Zudolib app with third-party functionality.
 
@@ -14,7 +14,7 @@ Import this when you need:
 ## Installation
 
 ```bash
-npm install @zudoliblib/plugins
+npm install @zudolib/plugins
 ```
 
 ## Public API
@@ -34,7 +34,7 @@ import {
   type DependencyResolution,
   type CreatePluginContextOptions,
   type PluginHooks,
-} from "@zudoliblib/plugins";
+} from "@zudolib/plugins";
 ```
 
 ## Usage
@@ -43,7 +43,7 @@ import {
 import {
   PluginManager,
   createPluginContext,
-} from "@zudoliblib/plugins";
+} from "@zudolib/plugins";
 
 const ctx = createPluginContext({ logger, config });
 const manager = new PluginManager(ctx);

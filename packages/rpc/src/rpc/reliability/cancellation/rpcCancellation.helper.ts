@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/rpc/reliability/cancellation
+ * @zudolib/rpc/reliability/cancellation
  *
  * Cancellation utilities for RPC operations.
  */

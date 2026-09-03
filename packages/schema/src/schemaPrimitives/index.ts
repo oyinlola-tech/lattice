@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/schema/primitives
+ * @zudolib/schema/primitives
  *
  * Primitive schema types: string, number, boolean, null, undefined, literal, any, unknown, never.
  */

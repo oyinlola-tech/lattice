@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/config/configFactory
+ * @zudolib/config/configFactory
  *
  * Factory functions for creating configuration instances.
  */

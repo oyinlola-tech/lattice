@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Observability Core
+ * @zudolib/observability — Observability Core
  *
  * Central facade that coordinates logging, metrics, tracing, and context
  * propagation. Other Zudolib packages depend on this abstraction rather

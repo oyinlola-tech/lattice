@@ -7,7 +7,7 @@ Zudolib uses a token-based DI container for managing service lifetimes and depen
 Services are registered with tokens:
 
 ```typescript
-import { Container } from "@zudoliblib/container";
+import { Container } from "@zudolib/container";
 
 const container = new Container();
 

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/core/errors
+ * @zudolib/core/errors
  *
  * Core error types and error handling utilities.
  */

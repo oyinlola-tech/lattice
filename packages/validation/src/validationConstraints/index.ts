@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/validation/validationConstraints
+ * @zudolib/validation/validationConstraints
  *
  * Built-in validation constraints and rules.
  */

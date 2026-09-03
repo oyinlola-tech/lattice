@@ -1,5 +1,5 @@
 {
-  "name": "@zudoliblib/example-basic-api",
+  "name": "@zudolib/example-basic-api",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -10,10 +10,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@zudoliblib/core": "workspace:*",
-    "@zudoliblib/http": "workspace:*",
-    "@zudoliblib/errors": "workspace:*",
-    "@zudoliblib/validation": "workspace:*"
+    "@zudolib/core": "workspace:*",
+    "@zudolib/http": "workspace:*",
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/validation": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.23.13",

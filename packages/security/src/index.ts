@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/security
+ * @zudolib/security
  *
  * Security primitives for the Zudolib framework.
  *
@@ -9,7 +9,7 @@
  *
  * @example
  * ```ts
- * import { validateHeaders, validateUrl, generateSecurityHeaders } from '@zudoliblib/security';
+ * import { validateHeaders, validateUrl, generateSecurityHeaders } from '@zudolib/security';
  *
  * // Validate request headers
  * const result = validateHeaders(request.headers);

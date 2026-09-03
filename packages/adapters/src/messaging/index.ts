@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/adapters/messaging
+ * @zudolib/adapters/messaging
  *
  * Messaging adapter contracts.
  */

@@ -101,7 +101,7 @@ export interface ModuleLifecycleOptions {
   readonly continueOnDestroyError?: boolean;
 }
 
-import { ModuleLifecycleError as BaseModuleLifecycleError } from "@zudoliblib/errors";
+import { ModuleLifecycleError as BaseModuleLifecycleError } from "@zudolib/errors";
 
 /**
  * Error thrown when a module lifecycle operation fails.

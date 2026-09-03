@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/testing — Central test context.
+ * @zudolib/testing — Central test context.
  *
  * Bundles test utilities into one isolated context per test.
  */

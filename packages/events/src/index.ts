@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/events
+ * @zudolib/events
  *
  * Event bus, emitter, middleware, and registry for the Zudolib framework.
  */

@@ -12,7 +12,7 @@ import { Context, createContext } from "../../context/core/context.js";
 import { executeShutdownPipeline } from "./pipeline/index.js";
 import { logRuntimeEvent } from "../runtimeLogger.js";
 
-import { RuntimeError } from "@zudoliblib/errors";
+import { RuntimeError } from "@zudolib/errors";
 
 export type RuntimeShutdownErrorCode =
   | "SHUTDOWN_ALREADY_RUNNING"

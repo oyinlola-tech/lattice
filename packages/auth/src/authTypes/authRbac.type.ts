@@ -3,14 +3,14 @@
  *
  * @module authRbac
  *
- * Re-exported from @zudoliblib/permissions for backward compatibility.
- * For new code, import directly from @zudoliblib/permissions.
+ * Re-exported from @zudolib/permissions for backward compatibility.
+ * For new code, import directly from @zudolib/permissions.
  */
 
 import type {
   PermissionString as PermissionsPermissionString,
   RoleDefinition as PermissionsRole,
-} from "@zudoliblib/permissions";
+} from "@zudolib/permissions";
 
 /**
  * Permission string format: "resource:action"

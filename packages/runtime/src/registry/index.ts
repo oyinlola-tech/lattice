@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/runtime — Registry Barrel
+ * @zudolib/runtime — Registry Barrel
  */
 
 export { RuntimeRegistry } from "./registry.core.js";

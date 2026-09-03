@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpHeaders/list
+ * @zudolib/http/httpHeaders/list
  *
  * HTTP headers list utilities.
  */

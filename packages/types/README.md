@@ -1,11 +1,11 @@
-# @zudoliblib/types
+# @zudolib/types
 
 Shared type guards, utility types, and type converters for the Zudolib framework.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/types
+npm install @zudolib/types
 ```
 
 ## Quick Start
@@ -17,7 +17,7 @@ import {
   isEmail,
   Maybe,
   DeepReadonly,
-} from "@zudoliblib/types";
+} from "@zudolib/types";
 
 if (isPlainObject(value)) {
   console.log(value.keys());

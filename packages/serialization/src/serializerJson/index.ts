@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/serialization — JSON serializer.
+ * @zudolib/serialization — JSON serializer.
  *
  * JSON serializer with fast path (native JSON) and advanced path
  * with type preservation via transformer registry.

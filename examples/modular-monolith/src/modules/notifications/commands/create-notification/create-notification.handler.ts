@@ -1,4 +1,4 @@
-import { CommandHandler } from "@zudoliblib/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
 import type { CreateNotificationCommand } from "./create-notification.command.js";
 import type { NotificationRepository } from "../../../../repositories/notification.repository.js";
 import type { NotificationModel } from "../../../../models/notification.model.js";

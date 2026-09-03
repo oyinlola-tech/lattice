@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/cache — Constants
+ * @zudolib/cache — Constants
  *
  * Default values, limits, and magic numbers used across the cache package.
  */

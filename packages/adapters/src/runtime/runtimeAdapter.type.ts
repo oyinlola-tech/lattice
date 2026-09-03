@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/adapters/runtime
+ * @zudolib/adapters/runtime
  *
  * Runtime adapter contracts — bridges Zudolib to execution environments.
  *

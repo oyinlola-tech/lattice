@@ -1,5 +1,5 @@
 {
-  "name": "@zudoliblib/example-monolith",
+  "name": "@zudolib/example-monolith",
   "version": "0.1.1",
   "private": true,
   "type": "module",
@@ -11,21 +11,21 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@zudoliblib/core": "workspace:*",
-    "@zudoliblib/container": "workspace:*",
-    "@zudoliblib/cqrs": "workspace:*",
-    "@zudoliblib/events": "workspace:*",
-    "@zudoliblib/messaging": "workspace:*",
-    "@zudoliblib/http": "workspace:*",
-    "@zudoliblib/config": "workspace:*",
-    "@zudoliblib/logger": "workspace:*",
-    "@zudoliblib/errors": "workspace:*",
-    "@zudoliblib/validation": "workspace:*",
-    "@zudoliblib/schema": "workspace:*",
-    "@zudoliblib/constants": "workspace:*",
-    "@zudoliblib/types": "workspace:*",
-    "@zudoliblib/queue": "workspace:*",
-    "@zudoliblib/lifecycle": "workspace:*"
+    "@zudolib/core": "workspace:*",
+    "@zudolib/container": "workspace:*",
+    "@zudolib/cqrs": "workspace:*",
+    "@zudolib/events": "workspace:*",
+    "@zudolib/messaging": "workspace:*",
+    "@zudolib/http": "workspace:*",
+    "@zudolib/config": "workspace:*",
+    "@zudolib/logger": "workspace:*",
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/validation": "workspace:*",
+    "@zudolib/schema": "workspace:*",
+    "@zudolib/constants": "workspace:*",
+    "@zudolib/types": "workspace:*",
+    "@zudolib/queue": "workspace:*",
+    "@zudolib/lifecycle": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.7.0",

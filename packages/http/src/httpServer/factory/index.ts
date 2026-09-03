@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpServer/factory
+ * @zudolib/http/httpServer/factory
  *
  * HTTP server factory module.
  */

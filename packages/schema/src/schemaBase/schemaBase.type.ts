@@ -1,10 +1,10 @@
 /**
- * @zudoliblib/schema/types
+ * @zudolib/schema/types
  *
  * Core types for the Zudolib schema system.
  */
 
-import type { SchemaIssueCode } from "@zudoliblib/constants";
+import type { SchemaIssueCode } from "@zudolib/constants";
 
 /** A single segment in a validation path. */
 export type SchemaPathSegment = string | number;

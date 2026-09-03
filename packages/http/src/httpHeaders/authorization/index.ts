@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpHeaders/authorization
+ * @zudolib/http/httpHeaders/authorization
  *
  * HTTP headers authorization utilities.
  */

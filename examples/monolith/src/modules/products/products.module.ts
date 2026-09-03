@@ -1,4 +1,4 @@
-import { CommandBus, QueryBus } from "@zudoliblib/cqrs";
+import { CommandBus, QueryBus } from "@zudolib/cqrs";
 import type { ProductRepository } from "./domain/repositories/product.repository.js";
 import { InMemoryProductRepository } from "./infrastructure/repositories/in-memory-product.repository.js";
 import { CreateProductHandler } from "./application/commands/create-product/create-product.handler.js";

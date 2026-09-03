@@ -23,7 +23,7 @@ export async function generateController(
   const basePath = options.basePath ?? "";
 
   const files: Record<string, string> = {
-    [`${basePath ? `${basePath}/` : ""}controllers/${name}.controller.ts`]: `import { createLogger } from "@zudoliblib/logger";
+    [`${basePath ? `${basePath}/` : ""}controllers/${name}.controller.ts`]: `import { createLogger } from "@zudolib/logger";
 
 export class ${nameCamel}Controller {
   private readonly logger = createLogger({ name: "${name}-controller" });

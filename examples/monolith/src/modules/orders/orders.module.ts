@@ -1,4 +1,4 @@
-import { CommandBus, QueryBus } from "@zudoliblib/cqrs";
+import { CommandBus, QueryBus } from "@zudolib/cqrs";
 import type { DomainEvent } from "../../shared/domain/event.js";
 import type { OrderRepository } from "./domain/repositories/order.repository.js";
 import { InMemoryOrderRepository } from "./infrastructure/repositories/in-memory-order.repository.js";

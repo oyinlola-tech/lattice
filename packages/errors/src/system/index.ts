@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/errors/system
+ * @zudolib/errors/system
  *
  * System-level error types (crypto, internal, etc.).
  */

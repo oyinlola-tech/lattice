@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@zudoliblib/cqrs";
+import type { CommandBus, QueryBus } from "@zudolib/cqrs";
 import { createUserRoutes } from "./user.routes.js";
 import { createArticleRoutes } from "./article.routes.js";
 import { createCommentRoutes } from "./comment.routes.js";

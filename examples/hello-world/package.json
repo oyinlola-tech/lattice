@@ -11,7 +11,7 @@
     "dev": "tsx src/index.ts"
   },
   "dependencies": {
-    "@zudoliblib/logger": "workspace:*"
+    "@zudolib/logger": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Noop
+ * @zudolib/observability — Noop
  *
  * No-op implementations that discard all telemetry.
  */

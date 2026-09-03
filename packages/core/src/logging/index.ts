@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/core/logging
+ * @zudolib/core/logging
  *
  * Logging abstractions and structured log output.
  */

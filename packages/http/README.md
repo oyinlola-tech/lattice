@@ -1,17 +1,17 @@
-# @zudoliblib/http
+# @zudolib/http
 
 HTTP primitives, request handling, routing, middleware, and server infrastructure for Zudolib applications.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/http
+npm install @zudolib/http
 ```
 
 ## Quick Start
 
 ```typescript
-import { createHTTPServer } from "@zudoliblib/http";
+import { createHTTPServer } from "@zudolib/http";
 
 const server = createHTTPServer({
   handler: {

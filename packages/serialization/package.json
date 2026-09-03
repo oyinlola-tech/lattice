@@ -1,5 +1,5 @@
 {
-  "name": "@zudoliblib/serialization",
+  "name": "@zudolib/serialization",
   "version": "0.1.4",
   "description": "Data translation layer with JSON serializer, type transformers, envelopes, and registry for Zudolib applications.",
   "type": "module",
@@ -22,10 +22,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudoliblib/constants": "workspace:*",
-    "@zudoliblib/errors": "workspace:*",
-    "@zudoliblib/types": "workspace:*",
-    "@zudoliblib/validation": "workspace:*"
+    "@zudolib/constants": "workspace:*",
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/types": "workspace:*",
+    "@zudolib/validation": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.0",

@@ -1,17 +1,17 @@
-# @zudoliblib/observability
+# @zudolib/observability
 
 Structured logging, metrics, tracing, context propagation, and exporters for Zudolib applications.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/observability
+npm install @zudolib/observability
 ```
 
 ## Quick Start
 
 ```typescript
-import { createTracer, createMetricsRegistry } from "@zudoliblib/observability";
+import { createTracer, createMetricsRegistry } from "@zudolib/observability";
 
 const tracer = createTracer({ service: "api" });
 const metrics = createMetricsRegistry();

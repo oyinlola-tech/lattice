@@ -3,13 +3,13 @@ import type {
   EventId,
   EventType,
   EventCorrelationId,
-} from "@zudoliblib/events";
+} from "@zudolib/events";
 
 import {
   createEvent as baseCreateEvent,
   createEventId as baseCreateEventId,
   isEvent as baseIsEvent,
-} from "@zudoliblib/events";
+} from "@zudolib/events";
 
 /**
  * CQRS-specific event extensions.

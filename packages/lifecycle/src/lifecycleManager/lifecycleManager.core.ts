@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/lifecycle/manager
+ * @zudolib/lifecycle/manager
  *
  * Lifecycle manager — the heart of the lifecycle system.
  * Orchestrates component registration, startup, shutdown, rollback, and signals.
@@ -9,7 +9,7 @@ import {
   LifecycleState,
   LIFECYCLE_DEFAULT_CONCURRENCY,
   LIFECYCLE_DEFAULT_SHUTDOWN_TIMEOUT,
-} from "@zudoliblib/constants";
+} from "@zudolib/constants";
 import type {
   LifecycleComponent,
   LifecycleRegistrationOptions,

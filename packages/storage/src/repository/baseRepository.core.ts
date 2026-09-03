@@ -1,11 +1,11 @@
 /**
- * @zudoliblib/storage — Base Repository
+ * @zudolib/storage — Base Repository
  *
  * Provides a base implementation for repository CRUD operations.
  * Concrete repositories can extend this for domain-specific queries.
  */
 
-import { NotFoundError } from "@zudoliblib/errors";
+import { NotFoundError } from "@zudolib/errors";
 import type {
   Database,
   Query,

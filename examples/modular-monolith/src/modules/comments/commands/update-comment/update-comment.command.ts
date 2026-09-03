@@ -1,4 +1,4 @@
-import { Command } from "@zudoliblib/cqrs";
+import { Command } from "@zudolib/cqrs";
 import type { CommentId, UserId } from "../../../../types/index.js";
 
 export class UpdateCommentCommand extends Command<"comments.update"> {

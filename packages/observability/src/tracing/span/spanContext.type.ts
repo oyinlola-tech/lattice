@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Span Context
+ * @zudolib/observability — Span Context
  *
  * Factory for creating span context identifiers.
  */

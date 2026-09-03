@@ -1,10 +1,10 @@
 /**
- * @zudoliblib/http/httpErrors
+ * @zudolib/http/httpErrors
  *
  * HTTP error types and utilities for the HTTP package.
  *
  * Note: Base error classes (HttpError, BadRequestError, etc.) are defined
- * in @zudoliblib/errors. This module provides HTTP-specific error wrappers
+ * in @zudolib/errors. This module provides HTTP-specific error wrappers
  * and factory functions for the HTTP package.
  */
 

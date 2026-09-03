@@ -1,8 +1,8 @@
 /**
- * @zudoliblib/http/httpStream — Stream error helpers.
+ * @zudolib/http/httpStream — Stream error helpers.
  */
 
-import { HttpStreamError as StreamError } from "@zudoliblib/errors";
+import { HttpStreamError as StreamError } from "@zudolib/errors";
 
 export { StreamError };
 

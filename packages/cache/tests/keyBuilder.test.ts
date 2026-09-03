@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/cache — Key Builder Tests
+ * @zudolib/cache — Key Builder Tests
  *
  * Tests for DefaultKeyBuilder, key validation, namespace scoping,
  * and prefix/separator configuration.

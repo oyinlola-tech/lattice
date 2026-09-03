@@ -4,8 +4,8 @@
  * @module featureFlagErrors/featureFlagError.base
  */
 
-import { ApplicationError, ErrorCode } from "@zudoliblib/errors";
-import type { ErrorCategory, ErrorSeverity, ErrorMetadata } from "@zudoliblib/errors";
+import { ApplicationError, ErrorCode } from "@zudolib/errors";
+import type { ErrorCategory, ErrorSeverity, ErrorMetadata } from "@zudolib/errors";
 
 /** Options for creating a feature flag error. */
 export interface FeatureFlagErrorOptions {
@@ -19,7 +19,7 @@ export interface FeatureFlagErrorOptions {
 
 /**
  * Base class for all feature flag errors.
- * Extends ApplicationError from @zudoliblib/errors.
+ * Extends ApplicationError from @zudolib/errors.
  */
 export class FeatureFlagError extends ApplicationError {
   public constructor(message: string, options: FeatureFlagErrorOptions = {}) {

@@ -14,7 +14,7 @@ import type { NamedMessageHandler } from "../messageHandler/messageHandlerType.t
 
 import type { Message } from "../message/messageType.type.js";
 
-import { DuplicateMessageHandlerError } from "@zudoliblib/errors";
+import { DuplicateMessageHandlerError } from "@zudolib/errors";
 
 /**
  * In-memory store for registered message handlers.

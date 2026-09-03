@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/config/configSchema
+ * @zudolib/config/configSchema
  *
  * Configuration schema validation with Zod.
  */

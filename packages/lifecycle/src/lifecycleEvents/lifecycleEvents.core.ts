@@ -1,10 +1,10 @@
 /**
- * @zudoliblib/lifecycle/events
+ * @zudolib/lifecycle/events
  *
  * Lifecycle event emitter — emits typed events for observability integration.
  */
 
-import type { LifecyclePhase } from "@zudoliblib/constants";
+import type { LifecyclePhase } from "@zudolib/constants";
 
 /** Lifecycle event types. */
 export type LifecycleEventType =

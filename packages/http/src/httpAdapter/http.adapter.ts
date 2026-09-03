@@ -124,7 +124,7 @@ export interface HttpAdapter {
 /* Adapter Error                                                              */
 /* -------------------------------------------------------------------------- */
 
-import { HttpAdapterError } from "@zudoliblib/errors";
+import { HttpAdapterError } from "@zudolib/errors";
 
 export { HttpAdapterError };
 

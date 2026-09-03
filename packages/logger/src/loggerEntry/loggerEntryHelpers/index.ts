@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/logger/loggerEntry/loggerEntryHelpers
+ * @zudolib/logger/loggerEntry/loggerEntryHelpers
  *
  * Logger entry helper types and utilities.
  */

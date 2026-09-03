@@ -1,6 +1,6 @@
-import type { CommandBus } from "@zudoliblib/cqrs";
-import type { QueryBus } from "@zudoliblib/cqrs";
-import type { EventBus } from "@zudoliblib/events";
+import type { CommandBus } from "@zudolib/cqrs";
+import type { QueryBus } from "@zudolib/cqrs";
+import type { EventBus } from "@zudolib/events";
 import type { UserRepository } from "../../repositories/index.js";
 import { CreateUserHandler } from "./commands/create-user/create-user.handler.js";
 import { AuthenticateUserHandler } from "./commands/authenticate-user/authenticate-user.handler.js";

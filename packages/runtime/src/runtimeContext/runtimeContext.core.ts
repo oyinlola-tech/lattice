@@ -1,4 +1,4 @@
-import type { Environment } from "@zudoliblib/constants";
+import type { Environment } from "@zudolib/constants";
 
 import { createRuntimeId as generateRuntimeId } from "./runtimeContext.factory.js";
 

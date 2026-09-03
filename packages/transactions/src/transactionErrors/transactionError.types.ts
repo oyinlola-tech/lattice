@@ -2,7 +2,7 @@
  * Specific transaction error subclasses.
  */
 
-import { ErrorCode } from "@zudoliblib/errors";
+import { ErrorCode } from "@zudolib/errors";
 import { TransactionError } from "./transactionError.base.js";
 
 /**

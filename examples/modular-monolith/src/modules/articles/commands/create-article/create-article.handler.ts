@@ -1,7 +1,7 @@
-import { CommandHandler } from "@zudoliblib/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
 import type { CreateArticleCommand } from "./create-article.command.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
-import type { EventBus } from "@zudoliblib/events";
+import type { EventBus } from "@zudolib/events";
 import type { ArticleModel } from "../../../../models/article.model.js";
 import type { ArticleId } from "../../../../types/index.js";
 import { ArticleStatus } from "../../../../enums/index.js";

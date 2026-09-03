@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpHeaders/security
+ * @zudolib/http/httpHeaders/security
  *
  * HTTP headers security utilities.
  */

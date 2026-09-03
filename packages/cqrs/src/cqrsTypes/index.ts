@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/cqrs/cqrsTypes
+ * @zudolib/cqrs/cqrsTypes
  *
  * Core CQRS type definitions: commands, queries, handlers, middleware, and bus contracts.
  */

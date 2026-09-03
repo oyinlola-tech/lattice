@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/schema/inference
+ * @zudolib/schema/inference
  *
  * Type inference utilities for extracting TypeScript types from schemas.
  */

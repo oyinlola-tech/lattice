@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/openapi
+ * @zudolib/openapi
  *
  * API contract and documentation engine for the Zudolib framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { OpenAPIManager } from "@zudoliblib/openapi";
+ * import { OpenAPIManager } from "@zudolib/openapi";
  *
  * const manager = new OpenAPIManager("3.1.0");
  *
@@ -73,7 +73,7 @@ export {
 export {
   toOpenAPIPath,
   convertRouteToOpenAPI,
-  ZUDO_TO_OPENAPI_METHODS,
+  ZUDOLIB_TO_OPENAPI_METHODS,
   OpenAPIRouteScannerImpl,
 } from "./openApiRouting/index.js";
 export type {

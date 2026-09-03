@@ -23,7 +23,7 @@ export async function generateService(
     .replace(/^./, (c) => c.toUpperCase());
 
   const files: Record<string, string> = {
-    [`${basePath}/${name}/${name}.service.ts`]: `import { createLogger } from "@zudoliblib/logger";
+    [`${basePath}/${name}/${name}.service.ts`]: `import { createLogger } from "@zudolib/logger";
 
 export class ${namePascal}Service {
   private readonly logger = createLogger({ name: "${name}-service" });

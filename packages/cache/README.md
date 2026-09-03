@@ -1,17 +1,17 @@
-# @zudoliblib/cache
+# @zudolib/cache
 
 Cache abstraction with memory adapter, tags, locking, and metrics for Zudolib applications.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/cache
+npm install @zudolib/cache
 ```
 
 ## Quick Start
 
 ```typescript
-import { createMemoryCache } from "@zudoliblib/cache";
+import { createMemoryCache } from "@zudolib/cache";
 
 const cache = createMemoryCache({
   ttl: 60000,

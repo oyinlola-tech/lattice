@@ -1,6 +1,6 @@
-# @zudoliblib/api
+# @zudolib/api
 
-Higher-level API layer — operation definitions, execution context, interceptors, policies, and a transport-agnostic executor. Sits above `@zudoliblib/http` and `@zudoliblib/cqrs`.
+Higher-level API layer — operation definitions, execution context, interceptors, policies, and a transport-agnostic executor. Sits above `@zudolib/http` and `@zudolib/cqrs`.
 
 ## When to use
 
@@ -13,7 +13,7 @@ Import this when you need:
 ## Installation
 
 ```bash
-npm install @zudoliblib/api
+npm install @zudolib/api
 ```
 
 ## Public API
@@ -31,13 +31,13 @@ import {
   type APIInterceptor,
   type OperationDefinition,
   type APIErrorOptions,
-} from "@zudoliblib/api";
+} from "@zudolib/api";
 ```
 
 ## Usage
 
 ```typescript
-import { defineOperation, APIOperationRegistry } from "@zudoliblib/api";
+import { defineOperation, APIOperationRegistry } from "@zudolib/api";
 
 const getUser = defineOperation({
   name: "GetUser",

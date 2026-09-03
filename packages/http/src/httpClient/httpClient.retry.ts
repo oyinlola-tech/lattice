@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http — HTTP client retry logic.
+ * @zudolib/http — HTTP client retry logic.
  *
  * Handles retry configuration, status-based retry decisions,
  * exponential backoff, and delay utilities.

@@ -4,7 +4,7 @@
  * Error classes for the CLI scaffolding system.
  */
 
-import { ApplicationError } from "@zudoliblib/errors";
+import { ApplicationError } from "@zudolib/errors";
 
 export class CLIValidationError extends ApplicationError {
   constructor(message: string) {

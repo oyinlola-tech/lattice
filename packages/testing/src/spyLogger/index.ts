@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/testing — Spy logger for testing.
+ * @zudolib/testing — Spy logger for testing.
  *
  * Records all log calls for assertion.
  */

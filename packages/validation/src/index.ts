@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/validation
+ * @zudolib/validation
  *
  * Schema validation with Zod, constraints, and composition for the Zudolib framework.
  */

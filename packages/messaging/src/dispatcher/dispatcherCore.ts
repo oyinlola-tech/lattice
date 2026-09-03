@@ -22,7 +22,7 @@ import {
   MessageDispatchAbortedError,
   MessageHandlerError,
   MessageDispatchError,
-} from "@zudoliblib/errors";
+} from "@zudolib/errors";
 
 /**
  * Default dispatcher implementation.

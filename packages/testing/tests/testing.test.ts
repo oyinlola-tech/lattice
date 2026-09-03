@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/testing — Tests for new testing helpers.
+ * @zudolib/testing — Tests for new testing helpers.
  *
  * Tests for serialization assertions, storage helpers,
  * HTTP response builders, and the test context.

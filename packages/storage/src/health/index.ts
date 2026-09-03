@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/storage — Health Barrel
+ * @zudolib/storage — Health Barrel
  */
 
 export { HealthChecker } from "./healthChecker.core.js";

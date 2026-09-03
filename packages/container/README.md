@@ -1,17 +1,17 @@
-# @zudoliblib/container
+# @zudolib/container
 
 Token-based dependency injection container for managing application dependencies and service lifetimes.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/container
+npm install @zudolib/container
 ```
 
 ## Quick Start
 
 ```typescript
-import { createContainer } from "@zudoliblib/container";
+import { createContainer } from "@zudolib/container";
 
 const container = createContainer();
 

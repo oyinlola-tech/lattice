@@ -1,17 +1,17 @@
-# @zudoliblib/permissions
+# @zudolib/permissions
 
 Generic authorization engine with RBAC, ABAC, resource authorization, wildcards, role hierarchy, policies, and abilities.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/permissions
+npm install @zudolib/permissions
 ```
 
 ## Quick Start
 
 ```typescript
-import { createPermissionEngine } from "@zudoliblib/permissions";
+import { createPermissionEngine } from "@zudolib/permissions";
 
 const engine = createPermissionEngine({
   roles: {

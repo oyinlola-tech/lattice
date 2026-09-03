@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Log Record
+ * @zudolib/observability — Log Record
  *
  * Structured log record creation and error log records.
  */

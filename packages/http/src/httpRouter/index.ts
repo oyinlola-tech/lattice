@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpRouter
+ * @zudolib/http/httpRouter
  *
  * HTTP routing system including patterns, matching, and dispatching.
  */

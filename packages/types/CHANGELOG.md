@@ -1,4 +1,4 @@
-# @zudoliblib/types
+# @zudolib/types
 
 ## 0.1.2
 

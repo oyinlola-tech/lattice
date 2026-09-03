@@ -1,7 +1,7 @@
 import { createNodeCryptoProvider } from "../node/index.js";
 import { generateCryptoKey } from "../cryptoKey/cryptoKey.factory.js";
 import { CryptoAlgorithm } from "../cryptoConstants/cryptoConstants.type.js";
-import { createCryptoError } from "@zudoliblib/errors";
+import { createCryptoError } from "@zudolib/errors";
 import {
   serviceEncrypt,
   serviceDecrypt,

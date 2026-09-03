@@ -13,7 +13,7 @@ export class MySqlAdapter implements DatabaseAdapter {
   }
 
   getDependencies(): readonly string[] {
-    return ["@zudoliblib/database"];
+    return ["@zudolib/database"];
   }
 
   getEnvironmentVariables(): Record<string, string> {

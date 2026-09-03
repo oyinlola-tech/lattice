@@ -1,10 +1,10 @@
 /**
- * @zudoliblib/lifecycle/manager/startup
+ * @zudolib/lifecycle/manager/startup
  *
  * Startup orchestration — initializes, starts, and readies components.
  */
 
-import { LifecyclePhase, LifecycleState } from "@zudoliblib/constants";
+import { LifecyclePhase, LifecycleState } from "@zudolib/constants";
 import { buildExecutionPlan } from "../lifecyclePlan/lifecyclePlan.core.js";
 import { createLifecycleContext } from "../lifecycleContext/lifecycleContext.type.js";
 import type { LifecycleManagerContext } from "./lifecycleManager.context.js";

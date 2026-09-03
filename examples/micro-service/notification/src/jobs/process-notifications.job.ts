@@ -1,6 +1,6 @@
-import type { Job } from "@zudoliblib/queue";
-import type { JobContext } from "@zudoliblib/queue";
-import type { CommandBus } from "@zudoliblib/cqrs";
+import type { Job } from "@zudolib/queue";
+import type { JobContext } from "@zudolib/queue";
+import type { CommandBus } from "@zudolib/cqrs";
 import { CreateNotificationCommand } from "../services/notification/commands/create-notification/create-notification.command.js";
 import { NotificationType } from "../enums/index.js";
 import {

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/openapi/openApiRegistry
+ * @zudolib/openapi/openApiRegistry
  *
  * OpenAPI registry for collecting routes, schemas, and components.
  */

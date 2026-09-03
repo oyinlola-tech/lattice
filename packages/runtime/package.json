@@ -1,5 +1,5 @@
 {
-  "name": "@zudoliblib/runtime",
+  "name": "@zudolib/runtime",
   "version": "0.1.4",
   "description": "Application lifecycle orchestrator with dependency ordering, rollback, signals, and readiness checks.",
   "type": "module",
@@ -31,13 +31,13 @@
     "vitest": "^4.1.11"
   },
   "dependencies": {
-    "@zudoliblib/errors": "workspace:*",
-    "@zudoliblib/constants": "workspace:*",
-    "@zudoliblib/container": "workspace:*",
-    "@zudoliblib/config": "workspace:*",
-    "@zudoliblib/logger": "workspace:*",
-    "@zudoliblib/events": "workspace:*",
-    "@zudoliblib/core": "workspace:*"
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/constants": "workspace:*",
+    "@zudolib/container": "workspace:*",
+    "@zudolib/config": "workspace:*",
+    "@zudolib/logger": "workspace:*",
+    "@zudolib/events": "workspace:*",
+    "@zudolib/core": "workspace:*"
   },
   "license": "MIT",
   "publishConfig": {

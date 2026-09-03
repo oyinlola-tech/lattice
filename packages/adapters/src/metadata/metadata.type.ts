@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/adapters/metadata
+ * @zudolib/adapters/metadata
  *
  * Adapter metadata — identification and compatibility information.
  */

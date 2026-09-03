@@ -12,16 +12,16 @@ import { CLIValidationError, CLIGenerationError } from "../errors/index.js";
 import { ManifestManager } from "../manifest/manifestManager.core.js";
 
 const FEATURE_PACKAGES: Readonly<Record<string, readonly string[]>> = {
-  database: ["@zudoliblib/database"],
-  queue: ["@zudoliblib/queue"],
-  messaging: ["@zudoliblib/messaging"],
-  openapi: ["@zudoliblib/openapi"],
-  observability: ["@zudoliblib/observability"],
-  security: ["@zudoliblib/security"],
-  cache: ["@zudoliblib/cache"],
-  storage: ["@zudoliblib/storage"],
-  scheduler: ["@zudoliblib/queue"],
-  docs: ["@zudoliblib/docs"],
+  database: ["@zudolib/database"],
+  queue: ["@zudolib/queue"],
+  messaging: ["@zudolib/messaging"],
+  openapi: ["@zudolib/openapi"],
+  observability: ["@zudolib/observability"],
+  security: ["@zudolib/security"],
+  cache: ["@zudolib/cache"],
+  storage: ["@zudolib/storage"],
+  scheduler: ["@zudolib/queue"],
+  docs: ["@zudolib/docs"],
 };
 
 export async function runAddCommand(context: CLIContext): Promise<void> {

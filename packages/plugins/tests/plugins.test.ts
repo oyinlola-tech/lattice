@@ -149,18 +149,18 @@ describe("PluginRegistryImpl", () => {
   it("registers and retrieves plugins", () => {
     const registry = new PluginRegistryImpl();
     const plugin = {
-      metadata: { name: "@zudoliblib/test" },
+      metadata: { name: "@zudolib/test" },
     };
 
     registry.register(plugin);
-    expect(registry.has("@zudoliblib/test")).toBe(true);
-    expect(registry.get("@zudoliblib/test")?.plugin).toBe(plugin);
+    expect(registry.has("@zudolib/test")).toBe(true);
+    expect(registry.get("@zudolib/test")?.plugin).toBe(plugin);
   });
 
   it("rejects duplicate registration", () => {
     const registry = new PluginRegistryImpl();
     const plugin = {
-      metadata: { name: "@zudoliblib/test" },
+      metadata: { name: "@zudolib/test" },
     };
 
     registry.register(plugin);
@@ -180,10 +180,10 @@ describe("PluginRegistryImpl", () => {
 
   it("removes registered plugins", () => {
     const registry = new PluginRegistryImpl();
-    registry.register({ metadata: { name: "@zudoliblib/test" } });
+    registry.register({ metadata: { name: "@zudolib/test" } });
 
-    expect(registry.remove("@zudoliblib/test")).toBe(true);
-    expect(registry.has("@zudoliblib/test")).toBe(false);
+    expect(registry.remove("@zudolib/test")).toBe(true);
+    expect(registry.has("@zudolib/test")).toBe(false);
   });
 });
 
@@ -192,11 +192,11 @@ describe("LifecycleController", () => {
     const controller = new LifecycleController();
     const registry = new PluginRegistryImpl();
     const plugin = {
-      metadata: { name: "@zudoliblib/test" },
+      metadata: { name: "@zudolib/test" },
       install() {},
     };
     registry.register(plugin);
-    const registered = registry.get("@zudoliblib/test")!;
+    const registered = registry.get("@zudolib/test")!;
     const context = createPluginContext(plugin.metadata);
 
     await controller.install(registered, context);
@@ -207,13 +207,13 @@ describe("LifecycleController", () => {
     const controller = new LifecycleController();
     const registry = new PluginRegistryImpl();
     const plugin = {
-      metadata: { name: "@zudoliblib/test" },
+      metadata: { name: "@zudolib/test" },
       install() {
         throw new Error("install failed");
       },
     };
     registry.register(plugin);
-    const registered = registry.get("@zudoliblib/test")!;
+    const registered = registry.get("@zudolib/test")!;
     const context = createPluginContext(plugin.metadata);
 
     await expect(controller.install(registered, context)).rejects.toThrow(
@@ -226,10 +226,10 @@ describe("LifecycleController", () => {
     const controller = new LifecycleController();
     const registry = new PluginRegistryImpl();
     const plugin = {
-      metadata: { name: "@zudoliblib/test" },
+      metadata: { name: "@zudolib/test" },
     };
     registry.register(plugin);
-    const registered = registry.get("@zudoliblib/test")!;
+    const registered = registry.get("@zudolib/test")!;
     const context = createPluginContext(plugin.metadata);
 
     await expect(controller.start(registered, context)).rejects.toThrow(
@@ -242,10 +242,10 @@ describe("PluginManager", () => {
   it("registers and lists plugins", async () => {
     const manager = new PluginManager();
     manager.register({
-      metadata: { name: "@zudoliblib/test" },
+      metadata: { name: "@zudolib/test" },
     });
 
-    expect(manager.has("@zudoliblib/test")).toBe(true);
+    expect(manager.has("@zudolib/test")).toBe(true);
     expect(manager.list()).toHaveLength(1);
   });
 
@@ -254,8 +254,8 @@ describe("PluginManager", () => {
     const order: string[] = [];
 
     manager.register({
-      metadata: { name: "@zudoliblib/a" },
-      dependencies: [{ name: "@zudoliblib/b" }],
+      metadata: { name: "@zudolib/a" },
+      dependencies: [{ name: "@zudolib/b" }],
       async initialize() {
         order.push("a");
       },
@@ -265,7 +265,7 @@ describe("PluginManager", () => {
     });
 
     manager.register({
-      metadata: { name: "@zudoliblib/b" },
+      metadata: { name: "@zudolib/b" },
       async initialize() {
         order.push("b");
       },
@@ -275,7 +275,7 @@ describe("PluginManager", () => {
     });
 
     const context = createPluginContext({
-      metadata: { name: "@zudoliblib/test" },
+      metadata: { name: "@zudolib/test" },
     });
     await manager.start(context);
 
@@ -285,12 +285,12 @@ describe("PluginManager", () => {
   it("rejects duplicate plugin registration", () => {
     const manager = new PluginManager();
     manager.register({
-      metadata: { name: "@zudoliblib/test" },
+      metadata: { name: "@zudolib/test" },
     });
 
     expect(() => {
       manager.register({
-        metadata: { name: "@zudoliblib/test" },
+        metadata: { name: "@zudolib/test" },
       });
     }).toThrow();
   });
@@ -298,13 +298,13 @@ describe("PluginManager", () => {
 
 describe("PluginContext", () => {
   it("creates context with plugin metadata", () => {
-    const context = createPluginContext({ name: "@zudoliblib/test" });
-    expect(context.plugin.name).toBe("@zudoliblib/test");
+    const context = createPluginContext({ name: "@zudolib/test" });
+    expect(context.plugin.name).toBe("@zudolib/test");
     expect(context.signal).toBeInstanceOf(AbortSignal);
   });
 
   it("supports onDispose handler", async () => {
-    const context = createPluginContext({ name: "@zudoliblib/test" });
+    const context = createPluginContext({ name: "@zudolib/test" });
     let disposed = false;
 
     context.onDispose(() => {
@@ -315,7 +315,7 @@ describe("PluginContext", () => {
   });
 
   it("supports registerDisposable", () => {
-    const context = createPluginContext({ name: "@zudoliblib/test" });
+    const context = createPluginContext({ name: "@zudolib/test" });
     const disposable = {
       dispose() {
         return undefined;
@@ -333,7 +333,7 @@ describe("PluginContext", () => {
     };
 
     const context = createPluginContext(
-      { name: "@zudoliblib/test" },
+      { name: "@zudolib/test" },
       {
         logger,
       },
@@ -346,19 +346,19 @@ describe("PluginContext", () => {
 describe("PluginEvents", () => {
   it("creates plugin lifecycle event", () => {
     const event = createPluginLifecycleEvent(
-      { name: "@zudoliblib/test" },
+      { name: "@zudolib/test" },
       "installed",
       "installing",
     );
 
-    expect(event.plugin.name).toBe("@zudoliblib/test");
+    expect(event.plugin.name).toBe("@zudolib/test");
     expect(event.state).toBe("installed");
     expect(event.previousState).toBe("installing");
     expect(event.timestamp).toBeGreaterThan(0);
   });
 
   it("creates event without previous state", () => {
-    const event = createPluginLifecycleEvent({ name: "@zudoliblib/test" }, "failed");
+    const event = createPluginLifecycleEvent({ name: "@zudolib/test" }, "failed");
 
     expect(event.state).toBe("failed");
     expect(event.previousState).toBeUndefined();
@@ -367,7 +367,7 @@ describe("PluginEvents", () => {
   it("creates event with error", () => {
     const error = new Error("test error");
     const event = createPluginLifecycleEvent(
-      { name: "@zudoliblib/test" },
+      { name: "@zudolib/test" },
       "failed",
       "starting",
       error,
@@ -398,11 +398,11 @@ describe("PluginDiagnostics", () => {
   it("builds diagnostic report", () => {
     const report = buildDiagnosticReport([
       {
-        plugin: { metadata: { name: "@zudoliblib/a" } },
+        plugin: { metadata: { name: "@zudolib/a" } },
         state: "started" as const,
       },
       {
-        plugin: { metadata: { name: "@zudoliblib/b" } },
+        plugin: { metadata: { name: "@zudolib/b" } },
         state: "failed" as const,
       },
     ]);
@@ -418,17 +418,17 @@ describe("PluginDiagnostics", () => {
     const report = buildDiagnosticReport([
       {
         plugin: {
-          metadata: { name: "@zudoliblib/a" },
-          dependencies: [{ name: "@zudoliblib/b" }],
-          optionalDependencies: [{ name: "@zudoliblib/c" }],
+          metadata: { name: "@zudolib/a" },
+          dependencies: [{ name: "@zudolib/b" }],
+          optionalDependencies: [{ name: "@zudolib/c" }],
         },
         state: "started" as const,
       },
     ]);
 
     const diagnostic = report.plugins[0]!;
-    expect(diagnostic.dependencies).toEqual(["@zudoliblib/b"]);
-    expect(diagnostic.optionalDependencies).toEqual(["@zudoliblib/c"]);
+    expect(diagnostic.dependencies).toEqual(["@zudolib/b"]);
+    expect(diagnostic.optionalDependencies).toEqual(["@zudolib/c"]);
   });
 });
 
@@ -436,15 +436,15 @@ describe("PluginManager.diagnostics", () => {
   it("returns diagnostic report", async () => {
     const manager = new PluginManager();
     manager.register({
-      metadata: { name: "@zudoliblib/a" },
+      metadata: { name: "@zudolib/a" },
     });
     manager.register({
-      metadata: { name: "@zudoliblib/b" },
-      dependencies: [{ name: "@zudoliblib/a" }],
+      metadata: { name: "@zudolib/b" },
+      dependencies: [{ name: "@zudolib/a" }],
     });
 
     const context = createPluginContext({
-      metadata: { name: "@zudoliblib/test" },
+      metadata: { name: "@zudolib/test" },
     });
     await manager.start(context);
 
@@ -457,14 +457,14 @@ describe("PluginManager.diagnostics", () => {
   it("reflects failed state in diagnostics", async () => {
     const manager = new PluginManager();
     manager.register({
-      metadata: { name: "@zudoliblib/a" },
+      metadata: { name: "@zudolib/a" },
       async install() {
         throw new Error("failed");
       },
     });
 
     const context = createPluginContext({
-      metadata: { name: "@zudoliblib/test" },
+      metadata: { name: "@zudolib/test" },
     });
     await manager.start(context).catch(() => {});
 

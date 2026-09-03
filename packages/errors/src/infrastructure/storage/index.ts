@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/errors/infrastructure/storage
+ * @zudolib/errors/infrastructure/storage
  *
  * Database and storage error types.
  */

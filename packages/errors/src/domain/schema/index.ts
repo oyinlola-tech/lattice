@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/errors/schema
+ * @zudolib/errors/schema
  *
  * Schema error types for the Zudolib schema system.
  */

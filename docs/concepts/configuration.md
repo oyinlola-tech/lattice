@@ -38,4 +38,4 @@ Values matching sensitive patterns (`password`, `secret`, `token`, `api_key`) ar
 
 ## Type Safety
 
-Configuration schemas are defined with `@zudoliblib/schema` or `@zudoliblib/validation`, giving compile-time safety and runtime validation.
+Configuration schemas are defined with `@zudolib/schema` or `@zudolib/validation`, giving compile-time safety and runtime validation.

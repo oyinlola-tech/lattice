@@ -1,9 +1,9 @@
 /**
- * @zudoliblib/testing — HTTP status code type.
+ * @zudolib/testing — HTTP status code type.
  *
  * Local definition of HTTPStatusCode for testing purposes.
- * When @zudoliblib/http builds cleanly, this should be replaced
- * with an import from @zudoliblib/http.
+ * When @zudolib/http builds cleanly, this should be replaced
+ * with an import from @zudolib/http.
  */
 
 /** HTTP status code number. */

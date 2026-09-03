@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/messaging/dispatcher
+ * @zudolib/messaging/dispatcher
  *
  * Dispatcher type definitions and default implementation.
  */

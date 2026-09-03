@@ -1,5 +1,5 @@
 {
-  "name": "@zudoliblib/campusflow-notification",
+  "name": "@zudolib/campusflow-notification",
   "version": "0.1.1",
   "private": true,
   "type": "module",
@@ -11,16 +11,16 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@zudoliblib/cqrs": "workspace:*",
-    "@zudoliblib/events": "workspace:*",
-    "@zudoliblib/http": "workspace:*",
-    "@zudoliblib/config": "workspace:*",
-    "@zudoliblib/logger": "workspace:*",
-    "@zudoliblib/errors": "workspace:*",
-    "@zudoliblib/validation": "workspace:*",
-    "@zudoliblib/constants": "workspace:*",
-    "@zudoliblib/types": "workspace:*",
-    "@zudoliblib/queue": "workspace:*"
+    "@zudolib/cqrs": "workspace:*",
+    "@zudolib/events": "workspace:*",
+    "@zudolib/http": "workspace:*",
+    "@zudolib/config": "workspace:*",
+    "@zudolib/logger": "workspace:*",
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/validation": "workspace:*",
+    "@zudolib/constants": "workspace:*",
+    "@zudolib/types": "workspace:*",
+    "@zudolib/queue": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.0",

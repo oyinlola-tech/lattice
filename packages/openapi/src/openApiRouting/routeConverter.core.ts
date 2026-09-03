@@ -33,7 +33,7 @@ export function toOpenAPIPath(path: string): string {
 /**
  * Maps Zudolib HTTP methods to OpenAPI methods.
  */
-export const ZUDO_TO_OPENAPI_METHODS = [
+export const ZUDOLIB_TO_OPENAPI_METHODS = [
   "get",
   "put",
   "post",

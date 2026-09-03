@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/logger/loggerContext
+ * @zudolib/logger/loggerContext
  *
  * Logger context for scoped metadata propagation.
  */

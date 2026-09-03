@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/crypto/cryptoEncoding/encoding
+ * @zudolib/crypto/cryptoEncoding/encoding
  *
  * Low-level encoding implementations (hex, base64, base64url).
  */

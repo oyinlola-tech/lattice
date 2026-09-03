@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/storage
+ * @zudolib/storage
  *
  * Storage infrastructure for the Zudolib framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { Database, ConnectionPool, BaseRepository } from '@zudoliblib/storage';
+ * import { Database, ConnectionPool, BaseRepository } from '@zudolib/storage';
  *
  * // Use database abstraction
  * const result = await database.query({ text: 'SELECT * FROM users' });

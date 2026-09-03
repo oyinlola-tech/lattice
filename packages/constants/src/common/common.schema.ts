@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/constants/schema
+ * @zudolib/constants/schema
  *
  * Schema-related constants, issue codes, and default limits.
  */

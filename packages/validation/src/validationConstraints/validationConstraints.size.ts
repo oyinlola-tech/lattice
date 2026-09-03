@@ -1,11 +1,11 @@
 /**
- * @zudoliblib/validation — Size checking.
+ * @zudolib/validation — Size checking.
  *
  * Estimates serialized payload size to prevent memory exhaustion
  * from excessively large payloads.
  */
 
-import { SerializationPayloadTooLargeError } from "@zudoliblib/errors";
+import { SerializationPayloadTooLargeError } from "@zudolib/errors";
 
 /**
  * Estimate the byte size of a value as JSON without allocating a string.

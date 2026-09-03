@@ -1,17 +1,17 @@
-# @zudoliblib/config
+# @zudolib/config
 
 Layered configuration management with multiple sources, validation, and environment-specific overrides.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/config
+npm install @zudolib/config
 ```
 
 ## Quick Start
 
 ```typescript
-import { createConfig } from "@zudoliblib/config";
+import { createConfig } from "@zudolib/config";
 
 const config = await createConfig({
   sources: [

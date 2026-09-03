@@ -148,7 +148,7 @@ function checkDependencies(context: CLIContext): DoctorCheck {
     };
 
     const zudolibDeps = Object.keys(pkg.dependencies ?? {}).filter((d) =>
-      d.startsWith("@zudoliblib/"),
+      d.startsWith("@zudolib/"),
     );
 
     const passed = zudolibDeps.length > 0;
@@ -219,7 +219,7 @@ function checkArchitectureViolations(): DoctorCheck {
       const deps = Object.keys(pkg.dependencies ?? {});
 
       for (const feature of features) {
-        const pkgName = `@zudoliblib/${feature}`;
+        const pkgName = `@zudolib/${feature}`;
         if (!deps.includes(pkgName)) {
           violations.push(
             `Feature "${feature}" declared in package.json#zudolib.features but ${pkgName} not in dependencies`,

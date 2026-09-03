@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/cqrs/cqrsEvents
+ * @zudolib/cqrs/cqrsEvents
  *
  * CQRS event types, event bus, and event result types.
  *

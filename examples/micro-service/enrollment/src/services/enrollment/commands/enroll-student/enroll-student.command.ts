@@ -1,4 +1,4 @@
-import { Command } from "@zudoliblib/cqrs";
+import { Command } from "@zudolib/cqrs";
 import type { EnrollStudentDto } from "../../../../dtos/index.js";
 
 /** Command to enroll a student in a course. */

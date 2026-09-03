@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/schema/primitives/number
+ * @zudolib/schema/primitives/number
  *
  * Number schema with constraints and transformations.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudoliblib/constants";
+import { SchemaIssueCode } from "@zudolib/constants";
 import { TransformSchema } from "./schemaTransform.core.js";
 import { OptionalModifierSchema } from "../schemaModifiers/schemaOptionalNullable.core.js";
 import { NullableModifierSchema } from "../schemaModifiers/schemaOptionalNullable.core.js";

@@ -1,4 +1,4 @@
-import { Query } from "@zudoliblib/cqrs";
+import { Query } from "@zudolib/cqrs";
 
 export const GET_ASSESSMENT_RESULT_QUERY = "assessment.result.get" as const;
 

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/cache — Tags
+ * @zudolib/cache — Tags
  *
  * Tag-based cache invalidation registry. Maps tags to cache keys,
  * allowing bulk invalidation of related entries.

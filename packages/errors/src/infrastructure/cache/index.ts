@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/errors — Cache Error Types
+ * @zudolib/errors — Cache Error Types
  *
  * Error classes and helpers for cache subsystem failures.
  */

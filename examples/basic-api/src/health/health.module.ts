@@ -4,7 +4,7 @@
  * Provides the /health endpoint.
  */
 
-import { BaseModule } from "@zudoliblib/core";
+import { BaseModule } from "@zudolib/core";
 import { HealthController } from "./health.controller.js";
 
 export class HealthModule extends BaseModule {

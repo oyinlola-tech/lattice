@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/validation/validationSchema
+ * @zudolib/validation/validationSchema
  *
  * Schema definitions and Zod integration.
  */

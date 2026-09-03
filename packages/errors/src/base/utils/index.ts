@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/errors/base/utils
+ * @zudolib/errors/base/utils
  *
  * Error utility functions.
  */

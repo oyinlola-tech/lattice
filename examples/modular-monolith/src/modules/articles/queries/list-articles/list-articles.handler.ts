@@ -1,4 +1,4 @@
-import { QueryHandler } from "@zudoliblib/cqrs";
+import { QueryHandler } from "@zudolib/cqrs";
 import type { ListArticlesQuery } from "./list-articles.query.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
 import type { ArticleModel } from "../../../../models/article.model.js";

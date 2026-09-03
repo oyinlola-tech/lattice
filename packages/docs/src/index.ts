@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/docs
+ * @zudolib/docs
  *
  * Documentation infrastructure for the Zudolib framework.
  *

@@ -1,4 +1,4 @@
-# @zudoliblib/rpc
+# @zudolib/rpc
 
 Type-safe RPC — define procedures, apply middleware, dispatch calls, and serve over HTTP or your own transport.
 
@@ -11,12 +11,12 @@ Import this when you need:
 - a dispatcher that picks the right transport
 - structured RPC errors
 
-For request/response inside one process, prefer `@zudoliblib/api`.
+For request/response inside one process, prefer `@zudolib/api`.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/rpc
+npm install @zudolib/rpc
 ```
 
 ## Public API
@@ -34,13 +34,13 @@ import {
   type RPCRequest,
   type RPCResponse,
   type RPCErrorOptions,
-} from "@zudoliblib/rpc";
+} from "@zudolib/rpc";
 ```
 
 ## Usage
 
 ```typescript
-import { createRPCProcedure, RPCDispatcher } from "@zudoliblib/rpc";
+import { createRPCProcedure, RPCDispatcher } from "@zudolib/rpc";
 
 const sum = createRPCProcedure({
   name: "sum",

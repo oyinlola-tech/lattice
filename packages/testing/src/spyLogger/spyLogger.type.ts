@@ -1,10 +1,10 @@
 /**
- * @zudoliblib/testing — Spy logger types.
+ * @zudolib/testing — Spy logger types.
  *
  * Types for the spy logger used in testing.
  */
 
-import type { Logger, LoggerLevel, LogMetadata } from "@zudoliblib/logger";
+import type { Logger, LoggerLevel, LogMetadata } from "@zudolib/logger";
 
 /** A recorded log call. */
 export interface LogCall {

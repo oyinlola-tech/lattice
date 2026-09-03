@@ -2,10 +2,10 @@
  * zudolib-cli — Command Errors
  *
  * Error classes for command registration and lookup failures.
- * Extends base errors from `@zudoliblib/errors` where possible.
+ * Extends base errors from `@zudolib/errors` where possible.
  */
 
-import { NotFoundError, ConflictError } from "@zudoliblib/errors";
+import { NotFoundError, ConflictError } from "@zudolib/errors";
 import {
   CLI_ERROR_CODES,
   CLI_EXIT_CODES,
@@ -17,7 +17,7 @@ import {
 
 /**
  * Thrown when a requested command does not exist.
- * Extends `NotFoundError` from `@zudoliblib/errors`.
+ * Extends `NotFoundError` from `@zudolib/errors`.
  */
 export class CommandNotFoundError extends NotFoundError {
   public readonly exitCode: number;
@@ -47,7 +47,7 @@ export class CommandNotFoundError extends NotFoundError {
 
 /**
  * Thrown when a command name is already registered.
- * Extends `ConflictError` from `@zudoliblib/errors`.
+ * Extends `ConflictError` from `@zudolib/errors`.
  */
 export class DuplicateCommandError extends ConflictError {
   public readonly exitCode: number;

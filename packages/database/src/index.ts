@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/database
+ * @zudolib/database
  *
  * Shared database infrastructure for the Zudolib platform.
  *

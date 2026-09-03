@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/rpc/reliability/timeout
+ * @zudolib/rpc/reliability/timeout
  *
  * Timeout utilities for RPC operations.
  */

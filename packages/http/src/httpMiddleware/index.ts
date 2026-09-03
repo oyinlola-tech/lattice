@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpMiddleware
+ * @zudolib/http/httpMiddleware
  *
  * HTTP middleware abstraction and utilities.
  */

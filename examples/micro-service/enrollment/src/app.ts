@@ -1,7 +1,7 @@
-import { CommandBus, createCommandBus } from "@zudoliblib/cqrs";
-import { QueryBus, createQueryBus } from "@zudoliblib/cqrs";
-import { createEventBus } from "@zudoliblib/events";
-import { LoggerLevel } from "@zudoliblib/logger";
+import { CommandBus, createCommandBus } from "@zudolib/cqrs";
+import { QueryBus, createQueryBus } from "@zudolib/cqrs";
+import { createEventBus } from "@zudolib/events";
+import { LoggerLevel } from "@zudolib/logger";
 import { createAppLogger } from "./config/logger.js";
 import { createAppConfig } from "./config/app.config.js";
 import { initDatabase } from "./databases/enrollment.database.js";

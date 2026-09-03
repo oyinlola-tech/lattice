@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpMiddleware/builtin/video
+ * @zudolib/http/httpMiddleware/builtin/video
  *
  * Video compression utilities using FFmpeg.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/core/logging/console
+ * @zudolib/core/logging/console
  *
  * Console logger implementation and factory.
  */

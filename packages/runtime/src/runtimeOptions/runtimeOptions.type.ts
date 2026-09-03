@@ -1,4 +1,4 @@
-import type { Environment } from "@zudoliblib/constants";
+import type { Environment } from "@zudolib/constants";
 
 import type { RuntimeId } from "../runtimeState/runtimeState.type.js";
 

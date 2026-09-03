@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/openapi/openApiTypes
+ * @zudolib/openapi/openApiTypes
  *
  * All OpenAPI specification types re-exported from split modules.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/middleware
+ * @zudolib/middleware
  *
  * Composable middleware pipeline for the Zudolib framework.
  *
@@ -7,7 +7,7 @@
  * execution tracking, and built-in middleware for logging,
  * error handling, timeouts, and rate limiting.
  *
- * @module @zudoliblib/middleware
+ * @module @zudolib/middleware
  */
 
 export * from "./middlewareTypes/index.js";

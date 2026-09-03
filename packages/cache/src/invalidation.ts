@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/cache — Invalidation
+ * @zudolib/cache — Invalidation
  *
  * Coordinates cache invalidation across tags, patterns, and keys.
  * Works with both the tag store and the cache adapter to ensure

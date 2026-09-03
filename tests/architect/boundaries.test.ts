@@ -81,7 +81,7 @@ function getPackages() {
 describe("Architecture Boundaries", () => {
   const packages = getPackages();
 
-  it("has no wildcard @zudoliblib/* dependency versions", () => {
+  it("has no wildcard @zudolib/* dependency versions", () => {
     const errors = [];
 
     for (const pkg of packages) {
@@ -89,7 +89,7 @@ describe("Architecture Boundaries", () => {
 
       for (const [depName, version] of Object.entries(allDeps)) {
         if (
-          depName.startsWith("@zudoliblib/") &&
+          depName.startsWith("@zudolib/") &&
           version === "*"
         ) {
           errors.push(`${pkg.name}: ${depName}@${version}`);
@@ -115,7 +115,7 @@ describe("Architecture Boundaries", () => {
       }
 
       for (const depName of Object.keys(pkg.dependencies)) {
-        if (!depName.startsWith("@zudoliblib/")) continue;
+        if (!depName.startsWith("@zudolib/")) continue;
 
         const depKey = packageNameToKey(depName);
         const depTier = TIERS[depKey];
@@ -144,7 +144,7 @@ describe("Architecture Boundaries", () => {
 
     for (const pkg of packages) {
       const deps = Object.keys(pkg.dependencies).filter(
-        (d) => d.startsWith("@zudoliblib/"),
+        (d) => d.startsWith("@zudolib/"),
       );
       graph.set(pkg.name, deps);
     }

@@ -1,7 +1,7 @@
 /**
- * @zudoliblib/config/configManager/configManager.error
+ * @zudolib/config/configManager/configManager.error
  *
- * ConfigurationManager error types re-exported from @zudoliblib/errors.
+ * ConfigurationManager error types re-exported from @zudolib/errors.
  */
 
 import {
@@ -10,13 +10,13 @@ import {
   isConfigurationError,
   missingConfigurationError,
   invalidConfigurationError,
-} from "@zudoliblib/errors";
+} from "@zudolib/errors";
 
 /**
  * Error thrown when complete configuration validation fails.
  *
  * Re-exported as a configuration-specific variant of
- * the base ConfigurationError from @zudoliblib/errors.
+ * the base ConfigurationError from @zudolib/errors.
  */
 export class ConfigManagerValidationError extends ConfigurationError {
   readonly issues: readonly unknown[];

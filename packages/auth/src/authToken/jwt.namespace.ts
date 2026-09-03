@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/auth — JWT Namespace
+ * @zudolib/auth — JWT Namespace
  *
  * Convenience namespace for all JWT-related utilities.
  */

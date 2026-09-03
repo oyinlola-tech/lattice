@@ -2,7 +2,7 @@
  * Queue event emitter abstraction.
  *
  * Provides event emission for queue and job lifecycle events.
- * Can be implemented by different backends (in-memory, @zudoliblib/events, etc.).
+ * Can be implemented by different backends (in-memory, @zudolib/events, etc.).
  */
 export {
   createNoopQueueEventEmitter,

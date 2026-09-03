@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/openapi/openApiRouting
+ * @zudolib/openapi/openApiRouting
  *
  * Route metadata, conversion, and scanning for OpenAPI generation.
  */
@@ -13,6 +13,6 @@ export type {
 export {
   toOpenAPIPath,
   convertRouteToOpenAPI,
-  ZUDO_TO_OPENAPI_METHODS,
+  ZUDOLIB_TO_OPENAPI_METHODS,
 } from "./routeConverter.core.js";
 export { OpenAPIRouteScannerImpl } from "./routeScanner.core.js";

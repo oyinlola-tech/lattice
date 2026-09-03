@@ -1,5 +1,5 @@
 import type { ModuleId } from "./module.js";
-import type { Environment } from "@zudoliblib/constants";
+import type { Environment } from "@zudolib/constants";
 
 /** Environment in which a module is intended to run. */
 export type ModuleEnvironment = Environment;

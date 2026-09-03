@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/rpc
+ * @zudolib/rpc
  *
  * Remote Procedure Call abstraction for the Zudolib framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { RPCServer, RPCClient, createRPCProcedure, RPCMiddlewareStack } from "@zudoliblib/rpc";
+ * import { RPCServer, RPCClient, createRPCProcedure, RPCMiddlewareStack } from "@zudolib/rpc";
  *
  * const server = new RPCServer();
  * server.register(createRPCProcedure("users.getUser", async (input) => {

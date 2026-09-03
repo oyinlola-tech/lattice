@@ -1,5 +1,5 @@
-import { CommandHandler } from "@zudoliblib/cqrs";
-import type { CqrsContext } from "@zudoliblib/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
+import type { CqrsContext } from "@zudolib/cqrs";
 import {
   CreateNotificationCommand,
   CREATE_NOTIFICATION_COMMAND,

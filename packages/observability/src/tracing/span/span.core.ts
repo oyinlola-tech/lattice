@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Span
+ * @zudolib/observability — Span
  *
  * In-memory span that records attributes, events, status, and errors.
  * Exported as a ReadableSpan when ended.

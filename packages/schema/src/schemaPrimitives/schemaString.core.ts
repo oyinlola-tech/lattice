@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/schema/primitives/string
+ * @zudolib/schema/primitives/string
  *
  * String schema with constraints, format validation, and transformations.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode, SCHEMA_STRING_FORMATS } from "@zudoliblib/constants";
+import { SchemaIssueCode, SCHEMA_STRING_FORMATS } from "@zudolib/constants";
 import { OptionalModifierSchema } from "../schemaModifiers/schemaOptionalNullable.core.js";
 import { NullableModifierSchema } from "../schemaModifiers/schemaOptionalNullable.core.js";
 import { DefaultSchema } from "../schemaModifiers/schemaDefault.core.js";

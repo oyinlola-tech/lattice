@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/database — Locks
+ * @zudolib/database — Locks
  *
  * Advisory and row-level database locking.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Logger Core
+ * @zudolib/observability — Logger Core
  *
  * Structured logger implementation with level filtering, transport support,
  * child loggers, and persistent context.

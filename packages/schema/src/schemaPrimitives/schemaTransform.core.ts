@@ -5,7 +5,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudoliblib/constants";
+import { SchemaIssueCode } from "@zudolib/constants";
 
 export class TransformSchema<TInput, TOutput> extends Schema<TOutput> {
   public readonly _type = "transform";

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/core/context/snapshot
+ * @zudolib/core/context/snapshot
  *
  * Context snapshots for propagation across
  * asynchronous and distributed boundaries.

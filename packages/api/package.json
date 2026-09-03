@@ -1,5 +1,5 @@
 {
-  "name": "@zudoliblib/api",
+  "name": "@zudolib/api",
   "version": "0.1.3",
   "description": "Application-facing API layer for Zudolib — operation definitions, execution context, interceptors, policies, and transport-agnostic contracts.",
   "license": "MIT",
@@ -27,10 +27,10 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@zudoliblib/errors": "workspace:*",
-    "@zudoliblib/constants": "workspace:*",
-    "@zudoliblib/types": "workspace:*",
-    "@zudoliblib/schema": "workspace:*"
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/constants": "workspace:*",
+    "@zudolib/types": "workspace:*",
+    "@zudolib/schema": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

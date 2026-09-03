@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/lifecycle
+ * @zudolib/lifecycle
  *
  * Application and component lifecycle orchestration for the Zudolib framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { createLifecycleManager } from "@zudoliblib/lifecycle";
+ * import { createLifecycleManager } from "@zudolib/lifecycle";
  *
  * const lifecycle = createLifecycleManager();
  *

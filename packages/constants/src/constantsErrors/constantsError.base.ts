@@ -10,7 +10,7 @@ import {
   ErrorCategory,
   ErrorSeverity,
   type ErrorMetadata,
-} from "@zudoliblib/errors";
+} from "@zudolib/errors";
 
 /**
  * Error thrown when an invalid constant value is used.

@@ -22,7 +22,7 @@ export async function generateRepository(
   const basePath = options.basePath ?? "";
 
   const files: Record<string, string> = {
-    [`${basePath ? `${basePath}/` : ""}repositories/${name}.repository.ts`]: `import { createLogger } from "@zudoliblib/logger";
+    [`${basePath ? `${basePath}/` : ""}repositories/${name}.repository.ts`]: `import { createLogger } from "@zudolib/logger";
 
 export interface ${nameCamel}Entity {
   readonly id: string;

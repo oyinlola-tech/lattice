@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/plugins/pluginDependencies
+ * @zudolib/plugins/pluginDependencies
  *
  * Plugin dependency resolution, topological sorting, and cycle detection.
  */

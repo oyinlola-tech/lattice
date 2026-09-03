@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/schema/composition/union
+ * @zudolib/schema/composition/union
  *
  * Union schema — validates against multiple schemas, returning the first match.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue, createParseContext } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudoliblib/constants";
+import { SchemaIssueCode } from "@zudolib/constants";
 
 /** Helper type to infer union output from schema array. */
 type UnionOutput<TSchemas extends readonly Schema<unknown>[]> =

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/feature-flags
+ * @zudolib/feature-flags
  *
  * Feature flag system with deterministic rollouts, rule engine, providers, and evaluation context.
  *

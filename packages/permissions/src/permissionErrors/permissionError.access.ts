@@ -2,7 +2,7 @@
  * Access-related permission errors.
  */
 
-import { ErrorCode } from "@zudoliblib/errors";
+import { ErrorCode } from "@zudolib/errors";
 import { PermissionError } from "./permissionError.base.js";
 
 /**

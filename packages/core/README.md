@@ -1,17 +1,17 @@
-# @zudoliblib/core
+# @zudolib/core
 
 Application lifecycle management, execution context propagation, and runtime orchestration for Zudolib applications.
 
 ## Installation
 
 ```bash
-npm install @zudoliblib/core
+npm install @zudolib/core
 ```
 
 ## Quick Start
 
 ```typescript
-import { createApplication } from "@zudoliblib/core";
+import { createApplication } from "@zudolib/core";
 
 const app = await createApplication();
 

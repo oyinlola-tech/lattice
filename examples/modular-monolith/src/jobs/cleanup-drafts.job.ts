@@ -1,4 +1,4 @@
-import type { Logger } from "@zudoliblib/logger";
+import type { Logger } from "@zudolib/logger";
 
 export interface CleanupDraftsJobConfig {
   readonly logger: Logger;

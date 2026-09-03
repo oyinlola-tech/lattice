@@ -9,7 +9,7 @@ import {
   ErrorCode,
   ErrorCategory,
   ErrorSeverity,
-} from "@zudoliblib/errors";
+} from "@zudolib/errors";
 
 /**
  * Error thrown when a middleware pipeline fails.

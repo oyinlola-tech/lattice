@@ -1,5 +1,5 @@
-import { CommandBus, QueryBus } from "@zudoliblib/cqrs";
-import type { EventBus } from "@zudoliblib/events";
+import { CommandBus, QueryBus } from "@zudolib/cqrs";
+import type { EventBus } from "@zudolib/events";
 import type { NotificationRepository } from "../../repositories/notification.repository.js";
 import type { ArticleRepository } from "../../repositories/article.repository.js";
 import type { UserRepository } from "../../repositories/user.repository.js";

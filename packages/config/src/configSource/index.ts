@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/config/configSource
+ * @zudolib/config/configSource
  *
  * Configuration source abstractions and implementations.
  */

@@ -4,7 +4,7 @@
  * Validates:
  * 1. No package depends on a package from a higher tier.
  * 2. No circular dependencies exist.
- * 3. All @zudoliblib/* dependencies use exact versions (not wildcards).
+ * 3. All @zudolib/* dependencies use exact versions (not wildcards).
  *
  * Run with: node architect:check.js
  */
@@ -100,7 +100,7 @@ function checkWildcardVersions(packages) {
     const allDeps = { ...pkg.dependencies, ...pkg.peerDependencies };
 
     for (const [depName, version] of Object.entries(allDeps)) {
-      if (depName.startsWith("@zudoliblib/") && version === "*") {
+      if (depName.startsWith("@zudolib/") && version === "*") {
         errors.push(
           `Wildcard version in ${pkg.name}: ${depName}: "${version}". Use exact version "0.1.0".`
         );
@@ -127,7 +127,7 @@ function checkTierViolations(packages) {
     const deps = Object.keys(pkg.dependencies);
 
     for (const depName of deps) {
-      if (!depName.startsWith("@zudoliblib/")) continue;
+      if (!depName.startsWith("@zudolib/")) continue;
 
       const depKey = packageNameToKey(depName);
       const depTier = TIERS[depKey];
@@ -157,7 +157,7 @@ function checkCircularDependencies(packages) {
 
   // Build adjacency list
   for (const pkg of packages) {
-    const deps = Object.keys(pkg.dependencies).filter((d) => d.startsWith("@zudoliblib/"));
+    const deps = Object.keys(pkg.dependencies).filter((d) => d.startsWith("@zudolib/"));
     graph.set(pkg.name, deps);
   }
 

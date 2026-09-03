@@ -1,4 +1,4 @@
-# @zudoliblib/errors
+# @zudolib/errors
 
 ## 0.1.2
 

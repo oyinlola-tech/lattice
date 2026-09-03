@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpAgent
+ * @zudolib/http/httpAgent
  *
  * HTTP httpAgent module.
  */

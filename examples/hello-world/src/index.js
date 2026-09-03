@@ -1,4 +1,4 @@
-import { createLogger, LoggerLevel } from "@zudoliblib/logger";
+import { createLogger, LoggerLevel } from "@zudolib/logger";
 import { createServer } from "node:http";
 const logger = createLogger({ name: "hello-world", level: LoggerLevel.INFO });
 const server = createServer((req, res) => {

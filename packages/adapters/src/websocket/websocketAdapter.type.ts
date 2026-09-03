@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/adapters/websocket
+ * @zudolib/adapters/websocket
  *
  * WebSocket adapter contracts — bridges Zudolib to WebSocket providers.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/core/context/provider
+ * @zudolib/core/context/provider
  *
  * Async context storage and provider.
  */

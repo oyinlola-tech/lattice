@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/errors/domain/app
+ * @zudolib/errors/domain/app
  *
  * Application-level error types.
  */

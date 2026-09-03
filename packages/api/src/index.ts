@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/api
+ * @zudolib/api
  *
  * Application-facing API layer for the Zudolib framework.
  *
@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { defineOperation, APIOperationRegistry, APIExecutor } from "@zudoliblib/api";
+ * import { defineOperation, APIOperationRegistry, APIExecutor } from "@zudolib/api";
  *
  * const getUser = defineOperation({
  *   name: "users.get",

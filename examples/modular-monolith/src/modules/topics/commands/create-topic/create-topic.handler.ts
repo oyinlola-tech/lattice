@@ -1,4 +1,4 @@
-import { CommandHandler } from "@zudoliblib/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
 import type { CreateTopicCommand } from "./create-topic.command.js";
 import type { TopicRepository } from "../../../../repositories/topic.repository.js";
 import type { TopicModel } from "../../../../models/topic.model.js";

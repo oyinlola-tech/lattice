@@ -1,5 +1,5 @@
 {
-  "name": "@zudoliblib/types",
+  "name": "@zudolib/types",
   "version": "0.1.3",
   "description": "Shared type guards, utility types, and type converters for the Zudolib framework.",
   "license": "MIT",

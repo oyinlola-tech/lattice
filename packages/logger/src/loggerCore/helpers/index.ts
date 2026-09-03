@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/logger/loggerCore/helpers
+ * @zudolib/logger/loggerCore/helpers
  *
  * Logger helper functions and methods.
  */

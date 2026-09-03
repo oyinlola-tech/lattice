@@ -4,7 +4,7 @@
  * @module httpServer/manager
  */
 
-import { HttpServerLifecycleError } from "@zudoliblib/errors";
+import { HttpServerLifecycleError } from "@zudolib/errors";
 
 import { HttpServer } from "../core/httpServer.core.js";
 

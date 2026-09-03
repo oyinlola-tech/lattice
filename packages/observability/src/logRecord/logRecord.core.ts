@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Log Record
+ * @zudolib/observability — Log Record
  *
  * Factory functions for creating structured log records.
  */

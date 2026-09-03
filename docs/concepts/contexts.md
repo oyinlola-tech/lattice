@@ -15,7 +15,7 @@ The execution context carries request-scoped values:
 Context flows automatically. Application code never passes it manually.
 
 ```typescript
-import { getContext } from "@zudoliblib/core";
+import { getContext } from "@zudolib/core";
 
 const requestId = getContext().requestId;
 ```
@@ -25,7 +25,7 @@ const requestId = getContext().requestId;
 Multi-tenant applications use tenant context to isolate data:
 
 ```typescript
-import { getTenantContext } from "@zudoliblib/tenancy";
+import { getTenantContext } from "@zudolib/tenancy";
 
 const tenantId = getTenantContext().tenantId;
 ```
@@ -35,7 +35,7 @@ const tenantId = getTenantContext().tenantId;
 Transactions propagate through the call chain:
 
 ```typescript
-import { getTransactionContext } from "@zudoliblib/transactions";
+import { getTransactionContext } from "@zudolib/transactions";
 
 const tx = getTransactionContext();
 await tx.commit();
@@ -46,7 +46,7 @@ await tx.commit();
 Logger context enriches logs with request metadata:
 
 ```typescript
-import { withContext } from "@zudoliblib/logger";
+import { withContext } from "@zudolib/logger";
 
 const child = logger.withContext({ requestId, userId });
 child.info("Processing request");

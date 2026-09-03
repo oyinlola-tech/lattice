@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpStream — Stream option and result types.
+ * @zudolib/http/httpStream — Stream option and result types.
  */
 
 export interface HTTPStreamOptions {

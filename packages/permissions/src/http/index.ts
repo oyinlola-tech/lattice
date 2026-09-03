@@ -1,7 +1,7 @@
 /**
- * HTTP middleware adapter for @zudoliblib/permissions.
+ * HTTP middleware adapter for @zudolib/permissions.
  *
- * Requires @zudoliblib/http as a peer dependency.
+ * Requires @zudolib/http as a peer dependency.
  *
  * @module http
  */

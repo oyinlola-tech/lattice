@@ -17,7 +17,7 @@ Adapters solve this by:
 - Defining **platform-agnostic contracts** for external interactions.
 - Providing a **registry** for discovering and managing adapters.
 - Declaring **capabilities** so runtime code can adapt behavior.
-- Offering **lifecycle contracts** that integrate with `@zudoliblib/lifecycle`.
+- Offering **lifecycle contracts** that integrate with `@zudolib/lifecycle`.
 
 ---
 
@@ -316,7 +316,7 @@ interface ScheduledJob {
 
 ## 4. Lifecycle Integration
 
-Adapters participate in the Zudolib lifecycle through `@zudoliblib/lifecycle`:
+Adapters participate in the Zudolib lifecycle through `@zudolib/lifecycle`:
 
 ```ts
 interface LifecycleAdapter extends Adapter {
@@ -340,7 +340,7 @@ Health status is used by diagnostics and readiness checks.
 
 ## 5. Error Handling
 
-Adapters define a dedicated error hierarchy rooted in `@zudoliblib/errors`:
+Adapters define a dedicated error hierarchy rooted in `@zudolib/errors`:
 
 | Error Class                     | Meaning                     |
 | ------------------------------- | --------------------------- |
@@ -367,14 +367,14 @@ All errors carry:
 
 ## 6. Testing
 
-`@zudoliblib/adapters` provides testing utilities for adapter implementations:
+`@zudolib/adapters` provides testing utilities for adapter implementations:
 
 ```ts
 import {
   createMockAdapter,
   createMockAdapterRegistry,
   createMockHealth,
-} from "@zudoliblib/adapters/testing";
+} from "@zudolib/adapters/testing";
 
 const mockRegistry = createMockAdapterRegistry();
 mockRegistry.register(createMockAdapter("http", { http: true }));
@@ -390,16 +390,16 @@ Mock adapters implement the base `Adapter` interface and can be configured with:
 
 ## 7. Package Dependencies
 
-`@zudoliblib/adapters` depends on:
+`@zudolib/adapters` depends on:
 
 | Package              | Purpose                       |
 | -------------------- | ----------------------------- |
-| `@zudoliblib/errors`    | Error hierarchy               |
-| `@zudoliblib/constants` | Branded types and constants   |
-| `@zudoliblib/types`     | Type guards and utility types |
-| `@zudoliblib/lifecycle` | Lifecycle contracts           |
+| `@zudolib/errors`    | Error hierarchy               |
+| `@zudolib/constants` | Branded types and constants   |
+| `@zudolib/types`     | Type guards and utility types |
+| `@zudolib/lifecycle` | Lifecycle contracts           |
 
-Adapters do **not** depend on transport packages (`@zudoliblib/http`, `@zudoliblib/messaging`, etc.).
+Adapters do **not** depend on transport packages (`@zudolib/http`, `@zudolib/messaging`, etc.).
 Transport packages depend on adapters, not the reverse.
 
 ---

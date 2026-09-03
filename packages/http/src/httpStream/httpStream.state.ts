@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpStream — Stream state inspection helpers.
+ * @zudolib/http/httpStream — Stream state inspection helpers.
  */
 
 import { Readable, Writable } from "node:stream";

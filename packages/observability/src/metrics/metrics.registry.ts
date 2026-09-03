@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Metrics Registry
+ * @zudolib/observability — Metrics Registry
  *
  * Central registry for all metrics. Creates and caches metrics by name+labels.
  */

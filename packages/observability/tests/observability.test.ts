@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Tests
+ * @zudolib/observability — Tests
  *
  * Comprehensive tests for logging, metrics, tracing, propagation,
  * sampling, exporters, redaction, and noop implementations.

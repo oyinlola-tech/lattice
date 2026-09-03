@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/cache — Memory Adapter Tests
+ * @zudolib/cache — Memory Adapter Tests
  *
  * Tests for MemoryCacheAdapter: get/set/delete/has/clear, TTL expiration,
  * batch operations, keys listing, and eviction behavior.

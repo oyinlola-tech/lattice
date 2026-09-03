@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/events/eventTypes
+ * @zudolib/events/eventTypes
  *
  * Event type definitions and payload types.
  */

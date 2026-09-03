@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/adapters/cli
+ * @zudolib/adapters/cli
  *
  * CLI adapter contracts — bridges Zudolib to command-line interfaces.
  */

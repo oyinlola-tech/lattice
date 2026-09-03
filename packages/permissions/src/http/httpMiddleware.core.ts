@@ -1,8 +1,8 @@
 /**
- * HTTP middleware adapter for @zudoliblib/permissions.
+ * HTTP middleware adapter for @zudolib/permissions.
  *
  * Provides middleware factories that integrate the authorization engine
- * with @zudoliblib/http's middleware pipeline.
+ * with @zudolib/http's middleware pipeline.
  *
  * @module http/httpMiddleware
  */

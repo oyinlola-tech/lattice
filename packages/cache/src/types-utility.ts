@@ -1,5 +1,5 @@
 import type { CacheKey } from "./types-keys.js";
-import type { MaybePromise as BaseMaybePromise } from "@zudoliblib/types";
+import type { MaybePromise as BaseMaybePromise } from "@zudolib/types";
 import type {
   CacheDeleteOptions,
   CacheGetOptions,

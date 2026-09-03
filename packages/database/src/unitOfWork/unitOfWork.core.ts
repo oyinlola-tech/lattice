@@ -1,4 +1,4 @@
-import { DatabaseError } from "@zudoliblib/errors";
+import { DatabaseError } from "@zudolib/errors";
 
 import type {
   DatabaseTransactionContext,

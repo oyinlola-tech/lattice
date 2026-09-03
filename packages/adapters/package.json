@@ -1,5 +1,5 @@
 {
-  "name": "@zudoliblib/adapters",
+  "name": "@zudolib/adapters",
   "version": "0.1.5",
   "description": "Boundary layer between Zudolib and external platforms — adapter contracts, registry, capabilities, and transport abstractions.",
   "license": "MIT",
@@ -27,10 +27,10 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@zudoliblib/errors": "workspace:*",
-    "@zudoliblib/constants": "workspace:*",
-    "@zudoliblib/types": "workspace:*",
-    "@zudoliblib/lifecycle": "workspace:*"
+    "@zudolib/errors": "workspace:*",
+    "@zudolib/constants": "workspace:*",
+    "@zudolib/types": "workspace:*",
+    "@zudolib/lifecycle": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

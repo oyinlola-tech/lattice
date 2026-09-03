@@ -1,5 +1,5 @@
 {
-  "name": "@zudoliblib/feature-flags",
+  "name": "@zudolib/feature-flags",
   "version": "0.1.4",
   "description": "Feature flag system with deterministic rollouts, rule engine, providers, variants, snapshots, and evaluation context.",
   "main": "./dist/index.js",
@@ -17,7 +17,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudoliblib/errors": "workspace:*"
+    "@zudolib/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

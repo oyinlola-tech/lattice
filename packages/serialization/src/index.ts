@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/serialization
+ * @zudolib/serialization
  *
  * Data translation layer for the Zudolib framework.
  *
@@ -9,7 +9,7 @@
  *
  * @example
  * ```typescript
- * import { createSerializer, JSONSerializer } from "@zudoliblib/serialization";
+ * import { createSerializer, JSONSerializer } from "@zudolib/serialization";
  *
  * // Fast path (default) — nearly zero overhead over native JSON
  * const serializer = createSerializer("json");

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/observability — Propagation
+ * @zudolib/observability — Propagation
  *
  * Context propagation using AsyncLocalStorage for request-scoped
  * trace, span, request, and correlation IDs.

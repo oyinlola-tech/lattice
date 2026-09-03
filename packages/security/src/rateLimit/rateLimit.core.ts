@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/security — Rate Limiting
+ * @zudolib/security — Rate Limiting
  *
  * Implements sliding window rate limiting to prevent abuse.
  */

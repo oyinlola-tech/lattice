@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/cache — Lock Manager
+ * @zudolib/cache — Lock Manager
  * Distributed lock manager for preventing concurrent cache operations.
  */
 

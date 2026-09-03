@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/docs/utils
+ * @zudolib/docs/utils
  *
  * Utility helpers for document ID normalization, link resolution, and markdown parsing.
  */

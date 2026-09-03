@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/runtime — Runtime Registry
+ * @zudolib/runtime — Runtime Registry
  *
  * Manages multiple runtime instances for scenarios where Zudolib
  * runs multiple applications or workers in a single process.

@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/security — Cookie Security
+ * @zudolib/security — Cookie Security
  *
  * Parses, validates, and serializes HTTP cookies with security best practices.
  */

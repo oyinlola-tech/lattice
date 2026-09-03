@@ -7,7 +7,7 @@ import type {
 
 import { deriveKey } from "../cryptoKeyDerivation/cryptoKeyDerivation.core.js";
 
-import { cryptoKeyDerivationError } from "@zudoliblib/errors";
+import { cryptoKeyDerivationError } from "@zudolib/errors";
 
 import { CryptoAlgorithm } from "../cryptoConstants/cryptoConstants.type.js";
 

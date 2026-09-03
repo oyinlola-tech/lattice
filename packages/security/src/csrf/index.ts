@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/security — CSRF Protection Barrel
+ * @zudolib/security — CSRF Protection Barrel
  */
 
 export {

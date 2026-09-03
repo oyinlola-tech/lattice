@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { HandlerRegistryStore } from "../src/handlerRegistry/index.js";
-import { DuplicateMessageHandlerError } from "@zudoliblib/errors";
+import { DuplicateMessageHandlerError } from "@zudolib/errors";
 import type { NamedMessageHandler } from "../src/messageHandler/index.js";
 
 describe("HandlerRegistryStore", () => {

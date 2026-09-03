@@ -1,11 +1,11 @@
-import { CommandHandler } from "@zudoliblib/cqrs";
-import type { CqrsContext } from "@zudoliblib/cqrs";
+import { CommandHandler } from "@zudolib/cqrs";
+import type { CqrsContext } from "@zudolib/cqrs";
 import jwt from "jsonwebtoken";
 import type { AuthenticateUserCommand } from "./authenticate-user.command.js";
 import type { UserRepository } from "../../../../repositories/index.js";
 import { comparePassword } from "../../../../utils/index.js";
 import { UnauthorizedError } from "../../../../errors/index.js";
-import type { EventBus } from "@zudoliblib/events";
+import type { EventBus } from "@zudolib/events";
 import { UserAuthenticatedEvent } from "../../../../events/index.js";
 
 /**

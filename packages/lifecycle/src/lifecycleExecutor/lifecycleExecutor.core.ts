@@ -1,10 +1,10 @@
 /**
- * @zudoliblib/lifecycle/executor
+ * @zudolib/lifecycle/executor
  *
  * Lifecycle executor — runs component hooks with timeout, retry, and error handling.
  */
 
-import type { LifecyclePhase } from "@zudoliblib/constants";
+import type { LifecyclePhase } from "@zudolib/constants";
 import type {
   LifecycleRegistration,
   LifecycleRetryOptions,
@@ -12,7 +12,7 @@ import type {
 import type { LifecycleContext } from "../lifecycleContext/lifecycleContext.type.js";
 import { withTimeout, withConcurrency } from "../lifecycleInternal/index.js";
 import { getComponentMethod } from "../lifecyclePhase/index.js";
-import { LifecycleComponentError } from "@zudoliblib/errors";
+import { LifecycleComponentError } from "@zudolib/errors";
 
 /** Result of executing a component hook. */
 export interface ExecutionResult {

@@ -47,7 +47,7 @@ export interface RouteMatch {
 import {
   RoutePatternError as BaseRoutePatternError,
   DuplicateRouteParameterError as BaseDuplicateRouteParameterError,
-} from "@zudoliblib/errors";
+} from "@zudolib/errors";
 
 export {
   BaseRoutePatternError as RoutePatternError,

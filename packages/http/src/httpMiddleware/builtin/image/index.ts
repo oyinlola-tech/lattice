@@ -1,5 +1,5 @@
 /**
- * @zudoliblib/http/httpMiddleware/builtin/image
+ * @zudolib/http/httpMiddleware/builtin/image
  *
  * Image compression middleware using Sharp.
  */
