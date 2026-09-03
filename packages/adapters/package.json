@@ -1,6 +1,6 @@
 {
   "name": "@zudolib/adapters",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "description": "Boundary layer between Zudolib and external platforms — adapter contracts, registry, capabilities, and transport abstractions.",
   "license": "MIT",
   "type": "module",

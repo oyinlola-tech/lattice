@@ -1,6 +1,6 @@
 {
   "name": "@zudolib/docs",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "Documentation infrastructure with structured document model, registry, validation, navigation, and generation.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

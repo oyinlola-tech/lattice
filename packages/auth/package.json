@@ -1,6 +1,6 @@
 {
   "name": "@zudolib/auth",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "Authentication and authorization services for the Zudolib framework — JWT, sessions, RBAC, OAuth2, and password management.",
   "license": "MIT",
   "type": "module",

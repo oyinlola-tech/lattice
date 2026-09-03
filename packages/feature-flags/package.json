@@ -1,6 +1,6 @@
 {
   "name": "@zudolib/feature-flags",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "Feature flag system with deterministic rollouts, rule engine, providers, variants, snapshots, and evaluation context.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@zudolib/serialization",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "Data translation layer with JSON serializer, type transformers, envelopes, and registry for Zudolib applications.",
   "type": "module",
   "main": "./dist/index.js",

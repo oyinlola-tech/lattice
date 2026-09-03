@@ -1,6 +1,6 @@
 {
   "name": "@zudolib/runtime",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "Application lifecycle orchestrator with dependency ordering, rollback, signals, and readiness checks.",
   "type": "module",
   "main": "./dist/index.js",

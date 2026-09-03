@@ -1,6 +1,6 @@
 {
   "name": "@zudolib/container",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "Token-based dependency injection container for managing application dependencies and service lifetimes.",
   "type": "module",
   "main": "./dist/index.js",

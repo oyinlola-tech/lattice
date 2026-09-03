@@ -1,6 +1,6 @@
 {
   "name": "zudolib-cli",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "Command-line interface for scaffolding, generating, and managing Zudolib framework projects.",
   "license": "MIT",
   "type": "module",

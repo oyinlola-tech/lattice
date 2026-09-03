@@ -1,6 +1,6 @@
 {
   "name": "@zudolib/testing",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "Test helpers, fixtures, mocks, and utilities for testing Zudolib applications.",
   "type": "module",
   "main": "./dist/index.js",
