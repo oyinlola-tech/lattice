@@ -1,16 +1,6 @@
 # @oyinlola141/lattice-storage
 
-Storage abstractions — connection pools, base repositories, object storage, JSON serializer, distributed locking, lifecycle manager, and health checks.
-
-## When to use
-
-Import this when you need:
-
-- a base repository with CRUD out of the box
-- a connection pool with health checks
-- an object storage interface (local FS included)
-- distributed locks for critical sections
-- lifecycle management for storage components
+Storage abstractions including database, object storage, repository, serialization, locking, and lifecycle.
 
 ## Installation
 
@@ -18,42 +8,31 @@ Import this when you need:
 npm install @oyinlola141/lattice-storage
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  ConnectionPool,
-  BaseRepository,
-  LocalObjectStorage,
-  JsonSerializer,
-  InMemoryLockManager,
-  StorageLifecycleManager,
-  HealthChecker,
-  type BaseRepositoryOptions,
-  type StorageHealthReport,
-  type ComponentHealth,
-} from "@oyinlola141/lattice-storage";
+import { createStorage } from "@oyinlola141/lattice-storage";
+
+const storage = createStorage({
+  database: { url: process.env.DATABASE_URL },
+  cache: { driver: "memory" },
+});
+
+const user = await storage.db.user.findUnique({ where: { id } });
 ```
 
-## Usage
+## Features
 
-```typescript
-import {
-  BaseRepository,
-  LocalObjectStorage,
-  InMemoryLockManager,
-} from "@oyinlola141/lattice-storage";
+- Unified storage abstraction
+- Database client management
+- Object storage (S3, local filesystem)
+- Repository pattern
+- Serialization support
+- Distributed locking
 
-class UserRepo extends BaseRepository<User> {
-  constructor() {
-    super("users");
-  }
-}
+## Use Cases
 
-const bucket = new LocalObjectStorage({ root: "/var/data" });
-await bucket.put("uploads/x.png", buffer);
-```
-
-## License
-
-MIT
+- Unified data access layer
+- File and object storage
+- Cache integration
+- Locking for distributed systems

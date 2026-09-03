@@ -1,17 +1,6 @@
 # @oyinlola141/lattice-constants
 
-Shared constants, enums, and type-safe literals used across every Lattice package. Pure data, no behavior.
-
-## When to use
-
-Import this when you need:
-
-- HTTP status codes / methods / headers (typed)
-- Environment names (`development`, `production`, ...)
-- Time units (ms, seconds, minutes) and durations
-- Validation patterns (email, URL, UUID regex)
-- Cache keys, priorities, and tag values
-- Branded types (`EntityId`, `UserId`, `CorrelationId`, `Timestamp`)
+Shared constants, enums, branded types, and type-safe literals for the Lattice framework.
 
 ## Installation
 
@@ -19,65 +8,27 @@ Import this when you need:
 npm install @oyinlola141/lattice-constants
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  // HTTP
-  HTTP_STATUS,
-  HTTP_METHOD,
-  HTTP_HEADER,
-  CONTENT_TYPE,
-  MIME_TYPE,
+import { EntityId, Timestamp, HttpStatus, ErrorCode } from "@oyinlola141/lattice-constants";
 
-  // Environment
-  ENVIRONMENT,
-  NODE_ENV,
-  APP_ENV,
-
-  // Time
-  TIME_UNIT,
-  MS_PER_SECOND,
-  DEFAULT_TIMEOUT,
-
-  // Branded ID types
-  type EntityId,
-  type UserId,
-  type EventId,
-  type CorrelationId,
-  type SessionId,
-  type TenantId,
-  type RequestId,
-  type Timestamp,
-  type Brand,
-
-  // Validation patterns
-  PATTERNS,
-  EMAIL_PATTERN,
-  UUID_PATTERN,
-  URL_PATTERN,
-
-  // Cache
-  CACHE_TTL,
-  CACHE_KEY_PREFIX,
-
-  // Common
-  DEFAULT_PORT,
-  MAX_RETRIES,
-  DEFAULT_PAGE_SIZE,
-} from "@oyinlola141/lattice-constants";
+const id: EntityId = "user_123";
+const now: Timestamp = new Date();
+const status = HttpStatus.OK;
 ```
 
-## Usage
+## Features
 
-```typescript
-import { HTTP_STATUS, type UserId } from "@oyinlola141/lattice-constants";
+- Branded ID types (EntityId, UserId, EventId, etc.)
+- HTTP status codes and constants
+- Error codes and categories
+- Serialization tags and limits
+- Type-safe literal types
 
-res.status(HTTP_STATUS.NOT_FOUND).json({ error: "missing" });
+## Use Cases
 
-const id = "u_123" as UserId;
-```
-
-## License
-
-MIT
+- Type-safe identifiers
+- HTTP constants
+- Error code management
+- Shared enumerations

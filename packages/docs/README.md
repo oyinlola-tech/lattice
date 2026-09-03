@@ -1,16 +1,6 @@
 # @oyinlola141/lattice-docs
 
-Documentation infrastructure — document model, registry, frontmatter parser, navigation, validation, examples, and markdown/JSON generation.
-
-## When to use
-
-Import this when you need:
-
-- a typed document model (frontmatter + body + examples)
-- a registry to discover and validate your docs
-- generate navigation trees
-- render to markdown or JSON
-- validate that examples still type-check
+Documentation infrastructure with structured document model, registry, validation, navigation, frontmatter parsing, and markdown/JSON generation.
 
 ## Installation
 
@@ -18,40 +8,31 @@ Import this when you need:
 npm install @oyinlola141/lattice-docs
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createDocumentRegistry,
-  createFrontmatterParser,
-  createNavigation,
-  createValidator,
-  createGenerator,
-  type DocumentationDocument,
-  type DocumentationContent,
-  type DocumentationNavigationItem,
-  type DocumentRegistry,
-  type DocumentationExample,
-  type ValidationResult,
-} from "@oyinlattice141/lattice-docs";
-```
+import { createDocumentRegistry } from "@oyinlola141/lattice-docs";
 
-## Usage
-
-```typescript
-import {
-  createDocumentRegistry,
-  createFrontmatterParser,
-} from "@oyinlola141/lattice-docs";
-
-const parser = createFrontmatterParser();
 const registry = createDocumentRegistry();
 
-const doc = parser.parseFile("./docs/getting-started.md");
-registry.register(doc);
-const nav = registry.navigation();
+registry.register({
+  id: "getting-started",
+  title: "Getting Started",
+  content: "# Getting Started\n\nWelcome to Lattice...",
+});
 ```
 
-## License
+## Features
 
-MIT
+- Document model with frontmatter
+- Document registry and discovery
+- Navigation tree generation
+- Markdown and JSON generation
+- Document validation
+
+## Use Cases
+
+- API documentation
+- User guides
+- Knowledge bases
+- Documentation sites

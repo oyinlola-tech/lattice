@@ -1,7 +1,7 @@
 {
   "name": "@oyinlola141/lattice-messaging",
   "version": "0.1.3",
-  "description": "In-process message bus infrastructure for the Lattice framework.",
+  "description": "In-process message bus infrastructure with handlers, middleware, and publish/subscribe patterns.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -35,5 +35,16 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "lattice",
+    "messaging",
+    "message-bus",
+    "pubsub"
+  ],
+  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyinlola-tech/lattice"
   }
 }

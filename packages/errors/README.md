@@ -1,15 +1,6 @@
 # @oyinlola141/lattice-errors
 
-Foundation error system for the entire Lattice platform. Every other package depends on this one.
-
-## When to use
-
-Import this whenever you need to:
-
-- throw a typed, serializable error
-- catch errors and check their category/severity/code
-- build a custom error class for a new domain
-- convert any error into a stable HTTP response
+Shared error base class, error codes, and error handling utilities for the Lattice framework.
 
 ## Installation
 
@@ -17,79 +8,28 @@ Import this whenever you need to:
 npm install @oyinlola141/lattice-errors
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  // Base
-  BaseError,
-  ApplicationError,
-  DomainError,
+import { ApplicationError, ErrorCode } from "@oyinlola141/lattice-errors";
 
-  // Categories / codes
-  ErrorCode,
-  ErrorCategory,
-  ErrorSeverity,
-
-  // Domain errors
-  ValidationError,
-  NotFoundError,
-  ConflictError,
-  AuthenticationError,
-  AuthorizationError,
-  RateLimitError,
-  TimeoutError,
-
-  // Infrastructure
-  NetworkError,
-  DatabaseError,
-  StorageError,
-  ExternalServiceError,
-  HttpError,
-  ConfigurationError,
-
-  // System
-  ContainerError,
-  ModuleError,
-  RuntimeError,
-  EventError,
-  LoggingError,
-  MiddlewareError,
-  CryptoError,
-
-  // Serialization
-  serializeError,
-  deserializeError,
-  isLatticeError,
-  normalizeError,
-} from "@oyinlola141/lattice-errors";
-```
-
-## Throwing errors
-
-```typescript
-import { NotFoundError, ErrorCode } from "@oyinlola141/lattice-errors";
-
-throw new NotFoundError("User not found", {
-  code: ErrorCode.USER_NOT_FOUND,
-  metadata: { userId: "u_123" },
+throw new ApplicationError("Something went wrong", {
+  code: ErrorCode.INTERNAL_SERVER_ERROR,
+  statusCode: 500,
 });
 ```
 
-## Catching errors
+## Features
 
-```typescript
-import { isLatticeError } from "@oyinlola141/lattice-errors";
+- Base error class with code and status code support
+- Error categories (validation, authentication, authorization, etc.)
+- Error code constants
+- Error context and metadata
+- Stack trace preservation
 
-try {
-  await doSomething();
-} catch (err) {
-  if (isLatticeError(err)) {
-    console.log(err.code, err.statusCode, err.isOperational);
-  }
-}
-```
+## Use Cases
 
-## License
-
-MIT
+- Consistent error handling across packages
+- HTTP status code mapping
+- Error categorization for monitoring
+- User-friendly error messages

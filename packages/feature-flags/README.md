@@ -1,16 +1,6 @@
 # @oyinlola141/lattice-feature-flags
 
-Feature flag evaluation — deterministic rollouts, rule engine, providers, variants, snapshots, and an evaluation context for user/tenant targeting.
-
-## When to use
-
-Import this when you need:
-
-- turn a feature on for a percentage of users (deterministic)
-- target by attribute (country, plan, tenant)
-- register multiple providers (memory, env, remote)
-- cache evaluations to avoid hot-path lookups
-- A/B test with variants and weighted distribution
+Feature flag system with deterministic rollouts, rule engine, providers, variants, snapshots, and evaluation context.
 
 ## Installation
 
@@ -18,60 +8,33 @@ Import this when you need:
 npm install @oyinlola141/lattice-feature-flags
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createFeatureFlags,
-  createFeatureFlagRegistry,
-  createMemoryProvider,
-  createEnvironmentProvider,
-  createCompositeProvider,
-  createCachedProvider,
-  evaluateFlag,
-  evaluateRule,
-  matchAttribute,
-  hashString,
-  getBucket,
-  isInRollout,
-  FeatureFlagError,
-  isPlainObject,
-  valuesEqual,
-  type FeatureFlag,
-  type FeatureFlagContext,
-  type FeatureFlagProvider,
-  type FeatureFlagEvaluation,
-  type FeatureFlagRule,
-  type FeatureFlagsOptions,
-  type FeatureFlagRegistry,
-  type EnvironmentProviderOptions,
-  type CachedProviderOptions,
-  type RuleEvaluationResult,
-} from "@oyinlola141/lattice-feature-flags";
-```
-
-## Usage
-
-```typescript
-import {
-  createFeatureFlags,
-  createMemoryProvider,
-} from "@oyinlola141/lattice-feature-flags";
+import { createFeatureFlags } from "@oyinlola141/lattice-feature-flags";
 
 const flags = createFeatureFlags({
-  providers: [
-    createMemoryProvider({
-      "new-checkout": { enabled: true, rollout: { percentage: 50 } },
-    }),
+  rules: [
+    { key: "new-ui", rollout: 0.1 },
+    { key: "beta-feature", users: ["user-123"] },
   ],
 });
 
-const result = await flags.evaluate("new-checkout", { userId: "u_1" });
-if (result.enabled) {
-  /* show new checkout */
-}
+const enabled = await flags.isEnabled("new-ui", { userId: "user-456" });
 ```
 
-## License
+## Features
 
-MIT
+- Percentage rollouts
+- User and segment targeting
+- A/B testing variants
+- Rule engine with AND/OR logic
+- Snapshot export for client-side flags
+- Evaluation context
+
+## Use Cases
+
+- Gradual feature rollouts
+- A/B testing
+- Kill switches
+- Beta feature access

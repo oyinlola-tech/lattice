@@ -1,17 +1,6 @@
 # @oyinlola141/lattice-http
 
-HTTP primitives — request/response, headers, status codes, routing, middleware, CORS, CSRF, and security headers. Engine-agnostic (no Fastify/Express coupling).
-
-## When to use
-
-Import this when you need:
-
-- typed request/response, headers, and query parsing
-- routing with path params and constraints
-- built-in CORS, CSRF, rate limit, CSP, HSTS
-- secure defaults (HttpOnly cookies, frame deny, content-type nosniff)
-
-For the higher-level application/router, see `@oyinlola141/lattice-runtime`. For API contracts, see `@oyinlola141/lattice-api`.
+HTTP primitives, request handling, routing, middleware, and server infrastructure for Lattice applications.
 
 ## Installation
 
@@ -19,61 +8,34 @@ For the higher-level application/router, see `@oyinlola141/lattice-runtime`. For
 npm install @oyinlola141/lattice-http
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  // Request / response
-  createRequest,
-  createResponse,
-  type LatticeRequest,
-  type LatticeResponse,
-  // Methods / status
-  HTTP_METHOD,
-  HTTP_STATUS,
-  // Routing
-  Router,
-  createRouter,
-  type RouteHandler,
-  // CORS
-  createCorsPolicy,
-  isCorsRequest,
-  isPreflightRequest,
-  // CSP
-  createCSP,
-  strictCSP,
-  apiCSP,
-  // HSTS
-  strictTransportSecurityHeader,
-  // Security Headers
-  createSecurityHeaders,
-  createRecommendedSecurityHeaders,
-  // Cookies
-  parseCookies,
-  serializeCookie,
-  // Negotiation
-  acceptContentType,
-  acceptEncoding,
-  // Validation
-  validateQuery,
-  validateBody,
-} from "@oyinlola141/lattice-http";
+import { createHTTPServer } from "@oyinlola141/lattice-http";
+
+const server = createHTTPServer({
+  handler: {
+    async fetch(request) {
+      return new Response("Hello from Lattice");
+    },
+  },
+});
+
+await server.start();
 ```
 
-## Usage
+## Features
 
-```typescript
-import {
-  createRouter,
-  HTTP_STATUS,
-  createCorsPolicy,
-} from "@oyinlola141/lattice-http";
+- Runtime-independent HTTP server abstraction
+- Request/response wrappers with full Web API compatibility
+- Middleware pipeline with error handling
+- Router with parameter extraction
+- CORS, security headers, and content negotiation
+- HTTP client with interceptors
 
-const router = createRouter();
-router.get("/health", () => new Response("ok", { status: HTTP_STATUS.OK }));
-router.use(createCorsPolicy({ origin: "*" }));
-```
+## Use Cases
 
-## License
-
-MIT
+- Building REST APIs
+- Implementing middleware pipelines
+- Handling HTTP requests in serverless environments
+- Proxy and gateway implementations

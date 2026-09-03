@@ -1,17 +1,6 @@
 # @oyinlola141/lattice-permissions
 
-Generic authorization engine — RBAC, ABAC, resource-level checks, wildcards, role hierarchy, policies, abilities, and an explain mode for debugging.
-
-## When to use
-
-Import this when you need:
-
-- roles, permissions, and assignments
-- attribute-based decisions (the user can `read` if `record.ownerId === user.id`)
-- resource-level checks (`can(user, "update", post)`)
-- an explain mode that returns the matched rule for audits
-
-For tenant-scoped authorization, layer `@oyinlola141/lattice-tenancy` on top.
+Generic authorization engine with RBAC, ABAC, resource authorization, wildcards, role hierarchy, policies, and abilities.
 
 ## Installation
 
@@ -19,44 +8,34 @@ For tenant-scoped authorization, layer `@oyinlola141/lattice-tenancy` on top.
 npm install @oyinlola141/lattice-permissions
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createPermissionEngine,
-  createPolicy,
-  type PermissionEngine,
-  type PermissionRule,
-  type PermissionActor,
-  type PermissionDecision,
-  type PermissionString,
-  type RoleDefinition,
-  type Ability,
-  type PolicyContext,
-} from "@oyinlola141/lattice-permissions";
+import { createPermissionEngine } from "@oyinlola141/lattice-permissions";
+
+const engine = createPermissionEngine({
+  roles: {
+    admin: { permissions: ["user:*", "post:*"] },
+    editor: { permissions: ["post:read", "post:write"] },
+  },
+});
+
+const allowed = await engine.check("admin", "user", "delete");
 ```
 
-## Usage
+## Features
 
-```typescript
-import {
-  createPermissionEngine,
-  createPolicy,
-} from "@oyinlola141/lattice-permissions";
+- Role-Based Access Control (RBAC)
+- Attribute-Based Access Control (ABAC)
+- Resource authorization with wildcards
+- Role hierarchy and inheritance
+- Policy engine
+- Ability-based checks
+- Explain mode for debugging
 
-const engine = createPermissionEngine();
+## Use Cases
 
-engine.register(
-  createPolicy({
-    name: "owner-can-update",
-    action: "post:update",
-    evaluate: ({ user, resource }) => resource.ownerId === user.id,
-  }),
-);
-
-const ok = engine.evaluate({ user, action: "post:update", resource: post });
-```
-
-## License
-
-MIT
+- API authorization
+- Multi-tenant access control
+- Admin panel permissions
+- Fine-grained resource policies

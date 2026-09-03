@@ -1,7 +1,7 @@
 {
   "name": "@oyinlola141/lattice-config",
   "version": "0.1.3",
-  "description": "Configuration management for the Lattice platform.",
+  "description": "Layered configuration management with multiple sources, validation, and environment-specific overrides.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -36,5 +36,16 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "lattice",
+    "configuration",
+    "environment",
+    "settings"
+  ],
+  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyinlola-tech/lattice"
   }
 }

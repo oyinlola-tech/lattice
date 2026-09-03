@@ -1,18 +1,6 @@
 # @oyinlola141/lattice-database
 
-Database infrastructure — clients, repositories, transactions, query builders, and connection pools. Adapter-based so you can swap drivers.
-
-## When to use
-
-Import this when you need:
-
-- a unified client interface across Postgres, MySQL, SQLite
-- repositories that own their queries
-- transaction context propagation via `AsyncLocalStorage`
-- typed query results
-- migrations (via the migrations subfolder)
-
-For higher-level business transactions that span multiple adapters, use `@oyinlola141/lattice-transactions`.
+Database abstraction layer with clients, repositories, transactions, and query building for Lattice applications.
 
 ## Installation
 
@@ -20,41 +8,31 @@ For higher-level business transactions that span multiple adapters, use `@oyinlo
 npm install @oyinlola141/lattice-database
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createDatabase,
-  Database,
-  BaseRepository,
-  createRepository,
-  type DatabaseClient,
-  type DatabaseConfig,
-  type QueryResult,
-  type Transaction,
-  type Migration,
-  noopDatabaseLogger,
-} from "@oyinlola141/lattice-database";
+import { createDatabaseClient } from "@oyinlola141/lattice-database";
+
+const client = await createDatabaseClient({
+  connection: { url: "postgresql://localhost/mydb" },
+});
+
+const users = await client.repository("User").findMany();
 ```
 
-## Usage
+## Features
 
-```typescript
-import {
-  createDatabase,
-  createRepository,
-} from "@oyinlola141/lattice-database";
+- Database-agnostic query builder
+- Repository pattern with CRUD operations
+- Transaction management with savepoints
+- Connection pooling and health checks
+- Migration runner
+- Seed runner for test data
+- Unit of Work pattern
 
-const db = createDatabase({ driver: "pg", url: process.env.DB_URL });
-await db.connect();
+## Use Cases
 
-class UserRepo extends createRepository<User>(db, "users") {
-  findByEmail(email: string) {
-    return this.findOne({ where: { email } });
-  }
-}
-```
-
-## License
-
-MIT
+- Data access layer for applications
+- Multi-database support (PostgreSQL, MySQL, SQLite)
+- Transaction coordination across repositories
+- Database migrations and seeding

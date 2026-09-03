@@ -1,17 +1,6 @@
 # @oyinlola141/lattice-logger
 
-Structured, transport-agnostic logging with levels, transports, redaction, and child loggers.
-
-## When to use
-
-Import this when you need:
-
-- a logger that emits JSON, text, or custom formats
-- pluggable transports (console, file, OTLP, memory, ...)
-- level filtering (trace, debug, info, warn, error, fatal)
-- child loggers that inherit context (correlation ID, user ID, ...)
-- automatic redaction of sensitive fields
-- per-module log configuration
+Structured logging with transports, log levels, and context propagation for Lattice applications.
 
 ## Installation
 
@@ -19,44 +8,29 @@ Import this when you need:
 npm install @oyinlola141/lattice-logger
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createLogger,
-  logger,
-  ConsoleTransport,
-  MemoryTransport,
-  JsonFormatter,
-  TextFormatter,
-  LogLevel,
-  type Logger,
-  type LogEntry,
-  type LogTransport,
-  type LoggerOptions,
-} from "@oyinlola141/lattice-logger";
+import { createLogger } from "@oyinlola141/lattice-logger";
+
+const logger = createLogger({ name: "api" });
+
+logger.info("Server started", { port: 3000, env: "production" });
+logger.error("Connection failed", { error: err.message });
 ```
 
-## Usage
+## Features
 
-```typescript
-import {
-  createLogger,
-  ConsoleTransport,
-  JsonFormatter,
-} from "@oyinlola141/lattice-logger";
+- Structured JSON logging
+- Log levels: debug, info, warn, error
+- Multiple transports (console, file, HTTP)
+- Child loggers with inherited context
+- Correlation ID propagation
+- Sensitive data redaction
 
-const log = createLogger({
-  level: "info",
-  transports: [new ConsoleTransport({ formatter: new JsonFormatter() })],
-});
+## Use Cases
 
-log.info("server.started", { port: 3000 });
-
-const reqLog = log.child({ correlationId: "c_1" });
-reqLog.warn("auth.failed", { reason: "expired" });
-```
-
-## License
-
-MIT
+- Application logging
+- Distributed tracing correlation
+- Audit trails
+- Debugging and monitoring

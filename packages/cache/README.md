@@ -1,16 +1,6 @@
 # @oyinlola141/lattice-cache
 
-Caching primitives, adapters, tag-based invalidation, locking, and metrics. In-memory adapter included; build your own for Redis, Memcached, etc.
-
-## When to use
-
-Import this when you need:
-
-- a typed cache with TTL
-- tag-based invalidation (`invalidateTag("users")`)
-- single-flight (one in-flight request per key)
-- lock manager for critical sections
-- hit/miss metrics
+Cache abstraction with memory adapter, tags, locking, and metrics for Lattice applications.
 
 ## Installation
 
@@ -18,48 +8,34 @@ Import this when you need:
 npm install @oyinlola141/lattice-cache
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createCacheService,
-  CacheService,
-  createMemoryCacheAdapter,
-  MemoryCacheAdapter,
-  createCacheStore,
-  DefaultCacheStore,
-  createTagStore,
-  InMemoryTagStore,
-  createCacheMetrics,
-  InMemoryCacheMetrics,
-  createCacheKeyBuilder,
-  type CacheAdapter,
-  type CacheKey,
-  type CacheEntry,
-  type CacheOptions,
-  type CacheStats,
-  type TagSet,
-} from "@oyinlola141/lattice-cache";
-```
+import { createMemoryCache } from "@oyinlola141/lattice-cache";
 
-## Usage
-
-```typescript
-import {
-  createCacheService,
-  createMemoryCacheAdapter,
-} from "@oyinlola141/lattice-cache";
-
-const cache = createCacheService({
-  adapter: createMemoryCacheAdapter(),
-  defaultTtl: 60_000,
+const cache = createMemoryCache({
+  ttl: 60000,
+  maxSize: 1000,
 });
 
-await cache.set("user:1", { id: 1 }, { tags: ["users"] });
-const user = await cache.get<User>("user:1");
-await cache.invalidateTag("users");
+const user = await cache.get("user:123");
+if (!user) {
+  user = await fetchUserFromDb("123");
+  await cache.set("user:123", user);
+}
 ```
 
-## License
+## Features
 
-MIT
+- Pluggable cache adapters (memory, Redis, etc.)
+- TTL and size-based eviction
+- Cache tags for bulk invalidation
+- Distributed locking
+- Cache metrics and hit ratios
+
+## Use Cases
+
+- API response caching
+- Database query caching
+- Session storage
+- Rate limit counters

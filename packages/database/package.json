@@ -1,7 +1,7 @@
 {
   "name": "@oyinlola141/lattice-database",
   "version": "0.1.3",
-  "description": "Database infrastructure, clients, repositories, transactions, and persistence utilities for Lattice.",
+  "description": "Database abstraction layer with clients, repositories, transactions, and query building for Lattice applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -50,5 +50,17 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "lattice",
+    "database",
+    "repository",
+    "query",
+    "transactions"
+  ],
+  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyinlola-tech/lattice"
   }
 }

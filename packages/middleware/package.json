@@ -1,7 +1,7 @@
 {
   "name": "@oyinlola141/lattice-middleware",
   "version": "0.1.3",
-  "description": "Composable middleware pipeline for the Lattice framework — chaining, composition, error handling, and timing.",
+  "description": "Composable middleware pipeline with composition, timing, error handling, and context propagation.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -36,5 +36,16 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "lattice",
+    "middleware",
+    "pipeline",
+    "composition"
+  ],
+  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyinlola-tech/lattice"
   }
 }

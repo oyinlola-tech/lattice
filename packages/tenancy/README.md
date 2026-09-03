@@ -1,15 +1,6 @@
 # @oyinlola141/lattice-tenancy
 
-Multi-tenant context and isolation — tenant resolution, `AsyncLocalStorage` propagation, resolver chains, trust levels, and guard middleware.
-
-## When to use
-
-Import this when you need:
-
-- resolve the current tenant from a request (subdomain, header, JWT claim, path)
-- propagate tenant context through every async call without passing it manually
-- guard middleware that rejects requests without a tenant
-- multi-tenant data isolation patterns
+Multi-tenant context and isolation with tenant resolution, AsyncLocalStorage propagation, resolver chains, trust levels, and guard middleware.
 
 ## Installation
 
@@ -17,40 +8,29 @@ Import this when you need:
 npm install @oyinlola141/lattice-tenancy
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createTenantContextManager,
-  getCurrentTenant,
-  withTenant,
-  type Tenant,
-  type TenantId,
-  type TenantContext,
-  type TenantResolver,
-  type TenantRepository,
-  type TenantContextStorage,
-  type TenantResolverChain,
-  type TrustLevel,
-  type GuardOptions,
-} from "@oyinlola141/lattice-tenancy";
-```
-
-## Usage
-
-```typescript
-import { createTenantContextManager, withTenant } from "@oyinlattice-tenancy";
+import { createTenantContextManager } from "@oyinlola141/lattice-tenancy";
 
 const manager = createTenantContextManager({
-  resolvers: [headerResolver("x-tenant-id"), subdomainResolver()],
+  resolvers: [headerResolver, subdomainResolver, jwtResolver],
 });
 
-await withTenant({ id: "t_1", name: "Acme" }, async () => {
-  const tenant = getCurrentTenant();
-  console.log(tenant.id);
-});
+const tenant = await manager.resolve(request);
 ```
 
-## License
+## Features
 
-MIT
+- Tenant resolution from headers, subdomains, JWT, or custom resolvers
+- AsyncLocalStorage context propagation
+- Tenant isolation and data scoping
+- Trust levels (trusted, untrusted, isolated)
+- Guard middleware for route protection
+
+## Use Cases
+
+- SaaS multi-tenant applications
+- Data isolation per tenant
+- Tenant-aware routing
+- Compliance and data separation

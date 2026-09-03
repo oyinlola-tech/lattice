@@ -1,16 +1,6 @@
 # @oyinlola141/lattice-security
 
-Input validation, header security, URL normalization, CORS, CSRF, rate limiting, and security headers. All the cross-cutting security primitives in one place.
-
-## When to use
-
-Import this when you need:
-
-- `sanitizeString`, `sanitizeObject`, `containsSqlInjection`, `containsXss`
-- secure default headers (CSP, HSTS, X-Frame-Options, nosniff, referrer policy)
-- CORS configuration with typed policies
-- CSRF token generation and verification
-- rate limiting (token bucket, fixed window, sliding window)
+Security primitives for input validation, header security, CORS, CSRF protection, rate limiting, and security headers.
 
 ## Installation
 
@@ -18,53 +8,30 @@ Import this when you need:
 npm install @oyinlola141/lattice-security
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  // Input
-  sanitizeString,
-  sanitizeObject,
-  containsSqlInjection,
-  containsXss,
-  // Headers
-  securityHeaders,
-  hsts,
-  csp,
-  referrerPolicy,
-  SECURITY_HEADER_NAMES,
-  // CORS / CSRF
-  cors,
-  csrf,
-  type CorsHeaders,
-  type CorsOptions,
-  // Rate limit
-  rateLimit,
-  tokenBucket,
-  fixedWindow,
-  slidingWindow,
-  type RateLimitOptions,
-  type RateLimitResult,
-  // URL
-  normalizeUrl,
-  isSafeRedirectUrl,
-} from "@oyinlola141/lattice-security";
+import { createRateLimiter, cors, securityHeaders } from "@oyinlola141/lattice-security";
+
+const limiter = createRateLimiter({ windowMs: 60000, max: 100 });
+
+app.use(limiter);
+app.use(cors({ origin: "https://example.com" }));
+app.use(securityHeaders());
 ```
 
-## Usage
+## Features
 
-```typescript
-import {
-  cors,
-  rateLimit,
-  securityHeaders,
-} from "@oyinlola141/lattice-security";
+- Input validation and sanitization
+- CORS configuration
+- CSRF token generation and validation
+- Rate limiting with sliding window
+- Security headers (CSP, HSTS, X-Frame-Options, etc.)
+- URL normalization and SSRF protection
 
-router.use(cors({ origin: ["https://app.example.com"] }));
-router.use(rateLimit({ window: 60_000, max: 100 }));
-router.use(securityHeaders());
-```
+## Use Cases
 
-## License
-
-MIT
+- Securing HTTP endpoints
+- Preventing injection attacks
+- Rate limiting public APIs
+- Compliance with security headers standards

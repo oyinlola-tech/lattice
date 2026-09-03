@@ -1,17 +1,6 @@
 # @oyinlola141/lattice-queue
 
-Background job and async task infrastructure — queues, workers, processors, retries, scheduling, and observability hooks.
-
-## When to use
-
-Import this when you need:
-
-- enqueue jobs that should run outside the request cycle
-- process jobs in a worker pool with retry and backoff
-- schedule recurring jobs
-- observe queue depth, latency, and failure rates
-
-For one-off schedules (cron-like) use `@oyinlola141/lattice-scheduler`. For long-running workflows use `@oyinlola141/lattice-runtime` + lifecycle.
+Background job and asynchronous task infrastructure with in-memory and adapter-based queue implementations.
 
 ## Installation
 
@@ -19,45 +8,39 @@ For one-off schedules (cron-like) use `@oyinlola141/lattice-scheduler`. For long
 npm install @oyinlola141/lattice-queue
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createQueue,
-  Queue,
-  Worker,
-  Processor,
-  Job,
-  InMemoryQueue,
-  retryPolicy,
-  exponentialBackoff,
-  type JobOptions,
-  type JobResult,
-  type JobContext,
-  type QueueEvents,
-  type QueueEmitter,
-  type JobHandler,
-  type WorkerOptions,
-} from "@oyinlola141/lattice-queue";
-```
+import { createInMemoryQueue } from "@oyinlola141/lattice-queue";
 
-## Usage
-
-```typescript
-import { createQueue, exponentialBackoff } from "@oyinlola141/lattice-queue";
-
-const emailQueue = createQueue<{ to: string; body: string }>({
-  name: "email",
-  retry: exponentialBackoff({ max: 5 }),
+const queue = createInMemoryQueue("emails", {
+  concurrency: 5,
 });
 
-await emailQueue.enqueue({ to: "user@x.com", body: "Welcome" });
+queue.process("send-email", async (job) => {
+  await sendEmail(job.data.to, job.data.subject);
+});
 
-emailQueue.process(async (job) => {
-  await sendEmail(job.data);
+await queue.add("send-email", {
+  to: "user@example.com",
+  subject: "Welcome",
 });
 ```
 
-## License
+## Features
 
-MIT
+- In-memory queue for development and testing
+- Pluggable queue adapters (Redis, Bull, etc.)
+- Job retry with exponential backoff
+- Dead letter queue for failed jobs
+- Scheduled and delayed jobs
+- Middleware pipeline for job processing
+- Concurrency control
+
+## Use Cases
+
+- Background email sending
+- Image and video processing
+- Report generation
+- Webhook delivery
+- Any asynchronous workload

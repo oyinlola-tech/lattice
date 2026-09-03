@@ -1,17 +1,6 @@
 # @oyinlola141/lattice-runtime
 
-Application runtime orchestrator — composes lifecycle, dependency ordering, signal handling, readiness probes, and graceful shutdown into a single `start()` call.
-
-## When to use
-
-Import this when you need:
-
-- a single `runtime.start()` that boots every registered component in order
-- signal-aware shutdown (SIGINT, SIGTERM)
-- readiness checks for orchestrators (k8s readiness probes)
-- a clean composition root for your app
-
-The CLI's generated `src/server.ts` uses `createRuntime` from this package.
+Application lifecycle orchestrator with dependency ordering, rollback, signals, and readiness checks.
 
 ## Installation
 
@@ -19,44 +8,30 @@ The CLI's generated `src/server.ts` uses `createRuntime` from this package.
 npm install @oyinlola141/lattice-runtime
 ```
 
-## Public API
-
-```typescript
-import {
-  DefaultRuntime,
-  createRuntime,
-  createTestRuntime,
-  type Runtime,
-  type RuntimeOptions,
-  type RuntimeDependencies,
-  type RuntimeContext,
-  type RuntimeEvents,
-  type RuntimeState,
-  type ReadinessProbe,
-  type Startup,
-  type Shutdown,
-  type SignalHandler,
-  type Registry,
-  type DependencyGraph,
-} from "@oyinlola141/lattice-runtime";
-```
-
-## Usage
+## Quick Start
 
 ```typescript
 import { createRuntime } from "@oyinlola141/lattice-runtime";
 
 const runtime = createRuntime({
-  onShutdown: async () => container.dispose(),
+  services: [api, database, queue],
 });
 
-runtime.register("http", async () => startServer());
-runtime.register("db", async () => openDb(), { dependsOn: [] });
-
 await runtime.start();
-process.on("SIGTERM", () => runtime.stop());
+await runtime.stop();
 ```
 
-## License
+## Features
 
-MIT
+- Service dependency ordering
+- Graceful shutdown with rollback
+- Signal handling (SIGINT, SIGTERM)
+- Readiness and health checks
+- Lifecycle hooks (onStart, onStop, onReady)
+
+## Use Cases
+
+- Application bootstrapping
+- Microservice orchestration
+- Graceful shutdown handling
+- Health check endpoints

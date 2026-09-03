@@ -1,16 +1,6 @@
 # @oyinlola141/lattice-testing
 
-Test helpers — test containers, fakes, spies, fake clocks, fixture builders, HTTP test utilities, and assertions. Everything you need to test a Lattice app without wiring real infrastructure.
-
-## When to use
-
-Import this in your test files (`*.test.ts`) to:
-
-- spin up a container with fakes
-- capture log output with a `SpyLogger`
-- freeze time with a `TestClock`
-- issue test HTTP requests without binding to a port
-- load test config from memory
+Test helpers, fixtures, mocks, and utilities for testing Lattice applications.
 
 ## Installation
 
@@ -18,45 +8,28 @@ Import this in your test files (`*.test.ts`) to:
 npm install @oyinlola141/lattice-testing
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createTestContainer,
-  createTestApplication,
-  createTestContext,
-  SpyLogger,
-  TestClock,
-  createTestConfig,
-  createTestEventBus,
-  createTestMessageBus,
-  createTestQueue,
-  createHttpTestClient,
-  createFixture,
-  assertLatticeError,
-  assertRejects,
-  assertLogContains,
-  type CleanupManager,
-  type Fixture,
-  type TestApplication,
-  type TestContainer,
-  type TestSerialization,
-} from "@oyinlola141/lattice-testing";
+import { createMockContainer, createTestLogger } from "@oyinlola141/lattice-testing";
+
+const container = createMockContainer();
+container.register("database", mockDatabase);
+
+const logger = createTestLogger();
 ```
 
-## Usage
+## Features
 
-```typescript
-import { createTestContainer, SpyLogger } from "@oyinlola141/lattice-testing";
+- Mock container for testing
+- Test fixtures and factories
+- In-memory adapters for testing
+- Test logger with assertions
+- Snapshot testing utilities
 
-const container = createTestContainer();
-const log = new SpyLogger();
-container.bind("logger").toValue(log);
+## Use Cases
 
-const result = await container.resolve("service").doWork();
-expect(log.entries).toHaveLength(1);
-```
-
-## License
-
-MIT
+- Unit testing Lattice components
+- Integration testing
+- Mocking dependencies
+- Test fixtures

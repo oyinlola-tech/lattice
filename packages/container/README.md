@@ -1,17 +1,6 @@
 # @oyinlola141/lattice-container
 
-Token-based dependency injection container. Register providers by token (string, symbol, or class), resolve them at any depth, and use scoped lifetimes (singleton, transient, request, session).
-
-## When to use
-
-Import this when you need:
-
-- a single composition root for your application
-- testable seam points (swap implementations by token)
-- request-scoped or session-scoped services
-- async provider factories (e.g. database clients)
-- circular-dependency detection and resolution
-- hierarchical containers (parent/child scopes)
+Token-based dependency injection container for managing application dependencies and service lifetimes.
 
 ## Installation
 
@@ -19,37 +8,31 @@ Import this when you need:
 npm install @oyinlola141/lattice-container
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createContainer,
-  Container,
-  token,
-  type Token,
-  type Provider,
-  type ContainerOptions,
-  type RegistrationOptions,
-  type Scope,
-} from "@oyinlola141/lattice-container";
+import { createContainer } from "@oyinlola141/lattice-container";
+
+const container = createContainer();
+
+container.register("logger", () => createLogger({ name: "app" }), {
+  lifetime: "singleton",
+});
+
+const logger = container.resolve("logger");
 ```
 
-## Usage
+## Features
 
-```typescript
-import { createContainer, token } from "@oyinlola141/lattice-container";
+- Token-based registration (string, symbol, class)
+- Singleton, scoped, and transient lifetimes
+- Automatic dependency resolution
+- Circular dependency detection
+- Container snapshots for testing
 
-const LOGGER = token<Logger>("logger");
-const DB = token<Database>("db");
+## Use Cases
 
-const c = createContainer();
-
-c.register(LOGGER, { useValue: console });
-c.register(DB, { useFactory: async () => openDb(), scope: "singleton" });
-
-const db = await c.resolve(DB);
-```
-
-## License
-
-MIT
+- Managing service dependencies
+- Testing with mock dependencies
+- Plugin and module systems
+- Application composition root

@@ -1,7 +1,7 @@
 {
   "name": "@oyinlola141/lattice-cli",
   "version": "0.1.6",
-  "description": "Command-line interface for the Lattice framework.",
+  "description": "Command-line interface for scaffolding, generating, and managing Lattice framework projects.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -34,7 +34,7 @@
     "@oyinlola141/lattice-logger": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^26.4.0",
+    "@types/node": "^26.4.1",
     "tsx": "^4.23.12",
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
@@ -44,5 +44,17 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "lattice",
+    "cli",
+    "scaffold",
+    "generate",
+    "dev"
+  ],
+  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyinlola-tech/lattice"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@oyinlola141/lattice-queue",
   "version": "0.1.3",
-  "description": "Background job and asynchronous task infrastructure for the Lattice framework.",
+  "description": "Background job and asynchronous task infrastructure with in-memory and adapter-based queue implementations.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -38,5 +38,17 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "lattice",
+    "queue",
+    "jobs",
+    "background-jobs",
+    "worker"
+  ],
+  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyinlola-tech/lattice"
   }
 }

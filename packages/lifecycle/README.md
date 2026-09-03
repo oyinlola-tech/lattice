@@ -1,15 +1,6 @@
 # @oyinlola141/lattice-lifecycle
 
-Application and component lifecycle orchestration — state machine, dependency ordering, graceful shutdown, rollback, and signal handling.
-
-## When to use
-
-Import this when you need:
-
-- a state machine for component lifecycle (init → start → ready → stop)
-- topologically sort components by their declared dependencies
-- graceful shutdown with timeouts and rollback on failure
-- a registry that other frameworks can plug into
+Application and component lifecycle orchestration with state machine, dependency ordering, graceful shutdown, rollback, and signals.
 
 ## Installation
 
@@ -17,38 +8,31 @@ Import this when you need:
 npm install @oyinlola141/lattice-lifecycle
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  LifecycleStateMachine,
-  LifecycleRegistry,
-  LifecycleExecutor,
-  LifecycleEventEmitter,
-  createLifecycleContext,
-  buildExecutionPlan,
-  type LifecycleComponent,
-  type LifecyclePhase,
-  type LifecycleContext,
-  type ExecutionPlan,
-  type ExecutionResult,
-} from "@oyinlola141/lattice-lifecycle";
+import { createLifecycleManager } from "@oyinlola141/lattice-lifecycle";
+
+const manager = createLifecycleManager({
+  components: [database, server, worker],
+});
+
+await manager.start();
+await manager.stop();
 ```
 
-## Usage
+## Features
 
-```typescript
-import {
-  LifecycleStateMachine,
-  createLifecycleContext,
-} from "@oyinlola141/lattice-lifecycle";
+- State machine for lifecycle phases
+- Dependency ordering between components
+- Graceful shutdown with timeouts
+- Rollback on startup failure
+- Signal handling
+- Lifecycle hooks and events
 
-const ctx = createLifecycleContext();
-const sm = new LifecycleStateMachine(ctx);
-await sm.start();
-await sm.stop();
-```
+## Use Cases
 
-## License
-
-MIT
+- Coordinating service startup and shutdown
+- Managing component lifecycles
+- Handling process signals
+- Zero-downtime deployments

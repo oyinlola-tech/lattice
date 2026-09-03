@@ -1,18 +1,6 @@
 # @oyinlola141/lattice-validation
 
-Schema validation with composable constraints, type inference, and rich error reporting. Use for request body validation, configuration, or any data contract.
-
-## When to use
-
-Import this when you need:
-
-- validate unknown input (HTTP body, env, config, message payloads)
-- compose reusable constraints (`minLength`, `email`, `oneOf`, ...)
-- infer the TS type from a schema
-- collect all errors at once instead of failing on the first
-- parse and normalize input (trim, lowercase, default values)
-
-For richer type-driven schemas, see `@oyinlola141/lattice-schema`.
+Schema validation with Zod integration, constraints, parsers, composers, circular detection, and depth/size checks.
 
 ## Installation
 
@@ -20,58 +8,34 @@ For richer type-driven schemas, see `@oyinlola141/lattice-schema`.
 npm install @oyinlola141/lattice-validation
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  string,
-  number,
-  boolean,
-  array,
-  object,
-  union,
-  literal,
-  minLength,
-  maxLength,
-  pattern,
-  email,
-  oneOf,
-  optional,
-  nullable,
-  validate,
-  parse,
-  createValidator,
-  type Schema,
-  type ValidationResult,
-  type ValidationError,
-  type InferType,
-} from "@oyinlola141/lattice-validation";
-```
+import { validate, z } from "@oyinlola141/lattice-validation";
 
-## Usage
-
-```typescript
-import {
-  object,
-  string,
-  number,
-  email,
-  minLength,
-  validate,
-} from "@oyinlola141/lattice-validation";
-
-const UserSchema = object({
-  email: string([email()]),
-  age: number([minLength(0)]),
-  name: string([minLength(2)]),
+const schema = z.object({
+  email: z.string().email(),
+  age: z.number().int().positive(),
 });
 
-type User = InferType<typeof UserSchema>;
-
-const result = validate(UserSchema, input);
-if (!result.ok) return res.status(400).json(result.errors);
+const result = validate(schema, input);
+if (!result.success) {
+  console.error(result.issues);
+}
 ```
 
-## License
+## Features
 
-MIT
+- Zod schema integration
+- Constraint validation
+- Composable validators
+- Circular reference detection
+- Depth and size limits
+- Async validation support
+
+## Use Cases
+
+- Form validation
+- API input validation
+- Configuration validation
+- Data contract enforcement

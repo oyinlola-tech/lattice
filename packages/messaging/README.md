@@ -1,17 +1,6 @@
 # @oyinlola141/lattice-messaging
 
-In-process message bus — request/response, fire-and-forget, and pipeline patterns. Different from `events` because messages have a single explicit handler, while events fan out.
-
-## When to use
-
-Import this when you need:
-
-- command/query dispatch (paired with `@oyinlola141/lattice-cqrs`)
-- middleware (auth, validation, timing) on the handler path
-- synchronous or async handler resolution
-- a single explicit handler per message type
-
-For fan-out, use `@oyinlola141/lattice-events`. For long-running async work, use `@oyinlola141/lattice-queue`.
+In-process message bus infrastructure with handlers, middleware, and publish/subscribe patterns.
 
 ## Installation
 
@@ -19,34 +8,34 @@ For fan-out, use `@oyinlola141/lattice-events`. For long-running async work, use
 npm install @oyinlola141/lattice-messaging
 ```
 
-## Public API
-
-```typescript
-import {
-  createMessageBus,
-  MessageBus,
-  type MessageHandler,
-  type MessageMiddleware,
-  type MessageContext,
-  type MessageDefinition,
-  type MessageResult,
-} from "@oyinlola141/lattice-messaging";
-```
-
-## Usage
+## Quick Start
 
 ```typescript
 import { createMessageBus } from "@oyinlola141/lattice-messaging";
 
 const bus = createMessageBus();
 
-bus.register("GetUser", async (msg) => {
-  return db.findUser(msg.payload.id);
+bus.subscribe("user.created", (message) => {
+  console.log("New user:", message.payload);
 });
 
-const user = await bus.dispatch("GetUser", { id: "u_1" });
+await bus.publish({
+  type: "user.created",
+  payload: { id: "123" },
+});
 ```
 
-## License
+## Features
 
-MIT
+- Message bus with pub/sub
+- Middleware pipeline for messages
+- Message handlers with dependencies
+- In-memory transport
+- Message serialization
+
+## Use Cases
+
+- Decoupling application components
+- Event-driven workflows
+- Plugin communication
+- Background task queuing

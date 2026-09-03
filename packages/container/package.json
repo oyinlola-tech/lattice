@@ -1,7 +1,7 @@
 {
   "name": "@oyinlola141/lattice-container",
   "version": "0.1.4",
-  "description": "Dependency injection container and service resolution system for Lattice.",
+  "description": "Token-based dependency injection container for managing application dependencies and service lifetimes.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -32,5 +32,16 @@
   "engines": {
     "node": ">=24.0.0"
   },
-  "module": "./dist/index.js"
+  "module": "./dist/index.js",
+  "keywords": [
+    "lattice",
+    "di",
+    "dependency-injection",
+    "container"
+  ],
+  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyinlola-tech/lattice"
+  }
 }

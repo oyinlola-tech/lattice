@@ -1,7 +1,7 @@
 {
   "name": "@oyinlola141/lattice-rpc",
   "version": "0.1.3",
-  "description": "Remote Procedure Call abstraction for Lattice — transport-agnostic invocation, procedure registry, middleware, and client/server contracts.",
+  "description": "Remote procedure call infrastructure for Lattice applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -38,5 +38,16 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "lattice",
+    "rpc",
+    "remote",
+    "procedure"
+  ],
+  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyinlola-tech/lattice"
   }
 }

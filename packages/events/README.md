@@ -1,18 +1,6 @@
 # @oyinlola141/lattice-events
 
-In-process event bus with middleware pipelines, subscription groups, and async handler execution. Use for domain events, decoupled reactions, and event-driven flows.
-
-## When to use
-
-Import this when you need:
-
-- a typed pub/sub bus inside one process
-- wildcard subscriptions (`order.*`)
-- middleware (logging, retry, tracing) on the publish path
-- handler isolation — one failing handler does not block others
-- event handler registries with priorities
-
-For cross-process or cross-service messaging, use `@oyinlola141/lattice-messaging` instead.
+Event-driven architecture with event bus, emitter, middleware, and registry for decoupled communication.
 
 ## Installation
 
@@ -20,34 +8,35 @@ For cross-process or cross-service messaging, use `@oyinlola141/lattice-messagin
 npm install @oyinlola141/lattice-events
 ```
 
-## Public API
-
-```typescript
-import {
-  createEventBus,
-  EventBus,
-  type EventHandler,
-  type EventMiddleware,
-  type EventSubscription,
-  type PublishOptions,
-  type EventDefinition,
-} from "@oyinlola141/lattice-events";
-```
-
-## Usage
+## Quick Start
 
 ```typescript
 import { createEventBus } from "@oyinlola141/lattice-events";
 
 const bus = createEventBus();
 
-await bus.subscribe("order.created", async (event) => {
-  console.log("new order", event.payload.id);
+bus.on("user.created", (event) => {
+  console.log("New user:", event.payload.id);
 });
 
-await bus.publish("order.created", { id: "o_1", total: 99 });
+await bus.emit({
+  type: "user.created",
+  payload: { id: "123", name: "Alice" },
+});
 ```
 
-## License
+## Features
 
-MIT
+- Event bus with middleware pipeline
+- Event emitter with typed payloads
+- Event registry for documentation and validation
+- Wildcard event subscriptions
+- Async event handlers
+- Event replay and history
+
+## Use Cases
+
+- Decoupling application components
+- Audit logging and change tracking
+- Real-time notifications
+- CQRS event sourcing

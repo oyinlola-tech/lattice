@@ -1,15 +1,6 @@
 # @oyinlola141/lattice-adapters
 
-Boundary layer between Lattice and external platforms — adapter contracts, registry, capabilities, transport abstractions, and mock adapters for tests.
-
-## When to use
-
-Import this when you need:
-
-- define a custom adapter (storage, queue, runtime, CLI, ...)
-- register it in the adapter registry and let the rest of the app resolve it by interface
-- advertise capabilities so the framework can negotiate
-- ship a mock adapter in your test suite
+Boundary layer between Lattice and external platforms with adapter contracts, registry, capabilities, and transport abstractions.
 
 ## Installation
 
@@ -17,51 +8,31 @@ Import this when you need:
 npm install @oyinlola141/lattice-adapters
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  AdapterRegistry,
-  type Adapter,
-  type AdapterCapabilities,
-  type AdapterMetadata,
-  type StorageAdapter,
-  type QueueAdapter,
-  type QueueStats,
-  type RuntimeAdapter,
-  type CLIAdapter,
-  type CLIOptions,
-  type CLIResult,
-  type AdapterErrorOptions,
-  type Adapter as MockAdapter,
-  type AdapterHealth as MockAdapterHealth,
-  type AdapterRegistry as MockAdapterRegistry,
-} from "@oyinlola141/lattice-adapters";
+import { createAdapterRegistry } from "@oyinlola141/lattice-adapters";
+
+const registry = createAdapterRegistry();
+
+registry.register({
+  name: "postgres",
+  capabilities: ["query", "transaction"],
+  connect: async () => { /* ... */ },
+});
 ```
 
-## Usage
+## Features
 
-```typescript
-import {
-  AdapterRegistry,
-  type StorageAdapter,
-} from "@oyinlola141/lattice-adapters";
+- Adapter contracts and interfaces
+- Adapter registry for discovery
+- Capability-based selection
+- Transport abstractions
+- Health check integration
 
-class S3Storage implements StorageAdapter {
-  readonly metadata = { name: "s3", version: "1.0" };
-  async put(key: string, data: Buffer) {
-    /* ... */
-  }
-  async get(key: string) {
-    /* ... */
-  }
-}
+## Use Cases
 
-const registry = new AdapterRegistry();
-registry.register("storage", new S3Storage());
-const storage = registry.resolve<StorageAdapter>("storage");
-```
-
-## License
-
-MIT
+- Database adapters
+- Message queue adapters
+- Cache adapters
+- External service integrations

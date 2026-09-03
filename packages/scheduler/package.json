@@ -1,7 +1,7 @@
 {
   "name": "@oyinlola141/lattice-scheduler",
   "version": "0.1.3",
-  "description": "Time and recurring execution engine for Lattice — job definitions, schedules, triggers, priority queue, cron support, and persistence.",
+  "description": "Scheduled task and job infrastructure with cron-like scheduling, persistence, and worker management.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -37,5 +37,16 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "keywords": [
+    "lattice",
+    "scheduler",
+    "cron",
+    "jobs"
+  ],
+  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyinlola-tech/lattice"
   }
 }

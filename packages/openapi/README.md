@@ -1,14 +1,6 @@
 # @oyinlola141/lattice-openapi
 
-OpenAPI 3.1 spec generation and runtime contract enforcement. Define an API once, generate the spec, and validate requests/responses at runtime.
-
-## When to use
-
-Import this when you need:
-
-- generate an OpenAPI spec from your routes
-- runtime request/response validation against a schema
-- typed client SDKs from the same spec
+OpenAPI 3.1 specification generation, validation, and SDK generation for Lattice applications.
 
 ## Installation
 
@@ -16,48 +8,33 @@ Import this when you need:
 npm install @oyinlola141/lattice-openapi
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  OpenAPIManager,
-  OpenAPIDocumentBuilder,
-  OpenAPIRegistryImpl,
-  OpenAPIValidatorImpl,
-  SchemaRegistryImpl,
-  toOpenAPIJSON,
-  toOpenAPIYAML,
-  type OpenAPIDocument,
-  type OpenAPIVersion,
-  type OpenAPISchema,
-  type OpenAPIOperation,
-  type OpenAPIPaths,
-} from "@oyinlola141/lattice-openapi";
-```
+import { createOpenAPIRouter } from "@oyinlola141/lattice-openapi";
 
-## Usage
-
-```typescript
-import { OpenAPIManager } from "@oyinlola141/lattice-openapi";
-
-const manager = new OpenAPIManager("3.1.0");
-
-manager.addRoute({
-  method: "get",
-  path: "/users/:id",
-  metadata: {
-    openapi: {
-      operationId: "users.get",
-      summary: "Get a user",
-      responses: { "200": { description: "User found" } },
-    },
-  },
+const router = createOpenAPIRouter({
+  info: { title: "My API", version: "1.0.0" },
 });
 
-const document = manager.generate();
-const json = manager.toJSON();
+router.get("/users/:id", {
+  responses: { 200: { schema: UserSchema } },
+}, async (ctx) => {
+  return ctx.params.id;
+});
 ```
 
-## License
+## Features
 
-MIT
+- OpenAPI 3.1 spec generation
+- Route documentation decorators
+- Schema integration with `@lattice/schema`
+- Request/response validation
+- SDK generation
+
+## Use Cases
+
+- REST API documentation
+- Client SDK generation
+- API contract validation
+- Developer portals

@@ -1,14 +1,6 @@
 # @oyinlola141/lattice-schema
 
-Type-safe schema definition and parsing engine with validation, transformation, and inference. Higher-level than `@oyinlola141/lattice-validation` — closer to Zod in ergonomics.
-
-## When to use
-
-Import this when you need:
-
-- define a schema once, infer the type once
-- chain `.parse()`, `.safeParse()`, `.transform()`, `.refine()`
-- describe data contracts (DTOs, configs, events) as code
+Type-safe schema definition, parsing, and validation engine for data contracts.
 
 ## Installation
 
@@ -16,49 +8,32 @@ Import this when you need:
 npm install @oyinlola141/lattice-schema
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  schema,
-  Schema,
-  s,
-  string,
-  number,
-  boolean,
-  object,
-  array,
-  tuple,
-  union,
-  literal,
-  type SchemaShape,
-  type InferType,
-  type ParseResult,
-} from "@oyinlola141/lattice-schema";
-```
+import { Schema } from "@oyinlola141/lattice-schema";
 
-## Usage
-
-```typescript
-import {
-  schema,
-  string,
-  number,
-  object,
-  email,
-} from "@oyinlola141/lattice-schema";
-
-const UserSchema = schema({
-  email: string().email(),
-  age: number().int().min(0),
+const UserSchema = Schema.object({
+  id: Schema.string().uuid(),
+  email: Schema.string().email(),
+  age: Schema.number().int().positive(),
 });
 
-type User = InferType<typeof UserSchema>;
-
-const user = UserSchema.parse(input);
-const safe = UserSchema.safeParse(input);
+type User = Schema.Infer<typeof UserSchema>;
 ```
 
-## License
+## Features
 
-MIT
+- Type-safe schema definitions
+- Runtime validation with detailed errors
+- Schema composition and inheritance
+- Transformations and defaults
+- Circular reference support
+- JSON Schema generation
+
+## Use Cases
+
+- API request/response validation
+- Configuration validation
+- Form data validation
+- Data contract enforcement

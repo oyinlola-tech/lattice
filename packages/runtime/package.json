@@ -1,7 +1,7 @@
 {
   "name": "@oyinlola141/lattice-runtime",
   "version": "0.1.4",
-  "description": "Application runtime orchestrator for Lattice framework lifecycle management.",
+  "description": "Application lifecycle orchestrator with dependency ordering, rollback, signals, and readiness checks.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -26,7 +26,7 @@
     "clean": "tsc -p tsconfig.json --clean"
   },
   "devDependencies": {
-    "@types/node": "^26.3.0",
+    "@types/node": "^26.4.1",
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
   },
@@ -46,5 +46,16 @@
   "engines": {
     "node": ">=24.0.0"
   },
-  "module": "./dist/index.js"
+  "module": "./dist/index.js",
+  "keywords": [
+    "lattice",
+    "runtime",
+    "orchestrator",
+    "services"
+  ],
+  "homepage": "https://github.com/oyinlola-tech/lattice#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyinlola-tech/lattice"
+  }
 }

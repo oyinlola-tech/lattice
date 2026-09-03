@@ -1,70 +1,52 @@
 # @oyinlola141/lattice-cli
 
-Command-line interface for the Lattice framework. Scaffolds new projects, generates code, adds features, and runs diagnostics.
+Command-line interface for scaffolding, generating, and managing Lattice framework projects.
 
-## When to use
-
-Install globally and use from any directory:
+## Installation
 
 ```bash
 npm install -g @oyinlola141/lattice-cli
 ```
 
-Or run locally during development:
+## Quick Start
 
 ```bash
-pnpm --filter @oyinlola141/lattice-cli dev
+# Create a new backend project
+lattice create my-api
+
+# Create a frontend project
+lattice create my-web --type frontend --frontend react
+
+# Create a fullstack project
+lattice create my-system --type fullstack --frontend next --architecture monolith
+
+# Start development servers
+lattice dev
+
+# Generate a module
+lattice generate module users
+
+# Add a feature
+lattice add database
 ```
 
 ## Commands
 
-| Command                               | Description                                                                          |
-| ------------------------------------- | ------------------------------------------------------------------------------------ |
-| `lattice create <name>`               | Create a new Lattice project (monolith, modular-monolith, microservice)              |
-| `lattice generate <schematic> <name>` | Generate service, module, command, query, controller, or repository                  |
-| `lattice add <feature>`               | Add a feature package (database, queue, messaging, openapi, observability, security) |
-| `lattice doctor`                      | Run diagnostics on a Lattice project                                                 |
-| `lattice info`                        | Show Lattice CLI and project info                                                    |
-| `lattice --version`                   | Show the Lattice CLI version                                                         |
-| `lattice --help`                      | Show help                                                                            |
+| Command | Description |
+|---------|-------------|
+| `create` | Scaffold a new project (backend, frontend, or fullstack) |
+| `generate` | Generate files (service, module, command, query, controller, repository) |
+| `add` | Add feature packages (database, queue, messaging, etc.) |
+| `dev` | Start development servers |
+| `doctor` | Run project diagnostics |
+| `info` | Show project information |
 
-## Public API (programmatic use)
+## Supported Frameworks
 
-```typescript
-import {
-  createCLI,
-  createCommand,
-  type CLIContext,
-  type CLIAppOptions,
-} from "@oyinlola141/lattice-cli";
+- **Backend:** Node.js, Express, Fastify
+- **Frontend:** React, Next.js, Vue, Nuxt, Angular, Svelte, SvelteKit, Astro, Vanilla, Flutter, React Native
+- **Architectures:** Monolith, Modular Monolith, Microservice
 
-const app = createCLI({
-  name: "MyTool",
-  version: "1.0.0",
-  description: "Custom Lattice tool",
-});
+## Documentation
 
-app.register(
-  createCommand({
-    name: "hello",
-    description: "Say hello",
-    execute: (ctx) => ctx.logger.info("Hello, world!"),
-  }),
-);
-
-await app.run(process.argv.slice(2));
-```
-
-## Architecture
-
-The CLI is a thin orchestrator over the rest of the framework. It does not contain framework logic — only:
-
-- a typed argument parser
-- a command registry
-- project, generator, and template modules
-- dependency installer
-- architecture resolver
-
-## License
-
-MIT
+See the [Lattice README](https://github.com/oyinlola-tech/lattice) for full documentation.

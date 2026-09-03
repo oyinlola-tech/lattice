@@ -1,16 +1,6 @@
 # @oyinlola141/lattice-middleware
 
-Composable middleware — chain, branch, time, and apply cross-cutting concerns (auth, logging, rate limiting) to any pipeline.
-
-## When to use
-
-Import this when you need:
-
-- a middleware pipeline for HTTP, message buses, RPC, or your own protocol
-- standard middlewares: timing, error handler, request id, CORS
-- compose middlewares in any order, with branches
-
-This package is engine-agnostic. For HTTP-specific middleware, see `@oyinlola141/lattice-http`.
+Composable middleware pipeline with composition, timing, error handling, and context propagation.
 
 ## Installation
 
@@ -18,36 +8,33 @@ This package is engine-agnostic. For HTTP-specific middleware, see `@oyinlola141
 npm install @oyinlola141/lattice-middleware
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  compose,
-  branch,
-  withTiming,
-  withErrorHandler,
-  withRequestId,
-  type Middleware,
-  type MiddlewareContext,
-  type MiddlewareChain,
-  type Next,
-} from "@oyinlola141/lattice-middleware";
+import { createMiddlewarePipeline, createTimeoutMiddleware } from "@oyinlola141/lattice-middleware";
+
+const pipeline = createMiddlewarePipeline([
+  createTimeoutMiddleware(5000),
+  createLoggingMiddleware(),
+  createAuthMiddleware(),
+]);
+
+await pipeline(context, async () => {
+  return handler(context);
+});
 ```
 
-## Usage
+## Features
 
-```typescript
-import {
-  compose,
-  withTiming,
-  withErrorHandler,
-} from "@oyinlola141/lattice-middleware";
+- Composable middleware pipeline
+- Error handling middleware
+- Timing and metrics middleware
+- Context propagation
+- Early termination support
 
-const pipeline = compose(withTiming({ logger }), withErrorHandler({ onError }));
+## Use Cases
 
-await pipeline(ctx, async () => handle(ctx));
-```
-
-## License
-
-MIT
+- HTTP middleware chains
+- Event processing pipelines
+- Command/query middleware
+- Cross-cutting concerns

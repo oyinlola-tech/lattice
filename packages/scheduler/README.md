@@ -1,17 +1,6 @@
 # @oyinlola141/lattice-scheduler
 
-Cron-style and interval-based job scheduling with a system clock abstraction for testability.
-
-## When to use
-
-Import this when you need:
-
-- run a function on a cron schedule (`*/5 * * * *`)
-- run a function at a fixed interval
-- run a function once at a future time
-- use a fake clock in tests (`createSystemClock`)
-
-For distributed work queues use `@oyinlola141/lattice-queue`.
+Scheduled task and job infrastructure with cron-like scheduling, persistence, and worker management.
 
 ## Installation
 
@@ -19,41 +8,34 @@ For distributed work queues use `@oyinlola141/lattice-queue`.
 npm install @oyinlola141/lattice-scheduler
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createSchedule,
-  ScheduleHandleImpl,
-  SystemClock,
-  createSystemClock,
-  parseDuration,
-  JobRegistry,
-  JobExecutor,
-  PriorityQueue,
-  Scheduler,
-  type Schedule,
-  type ScheduleHandle,
-  type JobDefinition,
-} from "@oyinlola141/lattice-scheduler";
+import { createScheduler } from "@oyinlola141/lattice-scheduler";
+
+const scheduler = createScheduler();
+
+scheduler.add("cleanup", {
+  cron: "0 0 * * *",
+  handler: async () => {
+    await cleanupOldRecords();
+  },
+});
+
+await scheduler.start();
 ```
 
-## Usage
+## Features
 
-```typescript
-import { createSchedule, Scheduler } from "@oyinlola141/lattice-scheduler";
+- Cron-like job scheduling
+- Persistent job storage
+- Worker management
+- Job retry and backoff
+- Job history and logs
 
-const sched = new Scheduler({ clock: createSystemClock() });
+## Use Cases
 
-sched.add(
-  createSchedule("0 */6 * * *", async () => {
-    await runReport();
-  }),
-);
-
-sched.start();
-```
-
-## License
-
-MIT
+- Scheduled maintenance tasks
+- Report generation
+- Data cleanup jobs
+- Periodic synchronization

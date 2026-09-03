@@ -1,17 +1,6 @@
 # @oyinlola141/lattice-observability
 
-Metrics, traces, structured logs, and context propagation. Adapter-based so you can ship to OTLP, Prometheus, Datadog, or in-memory.
-
-## When to use
-
-Import this when you need:
-
-- emit counters, gauges, histograms (`metrics.increment("req.count")`)
-- create and end spans for distributed tracing
-- correlate logs with trace IDs
-- pluggable exporters (OTLP, memory, console)
-
-For just structured logging, prefer `@oyinlola141/lattice-logger` (lighter).
+Structured logging, metrics, tracing, context propagation, and exporters for Lattice applications.
 
 ## Installation
 
@@ -19,48 +8,31 @@ For just structured logging, prefer `@oyinlola141/lattice-logger` (lighter).
 npm install @oyinlola141/lattice-observability
 ```
 
-## Public API
+## Quick Start
 
 ```typescript
-import {
-  createMetrics,
-  createTracer,
-  createObservability,
-  ConsoleExporter,
-  MemoryExporter,
-  OtlpExporter,
-  type Metrics,
-  type Tracer,
-  type Span,
-  type Observability,
-  type Counter,
-  type Histogram,
-  type Gauge,
-  type SpanContext,
-  type TraceOptions,
-} from "@oyinlola141/lattice-observability";
-```
-
-## Usage
-
-```typescript
-import {
-  createTracer,
-  createMetrics,
-} from "@oyinlola141/lattice-observability";
+import { createTracer, createMetricsRegistry } from "@oyinlola141/lattice-observability";
 
 const tracer = createTracer({ service: "api" });
-const metrics = createMetrics();
+const metrics = createMetricsRegistry();
 
-const span = tracer.startSpan("db.query");
-try {
-  const rows = await db.query(sql);
-  metrics.histogram("db.latency", 12, { table: "users" });
-} finally {
-  span.end();
-}
+const span = tracer.startSpan("handle-request");
+span.setAttribute("http.method", "GET");
+await handleRequest();
+span.end();
 ```
 
-## License
+## Features
 
-MIT
+- Distributed tracing with span management
+- Metrics registry (counters, gauges, histograms)
+- Context propagation
+- Log correlation with trace IDs
+- Exporters (OTLP, Prometheus, etc.)
+
+## Use Cases
+
+- Distributed tracing
+- Performance monitoring
+- Error tracking
+- SLA and SLO monitoring
