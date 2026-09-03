@@ -12,7 +12,7 @@ import type { ScaffoldOptions } from "../types/index.js";
 import { generateProject } from "../generators/project/project.generator.js";
 import { FrontendGenerator } from "../generators/frontend/frontendGenerator.core.js";
 import { FullstackComposer } from "../generators/fullstack/fullstackComposer.core.js";
-import { promptCreateProject } from "../prompts/index.js";
+import { promptCreateProject, type CreateProjectPrompts } from "../prompts/index.js";
 import { CLIValidationError, CLIGenerationError } from "../errors/index.js";
 import { execCommand } from "../utils/utils.exec.js";
 import { writeFileTree } from "../utils/utils.fileSystem.js";
@@ -60,6 +60,16 @@ function validateProjectName(name: string): void {
       "Project name must contain only alphanumeric characters, hyphens, and underscores.",
     );
   }
+}
+
+function hasExplicitFlag(
+  args: readonly string[],
+  long: string,
+  short?: string,
+): boolean {
+  return args.some(
+    (arg) => arg === long || (short !== undefined && arg === short),
+  );
 }
 
 export async function runCreateCommand(context: CLIContext): Promise<void> {
@@ -137,18 +147,44 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
         : frontend
       : undefined;
 
+  const explicitOverrides: Record<string, unknown> = {
+    projectName,
+  };
+
+  if (hasExplicitFlag(context.args, "--type", "-t")) {
+    explicitOverrides.projectType = projectType;
+  }
+
+  if (hasExplicitFlag(context.args, "--architecture", "-a")) {
+    explicitOverrides.architecture = architecture;
+  }
+
+  if (hasExplicitFlag(context.args, "--package-manager", "-p")) {
+    explicitOverrides.packageManager = packageManager;
+  }
+
+  if (hasExplicitFlag(context.args, "--database", "-d")) {
+    explicitOverrides.database = database;
+  }
+
+  if (hasExplicitFlag(context.args, "--api")) {
+    explicitOverrides.api = api;
+  }
+
+  if (hasExplicitFlag(context.args, "--frontend", "-f")) {
+    explicitOverrides.frontend = resolvedFrontend;
+  }
+
+  if (hasExplicitFlag(context.args, "--frontend-architecture", "-fa")) {
+    explicitOverrides.frontendArchitecture = frontendArchitecture;
+  }
+
+  if (hasExplicitFlag(context.args, "--language", "-l")) {
+    explicitOverrides.language = language;
+  }
+
   const answers = process.stdin.isTTY
-    ? await promptCreateProject({
-        projectName,
-        projectType: projectType as any,
-        architecture: architecture as any,
-        packageManager: packageManager as any,
-        database: database as any,
-        api: api as any,
-        frontend: resolvedFrontend as any,
-        frontendArchitecture: frontendArchitecture as any,
-        language: language as any,
-      })
+    ? await promptCreateProject(explicitOverrides as Partial<CreateProjectPrompts>)
     : {
         projectName: projectName ?? "",
         projectType: projectType as any,

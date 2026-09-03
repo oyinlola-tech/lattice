@@ -14,6 +14,7 @@ import type {
 import { FrontendAdapterRegistry } from "../../registries/adapter/frontendAdapterRegistry.core.js";
 import { PackageManagerRegistry } from "../../registries/adapter/packageManagerRegistry.core.js";
 import { DependencyResolver } from "../../resolvers/dependency/dependencyResolver.core.js";
+import { IntegrationGenerator } from "../integration/integrationGenerator.core.js";
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
 import { execCommand } from "../../utils/utils.exec.js";
 
@@ -41,11 +42,13 @@ export class FullstackComposer {
   private readonly frontendRegistry: FrontendAdapterRegistry;
   private readonly packageManagerRegistry: PackageManagerRegistry;
   private readonly dependencyResolver: DependencyResolver;
+  private readonly integrationGenerator: IntegrationGenerator;
 
   constructor() {
     this.frontendRegistry = new FrontendAdapterRegistry();
     this.packageManagerRegistry = new PackageManagerRegistry();
     this.dependencyResolver = new DependencyResolver();
+    this.integrationGenerator = new IntegrationGenerator();
   }
 
   /**
@@ -73,10 +76,19 @@ export class FullstackComposer {
       }
 
       // 4. Generate integration files
-      await this.generateIntegration(context);
+      await this.integrationGenerator.generate({
+        project: context.project,
+        projectPath: context.projectPath,
+        backendPort: 3000,
+        frontendPort: context.project.frontend?.framework === "next" ? 3000 : 5173,
+      });
       files.push(
-        "apps/web/.env.example",
-        "apps/web/src/services/api-client.ts",
+        ".env.example",
+        "config/cors.ts",
+        ...(context.project.frontend?.framework === "react" ||
+        context.project.frontend?.framework === "vue"
+          ? ["vite.config.ts"]
+          : []),
       );
 
       // 5. Install dependencies
@@ -215,21 +227,6 @@ export type Timestamp = string;
     await adapter.generateIntegration(frontendContext);
 
     return ["apps/web/"];
-  }
-
-  private async generateIntegration(
-    context: FullstackGenerationContext,
-  ): Promise<void> {
-    const envExample = `# Backend
-VITE_API_URL=http://localhost:3000
-
-# Database
-DATABASE_URL=postgresql://localhost:5432/mydb
-`;
-
-    await writeFileTree(context.projectPath, {
-      ".env.example": envExample,
-    });
   }
 
   private async installDependencies(

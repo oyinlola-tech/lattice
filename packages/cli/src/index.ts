@@ -159,6 +159,12 @@ export {
   BunAdapter,
 } from "./adapters/package-managers/index.js";
 
+export {
+  PostgresAdapter,
+  MySqlAdapter,
+  SqliteAdapter,
+} from "./adapters/databases/index.js";
+
 // Resolvers
 export {
   DependencyResolver,
@@ -166,6 +172,11 @@ export {
   type ResolvedDependency,
   type DependencyConflict,
 } from "./resolvers/dependency/index.js";
+
+export { detectArchitecture } from "./resolvers/index.js";
+export { resolveProjectPath, findProjectRoot } from "./resolvers/project.resolver.js";
+export { CapabilityResolver, type CapabilityDependency, type CapabilityResolutionResult } from "./resolvers/capability/index.js";
+export { ConfigurationResolver, type ResolvedConfiguration } from "./resolvers/configuration/index.js";
 
 // Validators
 export {
@@ -180,9 +191,32 @@ export {
   type ProjectValidationResult,
 } from "./validators/index.js";
 
+export { CompatibilityValidator, type CompatibilityCheck, type CompatibilityResult } from "./validators/compatibility/index.js";
+
 // Registries
 export { FrontendAdapterRegistry } from "./registries/index.js";
 export { PackageManagerRegistry } from "./registries/index.js";
+export { GeneratorRegistry, type GeneratorRegistryEntry } from "./registries/generator/index.js";
+export { DependencyRegistry, type DependencyRecord } from "./registries/dependency/index.js";
+
+// Generators
+export { generateProject } from "./generators/project/project.generator.js";
+export { BackendGenerator } from "./generators/backend/index.js";
+export { FrontendGenerator } from "./generators/frontend/index.js";
+export { FullstackComposer } from "./generators/fullstack/index.js";
+export { IntegrationGenerator } from "./generators/integration/index.js";
+export { InfrastructureGenerator, type InfrastructureOptions } from "./generators/infrastructure/index.js";
+
+// Runners
+export { ProcessRunner, type ProcessOptions } from "./runners/process/index.js";
+export { PackageManagerRunner, type PackageManagerRunOptions } from "./runners/package-manager/index.js";
+export { TaskRunner, type TaskDefinition, type TaskResult } from "./runners/task/index.js";
+
+// Rollback
+export { RollbackManager, type RollbackEntry } from "./rollback/index.js";
+
+// Manifest
+export { ManifestManager, type LatticeManifest } from "./manifest/index.js";
 
 // Types
 export type {
