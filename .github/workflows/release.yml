@@ -107,7 +107,7 @@ jobs:
         run: |
           for attempt in 1 2 3 4 5; do
             echo "Publish attempt $attempt"
-            if pnpm changeset publish; then
+            if pnpm changeset publish -- --provenance; then
               echo "All packages published successfully"
               break
             else

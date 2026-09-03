@@ -20,12 +20,13 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && mkdir -p dist/src/scripts && cp src/scripts/postinstall.js dist/src/scripts/postinstall.js",
     "dev": "tsx src/bin/lattice.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf dist",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "postinstall": "node dist/src/scripts/postinstall.js"
   },
   "dependencies": {
     "@clack/prompts": "^1.7.0",
