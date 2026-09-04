@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>503 — Service Unavailable | Zudo Framework</title>
+  <meta name="description" content="The service is temporarily unavailable. We're performing maintenance.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Refresh" content="30">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'zudo-red': '#FF0000',
+            'zudo-blue': '#0000FF',
+            'zudo-yellow': '#FFFF00',
+            'zudo-black': '#000000',
+            'zudo-white': '#FFFFFF',
+            'zudo-green': '#00FF00',
+          },
+          fontFamily: { 'system': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'monospace'] },
+        }
+      }
+    }
+  </script>
+  <link rel="icon" type="image/svg+xml" href="assets/zudo-favicon.svg">
+  <style>
+    * { border-radius: 0px !important; transition: none !important; }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .blink { animation: blink 1s step-end infinite; }
+  </style>
+</head>
+<body class="bg-zudo-yellow text-black min-h-screen flex flex-col">
+
+  <!-- Top Bar -->
+  <header class="border-b-2 border-black px-6 py-4">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 hover:opacity-80">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" fill="#FF0000"/>
+          <path d="M8 8h10v4H12v4h5v4H12v8H8V8z" fill="#000000"/>
+          <rect x="22" y="8" width="2" height="24" fill="#FFFF00"/>
+        </svg>
+        <span class="text-xl font-black tracking-tight">ZUDO</span>
+      </a>
+      <a href="/" class="text-sm font-bold border-2 border-black px-4 py-2 hover:bg-black hover:text-white">
+        ← BACK TO HOME
+      </a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-6 py-16">
+    <div class="text-center max-w-2xl">
+
+      <!-- Maintenance Icon -->
+      <div class="mb-6">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+          <rect width="80" height="80" fill="#000000"/>
+          <circle cx="40" cy="35" r="15" stroke="#FFFF00" stroke-width="4" fill="none"/>
+          <rect x="38" y="20" width="4" height="25" fill="#FFFF00"/>
+          <rect x="25" y="33" width="30" height="4" fill="#FFFF00"/>
+          <path d="M30 60h20v5H30v-5z" fill="#FFFF00"/>
+          <rect x="35" y="55" width="10" height="5" fill="#FFFF00"/>
+        </svg>
+      </div>
+
+      <!-- Error Code -->
+      <h1 class="font-black text-7xl sm:text-9xl leading-none text-black mb-4">
+        503
+      </h1>
+
+      <!-- Divider -->
+      <div class="border-t-4 border-black mb-8"></div>
+
+      <!-- Message -->
+      <h2 class="text-2xl sm:text-3xl font-bold mb-4">
+        MAINTENANCE MODE
+      </h2>
+      <p class="text-base sm:text-lg text-gray-700 mb-4 max-w-md mx-auto leading-relaxed">
+        We're currently performing scheduled maintenance. The site will be back online shortly.
+      </p>
+
+      <!-- Auto-refresh indicator -->
+      <div class="inline-block border-2 border-black px-6 py-3 mb-8 bg-white">
+        <p class="text-sm font-bold">
+          <span class="blink">●</span> AUTO-REFRESHING IN <span id="countdown">30</span>S
+        </p>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button
+          onclick="window.location.reload()"
+          class="inline-block bg-black text-white font-bold text-sm px-8 py-4 border-2 border-black hover:bg-gray-800 w-full sm:w-auto text-center cursor-pointer"
+        >
+          REFRESH NOW
+        </button>
+        <a
+          href="/"
+          class="inline-block bg-white text-black font-bold text-sm px-8 py-4 border-2 border-black hover:bg-zudo-red hover:text-white w-full sm:w-auto text-center"
+        >
+          GO HOME
+        </a>
+      </div>
+
+      <!-- Info Box -->
+      <div class="mt-12 border-2 border-black p-6 text-left max-w-md mx-auto bg-white">
+        <p class="text-sm font-bold mb-2">MAINTENANCE DETAILS:</p>
+        <ul class="text-sm text-gray-700 space-y-1">
+          <li>• Expected duration: 15-30 minutes</li>
+          <li>• Documentation remains accessible</li>
+          <li>• Follow <a href="https://github.com/oyinlola-tech/zudo" class="text-zudo-blue hover:underline font-bold" target="_blank" rel="noopener">GitHub</a> for updates</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t-2 border-black px-6 py-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p class="text-xs text-gray-600">© 2026 Zudo Framework</p>
+      <div class="flex items-center gap-4 text-xs">
+        <a href="/" class="text-gray-600 hover:text-black font-medium">Home</a>
+        <a href="/docs/packages/" class="text-gray-600 hover:text-black font-medium">Docs</a>
+        <a href="https://github.com/oyinlola-tech/zudo" class="text-gray-600 hover:text-black font-medium" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var seconds = 30;
+    var el = document.getElementById('countdown');
+    var timer = setInterval(function() {
+      seconds--;
+      if (el) el.textContent = seconds;
+      if (seconds <= 0) clearInterval(timer);
+    }, 1000);
+  </script>
+</body>
+</html>
