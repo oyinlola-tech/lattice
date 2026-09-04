@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Package Rules — Zudo Framework</title>
+  <meta name="description" content="Conventions and constraints that all @zudolib packages must follow. File naming, folder organization, code style, imports, testing, and dependency direction.">
+  <meta name="keywords" content="zudo, package rules, conventions, file naming, folder organization, code style, imports, testing, dependency direction, type ownership">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/rules.html">
+
+  <meta property="og:title" content="Package Rules — Zudo Framework">
+  <meta property="og:description" content="Conventions and constraints that all @zudolib packages must follow.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zudo.dev/docs/rules.html">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
+  <meta property="og:site_name" content="Zudo Framework">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Package Rules — Zudo Framework">
+  <meta name="twitter:description" content="Conventions and constraints that all @zudolib packages must follow.">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/zudo-favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'zudo-red': '#FF0000',
+            'zudo-blue': '#0000FF',
+            'zudo-yellow': '#FFFF00',
+            'zudo-black': '#000000',
+            'zudo-white': '#FFFFFF',
+            'zudo-green': '#00FF00',
+            'zudo-pink': '#FF00FF',
+          },
+          fontFamily: {
+            'system': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/docs.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Package Rules — Zudo Framework",
+    "description": "Conventions and constraints that all @zudolib packages must follow.",
+    "programmingLanguage": "TypeScript",
+    "license": "https://opensource.org/licenses/MIT",
+    "repository": { "@type": "CodeRepository", "url": "https://github.com/oyinlola-tech/zudo" },
+    "author": { "@type": "Organization", "name": "Oyinlola Tech" },
+    "publisher": { "@type": "Organization", "name": "Zudo" },
+    "datePublished": "2026-01-01",
+    "keywords": "zudo, package rules, conventions, file naming, code style"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
+      { "@type": "ListItem", "position": 2, "name": "Package Rules", "item": "https://zudo.dev/docs/rules.html" }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="../" class="flex items-center gap-3" aria-label="Zudo Home">
+        <div class="w-9 h-9 bg-zudo-red border-2 border-white flex items-center justify-center"><span class="text-black font-black text-lg">Z</span></div>
+        <span class="text-xl font-black tracking-tight">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="./getting-started/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
+        <a href="./packages/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Packages</a>
+        <a href="./architecture/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
+        <a href="./concepts/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Concepts</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="searchTrigger" class="p-2 border-2 border-white hover:border-zudo-red hover:bg-zudo-red hover:text-black" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="p-2 border-2 border-white hover:border-zudo-blue hover:bg-zudo-blue hover:text-white" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button id="sidebarToggle" class="md:hidden p-2 border-2 border-white hover:border-zudo-red" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SEARCH OVERLAY -->
+  <div id="searchOverlay" class="fixed inset-0 z-[100] hidden search-overlay" role="dialog" aria-label="Search">
+    <div class="max-w-2xl mx-auto mt-20 px-6">
+      <div class="flex items-center justify-between mb-6">
+        <span class="text-white font-bold text-lg uppercase tracking-wider">Search Documentation</span>
+        <button id="searchClose" class="text-white hover:text-zudo-red p-2 border-2 border-white hover:border-zudo-red" aria-label="Close search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <input type="text" id="searchInput" placeholder="Search packages, concepts, guides..." class="search-input w-full px-6 py-4 text-lg" autocomplete="off" aria-label="Search query">
+      <div id="searchResults" class="mt-4 max-h-96 overflow-y-auto"></div>
+      <div class="mt-4 text-white/50 text-sm">
+        <span class="border border-white/30 px-2 py-1 mr-2">Ctrl+K</span> Open
+        <span class="border border-white/30 px-2 py-1 mx-2">↑↓</span> Navigate
+        <span class="border border-white/30 px-2 py-1 mx-2">Enter</span> Select
+        <span class="border border-white/30 px-2 py-1 mx-2">Esc</span> Close
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="flex">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar" role="complementary" aria-label="Documentation navigation">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="./getting-started/" class="sidebar-item">Introduction</a>
+      <a href="./getting-started/" class="sidebar-item">Installation</a>
+      <a href="./getting-started/first-app.html" class="sidebar-item">Quick Start</a>
+
+      <div class="sidebar-section">Architecture</div>
+      <a href="./architecture/" class="sidebar-item">Overview</a>
+      <a href="./architecture/" class="sidebar-item">Layered Architecture</a>
+      <a href="./architecture/dependency-direction.html" class="sidebar-item">Package Structure</a>
+
+      <div class="sidebar-section">Concepts</div>
+      <a href="./concepts/" class="sidebar-item">Overview</a>
+      <a href="./concepts/configuration.html" class="sidebar-item">Configuration</a>
+      <a href="./concepts/contexts.html" class="sidebar-item">Contexts</a>
+      <a href="./concepts/dependency-injection.html" class="sidebar-item">Dependency Injection</a>
+      <a href="./concepts/lifecycle.html" class="sidebar-item">Lifecycle</a>
+      <a href="./concepts/modules.html" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section">Packages</div>
+      <a href="./packages/" class="sidebar-item">All Packages</a>
+
+      <div class="sidebar-section">Reference</div>
+      <a href="./roadmap.html" class="sidebar-item">Roadmap</a>
+      <a href="./rules.html" class="sidebar-item sidebar-item-active">Package Rules</a>
+      <a href="./contributing/" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0" role="main">
+
+      <!-- PAGE HEADER -->
+      <header class="bg-black text-white border-b-4 border-zudo-yellow grid-lines-dark">
+        <div class="max-w-4xl mx-auto px-6 py-16">
+          <nav id="breadcrumbs" class="text-sm mb-6 text-white/50" aria-label="Breadcrumb">
+            <a href="../" class="hover:text-zudo-blue">Home</a>
+            <span class="mx-2 text-white/30">/</span>
+            <span class="text-white/70">Package Rules</span>
+          </nav>
+          <h1 class="text-hero text-white mb-4">PACKAGE RULES</h1>
+          <p class="text-lg text-white/70 max-w-2xl leading-relaxed">
+            Conventions and constraints that all @zudolib packages must follow.
+          </p>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div class="flex">
+        <div class="content-area flex-1 px-6 py-10">
+
+          <!-- FILE NAMING -->
+          <section aria-labelledby="file-naming">
+            <h2 class="text-h2 mb-4" id="file-naming">File Naming Rules (Dot Notation)</h2>
+            <p class="text-body text-black/80 mb-4">
+              All source files use dot notation to separate the domain prefix from the concern.
+            </p>
+            <table class="doc-table mb-6">
+              <thead>
+                <tr>
+                  <th>Pattern</th>
+                  <th>Example</th>
+                  <th>Wrong</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Single-word prefix</td>
+                  <td><span class="code-inline">http.error.ts</span></td>
+                  <td><span class="code-inline">http-error.ts</span></td>
+                </tr>
+                <tr>
+                  <td>Multi-word prefix</td>
+                  <td><span class="code-inline">externalService.error.ts</span></td>
+                  <td><span class="code-inline">external-service-error.ts</span></td>
+                </tr>
+                <tr>
+                  <td>Types/interfaces</td>
+                  <td><span class="code-inline">configManager.type.ts</span></td>
+                  <td><span class="code-inline">config-manager-type.ts</span></td>
+                </tr>
+                <tr>
+                  <td>Utilities</td>
+                  <td><span class="code-inline">cryptoRandom.helper.ts</span></td>
+                  <td><span class="code-inline">crypto-random-helper.ts</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="code-block p-4 mb-4">&lt;prefix&gt;.&lt;concern&gt;.ts
+
+<span class="cmt">prefix:</span> Domain entity. PascalCase if multi-word.
+<span class="cmt">concern:</span> What the file contains: error, type, factory, helper,
+  constant, interface, schema, utils, service, handler,
+  manager, builder, validator, serializer.</div>
+          </section>
+
+          <!-- FOLDER ORGANIZATION -->
+          <section class="mt-12" aria-labelledby="folder-org">
+            <h2 class="text-h2 mb-4" id="folder-org">Folder Organization</h2>
+            <div class="callout callout-danger mb-6">
+              <strong class="text-sm uppercase tracking-wider text-zudo-red">Hard Limits</strong>
+              <p class="text-sm mt-1"><strong>Max 5 files per folder</strong> (excluding index.ts). <strong>Max 150 lines per file.</strong> Violations must be fixed before merge.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="border-2 border-black p-4">
+                <div class="text-xs font-bold uppercase tracking-wider text-zudo-green mb-2">Required</div>
+                <ul class="text-sm text-black/60 space-y-1">
+                  <li>Every src/ dir organized into related folders</li>
+                  <li>Every folder gets an index.ts barrel with JSDoc</li>
+                  <li>Folders may contain subfolders recursively</li>
+                  <li>camelCase for folder names</li>
+                </ul>
+              </div>
+              <div class="border-2 border-black p-4">
+                <div class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-2">Split When</div>
+                <ul class="text-sm text-black/60 space-y-1">
+                  <li>File exceeds 150 lines → split by concern</li>
+                  <li>Folder exceeds 5 files → create subfolder</li>
+                  <li>Related files in same folder → group into subfolder</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- CODE STYLE -->
+          <section class="mt-12" aria-labelledby="code-style">
+            <h2 class="text-h2 mb-4" id="code-style">Code Style Rules</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="border-2 border-black p-4">
+                <div class="text-xs font-bold uppercase tracking-wider text-zudo-green mb-2">Required</div>
+                <ul class="text-sm text-black/60 space-y-1">
+                  <li>Named exports only (no default exports)</li>
+                  <li><span class="code-inline">readonly</span> on all interface properties</li>
+                  <li><span class="code-inline">Object.freeze()</span> for immutable data</li>
+                  <li>JSDoc on all public API surfaces</li>
+                  <li><span class="code-inline">async/await</span> exclusively</li>
+                </ul>
+              </div>
+              <div class="border-2 border-black p-4">
+                <div class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-2">Forbidden</div>
+                <ul class="text-sm text-black/60 space-y-1">
+                  <li>No <span class="code-inline">any</span> — use <span class="code-inline">unknown</span></li>
+                  <li>No <span class="code-inline">var</span> — use <span class="code-inline">const</span>/<span class="code-inline">let</span></li>
+                  <li>No inline comments unless necessary</li>
+                  <li>No business logic in barrel index.ts</li>
+                  <li>No default exports</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- IMPORT ORDER -->
+          <section class="mt-12" aria-labelledby="import-order">
+            <h2 class="text-h2 mb-4" id="import-order">Import Order Rules</h2>
+            <div class="code-block p-4 mb-4"><span class="cmt">// 1. Node.js built-ins</span>
+<span class="kw">import</span> { randomBytes } <span class="kw">from</span> <span class="str">"node:crypto"</span>;
+
+<span class="cmt">// 2. External packages</span>
+<span class="kw">import</span> { z } <span class="kw">from</span> <span class="str">"zod"</span>;
+
+<span class="cmt">// 3. Shared @zudolib/* packages</span>
+<span class="kw">import</span> { BaseError, ErrorCode } <span class="kw">from</span> <span class="str">"@zudolib/errors.js"</span>;
+
+<span class="cmt">// 4. Internal imports (same package, with .js extension)</span>
+<span class="kw">import</span> { createEventBus } <span class="kw">from</span> <span class="str">"./eventBus/index.js"</span>;</div>
+          </section>
+
+          <!-- TESTING REQUIREMENTS -->
+          <section class="mt-12" aria-labelledby="testing">
+            <h2 class="text-h2 mb-4" id="testing">Testing Requirements</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="border-2 border-black p-4">
+                <div class="text-xs font-bold uppercase tracking-wider text-zudo-blue mb-2">Framework</div>
+                <p class="text-sm text-black/60">Vitest for all testing. Unit tests in packages/&lt;name&gt;/tests/. Integration tests in tests/integration/.</p>
+              </div>
+              <div class="border-2 border-black p-4">
+                <div class="text-xs font-bold uppercase tracking-wider text-zudo-yellow mb-2">Required</div>
+                <p class="text-sm text-black/60">All new code MUST include unit tests. Run typecheck and tests before every commit.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- DEPENDENCY DIRECTION -->
+          <section class="mt-12" aria-labelledby="dep-direction">
+            <h2 class="text-h2 mb-4" id="dep-direction">Dependency Direction Rules</h2>
+            <p class="text-body text-black/80 mb-4">
+              Dependencies flow inward. Foundation packages have no internal dependencies. Higher-level packages depend only on lower tiers.
+            </p>
+            <div class="code-block p-4 mb-4">errors, constants        <span class="cmt">← Leaf packages (no internal deps)</span>
+    ↑
+container, logger, events, crypto, validation, schema, config, middleware, types
+    ↑
+cqrs (depends on messaging, events)
+    ↑
+core (depends on all above)</div>
+            <div class="callout callout-warning mb-6">
+              <strong class="text-sm uppercase tracking-wider text-zudo-yellow">Rule</strong>
+              <p class="text-sm mt-1">Never create circular dependencies between packages. If you need functionality from a higher-layer package, move it to a lower-layer package.</p>
+            </div>
+          </section>
+
+          <!-- TYPE OWNERSHIP -->
+          <section class="mt-12" aria-labelledby="type-ownership">
+            <h2 class="text-h2 mb-4" id="type-ownership">Type Ownership Rules</h2>
+            <p class="text-body text-black/80 mb-4">
+              Every type has exactly one owner package. All consuming packages import from the owner — never duplicate types.
+            </p>
+            <table class="doc-table mb-6">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Owner</th>
+                  <th>Import From</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>EntityId, UserId, EventId</td>
+                  <td><span class="code-inline">@zudolib/constants</span></td>
+                  <td><span class="code-inline">import type { EventId } from "@zudolib/constants"</span></td>
+                </tr>
+                <tr>
+                  <td>BaseError, ErrorCode</td>
+                  <td><span class="code-inline">@zudolib/errors</span></td>
+                  <td><span class="code-inline">import { ApplicationError } from "@zudolib/errors"</span></td>
+                </tr>
+                <tr>
+                  <td>Logger, LogLevel</td>
+                  <td><span class="code-inline">@zudolib/logger</span></td>
+                  <td><span class="code-inline">import type { Logger } from "@zudolib/logger"</span></td>
+                </tr>
+                <tr>
+                  <td>EventBus, EventHandler</td>
+                  <td><span class="code-inline">@zudolib/events</span></td>
+                  <td><span class="code-inline">import type { EventBus } from "@zudolib/events"</span></td>
+                </tr>
+                <tr>
+                  <td>Container, Token</td>
+                  <td><span class="code-inline">@zudolib/container</span></td>
+                  <td><span class="code-inline">import type { Container } from "@zudolib/container"</span></td>
+                </tr>
+                <tr>
+                  <td>Middleware, MiddlewareContext</td>
+                  <td><span class="code-inline">@zudolib/middleware</span></td>
+                  <td><span class="code-inline">import type { Middleware } from "@zudolib/middleware"</span></td>
+                </tr>
+                <tr>
+                  <td>Maybe, DeepReadonly, isPlainObject</td>
+                  <td><span class="code-inline">@zudolib/types</span></td>
+                  <td><span class="code-inline">import { isPlainObject } from "@zudolib/types"</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="callout callout-danger mb-6">
+              <strong class="text-sm uppercase tracking-wider text-zudo-red">Critical Rule</strong>
+              <p class="text-sm mt-1">Before defining ANY type in a new package, check if it already exists in a shared package. If it does, import from the owner — never redefine.</p>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-black text-white border-t-4 border-zudo-red">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center"><span class="text-black font-black text-sm">Z</span></div>
+            <span class="font-black">ZUDO</span>
+          </div>
+          <p class="text-sm text-white/50">A modular TypeScript framework for building scalable, maintainable, and production-ready applications.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-zudo-red">Documentation</h4>
+          <ul class="space-y-2 text-sm text-white/50">
+            <li><a href="./getting-started/" class="hover:text-white">Getting Started</a></li>
+            <li><a href="./architecture/" class="hover:text-white">Architecture</a></li>
+            <li><a href="./concepts/" class="hover:text-white">Concepts</a></li>
+            <li><a href="./packages/" class="hover:text-white">Packages</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-zudo-red">Community</h4>
+          <ul class="space-y-2 text-sm text-white/50">
+            <li><a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="hover:text-white">GitHub</a></li>
+            <li><a href="https://www.npmjs.com/org/zudolib" target="_blank" rel="noopener" class="hover:text-white">npm</a></li>
+            <li><a href="./contributing/" class="hover:text-white">Contributing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-zudo-red">Legal</h4>
+          <ul class="space-y-2 text-sm text-white/50">
+            <li><a href="https://github.com/oyinlola-tech/zudo/blob/main/LICENSE" target="_blank" rel="noopener" class="hover:text-white">MIT License</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-8 pt-8 text-center text-sm text-white/30">
+        &copy; 2026 Zudo. MIT License.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/docs.js"></script>
+</body>
+</html>

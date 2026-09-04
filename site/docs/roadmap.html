@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadmap — Zudo Framework</title>
+  <meta name="description" content="Where Zudo is headed. Features, milestones, and vision. Current releases, near-term, mid-term, and long-term goals.">
+  <meta name="keywords" content="zudo, roadmap, features, milestones, vision, future, releases, planning">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/roadmap.html">
+
+  <meta property="og:title" content="Roadmap — Zudo Framework">
+  <meta property="og:description" content="Where Zudo is headed. Features, milestones, and vision.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zudo.dev/docs/roadmap.html">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
+  <meta property="og:site_name" content="Zudo Framework">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Roadmap — Zudo Framework">
+  <meta name="twitter:description" content="Where Zudo is headed. Features, milestones, and vision.">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/zudo-favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'zudo-red': '#FF0000',
+            'zudo-blue': '#0000FF',
+            'zudo-yellow': '#FFFF00',
+            'zudo-black': '#000000',
+            'zudo-white': '#FFFFFF',
+            'zudo-green': '#00FF00',
+            'zudo-pink': '#FF00FF',
+          },
+          fontFamily: {
+            'system': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/docs.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Roadmap — Zudo Framework",
+    "description": "Where Zudo is headed. Features, milestones, and vision for the framework.",
+    "programmingLanguage": "TypeScript",
+    "license": "https://opensource.org/licenses/MIT",
+    "repository": { "@type": "CodeRepository", "url": "https://github.com/oyinlola-tech/zudo" },
+    "author": { "@type": "Organization", "name": "Oyinlola Tech" },
+    "publisher": { "@type": "Organization", "name": "Zudo" },
+    "datePublished": "2026-01-01",
+    "keywords": "zudo, roadmap, features, milestones, vision"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
+      { "@type": "ListItem", "position": 2, "name": "Roadmap", "item": "https://zudo.dev/docs/roadmap.html" }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="../" class="flex items-center gap-3" aria-label="Zudo Home">
+        <div class="w-9 h-9 bg-zudo-red border-2 border-white flex items-center justify-center"><span class="text-black font-black text-lg">Z</span></div>
+        <span class="text-xl font-black tracking-tight">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="./getting-started/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
+        <a href="./packages/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Packages</a>
+        <a href="./architecture/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
+        <a href="./concepts/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Concepts</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="searchTrigger" class="p-2 border-2 border-white hover:border-zudo-red hover:bg-zudo-red hover:text-black" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="p-2 border-2 border-white hover:border-zudo-blue hover:bg-zudo-blue hover:text-white" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button id="sidebarToggle" class="md:hidden p-2 border-2 border-white hover:border-zudo-red" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SEARCH OVERLAY -->
+  <div id="searchOverlay" class="fixed inset-0 z-[100] hidden search-overlay" role="dialog" aria-label="Search">
+    <div class="max-w-2xl mx-auto mt-20 px-6">
+      <div class="flex items-center justify-between mb-6">
+        <span class="text-white font-bold text-lg uppercase tracking-wider">Search Documentation</span>
+        <button id="searchClose" class="text-white hover:text-zudo-red p-2 border-2 border-white hover:border-zudo-red" aria-label="Close search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <input type="text" id="searchInput" placeholder="Search packages, concepts, guides..." class="search-input w-full px-6 py-4 text-lg" autocomplete="off" aria-label="Search query">
+      <div id="searchResults" class="mt-4 max-h-96 overflow-y-auto"></div>
+      <div class="mt-4 text-white/50 text-sm">
+        <span class="border border-white/30 px-2 py-1 mr-2">Ctrl+K</span> Open
+        <span class="border border-white/30 px-2 py-1 mx-2">↑↓</span> Navigate
+        <span class="border border-white/30 px-2 py-1 mx-2">Enter</span> Select
+        <span class="border border-white/30 px-2 py-1 mx-2">Esc</span> Close
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="flex">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar" role="complementary" aria-label="Documentation navigation">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="./getting-started/" class="sidebar-item">Introduction</a>
+      <a href="./getting-started/" class="sidebar-item">Installation</a>
+      <a href="./getting-started/first-app.html" class="sidebar-item">Quick Start</a>
+
+      <div class="sidebar-section">Architecture</div>
+      <a href="./architecture/" class="sidebar-item">Overview</a>
+      <a href="./architecture/" class="sidebar-item">Layered Architecture</a>
+      <a href="./architecture/dependency-direction.html" class="sidebar-item">Package Structure</a>
+
+      <div class="sidebar-section">Concepts</div>
+      <a href="./concepts/" class="sidebar-item">Overview</a>
+      <a href="./concepts/configuration.html" class="sidebar-item">Configuration</a>
+      <a href="./concepts/contexts.html" class="sidebar-item">Contexts</a>
+      <a href="./concepts/dependency-injection.html" class="sidebar-item">Dependency Injection</a>
+      <a href="./concepts/lifecycle.html" class="sidebar-item">Lifecycle</a>
+      <a href="./concepts/modules.html" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section">Packages</div>
+      <a href="./packages/" class="sidebar-item">All Packages</a>
+
+      <div class="sidebar-section">Reference</div>
+      <a href="./roadmap.html" class="sidebar-item sidebar-item-active">Roadmap</a>
+      <a href="./rules.html" class="sidebar-item">Package Rules</a>
+      <a href="./contributing/" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0" role="main">
+
+      <!-- PAGE HEADER -->
+      <header class="bg-black text-white border-b-4 border-zudo-red grid-lines-dark">
+        <div class="max-w-4xl mx-auto px-6 py-16">
+          <nav id="breadcrumbs" class="text-sm mb-6 text-white/50" aria-label="Breadcrumb">
+            <a href="../" class="hover:text-zudo-blue">Home</a>
+            <span class="mx-2 text-white/30">/</span>
+            <span class="text-white/70">Roadmap</span>
+          </nav>
+          <h1 class="text-hero text-white mb-4">ROADMAP</h1>
+          <p class="text-lg text-white/70 max-w-2xl leading-relaxed">
+            Where Zudo is headed. Features, milestones, and vision.
+          </p>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div class="flex">
+        <div class="content-area flex-1 px-6 py-10">
+
+          <!-- TIMELINE -->
+          <section aria-labelledby="timeline">
+            <h2 class="text-h2 mb-6" id="timeline">Timeline</h2>
+
+            <!-- CURRENT: v1.0.0 -->
+            <div class="flex gap-6 mb-8">
+              <div class="flex flex-col items-center">
+                <div class="w-4 h-4 bg-zudo-green border-2 border-black"></div>
+                <div class="w-0.5 h-full bg-black/10"></div>
+              </div>
+              <div class="flex-1 pb-8">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="tag tag-green">Current</span>
+                  <h3 class="text-h3">v1.0.0 — Core Framework</h3>
+                </div>
+                <p class="text-sm text-black/60 mb-3">The foundational release. 38 packages across 6 architecture layers.</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">DI Container</div>
+                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">Event Bus</div>
+                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">Config System</div>
+                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">Lifecycle</div>
+                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">CQRS Primitives</div>
+                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">Auth Stack</div>
+                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">HTTP Server</div>
+                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">CLI Tooling</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NEAR-TERM -->
+            <div class="flex gap-6 mb-8">
+              <div class="flex flex-col items-center">
+                <div class="w-4 h-4 bg-zudo-blue border-2 border-black"></div>
+                <div class="w-0.5 h-full bg-black/10"></div>
+              </div>
+              <div class="flex-1 pb-8">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="tag tag-blue">Next</span>
+                  <h3 class="text-h3">Near-Term — Expand Ecosystem</h3>
+                </div>
+                <p class="text-sm text-black/60 mb-3">Broadening the package ecosystem and developer experience.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-blue mb-1">Additional Adapters</div>
+                    <p class="text-xs text-black/50">Express, Fastify, Koa, Hono transport adapters.</p>
+                  </div>
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-blue mb-1">More Schematics</div>
+                    <p class="text-xs text-black/50">Code generation templates for modules, services, handlers.</p>
+                  </div>
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-blue mb-1">CLI Enhancements</div>
+                    <p class="text-xs text-black/50">Interactive project setup, package upgrades, migration tools.</p>
+                  </div>
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-blue mb-1">Documentation Site</div>
+                    <p class="text-xs text-black/50">Full reference docs, guides, tutorials, and examples.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MID-TERM -->
+            <div class="flex gap-6 mb-8">
+              <div class="flex flex-col items-center">
+                <div class="w-4 h-4 bg-zudo-yellow border-2 border-black"></div>
+                <div class="w-0.5 h-full bg-black/10"></div>
+              </div>
+              <div class="flex-1 pb-8">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="tag tag-yellow">Mid-Term</span>
+                  <h3 class="text-h3">Mid-Term — Platform &amp; Integrations</h3>
+                </div>
+                <p class="text-sm text-black/60 mb-3">Building the ecosystem around Zudo.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-1">Plugin Marketplace</div>
+                    <p class="text-xs text-black/50">Discover and install community plugins. Version management, compatibility checks.</p>
+                  </div>
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-1">Cloud Integrations</div>
+                    <p class="text-xs text-black/50">AWS, GCP, Azure adapters. Serverless deployment, container orchestration.</p>
+                  </div>
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-1">Monitoring Dashboards</div>
+                    <p class="text-xs text-black/50">Pre-built Grafana dashboards, Prometheus exporters, health check endpoints.</p>
+                  </div>
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-1">Admin UI</div>
+                    <p class="text-xs text-black/50">Built-in admin interface for managing config, users, and feature flags.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- LONG-TERM -->
+            <div class="flex gap-6 mb-8">
+              <div class="flex flex-col items-center">
+                <div class="w-4 h-4 bg-zudo-red border-2 border-black"></div>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="tag tag-red">Vision</span>
+                  <h3 class="text-h3">Long-Term — The Future</h3>
+                </div>
+                <p class="text-sm text-black/60 mb-3">Where Zudo is ultimately headed.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-1">Multi-Runtime</div>
+                    <p class="text-xs text-black/50">Run Zudo on Node.js, Deno, Bun, and Cloudflare Workers.</p>
+                  </div>
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-1">Edge Computing</div>
+                    <p class="text-xs text-black/50">Deploy Zudo modules to edge locations with zero config.</p>
+                  </div>
+                  <div class="border-2 border-black p-3">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-1">AI-Assisted Dev</div>
+                    <p class="text-xs text-black/50">AI code generation, auto-completion, and intelligent refactoring.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-black text-white border-t-4 border-zudo-red">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center"><span class="text-black font-black text-sm">Z</span></div>
+            <span class="font-black">ZUDO</span>
+          </div>
+          <p class="text-sm text-white/50">A modular TypeScript framework for building scalable, maintainable, and production-ready applications.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-zudo-red">Documentation</h4>
+          <ul class="space-y-2 text-sm text-white/50">
+            <li><a href="./getting-started/" class="hover:text-white">Getting Started</a></li>
+            <li><a href="./architecture/" class="hover:text-white">Architecture</a></li>
+            <li><a href="./concepts/" class="hover:text-white">Concepts</a></li>
+            <li><a href="./packages/" class="hover:text-white">Packages</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-zudo-red">Community</h4>
+          <ul class="space-y-2 text-sm text-white/50">
+            <li><a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="hover:text-white">GitHub</a></li>
+            <li><a href="https://www.npmjs.com/org/zudolib" target="_blank" rel="noopener" class="hover:text-white">npm</a></li>
+            <li><a href="./contributing/" class="hover:text-white">Contributing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-zudo-red">Legal</h4>
+          <ul class="space-y-2 text-sm text-white/50">
+            <li><a href="https://github.com/oyinlola-tech/zudo/blob/main/LICENSE" target="_blank" rel="noopener" class="hover:text-white">MIT License</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-8 pt-8 text-center text-sm text-white/30">
+        &copy; 2026 Zudo. MIT License.
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/docs.js"></script>
+</body>
+</html>

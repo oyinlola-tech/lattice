@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Structure — Zudo Framework</title>
+  <meta name="description" content="Understand the standard Zudo project layout and conventions. Directory structure, configuration files, package organization, and monorepo patterns.">
+  <meta name="keywords" content="zudo, project structure, directory layout, monorepo, configuration, conventions, typescript">
+  <meta name="author" content="Oyinlola Tech">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/getting-started/project-structure.html">
+
+  <meta property="og:title" content="Project Structure — Zudo Framework">
+  <meta property="og:description" content="Understand the standard Zudo project layout and conventions.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zudo.dev/docs/getting-started/project-structure.html">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
+  <meta property="og:site_name" content="Zudo Framework">
+  <meta property="article:published_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:modified_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:section" content="Getting Started">
+  <meta property="article:tag" content="Project Structure">
+  <meta property="article:tag" content="Layout">
+  <meta property="article:tag" content="Monorepo">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Project Structure — Zudo Framework">
+  <meta name="twitter:description" content="Understand the standard Zudo project layout and conventions.">
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/zudo-favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'zudo-red': '#FF0000',
+            'zudo-blue': '#0000FF',
+            'zudo-yellow': '#FFFF00',
+            'zudo-black': '#000000',
+            'zudo-white': '#FFFFFF',
+            'zudo-green': '#00FF00',
+            'zudo-pink': '#FF00FF',
+          },
+          fontFamily: {
+            'system': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../../css/docs.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Project Structure — Zudo Framework",
+    "description": "Understand the standard Zudo project layout and conventions. Directory structure, configuration files, package organization, and monorepo patterns.",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js >= 24.0.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "repository": {
+      "@type": "CodeRepository",
+      "url": "https://github.com/oyinlola-tech/zudo"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Oyinlola Tech",
+      "url": "https://github.com/oyinlola-tech"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zudo"
+    },
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-01-01",
+    "mainEntityOfPage": "https://zudo.dev/docs/getting-started/project-structure.html",
+    "keywords": "zudo, project structure, directory layout, monorepo, configuration, conventions",
+    "articleSection": "Getting Started"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
+      { "@type": "ListItem", "position": 2, "name": "Getting Started", "item": "https://zudo.dev/docs/getting-started/" },
+      { "@type": "ListItem", "position": 3, "name": "Project Structure", "item": "https://zudo.dev/docs/getting-started/project-structure.html" }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-white text-black">
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-3" aria-label="Zudo Home">
+        <div class="w-9 h-9 bg-zudo-red border-2 border-white flex items-center justify-center">
+          <span class="text-black font-black text-lg">Z</span>
+        </div>
+        <span class="text-xl font-black tracking-tight">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="../" class="nav-link text-xs font-bold uppercase tracking-wider text-zudo-red nav-link-active">Docs</a>
+        <a href="../packages/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Packages</a>
+        <a href="../architecture/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="searchTrigger" class="p-2 border-2 border-white hover:border-zudo-red hover:bg-zudo-red hover:text-black" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="p-2 border-2 border-white hover:border-zudo-blue hover:bg-zudo-blue hover:text-white" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button id="sidebarToggle" class="md:hidden p-2 border-2 border-white hover:border-zudo-red" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== SEARCH OVERLAY ==================== -->
+
+  <!-- ==================== LAYOUT ==================== -->
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside id="sidebar" class="sidebar" role="complementary" aria-label="Documentation navigation">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="../getting-started/" class="sidebar-item">Overview</a>
+      <a href="../getting-started/first-app.html" class="sidebar-item">Your First App</a>
+      <a href="../getting-started/project-structure.html" class="sidebar-item sidebar-item-active">Project Structure</a>
+
+      <div class="sidebar-section">Architecture</div>
+      <a href="../architecture/" class="sidebar-item">Overview</a>
+      <a href="../architecture/" class="sidebar-item">DI Container</a>
+      <a href="../architecture/runtime.html" class="sidebar-item">Lifecycle</a>
+      <a href="../architecture/module-system.html" class="sidebar-item">Event System</a>
+      <a href="../architecture/adapters.html" class="sidebar-item">Middleware</a>
+      <a href="../architecture/dependency-direction.html" class="sidebar-item">Configuration</a>
+      <a href="../architecture/" class="sidebar-item">Error Handling</a>
+
+      <div class="sidebar-section">Concepts</div>
+      <a href="../concepts/" class="sidebar-item">Overview</a>
+      <a href="../concepts/dependency-injection.html" class="sidebar-item">Dependency Injection</a>
+      <a href="../concepts/modules.html" class="sidebar-item">Modules</a>
+      <a href="../concepts/" class="sidebar-item">Execution Context</a>
+      <a href="../concepts/" class="sidebar-item">Logging</a>
+      <a href="../concepts/" class="sidebar-item">Validation</a>
+
+      <div class="sidebar-section">Packages</div>
+      <a href="../packages/" class="sidebar-item">All Packages</a>
+      <a href="../packages/core/" class="sidebar-item">core</a>
+      <a href="../packages/config/" class="sidebar-item">config</a>
+      <a href="../packages/logger/" class="sidebar-item">logger</a>
+      <a href="../packages/errors/" class="sidebar-item">errors</a>
+      <a href="../packages/container/" class="sidebar-item">container</a>
+      <a href="../packages/events/" class="sidebar-item">events</a>
+      <a href="../packages/http/" class="sidebar-item">http</a>
+      <a href="../packages/auth/" class="sidebar-item">auth</a>
+
+      <div class="sidebar-section">Reference</div>
+      <a href="../packages/api/" class="sidebar-item">API Reference</a>
+      <a href="../packages/cli/" class="sidebar-item">CLI Commands</a>
+      <a href="../packages/cache/" class="sidebar-item">Configuration</a>
+      <a href="../packages/adapters/" class="sidebar-item">Error Codes</a>
+    </aside>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="doc-content flex-1 min-w-0" role="main">
+
+      <div class="text-sm mb-6">
+        <a href="../" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="../getting-started/" class="hover:text-zudo-blue">Getting-Started</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">Project Structure</span>
+      </div>
+      <!-- Hero -->
+      <header class="mb-12 bg-black text-white border-2 border-black p-8 sm:p-12 grid-lines-dark">
+        <h1 class="text-hero text-white mb-4">PROJECT STRUCTURE</h1>
+        <p class="text-lg text-white/70 max-w-2xl leading-relaxed">
+          Understand the standard Zudo project layout and conventions.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 mt-6">
+          <span class="tag tag-green">Guide</span>
+          <span class="tag tag-blue">Conventions</span>
+          <span class="tag tag-yellow">Monorepo</span>
+        </div>
+      </header>
+      <!-- ==================== SINGLE PROJECT ==================== -->
+      <section id="single-project" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Single Project Layout</h2>
+        <p class="mb-4 leading-relaxed">A standard Zudo application follows this directory structure:</p>
+
+        <div class="border-2 border-black p-6 bg-gray-50 mb-6 font-mono text-sm leading-loose">
+<pre class="whitespace-pre-wrap">my-zudo-app/
+├── <span class="fn">src/</span>
+│   ├── <span class="fn">config/</span>
+│   │   └── index.ts              <span class="cm"># App configuration</span>
+│   ├── <span class="fn">modules/</span>
+│   │   ├── <span class="fn">auth/</span>
+│   │   │   ├── index.ts          <span class="cm"># Module barrel</span>
+│   │   │   ├── auth.service.ts   <span class="cm"># Service implementation</span>
+│   │   │   └── auth.type.ts      <span class="cm"># Types &amp; interfaces</span>
+│   │   └── <span class="fn">users/</span>
+│   │       ├── index.ts
+│   │       ├── users.service.ts
+│   │       ├── users.repository.ts
+│   │       └── users.type.ts
+│   ├── <span class="fn">errors/</span>
+│   │   └── index.ts              <span class="cm"># Custom error classes</span>
+│   └── index.ts                  <span class="cm"># Application entry point</span>
+├── <span class="fn">tests/</span>
+│   ├── <span class="fn">unit/</span>
+│   │   └── auth.test.ts
+│   └── <span class="fn">integration/</span>
+│       └── users.test.ts
+├── <span class="fn">dist/</span>                         <span class="cm"># Compiled output</span>
+├── package.json
+├── tsconfig.json
+└── zudo.config.ts                <span class="cm"># Zudo configuration</span></pre>
+        </div>
+      </section>
+
+      <!-- ==================== DIRECTORIES ==================== -->
+      <section id="directories" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Directory Breakdown</h2>
+
+        <div class="space-y-6">
+          <!-- src/ -->
+          <div class="border-2 border-black">
+            <div class="bg-zudo-green text-black px-5 py-3 border-b-2 border-black">
+              <span class="font-black text-sm">src/</span>
+            </div>
+            <div class="p-5">
+              <p class="text-sm leading-relaxed mb-3">The source directory contains all application code. All TypeScript source files live here.</p>
+              <ul class="text-sm space-y-1 text-gray-600">
+                <li>• Entry point: <code class="code-inline">src/index.ts</code></li>
+                <li>• Compiled to: <code class="code-inline">dist/</code></li>
+                <li>• Never import from <code class="code-inline">dist/</code> — always use <code class="code-inline">src/</code></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- src/config/ -->
+          <div class="border-2 border-black">
+            <div class="bg-zudo-blue text-white px-5 py-3 border-b-2 border-black">
+              <span class="font-black text-sm">src/config/</span>
+            </div>
+            <div class="p-5">
+              <p class="text-sm leading-relaxed mb-3">Application configuration module. Exports typed config objects used throughout the app.</p>
+              <div class="code-block text-xs">
+<span class="cm">// src/config/index.ts</span>
+<span class="kw">import</span> { <span class="fn">defineConfig</span> } <span class="kw">from</span> <span class="str">"@zudolib/config"</span>;
+
+<span class="kw">export const</span> appConfig = <span class="fn">defineConfig</span>({
+  <span class="fn">app</span>: { <span class="fn">name</span>: <span class="str">"my-app"</span> },
+  <span class="fn">server</span>: { <span class="fn">port</span>: <span class="num">3000</span> },
+});
+              </div>
+            </div>
+          </div>
+
+          <!-- src/modules/ -->
+          <div class="border-2 border-black">
+            <div class="bg-zudo-red text-white px-5 py-3 border-b-2 border-black">
+              <span class="font-black text-sm">src/modules/</span>
+            </div>
+            <div class="p-5">
+              <p class="text-sm leading-relaxed mb-3">Feature modules. Each domain gets its own subfolder with services, repositories, and types.</p>
+              <ul class="text-sm space-y-1 text-gray-600">
+                <li>• One folder per domain (<code class="code-inline">auth/</code>, <code class="code-inline">users/</code>, <code class="code-inline">products/</code>)</li>
+                <li>• Each folder has an <code class="code-inline">index.ts</code> barrel export</li>
+                <li>• Separate files for services, repositories, types, and handlers</li>
+                <li>• Modules register with the DI container</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- src/errors/ -->
+          <div class="border-2 border-black">
+            <div class="bg-zudo-yellow text-black px-5 py-3 border-b-2 border-black">
+              <span class="font-black text-sm">src/errors/</span>
+            </div>
+            <div class="p-5">
+              <p class="text-sm leading-relaxed mb-3">Custom error classes that extend <code class="code-inline">BaseError</code> from <code class="code-inline">@zudolib/errors</code>.</p>
+              <div class="code-block text-xs">
+<span class="cm">// src/errors/index.ts</span>
+<span class="kw">import</span> { <span class="tp">BaseError</span>, <span class="tp">ErrorCode</span> } <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+
+<span class="kw">export class</span> <span class="tp">UserNotFoundError</span> <span class="kw">extends</span> <span class="tp">BaseError</span> {
+  <span class="kw">readonly</span> <span class="fn">code</span> = <span class="tp">ErrorCode</span>.<span class="tp">NOT_FOUND</span>;
+  <span class="kw">constructor</span>(userId: <span class="tp">string</span>) {
+    <span class="kw">super</span>(<span class="str">`User not found: ${userId}`</span>);
+  }
+}
+              </div>
+            </div>
+          </div>
+
+          <!-- tests/ -->
+          <div class="border-2 border-black">
+            <div class="bg-zudo-pink text-black px-5 py-3 border-b-2 border-black">
+              <span class="font-black text-sm">tests/</span>
+            </div>
+            <div class="p-5">
+              <p class="text-sm leading-relaxed mb-3">Test files organized by type. Uses Vitest as the test framework.</p>
+              <ul class="text-sm space-y-1 text-gray-600">
+                <li>• <code class="code-inline">tests/unit/</code> — Unit tests (fast, isolated)</li>
+                <li>• <code class="code-inline">tests/integration/</code> — Integration tests (real dependencies)</li>
+                <li>• Mirror the <code class="code-inline">src/</code> directory structure</li>
+                <li>• Test files: <code class="code-inline">*.test.ts</code> or <code class="code-inline">*.spec.ts</code></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- dist/ -->
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-5 py-3 border-b-2 border-black">
+              <span class="font-black text-sm">dist/</span>
+            </div>
+            <div class="p-5">
+              <p class="text-sm leading-relaxed">Compiled JavaScript output. Generated by <code class="code-inline">tsc</code>. Added to <code class="code-inline">.gitignore</code> — never commit compiled files.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== CONFIG FILES ==================== -->
+      <section id="config-files" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Configuration Files</h2>
+        <p class="mb-4 leading-relaxed">Standard configuration files at the project root:</p>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">File</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Purpose</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">package.json</td><td class="border border-black px-4 py-2">Dependencies, scripts, metadata</td><td class="border border-black px-4 py-2"><span class="tag tag-red text-[0.6rem]">Yes</span></td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">tsconfig.json</td><td class="border border-black px-4 py-2">TypeScript compiler configuration</td><td class="border border-black px-4 py-2"><span class="tag tag-red text-[0.6rem]">Yes</span></td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">zudo.config.ts</td><td class="border border-black px-4 py-2">Zudo framework configuration</td><td class="border border-black px-4 py-2"><span class="tag tag-blue text-[0.6rem]">Optional</span></td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">.env</td><td class="border border-black px-4 py-2">Environment variables (secrets)</td><td class="border border-black px-4 py-2"><span class="tag tag-blue text-[0.6rem]">Optional</span></td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">.gitignore</td><td class="border border-black px-4 py-2">Git ignore rules</td><td class="border border-black px-4 py-2"><span class="tag tag-red text-[0.6rem]">Yes</span></td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">.env.example</td><td class="border border-black px-4 py-2">Example environment variables</td><td class="border border-black px-4 py-2"><span class="tag tag-blue text-[0.6rem]">Recommended</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">tsconfig.json</h3>
+        <div class="code-block mb-4">
+{
+  <span class="str">"compilerOptions"</span>: {
+    <span class="str">"target"</span>: <span class="str">"ES2022"</span>,
+    <span class="str">"module"</span>: <span class="str">"NodeNext"</span>,
+    <span class="str">"moduleResolution"</span>: <span class="str">"NodeNext"</span>,
+    <span class="str">"outDir"</span>: <span class="str">"./dist"</span>,
+    <span class="str">"rootDir"</span>: <span class="str">"./src"</span>,
+    <span class="str">"strict"</span>: <span class="num">true</span>,
+    <span class="str">"esModuleInterop"</span>: <span class="num">true</span>,
+    <span class="str">"skipLibCheck"</span>: <span class="num">true</span>,
+    <span class="str">"forceConsistentCasingInFileNames"</span>: <span class="num">true</span>,
+    <span class="str">"resolveJsonModule"</span>: <span class="num">true</span>,
+    <span class="str">"declaration"</span>: <span class="num">true</span>,
+    <span class="str">"declarationMap"</span>: <span class="num">true</span>,
+    <span class="str">"sourceMap"</span>: <span class="num">true</span>
+  },
+  <span class="str">"include"</span>: [<span class="str">"src/**/*"</span>],
+  <span class="str">"exclude"</span>: [<span class="str">"node_modules"</span>, <span class="str">"dist"</span>, <span class="str">"tests"</span>]
+}
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">package.json Scripts</h3>
+        <div class="code-block mb-4">
+{
+  <span class="str">"scripts"</span>: {
+    <span class="str">"build"</span>: <span class="str">"tsc"</span>,
+    <span class="str">"dev"</span>: <span class="str">"tsx watch src/index.ts"</span>,
+    <span class="str">"start"</span>: <span class="str">"node dist/index.js"</span>,
+    <span class="str">"test"</span>: <span class="str">"vitest run"</span>,
+    <span class="str">"test:watch"</span>: <span class="str">"vitest"</span>,
+    <span class="str">"lint"</span>: <span class="str">"eslint src/"</span>,
+    <span class="str">"typecheck"</span>: <span class="str">"tsc --noEmit"</span>
+  }
+}
+        </div>
+      </section>
+
+      <!-- ==================== MONOREPO ==================== -->
+      <section id="monorepo" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Monorepo Layout</h2>
+        <p class="mb-4 leading-relaxed">For multi-package projects, Zudo uses npm workspaces with this structure:</p>
+
+        <div class="border-2 border-black p-6 bg-gray-50 mb-6 font-mono text-sm leading-loose">
+<pre class="whitespace-pre-wrap">zudo/
+├── <span class="fn">packages/</span>
+│   ├── <span class="fn">errors/</span>
+│   │   ├── src/
+│   │   │   ├── index.ts
+│   │   │   └── ...
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── <span class="fn">logger/</span>
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── <span class="fn">config/</span>
+│   │   └── ...
+│   └── <span class="fn">core/</span>
+│       └── ...
+├── <span class="fn">site/</span>                          <span class="cm"># Documentation site</span>
+│   ├── docs/
+│   ├── css/
+│   ├── js/
+│   └── assets/
+├── <span class="fn">tests/</span>                         <span class="cm"># Integration tests</span>
+├── package.json                    <span class="cm"># Workspace root</span>
+├── tsconfig.json                   <span class="cm"># Base TS config</span>
+└── LICENSE
+        </div>
+
+        <div class="callout callout-note mb-6">
+          <p class="text-sm font-bold mb-1">WORKSPACE ROOT</p>
+          <p class="text-sm">The root <code class="code-inline">package.json</code> uses <code class="code-inline">"workspaces": ["packages/*"]</code> to manage all @zudolib packages from a single repository.</p>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Dependency Flow</h3>
+        <p class="mb-4 leading-relaxed">Packages follow a strict dependency hierarchy — lower layers never depend on higher layers:</p>
+
+        <div class="border-2 border-black p-6 bg-gray-50 mb-4 font-mono text-sm leading-loose">
+<pre class="whitespace-pre-wrap"><span class="tp">Layer 1 — Foundation</span>     errors, constants, types
+        ↑
+<span class="tp">Layer 2 — Primitives</span>     logger, container, crypto, config, events, middleware
+        ↑
+<span class="tp">Layer 3 — Application</span>    core, cqrs, auth, http
+        ↑
+<span class="tp">Layer 4 — Platform</span>       runtime, cli, adapters</pre>
+        </div>
+      </section>
+
+      <!-- ==================== PACKAGE NAMING ==================== -->
+      <section id="package-naming" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Package Naming</h2>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Element</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Convention</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-bold text-xs">Package name</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudolib/name</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudolib/errors</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-bold text-xs">Folder name</td><td class="border border-black px-4 py-2 font-mono text-xs">kebab-case</td><td class="border border-black px-4 py-2 font-mono text-xs">feature-flags/</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-bold text-xs">Source files</td><td class="border border-black px-4 py-2 font-mono text-xs">dot notation</td><td class="border border-black px-4 py-2 font-mono text-xs">eventBus.factory.ts</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-bold text-xs">Test files</td><td class="border border-black px-4 py-2 font-mono text-xs">*.test.ts</td><td class="border border-black px-4 py-2 font-mono text-xs">eventBus.test.ts</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-bold text-xs">Types file</td><td class="border border-black px-4 py-2 font-mono text-xs">*.type.ts</td><td class="border border-black px-4 py-2 font-mono text-xs">eventBus.type.ts</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-bold text-xs">Constants file</td><td class="border border-black px-4 py-2 font-mono text-xs">*.constant.ts</td><td class="border border-black px-4 py-2 font-mono text-xs">http.status.ts</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-bold text-xs">Error file</td><td class="border border-black px-4 py-2 font-mono text-xs">*.error.ts</td><td class="border border-black px-4 py-2 font-mono text-xs">cache.error.ts</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-bold text-xs">Factory file</td><td class="border border-black px-4 py-2 font-mono text-xs">*.factory.ts</td><td class="border border-black px-4 py-2 font-mono text-xs">container.factory.ts</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== CONVENTIONS ==================== -->
+      <section id="conventions" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Conventions</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold text-sm mb-2 text-zudo-green">DO</h4>
+            <ul class="text-sm space-y-1 text-gray-600">
+              <li>• Use <code class="code-inline">index.ts</code> barrels in every folder</li>
+              <li>• Keep files under 150 lines</li>
+              <li>• Keep folders under 5 files</li>
+              <li>• Import from <code class="code-inline">@zudolib/*</code> packages</li>
+              <li>• Use <code class="code-inline">import type</code> for type-only imports</li>
+              <li>• Add <code class="code-inline">.js</code> extensions on relative imports</li>
+              <li>• Use named exports only</li>
+              <li>• Run typecheck before committing</li>
+            </ul>
+          </div>
+
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold text-sm mb-2 text-zudo-red">DON'T</h4>
+            <ul class="text-sm space-y-1 text-gray-600">
+              <li>• Use default exports</li>
+              <li>• Use <code class="code-inline">console.log</code> (use <code class="code-inline">@zudolib/logger</code>)</li>
+              <li>• Create local error classes (use <code class="code-inline">@zudolib/errors</code>)</li>
+              <li>• Duplicate types from shared packages</li>
+              <li>• Bypass the DI container</li>
+              <li>• Hardcode configuration values</li>
+              <li>• Use <code class="code-inline">any</code> type</li>
+              <li>• Use <code class="code-inline">var</code> (use <code class="code-inline">const</code>/<code class="code-inline">let</code>)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-warning mb-6">
+          <p class="text-sm font-bold mb-1">IMPORTANT</p>
+          <p class="text-sm">Before defining a type in a new package, search all shared packages first: <code class="code-inline">grep -r "type.*TypeName" packages/*/src</code>. Types should be imported from the owning package, never redefined.</p>
+        </div>
+      </section>
+
+      <!-- ==================== PREV / NEXT ==================== -->
+      <nav class="flex items-center justify-between border-t-2 border-black pt-6 mt-16" aria-label="Pagination">
+        <a href="first-app.html" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-yellow hover:border-black">
+          ← Your First App
+        </a>
+        <a href="../architecture/" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-green hover:border-black">
+          Architecture →
+        </a>
+      </nav>
+
+    </main>
+  </div>
+
+  <script src="../../js/docs.js"></script>
+</body>
+
+  <!-- FOOTER -->
+  <footer class="border-t-4 border-black bg-black text-white mt-12">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+            <span class="text-black font-black text-sm">Z</span>
+          </div>
+          <span class="font-black">ZUDO FRAMEWORK</span>
+        </div>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+          <a href="../packages/" class="hover:text-zudo-red">Packages</a>
+          <a href="../roadmap.html" class="hover:text-zudo-red">Roadmap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('toc-link-active'));
+          const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('toc-link-active');
+        }
+      });
+    }, { rootMargin: '-80px 0px -80% 0px' });
+    headings.forEach(h => observer.observe(h));
+  </script>
+
+</body>
+</html>

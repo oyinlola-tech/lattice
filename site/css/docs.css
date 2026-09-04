@@ -228,7 +228,8 @@ body {
 
 /* ==================== SIDEBAR ==================== */
 
-.sidebar {
+.sidebar,
+.doc-sidebar {
   width: 260px;
   border-right: 3px solid #000000;
   overflow-y: auto;
@@ -236,6 +237,7 @@ body {
   top: 60px;
   height: calc(100vh - 60px);
   background: #FFFFFF;
+  flex-shrink: 0;
 }
 
 .sidebar-item {
@@ -609,4 +611,15 @@ h3:hover .anchor-link {
 
 .anchor-link:hover {
   color: #FF0000;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 1024px) {
+  .doc-sidebar,
+  .sidebar,
+  .doc-toc,
+  .toc {
+    display: none;
+  }
 }

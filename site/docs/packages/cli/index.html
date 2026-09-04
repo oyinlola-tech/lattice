@@ -97,157 +97,89 @@
   </script>
 </head>
 <body class="bg-white text-black">
-
-  <!-- ==================== NAVBAR ==================== -->
-  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red" role="navigation" aria-label="Main navigation">
-    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a href="../../../" class="flex items-center gap-3" aria-label="Zudo Home">
-        <div class="w-9 h-9 bg-zudo-red border-2 border-white flex items-center justify-center">
-          <span class="text-black font-black text-lg">Z</span>
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+          <span class="text-black font-black text-sm">Z</span>
         </div>
-        <span class="text-xl font-black tracking-tight">ZUDO</span>
+        <span class="text-xl font-black">ZUDO</span>
       </a>
-      <div class="hidden md:flex items-center gap-6">
-        <a href="../../../docs/getting-started/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
-        <a href="../../../docs/packages/" class="nav-link text-xs font-bold uppercase tracking-wider text-zudo-red nav-link-active">Packages</a>
-        <a href="../../../docs/architecture/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+        <a href="../../getting-started/" class="hover:text-zudo-red">Docs</a>
+        <a href="../../packages/" class="hover:text-zudo-red text-zudo-red">Packages</a>
+        <a href="../../architecture/" class="hover:text-zudo-red">Architecture</a>
+        <a href="../../concepts/" class="hover:text-zudo-red">Concepts</a>
       </div>
-      <div class="flex items-center gap-3">
-        <button id="searchTrigger" class="p-2 border-2 border-white hover:border-zudo-red hover:bg-zudo-red hover:text-black" aria-label="Search">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-        </button>
-        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="p-2 border-2 border-white hover:border-zudo-blue hover:bg-zudo-blue hover:text-white" aria-label="GitHub">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-        </a>
-        <button id="sidebarToggle" class="md:hidden p-2 border-2 border-white hover:border-zudo-red" aria-label="Toggle menu">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-        </button>
-      </div>
+      <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="p-2 border-2 border-white hover:bg-white hover:text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
     </div>
   </nav>
 
-  <!-- ==================== SEARCH OVERLAY ==================== -->
-  <div id="searchOverlay" class="fixed inset-0 z-[100] hidden search-overlay" role="dialog" aria-label="Search">
-    <div class="max-w-2xl mx-auto mt-20 px-6">
-      <div class="flex items-center justify-between mb-6">
-        <span class="text-white font-bold text-lg uppercase tracking-wider">Search Documentation</span>
-        <button id="searchClose" class="text-white hover:text-zudo-red p-2 border-2 border-white hover:border-zudo-red" aria-label="Close search">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <input type="text" id="searchInput" placeholder="Search packages, concepts, guides..." class="search-input w-full px-6 py-4 text-lg" autocomplete="off" aria-label="Search query">
-      <div id="searchResults" class="mt-4 max-h-96 overflow-y-auto"></div>
-      <div class="mt-4 text-white/50 text-sm">
-        <span class="border border-white/30 px-2 py-1 mr-2">Ctrl+K</span> Open
-        <span class="border border-white/30 px-2 py-1 mx-2">↑↓</span> Navigate
-        <span class="border border-white/30 px-2 py-1 mx-2">Enter</span> Select
-        <span class="border border-white/30 px-2 py-1 mx-2">Esc</span> Close
-      </div>
-    </div>
-  </div>
+  <div class="flex max-w-screen-2xl mx-auto">
 
-  <!-- ==================== LAYOUT ==================== -->
-  <div class="flex">
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="../../getting-started/" class="sidebar-item">Installation</a>
+      <a href="../../getting-started/first-app.html" class="sidebar-item">Your First App</a>
+      <a href="../../getting-started/project-structure.html" class="sidebar-item">Project Structure</a>
 
-    <!-- ==================== SIDEBAR ==================== -->
-    <aside id="sidebar" class="sidebar" role="complementary" aria-label="Package navigation">
-      <div class="sidebar-section">Packages</div>
-      <a href="../adapters/" class="sidebar-item">adapters</a>
-      <a href="../api/" class="sidebar-item">api</a>
-      <a href="../auth/" class="sidebar-item">auth</a>
-      <a href="../cache/" class="sidebar-item">cache</a>
-      <a href="../cli/" class="sidebar-item sidebar-item-active">cli</a>
-      <a href="../config/" class="sidebar-item">config</a>
-      <a href="../constants/" class="sidebar-item">constants</a>
-      <a href="../container/" class="sidebar-item">container</a>
-      <a href="../core/" class="sidebar-item">core</a>
-      <a href="../cqrs/" class="sidebar-item">cqrs</a>
-      <a href="../crypto/" class="sidebar-item">crypto</a>
-      <a href="../database/" class="sidebar-item">database</a>
-      <a href="../docs/" class="sidebar-item">docs</a>
-      <a href="../errors/" class="sidebar-item">errors</a>
-      <a href="../events/" class="sidebar-item">events</a>
-      <a href="../feature-flags/" class="sidebar-item">feature-flags</a>
-      <a href="../http/" class="sidebar-item">http</a>
-      <a href="../lifecycle/" class="sidebar-item">lifecycle</a>
-      <a href="../logger/" class="sidebar-item">logger</a>
-      <a href="../messaging/" class="sidebar-item">messaging</a>
-      <a href="../middleware/" class="sidebar-item">middleware</a>
-      <a href="../observability/" class="sidebar-item">observability</a>
-      <a href="../openapi/" class="sidebar-item">openapi</a>
-      <a href="../permissions/" class="sidebar-item">permissions</a>
-      <a href="../plugins/" class="sidebar-item">plugins</a>
-      <a href="../queue/" class="sidebar-item">queue</a>
-      <a href="../rpc/" class="sidebar-item">rpc</a>
-      <a href="../runtime/" class="sidebar-item">runtime</a>
-      <a href="../scheduler/" class="sidebar-item">scheduler</a>
-      <a href="../schema/" class="sidebar-item">schema</a>
-      <a href="../security/" class="sidebar-item">security</a>
-      <a href="../serialization/" class="sidebar-item">serialization</a>
-      <a href="../storage/" class="sidebar-item">storage</a>
-      <a href="../tenancy/" class="sidebar-item">tenancy</a>
-      <a href="../testing/" class="sidebar-item">testing</a>
-      <a href="../transactions/" class="sidebar-item">transactions</a>
-      <a href="../types/" class="sidebar-item">types</a>
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="../../architecture/" class="sidebar-item">Overview</a>
+      <a href="../../architecture/module-system.html" class="sidebar-item">Module System</a>
+      <a href="../../architecture/runtime.html" class="sidebar-item">Runtime</a>
+      <a href="../../architecture/adapters.html" class="sidebar-item">Adapters</a>
+      <a href="../../architecture/dependency-direction.html" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="../../concepts/" class="sidebar-item">Application</a>
+      <a href="../../concepts/configuration.html" class="sidebar-item">Configuration</a>
+      <a href="../../concepts/contexts.html" class="sidebar-item">Contexts</a>
+      <a href="../../concepts/dependency-injection.html" class="sidebar-item">Dependency Injection</a>
+      <a href="../../concepts/lifecycle.html" class="sidebar-item">Lifecycle</a>
+      <a href="../../concepts/modules.html" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="../../packages/" class="sidebar-item">Overview</a>
+      <a href="../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
+      <a href="../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
+      <a href="../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
+      <a href="../../packages/types/" class="sidebar-item">@zudolib/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="../../roadmap.html" class="sidebar-item">Roadmap</a>
+      <a href="../../rules.html" class="sidebar-item">Package Rules</a>
+      <a href="../../contributing/" class="sidebar-item">Contributing</a>
     </aside>
 
-    <!-- ==================== MAIN CONTENT ==================== -->
-    <main class="doc-content flex-1 min-w-0" role="main">
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
 
-      <!-- Breadcrumb -->
-      <nav aria-label="Breadcrumb" class="mb-6">
-        <ol class="flex items-center gap-2 text-sm text-gray-500">
-          <li><a href="../../../" class="hover:text-zudo-blue">Home</a></li>
-          <li class="before:content-['/'] before:mr-2"><a href="../" class="hover:text-zudo-blue">Packages</a></li>
-          <li class="before:content-['/'] before:mr-2 text-black font-bold">@zudolib/cli</li>
-        </ol>
-      </nav>
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="../" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudolib/cli</span>
+      </div>
 
       <!-- Header -->
-      <header class="mb-12">
-        <div class="flex items-start gap-4 mb-4">
-          <div class="w-14 h-14 bg-zudo-black border-2 border-black flex items-center justify-center flex-shrink-0">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFF00" stroke-width="2.5" stroke-linecap="square">
-              <polyline points="4 17 10 11 4 5"/>
-              <line x1="12" y1="19" x2="20" y2="19"/>
-            </svg>
-          </div>
-          <div>
-            <h1 class="text-3xl sm:text-4xl font-black tracking-tight leading-none mb-2">zudolib-cli</h1>
-            <p class="text-lg text-gray-600">Create, scaffold, generate, and manage Zudo projects from the command line</p>
-          </div>
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v1.0.0</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudolib/cli</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Command-line interface infrastructure for Zudo — command registration, argument parsing, interactive prompts, output formatting, and progress display
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">CLI</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">COMMANDS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">INTERACTIVE</span>
         </div>
-        <div class="flex flex-wrap items-center gap-3 mt-4">
-          <span class="inline-block bg-zudo-black text-white text-xs font-bold px-3 py-1 border-2 border-black">v1.0.0</span>
-          <span class="inline-block bg-zudo-yellow text-black text-xs font-bold px-3 py-1 border-2 border-black">DX Tool</span>
-          <span class="inline-block bg-white text-black text-xs font-bold px-3 py-1 border-2 border-black">MIT License</span>
-          <span class="inline-block bg-white text-black text-xs font-bold px-3 py-1 border-2 border-black">Node ≥ 24</span>
-        </div>
-      </header>
-
-      <!-- TOC -->
-      <nav id="toc" class="doc-toc mb-10 border-2 border-black p-5 bg-gray-50" aria-label="Table of contents">
-        <p class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-3">On This Page</p>
-        <a href="#overview" class="toc-link toc-link-active">Overview</a>
-        <a href="#install" class="toc-link">Installation</a>
-        <a href="#quick-start" class="toc-link">Quick Start</a>
-        <a href="#commands" class="toc-link">Built-in Commands</a>
-        <a href="#create" class="toc-link">create</a>
-        <a href="#generate" class="toc-link">generate</a>
-        <a href="#add" class="toc-link">add</a>
-        <a href="#doctor" class="toc-link">doctor</a>
-        <a href="#info" class="toc-link">info</a>
-        <a href="#adapters" class="toc-link">Adapters</a>
-        <a href="#generators" class="toc-link">Generators</a>
-        <a href="#application" class="toc-link">Application API</a>
-        <a href="#parser" class="toc-link">Parser</a>
-        <a href="#types" class="toc-link">Types Reference</a>
-        <a href="#constants" class="toc-link">Constants</a>
-        <a href="#errors" class="toc-link">Errors</a>
-        <a href="#connections" class="toc-link">Package Connections</a>
-        <a href="#improvements" class="toc-link">Suggested Improvements</a>
-        <a href="#api-summary" class="toc-link">API Summary</a>
-      </nav>
+      </div>
 
       <!-- ==================== OVERVIEW ==================== -->
       <section id="overview" class="mb-16">
@@ -1022,71 +954,43 @@ process.<span class="fn">exit</span>(exitCode);
         </a>
       </nav>
 
+    
     </main>
-
-    <!-- ==================== TOC RIGHT ==================== -->
-    <aside id="docToc" class="doc-toc-sidebar hidden xl:block w-56 flex-shrink-0" role="complementary" aria-label="Table of contents">
-      <div class="sticky top-20 py-8 pr-4">
-        <p class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-3">On This Page</p>
-        <a href="#overview" class="toc-link toc-link-active">Overview</a>
-        <a href="#install" class="toc-link">Installation</a>
-        <a href="#quick-start" class="toc-link">Quick Start</a>
-        <a href="#commands" class="toc-link">Built-in Commands</a>
-        <a href="#create" class="toc-link">create</a>
-        <a href="#generate" class="toc-link">generate</a>
-        <a href="#add" class="toc-link">add</a>
-        <a href="#doctor" class="toc-link">doctor</a>
-        <a href="#info" class="toc-link">info</a>
-        <a href="#adapters" class="toc-link">Adapters</a>
-        <a href="#generators" class="toc-link">Generators</a>
-        <a href="#application" class="toc-link">Application API</a>
-        <a href="#parser" class="toc-link">Parser</a>
-        <a href="#types" class="toc-link">Types Reference</a>
-        <a href="#constants" class="toc-link">Constants</a>
-        <a href="#errors" class="toc-link">Errors</a>
-        <a href="#connections" class="toc-link">Package Connections</a>
-        <a href="#improvements" class="toc-link">Suggested Improvements</a>
-        <a href="#api-summary" class="toc-link">API Summary</a>
-      </div>
-    </aside>
-
   </div>
 
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="border-t-4 border-black bg-black text-white px-6 py-8 mt-8">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-      <div>
-        <div class="flex items-center gap-3 mb-3">
+  <!-- FOOTER -->
+  <footer class="border-t-4 border-black bg-black text-white mt-12">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
           <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
             <span class="text-black font-black text-sm">Z</span>
           </div>
-          <span class="text-lg font-black">ZUDO</span>
+          <span class="font-black">ZUDO FRAMEWORK</span>
         </div>
-        <p class="text-sm text-gray-400">TypeScript framework for modular applications</p>
-      </div>
-      <div class="flex flex-wrap gap-8 text-sm">
-        <div>
-          <p class="font-bold mb-2 text-zudo-yellow uppercase text-xs tracking-wider">Documentation</p>
-          <div class="flex flex-col gap-1">
-            <a href="../../../docs/getting-started/" class="text-gray-400 hover:text-white">Getting Started</a>
-            <a href="../../../docs/packages/" class="text-gray-400 hover:text-white">Packages</a>
-            <a href="../../../docs/architecture/" class="text-gray-400 hover:text-white">Architecture</a>
-          </div>
-        </div>
-        <div>
-          <p class="font-bold mb-2 text-zudo-yellow uppercase text-xs tracking-wider">Community</p>
-          <div class="flex flex-col gap-1">
-            <a href="https://github.com/oyinlola-tech/zudo" class="text-gray-400 hover:text-white" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://github.com/oyinlola-tech/zudo/issues" class="text-gray-400 hover:text-white" target="_blank" rel="noopener">Issues</a>
-          </div>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+          <a href="../../packages/" class="hover:text-zudo-red">Packages</a>
+          <a href="../../roadmap.html" class="hover:text-zudo-red">Roadmap</a>
         </div>
       </div>
-    </div>
-    <div class="max-w-7xl mx-auto border-t border-gray-800 mt-6 pt-4 text-center text-xs text-gray-500">
-      © 2026 Oyinlola Tech. Released under the MIT License.
     </div>
   </footer>
 
-  <script src="../../../js/docs.js"></script>
+  <script>
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('toc-link-active'));
+          const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('toc-link-active');
+        }
+      });
+    }, { rootMargin: '-80px 0px -80% 0px' });
+    headings.forEach(h => observer.observe(h));
+  </script>
+
 </body>
 </html>

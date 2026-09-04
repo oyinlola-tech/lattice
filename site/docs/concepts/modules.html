@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modules — Zudo Framework</title>
+  <meta name="description" content="Composable units of functionality with dependency management, registration, and lifecycle integration for Zudo applications.">
+  <meta name="keywords" content="zudo, modules, composition, dependency management, registration, lifecycle, composable, modular">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/concepts/modules.html">
+
+  <meta property="og:title" content="Modules — Zudo Framework">
+  <meta property="og:description" content="Composable units of functionality with dependency management and lifecycle.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zudo.dev/docs/concepts/modules.html">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
+  <meta property="og:site_name" content="Zudo Framework">
+  <meta property="article:section" content="Concepts">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Modules — Zudo Framework">
+  <meta name="twitter:description" content="Composable units of functionality with dependency management and lifecycle.">
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/zudo-favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'zudo-red': '#FF0000',
+            'zudo-blue': '#0000FF',
+            'zudo-yellow': '#FFFF00',
+            'zudo-black': '#000000',
+            'zudo-white': '#FFFFFF',
+            'zudo-green': '#00FF00',
+            'zudo-pink': '#FF00FF',
+          },
+          fontFamily: {
+            'system': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../../css/docs.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Modules — Zudo Framework",
+    "description": "Composable units of functionality with dependency management, registration, and lifecycle integration.",
+    "programmingLanguage": "TypeScript",
+    "license": "https://opensource.org/licenses/MIT",
+    "repository": { "@type": "CodeRepository", "url": "https://github.com/oyinlola-tech/zudo" },
+    "author": { "@type": "Organization", "name": "Oyinlola Tech" },
+    "publisher": { "@type": "Organization", "name": "Zudo" },
+    "datePublished": "2026-01-01",
+    "keywords": "zudo, modules, composition, dependency management, lifecycle"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
+      { "@type": "ListItem", "position": 2, "name": "Concepts", "item": "https://zudo.dev/docs/concepts/" },
+      { "@type": "ListItem", "position": 3, "name": "Modules", "item": "https://zudo.dev/docs/concepts/modules.html" }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-3" aria-label="Zudo Home">
+        <div class="w-9 h-9 bg-zudo-red border-2 border-white flex items-center justify-center"><span class="text-black font-black text-lg">Z</span></div>
+        <span class="text-xl font-black tracking-tight">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="../getting-started/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
+        <a href="../packages/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Packages</a>
+        <a href="../architecture/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
+        <a href="../concepts/" class="nav-link text-xs font-bold uppercase tracking-wider text-zudo-red nav-link-active">Concepts</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="searchTrigger" class="p-2 border-2 border-white hover:border-zudo-red hover:bg-zudo-red hover:text-black" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="p-2 border-2 border-white hover:border-zudo-blue hover:bg-zudo-blue hover:text-white" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button id="sidebarToggle" class="md:hidden p-2 border-2 border-white hover:border-zudo-red" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SEARCH OVERLAY -->
+
+  <!-- LAYOUT -->
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="../getting-started/" class="sidebar-item">Installation</a>
+      <a href="../getting-started/first-app.html" class="sidebar-item">Your First App</a>
+      <a href="../getting-started/project-structure.html" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="../architecture/" class="sidebar-item">Overview</a>
+      <a href="../architecture/module-system.html" class="sidebar-item">Module System</a>
+      <a href="../architecture/runtime.html" class="sidebar-item">Runtime</a>
+      <a href="../architecture/adapters.html" class="sidebar-item">Adapters</a>
+      <a href="../architecture/dependency-direction.html" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="../concepts/" class="sidebar-item">Application</a>
+      <a href="../concepts/configuration.html" class="sidebar-item">Configuration</a>
+      <a href="../concepts/contexts.html" class="sidebar-item">Contexts</a>
+      <a href="../concepts/dependency-injection.html" class="sidebar-item">Dependency Injection</a>
+      <a href="../concepts/lifecycle.html" class="sidebar-item">Lifecycle</a>
+      <a href="../concepts/modules.html" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="../packages/" class="sidebar-item">Overview</a>
+      <a href="../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
+      <a href="../packages/errors/" class="sidebar-item">@zudolib/errors</a>
+      <a href="../packages/constants/" class="sidebar-item">@zudolib/constants</a>
+      <a href="../packages/types/" class="sidebar-item">@zudolib/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="../roadmap.html" class="sidebar-item">Roadmap</a>
+      <a href="../rules.html" class="sidebar-item">Package Rules</a>
+      <a href="../contributing/" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0" role="main">
+
+      <!-- PAGE HEADER -->
+      <header class="bg-black text-white border-b-4 border-zudo-pink grid-lines-dark">
+        <div class="max-w-4xl mx-auto px-6 py-16">
+          <nav id="breadcrumbs" class="text-sm mb-6 text-white/50" aria-label="Breadcrumb">
+            <a href="../../" class="hover:text-zudo-blue">Home</a>
+            <span class="mx-2 text-white/30">/</span>
+            <a href="../concepts/" class="hover:text-zudo-blue">Concepts</a>
+            <span class="mx-2 text-white/30">/</span>
+            <span class="text-white/70">Modules</span>
+          </nav>
+          <h1 class="text-hero text-white mb-4">MODULES</h1>
+          <p class="text-lg text-white/70 max-w-2xl leading-relaxed">
+            Composable units of functionality with dependency management and lifecycle.
+          </p>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div class="flex">
+        <div class="content-area flex-1 px-6 py-10">
+
+          <!-- OVERVIEW -->
+          <section aria-labelledby="overview">
+            <h2 class="text-h2 mb-4" id="overview">Overview</h2>
+            <p class="text-body text-black/80 mb-4">
+              Modules are the primary organizational unit in Zudo. Each module encapsulates a feature boundary — its own providers, services, routes, and lifecycle hooks. Modules declare their dependencies and are composed at the application level.
+            </p>
+            <div class="callout callout-note mb-6">
+              <strong class="text-sm uppercase tracking-wider text-zudo-blue">Architecture Position</strong>
+              <p class="text-sm mt-1">Modules live in <span class="code-inline">@zudolib/core</span> and are orchestrated by <span class="code-inline">@zudolib/runtime</span>.</p>
+            </div>
+          </section>
+
+          <!-- MODULE DEFINITION -->
+          <section class="mt-12" aria-labelledby="definition">
+            <h2 class="text-h2 mb-4" id="definition">Module Definition</h2>
+            <p class="text-body text-black/80 mb-4">
+              A module is defined by implementing the <span class="code-inline">Module</span> interface. It declares its name, dependencies, and a setup function.
+            </p>
+            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="tp">Module</span> } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
+
+<span class="kw">const</span> <span class="tp">AuthModule</span>: <span class="tp">Module</span> = {
+  <span class="op">name:</span> <span class="str">"auth"</span>,
+  <span class="op">dependencies:</span> [<span class="str">"config"</span>, <span class="str">"database"</span>],
+
+  <span class="kw">async</span> <span class="fn">setup</span>(<span class="op">container</span>) {
+    <span class="cmt">// Register services in the DI container</span>
+    container.<span class="fn">register</span>(<span class="tp">AuthServiceToken</span>, {
+      <span class="op">useClass:</span> <span class="tp">AuthService</span>,
+      <span class="op">lifetime:</span> <span class="str">"singleton"</span>,
+    });
+
+    <span class="cmt">// Return lifecycle hooks</span>
+    <span class="kw">return</span> {
+      <span class="kw">async</span> <span class="fn">onStart</span>() {
+        <span class="kw">await</span> container.<span class="fn">resolve</span>(<span class="tp">AuthServiceToken</span>).<span class="fn">initialize</span>();
+      },
+    };
+  },
+};</div>
+          </section>
+
+          <!-- MODULE DEPENDENCIES -->
+          <section class="mt-12" aria-labelledby="dependencies">
+            <h2 class="text-h2 mb-4" id="dependencies">Module Dependencies</h2>
+            <p class="text-body text-black/80 mb-4">
+              Modules declare their dependencies explicitly. The framework resolves the correct initialization order using topological sort.
+            </p>
+            <div class="code-block p-4 mb-4"><span class="cmt">// Dependency graph</span>
+<span class="cmt">//</span>
+<span class="cmt">//   config ──→ database ──→ auth ──→ api</span>
+<span class="cmt">//                ↓</span>
+<span class="cmt">//              cache ──→ api</span>
+
+<span class="kw">const</span> <span class="tp">ApiModule</span>: <span class="tp">Module</span> = {
+  <span class="op">name:</span> <span class="str">"api"</span>,
+  <span class="op">dependencies:</span> [<span class="str">"auth"</span>, <span class="str">"cache"</span>],
+  <span class="cmt">// Starts AFTER auth and cache are ready</span>
+};</div>
+          </section>
+
+          <!-- MODULE REGISTRATION -->
+          <section class="mt-12" aria-labelledby="registration">
+            <h2 class="text-h2 mb-4" id="registration">Module Registration</h2>
+            <p class="text-body text-black/80 mb-4">
+              Modules are registered with the application before startup. The runtime orchestrator handles initialization.
+            </p>
+            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="fn">createApp</span> } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
+
+<span class="kw">const</span> app = <span class="fn">createApp</span>({
+  <span class="op">modules:</span> [
+    <span class="tp">ConfigModule</span>,
+    <span class="tp">DatabaseModule</span>,
+    <span class="tp">CacheModule</span>,
+    <span class="tp">AuthModule</span>,
+    <span class="tp">ApiModule</span>,
+  ],
+});
+
+<span class="kw">await</span> app.<span class="fn">start</span>();
+<span class="cmt">// Modules start in dependency order</span>
+<span class="cmt">// config → database → cache → auth → api</span></div>
+          </section>
+
+          <!-- MODULE LIFECYCLE -->
+          <section class="mt-12" aria-labelledby="lifecycle">
+            <h2 class="text-h2 mb-4" id="lifecycle">Module Lifecycle</h2>
+            <p class="text-body text-black/80 mb-4">
+              Each module can define lifecycle hooks that run at specific points in the application lifecycle.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="border-2 border-black p-4">
+                <div class="text-xs font-bold uppercase tracking-wider text-zudo-green mb-2">onStart</div>
+                <p class="text-sm text-black/60">Runs when the application starts. Initialize connections, warm caches, start background tasks.</p>
+              </div>
+              <div class="border-2 border-black p-4">
+                <div class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-2">onStop</div>
+                <p class="text-sm text-black/60">Runs during graceful shutdown. Drain connections, flush buffers, stop background tasks.</p>
+              </div>
+            </div>
+            <div class="callout callout-tip mb-6">
+              <strong class="text-sm uppercase tracking-wider text-zudo-green">Best Practice</strong>
+              <p class="text-sm mt-1">Keep modules small and focused. One module = one feature boundary. If a module exceeds 5 files, consider splitting it.</p>
+            </div>
+          </section>
+
+          <!-- WHY IT MATTERS -->
+          <section class="mt-12" aria-labelledby="why">
+            <h2 class="text-h2 mb-4" id="why">Why Modules Matter</h2>
+            <div class="border-2 border-black p-6 bg-white">
+              <ul class="space-y-3 text-body text-black/80">
+                <li class="flex items-start gap-3">
+                  <span class="text-zudo-pink font-black mt-1">01</span>
+                  <span><strong>Feature boundaries</strong> — each module owns its domain, making the codebase navigable.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-zudo-pink font-black mt-1">02</span>
+                  <span><strong>Incremental adoption</strong> — start with one module, add more as your app grows.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-zudo-pink font-black mt-1">03</span>
+                  <span><strong>Team scaling</strong> — different teams can own different modules with clear boundaries.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-zudo-pink font-black mt-1">04</span>
+                  <span><strong>Testability</strong> — test modules in isolation by providing mock dependencies.</span>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../../js/docs.js"></script>
+</body>
+
+  <!-- FOOTER -->
+  <footer class="border-t-4 border-black bg-black text-white mt-12">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+            <span class="text-black font-black text-sm">Z</span>
+          </div>
+          <span class="font-black">ZUDO FRAMEWORK</span>
+        </div>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+          <a href="../packages/" class="hover:text-zudo-red">Packages</a>
+          <a href="../roadmap.html" class="hover:text-zudo-red">Roadmap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('toc-link-active'));
+          const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('toc-link-active');
+        }
+      });
+    }, { rootMargin: '-80px 0px -80% 0px' });
+    headings.forEach(h => observer.observe(h));
+  </script>
+
+</body>
+</html>

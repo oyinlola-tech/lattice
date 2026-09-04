@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lifecycle — Zudo Framework</title>
+  <meta name="description" content="State machine pattern for predictable component lifecycle management with dependency ordering, hooks, and graceful shutdown.">
+  <meta name="keywords" content="zudo, lifecycle, state machine, hooks, shutdown, dependency ordering, onInit, onStart, onStop, onDispose">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/concepts/lifecycle.html">
+
+  <meta property="og:title" content="Lifecycle — Zudo Framework">
+  <meta property="og:description" content="State machine pattern for predictable component lifecycle management.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zudo.dev/docs/concepts/lifecycle.html">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
+  <meta property="og:site_name" content="Zudo Framework">
+  <meta property="article:section" content="Concepts">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lifecycle — Zudo Framework">
+  <meta name="twitter:description" content="State machine pattern for predictable component lifecycle management.">
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/zudo-favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'zudo-red': '#FF0000',
+            'zudo-blue': '#0000FF',
+            'zudo-yellow': '#FFFF00',
+            'zudo-black': '#000000',
+            'zudo-white': '#FFFFFF',
+            'zudo-green': '#00FF00',
+            'zudo-pink': '#FF00FF',
+          },
+          fontFamily: {
+            'system': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../../css/docs.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Lifecycle — Zudo Framework",
+    "description": "State machine pattern for predictable component lifecycle management with dependency ordering and graceful shutdown.",
+    "programmingLanguage": "TypeScript",
+    "license": "https://opensource.org/licenses/MIT",
+    "repository": { "@type": "CodeRepository", "url": "https://github.com/oyinlola-tech/zudo" },
+    "author": { "@type": "Organization", "name": "Oyinlola Tech" },
+    "publisher": { "@type": "Organization", "name": "Zudo" },
+    "datePublished": "2026-01-01",
+    "keywords": "zudo, lifecycle, state machine, hooks, shutdown, dependency ordering"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
+      { "@type": "ListItem", "position": 2, "name": "Concepts", "item": "https://zudo.dev/docs/concepts/" },
+      { "@type": "ListItem", "position": 3, "name": "Lifecycle", "item": "https://zudo.dev/docs/concepts/lifecycle.html" }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-3" aria-label="Zudo Home">
+        <div class="w-9 h-9 bg-zudo-red border-2 border-white flex items-center justify-center"><span class="text-black font-black text-lg">Z</span></div>
+        <span class="text-xl font-black tracking-tight">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="../getting-started/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
+        <a href="../packages/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Packages</a>
+        <a href="../architecture/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
+        <a href="../concepts/" class="nav-link text-xs font-bold uppercase tracking-wider text-zudo-red nav-link-active">Concepts</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="searchTrigger" class="p-2 border-2 border-white hover:border-zudo-red hover:bg-zudo-red hover:text-black" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="p-2 border-2 border-white hover:border-zudo-blue hover:bg-zudo-blue hover:text-white" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button id="sidebarToggle" class="md:hidden p-2 border-2 border-white hover:border-zudo-red" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SEARCH OVERLAY -->
+
+  <!-- LAYOUT -->
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="../getting-started/" class="sidebar-item">Installation</a>
+      <a href="../getting-started/first-app.html" class="sidebar-item">Your First App</a>
+      <a href="../getting-started/project-structure.html" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="../architecture/" class="sidebar-item">Overview</a>
+      <a href="../architecture/module-system.html" class="sidebar-item">Module System</a>
+      <a href="../architecture/runtime.html" class="sidebar-item">Runtime</a>
+      <a href="../architecture/adapters.html" class="sidebar-item">Adapters</a>
+      <a href="../architecture/dependency-direction.html" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="../concepts/" class="sidebar-item">Application</a>
+      <a href="../concepts/configuration.html" class="sidebar-item">Configuration</a>
+      <a href="../concepts/contexts.html" class="sidebar-item">Contexts</a>
+      <a href="../concepts/dependency-injection.html" class="sidebar-item">Dependency Injection</a>
+      <a href="../concepts/lifecycle.html" class="sidebar-item">Lifecycle</a>
+      <a href="../concepts/modules.html" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="../packages/" class="sidebar-item">Overview</a>
+      <a href="../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
+      <a href="../packages/errors/" class="sidebar-item">@zudolib/errors</a>
+      <a href="../packages/constants/" class="sidebar-item">@zudolib/constants</a>
+      <a href="../packages/types/" class="sidebar-item">@zudolib/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="../roadmap.html" class="sidebar-item">Roadmap</a>
+      <a href="../rules.html" class="sidebar-item">Package Rules</a>
+      <a href="../contributing/" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0" role="main">
+
+      <!-- PAGE HEADER -->
+      <header class="bg-black text-white border-b-4 border-zudo-yellow grid-lines-dark">
+        <div class="max-w-4xl mx-auto px-6 py-16">
+          <nav id="breadcrumbs" class="text-sm mb-6 text-white/50" aria-label="Breadcrumb">
+            <a href="../../" class="hover:text-zudo-blue">Home</a>
+            <span class="mx-2 text-white/30">/</span>
+            <a href="../concepts/" class="hover:text-zudo-blue">Concepts</a>
+            <span class="mx-2 text-white/30">/</span>
+            <span class="text-white/70">Lifecycle</span>
+          </nav>
+          <h1 class="text-hero text-white mb-4">LIFECYCLE</h1>
+          <p class="text-lg text-white/70 max-w-2xl leading-relaxed">
+            State machine pattern for predictable component lifecycle management.
+          </p>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div class="flex">
+        <div class="content-area flex-1 px-6 py-10">
+
+          <!-- OVERVIEW -->
+          <section aria-labelledby="overview">
+            <h2 class="text-h2 mb-4" id="overview">Overview</h2>
+            <p class="text-body text-black/80 mb-4">
+              <span class="code-inline">@zudolib/lifecycle</span> provides a state machine for managing component lifecycle. Every component transitions through well-defined states with hooks that execute at each transition.
+            </p>
+            <div class="callout callout-note mb-6">
+              <strong class="text-sm uppercase tracking-wider text-zudo-blue">Architecture Position</strong>
+              <p class="text-sm mt-1">Sits in <strong>Layer 2 (Runtime Primitives)</strong>. Used by <span class="code-inline">@zudolib/runtime</span>, <span class="code-inline">@zudolib/adapters</span>, and <span class="code-inline">@zudolib/storage</span>.</p>
+            </div>
+          </section>
+
+          <!-- LIFECYCLE STATES -->
+          <section class="mt-12" aria-labelledby="states">
+            <h2 class="text-h2 mb-4" id="states">Lifecycle States &amp; Transitions</h2>
+            <p class="text-body text-black/80 mb-4">
+              Components transition through these states in order. Invalid transitions throw errors.
+            </p>
+            <div class="flex flex-wrap gap-3 mb-6">
+              <div class="border-2 border-black px-4 py-2 bg-white">
+                <div class="text-xs font-bold uppercase tracking-wider text-black/50">Created</div>
+                <div class="text-sm font-bold">Initial state</div>
+              </div>
+              <div class="text-2xl font-black text-zudo-red self-center">→</div>
+              <div class="border-2 border-black px-4 py-2 bg-zudo-green text-black">
+                <div class="text-xs font-bold uppercase tracking-wider">Initialized</div>
+                <div class="text-sm font-bold">onInit hook ran</div>
+              </div>
+              <div class="text-2xl font-black text-zudo-red self-center">→</div>
+              <div class="border-2 border-black px-4 py-2 bg-zudo-blue text-white">
+                <div class="text-xs font-bold uppercase tracking-wider">Started</div>
+                <div class="text-sm font-bold">onStart hook ran</div>
+              </div>
+              <div class="text-2xl font-black text-zudo-red self-center">→</div>
+              <div class="border-2 border-black px-4 py-2 bg-zudo-yellow text-black">
+                <div class="text-xs font-bold uppercase tracking-wider">Stopped</div>
+                <div class="text-sm font-bold">onStop hook ran</div>
+              </div>
+              <div class="text-2xl font-black text-zudo-red self-center">→</div>
+              <div class="border-2 border-black px-4 py-2 bg-zudo-red text-white">
+                <div class="text-xs font-bold uppercase tracking-wider">Disposed</div>
+                <div class="text-sm font-bold">onDispose hook ran</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- STATE HOOKS -->
+          <section class="mt-12" aria-labelledby="hooks">
+            <h2 class="text-h2 mb-4" id="hooks">State Hooks</h2>
+            <p class="text-body text-black/80 mb-4">
+              Each lifecycle transition triggers a hook. Implement these hooks to define component behavior.
+            </p>
+            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="tp">LifecycleComponent</span> } <span class="kw">from</span> <span class="str">"@zudolib/lifecycle"</span>;
+
+<span class="kw">class</span> <span class="tp">DatabaseService</span> <span class="kw">implements</span> <span class="tp">LifecycleComponent</span> {
+  <span class="kw">readonly</span> <span class="op">name</span> = <span class="str">"database"</span>;
+  <span class="kw">readonly</span> <span class="op">dependencies</span> = []; <span class="cmt">// No dependencies</span>
+
+  <span class="kw">async</span> <span class="fn">onInit</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; {
+    <span class="cmt">// Validate config, check connectivity</span>
+    <span class="kw">await</span> <span class="kw">this</span>.<span class="fn">validateConnection</span>();
+  }
+
+  <span class="kw">async</span> <span class="fn">onStart</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; {
+    <span class="cmt">// Open connection pool</span>
+    <span class="kw">this</span>.pool = <span class="kw">await</span> <span class="fn">createPool</span>(<span class="kw">this</span>.config);
+  }
+
+  <span class="kw">async</span> <span class="fn">onStop</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; {
+    <span class="cmt">// Drain connection pool</span>
+    <span class="kw">await</span> <span class="kw">this</span>.pool.<span class="fn">drain</span>();
+  }
+
+  <span class="kw">async</span> <span class="fn">onDispose</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; {
+    <span class="cmt">// Release all resources</span>
+    <span class="kw">await</span> <span class="kw">this</span>.pool.<span class="fn">destroy</span>();
+  }
+}</div>
+          </section>
+
+          <!-- DEPENDENCY ORDERING -->
+          <section class="mt-12" aria-labelledby="dependencies">
+            <h2 class="text-h2 mb-4" id="dependencies">Dependency Ordering</h2>
+            <p class="text-body text-black/80 mb-4">
+              The lifecycle manager topologically sorts components by their declared dependencies. Components start in dependency order and stop in reverse order.
+            </p>
+            <div class="code-block p-4 mb-4"><span class="kw">class</span> <span class="tp">ApiServer</span> <span class="kw">implements</span> <span class="tp">LifecycleComponent</span> {
+  <span class="kw">readonly</span> <span class="op">name</span> = <span class="str">"api-server"</span>;
+  <span class="kw">readonly</span> <span class="op">dependencies</span> = [<span class="str">"database"</span>, <span class="str">"cache"</span>];
+  <span class="cmt">// Starts AFTER database and cache</span>
+}
+
+<span class="kw">class</span> <span class="tp">CacheService</span> <span class="kw">implements</span> <span class="tp">LifecycleComponent</span> {
+  <span class="kw">readonly</span> <span class="op">name</span> = <span class="str">"cache"</span>;
+  <span class="kw">readonly</span> <span class="op">dependencies</span> = [<span class="str">"database"</span>];
+  <span class="cmt">// Starts AFTER database</span>
+}
+
+<span class="cmt">// Start order: database → cache → api-server</span>
+<span class="cmt">// Stop order:  api-server → cache → database</span></div>
+          </section>
+
+          <!-- GRACEFUL SHUTDOWN -->
+          <section class="mt-12" aria-labelledby="shutdown">
+            <h2 class="text-h2 mb-4" id="shutdown">Graceful Shutdown</h2>
+            <p class="text-body text-black/80 mb-4">
+              The lifecycle manager handles SIGTERM/SIGINT signals and orchestrates a graceful shutdown sequence. In-flight requests complete before components stop.
+            </p>
+            <div class="callout callout-warning mb-6">
+              <strong class="text-sm uppercase tracking-wider text-zudo-yellow">Production Note</strong>
+              <p class="text-sm mt-1">Always implement <span class="code-inline">onStop</span> and <span class="code-inline">onDispose</span> hooks. Missing cleanup leads to orphaned connections, memory leaks, and zombie processes.</p>
+            </div>
+          </section>
+
+          <!-- WHY IT MATTERS -->
+          <section class="mt-12" aria-labelledby="why">
+            <h2 class="text-h2 mb-4" id="why">Why Lifecycle Matters</h2>
+            <div class="border-2 border-black p-6 bg-white">
+              <ul class="space-y-3 text-body text-black/80">
+                <li class="flex items-start gap-3">
+                  <span class="text-zudo-yellow font-black mt-1">01</span>
+                  <span><strong>Predictable startup</strong> — components initialize in the correct order, every time.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-zudo-yellow font-black mt-1">02</span>
+                  <span><strong>Clean shutdown</strong> — no orphaned resources, no data corruption on process exit.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-zudo-yellow font-black mt-1">03</span>
+                  <span><strong>Error recovery</strong> — if a component fails to start, dependent components are skipped.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-zudo-yellow font-black mt-1">04</span>
+                  <span><strong>Testability</strong> — start and stop individual components in isolation.</span>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../../js/docs.js"></script>
+</body>
+
+  <!-- FOOTER -->
+  <footer class="border-t-4 border-black bg-black text-white mt-12">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+            <span class="text-black font-black text-sm">Z</span>
+          </div>
+          <span class="font-black">ZUDO FRAMEWORK</span>
+        </div>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+          <a href="../packages/" class="hover:text-zudo-red">Packages</a>
+          <a href="../roadmap.html" class="hover:text-zudo-red">Roadmap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('toc-link-active'));
+          const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('toc-link-active');
+        }
+      });
+    }, { rootMargin: '-80px 0px -80% 0px' });
+    headings.forEach(h => observer.observe(h));
+  </script>
+
+</body>
+</html>
