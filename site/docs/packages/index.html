@@ -118,54 +118,29 @@
 <body class="bg-white text-black">
 
   <!-- NAVBAR -->
-  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red" role="navigation" aria-label="Main navigation">
-    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a href="../../" class="flex items-center gap-3" aria-label="Zudo Home">
-        <div class="w-9 h-9 bg-zudo-red border-2 border-white flex items-center justify-center">
-          <span class="text-black font-black text-lg">Z</span>
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+          <span class="text-black font-black text-sm">Z</span>
         </div>
-        <span class="text-xl font-black tracking-tight">ZUDO</span>
+        <span class="text-xl font-black">ZUDO</span>
       </a>
-      <div class="hidden md:flex items-center gap-6">
-        <a href="../../docs/getting-started/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
-        <a href="../../docs/packages/" class="nav-link text-xs font-bold uppercase tracking-wider text-zudo-red nav-link-active">Packages</a>
-        <a href="../../docs/architecture/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
-        <a href="../../docs/concepts/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Concepts</a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+        <a href="../getting-started/" class="hover:text-zudo-red">Docs</a>
+        <a href="../packages/" class="hover:text-zudo-red text-zudo-red">Packages</a>
+        <a href="../architecture/" class="hover:text-zudo-red">Architecture</a>
+        <a href="../concepts/" class="hover:text-zudo-red">Concepts</a>
       </div>
-      <div class="flex items-center gap-3">
-        <button id="searchTrigger" class="p-2 border-2 border-white hover:border-zudo-red hover:bg-zudo-red hover:text-black" aria-label="Search">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-        </button>
-        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="p-2 border-2 border-white hover:border-zudo-blue hover:bg-zudo-blue hover:text-white" aria-label="GitHub">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-        </a>
-      </div>
+      <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="p-2 border-2 border-white hover:bg-white hover:text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
     </div>
   </nav>
 
-  <!-- SEARCH OVERLAY -->
-  <div id="searchOverlay" class="fixed inset-0 z-[100] hidden search-overlay" role="dialog" aria-label="Search">
-    <div class="max-w-2xl mx-auto mt-20 px-6">
-      <div class="flex items-center justify-between mb-6">
-        <span class="text-white font-bold text-lg uppercase tracking-wider">Search Packages</span>
-        <button id="searchClose" class="text-white hover:text-zudo-red p-2 border-2 border-white hover:border-zudo-red" aria-label="Close search">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <input type="text" id="searchInput" placeholder="Search packages..." class="search-input w-full px-6 py-4 text-lg" autocomplete="off" aria-label="Search packages">
-      <div id="searchResults" class="mt-4 max-h-96 overflow-y-auto"></div>
-      <div class="mt-4 text-white/50 text-sm">
-        <span class="border border-white/30 px-2 py-1 mr-2">Ctrl+K</span> Open
-        <span class="border border-white/30 px-2 py-1 mx-2">↑↓</span> Navigate
-        <span class="border border-white/30 px-2 py-1 mx-2">Enter</span> Select
-        <span class="border border-white/30 px-2 py-1 mx-2">Esc</span> Close
-      </div>
-    </div>
-  </div>
-
   <!-- PAGE HEADER -->
   <header class="bg-black text-white border-b-4 border-zudo-red grid-lines-dark">
-    <div class="max-w-7xl mx-auto px-6 py-16">
+    <div class="max-w-screen-2xl mx-auto px-6 py-16">
       <nav id="breadcrumbs" class="text-sm mb-6 text-white/50" aria-label="Breadcrumb">
         <a href="../../" class="hover:text-zudo-blue">Home</a>
         <span class="mx-2 text-white/30">/</span>
@@ -324,7 +299,7 @@
           <div class="mt-3 pt-3 border-t border-black/10 text-xs text-black/40">depends on: constants, errors</div>
         </a>
 
-        <a href="validation.html" class="pkg-card block border-2 border-black p-5 bg-white hover:border-zudo-green" data-name="validation" data-desc="Schema validation with Zod integration">
+        <a href="validation/" class="pkg-card block border-2 border-black p-5 bg-white hover:border-zudo-green" data-name="validation" data-desc="Schema validation with Zod integration">
           <div class="flex items-center justify-between mb-2">
             <span class="font-mono text-sm font-bold">@zudolib/validation</span>
             <span class="tag tag-green text-[0.6rem]">v1.0.0</span>
@@ -765,44 +740,44 @@
   <script>
     /* ==================== SEARCH ==================== */
     const SEARCH_DATA = [
-      { title: '@zudolib/errors', path: 'errors.html', excerpt: 'Shared error base class, error codes, and error handling utilities.', tags: ['errors', 'exceptions'] },
-      { title: '@zudolib/types', path: 'types.html', excerpt: 'Shared type guards, utility types, and type converters.', tags: ['types', 'guards', 'utility'] },
-      { title: '@zudolib/constants', path: 'constants.html', excerpt: 'Shared constants, enums, and type-safe literals.', tags: ['constants', 'enums'] },
-      { title: '@zudolib/container', path: 'container.html', excerpt: 'Token-based dependency injection container.', tags: ['di', 'container', 'tokens'] },
-      { title: '@zudolib/logger', path: 'logger.html', excerpt: 'Structured logging with transports.', tags: ['logging', 'logger'] },
-      { title: '@zudolib/crypto', path: 'crypto.html', excerpt: 'Cryptographic primitives for hashing, encryption, tokens.', tags: ['crypto', 'hashing', 'encryption'] },
-      { title: '@zudolib/validation', path: 'validation.html', excerpt: 'Schema validation with Zod integration.', tags: ['validation', 'zod'] },
-      { title: '@zudolib/schema', path: 'schema.html', excerpt: 'Type-safe schema definition and parsing engine.', tags: ['schema', 'parsing'] },
-      { title: '@zudolib/config', path: 'config.html', excerpt: 'Layered configuration management.', tags: ['config', 'env'] },
-      { title: '@zudolib/middleware', path: 'middleware.html', excerpt: 'Composable middleware pipeline.', tags: ['middleware', 'pipeline'] },
-      { title: '@zudolib/serialization', path: 'serialization.html', excerpt: 'Data translation layer with JSON serializer.', tags: ['serialization', 'json'] },
-      { title: '@zudolib/events', path: 'events.html', excerpt: 'Event-driven architecture with bus and emitter.', tags: ['events', 'bus', 'emitter'] },
-      { title: '@zudolib/messaging', path: 'messaging.html', excerpt: 'In-process message bus with handlers.', tags: ['messaging', 'bus'] },
-      { title: '@zudolib/lifecycle', path: 'lifecycle.html', excerpt: 'State machine lifecycle orchestration.', tags: ['lifecycle', 'state'] },
-      { title: '@zudolib/transactions', path: 'transactions.html', excerpt: 'Transaction lifecycle and coordination.', tags: ['transactions'] },
-      { title: '@zudolib/cache', path: 'cache.html', excerpt: 'Cache abstraction with memory adapter.', tags: ['cache', 'redis'] },
-      { title: '@zudolib/storage', path: 'storage.html', excerpt: 'Storage abstractions with repository pattern.', tags: ['storage', 'repository'] },
-      { title: '@zudolib/queue', path: 'queue.html', excerpt: 'Background job and async task infrastructure.', tags: ['queue', 'jobs', 'background'] },
-      { title: '@zudolib/scheduler', path: 'scheduler.html', excerpt: 'Scheduled task and cron-like job infrastructure.', tags: ['scheduler', 'cron'] },
-      { title: '@zudolib/adapters', path: 'adapters.html', excerpt: 'Boundary layer between Zudo and external platforms.', tags: ['adapters', 'platform'] },
-      { title: '@zudolib/database', path: 'database.html', excerpt: 'Database abstraction with clients and repositories.', tags: ['database', 'sql'] },
-      { title: '@zudolib/observability', path: 'observability.html', excerpt: 'Metrics, tracing, and context propagation.', tags: ['observability', 'metrics', 'tracing'] },
-      { title: '@zudolib/core', path: 'core.html', excerpt: 'Application lifecycle and runtime orchestration.', tags: ['core', 'application'] },
-      { title: '@zudolib/cqrs', path: 'cqrs.html', excerpt: 'Command Query Responsibility Segregation.', tags: ['cqrs', 'commands', 'queries'] },
-      { title: '@zudolib/auth', path: 'auth.html', excerpt: 'JWT, sessions, RBAC, OAuth2, password management.', tags: ['auth', 'jwt', 'session'] },
-      { title: '@zudolib/runtime', path: 'runtime.html', excerpt: 'Lifecycle orchestrator with dependency ordering.', tags: ['runtime', 'orchestration'] },
-      { title: '@zudolib/api', path: 'api.html', excerpt: 'Transport-agnostic operation definitions and executor.', tags: ['api', 'operations', 'interceptors'] },
-      { title: '@zudolib/rpc', path: 'rpc.html', excerpt: 'Remote procedure call infrastructure.', tags: ['rpc', 'remote'] },
-      { title: '@zudolib/openapi', path: 'openapi.html', excerpt: 'OpenAPI 3.1 spec generation and validation.', tags: ['openapi', 'swagger'] },
-      { title: '@zudolib/http', path: 'http.html', excerpt: 'HTTP server, request handling, routing.', tags: ['http', 'server', 'rest'] },
-      { title: 'zudolib-cli', path: 'cli.html', excerpt: 'CLI for scaffolding and managing projects.', tags: ['cli', 'scaffold'] },
-      { title: '@zudolib/security', path: 'security.html', excerpt: 'Input validation, CORS, CSRF, rate limiting.', tags: ['security', 'cors', 'csrf'] },
-      { title: '@zudolib/permissions', path: 'permissions.html', excerpt: 'RBAC, ABAC, wildcards, role hierarchy.', tags: ['permissions', 'rbac', 'abac'] },
-      { title: '@zudolib/tenancy', path: 'tenancy.html', excerpt: 'Multi-tenant context and isolation.', tags: ['tenancy', 'tenant', 'multi-tenant'] },
-      { title: '@zudolib/feature-flags', path: 'feature-flags.html', excerpt: 'Feature flag system with deterministic rollouts.', tags: ['feature-flags', 'flags'] },
-      { title: '@zudolib/plugins', path: 'plugins.html', excerpt: 'Plugin system for modular capabilities.', tags: ['plugins', 'extensions'] },
-      { title: '@zudolib/docs', path: 'docs.html', excerpt: 'Documentation infrastructure and generation.', tags: ['docs', 'documentation'] },
-      { title: '@zudolib/testing', path: 'testing.html', excerpt: 'Test helpers, fixtures, mocks, utilities.', tags: ['testing', 'mocks', 'fixtures'] },
+      { title: '@zudolib/errors', path: 'errors/', excerpt: 'Shared error base class, error codes, and error handling utilities.', tags: ['errors', 'exceptions'] },
+      { title: '@zudolib/types', path: 'types/', excerpt: 'Shared type guards, utility types, and type converters.', tags: ['types', 'guards', 'utility'] },
+      { title: '@zudolib/constants', path: 'constants/', excerpt: 'Shared constants, enums, and type-safe literals.', tags: ['constants', 'enums'] },
+      { title: '@zudolib/container', path: 'container/', excerpt: 'Token-based dependency injection container.', tags: ['di', 'container', 'tokens'] },
+      { title: '@zudolib/logger', path: 'logger/', excerpt: 'Structured logging with transports.', tags: ['logging', 'logger'] },
+      { title: '@zudolib/crypto', path: 'crypto/', excerpt: 'Cryptographic primitives for hashing, encryption, tokens.', tags: ['crypto', 'hashing', 'encryption'] },
+      { title: '@zudolib/validation', path: 'validation/', excerpt: 'Schema validation with Zod integration.', tags: ['validation', 'zod'] },
+      { title: '@zudolib/schema', path: 'schema/', excerpt: 'Type-safe schema definition and parsing engine.', tags: ['schema', 'parsing'] },
+      { title: '@zudolib/config', path: 'config/', excerpt: 'Layered configuration management.', tags: ['config', 'env'] },
+      { title: '@zudolib/middleware', path: 'middleware/', excerpt: 'Composable middleware pipeline.', tags: ['middleware', 'pipeline'] },
+      { title: '@zudolib/serialization', path: 'serialization/', excerpt: 'Data translation layer with JSON serializer.', tags: ['serialization', 'json'] },
+      { title: '@zudolib/events', path: 'events/', excerpt: 'Event-driven architecture with bus and emitter.', tags: ['events', 'bus', 'emitter'] },
+      { title: '@zudolib/messaging', path: 'messaging/', excerpt: 'In-process message bus with handlers.', tags: ['messaging', 'bus'] },
+      { title: '@zudolib/lifecycle', path: 'lifecycle/', excerpt: 'State machine lifecycle orchestration.', tags: ['lifecycle', 'state'] },
+      { title: '@zudolib/transactions', path: 'transactions/', excerpt: 'Transaction lifecycle and coordination.', tags: ['transactions'] },
+      { title: '@zudolib/cache', path: 'cache/', excerpt: 'Cache abstraction with memory adapter.', tags: ['cache', 'redis'] },
+      { title: '@zudolib/storage', path: 'storage/', excerpt: 'Storage abstractions with repository pattern.', tags: ['storage', 'repository'] },
+      { title: '@zudolib/queue', path: 'queue/', excerpt: 'Background job and async task infrastructure.', tags: ['queue', 'jobs', 'background'] },
+      { title: '@zudolib/scheduler', path: 'scheduler/', excerpt: 'Scheduled task and cron-like job infrastructure.', tags: ['scheduler', 'cron'] },
+      { title: '@zudolib/adapters', path: 'adapters/', excerpt: 'Boundary layer between Zudo and external platforms.', tags: ['adapters', 'platform'] },
+      { title: '@zudolib/database', path: 'database/', excerpt: 'Database abstraction with clients and repositories.', tags: ['database', 'sql'] },
+      { title: '@zudolib/observability', path: 'observability/', excerpt: 'Metrics, tracing, and context propagation.', tags: ['observability', 'metrics', 'tracing'] },
+      { title: '@zudolib/core', path: 'core/', excerpt: 'Application lifecycle and runtime orchestration.', tags: ['core', 'application'] },
+      { title: '@zudolib/cqrs', path: 'cqrs/', excerpt: 'Command Query Responsibility Segregation.', tags: ['cqrs', 'commands', 'queries'] },
+      { title: '@zudolib/auth', path: 'auth/', excerpt: 'JWT, sessions, RBAC, OAuth2, password management.', tags: ['auth', 'jwt', 'session'] },
+      { title: '@zudolib/runtime', path: 'runtime/', excerpt: 'Lifecycle orchestrator with dependency ordering.', tags: ['runtime', 'orchestration'] },
+      { title: '@zudolib/api', path: 'api/', excerpt: 'Transport-agnostic operation definitions and executor.', tags: ['api', 'operations', 'interceptors'] },
+      { title: '@zudolib/rpc', path: 'rpc/', excerpt: 'Remote procedure call infrastructure.', tags: ['rpc', 'remote'] },
+      { title: '@zudolib/openapi', path: 'openapi/', excerpt: 'OpenAPI 3.1 spec generation and validation.', tags: ['openapi', 'swagger'] },
+      { title: '@zudolib/http', path: 'http/', excerpt: 'HTTP server, request handling, routing.', tags: ['http', 'server', 'rest'] },
+      { title: 'zudolib-cli', path: 'cli/', excerpt: 'CLI for scaffolding and managing projects.', tags: ['cli', 'scaffold'] },
+      { title: '@zudolib/security', path: 'security/', excerpt: 'Input validation, CORS, CSRF, rate limiting.', tags: ['security', 'cors', 'csrf'] },
+      { title: '@zudolib/permissions', path: 'permissions/', excerpt: 'RBAC, ABAC, wildcards, role hierarchy.', tags: ['permissions', 'rbac', 'abac'] },
+      { title: '@zudolib/tenancy', path: 'tenancy/', excerpt: 'Multi-tenant context and isolation.', tags: ['tenancy', 'tenant', 'multi-tenant'] },
+      { title: '@zudolib/feature-flags', path: 'feature-flags/', excerpt: 'Feature flag system with deterministic rollouts.', tags: ['feature-flags', 'flags'] },
+      { title: '@zudolib/plugins', path: 'plugins/', excerpt: 'Plugin system for modular capabilities.', tags: ['plugins', 'extensions'] },
+      { title: '@zudolib/docs', path: 'docs/', excerpt: 'Documentation infrastructure and generation.', tags: ['docs', 'documentation'] },
+      { title: '@zudolib/testing', path: 'testing/', excerpt: 'Test helpers, fixtures, mocks, utilities.', tags: ['testing', 'mocks', 'fixtures'] },
     ];
 
     class Search {
