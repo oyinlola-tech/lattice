@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module System — Zudo Framework</title>
+  <meta name="description" content="Composable, dependency-aware modules for organized application architecture in the Zudo TypeScript framework. Module definition, registration, lifecycle hooks, and best practices.">
+  <meta name="keywords" content="zudo, module system, modules, dependency-aware, lifecycle hooks, composable, application architecture, typescript">
+  <meta name="author" content="Oyinlola Tech">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/architecture/module-system/">
+
+  <meta property="og:title" content="Module System — Zudo Framework">
+  <meta property="og:description" content="Composable, dependency-aware modules for organized application architecture.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zudo.dev/docs/architecture/module-system/">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
+  <meta property="og:site_name" content="Zudo Framework">
+  <meta property="article:published_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:modified_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:section" content="Architecture">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Module System — Zudo Framework">
+  <meta name="twitter:description" content="Composable, dependency-aware modules for organized application architecture.">
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/zudo-favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'zudo-red': '#FF0000',
+            'zudo-blue': '#0000FF',
+            'zudo-yellow': '#FFFF00',
+            'zudo-black': '#000000',
+            'zudo-white': '#FFFFFF',
+            'zudo-green': '#00FF00',
+            'zudo-pink': '#FF00FF',
+          },
+          fontFamily: {
+            'system': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../../css/docs.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Module System — Zudo Framework",
+    "description": "Composable, dependency-aware modules for organized application architecture in the Zudo TypeScript framework.",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js >= 24.0.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "repository": {
+      "@type": "CodeRepository",
+      "url": "https://github.com/oyinlola-tech/zudo"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Oyinlola Tech",
+      "url": "https://github.com/oyinlola-tech"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zudo"
+    },
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-01-01",
+    "mainEntityOfPage": "https://zudo.dev/docs/architecture/module-system/",
+    "keywords": "zudo, module system, modules, dependency-aware, lifecycle hooks, composable",
+    "articleSection": "Architecture"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
+      { "@type": "ListItem", "position": 2, "name": "Architecture", "item": "https://zudo.dev/docs/architecture/" },
+      { "@type": "ListItem", "position": 3, "name": "Module System", "item": "https://zudo.dev/docs/architecture/module-system/" }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-3" aria-label="Zudo Home">
+        <div class="w-9 h-9 bg-zudo-red border-2 border-white flex items-center justify-center">
+          <span class="text-black font-black text-lg">Z</span>
+        </div>
+        <span class="text-xl font-black tracking-tight">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="../getting-started/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
+        <a href="../packages/" class="nav-link text-xs font-bold uppercase tracking-wider hover:text-zudo-red">Packages</a>
+        <a href="../architecture/" class="nav-link text-xs font-bold uppercase tracking-wider text-zudo-red nav-link-active">Architecture</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="searchTrigger" class="p-2 border-2 border-white hover:border-zudo-red hover:bg-zudo-red hover:text-black" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="p-2 border-2 border-white hover:border-zudo-blue hover:bg-zudo-blue hover:text-white" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button id="sidebarToggle" class="md:hidden p-2 border-2 border-white hover:border-zudo-red" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SEARCH OVERLAY -->
+  <div id="searchOverlay" class="fixed inset-0 z-[100] hidden search-overlay" role="dialog" aria-label="Search">
+    <div class="max-w-2xl mx-auto mt-20 px-6">
+      <div class="flex items-center justify-between mb-6">
+        <span class="text-white font-bold text-lg uppercase tracking-wider">Search Documentation</span>
+        <button id="searchClose" class="text-white hover:text-zudo-red p-2 border-2 border-white hover:border-zudo-red" aria-label="Close search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <input type="text" id="searchInput" placeholder="Search packages, concepts, guides..." class="search-input w-full px-6 py-4 text-lg" autocomplete="off" aria-label="Search query">
+      <div id="searchResults" class="mt-4 max-h-96 overflow-y-auto"></div>
+      <div class="mt-4 text-white/50 text-sm">
+        <span class="border border-white/30 px-2 py-1 mr-2">Ctrl+K</span> Open
+        <span class="border border-white/30 px-2 py-1 mx-2">↑↓</span> Navigate
+        <span class="border border-white/30 px-2 py-1 mx-2">Enter</span> Select
+        <span class="border border-white/30 px-2 py-1 mx-2">Esc</span> Close
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="flex">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar" role="complementary" aria-label="Documentation navigation">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="../getting-started/" class="sidebar-item">Introduction</a>
+      <a href="../getting-started/installation/" class="sidebar-item">Installation</a>
+      <a href="../getting-started/quick-start/" class="sidebar-item">Quick Start</a>
+
+      <div class="sidebar-section">Architecture</div>
+      <a href="../architecture/" class="sidebar-item">Overview</a>
+      <a href="../architecture/module-system/" class="sidebar-item sidebar-item-active">Module System</a>
+      <a href="../architecture/runtime/" class="sidebar-item">Runtime</a>
+      <a href="../architecture/adapters/" class="sidebar-item">Adapters</a>
+      <a href="../architecture/dependency-direction/" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section">Packages</div>
+      <a href="../packages/errors/" class="sidebar-item">errors</a>
+      <a href="../packages/types/" class="sidebar-item">types</a>
+      <a href="../packages/constants/" class="sidebar-item">constants</a>
+      <a href="../packages/container/" class="sidebar-item">container</a>
+      <a href="../packages/logger/" class="sidebar-item">logger</a>
+      <a href="../packages/events/" class="sidebar-item">events</a>
+      <a href="../packages/middleware/" class="sidebar-item">middleware</a>
+      <a href="../packages/config/" class="sidebar-item">config</a>
+      <a href="../packages/core/" class="sidebar-item">core</a>
+      <a href="../packages/runtime/" class="sidebar-item">runtime</a>
+
+      <div class="sidebar-section">Reference</div>
+      <a href="../packages/" class="sidebar-item">All Packages</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="doc-content flex-1 min-w-0" role="main">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-6">
+        <ol class="flex items-center gap-2 text-sm text-gray-500">
+          <li><a href="../../" class="hover:text-zudo-blue">Home</a></li>
+          <li class="before:content-['/'] before:mr-2"><a href="../architecture/" class="hover:text-zudo-blue">Architecture</a></li>
+          <li class="before:content-['/'] before:mr-2 text-black font-bold">Module System</li>
+        </ol>
+      </nav>
+
+      <!-- HERO -->
+      <header class="mb-12 border-4 border-black bg-zudo-blue text-white p-8 grid-lines-dark">
+        <h1 class="text-hero text-white mb-4">MODULE SYSTEM</h1>
+        <p class="text-lg text-white/70 max-w-2xl leading-relaxed">
+          Composable, dependency-aware modules for organized application architecture.
+        </p>
+      </header>
+
+      <!-- OVERVIEW -->
+      <section id="overview" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Overview</h2>
+        <p class="mb-4 leading-relaxed">
+          Zudo's module system lets you organize your application into self-contained, composable units. Each module declares its dependencies, provides services to the DI container, and participates in the application lifecycle through well-defined hooks.
+        </p>
+        <p class="mb-4 leading-relaxed">
+          Modules are resolved in <strong>topological order</strong> based on their declared dependencies, ensuring that each module's dependencies are available before it initializes.
+        </p>
+
+        <div class="callout callout-tip mb-6">
+          <p class="text-sm font-bold mb-1">WHY MODULES?</p>
+          <ul class="text-sm space-y-1">
+            <li>• <strong>Encapsulation</strong> — Each module owns its services and internal state</li>
+            <li>• <strong>Reusability</strong> — Modules can be shared across applications</li>
+            <li>• <strong>Testability</strong> — Modules can be tested in isolation</li>
+            <li>• <strong>Lazy Loading</strong> — Modules can be loaded on demand</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- MODULE DEFINITION -->
+      <section id="definition" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Module Definition</h2>
+        <p class="mb-4 leading-relaxed">
+          A module is defined by implementing the <code>Module</code> interface. Each module has a unique name, optional dependencies, and lifecycle hooks.
+        </p>
+
+        <div class="code-block mb-6">
+<span class="kw">import</span> { <span class="tp">Module</span>, <span class="tp">ModuleContext</span> } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
+
+<span class="kw">const</span> <span class="fn">AuthModule</span>: <span class="tp">Module</span> = {
+  <span class="fn">name</span>: <span class="str">"auth"</span>,
+
+  <span class="fn">dependencies</span>: [<span class="str">"database"</span>, <span class="str">"config"</span>],
+
+  <span class="kw">async</span> <span class="fn">initialize</span>(ctx: <span class="tp">ModuleContext</span>) {
+    <span class="kw">const</span> config = ctx.<span class="fn">resolve</span>(<span class="str">"config"</span>);
+    <span class="kw">const</span> db = ctx.<span class="fn">resolve</span>(<span class="str">"database"</span>);
+
+    <span class="cm">// Register services</span>
+    ctx.<span class="fn">provide</span>(<span class="str">"authService"</span>, () => <span class="kw">new</span> <span class="tp">AuthService</span>(config, db));
+    ctx.<span class="fn">provide</span>(<span class="str">"tokenService"</span>, () => <span class="kw">new</span> <span class="tp">TokenService</span>(config));
+  },
+
+  <span class="kw">async</span> <span class="fn">start</span>() {
+    console.<span class="fn">log</span>(<span class="str">"Auth module started"</span>);
+  },
+
+  <span class="kw">async</span> <span class="fn">stop</span>() {
+    console.<span class="fn">log</span>(<span class="str">"Auth module stopped"</span>);
+  }
+};
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Module Interface</h3>
+        <div class="code-block mb-4">
+<span class="kw">interface</span> <span class="tp">Module</span> {
+  <span class="fn">name</span>: <span class="tp">string</span>;
+  <span class="fn">dependencies</span>?: <span class="tp">string</span>[];
+  <span class="fn">initialize</span>(ctx: <span class="tp">ModuleContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">start</span>?(ctx: <span class="tp">ModuleContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">stop</span>?(ctx: <span class="tp">ModuleContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">destroy</span>?(ctx: <span class="tp">ModuleContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}
+        </div>
+      </section>
+
+      <!-- MODULE REGISTRATION -->
+      <section id="registration" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Module Registration</h2>
+        <p class="mb-4 leading-relaxed">
+          Modules are registered with the application before initialization. The runtime resolves dependencies and initializes modules in the correct order.
+        </p>
+
+        <div class="code-block mb-6">
+<span class="kw">import</span> { <span class="fn">createApp</span> } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
+
+<span class="kw">const</span> app = <span class="fn">createApp</span>();
+
+<span class="cm">// Register modules</span>
+app.<span class="fn">module</span>(DatabaseModule);
+app.<span class="fn">module</span>(ConfigModule);
+app.<span class="fn">module</span>(LoggerModule);
+app.<span class="fn">module</span>(AuthModule);
+app.<span class="fn">module</span>(HttpModule);
+
+<span class="cm">// Initialize and start</span>
+<span class="kw">await</span> app.<span class="fn">initialize</span>();  <span class="cm">// Resolves deps, calls initialize()</span>
+<span class="kw">await</span> app.<span class="fn">start</span>();       <span class="cm">// Calls start() on all modules</span>
+
+<span class="cm">// Graceful shutdown</span>
+process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, () => app.<span class="fn">shutdown</span>());
+        </div>
+      </section>
+
+      <!-- DEPENDENCY RESOLUTION -->
+      <section id="dependencies" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Dependency Resolution</h2>
+        <p class="mb-4 leading-relaxed">
+          The module system uses topological sorting to determine initialization order. If Module A depends on Module B, Module B is always initialized first.
+        </p>
+
+        <div class="border-2 border-black p-6 bg-gray-50 mb-6 font-mono text-sm leading-loose">
+<pre class="whitespace-pre-wrap">
+<span class="cm">Given these dependencies:</span>
+
+ConfigModule     → <span class="num">(no deps)</span>
+DatabaseModule   → [config]
+LoggerModule     → [config]
+AuthModule       → [database, config]
+HttpModule       → [auth, logger]
+
+<span class="cm">Initialization order:</span>
+
+<span class="num">1.</span> ConfigModule        <span class="cm">← no dependencies</span>
+<span class="num">2.</span> DatabaseModule       <span class="cm">← config ready</span>
+<span class="num">3.</span> LoggerModule         <span class="cm">← config ready</span>
+<span class="num">4.</span> AuthModule           <span class="cm">← database + config ready</span>
+<span class="num">5.</span> HttpModule           <span class="cm">← auth + logger ready</span>
+</pre>
+        </div>
+
+        <div class="callout callout-warning mb-6">
+          <p class="text-sm font-bold mb-1">CIRCULAR DEPENDENCIES</p>
+          <p class="text-sm">Circular module dependencies will cause an error at initialization time. If you detect a cycle, refactor by extracting shared logic into a separate module or using an event-driven approach.</p>
+        </div>
+      </section>
+
+      <!-- LIFECYCLE HOOKS -->
+      <section id="lifecycle" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Module Lifecycle Hooks</h2>
+        <p class="mb-4 leading-relaxed">
+          Each module can implement four lifecycle hooks that are called in order during the application lifecycle:
+        </p>
+
+        <div class="space-y-4 mb-6">
+          <div class="border-l-4 border-zudo-green p-4 bg-green-50">
+            <h4 class="font-bold text-sm mb-1">initialize()</h4>
+            <p class="text-sm text-gray-600">Called during app initialization. Register services with the DI container, set up connections, validate configuration. Dependencies are already initialized.</p>
+          </div>
+          <div class="border-l-4 border-zudo-blue p-4 bg-blue-50">
+            <h4 class="font-bold text-sm mb-1">start()</h4>
+            <p class="text-sm text-gray-600">Called after all modules are initialized. Start background tasks, open connections, begin accepting work. The application is now ready.</p>
+          </div>
+          <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
+            <h4 class="font-bold text-sm mb-1">stop()</h4>
+            <p class="text-sm text-gray-600">Called during graceful shutdown. Stop accepting new work, finish in-flight operations, close connections. Called in reverse dependency order.</p>
+          </div>
+          <div class="border-l-4 border-zudo-red p-4 bg-red-50">
+            <h4 class="font-bold text-sm mb-1">destroy()</h4>
+            <p class="text-sm text-gray-600">Called after stop() completes. Release all resources, clear timers, disconnect from external systems. Final cleanup.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE CONTEXT -->
+      <section id="context" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Module Context</h2>
+        <p class="mb-4 leading-relaxed">
+          The <code>ModuleContext</code> provides access to the DI container, other modules, and application-level utilities:
+        </p>
+
+        <div class="code-block mb-6">
+<span class="kw">interface</span> <span class="tp">ModuleContext</span> {
+  <span class="cm">// Resolve a service from the DI container</span>
+  <span class="fn">resolve</span>&lt;T&gt;(token: <span class="tp">string</span>): T;
+
+  <span class="cm">// Register a service with the DI container</span>
+  <span class="fn">provide</span>(token: <span class="tp">string</span>, factory: () => <span class="tp">unknown</span>): <span class="tp">void</span>;
+
+  <span class="cm">// Access another module's public API</span>
+  <span class="fn">getModule</span>(name: <span class="tp">string</span>): <span class="tp">Module</span> | <span class="tp">undefined</span>;
+
+  <span class="cm">// Application config</span>
+  <span class="kw">readonly</span> <span class="fn">config</span>: <span class="tp">AppConfig</span>;
+
+  <span class="cm">// Application logger</span>
+  <span class="kw">readonly</span> <span class="fn">logger</span>: <span class="tp">Logger</span>;
+}
+        </div>
+      </section>
+
+      <!-- BEST PRACTICES -->
+      <section id="best-practices" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Best Practices</h2>
+
+        <div class="space-y-4">
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold text-sm mb-2">1. Keep Modules Small and Focused</h4>
+            <p class="text-sm text-gray-600">Each module should own a single concern. If a module grows beyond ~200 lines of initialization logic, consider splitting it into sub-modules.</p>
+          </div>
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold text-sm mb-2">2. Declare All Dependencies Explicitly</h4>
+            <p class="text-sm text-gray-600">Never assume a module is initialized. Always declare dependencies in the <code>dependencies</code> array so the runtime can resolve the correct order.</p>
+          </div>
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold text-sm mb-2">3. Use Interface Tokens</h4>
+            <p class="text-sm text-gray-600">Register services using string or symbol tokens, not class references. This allows swapping implementations without changing consumers.</p>
+          </div>
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold text-sm mb-2">4. Handle Errors in initialize()</h4>
+            <p class="text-sm text-gray-600">If initialization fails, throw a descriptive error. The runtime will abort startup and log the failure with the module name.</p>
+          </div>
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold text-sm mb-2">5. Clean Up in stop() and destroy()</h4>
+            <p class="text-sm text-gray-600">Always release resources in reverse order. Close database connections, clear intervals, remove event listeners. Use try/catch to prevent one module's cleanup from blocking others.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PREV / NEXT -->
+      <nav class="flex items-center justify-between border-t-2 border-black pt-6 mt-16" aria-label="Pagination">
+        <a href="../architecture/" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-yellow hover:border-black">
+          ← Architecture Overview
+        </a>
+        <a href="runtime/" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-blue hover:text-white hover:border-black">
+          Runtime →
+        </a>
+      </nav>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS (RIGHT) -->
+    <aside id="docToc" class="doc-toc-sidebar hidden xl:block w-56 flex-shrink-0" role="complementary" aria-label="Table of contents">
+      <div class="sticky top-20 py-8 pr-4">
+        <p class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-3">On This Page</p>
+        <a href="#overview" class="toc-link toc-link-active">Overview</a>
+        <a href="#definition" class="toc-link">Module Definition</a>
+        <a href="#registration" class="toc-link">Module Registration</a>
+        <a href="#dependencies" class="toc-link">Dependency Resolution</a>
+        <a href="#lifecycle" class="toc-link">Lifecycle Hooks</a>
+        <a href="#context" class="toc-link">Module Context</a>
+        <a href="#best-practices" class="toc-link">Best Practices</a>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t-4 border-black bg-black text-white px-6 py-8 mt-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div>
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+            <span class="text-black font-black text-sm">Z</span>
+          </div>
+          <span class="text-lg font-black">ZUDO</span>
+        </div>
+        <p class="text-sm text-gray-400">TypeScript framework for modular applications</p>
+      </div>
+      <div class="flex flex-wrap gap-8 text-sm">
+        <div>
+          <p class="font-bold mb-2 text-zudo-yellow uppercase text-xs tracking-wider">Documentation</p>
+          <div class="flex flex-col gap-1">
+            <a href="../getting-started/" class="text-gray-400 hover:text-white">Getting Started</a>
+            <a href="../packages/" class="text-gray-400 hover:text-white">Packages</a>
+            <a href="../architecture/" class="text-gray-400 hover:text-white">Architecture</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-bold mb-2 text-zudo-yellow uppercase text-xs tracking-wider">Community</p>
+          <div class="flex flex-col gap-1">
+            <a href="https://github.com/oyinlola-tech/zudo" class="text-gray-400 hover:text-white" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://github.com/oyinlola-tech/zudo/issues" class="text-gray-400 hover:text-white" target="_blank" rel="noopener">Issues</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-bold mb-2 text-zudo-yellow uppercase text-xs tracking-wider">Legal</p>
+          <div class="flex flex-col gap-1">
+            <a href="https://github.com/oyinlola-tech/zudo/blob/main/LICENSE" class="text-gray-400 hover:text-white" target="_blank" rel="noopener">MIT License</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto border-t border-gray-800 mt-6 pt-4 text-center text-xs text-gray-500">
+      &copy; 2026 Oyinlola Tech. Released under the MIT License.
+    </div>
+  </footer>
+
+  <script src="../../js/docs.js"></script>
+</body>
+</html>
