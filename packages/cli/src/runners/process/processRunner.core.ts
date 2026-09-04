@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Process Runner
+ * zudojs-cli — Process Runner
  *
  * Runner for executing system processes.
  */

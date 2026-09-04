@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createLogger } from "@zudolib/logger";
+import { createLogger } from "@zudojs/logger";
 
 const logger = createLogger({ name: "gateway:request" });
 

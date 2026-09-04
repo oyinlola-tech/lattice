@@ -5,8 +5,8 @@
  * Demonstrates scheduled cleanup tasks.
  */
 
-import type { Job } from "@zudolib/queue";
-import type { JobContext } from "@zudolib/queue";
+import type { Job } from "@zudojs/queue";
+import type { JobContext } from "@zudojs/queue";
 import type { CleanupJobData } from "../jobs/jobs.types.js";
 
 export class CleanupProcessor {

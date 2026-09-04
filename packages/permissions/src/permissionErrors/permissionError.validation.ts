@@ -2,7 +2,7 @@
  * Validation and policy-related permission errors.
  */
 
-import { ErrorCode } from "@zudolib/errors";
+import { ErrorCode } from "@zudojs/errors";
 import { PermissionError } from "./permissionError.base.js";
 
 /**

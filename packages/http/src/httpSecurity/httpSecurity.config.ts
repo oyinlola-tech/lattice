@@ -1,5 +1,5 @@
 /**
- * @zudolib/http — Security configuration types.
+ * @zudojs/http — Security configuration types.
  *
  * Defines the configuration for HTTP security features:
  * body limits, header validation, host validation, proxy trust,

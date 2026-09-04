@@ -1,13 +1,13 @@
 # Dependency Injection
 
-Zudolib uses a token-based DI container for managing service lifetimes and dependencies.
+Zudojs uses a token-based DI container for managing service lifetimes and dependencies.
 
 ## Registration
 
 Services are registered with tokens:
 
 ```typescript
-import { Container } from "@zudolib/container";
+import { Container } from "@zudojs/container";
 
 const container = new Container();
 

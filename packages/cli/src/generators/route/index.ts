@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Route Generator
+ * zudojs-cli — Route Generator
  */
 
 export { generateRoute, type GenerateRouteOptions } from "./route.generator.js";

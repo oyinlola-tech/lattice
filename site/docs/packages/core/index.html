@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@zudolib/core — Application Lifecycle, Context & Runtime</title>
-  <meta name="description" content="Complete documentation for @zudolib/core — application lifecycle management, execution context propagation, module system, configuration, logging, and runtime orchestration for the Zudo framework.">
+  <title>@zudojs/core — Application Lifecycle, Context & Runtime</title>
+  <meta name="description" content="Complete documentation for @zudojs/core — application lifecycle management, execution context propagation, module system, configuration, logging, and runtime orchestration for the Zudo framework.">
   <meta name="keywords" content="zudo, core, application, lifecycle, runtime, modules, context, configuration, logging, dependency injection">
   <meta name="author" content="Oyinlola">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://zudo.dev/docs/packages/core/">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="@zudolib/core — Application Lifecycle, Context & Runtime">
+  <meta property="og:title" content="@zudojs/core — Application Lifecycle, Context & Runtime">
   <meta property="og:description" content="Application lifecycle management, execution context propagation, module system, configuration, logging, and runtime orchestration.">
   <meta property="og:url" content="https://zudo.dev/docs/packages/core/">
   <meta property="og:site_name" content="Zudo">
   <meta property="og:image" content="https://zudo.dev/assets/zudo-logo.svg">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="@zudolib/core — Application Lifecycle, Context & Runtime">
+  <meta name="twitter:title" content="@zudojs/core — Application Lifecycle, Context & Runtime">
   <meta name="twitter:description" content="Application lifecycle management, execution context propagation, module system, configuration, logging, and runtime orchestration.">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -31,7 +31,7 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "@zudolib/core — Application Lifecycle, Context & Runtime",
+    "headline": "@zudojs/core — Application Lifecycle, Context & Runtime",
     "description": "Application lifecycle management, execution context propagation, module system, configuration, logging, and runtime orchestration for the Zudo framework.",
     "url": "https://zudo.dev/docs/packages/core/",
     "author": { "@type": "Person", "name": "Oyinlola" },
@@ -116,43 +116,43 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../../packages/" class="sidebar-item">Overview</a>
-      <a href="../../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../../../packages/auth/" class="sidebar-item">@zudolib/auth</a>
-      <a href="../../../packages/cache/" class="sidebar-item">@zudolib/cache</a>
-      <a href="../../../packages/cli/" class="sidebar-item">@zudolib/cli</a>
-      <a href="../../../packages/config/" class="sidebar-item">@zudolib/config</a>
-      <a href="../../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../../../packages/container/" class="sidebar-item">@zudolib/container</a>
-      <a href="../../../packages/core/" class="sidebar-item sidebar-item-active">@zudolib/core</a>
-      <a href="../../../packages/cqrs/" class="sidebar-item">@zudolib/cqrs</a>
-      <a href="../../../packages/crypto/" class="sidebar-item">@zudolib/crypto</a>
-      <a href="../../../packages/database/" class="sidebar-item">@zudolib/database</a>
-      <a href="../../../packages/docs/" class="sidebar-item">@zudolib/docs</a>
-      <a href="../../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../../../packages/events/" class="sidebar-item">@zudolib/events</a>
-      <a href="../../../packages/feature-flags/" class="sidebar-item">@zudolib/feature-flags</a>
-      <a href="../../../packages/http/" class="sidebar-item">@zudolib/http</a>
-      <a href="../../../packages/lifecycle/" class="sidebar-item">@zudolib/lifecycle</a>
-      <a href="../../../packages/logger/" class="sidebar-item">@zudolib/logger</a>
-      <a href="../../../packages/messaging/" class="sidebar-item">@zudolib/messaging</a>
-      <a href="../../../packages/middleware/" class="sidebar-item">@zudolib/middleware</a>
-      <a href="../../../packages/observability/" class="sidebar-item">@zudolib/observability</a>
-      <a href="../../../packages/openapi/" class="sidebar-item">@zudolib/openapi</a>
-      <a href="../../../packages/permissions/" class="sidebar-item">@zudolib/permissions</a>
-      <a href="../../../packages/plugins/" class="sidebar-item">@zudolib/plugins</a>
-      <a href="../../../packages/queue/" class="sidebar-item">@zudolib/queue</a>
-      <a href="../../../packages/rpc/" class="sidebar-item">@zudolib/rpc</a>
-      <a href="../../../packages/runtime/" class="sidebar-item">@zudolib/runtime</a>
-      <a href="../../../packages/scheduler/" class="sidebar-item">@zudolib/scheduler</a>
-      <a href="../../../packages/schema/" class="sidebar-item">@zudolib/schema</a>
-      <a href="../../../packages/security/" class="sidebar-item">@zudolib/security</a>
-      <a href="../../../packages/serialization/" class="sidebar-item">@zudolib/serialization</a>
-      <a href="../../../packages/storage/" class="sidebar-item">@zudolib/storage</a>
-      <a href="../../../packages/tenancy/" class="sidebar-item">@zudolib/tenancy</a>
-      <a href="../../../packages/testing/" class="sidebar-item">@zudolib/testing</a>
-      <a href="../../../packages/transactions/" class="sidebar-item">@zudolib/transactions</a>
-      <a href="../../../packages/types/" class="sidebar-item">@zudolib/types</a>
-      <a href="../../../packages/validation/" class="sidebar-item">@zudolib/validation</a>
+      <a href="../../../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../../../packages/auth/" class="sidebar-item">@zudojs/auth</a>
+      <a href="../../../packages/cache/" class="sidebar-item">@zudojs/cache</a>
+      <a href="../../../packages/cli/" class="sidebar-item">@zudojs/cli</a>
+      <a href="../../../packages/config/" class="sidebar-item">@zudojs/config</a>
+      <a href="../../../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../../../packages/container/" class="sidebar-item">@zudojs/container</a>
+      <a href="../../../packages/core/" class="sidebar-item sidebar-item-active">@zudojs/core</a>
+      <a href="../../../packages/cqrs/" class="sidebar-item">@zudojs/cqrs</a>
+      <a href="../../../packages/crypto/" class="sidebar-item">@zudojs/crypto</a>
+      <a href="../../../packages/database/" class="sidebar-item">@zudojs/database</a>
+      <a href="../../../packages/docs/" class="sidebar-item">@zudojs/docs</a>
+      <a href="../../../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../../../packages/events/" class="sidebar-item">@zudojs/events</a>
+      <a href="../../../packages/feature-flags/" class="sidebar-item">@zudojs/feature-flags</a>
+      <a href="../../../packages/http/" class="sidebar-item">@zudojs/http</a>
+      <a href="../../../packages/lifecycle/" class="sidebar-item">@zudojs/lifecycle</a>
+      <a href="../../../packages/logger/" class="sidebar-item">@zudojs/logger</a>
+      <a href="../../../packages/messaging/" class="sidebar-item">@zudojs/messaging</a>
+      <a href="../../../packages/middleware/" class="sidebar-item">@zudojs/middleware</a>
+      <a href="../../../packages/observability/" class="sidebar-item">@zudojs/observability</a>
+      <a href="../../../packages/openapi/" class="sidebar-item">@zudojs/openapi</a>
+      <a href="../../../packages/permissions/" class="sidebar-item">@zudojs/permissions</a>
+      <a href="../../../packages/plugins/" class="sidebar-item">@zudojs/plugins</a>
+      <a href="../../../packages/queue/" class="sidebar-item">@zudojs/queue</a>
+      <a href="../../../packages/rpc/" class="sidebar-item">@zudojs/rpc</a>
+      <a href="../../../packages/runtime/" class="sidebar-item">@zudojs/runtime</a>
+      <a href="../../../packages/scheduler/" class="sidebar-item">@zudojs/scheduler</a>
+      <a href="../../../packages/schema/" class="sidebar-item">@zudojs/schema</a>
+      <a href="../../../packages/security/" class="sidebar-item">@zudojs/security</a>
+      <a href="../../../packages/serialization/" class="sidebar-item">@zudojs/serialization</a>
+      <a href="../../../packages/storage/" class="sidebar-item">@zudojs/storage</a>
+      <a href="../../../packages/tenancy/" class="sidebar-item">@zudojs/tenancy</a>
+      <a href="../../../packages/testing/" class="sidebar-item">@zudojs/testing</a>
+      <a href="../../../packages/transactions/" class="sidebar-item">@zudojs/transactions</a>
+      <a href="../../../packages/types/" class="sidebar-item">@zudojs/types</a>
+      <a href="../../../packages/validation/" class="sidebar-item">@zudojs/validation</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../../../contributing/" class="sidebar-item">Contributing</a>
@@ -169,7 +169,7 @@
         <span class="mx-2">/</span>
         <a href="../../../packages/" class="hover:text-zudo-red">Packages</a>
         <span class="mx-2">/</span>
-        <span class="text-black font-bold">@zudolib/core</span>
+        <span class="text-black font-bold">@zudojs/core</span>
       </nav>
 
       <!-- HEADER -->
@@ -179,7 +179,7 @@
             <span class="text-white font-black text-lg">CORE</span>
           </div>
           <div>
-            <h1 class="text-4xl font-black tracking-tight">@zudolib/core</h1>
+            <h1 class="text-4xl font-black tracking-tight">@zudojs/core</h1>
             <p class="text-gray-500 font-bold mt-1">v1.0.0 — Application Lifecycle, Context & Runtime</p>
           </div>
         </div>
@@ -197,7 +197,7 @@
       <section id="overview" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Overview</h2>
         <p class="mb-4">
-          <code class="bg-gray-100 px-1 font-bold">@zudolib/core</code> is the heart of the Zudo framework. It ties together the container, configuration, logging, modules, and runtime into a cohesive application lifecycle. Every Zudo application starts and stops through this package.
+          <code class="bg-gray-100 px-1 font-bold">@zudojs/core</code> is the heart of the Zudo framework. It ties together the container, configuration, logging, modules, and runtime into a cohesive application lifecycle. Every Zudo application starts and stops through this package.
         </p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
           <div class="border-4 border-black p-3 bg-zudo-red text-white text-center">
@@ -219,7 +219,7 @@
         </div>
         <h3 class="text-xl font-black mt-6 mb-3">Submodule Architecture</h3>
         <div class="code-block">
-<span class="cm">// @zudolib/core re-exports 8 submodules</span>
+<span class="cm">// @zudojs/core re-exports 8 submodules</span>
 contracts   <span class="cm">← Adapter, Handler, Disposable interfaces</span>
 errors      <span class="cm">← FrameworkError and core exception types</span>
 logging     <span class="cm">← Logger interface, BaseLogger, ConsoleLogger</span>
@@ -235,15 +235,15 @@ runtime     <span class="cm">← Runtime state machine, bootstrap, shutdown, env
       <section id="installation" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Installation</h2>
         <div class="code-block">
-npm install @zudolib/core
+npm install @zudojs/core
 
 <span class="cm">// Import everything</span>
-<span class="kw">import</span> { Application, createRuntime } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
+<span class="kw">import</span> { Application, createRuntime } <span class="kw">from</span> <span class="str">"@zudojs/core"</span>;
 
 <span class="cm">// Import specific submodules</span>
-<span class="kw">import</span> { Logger, LogLevel } <span class="kw">from</span> <span class="str">"@zudolib/core/logging"</span>;
-<span class="kw">import</span> { Module, BaseModule } <span class="kw">from</span> <span class="str">"@zudolib/core/modules"</span>;
-<span class="kw">import</span> { Runtime, RuntimeState } <span class="kw">from</span> <span class="str">"@zudolib/core/runtime"</span>;
+<span class="kw">import</span> { Logger, LogLevel } <span class="kw">from</span> <span class="str">"@zudojs/core/logging"</span>;
+<span class="kw">import</span> { Module, BaseModule } <span class="kw">from</span> <span class="str">"@zudojs/core/modules"</span>;
+<span class="kw">import</span> { Runtime, RuntimeState } <span class="kw">from</span> <span class="str">"@zudojs/core/runtime"</span>;
         </div>
       </section>
 
@@ -267,7 +267,7 @@ npm install @zudolib/core
 
         <h3 class="text-xl font-black mt-6 mb-3">Creating & Using an Application</h3>
         <div class="code-block">
-<span class="kw">import</span> { Application } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
+<span class="kw">import</span> { Application } <span class="kw">from</span> <span class="str">"@zudojs/core"</span>;
 
 <span class="cm">// Static factory — creates and initializes</span>
 <span class="kw">const</span> app = <span class="kw">await</span> Application.<span class="fn">create</span>({
@@ -406,7 +406,7 @@ console.<span class="fn">log</span>(app.state);  <span class="cm">// "stopped"</
 
         <h3 class="text-xl font-black mt-6 mb-3">Creating & Using Context</h3>
         <div class="code-block">
-<span class="kw">import</span> { createContext, ContextProvider } <span class="kw">from</span> <span class="str">"@zudolib/core/context"</span>;
+<span class="kw">import</span> { createContext, ContextProvider } <span class="kw">from</span> <span class="str">"@zudojs/core/context"</span>;
 
 <span class="cm">// Create a context for an HTTP request</span>
 <span class="kw">const</span> ctx = <span class="fn">createContext</span>({
@@ -425,7 +425,7 @@ ctx.<span class="fn">set</span>(<span class="str">"userId"</span>, <span class="
 
         <h3 class="text-xl font-black mt-6 mb-3">ContextProvider</h3>
         <div class="code-block">
-<span class="kw">import</span> { createContextProvider } <span class="kw">from</span> <span class="str">"@zudolib/core/context"</span>;
+<span class="kw">import</span> { createContextProvider } <span class="kw">from</span> <span class="str">"@zudojs/core/context"</span>;
 
 <span class="kw">const</span> provider = <span class="fn">createContextProvider</span>();
 
@@ -443,7 +443,7 @@ provider.<span class="fn">has</span>()  <span class="cm">// false (outside run)<
         <h3 class="text-xl font-black mt-6 mb-3">Context Snapshot</h3>
         <div class="code-block">
 <span class="cm">// Capture and restore context state</span>
-<span class="kw">import</span> { createSnapshot } <span class="kw">from</span> <span class="str">"@zudolib/core/context"</span>;
+<span class="kw">import</span> { createSnapshot } <span class="kw">from</span> <span class="str">"@zudojs/core/context"</span>;
 
 <span class="kw">const</span> snapshot = <span class="fn">createSnapshot</span>(ctx);
 <span class="cm">// Later... restore the snapshot</span>
@@ -472,7 +472,7 @@ provider.<span class="fn">has</span>()  <span class="cm">// false (outside run)<
         <h3 class="text-xl font-black mt-6 mb-3">LifecycleManager</h3>
         <div class="code-block">
 <span class="cm">// The LifecycleManager orchestrates startup/shutdown order</span>
-<span class="kw">import</span> { LifecycleManager } <span class="kw">from</span> <span class="str">"@zudolib/core/lifecycle"</span>;
+<span class="kw">import</span> { LifecycleManager } <span class="kw">from</span> <span class="str">"@zudojs/core/lifecycle"</span>;
 
 <span class="cm">// Components register with the manager</span>
 manager.<span class="fn">register</span>(componentA);
@@ -516,7 +516,7 @@ manager.<span class="fn">register</span>(componentB);
 
         <h3 class="text-xl font-black mt-6 mb-3">BaseModule (Abstract Class)</h3>
         <div class="code-block">
-<span class="kw">import</span> { BaseModule, ModuleContext } <span class="kw">from</span> <span class="str">"@zudolib/core/modules"</span>;
+<span class="kw">import</span> { BaseModule, ModuleContext } <span class="kw">from</span> <span class="str">"@zudojs/core/modules"</span>;
 
 <span class="kw">class</span> <span class="tp">AuthModule</span> <span class="kw">extends</span> <span class="tp">BaseModule</span> {
   <span class="kw">readonly</span> id = <span class="str">"auth"</span>;
@@ -539,7 +539,7 @@ manager.<span class="fn">register</span>(componentB);
 
         <h3 class="text-xl font-black mt-6 mb-3">ModuleDefinition</h3>
         <div class="code-block">
-<span class="kw">import</span> { defineModule } <span class="kw">from</span> <span class="str">"@zudolib/core/modules"</span>;
+<span class="kw">import</span> { defineModule } <span class="kw">from</span> <span class="str">"@zudojs/core/modules"</span>;
 
 <span class="kw">const</span> AuthModuleDef = <span class="fn">defineModule</span>({
   id: <span class="str">"auth"</span>,
@@ -568,7 +568,7 @@ manager.<span class="fn">register</span>(componentB);
 
         <h3 class="text-xl font-black mt-6 mb-3">Module Registry</h3>
         <div class="code-block">
-<span class="kw">import</span> { ModuleRegistry } <span class="kw">from</span> <span class="str">"@zudolib/core/modules"</span>;
+<span class="kw">import</span> { ModuleRegistry } <span class="kw">from</span> <span class="str">"@zudojs/core/modules"</span>;
 
 <span class="cm">// Register modules</span>
 registry.<span class="fn">register</span>(AuthModuleDef);
@@ -605,7 +605,7 @@ registry.<span class="fn">subscribe</span>((event) =&gt; {
 
         <h3 class="text-xl font-black mt-6 mb-3">ConfigurationManager</h3>
         <div class="code-block">
-<span class="kw">import</span> { ConfigurationManager, createConfigurationManager } <span class="kw">from</span> <span class="str">"@zudolib/core/configuration"</span>;
+<span class="kw">import</span> { ConfigurationManager, createConfigurationManager } <span class="kw">from</span> <span class="str">"@zudojs/core/configuration"</span>;
 
 <span class="kw">const</span> config = <span class="fn">createConfigurationManager</span>();
 
@@ -675,7 +675,7 @@ registry.<span class="fn">subscribe</span>((event) =&gt; {
   isRuntimeReady, isRuntimeFailed, isRuntimeTerminal,
   isRuntimeTransitioning, canStartRuntime, canStopRuntime,
   getRuntimeStateLabel, getNextRuntimeStates
-} <span class="kw">from</span> <span class="str">"@zudolib/core/runtime"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/core/runtime"</span>;
 
 <span class="fn">isRuntimeReady</span>(RuntimeState.READY)        <span class="cm">// true</span>
 <span class="fn">isRuntimeTerminal</span>(RuntimeState.STOPPED)   <span class="cm">// true</span>
@@ -690,7 +690,7 @@ registry.<span class="fn">subscribe</span>((event) =&gt; {
 <span class="kw">import</span> {
   createRuntimeContext, createRuntimeEnvironment,
   detectRuntimeEngine, detectPlatform, detectCI, detectContainer
-} <span class="kw">from</span> <span class="str">"@zudolib/core/runtime"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/core/runtime"</span>;
 
 <span class="kw">const</span> ctx = <span class="fn">createRuntimeContext</span>({ <span class="cm">/* deps */</span> });
 <span class="kw">const</span> env = <span class="fn">createRuntimeEnvironment</span>();
@@ -703,7 +703,7 @@ registry.<span class="fn">subscribe</span>((event) =&gt; {
 
         <h3 class="text-xl font-black mt-6 mb-3">Runtime Options</h3>
         <div class="code-block">
-<span class="kw">import</span> { resolveRuntimeOptions, RuntimeMode } <span class="kw">from</span> <span class="str">"@zudolib/core/runtime"</span>;
+<span class="kw">import</span> { resolveRuntimeOptions, RuntimeMode } <span class="kw">from</span> <span class="str">"@zudojs/core/runtime"</span>;
 
 <span class="kw">const</span> options = <span class="fn">resolveRuntimeOptions</span>({
   mode: RuntimeMode.PRODUCTION,
@@ -726,7 +726,7 @@ registry.<span class="fn">subscribe</span>((event) =&gt; {
       <!-- ==================== ERRORS ==================== -->
       <section id="errors" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Errors</h2>
-        <p class="mb-4">All errors extend <code class="bg-gray-100 px-1 font-bold">FrameworkError</code> (which extends <code class="bg-gray-100 px-1 font-bold">ApplicationError</code> from <code class="bg-gray-100 px-1 font-bold">@zudolib/errors</code>).</p>
+        <p class="mb-4">All errors extend <code class="bg-gray-100 px-1 font-bold">FrameworkError</code> (which extends <code class="bg-gray-100 px-1 font-bold">ApplicationError</code> from <code class="bg-gray-100 px-1 font-bold">@zudojs/errors</code>).</p>
 
         <div class="border-4 border-black">
         <table class="w-full text-sm">
@@ -750,8 +750,8 @@ registry.<span class="fn">subscribe</span>((event) =&gt; {
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Testing</h2>
         <div class="code-block">
 <span class="kw">import</span> { describe, it, expect, beforeEach } <span class="kw">from</span> <span class="str">"vitest"</span>;
-<span class="kw">import</span> { Application, createContextProvider, createContext } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
-<span class="kw">import</span> { BaseModule, ModuleContext } <span class="kw">from</span> <span class="str">"@zudolib/core/modules"</span>;
+<span class="kw">import</span> { Application, createContextProvider, createContext } <span class="kw">from</span> <span class="str">"@zudojs/core"</span>;
+<span class="kw">import</span> { BaseModule, ModuleContext } <span class="kw">from</span> <span class="str">"@zudojs/core/modules"</span>;
 
 <span class="fn">describe</span>(<span class="str">"AuthModule"</span>, () =&gt; {
   <span class="kw">let</span> app: <span class="tp">Application</span>;
@@ -791,14 +791,14 @@ registry.<span class="fn">subscribe</span>((event) =&gt; {
         <table class="w-full text-sm">
           <thead class="bg-black text-white"><tr><th class="p-3 text-left">Package</th><th class="p-3 text-left">Relationship</th></tr></thead>
           <tbody>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/errors</td><td class="px-4 py-2">Dependency — FrameworkError extends ApplicationError</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/constants</td><td class="px-4 py-2">Dependency — LifecycleState, time constants</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/messaging</td><td class="px-4 py-2">Dependency — inter-module messaging</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/container</td><td class="px-4 py-2">Consumer — DI container for module dependencies</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/config</td><td class="px-4 py-2">Consumer — configuration sources and schemas</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/logger</td><td class="px-4 py-2">Consumer — structured logging transports</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/events</td><td class="px-4 py-2">Consumer — event bus for module communication</td></tr>
-            <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/http</td><td class="px-4 py-2">Consumer — HTTP adapter lifecycle</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/errors</td><td class="px-4 py-2">Dependency — FrameworkError extends ApplicationError</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/constants</td><td class="px-4 py-2">Dependency — LifecycleState, time constants</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/messaging</td><td class="px-4 py-2">Dependency — inter-module messaging</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/container</td><td class="px-4 py-2">Consumer — DI container for module dependencies</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/config</td><td class="px-4 py-2">Consumer — configuration sources and schemas</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/logger</td><td class="px-4 py-2">Consumer — structured logging transports</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/events</td><td class="px-4 py-2">Consumer — event bus for module communication</td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/http</td><td class="px-4 py-2">Consumer — HTTP adapter lifecycle</td></tr>
           </tbody>
         </table>
         </div>
@@ -809,7 +809,7 @@ registry.<span class="fn">subscribe</span>((event) =&gt; {
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Version Compatibility</h2>
         <div class="border-4 border-black">
         <table class="w-full text-sm">
-          <thead class="bg-black text-white"><tr><th class="p-3 text-left">@zudolib/core</th><th class="p-3 text-left">TypeScript</th><th class="p-3 text-left">Node.js</th><th class="p-3 text-left">Module</th></tr></thead>
+          <thead class="bg-black text-white"><tr><th class="p-3 text-left">@zudojs/core</th><th class="p-3 text-left">TypeScript</th><th class="p-3 text-left">Node.js</th><th class="p-3 text-left">Module</th></tr></thead>
           <tbody>
             <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">1.0.x</td><td class="px-4 py-2">5.x – 7.x</td><td class="px-4 py-2">≥ 24.0</td><td class="px-4 py-2">ESM</td></tr>
           </tbody>
@@ -834,38 +834,38 @@ registry.<span class="fn">subscribe</span>((event) =&gt; {
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Quick Reference</h2>
         <div class="code-block">
 <span class="cm">// ─── Application ───</span>
-<span class="kw">import</span> { Application } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
+<span class="kw">import</span> { Application } <span class="kw">from</span> <span class="str">"@zudojs/core"</span>;
 
 <span class="cm">// ─── Contracts ───</span>
-<span class="kw">import</span> { Adapter, Handler, createHandler, Disposable } <span class="kw">from</span> <span class="str">"@zudolib/core/contracts"</span>;
+<span class="kw">import</span> { Adapter, Handler, createHandler, Disposable } <span class="kw">from</span> <span class="str">"@zudojs/core/contracts"</span>;
 
 <span class="cm">// ─── Logging ───</span>
-<span class="kw">import</span> { Logger, LogLevel, BaseLogger, LogEntry, LogContext } <span class="kw">from</span> <span class="str">"@zudolib/core/logging"</span>;
+<span class="kw">import</span> { Logger, LogLevel, BaseLogger, LogEntry, LogContext } <span class="kw">from</span> <span class="str">"@zudojs/core/logging"</span>;
 
 <span class="cm">// ─── Lifecycle ───</span>
-<span class="kw">import</span> { LifecycleManager } <span class="kw">from</span> <span class="str">"@zudolib/core/lifecycle"</span>;
+<span class="kw">import</span> { LifecycleManager } <span class="kw">from</span> <span class="str">"@zudojs/core/lifecycle"</span>;
 
 <span class="cm">// ─── Context ───</span>
-<span class="kw">import</span> { createContext, createContextProvider, ContextType } <span class="kw">from</span> <span class="str">"@zudolib/core/context"</span>;
+<span class="kw">import</span> { createContext, createContextProvider, ContextType } <span class="kw">from</span> <span class="str">"@zudojs/core/context"</span>;
 
 <span class="cm">// ─── Configuration ───</span>
-<span class="kw">import</span> { ConfigurationManager, createConfigurationManager } <span class="kw">from</span> <span class="str">"@zudolib/core/configuration"</span>;
+<span class="kw">import</span> { ConfigurationManager, createConfigurationManager } <span class="kw">from</span> <span class="str">"@zudojs/core/configuration"</span>;
 
 <span class="cm">// ─── Modules ───</span>
 <span class="kw">import</span> {
   Module, BaseModule, ModuleId, ModuleDefinition, defineModule,
   ModuleRegistry, ModuleContext, isModule, createModule
-} <span class="kw">from</span> <span class="str">"@zudolib/core/modules"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/core/modules"</span>;
 
 <span class="cm">// ─── Runtime ───</span>
 <span class="kw">import</span> {
   Runtime, RuntimeState, createRuntime,
   isRuntimeReady, isRuntimeTerminal, getRuntimeStateLabel,
   createRuntimeContext, createRuntimeEnvironment
-} <span class="kw">from</span> <span class="str">"@zudolib/core/runtime"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/core/runtime"</span>;
 
 <span class="cm">// ─── Errors ───</span>
-<span class="kw">import</span> { FrameworkError, ErrorCode } <span class="kw">from</span> <span class="str">"@zudolib/core/errors"</span>;
+<span class="kw">import</span> { FrameworkError, ErrorCode } <span class="kw">from</span> <span class="str">"@zudojs/core/errors"</span>;
         </div>
       </section>
 

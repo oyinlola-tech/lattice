@@ -1,4 +1,4 @@
-import { Query } from "@zudolib/cqrs";
+import { Query } from "@zudojs/cqrs";
 
 export const GET_NOTIFICATIONS_QUERY = "notification.list" as const;
 

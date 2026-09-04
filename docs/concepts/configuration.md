@@ -1,6 +1,6 @@
 # Configuration
 
-Zudolib uses a layered configuration system with clear precedence.
+Zudojs uses a layered configuration system with clear precedence.
 
 ## Sources
 
@@ -8,14 +8,14 @@ Configuration is loaded from multiple sources in order of priority:
 
 1. **Environment variables** — highest priority
 2. **`.env` files**
-3. **`zudolib.config.ts` / `zudolib.config.js`**
-4. **`package.json#zudolib`**
+3. **`zudojs.config.ts` / `zudojs.config.js`**
+4. **`package.json#zudojs`**
 5. **Defaults** — lowest priority
 
 ## Example
 
 ```typescript
-// zudolib.config.ts
+// zudojs.config.ts
 export default {
   architecture: "monolith",
   database: {
@@ -38,4 +38,4 @@ Values matching sensitive patterns (`password`, `secret`, `token`, `api_key`) ar
 
 ## Type Safety
 
-Configuration schemas are defined with `@zudolib/schema` or `@zudolib/validation`, giving compile-time safety and runtime validation.
+Configuration schemas are defined with `@zudojs/schema` or `@zudojs/validation`, giving compile-time safety and runtime validation.

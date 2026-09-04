@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Package Rules — Zudo Framework</title>
-  <meta name="description" content="Conventions and constraints that all @zudolib packages must follow. File naming, folder organization, code style, imports, testing, and dependency direction.">
+  <meta name="description" content="Conventions and constraints that all @zudojs packages must follow. File naming, folder organization, code style, imports, testing, and dependency direction.">
   <meta name="keywords" content="zudo, package rules, conventions, file naming, folder organization, code style, imports, testing, dependency direction, type ownership">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://zudo.dev/docs/rules.html">
 
   <meta property="og:title" content="Package Rules — Zudo Framework">
-  <meta property="og:description" content="Conventions and constraints that all @zudolib packages must follow.">
+  <meta property="og:description" content="Conventions and constraints that all @zudojs packages must follow.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://zudo.dev/docs/rules.html">
   <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
@@ -18,7 +18,7 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Package Rules — Zudo Framework">
-  <meta name="twitter:description" content="Conventions and constraints that all @zudolib packages must follow.">
+  <meta name="twitter:description" content="Conventions and constraints that all @zudojs packages must follow.">
 
   <link rel="icon" type="image/svg+xml" href="../assets/zudo-favicon.svg">
 
@@ -50,7 +50,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Package Rules — Zudo Framework",
-    "description": "Conventions and constraints that all @zudolib packages must follow.",
+    "description": "Conventions and constraints that all @zudojs packages must follow.",
     "programmingLanguage": "TypeScript",
     "license": "https://opensource.org/licenses/MIT",
     "repository": { "@type": "CodeRepository", "url": "https://github.com/oyinlola-tech/zudo" },
@@ -159,7 +159,7 @@
           </nav>
           <h1 class="text-hero text-white mb-4">PACKAGE RULES</h1>
           <p class="text-lg text-white/70 max-w-2xl leading-relaxed">
-            Conventions and constraints that all @zudolib packages must follow.
+            Conventions and constraints that all @zudojs packages must follow.
           </p>
         </div>
       </header>
@@ -277,8 +277,8 @@
 <span class="cmt">// 2. External packages</span>
 <span class="kw">import</span> { z } <span class="kw">from</span> <span class="str">"zod"</span>;
 
-<span class="cmt">// 3. Shared @zudolib/* packages</span>
-<span class="kw">import</span> { BaseError, ErrorCode } <span class="kw">from</span> <span class="str">"@zudolib/errors.js"</span>;
+<span class="cmt">// 3. Shared @zudojs/* packages</span>
+<span class="kw">import</span> { BaseError, ErrorCode } <span class="kw">from</span> <span class="str">"@zudojs/errors.js"</span>;
 
 <span class="cmt">// 4. Internal imports (same package, with .js extension)</span>
 <span class="kw">import</span> { createEventBus } <span class="kw">from</span> <span class="str">"./eventBus/index.js"</span>;</div>
@@ -335,38 +335,38 @@ core (depends on all above)</div>
               <tbody>
                 <tr>
                   <td>EntityId, UserId, EventId</td>
-                  <td><span class="code-inline">@zudolib/constants</span></td>
-                  <td><span class="code-inline">import type { EventId } from "@zudolib/constants"</span></td>
+                  <td><span class="code-inline">@zudojs/constants</span></td>
+                  <td><span class="code-inline">import type { EventId } from "@zudojs/constants"</span></td>
                 </tr>
                 <tr>
                   <td>BaseError, ErrorCode</td>
-                  <td><span class="code-inline">@zudolib/errors</span></td>
-                  <td><span class="code-inline">import { ApplicationError } from "@zudolib/errors"</span></td>
+                  <td><span class="code-inline">@zudojs/errors</span></td>
+                  <td><span class="code-inline">import { ApplicationError } from "@zudojs/errors"</span></td>
                 </tr>
                 <tr>
                   <td>Logger, LogLevel</td>
-                  <td><span class="code-inline">@zudolib/logger</span></td>
-                  <td><span class="code-inline">import type { Logger } from "@zudolib/logger"</span></td>
+                  <td><span class="code-inline">@zudojs/logger</span></td>
+                  <td><span class="code-inline">import type { Logger } from "@zudojs/logger"</span></td>
                 </tr>
                 <tr>
                   <td>EventBus, EventHandler</td>
-                  <td><span class="code-inline">@zudolib/events</span></td>
-                  <td><span class="code-inline">import type { EventBus } from "@zudolib/events"</span></td>
+                  <td><span class="code-inline">@zudojs/events</span></td>
+                  <td><span class="code-inline">import type { EventBus } from "@zudojs/events"</span></td>
                 </tr>
                 <tr>
                   <td>Container, Token</td>
-                  <td><span class="code-inline">@zudolib/container</span></td>
-                  <td><span class="code-inline">import type { Container } from "@zudolib/container"</span></td>
+                  <td><span class="code-inline">@zudojs/container</span></td>
+                  <td><span class="code-inline">import type { Container } from "@zudojs/container"</span></td>
                 </tr>
                 <tr>
                   <td>Middleware, MiddlewareContext</td>
-                  <td><span class="code-inline">@zudolib/middleware</span></td>
-                  <td><span class="code-inline">import type { Middleware } from "@zudolib/middleware"</span></td>
+                  <td><span class="code-inline">@zudojs/middleware</span></td>
+                  <td><span class="code-inline">import type { Middleware } from "@zudojs/middleware"</span></td>
                 </tr>
                 <tr>
                   <td>Maybe, DeepReadonly, isPlainObject</td>
-                  <td><span class="code-inline">@zudolib/types</span></td>
-                  <td><span class="code-inline">import { isPlainObject } from "@zudolib/types"</span></td>
+                  <td><span class="code-inline">@zudojs/types</span></td>
+                  <td><span class="code-inline">import { isPlainObject } from "@zudojs/types"</span></td>
                 </tr>
               </tbody>
             </table>
@@ -406,7 +406,7 @@ core (depends on all above)</div>
           <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-zudo-red">Community</h4>
           <ul class="space-y-2 text-sm text-white/50">
             <li><a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="hover:text-white">GitHub</a></li>
-            <li><a href="https://www.npmjs.com/org/zudolib" target="_blank" rel="noopener" class="hover:text-white">npm</a></li>
+            <li><a href="https://www.npmjs.com/org/zudojs" target="_blank" rel="noopener" class="hover:text-white">npm</a></li>
             <li><a href="./contributing/" class="hover:text-white">Contributing</a></li>
           </ul>
         </div>

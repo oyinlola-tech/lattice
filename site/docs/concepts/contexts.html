@@ -123,10 +123,10 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../packages/" class="sidebar-item">Overview</a>
-      <a href="../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -166,7 +166,7 @@
             </p>
             <div class="callout callout-note mb-6">
               <strong class="text-sm uppercase tracking-wider text-zudo-blue">Architecture Position</strong>
-              <p class="text-sm mt-1">Contexts are a runtime primitive used by <span class="code-inline">@zudolib/core</span>, <span class="code-inline">@zudolib/tenancy</span>, <span class="code-inline">@zudolib/transactions</span>, and <span class="code-inline">@zudolib/observability</span>.</p>
+              <p class="text-sm mt-1">Contexts are a runtime primitive used by <span class="code-inline">@zudojs/core</span>, <span class="code-inline">@zudojs/tenancy</span>, <span class="code-inline">@zudojs/transactions</span>, and <span class="code-inline">@zudojs/observability</span>.</p>
             </div>
           </section>
 
@@ -192,7 +192,7 @@
             <p class="text-body text-black/80 mb-4">
               Node.js <span class="code-inline">AsyncLocalStorage</span> creates a context that persists across all async operations within a single request. Zudo wraps this in a <span class="code-inline">ContextProvider</span>.
             </p>
-            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="tp">ContextProvider</span> } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
+            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="tp">ContextProvider</span> } <span class="kw">from</span> <span class="str">"@zudojs/core"</span>;
 
 <span class="kw">const</span> ctx = <span class="kw">new</span> <span class="tp">ContextProvider</span>();
 

@@ -1,5 +1,5 @@
-import { QueryHandler } from "@zudolib/cqrs";
-import type { CqrsContext } from "@zudolib/cqrs";
+import { QueryHandler } from "@zudojs/cqrs";
+import type { CqrsContext } from "@zudojs/cqrs";
 import type { GetUserProfileQuery } from "./get-user-profile.query.js";
 import type { UserRepository } from "../../../../repositories/index.js";
 import type { UserModel } from "../../../../models/user.model.js";

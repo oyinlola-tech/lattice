@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoEncoding
+ * @zudojs/crypto/cryptoEncoding
  *
  * Encoding and decoding utilities (hex, base64, UTF-8).
  */

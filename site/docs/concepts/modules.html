@@ -123,10 +123,10 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../packages/" class="sidebar-item">Overview</a>
-      <a href="../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -166,7 +166,7 @@
             </p>
             <div class="callout callout-note mb-6">
               <strong class="text-sm uppercase tracking-wider text-zudo-blue">Architecture Position</strong>
-              <p class="text-sm mt-1">Modules live in <span class="code-inline">@zudolib/core</span> and are orchestrated by <span class="code-inline">@zudolib/runtime</span>.</p>
+              <p class="text-sm mt-1">Modules live in <span class="code-inline">@zudojs/core</span> and are orchestrated by <span class="code-inline">@zudojs/runtime</span>.</p>
             </div>
           </section>
 
@@ -176,7 +176,7 @@
             <p class="text-body text-black/80 mb-4">
               A module is defined by implementing the <span class="code-inline">Module</span> interface. It declares its name, dependencies, and a setup function.
             </p>
-            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="tp">Module</span> } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
+            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="tp">Module</span> } <span class="kw">from</span> <span class="str">"@zudojs/core"</span>;
 
 <span class="kw">const</span> <span class="tp">AuthModule</span>: <span class="tp">Module</span> = {
   <span class="op">name:</span> <span class="str">"auth"</span>,
@@ -224,7 +224,7 @@
             <p class="text-body text-black/80 mb-4">
               Modules are registered with the application before startup. The runtime orchestrator handles initialization.
             </p>
-            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="fn">createApp</span> } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
+            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="fn">createApp</span> } <span class="kw">from</span> <span class="str">"@zudojs/core"</span>;
 
 <span class="kw">const</span> app = <span class="fn">createApp</span>({
   <span class="op">modules:</span> [

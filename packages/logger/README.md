@@ -1,17 +1,17 @@
-# @zudolib/logger
+# @zudojs/logger
 
-Structured logging with transports, log levels, and context propagation for Zudolib applications.
+Structured logging with transports, log levels, and context propagation for Zudojs applications.
 
 ## Installation
 
 ```bash
-npm install @zudolib/logger
+npm install @zudojs/logger
 ```
 
 ## Quick Start
 
 ```typescript
-import { createLogger } from "@zudolib/logger";
+import { createLogger } from "@zudojs/logger";
 
 const logger = createLogger({ name: "api" });
 

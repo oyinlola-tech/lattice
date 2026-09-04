@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@zudolib/database — Database Infrastructure Documentation</title>
-  <meta name="description" content="Complete documentation for @zudolib/database — database clients, repositories, transactions, migrations, seeding, caching, and connection management.">
+  <title>@zudojs/database — Database Infrastructure Documentation</title>
+  <meta name="description" content="Complete documentation for @zudojs/database — database clients, repositories, transactions, migrations, seeding, caching, and connection management.">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -96,10 +96,10 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../../packages/" class="sidebar-item">Overview</a>
-      <a href="../../../packages/database/" class="sidebar-item sidebar-item-active">@zudolib/database</a>
-      <a href="../../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../../../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../../../packages/database/" class="sidebar-item sidebar-item-active">@zudojs/database</a>
+      <a href="../../../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../../../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../../../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../../../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -116,13 +116,13 @@
         <span class="mx-2 text-black/30">/</span>
         <a href="../../../packages/" class="hover:text-zudo-blue">Packages</a>
         <span class="mx-2 text-black/30">/</span>
-        <span class="text-black/50">@zudolib/database</span>
+        <span class="text-black/50">@zudojs/database</span>
       </div>
 
       <!-- Header -->
       <div class="border-4 border-black p-8 mb-10 relative">
         <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v1.0.0</div>
-        <h1 class="text-4xl font-black mb-3 mt-2">@zudolib/database</h1>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/database</h1>
         <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
           Database infrastructure for Zudo — Prisma-backed clients, generic repositories, query builders, managed transactions, unit-of-work, pagination, migrations, seeding, advisory locks, caching, health checks, and relation definitions.
         </p>
@@ -139,13 +139,13 @@
       <section id="installation" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
         <div class="code-block mb-4"><span class="cm">// npm</span>
-npm install @zudolib/database
+npm install @zudojs/database
 
 <span class="cm">// pnpm</span>
-pnpm add @zudolib/database</div>
+pnpm add @zudojs/database</div>
 
         <div class="callout callout-note">
-          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudolib/database depends on <code>@zudolib/errors</code> (v1.0.0) and <code>@prisma/client</code>. You must have a working Prisma setup with a <code>schema.prisma</code> file.
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/database depends on <code>@zudojs/errors</code> (v1.0.0) and <code>@prisma/client</code>. You must have a working Prisma setup with a <code>schema.prisma</code> file.
         </div>
       </section>
 
@@ -153,7 +153,7 @@ pnpm add @zudolib/database</div>
       <section id="what-it-does" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
         <p class="mb-4 leading-relaxed">
-          <code class="bg-black/5 px-1">@zudolib/database</code> provides the full data-access layer for Zudo applications:
+          <code class="bg-black/5 px-1">@zudojs/database</code> provides the full data-access layer for Zudo applications:
         </p>
         <ul class="space-y-2 mb-6">
           <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>DatabaseClient</strong> — Prisma-backed client with connection lifecycle, health checks, and raw query support</li>
@@ -182,7 +182,7 @@ pnpm add @zudolib/database</div>
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
         <div class="border-4 border-black p-6 space-y-3">
           <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">APPLICATION LAYER (Services, Handlers, CQRS)</div>
-          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">DATABASE LAYER (@zudolib/database)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">DATABASE LAYER (@zudojs/database)</div>
           <div class="bg-black text-white p-3 font-bold text-center text-sm">PRISMA CLIENT (@prisma/client)</div>
           <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">DATABASE ENGINE (PostgreSQL, MySQL, SQLite)</div>
         </div>
@@ -205,7 +205,7 @@ pnpm add @zudolib/database</div>
             </thead>
             <tbody>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono text-sm">@zudolib/errors</td>
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Database error hierarchy (ConnectionError, QueryError, TransactionError)</td>
               </tr>
@@ -228,7 +228,7 @@ pnpm add @zudolib/database</div>
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CORE API — DATABASE CLIENT</h2>
 
         <p class="mb-4">
-          The <code class="bg-black/5 px-1">DatabaseClient</code> wraps a Prisma client with connection lifecycle, health checks, and raw query support. It implements the <code>Adapter</code> contract from <code>@zudolib/adapters</code>.
+          The <code class="bg-black/5 px-1">DatabaseClient</code> wraps a Prisma client with connection lifecycle, health checks, and raw query support. It implements the <code>Adapter</code> contract from <code>@zudojs/adapters</code>.
         </p>
 
         <div class="code-block"><span class="kw">interface</span> <span class="tp">DatabaseClientOptions</span> {
@@ -319,7 +319,7 @@ pnpm add @zudolib/database</div>
         </div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example: Using the Client</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">DatabaseClient</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">DatabaseClient</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> client = <span class="kw">new</span> <span class="fn">DatabaseClient</span>({
   provider: <span class="str">"postgresql"</span>,
@@ -374,7 +374,7 @@ console.<span class="fn">log</span>(health.latency); <span class="cm">// 12</spa
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example: Full Database Lifecycle</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="fn">createDatabase</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createDatabase</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> db = <span class="fn">createDatabase</span>({
   provider: <span class="str">"postgresql"</span>,
@@ -456,7 +456,7 @@ console.<span class="fn">log</span>(health.latency); <span class="cm">// 12</spa
         </div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example: Event-Driven Monitoring</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">DatabaseConnectionManager</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">DatabaseConnectionManager</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> manager = <span class="kw">new</span> <span class="fn">DatabaseConnectionManager</span>(client, {
   healthCheckInterval: <span class="num">15000</span>,
@@ -514,7 +514,7 @@ manager.<span class="fn">startHealthChecks</span>();   <span class="cm">// Perio
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example: Custom Repository</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">BaseRepository</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">BaseRepository</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">interface</span> <span class="tp">User</span> {
   id: <span class="tp">string</span>;
@@ -564,7 +564,7 @@ manager.<span class="fn">startHealthChecks</span>();   <span class="cm">// Perio
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example: Building Queries</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">QueryBuilder</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">QueryBuilder</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="cm">// Simple filter</span>
 <span class="kw">const</span> query = <span class="kw">new</span> <span class="fn">QueryBuilder</span>&lt;<span class="tp">User</span>&gt;()
@@ -599,7 +599,7 @@ manager.<span class="fn">startHealthChecks</span>();   <span class="cm">// Perio
         <div class="code-block"><span class="kw">import</span> {
   <span class="fn">equals</span>, <span class="fn">not</span>, <span class="fn">gt</span>, <span class="fn">gte</span>, <span class="fn">lt</span>, <span class="fn">lte</span>,
   <span class="fn">inList</span>, <span class="fn">notInList</span>, <span class="fn">between</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="fn">equals</span>(<span class="str">"status"</span>, <span class="str">"active"</span>);           <span class="cm">// { field: "status", op: "equals", value: "active" }</span>
 <span class="fn">not</span>(<span class="str">"role"</span>, <span class="str">"guest"</span>);                 <span class="cm">// { field: "role", op: "not", value: "guest" }</span>
@@ -615,7 +615,7 @@ manager.<span class="fn">startHealthChecks</span>();   <span class="cm">// Perio
         <div class="code-block"><span class="kw">import</span> {
   <span class="fn">contains</span>, <span class="fn">startsWith</span>, <span class="fn">endsWith</span>,
   <span class="fn">matchesPattern</span>, <span class="fn">isEmpty</span>, <span class="fn">isNotEmpty</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="fn">contains</span>(<span class="str">"name"</span>, <span class="str">"john"</span>);          <span class="cm">// LIKE %john%</span>
 <span class="fn">startsWith</span>(<span class="str">"email"</span>, <span class="str">"admin@"</span>);     <span class="cm">// LIKE admin@%</span>
@@ -628,7 +628,7 @@ manager.<span class="fn">startHealthChecks</span>();   <span class="cm">// Perio
         <div class="code-block"><span class="kw">import</span> {
   <span class="fn">dateRange</span>, <span class="fn">dateOnly</span>, <span class="fn">timeOnly</span>, <span class="fn">timestamp</span>,
   <span class="fn">isBefore</span>, <span class="fn">isAfter</span>, <span class="fn">isBetween</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="fn">dateRange</span>(<span class="str">"createdAt"</span>, startDate, endDate);
 <span class="fn">dateOnly</span>(<span class="str">"birthDate"</span>, <span class="str">"2000-01-15"</span>);
@@ -637,7 +637,7 @@ manager.<span class="fn">startHealthChecks</span>();   <span class="cm">// Perio
 <span class="fn">isBetween</span>(<span class="str">"createdAt"</span>, startOfMonth, endOfMonth);</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Logical Composition</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="fn">and</span>, <span class="fn">or</span>, <span class="fn">notCondition</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">and</span>, <span class="fn">or</span>, <span class="fn">notCondition</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> filter = <span class="fn">and</span>(
   <span class="fn">equals</span>(<span class="str">"active"</span>, <span class="num">true</span>),
@@ -649,7 +649,7 @@ manager.<span class="fn">startHealthChecks</span>();   <span class="cm">// Perio
 );</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Relational Filters</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="fn">relational</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">relational</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="cm">// Filter through relations</span>
 <span class="kw">const</span> filter = <span class="fn">relational</span>(<span class="str">"orders"</span>, <span class="fn">gt</span>(<span class="str">"total"</span>, <span class="num">100</span>));
@@ -688,7 +688,7 @@ manager.<span class="fn">startHealthChecks</span>();   <span class="cm">// Perio
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example: Managed Transactions</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">TransactionManager</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">TransactionManager</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> txManager = <span class="kw">new</span> <span class="fn">TransactionManager</span>(client);
 
@@ -741,7 +741,7 @@ manager.<span class="fn">startHealthChecks</span>();   <span class="cm">// Perio
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example: Unit of Work</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">DatabaseUnitOfWork</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">DatabaseUnitOfWork</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> uow = <span class="kw">new</span> <span class="fn">DatabaseUnitOfWork</span>(client);
 
@@ -835,7 +835,7 @@ uow.<span class="fn">registerDeleted</span>({ model: <span class="str">"cart"</s
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example: Running Migrations</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">MigrationRunner</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">MigrationRunner</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> runner = <span class="kw">new</span> <span class="fn">MigrationRunner</span>(client, {
   migrations: [{
@@ -880,7 +880,7 @@ uow.<span class="fn">registerDeleted</span>({ model: <span class="str">"cart"</s
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example: Seeding</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">SeedRunner</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">SeedRunner</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> seeder = <span class="kw">new</span> <span class="fn">SeedRunner</span>(client, {
   seeds: [
@@ -924,7 +924,7 @@ uow.<span class="fn">registerDeleted</span>({ model: <span class="str">"cart"</s
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="fn">checkDatabaseHealth</span>, <span class="fn">checkDatabaseReadiness</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">checkDatabaseHealth</span>, <span class="fn">checkDatabaseReadiness</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> health = <span class="kw">await</span> <span class="fn">checkDatabaseHealth</span>(client);
 <span class="kw">if</span> (health.status === <span class="str">"unhealthy"</span>) {
@@ -953,7 +953,7 @@ uow.<span class="fn">registerDeleted</span>({ model: <span class="str">"cart"</s
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">DatabaseLockManager</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">DatabaseLockManager</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> lockManager = <span class="kw">new</span> <span class="fn">DatabaseLockManager</span>(client);
 
@@ -992,7 +992,7 @@ uow.<span class="fn">registerDeleted</span>({ model: <span class="str">"cart"</s
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">MemoryDatabaseCache</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">MemoryDatabaseCache</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> cache = <span class="kw">new</span> <span class="fn">MemoryDatabaseCache</span>({ defaultTTL: <span class="num">30000</span> });
 
@@ -1036,7 +1036,7 @@ cache.<span class="fn">invalidateTag</span>(<span class="str">"users"</span>);</
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">RelationRegistry</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">RelationRegistry</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">const</span> relations = <span class="kw">new</span> <span class="fn">RelationRegistry</span>();
 
@@ -1056,7 +1056,7 @@ relations.<span class="fn">register</span>({ type: <span class="str">"one-to-one
       <!-- Errors -->
       <section id="errors" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
-        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudolib/errors</code> and re-exported by this package.</p>
+        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudojs/errors</code> and re-exported by this package.</p>
 
         <div class="border-4 border-black">
           <table class="w-full text-sm">
@@ -1079,7 +1079,7 @@ relations.<span class="fn">register</span>({ type: <span class="str">"one-to-one
         </div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Error Handling Pattern</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="fn">isDatabaseError</span>, <span class="tp">ConnectionError</span>, <span class="tp">QueryError</span>, <span class="tp">TransactionError</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">isDatabaseError</span>, <span class="tp">ConnectionError</span>, <span class="tp">QueryError</span>, <span class="tp">TransactionError</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="kw">try</span> {
   <span class="kw">await</span> userRepo.<span class="fn">create</span>(data);
@@ -1130,17 +1130,17 @@ relations.<span class="fn">register</span>({ type: <span class="str">"one-to-one
       <!-- Testing -->
       <section id="testing" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TESTING UTILITIES</h2>
-        <p class="mb-4">Import from <code class="bg-black/5 px-1">@zudolib/database/testing</code> for mock clients and test helpers.</p>
+        <p class="mb-4">Import from <code class="bg-black/5 px-1">@zudojs/database/testing</code> for mock clients and test helpers.</p>
 
         <div class="code-block"><span class="kw">import</span> {
   <span class="fn">createMockDatabaseClient</span>,
   <span class="fn">createMockPrismaClient</span>,
   <span class="fn">createTestDatabase</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/database/testing"</span>;</div>
+} <span class="kw">from</span> <span class="str">"@zudojs/database/testing"</span>;</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Full Test Example</h3>
         <div class="code-block"><span class="kw">import</span> { <span class="fn">describe</span>, <span class="fn">it</span>, <span class="fn">expect</span>, <span class="fn">beforeEach</span> } <span class="kw">from</span> <span class="str">"vitest"</span>;
-<span class="kw">import</span> { <span class="fn">createMockDatabaseClient</span> } <span class="kw">from</span> <span class="str">"@zudolib/database/testing"</span>;
+<span class="kw">import</span> { <span class="fn">createMockDatabaseClient</span> } <span class="kw">from</span> <span class="str">"@zudojs/database/testing"</span>;
 <span class="kw">import</span> { <span class="tp">UserRepository</span> } <span class="kw">from</span> <span class="str">"./user.repository"</span>;
 
 <span class="fn">describe</span>(<span class="str">"UserRepository"</span>, () =&gt; {
@@ -1175,7 +1175,7 @@ relations.<span class="fn">register</span>({ type: <span class="str">"one-to-one
   <span class="fn">createDatabase</span>, <span class="tp">BaseRepository</span>, <span class="tp">QueryBuilder</span>,
   <span class="fn">equals</span>, <span class="fn">gte</span>, <span class="fn">contains</span>,
   <span class="tp">TransactionManager</span>, <span class="tp">MemoryDatabaseCache</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="cm">// 1. Create database connection</span>
 <span class="kw">const</span> db = <span class="fn">createDatabase</span>({
@@ -1233,43 +1233,43 @@ process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span cla
             </thead>
             <tbody>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono">@zudolib/errors</td>
+                <td class="p-3 font-mono">@zudojs/errors</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Dependency</td>
-                <td class="p-3">All database error types defined in @zudolib/errors</td>
+                <td class="p-3">All database error types defined in @zudojs/errors</td>
               </tr>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono">@zudolib/adapters</td>
+                <td class="p-3 font-mono">@zudojs/adapters</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Interface</td>
                 <td class="p-3">DatabaseClient implements the Adapter contract</td>
               </tr>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono">@zudolib/config</td>
+                <td class="p-3 font-mono">@zudojs/config</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Consumer</td>
                 <td class="p-3">Database configuration reads from config sources</td>
               </tr>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono">@zudolib/logger</td>
+                <td class="p-3 font-mono">@zudojs/logger</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Consumer</td>
-                <td class="p-3">DatabaseLogger contract accepts @zudolib/logger</td>
+                <td class="p-3">DatabaseLogger contract accepts @zudojs/logger</td>
               </tr>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono">@zudolib/observability</td>
+                <td class="p-3 font-mono">@zudojs/observability</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Consumer</td>
-                <td class="p-3">DatabaseMetrics contract accepts @zudolib/observability</td>
+                <td class="p-3">DatabaseMetrics contract accepts @zudojs/observability</td>
               </tr>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono">@zudolib/cqrs</td>
+                <td class="p-3 font-mono">@zudojs/cqrs</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Consumer</td>
                 <td class="p-3">CQRS handlers use repositories for data access</td>
               </tr>
               <tr>
-                <td class="p-3 font-mono">@zudolib/lifecycle</td>
+                <td class="p-3 font-mono">@zudojs/lifecycle</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Consumer</td>
                 <td class="p-3">Database lifecycle integrates with application lifecycle</td>
@@ -1296,13 +1296,13 @@ process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span cla
               </tr>
             </thead>
             <tbody>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/errors</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/adapters</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/config</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/logger</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/observability</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/cqrs</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr><td class="p-3 font-mono">@zudolib/lifecycle</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/errors</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/adapters</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/config</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/logger</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/observability</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/cqrs</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr><td class="p-3 font-mono">@zudojs/lifecycle</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
             </tbody>
           </table>
         </div>
@@ -1351,7 +1351,7 @@ process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span cla
   <span class="tp">MigrationRunner</span>, <span class="tp">SeedRunner</span>,
   <span class="tp">DatabaseLockManager</span>, <span class="tp">MemoryDatabaseCache</span>,
   <span class="tp">RelationRegistry</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="cm">// Import query filter functions</span>
 <span class="kw">import</span> {
@@ -1361,27 +1361,27 @@ process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span cla
   <span class="fn">isEmpty</span>, <span class="fn">isNotEmpty</span>,
   <span class="fn">dateRange</span>, <span class="fn">isBefore</span>, <span class="fn">isAfter</span>, <span class="fn">isBetween</span>,
   <span class="fn">and</span>, <span class="fn">or</span>, <span class="fn">notCondition</span>, <span class="fn">relational</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="cm">// Import factory functions</span>
-<span class="kw">import</span> { <span class="fn">createDatabase</span>, <span class="fn">createDatabaseFromClient</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+<span class="kw">import</span> { <span class="fn">createDatabase</span>, <span class="fn">createDatabaseFromClient</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="cm">// Import health check functions</span>
-<span class="kw">import</span> { <span class="fn">checkDatabaseHealth</span>, <span class="fn">checkDatabaseReadiness</span> } <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+<span class="kw">import</span> { <span class="fn">checkDatabaseHealth</span>, <span class="fn">checkDatabaseReadiness</span> } <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="cm">// Import errors</span>
 <span class="kw">import</span> {
   <span class="tp">DatabaseError</span>, <span class="tp">ConnectionError</span>, <span class="tp">QueryError</span>,
   <span class="tp">TransactionError</span>, <span class="tp">MigrationError</span>,
   <span class="fn">isDatabaseError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/database"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/database"</span>;
 
 <span class="cm">// Import testing utilities</span>
 <span class="kw">import</span> {
   <span class="fn">createMockDatabaseClient</span>,
   <span class="fn">createMockPrismaClient</span>,
   <span class="fn">createTestDatabase</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/database/testing"</span>;</div>
+} <span class="kw">from</span> <span class="str">"@zudojs/database/testing"</span>;</div>
       </section>
 
     </main>

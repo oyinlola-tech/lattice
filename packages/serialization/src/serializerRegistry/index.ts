@@ -1,5 +1,5 @@
 /**
- * @zudolib/serialization — Serializer registry and factory.
+ * @zudojs/serialization — Serializer registry and factory.
  *
  * Central registry for named serializer instances and factory
  * functions for creating serializers by format.

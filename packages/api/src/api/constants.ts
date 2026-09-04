@@ -1,5 +1,5 @@
 /**
- * @zudolib/api/constants
+ * @zudojs/api/constants
  *
  * Shared constants for the API package.
  */

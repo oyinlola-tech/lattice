@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Long Option Parser
+ * zudojs-cli — Long Option Parser
  *
  * Parses `--option`, `--option=value`, and `--no-option` style arguments.
  */

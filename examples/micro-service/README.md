@@ -1,6 +1,6 @@
 # CampusFlow - Microservice Architecture Example
 
-A University Learning & Assessment Platform demonstrating Zudolib's distributed microservice architecture with 5 independently deployable services.
+A University Learning & Assessment Platform demonstrating Zudojs's distributed microservice architecture with 5 independently deployable services.
 
 ## Architecture
 
@@ -30,10 +30,10 @@ A University Learning & Assessment Platform demonstrating Zudolib's distributed 
 
 ## Key Patterns
 
-- **CQRS** — Commands write state, queries read state (`@zudolib/cqrs`)
-- **Event-Driven** — Services emit events via `@zudolib/events` (`defineEvent`, `EventBus`)
+- **CQRS** — Commands write state, queries read state (`@zudojs/cqrs`)
+- **Event-Driven** — Services emit events via `@zudojs/events` (`defineEvent`, `EventBus`)
 - **Database Isolation** — Each service owns its SQLite database
-- **Queue-Based Processing** — Notification service uses `@zudolib/queue` for async job processing
+- **Queue-Based Processing** — Notification service uses `@zudojs/queue` for async job processing
 - **JWT Authentication** — Gateway validates tokens, services trust authenticated requests
 - **Request Tracing** — Request IDs propagate across services
 

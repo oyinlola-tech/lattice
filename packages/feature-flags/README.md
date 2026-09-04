@@ -1,17 +1,17 @@
-# @zudolib/feature-flags
+# @zudojs/feature-flags
 
 Feature flag system with deterministic rollouts, rule engine, providers, variants, snapshots, and evaluation context.
 
 ## Installation
 
 ```bash
-npm install @zudolib/feature-flags
+npm install @zudojs/feature-flags
 ```
 
 ## Quick Start
 
 ```typescript
-import { createFeatureFlags } from "@zudolib/feature-flags";
+import { createFeatureFlags } from "@zudojs/feature-flags";
 
 const flags = createFeatureFlags({
   rules: [

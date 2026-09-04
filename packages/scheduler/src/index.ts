@@ -1,14 +1,14 @@
 /**
- * @zudolib/scheduler
+ * @zudojs/scheduler
  *
- * Time and recurring execution engine for the Zudolib framework.
+ * Time and recurring execution engine for the Zudojs framework.
  *
  * Provides job definitions, schedules, triggers, priority queue,
  * cron support, and persistence abstractions.
  *
  * @example
  * ```ts
- * import { Scheduler, JobRegistry, JobExecutor, SystemClock } from "@zudolib/scheduler";
+ * import { Scheduler, JobRegistry, JobExecutor, SystemClock } from "@zudojs/scheduler";
  *
  * const scheduler = new Scheduler();
  * scheduler.define({

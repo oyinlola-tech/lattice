@@ -1,7 +1,7 @@
 /**
- * @zudolib/adapters/storage
+ * @zudojs/adapters/storage
  *
- * Storage adapter contracts — bridges Zudolib storage to external providers.
+ * Storage adapter contracts — bridges Zudojs storage to external providers.
  *
  * Examples: Local filesystem, AWS S3, Cloudflare R2, Google Cloud Storage, Azure Blob.
  */
@@ -13,7 +13,7 @@ import type {
 } from "../index.js";
 
 /**
- * Storage adapter — connects Zudolib storage abstractions to external providers.
+ * Storage adapter — connects Zudojs storage abstractions to external providers.
  */
 export interface StorageAdapter extends Adapter {
   /** Retrieves an object by key. */

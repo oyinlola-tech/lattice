@@ -1,5 +1,5 @@
 /**
- * @zudolib/openapi/openApiSchema
+ * @zudojs/openapi/openApiSchema
  *
  * Schema conversion and registry for OpenAPI generation.
  */

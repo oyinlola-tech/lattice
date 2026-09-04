@@ -1,20 +1,20 @@
 /**
- * @zudolib/plugins
+ * @zudojs/plugins
  *
- * Controlled extension system for the Zudolib framework.
+ * Controlled extension system for the Zudojs framework.
  *
  * Provides plugin registration, dependency resolution, lifecycle management,
- * and orchestration for Zudolib applications.
+ * and orchestration for Zudojs applications.
  *
  * @example
  * ```ts
- * import { PluginManager, createPluginContext } from "@zudolib/plugins";
+ * import { PluginManager, createPluginContext } from "@zudojs/plugins";
  *
  * const manager = new PluginManager();
  *
  * manager.register({
- *   metadata: { name: "@zudolib/http" },
- *   dependencies: [{ name: "@zudolib/events" }],
+ *   metadata: { name: "@zudojs/http" },
+ *   dependencies: [{ name: "@zudojs/events" }],
  *   async install(context) {
  *     // register services
  *   },
@@ -23,7 +23,7 @@
  *   },
  * });
  *
- * await manager.start(createPluginContext({ metadata: { name: "@zudolib/http" } }));
+ * await manager.start(createPluginContext({ metadata: { name: "@zudojs/http" } }));
  * ```
  */
 
@@ -85,7 +85,7 @@ export {
   PluginStateError,
   createPluginError,
   isPluginError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 export type {
   PluginState,

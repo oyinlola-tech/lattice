@@ -70,7 +70,7 @@ import {
   HttpResponseWriterError as ResponseWriterError,
   ResponseAlreadySentError as ResponseAlreadySentError,
   UnsupportedResponseBodyError as UnsupportedResponseBodyError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 export {
   ResponseWriterError,

@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpUrl
+ * @zudojs/http/httpUrl
  *
  * HTTP httpUrl module.
  */

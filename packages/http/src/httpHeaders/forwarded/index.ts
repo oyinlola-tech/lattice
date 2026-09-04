@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpHeaders/forwarded
+ * @zudojs/http/httpHeaders/forwarded
  *
  * HTTP headers forwarded utilities.
  */

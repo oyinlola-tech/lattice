@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/lifecyclePhase
+ * @zudojs/lifecycle/lifecyclePhase
  *
  * Lifecycle phase enum.
  */

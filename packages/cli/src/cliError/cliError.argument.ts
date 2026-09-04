@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Argument Errors
+ * zudojs-cli — Argument Errors
  *
  * Error classes for argument validation failures.
  */

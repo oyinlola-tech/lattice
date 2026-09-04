@@ -1,13 +1,13 @@
 /**
- * @zudolib/middleware
+ * @zudojs/middleware
  *
- * Composable middleware pipeline for the Zudolib framework.
+ * Composable middleware pipeline for the Zudojs framework.
  *
  * Provides middleware composition, chaining, priority ordering,
  * execution tracking, and built-in middleware for logging,
  * error handling, timeouts, and rate limiting.
  *
- * @module @zudolib/middleware
+ * @module @zudojs/middleware
  */
 
 export * from "./middlewareTypes/index.js";

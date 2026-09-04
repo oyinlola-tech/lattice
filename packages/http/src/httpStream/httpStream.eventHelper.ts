@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpStream — Shared settle-once guard, cleanup, and abort patterns.
+ * @zudojs/http/httpStream — Shared settle-once guard, cleanup, and abort patterns.
  */
 
 import { destroyStream } from "./httpStream.destroy.js";

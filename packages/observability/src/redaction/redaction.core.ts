@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Redaction
+ * @zudojs/observability — Redaction
  *
  * Redacts sensitive fields from log contexts and trace attributes.
  * Never automatically dumps passwords, tokens, cookies, or auth headers.

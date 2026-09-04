@@ -1,13 +1,13 @@
 /**
  * Test container helpers.
  *
- * Wraps the real Zudolib container with test-friendly defaults
+ * Wraps the real Zudojs container with test-friendly defaults
  * and override support for dependency injection testing.
  */
 
-import { createStartedContainer } from "@zudolib/container";
+import { createStartedContainer } from "@zudojs/container";
 
-import type { Container, RegistrationToken } from "@zudolib/container";
+import type { Container, RegistrationToken } from "@zudojs/container";
 
 /**
  * A dependency override for test containers.

@@ -3,19 +3,19 @@ import type {
   EventId,
   EventType,
   EventCorrelationId,
-} from "@zudolib/events";
+} from "@zudojs/events";
 
 import {
   createEvent as baseCreateEvent,
   createEventId as baseCreateEventId,
   isEvent as baseIsEvent,
-} from "@zudolib/events";
+} from "@zudojs/events";
 
 /**
  * CQRS-specific event extensions.
  *
  * Adds aggregate identity and versioning on top of the base
- * Zudolib Event contract.
+ * Zudojs Event contract.
  */
 export interface CqrsEventExtensions {
   readonly aggregateId?: string;
@@ -26,7 +26,7 @@ export interface CqrsEventExtensions {
 /**
  * CQRS event contract.
  *
- * Extends the base Zudolib Event with aggregate identity and
+ * Extends the base Zudojs Event with aggregate identity and
  * versioning fields used in event-sourced aggregates.
  */
 export type CqrsEvent<
@@ -55,7 +55,7 @@ export interface CreateCqrsEventInput<
 /**
  * Handler for a single CQRS event type.
  *
- * CQRS handlers receive only the event, unlike the base Zudolib
+ * CQRS handlers receive only the event, unlike the base Zudojs
  * EventHandler which also receives a context object. The CQRS
  * bus handles context propagation internally.
  */
@@ -76,7 +76,7 @@ export interface CqrsEventHandlerRegistration<
 /**
  * Creates a unique CQRS event identifier.
  *
- * Delegates to the base Zudolib event ID generator.
+ * Delegates to the base Zudojs event ID generator.
  */
 export function createEventId(): string {
   return baseCreateEventId();
@@ -85,7 +85,7 @@ export function createEventId(): string {
 /**
  * Creates an immutable CQRS event.
  *
- * Extends the base Zudolib event with aggregate fields.
+ * Extends the base Zudojs event with aggregate fields.
  */
 export function createCqrsEvent<TPayload extends Record<string, unknown>>(
   input: CreateCqrsEventInput<TPayload>,

@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoPassword
+ * @zudojs/crypto/cryptoPassword
  *
  * Password hashing and verification.
  */

@@ -1,10 +1,10 @@
 /**
- * zudolib-cli — Execution Errors
+ * zudojs-cli — Execution Errors
  *
  * Error classes for runtime execution, permissions, and interrupts.
  */
 
-import { AuthorizationError, ConfigurationError } from "@zudolib/errors";
+import { AuthorizationError, ConfigurationError } from "@zudojs/errors";
 import { CLIError } from "./cliError.base.js";
 import {
   CLI_ERROR_CODES,
@@ -40,7 +40,7 @@ export class CLIExecutionError extends CLIError {
 
 /**
  * Thrown when a CLI operation is not permitted.
- * Extends `AuthorizationError` from `@zudolib/errors`.
+ * Extends `AuthorizationError` from `@zudojs/errors`.
  */
 export class CLIPermissionError extends AuthorizationError {
   public readonly exitCode: number;
@@ -90,7 +90,7 @@ export class CLIInterruptedError extends CLIError {
 
 /**
  * Thrown when CLI configuration is invalid.
- * Extends `ConfigurationError` from `@zudolib/errors`.
+ * Extends `ConfigurationError` from `@zudojs/errors`.
  */
 export class CLIConfigurationError extends ConfigurationError {
   public readonly exitCode: number;

@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Span
+ * @zudojs/observability — Span
  *
  * Span implementation and context creation.
  */

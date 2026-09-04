@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Database Prompt
+ * zudojs-cli — Database Prompt
  *
  * Prompts for database selection.
  */

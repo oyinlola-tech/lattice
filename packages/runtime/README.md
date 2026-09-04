@@ -1,17 +1,17 @@
-# @zudolib/runtime
+# @zudojs/runtime
 
 Application lifecycle orchestrator with dependency ordering, rollback, signals, and readiness checks.
 
 ## Installation
 
 ```bash
-npm install @zudolib/runtime
+npm install @zudojs/runtime
 ```
 
 ## Quick Start
 
 ```typescript
-import { createRuntime } from "@zudolib/runtime";
+import { createRuntime } from "@zudojs/runtime";
 
 const runtime = createRuntime({
   services: [api, database, queue],

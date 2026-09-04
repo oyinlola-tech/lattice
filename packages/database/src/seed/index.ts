@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Seeds
+ * @zudojs/database — Seeds
  *
  * Database seed runner with execution tracking.
  */

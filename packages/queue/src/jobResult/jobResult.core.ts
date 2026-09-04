@@ -1,4 +1,4 @@
-import type { Timestamp } from "@zudolib/constants";
+import type { Timestamp } from "@zudojs/constants";
 
 import type { JobResult, JobProgress } from "./jobResult.type.js";
 

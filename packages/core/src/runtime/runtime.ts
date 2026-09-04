@@ -8,7 +8,7 @@ import type { ModuleRegistry } from "../modules/moduleRegistry/index.js";
 import {
   RuntimeError as BaseRuntimeError,
   RuntimeStateError as BaseRuntimeStateError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 /** Runtime lifecycle state. */
 export type RuntimeState =

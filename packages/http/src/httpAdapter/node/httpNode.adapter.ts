@@ -1,7 +1,7 @@
 /**
  * Node.js HTTP adapter.
  *
- * Bridges Node's `http` / `https` server APIs with Zudolib's runtime
+ * Bridges Node's `http` / `https` server APIs with Zudojs's runtime
  * independent HTTP adapter contract.
  *
  * @module httpAdapter/node/adapter

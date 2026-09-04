@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Processor
+ * @zudojs/observability — Processor
  *
  * Batch span processor that accumulates spans and exports them periodically.
  * Memory-bounded with configurable batch size and flush interval.

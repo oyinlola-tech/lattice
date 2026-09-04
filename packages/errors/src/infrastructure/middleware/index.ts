@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/infrastructure/middleware
+ * @zudojs/errors/infrastructure/middleware
  *
  * Middleware error types.
  */

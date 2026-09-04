@@ -1,5 +1,5 @@
 /**
- * Standard context fields that Zudolib can attach to log entries.
+ * Standard context fields that Zudojs can attach to log entries.
  *
  * These fields provide consistent metadata across HTTP requests,
  * background jobs, workers, RPC calls, and microservices.

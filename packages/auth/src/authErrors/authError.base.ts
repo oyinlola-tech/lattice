@@ -10,7 +10,7 @@ import {
   ErrorCategory,
   ErrorSeverity,
   type ErrorMetadata,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 /**
  * Base error for all auth-related failures.

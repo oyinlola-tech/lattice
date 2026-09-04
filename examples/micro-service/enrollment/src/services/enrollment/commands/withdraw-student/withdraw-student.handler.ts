@@ -1,7 +1,7 @@
-import { CommandHandler } from "@zudolib/cqrs";
+import { CommandHandler } from "@zudojs/cqrs";
 import type { WithdrawStudentCommand } from "./withdraw-student.command.js";
 import type { EnrollmentRepository } from "../../../../repositories/enrollment.repository.js";
-import type { EventBus } from "@zudolib/events";
+import type { EventBus } from "@zudojs/events";
 import type { EnrollmentModel } from "../../../../models/enrollment.model.js";
 import { EnrollmentStatus } from "../../../../enums/index.js";
 import { NotEnrolledError } from "../../../../errors/index.js";

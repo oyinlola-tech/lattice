@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — CLI Writer
+ * zudojs-cli — CLI Writer
  *
  * Writer factory and signal handling for the CLI application.
  */

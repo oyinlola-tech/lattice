@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Migrations
+ * @zudojs/database — Migrations
  *
  * Database migration runner with version tracking.
  */

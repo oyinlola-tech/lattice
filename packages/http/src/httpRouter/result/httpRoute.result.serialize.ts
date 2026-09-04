@@ -1,5 +1,5 @@
 /**
- * Zudolib HTTP route result body serialization helpers.
+ * Zudojs HTTP route result body serialization helpers.
  */
 
 import type { RouteResultBody } from "./httpRoute.result.type.js";

@@ -388,7 +388,7 @@ import {
   HttpBodyLimitError as HTTPBodyLimitError,
   HttpBodyAbortedError as HTTPBodyAbortedError,
   HttpBodyParseError as HTTPBodyParseError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 export {
   HTTPBodyError,

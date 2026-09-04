@@ -1,5 +1,5 @@
 /**
- * Configuration values used throughout Zudolib.
+ * Configuration values used throughout Zudojs.
  *
  * This module provides the common value types and utilities used by
  * the configuration system. Values remain JSON-compatible where
@@ -27,7 +27,7 @@ export type ConfigJsonValue =
     };
 
 /**
- * Values accepted by the Zudolib configuration system.
+ * Values accepted by the Zudojs configuration system.
  */
 export type ConfigValue =
   | ConfigPrimitive

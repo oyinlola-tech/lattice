@@ -1,6 +1,6 @@
 # Project Structure
 
-Zudolib projects follow a consistent layout regardless of architecture.
+Zudojs projects follow a consistent layout regardless of architecture.
 
 ## Standard Layout
 
@@ -18,7 +18,7 @@ my-app/
 │   └── <feature>.test.ts
 ├── package.json
 ├── tsconfig.json
-└── zudolib.config.ts
+└── zudojs.config.ts
 ```
 
 ## Architecture Variants
@@ -45,7 +45,7 @@ apps/
 
 ## Configuration
 
-`zudolib.config.ts` defines the application architecture:
+`zudojs.config.ts` defines the application architecture:
 
 ```typescript
 export default {
@@ -55,9 +55,9 @@ export default {
 };
 ```
 
-## Zudolib Manifest
+## Zudojs Manifest
 
-The CLI generates `.zudolib/manifest.json` to track generated code:
+The CLI generates `.zudojs/manifest.json` to track generated code:
 
 ```json
 {
@@ -70,7 +70,7 @@ The CLI generates `.zudolib/manifest.json` to track generated code:
 
 ## Package Structure
 
-Each Zudolib package follows the same internal layout:
+Each Zudojs package follows the same internal layout:
 
 ```
 packages/<name>/

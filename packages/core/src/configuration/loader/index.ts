@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/configuration/loader
+ * @zudojs/core/configuration/loader
  *
  * Configuration loading pipeline.
  */

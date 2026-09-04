@@ -1,5 +1,5 @@
 /**
- * Zudolib HTTP route dispatcher.
+ * Zudojs HTTP route dispatcher.
  *
  * Responsible for taking a matched route and executing its middleware and
  * handler pipeline. Route registration and route matching remain separate

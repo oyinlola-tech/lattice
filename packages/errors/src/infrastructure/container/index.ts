@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/infrastructure/container
+ * @zudojs/errors/infrastructure/container
  *
  * Container and dependency injection error types.
  */

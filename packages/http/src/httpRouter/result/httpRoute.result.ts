@@ -1,5 +1,5 @@
 /**
- * Zudolib HTTP route result.
+ * Zudojs HTTP route result.
  *
  * Normalizes the different values a route handler may return into a
  * predictable HTTP response description.

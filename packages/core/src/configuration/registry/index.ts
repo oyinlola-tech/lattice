@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/configuration/registry
+ * @zudojs/core/configuration/registry
  *
  * Configuration registry and provider.
  */

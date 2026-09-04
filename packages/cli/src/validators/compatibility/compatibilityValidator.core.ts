@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Compatibility Validator
+ * zudojs-cli — Compatibility Validator
  *
  * Validates compatibility between selected project options.
  */

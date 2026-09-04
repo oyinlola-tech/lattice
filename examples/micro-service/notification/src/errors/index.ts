@@ -1,4 +1,4 @@
-import { ErrorSeverity, ErrorCategory } from "@zudolib/errors";
+import { ErrorSeverity, ErrorCategory } from "@zudojs/errors";
 
 export class NotificationNotFoundError extends Error {
   readonly statusCode = 404;

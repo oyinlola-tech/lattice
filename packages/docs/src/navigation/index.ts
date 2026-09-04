@@ -1,5 +1,5 @@
 /**
- * @zudolib/docs/navigation
+ * @zudojs/docs/navigation
  *
  * Navigation tree utilities — breadcrumbs, flattening, sibling resolution.
  */

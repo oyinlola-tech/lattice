@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Controller Generator
+ * zudojs-cli — Controller Generator
  */
 
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
@@ -23,7 +23,7 @@ export async function generateController(
   const basePath = options.basePath ?? "";
 
   const files: Record<string, string> = {
-    [`${basePath ? `${basePath}/` : ""}controllers/${name}.controller.ts`]: `import { createLogger } from "@zudolib/logger";
+    [`${basePath ? `${basePath}/` : ""}controllers/${name}.controller.ts`]: `import { createLogger } from "@zudojs/logger";
 
 export class ${nameCamel}Controller {
   private readonly logger = createLogger({ name: "${name}-controller" });

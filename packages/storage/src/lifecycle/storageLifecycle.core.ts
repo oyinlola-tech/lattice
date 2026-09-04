@@ -1,11 +1,11 @@
 /**
- * @zudolib/storage — Storage Lifecycle Manager
+ * @zudojs/storage — Storage Lifecycle Manager
  *
  * Manages the lifecycle phases of storage components:
  * uninitialized → initializing → ready → draining → drained → shutdown
  */
 
-import { StorageError } from "@zudolib/errors";
+import { StorageError } from "@zudojs/errors";
 import type {
   StorageLifecycle,
   StorageLifecyclePhase,

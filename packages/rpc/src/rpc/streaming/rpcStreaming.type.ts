@@ -1,5 +1,5 @@
 /**
- * @zudolib/rpc/streaming
+ * @zudojs/rpc/streaming
  *
  * Streaming types for RPC operations.
  */

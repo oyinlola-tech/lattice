@@ -1,12 +1,12 @@
 /**
- * @zudolib/messaging
+ * @zudojs/messaging
  *
- * In-process message bus infrastructure for the Zudolib framework.
+ * In-process message bus infrastructure for the Zudojs framework.
  *
  * Provides the foundational messaging primitives that CQRS and Events
  * specialize into commands/queries and domain events respectively.
  *
- * @module @zudolib/messaging
+ * @module @zudojs/messaging
  */
 
 // Core message types and factory

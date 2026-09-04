@@ -1,8 +1,8 @@
-import { CommandHandler } from "@zudolib/cqrs";
+import { CommandHandler } from "@zudojs/cqrs";
 import type { AddReactionCommand } from "./add-reaction.command.js";
 import type { ReactionRepository } from "../../../../repositories/reaction.repository.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
-import type { EventBus } from "@zudolib/events";
+import type { EventBus } from "@zudojs/events";
 import type { ReactionModel } from "../../../../models/reaction.model.js";
 import type { ReactionId } from "../../../../types/index.js";
 import { ReactionType } from "../../../../enums/index.js";

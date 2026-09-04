@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/http",
+  "name": "@zudojs/http",
   "version": "1.0.0",
-  "description": "HTTP primitives, request handling, routing, middleware, and server infrastructure for Zudolib applications.",
+  "description": "HTTP primitives, request handling, routing, middleware, and server infrastructure for Zudojs applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,10 +24,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/core": "workspace:*",
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/logger": "workspace:*",
-    "@zudolib/security": "workspace:*"
+    "@zudojs/core": "workspace:*",
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/logger": "workspace:*",
+    "@zudojs/security": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
@@ -43,7 +43,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "http",
     "server",
     "middleware",

@@ -1,5 +1,5 @@
 /**
- * Parallel event handler dispatch for Zudolib.
+ * Parallel event handler dispatch for Zudojs.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

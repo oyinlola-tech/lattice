@@ -25,7 +25,7 @@ export type RuntimeBootstrapErrorCode =
   | "MODULE_INITIALIZE_METHOD_NOT_FOUND"
   | "MODULE_START_METHOD_NOT_FOUND";
 
-import { RuntimeBootstrapError as BaseRuntimeBootstrapError } from "@zudolib/errors";
+import { RuntimeBootstrapError as BaseRuntimeBootstrapError } from "@zudojs/errors";
 
 export class RuntimeBootstrapError extends BaseRuntimeBootstrapError {
   public readonly bootstrapCode: RuntimeBootstrapErrorCode;

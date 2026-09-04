@@ -1,7 +1,7 @@
 /**
  * HTTP client error classes.
  *
- * Re-exported from @zudolib/errors for convenience.
+ * Re-exported from @zudojs/errors for convenience.
  *
  * @module httpClient/errors
  */
@@ -11,4 +11,4 @@ export {
   HttpClientTimeoutError,
   HttpClientAbortError,
   HttpClientNetworkError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";

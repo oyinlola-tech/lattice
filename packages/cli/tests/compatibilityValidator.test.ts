@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Compatibility Validator Tests
+ * zudojs-cli — Compatibility Validator Tests
  *
  * Tests for CompatibilityValidator.
  */

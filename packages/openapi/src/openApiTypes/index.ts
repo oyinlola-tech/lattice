@@ -1,5 +1,5 @@
 /**
- * @zudolib/openapi/openApiTypes
+ * @zudojs/openapi/openApiTypes
  *
  * Core OpenAPI specification types.
  */

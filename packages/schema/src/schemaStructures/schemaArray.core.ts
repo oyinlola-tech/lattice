@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/structures/array
+ * @zudojs/schema/structures/array
  *
  * Array schema with item validation and length constraints.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue, childContext } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudolib/constants";
+import { SchemaIssueCode } from "@zudojs/constants";
 
 /** Configuration for array schema. */
 interface ArraySchemaConfig<T> {

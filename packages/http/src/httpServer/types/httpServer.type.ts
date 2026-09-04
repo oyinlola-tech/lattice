@@ -1,5 +1,5 @@
 /**
- * Zudolib HTTP server types.
+ * Zudojs HTTP server types.
  *
  * @module httpServer/types
  */
@@ -9,7 +9,7 @@ import {
   InvalidHttpServerStateError,
   HttpServerStartError,
   HttpServerStopError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 import type {
   HttpAdapter,

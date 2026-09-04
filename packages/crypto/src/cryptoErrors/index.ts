@@ -1,9 +1,9 @@
 /**
- * @zudolib/crypto/cryptoErrors
+ * @zudojs/crypto/cryptoErrors
  *
  * Cryptographic operation error types.
  *
- * Re-exports from @zudolib/errors to maintain a single
+ * Re-exports from @zudojs/errors to maintain a single
  * error hierarchy across the framework.
  */
 
@@ -17,6 +17,6 @@ export {
   cryptoSignatureError,
   cryptoKeyDerivationError,
   cryptoKeyError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
-export type { CryptoErrorOptions } from "@zudolib/errors";
+export type { CryptoErrorOptions } from "@zudojs/errors";

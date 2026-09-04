@@ -1,5 +1,5 @@
 /**
- * Type definitions for the Zudolib CLI scaffolding system.
+ * Type definitions for the Zudojs CLI scaffolding system.
  */
 
 import type {
@@ -96,7 +96,7 @@ export function toProjectConfiguration(
       ? {
           frontend: {
             framework: options.frontend!,
-            architecture: options.frontendArchitecture ?? "zudolib-standard",
+            architecture: options.frontendArchitecture ?? "zudojs-standard",
             language: options.language ?? "typescript",
           },
         }

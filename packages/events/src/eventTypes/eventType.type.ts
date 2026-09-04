@@ -1,5 +1,5 @@
 /**
- * Event type utilities for Zudolib.
+ * Event type utilities for Zudojs.
  *
  * EventType is the string identifier used to route events.
  * This module provides validation, normalization, matching,
@@ -46,7 +46,7 @@ export type EventUnion<TMap extends EventPayloadMap> = {
 /**
  * Validates an event type string.
  *
- * Zudolib event types use dot-separated lowercase names.
+ * Zudojs event types use dot-separated lowercase names.
  *
  * Examples:
  *

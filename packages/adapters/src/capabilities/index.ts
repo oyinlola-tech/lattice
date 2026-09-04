@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/capabilities
+ * @zudojs/adapters/capabilities
  *
  * Adapter capabilities types.
  */

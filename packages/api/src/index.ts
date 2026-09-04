@@ -1,14 +1,14 @@
 /**
- * @zudolib/api
+ * @zudojs/api
  *
- * Application-facing API layer for the Zudolib framework.
+ * Application-facing API layer for the Zudojs framework.
  *
  * Provides transport-agnostic operation definitions, execution context,
  * interceptors, policies, and result types.
  *
  * @example
  * ```ts
- * import { defineOperation, APIOperationRegistry, APIExecutor } from "@zudolib/api";
+ * import { defineOperation, APIOperationRegistry, APIExecutor } from "@zudojs/api";
  *
  * const getUser = defineOperation({
  *   name: "users.get",

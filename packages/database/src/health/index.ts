@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Health Checks
+ * @zudojs/database — Health Checks
  *
  * Database health and readiness monitoring.
  */

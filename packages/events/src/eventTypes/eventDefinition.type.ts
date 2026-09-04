@@ -1,5 +1,5 @@
 /**
- * Core event primitives for Zudolib.
+ * Core event primitives for Zudojs.
  *
  * Events are immutable messages that describe something that
  * happened inside the application or framework.
@@ -10,11 +10,11 @@
 import type {
   EventId as BaseEventId,
   CorrelationId as BaseCorrelationId,
-} from "@zudolib/constants";
+} from "@zudojs/constants";
 
 /**
  * Unique identifier for an event instance.
- * Re-exported from @zudolib/constants for type safety.
+ * Re-exported from @zudojs/constants for type safety.
  */
 export type EventId = BaseEventId;
 
@@ -46,7 +46,7 @@ export type EventSource = string;
  *
  * Useful for connecting multiple events belonging to the
  * same operation/request/workflow.
- * Re-exported from @zudolib/constants for type safety.
+ * Re-exported from @zudojs/constants for type safety.
  */
 export type EventCorrelationId = BaseCorrelationId;
 
@@ -65,7 +65,7 @@ export type EventPayload = unknown;
 /**
  * Base event contract.
  *
- * Every Zudolib event must contain a type, unique identifier,
+ * Every Zudojs event must contain a type, unique identifier,
  * timestamp, and payload.
  */
 export interface Event<TPayload = EventPayload> {
@@ -193,7 +193,7 @@ export function isEvent(value: unknown): value is Event {
 
 /**
  * Creates a unique event identifier.
- * Returns a branded EventId type from @zudolib/constants.
+ * Returns a branded EventId type from @zudojs/constants.
  */
 export function createEventId(): EventId {
   const uuid = crypto.randomUUID();

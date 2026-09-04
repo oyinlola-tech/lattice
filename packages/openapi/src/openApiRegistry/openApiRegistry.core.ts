@@ -174,7 +174,7 @@ export class OpenAPIRegistryImpl implements OpenAPIRegistry {
     try {
       return Object.freeze({
         openapi: this.version,
-        info: { title: "Zudolib API", version: "1.0.0" },
+        info: { title: "Zudojs API", version: "1.0.0" },
         paths: Object.freeze(paths),
         ...(Object.keys(components).length > 0
           ? { components: Object.freeze(components) }

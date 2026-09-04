@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Infrastructure Generator
+ * zudojs-cli — Infrastructure Generator
  *
  * Generates Docker, docker-compose, and database infrastructure files.
  */

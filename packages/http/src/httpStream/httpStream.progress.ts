@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpStream — Pipe streams with progress reporting.
+ * @zudojs/http/httpStream — Pipe streams with progress reporting.
  */
 
 import type {

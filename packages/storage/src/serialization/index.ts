@@ -1,5 +1,5 @@
 /**
- * @zudolib/storage — Serialization Barrel
+ * @zudojs/storage — Serialization Barrel
  */
 
 export { JsonSerializer } from "./jsonSerializer.core.js";

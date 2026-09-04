@@ -1,4 +1,4 @@
-import { CommandBus } from "@zudolib/cqrs";
+import { CommandBus } from "@zudojs/cqrs";
 import type { PaymentRepository } from "./domain/repositories/payment.repository.js";
 import { InMemoryPaymentRepository } from "./infrastructure/repositories/in-memory-payment.repository.js";
 import { ProcessPaymentHandler } from "./application/commands/process-payment/process-payment.handler.js";

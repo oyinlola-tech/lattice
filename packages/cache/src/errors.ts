@@ -1,7 +1,7 @@
 /**
- * @zudolib/cache — Error Types
+ * @zudojs/cache — Error Types
  *
- * All cache error types are defined in @zudolib/errors and re-exported here
+ * All cache error types are defined in @zudojs/errors and re-exported here
  * for convenience. No local error classes are created in this package.
  */
 
@@ -15,6 +15,6 @@ export {
   cacheInvalidKeyError,
   cacheAdapterNotConfiguredError,
   CacheOperation,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
-export type { CacheErrorOptions } from "@zudolib/errors";
+export type { CacheErrorOptions } from "@zudojs/errors";

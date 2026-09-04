@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — Core Types
+ * @zudojs/security — Core Types
  *
  * Security configuration interfaces and type definitions.
  */

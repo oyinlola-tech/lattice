@@ -1,5 +1,5 @@
 /**
- * Supported logging severity levels in Zudolib.
+ * Supported logging severity levels in Zudojs.
  *
  * Levels are ordered from least severe to most severe.
  */
@@ -13,7 +13,7 @@ export const LogLevel = {
 } as const;
 
 /**
- * Union of all supported Zudolib log levels.
+ * Union of all supported Zudojs log levels.
  */
 export type LogLevel = (typeof LogLevel)[keyof typeof LogLevel];
 

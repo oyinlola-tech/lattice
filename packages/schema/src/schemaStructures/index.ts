@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/structures
+ * @zudojs/schema/structures
  *
  * Complex schema types: object, array, tuple, record, map, set.
  */

@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/types",
+  "name": "@zudojs/types",
   "version": "1.0.0",
-  "description": "Shared type guards, utility types, and type converters for the Zudolib framework.",
+  "description": "Shared type guards, utility types, and type converters for the Zudojs framework.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -37,7 +37,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "types",
     "type-guards",
     "utilities"

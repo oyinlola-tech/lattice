@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpMiddleware/builtin
+ * @zudojs/http/httpMiddleware/builtin
  *
  * Built-in HTTP middleware factories.
  */

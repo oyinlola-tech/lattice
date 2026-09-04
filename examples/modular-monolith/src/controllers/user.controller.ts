@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@zudolib/cqrs";
+import type { CommandBus, QueryBus } from "@zudojs/cqrs";
 import type { UserId } from "../types/index.js";
 import { RegisterUserCommand } from "../modules/identity/commands/register-user/register-user.command.js";
 import { UpdateProfileCommand } from "../modules/identity/commands/update-profile/update-profile.command.js";

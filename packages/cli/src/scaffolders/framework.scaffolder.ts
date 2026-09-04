@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Framework Scaffolders
+ * zudojs-cli — Framework Scaffolders
  *
  * Invokes official framework scaffolders to create projects.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/cqrs/handlerRegistry
+ * @zudojs/cqrs/handlerRegistry
  *
  * Central registry for command and query handlers.
  */

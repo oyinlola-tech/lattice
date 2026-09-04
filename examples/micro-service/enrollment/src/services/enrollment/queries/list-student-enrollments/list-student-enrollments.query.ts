@@ -1,4 +1,4 @@
-import { Query } from "@zudolib/cqrs";
+import { Query } from "@zudojs/cqrs";
 import type { StudentId } from "../../../../types/index.js";
 
 /** Query to list all enrollments for a specific student. */

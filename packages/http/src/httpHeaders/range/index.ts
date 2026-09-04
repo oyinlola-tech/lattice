@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpHeaders/range
+ * @zudojs/http/httpHeaders/range
  *
  * HTTP headers range utilities.
  */

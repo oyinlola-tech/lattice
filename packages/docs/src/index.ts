@@ -1,7 +1,7 @@
 /**
- * @zudolib/docs
+ * @zudojs/docs
  *
- * Documentation infrastructure for the Zudolib framework.
+ * Documentation infrastructure for the Zudojs framework.
  *
  * Provides a structured document model, registry, validation,
  * navigation, examples, frontmatter parsing, and output generation

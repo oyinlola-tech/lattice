@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Middleware Generator
+ * zudojs-cli — Middleware Generator
  */
 
 export {

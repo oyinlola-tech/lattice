@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Command Builder
+ * zudojs-cli — Command Builder
  *
  * Fluent builder for constructing CLI commands.
  */

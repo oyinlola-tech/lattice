@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/runtime
+ * @zudojs/adapters/runtime
  *
  * Runtime adapter contracts.
  */

@@ -1,4 +1,4 @@
-import { Command } from "@zudolib/cqrs";
+import { Command } from "@zudojs/cqrs";
 import type { FollowTopicDto } from "../../../../dtos/index.js";
 
 export class FollowTopicCommand extends Command<"topics.follow"> {

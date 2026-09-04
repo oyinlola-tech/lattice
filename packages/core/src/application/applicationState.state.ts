@@ -1,5 +1,5 @@
 /**
- * Represents the lifecycle state of a Zudolib application.
+ * Represents the lifecycle state of a Zudojs application.
  */
 export type ApplicationState =
   | "created"

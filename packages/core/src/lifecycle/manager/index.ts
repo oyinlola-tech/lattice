@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/lifecycle/manager
+ * @zudojs/core/lifecycle/manager
  *
  * Lifecycle orchestration.
  */

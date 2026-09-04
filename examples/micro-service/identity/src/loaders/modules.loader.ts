@@ -1,6 +1,6 @@
-import type { CommandBus } from "@zudolib/cqrs";
-import type { QueryBus } from "@zudolib/cqrs";
-import type { EventBus } from "@zudolib/events";
+import type { CommandBus } from "@zudojs/cqrs";
+import type { QueryBus } from "@zudojs/cqrs";
+import type { EventBus } from "@zudojs/events";
 import type { UserRepository } from "../repositories/index.js";
 import { registerIdentityService } from "../services/index.js";
 

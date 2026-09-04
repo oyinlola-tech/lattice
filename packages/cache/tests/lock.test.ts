@@ -1,5 +1,5 @@
 /**
- * @zudolib/cache — Lock Manager Tests
+ * @zudojs/cache — Lock Manager Tests
  *
  * Tests for InMemoryLockStore, CacheLockManager acquire/release/extend,
  * withLock execution, and retry behavior.

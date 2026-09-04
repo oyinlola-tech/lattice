@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/lifecycle
+ * @zudojs/adapters/lifecycle
  *
  * Adapter lifecycle contracts.
  */

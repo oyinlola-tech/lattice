@@ -7,7 +7,7 @@ export function findProjectRoot(
   let dir = startDir;
 
   while (true) {
-    if (existsSync(join(dir, "zudolib.config.ts"))) {
+    if (existsSync(join(dir, "zudojs.config.ts"))) {
       return dir;
     }
     if (existsSync(join(dir, "package.json"))) {

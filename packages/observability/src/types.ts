@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Core Types
+ * @zudojs/observability — Core Types
  *
  * All shared interfaces, enums, and type aliases for the observability package.
  */

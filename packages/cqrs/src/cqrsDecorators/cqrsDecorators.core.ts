@@ -3,22 +3,22 @@ import type { Command, Query } from "../cqrsTypes/cqrsTypes.type.js";
 /**
  * Metadata key used to identify CQRS handler configuration.
  */
-const CQRS_HANDLER_METADATA = Symbol.for("zudolib.cqrs.handler");
+const CQRS_HANDLER_METADATA = Symbol.for("zudojs.cqrs.handler");
 
 /**
  * Metadata key used to identify command handler configuration.
  */
-const COMMAND_HANDLER_METADATA = Symbol.for("zudolib.cqrs.command-handler");
+const COMMAND_HANDLER_METADATA = Symbol.for("zudojs.cqrs.command-handler");
 
 /**
  * Metadata key used to identify query handler configuration.
  */
-const QUERY_HANDLER_METADATA = Symbol.for("zudolib.cqrs.query-handler");
+const QUERY_HANDLER_METADATA = Symbol.for("zudojs.cqrs.query-handler");
 
 /**
  * Metadata key used to identify command/query type information.
  */
-const CQRS_TYPE_METADATA = Symbol.for("zudolib.cqrs.type");
+const CQRS_TYPE_METADATA = Symbol.for("zudojs.cqrs.type");
 
 /**
  * Supported CQRS handler kinds.

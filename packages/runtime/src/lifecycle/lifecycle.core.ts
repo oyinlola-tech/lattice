@@ -1,8 +1,8 @@
-import type { Logger } from "@zudolib/logger";
+import type { Logger } from "@zudojs/logger";
 
-import type { Container } from "@zudolib/container";
+import type { Container } from "@zudojs/container";
 
-import type { Module, ModuleContext } from "@zudolib/core";
+import type { Module, ModuleContext } from "@zudojs/core";
 
 import type {
   LifecycleResult,

@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Sampling
+ * @zudojs/observability — Sampling
  *
  * Sampling strategies for controlling trace overhead.
  */

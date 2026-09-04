@@ -1,5 +1,5 @@
 /**
- * @zudolib/logger/loggerTransport/loggerTransportHelpers
+ * @zudojs/logger/loggerTransport/loggerTransportHelpers
  *
  * Transport helper functions.
  */

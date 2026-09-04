@@ -1,7 +1,7 @@
 /**
- * zudolib-cli — Create Command
+ * zudojs-cli — Create Command
  *
- * The `zudolib create` command.
+ * The `zudojs create` command.
  */
 
 import { join } from "node:path";
@@ -61,7 +61,7 @@ const VALID_FRONTENDS = [
   "react-native",
 ] as const;
 const VALID_FRONTEND_ARCHITECTURES = [
-  "zudolib-standard",
+  "zudojs-standard",
   "feature-based",
   "minimal",
   "framework-default",
@@ -110,7 +110,7 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
   const frontend = (context.values.frontend as string | undefined) ?? "none";
   const frontendArchitecture =
     (context.values["frontend-architecture"] as string | undefined) ??
-    "zudolib-standard";
+    "zudojs-standard";
   const language =
     (context.values.language as string | undefined) ?? "typescript";
   const noInstall = context.values["no-install"] === true;
@@ -213,7 +213,7 @@ export async function runCreateCommand(context: CLIContext): Promise<void> {
   let answers: ScaffoldOptions;
 
   if (isInteractive) {
-    p.intro("Zudolib");
+    p.intro("Zudojs");
 
     const name = (await promptProjectName(projectName ?? undefined)) as string;
     const type = await promptProjectType(
@@ -393,7 +393,7 @@ async function createProject(
         options.frontend && options.frontend !== "none"
           ? {
               framework: options.frontend,
-              architecture: options.frontendArchitecture ?? "zudolib-standard",
+              architecture: options.frontendArchitecture ?? "zudojs-standard",
             }
           : undefined,
       database: {
@@ -479,7 +479,7 @@ async function generateFullstackProject(
         options.frontend && options.frontend !== "none"
           ? {
               framework: options.frontend,
-              architecture: options.frontendArchitecture ?? "zudolib-standard",
+              architecture: options.frontendArchitecture ?? "zudojs-standard",
               language: options.language ?? "typescript",
             }
           : undefined,
@@ -526,7 +526,7 @@ async function generateFullstackProject(
         options.frontend && options.frontend !== "none"
           ? {
               framework: options.frontend,
-              architecture: options.frontendArchitecture ?? "zudolib-standard",
+              architecture: options.frontendArchitecture ?? "zudojs-standard",
               language: options.language ?? "typescript",
             }
           : undefined,
@@ -567,7 +567,7 @@ async function generateFrontendProject(
         options.frontend && options.frontend !== "none"
           ? {
               framework: options.frontend,
-              architecture: options.frontendArchitecture ?? "zudolib-standard",
+              architecture: options.frontendArchitecture ?? "zudojs-standard",
               language: options.language ?? "typescript",
             }
           : undefined,
@@ -577,7 +577,7 @@ async function generateFrontendProject(
     },
     projectPath,
     framework: options.frontend ?? "react",
-    architecture: options.frontendArchitecture ?? "zudolib-standard",
+    architecture: options.frontendArchitecture ?? "zudojs-standard",
     language: options.language ?? "typescript",
     packageManager: options.packageManager,
   });

@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — CLI Constants
+ * zudojs-cli — CLI Constants
  *
  * Default values, limits, and magic strings used across the CLI package.
  */

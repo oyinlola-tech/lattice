@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/config",
+  "name": "@zudojs/config",
   "version": "1.0.0",
   "description": "Layered configuration management with multiple sources, validation, and environment-specific overrides.",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*"
+    "@zudojs/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "7.0.2",
@@ -38,7 +38,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "configuration",
     "environment",
     "settings"

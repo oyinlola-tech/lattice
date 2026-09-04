@@ -1,6 +1,6 @@
 # Runtime
 
-The runtime orchestrates the entire Zudolib application.
+The runtime orchestrates the entire Zudojs application.
 
 ## Responsibilities
 

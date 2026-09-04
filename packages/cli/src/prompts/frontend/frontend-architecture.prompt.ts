@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Frontend Architecture Prompt
+ * zudojs-cli — Frontend Architecture Prompt
  *
  * Prompts for frontend project structure.
  */
@@ -16,8 +16,8 @@ export async function promptFrontendArchitecture(
       message: "Select frontend architecture",
       options: [
         {
-          value: "zudolib-standard",
-          label: "Zudolib Standard",
+          value: "zudojs-standard",
+          label: "Zudojs Standard",
           hint: "Global folders for shared concerns",
         },
         {
@@ -36,7 +36,7 @@ export async function promptFrontendArchitecture(
           hint: "Use framework defaults",
         },
       ],
-      initialValue: "zudolib-standard",
+      initialValue: "zudojs-standard",
     }));
 
   if (p.isCancel(value)) {

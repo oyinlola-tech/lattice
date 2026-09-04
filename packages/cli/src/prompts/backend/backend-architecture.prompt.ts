@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Backend Architecture Prompt
+ * zudojs-cli — Backend Architecture Prompt
  *
  * Prompts for backend architecture selection.
  */

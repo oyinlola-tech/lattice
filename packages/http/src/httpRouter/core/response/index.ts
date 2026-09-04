@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRouter/core/response
+ * @zudojs/http/httpRouter/core/response
  *
  * HTTP router response utilities.
  */

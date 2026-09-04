@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/campusflow-gateway",
+  "name": "@zudojs/campusflow-gateway",
   "version": "0.1.1",
   "private": true,
   "type": "module",
@@ -11,14 +11,14 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@zudolib/http": "workspace:*",
-    "@zudolib/config": "workspace:*",
-    "@zudolib/logger": "workspace:*",
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/validation": "workspace:*",
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/types": "workspace:*",
-    "@zudolib/security": "workspace:*",
+    "@zudojs/http": "workspace:*",
+    "@zudojs/config": "workspace:*",
+    "@zudojs/logger": "workspace:*",
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/validation": "workspace:*",
+    "@zudojs/constants": "workspace:*",
+    "@zudojs/types": "workspace:*",
+    "@zudojs/security": "workspace:*",
     "jsonwebtoken": "^9.0.3",
     "zod": "^4.5.4"
   },

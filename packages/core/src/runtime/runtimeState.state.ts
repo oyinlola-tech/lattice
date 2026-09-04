@@ -1,4 +1,4 @@
-import { RuntimeStateError } from "@zudolib/errors";
+import { RuntimeStateError } from "@zudojs/errors";
 
 /** Runtime lifecycle states. */
 export enum RuntimeState {

@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/rpc",
+  "name": "@zudojs/rpc",
   "version": "1.0.0",
-  "description": "Remote procedure call infrastructure for Zudolib applications.",
+  "description": "Remote procedure call infrastructure for Zudojs applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -27,10 +27,10 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/types": "workspace:*",
-    "@zudolib/schema": "workspace:*"
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/constants": "workspace:*",
+    "@zudojs/types": "workspace:*",
+    "@zudojs/schema": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
@@ -40,7 +40,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "rpc",
     "remote",
     "procedure"

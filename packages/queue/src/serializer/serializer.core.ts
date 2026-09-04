@@ -1,13 +1,13 @@
 /**
- * @zudolib/queue — Serializer
+ * @zudojs/queue — Serializer
  *
- * Job payload serialization using @zudolib/serialization's JSONSerializer.
+ * Job payload serialization using @zudojs/serialization's JSONSerializer.
  */
 
 import type { Serializer } from "./serializer.type.js";
-import { JSONSerializer } from "@zudolib/serialization";
+import { JSONSerializer } from "@zudojs/serialization";
 
-/** Default JSON serializer backed by @zudolib/serialization. */
+/** Default JSON serializer backed by @zudojs/serialization. */
 export const JsonSerializer: Serializer = Object.freeze({
   serialize<T>(data: T): string {
     return new JSONSerializer().serialize(data);

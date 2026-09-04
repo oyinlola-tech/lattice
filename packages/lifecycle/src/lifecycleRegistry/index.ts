@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/registry
+ * @zudojs/lifecycle/registry
  *
  * Lifecycle component registry with validation and dependency tracking.
  */

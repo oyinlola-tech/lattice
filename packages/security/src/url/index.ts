@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — URL Validation Barrel
+ * @zudojs/security — URL Validation Barrel
  */
 
 export {

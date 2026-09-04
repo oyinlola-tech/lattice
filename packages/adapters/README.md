@@ -1,17 +1,17 @@
-# @zudolib/adapters
+# @zudojs/adapters
 
-Boundary layer between Zudolib and external platforms with adapter contracts, registry, capabilities, and transport abstractions.
+Boundary layer between Zudojs and external platforms with adapter contracts, registry, capabilities, and transport abstractions.
 
 ## Installation
 
 ```bash
-npm install @zudolib/adapters
+npm install @zudojs/adapters
 ```
 
 ## Quick Start
 
 ```typescript
-import { createAdapterRegistry } from "@zudolib/adapters";
+import { createAdapterRegistry } from "@zudojs/adapters";
 
 const registry = createAdapterRegistry();
 

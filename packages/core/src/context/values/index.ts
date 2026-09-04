@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/context/values
+ * @zudojs/core/context/values
  *
  * Immutable typed context value collection.
  */

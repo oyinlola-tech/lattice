@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/lifecycle/core
+ * @zudojs/core/lifecycle/core
  *
  * Core lifecycle state machine, hooks, and registry.
  */

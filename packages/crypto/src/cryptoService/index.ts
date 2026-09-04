@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoService
+ * @zudojs/crypto/cryptoService
  *
  * High-level cryptographic service interface.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/docs/generator
+ * @zudojs/docs/generator
  *
  * Output generators — markdown and JSON for documentation.
  */

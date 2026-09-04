@@ -1,7 +1,7 @@
 /**
- * @zudolib/adapters/queue
+ * @zudojs/adapters/queue
  *
- * Queue adapter contracts — bridges Zudolib queue to external providers.
+ * Queue adapter contracts — bridges Zudojs queue to external providers.
  *
  * Examples: BullMQ, RabbitMQ, AWS SQS, Redis, Kafka.
  */
@@ -13,7 +13,7 @@ import type {
 } from "../index.js";
 
 /**
- * Queue adapter — connects Zudolib queue abstractions to external providers.
+ * Queue adapter — connects Zudojs queue abstractions to external providers.
  */
 export interface QueueAdapter extends Adapter {
   /** Enqueues a job. */

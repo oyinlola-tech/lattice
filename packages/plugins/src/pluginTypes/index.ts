@@ -1,7 +1,7 @@
 /**
- * @zudolib/plugins/pluginTypes
+ * @zudojs/plugins/pluginTypes
  *
- * Core types for the Zudolib plugin system.
+ * Core types for the Zudojs plugin system.
  */
 
 export type { PluginState } from "./pluginState.type.js";
@@ -15,4 +15,4 @@ export type {
   PluginEvents,
 } from "./pluginContext.type.js";
 export type { Plugin } from "./plugin.type.js";
-export type { PluginErrorOptions } from "@zudolib/errors";
+export type { PluginErrorOptions } from "@zudojs/errors";

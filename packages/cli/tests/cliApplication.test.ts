@@ -1,14 +1,14 @@
 /**
- * zudolib-cli — CLI Application Tests
+ * zudojs-cli — CLI Application Tests
  *
- * Tests for ZudolibCLI, builtins, writer, runner, help generator,
+ * Tests for ZudojsCLI, builtins, writer, runner, help generator,
  * and version utilities.
  */
 
 import { describe, it, expect, vi } from "vitest";
 
 import {
-  ZudolibCLI,
+  ZudojsCLI,
   createCLI,
 } from "../src/cliApplication/cliApplication.core.js";
 import {
@@ -159,17 +159,17 @@ describe("createCLIWriter", () => {
   });
 });
 
-// ─── ZudolibCLI ────────────────────────────────────────────────────────────
+// ─── ZudojsCLI ────────────────────────────────────────────────────────────
 
-describe("ZudolibCLI", () => {
+describe("ZudojsCLI", () => {
   it("creates with default options", () => {
-    const cli = new ZudolibCLI();
-    expect(cli.name).toBe("zudolib");
+    const cli = new ZudojsCLI();
+    expect(cli.name).toBe("zudojs");
     expect(cli.version).toBeTruthy();
   });
 
   it("creates with custom options", () => {
-    const cli = new ZudolibCLI({
+    const cli = new ZudojsCLI({
       name: "my-app",
       version: "2.0.0",
       description: "My application",
@@ -180,14 +180,14 @@ describe("ZudolibCLI", () => {
   });
 
   it("registers commands", () => {
-    const cli = new ZudolibCLI();
+    const cli = new ZudojsCLI();
     const cmd = createCommand({ name: "test", execute: () => {} });
     cli.register(cmd);
     expect(cli.commandCount).toBe(1);
   });
 
   it("registers multiple commands", () => {
-    const cli = new ZudolibCLI();
+    const cli = new ZudojsCLI();
     cli.registerMany([
       createCommand({ name: "a", execute: () => {} }),
       createCommand({ name: "b", execute: () => {} }),
@@ -196,32 +196,32 @@ describe("ZudolibCLI", () => {
   });
 
   it("returns exit code 0 for --help", async () => {
-    const cli = new ZudolibCLI();
+    const cli = new ZudojsCLI();
     const code = await cli.run(["--help"]);
     expect(code).toBe(CLI_EXIT_CODES.SUCCESS);
   });
 
   it("returns exit code 0 for --version", async () => {
-    const cli = new ZudolibCLI({ version: "1.0.0" });
+    const cli = new ZudojsCLI({ version: "1.0.0" });
     const code = await cli.run(["--version"]);
     expect(code).toBe(CLI_EXIT_CODES.SUCCESS);
   });
 
   it("returns exit code 0 for no args (shows help)", async () => {
-    const cli = new ZudolibCLI();
+    const cli = new ZudojsCLI();
     const code = await cli.run([]);
     expect(code).toBe(CLI_EXIT_CODES.SUCCESS);
   });
 
   it("returns error exit code for unknown command", async () => {
-    const cli = new ZudolibCLI();
+    const cli = new ZudojsCLI();
     const code = await cli.run(["nonexistent"]);
     expect(code).not.toBe(CLI_EXIT_CODES.SUCCESS);
   });
 
   it("executes a registered command", async () => {
     let executed = false;
-    const cli = new ZudolibCLI();
+    const cli = new ZudojsCLI();
     cli.register(
       createCommand({
         name: "test",
@@ -236,7 +236,7 @@ describe("ZudolibCLI", () => {
   });
 
   it("returns general error for command execution failure", async () => {
-    const cli = new ZudolibCLI();
+    const cli = new ZudojsCLI();
     cli.register(
       createCommand({
         name: "fail",
@@ -250,7 +250,7 @@ describe("ZudolibCLI", () => {
   });
 
   it("prevents concurrent runs", async () => {
-    const cli = new ZudolibCLI();
+    const cli = new ZudojsCLI();
     cli.register(
       createCommand({
         name: "slow",
@@ -268,7 +268,7 @@ describe("ZudolibCLI", () => {
   });
 
   it("reports isRunning correctly", async () => {
-    const cli = new ZudolibCLI();
+    const cli = new ZudojsCLI();
     cli.register(
       createCommand({
         name: "slow",
@@ -287,7 +287,7 @@ describe("ZudolibCLI", () => {
   it("calls lifecycle hooks", async () => {
     const beforeRun = vi.fn();
     const afterRun = vi.fn();
-    const cli = new ZudolibCLI();
+    const cli = new ZudojsCLI();
     cli.use({ beforeRun, afterRun });
     cli.register(createCommand({ name: "test", execute: () => {} }));
     await cli.run(["test"]);
@@ -297,9 +297,9 @@ describe("ZudolibCLI", () => {
 });
 
 describe("createCLI", () => {
-  it("creates a ZudolibCLI instance", () => {
+  it("creates a ZudojsCLI instance", () => {
     const cli = createCLI({ name: "test-app" });
-    expect(cli).toBeInstanceOf(ZudolibCLI);
+    expect(cli).toBeInstanceOf(ZudojsCLI);
     expect(cli.name).toBe("test-app");
   });
 });

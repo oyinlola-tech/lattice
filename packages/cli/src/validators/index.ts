@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Validators
+ * zudojs-cli — Validators
  *
  * Environment, project, and compatibility validators.
  */

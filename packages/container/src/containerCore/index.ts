@@ -1,5 +1,5 @@
 /**
- * @zudolib/container/containerCore
+ * @zudojs/container/containerCore
  *
  * Core dependency injection container implementation.
  */

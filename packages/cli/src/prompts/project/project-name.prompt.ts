@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Project Name Prompt
+ * zudojs-cli — Project Name Prompt
  *
  * Prompts for the project name.
  */

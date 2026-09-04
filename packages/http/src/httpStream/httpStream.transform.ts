@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpStream — Create PassThrough and Readable stream instances.
+ * @zudojs/http/httpStream — Create PassThrough and Readable stream instances.
  */
 
 import { Readable, PassThrough } from "node:stream";

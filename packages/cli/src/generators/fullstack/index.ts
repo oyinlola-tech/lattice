@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Fullstack Composer
+ * zudojs-cli — Fullstack Composer
  *
  * Composes fullstack projects by orchestrating backend, frontend, and integration generators.
  */

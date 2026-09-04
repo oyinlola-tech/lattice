@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpHsts
+ * @zudojs/http/httpHsts
  *
  * HTTP httpHsts module.
  */

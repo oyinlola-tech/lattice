@@ -1,5 +1,5 @@
 /**
- * @zudolib/rpc/constants
+ * @zudojs/rpc/constants
  *
  * Shared constants for the RPC package.
  */

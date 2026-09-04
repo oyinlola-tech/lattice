@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@zudolib/cqrs";
+import type { CommandBus, QueryBus } from "@zudojs/cqrs";
 import { EnrollmentController } from "../controllers/enrollment.controller.js";
 
 /** A registered HTTP route. */

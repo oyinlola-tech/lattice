@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Backend Prompts
+ * zudojs-cli — Backend Prompts
  *
  * Barrel exports for backend prompts.
  */

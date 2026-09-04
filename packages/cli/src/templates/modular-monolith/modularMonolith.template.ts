@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Modular Monolith Template
+ * zudojs-cli — Modular Monolith Template
  *
  * Generated structure:
  * ```
@@ -28,7 +28,7 @@
  * ├── tests/
  * ├── package.json
  * ├── tsconfig.json
- * ├── zudolib.config.ts
+ * ├── zudojs.config.ts
  * └── README.md
  * ```
  */
@@ -47,18 +47,18 @@ export function generateModularMonolithFiles(
       : ["identity", "enrollment", "assessment"];
 
   const deps = [
-    "@zudolib/core",
-    "@zudolib/container",
-    "@zudolib/config",
-    "@zudolib/logger",
-    "@zudolib/errors",
-    "@zudolib/constants",
-    "@zudolib/types",
-    "@zudolib/validation",
-    "@zudolib/cqrs",
-    "@zudolib/events",
-    "@zudolib/messaging",
-    "@zudolib/http",
+    "@zudojs/core",
+    "@zudojs/container",
+    "@zudojs/config",
+    "@zudojs/logger",
+    "@zudojs/errors",
+    "@zudojs/constants",
+    "@zudojs/types",
+    "@zudojs/validation",
+    "@zudojs/cqrs",
+    "@zudojs/events",
+    "@zudojs/messaging",
+    "@zudojs/http",
   ];
 
   const devDeps = ["tsx", "typescript", "@types/node", "vitest"];
@@ -107,7 +107,7 @@ export function generateModularMonolithFiles(
 }
 `;
 
-  files["zudolib.config.ts"] = `import { defineConfig } from "@zudolib/config";
+  files["zudojs.config.ts"] = `import { defineConfig } from "@zudojs/config";
 
 export default defineConfig({
   application: {
@@ -149,7 +149,7 @@ dist/
 
   files["README.md"] = `# ${options.projectName}
 
-A modular monolith built with the Zudolib framework.
+A modular monolith built with the Zudojs framework.
 
 ## Architecture
 
@@ -173,8 +173,8 @@ MIT
   files["src/index.ts"] = `export { createApp } from "./app.js";
 `;
 
-  files["src/app.ts"] = `import { logger } from "@zudolib/logger";
-import { createContainer } from "@zudolib/container";
+  files["src/app.ts"] = `import { logger } from "@zudojs/logger";
+import { createContainer } from "@zudojs/container";
 
 export async function createApp() {
   const log = logger.child({ service: "app" });
@@ -195,7 +195,7 @@ export async function createApp() {
 `;
 
   files["src/server.ts"] = `import { createApp } from "./app.js";
-import { createRuntime } from "@zudolib/runtime";
+import { createRuntime } from "@zudojs/runtime";
 
 const app = await createApp();
 
@@ -247,7 +247,7 @@ process.on("SIGTERM", async () => {
 `;
 
     files[`src/modules/${modName}/${modName}.module.ts`] =
-      `import { logger } from "@zudolib/logger";
+      `import { logger } from "@zudojs/logger";
 
 export class ${modNamePascal}Module {
   private readonly log = logger.child({ module: "${modName}" });

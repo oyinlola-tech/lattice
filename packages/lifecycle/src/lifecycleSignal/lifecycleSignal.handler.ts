@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/signal
+ * @zudojs/lifecycle/signal
  *
  * Process signal handler — manages SIGTERM, SIGINT, SIGHUP for graceful shutdown.
  */

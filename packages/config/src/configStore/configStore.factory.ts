@@ -1,5 +1,5 @@
 /**
- * @zudolib/config/configStore/configStore.factory
+ * @zudojs/config/configStore/configStore.factory
  *
  * Factory and utility functions for ConfigStore.
  */

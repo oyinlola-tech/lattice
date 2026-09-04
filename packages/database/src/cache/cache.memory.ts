@@ -1,4 +1,4 @@
-import { DatabaseError } from "@zudolib/errors";
+import { DatabaseError } from "@zudojs/errors";
 
 /**
  * Cache entry stored by the database cache.

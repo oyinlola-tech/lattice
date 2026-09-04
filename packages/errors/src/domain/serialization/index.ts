@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/domain/serialization
+ * @zudojs/errors/domain/serialization
  *
  * Serialization, deserialization, and transformer error types.
  */

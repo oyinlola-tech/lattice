@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/logging/core
+ * @zudojs/core/logging/core
  *
  * Core logger types, levels, entries, context, and options.
  */

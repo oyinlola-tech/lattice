@@ -1,7 +1,7 @@
 /**
- * @zudolib/rpc/types
+ * @zudojs/rpc/types
  *
- * Core types for the Zudolib RPC package.
+ * Core types for the Zudojs RPC package.
  */
 
 /**

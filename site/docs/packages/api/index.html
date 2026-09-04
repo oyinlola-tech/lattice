@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@zudolib/api — Transport-agnostic API layer | Zudo Framework</title>
-  <meta name="description" content="Complete reference for @zudolib/api v1.0.0. Define transport-agnostic operations, interceptors, policies, and execution contexts for the Zudo TypeScript framework.">
-  <meta name="keywords" content="zudolib, api, operations, interceptors, executor, registry, handler, context, TypeScript, framework, defineOperation, APIExecutor, APIOperationRegistry">
+  <title>@zudojs/api — Transport-agnostic API layer | Zudo Framework</title>
+  <meta name="description" content="Complete reference for @zudojs/api v1.0.0. Define transport-agnostic operations, interceptors, policies, and execution contexts for the Zudo TypeScript framework.">
+  <meta name="keywords" content="zudojs, api, operations, interceptors, executor, registry, handler, context, TypeScript, framework, defineOperation, APIExecutor, APIOperationRegistry">
   <meta name="author" content="Oyinlola Tech">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://zudo.dev/docs/packages/api/">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="@zudolib/api — Transport-agnostic API layer | Zudo Framework">
-  <meta property="og:description" content="Complete reference for @zudolib/api v1.0.0. Define transport-agnostic operations, interceptors, policies, and execution contexts.">
+  <meta property="og:title" content="@zudojs/api — Transport-agnostic API layer | Zudo Framework">
+  <meta property="og:description" content="Complete reference for @zudojs/api v1.0.0. Define transport-agnostic operations, interceptors, policies, and execution contexts.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://zudo.dev/docs/packages/api/">
   <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
@@ -26,8 +26,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="@zudolib/api — Transport-agnostic API layer">
-  <meta name="twitter:description" content="Complete reference for @zudolib/api v1.0.0. Operations, interceptors, policies, execution contexts.">
+  <meta name="twitter:title" content="@zudojs/api — Transport-agnostic API layer">
+  <meta name="twitter:description" content="Complete reference for @zudojs/api v1.0.0. Operations, interceptors, policies, execution contexts.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="../../../assets/zudo-favicon.svg">
@@ -63,8 +63,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "@zudolib/api — Transport-agnostic API layer",
-    "description": "Complete reference for @zudolib/api v1.0.0. Define transport-agnostic operations, interceptors, policies, and execution contexts.",
+    "headline": "@zudojs/api — Transport-agnostic API layer",
+    "description": "Complete reference for @zudojs/api v1.0.0. Define transport-agnostic operations, interceptors, policies, and execution contexts.",
     "version": "1.0.0",
     "programmingLanguage": "TypeScript",
     "runtimePlatform": "Node.js >= 24.0.0",
@@ -85,9 +85,9 @@
     "datePublished": "2026-01-01",
     "dateModified": "2026-01-01",
     "mainEntityOfPage": "https://zudo.dev/docs/packages/api/",
-    "keywords": "zudolib, api, operations, interceptors, executor, registry, handler, context, TypeScript",
+    "keywords": "zudojs, api, operations, interceptors, executor, registry, handler, context, TypeScript",
     "articleSection": "Packages",
-    "dependencies": ["@zudolib/errors", "@zudolib/constants", "@zudolib/types", "@zudolib/schema"]
+    "dependencies": ["@zudojs/errors", "@zudojs/constants", "@zudojs/types", "@zudojs/schema"]
   }
   </script>
   <script type="application/ld+json">
@@ -97,7 +97,7 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
       { "@type": "ListItem", "position": 2, "name": "Packages", "item": "https://zudo.dev/docs/packages/" },
-      { "@type": "ListItem", "position": 3, "name": "@zudolib/api", "item": "https://zudo.dev/docs/packages/api/" }
+      { "@type": "ListItem", "position": 3, "name": "@zudojs/api", "item": "https://zudo.dev/docs/packages/api/" }
     ]
   }
   </script>
@@ -150,11 +150,11 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../packages/" class="sidebar-item">Overview</a>
-      <a href="../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../../packages/api/" class="sidebar-item sidebar-item-active">@zudolib/api</a>
-      <a href="../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../../packages/api/" class="sidebar-item sidebar-item-active">@zudojs/api</a>
+      <a href="../../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -171,13 +171,13 @@
         <span class="mx-2 text-black/30">/</span>
         <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
         <span class="mx-2 text-black/30">/</span>
-        <span class="text-black/50">@zudolib/api</span>
+        <span class="text-black/50">@zudojs/api</span>
       </div>
 
       <!-- Header -->
       <div class="border-4 border-black p-8 mb-10 relative">
         <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v1.0.0</div>
-        <h1 class="text-4xl font-black mb-3 mt-2">@zudolib/api</h1>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/api</h1>
         <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
           HTTP API infrastructure for Zudo — request handling, routing, middleware, validation, error handling, and OpenAPI integration.
         </p>
@@ -190,7 +190,7 @@
 
       <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="overview">Overview</h2>
             <p class="text-body text-black/80 mb-4">
-              <span class="code-inline">@zudolib/api</span> defines the public surface of your application capabilities. It provides transport-agnostic operation definitions, a typed execution context, an interceptor pipeline, an operation registry, and a discriminated result type.
+              <span class="code-inline">@zudojs/api</span> defines the public surface of your application capabilities. It provides transport-agnostic operation definitions, a typed execution context, an interceptor pipeline, an operation registry, and a discriminated result type.
             </p>
             <p class="text-body text-black/80 mb-6">
               This package sits in <strong>Layer 3 (Application Architecture)</strong> of the Zudo stack. It depends only on Layer 1 foundation packages. HTTP handlers, CLI commands, message consumers, and RPC servers all execute through the same API operations.
@@ -198,7 +198,7 @@
 
             <div class="callout callout-note mb-6">
               <strong class="text-sm uppercase tracking-wider text-zudo-blue">Why?</strong>
-              <p class="text-sm mt-1">Without a transport-agnostic API layer, business logic leaks into HTTP handlers, CLI parsers, or message consumers. <span class="code-inline">@zudolib/api</span> extracts operations into standalone, testable units that any transport can call.</p>
+              <p class="text-sm mt-1">Without a transport-agnostic API layer, business logic leaks into HTTP handlers, CLI parsers, or message consumers. <span class="code-inline">@zudojs/api</span> extracts operations into standalone, testable units that any transport can call.</p>
             </div>
           </section>
 
@@ -206,14 +206,14 @@
           <section class="mt-12" aria-labelledby="installation">
             <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="installation">Installation</h2>
             <div class="code-block p-4 mb-4"><span class="cmt"># Install with npm</span>
-npm install @zudolib/api
+npm install @zudojs/api
 
 <span class="cmt"># Or with pnpm</span>
-pnpm add @zudolib/api</div>
+pnpm add @zudojs/api</div>
 
             <div class="callout callout-tip mb-6">
               <strong class="text-sm uppercase tracking-wider text-zudo-green">Peer dependencies</strong>
-              <p class="text-sm mt-1"><span class="code-inline">@zudolib/errors</span>, <span class="code-inline">@zudolib/constants</span>, <span class="code-inline">@zudolib/types</span>, and <span class="code-inline">@zudolib/schema</span> are required. Install them if not already present.</p>
+              <p class="text-sm mt-1"><span class="code-inline">@zudojs/errors</span>, <span class="code-inline">@zudojs/constants</span>, <span class="code-inline">@zudojs/types</span>, and <span class="code-inline">@zudojs/schema</span> are required. Install them if not already present.</p>
             </div>
           </section>
 
@@ -227,7 +227,7 @@ pnpm add @zudolib/api</div>
   <span class="tp">APIOperationRegistry</span>,
   <span class="tp">APIExecutor</span>,
   <span class="fn">createAPIContext</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/api"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/api"</span>;
 
 <span class="cmt">// 1. Define the operation</span>
 <span class="kw">const</span> <span class="fn">getUser</span> = <span class="fn">defineOperation</span>({
@@ -278,7 +278,7 @@ registry.<span class="fn">register</span>(getUser);
                 <thead><tr><th>Property</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
                 <tbody>
                   <tr><td><span class="code-inline">name</span></td><td><span class="code-inline">string</span></td><td>Yes</td><td>Unique operation identifier. Dot notation recommended (e.g. <span class="code-inline">"users.get"</span>).</td></tr>
-                  <tr><td><span class="code-inline">input</span></td><td><span class="code-inline">unknown</span></td><td>No</td><td>Schema definition for input validation (passed to <span class="code-inline">@zudolib/schema</span>).</td></tr>
+                  <tr><td><span class="code-inline">input</span></td><td><span class="code-inline">unknown</span></td><td>No</td><td>Schema definition for input validation (passed to <span class="code-inline">@zudojs/schema</span>).</td></tr>
                   <tr><td><span class="code-inline">output</span></td><td><span class="code-inline">unknown</span></td><td>No</td><td>Schema definition for output validation.</td></tr>
                   <tr><td><span class="code-inline">handler</span></td><td><span class="code-inline">APIHandler&lt;TInput, TOutput&gt;</span></td><td>Yes</td><td>Async function that implements the operation logic.</td></tr>
                   <tr><td><span class="code-inline">metadata</span></td><td><span class="code-inline">APIOperationMetadata</span></td><td>No</td><td>Description, tags, version, timeout, deprecation status.</td></tr>
@@ -504,7 +504,7 @@ registry.<span class="fn">register</span>(getUser);
 <span class="sig-keyword">function</span> <span class="sig-func">createContextKey</span>&lt;<span class="sig-type">T</span>&gt;(name: <span class="sig-type">string</span>): <span class="sig-type">APIContextKey</span>&lt;<span class="sig-type">T</span>&gt;</div>
 
               <h4 class="text-sm font-bold uppercase tracking-wider text-black/50 mb-2">Example: Custom context key</h4>
-              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">createContextKey</span>, <span class="fn">createAPIContext</span> } <span class="kw">from</span> <span class="str">"@zudolib/api"</span>;
+              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">createContextKey</span>, <span class="fn">createAPIContext</span> } <span class="kw">from</span> <span class="str">"@zudojs/api"</span>;
 
 <span class="kw">const</span> <span class="tp">RequestIdContextKey</span> = <span class="fn">createContextKey</span>&lt;<span class="tp">string</span>&gt;(<span class="str">"requestId"</span>);
 <span class="kw">const</span> <span class="tp">CorrelationIdContextKey</span> = <span class="fn">createContextKey</span>&lt;<span class="tp">string</span>&gt;(<span class="str">"correlationId"</span>);
@@ -624,7 +624,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-ab
 }</div>
 
               <h4 class="text-sm font-bold uppercase tracking-wider text-black/50 mb-2 mt-4">Example: Logging interceptor</h4>
-              <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="tp">APIInterceptor</span> } <span class="kw">from</span> <span class="str">"@zudolib/api"</span>;
+              <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="tp">APIInterceptor</span> } <span class="kw">from</span> <span class="str">"@zudojs/api"</span>;
 
 <span class="kw">const</span> <span class="fn">loggingInterceptor</span>: <span class="tp">APIInterceptor</span> = {
   <span class="kw">async</span> <span class="fn">intercept</span>(context, next) {
@@ -727,7 +727,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-ab
               <div class="api-signature mb-4">
 <span class="sig-keyword">function</span> <span class="sig-func">createNoopInterceptor</span>(): <span class="sig-type">APIInterceptor</span></div>
 
-              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">createNoopInterceptor</span> } <span class="kw">from</span> <span class="str">"@zudolib/api"</span>;
+              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">createNoopInterceptor</span> } <span class="kw">from</span> <span class="str">"@zudojs/api"</span>;
 
 <span class="kw">const</span> executor = <span class="kw">new</span> <span class="tp">APIExecutor</span>([
   loggingInterceptor,
@@ -859,7 +859,7 @@ registry.<span class="fn">freeze</span>();</div>
               <div class="code-block p-4"><span class="kw">import</span> {
   <span class="fn">apiSuccess</span>, <span class="fn">apiFailure</span>,
   <span class="fn">isApiSuccess</span>, <span class="fn">isApiFailure</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/api"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/api"</span>;
 
 <span class="cmt">// In a handler — always return result, never throw</span>
 <span class="kw">const</span> handler = <span class="kw">async</span> (<span class="op">input, context</span>) => {
@@ -885,7 +885,7 @@ registry.<span class="fn">freeze</span>();</div>
           <section class="mt-12" aria-labelledby="errors-section">
             <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="errors-section">Error Hierarchy</h2>
             <p class="text-body text-black/80 mb-4">
-              All API errors are re-exported from <span class="code-inline">@zudolib/errors</span>. Throw these from handlers or return them via <span class="code-inline">apiFailure()</span>.
+              All API errors are re-exported from <span class="code-inline">@zudojs/errors</span>. Throw these from handlers or return them via <span class="code-inline">apiFailure()</span>.
             </p>
 
             <table class="doc-table mb-6">
@@ -935,7 +935,7 @@ registry.<span class="fn">freeze</span>();</div>
   <span class="tp">APIAuthenticationError</span>,
   <span class="fn">createAPIError</span>,
   <span class="fn">isAPIError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/api"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/api"</span>;
 
 <span class="cmt">// Throw from handler</span>
 <span class="kw">const</span> handler = <span class="kw">async</span> (<span class="op">input</span>) => {
@@ -983,8 +983,8 @@ registry.<span class="fn">freeze</span>();</div>
                 Define operations, expose them as HTTP endpoints. The HTTP layer translates request/response but business logic stays in the operation.
               </p>
 
-              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">defineOperation</span>, <span class="tp">APIExecutor</span>, <span class="tp">APIOperationRegistry</span>, <span class="fn">createAPIContext</span> } <span class="kw">from</span> <span class="str">"@zudolib/api"</span>;
-<span class="kw">import</span> { <span class="tp">APIValidationError</span>, <span class="tp">APINotFoundError</span> } <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">defineOperation</span>, <span class="tp">APIExecutor</span>, <span class="tp">APIOperationRegistry</span>, <span class="fn">createAPIContext</span> } <span class="kw">from</span> <span class="str">"@zudojs/api"</span>;
+<span class="kw">import</span> { <span class="tp">APIValidationError</span>, <span class="tp">APINotFoundError</span> } <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cmt">// Define operations</span>
 <span class="kw">const</span> <span class="fn">getUser</span> = <span class="fn">defineOperation</span>({
@@ -1102,7 +1102,7 @@ queue.<span class="fn">consume</span>(<span class="str">"payment.process"</span>
                 Use context keys to enforce tenant isolation across all operations.
               </p>
 
-              <div class="code-block p-4"><span class="kw">import</span> { <span class="tp">TenantIdContextKey</span>, <span class="tp">UserIdContextKey</span> } <span class="kw">from</span> <span class="str">"@zudolib/api"</span>;
+              <div class="code-block p-4"><span class="kw">import</span> { <span class="tp">TenantIdContextKey</span>, <span class="tp">UserIdContextKey</span> } <span class="kw">from</span> <span class="str">"@zudojs/api"</span>;
 
 <span class="cmt">// Tenant-aware handler</span>
 <span class="kw">const</span> <span class="fn">listOrders</span> = <span class="fn">defineOperation</span>({
@@ -1165,12 +1165,12 @@ app.<span class="fn">use</span>(<span class="kw">async</span> (<span class="op">
   <span class="fn">apiFailure</span>,
   <span class="tp">UserIdContextKey</span>,
   <span class="tp">TenantIdContextKey</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/api"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/api"</span>;
 <span class="kw">import</span> {
   <span class="tp">APINotFoundError</span>,
   <span class="tp">APIValidationError</span>,
   <span class="tp">APIAuthenticationError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cmt">// --- Operations ---</span>
 
@@ -1334,24 +1334,24 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
             <table class="doc-table mb-6">
               <thead><tr><th>Package</th><th>Relationship</th><th>Usage</th></tr></thead>
               <tbody>
-                <tr><td><span class="code-inline">@zudolib/errors</span></td><td>Dependency</td><td>All error classes (<span class="code-inline">APIError</span>, <span class="code-inline">APIValidationError</span>, etc.) are re-exported from here.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/constants</span></td><td>Dependency</td><td>Branded types and shared constants used in context keys.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/types</span></td><td>Dependency</td><td>Type guards and utility types for input/output validation.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/schema</span></td><td>Dependency</td><td>Schema definitions for input/output validation on operations.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/http</span></td><td>Consumer</td><td>HTTP handlers call <span class="code-inline">APIExecutor.execute()</span> to run operations.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/cli</span></td><td>Consumer</td><td>CLI commands execute operations via the executor.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/rpc</span></td><td>Consumer</td><td>RPC handlers execute operations via the executor.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/messaging</span></td><td>Consumer</td><td>Message consumers execute operations via the executor.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/cqrs</span></td><td>Consumer</td><td>Commands and queries are API operations with CQRS metadata.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/auth</span></td><td>Complementary</td><td>Auth interceptors use auth primitives from this package.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/middleware</span></td><td>Complementary</td><td>Interceptor pipeline mirrors middleware composition patterns.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/openapi</span></td><td>Complementary</td><td>Operation metadata maps directly to OpenAPI spec generation.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/testing</span></td><td>Complementary</td><td>Test helpers for mocking executors, registries, and interceptors.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/observability</span></td><td>Complementary</td><td>Interceptors emit spans and metrics for distributed tracing.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/security</span></td><td>Complementary</td><td>Security interceptors validate input and enforce CORS/CSRF.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/tenancy</span></td><td>Complementary</td><td>Tenant context keys flow through API context for multi-tenant isolation.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/cache</span></td><td>Complementary</td><td>Cache interceptor uses cache adapter for response caching.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/permissions</span></td><td>Complementary</td><td>Authorization interceptors check permissions before execution.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/errors</span></td><td>Dependency</td><td>All error classes (<span class="code-inline">APIError</span>, <span class="code-inline">APIValidationError</span>, etc.) are re-exported from here.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/constants</span></td><td>Dependency</td><td>Branded types and shared constants used in context keys.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/types</span></td><td>Dependency</td><td>Type guards and utility types for input/output validation.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/schema</span></td><td>Dependency</td><td>Schema definitions for input/output validation on operations.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/http</span></td><td>Consumer</td><td>HTTP handlers call <span class="code-inline">APIExecutor.execute()</span> to run operations.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/cli</span></td><td>Consumer</td><td>CLI commands execute operations via the executor.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/rpc</span></td><td>Consumer</td><td>RPC handlers execute operations via the executor.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/messaging</span></td><td>Consumer</td><td>Message consumers execute operations via the executor.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/cqrs</span></td><td>Consumer</td><td>Commands and queries are API operations with CQRS metadata.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/auth</span></td><td>Complementary</td><td>Auth interceptors use auth primitives from this package.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/middleware</span></td><td>Complementary</td><td>Interceptor pipeline mirrors middleware composition patterns.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/openapi</span></td><td>Complementary</td><td>Operation metadata maps directly to OpenAPI spec generation.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/testing</span></td><td>Complementary</td><td>Test helpers for mocking executors, registries, and interceptors.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/observability</span></td><td>Complementary</td><td>Interceptors emit spans and metrics for distributed tracing.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/security</span></td><td>Complementary</td><td>Security interceptors validate input and enforce CORS/CSRF.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/tenancy</span></td><td>Complementary</td><td>Tenant context keys flow through API context for multi-tenant isolation.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/cache</span></td><td>Complementary</td><td>Cache interceptor uses cache adapter for response caching.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/permissions</span></td><td>Complementary</td><td>Authorization interceptors check permissions before execution.</td></tr>
               </tbody>
             </table>
           </section>
@@ -1363,10 +1363,10 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
             <table class="doc-table mb-6">
               <thead><tr><th>Package</th><th>Required Version</th></tr></thead>
               <tbody>
-                <tr><td><span class="code-inline">@zudolib/errors</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
-                <tr><td><span class="code-inline">@zudolib/constants</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
-                <tr><td><span class="code-inline">@zudolib/types</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
-                <tr><td><span class="code-inline">@zudolib/schema</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
+                <tr><td><span class="code-inline">@zudojs/errors</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
+                <tr><td><span class="code-inline">@zudojs/constants</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
+                <tr><td><span class="code-inline">@zudojs/types</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
+                <tr><td><span class="code-inline">@zudojs/schema</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
                 <tr><td><span class="code-inline">typescript</span></td><td><span class="code-inline">^7.0.2</span></td></tr>
                 <tr><td><span class="code-inline">node</span></td><td><span class="code-inline">&gt;= 24.0.0</span></td></tr>
               </tbody>
@@ -1380,12 +1380,12 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
             <div class="space-y-4">
               <div class="callout callout-tip">
                 <strong class="text-sm uppercase tracking-wider text-zudo-green">Input/Output Validation</strong>
-                <p class="text-sm mt-1">Integrate <span class="code-inline">@zudolib/schema</span> validation directly in the executor. When an operation defines <span class="code-inline">input</span> or <span class="code-inline">output</span> schemas, validate automatically before/after handler execution.</p>
+                <p class="text-sm mt-1">Integrate <span class="code-inline">@zudojs/schema</span> validation directly in the executor. When an operation defines <span class="code-inline">input</span> or <span class="code-inline">output</span> schemas, validate automatically before/after handler execution.</p>
               </div>
 
               <div class="callout callout-tip">
                 <strong class="text-sm uppercase tracking-wider text-zudo-green">Middleware Timing Metrics</strong>
-                <p class="text-sm mt-1">Add built-in timing to the executor that records per-interceptor duration. Integrate with <span class="code-inline">@zudolib/observability</span> for automatic span creation.</p>
+                <p class="text-sm mt-1">Add built-in timing to the executor that records per-interceptor duration. Integrate with <span class="code-inline">@zudojs/observability</span> for automatic span creation.</p>
               </div>
 
               <div class="callout callout-tip">
@@ -1395,7 +1395,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
 
               <div class="callout callout-tip">
                 <strong class="text-sm uppercase tracking-wider text-zudo-green">OpenAPI Integration</strong>
-                <p class="text-sm mt-1">Auto-generate OpenAPI specs from the registry using <span class="code-inline">@zudolib/openapi</span>. Operation metadata (name, tags, description) maps 1:1 to OpenAPI operation objects.</p>
+                <p class="text-sm mt-1">Auto-generate OpenAPI specs from the registry using <span class="code-inline">@zudojs/openapi</span>. Operation metadata (name, tags, description) maps 1:1 to OpenAPI operation objects.</p>
               </div>
 
               <div class="callout callout-tip">
@@ -1415,7 +1415,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
 
               <div class="callout callout-tip">
                 <strong class="text-sm uppercase tracking-wider text-zudo-green">Dead Letter Queue Support</strong>
-                <p class="text-sm mt-1">Integrate with <span class="code-inline">@zudolib/queue</span> to automatically retry failed operations with exponential backoff and dead letter routing.</p>
+                <p class="text-sm mt-1">Integrate with <span class="code-inline">@zudojs/queue</span> to automatically retry failed operations with exponential backoff and dead letter routing.</p>
               </div>
             </div>
           </section>
@@ -1426,11 +1426,11 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <a href="../adapters/" class="block border-4 border-black p-6 hover:border-zudo-blue hover:bg-blue-50">
                 <span class="text-label text-zudo-blue">Previous</span>
-                <div class="text-h3 mt-1">@zudolib/adapters</div>
+                <div class="text-h3 mt-1">@zudojs/adapters</div>
               </a>
               <a href="../auth/" class="block border-4 border-black p-6 hover:border-zudo-red hover:bg-red-50 text-right">
                 <span class="text-label text-zudo-red">Next</span>
-                <div class="text-h3 mt-1">@zudolib/auth</div>
+                <div class="text-h3 mt-1">@zudojs/auth</div>
               </a>
             </div>
           </section>

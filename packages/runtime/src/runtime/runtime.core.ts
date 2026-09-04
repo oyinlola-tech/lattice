@@ -1,10 +1,10 @@
-import type { Logger } from "@zudolib/logger";
+import type { Logger } from "@zudojs/logger";
 
-import type { EventBus } from "@zudolib/events";
+import type { EventBus } from "@zudojs/events";
 
-import type { Container } from "@zudolib/container";
+import type { Container } from "@zudojs/container";
 
-import type { Module } from "@zudolib/core";
+import type { Module } from "@zudojs/core";
 
 import type {
   RuntimeState,
@@ -49,7 +49,7 @@ import {
   createReadinessEventPayload,
 } from "../runtimeEvents/index.js";
 
-import { createEvent } from "@zudolib/events";
+import { createEvent } from "@zudojs/events";
 
 import {
   RuntimeStartError,
@@ -61,7 +61,7 @@ import {
 } from "../runtimeError/index.js";
 
 /**
- * Zudolib runtime interface.
+ * Zudojs runtime interface.
  *
  * The runtime is the orchestrator that manages the complete
  * application lifecycle from creation through shutdown.

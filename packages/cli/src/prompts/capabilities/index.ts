@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Capabilities Prompts
+ * zudojs-cli — Capabilities Prompts
  *
  * Barrel exports for capabilities prompts.
  */

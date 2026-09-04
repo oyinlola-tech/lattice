@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Database Connection
+ * @zudojs/database — Database Connection
  *
  * Connection lifecycle management with health checks.
  */

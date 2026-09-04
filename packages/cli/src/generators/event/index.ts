@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Event Generator
+ * zudojs-cli — Event Generator
  */
 
 export { generateEvent, type GenerateEventOptions } from "./event.generator.js";

@@ -1,5 +1,5 @@
 /**
- * @zudolib/messaging/handlerRegistry
+ * @zudojs/messaging/handlerRegistry
  *
  * HandlerRegistry type definitions and in-memory store.
  */

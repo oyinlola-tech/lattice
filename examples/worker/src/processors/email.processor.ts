@@ -5,8 +5,8 @@
  * In a real application, this would integrate with an email service.
  */
 
-import type { Job } from "@zudolib/queue";
-import type { JobContext } from "@zudolib/queue";
+import type { Job } from "@zudojs/queue";
+import type { JobContext } from "@zudojs/queue";
 import type { SendEmailJobData } from "../jobs/jobs.types.js";
 
 function sleep(ms: number): Promise<void> {

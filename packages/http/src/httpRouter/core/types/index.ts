@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRouter/core/types
+ * @zudojs/http/httpRouter/core/types
  *
  * HTTP router type definitions.
  */

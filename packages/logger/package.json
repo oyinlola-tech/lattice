@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/logger",
+  "name": "@zudojs/logger",
   "version": "1.0.0",
-  "description": "Structured logging with transports, log levels, and context propagation for Zudolib applications.",
+  "description": "Structured logging with transports, log levels, and context propagation for Zudojs applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -28,7 +28,7 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*"
+    "@zudojs/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "7.0.2",
@@ -38,7 +38,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "logging",
     "structured-logs",
     "transports"

@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/adapter
+ * @zudojs/adapters/adapter
  *
  * Adapter registry — manages adapter registration, lookup, and lifecycle.
  */
@@ -9,10 +9,10 @@ import type { AdapterCapabilities } from "../capabilities/capabilities.type.js";
 import {
   AdapterAlreadyRegisteredError,
   AdapterNotFoundError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 /**
- * Registry for Zudolib adapters.
+ * Registry for Zudojs adapters.
  *
  * Ensures adapters are uniquely registered and provides lookup by name.
  */

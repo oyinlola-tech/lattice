@@ -62,7 +62,7 @@ export class ReactNativeAdapter implements FrontendAdapter {
     return deps;
   }
 
-  async applyZudolibStructure(
+  async applyZudojsStructure(
     context: FrontendGenerationContext,
   ): Promise<void> {
     const structure = this.getStructure(context);

@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/lifecycle",
+  "name": "@zudojs/lifecycle",
   "version": "1.0.0",
   "description": "Application and component lifecycle orchestration with state machine, dependency ordering, graceful shutdown, rollback, and signals.",
   "license": "MIT",
@@ -24,8 +24,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*"
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/constants": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
@@ -39,7 +39,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "lifecycle",
     "state-machine",
     "startup",

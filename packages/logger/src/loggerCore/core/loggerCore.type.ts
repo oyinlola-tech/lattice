@@ -14,7 +14,7 @@ import type {
 } from "../../loggerOptions/loggerOptions.type.js";
 
 /**
- * Main Zudolib logger contract.
+ * Main Zudojs logger contract.
  */
 export interface Logger {
   readonly name: string;

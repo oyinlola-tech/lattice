@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpServer/manager
+ * @zudojs/http/httpServer/manager
  *
  * HTTP server manager module.
  */

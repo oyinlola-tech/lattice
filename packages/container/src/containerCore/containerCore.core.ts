@@ -1,5 +1,5 @@
 /**
- * Core dependency injection container for Zudolib.
+ * Core dependency injection container for Zudojs.
  */
 
 import type {

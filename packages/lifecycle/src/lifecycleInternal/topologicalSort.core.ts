@@ -1,11 +1,11 @@
 /**
- * @zudolib/lifecycle/internal/topological-sort
+ * @zudojs/lifecycle/internal/topological-sort
  *
  * Topological sort for dependency-aware ordering with priority support.
  */
 
 import type { DependencyGraph } from "./dependencyGraph.core.js";
-import { LifecycleDependencyError } from "@zudolib/errors";
+import { LifecycleDependencyError } from "@zudojs/errors";
 
 /** A sorted stage — components that can run in parallel. */
 export type TopologicalStage = readonly string[];

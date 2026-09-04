@@ -1,5 +1,5 @@
 /**
- * Event subscription primitives for Zudolib.
+ * Event subscription primitives for Zudojs.
  *
  * A subscription represents an active connection between an
  * event listener and an event source.

@@ -1,7 +1,7 @@
 /**
  * User validation schemas.
  *
- * Uses Zod for schema definition and @zudolib/validation for parsing.
+ * Uses Zod for schema definition and @zudojs/validation for parsing.
  */
 
 import { z } from "zod";

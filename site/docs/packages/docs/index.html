@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@zudolib/docs — Documentation Infrastructure</title>
-  <meta name="description" content="Complete documentation for @zudolib/docs — structured document model, registry, validation, navigation, frontmatter parsing, and output generation.">
+  <title>@zudojs/docs — Documentation Infrastructure</title>
+  <meta name="description" content="Complete documentation for @zudojs/docs — structured document model, registry, validation, navigation, frontmatter parsing, and output generation.">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -96,10 +96,10 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../../packages/" class="sidebar-item">Overview</a>
-      <a href="../../../packages/docs/" class="sidebar-item sidebar-item-active">@zudolib/docs</a>
-      <a href="../../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../../../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../../../packages/docs/" class="sidebar-item sidebar-item-active">@zudojs/docs</a>
+      <a href="../../../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../../../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../../../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../../../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -116,15 +116,15 @@
         <span class="mx-2 text-black/30">/</span>
         <a href="../../../packages/" class="hover:text-zudo-blue">Packages</a>
         <span class="mx-2 text-black/30">/</span>
-        <span class="text-black/50">@zudolib/docs</span>
+        <span class="text-black/50">@zudojs/docs</span>
       </div>
 
       <!-- Header -->
       <div class="border-4 border-black p-8 mb-10 relative">
         <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v1.0.0</div>
-        <h1 class="text-4xl font-black mb-3 mt-2">@zudolib/docs</h1>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/docs</h1>
         <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
-          Documentation infrastructure for the Zudolib framework — structured document model, registry, validation, navigation, frontmatter parsing, and multi-format output generation.
+          Documentation infrastructure for the Zudojs framework — structured document model, registry, validation, navigation, frontmatter parsing, and multi-format output generation.
         </p>
         <div class="flex flex-wrap gap-2 mt-4">
           <span class="px-3 py-1 border-2 border-black text-xs font-bold">DOCUMENT MODEL</span>
@@ -139,13 +139,13 @@
       <section id="installation" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
         <div class="code-block mb-4"><span class="cm">// npm</span>
-npm install @zudolib/docs
+npm install @zudojs/docs
 
 <span class="cm">// pnpm</span>
-pnpm add @zudolib/docs</div>
+pnpm add @zudojs/docs</div>
 
         <div class="callout callout-note">
-          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudolib/docs depends on <code>@zudolib/errors</code> (v1.0.0). No external dependencies required.
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/docs depends on <code>@zudojs/errors</code> (v1.0.0). No external dependencies required.
         </div>
       </section>
 
@@ -153,7 +153,7 @@ pnpm add @zudolib/docs</div>
       <section id="what-it-does" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
         <p class="mb-4 leading-relaxed">
-          <code class="bg-black/5 px-1">@zudolib/docs</code> provides the infrastructure for building and maintaining documentation systems:
+          <code class="bg-black/5 px-1">@zudojs/docs</code> provides the infrastructure for building and maintaining documentation systems:
         </p>
         <ul class="space-y-2 mb-6">
           <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Document Model</strong> — structured AST nodes (headings, paragraphs, code, tables, links, callouts) plus markdown, MDX, and HTML content types</li>
@@ -177,7 +177,7 @@ pnpm add @zudolib/docs</div>
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
         <div class="border-4 border-black p-6 space-y-3">
           <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">GENERATORS (Markdown, JSON, HTML)</div>
-          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">DOCS LAYER (@zudolib/docs)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">DOCS LAYER (@zudojs/docs)</div>
           <div class="bg-black text-white p-3 font-bold text-center text-sm">CONTENT SOURCES (Files, CMS, Git)</div>
           <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">CONSUMERS (Documentation Sites, API Docs)</div>
         </div>
@@ -200,7 +200,7 @@ pnpm add @zudolib/docs</div>
             </thead>
             <tbody>
               <tr>
-                <td class="p-3 font-mono text-sm">@zudolib/errors</td>
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Error hierarchy for documentation validation failures</td>
               </tr>
@@ -217,7 +217,7 @@ pnpm add @zudolib/docs</div>
       <section id="document-model" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DOCUMENT MODEL</h2>
         <p class="mb-4">
-          The core of <code class="bg-black/5 px-1">@zudolib/docs</code> is the <code>DocumentationDocument</code> — an immutable value object representing a documentation page.
+          The core of <code class="bg-black/5 px-1">@zudojs/docs</code> is the <code>DocumentationDocument</code> — an immutable value object representing a documentation page.
         </p>
 
         <div class="code-block"><span class="kw">interface</span> <span class="tp">DocumentationDocument</span> {
@@ -285,7 +285,7 @@ pnpm add @zudolib/docs</div>
         </p>
 
         <div class="code-block"><span class="cm">// Full builder</span>
-<span class="kw">import</span> { <span class="fn">createDocument</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+<span class="kw">import</span> { <span class="fn">createDocument</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> doc = <span class="fn">createDocument</span>({
   id: <span class="str">"guides.http.routing"</span>,
@@ -299,7 +299,7 @@ pnpm add @zudolib/docs</div>
 });
 
 <span class="cm">// Markdown shorthand</span>
-<span class="kw">import</span> { <span class="fn">createMarkdownDocument</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+<span class="kw">import</span> { <span class="fn">createMarkdownDocument</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> md = <span class="fn">createMarkdownDocument</span>(
   <span class="str">"guides.config"</span>,
@@ -309,7 +309,7 @@ pnpm add @zudolib/docs</div>
 );
 
 <span class="cm">// Structured (AST nodes)</span>
-<span class="kw">import</span> { <span class="fn">createStructuredDocument</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+<span class="kw">import</span> { <span class="fn">createStructuredDocument</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> structured = <span class="fn">createStructuredDocument</span>(
   <span class="str">"api.container"</span>,
@@ -335,7 +335,7 @@ pnpm add @zudolib/docs</div>
           Parses YAML-like frontmatter delimited by <code>---</code> markers from markdown content.
         </p>
 
-        <div class="code-block"><span class="kw">import</span> { <span class="fn">parseFrontmatter</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">parseFrontmatter</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> raw = <span class="str">`---
 title: HTTP Routing
@@ -445,7 +445,7 @@ console.<span class="fn">log</span>(content);              <span class="cm">// "
         </div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="fn">createDocumentRegistry</span>, <span class="fn">createDocument</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createDocumentRegistry</span>, <span class="fn">createDocument</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> registry = <span class="fn">createDocumentRegistry</span>();
 
@@ -477,7 +477,7 @@ console.<span class="fn">log</span>(registry.<span class="fn">ids</span>());   <
         </p>
 
         <div class="code-block"><span class="cm">// Validate a single document</span>
-<span class="kw">import</span> { <span class="fn">validateDocument</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+<span class="kw">import</span> { <span class="fn">validateDocument</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> result = <span class="fn">validateDocument</span>(doc);
 <span class="kw">if</span> (!result.valid) {
@@ -485,17 +485,17 @@ console.<span class="fn">log</span>(registry.<span class="fn">ids</span>());   <
 }
 
 <span class="cm">// Check for duplicate IDs</span>
-<span class="kw">import</span> { <span class="fn">validateNoDuplicateIds</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+<span class="kw">import</span> { <span class="fn">validateNoDuplicateIds</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> dupes = <span class="fn">validateNoDuplicateIds</span>(registry.<span class="fn">getAll</span>());
 
 <span class="cm">// Validate internal links</span>
-<span class="kw">import</span> { <span class="fn">validateLinks</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+<span class="kw">import</span> { <span class="fn">validateLinks</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> links = <span class="fn">validateLinks</span>(doc, <span class="kw">new</span> <span class="fn">Set</span>(registry.<span class="fn">ids</span>()));
 
 <span class="cm">// Full validation pipeline</span>
-<span class="kw">import</span> { <span class="fn">validateAll</span>, <span class="fn">validateNavigation</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+<span class="kw">import</span> { <span class="fn">validateAll</span>, <span class="fn">validateNavigation</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> all = <span class="fn">validateAll</span>(registry.<span class="fn">getAll</span>());
 <span class="kw">const</span> nav = <span class="fn">validateNavigation</span>(navigationItems, registry);</div>
@@ -546,7 +546,7 @@ console.<span class="fn">log</span>(registry.<span class="fn">ids</span>());   <
   <span class="fn">flattenNavigation</span>,
   <span class="fn">findNavigationItem</span>,
   <span class="fn">getSiblings</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> navigation: <span class="tp">DocumentationNavigationItem</span>[] = [
   {
@@ -619,7 +619,7 @@ console.<span class="fn">log</span>(registry.<span class="fn">ids</span>());   <
   <span class="fn">validateExample</span>,
   <span class="fn">renderExampleMarkdown</span>,
   <span class="fn">exampleToJSON</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="kw">const</span> example: <span class="tp">DocumentationExample</span> = {
   id: <span class="str">"basic-container"</span>,
@@ -652,7 +652,7 @@ container.register("config", () => loadConfig());`</span>,
         </p>
 
         <h3 class="text-lg font-bold mb-3">Markdown Generator</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="fn">generateMarkdown</span>, <span class="fn">nodesToMarkdown</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">generateMarkdown</span>, <span class="fn">nodesToMarkdown</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Full document with frontmatter</span>
 <span class="kw">const</span> md = <span class="fn">generateMarkdown</span>(doc);
@@ -672,7 +672,7 @@ container.register("config", () => loadConfig());`</span>,
 ]);</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">JSON Generator</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="fn">generateJSON</span>, <span class="fn">generateIndex</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">generateJSON</span>, <span class="fn">generateIndex</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Single document to JSON</span>
 <span class="kw">const</span> json = <span class="fn">generateJSON</span>(doc);
@@ -702,7 +702,7 @@ container.register("config", () => loadConfig());`</span>,
   <span class="fn">extractTitleFromMarkdown</span>,
   <span class="fn">extractHeadings</span>,
   <span class="fn">stripMarkdown</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Normalize IDs</span>
 <span class="fn">normalizeDocumentId</span>(<span class="str">"..guides..http..routing.."</span>);  <span class="cm">// "guides.http.routing"</span>
@@ -816,7 +816,7 @@ container.register("config", () => loadConfig());`</span>,
       <!-- Errors -->
       <section id="errors" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
-        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudolib/errors</code> and re-exported by this package.</p>
+        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudojs/errors</code> and re-exported by this package.</p>
 
         <div class="border-4 border-black">
           <table class="w-full text-sm">
@@ -841,7 +841,7 @@ container.register("config", () => loadConfig());`</span>,
       <!-- Testing -->
       <section id="testing" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TESTING UTILITIES</h2>
-        <p class="mb-4">Import from <code class="bg-black/5 px-1">@zudolib/docs/testing</code> for mock documents and test helpers.</p>
+        <p class="mb-4">Import from <code class="bg-black/5 px-1">@zudojs/docs/testing</code> for mock documents and test helpers.</p>
 
         <div class="code-block"><span class="kw">import</span> { <span class="fn">describe</span>, <span class="fn">it</span>, <span class="fn">expect</span> } <span class="kw">from</span> <span class="str">"vitest"</span>;
 <span class="kw">import</span> {
@@ -849,7 +849,7 @@ container.register("config", () => loadConfig());`</span>,
   <span class="fn">createDocumentRegistry</span>,
   <span class="fn">validateDocument</span>,
   <span class="fn">validateAll</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="fn">describe</span>(<span class="str">"DocumentationRegistry"</span>, () =&gt; {
   <span class="fn">it</span>(<span class="str">"registers and retrieves documents"</span>, () =&gt; {
@@ -890,7 +890,7 @@ container.register("config", () => loadConfig());`</span>,
   <span class="fn">parseFrontmatter</span>, <span class="fn">generateMarkdown</span>, <span class="fn">generateIndex</span>,
   <span class="fn">validateAll</span>, <span class="fn">validateLinks</span>,
   <span class="fn">getBreadcrumbs</span>, <span class="fn">flattenNavigation</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// 1. Parse markdown files with frontmatter</span>
 <span class="kw">const</span> files = [<span class="str">"routing.md"</span>, <span class="str">"config.md"</span>, <span class="str">"auth.md"</span>];
@@ -962,31 +962,31 @@ container.register("config", () => loadConfig());`</span>,
             </thead>
             <tbody>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono">@zudolib/errors</td>
+                <td class="p-3 font-mono">@zudojs/errors</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Dependency</td>
-                <td class="p-3">All documentation error types defined in @zudolib/errors</td>
+                <td class="p-3">All documentation error types defined in @zudojs/errors</td>
               </tr>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono">@zudolib/http</td>
+                <td class="p-3 font-mono">@zudojs/http</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Consumer</td>
                 <td class="p-3">HTTP docs site uses generated markdown for API reference</td>
               </tr>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono">@zudolib/cli</td>
+                <td class="p-3 font-mono">@zudojs/cli</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Consumer</td>
                 <td class="p-3">CLI help text generated from documentation examples</td>
               </tr>
               <tr class="border-b-2 border-black/10">
-                <td class="p-3 font-mono">@zudolib/config</td>
+                <td class="p-3 font-mono">@zudojs/config</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Consumer</td>
                 <td class="p-3">Documentation site reads config for deployment settings</td>
               </tr>
               <tr>
-                <td class="p-3 font-mono">@zudolib/schema</td>
+                <td class="p-3 font-mono">@zudojs/schema</td>
                 <td class="p-3">1.0.0</td>
                 <td class="p-3">Consumer</td>
                 <td class="p-3">Schema docs auto-generated from schema definitions</td>
@@ -1013,11 +1013,11 @@ container.register("config", () => loadConfig());`</span>,
               </tr>
             </thead>
             <tbody>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/errors</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/http</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/cli</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/config</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr><td class="p-3 font-mono">@zudolib/schema</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/errors</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/http</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/cli</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/config</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr><td class="p-3 font-mono">@zudojs/schema</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
             </tbody>
           </table>
         </div>
@@ -1061,43 +1061,43 @@ container.register("config", () => loadConfig());`</span>,
         <div class="code-block"><span class="cm">// Import document builder</span>
 <span class="kw">import</span> {
   <span class="fn">createDocument</span>, <span class="fn">createMarkdownDocument</span>, <span class="fn">createStructuredDocument</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Import registry</span>
-<span class="kw">import</span> { <span class="fn">createDocumentRegistry</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+<span class="kw">import</span> { <span class="fn">createDocumentRegistry</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Import frontmatter parser</span>
-<span class="kw">import</span> { <span class="fn">parseFrontmatter</span> } <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+<span class="kw">import</span> { <span class="fn">parseFrontmatter</span> } <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Import validators</span>
 <span class="kw">import</span> {
   <span class="fn">validateDocument</span>, <span class="fn">validateNoDuplicateIds</span>,
   <span class="fn">validateLinks</span>, <span class="fn">validateAll</span>, <span class="fn">validateNavigation</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Import navigation</span>
 <span class="kw">import</span> {
   <span class="fn">getBreadcrumbs</span>, <span class="fn">flattenNavigation</span>,
   <span class="fn">findNavigationItem</span>, <span class="fn">getSiblings</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Import generators</span>
 <span class="kw">import</span> {
   <span class="fn">generateMarkdown</span>, <span class="fn">nodesToMarkdown</span>,
   <span class="fn">generateJSON</span>, <span class="fn">generateIndex</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Import examples</span>
 <span class="kw">import</span> {
   <span class="fn">validateExample</span>, <span class="fn">renderExampleMarkdown</span>, <span class="fn">exampleToJSON</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Import utilities</span>
 <span class="kw">import</span> {
   <span class="fn">normalizeDocumentId</span>, <span class="fn">documentIdFromPath</span>,
   <span class="fn">resolveDocumentLink</span>, <span class="fn">extractTitleFromMarkdown</span>,
   <span class="fn">extractHeadings</span>, <span class="fn">stripMarkdown</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;
 
 <span class="cm">// Import types</span>
 <span class="kw">import type</span> {
@@ -1108,7 +1108,7 @@ container.register("config", () => loadConfig());`</span>,
   <span class="tp">APISymbol</span>, <span class="tp">APIExample</span>, <span class="tp">APIParameter</span>,
   <span class="tp">ValidationResult</span>, <span class="tp">ValidationIssue</span>,
   <span class="tp">SearchDocument</span>, <span class="tp">SearchResult</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/docs"</span>;</div>
+} <span class="kw">from</span> <span class="str">"@zudojs/docs"</span>;</div>
       </section>
 
     </main>

@@ -4,7 +4,7 @@
  * @module featureFlagErrors/featureFlagError.types
  */
 
-import { ErrorCode } from "@zudolib/errors";
+import { ErrorCode } from "@zudojs/errors";
 import { FeatureFlagError } from "./featureFlagError.base.js";
 
 /** Thrown when a requested feature flag does not exist. */

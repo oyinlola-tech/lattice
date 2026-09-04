@@ -1,7 +1,7 @@
 /**
- * @zudolib/errors/schema
+ * @zudojs/errors/schema
  *
- * Schema error types for the Zudolib schema system.
+ * Schema error types for the Zudojs schema system.
  */
 
 export {

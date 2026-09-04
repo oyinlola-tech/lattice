@@ -1,8 +1,8 @@
 /**
- * @zudolib/errors
+ * @zudojs/errors
  *
  * Shared error base class, error codes, error categories,
- * and error utilities for the Zudolib framework.
+ * and error utilities for the Zudojs framework.
  */
 
 // Base types and classes

@@ -1,5 +1,5 @@
 /**
- * Dependency resolver for Zudolib.
+ * Dependency resolver for Zudojs.
  */
 
 import type { ContainerProvider } from "../containerProvider/containerProvider.core.js";
@@ -23,7 +23,7 @@ import { getRegistrationToken } from "../containerRegistration/containerRegistra
 
 import type { ContainerRegistry } from "../containerRegistry/containerRegistry.core.js";
 
-import { RegistrationNotFoundError } from "@zudolib/errors";
+import { RegistrationNotFoundError } from "@zudojs/errors";
 import { describeRegistryToken } from "../containerRegistry/containerRegistry.error.js";
 
 import { unwrapToken } from "../containerToken/containerToken.type.js";
@@ -40,7 +40,7 @@ import type {
 import {
   CircularDependencyError,
   ProviderResolutionError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 import { describeToken } from "../containerToken/containerToken.type.js";
 
 export class ContainerResolver {

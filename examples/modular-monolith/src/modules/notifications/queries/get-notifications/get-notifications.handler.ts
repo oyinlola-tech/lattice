@@ -1,4 +1,4 @@
-import { QueryHandler } from "@zudolib/cqrs";
+import { QueryHandler } from "@zudojs/cqrs";
 import type { GetNotificationsQuery } from "./get-notifications.query.js";
 import type { NotificationRepository } from "../../../../repositories/notification.repository.js";
 import type { NotificationModel } from "../../../../models/notification.model.js";

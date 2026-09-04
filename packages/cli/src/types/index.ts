@@ -1,7 +1,7 @@
 /**
- * zudolib-cli — Types
+ * zudojs-cli — Types
  *
- * Type definitions for the Zudolib CLI scaffolding system.
+ * Type definitions for the Zudojs CLI scaffolding system.
  */
 
 export type {

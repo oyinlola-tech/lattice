@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/node/signing
+ * @zudojs/crypto/node/signing
  *
  * Digital signature operations.
  */

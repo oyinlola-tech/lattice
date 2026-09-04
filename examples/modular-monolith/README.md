@@ -1,6 +1,6 @@
 # Modular Monolith Example
 
-A **Community Knowledge Platform** demonstrating Zudolib's modular monolith architecture.
+A **Community Knowledge Platform** demonstrating Zudojs's modular monolith architecture.
 
 ## What this example demonstrates
 

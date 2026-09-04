@@ -24,7 +24,7 @@ export interface LoggerFactoryOptions extends LoggerOptions {
 }
 
 /**
- * Creates and configures Zudolib logger instances.
+ * Creates and configures Zudojs logger instances.
  *
  * The factory keeps logger selection separate from the rest
  * of the framework.

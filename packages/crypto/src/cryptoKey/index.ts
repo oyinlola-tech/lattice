@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoKey
+ * @zudojs/crypto/cryptoKey
  *
  * Cryptographic key types and management.
  */

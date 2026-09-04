@@ -1,5 +1,5 @@
 /**
- * Dispatcher implementation for Zudolib.
+ * Dispatcher implementation for Zudojs.
  *
  * @module dispatcher/dispatcherCore
  */
@@ -22,7 +22,7 @@ import {
   MessageDispatchAbortedError,
   MessageHandlerError,
   MessageDispatchError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 /**
  * Default dispatcher implementation.

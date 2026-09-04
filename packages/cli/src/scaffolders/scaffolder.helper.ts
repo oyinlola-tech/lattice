@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Framework Scaffolder Utilities
+ * zudojs-cli — Framework Scaffolder Utilities
  *
  * Utilities for invoking official framework scaffolders.
  */

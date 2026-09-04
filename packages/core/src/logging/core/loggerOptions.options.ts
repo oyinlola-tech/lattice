@@ -1,5 +1,5 @@
 /**
- * Configuration options for the Zudolib logging system.
+ * Configuration options for the Zudojs logging system.
  *
  * These options describe logger behavior without coupling the core
  * to a specific logging implementation.

@@ -1,4 +1,4 @@
-import { defineEvent } from "@zudolib/events";
+import { defineEvent } from "@zudojs/events";
 import type { UserId, ArticleId, TopicId } from "../types/index.js";
 
 export const ArticleCreatedEvent = defineEvent<

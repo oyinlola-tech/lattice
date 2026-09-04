@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/openapi",
+  "name": "@zudojs/openapi",
   "version": "1.0.0",
-  "description": "OpenAPI 3.1 specification generation, validation, and SDK generation for Zudolib applications.",
+  "description": "OpenAPI 3.1 specification generation, validation, and SDK generation for Zudojs applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,9 +24,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/schema": "workspace:*"
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/constants": "workspace:*",
+    "@zudojs/schema": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
@@ -40,7 +40,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "openapi",
     "swagger",
     "api-docs"

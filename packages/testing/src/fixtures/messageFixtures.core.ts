@@ -4,9 +4,9 @@
  * Factory functions for creating test message payloads.
  */
 
-import type { Message, MessageInput } from "@zudolib/messaging";
+import type { Message, MessageInput } from "@zudojs/messaging";
 
-import type { MessageId } from "@zudolib/messaging";
+import type { MessageId } from "@zudojs/messaging";
 
 /**
  * Options for creating a test message.

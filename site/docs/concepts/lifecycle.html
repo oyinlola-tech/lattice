@@ -123,10 +123,10 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../packages/" class="sidebar-item">Overview</a>
-      <a href="../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -162,11 +162,11 @@
           <section aria-labelledby="overview">
             <h2 class="text-h2 mb-4" id="overview">Overview</h2>
             <p class="text-body text-black/80 mb-4">
-              <span class="code-inline">@zudolib/lifecycle</span> provides a state machine for managing component lifecycle. Every component transitions through well-defined states with hooks that execute at each transition.
+              <span class="code-inline">@zudojs/lifecycle</span> provides a state machine for managing component lifecycle. Every component transitions through well-defined states with hooks that execute at each transition.
             </p>
             <div class="callout callout-note mb-6">
               <strong class="text-sm uppercase tracking-wider text-zudo-blue">Architecture Position</strong>
-              <p class="text-sm mt-1">Sits in <strong>Layer 2 (Runtime Primitives)</strong>. Used by <span class="code-inline">@zudolib/runtime</span>, <span class="code-inline">@zudolib/adapters</span>, and <span class="code-inline">@zudolib/storage</span>.</p>
+              <p class="text-sm mt-1">Sits in <strong>Layer 2 (Runtime Primitives)</strong>. Used by <span class="code-inline">@zudojs/runtime</span>, <span class="code-inline">@zudojs/adapters</span>, and <span class="code-inline">@zudojs/storage</span>.</p>
             </div>
           </section>
 
@@ -210,7 +210,7 @@
             <p class="text-body text-black/80 mb-4">
               Each lifecycle transition triggers a hook. Implement these hooks to define component behavior.
             </p>
-            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="tp">LifecycleComponent</span> } <span class="kw">from</span> <span class="str">"@zudolib/lifecycle"</span>;
+            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="tp">LifecycleComponent</span> } <span class="kw">from</span> <span class="str">"@zudojs/lifecycle"</span>;
 
 <span class="kw">class</span> <span class="tp">DatabaseService</span> <span class="kw">implements</span> <span class="tp">LifecycleComponent</span> {
   <span class="kw">readonly</span> <span class="op">name</span> = <span class="str">"database"</span>;

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@zudolib/container — Token-Based Dependency Injection Container</title>
-  <meta name="description" content="Complete documentation for @zudolib/container — a token-based dependency injection container with scoping, lifecycle management, circular dependency detection, and auto-disposal for the Zudo framework.">
+  <title>@zudojs/container — Token-Based Dependency Injection Container</title>
+  <meta name="description" content="Complete documentation for @zudojs/container — a token-based dependency injection container with scoping, lifecycle management, circular dependency detection, and auto-disposal for the Zudo framework.">
   <meta name="keywords" content="zudo, dependency injection, DI container, inversion of control, IoC, tokens, providers, singleton, scoped, transient">
   <meta name="author" content="Oyinlola">
   <meta name="robots" content="index, follow">
@@ -12,7 +12,7 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="@zudolib/container — Token-Based DI Container">
+  <meta property="og:title" content="@zudojs/container — Token-Based DI Container">
   <meta property="og:description" content="Token-based DI with scoping, lifecycle management, circular dependency detection, and auto-disposal.">
   <meta property="og:url" content="https://zudo.dev/docs/packages/container/">
   <meta property="og:site_name" content="Zudo">
@@ -20,7 +20,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="@zudolib/container — Token-Based DI Container">
+  <meta name="twitter:title" content="@zudojs/container — Token-Based DI Container">
   <meta name="twitter:description" content="Token-based DI with scoping, lifecycle management, circular dependency detection, and auto-disposal.">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -44,7 +44,7 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "@zudolib/container — Token-Based Dependency Injection Container",
+    "headline": "@zudojs/container — Token-Based Dependency Injection Container",
     "description": "Token-based DI container with scoping, lifecycle management, circular dependency detection, and auto-disposal for the Zudo framework.",
     "url": "https://zudo.dev/docs/packages/container/",
     "author": { "@type": "Person", "name": "Oyinlola" },
@@ -129,43 +129,43 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../../packages/" class="sidebar-item">Overview</a>
-      <a href="../../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../../../packages/auth/" class="sidebar-item">@zudolib/auth</a>
-      <a href="../../../packages/cache/" class="sidebar-item">@zudolib/cache</a>
-      <a href="../../../packages/cli/" class="sidebar-item">@zudolib/cli</a>
-      <a href="../../../packages/config/" class="sidebar-item">@zudolib/config</a>
-      <a href="../../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../../../packages/container/" class="sidebar-item sidebar-item-active">@zudolib/container</a>
-      <a href="../../../packages/core/" class="sidebar-item">@zudolib/core</a>
-      <a href="../../../packages/cqrs/" class="sidebar-item">@zudolib/cqrs</a>
-      <a href="../../../packages/crypto/" class="sidebar-item">@zudolib/crypto</a>
-      <a href="../../../packages/database/" class="sidebar-item">@zudolib/database</a>
-      <a href="../../../packages/docs/" class="sidebar-item">@zudolib/docs</a>
-      <a href="../../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../../../packages/events/" class="sidebar-item">@zudolib/events</a>
-      <a href="../../../packages/feature-flags/" class="sidebar-item">@zudolib/feature-flags</a>
-      <a href="../../../packages/http/" class="sidebar-item">@zudolib/http</a>
-      <a href="../../../packages/lifecycle/" class="sidebar-item">@zudolib/lifecycle</a>
-      <a href="../../../packages/logger/" class="sidebar-item">@zudolib/logger</a>
-      <a href="../../../packages/messaging/" class="sidebar-item">@zudolib/messaging</a>
-      <a href="../../../packages/middleware/" class="sidebar-item">@zudolib/middleware</a>
-      <a href="../../../packages/observability/" class="sidebar-item">@zudolib/observability</a>
-      <a href="../../../packages/openapi/" class="sidebar-item">@zudolib/openapi</a>
-      <a href="../../../packages/permissions/" class="sidebar-item">@zudolib/permissions</a>
-      <a href="../../../packages/plugins/" class="sidebar-item">@zudolib/plugins</a>
-      <a href="../../../packages/queue/" class="sidebar-item">@zudolib/queue</a>
-      <a href="../../../packages/rpc/" class="sidebar-item">@zudolib/rpc</a>
-      <a href="../../../packages/runtime/" class="sidebar-item">@zudolib/runtime</a>
-      <a href="../../../packages/scheduler/" class="sidebar-item">@zudolib/scheduler</a>
-      <a href="../../../packages/schema/" class="sidebar-item">@zudolib/schema</a>
-      <a href="../../../packages/security/" class="sidebar-item">@zudolib/security</a>
-      <a href="../../../packages/serialization/" class="sidebar-item">@zudolib/serialization</a>
-      <a href="../../../packages/storage/" class="sidebar-item">@zudolib/storage</a>
-      <a href="../../../packages/tenancy/" class="sidebar-item">@zudolib/tenancy</a>
-      <a href="../../../packages/testing/" class="sidebar-item">@zudolib/testing</a>
-      <a href="../../../packages/transactions/" class="sidebar-item">@zudolib/transactions</a>
-      <a href="../../../packages/types/" class="sidebar-item">@zudolib/types</a>
-      <a href="../../../packages/validation/" class="sidebar-item">@zudolib/validation</a>
+      <a href="../../../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../../../packages/auth/" class="sidebar-item">@zudojs/auth</a>
+      <a href="../../../packages/cache/" class="sidebar-item">@zudojs/cache</a>
+      <a href="../../../packages/cli/" class="sidebar-item">@zudojs/cli</a>
+      <a href="../../../packages/config/" class="sidebar-item">@zudojs/config</a>
+      <a href="../../../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../../../packages/container/" class="sidebar-item sidebar-item-active">@zudojs/container</a>
+      <a href="../../../packages/core/" class="sidebar-item">@zudojs/core</a>
+      <a href="../../../packages/cqrs/" class="sidebar-item">@zudojs/cqrs</a>
+      <a href="../../../packages/crypto/" class="sidebar-item">@zudojs/crypto</a>
+      <a href="../../../packages/database/" class="sidebar-item">@zudojs/database</a>
+      <a href="../../../packages/docs/" class="sidebar-item">@zudojs/docs</a>
+      <a href="../../../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../../../packages/events/" class="sidebar-item">@zudojs/events</a>
+      <a href="../../../packages/feature-flags/" class="sidebar-item">@zudojs/feature-flags</a>
+      <a href="../../../packages/http/" class="sidebar-item">@zudojs/http</a>
+      <a href="../../../packages/lifecycle/" class="sidebar-item">@zudojs/lifecycle</a>
+      <a href="../../../packages/logger/" class="sidebar-item">@zudojs/logger</a>
+      <a href="../../../packages/messaging/" class="sidebar-item">@zudojs/messaging</a>
+      <a href="../../../packages/middleware/" class="sidebar-item">@zudojs/middleware</a>
+      <a href="../../../packages/observability/" class="sidebar-item">@zudojs/observability</a>
+      <a href="../../../packages/openapi/" class="sidebar-item">@zudojs/openapi</a>
+      <a href="../../../packages/permissions/" class="sidebar-item">@zudojs/permissions</a>
+      <a href="../../../packages/plugins/" class="sidebar-item">@zudojs/plugins</a>
+      <a href="../../../packages/queue/" class="sidebar-item">@zudojs/queue</a>
+      <a href="../../../packages/rpc/" class="sidebar-item">@zudojs/rpc</a>
+      <a href="../../../packages/runtime/" class="sidebar-item">@zudojs/runtime</a>
+      <a href="../../../packages/scheduler/" class="sidebar-item">@zudojs/scheduler</a>
+      <a href="../../../packages/schema/" class="sidebar-item">@zudojs/schema</a>
+      <a href="../../../packages/security/" class="sidebar-item">@zudojs/security</a>
+      <a href="../../../packages/serialization/" class="sidebar-item">@zudojs/serialization</a>
+      <a href="../../../packages/storage/" class="sidebar-item">@zudojs/storage</a>
+      <a href="../../../packages/tenancy/" class="sidebar-item">@zudojs/tenancy</a>
+      <a href="../../../packages/testing/" class="sidebar-item">@zudojs/testing</a>
+      <a href="../../../packages/transactions/" class="sidebar-item">@zudojs/transactions</a>
+      <a href="../../../packages/types/" class="sidebar-item">@zudojs/types</a>
+      <a href="../../../packages/validation/" class="sidebar-item">@zudojs/validation</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../../../contributing/" class="sidebar-item">Contributing</a>
@@ -182,7 +182,7 @@
         <span class="mx-2">/</span>
         <a href="../../../packages/" class="hover:text-zudo-red">Packages</a>
         <span class="mx-2">/</span>
-        <span class="text-black font-bold">@zudolib/container</span>
+        <span class="text-black font-bold">@zudojs/container</span>
       </nav>
 
       <!-- HEADER -->
@@ -192,7 +192,7 @@
             <span class="text-white font-black text-lg">DI</span>
           </div>
           <div>
-            <h1 class="text-4xl font-black tracking-tight">@zudolib/container</h1>
+            <h1 class="text-4xl font-black tracking-tight">@zudojs/container</h1>
             <p class="text-gray-500 font-bold mt-1">v1.0.0 — Token-Based Dependency Injection Container</p>
           </div>
         </div>
@@ -201,7 +201,7 @@
         </p>
         <div class="flex gap-3 mt-4">
           <span class="px-3 py-1 bg-zudo-red text-white text-xs font-bold border-2 border-black">RUNTIME PACKAGE</span>
-          <span class="px-3 py-1 bg-zudo-yellow text-black text-xs font-bold border-2 border-black">DEPENDS ON: @zudolib/errors</span>
+          <span class="px-3 py-1 bg-zudo-yellow text-black text-xs font-bold border-2 border-black">DEPENDS ON: @zudojs/errors</span>
           <span class="px-3 py-1 bg-gray-100 text-black text-xs font-bold border-2 border-black">Node.js ≥ 24</span>
         </div>
       </header>
@@ -210,7 +210,7 @@
       <section id="overview" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Overview</h2>
         <p class="mb-4">
-          <code class="bg-gray-100 px-1 font-bold">@zudolib/container</code> provides the dependency injection backbone for the Zudo framework. Every module, service, and adapter registers through the container, and every dependency is resolved through tokens — not manual wiring.
+          <code class="bg-gray-100 px-1 font-bold">@zudojs/container</code> provides the dependency injection backbone for the Zudo framework. Every module, service, and adapter registers through the container, and every dependency is resolved through tokens — not manual wiring.
         </p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
           <div class="border-4 border-black p-3 bg-zudo-red text-white text-center">
@@ -250,16 +250,16 @@ containerCore          <span class="cm">← depends on everything above</span>
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Installation</h2>
         <div class="code-block">
 <span class="cm">// npm</span>
-npm install @zudolib/container
+npm install @zudojs/container
 
 <span class="cm">// pnpm</span>
-pnpm add @zudolib/container
+pnpm add @zudojs/container
 
 <span class="cm">// Import everything</span>
-<span class="kw">import</span> { createContainer, createToken } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { createContainer, createToken } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// Import specific submodules</span>
-<span class="kw">import</span> { ContainerScope } <span class="kw">from</span> <span class="str">"@zudolib/container/scope"</span>;
+<span class="kw">import</span> { ContainerScope } <span class="kw">from</span> <span class="str">"@zudojs/container/scope"</span>;
         </div>
       </section>
 
@@ -267,7 +267,7 @@ pnpm add @zudolib/container
       <section id="quick-start" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Quick Start</h2>
         <div class="code-block">
-<span class="kw">import</span> { createContainer, createToken } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { createContainer, createToken } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// 1. Define tokens</span>
 <span class="kw">const</span> LoggerToken = <span class="fn">createToken</span>&lt;<span class="tp">Logger</span>&gt;(<span class="str">"Logger"</span>);
@@ -313,7 +313,7 @@ container.<span class="fn">register</span>(DatabaseToken, <span class="fn">facto
 
         <h3 class="text-xl font-black mt-6 mb-3">Creating Tokens</h3>
         <div class="code-block">
-<span class="kw">import</span> { createToken, createGlobalToken } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { createToken, createGlobalToken } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// Scoped token — unique Symbol per call (recommended)</span>
 <span class="kw">const</span> LoggerToken = <span class="fn">createToken</span>&lt;<span class="tp">Logger</span>&gt;(<span class="str">"Logger"</span>);
@@ -362,7 +362,7 @@ container.<span class="fn">register</span>(DatabaseToken, <span class="fn">facto
         </div>
 
         <div class="code-block">
-<span class="kw">import</span> { ContainerScope } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { ContainerScope } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 ContainerScope.SINGLETON  <span class="cm">// "singleton" — one per container</span>
 ContainerScope.SCOPED     <span class="cm">// "scoped" — one per scope</span>
@@ -374,7 +374,7 @@ ContainerScope.TRANSIENT  <span class="cm">// "transient" — new every time (de
 <span class="kw">import</span> {
   isSingletonScope, isScopedScope, isTransientScope,
   isCachedScope, describeContainerScope
-} <span class="kw">from</span> <span class="str">"@zudolib/constants"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
 
 <span class="fn">isCachedScope</span>(ContainerScope.SINGLETON)  <span class="cm">// true</span>
 <span class="fn">isCachedScope</span>(ContainerScope.SCOPED)     <span class="cm">// true</span>
@@ -393,7 +393,7 @@ ContainerScope.TRANSIENT  <span class="cm">// "transient" — new every time (de
         <h3 class="text-xl font-black mt-6 mb-3">ClassProvider</h3>
         <p class="mb-3">Instantiates a class with <code class="bg-gray-100 px-1 font-bold">new Constructor()</code> (no arguments).</p>
         <div class="code-block">
-<span class="kw">import</span> { classProvider, provideClass } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { classProvider, provideClass } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// Standalone provider</span>
 <span class="kw">const</span> provider = <span class="fn">classProvider</span>(ConsoleLogger);
@@ -407,7 +407,7 @@ ContainerScope.TRANSIENT  <span class="cm">// "transient" — new every time (de
         <h3 class="text-xl font-black mt-6 mb-3">ValueProvider</h3>
         <p class="mb-3">Returns a pre-built value. Always resolved as SINGLETON scope.</p>
         <div class="code-block">
-<span class="kw">import</span> { valueProvider, provideValue } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { valueProvider, provideValue } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="kw">const</span> provider = <span class="fn">valueProvider</span>({ host: <span class="str">"localhost"</span>, port: <span class="num">5432</span> });
 <span class="cm">// → { useValue: { host, port } } (frozen)</span>
@@ -419,7 +419,7 @@ ContainerScope.TRANSIENT  <span class="cm">// "transient" — new every time (de
         <h3 class="text-xl font-black mt-6 mb-3">FactoryProvider</h3>
         <p class="mb-3">Calls a factory function with resolved dependencies as arguments.</p>
         <div class="code-block">
-<span class="kw">import</span> { factoryProvider, provideFactory } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { factoryProvider, provideFactory } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="kw">const</span> provider = <span class="fn">factoryProvider</span>(
   (logger, config) =&gt; <span class="kw">new</span> <span class="fn">DatabaseService</span>(logger, config),
@@ -438,7 +438,7 @@ ContainerScope.TRANSIENT  <span class="cm">// "transient" — new every time (de
         <h3 class="text-xl font-black mt-6 mb-3">ExistingProvider</h3>
         <p class="mb-3">Aliases one token to another. The resolved value is the same instance.</p>
         <div class="code-block">
-<span class="kw">import</span> { existingProvider, provideExisting } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { existingProvider, provideExisting } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// Alias: LogToken resolves to the same instance as LoggerToken</span>
 <span class="kw">const</span> reg = <span class="fn">provideExisting</span>(LogToken, LoggerToken);
@@ -451,7 +451,7 @@ ContainerScope.TRANSIENT  <span class="cm">// "transient" — new every time (de
   isClassProvider, isFactoryProvider,
   isValueProvider, isExistingProvider, isTokenProvider,
   hasInjectedDependencies
-} <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="fn">isClassProvider</span>({ useClass: MyClass })      <span class="cm">// true</span>
 <span class="fn">isFactoryProvider</span>({ useFactory: fn })      <span class="cm">// true</span>
@@ -468,7 +468,7 @@ ContainerScope.TRANSIENT  <span class="cm">// "transient" — new every time (de
 
         <h3 class="text-xl font-black mt-6 mb-3">Creating a Container</h3>
         <div class="code-block">
-<span class="kw">import</span> { createContainer, createStartedContainer } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { createContainer, createStartedContainer } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// Deferred start — must call .start() before resolving</span>
 <span class="kw">const</span> c1 = <span class="fn">createContainer</span>();
@@ -576,7 +576,7 @@ container.<span class="fn">register</span>(Token, provider, {
   describeRegistration, isSingletonRegistration,
   isScopedRegistration, shouldCacheRegistration,
   withRegistrationScope, withRegistrationMetadata
-} <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="fn">describeRegistration</span>(reg)  <span class="cm">// "AuthService [singleton]"</span>
 <span class="fn">isSingletonRegistration</span>(reg) <span class="cm">// true</span>
@@ -709,7 +709,7 @@ reg.<span class="fn">find</span>(predicate)      <span class="cm">// custom filt
 
         <h3 class="text-xl font-black mt-6 mb-3">ContainerOptions</h3>
         <div class="code-block">
-<span class="kw">import</span> { createContainer, ContainerLogLevel } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { createContainer, ContainerLogLevel } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="kw">const</span> container = <span class="fn">createContainer</span>({
   name: <span class="str">"my-app"</span>,
@@ -802,7 +802,7 @@ container.<span class="fn">resolve</span>(TokenA);
       <!-- ==================== ERRORS ==================== -->
       <section id="errors" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Errors</h2>
-        <p class="mb-4">All errors extend <code class="bg-gray-100 px-1 font-bold">BaseError</code> from <code class="bg-gray-100 px-1 font-bold">@zudolib/errors</code>.</p>
+        <p class="mb-4">All errors extend <code class="bg-gray-100 px-1 font-bold">BaseError</code> from <code class="bg-gray-100 px-1 font-bold">@zudojs/errors</code>.</p>
 
         <div class="border-4 border-black">
           <table class="w-full text-sm">
@@ -826,7 +826,7 @@ container.<span class="fn">resolve</span>(TokenA);
 
         <div class="code-block">
 <span class="kw">import</span> { describe, it, expect, beforeEach } <span class="kw">from</span> <span class="str">"vitest"</span>;
-<span class="kw">import</span> { createContainer, createToken, valueProvider } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { createContainer, createToken, valueProvider } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="kw">const</span> ConfigToken = <span class="fn">createToken</span>&lt;<span class="tp">Config</span>&gt;(<span class="str">"Config"</span>);
 <span class="kw">const</span> LoggerToken = <span class="fn">createToken</span>&lt;<span class="tp">Logger</span>&gt;(<span class="str">"Logger"</span>);
@@ -868,14 +868,14 @@ container.<span class="fn">resolve</span>(TokenA);
           <table class="w-full text-sm">
             <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Package</th><th class="px-4 py-2 text-left font-bold">Relationship</th></tr></thead>
             <tbody>
-              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/errors</td><td class="px-4 py-2">Dependency — all container errors extend BaseError</td></tr>
-              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/core</td><td class="px-4 py-2">Consumer — modules register through the container</td></tr>
-              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/config</td><td class="px-4 py-2">Consumer — config sources registered as providers</td></tr>
-              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/modules</td><td class="px-4 py-2">Consumer — each module gets a scoped container</td></tr>
-              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/events</td><td class="px-4 py-2">Consumer — EventBus registered through the container</td></tr>
-              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/logger</td><td class="px-4 py-2">Consumer — Logger transport registered through the container</td></tr>
-              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/http</td><td class="px-4 py-2">Consumer — HTTP handlers resolved from the container</td></tr>
-              <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/cqrs</td><td class="px-4 py-2">Consumer — command/query handlers resolved from the container</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/errors</td><td class="px-4 py-2">Dependency — all container errors extend BaseError</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/core</td><td class="px-4 py-2">Consumer — modules register through the container</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/config</td><td class="px-4 py-2">Consumer — config sources registered as providers</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/modules</td><td class="px-4 py-2">Consumer — each module gets a scoped container</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/events</td><td class="px-4 py-2">Consumer — EventBus registered through the container</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/logger</td><td class="px-4 py-2">Consumer — Logger transport registered through the container</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/http</td><td class="px-4 py-2">Consumer — HTTP handlers resolved from the container</td></tr>
+              <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/cqrs</td><td class="px-4 py-2">Consumer — command/query handlers resolved from the container</td></tr>
             </tbody>
           </table>
         </div>
@@ -886,7 +886,7 @@ container.<span class="fn">resolve</span>(TokenA);
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Version Compatibility</h2>
         <div class="border-4 border-black">
           <table class="w-full text-sm">
-            <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">@zudolib/container</th><th class="px-4 py-2 text-left font-bold">TypeScript</th><th class="px-4 py-2 text-left font-bold">Node.js</th><th class="px-4 py-2 text-left font-bold">Module</th></tr></thead>
+            <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">@zudojs/container</th><th class="px-4 py-2 text-left font-bold">TypeScript</th><th class="px-4 py-2 text-left font-bold">Node.js</th><th class="px-4 py-2 text-left font-bold">Module</th></tr></thead>
             <tbody>
               <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">1.0.x</td><td class="px-4 py-2">5.x – 7.x</td><td class="px-4 py-2">≥ 24.0</td><td class="px-4 py-2">ESM</td></tr>
             </tbody>
@@ -911,40 +911,40 @@ container.<span class="fn">resolve</span>(TokenA);
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Quick Reference</h2>
         <div class="code-block">
 <span class="cm">// ─── Create ───</span>
-<span class="kw">import</span> { createContainer, createStartedContainer } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { createContainer, createStartedContainer } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// ─── Tokens ───</span>
-<span class="kw">import</span> { createToken, createGlobalToken, unwrapToken, describeToken } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { createToken, createGlobalToken, unwrapToken, describeToken } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// ─── Providers ───</span>
 <span class="kw">import</span> {
   classProvider, factoryProvider, valueProvider, existingProvider,
   provideClass, provideFactory, provideValue, provideExisting
-} <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// ─── Scopes ───</span>
-<span class="kw">import</span> { ContainerScope, DEFAULT_CONTAINER_SCOPE } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { ContainerScope, DEFAULT_CONTAINER_SCOPE } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// ─── Registration ───</span>
 <span class="kw">import</span> {
   createRegistration, describeRegistration,
   isSingletonRegistration, shouldCacheRegistration
-} <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// ─── Registry ───</span>
-<span class="kw">import</span> { ContainerRegistry, RegistryOperation } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { ContainerRegistry, RegistryOperation } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// ─── Lifecycle ───</span>
 <span class="kw">import</span> {
   ContainerLifecycle, ContainerLifecycleOwner,
   isDisposable, isAsyncDisposable, createContainerLifecycle
-} <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// ─── Options ───</span>
-<span class="kw">import</span> { ContainerLogLevel, ContainerOptions } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { ContainerLogLevel, ContainerOptions } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
 
 <span class="cm">// ─── Resolution ───</span>
-<span class="kw">import</span> { ContainerResolver, ResolutionResult } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
+<span class="kw">import</span> { ContainerResolver, ResolutionResult } <span class="kw">from</span> <span class="str">"@zudojs/container"</span>;
         </div>
       </section>
 

@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/adapter
+ * @zudojs/adapters/adapter
  *
  * Core adapter contract — the base interface all adapters implement.
  */
@@ -10,7 +10,7 @@ import type { AdapterMetadata } from "../metadata/metadata.type.js";
 /**
  * Base adapter interface.
  *
- * Every adapter in the Zudolib ecosystem must implement this contract.
+ * Every adapter in the Zudojs ecosystem must implement this contract.
  * Platform-specific adapters extend this with transport-specific methods.
  */
 export interface Adapter {

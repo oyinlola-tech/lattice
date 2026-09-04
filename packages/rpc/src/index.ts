@@ -1,14 +1,14 @@
 /**
- * @zudolib/rpc
+ * @zudojs/rpc
  *
- * Remote Procedure Call abstraction for the Zudolib framework.
+ * Remote Procedure Call abstraction for the Zudojs framework.
  *
  * Provides transport-agnostic procedure invocation, middleware,
  * client/server contracts, and reliability utilities.
  *
  * @example
  * ```ts
- * import { RPCServer, RPCClient, createRPCProcedure, RPCMiddlewareStack } from "@zudolib/rpc";
+ * import { RPCServer, RPCClient, createRPCProcedure, RPCMiddlewareStack } from "@zudojs/rpc";
  *
  * const server = new RPCServer();
  * server.register(createRPCProcedure("users.getUser", async (input) => {

@@ -1,5 +1,5 @@
 /**
- * @zudolib/types
+ * @zudojs/types
  *
  * Shared TypeScript type guards, utility types, and type conversion helpers.
  *
@@ -7,7 +7,7 @@
  * advanced utility types (DeepReadonly, Prettify, NestedKeyOf, etc.),
  * and runtime converters (safeJsonParse, snakeToCamel, toBoolean, etc.).
  *
- * @module @zudolib/types
+ * @module @zudojs/types
  */
 
 export * from "./typeGuards/index.js";

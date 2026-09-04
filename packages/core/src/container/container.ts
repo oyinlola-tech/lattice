@@ -16,7 +16,7 @@ interface ProviderRegistration {
 }
 
 /**
- * Dependency Injection container for Zudolib applications.
+ * Dependency Injection container for Zudojs applications.
  *
  * The container is responsible for registering and resolving
  * application dependencies.

@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Frontend Generator
+ * zudojs-cli — Frontend Generator
  *
  * Frontend project generator using framework adapters.
  */

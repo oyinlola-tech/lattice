@@ -79,7 +79,7 @@
     "mainEntityOfPage": "https://zudo.dev/docs/getting-started/first-app.html",
     "keywords": "zudo, first app, tutorial, getting started, typescript, framework",
     "articleSection": "Getting Started",
-    "dependencies": ["@zudolib/core", "@zudolib/config", "@zudolib/logger", "@zudolib/errors"]
+    "dependencies": ["@zudojs/core", "@zudojs/config", "@zudojs/logger", "@zudojs/errors"]
   }
   </script>
   <script type="application/ld+json">
@@ -199,7 +199,7 @@ mkdir zudo-hello && cd zudo-hello
 npm init -y
 
 <span class="cm"># Install Zudo core packages</span>
-npm install @zudolib/core @zudolib/config @zudolib/logger @zudolib/errors
+npm install @zudojs/core @zudojs/config @zudojs/logger @zudojs/errors
 
 <span class="cm"># Install TypeScript as a dev dependency</span>
 npm install -D typescript @types/node
@@ -228,8 +228,8 @@ npx tsc --init --target ES2022 --module NodeNext --moduleResolution NodeNext --o
         <p class="mb-4 leading-relaxed">Create the main application file at <code class="code-inline">src/index.ts</code>:</p>
 
         <div class="code-block mb-4">
-<span class="kw">import</span> { <span class="fn">createContainer</span> } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
-<span class="kw">import</span> { <span class="fn">createLogger</span> } <span class="kw">from</span> <span class="str">"@zudolib/logger"</span>;
+<span class="kw">import</span> { <span class="fn">createContainer</span> } <span class="kw">from</span> <span class="str">"@zudojs/core"</span>;
+<span class="kw">import</span> { <span class="fn">createLogger</span> } <span class="kw">from</span> <span class="str">"@zudojs/logger"</span>;
 
 <span class="cm">// Create a logger instance</span>
 <span class="kw">const</span> logger = <span class="fn">createLogger</span>({
@@ -288,7 +288,7 @@ container.<span class="fn">register</span>(<span class="str">"logger"</span>, ()
         <p class="mb-4 leading-relaxed">Create a configuration file at <code class="code-inline">zudo.config.ts</code> in the project root:</p>
 
         <div class="code-block mb-4">
-<span class="kw">import</span> { <span class="fn">defineConfig</span> } <span class="kw">from</span> <span class="str">"@zudolib/config"</span>;
+<span class="kw">import</span> { <span class="fn">defineConfig</span> } <span class="kw">from</span> <span class="str">"@zudojs/config"</span>;
 
 <span class="kw">export default</span> <span class="fn">defineConfig</span>({
   <span class="fn">app</span>: {
@@ -432,19 +432,19 @@ npm run build && npm start
               </tr>
             </thead>
             <tbody>
-              <tr><td class="border border-black px-4 py-2 font-mono text-xs">@zudolib/errors</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudolib/errors</td><td class="border border-black px-4 py-2">Shared error classes and error codes</td></tr>
-              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">@zudolib/http</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudolib/http</td><td class="border border-black px-4 py-2">HTTP server, routing, middleware</td></tr>
-              <tr><td class="border border-black px-4 py-2 font-mono text-xs">@zudolib/auth</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudolib/auth</td><td class="border border-black px-4 py-2">JWT, sessions, RBAC</td></tr>
-              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">@zudolib/events</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudolib/events</td><td class="border border-black px-4 py-2">Event bus, emitter, middleware</td></tr>
-              <tr><td class="border border-black px-4 py-2 font-mono text-xs">@zudolib/cache</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudolib/cache</td><td class="border border-black px-4 py-2">Caching with memory adapter</td></tr>
-              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">@zudolib/validation</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudolib/validation</td><td class="border border-black px-4 py-2">Schema validation with Zod</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/errors</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/errors</td><td class="border border-black px-4 py-2">Shared error classes and error codes</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/http</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/http</td><td class="border border-black px-4 py-2">HTTP server, routing, middleware</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/auth</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/auth</td><td class="border border-black px-4 py-2">JWT, sessions, RBAC</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/events</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/events</td><td class="border border-black px-4 py-2">Event bus, emitter, middleware</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/cache</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/cache</td><td class="border border-black px-4 py-2">Caching with memory adapter</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/validation</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/validation</td><td class="border border-black px-4 py-2">Schema validation with Zod</td></tr>
             </tbody>
           </table>
         </div>
 
         <div class="callout callout-note mb-6">
           <p class="text-sm font-bold mb-1">INSTALL ALL AT ONCE</p>
-          <p class="text-sm">To install all commonly used packages: <code class="code-inline">npm install @zudolib/errors @zudolib/types @zudolib/constants @zudolib/http @zudolib/auth @zudolib/events @zudolib/cache</code></p>
+          <p class="text-sm">To install all commonly used packages: <code class="code-inline">npm install @zudojs/errors @zudojs/types @zudojs/constants @zudojs/http @zudojs/auth @zudojs/events @zudojs/cache</code></p>
         </div>
       </section>
 
@@ -491,7 +491,7 @@ npm run build && npm start
               </div>
               <span class="font-bold text-sm">Browse Packages</span>
             </div>
-            <p class="text-sm text-gray-600">Explore the full @zudolib package ecosystem.</p>
+            <p class="text-sm text-gray-600">Explore the full @zudojs package ecosystem.</p>
           </a>
         </div>
       </section>

@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoConstants
+ * @zudojs/crypto/cryptoConstants
  *
  * Cryptographic constants and default parameters.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpMiddleware/builtin/static
+ * @zudojs/http/httpMiddleware/builtin/static
  *
  * Static file serving middleware.
  */

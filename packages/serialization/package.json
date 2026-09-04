@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/serialization",
+  "name": "@zudojs/serialization",
   "version": "1.0.0",
-  "description": "Data translation layer with JSON serializer, type transformers, envelopes, and registry for Zudolib applications.",
+  "description": "Data translation layer with JSON serializer, type transformers, envelopes, and registry for Zudojs applications.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -22,10 +22,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/types": "workspace:*",
-    "@zudolib/validation": "workspace:*"
+    "@zudojs/constants": "workspace:*",
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/types": "workspace:*",
+    "@zudojs/validation": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.0",
@@ -33,7 +33,7 @@
   },
   "license": "MIT",
   "keywords": [
-    "zudolib",
+    "zudojs",
     "serialization",
     "json",
     "transformers"

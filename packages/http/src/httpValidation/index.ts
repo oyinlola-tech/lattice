@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpValidation
+ * @zudojs/http/httpValidation
  *
  * HTTP validation module.
  *

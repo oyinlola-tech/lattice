@@ -87,7 +87,7 @@ export const HTTP_DEFAULTS = {
   TEXT_CONTENT_TYPE: "text/plain; charset=utf-8",
   HTML_CONTENT_TYPE: "text/html; charset=utf-8",
 
-  USER_AGENT: "Zudolib-HTTP",
+  USER_AGENT: "Zudojs-HTTP",
 } as const;
 
 /* -------------------------------------------------------------------------- */

@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Command Factory
+ * zudojs-cli — Command Factory
  *
  * Factory functions for creating and executing CLI commands.
  */

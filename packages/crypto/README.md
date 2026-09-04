@@ -1,17 +1,17 @@
-# @zudolib/crypto
+# @zudojs/crypto
 
 Cryptographic primitives for hashing, encryption, tokens, and secure random generation.
 
 ## Installation
 
 ```bash
-npm install @zudolib/crypto
+npm install @zudojs/crypto
 ```
 
 ## Quick Start
 
 ```typescript
-import { hash, encrypt, decrypt, randomBytes } from "@zudolib/crypto";
+import { hash, encrypt, decrypt, randomBytes } from "@zudojs/crypto";
 
 const hashed = await hash("password", "salt");
 const token = randomBytes(32);

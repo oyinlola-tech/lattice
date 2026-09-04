@@ -26,7 +26,7 @@ Security vulnerabilities include, but are not limited to:
 - HTTP response splitting
 - Header injection
 - Server-side request forgery (SSRF)
-- Cross-site scripting (XSS) caused by Zudolib APIs
+- Cross-site scripting (XSS) caused by Zudojs APIs
 - Cross-site request forgery (CSRF) vulnerabilities
 - Insecure deserialization
 - Cryptographic weaknesses
@@ -44,28 +44,28 @@ Security vulnerabilities include, but are not limited to:
 - Sandbox escape
 - Unsafe plugin execution
 
-Not every bug qualifies as a security vulnerability. Issues that do not create a meaningful security impact for Zudolib users may be better handled as regular bug reports or feature requests.
+Not every bug qualifies as a security vulnerability. Issues that do not create a meaningful security impact for Zudojs users may be better handled as regular bug reports or feature requests.
 
 ## Security-Sensitive Components
 
 Security testing and review are particularly valuable for the following packages:
 
-- `@zudolib/http`
-- `@zudolib/crypto`
-- `@zudolib/security`
-- `@zudolib/serialization`
-- `@zudolib/storage`
-- `@zudolib/rpc`
-- `@zudolib/permissions`
-- `@zudolib/transactions`
-- `@zudolib/tenancy`
-- `@zudolib/plugins`
-- `@zudolib/runtime`
-- `@zudolib/database`
-- `@zudolib/auth`
-- `@zudolib/validation`
-- `@zudolib/queue`
-- `@zudolib/messaging`
+- `@zudojs/http`
+- `@zudojs/crypto`
+- `@zudojs/security`
+- `@zudojs/serialization`
+- `@zudojs/storage`
+- `@zudojs/rpc`
+- `@zudojs/permissions`
+- `@zudojs/transactions`
+- `@zudojs/tenancy`
+- `@zudojs/plugins`
+- `@zudojs/runtime`
+- `@zudojs/database`
+- `@zudojs/auth`
+- `@zudojs/validation`
+- `@zudojs/queue`
+- `@zudojs/messaging`
 
 This does not mean every bug in these packages is automatically a vulnerability. It indicates where security review is especially important.
 
@@ -140,15 +140,15 @@ GitHub Security Advisories are the primary source for security-related announcem
 
 ## Dependency Security
 
-Zudolib depends on third-party packages and runtime components.
+Zudojs depends on third-party packages and runtime components.
 
-Security vulnerabilities in dependencies may affect Zudolib even when the vulnerable code is not maintained by the Zudolib project.
+Security vulnerabilities in dependencies may affect Zudojs even when the vulnerable code is not maintained by the Zudojs project.
 
-Dependency security issues are evaluated based on whether the affected dependency is reachable through Zudolib and whether the vulnerability creates a meaningful security impact for Zudolib users.
+Dependency security issues are evaluated based on whether the affected dependency is reachable through Zudojs and whether the vulnerability creates a meaningful security impact for Zudojs users.
 
 ## Security Design Principles
 
-Zudolib is designed with the following security principles:
+Zudojs is designed with the following security principles:
 
 - Secure by default
 - Least privilege

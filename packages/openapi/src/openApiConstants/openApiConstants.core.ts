@@ -1,5 +1,5 @@
 /**
- * @zudolib/openapi/openApiConstants
+ * @zudojs/openapi/openApiConstants
  *
  * Shared constants for OpenAPI generation.
  */

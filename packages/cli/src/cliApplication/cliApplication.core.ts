@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — CLI Application
+ * zudojs-cli — CLI Application
  *
  * Main CLI application class that orchestrates command registration,
  * parsing, execution, and built-in help/version handling.
@@ -24,7 +24,7 @@ import { CommandNotFoundError } from "../cliError/cliError.command.js";
 import { CLICommandRegistry } from "../cliCommand/cliCommand.registry.js";
 import { executeCommand } from "../cliCommand/cliCommand.factory.js";
 import { CLIParser, resolveCommand } from "../cliParser/index.js";
-import { createDefaultLogger } from "@zudolib/logger";
+import { createDefaultLogger } from "@zudojs/logger";
 import { createCLIWriter } from "./cliApplication.writer.js";
 import {
   isHelpRequest,
@@ -41,7 +41,7 @@ import {
  * Main CLI application that registers commands, parses arguments,
  * and executes handlers.
  */
-export class ZudolibCLI implements CLIApplication {
+export class ZudojsCLI implements CLIApplication {
   public readonly name: string;
   public readonly version?: string;
   public readonly description?: string;
@@ -215,6 +215,6 @@ export class ZudolibCLI implements CLIApplication {
 /* -------------------------------------------------------------------------- */
 
 /** Creates a new CLI application. */
-export function createCLI(options: CLIApplicationOptions = {}): ZudolibCLI {
-  return new ZudolibCLI(options);
+export function createCLI(options: CLIApplicationOptions = {}): ZudojsCLI {
+  return new ZudojsCLI(options);
 }

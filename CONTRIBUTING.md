@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to Zudolib.
+Thank you for your interest in contributing to Zudojs.
 
 Please see [docs/contributing/INDEX.md](docs/contributing/INDEX.md) for the full contributing guide, including:
 
@@ -16,7 +16,7 @@ Please see [docs/contributing/INDEX.md](docs/contributing/INDEX.md) for the full
 
 ```bash
 git clone https://github.com/oyinlola-tech/zudo.git
-cd zudolib
+cd zudojs
 pnpm install
 pnpm run typecheck
 pnpm test

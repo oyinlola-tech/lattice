@@ -1,7 +1,7 @@
 /**
- * @zudolib/events/eventErrors/eventError.base
+ * @zudojs/events/eventErrors/eventError.base
  *
- * All event error types are centralized in @zudolib/errors.
+ * All event error types are centralized in @zudojs/errors.
  * This file re-exports them for backward compatibility.
  */
 
@@ -27,4 +27,4 @@ export {
   EventMiddlewareError,
   EventSerializationError,
   EventDeserializationError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";

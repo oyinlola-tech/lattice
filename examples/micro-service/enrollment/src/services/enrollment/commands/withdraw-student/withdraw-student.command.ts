@@ -1,4 +1,4 @@
-import { Command } from "@zudolib/cqrs";
+import { Command } from "@zudojs/cqrs";
 import type { WithdrawStudentDto } from "../../../../dtos/index.js";
 
 /** Command to withdraw a student from a course. */

@@ -1,5 +1,5 @@
 /**
- * Event bus type definitions for Zudolib.
+ * Event bus type definitions for Zudojs.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

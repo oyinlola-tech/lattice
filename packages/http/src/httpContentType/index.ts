@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpContentType
+ * @zudojs/http/httpContentType
  *
  * HTTP Content-Type parsing, normalization, matching, and media type helpers.
  */

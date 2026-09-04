@@ -1,7 +1,7 @@
 /**
- * @zudolib/validation
+ * @zudojs/validation
  *
- * Schema validation with Zod, constraints, and composition for the Zudolib framework.
+ * Schema validation with Zod, constraints, and composition for the Zudojs framework.
  */
 
 export * from "./validationConstraints/index.js";

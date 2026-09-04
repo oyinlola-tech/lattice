@@ -11,7 +11,7 @@ export interface ApplicationContextOptions {
 }
 
 /**
- * Provides access to the core services and state of a Zudolib application.
+ * Provides access to the core services and state of a Zudojs application.
  *
  * ApplicationContext belongs to a single application instance.
  * It is not responsible for creating the services it exposes.

@@ -1,17 +1,17 @@
-# @zudolib/core
+# @zudojs/core
 
-Application lifecycle management, execution context propagation, and runtime orchestration for Zudolib applications.
+Application lifecycle management, execution context propagation, and runtime orchestration for Zudojs applications.
 
 ## Installation
 
 ```bash
-npm install @zudolib/core
+npm install @zudojs/core
 ```
 
 ## Quick Start
 
 ```typescript
-import { createApplication } from "@zudolib/core";
+import { createApplication } from "@zudojs/core";
 
 const app = await createApplication();
 
@@ -28,6 +28,6 @@ await app.stop();
 
 ## Use Cases
 
-- Bootstrapping Zudolib applications
+- Bootstrapping Zudojs applications
 - Managing application lifecycle in serverless environments
 - Coordinating startup and shutdown of multiple services

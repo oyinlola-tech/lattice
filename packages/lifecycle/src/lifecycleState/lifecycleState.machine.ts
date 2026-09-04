@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/state-machine
+ * @zudojs/lifecycle/state-machine
  *
  * Lifecycle state machine — validates transitions and tracks current state.
  */
@@ -7,8 +7,8 @@
 import {
   LifecycleState,
   LIFECYCLE_VALID_TRANSITIONS,
-} from "@zudolib/constants";
-import { LifecycleStateError } from "@zudolib/errors";
+} from "@zudojs/constants";
+import { LifecycleStateError } from "@zudojs/errors";
 
 /**
  * Manages lifecycle state transitions for a single entity.

@@ -1,14 +1,14 @@
 /**
- * @zudolib/schema
+ * @zudojs/schema
  *
- * Schema definition and parsing engine for the Zudolib framework.
+ * Schema definition and parsing engine for the Zudojs framework.
  *
  * Provides type-safe data contracts with validation, transformation,
  * type inference, and structured error reporting.
  *
  * @example
  * ```ts
- * import { schema, type Infer } from "@zudolib/schema";
+ * import { schema, type Infer } from "@zudojs/schema";
  *
  * const UserSchema = schema.object({
  *   id: schema.string().uuid(),

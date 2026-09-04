@@ -1,7 +1,7 @@
 /**
- * @zudolib/logger
+ * @zudojs/logger
  *
- * Structured logging with transports, formatters, and context for the Zudolib framework.
+ * Structured logging with transports, formatters, and context for the Zudojs framework.
  */
 
 // Core logger

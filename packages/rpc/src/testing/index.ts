@@ -1,5 +1,5 @@
 /**
- * @zudolib/rpc/testing
+ * @zudojs/rpc/testing
  *
  * Testing utilities for the RPC package.
  */

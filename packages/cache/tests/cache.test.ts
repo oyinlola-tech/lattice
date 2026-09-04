@@ -1,5 +1,5 @@
 /**
- * @zudolib/cache — CacheService Tests
+ * @zudojs/cache — CacheService Tests
  *
  * Integration tests for CacheService: getOrSet, tags, patterns,
  * locking, stats, and health checks.
@@ -118,7 +118,7 @@ describe("CacheService — patterns", () => {
     await service.set("user:2", "bob");
     await service.set("post:1", "hello");
 
-    // Keys are prefixed with zudolib: by the key builder
+    // Keys are prefixed with zudojs: by the key builder
     await service.invalidateByPattern("*:user:*");
     expect((await service.get("user:1")).hit).toBe(false);
     expect((await service.get("user:2")).hit).toBe(false);

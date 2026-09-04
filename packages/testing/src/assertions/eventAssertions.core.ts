@@ -4,7 +4,7 @@
  * Assert events, event types, and event payloads.
  */
 
-import type { Event } from "@zudolib/events";
+import type { Event } from "@zudojs/events";
 
 import type { RecordedEvent } from "../testEventBus/testEventBus.core.js";
 

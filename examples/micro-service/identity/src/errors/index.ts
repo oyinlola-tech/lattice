@@ -1,7 +1,7 @@
 /**
  * Error re-exports for the Identity service.
  *
- * All error classes are imported from @zudolib/errors to avoid duplication.
+ * All error classes are imported from @zudojs/errors to avoid duplication.
  */
 
 import {
@@ -9,8 +9,8 @@ import {
   NotFoundError as BaseNotFoundError,
   ConflictError as BaseConflictError,
   AuthenticationError as BaseUnauthorizedError,
-} from "@zudolib/errors";
-import type { ErrorMetadata } from "@zudolib/errors";
+} from "@zudojs/errors";
+import type { ErrorMetadata } from "@zudojs/errors";
 
 /**
  * Generic application error for the identity domain.

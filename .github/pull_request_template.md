@@ -20,7 +20,7 @@
 
 ## Packages Affected
 
-<!-- List the Zudolib packages affected by this change. -->
+<!-- List the Zudojs packages affected by this change. -->
 
 - [ ]
 
@@ -109,7 +109,7 @@ None.
 
 ## Checklist
 
-- [ ] Code follows Zudolib package conventions
+- [ ] Code follows Zudojs package conventions
 - [ ] Code has been reviewed locally
 - [ ] No secrets or sensitive information were added
 - [ ] No unrelated changes are included

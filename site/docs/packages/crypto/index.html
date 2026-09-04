@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@zudolib/crypto — Cryptographic Primitives Documentation</title>
-  <meta name="description" content="Complete documentation for @zudolib/crypto — hashing, encryption, password hashing, tokens, signatures, key derivation, and secure random generation for the Zudolib framework.">
-  <meta name="keywords" content="zudolib, crypto, encryption, hashing, password hashing, tokens, signatures, key derivation, AES-256-GCM, SHA-256, scrypt, PBKDF2">
-  <meta property="og:title" content="@zudolib/crypto — Cryptographic Primitives Documentation">
-  <meta property="og:description" content="Complete documentation for @zudolib/crypto — hashing, encryption, password hashing, tokens, signatures, key derivation, and secure random generation.">
+  <title>@zudojs/crypto — Cryptographic Primitives Documentation</title>
+  <meta name="description" content="Complete documentation for @zudojs/crypto — hashing, encryption, password hashing, tokens, signatures, key derivation, and secure random generation for the Zudojs framework.">
+  <meta name="keywords" content="zudojs, crypto, encryption, hashing, password hashing, tokens, signatures, key derivation, AES-256-GCM, SHA-256, scrypt, PBKDF2">
+  <meta property="og:title" content="@zudojs/crypto — Cryptographic Primitives Documentation">
+  <meta property="og:description" content="Complete documentation for @zudojs/crypto — hashing, encryption, password hashing, tokens, signatures, key derivation, and secure random generation.">
   <meta property="og:type" content="article">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="@zudolib/crypto — Cryptographic Primitives Documentation">
-  <meta name="twitter:description" content="Complete documentation for @zudolib/crypto — hashing, encryption, password hashing, tokens, signatures, key derivation, and secure random generation.">
+  <meta name="twitter:title" content="@zudojs/crypto — Cryptographic Primitives Documentation">
+  <meta name="twitter:description" content="Complete documentation for @zudojs/crypto — hashing, encryption, password hashing, tokens, signatures, key derivation, and secure random generation.">
   <link rel="canonical" href="https://zudo.dev/docs/packages/crypto/">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -34,7 +34,7 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "name": "@zudolib/crypto",
+    "name": "@zudojs/crypto",
     "description": "Cryptographic primitives for hashing, encryption, password hashing, tokens, signatures, key derivation, and secure random generation.",
     "url": "https://zudo.dev/docs/packages/crypto/",
     "publisher": { "@type": "Organization", "name": "Zudo" },
@@ -117,18 +117,18 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../packages/" class="sidebar-item">Overview</a>
-      <a href="../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../../packages/auth/" class="sidebar-item">@zudolib/auth</a>
-      <a href="../../packages/cache/" class="sidebar-item">@zudolib/cache</a>
-      <a href="../../packages/cli/" class="sidebar-item">@zudolib/cli</a>
-      <a href="../../packages/config/" class="sidebar-item">@zudolib/config</a>
-      <a href="../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../../packages/container/" class="sidebar-item">@zudolib/container</a>
-      <a href="../../packages/core/" class="sidebar-item">@zudolib/core</a>
-      <a href="../../packages/crypto/" class="sidebar-item sidebar-item-active">@zudolib/crypto</a>
-      <a href="../../packages/cqrs/" class="sidebar-item">@zudolib/cqrs</a>
-      <a href="../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../../packages/auth/" class="sidebar-item">@zudojs/auth</a>
+      <a href="../../packages/cache/" class="sidebar-item">@zudojs/cache</a>
+      <a href="../../packages/cli/" class="sidebar-item">@zudojs/cli</a>
+      <a href="../../packages/config/" class="sidebar-item">@zudojs/config</a>
+      <a href="../../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../../packages/container/" class="sidebar-item">@zudojs/container</a>
+      <a href="../../packages/core/" class="sidebar-item">@zudojs/core</a>
+      <a href="../../packages/crypto/" class="sidebar-item sidebar-item-active">@zudojs/crypto</a>
+      <a href="../../packages/cqrs/" class="sidebar-item">@zudojs/cqrs</a>
+      <a href="../../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -145,15 +145,15 @@
         <span class="mx-2 text-black/30">/</span>
         <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
         <span class="mx-2 text-black/30">/</span>
-        <span class="text-black/50">@zudolib/crypto</span>
+        <span class="text-black/50">@zudojs/crypto</span>
       </div>
 
       <!-- Header -->
       <div class="border-4 border-black p-8 mb-10 relative">
         <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v1.0.0</div>
-        <h1 class="text-4xl font-black mb-3 mt-2">@zudolib/crypto</h1>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/crypto</h1>
         <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
-          Cryptographic primitives for the Zudolib framework. Provides symmetric encryption (AES-256-GCM), hashing (SHA-256, SHA-512, SHA3), password hashing (scrypt), digital signatures (Ed25519, RSA, ECDSA), key derivation (PBKDF2, scrypt), secure random generation, token management, and encoding utilities.
+          Cryptographic primitives for the Zudojs framework. Provides symmetric encryption (AES-256-GCM), hashing (SHA-256, SHA-512, SHA3), password hashing (scrypt), digital signatures (Ed25519, RSA, ECDSA), key derivation (PBKDF2, scrypt), secure random generation, token management, and encoding utilities.
         </p>
         <div class="flex flex-wrap gap-2 mt-4">
           <span class="px-3 py-1 border-2 border-black text-xs font-bold">CRYPTOGRAPHY</span>
@@ -169,16 +169,16 @@
       <section id="installation" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
         <div class="code-block mb-4"><span class="cm">// npm</span>
-npm install @zudolib/crypto
+npm install @zudojs/crypto
 
 <span class="cm">// pnpm</span>
-pnpm add @zudolib/crypto
+pnpm add @zudojs/crypto
 
 <span class="cm">// yarn</span>
-yarn add @zudolib/crypto</div>
+yarn add @zudojs/crypto</div>
 
         <div class="callout callout-note">
-          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudolib/crypto depends on @zudolib/constants and @zudolib/errors (both workspace packages). Uses Node.js built-in <code class="bg-black/10 px-1">node:crypto</code> under the hood via a pluggable provider abstraction.
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/crypto depends on @zudojs/constants and @zudojs/errors (both workspace packages). Uses Node.js built-in <code class="bg-black/10 px-1">node:crypto</code> under the hood via a pluggable provider abstraction.
         </div>
       </section>
 
@@ -196,7 +196,7 @@ yarn add @zudolib/crypto</div>
   sign, verify,
   randomBytesSecure, randomHex, randomUuid,
   createCryptoService, createCryptoFactory,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="cm">// Hash data with SHA-256</span>
 <span class="kw">const</span> digest = <span class="kw">await</span> <span class="fn">sha256</span>(<span class="str">"hello world"</span>);
@@ -291,7 +291,7 @@ yarn add @zudolib/crypto</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">hash()</h3>
         <p class="text-sm text-black/70 mb-3">Hashes arbitrary data with a configurable algorithm and encoding. Returns a frozen <code class="bg-black/10 px-1">HashResult</code> object.</p>
-        <div class="code-block mb-4"><span class="kw">import</span> { hash } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { hash } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">hash</span>(<span class="str">"data to hash"</span>, {
   algorithm: <span class="str">"sha256"</span>,    <span class="cm">// default</span>
@@ -304,7 +304,7 @@ result.encoded;    <span class="cm">// hex-encoded string</span></div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Convenience Functions</h3>
         <p class="text-sm text-black/70 mb-3">Shorthand functions for specific algorithms that return the encoded string directly.</p>
-        <div class="code-block mb-4"><span class="kw">import</span> { sha256, sha384, sha512, sha3_256, sha3_384, sha3_512 } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { sha256, sha384, sha512, sha3_256, sha3_384, sha3_512 } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> digest = <span class="kw">await</span> <span class="fn">sha256</span>(<span class="str">"hello"</span>);           <span class="cm">// hex string</span>
 <span class="kw">const</span> b64    = <span class="kw">await</span> <span class="fn">sha256</span>(<span class="str">"hello"</span>, <span class="str">"base64"</span>);  <span class="cm">// base64 string</span>
@@ -312,7 +312,7 @@ result.encoded;    <span class="cm">// hex-encoded string</span></div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">HMAC</h3>
         <p class="text-sm text-black/70 mb-3">Keyed Hash-based Message Authentication Code for verifying data integrity with a shared secret.</p>
-        <div class="code-block mb-4"><span class="kw">import</span> { hmac, hmacSha256, hmacSha512 } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { hmac, hmacSha256, hmacSha512 } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> key = <span class="kw">new</span> <span class="tp">Uint8Array</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>]);
 <span class="kw">const</span> mac = <span class="kw">await</span> <span class="fn">hmacSha256</span>(<span class="str">"message"</span>, key);
@@ -320,7 +320,7 @@ result.encoded;    <span class="cm">// hex-encoded string</span></div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Constant-Time Comparison</h3>
         <p class="text-sm text-black/70 mb-3">Prevent timing side-channel attacks when comparing digests.</p>
-        <div class="code-block mb-4"><span class="kw">import</span> { equalDigests } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { equalDigests } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> a = <span class="kw">await</span> <span class="fn">sha256</span>(<span class="str">"data"</span>);
 <span class="kw">const</span> b = <span class="kw">await</span> <span class="fn">sha256</span>(<span class="str">"data"</span>);
@@ -334,7 +334,7 @@ result.encoded;    <span class="cm">// hex-encoded string</span></div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">encrypt() / decrypt()</h3>
         <p class="text-sm text-black/70 mb-3">Low-level byte-level encryption. Returns a frozen <code class="bg-black/10 px-1">CipherResult</code> with algorithm, ciphertext, IV, and auth tag.</p>
-        <div class="code-block mb-4"><span class="kw">import</span> { encrypt, decrypt } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { encrypt, decrypt } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> key = <span class="kw">new</span> <span class="tp">Uint8Array</span>(<span class="num">32</span>); <span class="cm">// 256-bit key</span>
 <span class="kw">const</span> plaintext = <span class="kw">new</span> <span class="tp">TextEncoder</span>().<span class="fn">encode</span>(<span class="str">"secret data"</span>);
@@ -353,7 +353,7 @@ result.authTag;     <span class="cm">// Uint8Array (16 bytes)</span>
 
         <h3 class="text-lg font-bold mb-3 mt-6">encryptString() / decryptString()</h3>
         <p class="text-sm text-black/70 mb-3">String-specific helpers that handle UTF-8 encoding/decoding automatically.</p>
-        <div class="code-block mb-4"><span class="kw">import</span> { encryptString, decryptString } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { encryptString, decryptString } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> key = <span class="kw">new</span> <span class="tp">Uint8Array</span>(<span class="num">32</span>);
 <span class="kw">const</span> { ciphertext, iv, authTag } = <span class="kw">await</span> <span class="fn">encryptString</span>(<span class="str">"hello world"</span>, key);
@@ -362,7 +362,7 @@ result.authTag;     <span class="cm">// Uint8Array (16 bytes)</span>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Encrypted Envelope</h3>
         <p class="text-sm text-black/70 mb-3">Self-describing format for storage or transport: <code class="bg-black/10 px-1">v1.aes-256-gcm.{iv}.{authTag}.{ciphertext}</code> — all binary fields Base64URL-encoded.</p>
-        <div class="code-block mb-4"><span class="kw">import</span> { encryptEnvelope, decryptEnvelope } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { encryptEnvelope, decryptEnvelope } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> key = <span class="kw">new</span> <span class="tp">Uint8Array</span>(<span class="num">32</span>);
 
@@ -386,7 +386,7 @@ result.authTag;     <span class="cm">// Uint8Array (16 bytes)</span>
         <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">cryptoRandom</code> module generates cryptographically secure random bytes, strings, integers, UUIDs, tokens, and OTPs using Node.js <code class="bg-black/10 px-1">crypto.randomBytes</code> internally.</p>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Byte Generation</h3>
-        <div class="code-block mb-4"><span class="kw">import</span> { randomBytesSecure, randomHex, randomBase64, randomBase64Url } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { randomBytesSecure, randomHex, randomBase64, randomBase64Url } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> bytes  = <span class="kw">await</span> <span class="fn">randomBytesSecure</span>(<span class="num">32</span>);   <span class="cm">// Uint8Array(32)</span>
 <span class="kw">const</span> hex    = <span class="kw">await</span> <span class="fn">randomHex</span>(<span class="num">64</span>);            <span class="cm">// "a1b2c3..." (64 chars)</span>
@@ -394,7 +394,7 @@ result.authTag;     <span class="cm">// Uint8Array (16 bytes)</span>
 <span class="kw">const</span> b64url = <span class="kw">await</span> <span class="fn">randomBase64Url</span>(<span class="num">32</span>);      <span class="cm">// URL-safe base64</span></div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Integers and UUIDs</h3>
-        <div class="code-block mb-4"><span class="kw">import</span> { randomInteger, randomIntegerBelow, randomUuid } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { randomInteger, randomIntegerBelow, randomUuid } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> n   = <span class="kw">await</span> <span class="fn">randomInteger</span>(<span class="num">1</span>, <span class="num">100</span>);   <span class="cm">// 1 &lt;= n &lt; 100</span>
 <span class="kw">const</span> n2  = <span class="kw">await</span> <span class="fn">randomIntegerBelow</span>(<span class="num">100</span>);  <span class="cm">// 0 &lt;= n &lt; 100</span>
@@ -403,7 +403,7 @@ result.authTag;     <span class="cm">// Uint8Array (16 bytes)</span>
         <h3 class="text-lg font-bold mb-3 mt-6">String Tokens and OTPs</h3>
         <div class="code-block mb-4"><span class="kw">import</span> {
   randomToken, randomNumericCode, randomAlphanumeric, randomFromAlphabet,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> token     = <span class="kw">await</span> <span class="fn">randomToken</span>();                  <span class="cm">// URL-safe 32-byte token</span>
 <span class="kw">const</span> code      = <span class="kw">await</span> <span class="fn">randomNumericCode</span>(<span class="num">6</span>);          <span class="cm">// "839201"</span>
@@ -411,7 +411,7 @@ result.authTag;     <span class="cm">// Uint8Array (16 bytes)</span>
 <span class="kw">const</span> custom    = <span class="kw">await</span> <span class="fn">randomFromAlphabet</span>(<span class="num">8</span>, <span class="str">"ABCDEF0123456789"</span>);</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Choices and Buffers</h3>
-        <div class="code-block mb-4"><span class="kw">import</span> { randomBoolean, randomChoice, fillRandomBytes } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { randomBoolean, randomChoice, fillRandomBytes } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> coin   = <span class="kw">await</span> <span class="fn">randomBoolean</span>();              <span class="cm">// true or false</span>
 <span class="kw">const</span> pick   = <span class="kw">await</span> <span class="fn">randomChoice</span>([<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="str">"c"</span>]);  <span class="cm">// "b"</span>
@@ -434,7 +434,7 @@ result.authTag;     <span class="cm">// Uint8Array (16 bytes)</span>
   generatePasswordResetToken,
   generateCsrfToken,
   generateOtp,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="cm">// Generic token with options</span>
 <span class="kw">const</span> t = <span class="kw">await</span> <span class="fn">generateToken</span>({
@@ -454,7 +454,7 @@ result.authTag;     <span class="cm">// Uint8Array (16 bytes)</span>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Token Hashing and Verification</h3>
         <p class="text-sm text-black/70 mb-3">Hash tokens before storing in a database. Never store raw bearer tokens.</p>
-        <div class="code-block mb-4"><span class="kw">import</span> { hashToken, verifyTokenHash } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { hashToken, verifyTokenHash } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="cm">// Hash for storage</span>
 <span class="kw">const</span> raw  = <span class="kw">await</span> <span class="fn">generateToken</span>();
@@ -464,7 +464,7 @@ result.authTag;     <span class="cm">// Uint8Array (16 bytes)</span>
 <span class="kw">const</span> match = <span class="kw">await</span> <span class="fn">verifyTokenHash</span>(raw, hash);  <span class="cm">// true</span></div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Token Utilities</h3>
-        <div class="code-block mb-4"><span class="kw">import</span> { removeTokenPrefix, hasTokenPrefix, isValidToken } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { removeTokenPrefix, hasTokenPrefix, isValidToken } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="fn">hasTokenPrefix</span>(<span class="str">"lat_abc123"</span>, <span class="str">"lat_"</span>);    <span class="cm">// true</span>
 <span class="fn">removeTokenPrefix</span>(<span class="str">"sess_abc"</span>, <span class="str">"sess_"</span>); <span class="cm">// "abc"</span>
@@ -478,7 +478,7 @@ result.authTag;     <span class="cm">// Uint8Array (16 bytes)</span>
         <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">cryptoPassword</code> module hashes and verifies passwords using scrypt with configurable cost, salt, and key parameters. Includes a portable encoded format for database storage.</p>
 
         <h3 class="text-lg font-bold mb-3 mt-6">hashPassword() / verifyPassword()</h3>
-        <div class="code-block mb-4"><span class="kw">import</span> { hashPassword, verifyPassword } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { hashPassword, verifyPassword } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="cm">// Hash a password</span>
 <span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">hashPassword</span>(<span class="str">"user-password"</span>);
@@ -504,7 +504,7 @@ result.cost;     <span class="cm">// 16384</span>
         <div class="code-block mb-4"><span class="kw">import</span> {
   isPasswordHash, isValidPassword, getDefaultPasswordHashOptions,
   decodePasswordHash, encodePasswordHash,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="fn">isPasswordHash</span>(<span class="str">"v1$scrypt$..."</span>);         <span class="cm">// true</span>
 <span class="fn">isValidPassword</span>(<span class="str">"short"</span>);                 <span class="cm">// false (min 8 chars)</span>
@@ -520,7 +520,7 @@ result.cost;     <span class="cm">// 16384</span>
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DIGITAL SIGNATURES</h2>
         <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">cryptoSignature</code> module signs and verifies data using Ed25519, RSA (SHA-256/384/512), and ECDSA (SHA-256/384/512).</p>
 
-        <div class="code-block mb-4"><span class="kw">import</span> { sign, verify, signString, verifyString } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { sign, verify, signString, verifyString } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> data = <span class="kw">new</span> <span class="tp">TextEncoder</span>().<span class="fn">encode</span>(<span class="str">"message to sign"</span>);
 <span class="kw">const</span> privateKey = <span class="cm">// 32-byte Ed25519 private key</span>
@@ -572,7 +572,7 @@ result.cost;     <span class="cm">// 16384</span>
         <div class="code-block mb-4"><span class="kw">import</span> {
   createCryptoKey, generateCryptoKey, exportCryptoKey,
   isCryptoKey, getCryptoKeyFingerprint, cryptoKeysEqual,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="cm">// Create from existing bytes</span>
 <span class="kw">const</span> key = <span class="kw">await</span> <span class="fn">createCryptoKey</span>(rawBytes, {
@@ -601,7 +601,7 @@ result.cost;     <span class="cm">// 16384</span>
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">KEY DERIVATION</h2>
         <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">cryptoKeyDerivation</code> module derives cryptographic keys from passwords using PBKDF2 or scrypt.</p>
 
-        <div class="code-block mb-4"><span class="kw">import</span> { deriveKey, derivePbkdf2, deriveScrypt } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { deriveKey, derivePbkdf2, deriveScrypt } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="cm">// Unified API</span>
 <span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">deriveKey</span>(<span class="str">"password"</span>, <span class="str">"pbkdf2-sha256"</span>, {
@@ -632,7 +632,7 @@ result.salt; <span class="cm">// Uint8Array(16) — random if not provided</span
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CRYPTO SERVICE</h2>
         <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">CryptoService</code> class provides a high-level facade that wraps all crypto operations in a single injectable service. Errors are wrapped in <code class="bg-black/10 px-1">CryptoError</code> for consistent error handling.</p>
 
-        <div class="code-block mb-4"><span class="kw">import</span> { createCryptoService, cryptoService } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { createCryptoService, cryptoService } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="cm">// Use the singleton</span>
 <span class="kw">const</span> hash = <span class="kw">await</span> cryptoService.<span class="fn">hashHex</span>(<span class="str">"data"</span>);
@@ -676,7 +676,7 @@ result.salt; <span class="cm">// Uint8Array(16) — random if not provided</span
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CRYPTO FACTORY</h2>
         <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">CryptoFactory</code> class creates pre-configured crypto services with default algorithms, encodings, and password options. Useful for application-wide configuration.</p>
 
-        <div class="code-block mb-4"><span class="kw">import</span> { createCryptoFactory, cryptoFactory } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { createCryptoFactory, cryptoFactory } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="cm">// Use the default factory</span>
 <span class="kw">const</span> apiKey = <span class="kw">await</span> cryptoFactory.<span class="fn">createApiKey</span>();
@@ -732,7 +732,7 @@ factory.<span class="fn">decode</span>(hex, <span class="str">"hex"</span>);</di
 }</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Creating a Provider</h3>
-        <div class="code-block mb-4"><span class="kw">import</span> { createNodeCryptoProvider } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { createNodeCryptoProvider } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> provider = <span class="fn">createNodeCryptoProvider</span>();
 provider.name;          <span class="cm">// "node-crypto"</span>
@@ -749,7 +749,7 @@ provider.capabilities;  <span class="cm">// { hash: true, hmac: true, encryption
         <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">cryptoConstants</code> module exports algorithm identifiers, security defaults, token prefixes, and guard functions.</p>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Algorithm Enum</h3>
-        <div class="code-block mb-4"><span class="kw">import</span> { CryptoAlgorithm } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { CryptoAlgorithm } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="cm">// All supported algorithms</span>
 CryptoAlgorithm.AES_256_GCM       <span class="cm">// "aes-256-gcm"</span>
@@ -765,7 +765,7 @@ CryptoAlgorithm.ED25519           <span class="cm">// "ed25519"</span></div>
         <h3 class="text-lg font-bold mb-3 mt-6">Security Defaults</h3>
         <div class="code-block mb-4"><span class="kw">import</span> {
   PASSWORD_HASH, PASSWORD_POLICY, TOKEN_TTL, TOKEN, TOKEN_PREFIX,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 PASSWORD_HASH.SALT_BYTES;          <span class="cm">// 16</span>
 PASSWORD_HASH.KEY_BYTES;           <span class="cm">// 32</span>
@@ -789,7 +789,7 @@ TOKEN_TTL.REFRESH_TOKEN_MS;        <span class="cm">// 30 days</span></div>
         <div class="code-block mb-4"><span class="kw">import</span> {
   isAeadAlgorithm, isHashAlgorithm, isKeyDerivationAlgorithm,
   isMacAlgorithm, isCryptoAlgorithm, parseCryptoAlgorithm,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="fn">isAeadAlgorithm</span>(<span class="str">"aes-256-gcm"</span>);             <span class="cm">// true</span>
 <span class="fn">isHashAlgorithm</span>(<span class="str">"sha256"</span>);                  <span class="cm">// true</span>
@@ -805,7 +805,7 @@ TOKEN_TTL.REFRESH_TOKEN_MS;        <span class="cm">// 30 days</span></div>
         <div class="code-block mb-4"><span class="kw">import</span> {
   encode, decode, utf8Encode, utf8Decode,
   timingSafeEqualEncoded,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="kw">const</span> bytes = <span class="kw">new</span> <span class="tp">Uint8Array</span>([<span class="num">0</span>, <span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]);
 
@@ -824,14 +824,14 @@ TOKEN_TTL.REFRESH_TOKEN_MS;        <span class="cm">// 30 days</span></div>
         <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">cryptoUtils</code> module provides validation, comparison, conversion, text normalization, and number encoding helpers.</p>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Validation</h3>
-        <div class="code-block mb-4"><span class="kw">import</span> { isBytes, isArrayBuffer, isHexString, isBase64UrlString } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { isBytes, isArrayBuffer, isHexString, isBase64UrlString } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="fn">isBytes</span>(<span class="kw">new</span> <span class="tp">Uint8Array</span>(<span class="num">0</span>));        <span class="cm">// true</span>
 <span class="fn">isHexString</span>(<span class="str">"deadbeef"</span>);          <span class="cm">// true</span>
 <span class="fn">isBase64UrlString</span>(<span class="str">"aGVsbG8"</span>);     <span class="cm">// true</span></div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Constant-Time Comparison</h3>
-        <div class="code-block mb-4"><span class="kw">import</span> { secureEqual, secureStringEqual } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { secureEqual, secureStringEqual } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="fn">secureEqual</span>(bytesA, bytesB);     <span class="cm">// constant-time Uint8Array comparison</span>
 <span class="fn">secureStringEqual</span>(<span class="str">"abc"</span>, <span class="str">"abc"</span>); <span class="cm">// constant-time string comparison</span></div>
@@ -840,7 +840,7 @@ TOKEN_TTL.REFRESH_TOKEN_MS;        <span class="cm">// 30 days</span></div>
         <div class="code-block mb-4"><span class="kw">import</span> {
   toBytes, cloneBytes, concatBytes, sliceBytes, wipe,
   numberToBytes, bytesToNumber,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="fn">toBytes</span>(<span class="str">"hello"</span>);              <span class="cm">// Uint8Array from string</span>
 <span class="fn">toBytes</span>(arrayBuffer);           <span class="cm">// Uint8Array from ArrayBuffer</span>
@@ -853,7 +853,7 @@ TOKEN_TTL.REFRESH_TOKEN_MS;        <span class="cm">// 30 days</span></div>
 <span class="fn">bytesToNumber</span>(<span class="kw">new</span> <span class="tp">Uint8Array</span>([<span class="num">0</span>, <span class="num">255</span>])); <span class="cm">// 255</span></div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Text Helpers</h3>
-        <div class="code-block mb-4"><span class="kw">import</span> { normalizeText, utf8ByteLength } <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+        <div class="code-block mb-4"><span class="kw">import</span> { normalizeText, utf8ByteLength } <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="fn">normalizeText</span>(<span class="str">"café"</span>);         <span class="cm">// NFC normalization</span>
 <span class="fn">utf8ByteLength</span>(<span class="str">"hello"</span>);       <span class="cm">// 5</span></div>
@@ -862,13 +862,13 @@ TOKEN_TTL.REFRESH_TOKEN_MS;        <span class="cm">// 30 days</span></div>
       <!-- Errors -->
       <section id="errors" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERRORS</h2>
-        <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">cryptoErrors</code> module re-exports error types from <code class="bg-black/10 px-1">@zudolib/errors</code> for consistent error handling across the framework.</p>
+        <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">cryptoErrors</code> module re-exports error types from <code class="bg-black/10 px-1">@zudojs/errors</code> for consistent error handling across the framework.</p>
 
         <div class="code-block mb-4"><span class="kw">import</span> {
   CryptoError, CryptoOperation, createCryptoError, isCryptoError,
   cryptoHashError, cryptoCipherError, cryptoSignatureError,
   cryptoKeyDerivationError, cryptoKeyError,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="cm">// Create a crypto error</span>
 <span class="kw">const</span> err = <span class="fn">createCryptoError</span>(<span class="str">"Operation failed"</span>, {
@@ -892,7 +892,7 @@ TOKEN_TTL.REFRESH_TOKEN_MS;        <span class="cm">// 30 days</span></div>
 <span class="kw">import</span> {
   sha256, hashPassword, verifyPassword, generateToken,
   encryptString, decryptString, signString, verifyString,
-} <span class="kw">from</span> <span class="str">"@zudolib/crypto"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/crypto"</span>;
 
 <span class="fn">describe</span>(<span class="str">"crypto"</span>, () =&gt; {
   <span class="fn">it</span>(<span class="str">"hashes data"</span>, <span class="kw">async</span> () =&gt; {
@@ -931,28 +931,28 @@ TOKEN_TTL.REFRESH_TOKEN_MS;        <span class="cm">// 30 days</span></div>
       <!-- Connections -->
       <section id="connections" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CONNECTIONS</h2>
-        <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">@zudolib/crypto</code> package is used across the framework by packages that need cryptographic operations.</p>
+        <p class="text-black/70 mb-4">The <code class="bg-black/10 px-1">@zudojs/crypto</code> package is used across the framework by packages that need cryptographic operations.</p>
 
         <table class="w-full text-sm border-2 border-black mb-4">
           <thead class="bg-black text-white">
             <tr><th class="p-2 text-left">Package</th><th class="p-2 text-left">Usage</th></tr>
           </thead>
           <tbody>
-            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudolib/auth</td><td class="p-2">JWT signing, password hashing, session tokens, API key generation</td></tr>
-            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudolib/security</td><td class="p-2">CSRF tokens, rate limiting keys, secure session identifiers</td></tr>
-            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudolib/permissions</td><td class="p-2">Token hashing for permission lookups</td></tr>
-            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudolib/tenancy</td><td class="p-2">Tenant-scoped encryption keys, tenant ID hashing</td></tr>
-            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudolib/transactions</td><td class="p-2">Transaction ID generation, audit trail signatures</td></tr>
-            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudolib/cache</td><td class="p-2">Cache key generation, invalidation tokens</td></tr>
-            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudolib/database</td><td class="p-2">Connection string encryption, credential hashing</td></tr>
-            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudolib/messaging</td><td class="p-2">Message signing, correlation ID generation</td></tr>
-            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudolib/http</td><td class="p-2">Cookie signing, header HMAC verification</td></tr>
-            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudolib/schema</td><td class="p-2">Schema fingerprinting, deduplication hashes</td></tr>
+            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudojs/auth</td><td class="p-2">JWT signing, password hashing, session tokens, API key generation</td></tr>
+            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudojs/security</td><td class="p-2">CSRF tokens, rate limiting keys, secure session identifiers</td></tr>
+            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudojs/permissions</td><td class="p-2">Token hashing for permission lookups</td></tr>
+            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudojs/tenancy</td><td class="p-2">Tenant-scoped encryption keys, tenant ID hashing</td></tr>
+            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudojs/transactions</td><td class="p-2">Transaction ID generation, audit trail signatures</td></tr>
+            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudojs/cache</td><td class="p-2">Cache key generation, invalidation tokens</td></tr>
+            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudojs/database</td><td class="p-2">Connection string encryption, credential hashing</td></tr>
+            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudojs/messaging</td><td class="p-2">Message signing, correlation ID generation</td></tr>
+            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudojs/http</td><td class="p-2">Cookie signing, header HMAC verification</td></tr>
+            <tr class="border-b border-black/10"><td class="p-2 font-mono text-xs">@zudojs/schema</td><td class="p-2">Schema fingerprinting, deduplication hashes</td></tr>
           </tbody>
         </table>
 
         <div class="callout callout-note">
-          <strong class="text-zudo-blue">Dependency Rule:</strong> @zudolib/crypto depends only on @zudolib/constants and @zudolib/errors (leaf packages). All other packages that need crypto operations import from @zudolib/crypto directly — never from node:crypto.
+          <strong class="text-zudo-blue">Dependency Rule:</strong> @zudojs/crypto depends only on @zudojs/constants and @zudojs/errors (leaf packages). All other packages that need crypto operations import from @zudojs/crypto directly — never from node:crypto.
         </div>
       </section>
 

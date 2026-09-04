@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Backend Generators
+ * zudojs-cli — Backend Generators
  *
  * Backend-specific generators for monolith, modular monolith, and microservice architectures.
  */

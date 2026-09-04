@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/docs",
+  "name": "@zudojs/docs",
   "version": "1.0.0",
   "description": "Documentation infrastructure with structured document model, registry, validation, navigation, and generation.",
   "main": "./dist/index.js",
@@ -17,7 +17,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*"
+    "@zudojs/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.7.0",
@@ -36,7 +36,7 @@
   },
   "module": "./dist/index.js",
   "keywords": [
-    "zudolib",
+    "zudojs",
     "docs",
     "documentation",
     "markdown"

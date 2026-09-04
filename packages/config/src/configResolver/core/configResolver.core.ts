@@ -457,7 +457,7 @@ export class ConfigResolver {
     return fallback;
   }
 }
-import { ConfigurationError } from "@zudolib/errors";
+import { ConfigurationError } from "@zudojs/errors";
 
 /**
  * Error thrown when configuration resolution fails.

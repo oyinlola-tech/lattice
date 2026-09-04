@@ -25,15 +25,15 @@ import {
   createPermissionEngine,
   createRoleRegistry,
   type PermissionEngine,
-} from "@zudolib/permissions";
+} from "@zudojs/permissions";
 
 const TEST_TOKEN_CONFIG: TokenConfig = {
   accessSecret: "test-access-secret-key-for-testing-32chars!",
   refreshSecret: "test-refresh-secret-key-for-testing-32ch!",
   accessTtl: 900,
   refreshTtl: 604_800,
-  issuer: "zudolib-test",
-  audience: "zudolib-test-client",
+  issuer: "zudojs-test",
+  audience: "zudojs-test-client",
 };
 
 const TEST_USER: AuthUser = {
@@ -211,7 +211,7 @@ describe("Session Management", () => {
   });
 });
 
-// ─── Permissions Engine (via @zudolib/permissions) ──────────────────────────
+// ─── Permissions Engine (via @zudojs/permissions) ──────────────────────────
 
 describe("Permissions Engine", () => {
   const engine = createPermissionEngine({

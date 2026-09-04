@@ -1,7 +1,7 @@
 /**
- * zudolib-cli — Info Command
+ * zudojs-cli — Info Command
  *
- * The `zudolib info` command.
+ * The `zudojs info` command.
  */
 
 import { readFileSync, existsSync } from "node:fs";
@@ -22,11 +22,11 @@ export async function runInfoCommand(context: CLIContext): Promise<void> {
 
     projectName = pkg.name ?? "unknown";
 
-    const zudolibDeps = Object.entries(pkg.dependencies ?? {})
-      .filter(([name]) => name.startsWith("@zudolib/"))
+    const zudojsDeps = Object.entries(pkg.dependencies ?? {})
+      .filter(([name]) => name.startsWith("@zudojs/"))
       .sort(([a], [b]) => a.localeCompare(b));
 
-    context.logger.info("Zudolib Project Info");
+    context.logger.info("Zudojs Project Info");
     context.logger.info("");
     context.logger.info(`Project: ${projectName}`);
     context.logger.info(`Version: ${pkg.version ?? "0.0.0"}`);
@@ -35,22 +35,22 @@ export async function runInfoCommand(context: CLIContext): Promise<void> {
     const packageManager = hasPnpm ? "pnpm" : hasYarn ? "yarn" : "npm";
     context.logger.info(`Package Manager: ${packageManager}`);
     context.logger.info("");
-    context.logger.info("Zudolib Dependencies:");
+    context.logger.info("Zudojs Dependencies:");
 
-    if (zudolibDeps.length === 0) {
+    if (zudojsDeps.length === 0) {
       context.logger.info("  (none)");
     } else {
-      for (const [name, version] of zudolibDeps) {
+      for (const [name, version] of zudojsDeps) {
         context.logger.info(`  ${name}: ${version}`);
       }
     }
   } catch {
-    context.logger.info("Zudolib CLI Info");
+    context.logger.info("Zudojs CLI Info");
     context.logger.info("");
-    context.logger.info("Not in a Zudolib project directory.");
+    context.logger.info("Not in a Zudojs project directory.");
     context.logger.info("");
     context.logger.info(
-      "Run `zudolib create <project-name>` to create a new project.",
+      "Run `zudojs create <project-name>` to create a new project.",
     );
   }
 }

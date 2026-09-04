@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Console Exporter
+ * @zudojs/observability — Console Exporter
  *
  * Exports telemetry to the console for development and debugging.
  */

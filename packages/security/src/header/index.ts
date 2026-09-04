@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — Header Security Barrel
+ * @zudojs/security — Header Security Barrel
  */
 
 export {

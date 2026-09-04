@@ -4,7 +4,7 @@ import {
   QueueClosedError,
   QueueDisposedError,
   JobDuplicateError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 import type { JobId, QueueName } from "../jobTypes/jobTypes.type.js";
 import type { Job } from "../job/job.type.js";

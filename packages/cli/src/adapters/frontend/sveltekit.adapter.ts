@@ -65,7 +65,7 @@ export class SvelteKitAdapter implements FrontendAdapter {
     return deps;
   }
 
-  async applyZudolibStructure(
+  async applyZudojsStructure(
     context: FrontendGenerationContext,
   ): Promise<void> {
     const structure = this.getStructure(context);
@@ -132,7 +132,7 @@ export default defineConfig({
   plugins: [sveltekit()],
 });
 `,
-      "src/routes/+page.svelte": `<h1>Hello from Zudolib</h1>
+      "src/routes/+page.svelte": `<h1>Hello from Zudojs</h1>
 `,
       "src/routes/+layout.svelte": `<slot />
 `,

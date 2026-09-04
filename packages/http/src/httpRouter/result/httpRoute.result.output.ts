@@ -1,5 +1,5 @@
 /**
- * Zudolib HTTP route result output methods.
+ * Zudojs HTTP route result output methods.
  *
  * Extends HttpRouteResult with serialization methods via prototype.
  */

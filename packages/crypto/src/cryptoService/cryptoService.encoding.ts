@@ -2,7 +2,7 @@ import type { CryptoEncoding } from "../cryptoEncoding/cryptoEncoding.core.js";
 
 import { encode, decode } from "../cryptoEncoding/cryptoEncoding.core.js";
 
-import { createCryptoError } from "@zudolib/errors";
+import { createCryptoError } from "@zudojs/errors";
 
 export type { CryptoEncoding };
 

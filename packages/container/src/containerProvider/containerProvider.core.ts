@@ -1,5 +1,5 @@
 /**
- * Dependency injection provider definitions for Zudolib.
+ * Dependency injection provider definitions for Zudojs.
  * Providers describe how a dependency should be created or retrieved.
  */
 

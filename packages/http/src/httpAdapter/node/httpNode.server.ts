@@ -226,7 +226,7 @@ export function getSearchPart(url: string): string {
 /* Body Errors                                                                */
 /* -------------------------------------------------------------------------- */
 
-import { RequestBodyTooLargeError as NodeRequestBodyTooLargeError } from "@zudolib/errors";
+import { RequestBodyTooLargeError as NodeRequestBodyTooLargeError } from "@zudojs/errors";
 
 export { NodeRequestBodyTooLargeError };
 

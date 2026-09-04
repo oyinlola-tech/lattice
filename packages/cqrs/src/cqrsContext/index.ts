@@ -1,5 +1,5 @@
 /**
- * @zudolib/cqrs/cqrsContext
+ * @zudojs/cqrs/cqrsContext
  *
  * CQRS execution context creation and manipulation utilities.
  */

@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Repository Generator
+ * zudojs-cli — Repository Generator
  */
 
 import { writeFileTree } from "../../utils/utils.fileSystem.js";
@@ -22,7 +22,7 @@ export async function generateRepository(
   const basePath = options.basePath ?? "";
 
   const files: Record<string, string> = {
-    [`${basePath ? `${basePath}/` : ""}repositories/${name}.repository.ts`]: `import { createLogger } from "@zudolib/logger";
+    [`${basePath ? `${basePath}/` : ""}repositories/${name}.repository.ts`]: `import { createLogger } from "@zudojs/logger";
 
 export interface ${nameCamel}Entity {
   readonly id: string;

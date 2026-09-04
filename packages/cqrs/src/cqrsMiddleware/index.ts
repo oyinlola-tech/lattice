@@ -1,5 +1,5 @@
 /**
- * @zudolib/cqrs/cqrsMiddleware
+ * @zudojs/cqrs/cqrsMiddleware
  *
  * Built-in CQRS middleware: timing, error handling, validation, and composition.
  */

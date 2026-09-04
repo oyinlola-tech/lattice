@@ -1,5 +1,5 @@
 /**
- * @zudolib/cache — Store
+ * @zudojs/cache — Store
  * Wraps a CacheAdapter with metrics, events, middleware, and error handling.
  */
 

@@ -1,7 +1,7 @@
 import type { Container } from "./container.js";
 
 /**
- * Creates a dependency using the Zudolib dependency container.
+ * Creates a dependency using the Zudojs dependency container.
  */
 export interface FactoryProvider<T> {
   readonly useFactory: (container: Container) => T;
@@ -27,7 +27,7 @@ export interface ClassProvider<T> {
 export type Constructor<T> = new (...args: never[]) => T;
 
 /**
- * A dependency provider understood by the Zudolib container.
+ * A dependency provider understood by the Zudojs container.
  */
 export type Provider<T> =
   ClassProvider<T> | FactoryProvider<T> | ValueProvider<T>;

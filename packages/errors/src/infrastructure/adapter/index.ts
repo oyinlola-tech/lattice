@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/infrastructure/adapter
+ * @zudojs/errors/infrastructure/adapter
  *
  * Adapter error types.
  */

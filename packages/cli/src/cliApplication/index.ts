@@ -1,10 +1,10 @@
 /**
- * zudolib-cli — CLI Application
+ * zudojs-cli — CLI Application
  *
  * Main application class, factory, built-in commands, and signal handling.
  */
 
-export { ZudolibCLI, createCLI } from "./cliApplication.core.js";
+export { ZudojsCLI, createCLI } from "./cliApplication.core.js";
 
 export {
   createCLIWriter,

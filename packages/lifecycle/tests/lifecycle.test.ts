@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle tests
+ * @zudojs/lifecycle tests
  *
  * Comprehensive tests for the lifecycle orchestration system.
  */
@@ -22,7 +22,7 @@ import {
   SHUTDOWN_PHASES,
   installSignalHandlers,
 } from "../src/index.js";
-import { LifecycleState, LifecyclePhase } from "@zudolib/constants";
+import { LifecycleState, LifecyclePhase } from "@zudojs/constants";
 import type { LifecycleComponent } from "../src/index.js";
 
 describe("LifecycleStateMachine", () => {

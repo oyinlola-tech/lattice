@@ -2,7 +2,7 @@
 
 set -e
 
-echo "Running Zudolib pre-commit checks..."
+echo "Running Zudojs pre-commit checks..."
 
 npm run format:check
 npm run lint

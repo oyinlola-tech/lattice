@@ -1,7 +1,7 @@
 /**
- * @zudolib/runtime
+ * @zudojs/runtime
  *
- * Application runtime orchestrator for the Zudolib framework.
+ * Application runtime orchestrator for the Zudojs framework.
  *
  * The runtime manages the complete application lifecycle:
  * - Deterministic startup with dependency ordering

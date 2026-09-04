@@ -1,7 +1,7 @@
 /**
- * @zudolib/adapters/messaging
+ * @zudojs/adapters/messaging
  *
- * Messaging adapter contracts — bridges Zudolib messaging to external providers.
+ * Messaging adapter contracts — bridges Zudojs messaging to external providers.
  */
 
 import type {
@@ -11,7 +11,7 @@ import type {
 } from "../index.js";
 
 /**
- * Messaging adapter — connects Zudolib message bus to external providers.
+ * Messaging adapter — connects Zudojs message bus to external providers.
  *
  * Examples: RabbitMQ, Kafka, Redis Streams, NATS, AWS SQS, Google Pub/Sub.
  */

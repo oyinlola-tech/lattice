@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/context
+ * @zudojs/schema/context
  *
  * Context creation and manipulation for schema parsing.
  */
@@ -10,7 +10,7 @@ import type {
   SchemaIssue,
   SchemaPathSegment,
 } from "./schemaBase.type.js";
-import { SCHEMA_DEFAULT_MAX_DEPTH } from "@zudolib/constants";
+import { SCHEMA_DEFAULT_MAX_DEPTH } from "@zudojs/constants";
 
 /** Creates a fresh parse context from options. */
 export function createParseContext(

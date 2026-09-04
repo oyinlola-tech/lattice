@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Project Prompts
+ * zudojs-cli — Project Prompts
  *
  * Barrel exports for project prompts.
  */

@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/observability",
+  "name": "@zudojs/observability",
   "version": "1.0.0",
-  "description": "Structured logging, metrics, tracing, context propagation, and exporters for Zudolib applications.",
+  "description": "Structured logging, metrics, tracing, context propagation, and exporters for Zudojs applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,7 +24,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*"
+    "@zudojs/errors": "workspace:*"
   },
   "devDependencies": {
     "typescript": "7.0.2",
@@ -38,7 +38,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "observability",
     "metrics",
     "tracing",

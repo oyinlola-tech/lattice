@@ -1,7 +1,7 @@
 /**
- * @zudolib/database
+ * @zudojs/database
  *
- * Shared database infrastructure for the Zudolib platform.
+ * Shared database infrastructure for the Zudojs platform.
  *
  * This package provides:
  *   • Database client and connection management

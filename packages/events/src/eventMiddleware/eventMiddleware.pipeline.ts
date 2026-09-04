@@ -1,5 +1,5 @@
 /**
- * Event middleware pipeline execution for Zudolib.
+ * Event middleware pipeline execution for Zudojs.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

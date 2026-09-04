@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/errors",
+  "name": "@zudojs/errors",
   "version": "1.0.0",
-  "description": "Shared error base class, error codes, and error handling utilities for the Zudolib framework.",
+  "description": "Shared error base class, error codes, and error handling utilities for the Zudojs framework.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -32,7 +32,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "errors",
     "error-handling"
   ],

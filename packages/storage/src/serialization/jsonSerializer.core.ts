@@ -1,17 +1,17 @@
 /**
- * @zudolib/storage — JSON Serializer
+ * @zudojs/storage — JSON Serializer
  *
  * Serializes/deserializes data for storage with support for BigInt, Date,
- * Map, Set, and Uint8Array via @zudolib/serialization's type preservation.
+ * Map, Set, and Uint8Array via @zudojs/serialization's type preservation.
  */
 
 import type { Serializer, SerializationFormat } from "../types/storage.type.js";
-import { JSONSerializer } from "@zudolib/serialization";
+import { JSONSerializer } from "@zudojs/serialization";
 
 /**
  * JSON serializer with extended type support for storage operations.
  *
- * Delegates to @zudolib/serialization's JSONSerializer for type preservation
+ * Delegates to @zudojs/serialization's JSONSerializer for type preservation
  * (BigInt, Date, Map, Set, Uint8Array) and wraps the output as Uint8Array
  * to satisfy the storage Serializer contract.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/logger/loggerErrors
+ * @zudojs/logger/loggerErrors
  *
  * Logger error types.
  */

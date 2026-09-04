@@ -1,6 +1,6 @@
 /**
  * Defines the lifetime of a dependency registered
- * with the Zudolib dependency injection container.
+ * with the Zudojs dependency injection container.
  */
 export type Scope =
   /**

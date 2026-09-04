@@ -1,5 +1,5 @@
 /**
- * @zudolib/feature-flags/featureFlagTypes/featureFlagRule
+ * @zudojs/feature-flags/featureFlagTypes/featureFlagRule
  *
  * Feature flag rule and value type definitions.
  */

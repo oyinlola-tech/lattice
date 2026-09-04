@@ -577,7 +577,7 @@ import {
   MultipartError,
   MultipartParseError,
   MultipartLimitError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 export { MultipartError, MultipartParseError, MultipartLimitError };
 

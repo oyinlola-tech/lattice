@@ -1,7 +1,7 @@
 /**
- * @zudolib/crypto
+ * @zudojs/crypto
  *
- * Cryptographic primitives for the Zudolib framework.
+ * Cryptographic primitives for the Zudojs framework.
  * Provides symmetric/asymmetric encryption, hashing, password hashing,
  * digital signatures, key derivation, and secure random generation.
  */

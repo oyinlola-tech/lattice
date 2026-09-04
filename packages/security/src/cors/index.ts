@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — CORS Barrel
+ * @zudojs/security — CORS Barrel
  */
 
 export type { CorsHeaders } from "./cors.core.js";

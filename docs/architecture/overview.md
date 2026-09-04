@@ -1,6 +1,6 @@
 # Architecture Overview
 
-This document describes the conceptual architecture of the Zudolib framework. It explains how the major components fit together, the design principles that guide the system, and the lifecycle of a Zudolib application from startup to shutdown.
+This document describes the conceptual architecture of the Zudojs framework. It explains how the major components fit together, the design principles that guide the system, and the lifecycle of a Zudojs application from startup to shutdown.
 
 See also:
 

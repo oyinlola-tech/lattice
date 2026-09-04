@@ -1,12 +1,12 @@
 /**
- * Errors produced by the Zudolib logger.
+ * Errors produced by the Zudojs logger.
  *
- * LoggerError extends LoggingError from @zudolib/errors so all
+ * LoggerError extends LoggingError from @zudojs/errors so all
  * logger failures inherit the shared error infrastructure
  * (code, category, severity, statusCode, metadata, serialization).
  */
 
-import { LoggingError } from "@zudolib/errors";
+import { LoggingError } from "@zudojs/errors";
 
 /** Base error for all logger failures. */
 export class LoggerError extends LoggingError {

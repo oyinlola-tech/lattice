@@ -1,6 +1,6 @@
-# @zudolib/plugins
+# @zudojs/plugins
 
-Plugin manager, registry, dependency resolver, lifecycle controller, events, and integration context. The basis for extending a Zudolib app with third-party functionality.
+Plugin manager, registry, dependency resolver, lifecycle controller, events, and integration context. The basis for extending a Zudojs app with third-party functionality.
 
 ## When to use
 
@@ -14,7 +14,7 @@ Import this when you need:
 ## Installation
 
 ```bash
-npm install @zudolib/plugins
+npm install @zudojs/plugins
 ```
 
 ## Public API
@@ -34,13 +34,13 @@ import {
   type DependencyResolution,
   type CreatePluginContextOptions,
   type PluginHooks,
-} from "@zudolib/plugins";
+} from "@zudojs/plugins";
 ```
 
 ## Usage
 
 ```typescript
-import { PluginManager, createPluginContext } from "@zudolib/plugins";
+import { PluginManager, createPluginContext } from "@zudojs/plugins";
 
 const ctx = createPluginContext({ logger, config });
 const manager = new PluginManager(ctx);

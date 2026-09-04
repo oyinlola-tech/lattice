@@ -1,14 +1,14 @@
-# Zudolib Architecture
+# Zudojs Architecture
 
-> This document describes the conceptual architecture of the Zudolib framework.
+> This document describes the conceptual architecture of the Zudojs framework.
 > It explains how the major components fit together, the design principles that guide the system,
-> and the lifecycle of a Zudolib application from startup to shutdown.
+> and the lifecycle of a Zudojs application from startup to shutdown.
 
 ---
 
 ## 1. Overview
 
-Zudolib is a modular TypeScript application framework designed for building scalable, maintainable backend systems.
+Zudojs is a modular TypeScript application framework designed for building scalable, maintainable backend systems.
 
 It provides:
 
@@ -21,7 +21,7 @@ It provides:
 - **Cross-cutting concerns** including observability, security, permissions, multi-tenancy, and feature flags.
 - A **plugin system** for controlled extensibility.
 
-Zudolib is built on three core beliefs:
+Zudojs is built on three core beliefs:
 
 1. **Explicit over implicit** — dependencies, boundaries, and lifecycles should be visible and enforceable.
 2. **Composition over inheritance** — behavior is assembled through composition, not class hierarchies.
@@ -35,7 +35,7 @@ Zudolib is built on three core beliefs:
 
 Dependencies flow inward.
 
-Foundation packages have no `@zudolib/*` dependencies.
+Foundation packages have no `@zudojs/*` dependencies.
 Higher-level packages may depend on lower-level packages.
 No package may depend on a package in a higher tier.
 
@@ -89,7 +89,7 @@ This enforces architectural boundaries and prevents hidden coupling.
 ### 2.6 Errors as Values
 
 Errors are first-class citizens.
-Every package defines its own error hierarchy rooted in `@zudolib/errors`.
+Every package defines its own error hierarchy rooted in `@zudojs/errors`.
 
 Errors carry:
 
@@ -105,14 +105,14 @@ Logging, metrics, and tracing are built into the framework, not bolted on.
 
 ### 2.8 Security in the Foundation
 
-Input validation, CORS, CSRF protection, rate limiting, and security headers are provided by `@zudolib/security`.
+Input validation, CORS, CSRF protection, rate limiting, and security headers are provided by `@zudojs/security`.
 Application code should never reimplement these primitives.
 
 ---
 
 ## 3. Architectural Layers
 
-Zudolib is organized into five conceptual layers.
+Zudojs is organized into five conceptual layers.
 
 ### 3.1 Foundation Layer
 
@@ -120,70 +120,70 @@ The base of the framework.
 
 Provides:
 
-- Error handling (`@zudolib/errors`)
-- Type utilities (`@zudolib/types`)
-- Constants and branded types (`@zudolib/constants`)
-- Dependency injection (`@zudolib/container`)
-- Configuration (`@zudolib/config`)
-- Logging (`@zudolib/logger`)
-- Validation (`@zudolib/validation`)
-- Serialization (`@zudolib/serialization`)
+- Error handling (`@zudojs/errors`)
+- Type utilities (`@zudojs/types`)
+- Constants and branded types (`@zudojs/constants`)
+- Dependency injection (`@zudojs/container`)
+- Configuration (`@zudojs/config`)
+- Logging (`@zudojs/logger`)
+- Validation (`@zudojs/validation`)
+- Serialization (`@zudojs/serialization`)
 
-These packages have no `@zudolib/*` dependencies (except `@zudolib/errors`).
+These packages have no `@zudojs/*` dependencies (except `@zudojs/errors`).
 
 ### 3.2 Runtime Primitives Layer
 
 Provides the runtime building blocks.
 
-- **Lifecycle** (`@zudolib/lifecycle`) — state machines, dependency ordering, graceful shutdown.
-- **Events** (`@zudolib/events`) — event bus, emitter, middleware, registry.
-- **Messaging** (`@zudolib/messaging`) — in-process message bus with handlers and middleware.
-- **Transactions** (`@zudolib/transactions`) — transaction lifecycle, context propagation, savepoints.
-- **Schema** (`@zudolib/schema`) — type-safe data contracts with validation.
-- **Crypto** (`@zudolib/crypto`) — hashing, encryption, tokens.
-- **Cache** (`@zudolib/cache`) — cache abstraction with adapters, tags, locking.
-- **Storage** (`@zudolib/storage`) — database and object storage abstractions.
-- **Queue** (`@zudolib/queue`) — background job infrastructure.
-- **Scheduler** (`@zudolib/scheduler`) — job scheduling, cron, triggers.
+- **Lifecycle** (`@zudojs/lifecycle`) — state machines, dependency ordering, graceful shutdown.
+- **Events** (`@zudojs/events`) — event bus, emitter, middleware, registry.
+- **Messaging** (`@zudojs/messaging`) — in-process message bus with handlers and middleware.
+- **Transactions** (`@zudojs/transactions`) — transaction lifecycle, context propagation, savepoints.
+- **Schema** (`@zudojs/schema`) — type-safe data contracts with validation.
+- **Crypto** (`@zudojs/crypto`) — hashing, encryption, tokens.
+- **Cache** (`@zudojs/cache`) — cache abstraction with adapters, tags, locking.
+- **Storage** (`@zudojs/storage`) — database and object storage abstractions.
+- **Queue** (`@zudojs/queue`) — background job infrastructure.
+- **Scheduler** (`@zudojs/scheduler`) — job scheduling, cron, triggers.
 
 ### 3.3 Application Architecture Layer
 
 Provides patterns for structuring applications.
 
-- **Core** (`@zudolib/core`) — application context, modules, lifecycle integration.
-- **CQRS** (`@zudolib/cqrs`) — command/query separation, handlers, bus integration.
-- **Auth** (`@zudolib/auth`) — JWT, sessions, password hashing.
-- **Permissions** (`@zudolib/permissions`) — RBAC, ABAC, resource authorization.
-- **Runtime** (`@zudolib/runtime`) — application lifecycle orchestrator.
-- **Plugins** (`@zudolib/plugins`) — plugin registration, lifecycle, orchestration.
-- **Feature Flags** (`@zudolib/feature-flags`) — feature flag evaluation, rule engine.
-- **Tenancy** (`@zudolib/tenancy`) — multi-tenant context and isolation.
-- **Security** (`@zudolib/security`) — input validation, CORS, CSRF, rate limiting.
-- **Adapters** (`@zudolib/adapters`) — boundary layer between Zudolib and external platforms.
+- **Core** (`@zudojs/core`) — application context, modules, lifecycle integration.
+- **CQRS** (`@zudojs/cqrs`) — command/query separation, handlers, bus integration.
+- **Auth** (`@zudojs/auth`) — JWT, sessions, password hashing.
+- **Permissions** (`@zudojs/permissions`) — RBAC, ABAC, resource authorization.
+- **Runtime** (`@zudojs/runtime`) — application lifecycle orchestrator.
+- **Plugins** (`@zudojs/plugins`) — plugin registration, lifecycle, orchestration.
+- **Feature Flags** (`@zudojs/feature-flags`) — feature flag evaluation, rule engine.
+- **Tenancy** (`@zudojs/tenancy`) — multi-tenant context and isolation.
+- **Security** (`@zudojs/security`) — input validation, CORS, CSRF, rate limiting.
+- **Adapters** (`@zudojs/adapters`) — boundary layer between Zudojs and external platforms.
 
 ### 3.4 Transport Layer
 
 Translates external requests into internal application calls.
 
-- **HTTP** (`@zudolib/http`) — request handling, routing, middleware.
-- **RPC** (`@zudolib/rpc`) — RPC primitives.
-- **API** (`@zudolib/api`) — API abstraction layer.
-- **OpenAPI** (`@zudolib/openapi`) — OpenAPI document generation.
-- **CLI** (`@zudolib/cli`) — command-line interface.
+- **HTTP** (`@zudojs/http`) — request handling, routing, middleware.
+- **RPC** (`@zudojs/rpc`) — RPC primitives.
+- **API** (`@zudojs/api`) — API abstraction layer.
+- **OpenAPI** (`@zudojs/openapi`) — OpenAPI document generation.
+- **CLI** (`@zudojs/cli`) — command-line interface.
 
 ### 3.5 Developer Experience Layer
 
-Tools for building, testing, and documenting Zudolib applications.
+Tools for building, testing, and documenting Zudojs applications.
 
-- **Testing** (`@zudolib/testing`) — test helpers, fixtures, mocks.
-- **Docs** (`@zudolib/docs`) — documentation infrastructure.
-- **Observability** (`@zudolib/observability`) — structured logging, metrics, tracing, exporters.
+- **Testing** (`@zudojs/testing`) — test helpers, fixtures, mocks.
+- **Docs** (`@zudojs/docs`) — documentation infrastructure.
+- **Observability** (`@zudojs/observability`) — structured logging, metrics, tracing, exporters.
 
 ---
 
 ## 4. Application Lifecycle
 
-A Zudolib application follows a strict lifecycle managed by `@zudolib/runtime`.
+A Zudojs application follows a strict lifecycle managed by `@zudojs/runtime`.
 
 ### 4.1 Startup
 
@@ -257,7 +257,7 @@ During the running phase:
 
 ## 5. Request Lifecycle
 
-A typical request flows through Zudolib as follows:
+A typical request flows through Zudojs as follows:
 
 ```
 Incoming Request
@@ -308,7 +308,7 @@ Key principles:
 
 ## 6. Module System
 
-Zudolib applications are composed of modules.
+Zudojs applications are composed of modules.
 
 ### 6.1 Module Definition
 
@@ -371,7 +371,7 @@ Application
 
 ## 7. Dependency Injection
 
-Zudolib uses a token-based DI container (`@zudolib/container`).
+Zudojs uses a token-based DI container (`@zudojs/container`).
 
 ### 7.1 Registration
 
@@ -409,7 +409,7 @@ The container detects circular dependencies at resolution time and throws a clea
 
 ## 8. Runtime Model
 
-The runtime (`@zudolib/runtime`) orchestrates the entire application.
+The runtime (`@zudojs/runtime`) orchestrates the entire application.
 
 ### 8.1 Responsibilities
 
@@ -441,7 +441,7 @@ The runtime emits events for observability:
 
 ## 9. Transport Layer
 
-The transport layer is the boundary between the outside world and the Zudolib application.
+The transport layer is the boundary between the outside world and the Zudojs application.
 
 ### 9.1 Principle
 
@@ -524,7 +524,7 @@ Infrastructure packages provide integrations with external systems.
 
 ## 11. Extensibility
 
-Zudolib provides multiple extension points.
+Zudojs provides multiple extension points.
 
 ### 11.1 Modules
 
@@ -533,7 +533,7 @@ Modules encapsulate features and compose into applications.
 
 ### 11.2 Plugins
 
-A controlled extension system (`@zudolib/plugins`).
+A controlled extension system (`@zudojs/plugins`).
 
 Plugins:
 
@@ -565,7 +565,7 @@ Lifecycle hooks allow code to run at specific points:
 
 ### 12.1 Error Hierarchy
 
-All errors extend `BaseError` from `@zudolib/errors`.
+All errors extend `BaseError` from `@zudojs/errors`.
 
 ```
 BaseError
@@ -604,12 +604,12 @@ Internal errors are never exposed to clients.
 Each package defines domain-specific errors.
 
 ```ts
-// @zudolib/database
+// @zudojs/database
 DatabaseConnectionError;
 QueryExecutionError;
 TransactionError;
 
-// @zudolib/auth
+// @zudojs/auth
 AuthenticationError;
 InvalidTokenError;
 SessionExpiredError;
@@ -659,7 +659,7 @@ app.runtime.diagnostics();
 
 ### 14.1 Input Validation
 
-All external input is validated at the boundary using `@zudolib/security`.
+All external input is validated at the boundary using `@zudojs/security`.
 
 ### 14.2 Authentication
 
@@ -721,7 +721,7 @@ All external input is validated at the boundary using `@zudolib/security`.
 
 ## 16. Package Structure
 
-Every Zudolib package follows a consistent structure.
+Every Zudojs package follows a consistent structure.
 
 ```
 packages/<package-name>/
@@ -756,7 +756,7 @@ Rules:
 
 ### 17.1 Why ESM?
 
-Zudolib uses ECMAScript modules (ESM) for:
+Zudojs uses ECMAScript modules (ESM) for:
 
 - Native browser compatibility.
 - Better tree-shaking.
@@ -791,7 +791,7 @@ Vitest provides:
 
 ### 17.5 Why Not NestJS?
 
-Zudolib differs from NestJS in:
+Zudojs differs from NestJS in:
 
 - No decorator-heavy configuration.
 - Explicit dependency direction.
@@ -805,7 +805,7 @@ Zudolib differs from NestJS in:
 
 ### 18.1 AsyncLocalStorage
 
-Zudolib uses `AsyncLocalStorage` for context propagation:
+Zudojs uses `AsyncLocalStorage` for context propagation:
 
 - Execution context.
 - Tenant context.
@@ -843,7 +843,7 @@ State machines prevent invalid transitions and make debugging easier.
 
 ### 19.1 Edge Runtime Support
 
-Zudolib aims to support edge runtimes (Vercel Edge, Cloudflare Workers) through adapter abstractions.
+Zudojs aims to support edge runtimes (Vercel Edge, Cloudflare Workers) through adapter abstractions.
 
 ### 19.2 Plugin Marketplace
 

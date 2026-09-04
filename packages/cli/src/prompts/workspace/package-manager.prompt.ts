@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Package Manager Prompt
+ * zudojs-cli — Package Manager Prompt
  *
  * Prompts for package manager selection.
  */

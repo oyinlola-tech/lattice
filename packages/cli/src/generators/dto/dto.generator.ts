@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — DTO Generator
+ * zudojs-cli — DTO Generator
  *
  * Generates DTO files.
  */

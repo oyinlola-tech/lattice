@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/security",
+  "name": "@zudojs/security",
   "version": "1.0.0",
   "description": "Security primitives for input validation, header security, CORS, CSRF protection, rate limiting, and security headers.",
   "license": "MIT",
@@ -24,8 +24,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*"
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/constants": "workspace:*"
   },
   "devDependencies": {
     "typescript": "7.0.2",
@@ -39,7 +39,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "security",
     "cors",
     "csrf",

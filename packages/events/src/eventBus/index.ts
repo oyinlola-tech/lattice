@@ -1,5 +1,5 @@
 /**
- * @zudolib/events/eventBus
+ * @zudojs/events/eventBus
  *
  * Event bus for publishing and subscribing to events.
  */

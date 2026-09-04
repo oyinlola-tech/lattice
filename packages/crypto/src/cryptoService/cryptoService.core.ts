@@ -1,7 +1,7 @@
 import { createNodeCryptoProvider } from "../node/index.js";
 import { generateCryptoKey } from "../cryptoKey/cryptoKey.factory.js";
 import { CryptoAlgorithm } from "../cryptoConstants/cryptoConstants.type.js";
-import { createCryptoError } from "@zudolib/errors";
+import { createCryptoError } from "@zudojs/errors";
 import {
   serviceEncrypt,
   serviceDecrypt,
@@ -22,7 +22,7 @@ import {
   serviceVerifyToken,
 } from "./operations/cryptoService.token.js";
 import { serviceEncode, serviceDecode } from "./cryptoService.encoding.js";
-import type { CryptoKey as ZudolibCryptoKey } from "../cryptoKey/cryptoKey.type.js";
+import type { CryptoKey as ZudojsCryptoKey } from "../cryptoKey/cryptoKey.type.js";
 
 const provider = createNodeCryptoProvider();
 
@@ -33,7 +33,7 @@ export class CryptoService {
   /** Generates a cryptographic key. */
   async generateKey(
     algorithm: CryptoAlgorithm = CryptoAlgorithm.AES_256_GCM,
-  ): Promise<ZudolibCryptoKey> {
+  ): Promise<ZudojsCryptoKey> {
     const length = algorithm.includes("256")
       ? 32
       : algorithm.includes("384")

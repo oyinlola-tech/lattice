@@ -1,13 +1,13 @@
 # Module System
 
-Zudolib applications are composed of modules.
+Zudojs applications are composed of modules.
 
 ## Module Definition
 
 A module is a self-contained unit of functionality with explicit imports, exports, providers, and controllers.
 
 ```typescript
-import { Module } from "@zudolib/core";
+import { Module } from "@zudojs/core";
 
 @Module({
   imports: [DatabaseModule, EventsModule],

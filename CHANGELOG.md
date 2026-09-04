@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Zudolib will be documented in this file.
+All notable changes to Zudojs will be documented in this file.
 
 The format is based on [Keep a Changelog], and this project follows
 Semantic Versioning.
@@ -23,7 +23,7 @@ Semantic Versioning.
 
 ### Added
 
-- Initial Zudolib framework release with 38 packages.
+- Initial Zudojs framework release with 38 packages.
 - Core runtime with lifecycle orchestration and dependency ordering.
 - Dependency injection container with token-based registration.
 - Layered configuration system with source resolvers.

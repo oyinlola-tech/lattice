@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpHeaders/basic
+ * @zudojs/http/httpHeaders/basic
  *
  * HTTP headers basic utilities.
  */

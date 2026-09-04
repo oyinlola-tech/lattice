@@ -1,5 +1,5 @@
 /**
- * Canonical error codes provided by the Zudolib core.
+ * Canonical error codes provided by the Zudojs core.
  *
  * Feature-specific packages should define their own error codes
  * rather than adding every possible application error here.
@@ -92,6 +92,6 @@ export const ErrorCode = {
 } as const;
 
 /**
- * Union of all core Zudolib error codes.
+ * Union of all core Zudojs error codes.
  */
 export type ErrorCode = (typeof ErrorCode)[keyof typeof ErrorCode];

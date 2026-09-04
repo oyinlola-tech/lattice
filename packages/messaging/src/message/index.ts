@@ -1,5 +1,5 @@
 /**
- * @zudolib/messaging/message
+ * @zudojs/messaging/message
  *
  * Core message types, factory functions, and identity primitives.
  */

@@ -1,12 +1,12 @@
 /**
- * @zudolib/transactions
+ * @zudojs/transactions
  *
- * Generic transaction abstraction for the Zudolib framework.
+ * Generic transaction abstraction for the Zudojs framework.
  *
  * Provides transaction lifecycle management, async context propagation,
  * adapter contracts, savepoints, hooks, and rollback-only semantics.
  *
- * @module @zudolib/transactions
+ * @module @zudojs/transactions
  */
 
 export * from "./transactionTypes/index.js";

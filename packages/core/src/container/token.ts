@@ -1,7 +1,7 @@
 /**
  * A unique identifier used to register and resolve dependencies.
  *
- * Zudolib supports classes, strings, and symbols as dependency tokens.
+ * Zudojs supports classes, strings, and symbols as dependency tokens.
  */
 export type Token<T = unknown> = ConstructorToken<T> | string | symbol;
 

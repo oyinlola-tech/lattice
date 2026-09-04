@@ -1,5 +1,5 @@
 /**
- * @zudolib/testing — Central test context.
+ * @zudojs/testing — Central test context.
  *
  * Provides a single entry point that bundles test utilities
  * for container, logger, config, events, messaging, queue,

@@ -4,9 +4,9 @@
  * Factory functions for creating test event payloads.
  */
 
-import type { Event, EventInput } from "@zudolib/events";
+import type { Event, EventInput } from "@zudojs/events";
 
-import type { EventId } from "@zudolib/constants";
+import type { EventId } from "@zudojs/constants";
 
 /**
  * Options for creating a test event.

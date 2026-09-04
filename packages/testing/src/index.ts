@@ -1,9 +1,9 @@
 /**
- * @zudolib/testing
+ * @zudojs/testing
  *
- * Testing infrastructure for the Zudolib framework.
+ * Testing infrastructure for the Zudojs framework.
  * Provides test containers, fakes, fixtures, mocks, assertions,
- * and utilities for consistent testing across all Zudolib packages.
+ * and utilities for consistent testing across all Zudojs packages.
  */
 
 export * from "./cleanupManager/index.js";

@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — CLI Command Tests
+ * zudojs-cli — CLI Command Tests
  *
  * Tests for CLICommandRegistry, CLICommandBuilder, createCommand,
  * command factory, validateCommand, and sortCommands.

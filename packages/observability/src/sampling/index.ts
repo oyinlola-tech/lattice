@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Sampling
+ * @zudojs/observability — Sampling
  *
  * Sampling strategies: AlwaysOn, AlwaysOff, Probability, ParentBased.
  */

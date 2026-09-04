@@ -4,9 +4,9 @@
  * @module authTypes/authUser
  */
 
-import type { UserId } from "@zudolib/constants";
+import type { UserId } from "@zudojs/constants";
 
-export type { UserId } from "@zudolib/constants";
+export type { UserId } from "@zudojs/constants";
 
 /**
  * Authenticated user representation.

@@ -1,5 +1,5 @@
 /**
- * @zudolib/serialization — Serialization envelope.
+ * @zudojs/serialization — Serialization envelope.
  *
  * Wraps serialized data with metadata for cross-service communication.
  */

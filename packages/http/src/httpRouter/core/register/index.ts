@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRouter/core/register
+ * @zudojs/http/httpRouter/core/register
  *
  * HTTP route registration utilities.
  */

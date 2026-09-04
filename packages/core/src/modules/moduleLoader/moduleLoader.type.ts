@@ -59,7 +59,7 @@ export interface ModuleLoadResult {
   readonly order: readonly ModuleId[];
 }
 
-import { ModuleLoadError as BaseModuleLoadError } from "@zudolib/errors";
+import { ModuleLoadError as BaseModuleLoadError } from "@zudojs/errors";
 
 /**
  * Error thrown when one or more modules cannot be loaded.

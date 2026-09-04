@@ -1,5 +1,5 @@
 /**
- * @zudolib/docs/registry
+ * @zudojs/docs/registry
  *
  * Document registry for storing, retrieving, and filtering documentation.
  */

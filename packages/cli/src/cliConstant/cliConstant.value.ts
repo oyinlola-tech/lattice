@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — CLI Constants
+ * zudojs-cli — CLI Constants
  *
  * Default values, limits, and magic strings used across the CLI package.
  */
@@ -9,14 +9,14 @@
 /* -------------------------------------------------------------------------- */
 
 /** CLI application name. */
-export const CLI_NAME = "zudolib";
+export const CLI_NAME = "zudojs";
 
 /** Default application configuration. */
 export const CLI_DEFAULTS = {
-  NAME: "zudolib",
+  NAME: "zudojs",
   VERSION: "0.1.0",
-  DESCRIPTION: "Command-line interface for the Zudolib framework.",
-  COMMAND_PREFIX: "zudolib",
+  DESCRIPTION: "Command-line interface for the Zudojs framework.",
+  COMMAND_PREFIX: "zudojs",
   DEFAULT_CWD: process.cwd(),
   EXIT_CODE: 0,
 } as const;

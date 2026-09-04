@@ -1,5 +1,5 @@
 /**
- * Zudolib HTTP route result builder methods.
+ * Zudojs HTTP route result builder methods.
  *
  * Extends HttpRouteResult with immutable builder methods via prototype.
  */

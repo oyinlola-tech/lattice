@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpHeaders/types
+ * @zudojs/http/httpHeaders/types
  *
  * HTTP headers types utilities.
  */

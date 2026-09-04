@@ -60,18 +60,18 @@ export async function generateProject(
       await execCommand("git", ["init"], projectPath);
       await execCommand(
         "git",
-        ["config", "user.name", "Zudolib CLI"],
+        ["config", "user.name", "Zudojs CLI"],
         projectPath,
       );
       await execCommand(
         "git",
-        ["config", "user.email", "cli@zudolib.dev"],
+        ["config", "user.email", "cli@zudojs.dev"],
         projectPath,
       );
       await execCommand("git", ["add", "-A"], projectPath);
       await execCommand(
         "git",
-        ["commit", "-m", "chore: initial commit from Zudolib CLI"],
+        ["commit", "-m", "chore: initial commit from Zudojs CLI"],
         projectPath,
       );
     } catch {
@@ -96,6 +96,6 @@ export async function generateProject(
   };
 }
 
-export function getZudolibVersion(): string {
+export function getZudojsVersion(): string {
   return CLI_VERSION;
 }

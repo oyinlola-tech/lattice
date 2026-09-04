@@ -1,5 +1,5 @@
 /**
- * @zudolib/logger/loggerFormatter
+ * @zudojs/logger/loggerFormatter
  *
  * Log output formatting and serialization.
  */

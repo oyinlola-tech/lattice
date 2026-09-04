@@ -1,5 +1,5 @@
-import type { CommandBus, QueryBus } from "@zudolib/cqrs";
-import type { EventBus } from "@zudolib/events";
+import type { CommandBus, QueryBus } from "@zudojs/cqrs";
+import type { EventBus } from "@zudojs/events";
 import type { EnrollmentRepository } from "../../repositories/enrollment.repository.js";
 import { EnrollStudentHandler } from "./commands/enroll-student/enroll-student.handler.js";
 import { WithdrawStudentHandler } from "./commands/withdraw-student/withdraw-student.handler.js";

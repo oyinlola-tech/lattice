@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Gauge
+ * @zudojs/observability — Gauge
  *
  * A value that can go up and down, for tracking current state.
  */

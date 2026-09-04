@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Redaction
+ * @zudojs/observability — Redaction
  *
  * Sensitive field redaction for logs and traces.
  */

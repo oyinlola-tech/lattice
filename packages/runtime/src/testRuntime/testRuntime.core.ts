@@ -1,14 +1,14 @@
 /**
- * @zudolib/runtime — Test Runtime
+ * @zudojs/runtime — Test Runtime
  *
  * Provides a lightweight runtime for testing purposes with
  * mock infrastructure and easy lifecycle management.
  */
 
-import type { Module } from "@zudolib/core";
-import { createLogger } from "@zudolib/logger";
-import { createContainer } from "@zudolib/container";
-import { createEventBus } from "@zudolib/events";
+import type { Module } from "@zudojs/core";
+import { createLogger } from "@zudojs/logger";
+import { createContainer } from "@zudojs/container";
+import { createEventBus } from "@zudojs/events";
 import { DefaultRuntime } from "../runtime/runtime.core.js";
 import type { RuntimeDependencies } from "../runtime/runtime.core.js";
 import type { RuntimeOptions } from "../runtimeOptions/runtimeOptions.type.js";

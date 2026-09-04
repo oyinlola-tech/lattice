@@ -1,5 +1,5 @@
-import { BaseError } from "@zudolib/errors";
-import type { BaseErrorOptions } from "@zudolib/errors";
+import { BaseError } from "@zudojs/errors";
+import type { BaseErrorOptions } from "@zudojs/errors";
 
 export class AssessmentNotFoundError extends BaseError {
   constructor(assessmentId: string, options: BaseErrorOptions = {}) {

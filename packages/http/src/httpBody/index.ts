@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpBody
+ * @zudojs/http/httpBody
  *
  * HTTP body handling, parsing, and streaming.
  */

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "Publishing all Zudolib packages to npm..."
+echo "Publishing all Zudojs packages to npm..."
 
 PACKAGES=(
   "packages/http"

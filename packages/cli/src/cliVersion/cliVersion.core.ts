@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Version Utilities
+ * zudojs-cli — Version Utilities
  *
  * Functions for parsing, comparing, and formatting semantic versions.
  */

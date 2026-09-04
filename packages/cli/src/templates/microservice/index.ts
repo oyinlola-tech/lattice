@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Microservice Template Index
+ * zudojs-cli — Microservice Template Index
  */
 
 export { generateMicroserviceFiles } from "./microservice.template.js";

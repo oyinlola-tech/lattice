@@ -123,10 +123,10 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../packages/" class="sidebar-item">Overview</a>
-      <a href="../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -162,11 +162,11 @@
           <section aria-labelledby="overview">
             <h2 class="text-h2 mb-4" id="overview">Overview</h2>
             <p class="text-body text-black/80 mb-4">
-              <span class="code-inline">@zudolib/config</span> provides a layered configuration system where values are resolved from multiple sources with defined priority ordering. Configuration is validated against schemas at startup, and sensitive values are automatically redacted in logs.
+              <span class="code-inline">@zudojs/config</span> provides a layered configuration system where values are resolved from multiple sources with defined priority ordering. Configuration is validated against schemas at startup, and sensitive values are automatically redacted in logs.
             </p>
             <div class="callout callout-note mb-6">
               <strong class="text-sm uppercase tracking-wider text-zudo-blue">Architecture Position</strong>
-              <p class="text-sm mt-1">Sits in <strong>Layer 1 (Foundation)</strong>. No internal dependencies beyond <span class="code-inline">@zudolib/errors</span>.</p>
+              <p class="text-sm mt-1">Sits in <strong>Layer 1 (Foundation)</strong>. No internal dependencies beyond <span class="code-inline">@zudojs/errors</span>.</p>
             </div>
           </section>
 
@@ -215,7 +215,7 @@
             <p class="text-body text-black/80 mb-4">
               When a config key is read, the resolver checks each source in priority order and returns the first defined value. This allows environment-specific overrides without changing application code.
             </p>
-            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="fn">createConfigManager</span> } <span class="kw">from</span> <span class="str">"@zudolib/config"</span>;
+            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="fn">createConfigManager</span> } <span class="kw">from</span> <span class="str">"@zudojs/config"</span>;
 
 <span class="kw">const</span> config = <span class="fn">createConfigManager</span>({
   <span class="op">sources:</span> [
@@ -235,7 +235,7 @@
             <p class="text-body text-black/80 mb-4">
               Configuration is validated against a schema at startup. Invalid configuration fails fast with clear error messages, preventing runtime surprises.
             </p>
-            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="fn">createConfigManager</span> } <span class="kw">from</span> <span class="str">"@zudolib/config"</span>;
+            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="fn">createConfigManager</span> } <span class="kw">from</span> <span class="str">"@zudojs/config"</span>;
 <span class="kw">import</span> { z } <span class="kw">from</span> <span class="str">"zod"</span>;
 
 <span class="kw">const</span> schema = z.<span class="fn">object</span>({

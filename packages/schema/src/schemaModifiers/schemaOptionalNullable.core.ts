@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/modifiers/optional-nullable
+ * @zudojs/schema/modifiers/optional-nullable
  *
  * Optional and nullable schema wrappers.
  */

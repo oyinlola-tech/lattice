@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/domain/message
+ * @zudojs/errors/domain/message
  *
  * Message handling and dispatch error types.
  */

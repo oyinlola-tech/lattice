@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRouter/core/util
+ * @zudojs/http/httpRouter/core/util
  *
  * HTTP router utility functions.
  */

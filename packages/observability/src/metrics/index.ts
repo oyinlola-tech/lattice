@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Metrics
+ * @zudojs/observability — Metrics
  *
  * Counters, gauges, histograms, and the metrics registry.
  */

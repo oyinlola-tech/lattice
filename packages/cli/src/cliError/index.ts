@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — CLI Errors
+ * zudojs-cli — CLI Errors
  *
  * All CLI error types re-exported from their respective files.
  */

@@ -1,7 +1,7 @@
 /**
- * @zudolib/events
+ * @zudojs/events
  *
- * Event bus, emitter, middleware, and registry for the Zudolib framework.
+ * Event bus, emitter, middleware, and registry for the Zudojs framework.
  */
 
 export * from "./eventBus/index.js";

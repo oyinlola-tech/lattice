@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Unit of Work
+ * @zudojs/database — Unit of Work
  *
  * Groups multiple repository operations into a single transaction.
  */

@@ -1,5 +1,5 @@
-import type { EventBus } from "@zudolib/events";
-import type { Queue } from "@zudolib/queue";
+import type { EventBus } from "@zudojs/events";
+import type { Queue } from "@zudojs/queue";
 import {
   UserCreatedEvent,
   StudentEnrolledEvent,

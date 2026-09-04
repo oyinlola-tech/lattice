@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/storage
+ * @zudojs/adapters/storage
  *
  * Storage adapter contracts.
  */

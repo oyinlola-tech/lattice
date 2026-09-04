@@ -1,5 +1,5 @@
 /**
- * Event bus publish methods for Zudolib.
+ * Event bus publish methods for Zudojs.
  */
 
 import type {

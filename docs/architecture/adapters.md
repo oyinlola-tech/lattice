@@ -1,14 +1,14 @@
 # Adapters
 
-> Adapters are the boundary layer between Zudolib and external platforms.
+> Adapters are the boundary layer between Zudojs and external platforms.
 > They provide contracts, registries, capabilities, and transport abstractions
-> that let Zudolib run on different runtimes without changing application code.
+> that let Zudojs run on different runtimes without changing application code.
 
 ---
 
 ## 1. Purpose
 
-Zudolib applications should not depend on platform-specific APIs.
+Zudojs applications should not depend on platform-specific APIs.
 An application written for Node.js should be portable to edge runtimes,
 serverless environments, or test harnesses without rewriting business logic.
 
@@ -17,7 +17,7 @@ Adapters solve this by:
 - Defining **platform-agnostic contracts** for external interactions.
 - Providing a **registry** for discovering and managing adapters.
 - Declaring **capabilities** so runtime code can adapt behavior.
-- Offering **lifecycle contracts** that integrate with `@zudolib/lifecycle`.
+- Offering **lifecycle contracts** that integrate with `@zudojs/lifecycle`.
 
 ---
 
@@ -41,7 +41,7 @@ interface Adapter {
 }
 ```
 
-The lifecycle methods map to the standard Zudolib lifecycle:
+The lifecycle methods map to the standard Zudojs lifecycle:
 
 ```
 initialize → start → running → stop → dispose
@@ -121,7 +121,7 @@ The registry:
 
 ### 3.1 HTTP Adapter
 
-The `HTTPAdapter` translates platform-specific HTTP requests into Zudolib's normalized shapes.
+The `HTTPAdapter` translates platform-specific HTTP requests into Zudojs's normalized shapes.
 
 ```ts
 interface HTTPRequestLike {
@@ -158,7 +158,7 @@ interface HTTPAdapter extends Adapter {
 Key adapters:
 
 - `HTTPRequestAdapter` — adapts a single platform request.
-- `HTTPResponseAdapter` — translates a Zudolib response to platform output.
+- `HTTPResponseAdapter` — translates a Zudojs response to platform output.
 - `HTTPServerAdapter` — manages HTTP server lifecycle.
 
 ### 3.2 Messaging Adapter
@@ -316,7 +316,7 @@ interface ScheduledJob {
 
 ## 4. Lifecycle Integration
 
-Adapters participate in the Zudolib lifecycle through `@zudolib/lifecycle`:
+Adapters participate in the Zudojs lifecycle through `@zudojs/lifecycle`:
 
 ```ts
 interface LifecycleAdapter extends Adapter {
@@ -340,7 +340,7 @@ Health status is used by diagnostics and readiness checks.
 
 ## 5. Error Handling
 
-Adapters define a dedicated error hierarchy rooted in `@zudolib/errors`:
+Adapters define a dedicated error hierarchy rooted in `@zudojs/errors`:
 
 | Error Class                     | Meaning                     |
 | ------------------------------- | --------------------------- |
@@ -367,14 +367,14 @@ All errors carry:
 
 ## 6. Testing
 
-`@zudolib/adapters` provides testing utilities for adapter implementations:
+`@zudojs/adapters` provides testing utilities for adapter implementations:
 
 ```ts
 import {
   createMockAdapter,
   createMockAdapterRegistry,
   createMockHealth,
-} from "@zudolib/adapters/testing";
+} from "@zudojs/adapters/testing";
 
 const mockRegistry = createMockAdapterRegistry();
 mockRegistry.register(createMockAdapter("http", { http: true }));
@@ -390,16 +390,16 @@ Mock adapters implement the base `Adapter` interface and can be configured with:
 
 ## 7. Package Dependencies
 
-`@zudolib/adapters` depends on:
+`@zudojs/adapters` depends on:
 
 | Package              | Purpose                       |
 | -------------------- | ----------------------------- |
-| `@zudolib/errors`    | Error hierarchy               |
-| `@zudolib/constants` | Branded types and constants   |
-| `@zudolib/types`     | Type guards and utility types |
-| `@zudolib/lifecycle` | Lifecycle contracts           |
+| `@zudojs/errors`    | Error hierarchy               |
+| `@zudojs/constants` | Branded types and constants   |
+| `@zudojs/types`     | Type guards and utility types |
+| `@zudojs/lifecycle` | Lifecycle contracts           |
 
-Adapters do **not** depend on transport packages (`@zudolib/http`, `@zudolib/messaging`, etc.).
+Adapters do **not** depend on transport packages (`@zudojs/http`, `@zudojs/messaging`, etc.).
 Transport packages depend on adapters, not the reverse.
 
 ---
@@ -408,14 +408,14 @@ Transport packages depend on adapters, not the reverse.
 
 Create a new adapter when:
 
-- Zudolib must support a new platform or runtime.
+- Zudojs must support a new platform or runtime.
 - External behavior cannot be expressed through existing transport packages.
 - Platform-specific APIs need a uniform interface for application code.
 - Testing requires a mock or fake implementation of an external dependency.
 
 Do **not** create adapters for:
 
-- Internal Zudolib abstractions — use modules and plugins instead.
+- Internal Zudojs abstractions — use modules and plugins instead.
 - Business logic — adapters only translate, never decide.
 - One-off integrations — consider whether a transport package extension is sufficient.
 

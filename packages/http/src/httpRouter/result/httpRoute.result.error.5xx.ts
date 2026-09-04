@@ -1,5 +1,5 @@
 /**
- * Zudolib HTTP route result 5xx error factory functions.
+ * Zudojs HTTP route result 5xx error factory functions.
  */
 
 import { HttpRouteResult } from "./httpRoute.result.class.js";

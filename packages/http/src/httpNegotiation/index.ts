@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpNegotiation
+ * @zudojs/http/httpNegotiation
  *
  * HTTP httpNegotiation module.
  */

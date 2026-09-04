@@ -1,5 +1,5 @@
 /**
- * @zudolib/storage — Local Object Storage
+ * @zudojs/storage — Local Object Storage
  *
  * Filesystem-based object storage for development and testing.
  */
@@ -13,7 +13,7 @@ import {
   readdir,
 } from "node:fs/promises";
 import { join, dirname } from "node:path";
-import { StorageError } from "@zudolib/errors";
+import { StorageError } from "@zudojs/errors";
 import type {
   ObjectStorage,
   ObjectPutOptions,

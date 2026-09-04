@@ -1,6 +1,6 @@
 # Contexts
 
-Zudolib uses `AsyncLocalStorage` to propagate context through async call chains.
+Zudojs uses `AsyncLocalStorage` to propagate context through async call chains.
 
 ## Execution Context
 
@@ -15,7 +15,7 @@ The execution context carries request-scoped values:
 Context flows automatically. Application code never passes it manually.
 
 ```typescript
-import { getContext } from "@zudolib/core";
+import { getContext } from "@zudojs/core";
 
 const requestId = getContext().requestId;
 ```
@@ -25,7 +25,7 @@ const requestId = getContext().requestId;
 Multi-tenant applications use tenant context to isolate data:
 
 ```typescript
-import { getTenantContext } from "@zudolib/tenancy";
+import { getTenantContext } from "@zudojs/tenancy";
 
 const tenantId = getTenantContext().tenantId;
 ```
@@ -35,7 +35,7 @@ const tenantId = getTenantContext().tenantId;
 Transactions propagate through the call chain:
 
 ```typescript
-import { getTransactionContext } from "@zudolib/transactions";
+import { getTransactionContext } from "@zudojs/transactions";
 
 const tx = getTransactionContext();
 await tx.commit();
@@ -46,7 +46,7 @@ await tx.commit();
 Logger context enriches logs with request metadata:
 
 ```typescript
-import { withContext } from "@zudolib/logger";
+import { withContext } from "@zudojs/logger";
 
 const child = logger.withContext({ requestId, userId });
 child.info("Processing request");

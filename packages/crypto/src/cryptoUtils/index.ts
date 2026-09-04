@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoUtils
+ * @zudojs/crypto/cryptoUtils
  *
  * Utility functions for encoding, decoding, and validating
  * binary data and text representations.

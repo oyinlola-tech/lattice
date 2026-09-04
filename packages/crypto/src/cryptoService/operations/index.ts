@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoService/operations
+ * @zudojs/crypto/cryptoService/operations
  *
  * High-level cryptographic service operation wrappers
  * that add error handling and logging around core primitives.

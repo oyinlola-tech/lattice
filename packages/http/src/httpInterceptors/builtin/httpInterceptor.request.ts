@@ -46,7 +46,7 @@ export interface UserAgentInterceptorOptions extends HttpInterceptorOptions {
 export function createUserAgentInterceptor(
   options: UserAgentInterceptorOptions = {},
 ) {
-  const userAgent = options.userAgent ?? "Zudolib-HTTP/1.0";
+  const userAgent = options.userAgent ?? "Zudojs-HTTP/1.0";
   const headerName = options.headerName ?? "user-agent";
 
   return {

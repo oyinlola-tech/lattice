@@ -1,12 +1,12 @@
 /**
- * @zudolib/cache
+ * @zudojs/cache
  *
  * Cache abstraction layer with memory adapter, tag-based
  * invalidation, distributed locking, and metrics.
  *
  * @example
  * ```ts
- * import { createCacheService, createMemoryCacheAdapter } from "@zudolib/cache";
+ * import { createCacheService, createMemoryCacheAdapter } from "@zudojs/cache";
  *
  * const cache = createCacheService({
  *   adapter: createMemoryCacheAdapter(),
@@ -110,7 +110,7 @@ export {
   NAMESPACE_PATTERN,
 } from "./constants.js";
 
-// Errors (re-exported from @zudolib/errors)
+// Errors (re-exported from @zudojs/errors)
 export {
   CacheError,
   isCacheError,

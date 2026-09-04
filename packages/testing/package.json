@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/testing",
+  "name": "@zudojs/testing",
   "version": "1.0.0",
-  "description": "Test helpers, fixtures, mocks, and utilities for testing Zudolib applications.",
+  "description": "Test helpers, fixtures, mocks, and utilities for testing Zudojs applications.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -22,21 +22,21 @@
     "test": "../../node_modules/.bin/vitest run"
   },
   "dependencies": {
-    "@zudolib/config": "workspace:*",
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/container": "workspace:*",
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/events": "workspace:*",
-    "@zudolib/http": "workspace:*",
-    "@zudolib/logger": "workspace:*",
-    "@zudolib/messaging": "workspace:*",
-    "@zudolib/middleware": "workspace:*",
-    "@zudolib/queue": "workspace:*",
-    "@zudolib/security": "workspace:*",
-    "@zudolib/serialization": "workspace:*",
-    "@zudolib/storage": "workspace:*",
-    "@zudolib/types": "workspace:*",
-    "@zudolib/validation": "workspace:*"
+    "@zudojs/config": "workspace:*",
+    "@zudojs/constants": "workspace:*",
+    "@zudojs/container": "workspace:*",
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/events": "workspace:*",
+    "@zudojs/http": "workspace:*",
+    "@zudojs/logger": "workspace:*",
+    "@zudojs/messaging": "workspace:*",
+    "@zudojs/middleware": "workspace:*",
+    "@zudojs/queue": "workspace:*",
+    "@zudojs/security": "workspace:*",
+    "@zudojs/serialization": "workspace:*",
+    "@zudojs/storage": "workspace:*",
+    "@zudojs/types": "workspace:*",
+    "@zudojs/validation": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
@@ -50,7 +50,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "testing",
     "mocks",
     "fixtures",

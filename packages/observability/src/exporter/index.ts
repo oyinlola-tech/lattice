@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Exporters
+ * @zudojs/observability — Exporters
  *
  * Console exporters for spans, logs, and metrics.
  */

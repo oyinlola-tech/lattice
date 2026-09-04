@@ -1,5 +1,5 @@
-import { CommandHandler } from "@zudolib/cqrs";
-import type { CqrsContext } from "@zudolib/cqrs";
+import { CommandHandler } from "@zudojs/cqrs";
+import type { CqrsContext } from "@zudojs/cqrs";
 import { PublishResultCommand } from "./publish-result.command.js";
 import type { AssessmentRepository } from "../../../../interfaces/index.js";
 import { ResultPublishedEvent } from "../../../../events/index.js";

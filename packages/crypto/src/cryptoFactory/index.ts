@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoFactory
+ * @zudojs/crypto/cryptoFactory
  *
  * Factory functions for crypto primitives.
  */

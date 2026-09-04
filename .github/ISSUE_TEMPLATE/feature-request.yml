@@ -1,5 +1,5 @@
 name: Feature Request
-description: Suggest an idea or improvement for Zudolib
+description: Suggest an idea or improvement for Zudojs
 title: "[Feature]: "
 labels:
   - enhancement
@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for suggesting an improvement to Zudolib.
+        Thanks for suggesting an improvement to Zudojs.
 
         Before submitting, please check whether a similar feature request or
         discussion already exists.
@@ -20,24 +20,24 @@ body:
     id: package
     attributes:
       label: Related Package
-      description: Which Zudolib package would this feature affect?
+      description: Which Zudojs package would this feature affect?
       options:
-        - "@zudolib/core"
-        - "@zudolib/config"
-        - "@zudolib/container"
-        - "@zudolib/logger"
-        - "@zudolib/errors"
-        - "@zudolib/validation"
-        - "@zudolib/cqrs"
-        - "@zudolib/events"
-        - "@zudolib/database"
-        - "@zudolib/http"
-        - "@zudolib/runtime"
-        - "@zudolib/messaging"
-        - "@zudolib/queue"
-        - "@zudolib/storage"
-        - "@zudolib/security"
-        - "@zudolib/observability"
+        - "@zudojs/core"
+        - "@zudojs/config"
+        - "@zudojs/container"
+        - "@zudojs/logger"
+        - "@zudojs/errors"
+        - "@zudojs/validation"
+        - "@zudojs/cqrs"
+        - "@zudojs/events"
+        - "@zudojs/database"
+        - "@zudojs/http"
+        - "@zudojs/runtime"
+        - "@zudojs/messaging"
+        - "@zudojs/queue"
+        - "@zudojs/storage"
+        - "@zudojs/security"
+        - "@zudojs/observability"
         - Multiple packages
         - New package
         - Not sure

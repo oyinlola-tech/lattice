@@ -1,5 +1,5 @@
 /**
- * @zudolib/validation/validationTransformer
+ * @zudojs/validation/validationTransformer
  *
  * Data transformation after validation.
  */

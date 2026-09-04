@@ -38,7 +38,7 @@ export interface ModuleDependencyDefinition {
 }
 
 /**
- * Complete static definition of a Zudolib module.
+ * Complete static definition of a Zudojs module.
  */
 export interface ModuleDefinition<TModule extends Module = Module> {
   /**

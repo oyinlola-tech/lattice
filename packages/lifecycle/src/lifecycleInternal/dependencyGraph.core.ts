@@ -1,10 +1,10 @@
 /**
- * @zudolib/lifecycle/internal/dependency-graph
+ * @zudojs/lifecycle/internal/dependency-graph
  *
  * Directed acyclic graph for component dependency tracking.
  */
 
-import { LifecycleDependencyError } from "@zudolib/errors";
+import { LifecycleDependencyError } from "@zudojs/errors";
 
 /**
  * A directed acyclic graph of component dependencies.

@@ -1,6 +1,6 @@
 # Basic API Example
 
-A minimal REST API built with Zudolib.
+A minimal REST API built with Zudojs.
 
 ## Features
 
@@ -48,7 +48,7 @@ npm install
 npm run dev
 
 # Or from the repository root
-npm run dev --workspace=@zudolib/example-basic-api
+npm run dev --workspace=@zudojs/example-basic-api
 ```
 
 The server starts at `http://localhost:3000`.
@@ -130,7 +130,7 @@ Environment variables (see `.env.example`):
 
 ## Architecture
 
-This example demonstrates the Zudolib module system:
+This example demonstrates the Zudojs module system:
 
 ```
 AppModule
@@ -145,7 +145,7 @@ AppModule
 
 Each module:
 
-- Extends `BaseModule` from `@zudolib/core`
+- Extends `BaseModule` from `@zudojs/core`
 - Implements lifecycle hooks (`onInitialize`, `onShutdown`)
 - Encapsulates its own controllers and services
 - Manages its own dependencies

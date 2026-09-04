@@ -1,22 +1,22 @@
-# zudolib-cli
+# zudojs-cli
 
-Command-line interface for scaffolding, generating, and managing Zudolib framework projects.
+Command-line interface for scaffolding, generating, and managing Zudojs framework projects.
 
 ## Installation
 
 ### First time
 
 ```bash
-npm install -g zudolib-cli
+npm install -g zudojs-cli
 ```
 
 ### Upgrading from an old version?
 
-If `zudolib -v` doesn't match the latest npm version, clear the cache:
+If `zudojs -v` doesn't match the latest npm version, clear the cache:
 
 ```bash
 npm cache clean --force
-npm install -g zudolib-cli@latest
+npm install -g zudojs-cli@latest
 ```
 
 ### Getting permission errors?
@@ -28,29 +28,29 @@ mkdir -p ~/.npm-global
 npm config set prefix '~/.npm-global'
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
-npm install -g zudolib-cli@latest
+npm install -g zudojs-cli@latest
 ```
 
 ## Quick Start
 
 ```bash
 # Create a new backend project
-zudolib create my-api
+zudojs create my-api
 
 # Create a frontend project
-zudolib create my-web --type frontend --frontend react
+zudojs create my-web --type frontend --frontend react
 
 # Create a fullstack project
-zudolib create my-system --type fullstack --frontend next --architecture monolith
+zudojs create my-system --type fullstack --frontend next --architecture monolith
 
 # Start development servers
-zudolib dev
+zudojs dev
 
 # Generate a module
-zudolib generate module users
+zudojs generate module users
 
 # Add a feature
-zudolib add database
+zudojs add database
 ```
 
 ## Commands
@@ -72,4 +72,4 @@ zudolib add database
 
 ## Documentation
 
-See the [Zudolib README](https://github.com/oyinlola-tech/zudo) for full documentation.
+See the [Zudojs README](https://github.com/oyinlola-tech/zudo) for full documentation.

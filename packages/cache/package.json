@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/cache",
+  "name": "@zudojs/cache",
   "version": "1.0.0",
-  "description": "Caching primitives, abstractions, and adapters for the Zudolib framework.",
+  "description": "Caching primitives, abstractions, and adapters for the Zudojs framework.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,9 +24,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/types": "workspace:*",
-    "@zudolib/serialization": "workspace:*"
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/types": "workspace:*",
+    "@zudojs/serialization": "workspace:*"
   },
   "devDependencies": {
     "typescript": "7.0.2",
@@ -39,7 +39,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "cache",
     "redis",
     "memory",

@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — Header Security
+ * @zudojs/security — Header Security
  *
  * Validates and sanitizes HTTP headers against injection attacks,
  * size limits, and blocked header names.

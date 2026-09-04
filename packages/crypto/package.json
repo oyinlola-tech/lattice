@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/crypto",
+  "name": "@zudojs/crypto",
   "version": "1.0.0",
   "description": "Cryptographic primitives for hashing, encryption, tokens, and secure random generation.",
   "type": "module",
@@ -26,8 +26,8 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/errors": "workspace:*"
+    "@zudojs/constants": "workspace:*",
+    "@zudojs/errors": "workspace:*"
   },
   "license": "MIT",
   "devDependencies": {
@@ -37,7 +37,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "crypto",
     "encryption",
     "hashing",

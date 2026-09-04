@@ -1,5 +1,5 @@
 /**
- * @zudolib/constants/lifecycle
+ * @zudojs/constants/lifecycle
  *
  * Lifecycle states, phases, valid transitions, and defaults.
  */

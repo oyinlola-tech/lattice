@@ -1,5 +1,5 @@
 /**
- * Event bus core class for Zudolib.
+ * Event bus core class for Zudojs.
  */
 
 import type {

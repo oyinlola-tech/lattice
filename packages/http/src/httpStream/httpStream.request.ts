@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpStream — Request/response stream accessors.
+ * @zudojs/http/httpStream — Request/response stream accessors.
  */
 
 import { Readable, Writable } from "node:stream";

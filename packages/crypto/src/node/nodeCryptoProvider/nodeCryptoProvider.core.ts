@@ -45,7 +45,7 @@ import {
   cryptoCipherError,
   cryptoSignatureError,
   cryptoKeyDerivationError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
 export class NodeCryptoProvider implements CryptoProvider {
   readonly name = "node";

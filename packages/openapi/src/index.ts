@@ -1,14 +1,14 @@
 /**
- * @zudolib/openapi
+ * @zudojs/openapi
  *
- * API contract and documentation engine for the Zudolib framework.
+ * API contract and documentation engine for the Zudojs framework.
  *
  * Generates OpenAPI specifications from application routes, schemas,
  * and metadata. Supports OpenAPI 3.0 and 3.1.
  *
  * @example
  * ```ts
- * import { OpenAPIManager } from "@zudolib/openapi";
+ * import { OpenAPIManager } from "@zudojs/openapi";
  *
  * const manager = new OpenAPIManager("3.1.0");
  *

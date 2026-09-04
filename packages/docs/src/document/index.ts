@@ -1,5 +1,5 @@
 /**
- * @zudolib/docs/document
+ * @zudojs/docs/document
  *
  * Document model and builder for creating documentation pages.
  */

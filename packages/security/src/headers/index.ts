@@ -1,5 +1,5 @@
 /**
- * @zudolib/security — Security Headers Barrel
+ * @zudojs/security — Security Headers Barrel
  */
 
 export { SECURITY_HEADER_NAMES } from "./headers.core.js";

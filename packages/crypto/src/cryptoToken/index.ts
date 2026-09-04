@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoToken
+ * @zudojs/crypto/cryptoToken
  *
  * Secure token generation and management.
  */

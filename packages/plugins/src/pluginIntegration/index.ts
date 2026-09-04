@@ -1,5 +1,5 @@
 /**
- * @zudolib/plugins/pluginIntegration
+ * @zudojs/plugins/pluginIntegration
  *
  * Plugin context factory and integration helpers.
  */

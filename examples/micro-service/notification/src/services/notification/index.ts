@@ -1,5 +1,5 @@
-import { CommandBus } from "@zudolib/cqrs";
-import { QueryBus } from "@zudolib/cqrs";
+import { CommandBus } from "@zudojs/cqrs";
+import { QueryBus } from "@zudojs/cqrs";
 import type { INotificationRepository } from "../../interfaces/index.js";
 import { CreateNotificationCommandHandler } from "./commands/create-notification/create-notification.handler.js";
 import { MarkNotificationReadCommandHandler } from "./commands/mark-notification-read/mark-notification-read.handler.js";

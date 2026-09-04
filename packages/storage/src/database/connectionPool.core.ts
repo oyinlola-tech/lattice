@@ -2,7 +2,7 @@
  * Connection pool that manages database connections with backpressure.
  */
 
-import { StorageError } from "@zudolib/errors";
+import { StorageError } from "@zudojs/errors";
 import type {
   Connection,
   ConnectionPoolOptions,

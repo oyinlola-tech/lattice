@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Noop Implementations
+ * @zudojs/observability — Noop Implementations
  *
  * No-op implementations that discard all telemetry.
  * Allows instrumentation code to remain simple without null checks.

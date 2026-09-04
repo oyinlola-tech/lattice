@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRouter/core/error
+ * @zudojs/http/httpRouter/core/error
  *
  * HTTP router error types.
  */

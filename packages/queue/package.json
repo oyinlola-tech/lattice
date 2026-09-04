@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/queue",
+  "name": "@zudojs/queue",
   "version": "1.0.0",
   "description": "Background job and asynchronous task infrastructure with in-memory and adapter-based queue implementations.",
   "license": "MIT",
@@ -25,9 +25,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/serialization": "workspace:*"
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/constants": "workspace:*",
+    "@zudojs/serialization": "workspace:*"
   },
   "devDependencies": {
     "typescript": "7.0.2",
@@ -40,7 +40,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "queue",
     "jobs",
     "background-jobs",

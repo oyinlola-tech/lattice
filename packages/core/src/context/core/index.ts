@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/context/core
+ * @zudojs/core/context/core
  *
  * Core context types and key management.
  */

@@ -1,5 +1,5 @@
 /**
- * Standard error codes used across the Zudolib platform.
+ * Standard error codes used across the Zudojs platform.
  *
  * Codes are intentionally stable because they may be consumed by
  * APIs, clients, logs, monitoring systems, and external integrations.
@@ -386,7 +386,7 @@ export enum ErrorCode {
 }
 
 /**
- * Determines whether a value is a valid Zudolib error code.
+ * Determines whether a value is a valid Zudojs error code.
  */
 export function isErrorCode(value: unknown): value is ErrorCode {
   return (

@@ -1,5 +1,5 @@
 /**
- * @zudolib/plugins/pluginDiagnostics
+ * @zudojs/plugins/pluginDiagnostics
  *
  * Plugin health checks and diagnostic reporting.
  */

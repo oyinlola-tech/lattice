@@ -1,7 +1,7 @@
 /**
- * @zudolib/queue - Background job and asynchronous task infrastructure.
+ * @zudojs/queue - Background job and asynchronous task infrastructure.
  *
- * This package provides the core queue system for the Zudolib framework,
+ * This package provides the core queue system for the Zudojs framework,
  * enabling asynchronous job processing with support for retries, backoff,
  * concurrency, and lifecycle management.
  *

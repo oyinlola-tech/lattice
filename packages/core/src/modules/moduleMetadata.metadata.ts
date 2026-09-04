@@ -1,5 +1,5 @@
 import type { ModuleId } from "./module.js";
-import type { Environment } from "@zudolib/constants";
+import type { Environment } from "@zudojs/constants";
 
 /** Environment in which a module is intended to run. */
 export type ModuleEnvironment = Environment;
@@ -16,7 +16,7 @@ export type ModuleCategory =
   | "system"
   | "custom";
 
-/** Metadata describing a Zudolib module. */
+/** Metadata describing a Zudojs module. */
 export interface ModuleMetadata {
   readonly description?: string;
   readonly author?: string;

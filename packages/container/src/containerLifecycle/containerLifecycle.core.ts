@@ -5,7 +5,7 @@
 
 import type { Token } from "../containerToken/containerToken.type.js";
 import { describeToken } from "../containerToken/containerToken.type.js";
-import { ContainerLifecycleError } from "@zudolib/errors";
+import { ContainerLifecycleError } from "@zudojs/errors";
 
 export interface Disposable {
   dispose(): void;

@@ -1,9 +1,9 @@
 /**
- * @zudolib/scheduler/errors
+ * @zudojs/scheduler/errors
  *
- * Scheduler-specific error classes for the Zudolib framework.
+ * Scheduler-specific error classes for the Zudojs framework.
  *
- * Re-exported from @zudolib/errors for convenience.
+ * Re-exported from @zudojs/errors for convenience.
  */
 
 export {
@@ -26,6 +26,6 @@ export {
   SchedulerLockError,
   createSchedulerError,
   isSchedulerError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 
-export type { SchedulerErrorOptions } from "@zudolib/errors";
+export type { SchedulerErrorOptions } from "@zudojs/errors";

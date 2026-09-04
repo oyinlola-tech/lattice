@@ -1,4 +1,4 @@
-import { CommandHandler } from "@zudolib/cqrs";
+import { CommandHandler } from "@zudojs/cqrs";
 import type { UpdateProfileCommand } from "./update-profile.command.js";
 import type { UserRepository } from "../../../../repositories/user.repository.js";
 import { NotFoundError } from "../../../../errors/index.js";

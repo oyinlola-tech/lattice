@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Monolith Templates
+ * zudojs-cli — Monolith Templates
  *
  * Template file generators for monolith architecture projects.
  *
@@ -33,7 +33,7 @@
  * ├── tests/
  * ├── package.json
  * ├── tsconfig.json
- * ├── zudolib.config.ts
+ * ├── zudojs.config.ts
  * └── README.md
  * ```
  */
@@ -47,36 +47,36 @@ export function generateMonolithFiles(
   const nameSlug = name.replace(/[^a-z0-9-]+/gi, "-").toLowerCase();
 
   const deps = [
-    "@zudolib/core",
-    "@zudolib/container",
-    "@zudolib/config",
-    "@zudolib/logger",
-    "@zudolib/errors",
-    "@zudolib/constants",
-    "@zudolib/types",
-    "@zudolib/validation",
-    "@zudolib/schema",
-    "@zudolib/http",
+    "@zudojs/core",
+    "@zudojs/container",
+    "@zudojs/config",
+    "@zudojs/logger",
+    "@zudojs/errors",
+    "@zudojs/constants",
+    "@zudojs/types",
+    "@zudojs/validation",
+    "@zudojs/schema",
+    "@zudojs/http",
   ];
 
   if (options.enableCQRS) {
-    deps.push("@zudolib/cqrs", "@zudolib/events", "@zudolib/messaging");
+    deps.push("@zudojs/cqrs", "@zudojs/events", "@zudojs/messaging");
   }
 
   if (options.enableDatabase) {
-    deps.push("@zudolib/database");
+    deps.push("@zudojs/database");
   }
 
   if (options.enableQueue) {
-    deps.push("@zudolib/queue");
+    deps.push("@zudojs/queue");
   }
 
   if (options.enableObservability) {
-    deps.push("@zudolib/observability");
+    deps.push("@zudojs/observability");
   }
 
   if (options.enableOpenAPI) {
-    deps.push("@zudolib/openapi");
+    deps.push("@zudojs/openapi");
   }
 
   const devDeps = ["tsx", "typescript", "@types/node", "vitest"];
@@ -129,8 +129,8 @@ export function generateMonolithFiles(
 }
 `;
 
-  // zudolib.config.ts
-  files["zudolib.config.ts"] = `import { defineConfig } from "@zudolib/config";
+  // zudojs.config.ts
+  files["zudojs.config.ts"] = `import { defineConfig } from "@zudojs/config";
 
 export default defineConfig({
   application: {
@@ -186,7 +186,7 @@ dist/
 
   files["README.md"] = `# ${name}
 
-A Zudolib framework application.
+A Zudojs framework application.
 
 ## Getting Started
 
@@ -233,8 +233,8 @@ MIT
 `;
 
   files["src/server.ts"] = `import { createApp } from "./app.js";
-import { createRuntime } from "@zudolib/runtime";
-import { logger } from "@zudolib/logger";
+import { createRuntime } from "@zudojs/runtime";
+import { logger } from "@zudojs/logger";
 
 const app = await createApp();
 
@@ -254,8 +254,8 @@ process.on("SIGTERM", async () => {
 });
 `;
 
-  files["src/app.ts"] = `import { logger } from "@zudolib/logger";
-import { createContainer } from "@zudolib/container";
+  files["src/app.ts"] = `import { logger } from "@zudojs/logger";
+import { createContainer } from "@zudojs/container";
 
 export async function createApp() {
   const log = logger.child({ service: "app" });

@@ -325,7 +325,7 @@
               <!-- Code overlay -->
               <div class="absolute top-32 left-16 bg-zudo-black border-2 border-zudo-green p-4 font-mono text-sm text-zudo-green max-w-xs">
                 <span class="text-zudo-pink">import</span> { createApplication }<br>
-                <span class="text-zudo-pink">from</span> <span class="text-zudo-yellow">'@zudolib/core'</span>;<br><br>
+                <span class="text-zudo-pink">from</span> <span class="text-zudo-yellow">'@zudojs/core'</span>;<br><br>
                 <span class="text-zudo-pink">const</span> app = <span class="text-zudo-pink">await</span> <span class="text-zudo-blue">createApplication</span>();<br>
                 <span class="text-zudo-pink">await</span> app.<span class="text-zudo-blue">start</span>();
               </div>
@@ -362,7 +362,7 @@
             Use only what you need. 30+ independent packages. No bloat. No forced dependencies. Each package solves one problem.
           </p>
           <div class="mt-6 pt-6 border-t-2 border-zudo-black/10">
-            <code class="text-sm text-zudo-blue font-mono">npm install @zudolib/core</code>
+            <code class="text-sm text-zudo-blue font-mono">npm install @zudojs/core</code>
           </div>
         </div>
 
@@ -564,7 +564,7 @@
             <div>
               <h3 class="text-xl font-black mb-2">INSTALL THE CLI</h3>
               <div class="code-block p-4 mt-3">
-                <span class="text-zudo-green">$</span> npm install -g zudolib-cli
+                <span class="text-zudo-green">$</span> npm install -g zudojs-cli
               </div>
             </div>
           </div>
@@ -575,7 +575,7 @@
             <div>
               <h3 class="text-xl font-black mb-2">CREATE YOUR PROJECT</h3>
               <div class="code-block p-4 mt-3">
-                <span class="text-zudo-green">$</span> zudolib create my-app<br>
+                <span class="text-zudo-green">$</span> zudojs create my-app<br>
                 <span class="text-zudo-green">$</span> cd my-app
               </div>
             </div>
@@ -602,8 +602,8 @@
               <div class="w-3 h-3 bg-zudo-green"></div>
               <span class="text-zudo-white/50 text-sm ml-2 font-mono">src/main.ts</span>
             </div>
-            <pre class="text-sm font-mono leading-relaxed"><span class="text-zudo-pink">import</span> { createApplication } <span class="text-zudo-pink">from</span> <span class="text-zudo-yellow">"@zudolib/core"</span>;
-<span class="text-zudo-pink">import</span> { createHTTPServer } <span class="text-zudo-pink">from</span> <span class="text-zudo-yellow">"@zudolib/http"</span>;
+            <pre class="text-sm font-mono leading-relaxed"><span class="text-zudo-pink">import</span> { createApplication } <span class="text-zudo-pink">from</span> <span class="text-zudo-yellow">"@zudojs/core"</span>;
+<span class="text-zudo-pink">import</span> { createHTTPServer } <span class="text-zudo-pink">from</span> <span class="text-zudo-yellow">"@zudojs/http"</span>;
 
 <span class="text-zudo-pink">const</span> app = <span class="text-zudo-pink">await</span> <span class="text-zudo-blue">createApplication</span>({
   modules: [UsersModule, OrdersModule],
@@ -764,13 +764,13 @@ server.<span class="text-zudo-blue">get</span>(<span class="text-zudo-yellow">"/
             </svg>
           </a>
           <!-- NPM -->
-          <a href="https://www.npmjs.com/org/zudolib" target="_blank" rel="noopener" class="text-zudo-white/50 hover:text-zudo-white">
+          <a href="https://www.npmjs.com/org/zudojs" target="_blank" rel="noopener" class="text-zudo-white/50 hover:text-zudo-white">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019v13.49h-3.464V8.393h-3.578v10.44H5.13zm1.434 14.107h3.578V9.671h3.578v9.759h3.578V5.323h-14.31z"/>
             </svg>
           </a>
           <!-- Twitter/X -->
-          <a href="https://x.com/zudolib" target="_blank" rel="noopener" class="text-zudo-white/50 hover:text-zudo-white">
+          <a href="https://x.com/zudojs" target="_blank" rel="noopener" class="text-zudo-white/50 hover:text-zudo-white">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
             </svg>

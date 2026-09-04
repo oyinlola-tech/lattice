@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Monolith Template Index
+ * zudojs-cli — Monolith Template Index
  */
 
 export { generateMonolithFiles } from "./monolith.template.js";

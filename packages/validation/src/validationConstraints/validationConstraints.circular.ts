@@ -1,11 +1,11 @@
 /**
- * @zudolib/validation — Circular reference detection.
+ * @zudojs/validation — Circular reference detection.
  *
  * Detects circular references in object graphs before serialization
  * or validation to prevent stack overflows and provide clear error messages.
  */
 
-import { CircularReferenceError } from "@zudolib/errors";
+import { CircularReferenceError } from "@zudojs/errors";
 
 /**
  * Detect circular references in a value graph.

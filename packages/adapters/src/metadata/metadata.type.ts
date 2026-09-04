@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/metadata
+ * @zudojs/adapters/metadata
  *
  * Adapter metadata — identification and compatibility information.
  */
@@ -32,8 +32,8 @@ export interface AdapterMetadata {
   /** License identifier. */
   readonly license?: string;
 
-  /** Zudolib version compatibility range. */
-  readonly zudolib?: string;
+  /** Zudojs version compatibility range. */
+  readonly zudojs?: string;
 
   /** Runtime version compatibility (e.g., "node >=18", "bun", "deno"). */
   readonly runtime?: string;

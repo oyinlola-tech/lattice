@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/plugins",
+  "name": "@zudojs/plugins",
   "version": "1.0.0",
-  "description": "Plugin system for extending Zudolib applications with modular capabilities.",
+  "description": "Plugin system for extending Zudojs applications with modular capabilities.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,9 +24,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/types": "workspace:*"
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/constants": "workspace:*",
+    "@zudojs/types": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
@@ -40,7 +40,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "plugins",
     "extensions"
   ],

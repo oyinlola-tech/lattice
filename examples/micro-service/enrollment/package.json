@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/campusflow-enrollment",
+  "name": "@zudojs/campusflow-enrollment",
   "version": "0.1.1",
   "private": true,
   "type": "module",
@@ -11,15 +11,15 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@zudolib/cqrs": "workspace:*",
-    "@zudolib/events": "workspace:*",
-    "@zudolib/http": "workspace:*",
-    "@zudolib/config": "workspace:*",
-    "@zudolib/logger": "workspace:*",
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/validation": "workspace:*",
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/types": "workspace:*",
+    "@zudojs/cqrs": "workspace:*",
+    "@zudojs/events": "workspace:*",
+    "@zudojs/http": "workspace:*",
+    "@zudojs/config": "workspace:*",
+    "@zudojs/logger": "workspace:*",
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/validation": "workspace:*",
+    "@zudojs/constants": "workspace:*",
+    "@zudojs/types": "workspace:*",
     "better-sqlite3": "^13.0.3",
     "zod": "^4.5.4"
   },

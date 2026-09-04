@@ -1,17 +1,17 @@
-# @zudolib/constants
+# @zudojs/constants
 
-Shared constants, enums, branded types, and type-safe literals for the Zudolib framework.
+Shared constants, enums, branded types, and type-safe literals for the Zudojs framework.
 
 ## Installation
 
 ```bash
-npm install @zudolib/constants
+npm install @zudojs/constants
 ```
 
 ## Quick Start
 
 ```typescript
-import { EntityId, Timestamp, HttpStatus, ErrorCode } from "@zudolib/constants";
+import { EntityId, Timestamp, HttpStatus, ErrorCode } from "@zudojs/constants";
 
 const id: EntityId = "user_123";
 const now: Timestamp = new Date();

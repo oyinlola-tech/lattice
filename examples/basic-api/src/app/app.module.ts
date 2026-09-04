@@ -4,7 +4,7 @@
  * Imports and composes feature modules.
  */
 
-import { BaseModule } from "@zudolib/core";
+import { BaseModule } from "@zudojs/core";
 import { UsersModule } from "../users/users.module.js";
 import { HealthModule } from "../health/health.module.js";
 

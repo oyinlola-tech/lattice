@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Validator Generator
+ * zudojs-cli — Validator Generator
  */
 
 export {

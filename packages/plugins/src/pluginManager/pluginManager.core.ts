@@ -16,7 +16,7 @@ import {
   PluginInitializationError,
   PluginNotFoundError,
   PluginRegistrationError,
-} from "@zudolib/errors";
+} from "@zudojs/errors";
 import { PLUGIN_EVENTS } from "../pluginEvents/pluginEvent.core.js";
 import {
   buildDiagnosticReport,

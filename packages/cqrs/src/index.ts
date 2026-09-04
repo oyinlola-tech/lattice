@@ -1,7 +1,7 @@
 /**
- * @zudolib/cqrs
+ * @zudojs/cqrs
  *
- * Command Query Responsibility Segregation primitives for the Zudolib framework.
+ * Command Query Responsibility Segregation primitives for the Zudojs framework.
  * Provides buses, handlers, middleware, and execution infrastructure.
  */
 
@@ -86,7 +86,7 @@ export {
   withQueryResultMetadata,
 } from "./query/index.js";
 
-// Events — re-exports base Zudolib Event types + CQRS extensions
+// Events — re-exports base Zudojs Event types + CQRS extensions
 export {
   type Event,
   type EventInput,
@@ -96,7 +96,7 @@ export {
   isEvent,
   createEvent as createBaseEvent,
   createEventId as createBaseEventId,
-} from "@zudolib/events";
+} from "@zudojs/events";
 
 export * from "./cqrsEvents/index.js";
 

@@ -1,5 +1,5 @@
 /**
- * @zudolib/adapters/cli
+ * @zudojs/adapters/cli
  *
  * CLI adapter contracts.
  */

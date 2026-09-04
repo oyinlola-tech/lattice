@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@zudolib/cqrs";
+import type { CommandBus, QueryBus } from "@zudojs/cqrs";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { INotificationRepository } from "../interfaces/index.js";
 import { CreateNotificationCommand } from "../services/notification/commands/create-notification/create-notification.command.js";

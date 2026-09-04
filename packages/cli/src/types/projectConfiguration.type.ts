@@ -35,7 +35,7 @@ export type FrontendFramework =
  * Frontend architecture.
  */
 export type FrontendArchitecture =
-  "zudolib-standard" | "feature-based" | "minimal" | "framework-default";
+  "zudojs-standard" | "feature-based" | "minimal" | "framework-default";
 
 /**
  * Database provider.

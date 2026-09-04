@@ -2,68 +2,68 @@
 
 ## Package Tiers
 
-Zudolib packages are organized into dependency tiers. Dependencies flow inward — higher-tier packages may depend on lower-tier packages, but never the reverse.
+Zudojs packages are organized into dependency tiers. Dependencies flow inward — higher-tier packages may depend on lower-tier packages, but never the reverse.
 
 ### Tier 0 — Leaf
 
-No `@zudolib/*` dependencies.
+No `@zudojs/*` dependencies.
 
-- `@zudolib/errors` — BaseError, ErrorCode, error categories
-- `@zudolib/types` — type guards, utility types
+- `@zudojs/errors` — BaseError, ErrorCode, error categories
+- `@zudojs/types` — type guards, utility types
 
 ### Tier 1 — Foundation
 
 Depends only on Tier 0.
 
-- `@zudolib/constants` — shared constants and branded types
-- `@zudolib/container` — DI container
-- `@zudolib/logger` — structured logging
-- `@zudolib/crypto` — cryptographic primitives
-- `@zudolib/validation` — schema validation
-- `@zudolib/schema` — schema definitions
-- `@zudolib/config` — layered configuration
-- `@zudolib/middleware` — composable middleware
-- `@zudolib/serialization` — JSON serializer and transformers
-- `@zudolib/events` — event bus, emitter, middleware, registry
-- `@zudolib/messaging` — message bus
-- `@zudolib/lifecycle` — lifecycle orchestration
-- `@zudolib/transactions` — transaction coordination
-- `@zudolib/permissions` — RBAC/ABAC
-- `@zudolib/feature-flags` — feature flag evaluation
-- `@zudolib/plugins` — plugin manager
-- `@zudolib/security` — input validation, CORS, CSRF, rate limiting
-- `@zudolib/tenancy` — multi-tenant context
-- `@zudolib/docs` — documentation infrastructure
-- `@zudolib/cache` — cache abstraction
-- `@zudolib/storage` — storage abstraction
-- `@zudolib/adapters` — boundary to external platforms
-- `@zudolib/queue` — background jobs
-- `@zudolib/scheduler` — scheduling
-- `@zudolib/database` — DB infrastructure
-- `@zudolib/observability` — metrics/tracing
+- `@zudojs/constants` — shared constants and branded types
+- `@zudojs/container` — DI container
+- `@zudojs/logger` — structured logging
+- `@zudojs/crypto` — cryptographic primitives
+- `@zudojs/validation` — schema validation
+- `@zudojs/schema` — schema definitions
+- `@zudojs/config` — layered configuration
+- `@zudojs/middleware` — composable middleware
+- `@zudojs/serialization` — JSON serializer and transformers
+- `@zudojs/events` — event bus, emitter, middleware, registry
+- `@zudojs/messaging` — message bus
+- `@zudojs/lifecycle` — lifecycle orchestration
+- `@zudojs/transactions` — transaction coordination
+- `@zudojs/permissions` — RBAC/ABAC
+- `@zudojs/feature-flags` — feature flag evaluation
+- `@zudojs/plugins` — plugin manager
+- `@zudojs/security` — input validation, CORS, CSRF, rate limiting
+- `@zudojs/tenancy` — multi-tenant context
+- `@zudojs/docs` — documentation infrastructure
+- `@zudojs/cache` — cache abstraction
+- `@zudojs/storage` — storage abstraction
+- `@zudojs/adapters` — boundary to external platforms
+- `@zudojs/queue` — background jobs
+- `@zudojs/scheduler` — scheduling
+- `@zudojs/database` — DB infrastructure
+- `@zudojs/observability` — metrics/tracing
 
 ### Tier 2 — Application
 
 Depends on Tier 1.
 
-- `@zudolib/core` — application lifecycle, execution context, runtime
-- `@zudolib/cqrs` — commands/queries/handlers
-- `@zudolib/auth` — JWT/sessions/RBAC
-- `@zudolib/runtime` — lifecycle orchestrator
-- `@zudolib/openapi` — OpenAPI generation
-- `@zudolib/rpc` — RPC
-- `@zudolib/api` — API framework
+- `@zudojs/core` — application lifecycle, execution context, runtime
+- `@zudojs/cqrs` — commands/queries/handlers
+- `@zudojs/auth` — JWT/sessions/RBAC
+- `@zudojs/runtime` — lifecycle orchestrator
+- `@zudojs/openapi` — OpenAPI generation
+- `@zudojs/rpc` — RPC
+- `@zudojs/api` — API framework
 
 ### Tier 3 — Transport
 
 Depends on Tier 2.
 
-- `@zudolib/http` — HTTP primitives, routing, middleware
-- `zudolib-cli` — CLI scaffolding/generators
+- `@zudojs/http` — HTTP primitives, routing, middleware
+- `zudojs-cli` — CLI scaffolding/generators
 
 ### Tier 4 — Developer Experience
 
-- `@zudolib/testing` — test helpers
+- `@zudojs/testing` — test helpers
 
 ## Rules
 

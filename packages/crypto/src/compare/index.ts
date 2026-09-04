@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/compare
+ * @zudojs/crypto/compare
  *
  * Constant-time comparison utilities for cryptographic operations.
  */

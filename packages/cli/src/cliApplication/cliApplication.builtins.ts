@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Built-in Commands
+ * zudojs-cli — Built-in Commands
  *
  * Help and version request detection and output.
  */

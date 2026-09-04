@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Workspace Prompts
+ * zudojs-cli — Workspace Prompts
  *
  * Barrel exports for workspace prompts.
  */

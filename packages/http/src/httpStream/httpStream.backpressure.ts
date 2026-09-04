@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpStream — Backpressure-aware write and drain helpers.
+ * @zudojs/http/httpStream — Backpressure-aware write and drain helpers.
  */
 
 import { Writable } from "node:stream";

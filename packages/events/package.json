@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/events",
+  "name": "@zudojs/events",
   "version": "1.0.0",
   "description": "Event-driven architecture with event bus, emitter, middleware, and registry for decoupled communication.",
   "type": "module",
@@ -23,8 +23,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*"
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/constants": "workspace:*"
   },
   "engines": {
     "node": ">=24.0.0"
@@ -38,7 +38,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "events",
     "event-bus",
     "pubsub"

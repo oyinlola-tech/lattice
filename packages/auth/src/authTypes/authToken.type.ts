@@ -5,13 +5,13 @@
  */
 
 import type { UserId } from "../authTypes/authUser.type.js";
-import type { TokenId } from "@zudolib/constants";
+import type { TokenId } from "@zudojs/constants";
 
 /** JWT token string. */
 export type JwtToken = string;
 
-/** Token identifier. Re-exported from @zudolib/constants for type safety. */
-export type { TokenId } from "@zudolib/constants";
+/** Token identifier. Re-exported from @zudojs/constants for type safety. */
+export type { TokenId } from "@zudojs/constants";
 
 /**
  * Token payload embedded in JWT.

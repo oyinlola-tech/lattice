@@ -1,5 +1,5 @@
 /**
- * @zudolib/crypto/cryptoAlgorithm
+ * @zudojs/crypto/cryptoAlgorithm
  *
  * Cryptographic algorithm definitions and types.
  */

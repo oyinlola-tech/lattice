@@ -1,5 +1,5 @@
 /**
- * @zudolib/core/configuration/schema
+ * @zudojs/core/configuration/schema
  *
  * Configuration schemas and validation.
  */

@@ -1,6 +1,6 @@
 # Worker Example
 
-A background worker application built with Zudolib.
+A background worker application built with Zudojs.
 
 ## Demonstrates
 
@@ -55,7 +55,7 @@ npm install
 npm run dev
 
 # Or from the repository root
-npm run dev --workspace=@zudolib/example-worker
+npm run dev --workspace=@zudojs/example-worker
 ```
 
 ## What It Does

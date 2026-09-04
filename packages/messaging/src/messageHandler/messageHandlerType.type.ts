@@ -1,5 +1,5 @@
 /**
- * MessageHandler type definitions for Zudolib.
+ * MessageHandler type definitions for Zudojs.
  *
  * Handlers are the consumer side of the messaging system.
  * They receive messages and produce results.

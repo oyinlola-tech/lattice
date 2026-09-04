@@ -1,7 +1,7 @@
 import type { Disposable } from "../../contracts/disposable.js";
 import type { Logger } from "../../logging/core/logger.js";
 
-/** Lifecycle states supported by the Zudolib application runtime. */
+/** Lifecycle states supported by the Zudojs application runtime. */
 export const LifecycleState = {
   CREATED: "created",
   INITIALIZING: "initializing",

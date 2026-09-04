@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@zudolib/errors — Shared Error Hierarchy Documentation</title>
-  <meta name="description" content="Complete documentation for @zudolib/errors — shared error base class, error codes, error categories, and error handling utilities for the ZudoLib framework.">
+  <title>@zudojs/errors — Shared Error Hierarchy Documentation</title>
+  <meta name="description" content="Complete documentation for @zudojs/errors — shared error base class, error codes, error categories, and error handling utilities for the ZudoLib framework.">
   <meta name="keywords" content="zudo, errors, error-handling, BaseError, ErrorCode, ErrorCategory, TypeScript, framework">
   <link rel="canonical" href="https://zudo.dev/docs/packages/errors/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="@zudolib/errors — Shared Error Hierarchy Documentation">
+  <meta property="og:title" content="@zudojs/errors — Shared Error Hierarchy Documentation">
   <meta property="og:description" content="Shared error base class, error codes, categories, severity levels, and error handling utilities for the ZudoLib framework.">
   <meta property="og:url" content="https://zudo.dev/docs/packages/errors/">
   <meta property="og:site_name" content="Zudo">
@@ -18,7 +18,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="@zudolib/errors — Shared Error Hierarchy Documentation">
+  <meta name="twitter:title" content="@zudojs/errors — Shared Error Hierarchy Documentation">
   <meta name="twitter:description" content="Shared error base class, error codes, categories, severity levels, and error handling utilities for the ZudoLib framework.">
   <meta name="twitter:image" content="https://zudo.dev/assets/zudo-og.png">
 
@@ -27,7 +27,7 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "name": "@zudolib/errors",
+    "name": "@zudojs/errors",
     "description": "Shared error base class, error codes, error categories, and error handling utilities for the ZudoLib framework.",
     "url": "https://zudo.dev/docs/packages/errors/",
     "publisher": {
@@ -134,10 +134,10 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../../packages/" class="sidebar-item">Overview</a>
-      <a href="../../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../../../packages/errors/" class="sidebar-item sidebar-item-active">@zudolib/errors</a>
-      <a href="../../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../../../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../../../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../../../packages/errors/" class="sidebar-item sidebar-item-active">@zudojs/errors</a>
+      <a href="../../../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../../../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../../../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -154,13 +154,13 @@
         <span class="mx-2 text-black/30">/</span>
         <a href="../../../packages/" class="hover:text-zudo-blue">Packages</a>
         <span class="mx-2 text-black/30">/</span>
-        <span class="text-black/50">@zudolib/errors</span>
+        <span class="text-black/50">@zudojs/errors</span>
       </div>
 
       <!-- Header -->
       <div class="border-4 border-black p-8 mb-10 relative">
         <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v1.0.0</div>
-        <h1 class="text-4xl font-black mb-3 mt-2">@zudolib/errors</h1>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/errors</h1>
         <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
           Shared error base class, error codes, error categories, severity levels, and error handling utilities. Every package in the ZudoLib framework depends on this foundation.
         </p>
@@ -175,16 +175,16 @@
       <section id="installation" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
         <div class="code-block mb-4"><span class="cm">// npm</span>
-npm install @zudolib/errors
+npm install @zudojs/errors
 
 <span class="cm">// pnpm</span>
-pnpm add @zudolib/errors
+pnpm add @zudojs/errors
 
 <span class="cm">// yarn</span>
-yarn add @zudolib/errors</div>
+yarn add @zudojs/errors</div>
 
         <div class="callout callout-tip">
-          <strong class="text-zudo-green">Zero Dependencies:</strong> <code>@zudolib/errors</code> is a leaf package with no external or internal dependencies. Every other package in the monorepo imports from this package.
+          <strong class="text-zudo-green">Zero Dependencies:</strong> <code>@zudojs/errors</code> is a leaf package with no external or internal dependencies. Every other package in the monorepo imports from this package.
         </div>
       </section>
 
@@ -192,7 +192,7 @@ yarn add @zudolib/errors</div>
       <section id="what-it-does" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
         <p class="mb-4 leading-relaxed">
-          <code class="bg-black/5 px-1">@zudolib/errors</code> is the foundation of error handling across the entire ZudoLib framework. It provides:
+          <code class="bg-black/5 px-1">@zudojs/errors</code> is the foundation of error handling across the entire ZudoLib framework. It provides:
         </p>
         <ul class="space-y-2 mb-6">
           <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> A <strong>BaseError</strong> class that all ZudoLib errors extend</li>
@@ -207,7 +207,7 @@ yarn add @zudolib/errors</div>
         </ul>
 
         <div class="callout callout-note">
-          <strong class="text-zudo-blue">Core Principle:</strong> Every package in the monorepo imports its error types from <code>@zudolib/errors</code>. No package should create its own error classes that extend <code>Error</code> or <code>BaseError</code> directly.
+          <strong class="text-zudo-blue">Core Principle:</strong> Every package in the monorepo imports its error types from <code>@zudojs/errors</code>. No package should create its own error classes that extend <code>Error</code> or <code>BaseError</code> directly.
         </div>
       </section>
 
@@ -218,10 +218,10 @@ yarn add @zudolib/errors</div>
           <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">APPLICATION LAYER (CQRS, Events, Modules)</div>
           <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">FEATURE PACKAGES (http, database, cache, auth, queue)</div>
           <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">INFRASTRUCTURE PACKAGES (logger, container, config, middleware)</div>
-          <div class="bg-zudo-green text-black p-3 font-bold text-center text-sm">@zudolib/errors (FOUNDATION LEAF PACKAGE)</div>
+          <div class="bg-zudo-green text-black p-3 font-bold text-center text-sm">@zudojs/errors (FOUNDATION LEAF PACKAGE)</div>
         </div>
         <p class="mt-4 text-sm text-black/60">
-          <code>@zudolib/errors</code> is a leaf package with zero dependencies. Every other package in the monorepo imports from it. It sits at the very bottom of the dependency tree.
+          <code>@zudojs/errors</code> is a leaf package with zero dependencies. Every other package in the monorepo imports from it. It sits at the very bottom of the dependency tree.
         </p>
       </section>
 
@@ -246,7 +246,7 @@ yarn add @zudolib/errors</div>
         </div>
 
         <div class="mt-4 callout callout-warning">
-          <strong class="text-zudo-yellow">Foundation Package:</strong> All internal dependencies in the monorepo use <code>workspace:*</code> in development. When published, they use exact version <code>1.0.0</code>. Every package depends on <code>@zudolib/errors</code>.
+          <strong class="text-zudo-yellow">Foundation Package:</strong> All internal dependencies in the monorepo use <code>workspace:*</code> in development. When published, they use exact version <code>1.0.0</code>. Every package depends on <code>@zudojs/errors</code>.
         </div>
       </section>
 
@@ -342,7 +342,7 @@ yarn add @zudolib/errors</div>
         </div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Example: Creating a BaseError</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">BaseError</span>, <span class="tp">ErrorCode</span>, <span class="tp">ErrorCategory</span>, <span class="tp">ErrorSeverity</span> } <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">BaseError</span>, <span class="tp">ErrorCode</span>, <span class="tp">ErrorCategory</span>, <span class="tp">ErrorSeverity</span> } <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> error = <span class="kw">new</span> <span class="tp">BaseError</span>(<span class="str">"Payment processing failed"</span>, {
   code: <span class="tp">ErrorCode</span>.OPERATION_FAILED,
@@ -403,7 +403,7 @@ console.<span class="fn">log</span>(error.<span class="fn">toJSON</span>());
         </div>
 
         <div class="callout callout-note mt-4">
-          <strong class="text-zudo-blue">Full List:</strong> The <code>ErrorCode</code> enum contains 200+ codes. Each code is a stable string like <code>ERR_DATABASE_CONNECTION</code>. Import from <code>@zudolib/errors</code> and use the enum for type-safe error codes.
+          <strong class="text-zudo-blue">Full List:</strong> The <code>ErrorCode</code> enum contains 200+ codes. Each code is a stable string like <code>ERR_DATABASE_CONNECTION</code>. Import from <code>@zudojs/errors</code> and use the enum for type-safe error codes.
         </div>
       </section>
 
@@ -442,7 +442,7 @@ console.<span class="fn">log</span>(error.<span class="fn">toJSON</span>());
   <span class="fn">isInfrastructureErrorCategory</span>,
   <span class="fn">isSecurityErrorCategory</span>,
   <span class="fn">isPublicErrorCategory</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="fn">isErrorCategory</span>(<span class="str">"validation"</span>);       <span class="cm">// true</span>
 <span class="fn">isClientErrorCategory</span>(category);     <span class="cm">// validation, auth, resource, etc.</span>
@@ -480,7 +480,7 @@ console.<span class="fn">log</span>(error.<span class="fn">toJSON</span>());
   <span class="fn">compareErrorSeverity</span>,
   <span class="fn">isAlertableSeverity</span>,
   <span class="fn">isFailureSeverity</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="fn">isErrorSeverity</span>(<span class="str">"error"</span>);            <span class="cm">// true</span>
 <span class="fn">getErrorSeverityPriority</span>(severity);   <span class="cm">// 10-50</span>
@@ -518,7 +518,7 @@ console.<span class="fn">log</span>(error.<span class="fn">toJSON</span>());
   <span class="fn">serializeErrorMetadata</span>,
   <span class="fn">isErrorMetadataValue</span>,
   <span class="fn">sanitizeErrorMetadata</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Create immutable metadata</span>
 <span class="kw">const</span> meta = <span class="fn">createErrorMetadata</span>({ userId: <span class="str">"u_123"</span>, action: <span class="str">"login"</span> });
@@ -559,7 +559,7 @@ console.<span class="fn">log</span>(error.<span class="fn">toJSON</span>());
   <span class="fn">sessionExpiredError</span>,
   <span class="fn">invalidTokenError</span>,
   <span class="fn">expiredTokenError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Generic</span>
 <span class="kw">const</span> err = <span class="fn">createAuthenticationError</span>(<span class="str">"Auth required"</span>);
@@ -586,7 +586,7 @@ console.<span class="fn">log</span>(error.<span class="fn">toJSON</span>());
   <span class="fn">accessDeniedError</span>,
   <span class="fn">permissionDeniedError</span>,
   <span class="fn">resourceAccessDeniedError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> denied = <span class="fn">accessDeniedError</span>();             <span class="cm">// 403</span>
 <span class="kw">const</span> perm = <span class="fn">permissionDeniedError</span>(<span class="str">"admin:write"</span>); <span class="cm">// 403</span>
@@ -603,7 +603,7 @@ console.<span class="fn">log</span>(error.<span class="fn">toJSON</span>());
   <span class="fn">resourceNotFoundError</span>,
   <span class="fn">entityNotFoundError</span>,
   <span class="fn">routeNotFoundError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> notFound = <span class="fn">createNotFoundError</span>(<span class="str">"User not found"</span>); <span class="cm">// 404</span>
 <span class="kw">const</span> user = <span class="fn">resourceNotFoundError</span>(<span class="str">"User"</span>, <span class="str">"u_123"</span>);   <span class="cm">// 404</span>
@@ -621,7 +621,7 @@ console.<span class="fn">log</span>(error.<span class="fn">toJSON</span>());
   <span class="fn">createValidationIssue</span>,
   <span class="fn">requiredFieldIssue</span>,
   <span class="fn">invalidFieldIssue</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> issues = [
   <span class="fn">requiredFieldIssue</span>(<span class="str">"email"</span>),
@@ -645,7 +645,7 @@ err.issuesForField(<span class="str">"email"</span>); <span class="cm">// [{ fie
   <span class="fn">alreadyExistsError</span>,
   <span class="fn">duplicateError</span>,
   <span class="fn">resourceLockedError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> exists = <span class="fn">alreadyExistsError</span>(<span class="str">"User"</span>, <span class="str">"john@example.com"</span>); <span class="cm">// 409</span>
 <span class="kw">const</span> dup = <span class="fn">duplicateError</span>(<span class="str">"email"</span>, <span class="str">"john@example.com"</span>);     <span class="cm">// 409</span>
@@ -660,7 +660,7 @@ err.issuesForField(<span class="str">"email"</span>); <span class="cm">// [{ fie
   <span class="fn">createRateLimitError</span>,
   <span class="fn">isRateLimitError</span>,
   <span class="fn">retryAfterError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> rateLimited = <span class="fn">createRateLimitError</span>(<span class="num">60</span>); <span class="cm">// 429, retry after 60s</span>
 
@@ -680,7 +680,7 @@ rateLimited.getRetryAfterMilliseconds(); <span class="cm">// 60000</span>
   <span class="fn">createDomainError</span>,
   <span class="fn">invalidDomainState</span>,
   <span class="fn">unsupportedDomainOperation</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// General application failure</span>
 <span class="kw">const</span> appErr = <span class="fn">createApplicationError</span>(<span class="str">"Processing failed"</span>); <span class="cm">// 500</span>
@@ -729,7 +729,7 @@ rateLimited.getRetryAfterMilliseconds(); <span class="cm">// 60000</span>
   <span class="tp">CircularDependencyError</span>,
   <span class="tp">ProviderResolutionError</span>,
   <span class="tp">ContainerLifecycleError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Each has a specific error code and metadata</span>
 <span class="kw">const</span> dup = <span class="kw">new</span> <span class="tp">DuplicateRegistrationError</span>(<span class="str">"logger"</span>);
@@ -749,7 +749,7 @@ rateLimited.getRetryAfterMilliseconds(); <span class="cm">// 60000</span>
   <span class="tp">AdapterDisposeError</span>,
   <span class="tp">AdapterInitializationError</span>,
   <span class="tp">AdapterConfigurationError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Connection failure</span>
 <span class="kw">const</span> conn = <span class="kw">new</span> <span class="tp">AdapterConnectionError</span>(<span class="str">"Failed to connect to PostgreSQL"</span>, {
@@ -758,7 +758,7 @@ rateLimited.getRetryAfterMilliseconds(); <span class="cm">// 60000</span>
 });</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">HTTP Errors</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">HttpError</span>, <span class="fn">createHttpError</span>, <span class="fn">isHttpError</span> } <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">HttpError</span>, <span class="fn">createHttpError</span>, <span class="fn">isHttpError</span> } <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Generic HTTP error with any status code</span>
 <span class="kw">const</span> err = <span class="fn">createHttpError</span>(<span class="str">"Service unavailable"</span>, <span class="num">503</span>);
@@ -797,7 +797,7 @@ err.severity; <span class="cm">// ErrorSeverity.WARNING for 429</span></div>
   <span class="fn">cryptoSignatureError</span>,
   <span class="fn">cryptoKeyDerivationError</span>,
   <span class="fn">cryptoKeyError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> hashErr = <span class="fn">cryptoHashError</span>(<span class="str">"Hash computation failed"</span>, {
   algorithm: <span class="str">"sha256"</span>,
@@ -817,7 +817,7 @@ err.severity; <span class="cm">// ErrorSeverity.WARNING for 429</span></div>
   <span class="fn">systemStartupError</span>,
   <span class="fn">systemShutdownError</span>,
   <span class="fn">internalSystemError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> initErr = <span class="fn">systemInitializationError</span>(<span class="str">"Failed to initialize database pool"</span>);
 <span class="kw">const</span> startupErr = <span class="fn">systemStartupError</span>(<span class="str">"Port 3000 already in use"</span>);
@@ -852,7 +852,7 @@ err.severity; <span class="cm">// ErrorSeverity.WARNING for 429</span></div>
   <span class="fn">createEventError</span>,
   <span class="fn">isEventError</span>,
   <span class="fn">toEventError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> eventErr = <span class="fn">createEventError</span>(<span class="str">"Handler failed"</span>, {
   eventType: <span class="str">"user.created"</span>,
@@ -872,7 +872,7 @@ err.severity; <span class="cm">// ErrorSeverity.WARNING for 429</span></div>
         <p class="mb-4">Centralized error normalization, serialization, type checking, extraction, and transformation utilities.</p>
 
         <h3 class="text-lg font-bold mb-3">ErrorHandler Class</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">ErrorHandler</span>, <span class="fn">createErrorHandler</span> } <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">ErrorHandler</span>, <span class="fn">createErrorHandler</span> } <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> handler = <span class="fn">createErrorHandler</span>({
   reporter: <span class="kw">async</span> (error, context) => {
@@ -898,7 +898,7 @@ err.severity; <span class="cm">// ErrorSeverity.WARNING for 429</span></div>
 <span class="kw">const</span> safe = handler.<span class="fn">serialize</span>(error, context);</div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">ErrorSerializer Class</h3>
-        <div class="code-block"><span class="kw">import</span> { <span class="tp">ErrorSerializer</span> } <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">ErrorSerializer</span> } <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> serializer = <span class="kw">new</span> <span class="tp">ErrorSerializer</span>({
   includeStack: <span class="num">false</span>,
@@ -929,7 +929,7 @@ err.severity; <span class="cm">// ErrorSeverity.WARNING for 429</span></div>
   <span class="fn">isClientError</span>,
   <span class="fn">hasErrorCategory</span>,
   <span class="fn">hasErrorSeverity</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="fn">isBaseError</span>(error);                <span class="cm">// instanceof BaseError</span>
 <span class="fn">toBaseError</span>(unknownThrown);         <span class="cm">// Convert to BaseError</span>
@@ -949,7 +949,7 @@ err.severity; <span class="cm">// ErrorSeverity.WARNING for 429</span></div>
   <span class="fn">getRootCause</span>,
   <span class="fn">getRootBaseError</span>,
   <span class="fn">getErrorDiagnostics</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="fn">getErrorMessage</span>(unknownThrown);   <span class="cm">// Safe message extraction</span>
 <span class="fn">getErrorName</span>(unknownThrown);      <span class="cm">// Error class name</span>
@@ -965,7 +965,7 @@ err.severity; <span class="cm">// ErrorSeverity.WARNING for 429</span></div>
   <span class="fn">tryCatch</span>,
   <span class="fn">tryCatchAsync</span>,
   <span class="fn">normalizeToBaseError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Convert unknown to Error</span>
 <span class="kw">const</span> err = <span class="fn">toError</span>(unknownThrown);
@@ -992,7 +992,7 @@ err.severity; <span class="cm">// ErrorSeverity.WARNING for 429</span></div>
   <span class="fn">mapError</span>,
   <span class="fn">mapNativeError</span>,
   <span class="fn">createErrorMappingRule</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">const</span> registry = <span class="fn">createErrorMapperRegistry</span>();
 
@@ -1030,9 +1030,9 @@ registry.<span class="fn">register</span>({
   <span class="fn">tryCatch</span>,
   <span class="fn">tryCatchAsync</span>,
   <span class="tp">ErrorSerializer</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
-<span class="fn">describe</span>(<span class="str">"@zudolib/errors"</span>, () => {
+<span class="fn">describe</span>(<span class="str">"@zudojs/errors"</span>, () => {
   <span class="fn">it</span>(<span class="str">"creates BaseError with defaults"</span>, () => {
     <span class="kw">const</span> error = <span class="kw">new</span> <span class="tp">BaseError</span>(<span class="str">"test"</span>);
     <span class="fn">expect</span>(error.message).<span class="fn">toBe</span>(<span class="str">"test"</span>);
@@ -1103,7 +1103,7 @@ registry.<span class="fn">register</span>({
   <span class="fn">getErrorMessage</span>,
   <span class="tp">ErrorHandler</span>,
   <span class="tp">ErrorSerializer</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// 1. HTTP error handler middleware</span>
 <span class="kw">const</span> errorHandler = <span class="kw">new</span> <span class="tp">ErrorHandler</span>({
@@ -1189,7 +1189,7 @@ registry.<span class="fn">register</span>({
       <!-- Connections to Other Packages -->
       <section id="connections" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CONNECTIONS TO OTHER PACKAGES</h2>
-        <p class="mb-4">Every package in the monorepo imports from <code>@zudolib/errors</code>. Key consumers:</p>
+        <p class="mb-4">Every package in the monorepo imports from <code>@zudojs/errors</code>. Key consumers:</p>
 
         <div class="border-4 border-black">
           <table class="w-full text-sm">
@@ -1200,19 +1200,19 @@ registry.<span class="fn">register</span>({
               </tr>
             </thead>
             <tbody>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/logger</td><td class="p-3">BaseError for structured error logging</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/container</td><td class="p-3">ContainerError, DuplicateRegistrationError, CircularDependencyError</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/events</td><td class="p-3">EventError for event handling, publishing, and lifecycle failures</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/messaging</td><td class="p-3">MessageError for dispatch, validation, and serialization failures</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/http</td><td class="p-3">HttpError, HttpRouterError, HttpBodyError for HTTP failures</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/database</td><td class="p-3">DatabaseError for connection, query, and transaction failures</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/auth</td><td class="p-3">AuthenticationError, AuthorizationError for auth failures</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/queue</td><td class="p-3">QueueError, JobError, WorkerError for background processing</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/cache</td><td class="p-3">CacheError for cache operation failures</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/crypto</td><td class="p-3">CryptoError for hashing, encryption, and signature failures</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/schema</td><td class="p-3">SchemaError for schema validation and type inference failures</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/adapters</td><td class="p-3">AdapterError, AdapterNotFoundError, and 10+ adapter-specific errors</td></tr>
-              <tr><td class="p-3 font-mono">@zudolib/core</td><td class="p-3">ModuleError, RuntimeError for lifecycle and bootstrap failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/logger</td><td class="p-3">BaseError for structured error logging</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/container</td><td class="p-3">ContainerError, DuplicateRegistrationError, CircularDependencyError</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/events</td><td class="p-3">EventError for event handling, publishing, and lifecycle failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/messaging</td><td class="p-3">MessageError for dispatch, validation, and serialization failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/http</td><td class="p-3">HttpError, HttpRouterError, HttpBodyError for HTTP failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/database</td><td class="p-3">DatabaseError for connection, query, and transaction failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/auth</td><td class="p-3">AuthenticationError, AuthorizationError for auth failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/queue</td><td class="p-3">QueueError, JobError, WorkerError for background processing</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/cache</td><td class="p-3">CacheError for cache operation failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/crypto</td><td class="p-3">CryptoError for hashing, encryption, and signature failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/schema</td><td class="p-3">SchemaError for schema validation and type inference failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/adapters</td><td class="p-3">AdapterError, AdapterNotFoundError, and 10+ adapter-specific errors</td></tr>
+              <tr><td class="p-3 font-mono">@zudojs/core</td><td class="p-3">ModuleError, RuntimeError for lifecycle and bootstrap failures</td></tr>
             </tbody>
           </table>
         </div>
@@ -1235,16 +1235,16 @@ registry.<span class="fn">register</span>({
               </tr>
             </thead>
             <tbody>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/logger</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/container</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/config</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/events</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/http</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/database</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/cache</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/auth</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudolib/middleware</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr><td class="p-3 font-mono">@zudolib/core</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/logger</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/container</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/config</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/events</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/http</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/database</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/cache</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/auth</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/middleware</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr><td class="p-3 font-mono">@zudojs/core</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
             </tbody>
           </table>
         </div>
@@ -1299,7 +1299,7 @@ registry.<span class="fn">register</span>({
   <span class="tp">SerializedBaseError</span>,
   <span class="tp">ErrorMetadata</span>,
   <span class="tp">ErrorMetadataValue</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Import domain errors</span>
 <span class="kw">import</span> {
@@ -1311,7 +1311,7 @@ registry.<span class="fn">register</span>({
   <span class="tp">RateLimitError</span>,
   <span class="tp">ApplicationError</span>,
   <span class="tp">DomainError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Import infrastructure errors</span>
 <span class="kw">import</span> {
@@ -1324,14 +1324,14 @@ registry.<span class="fn">register</span>({
   <span class="tp">CacheError</span>,
   <span class="tp">MiddlewareError</span>,
   <span class="tp">AdapterError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Import system errors</span>
 <span class="kw">import</span> {
   <span class="tp">SystemError</span>,
   <span class="tp">CryptoError</span>,
   <span class="tp">RuntimeError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Import utilities</span>
 <span class="kw">import</span> {
@@ -1344,7 +1344,7 @@ registry.<span class="fn">register</span>({
   <span class="tp">ErrorHandler</span>,
   <span class="tp">ErrorSerializer</span>,
   <span class="tp">ErrorMapperRegistry</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="cm">// Import convenience factories</span>
 <span class="kw">import</span> {
@@ -1355,7 +1355,7 @@ registry.<span class="fn">register</span>({
   <span class="fn">alreadyExistsError</span>,
   <span class="fn">permissionDeniedError</span>,
   <span class="fn">retryAfterError</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;</div>
+} <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;</div>
       </section>
 
     </main>

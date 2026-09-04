@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@zudolib/cache — Caching Primitives, Adapters &amp; Invalidation | Zudo Framework</title>
-  <meta name="description" content="Complete reference for @zudolib/cache v1.0.0. CacheService, MemoryCacheAdapter, tag-based invalidation, distributed locking, metrics, serialization, and middleware pipelines for the Zudo TypeScript framework.">
-  <meta name="keywords" content="zudolib, cache, caching, memory cache, cache adapter, cache tags, cache invalidation, cache locking, cache metrics, cache middleware, TTL, CacheService, MemoryCacheAdapter, TypeScript, framework">
+  <title>@zudojs/cache — Caching Primitives, Adapters &amp; Invalidation | Zudo Framework</title>
+  <meta name="description" content="Complete reference for @zudojs/cache v1.0.0. CacheService, MemoryCacheAdapter, tag-based invalidation, distributed locking, metrics, serialization, and middleware pipelines for the Zudo TypeScript framework.">
+  <meta name="keywords" content="zudojs, cache, caching, memory cache, cache adapter, cache tags, cache invalidation, cache locking, cache metrics, cache middleware, TTL, CacheService, MemoryCacheAdapter, TypeScript, framework">
   <meta name="author" content="Oyinlola Tech">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://zudo.dev/docs/packages/cache/">
 
-  <meta property="og:title" content="@zudolib/cache — Caching Primitives, Adapters &amp; Invalidation | Zudo Framework">
-  <meta property="og:description" content="Complete reference for @zudolib/cache v1.0.0. CacheService, adapters, tags, invalidation, locking, metrics, serialization.">
+  <meta property="og:title" content="@zudojs/cache — Caching Primitives, Adapters &amp; Invalidation | Zudo Framework">
+  <meta property="og:description" content="Complete reference for @zudojs/cache v1.0.0. CacheService, adapters, tags, invalidation, locking, metrics, serialization.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://zudo.dev/docs/packages/cache/">
   <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
@@ -25,8 +25,8 @@
   <meta property="article:tag" content="Locking">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="@zudolib/cache — Caching Primitives, Adapters &amp; Invalidation">
-  <meta name="twitter:description" content="Complete reference for @zudolib/cache v1.0.0. CacheService, adapters, tags, invalidation, locking, metrics.">
+  <meta name="twitter:title" content="@zudojs/cache — Caching Primitives, Adapters &amp; Invalidation">
+  <meta name="twitter:description" content="Complete reference for @zudojs/cache v1.0.0. CacheService, adapters, tags, invalidation, locking, metrics.">
 
   <link rel="icon" type="image/svg+xml" href="../../../assets/zudo-favicon.svg">
 
@@ -57,8 +57,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "@zudolib/cache — Caching Primitives, Adapters & Invalidation",
-    "description": "Complete reference for @zudolib/cache v1.0.0. CacheService, MemoryCacheAdapter, tag-based invalidation, distributed locking, metrics, serialization, and middleware pipelines.",
+    "headline": "@zudojs/cache — Caching Primitives, Adapters & Invalidation",
+    "description": "Complete reference for @zudojs/cache v1.0.0. CacheService, MemoryCacheAdapter, tag-based invalidation, distributed locking, metrics, serialization, and middleware pipelines.",
     "version": "1.0.0",
     "programmingLanguage": "TypeScript",
     "runtimePlatform": "Node.js >= 24.0.0",
@@ -79,9 +79,9 @@
     "datePublished": "2026-01-01",
     "dateModified": "2026-01-01",
     "mainEntityOfPage": "https://zudo.dev/docs/packages/cache/",
-    "keywords": "zudolib, cache, caching, memory cache, cache adapter, cache tags, invalidation, locking, metrics, TTL",
+    "keywords": "zudojs, cache, caching, memory cache, cache adapter, cache tags, invalidation, locking, metrics, TTL",
     "articleSection": "Packages",
-    "dependencies": ["@zudolib/errors", "@zudolib/types", "@zudolib/serialization"]
+    "dependencies": ["@zudojs/errors", "@zudojs/types", "@zudojs/serialization"]
   }
   </script>
   <script type="application/ld+json">
@@ -91,7 +91,7 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
       { "@type": "ListItem", "position": 2, "name": "Packages", "item": "https://zudo.dev/docs/packages/" },
-      { "@type": "ListItem", "position": 3, "name": "@zudolib/cache", "item": "https://zudo.dev/docs/packages/cache/" }
+      { "@type": "ListItem", "position": 3, "name": "@zudojs/cache", "item": "https://zudo.dev/docs/packages/cache/" }
     ]
   }
   </script>
@@ -144,11 +144,11 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../packages/" class="sidebar-item">Overview</a>
-      <a href="../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../../packages/cache/" class="sidebar-item sidebar-item-active">@zudolib/cache</a>
-      <a href="../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../../packages/cache/" class="sidebar-item sidebar-item-active">@zudojs/cache</a>
+      <a href="../../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -165,13 +165,13 @@
         <span class="mx-2 text-black/30">/</span>
         <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
         <span class="mx-2 text-black/30">/</span>
-        <span class="text-black/50">@zudolib/cache</span>
+        <span class="text-black/50">@zudojs/cache</span>
       </div>
 
       <!-- Header -->
       <div class="border-4 border-black p-8 mb-10 relative">
         <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v1.0.0</div>
-        <h1 class="text-4xl font-black mb-3 mt-2">@zudolib/cache</h1>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/cache</h1>
         <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
           Caching primitives, adapters, tag-based invalidation, distributed locking, and metrics
         </p>
@@ -186,7 +186,7 @@
       <section id="overview" class="mb-16">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">OVERVIEW</h2>
         <p class="mb-4 leading-relaxed">
-          <code>@zudolib/cache</code> provides a complete caching infrastructure for the Zudo framework. It follows the <strong>adapter pattern</strong> — a pluggable <code>CacheAdapter</code> interface with a built-in <code>MemoryCacheAdapter</code> and a high-level <code>CacheService</code> orchestrator that coordinates key building, tag-based invalidation, distributed locking, metrics collection, and middleware pipelines.
+          <code>@zudojs/cache</code> provides a complete caching infrastructure for the Zudo framework. It follows the <strong>adapter pattern</strong> — a pluggable <code>CacheAdapter</code> interface with a built-in <code>MemoryCacheAdapter</code> and a high-level <code>CacheService</code> orchestrator that coordinates key building, tag-based invalidation, distributed locking, metrics collection, and middleware pipelines.
         </p>
         <p class="mb-4 leading-relaxed">
           The package is designed for <strong>zero-config usage</strong> with sensible defaults (5-minute TTL, 10K max entries, 50MB memory budget) while supporting full customization for production deployments.
@@ -209,12 +209,12 @@
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
         <div class="code-block mb-4">
 <span class="cm">// Install as part of the Zudo framework</span>
-npm install @zudolib/cache
+npm install @zudojs/cache
 
 <span class="cm">// Or use the full framework</span>
 npm install zudo
         </div>
-        <p class="text-sm text-gray-600 mb-4"><strong>Peer dependencies:</strong> <code>@zudolib/errors</code>, <code>@zudolib/types</code>, <code>@zudolib/serialization</code></p>
+        <p class="text-sm text-gray-600 mb-4"><strong>Peer dependencies:</strong> <code>@zudojs/errors</code>, <code>@zudojs/types</code>, <code>@zudojs/serialization</code></p>
       </section>
 
       <!-- ==================== ARCHITECTURE ==================== -->
@@ -239,7 +239,7 @@ npm install zudo
 <span class="kw">await</span> cache.<span class="fn">set</span>(<span class="str">"user:1"</span>, userData, { <span class="fn">tags</span>: [<span class="str">"users"</span>, <span class="str">"active"</span>] });
 
 <span class="cm">// 1. CacheService checks if enabled</span>
-<span class="cm">// 2. DefaultKeyBuilder.build("user:1") → "zudolib:user:1"</span>
+<span class="cm">// 2. DefaultKeyBuilder.build("user:1") → "zudojs:user:1"</span>
 <span class="cm">// 3. DefaultCacheStore.set() runs middleware chain</span>
 <span class="cm">// 4. MemoryCacheAdapter.set() stores in Map with TTL</span>
 <span class="cm">// 5. Metrics increment the set counter</span>
@@ -251,7 +251,7 @@ npm install zudo
         <div class="code-block mb-4">
 <span class="kw">await</span> cache.<span class="fn">invalidateByTag</span>([<span class="str">"users"</span>]);
 
-<span class="cm">// 1. InMemoryTagStore.getKeys("users") → ["zudolib:user:1", "zudolib:user:2"]</span>
+<span class="cm">// 1. InMemoryTagStore.getKeys("users") → ["zudojs:user:1", "zudojs:user:2"]</span>
 <span class="cm">// 2. For each key: adapter.delete(key) removes from cache</span>
 <span class="cm">// 3. InMemoryTagStore.invalidate("users") cleans up mappings</span>
 <span class="cm">// 4. Returns { cleared: 2 }</span>
@@ -268,7 +268,7 @@ npm install zudo
         </div>
 
         <div class="code-block mb-6">
-<span class="kw">import</span> { <span class="fn">createCacheService</span>, <span class="fn">createMemoryCacheAdapter</span> } <span class="kw">from</span> <span class="str">"@zudolib/cache"</span>;
+<span class="kw">import</span> { <span class="fn">createCacheService</span>, <span class="fn">createMemoryCacheAdapter</span> } <span class="kw">from</span> <span class="str">"@zudojs/cache"</span>;
 
 <span class="cm">// Create with defaults (5min TTL, 10K entries, 50MB)</span>
 <span class="kw">const</span> cache = <span class="fn">createCacheService</span>({
@@ -393,7 +393,7 @@ npm install zudo
         </p>
 
         <div class="code-block mb-4">
-<span class="kw">import</span> { <span class="fn">createCacheStore</span>, <span class="fn">createMemoryCacheAdapter</span> } <span class="kw">from</span> <span class="str">"@zudolib/cache"</span>;
+<span class="kw">import</span> { <span class="fn">createCacheStore</span>, <span class="fn">createMemoryCacheAdapter</span> } <span class="kw">from</span> <span class="str">"@zudojs/cache"</span>;
 
 <span class="kw">const</span> store = <span class="fn">createCacheStore</span>({
   <span class="fn">adapter</span>: <span class="fn">createMemoryCacheAdapter</span>(),
@@ -452,7 +452,7 @@ sub.<span class="fn">unsubscribe</span>();
         </p>
 
         <div class="code-block mb-4">
-<span class="kw">import</span> { <span class="fn">createMemoryCacheAdapter</span> } <span class="kw">from</span> <span class="str">"@zudolib/cache"</span>;
+<span class="kw">import</span> { <span class="fn">createMemoryCacheAdapter</span> } <span class="kw">from</span> <span class="str">"@zudojs/cache"</span>;
 
 <span class="cm">// Default: 10,000 entries, 5-minute TTL</span>
 <span class="kw">const</span> adapter = <span class="fn">createMemoryCacheAdapter</span>();
@@ -487,10 +487,10 @@ sub.<span class="fn">unsubscribe</span>();
         </p>
 
         <div class="code-block mb-4">
-<span class="kw">import</span> { <span class="fn">createKeyBuilder</span> } <span class="kw">from</span> <span class="str">"@zudolib/cache"</span>;
+<span class="kw">import</span> { <span class="fn">createKeyBuilder</span> } <span class="kw">from</span> <span class="str">"@zudojs/cache"</span>;
 
 <span class="kw">const</span> builder = <span class="fn">createKeyBuilder</span>({
-  <span class="fn">prefix</span>: <span class="str">"myapp"</span>,      <span class="cm">// Default: "zudolib"</span>
+  <span class="fn">prefix</span>: <span class="str">"myapp"</span>,      <span class="cm">// Default: "zudojs"</span>
   <span class="fn">separator</span>: <span class="str">":"</span>,        <span class="cm">// Default: ":"</span>
 });
 
@@ -515,7 +515,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
         <ul class="list-disc list-inside mb-4 space-y-1 text-sm">
           <li>Max length: 256 characters</li>
           <li>Valid characters: <code>a-zA-Z0-9._-:</code></li>
-          <li>Default prefix: <code>zudolib</code></li>
+          <li>Default prefix: <code>zudojs</code></li>
           <li>Default separator: <code>:</code></li>
         </ul>
       </section>
@@ -528,20 +528,20 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
         </p>
 
         <div class="code-block mb-4">
-<span class="kw">import</span> { <span class="fn">createTagStore</span> } <span class="kw">from</span> <span class="str">"@zudolib/cache"</span>;
+<span class="kw">import</span> { <span class="fn">createTagStore</span> } <span class="kw">from</span> <span class="str">"@zudojs/cache"</span>;
 
 <span class="kw">const</span> tags = <span class="fn">createTagStore</span>();
 
 <span class="cm">// Associate tags with a key (bidirectional)</span>
-<span class="kw">await</span> tags.<span class="fn">add</span>(<span class="str">"zudolib:user:1"</span>, [<span class="str">"users"</span>, <span class="str">"active"</span>]);
-<span class="kw">await</span> tags.<span class="fn">add</span>(<span class="str">"zudolib:user:2"</span>, [<span class="str">"users"</span>, <span class="str">"inactive"</span>]);
+<span class="kw">await</span> tags.<span class="fn">add</span>(<span class="str">"zudojs:user:1"</span>, [<span class="str">"users"</span>, <span class="str">"active"</span>]);
+<span class="kw">await</span> tags.<span class="fn">add</span>(<span class="str">"zudojs:user:2"</span>, [<span class="str">"users"</span>, <span class="str">"inactive"</span>]);
 
 <span class="cm">// Get all keys for a tag</span>
 <span class="kw">const</span> keys = <span class="kw">await</span> tags.<span class="fn">getKeys</span>(<span class="str">"users"</span>);
-<span class="cm">// → ["zudolib:user:1", "zudolib:user:2"]</span>
+<span class="cm">// → ["zudojs:user:1", "zudojs:user:2"]</span>
 
 <span class="cm">// Get all tags for a key</span>
-<span class="kw">const</span> tagList = tags.<span class="fn">tagsForKey</span>(<span class="str">"zudolib:user:1"</span>);
+<span class="kw">const</span> tagList = tags.<span class="fn">tagsForKey</span>(<span class="str">"zudojs:user:1"</span>);
 <span class="cm">// → ["users", "active"]</span>
 
 <span class="cm">// Invalidate a tag (removes all mappings)</span>
@@ -558,7 +558,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
         </p>
 
         <div class="code-block mb-4">
-<span class="kw">import</span> { <span class="fn">createInvalidationManager</span> } <span class="kw">from</span> <span class="str">"@zudolib/cache"</span>;
+<span class="kw">import</span> { <span class="fn">createInvalidationManager</span> } <span class="kw">from</span> <span class="str">"@zudojs/cache"</span>;
 
 <span class="kw">const</span> invalidator = <span class="fn">createInvalidationManager</span>({
   <span class="fn">adapter</span>,
@@ -575,7 +575,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 <span class="kw">await</span> invalidator.<span class="fn">invalidateByNamespace</span>(<span class="str">"auth"</span>);
 
 <span class="cm">// Single key</span>
-<span class="kw">await</span> invalidator.<span class="fn">invalidateKey</span>(<span class="str">"zudolib:user:1"</span>);
+<span class="kw">await</span> invalidator.<span class="fn">invalidateKey</span>(<span class="str">"zudojs:user:1"</span>);
 
 <span class="cm">// Multiple keys</span>
 <span class="kw">await</span> invalidator.<span class="fn">invalidateKeys</span>([<span class="str">"key1"</span>, <span class="str">"key2"</span>]);
@@ -593,7 +593,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
         </p>
 
         <div class="code-block mb-4">
-<span class="kw">import</span> { <span class="fn">createLockManager</span> } <span class="kw">from</span> <span class="str">"@zudolib/cache"</span>;
+<span class="kw">import</span> { <span class="fn">createLockManager</span> } <span class="kw">from</span> <span class="str">"@zudojs/cache"</span>;
 
 <span class="kw">const</span> locker = <span class="fn">createLockManager</span>({
   <span class="fn">retryAttempts</span>: <span class="num">3</span>,      <span class="cm">// Default: 3</span>
@@ -649,7 +649,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
         </p>
 
         <div class="code-block mb-4">
-<span class="kw">import</span> { <span class="fn">createCacheMetrics</span> } <span class="kw">from</span> <span class="str">"@zudolib/cache"</span>;
+<span class="kw">import</span> { <span class="fn">createCacheMetrics</span> } <span class="kw">from</span> <span class="str">"@zudojs/cache"</span>;
 
 <span class="kw">const</span> metrics = <span class="fn">createCacheMetrics</span>();
 
@@ -716,7 +716,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
   <span class="fn">enabled</span>?: <span class="tp">boolean</span>;            <span class="cm">// Default: true</span>
   <span class="fn">defaultTtl</span>?: <span class="tp">number</span>;          <span class="cm">// Default: 300000 (5 min)</span>
   <span class="fn">namespace</span>?: <span class="tp">string</span>;           <span class="cm">// Default: undefined</span>
-  <span class="fn">prefix</span>?: <span class="tp">string</span>;              <span class="cm">// Default: "zudolib"</span>
+  <span class="fn">prefix</span>?: <span class="tp">string</span>;              <span class="cm">// Default: "zudojs"</span>
   <span class="fn">separator</span>?: <span class="tp">string</span>;           <span class="cm">// Default: ":"</span>
   <span class="fn">failSilently</span>?: <span class="tp">boolean</span>;       <span class="cm">// Default: false</span>
   <span class="fn">collectStats</span>?: <span class="tp">boolean</span>;       <span class="cm">// Default: true</span>
@@ -809,7 +809,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
               <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">MAX_TTL_MS</td><td class="border border-black px-4 py-2 font-mono text-xs">86400000</td><td class="border border-black px-4 py-2">24 hours</td></tr>
               <tr><td class="border border-black px-4 py-2 font-mono text-xs">MIN_TTL_MS</td><td class="border border-black px-4 py-2 font-mono text-xs">1000</td><td class="border border-black px-4 py-2">1 second</td></tr>
               <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">DEFAULT_SEPARATOR</td><td class="border border-black px-4 py-2 font-mono text-xs">":"</td><td class="border border-black px-4 py-2">Key separator</td></tr>
-              <tr><td class="border border-black px-4 py-2 font-mono text-xs">DEFAULT_PREFIX</td><td class="border border-black px-4 py-2 font-mono text-xs">"zudolib"</td><td class="border border-black px-4 py-2">Key prefix</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">DEFAULT_PREFIX</td><td class="border border-black px-4 py-2 font-mono text-xs">"zudojs"</td><td class="border border-black px-4 py-2">Key prefix</td></tr>
               <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">MAX_KEY_LENGTH</td><td class="border border-black px-4 py-2 font-mono text-xs">256</td><td class="border border-black px-4 py-2">Max key characters</td></tr>
               <tr><td class="border border-black px-4 py-2 font-mono text-xs">DEFAULT_LOCK_TTL_MS</td><td class="border border-black px-4 py-2 font-mono text-xs">30000</td><td class="border border-black px-4 py-2">30 seconds</td></tr>
               <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">DEFAULT_LOCK_RETRY_ATTEMPTS</td><td class="border border-black px-4 py-2 font-mono text-xs">3</td><td class="border border-black px-4 py-2">Lock retry count</td></tr>
@@ -827,7 +827,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
       <section id="errors" class="mb-16">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERRORS</h2>
         <p class="mb-4 leading-relaxed">
-          All error types are imported from <code>@zudolib/errors</code>. The cache package provides factory functions for creating specific error instances.
+          All error types are imported from <code>@zudojs/errors</code>. The cache package provides factory functions for creating specific error instances.
         </p>
 
         <div class="code-block mb-4">
@@ -840,7 +840,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
   <span class="fn">cacheDeserializationError</span>,
   <span class="fn">cacheInvalidKeyError</span>,
   <span class="fn">cacheAdapterNotConfiguredError</span>
-} <span class="kw">from</span> <span class="str">"@zudolib/cache"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/cache"</span>;
         </div>
 
         <div class="overflow-x-auto mb-6">
@@ -997,40 +997,40 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
       <section id="connections" class="mb-16">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PACKAGE CONNECTIONS</h2>
         <p class="mb-4 leading-relaxed">
-          <code>@zudolib/cache</code> integrates with multiple Zudo packages:
+          <code>@zudojs/cache</code> integrates with multiple Zudo packages:
         </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
           <a href="../errors/" class="border-2 border-black p-4 hover:border-zudo-red hover:bg-red-50">
-            <p class="font-bold text-sm">@zudolib/errors</p>
+            <p class="font-bold text-sm">@zudojs/errors</p>
             <p class="text-xs text-gray-600">CacheError, error factories, error codes</p>
           </a>
           <a href="../types/" class="border-2 border-black p-4 hover:border-zudo-blue hover:bg-blue-50">
-            <p class="font-bold text-sm">@zudolib/types</p>
+            <p class="font-bold text-sm">@zudojs/types</p>
             <p class="text-xs text-gray-600">MaybePromise type guard</p>
           </a>
           <a href="../serialization/" class="border-2 border-black p-4 hover:border-zudo-green hover:bg-green-50">
-            <p class="font-bold text-sm">@zudolib/serialization</p>
+            <p class="font-bold text-sm">@zudojs/serialization</p>
             <p class="text-xs text-gray-600">JSONSerializer for type-preserving serialization</p>
           </a>
           <a href="../logger/" class="border-2 border-black p-4 hover:border-zudo-yellow hover:bg-yellow-50">
-            <p class="font-bold text-sm">@zudolib/logger</p>
+            <p class="font-bold text-sm">@zudojs/logger</p>
             <p class="text-xs text-gray-600">Cache event logging (when integrated)</p>
           </a>
           <a href="../middleware/" class="border-2 border-black p-4 hover:border-zudo-pink hover:bg-pink-50">
-            <p class="font-bold text-sm">@zudolib/middleware</p>
+            <p class="font-bold text-sm">@zudojs/middleware</p>
             <p class="text-xs text-gray-600">Middleware pipeline pattern (conceptual)</p>
           </a>
           <a href="../storage/" class="border-2 border-black p-4 hover:border-zudo-green hover:bg-green-50">
-            <p class="font-bold text-sm">@zudolib/storage</p>
+            <p class="font-bold text-sm">@zudojs/storage</p>
             <p class="text-xs text-gray-600">Storage abstractions (adapter pattern)</p>
           </a>
           <a href="../config/" class="border-2 border-black p-4 hover:border-zudo-blue hover:bg-blue-50">
-            <p class="font-bold text-sm">@zudolib/config</p>
+            <p class="font-bold text-sm">@zudojs/config</p>
             <p class="text-xs text-gray-600">Configuration source integration</p>
           </a>
           <a href="../lifecycle/" class="border-2 border-black p-4 hover:border-zudo-red hover:bg-red-50">
-            <p class="font-bold text-sm">@zudolib/lifecycle</p>
+            <p class="font-bold text-sm">@zudojs/lifecycle</p>
             <p class="text-xs text-gray-600">Connect/disconnect lifecycle hooks</p>
           </a>
         </div>
@@ -1063,11 +1063,11 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
           </div>
           <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
             <p class="font-bold text-sm mb-1">6. Event Bus Integration</p>
-            <p class="text-sm text-gray-600">Emit cache events through <code>@zudolib/events</code> EventBus for cross-service cache invalidation in distributed systems.</p>
+            <p class="text-sm text-gray-600">Emit cache events through <code>@zudojs/events</code> EventBus for cross-service cache invalidation in distributed systems.</p>
           </div>
           <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
             <p class="font-bold text-sm mb-1">7. Cache Prewarm Scheduler</p>
-            <p class="text-sm text-gray-600">Integrate with <code>@zudolib/scheduler</code> to automatically refresh expiring entries before they expire.</p>
+            <p class="text-sm text-gray-600">Integrate with <code>@zudojs/scheduler</code> to automatically refresh expiring entries before they expire.</p>
           </div>
           <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
             <p class="font-bold text-sm mb-1">8. Multi-Layer Cache</p>

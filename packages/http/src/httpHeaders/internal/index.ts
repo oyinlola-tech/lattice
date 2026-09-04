@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpHeaders/internal
+ * @zudojs/http/httpHeaders/internal
  *
  * HTTP headers internal utilities.
  */

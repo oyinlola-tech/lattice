@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Generators Index
+ * zudojs-cli — Generators Index
  */
 
 export { generateProject } from "./project/project.generator.js";

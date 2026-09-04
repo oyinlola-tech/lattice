@@ -1,17 +1,17 @@
-# @zudolib/testing
+# @zudojs/testing
 
-Test helpers, fixtures, mocks, and utilities for testing Zudolib applications.
+Test helpers, fixtures, mocks, and utilities for testing Zudojs applications.
 
 ## Installation
 
 ```bash
-npm install @zudolib/testing
+npm install @zudojs/testing
 ```
 
 ## Quick Start
 
 ```typescript
-import { createMockContainer, createTestLogger } from "@zudolib/testing";
+import { createMockContainer, createTestLogger } from "@zudojs/testing";
 
 const container = createMockContainer();
 container.register("database", mockDatabase);
@@ -29,7 +29,7 @@ const logger = createTestLogger();
 
 ## Use Cases
 
-- Unit testing Zudolib components
+- Unit testing Zudojs components
 - Integration testing
 - Mocking dependencies
 - Test fixtures

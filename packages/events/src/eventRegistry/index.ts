@@ -1,5 +1,5 @@
 /**
- * @zudolib/events/eventRegistry
+ * @zudojs/events/eventRegistry
  *
  * Event definition registration and lookup.
  */

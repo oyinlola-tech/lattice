@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — API Style Prompt
+ * zudojs-cli — API Style Prompt
  *
  * Prompts for API style selection.
  */

@@ -3,8 +3,8 @@
 ## Setup
 
 ```bash
-git clone https://github.com/zudolib-framework/zudolib.git
-cd zudolib
+git clone https://github.com/zudojs-framework/zudojs.git
+cd zudojs
 npm install
 ```
 

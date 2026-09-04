@@ -2,7 +2,7 @@ import type { JobResult } from "../jobResult/jobResult.type.js";
 
 import type { QueueMiddleware } from "./middleware.type.js";
 
-import { JobTimeoutError } from "@zudolib/errors";
+import { JobTimeoutError } from "@zudojs/errors";
 
 /**
  * Creates a middleware chain from an array of middleware.

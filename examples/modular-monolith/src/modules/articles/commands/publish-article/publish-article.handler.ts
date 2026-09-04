@@ -1,7 +1,7 @@
-import { CommandHandler } from "@zudolib/cqrs";
+import { CommandHandler } from "@zudojs/cqrs";
 import type { PublishArticleCommand } from "./publish-article.command.js";
 import type { ArticleRepository } from "../../../../repositories/article.repository.js";
-import type { EventBus } from "@zudolib/events";
+import type { EventBus } from "@zudojs/events";
 import { NotFoundError, ForbiddenError } from "../../../../errors/index.js";
 import { ArticleStatus } from "../../../../enums/index.js";
 import { ArticlePublishedEvent } from "../../../../events/index.js";

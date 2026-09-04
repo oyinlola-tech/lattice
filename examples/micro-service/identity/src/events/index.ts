@@ -1,4 +1,4 @@
-import { defineEvent } from "@zudolib/events";
+import { defineEvent } from "@zudojs/events";
 
 /**
  * Event emitted when a new user is created.

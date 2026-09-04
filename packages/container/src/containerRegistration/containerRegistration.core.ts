@@ -1,5 +1,5 @@
 /**
- * Dependency registration definitions for Zudolib.
+ * Dependency registration definitions for Zudojs.
  * A registration is the container's normalized description of a dependency.
  */
 

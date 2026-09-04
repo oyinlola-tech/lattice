@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpTrustProxy
+ * @zudojs/http/httpTrustProxy
  *
  * HTTP httpTrustProxy module.
  */

@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@zudolib/auth — JWT, Sessions, RBAC, Password Hashing | Zudo Framework</title>
-  <meta name="description" content="Complete reference for @zudolib/auth v1.0.0. JWT token management (access + refresh), password hashing (scrypt), session management, RBAC, OAuth2 strategies, and auth utilities for the Zudo TypeScript framework.">
-  <meta name="keywords" content="zudolib, auth, authentication, authorization, jwt, session, rbac, password, hashing, scrypt, oauth2, token, access token, refresh token, bearer, login, logout">
+  <title>@zudojs/auth — JWT, Sessions, RBAC, Password Hashing | Zudo Framework</title>
+  <meta name="description" content="Complete reference for @zudojs/auth v1.0.0. JWT token management (access + refresh), password hashing (scrypt), session management, RBAC, OAuth2 strategies, and auth utilities for the Zudo TypeScript framework.">
+  <meta name="keywords" content="zudojs, auth, authentication, authorization, jwt, session, rbac, password, hashing, scrypt, oauth2, token, access token, refresh token, bearer, login, logout">
   <meta name="author" content="Oyinlola Tech">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://zudo.dev/docs/packages/auth/">
 
-  <meta property="og:title" content="@zudolib/auth — JWT, Sessions, RBAC, Password Hashing | Zudo Framework">
-  <meta property="og:description" content="Complete reference for @zudolib/auth v1.0.0. JWT, sessions, RBAC, OAuth2, password hashing.">
+  <meta property="og:title" content="@zudojs/auth — JWT, Sessions, RBAC, Password Hashing | Zudo Framework">
+  <meta property="og:description" content="Complete reference for @zudojs/auth v1.0.0. JWT, sessions, RBAC, OAuth2, password hashing.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://zudo.dev/docs/packages/auth/">
   <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
@@ -23,8 +23,8 @@
   <meta property="article:tag" content="RBAC">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="@zudolib/auth — JWT, Sessions, RBAC, Password Hashing">
-  <meta name="twitter:description" content="Complete reference for @zudolib/auth v1.0.0. JWT, sessions, RBAC, OAuth2, password hashing.">
+  <meta name="twitter:title" content="@zudojs/auth — JWT, Sessions, RBAC, Password Hashing">
+  <meta name="twitter:description" content="Complete reference for @zudojs/auth v1.0.0. JWT, sessions, RBAC, OAuth2, password hashing.">
 
   <link rel="icon" type="image/svg+xml" href="../../../assets/zudo-favicon.svg">
 
@@ -48,8 +48,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "@zudolib/auth — JWT, Sessions, RBAC, Password Hashing",
-    "description": "Complete reference for @zudolib/auth v1.0.0. JWT token management, password hashing, session management, RBAC, and auth utilities.",
+    "headline": "@zudojs/auth — JWT, Sessions, RBAC, Password Hashing",
+    "description": "Complete reference for @zudojs/auth v1.0.0. JWT token management, password hashing, session management, RBAC, and auth utilities.",
     "version": "1.0.0",
     "programmingLanguage": "TypeScript",
     "runtimePlatform": "Node.js >= 24.0.0",
@@ -58,8 +58,8 @@
     "author": { "@type": "Organization", "name": "Oyinlola Tech" },
     "publisher": { "@type": "Organization", "name": "Zudo" },
     "datePublished": "2026-01-01",
-    "keywords": "zudolib, auth, authentication, jwt, session, rbac, password, hashing, oauth2",
-    "dependencies": ["@zudolib/errors", "@zudolib/constants", "@zudolib/permissions"]
+    "keywords": "zudojs, auth, authentication, jwt, session, rbac, password, hashing, oauth2",
+    "dependencies": ["@zudojs/errors", "@zudojs/constants", "@zudojs/permissions"]
   }
   </script>
   <script type="application/ld+json">
@@ -69,7 +69,7 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
       { "@type": "ListItem", "position": 2, "name": "Packages", "item": "https://zudo.dev/docs/packages/" },
-      { "@type": "ListItem", "position": 3, "name": "@zudolib/auth", "item": "https://zudo.dev/docs/packages/auth/" }
+      { "@type": "ListItem", "position": 3, "name": "@zudojs/auth", "item": "https://zudo.dev/docs/packages/auth/" }
     ]
   }
   </script>
@@ -122,11 +122,11 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../packages/" class="sidebar-item">Overview</a>
-      <a href="../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../../packages/auth/" class="sidebar-item sidebar-item-active">@zudolib/auth</a>
-      <a href="../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../../packages/auth/" class="sidebar-item sidebar-item-active">@zudojs/auth</a>
+      <a href="../../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -143,13 +143,13 @@
         <span class="mx-2 text-black/30">/</span>
         <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
         <span class="mx-2 text-black/30">/</span>
-        <span class="text-black/50">@zudolib/auth</span>
+        <span class="text-black/50">@zudojs/auth</span>
       </div>
 
       <!-- Header -->
       <div class="border-4 border-black p-8 mb-10 relative">
         <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v1.0.0</div>
-        <h1 class="text-4xl font-black mb-3 mt-2">@zudolib/auth</h1>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/auth</h1>
         <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
           Authentication and authorization services — JWT tokens (access + refresh), password hashing (scrypt), session management, RBAC, OAuth2 strategies, and auth utilities.
         </p>
@@ -170,14 +170,14 @@
             <span class="mx-2 text-black/30">/</span>
             <a href="../../../docs/packages/" class="hover:text-zudo-blue">Packages</a>
             <span class="mx-2 text-black/30">/</span>
-            <span class="text-black/70">@zudolib/auth</span>
+            <span class="text-black/70">@zudojs/auth</span>
           </nav>
 
           <!-- OVERVIEW -->
           <section aria-labelledby="overview">
             <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="overview">Overview</h2>
             <p class="text-body text-black/80 mb-4">
-              <span class="code-inline">@zudolib/auth</span> provides the full authentication and authorization stack for Zudo applications. It coordinates JWT token management, password hashing, session lifecycle, and permission checks into a single <span class="code-inline">AuthService</span>.
+              <span class="code-inline">@zudojs/auth</span> provides the full authentication and authorization stack for Zudo applications. It coordinates JWT token management, password hashing, session lifecycle, and permission checks into a single <span class="code-inline">AuthService</span>.
             </p>
             <p class="text-body text-black/80 mb-4">
               The package uses <strong>zero external dependencies</strong> for crypto — pure Node.js <span class="code-inline">crypto</span> module with HMAC SHA-256 for JWT signing and scrypt for password hashing.
@@ -185,7 +185,7 @@
 
             <div class="callout callout-note mb-6">
               <strong class="text-sm uppercase tracking-wider text-zudo-blue">Architecture Position</strong>
-              <p class="text-sm mt-1">Sits in <strong>Layer 3 (Application)</strong>. Delegates RBAC to <span class="code-inline">@zudolib/permissions</span>. Uses <span class="code-inline">@zudolib/errors</span> for error hierarchy and <span class="code-inline">@zudolib/constants</brary></span> for branded types.</p>
+              <p class="text-sm mt-1">Sits in <strong>Layer 3 (Application)</strong>. Delegates RBAC to <span class="code-inline">@zudojs/permissions</span>. Uses <span class="code-inline">@zudojs/errors</span> for error hierarchy and <span class="code-inline">@zudojs/constants</brary></span> for branded types.</p>
             </div>
           </section>
 
@@ -193,20 +193,20 @@
           <section class="mt-12" aria-labelledby="installation">
             <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="installation">Installation</h2>
             <div class="code-block p-4 mb-4"><span class="cmt"># Install with npm</span>
-npm install @zudolib/auth
+npm install @zudojs/auth
 
 <span class="cmt"># Or with pnpm</span>
-pnpm add @zudolib/auth</div>
+pnpm add @zudojs/auth</div>
             <div class="callout callout-tip mb-6">
               <strong class="text-sm uppercase tracking-wider text-zudo-green">Peer dependencies</strong>
-              <p class="text-sm mt-1"><span class="code-inline">@zudolib/errors</span>, <span class="code-inline">@zudolib/constants</span>, and <span class="code-inline">@zudolib/permissions</span> are required.</p>
+              <p class="text-sm mt-1"><span class="code-inline">@zudojs/errors</span>, <span class="code-inline">@zudojs/constants</span>, and <span class="code-inline">@zudojs/permissions</span> are required.</p>
             </div>
           </section>
 
           <!-- QUICK START -->
           <section class="mt-12" aria-labelledby="quick-start">
             <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="quick-start">Quick Start</h2>
-            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="fn">createAuthService</span> } <span class="kw">from</span> <span class="str">"@zudolib/auth"</span>;
+            <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="fn">createAuthService</span> } <span class="kw">from</span> <span class="str">"@zudojs/auth"</span>;
 
 <span class="kw">const</span> auth = <span class="fn">createAuthService</span>({
   <span class="op">token:</span> {
@@ -259,7 +259,7 @@ pnpm add @zudolib/auth</div>
               </div>
               <div class="border-2 border-black p-4">
                 <div class="tag tag-black mb-2">RBAC</div>
-                <p class="text-sm text-black/70">Permission strings, roles, guard context, delegation to @zudolib/permissions engine.</p>
+                <p class="text-sm text-black/70">Permission strings, roles, guard context, delegation to @zudojs/permissions engine.</p>
               </div>
               <div class="border-2 border-black p-4">
                 <div class="tag tag-red mb-2">Utilities</div>
@@ -392,7 +392,7 @@ pnpm add @zudolib/auth</div>
               <p class="text-body text-black/80 mb-4">
                 Convenience namespace that re-exports all JWT utilities in one object.
               </p>
-              <div class="code-block p-4"><span class="kw">import</span> { jwt } <span class="kw">from</span> <span class="str">"@zudolib/auth"</span>;
+              <div class="code-block p-4"><span class="kw">import</span> { jwt } <span class="kw">from</span> <span class="str">"@zudojs/auth"</span>;
 
 jwt.<span class="fn">createTokenPair</span>(userId, config);
 jwt.<span class="fn">verifyAccessToken</span>(token, config);
@@ -524,7 +524,7 @@ jwt.<span class="fn">extractUserId</span>(token);</div>
               </p>
               <div class="api-signature mb-4">
 <span class="sig-keyword">function</span> <span class="sig-func">createMemorySessionStore</span>(): <span class="sig-type">SessionStore</span></div>
-              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">createMemorySessionStore</span> } <span class="kw">from</span> <span class="str">"@zudolib/auth"</span>;
+              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">createMemorySessionStore</span> } <span class="kw">from</span> <span class="str">"@zudojs/auth"</span>;
 
 <span class="kw">const</span> store = <span class="fn">createMemorySessionStore</span>();
 
@@ -574,7 +574,7 @@ jwt.<span class="fn">extractUserId</span>(token);</div>
                   <tr><td><span class="code-inline">findUser</span></td><td><span class="code-inline">(id: string) => Promise&lt;AuthUser | null&gt;</span></td><td>Yes</td><td>User lookup by identifier.</td></tr>
                   <tr><td><span class="code-inline">verifyPassword</span></td><td><span class="code-inline">(userId, password) => Promise&lt;boolean&gt;</span></td><td>Yes</td><td>Password verification delegate.</td></tr>
                   <tr><td><span class="code-inline">sessionTtlSeconds</span></td><td><span class="code-inline">number</span></td><td>Yes</td><td>Session TTL in seconds.</td></tr>
-                  <tr><td><span class="code-inline">permissions</span></td><td><span class="code-inline">PermissionEngine</span></td><td>No</td><td>Optional RBAC engine from @zudolib/permissions.</td></tr>
+                  <tr><td><span class="code-inline">permissions</span></td><td><span class="code-inline">PermissionEngine</span></td><td>No</td><td>Optional RBAC engine from @zudojs/permissions.</td></tr>
                 </tbody>
               </table>
 
@@ -611,7 +611,7 @@ jwt.<span class="fn">extractUserId</span>(token);</div>
   <span class="fn">createMemorySessionStore</span>,
   <span class="fn">hashPassword</span>,
   <span class="fn">verifyPassword</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/auth"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/auth"</span>;
 
 <span class="cmt">// 1. Configure</span>
 <span class="kw">const</span> auth = <span class="fn">createAuthService</span>({
@@ -782,7 +782,7 @@ res.<span class="fn">json</span>({ <span class="op">accessToken:</span> tokens.a
   <span class="fn">isTokenExpired</span>,
   <span class="fn">extractUserId</span>,
   <span class="fn">generateCsrfToken</span>,
-} <span class="kw">from</span> <span class="str">"@zudolib/auth"</span>;
+} <span class="kw">from</span> <span class="str">"@zudojs/auth"</span>;
 
 <span class="cmt">// Parse Bearer token</span>
 <span class="kw">const</span> token = <span class="fn">parseBearerToken</span>(req.headers.authorization);
@@ -808,7 +808,7 @@ res.<span class="fn">json</span>({ <span class="op">accessToken:</span> tokens.a
           <section class="mt-12" aria-labelledby="errors-section">
             <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="errors-section">Error Hierarchy</h2>
             <p class="text-body text-black/80 mb-4">
-              All errors extend <span class="code-inline">AuthError</span> which extends <span class="code-inline">BaseError</span> from <span class="code-inline">@zudolib/errors</span>.
+              All errors extend <span class="code-inline">AuthError</span> which extends <span class="code-inline">BaseError</span> from <span class="code-inline">@zudojs/errors</span>.
             </p>
 
             <table class="doc-table mb-6">
@@ -881,7 +881,7 @@ res.<span class="fn">json</span>({ <span class="op">accessToken:</span> tokens.a
 
             <article class="mb-12" id="use-case-http-api">
               <h3 class="text-h3 mb-3">HTTP API Authentication</h3>
-              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">parseBearerToken</span>, <span class="tp">InvalidCredentialsError</span>, <span class="tp">TokenExpiredError</span> } <span class="kw">from</span> <span class="str">"@zudolib/auth"</span>;
+              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">parseBearerToken</span>, <span class="tp">InvalidCredentialsError</span>, <span class="tp">TokenExpiredError</span> } <span class="kw">from</span> <span class="str">"@zudojs/auth"</span>;
 
 <span class="cmt">// Auth middleware</span>
 app.<span class="fn">use</span>(<span class="kw">async</span> (<span class="op">req, res, next</span>) => {
@@ -956,7 +956,7 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
 
             <article class="mb-12" id="use-case-secure-password">
               <h3 class="text-h3 mb-3">Secure Password Storage</h3>
-              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">hashPassword</span>, <span class="fn">verifyPassword</span>, <span class="fn">needsRehash</span> } <span class="kw">from</span> <span class="str">"@zudolib/auth"</span>;
+              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">hashPassword</span>, <span class="fn">verifyPassword</span>, <span class="fn">needsRehash</span> } <span class="kw">from</span> <span class="str">"@zudojs/auth"</span>;
 
 <span class="cmt">// Registration</span>
 <span class="kw">const</span> hash = <span class="kw">await</span> <span class="fn">hashPassword</span>(plainPassword);
@@ -976,7 +976,7 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
 
             <article class="mb-12" id="use-case-password-reset">
               <h3 class="text-h3 mb-3">Password Reset Token</h3>
-              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">generateRandomToken</span> } <span class="kw">from</span> <span class="str">"@zudolib/auth"</span>;
+              <div class="code-block p-4"><span class="kw">import</span> { <span class="fn">generateRandomToken</span> } <span class="kw">from</span> <span class="str">"@zudojs/auth"</span>;
 
 <span class="cmt">// Generate reset token</span>
 <span class="kw">const</span> token = <span class="fn">generateRandomToken</span>(<span class="num">32</span>);
@@ -1009,14 +1009,14 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
             <table class="doc-table mb-6">
               <thead><tr><th>Package</th><th>Relationship</th><th>Usage</th></tr></thead>
               <tbody>
-                <tr><td><span class="code-inline">@zudolib/errors</span></td><td>Dependency</td><td>Base error classes, error codes, severity levels.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/constants</span></td><td>Dependency</td><td>Branded types: <span class="code-inline">UserId</span>, <span class="code-inline">SessionId</span>, <span class="code-inline">TokenId</span>, <span class="code-inline">TimeMs</span>.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/permissions</span></td><td>Dependency</td><td><span class="code-inline">PermissionEngine</span> for RBAC/ABAC checks.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/api</span></td><td>Consumer</td><td>Auth interceptors use auth primitives for request authentication.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/http</span></td><td>Consumer</td><td>HTTP middleware uses auth for route protection.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/security</span></td><td>Complementary</td><td>CSRF, rate limiting, input validation complement auth.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/sessions</span></td><td>Complementary</td><td>Session store interface can be backed by cache/storage.</td></tr>
-                <tr><td><span class="code-inline">@zudolib/tenancy</span></td><td>Complementary</td><td>Tenant context flows with auth context for multi-tenant isolation.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/errors</span></td><td>Dependency</td><td>Base error classes, error codes, severity levels.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/constants</span></td><td>Dependency</td><td>Branded types: <span class="code-inline">UserId</span>, <span class="code-inline">SessionId</span>, <span class="code-inline">TokenId</span>, <span class="code-inline">TimeMs</span>.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/permissions</span></td><td>Dependency</td><td><span class="code-inline">PermissionEngine</span> for RBAC/ABAC checks.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/api</span></td><td>Consumer</td><td>Auth interceptors use auth primitives for request authentication.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/http</span></td><td>Consumer</td><td>HTTP middleware uses auth for route protection.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/security</span></td><td>Complementary</td><td>CSRF, rate limiting, input validation complement auth.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/sessions</span></td><td>Complementary</td><td>Session store interface can be backed by cache/storage.</td></tr>
+                <tr><td><span class="code-inline">@zudojs/tenancy</span></td><td>Complementary</td><td>Tenant context flows with auth context for multi-tenant isolation.</td></tr>
               </tbody>
             </table>
           </section>
@@ -1027,9 +1027,9 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
             <table class="doc-table mb-6">
               <thead><tr><th>Package</th><th>Required Version</th></tr></thead>
               <tbody>
-                <tr><td><span class="code-inline">@zudolib/errors</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
-                <tr><td><span class="code-inline">@zudolib/constants</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
-                <tr><td><span class="code-inline">@zudolib/permissions</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
+                <tr><td><span class="code-inline">@zudojs/errors</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
+                <tr><td><span class="code-inline">@zudojs/constants</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
+                <tr><td><span class="code-inline">@zudojs/permissions</span></td><td><span class="code-inline">^1.0.0</span></td></tr>
                 <tr><td><span class="code-inline">typescript</span></td><td><span class="code-inline">^7.0.2</span></td></tr>
                 <tr><td><span class="code-inline">node</span></td><td><span class="code-inline">&gt;= 24.0.0</span></td></tr>
               </tbody>
@@ -1066,7 +1066,7 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
               </div>
               <div class="callout callout-tip">
                 <strong class="text-sm uppercase tracking-wider text-zudo-green">Rate Limiting Integration</strong>
-                <p class="text-sm mt-1">Integrate with <span class="code-inline">@zudolib/security</span> rate limiter to automatically apply per-IP and per-user rate limits to login endpoints.</p>
+                <p class="text-sm mt-1">Integrate with <span class="code-inline">@zudojs/security</span> rate limiter to automatically apply per-IP and per-user rate limits to login endpoints.</p>
               </div>
               <div class="callout callout-tip">
                 <strong class="text-sm uppercase tracking-wider text-zudo-green">Redis Session Store</strong>
@@ -1081,11 +1081,11 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <a href="../api/" class="block border-4 border-black p-6 hover:border-zudo-blue hover:bg-blue-50">
                 <span class="text-label text-zudo-blue">Previous</span>
-                <div class="text-h3 mt-1">@zudolib/api</div>
+                <div class="text-h3 mt-1">@zudojs/api</div>
               </a>
               <a href="../cache/" class="block border-4 border-black p-6 hover:border-zudo-red hover:bg-red-50 text-right">
                 <span class="text-label text-zudo-red">Next</span>
-                <div class="text-h3 mt-1">@zudolib/cache</div>
+                <div class="text-h3 mt-1">@zudojs/cache</div>
               </a>
             </div>
           </section>

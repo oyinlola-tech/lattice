@@ -1,8 +1,8 @@
 {
-  "name": "zudolib",
+  "name": "zudojs",
   "version": "0.1.0",
   "private": true,
-  "description": "Zudolib framework monorepo.",
+  "description": "Zudojs framework monorepo.",
   "type": "module",
   "workspaces": [
     "packages/*",
@@ -13,8 +13,8 @@
     "build": "pnpm -r run build",
     "typecheck": "pnpm -r run typecheck",
     "clean": "pnpm -r run clean",
-    "build:core": "pnpm --filter @zudolib/core run build",
-    "typecheck:core": "pnpm --filter @zudolib/core run typecheck",
+    "build:core": "pnpm --filter @zudojs/core run build",
+    "typecheck:core": "pnpm --filter @zudojs/core run typecheck",
     "architect:check": "node scripts/architect-check.js",
     "version-packages": "changeset version",
     "release": "changeset publish",

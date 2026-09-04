@@ -1,5 +1,5 @@
 /**
- * Event registry store for Zudolib.
+ * Event registry store for Zudojs.
  *
  * The registry owns event definitions and registered handlers.
  * It does not perform event dispatching. Dispatching belongs to

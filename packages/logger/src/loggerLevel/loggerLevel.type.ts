@@ -1,5 +1,5 @@
 /**
- * Log levels used throughout Zudolib.
+ * Log levels used throughout Zudojs.
  *
  * Lower numeric values represent more severe messages.
  * Higher numeric values represent more verbose messages.

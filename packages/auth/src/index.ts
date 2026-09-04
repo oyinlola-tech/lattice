@@ -1,12 +1,12 @@
 /**
- * @zudolib/auth
+ * @zudojs/auth
  *
- * Authentication and authorization services for the Zudolib framework.
+ * Authentication and authorization services for the Zudojs framework.
  *
  * Provides JWT token management (access + refresh), password hashing (scrypt),
  * session management, RBAC (role-based access control), and auth utilities.
  *
- * @module @zudolib/auth
+ * @module @zudojs/auth
  */
 
 export * from "./authTypes/index.js";

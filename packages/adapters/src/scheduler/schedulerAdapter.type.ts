@@ -1,7 +1,7 @@
 /**
- * @zudolib/adapters/scheduler
+ * @zudojs/adapters/scheduler
  *
- * Scheduler adapter contracts — bridges Zudolib to scheduling providers.
+ * Scheduler adapter contracts — bridges Zudojs to scheduling providers.
  */
 
 import type {

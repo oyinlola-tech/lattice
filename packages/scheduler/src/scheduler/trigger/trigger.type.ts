@@ -1,5 +1,5 @@
 /**
- * @zudolib/scheduler/trigger
+ * @zudojs/scheduler/trigger
  *
  * Trigger types for the scheduler package.
  */

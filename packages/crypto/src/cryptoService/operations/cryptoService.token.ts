@@ -13,7 +13,7 @@ import {
   verifyTokenHash,
 } from "../../cryptoToken/cryptoToken.hash.js";
 
-import { createCryptoError, cryptoHashError } from "@zudolib/errors";
+import { createCryptoError, cryptoHashError } from "@zudojs/errors";
 
 export type { TokenOptions, TokenEncoding };
 

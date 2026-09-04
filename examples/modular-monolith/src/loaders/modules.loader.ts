@@ -1,6 +1,6 @@
-import type { Logger } from "@zudolib/logger";
-import type { EventBus } from "@zudolib/events";
-import type { CommandBus, QueryBus } from "@zudolib/cqrs";
+import type { Logger } from "@zudojs/logger";
+import type { EventBus } from "@zudojs/events";
+import type { CommandBus, QueryBus } from "@zudojs/cqrs";
 import type {
   UserRepository,
   ArticleRepository,

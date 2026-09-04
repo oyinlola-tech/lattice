@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/structures/map-set
+ * @zudojs/schema/structures/map-set
  *
  * Map and Set schemas.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudolib/constants";
+import { SchemaIssueCode } from "@zudojs/constants";
 
 /**
  * Schema for Map objects.

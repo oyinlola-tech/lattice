@@ -249,7 +249,7 @@
               <p class="text-sm leading-relaxed mb-3">Application configuration module. Exports typed config objects used throughout the app.</p>
               <div class="code-block text-xs">
 <span class="cm">// src/config/index.ts</span>
-<span class="kw">import</span> { <span class="fn">defineConfig</span> } <span class="kw">from</span> <span class="str">"@zudolib/config"</span>;
+<span class="kw">import</span> { <span class="fn">defineConfig</span> } <span class="kw">from</span> <span class="str">"@zudojs/config"</span>;
 
 <span class="kw">export const</span> appConfig = <span class="fn">defineConfig</span>({
   <span class="fn">app</span>: { <span class="fn">name</span>: <span class="str">"my-app"</span> },
@@ -281,10 +281,10 @@
               <span class="font-black text-sm">src/errors/</span>
             </div>
             <div class="p-5">
-              <p class="text-sm leading-relaxed mb-3">Custom error classes that extend <code class="code-inline">BaseError</code> from <code class="code-inline">@zudolib/errors</code>.</p>
+              <p class="text-sm leading-relaxed mb-3">Custom error classes that extend <code class="code-inline">BaseError</code> from <code class="code-inline">@zudojs/errors</code>.</p>
               <div class="code-block text-xs">
 <span class="cm">// src/errors/index.ts</span>
-<span class="kw">import</span> { <span class="tp">BaseError</span>, <span class="tp">ErrorCode</span> } <span class="kw">from</span> <span class="str">"@zudolib/errors"</span>;
+<span class="kw">import</span> { <span class="tp">BaseError</span>, <span class="tp">ErrorCode</span> } <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
 
 <span class="kw">export class</span> <span class="tp">UserNotFoundError</span> <span class="kw">extends</span> <span class="tp">BaseError</span> {
   <span class="kw">readonly</span> <span class="fn">code</span> = <span class="tp">ErrorCode</span>.<span class="tp">NOT_FOUND</span>;
@@ -425,7 +425,7 @@
 
         <div class="callout callout-note mb-6">
           <p class="text-sm font-bold mb-1">WORKSPACE ROOT</p>
-          <p class="text-sm">The root <code class="code-inline">package.json</code> uses <code class="code-inline">"workspaces": ["packages/*"]</code> to manage all @zudolib packages from a single repository.</p>
+          <p class="text-sm">The root <code class="code-inline">package.json</code> uses <code class="code-inline">"workspaces": ["packages/*"]</code> to manage all @zudojs packages from a single repository.</p>
         </div>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Dependency Flow</h3>
@@ -456,7 +456,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td class="border border-black px-4 py-2 font-bold text-xs">Package name</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudolib/name</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudolib/errors</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-bold text-xs">Package name</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/name</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/errors</td></tr>
               <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-bold text-xs">Folder name</td><td class="border border-black px-4 py-2 font-mono text-xs">kebab-case</td><td class="border border-black px-4 py-2 font-mono text-xs">feature-flags/</td></tr>
               <tr><td class="border border-black px-4 py-2 font-bold text-xs">Source files</td><td class="border border-black px-4 py-2 font-mono text-xs">dot notation</td><td class="border border-black px-4 py-2 font-mono text-xs">eventBus.factory.ts</td></tr>
               <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-bold text-xs">Test files</td><td class="border border-black px-4 py-2 font-mono text-xs">*.test.ts</td><td class="border border-black px-4 py-2 font-mono text-xs">eventBus.test.ts</td></tr>
@@ -480,7 +480,7 @@
               <li>• Use <code class="code-inline">index.ts</code> barrels in every folder</li>
               <li>• Keep files under 150 lines</li>
               <li>• Keep folders under 5 files</li>
-              <li>• Import from <code class="code-inline">@zudolib/*</code> packages</li>
+              <li>• Import from <code class="code-inline">@zudojs/*</code> packages</li>
               <li>• Use <code class="code-inline">import type</code> for type-only imports</li>
               <li>• Add <code class="code-inline">.js</code> extensions on relative imports</li>
               <li>• Use named exports only</li>
@@ -492,8 +492,8 @@
             <h4 class="font-bold text-sm mb-2 text-zudo-red">DON'T</h4>
             <ul class="text-sm space-y-1 text-gray-600">
               <li>• Use default exports</li>
-              <li>• Use <code class="code-inline">console.log</code> (use <code class="code-inline">@zudolib/logger</code>)</li>
-              <li>• Create local error classes (use <code class="code-inline">@zudolib/errors</code>)</li>
+              <li>• Use <code class="code-inline">console.log</code> (use <code class="code-inline">@zudojs/logger</code>)</li>
+              <li>• Create local error classes (use <code class="code-inline">@zudojs/errors</code>)</li>
               <li>• Duplicate types from shared packages</li>
               <li>• Bypass the DI container</li>
               <li>• Hardcode configuration values</li>

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Zudolib CLI entry point.
+ * Zudojs CLI entry point.
  *
- * @module bin/zudolib
+ * @module bin/zudojs
  */
 
 import { createCLI } from "../cliApplication/index.js";
@@ -19,15 +19,15 @@ import { runDoctorCommand } from "../commands/doctor.command.js";
 import { runInfoCommand } from "../commands/info.command.js";
 
 const app = createCLI({
-  name: "Zudolib",
+  name: "Zudojs",
   version: "0.1.0",
-  description: "Command-line interface for the Zudolib framework.",
+  description: "Command-line interface for the Zudojs framework.",
 });
 
 app.register(
   createCommand({
     name: "create",
-    description: "Create a new Zudolib project",
+    description: "Create a new Zudojs project",
     arguments: [
       {
         name: "project-name",
@@ -83,9 +83,9 @@ app.register(
         name: "frontend-architecture",
         short: "fa",
         description:
-          "Frontend architecture (zudolib-standard, feature-based, minimal, framework-default)",
+          "Frontend architecture (zudojs-standard, feature-based, minimal, framework-default)",
         type: "string",
-        defaultValue: "zudolib-standard",
+        defaultValue: "zudojs-standard",
       },
       {
         name: "language",
@@ -154,7 +154,7 @@ app.register(
 app.register(
   createCommand({
     name: "generate",
-    description: "Generate files within a Zudolib project",
+    description: "Generate files within a Zudojs project",
     aliases: ["g"],
     arguments: [
       {
@@ -198,7 +198,7 @@ app.register(
 app.register(
   createCommand({
     name: "add",
-    description: "Add a feature package to a Zudolib project",
+    description: "Add a feature package to a Zudojs project",
     arguments: [
       {
         name: "feature",
@@ -230,7 +230,7 @@ app.register(
 app.register(
   createCommand({
     name: "doctor",
-    description: "Run diagnostics on a Zudolib project",
+    description: "Run diagnostics on a Zudojs project",
     execute: async (context: CLIContext): Promise<void> => {
       await runDoctorCommand(context);
     },
@@ -240,7 +240,7 @@ app.register(
 app.register(
   createCommand({
     name: "build",
-    description: "Build a Zudolib project",
+    description: "Build a Zudojs project",
     aliases: ["b"],
     execute: async (context: CLIContext): Promise<void> => {
       await runBuildCommand(context);
@@ -251,7 +251,7 @@ app.register(
 app.register(
   createCommand({
     name: "info",
-    description: "Show information about the Zudolib CLI and project",
+    description: "Show information about the Zudojs CLI and project",
     execute: async (context: CLIContext): Promise<void> => {
       await runInfoCommand(context);
     },

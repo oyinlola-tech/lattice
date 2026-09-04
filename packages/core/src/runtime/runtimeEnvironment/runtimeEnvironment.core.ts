@@ -14,7 +14,7 @@ import {
   detectContainer,
 } from "./detection/index.js";
 
-import { RuntimeError, type RuntimeErrorOptions } from "@zudolib/errors";
+import { RuntimeError, type RuntimeErrorOptions } from "@zudojs/errors";
 
 /**
  * Environment error codes.

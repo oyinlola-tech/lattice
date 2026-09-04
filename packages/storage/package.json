@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/storage",
+  "name": "@zudojs/storage",
   "version": "1.0.0",
   "description": "Storage abstractions including database, object storage, repository, serialization, locking, and lifecycle.",
   "license": "MIT",
@@ -24,10 +24,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*",
-    "@zudolib/types": "workspace:*",
-    "@zudolib/serialization": "workspace:*"
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/constants": "workspace:*",
+    "@zudojs/types": "workspace:*",
+    "@zudojs/serialization": "workspace:*"
   },
   "devDependencies": {
     "typescript": "7.0.2",
@@ -41,7 +41,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "storage",
     "database",
     "files",

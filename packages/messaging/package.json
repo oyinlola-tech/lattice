@@ -1,5 +1,5 @@
 {
-  "name": "@zudolib/messaging",
+  "name": "@zudojs/messaging",
   "version": "1.0.0",
   "description": "In-process message bus infrastructure with handlers, middleware, and publish/subscribe patterns.",
   "type": "module",
@@ -23,8 +23,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
-    "@zudolib/constants": "workspace:*"
+    "@zudojs/errors": "workspace:*",
+    "@zudojs/constants": "workspace:*"
   },
   "engines": {
     "node": ">=24.0.0"
@@ -37,7 +37,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "messaging",
     "message-bus",
     "pubsub"

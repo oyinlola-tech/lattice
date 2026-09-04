@@ -1,5 +1,5 @@
 /**
- * @zudolib/cli — Postinstall Version Check
+ * @zudojs/cli — Postinstall Version Check
  *
  * Runs after `npm install -g` to warn users if a newer version is available.
  */
@@ -43,13 +43,13 @@ async function checkLatestVersion(packageName) {
 
 async function main() {
   const installed = getInstalledVersion();
-  const latest = await checkLatestVersion("@zudolib/cli");
+  const latest = await checkLatestVersion("@zudojs/cli");
 
   if (latest && latest !== installed) {
     console.log(
-      `\n  zudolib ${installed} is installed, but version ${latest} is available.`,
+      `\n  zudojs ${installed} is installed, but version ${latest} is available.`,
     );
-    console.log(`   Run: npm install -g @zudolib/cli@latest\n`);
+    console.log(`   Run: npm install -g @zudojs/cli@latest\n`);
   }
 }
 

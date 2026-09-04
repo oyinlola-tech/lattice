@@ -58,7 +58,7 @@ export class NuxtAdapter implements FrontendAdapter {
     return deps;
   }
 
-  async applyZudolibStructure(
+  async applyZudojsStructure(
     context: FrontendGenerationContext,
   ): Promise<void> {
     const structure = this.getStructure(context);
@@ -114,7 +114,7 @@ export class NuxtAdapter implements FrontendAdapter {
 `,
       "app.vue": `<template>
   <div>
-    <h1>Hello from Zudolib</h1>
+    <h1>Hello from Zudojs</h1>
   </div>
 </template>
 `,

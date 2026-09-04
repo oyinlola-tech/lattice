@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Utils
+ * zudojs-cli — Utils
  *
  * Shared utility functions for the CLI scaffolding system.
  */

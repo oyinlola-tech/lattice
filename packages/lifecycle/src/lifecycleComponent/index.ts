@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/component
+ * @zudojs/lifecycle/component
  *
  * Lifecycle component interface and registration types.
  */

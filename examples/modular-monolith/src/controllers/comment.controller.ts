@@ -1,4 +1,4 @@
-import type { CommandBus, QueryBus } from "@zudolib/cqrs";
+import type { CommandBus, QueryBus } from "@zudojs/cqrs";
 import type { ArticleId, CommentId, UserId } from "../types/index.js";
 import { CreateCommentCommand } from "../modules/comments/commands/create-comment/create-comment.command.js";
 import { UpdateCommentCommand } from "../modules/comments/commands/update-comment/update-comment.command.js";

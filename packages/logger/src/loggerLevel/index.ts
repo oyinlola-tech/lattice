@@ -1,5 +1,5 @@
 /**
- * @zudolib/logger/loggerLevel
+ * @zudojs/logger/loggerLevel
  *
  * Log level definitions and filtering.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/observability — Histogram
+ * @zudojs/observability — Histogram
  *
  * Distribution of observed values for tracking latencies, sizes, etc.
  * Memory-bounded by keeping only summary statistics.

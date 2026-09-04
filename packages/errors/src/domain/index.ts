@@ -1,5 +1,5 @@
 /**
- * @zudolib/errors/domain
+ * @zudojs/errors/domain
  *
  * Domain-specific error types (validation, auth, not-found, etc.).
  */

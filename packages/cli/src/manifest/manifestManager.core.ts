@@ -1,13 +1,13 @@
 /**
- * zudolib-cli — Manifest System
+ * zudojs-cli — Manifest System
  *
- * Machine-managed project manifest for Zudolib projects.
+ * Machine-managed project manifest for Zudojs projects.
  */
 
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-export interface ZudolibManifest {
+export interface ZudojsManifest {
   readonly version: string;
   readonly architecture: string;
   readonly backend?: {
@@ -33,14 +33,14 @@ export class ManifestManager {
   private readonly manifestPath: string;
 
   constructor(cwd: string) {
-    this.manifestPath = join(cwd, ".zudolib", "manifest.json");
+    this.manifestPath = join(cwd, ".zudojs", "manifest.json");
   }
 
   async create(
-    manifest: Omit<ZudolibManifest, "generatedAt" | "updatedAt">,
+    manifest: Omit<ZudojsManifest, "generatedAt" | "updatedAt">,
   ): Promise<void> {
     const now = new Date().toISOString();
-    const fullManifest: ZudolibManifest = {
+    const fullManifest: ZudojsManifest = {
       ...manifest,
       generatedAt: now,
       updatedAt: now,
@@ -49,27 +49,27 @@ export class ManifestManager {
     await this.write(fullManifest);
   }
 
-  async read(): Promise<ZudolibManifest | null> {
+  async read(): Promise<ZudojsManifest | null> {
     if (!existsSync(this.manifestPath)) {
       return null;
     }
 
     try {
       const content = readFileSync(this.manifestPath, "utf-8");
-      return JSON.parse(content) as ZudolibManifest;
+      return JSON.parse(content) as ZudojsManifest;
     } catch {
       return null;
     }
   }
 
-  async update(updates: Partial<ZudolibManifest>): Promise<void> {
+  async update(updates: Partial<ZudojsManifest>): Promise<void> {
     const existing = await this.read();
 
     if (!existing) {
       return;
     }
 
-    const updated: ZudolibManifest = {
+    const updated: ZudojsManifest = {
       ...existing,
       ...updates,
       updatedAt: new Date().toISOString(),
@@ -92,7 +92,7 @@ export class ManifestManager {
     await this.update({ capabilities });
   }
 
-  private async write(manifest: ZudolibManifest): Promise<void> {
+  private async write(manifest: ZudojsManifest): Promise<void> {
     const dir = join(this.manifestPath, "..");
     const { mkdir } = await import("node:fs/promises");
     await mkdir(dir, { recursive: true });

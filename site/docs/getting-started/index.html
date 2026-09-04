@@ -224,7 +224,7 @@
           <p class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-2">npm</p>
           <div class="code-block mb-4">
 <span class="cm"># Install core packages</span>
-npm install @zudolib/core @zudolib/config @zudolib/logger
+npm install @zudojs/core @zudojs/config @zudojs/logger
 
 <span class="cm"># Or install the full framework</span>
 npm install zudo
@@ -235,7 +235,7 @@ npm install zudo
           <p class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-2">pnpm</p>
           <div class="code-block mb-4">
 <span class="cm"># Install core packages</span>
-pnpm add @zudolib/core @zudolib/config @zudolib/logger
+pnpm add @zudojs/core @zudojs/config @zudojs/logger
 
 <span class="cm"># Or install the full framework</span>
 pnpm add zudo
@@ -246,7 +246,7 @@ pnpm add zudo
           <p class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-2">yarn</p>
           <div class="code-block mb-4">
 <span class="cm"># Install core packages</span>
-yarn add @zudolib/core @zudolib/config @zudolib/logger
+yarn add @zudojs/core @zudojs/config @zudojs/logger
 
 <span class="cm"># Or install the full framework</span>
 yarn add zudo
@@ -256,9 +256,9 @@ yarn add zudo
         <div class="callout callout-note mb-6">
           <p class="text-sm font-bold mb-1">PACKAGES YOU'LL USE</p>
           <ul class="text-sm space-y-1">
-            <li>• <code>@zudolib/core</code> — Application lifecycle and runtime orchestration</li>
-            <li>• <code>@zudolib/config</code> — Layered configuration with multiple sources</li>
-            <li>• <code>@zudolib/logger</code> — Structured logging with transports</li>
+            <li>• <code>@zudojs/core</code> — Application lifecycle and runtime orchestration</li>
+            <li>• <code>@zudojs/config</code> — Layered configuration with multiple sources</li>
+            <li>• <code>@zudojs/logger</code> — Structured logging with transports</li>
           </ul>
         </div>
       </section>
@@ -283,7 +283,7 @@ mkdir my-zudo-app && cd my-zudo-app
 npm init -y
 
 <span class="cm"># Install Zudo packages</span>
-npm install @zudolib/core @zudolib/config @zudolib/logger @zudolib/errors
+npm install @zudojs/core @zudojs/config @zudojs/logger @zudojs/errors
 npm install -D typescript @types/node
             </div>
           </div>
@@ -298,7 +298,7 @@ npm install -D typescript @types/node
           <div class="p-5">
             <p class="text-sm text-gray-600 mb-3">Create <code class="code-inline">zudo.config.ts</code> at the project root:</p>
             <div class="code-block">
-<span class="kw">import</span> { <span class="fn">defineConfig</span> } <span class="kw">from</span> <span class="str">"@zudolib/config"</span>;
+<span class="kw">import</span> { <span class="fn">defineConfig</span> } <span class="kw">from</span> <span class="str">"@zudojs/config"</span>;
 
 <span class="kw">export default</span> <span class="fn">defineConfig</span>({
   <span class="fn">app</span>: {
@@ -326,8 +326,8 @@ npm install -D typescript @types/node
           <div class="p-5">
             <p class="text-sm text-gray-600 mb-3">Create <code class="code-inline">src/index.ts</code>:</p>
             <div class="code-block">
-<span class="kw">import</span> { <span class="fn">createContainer</span> } <span class="kw">from</span> <span class="str">"@zudolib/core"</span>;
-<span class="kw">import</span> { <span class="fn">createLogger</span> } <span class="kw">from</span> <span class="str">"@zudolib/logger"</span>;
+<span class="kw">import</span> { <span class="fn">createContainer</span> } <span class="kw">from</span> <span class="str">"@zudojs/core"</span>;
+<span class="kw">import</span> { <span class="fn">createLogger</span> } <span class="kw">from</span> <span class="str">"@zudojs/logger"</span>;
 
 <span class="kw">async function</span> <span class="fn">main</span>() {
   <span class="kw">const</span> logger = <span class="fn">createLogger</span>({ <span class="fn">level</span>: <span class="str">"info"</span> });
@@ -432,7 +432,7 @@ npx tsx src/index.ts
               </div>
               <span class="font-bold text-sm">Browse All 38 Packages</span>
             </div>
-            <p class="text-sm text-gray-600">Explore the full @zudolib package ecosystem — errors, types, crypto, HTTP, auth, and more.</p>
+            <p class="text-sm text-gray-600">Explore the full @zudojs package ecosystem — errors, types, crypto, HTTP, auth, and more.</p>
           </a>
         </div>
       </section>

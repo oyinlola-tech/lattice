@@ -1,5 +1,5 @@
 /**
- * @zudolib/lifecycle/context
+ * @zudojs/lifecycle/context
  *
  * Lifecycle context type and factory.
  */

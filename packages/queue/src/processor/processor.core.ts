@@ -4,7 +4,7 @@ import type {
   ProcessorRegistry,
 } from "./processor.type.js";
 
-import { JobError } from "@zudolib/errors";
+import { JobError } from "@zudojs/errors";
 
 /**
  * Creates a new ProcessorRegistry.

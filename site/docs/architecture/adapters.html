@@ -140,10 +140,10 @@
 
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../packages/" class="sidebar-item">Overview</a>
-      <a href="../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
-      <a href="../packages/errors/" class="sidebar-item">@zudolib/errors</a>
-      <a href="../packages/constants/" class="sidebar-item">@zudolib/constants</a>
-      <a href="../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../packages/adapters/" class="sidebar-item">@zudojs/adapters</a>
+      <a href="../packages/errors/" class="sidebar-item">@zudojs/errors</a>
+      <a href="../packages/constants/" class="sidebar-item">@zudojs/constants</a>
+      <a href="../packages/types/" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
       <a href="../roadmap.html" class="sidebar-item">Roadmap</a>
@@ -224,7 +224,7 @@
         </p>
 
         <div class="code-block mb-6">
-<span class="kw">import</span> { <span class="fn">createAdapterRegistry</span> } <span class="kw">from</span> <span class="str">"@zudolib/adapters"</span>;
+<span class="kw">import</span> { <span class="fn">createAdapterRegistry</span> } <span class="kw">from</span> <span class="str">"@zudojs/adapters"</span>;
 <span class="kw">import</span> { <span class="fn">ExpressHttpAdapter</span> } <span class="kw">from</span> <span class="str">"./adapters/express.js"</span>;
 <span class="kw">import</span> { <span class="fn">RedisCacheAdapter</span> } <span class="kw">from</span> <span class="str">"./adapters/redis.js"</span>;
 
@@ -323,7 +323,7 @@ registry.<span class="fn">register</span>(<span class="str">"cache"</span>, <spa
         </p>
 
         <div class="code-block mb-6">
-<span class="kw">import</span> { <span class="tp">Adapter</span>, <span class="tp">AdapterHealth</span>, <span class="tp">AdapterCapability</span> } <span class="kw">from</span> <span class="str">"@zudolib/adapters"</span>;
+<span class="kw">import</span> { <span class="tp">Adapter</span>, <span class="tp">AdapterHealth</span>, <span class="tp">AdapterCapability</span> } <span class="kw">from</span> <span class="str">"@zudojs/adapters"</span>;
 
 <span class="kw">class</span> <span class="tp">PostgresAdapter</span> <span class="kw">implements</span> <span class="tp">Adapter</span>&lt;<span class="tp">PostgresConfig</span>&gt; {
   <span class="kw">readonly</span> <span class="fn">name</span> = <span class="str">"postgres"</span>;

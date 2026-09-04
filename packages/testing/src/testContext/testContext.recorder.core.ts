@@ -1,5 +1,5 @@
 /**
- * @zudolib/testing — Test context recorder implementations.
+ * @zudojs/testing — Test context recorder implementations.
  *
  * Creates log, event, and message recorders for test contexts.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/primitives/literal
+ * @zudojs/schema/primitives/literal
  *
  * Literal schema for exact value matching.
  */
@@ -7,7 +7,7 @@
 import { Schema } from "../schemaBase/index.js";
 import type { SchemaParseContext } from "../schemaBase/index.js";
 import { addIssue } from "../schemaBase/index.js";
-import { SchemaIssueCode } from "@zudolib/constants";
+import { SchemaIssueCode } from "@zudojs/constants";
 
 /**
  * Schema for a specific literal value.

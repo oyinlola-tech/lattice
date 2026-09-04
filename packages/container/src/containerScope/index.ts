@@ -1,5 +1,5 @@
 /**
- * @zudolib/container/containerScope
+ * @zudojs/container/containerScope
  *
  * Scope management for dependency lifetimes.
  */

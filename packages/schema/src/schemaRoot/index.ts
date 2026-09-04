@@ -1,5 +1,5 @@
 /**
- * @zudolib/schema/root
+ * @zudojs/schema/root
  *
  * The schema namespace entry point.
  */

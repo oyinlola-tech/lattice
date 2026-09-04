@@ -1,4 +1,4 @@
-import { defineEvent } from "@zudolib/events";
+import { defineEvent } from "@zudojs/events";
 
 export interface UserCreatedPayload {
   readonly userId: string;

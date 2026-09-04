@@ -1,7 +1,7 @@
 {
-  "name": "@zudolib/database",
+  "name": "@zudojs/database",
   "version": "1.0.0",
-  "description": "Database abstraction layer with clients, repositories, transactions, and query building for Zudolib applications.",
+  "description": "Database abstraction layer with clients, repositories, transactions, and query building for Zudojs applications.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -39,7 +39,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@zudolib/errors": "workspace:*",
+    "@zudojs/errors": "workspace:*",
     "@prisma/client": "^7.10.0"
   },
   "devDependencies": {
@@ -52,7 +52,7 @@
     "access": "public"
   },
   "keywords": [
-    "zudolib",
+    "zudojs",
     "database",
     "repository",
     "query",

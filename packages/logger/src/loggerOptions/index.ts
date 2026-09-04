@@ -1,5 +1,5 @@
 /**
- * @zudolib/logger/loggerOptions
+ * @zudojs/logger/loggerOptions
  *
  * Logger configuration options and types.
  */

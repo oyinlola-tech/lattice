@@ -7,24 +7,24 @@
 
 ## Install a Package
 
-Install any Zudolib package from npm:
+Install any Zudojs package from npm:
 
 ```bash
-npm install @zudolib/core
-npm install @zudolib/http
-npm install @zudolib/events
+npm install @zudojs/core
+npm install @zudojs/http
+npm install @zudojs/events
 ```
 
 ## Install the CLI
 
 ```bash
-npm install -g zudolib-cli
+npm install -g zudojs-cli
 ```
 
 ## Verify Installation
 
 ```bash
-npx zudolib --version
+npx zudojs --version
 ```
 
 ## What's Next

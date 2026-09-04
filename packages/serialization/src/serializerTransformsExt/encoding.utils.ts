@@ -1,5 +1,5 @@
 /**
- * @zudolib/serialization — Encoding utilities.
+ * @zudojs/serialization — Encoding utilities.
  *
  * Base64 and UTF-8 encoding/decoding helpers.
  */

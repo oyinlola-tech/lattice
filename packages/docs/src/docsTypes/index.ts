@@ -1,5 +1,5 @@
 /**
- * @zudolib/docs/docsTypes
+ * @zudojs/docs/docsTypes
  *
  * Core type definitions for the documentation model.
  */

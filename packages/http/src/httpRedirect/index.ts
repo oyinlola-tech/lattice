@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpRedirect
+ * @zudojs/http/httpRedirect
  *
  * HTTP httpRedirect module.
  */

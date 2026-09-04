@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Query Builder
+ * @zudojs/database — Query Builder
  *
  * Database-neutral query construction and filter helpers.
  */

@@ -1,5 +1,5 @@
 /**
- * zudolib-cli — Generator Registry
+ * zudojs-cli — Generator Registry
  *
  * Registry for project generators with capability-based lookup.
  */

@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpHeaders/conversion
+ * @zudojs/http/httpHeaders/conversion
  *
  * HTTP headers conversion utilities.
  */

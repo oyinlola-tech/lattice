@@ -1,5 +1,5 @@
 /**
- * Sequential event handler dispatch for Zudolib.
+ * Sequential event handler dispatch for Zudojs.
  */
 
 import type { Event } from "../eventTypes/eventDefinition.type.js";

@@ -1,10 +1,10 @@
 /**
- * zudolib-cli — Manifest
+ * zudojs-cli — Manifest
  *
  * Manifest system barrel exports.
  */
 
 export {
   ManifestManager,
-  type ZudolibManifest,
+  type ZudojsManifest,
 } from "./manifestManager.core.js";

@@ -1,5 +1,5 @@
 /**
- * @zudolib/http/httpInterceptors
+ * @zudojs/http/httpInterceptors
  *
  * HTTP httpInterceptors module.
  */

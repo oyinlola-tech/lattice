@@ -1,4 +1,4 @@
-import { CommandHandler } from "@zudolib/cqrs";
+import { CommandHandler } from "@zudojs/cqrs";
 import type { MarkNotificationReadCommand } from "./mark-notification-read.command.js";
 import type { NotificationRepository } from "../../../../repositories/notification.repository.js";
 

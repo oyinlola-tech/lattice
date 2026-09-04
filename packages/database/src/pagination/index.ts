@@ -1,5 +1,5 @@
 /**
- * @zudolib/database — Pagination
+ * @zudojs/database — Pagination
  *
  * Offset and cursor pagination utilities.
  */

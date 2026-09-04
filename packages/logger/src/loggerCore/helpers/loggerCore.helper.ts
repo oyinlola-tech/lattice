@@ -67,7 +67,7 @@ export function withLoggerContext<T>(
 /**
  * Creates a default application logger.
  */
-export function createDefaultLogger(name = "zudolib"): Logger {
+export function createDefaultLogger(name = "zudojs"): Logger {
   return createLogger({
     name,
     level: 3,
