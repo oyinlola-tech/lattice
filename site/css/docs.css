@@ -1,0 +1,612 @@
+/* Zudo Documentation — Package Page Styles */
+/* Brutalist Design System */
+
+/* ==================== RESET ==================== */
+
+* {
+  border-radius: 0px !important;
+  transition: none !important;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================== TYPOGRAPHY ==================== */
+
+.text-hero {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.text-h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.text-h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.text-h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.text-body {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.text-small {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.text-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ==================== BORDERS ==================== */
+
+.border-brutalist {
+  border: 3px solid #000000;
+}
+
+.border-brutalist-white {
+  border: 3px solid #FFFFFF;
+}
+
+.border-brutalist-red {
+  border: 3px solid #FF0000;
+}
+
+.border-brutalist-blue {
+  border: 3px solid #0000FF;
+}
+
+.border-brutalist-yellow {
+  border: 3px solid #FFFF00;
+}
+
+.border-brutalist-green {
+  border: 3px solid #00FF00;
+}
+
+.border-brutalist-thin {
+  border: 1px solid #000000;
+}
+
+.border-brutalist-thick {
+  border: 4px solid #000000;
+}
+
+/* ==================== GRID LINES ==================== */
+
+.grid-lines {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.grid-lines-dark {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ==================== CODE BLOCKS ==================== */
+
+.code-block {
+  background: #1a1a1a;
+  color: #00FF00;
+  border: 2px solid #333333;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.code-block .kw { color: #FF00FF; }
+.code-block .str { color: #FFFF00; }
+.code-block .cmt { color: #666666; }
+.code-block .fn { color: #0000FF; }
+.code-block .tp { color: #00FFFF; }
+.code-block .num { color: #FF0000; }
+.code-block .op { color: #FFFFFF; }
+
+.code-inline {
+  background: #1a1a1a;
+  color: #00FF00;
+  border: 1px solid #333333;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+  padding: 2px 6px;
+}
+
+/* ==================== NAVIGATION ==================== */
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #FF0000;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link-active::after {
+  width: 100%;
+  background: #0000FF;
+}
+
+/* ==================== COMPONENTS ==================== */
+
+/* Buttons */
+.btn-primary {
+  background: #FF0000;
+  color: #000000;
+  border: 3px solid #000000;
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #e60000;
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.btn-primary:active {
+  transform: translate(-1px, -1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #0000FF;
+  border: 2px solid #0000FF;
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 0, 255, 0.08);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-ghost:hover {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+/* Focus States */
+*:focus-visible {
+  outline: 3px solid #0000FF;
+  outline-offset: 2px;
+}
+
+/* ==================== SIDEBAR ==================== */
+
+.sidebar {
+  width: 260px;
+  border-right: 3px solid #000000;
+  overflow-y: auto;
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+  background: #FFFFFF;
+}
+
+.sidebar-item {
+  padding: 8px 16px;
+  border-left: 3px solid transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: block;
+  color: #000000;
+  text-decoration: none;
+}
+
+.sidebar-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-left-color: #FF0000;
+}
+
+.sidebar-item-active {
+  background: rgba(0, 255, 0, 0.05);
+  border-left-color: #00FF00;
+  font-weight: 700;
+}
+
+.sidebar-section {
+  padding: 16px 16px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #FF0000;
+}
+
+/* ==================== TABLE OF CONTENTS ==================== */
+
+.toc {
+  width: 220px;
+  border-left: 2px solid #000000;
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  padding: 24px 16px;
+  background: #FFFFFF;
+}
+
+.toc-item {
+  padding: 4px 0;
+  font-size: 0.75rem;
+  color: #666666;
+  border-left: 2px solid transparent;
+  padding-left: 12px;
+  display: block;
+  text-decoration: none;
+}
+
+.toc-item:hover {
+  color: #0000FF;
+  border-left-color: #0000FF;
+}
+
+.toc-item-active {
+  color: #FF0000;
+  border-left-color: #FF0000;
+  font-weight: 700;
+}
+
+.toc-item[data-level="3"] {
+  padding-left: 24px;
+}
+
+/* ==================== CALLOUTS ==================== */
+
+.callout {
+  border-left: 4px solid;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.callout-note {
+  border-color: #0000FF;
+  background: rgba(0, 0, 255, 0.05);
+}
+
+.callout-warning {
+  border-color: #FFFF00;
+  background: rgba(255, 255, 0, 0.08);
+}
+
+.callout-danger {
+  border-color: #FF0000;
+  background: rgba(255, 0, 0, 0.05);
+}
+
+.callout-tip {
+  border-color: #00FF00;
+  background: rgba(0, 255, 0, 0.05);
+}
+
+/* ==================== TABLES ==================== */
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #000000;
+  font-size: 0.875rem;
+}
+
+.doc-table th {
+  background: #000000;
+  color: #FFFFFF;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.doc-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #000000;
+}
+
+.doc-table tr:last-child td {
+  border-bottom: none;
+}
+
+.doc-table tbody tr:hover {
+  background: rgba(0, 0, 255, 0.03);
+}
+
+/* ==================== SEARCH ==================== */
+
+.search-overlay {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(4px);
+}
+
+.search-input {
+  background: #1a1a1a;
+  border: 3px solid #FFFFFF;
+  color: #FFFFFF;
+  font-family: system-ui, monospace;
+  font-size: 1rem;
+  padding: 12px 16px;
+}
+
+.search-input:focus {
+  outline: 3px solid #0000FF;
+  outline-offset: 0;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.search-result {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.search-result:hover {
+  background: #1a1a1a;
+  border-color: #FF0000;
+}
+
+/* ==================== TAG / BADGE ==================== */
+
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 2px solid #000000;
+}
+
+.tag-red { background: #FF0000; color: #000000; }
+.tag-blue { background: #0000FF; color: #FFFFFF; }
+.tag-yellow { background: #FFFF00; color: #000000; }
+.tag-green { background: #00FF00; color: #000000; }
+.tag-black { background: #000000; color: #FFFFFF; }
+
+/* ==================== RESPONSE INDICATOR ==================== */
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 2px solid #000000;
+}
+
+.status-success { background: #00FF00; color: #000000; }
+.status-error { background: #FF0000; color: #000000; }
+.status-info { background: #0000FF; color: #FFFFFF; }
+
+/* ==================== LAYOUT ==================== */
+
+.content-area {
+  max-width: 72ch;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    top: 60px;
+    z-index: 40;
+    background: #FFFFFF;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .toc {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .toc {
+    display: none;
+  }
+
+  .sidebar {
+    width: 220px;
+  }
+}
+
+/* ==================== PRINT ==================== */
+
+@media print {
+  .sidebar, .toc, nav, .search-overlay {
+    display: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    color: #000000;
+    background: #FFFFFF;
+  }
+
+  .code-block {
+    border: 1px solid #CCCCCC;
+    background: #F5F5F5;
+    color: #000000;
+  }
+}
+
+/* ==================== API SPECIFIC ==================== */
+
+.api-method {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 2px solid #000000;
+  font-family: 'Courier New', monospace;
+}
+
+.api-method-get { background: #00FF00; color: #000000; }
+.api-method-post { background: #0000FF; color: #FFFFFF; }
+.api-method-define { background: #FF0000; color: #000000; }
+.api-method-class { background: #FFFF00; color: #000000; }
+
+.api-signature {
+  background: #0f0f0f;
+  border: 2px solid #333;
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.api-signature .sig-keyword { color: #FF00FF; }
+.api-signature .sig-type { color: #00FFFF; }
+.api-signature .sig-string { color: #FFFF00; }
+.api-signature .sig-comment { color: #666; }
+.api-signature .sig-func { color: #0000FF; }
+
+/* ==================== COPY BUTTON ==================== */
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.5);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  font-family: system-ui, monospace;
+}
+
+.copy-btn:hover {
+  background: rgba(0, 255, 0, 0.8);
+  color: #000000;
+  border-color: #00FF00;
+}
+
+/* ==================== VERSION BANNER ==================== */
+
+.version-banner {
+  background: #FFFF00;
+  color: #000000;
+  border: 2px solid #000000;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* ==================== DEPENDENCY CHAIN ==================== */
+
+.dep-chain {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.dep-chain .dep-node {
+  padding: 4px 10px;
+  border: 2px solid #000000;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+}
+
+.dep-chain .dep-arrow {
+  color: #FF0000;
+  font-weight: 900;
+}
+
+.dep-node-active {
+  background: #FF0000;
+  color: #000000;
+}
+
+.dep-node-dep {
+  background: #FFFFFF;
+  color: #000000;
+}
+
+/* ==================== ANCHOR LINK ==================== */
+
+.anchor-link {
+  opacity: 0;
+  margin-left: 8px;
+  color: #0000FF;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+h2:hover .anchor-link,
+h3:hover .anchor-link {
+  opacity: 1;
+}
+
+.anchor-link:hover {
+  color: #FF0000;
+}
