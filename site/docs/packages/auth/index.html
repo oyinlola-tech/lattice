@@ -123,6 +123,7 @@
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../packages/" class="sidebar-item">Overview</a>
       <a href="../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
+      <a href="../../packages/auth/" class="sidebar-item sidebar-item-active">@zudolib/auth</a>
       <a href="../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
       <a href="../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
       <a href="../../packages/types/" class="sidebar-item">@zudolib/types</a>
@@ -174,7 +175,7 @@
 
           <!-- OVERVIEW -->
           <section aria-labelledby="overview">
-            <h2 class="text-h2 mb-4" id="overview">Overview</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="overview">Overview</h2>
             <p class="text-body text-black/80 mb-4">
               <span class="code-inline">@zudolib/auth</span> provides the full authentication and authorization stack for Zudo applications. It coordinates JWT token management, password hashing, session lifecycle, and permission checks into a single <span class="code-inline">AuthService</span>.
             </p>
@@ -190,7 +191,7 @@
 
           <!-- INSTALLATION -->
           <section class="mt-12" aria-labelledby="installation">
-            <h2 class="text-h2 mb-4" id="installation">Installation</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="installation">Installation</h2>
             <div class="code-block p-4 mb-4"><span class="cmt"># Install with npm</span>
 npm install @zudolib/auth
 
@@ -204,7 +205,7 @@ pnpm add @zudolib/auth</div>
 
           <!-- QUICK START -->
           <section class="mt-12" aria-labelledby="quick-start">
-            <h2 class="text-h2 mb-4" id="quick-start">Quick Start</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="quick-start">Quick Start</h2>
             <div class="code-block p-4 mb-4"><span class="kw">import</span> { <span class="fn">createAuthService</span> } <span class="kw">from</span> <span class="str">"@zudolib/auth"</span>;
 
 <span class="kw">const</span> auth = <span class="fn">createAuthService</span>({
@@ -238,7 +239,7 @@ pnpm add @zudolib/auth</div>
 
           <!-- MODULES OVERVIEW -->
           <section class="mt-12" aria-labelledby="modules-overview">
-            <h2 class="text-h2 mb-6" id="modules-overview">Modules</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="modules-overview">Modules</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div class="border-2 border-black p-4">
                 <div class="tag tag-red mb-2">JWT Tokens</div>
@@ -269,7 +270,7 @@ pnpm add @zudolib/auth</div>
 
           <!-- ==================== JWT TOKENS ==================== -->
           <section class="mt-12" aria-labelledby="jwt-section">
-            <h2 class="text-h2 mb-6" id="jwt-section">JWT Tokens</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="jwt-section">JWT Tokens</h2>
 
             <!-- createTokenPair -->
             <article class="mb-12" id="create-token-pair">
@@ -405,7 +406,7 @@ jwt.<span class="fn">extractUserId</span>(token);</div>
 
           <!-- ==================== PASSWORD ==================== -->
           <section class="mt-12" aria-labelledby="password-section">
-            <h2 class="text-h2 mb-6" id="password-section">Password Hashing</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="password-section">Password Hashing</h2>
 
             <article class="mb-12" id="hash-password">
               <h3 class="text-h3 mb-3">
@@ -477,7 +478,7 @@ jwt.<span class="fn">extractUserId</span>(token);</div>
 
           <!-- ==================== SESSIONS ==================== -->
           <section class="mt-12" aria-labelledby="session-section">
-            <h2 class="text-h2 mb-6" id="session-section">Session Management</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="session-section">Session Management</h2>
 
             <article class="mb-12" id="session-store">
               <h3 class="text-h3 mb-3">
@@ -551,7 +552,7 @@ jwt.<span class="fn">extractUserId</span>(token);</div>
 
           <!-- ==================== AUTH SERVICE ==================== -->
           <section class="mt-12" aria-labelledby="auth-service-section">
-            <h2 class="text-h2 mb-6" id="auth-service-section">Auth Service</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="auth-service-section">Auth Service</h2>
             <p class="text-body text-black/80 mb-6">
               The central orchestrator. Coordinates JWT tokens, sessions, password verification, and RBAC into a single service.
             </p>
@@ -658,7 +659,7 @@ res.<span class="fn">json</span>({ <span class="op">accessToken:</span> tokens.a
 
           <!-- ==================== RBAC ==================== -->
           <section class="mt-12" aria-labelledby="rbac-section">
-            <h2 class="text-h2 mb-6" id="rbac-section">RBAC &amp; Permissions</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="rbac-section">RBAC &amp; Permissions</h2>
 
             <article class="mb-12" id="guard-result">
               <h3 class="text-h3 mb-3">
@@ -742,7 +743,7 @@ res.<span class="fn">json</span>({ <span class="op">accessToken:</span> tokens.a
 
           <!-- ==================== UTILITIES ==================== -->
           <section class="mt-12" aria-labelledby="utils-section">
-            <h2 class="text-h2 mb-6" id="utils-section">Utilities</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="utils-section">Utilities</h2>
 
             <table class="doc-table mb-6">
               <thead><tr><th>Function</th><th>Signature</th><th>Description</th></tr></thead>
@@ -805,7 +806,7 @@ res.<span class="fn">json</span>({ <span class="op">accessToken:</span> tokens.a
 
           <!-- ==================== ERRORS ==================== -->
           <section class="mt-12" aria-labelledby="errors-section">
-            <h2 class="text-h2 mb-6" id="errors-section">Error Hierarchy</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="errors-section">Error Hierarchy</h2>
             <p class="text-body text-black/80 mb-4">
               All errors extend <span class="code-inline">AuthError</span> which extends <span class="code-inline">BaseError</span> from <span class="code-inline">@zudolib/errors</span>.
             </p>
@@ -829,7 +830,7 @@ res.<span class="fn">json</span>({ <span class="op">accessToken:</span> tokens.a
 
           <!-- ==================== TYPES ==================== -->
           <section class="mt-12" aria-labelledby="types-section">
-            <h2 class="text-h2 mb-6" id="types-section">Types Reference</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="types-section">Types Reference</h2>
 
             <h3 class="text-h3 mb-3" id="auth-user">AuthUser</h3>
             <table class="doc-table mb-6">
@@ -876,7 +877,7 @@ res.<span class="fn">json</span>({ <span class="op">accessToken:</span> tokens.a
 
           <!-- ==================== USE CASES ==================== -->
           <section class="mt-12" aria-labelledby="use-cases">
-            <h2 class="text-h2 mb-6" id="use-cases">Use Cases</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="use-cases">Use Cases</h2>
 
             <article class="mb-12" id="use-case-http-api">
               <h3 class="text-h3 mb-3">HTTP API Authentication</h3>
@@ -1004,7 +1005,7 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
 
           <!-- ==================== CONNECTIONS ==================== -->
           <section class="mt-12" aria-labelledby="connections">
-            <h2 class="text-h2 mb-6" id="connections">Connections to Other Packages</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="connections">Connections to Other Packages</h2>
             <table class="doc-table mb-6">
               <thead><tr><th>Package</th><th>Relationship</th><th>Usage</th></tr></thead>
               <tbody>
@@ -1022,7 +1023,7 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
 
           <!-- ==================== VERSION COMPATIBILITY ==================== -->
           <section class="mt-12" aria-labelledby="version-compat">
-            <h2 class="text-h2 mb-6" id="version-compat">Version Compatibility</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="version-compat">Version Compatibility</h2>
             <table class="doc-table mb-6">
               <thead><tr><th>Package</th><th>Required Version</th></tr></thead>
               <tbody>
@@ -1037,7 +1038,7 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
 
           <!-- ==================== IMPROVEMENTS ==================== -->
           <section class="mt-12" aria-labelledby="improvements">
-            <h2 class="text-h2 mb-6" id="improvements">Suggested Improvements</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="improvements">Suggested Improvements</h2>
             <div class="space-y-4">
               <div class="callout callout-tip">
                 <strong class="text-sm uppercase tracking-wider text-zudo-green">Token Revocation List</strong>
@@ -1076,13 +1077,13 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
 
           <!-- ==================== NEXT STEPS ==================== -->
           <section class="mt-12 pt-8 border-t-2 border-black/10" aria-labelledby="next-steps">
-            <h2 class="text-h2 mb-4" id="next-steps">Next Steps</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="next-steps">Next Steps</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <a href="../api/" class="block border-2 border-black p-6 hover:border-zudo-blue hover:bg-blue-50">
+              <a href="../api/" class="block border-4 border-black p-6 hover:border-zudo-blue hover:bg-blue-50">
                 <span class="text-label text-zudo-blue">Previous</span>
                 <div class="text-h3 mt-1">@zudolib/api</div>
               </a>
-              <a href="../cache/" class="block border-2 border-black p-6 hover:border-zudo-red hover:bg-red-50 text-right">
+              <a href="../cache/" class="block border-4 border-black p-6 hover:border-zudo-red hover:bg-red-50 text-right">
                 <span class="text-label text-zudo-red">Next</span>
                 <div class="text-h3 mt-1">@zudolib/cache</div>
               </a>
@@ -1092,21 +1093,39 @@ app.<span class="fn">delete</span>(<span class="str">"/users/:id"</span>, requir
           <div class="h-20"></div>
         </div>
 
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#overview" class="toc-link">Overview</a>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#quick-start" class="toc-link">Quick Start</a>
+      <a href="#modules-overview" class="toc-link">Modules</a>
+      <a href="#jwt-section" class="toc-link">JWT Tokens</a>
+      <a href="#password-section" class="toc-link">Password Hashing</a>
+      <a href="#session-section" class="toc-link">Session Management</a>
+      <a href="#auth-service-section" class="toc-link">Auth Service</a>
+      <a href="#rbac-section" class="toc-link">RBAC & Permissions</a>
+      <a href="#utils-section" class="toc-link">Utilities</a>
+      <a href="#errors-section" class="toc-link">Error Hierarchy</a>
+      <a href="#types-section" class="toc-link">Types Reference</a>
+      <a href="#use-cases" class="toc-link">Use Cases</a>
+      <a href="#connections" class="toc-link">Connections</a>
+      <a href="#version-compat" class="toc-link">Version Compat</a>
+      <a href="#improvements" class="toc-link">Improvements</a>
+    </aside>
+
+  </div>
+
   <!-- FOOTER -->
-  <footer class="border-t-4 border-black bg-black text-white mt-12">
-    <div class="max-w-screen-2xl mx-auto px-6 py-8">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
-            <span class="text-black font-black text-sm">Z</span>
-          </div>
-          <span class="font-black">ZUDO FRAMEWORK</span>
-        </div>
-        <div class="flex items-center gap-6 text-sm">
-          <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
-          <a href="../../packages/" class="hover:text-zudo-red">Packages</a>
-          <a href="../../roadmap.html" class="hover:text-zudo-red">Roadmap</a>
-        </div>
+  <footer class="bg-black text-white border-t-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8 flex items-center justify-between text-sm">
+      <div>&copy; 2026 Zudo. MIT License.</div>
+      <div class="flex gap-4">
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+        <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
+        <a href="../../roadmap.html" class="hover:text-zudo-yellow">Roadmap</a>
       </div>
     </div>
   </footer>

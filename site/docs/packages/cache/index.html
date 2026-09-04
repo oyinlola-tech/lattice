@@ -145,6 +145,7 @@
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../packages/" class="sidebar-item">Overview</a>
       <a href="../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
+      <a href="../../packages/cache/" class="sidebar-item sidebar-item-active">@zudolib/cache</a>
       <a href="../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
       <a href="../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
       <a href="../../packages/types/" class="sidebar-item">@zudolib/types</a>
@@ -183,7 +184,7 @@
 
       <!-- ==================== OVERVIEW ==================== -->
       <section id="overview" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Overview</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">OVERVIEW</h2>
         <p class="mb-4 leading-relaxed">
           <code>@zudolib/cache</code> provides a complete caching infrastructure for the Zudo framework. It follows the <strong>adapter pattern</strong> — a pluggable <code>CacheAdapter</code> interface with a built-in <code>MemoryCacheAdapter</code> and a high-level <code>CacheService</code> orchestrator that coordinates key building, tag-based invalidation, distributed locking, metrics collection, and middleware pipelines.
         </p>
@@ -205,7 +206,7 @@
 
       <!-- ==================== INSTALLATION ==================== -->
       <section id="install" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Installation</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
         <div class="code-block mb-4">
 <span class="cm">// Install as part of the Zudo framework</span>
 npm install @zudolib/cache
@@ -218,7 +219,7 @@ npm install zudo
 
       <!-- ==================== ARCHITECTURE ==================== -->
       <section id="architecture" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Architecture</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ARCHITECTURE</h2>
         <p class="mb-4 leading-relaxed">The package follows a layered architecture where each component has a single responsibility:</p>
 
         <div class="border-2 border-black p-6 bg-gray-50 mb-6 font-mono text-sm leading-loose">
@@ -259,7 +260,7 @@ npm install zudo
 
       <!-- ==================== QUICK START ==================== -->
       <section id="quick-start" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Quick Start</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">QUICK START</h2>
 
         <div class="callout callout-tip mb-6">
           <p class="text-sm font-bold mb-1">ZERO-CONFIG USAGE</p>
@@ -294,7 +295,7 @@ npm install zudo
 
       <!-- ==================== CACHE SERVICE ==================== -->
       <section id="cache-service" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">CacheService</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CACHESERVICE</h2>
         <p class="mb-4 leading-relaxed">
           The <code>CacheService</code> is the primary entry point. It orchestrates all caching operations, delegates to the adapter, and coordinates tags, locking, and metrics.
         </p>
@@ -311,8 +312,8 @@ npm install zudo
         <h3 class="text-lg font-bold mb-3 mt-6">Methods</h3>
 
         <div class="overflow-x-auto mb-6">
-          <table class="w-full border-2 border-black text-sm">
-            <thead class="bg-zudo-black text-white">
+          <table class="w-full border-4 border-black text-sm">
+            <thead class="bg-black text-white">
               <tr>
                 <th class="border border-black px-4 py-2 text-left font-bold">Method</th>
                 <th class="border border-black px-4 py-2 text-left font-bold">Returns</th>
@@ -386,7 +387,7 @@ npm install zudo
 
       <!-- ==================== CACHE STORE ==================== -->
       <section id="cache-store" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">DefaultCacheStore</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEFAULTCACHESTORE</h2>
         <p class="mb-4 leading-relaxed">
           Wraps a <code>CacheAdapter</code> with middleware pipeline, event emission, and metrics tracking. The store is used internally by <code>CacheService</code> but can also be used standalone.
         </p>
@@ -423,8 +424,8 @@ sub.<span class="fn">unsubscribe</span>();
 
         <h3 class="text-lg font-bold mb-3 mt-6">Event Types</h3>
         <div class="overflow-x-auto mb-6">
-          <table class="w-full border-2 border-black text-sm">
-            <thead class="bg-zudo-black text-white">
+          <table class="w-full border-4 border-black text-sm">
+            <thead class="bg-black text-white">
               <tr>
                 <th class="border border-black px-4 py-2 text-left font-bold">Event</th>
                 <th class="border border-black px-4 py-2 text-left font-bold">Payload</th>
@@ -445,7 +446,7 @@ sub.<span class="fn">unsubscribe</span>();
 
       <!-- ==================== MEMORY ADAPTER ==================== -->
       <section id="memory-adapter" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">MemoryCacheAdapter</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">MEMORYCACHEADAPTER</h2>
         <p class="mb-4 leading-relaxed">
           Built-in in-memory cache adapter backed by a <code>Map</code>. Uses <strong>FIFO eviction</strong> when capacity is reached and <strong>lazy expiration</strong> (entries removed on access, not by timers).
         </p>
@@ -480,7 +481,7 @@ sub.<span class="fn">unsubscribe</span>();
 
       <!-- ==================== KEY BUILDER ==================== -->
       <section id="key-builder" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Key Builder</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">KEY BUILDER</h2>
         <p class="mb-4 leading-relaxed">
           Builds fully qualified cache keys with prefix, namespace, and separator. Validates key length (max 256) and character pattern.
         </p>
@@ -521,7 +522,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 
       <!-- ==================== TAGS ==================== -->
       <section id="tags" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Tag Store</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TAG STORE</h2>
         <p class="mb-4 leading-relaxed">
           Bidirectional mapping between cache keys and logical tags. Tags let you invalidate groups of related keys without knowing them individually.
         </p>
@@ -551,7 +552,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 
       <!-- ==================== INVALIDATION ==================== -->
       <section id="invalidation" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">CacheInvalidationManager</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CACHEINVALIDATIONMANAGER</h2>
         <p class="mb-4 leading-relaxed">
           Coordinates cache invalidation across multiple strategies: by tag, pattern, namespace, or individual key.
         </p>
@@ -586,7 +587,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 
       <!-- ==================== LOCKING ==================== -->
       <section id="locking" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Distributed Locking</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DISTRIBUTED LOCKING</h2>
         <p class="mb-4 leading-relaxed">
           Token-based lock store with retry logic for coordinating concurrent access to shared resources.
         </p>
@@ -620,8 +621,8 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 
         <h3 class="text-lg font-bold mb-3 mt-6">Lock Object</h3>
         <div class="overflow-x-auto mb-6">
-          <table class="w-full border-2 border-black text-sm">
-            <thead class="bg-zudo-black text-white">
+          <table class="w-full border-4 border-black text-sm">
+            <thead class="bg-black text-white">
               <tr>
                 <th class="border border-black px-4 py-2 text-left font-bold">Property</th>
                 <th class="border border-black px-4 py-2 text-left font-bold">Type</th>
@@ -642,7 +643,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 
       <!-- ==================== METRICS ==================== -->
       <section id="metrics" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Cache Metrics</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CACHE METRICS</h2>
         <p class="mb-4 leading-relaxed">
           Tracks cache operation metrics including hit/miss rates, latency histograms, and hot key analysis.
         </p>
@@ -678,7 +679,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 
       <!-- ==================== SERIALIZERS ==================== -->
       <section id="serializers" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Serializers</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SERIALIZERS</h2>
         <p class="mb-4 leading-relaxed">
           Two built-in serializers for converting cache values to/from storable formats.
         </p>
@@ -707,7 +708,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 
       <!-- ==================== TYPES ==================== -->
       <section id="types" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Types Reference</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TYPES REFERENCE</h2>
 
         <h3 class="text-lg font-bold mb-3 mt-6">CacheConfig</h3>
         <div class="code-block mb-4">
@@ -792,11 +793,11 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 
       <!-- ==================== CONSTANTS ==================== -->
       <section id="constants" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Constants</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CONSTANTS</h2>
 
         <div class="overflow-x-auto mb-6">
-          <table class="w-full border-2 border-black text-sm">
-            <thead class="bg-zudo-black text-white">
+          <table class="w-full border-4 border-black text-sm">
+            <thead class="bg-black text-white">
               <tr>
                 <th class="border border-black px-4 py-2 text-left font-bold">Constant</th>
                 <th class="border border-black px-4 py-2 text-left font-bold">Value</th>
@@ -824,7 +825,7 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 
       <!-- ==================== ERRORS ==================== -->
       <section id="errors" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Errors</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERRORS</h2>
         <p class="mb-4 leading-relaxed">
           All error types are imported from <code>@zudolib/errors</code>. The cache package provides factory functions for creating specific error instances.
         </p>
@@ -843,8 +844,8 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
         </div>
 
         <div class="overflow-x-auto mb-6">
-          <table class="w-full border-2 border-black text-sm">
-            <thead class="bg-zudo-black text-white">
+          <table class="w-full border-4 border-black text-sm">
+            <thead class="bg-black text-white">
               <tr>
                 <th class="border border-black px-4 py-2 text-left font-bold">Error Factory</th>
                 <th class="border border-black px-4 py-2 text-left font-bold">Usage</th>
@@ -882,10 +883,10 @@ authBuilder.<span class="fn">build</span>(<span class="str">"session:abc"</span>
 
       <!-- ==================== USE CASES ==================== -->
       <section id="use-cases" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Use Cases</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">USE CASES</h2>
 
         <!-- Use Case 1 -->
-        <div class="border-2 border-black p-6 mb-6">
+        <div class="border-4 border-black p-6 mb-6">
           <h3 class="text-lg font-bold mb-3">1. HTTP Response Caching</h3>
           <div class="code-block mb-3">
 <span class="kw">const</span> cache = <span class="fn">createCacheService</span>({ <span class="fn">adapter</span> });
@@ -902,7 +903,7 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
         </div>
 
         <!-- Use Case 2 -->
-        <div class="border-2 border-black p-6 mb-6">
+        <div class="border-4 border-black p-6 mb-6">
           <h3 class="text-lg font-bold mb-3">2. Rate Limiting with Locks</h3>
           <div class="code-block mb-3">
 <span class="kw">async function</span> <span class="fn">checkRateLimit</span>(userId: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt; {
@@ -919,7 +920,7 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
         </div>
 
         <!-- Use Case 3 -->
-        <div class="border-2 border-black p-6 mb-6">
+        <div class="border-4 border-black p-6 mb-6">
           <h3 class="text-lg font-bold mb-3">3. Session Management</h3>
           <div class="code-block mb-3">
 <span class="kw">const</span> sessionCache = <span class="fn">createCacheService</span>({
@@ -938,7 +939,7 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
         </div>
 
         <!-- Use Case 4 -->
-        <div class="border-2 border-black p-6 mb-6">
+        <div class="border-4 border-black p-6 mb-6">
           <h3 class="text-lg font-bold mb-3">4. Feature Flag Caching</h3>
           <div class="code-block mb-3">
 <span class="kw">async function</span> <span class="fn">isEnabled</span>(flag: <span class="tp">string</span>, userId: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt; {
@@ -956,7 +957,7 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
         </div>
 
         <!-- Use Case 5 -->
-        <div class="border-2 border-black p-6 mb-6">
+        <div class="border-4 border-black p-6 mb-6">
           <h3 class="text-lg font-bold mb-3">5. Database Query Caching</h3>
           <div class="code-block mb-3">
 <span class="kw">async function</span> <span class="fn">getUserWithPosts</span>(id: <span class="tp">string</span>) {
@@ -973,7 +974,7 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
         </div>
 
         <!-- Use Case 6 -->
-        <div class="border-2 border-black p-6 mb-6">
+        <div class="border-4 border-black p-6 mb-6">
           <h3 class="text-lg font-bold mb-3">6. Health Monitoring</h3>
           <div class="code-block mb-3">
 <span class="kw">const</span> health = <span class="kw">await</span> cache.<span class="fn">healthCheck</span>();
@@ -994,7 +995,7 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
 
       <!-- ==================== CONNECTIONS ==================== -->
       <section id="connections" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Package Connections</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PACKAGE CONNECTIONS</h2>
         <p class="mb-4 leading-relaxed">
           <code>@zudolib/cache</code> integrates with multiple Zudo packages:
         </p>
@@ -1037,7 +1038,7 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
 
       <!-- ==================== IMPROVEMENTS ==================== -->
       <section id="improvements" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Suggested Improvements</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SUGGESTED IMPROVEMENTS</h2>
 
         <div class="space-y-4">
           <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
@@ -1077,11 +1078,11 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
 
       <!-- ==================== API SUMMARY ==================== -->
       <section id="api-summary" class="mb-16">
-        <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">API Summary</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">API SUMMARY</h2>
 
         <div class="overflow-x-auto mb-6">
-          <table class="w-full border-2 border-black text-sm">
-            <thead class="bg-zudo-black text-white">
+          <table class="w-full border-4 border-black text-sm">
+            <thead class="bg-black text-white">
               <tr>
                 <th class="border border-black px-4 py-2 text-left font-bold">Export</th>
                 <th class="border border-black px-4 py-2 text-left font-bold">Kind</th>
@@ -1174,35 +1175,44 @@ app.<span class="fn">get</span>(<span class="str">"/api/products"</span>, <span 
         </div>
       </section>
 
-      <!-- ==================== PREV / NEXT ==================== -->
-      <nav class="flex items-center justify-between border-t-2 border-black pt-6 mt-16" aria-label="Pagination">
-        <a href="../auth/" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-yellow hover:border-black">
-          ← @zudolib/auth
-        </a>
-        <a href="../cli/" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-blue hover:text-white hover:border-black">
-          @zudolib/cli →
-        </a>
-      </nav>
-
     
     </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#overview" class="toc-link">Overview</a>
+      <a href="#install" class="toc-link">Installation</a>
+      <a href="#architecture" class="toc-link">Architecture</a>
+      <a href="#quick-start" class="toc-link">Quick Start</a>
+      <a href="#cache-service" class="toc-link">CacheService</a>
+      <a href="#cache-store" class="toc-link">DefaultCacheStore</a>
+      <a href="#memory-adapter" class="toc-link">MemoryCacheAdapter</a>
+      <a href="#key-builder" class="toc-link">Key Builder</a>
+      <a href="#tags" class="toc-link">Tag Store</a>
+      <a href="#invalidation" class="toc-link">CacheInvalidationManager</a>
+      <a href="#locking" class="toc-link">Distributed Locking</a>
+      <a href="#metrics" class="toc-link">Cache Metrics</a>
+      <a href="#serializers" class="toc-link">Serializers</a>
+      <a href="#types" class="toc-link">Types Reference</a>
+      <a href="#constants" class="toc-link">Constants</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#use-cases" class="toc-link">Use Cases</a>
+      <a href="#connections" class="toc-link">Connections</a>
+      <a href="#improvements" class="toc-link">Improvements</a>
+      <a href="#api-summary" class="toc-link">API Summary</a>
+    </aside>
+
   </div>
 
   <!-- FOOTER -->
-  <footer class="border-t-4 border-black bg-black text-white mt-12">
-    <div class="max-w-screen-2xl mx-auto px-6 py-8">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
-            <span class="text-black font-black text-sm">Z</span>
-          </div>
-          <span class="font-black">ZUDO FRAMEWORK</span>
-        </div>
-        <div class="flex items-center gap-6 text-sm">
-          <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
-          <a href="../../packages/" class="hover:text-zudo-red">Packages</a>
-          <a href="../../roadmap.html" class="hover:text-zudo-red">Roadmap</a>
-        </div>
+  <footer class="bg-black text-white border-t-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8 flex items-center justify-between text-sm">
+      <div>&copy; 2026 Zudo. MIT License.</div>
+      <div class="flex gap-4">
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+        <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
+        <a href="../../roadmap.html" class="hover:text-zudo-yellow">Roadmap</a>
       </div>
     </div>
   </footer>

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudolib/cqrs — Command Query Responsibility Segregation</title>
+  <meta name="description" content="Complete documentation for @zudolib/cqrs — CQRS primitives for separating read and write operations with commands, queries, handlers, middleware, and event extensions for the Zudo framework.">
+  <meta name="keywords" content="zudo, CQRS, command query responsibility segregation, commands, queries, handlers, middleware, event sourcing, domain driven design">
+  <meta name="author" content="Oyinlola">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/packages/cqrs/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="@zudolib/cqrs — Command Query Responsibility Segregation">
+  <meta property="og:description" content="CQRS primitives for separating read and write operations with commands, queries, handlers, middleware, and event extensions.">
+  <meta property="og:url" content="https://zudo.dev/docs/packages/cqrs/">
+  <meta property="og:site_name" content="Zudo">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo.svg">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="@zudolib/cqrs — Command Query Responsibility Segregation">
+  <meta name="twitter:description" content="CQRS primitives for separating read and write operations with commands, queries, handlers, middleware, and event extensions.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { 'zudo-red': '#FF0000', 'zudo-blue': '#0000FF', 'zudo-yellow': '#FFFF00', 'zudo-black': '#000000', 'zudo-white': '#FFFFFF', 'zudo-green': '#00FF00' } } }
+    }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "@zudolib/cqrs — Command Query Responsibility Segregation",
+    "description": "CQRS primitives for separating read and write operations with commands, queries, handlers, middleware, and event extensions for the Zudo framework.",
+    "url": "https://zudo.dev/docs/packages/cqrs/",
+    "author": { "@type": "Person", "name": "Oyinlola" },
+    "publisher": { "@type": "Organization", "name": "Zudo" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://zudo.dev/docs/packages/cqrs/" },
+    "codeRepository": "https://github.com/oyinlola-tech/zudo",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js 24+",
+    "license": "https://opensource.org/licenses/MIT"
+  }
+  </script>
+  <style>
+    * { border-radius: 0px !important; transition: none !important; }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; }
+    .code-block { background: #1a1a1a; color: #00FF00; border: 2px solid #333; font-family: 'Courier New', monospace; font-size: 0.875rem; overflow-x: auto; padding: 1rem; line-height: 1.6; }
+    .code-block .kw { color: #FF00FF; }
+    .code-block .str { color: #FFFF00; }
+    .code-block .cm { color: #666; }
+    .code-block .fn { color: #0000FF; }
+    .code-block .tp { color: #00FFFF; }
+    .code-block .num { color: #FF0000; }
+    .sidebar-item { padding: 6px 12px; border-left: 3px solid transparent; font-size: 0.8rem; font-weight: 500; display: block; color: #333; }
+    .sidebar-item:hover { background: rgba(0,0,0,0.05); border-left-color: #FF0000; }
+    .sidebar-item-active { background: rgba(0,255,0,0.05); border-left-color: #00FF00; font-weight: 700; }
+    .sidebar-section { padding: 12px 12px 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #FF0000; }
+    .toc-link { padding: 3px 0; font-size: 0.75rem; color: #666; border-left: 2px solid transparent; padding-left: 10px; display: block; }
+    .toc-link:hover { color: #0000FF; border-left-color: #0000FF; }
+    .toc-link-active { color: #FF0000; border-left-color: #FF0000; font-weight: 700; }
+    .callout { border-left: 4px solid; padding: 12px 16px; margin: 16px 0; }
+    .callout-note { border-color: #0000FF; background: rgba(0,0,255,0.05); }
+    .callout-warning { border-color: #FFFF00; background: rgba(255,255,0,0.08); }
+    .callout-tip { border-color: #00FF00; background: rgba(0,255,0,0.05); }
+    @media (max-width: 1024px) { .doc-sidebar, .doc-toc { display: none; } }
+  </style>
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="../../../" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+          <span class="text-black font-black text-sm">Z</span>
+        </div>
+        <span class="text-xl font-black">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+        <a href="../../../getting-started/" class="hover:text-zudo-red">Docs</a>
+        <a href="../../../packages/" class="hover:text-zudo-red text-zudo-red">Packages</a>
+        <a href="../../../architecture/" class="hover:text-zudo-red">Architecture</a>
+        <a href="../../../concepts/" class="hover:text-zudo-red">Concepts</a>
+      </div>
+      <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="p-2 border-2 border-white hover:bg-white hover:text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="../../../getting-started/" class="sidebar-item">Installation</a>
+      <a href="../../../getting-started/first-app.html" class="sidebar-item">Your First App</a>
+      <a href="../../../getting-started/project-structure.html" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="../../../architecture/" class="sidebar-item">Overview</a>
+      <a href="../../../architecture/module-system.html" class="sidebar-item">Module System</a>
+      <a href="../../../architecture/runtime.html" class="sidebar-item">Runtime</a>
+      <a href="../../../architecture/adapters.html" class="sidebar-item">Adapters</a>
+      <a href="../../../architecture/dependency-direction.html" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="../../../concepts/" class="sidebar-item">Application</a>
+      <a href="../../../concepts/configuration.html" class="sidebar-item">Configuration</a>
+      <a href="../../../concepts/contexts.html" class="sidebar-item">Contexts</a>
+      <a href="../../../concepts/dependency-injection.html" class="sidebar-item">Dependency Injection</a>
+      <a href="../../../concepts/lifecycle.html" class="sidebar-item">Lifecycle</a>
+      <a href="../../../concepts/modules.html" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="../../../packages/" class="sidebar-item">Overview</a>
+      <a href="../../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
+      <a href="../../../packages/auth/" class="sidebar-item">@zudolib/auth</a>
+      <a href="../../../packages/cache/" class="sidebar-item">@zudolib/cache</a>
+      <a href="../../../packages/cli/" class="sidebar-item">@zudolib/cli</a>
+      <a href="../../../packages/config/" class="sidebar-item">@zudolib/config</a>
+      <a href="../../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
+      <a href="../../../packages/container/" class="sidebar-item">@zudolib/container</a>
+      <a href="../../../packages/core/" class="sidebar-item">@zudolib/core</a>
+      <a href="../../../packages/cqrs/" class="sidebar-item sidebar-item-active">@zudolib/cqrs</a>
+      <a href="../../../packages/crypto/" class="sidebar-item">@zudolib/crypto</a>
+      <a href="../../../packages/database/" class="sidebar-item">@zudolib/database</a>
+      <a href="../../../packages/docs/" class="sidebar-item">@zudolib/docs</a>
+      <a href="../../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
+      <a href="../../../packages/events/" class="sidebar-item">@zudolib/events</a>
+      <a href="../../../packages/feature-flags/" class="sidebar-item">@zudolib/feature-flags</a>
+      <a href="../../../packages/http/" class="sidebar-item">@zudolib/http</a>
+      <a href="../../../packages/lifecycle/" class="sidebar-item">@zudolib/lifecycle</a>
+      <a href="../../../packages/logger/" class="sidebar-item">@zudolib/logger</a>
+      <a href="../../../packages/messaging/" class="sidebar-item">@zudolib/messaging</a>
+      <a href="../../../packages/middleware/" class="sidebar-item">@zudolib/middleware</a>
+      <a href="../../../packages/observability/" class="sidebar-item">@zudolib/observability</a>
+      <a href="../../../packages/openapi/" class="sidebar-item">@zudolib/openapi</a>
+      <a href="../../../packages/permissions/" class="sidebar-item">@zudolib/permissions</a>
+      <a href="../../../packages/plugins/" class="sidebar-item">@zudolib/plugins</a>
+      <a href="../../../packages/queue/" class="sidebar-item">@zudolib/queue</a>
+      <a href="../../../packages/rpc/" class="sidebar-item">@zudolib/rpc</a>
+      <a href="../../../packages/runtime/" class="sidebar-item">@zudolib/runtime</a>
+      <a href="../../../packages/scheduler/" class="sidebar-item">@zudolib/scheduler</a>
+      <a href="../../../packages/schema/" class="sidebar-item">@zudolib/schema</a>
+      <a href="../../../packages/security/" class="sidebar-item">@zudolib/security</a>
+      <a href="../../../packages/serialization/" class="sidebar-item">@zudolib/serialization</a>
+      <a href="../../../packages/storage/" class="sidebar-item">@zudolib/storage</a>
+      <a href="../../../packages/tenancy/" class="sidebar-item">@zudolib/tenancy</a>
+      <a href="../../../packages/testing/" class="sidebar-item">@zudolib/testing</a>
+      <a href="../../../packages/transactions/" class="sidebar-item">@zudolib/transactions</a>
+      <a href="../../../packages/types/" class="sidebar-item">@zudolib/types</a>
+      <a href="../../../packages/validation/" class="sidebar-item">@zudolib/validation</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="../../../contributing/" class="sidebar-item">Contributing</a>
+      <a href="../../../roadmap.html" class="sidebar-item">Roadmap</a>
+      <a href="../../../rules.html" class="sidebar-item">Package Rules</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10" role="main">
+
+      <!-- BREADCRUMBS -->
+      <nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-500">
+        <a href="../../../" class="hover:text-zudo-red">Home</a>
+        <span class="mx-2">/</span>
+        <a href="../../../packages/" class="hover:text-zudo-red">Packages</a>
+        <span class="mx-2">/</span>
+        <span class="text-black font-bold">@zudolib/cqrs</span>
+      </nav>
+
+      <!-- HEADER -->
+      <header class="mb-12 border-b-4 border-black pb-6">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 bg-zudo-blue border-2 border-black flex items-center justify-center">
+            <span class="text-white font-black text-lg">CQ</span>
+          </div>
+          <div>
+            <h1 class="text-4xl font-black tracking-tight">@zudolib/cqrs</h1>
+            <p class="text-gray-500 font-bold mt-1">v1.0.0 — Command Query Responsibility Segregation</p>
+          </div>
+        </div>
+        <p class="text-lg text-gray-700 max-w-3xl">
+          Separates read and write operations into distinct pipelines. Commands mutate state, queries read it. Each has its own handler, bus, middleware, and result type. Includes event extensions for event-sourced aggregates.
+        </p>
+        <div class="flex gap-3 mt-4">
+          <span class="px-3 py-1 bg-zudo-blue text-white text-xs font-bold border-2 border-black">APPLICATION PACKAGE</span>
+          <span class="px-3 py-1 bg-zudo-yellow text-black text-xs font-bold border-2 border-black">DEPENDS ON: errors, events, messaging</span>
+          <span class="px-3 py-1 bg-gray-100 text-black text-xs font-bold border-2 border-black">Node.js ≥ 24</span>
+        </div>
+      </header>
+
+      <!-- ==================== OVERVIEW ==================== -->
+      <section id="overview" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Overview</h2>
+        <p class="mb-4">
+          <code class="bg-gray-100 px-1 font-bold">@zudolib/cqrs</code> implements the Command Query Responsibility Segregation pattern. Write operations (commands) and read operations (queries) are handled by separate pipelines with their own buses, handlers, middleware, and result types.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+          <div class="border-4 border-black p-3 bg-zudo-red text-white text-center">
+            <div class="text-2xl font-black">2</div>
+            <div class="text-xs font-bold">PIPELINES</div>
+          </div>
+          <div class="border-4 border-black p-3 bg-zudo-blue text-white text-center">
+            <div class="text-2xl font-black">11</div>
+            <div class="text-xs font-bold">MIDDLEWARE</div>
+          </div>
+          <div class="border-4 border-black p-3 bg-zudo-yellow text-center">
+            <div class="text-2xl font-black">10</div>
+            <div class="text-xs font-bold">ERROR TYPES</div>
+          </div>
+          <div class="border-4 border-black p-3 bg-zudo-green text-black text-center">
+            <div class="text-2xl font-black">3</div>
+            <div class="text-xs font-bold">SUBMODULES</div>
+          </div>
+        </div>
+        <h3 class="text-xl font-black mt-6 mb-3">Architecture</h3>
+        <div class="code-block">
+<span class="cm">// Two parallel pipelines</span>
+<span class="cm">//</span>
+<span class="cm">// Command Pipeline:</span>
+<span class="cm">//   Command → Middleware → CommandHandler → CommandResult</span>
+<span class="cm">//</span>
+<span class="cm">// Query Pipeline:</span>
+<span class="cm">//   Query → Middleware → QueryHandler → QueryResult</span>
+<span class="cm">//</span>
+<span class="cm">// Event Extensions:</span>
+<span class="cm">//   CqrsEvent → EventBus → CqrsEventHandler → EventResult</span>
+        </div>
+      </section>
+
+      <!-- ==================== INSTALLATION ==================== -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Installation</h2>
+        <div class="code-block">
+npm install @zudolib/cqrs
+
+<span class="cm">// Import everything</span>
+<span class="kw">import</span> { CommandBus, QueryBus, createCommandBus } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// Import specific submodules</span>
+<span class="kw">import</span> { Command, CommandHandler } <span class="kw">from</span> <span class="str">"@zudolib/cqrs/command"</span>;
+<span class="kw">import</span> { Query, QueryHandler } <span class="kw">from</span> <span class="str">"@zudolib/cqrs/query"</span>;
+<span class="kw">import</span> { timingMiddleware } <span class="kw">from</span> <span class="str">"@zudolib/cqrs/middleware"</span>;
+        </div>
+      </section>
+
+      <!-- ==================== COMMANDS ==================== -->
+      <section id="commands" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Commands</h2>
+        <p class="mb-4">Commands represent write operations that mutate application state.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Creating Commands</h3>
+        <div class="code-block">
+<span class="cm">// Option 1: Simple factory function (recommended)</span>
+<span class="kw">import</span> { createCommand } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> cmd = <span class="fn">createCommand</span>(<span class="str">"CreateUser"</span>, {
+  name: <span class="str">"Alice"</span>,
+  email: <span class="str">"alice@example.com"</span>,
+});
+<span class="cm">// → { type: "CreateUser", name: "Alice", email: "alice@example.com" }</span>
+
+<span class="cm">// Option 2: Abstract class</span>
+<span class="kw">import</span> { Command } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">class</span> <span class="tp">CreateUserCommand</span> <span class="kw">extends</span> <span class="tp">Command</span>&lt;<span class="str">"CreateUser"</span>&gt; {
+  <span class="kw">readonly</span> type = <span class="str">"CreateUser"</span> <span class="kw">as const</span>;
+  <span class="kw">constructor</span>(
+    <span class="kw">readonly</span> name: <span class="tp">string</span>,
+    <span class="kw">readonly</span> email: <span class="tp">string</span>,
+  ) { <span class="kw">super</span>(<span class="str">"CreateUser"</span>); }
+}
+
+<span class="cm">// Option 3: Type-safe utility</span>
+<span class="kw">import</span> { CommandOf } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">type</span> <span class="tp">CreateUser</span> = <span class="tp">CommandOf</span>&lt;<span class="str">"CreateUser"</span>, { name: <span class="tp">string</span>; email: <span class="tp">string</span> }&gt;;
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Command Interface</h3>
+        <div class="code-block">
+<span class="kw">interface</span> <span class="tp">Command</span>&lt;TType <span class="kw">extends</span> <span class="tp">string</span> = <span class="tp">string</span>&gt; {
+  <span class="kw">readonly</span> type: TType;
+}
+        </div>
+      </section>
+
+      <!-- ==================== QUERIES ==================== -->
+      <section id="queries" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Queries</h2>
+        <p class="mb-4">Queries represent read operations that return data without mutation.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Creating Queries</h3>
+        <div class="code-block">
+<span class="cm">// Option 1: Simple factory function (recommended)</span>
+<span class="kw">import</span> { createQuery } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> q = <span class="fn">createQuery</span>(<span class="str">"GetUser"</span>, { userId: <span class="str">"usr_123"</span> });
+<span class="cm">// → { type: "GetUser", userId: "usr_123" }</span>
+
+<span class="cm">// Option 2: Abstract class</span>
+<span class="kw">import</span> { Query } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">class</span> <span class="tp">GetUserQuery</span> <span class="kw">extends</span> <span class="tp">Query</span>&lt;<span class="str">"GetUser"</span>&gt; {
+  <span class="kw">readonly</span> type = <span class="str">"GetUser"</span> <span class="kw">as const</span>;
+  <span class="kw">constructor</span>(<span class="kw">readonly</span> userId: <span class="tp">string</span>) { <span class="kw">super</span>(<span class="str">"GetUser"</span>); }
+}
+
+<span class="cm">// Option 3: Type-safe utility</span>
+<span class="kw">import</span> { QueryOf } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">type</span> <span class="tp">GetUser</span> = <span class="tp">QueryOf</span>&lt;<span class="str">"GetUser"</span>, { userId: <span class="tp">string</span> }&gt;;
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Query Interface</h3>
+        <div class="code-block">
+<span class="kw">interface</span> <span class="tp">Query</span>&lt;TType <span class="kw">extends</span> <span class="tp">string</span> = <span class="tp">string</span>&gt; {
+  <span class="kw">readonly</span> type: TType;
+}
+        </div>
+      </section>
+
+      <!-- ==================== HANDLERS ==================== -->
+      <section id="handlers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Handlers</h2>
+        <p class="mb-4">Handlers contain the business logic. Two styles: class-based (abstract class) or function-based (factory).</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Command Handlers</h3>
+        <div class="code-block">
+<span class="cm">// Class-based (recommended for complex logic)</span>
+<span class="kw">import</span> { CommandHandler } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">class</span> <span class="tp">CreateUserHandler</span> <span class="kw">extends</span> <span class="tp">CommandHandler</span>&lt;<span class="tp">CreateUserCommand</span>, <span class="tp">User</span>&gt; {
+  <span class="kw">readonly</span> commandType = <span class="str">"CreateUser"</span>;
+
+  <span class="kw">async</span> <span class="fn">execute</span>(command: <span class="tp">CreateUserCommand</span>): <span class="tp">Promise</span>&lt;<span class="tp">User</span>&gt; {
+    <span class="kw">return</span> <span class="kw">this</span>.repo.<span class="fn">create</span>({ name: command.name, email: command.email });
+  }
+}
+
+<span class="cm">// Function-based (recommended for simple logic)</span>
+<span class="kw">import</span> { createCommandHandler } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> handler = <span class="fn">createCommandHandler</span>(<span class="str">"CreateUser"</span>, <span class="kw">async</span> (cmd) =&gt; {
+  <span class="kw">return</span> repo.<span class="fn">create</span>({ name: cmd.name, email: cmd.email });
+});
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Query Handlers</h3>
+        <div class="code-block">
+<span class="cm">// Class-based</span>
+<span class="kw">import</span> { QueryHandler } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">class</span> <span class="tp">GetUserHandler</span> <span class="kw">extends</span> <span class="tp">QueryHandler</span>&lt;<span class="tp">GetUserQuery</span>, <span class="tp">User</span>&gt; {
+  <span class="kw">readonly</span> queryType = <span class="str">"GetUser"</span>;
+
+  <span class="kw">async</span> <span class="fn">execute</span>(query: <span class="tp">GetUserQuery</span>): <span class="tp">Promise</span>&lt;<span class="tp">User</span>&gt; {
+    <span class="kw">return</span> <span class="kw">this</span>.repo.<span class="fn">findById</span>(query.userId);
+  }
+}
+
+<span class="cm">// Function-based</span>
+<span class="kw">import</span> { createQueryHandler } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> handler = <span class="fn">createQueryHandler</span>(<span class="str">"GetUser"</span>, <span class="kw">async</span> (q) =&gt; {
+  <span class="kw">return</span> repo.<span class="fn">findById</span>(q.userId);
+});
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Handler Type Guards</h3>
+        <div class="code-block">
+<span class="kw">import</span> { isCommandHandler, isQueryHandler, isCommandHandlerLike, isQueryHandlerLike } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="fn">isCommandHandler</span>(handler)   <span class="cm">// true if CommandHandler instance</span>
+<span class="fn">isQueryHandler</span>(handler)     <span class="cm">// true if QueryHandler instance</span>
+<span class="fn">isCommandHandlerLike</span>(fn)    <span class="cm">// true if function or CommandHandler</span>
+<span class="fn">isQueryHandlerLike</span>(fn)      <span class="cm">// true if function or QueryHandler</span>
+        </div>
+      </section>
+
+      <!-- ==================== BUSES ==================== -->
+      <section id="buses" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Buses</h2>
+        <p class="mb-4">The CommandBus and QueryBus route requests to their registered handlers through a middleware pipeline.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">CommandBus</h3>
+        <div class="code-block">
+<span class="kw">import</span> { createCommandBus } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> bus = <span class="fn">createCommandBus</span>({
+  middleware: [<span class="fn">timingMiddleware</span>(), <span class="fn">errorMiddleware</span>()],
+  contextFactory: () =&gt; ({ userId: <span class="str">"usr_123"</span> }),
+});
+
+<span class="cm">// Register handlers</span>
+bus.<span class="fn">register</span>(<span class="str">"CreateUser"</span>, createUserHandler);
+bus.<span class="fn">registerMany</span>([
+  { commandType: <span class="str">"DeleteUser"</span>, handler: deleteUserHandler },
+]);
+
+<span class="cm">// Execute a command</span>
+<span class="kw">const</span> result = <span class="kw">await</span> bus.<span class="fn">execute</span>(<span class="fn">createCommand</span>(<span class="str">"CreateUser"</span>, { name: <span class="str">"Alice"</span> }));
+
+<span class="cm">// Query methods</span>
+bus.<span class="fn">has</span>(<span class="str">"CreateUser"</span>)      <span class="cm">// boolean</span>
+bus.<span class="fn">size</span>()                   <span class="cm">// number of registered handlers</span>
+bus.<span class="fn">getCommandTypes</span>()        <span class="cm">// string[]</span>
+bus.<span class="fn">clear</span>()                  <span class="cm">// remove all handlers</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">QueryBus</h3>
+        <div class="code-block">
+<span class="kw">import</span> { createQueryBus } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> bus = <span class="fn">createQueryBus</span>({
+  middleware: [<span class="fn">timingMiddleware</span>()],
+});
+
+bus.<span class="fn">register</span>(<span class="str">"GetUser"</span>, getUserHandler);
+
+<span class="kw">const</span> user = <span class="kw">await</span> bus.<span class="fn">execute</span>(<span class="fn">createQuery</span>(<span class="str">"GetUser"</span>, { userId: <span class="str">"usr_123"</span> }));
+        </div>
+      </section>
+
+      <!-- ==================== RESULTS ==================== -->
+      <section id="results" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Results</h2>
+        <p class="mb-4">Structured result types with status, timing, and metadata.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">CommandResult</h3>
+        <div class="code-block">
+<span class="kw">interface</span> <span class="tp">CommandResult</span>&lt;TResult, TCommand&gt; {
+  <span class="kw">readonly</span> status: <span class="str">"success"</span> | <span class="str">"failure"</span>;
+  <span class="kw">readonly</span> result: TResult;
+  <span class="kw">readonly</span> commandType: <span class="tp">string</span>;
+  <span class="kw">readonly</span> executedAt: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> durationMs?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+}
+
+<span class="cm">// Create results</span>
+<span class="kw">import</span> { createCommandResult, createFailedCommandResult } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> ok = <span class="fn">createCommandResult</span>(user, { command: cmd, durationMs: <span class="num">42</span> });
+<span class="kw">const</span> fail = <span class="fn">createFailedCommandResult</span>(<span class="kw">null</span>, { command: cmd });
+
+<span class="cm">// Check status</span>
+<span class="kw">import</span> { isSuccessfulCommandResult, unwrapCommandResult } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="fn">isSuccessfulCommandResult</span>(ok)  <span class="cm">// true</span>
+<span class="fn">unwrapCommandResult</span>(ok)         <span class="cm">// the user object</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">QueryResult</h3>
+        <div class="code-block">
+<span class="kw">interface</span> <span class="tp">QueryResult</span>&lt;TResult, TQuery&gt; {
+  <span class="kw">readonly</span> status: <span class="str">"success"</span> | <span class="str">"failure"</span>;
+  <span class="kw">readonly</span> result: TResult;
+  <span class="kw">readonly</span> queryType: <span class="tp">string</span>;
+  <span class="kw">readonly</span> executedAt: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> durationMs?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+}
+
+<span class="kw">import</span> { createQueryResult, isSuccessfulQueryResult, unwrapQueryResult } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> ok = <span class="fn">createQueryResult</span>(user, { query: q });
+<span class="fn">isSuccessfulQueryResult</span>(ok)  <span class="cm">// true</span>
+<span class="fn">unwrapQueryResult</span>(ok)         <span class="cm">// the user object</span>
+        </div>
+      </section>
+
+      <!-- ==================== MIDDLEWARE ==================== -->
+      <section id="middleware" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Middleware</h2>
+        <p class="mb-4">Middleware wraps command/query execution. 11 built-in middleware factories included.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Built-in Middleware</h3>
+        <table class="w-full border-4 border-black text-sm mb-4">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Middleware</th><th class="px-4 py-2 text-left font-bold">Purpose</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">timingMiddleware()</td><td class="px-4 py-2">Measures execution time, attaches durationMs to result</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">errorMiddleware()</td><td class="px-4 py-2">Catches exceptions, normalizes into BaseError</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">validationMiddleware()</td><td class="px-4 py-2">Validates CQRS request structure before execution</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">contextMiddleware()</td><td class="px-4 py-2">Adds execution metadata to the CQRS context</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">lockMiddleware(lock)</td><td class="px-4 py-2">Prevents concurrent execution of same request type</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">commandMiddleware(fn)</td><td class="px-4 py-2">Adapts command-specific middleware to generic middleware</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">queryMiddleware(fn)</td><td class="px-4 py-2">Adapts query-specific middleware to generic middleware</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">composeMiddleware([])</td><td class="px-4 py-2">Combines multiple middleware into a single pipeline</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">beforeMiddleware(fn)</td><td class="px-4 py-2">Runs callback before execution</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">afterMiddleware(fn)</td><td class="px-4 py-2">Runs callback after successful execution</td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">onErrorMiddleware(fn)</td><td class="px-4 py-2">Runs callback when execution fails</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Using Middleware</h3>
+        <div class="code-block">
+<span class="kw">import</span> {
+  createCommandBus, timingMiddleware, errorMiddleware,
+  validationMiddleware, beforeMiddleware, afterMiddleware
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> bus = <span class="fn">createCommandBus</span>({
+  middleware: [
+    <span class="fn">timingMiddleware</span>(),
+    <span class="fn">errorMiddleware</span>(),
+    <span class="fn">validationMiddleware</span>(),
+    <span class="fn">beforeMiddleware</span>((req) =&gt; console.<span class="fn">log</span>(<span class="str">"Before:"</span>, req.type)),
+    <span class="fn">afterMiddleware</span>((req, result) =&gt; console.<span class="fn">log</span>(<span class="str">"After:"</span>, req.type)),
+  ],
+});
+
+<span class="cm">// Add middleware at runtime</span>
+bus.<span class="fn">use</span>(<span class="fn">onErrorMiddleware</span>((req, err) =&gt; console.<span class="fn">error</span>(req.type, err)));
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Custom Middleware</h3>
+        <div class="code-block">
+<span class="kw">import</span> { CqrsMiddleware } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> authMiddleware: <span class="tp">CqrsMiddleware</span> = <span class="kw">async</span> (request, context, next) =&gt; {
+  <span class="kw">if</span> (!context?.userId) {
+    <span class="kw">throw new</span> <span class="fn">CqrsValidationError</span>(<span class="str">"Authentication required"</span>);
+  }
+  <span class="kw">return</span> <span class="fn">next</span>(request, context);
+};
+        </div>
+      </section>
+
+      <!-- ==================== HANDLER REGISTRY ==================== -->
+      <section id="handler-registry" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Handler Registry</h2>
+        <p class="mb-4">Central registry for both command and query handlers.</p>
+
+        <div class="code-block">
+<span class="kw">import</span> { createHandlerRegistry } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> registry = <span class="fn">createHandlerRegistry</span>();
+
+<span class="cm">// Register</span>
+registry.<span class="fn">registerCommand</span>(<span class="str">"CreateUser"</span>, createUserHandler);
+registry.<span class="fn">registerQuery</span>(<span class="str">"GetUser"</span>, getUserHandler);
+
+<span class="cm">// Query</span>
+registry.<span class="fn">hasCommand</span>(<span class="str">"CreateUser"</span>)  <span class="cm">// true</span>
+registry.<span class="fn">hasQuery</span>(<span class="str">"GetUser"</span>)      <span class="cm">// true</span>
+registry.<span class="fn">commandCount</span>()             <span class="cm">// 1</span>
+registry.<span class="fn">queryCount</span>()               <span class="cm">// 1</span>
+registry.<span class="fn">size</span>()                     <span class="cm">// 2</span>
+registry.<span class="fn">getCommandTypes</span>()          <span class="cm">// ["CreateUser"]</span>
+registry.<span class="fn">getQueryTypes</span>()            <span class="cm">// ["GetUser"]</span>
+
+<span class="cm">// Replace</span>
+registry.<span class="fn">replaceCommand</span>(<span class="str">"CreateUser"</span>, newHandler);
+
+<span class="cm">// Unregister</span>
+registry.<span class="fn">unregisterCommand</span>(<span class="str">"CreateUser"</span>)  <span class="cm">// boolean</span>
+registry.<span class="fn">clearCommands</span>()                    <span class="cm">// remove all command handlers</span>
+registry.<span class="fn">clear</span>()                            <span class="cm">// remove everything</span>
+        </div>
+      </section>
+
+      <!-- ==================== CONTEXT ==================== -->
+      <section id="context" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Execution Context</h2>
+        <p class="mb-4">Propagates request metadata (user, tenant, correlation) through the pipeline.</p>
+
+        <div class="code-block">
+<span class="kw">import</span> {
+  createExecutionContext, createChildExecutionContext,
+  withUser, withTenant, withSource, withContextMetadata,
+  getUserId, getTenantId, sharesCorrelation, serializeExecutionContext
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// Create context</span>
+<span class="kw">const</span> ctx = <span class="fn">createExecutionContext</span>({
+  userId: <span class="str">"usr_123"</span>,
+  tenantId: <span class="str">"tenant_abc"</span>,
+  source: <span class="str">"http"</span>,
+  correlationId: <span class="str">"corr_001"</span>,
+});
+
+<span class="cm">// Immutable transformations</span>
+<span class="kw">const</span> ctx2 = <span class="fn">withUser</span>(ctx, <span class="str">"usr_456"</span>);
+<span class="kw">const</span> ctx3 = <span class="fn">withSource</span>(ctx, <span class="str">"rpc"</span>);
+
+<span class="cm">// Child context (preserves correlation chain)</span>
+<span class="kw">const</span> child = <span class="fn">createChildExecutionContext</span>(ctx, { source: <span class="str">"event"</span> });
+
+<span class="cm">// Getters</span>
+<span class="fn">getUserId</span>(ctx)         <span class="cm">// "usr_123"</span>
+<span class="fn">getTenantId</span>(ctx)       <span class="cm">// "tenant_abc"</span>
+<span class="fn">sharesCorrelation</span>(ctx, child) <span class="cm">// true</span>
+
+<span class="cm">// Serialize for logging/transport</span>
+<span class="kw">const</span> plain = <span class="fn">serializeExecutionContext</span>(ctx);
+        </div>
+      </section>
+
+      <!-- ==================== EVENTS ==================== -->
+      <section id="events" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Event Extensions</h2>
+        <p class="mb-4">CQRS-specific event types for event-sourced aggregates.</p>
+
+        <div class="code-block">
+<span class="kw">import</span> {
+  createCqrsEvent, isCqrsEvent, isAggregateEvent,
+  getAggregateId, createCqrsEventHandler
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// Create a CQRS event with aggregate info</span>
+<span class="kw">const</span> event = <span class="fn">createCqrsEvent</span>({
+  type: <span class="str">"UserCreated"</span>,
+  payload: { name: <span class="str">"Alice"</span>, email: <span class="str">"alice@example.com"</span> },
+  aggregateId: <span class="str">"usr_123"</span>,
+  aggregateType: <span class="str">"User"</span>,
+  version: <span class="num">1</span>,
+});
+
+<span class="fn">isCqrsEvent</span>(event)           <span class="cm">// true</span>
+<span class="fn">isAggregateEvent</span>(event)      <span class="cm">// true</span>
+<span class="fn">getAggregateId</span>(event)        <span class="cm">// "usr_123"</span>
+
+<span class="cm">// Create event handler registration</span>
+<span class="kw">const</span> registration = <span class="fn">createCqrsEventHandler</span>(<span class="str">"UserCreated"</span>, (event) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">"User created:"</span>, event.payload.name);
+});
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">EventResult</h3>
+        <div class="code-block">
+<span class="kw">import</span> {
+  createEventResult, isEventPublished, hasEventHandlerFailures
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">const</span> result = <span class="fn">createEventResult</span>({
+  event,
+  handlerCount: <span class="num">3</span>,
+  successfulHandlers: <span class="num">3</span>,
+  failedHandlers: <span class="num">0</span>,
+});
+
+<span class="fn">isEventPublished</span>(result)         <span class="cm">// true</span>
+<span class="fn">hasEventHandlerFailures</span>(result)  <span class="cm">// false</span>
+        </div>
+      </section>
+
+      <!-- ==================== DECORATORS ==================== -->
+      <section id="decorators" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Decorators</h2>
+        <p class="mb-4">TypeScript decorators for metadata-driven handler registration.</p>
+
+        <div class="code-block">
+<span class="kw">import</span> { CommandHandler, QueryHandler, getCqrsHandlerMetadata } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="kw">@</span><span class="fn">CommandHandler</span>(<span class="str">"CreateUser"</span>)
+<span class="kw">class</span> <span class="tp">CreateUserHandler</span> {
+  <span class="kw">async</span> <span class="fn">execute</span>(command: <span class="tp">CreateUserCommand</span>) {
+    <span class="cm">// ...</span>
+  }
+}
+
+<span class="kw">@</span><span class="fn">QueryHandler</span>(<span class="str">"GetUser"</span>)
+<span class="kw">class</span> <span class="tp">GetUserHandler</span> {
+  <span class="kw">async</span> <span class="fn">execute</span>(query: <span class="tp">GetUserQuery</span>) {
+    <span class="cm">// ...</span>
+  }
+}
+
+<span class="cm">// Read metadata</span>
+<span class="kw">const</span> meta = <span class="fn">getCqrsHandlerMetadata</span>(CreateUserHandler);
+<span class="cm">// → { kind: "command", type: "CreateUser" }</span>
+        </div>
+      </section>
+
+      <!-- ==================== ERRORS ==================== -->
+      <section id="errors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Errors</h2>
+        <p class="mb-4">10 specialized error types extending <code class="bg-gray-100 px-1 font-bold">BaseError</code> from <code class="bg-gray-100 px-1 font-bold">@zudolib/errors</code>.</p>
+
+        <table class="w-full border-4 border-black text-sm">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Error</th><th class="px-4 py-2 text-left font-bold">Status</th><th class="px-4 py-2 text-left font-bold">When Thrown</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">CqrsError</td><td class="px-4 py-2">500</td><td class="px-4 py-2">Base CQRS error</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">CqrsValidationError</td><td class="px-4 py-2">400</td><td class="px-4 py-2">Invalid CQRS request structure</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">CommandHandlerNotFoundError</td><td class="px-4 py-2">500</td><td class="px-4 py-2">No handler registered for command type</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">QueryHandlerNotFoundError</td><td class="px-4 py-2">500</td><td class="px-4 py-2">No handler registered for query type</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">EventHandlerExecutionError</td><td class="px-4 py-2">500</td><td class="px-4 py-2">Event handler throws during publication</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">DuplicateHandlerError</td><td class="px-4 py-2">409</td><td class="px-4 py-2">Registering a handler for an existing type</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">EventPublishError</td><td class="px-4 py-2">500</td><td class="px-4 py-2">Event cannot be published</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">InvalidHandlerTypeError</td><td class="px-4 py-2">400</td><td class="px-4 py-2">Handler registered with invalid type</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">InvalidMiddlewareError</td><td class="px-4 py-2">400</td><td class="px-4 py-2">Middleware is invalid</td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">MiddlewareExecutionError</td><td class="px-4 py-2">500</td><td class="px-4 py-2">Middleware calls next() more than once</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ==================== TESTING ==================== -->
+      <section id="testing" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Testing</h2>
+        <div class="code-block">
+<span class="kw">import</span> { describe, it, expect, beforeEach } <span class="kw">from</span> <span class="str">"vitest"</span>;
+<span class="kw">import</span> {
+  createCommandBus, createQueryBus, createCommand, createQuery,
+  createCommandHandler, createQueryHandler, timingMiddleware
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="fn">describe</span>(<span class="str">"CommandBus"</span>, () =&gt; {
+  <span class="kw">let</span> bus: <span class="tp">CommandBus</span>;
+
+  <span class="fn">beforeEach</span>(() =&gt; {
+    bus = <span class="fn">createCommandBus</span>();
+    bus.<span class="fn">register</span>(<span class="str">"CreateUser"</span>, <span class="fn">createCommandHandler</span>(<span class="str">"CreateUser"</span>, <span class="kw">async</span> (cmd) =&gt; {
+      <span class="kw">return</span> { id: <span class="str">"usr_123"</span>, name: cmd.name };
+    }));
+  });
+
+  <span class="fn">it</span>(<span class="str">"should execute commands"</span>, <span class="kw">async</span> () =&gt; {
+    <span class="kw">const</span> result = <span class="kw">await</span> bus.<span class="fn">execute</span>(<span class="fn">createCommand</span>(<span class="str">"CreateUser"</span>, { name: <span class="str">"Alice"</span> }));
+    <span class="fn">expect</span>(result).<span class="fn">toEqual</span>({ id: <span class="str">"usr_123"</span>, name: <span class="str">"Alice"</span> });
+  });
+
+  <span class="fn">it</span>(<span class="str">"should run middleware"</span>, <span class="kw">async</span> () =&gt; {
+    <span class="kw">const</span> bus = <span class="fn">createCommandBus</span>({ middleware: [<span class="fn">timingMiddleware</span>()] });
+    bus.<span class="fn">register</span>(<span class="str">"CreateUser"</span>, <span class="fn">createCommandHandler</span>(<span class="str">"CreateUser"</span>, <span class="kw">async</span> () =&gt; <span class="str">"ok"</span>));
+    <span class="kw">const</span> result = <span class="kw">await</span> bus.<span class="fn">execute</span>(<span class="fn">createCommand</span>(<span class="str">"CreateUser"</span>));
+    <span class="fn">expect</span>(result).<span class="fn">toBe</span>(<span class="str">"ok"</span>);
+  });
+});
+        </div>
+      </section>
+
+      <!-- ==================== CONNECTIONS ==================== -->
+      <section id="connections" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Connections to Other Packages</h2>
+        <table class="w-full border-4 border-black text-sm">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Package</th><th class="px-4 py-2 text-left font-bold">Relationship</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/errors</td><td class="px-4 py-2">Dependency — all CqrsError types extend BaseError</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/events</td><td class="px-4 py-2">Dependency — EventBus, Event re-exports</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/messaging</td><td class="px-4 py-2">Dependency — message bus types</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/core</td><td class="px-4 py-2">Consumer — module system registers CQRS handlers</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/http</td><td class="px-4 py-2">Consumer — HTTP handlers dispatch commands/queries</td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/rpc</td><td class="px-4 py-2">Consumer — RPC handlers dispatch commands/queries</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ==================== VERSION COMPATIBILITY ==================== -->
+      <section id="version-compatibility" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Version Compatibility</h2>
+        <table class="w-full border-4 border-black text-sm">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">@zudolib/cqrs</th><th class="px-4 py-2 text-left font-bold">TypeScript</th><th class="px-4 py-2 text-left font-bold">Node.js</th><th class="px-4 py-2 text-left font-bold">Module</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">1.0.x</td><td class="px-4 py-2">5.x – 7.x</td><td class="px-4 py-2">≥ 24.0</td><td class="px-4 py-2">ESM</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ==================== IMPROVEMENTS ==================== -->
+      <section id="improvements" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Potential Improvements</h2>
+        <ul class="space-y-2 text-sm">
+          <li class="border-l-4 border-zudo-red pl-3"><strong>Auto-registration:</strong> Scan decorated classes and register handlers automatically</li>
+          <li class="border-l-4 border-zudo-blue pl-3"><strong>Command/query versioning:</strong> Support multiple handler versions for backward compatibility</li>
+          <li class="border-l-4 border-zudo-yellow pl-3"><strong>Distributed bus:</strong> Redis/RabbitMQ-backed bus for microservice CQRS</li>
+          <li class="border-l-4 border-zudo-green pl-3"><strong>Saga support:</strong> Long-running process managers spanning multiple commands</li>
+          <li class="border-l-4 border-black pl-3"><strong>Dead letter queue:</strong> Persist failed commands for retry</li>
+        </ul>
+      </section>
+
+      <!-- ==================== QUICK REFERENCE ==================== -->
+      <section id="quick-reference" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Quick Reference</h2>
+        <div class="code-block">
+<span class="cm">// ─── Commands ───</span>
+<span class="kw">import</span> {
+  Command, MetadataCommand, createCommand, commandType,
+  CommandHandler, createCommandHandler, CommandBus, createCommandBus
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// ─── Queries ───</span>
+<span class="kw">import</span> {
+  Query, MetadataQuery, createQuery, queryType,
+  QueryHandler, createQueryHandler, QueryBus, createQueryBus
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// ─── Results ───</span>
+<span class="kw">import</span> {
+  createCommandResult, createFailedCommandResult, isSuccessfulCommandResult, unwrapCommandResult,
+  createQueryResult, createFailedQueryResult, isSuccessfulQueryResult, unwrapQueryResult
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// ─── Middleware ───</span>
+<span class="kw">import</span> {
+  timingMiddleware, errorMiddleware, validationMiddleware,
+  contextMiddleware, lockMiddleware, composeMiddleware,
+  beforeMiddleware, afterMiddleware, onErrorMiddleware,
+  commandMiddleware, queryMiddleware
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// ─── Registry ───</span>
+<span class="kw">import</span> { HandlerRegistry, createHandlerRegistry } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// ─── Context ───</span>
+<span class="kw">import</span> {
+  createExecutionContext, createChildExecutionContext,
+  withUser, withTenant, withSource, serializeExecutionContext
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// ─── Events ───</span>
+<span class="kw">import</span> {
+  createCqrsEvent, isCqrsEvent, isAggregateEvent,
+  createCqrsEventHandler, createEventResult
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// ─── Decorators ───</span>
+<span class="kw">import</span> { CommandHandler, QueryHandler, getCqrsHandlerMetadata } <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// ─── Types ───</span>
+<span class="kw">import</span> {
+  CqrsContext, CqrsMiddleware, CommandOf, QueryOf,
+  CommandResult, QueryResult, CommandResultStatus
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+
+<span class="cm">// ─── Errors ───</span>
+<span class="kw">import</span> {
+  CqrsError, CqrsValidationError, CommandHandlerNotFoundError,
+  QueryHandlerNotFoundError, DuplicateHandlerError
+} <span class="kw">from</span> <span class="str">"@zudolib/cqrs"</span>;
+        </div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-48 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 hidden lg:block">
+      <div class="p-4 text-xs font-bold uppercase text-gray-400 tracking-wider">On this page</div>
+      <a href="#overview" class="toc-link">Overview</a>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#commands" class="toc-link">Commands</a>
+      <a href="#queries" class="toc-link">Queries</a>
+      <a href="#handlers" class="toc-link">Handlers</a>
+      <a href="#buses" class="toc-link">Buses</a>
+      <a href="#results" class="toc-link">Results</a>
+      <a href="#middleware" class="toc-link">Middleware</a>
+      <a href="#handler-registry" class="toc-link">Handler Registry</a>
+      <a href="#context" class="toc-link">Context</a>
+      <a href="#events" class="toc-link">Events</a>
+      <a href="#decorators" class="toc-link">Decorators</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#testing" class="toc-link">Testing</a>
+      <a href="#connections" class="toc-link">Connections</a>
+      <a href="#version-compatibility" class="toc-link">Version Compat</a>
+      <a href="#improvements" class="toc-link">Improvements</a>
+      <a href="#quick-reference" class="toc-link">Quick Reference</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-black text-white border-t-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8 flex items-center justify-between text-sm">
+      <div>&copy; 2026 Zudo. MIT License.</div>
+      <div class="flex gap-4">
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+        <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
+        <a href="../../roadmap.html" class="hover:text-zudo-yellow">Roadmap</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('toc-link-active'));
+          const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('toc-link-active');
+        }
+      });
+    }, { rootMargin: '-80px 0px -80% 0px' });
+    headings.forEach(h => observer.observe(h));
+  </script>
+
+</body>
+</html>

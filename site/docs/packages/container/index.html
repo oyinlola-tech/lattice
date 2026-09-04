@@ -208,24 +208,24 @@
 
       <!-- ==================== OVERVIEW ==================== -->
       <section id="overview" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Overview</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Overview</h2>
         <p class="mb-4">
           <code class="bg-gray-100 px-1 font-bold">@zudolib/container</code> provides the dependency injection backbone for the Zudo framework. Every module, service, and adapter registers through the container, and every dependency is resolved through tokens — not manual wiring.
         </p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-          <div class="border-2 border-black p-3 bg-zudo-red text-white text-center">
+          <div class="border-4 border-black p-3 bg-zudo-red text-white text-center">
             <div class="text-2xl font-black">4</div>
             <div class="text-xs font-bold">PROVIDER TYPES</div>
           </div>
-          <div class="border-2 border-black p-3 bg-zudo-blue text-white text-center">
+          <div class="border-4 border-black p-3 bg-zudo-blue text-white text-center">
             <div class="text-2xl font-black">3</div>
             <div class="text-xs font-bold">LIFETIME SCOPES</div>
           </div>
-          <div class="border-2 border-black p-3 bg-zudo-yellow text-center">
+          <div class="border-4 border-black p-3 bg-zudo-yellow text-center">
             <div class="text-2xl font-black">25+</div>
             <div class="text-xs font-bold">EXPORTED TYPES</div>
           </div>
-          <div class="border-2 border-black p-3 bg-zudo-green text-black text-center">
+          <div class="border-4 border-black p-3 bg-zudo-green text-black text-center">
             <div class="text-2xl font-black">30+</div>
             <div class="text-xs font-bold">FUNCTIONS</div>
           </div>
@@ -247,7 +247,7 @@ containerCore          <span class="cm">← depends on everything above</span>
 
       <!-- ==================== INSTALLATION ==================== -->
       <section id="installation" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Installation</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Installation</h2>
         <div class="code-block">
 <span class="cm">// npm</span>
 npm install @zudolib/container
@@ -265,7 +265,7 @@ pnpm add @zudolib/container
 
       <!-- ==================== QUICK START ==================== -->
       <section id="quick-start" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Quick Start</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Quick Start</h2>
         <div class="code-block">
 <span class="kw">import</span> { createContainer, createToken } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
 
@@ -296,7 +296,7 @@ container.<span class="fn">register</span>(DatabaseToken, <span class="fn">facto
 
       <!-- ==================== TOKENS ==================== -->
       <section id="tokens" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Token System</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Token System</h2>
         <p class="mb-4">Tokens are unique identifiers for registered services. Three token kinds are supported: classes, symbols, and strings.</p>
 
         <h3 class="text-xl font-black mt-6 mb-3">Token Types</h3>
@@ -326,34 +326,36 @@ container.<span class="fn">register</span>(DatabaseToken, <span class="fn">facto
         </div>
 
         <h3 class="text-xl font-black mt-6 mb-3">Token Utilities</h3>
-        <table class="w-full border-2 border-black text-sm mb-4">
-          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Function</th><th class="px-4 py-2 text-left font-bold">Returns</th><th class="px-4 py-2 text-left font-bold">Description</th></tr></thead>
-          <tbody>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">unwrapToken(token)</td><td class="px-4 py-2">Token&lt;T&gt;</td><td class="px-4 py-2">Extracts raw token from InjectionToken or returns directly</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">describeToken(token)</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Human-readable name: string literal, Symbol description, or constructor name</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">isInjectionToken(v)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">Type guard — checks for <code class="bg-gray-100 px-1">{ token }</code> shape</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">isConstructorToken(t)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">Type guard — <code class="bg-gray-100 px-1">typeof t === "function"</code></td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">isSymbolToken(t)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">Type guard — <code class="bg-gray-100 px-1">typeof t === "symbol"</code></td></tr>
-            <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">isStringToken(t)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">Type guard — <code class="bg-gray-100 px-1">typeof t === "string"</code></td></tr>
-          </tbody>
-        </table>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm mb-4">
+            <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Function</th><th class="px-4 py-2 text-left font-bold">Returns</th><th class="px-4 py-2 text-left font-bold">Description</th></tr></thead>
+            <tbody>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">unwrapToken(token)</td><td class="px-4 py-2">Token&lt;T&gt;</td><td class="px-4 py-2">Extracts raw token from InjectionToken or returns directly</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">describeToken(token)</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Human-readable name: string literal, Symbol description, or constructor name</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">isInjectionToken(v)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">Type guard — checks for <code class="bg-gray-100 px-1">{ token }</code> shape</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">isConstructorToken(t)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">Type guard — <code class="bg-gray-100 px-1">typeof t === "function"</code></td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">isSymbolToken(t)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">Type guard — <code class="bg-gray-100 px-1">typeof t === "symbol"</code></td></tr>
+              <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">isStringToken(t)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">Type guard — <code class="bg-gray-100 px-1">typeof t === "string"</code></td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- ==================== SCOPES ==================== -->
       <section id="scopes" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Scopes (Lifetime Management)</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Scopes (Lifetime Management)</h2>
         <p class="mb-4">Every registration has a scope that controls how many instances are created.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div class="border-2 border-black p-4 bg-zudo-red text-white">
+          <div class="border-4 border-black p-4 bg-zudo-red text-white">
             <h4 class="font-black text-lg mb-2">SINGLETON</h4>
             <p class="text-sm">One instance per container. Created on first resolve, then cached forever.</p>
           </div>
-          <div class="border-2 border-black p-4 bg-zudo-blue text-white">
+          <div class="border-4 border-black p-4 bg-zudo-blue text-white">
             <h4 class="font-black text-lg mb-2">SCOPED</h4>
             <p class="text-sm">One instance per scope. Cached within a <code class="bg-white/20 px-1">ContainerScopeContext</code>. Shared across resolves in the same scope.</p>
           </div>
-          <div class="border-2 border-black p-4 bg-zudo-yellow text-center">
+          <div class="border-4 border-black p-4 bg-zudo-yellow text-center">
             <h4 class="font-black text-lg mb-2 text-black">TRANSIENT</h4>
             <p class="text-sm text-black">New instance every resolve. Never cached. Default scope.</p>
           </div>
@@ -385,7 +387,7 @@ ContainerScope.TRANSIENT  <span class="cm">// "transient" — new every time (de
 
       <!-- ==================== PROVIDERS ==================== -->
       <section id="providers" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Providers</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Providers</h2>
         <p class="mb-4">Providers define <em>how</em> a token is satisfied. Four provider types are available.</p>
 
         <h3 class="text-xl font-black mt-6 mb-3">ClassProvider</h3>
@@ -461,7 +463,7 @@ ContainerScope.TRANSIENT  <span class="cm">// "transient" — new every time (de
 
       <!-- ==================== CONTAINER API ==================== -->
       <section id="container-api" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Container API</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Container API</h2>
         <p class="mb-4">The main <code class="bg-gray-100 px-1 font-bold">Container</code> class ties everything together.</p>
 
         <h3 class="text-xl font-black mt-6 mb-3">Creating a Container</h3>
@@ -480,29 +482,33 @@ c1.<span class="fn">start</span>();
         </div>
 
         <h3 class="text-xl font-black mt-6 mb-3">Registration Methods</h3>
-        <table class="w-full border-2 border-black text-sm mb-4">
-          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Method</th><th class="px-4 py-2 text-left font-bold">Description</th></tr></thead>
-          <tbody>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">register(token, provider, opts?)</td><td class="px-4 py-2">Register any provider type for a token</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">registerClass(token, ctor, opts?)</td><td class="px-4 py-2">Convenience — wraps classProvider</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">registerValue(token, value, opts?)</td><td class="px-4 py-2">Convenience — wraps valueProvider, forces SINGLETON</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">registerFactory(token, factory, inject?, opts?)</td><td class="px-4 py-2">Convenience — wraps factoryProvider</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">registerExisting(token, existing, opts?)</td><td class="px-4 py-2">Convenience — wraps existingProvider</td></tr>
-            <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">remove(token)</td><td class="px-4 py-2">Remove a registration. Returns boolean.</td></tr>
-          </tbody>
-        </table>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm mb-4">
+            <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Method</th><th class="px-4 py-2 text-left font-bold">Description</th></tr></thead>
+            <tbody>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">register(token, provider, opts?)</td><td class="px-4 py-2">Register any provider type for a token</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">registerClass(token, ctor, opts?)</td><td class="px-4 py-2">Convenience — wraps classProvider</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">registerValue(token, value, opts?)</td><td class="px-4 py-2">Convenience — wraps valueProvider, forces SINGLETON</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">registerFactory(token, factory, inject?, opts?)</td><td class="px-4 py-2">Convenience — wraps factoryProvider</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">registerExisting(token, existing, opts?)</td><td class="px-4 py-2">Convenience — wraps existingProvider</td></tr>
+              <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">remove(token)</td><td class="px-4 py-2">Remove a registration. Returns boolean.</td></tr>
+            </tbody>
+          </table>
+        </div>
 
         <h3 class="text-xl font-black mt-6 mb-3">Resolution Methods</h3>
-        <table class="w-full border-2 border-black text-sm mb-4">
-          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Method</th><th class="px-4 py-2 text-left font-bold">Returns</th><th class="px-4 py-2 text-left font-bold">Description</th></tr></thead>
-          <tbody>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">resolve(token)</td><td class="px-4 py-2">T</td><td class="px-4 py-2">Resolve and return the instance. Throws if unresolvable.</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">resolveOptional(token)</td><td class="px-4 py-2">T \| undefined</td><td class="px-4 py-2">Returns undefined instead of throwing.</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">resolveMany(tokens)</td><td class="px-4 py-2">T[]</td><td class="px-4 py-2">Resolve multiple tokens at once.</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">canResolve(token)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">True if token is registered (or auto-registerable).</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">has(token)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">True if a registration exists for the token.</td></tr>
-          </tbody>
-        </table>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm mb-4">
+            <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Method</th><th class="px-4 py-2 text-left font-bold">Returns</th><th class="px-4 py-2 text-left font-bold">Description</th></tr></thead>
+            <tbody>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">resolve(token)</td><td class="px-4 py-2">T</td><td class="px-4 py-2">Resolve and return the instance. Throws if unresolvable.</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">resolveOptional(token)</td><td class="px-4 py-2">T \| undefined</td><td class="px-4 py-2">Returns undefined instead of throwing.</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">resolveMany(tokens)</td><td class="px-4 py-2">T[]</td><td class="px-4 py-2">Resolve multiple tokens at once.</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">canResolve(token)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">True if token is registered (or auto-registerable).</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">has(token)</td><td class="px-4 py-2">boolean</td><td class="px-4 py-2">True if a registration exists for the token.</td></tr>
+            </tbody>
+          </table>
+        </div>
 
         <h3 class="text-xl font-black mt-6 mb-3">Scope & Lifecycle</h3>
         <div class="code-block">
@@ -529,7 +535,7 @@ container.<span class="fn">getRegistrations</span>() <span class="cm">// readonl
 
       <!-- ==================== REGISTRATION ==================== -->
       <section id="registration" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Registration Details</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Registration Details</h2>
         <p class="mb-4">Each registration stores the token, provider, scope, metadata, and creation timestamp.</p>
 
         <h3 class="text-xl font-black mt-6 mb-3">Registration Object</h3>
@@ -583,7 +589,7 @@ container.<span class="fn">register</span>(Token, provider, {
 
       <!-- ==================== REGISTRY ==================== -->
       <section id="registry" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Registry</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Registry</h2>
         <p class="mb-4">The <code class="bg-gray-100 px-1 font-bold">ContainerRegistry</code> stores all registrations with change event subscriptions.</p>
 
         <h3 class="text-xl font-black mt-6 mb-3">Registry Operations</h3>
@@ -622,7 +628,7 @@ reg.<span class="fn">find</span>(predicate)      <span class="cm">// custom filt
 
       <!-- ==================== SCOPES API ==================== -->
       <section id="scopes-api" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Scoped Resolution</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Scoped Resolution</h2>
         <p class="mb-4">Create isolated scopes for request-level or lifecycle-level instance management.</p>
 
         <div class="code-block">
@@ -651,7 +657,7 @@ reg.<span class="fn">find</span>(predicate)      <span class="cm">// custom filt
 
       <!-- ==================== LIFECYCLE ==================== -->
       <section id="lifecycle" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Lifecycle Management</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Lifecycle Management</h2>
         <p class="mb-4">The container automatically tracks instances that implement <code class="bg-gray-100 px-1 font-bold">Disposable</code> or <code class="bg-gray-100 px-1 font-bold">AsyncDisposable</code> and disposes them in reverse order.</p>
 
         <h3 class="text-xl font-black mt-6 mb-3">Disposable Interface</h3>
@@ -676,13 +682,15 @@ reg.<span class="fn">find</span>(predicate)      <span class="cm">// custom filt
         </div>
 
         <h3 class="text-xl font-black mt-6 mb-3">Ownership Levels</h3>
-        <table class="w-full border-2 border-black text-sm mb-4">
-          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Owner</th><th class="px-4 py-2 text-left font-bold">Scope</th><th class="px-4 py-2 text-left font-bold">Disposal</th></tr></thead>
-          <tbody>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">CONTAINER</td><td class="px-4 py-2">Container-level instances</td><td class="px-4 py-2">Disposed on <code class="bg-gray-100 px-1">container.dispose()</code></td></tr>
-            <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">SCOPE</td><td class="px-4 py-2">Scope-level instances</td><td class="px-4 py-2">Disposed on <code class="bg-gray-100 px-1">scope.dispose()</code></td></tr>
-          </tbody>
-        </table>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm mb-4">
+            <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Owner</th><th class="px-4 py-2 text-left font-bold">Scope</th><th class="px-4 py-2 text-left font-bold">Disposal</th></tr></thead>
+            <tbody>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">CONTAINER</td><td class="px-4 py-2">Container-level instances</td><td class="px-4 py-2">Disposed on <code class="bg-gray-100 px-1">container.dispose()</code></td></tr>
+              <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">SCOPE</td><td class="px-4 py-2">Scope-level instances</td><td class="px-4 py-2">Disposed on <code class="bg-gray-100 px-1">scope.dispose()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
 
         <h3 class="text-xl font-black mt-6 mb-3">Fail-Fast Mode</h3>
         <div class="code-block">
@@ -696,7 +704,7 @@ reg.<span class="fn">find</span>(predicate)      <span class="cm">// custom filt
 
       <!-- ==================== CONFIGURATION ==================== -->
       <section id="configuration" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Configuration</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Configuration</h2>
         <p class="mb-4">Container behavior is fully configurable.</p>
 
         <h3 class="text-xl font-black mt-6 mb-3">ContainerOptions</h3>
@@ -732,22 +740,24 @@ reg.<span class="fn">find</span>(predicate)      <span class="cm">// custom filt
         </div>
 
         <h3 class="text-xl font-black mt-6 mb-3">Log Levels</h3>
-        <table class="w-full border-2 border-black text-sm">
-          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Level</th><th class="px-4 py-2 text-left font-bold">Behavior</th></tr></thead>
-          <tbody>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">NONE</td><td class="px-4 py-2">No logging</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">ERROR</td><td class="px-4 py-2">Only errors</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">WARN</td><td class="px-4 py-2">Warnings + errors (default)</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">INFO</td><td class="px-4 py-2">Info + warnings + errors</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">DEBUG</td><td class="px-4 py-2">Debug + info + warnings + errors</td></tr>
-            <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">TRACE</td><td class="px-4 py-2">All output including resolution traces</td></tr>
-          </tbody>
-        </table>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Level</th><th class="px-4 py-2 text-left font-bold">Behavior</th></tr></thead>
+            <tbody>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">NONE</td><td class="px-4 py-2">No logging</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">ERROR</td><td class="px-4 py-2">Only errors</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">WARN</td><td class="px-4 py-2">Warnings + errors (default)</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">INFO</td><td class="px-4 py-2">Info + warnings + errors</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">DEBUG</td><td class="px-4 py-2">Debug + info + warnings + errors</td></tr>
+              <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">TRACE</td><td class="px-4 py-2">All output including resolution traces</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- ==================== CIRCULAR DEPS ==================== -->
       <section id="circular-dependencies" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Circular Dependency Detection</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Circular Dependency Detection</h2>
         <p class="mb-4">The container tracks the resolution path and detects cycles automatically.</p>
 
         <div class="code-block">
@@ -773,7 +783,7 @@ container.<span class="fn">resolve</span>(TokenA);
 
       <!-- ==================== AUTO-REGISTER ==================== -->
       <section id="auto-register" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Auto-Registration</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Auto-Registration</h2>
         <p class="mb-4">When <code class="bg-gray-100 px-1 font-bold">autoRegisterClasses: true</code>, unregistered class tokens are automatically registered as TRANSIENT.</p>
 
         <div class="code-block">
@@ -791,25 +801,27 @@ container.<span class="fn">resolve</span>(TokenA);
 
       <!-- ==================== ERRORS ==================== -->
       <section id="errors" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Errors</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Errors</h2>
         <p class="mb-4">All errors extend <code class="bg-gray-100 px-1 font-bold">BaseError</code> from <code class="bg-gray-100 px-1 font-bold">@zudolib/errors</code>.</p>
 
-        <table class="w-full border-2 border-black text-sm">
-          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Error</th><th class="px-4 py-2 text-left font-bold">When Thrown</th></tr></thead>
-          <tbody>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">CircularDependencyError</td><td class="px-4 py-2">Resolution path contains a cycle</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">DuplicateRegistrationError</td><td class="px-4 py-2">Registering a token that already exists (and allowDuplicates is false)</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">RegistrationNotFoundError</td><td class="px-4 py-2">Resolving/replacing a token that isn't registered</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">ProviderResolutionError</td><td class="px-4 py-2">Provider factory or constructor throws during creation</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">ContainerLifecycleError</td><td class="px-4 py-2">Container is disposed or in an invalid state</td></tr>
-            <tr class="bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">ContainerDisposalError</td><td class="px-4 py-2">One or more instances failed to dispose (aggregates errors)</td></tr>
-          </tbody>
-        </table>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Error</th><th class="px-4 py-2 text-left font-bold">When Thrown</th></tr></thead>
+            <tbody>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">CircularDependencyError</td><td class="px-4 py-2">Resolution path contains a cycle</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">DuplicateRegistrationError</td><td class="px-4 py-2">Registering a token that already exists (and allowDuplicates is false)</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">RegistrationNotFoundError</td><td class="px-4 py-2">Resolving/replacing a token that isn't registered</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">ProviderResolutionError</td><td class="px-4 py-2">Provider factory or constructor throws during creation</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold text-zudo-red">ContainerLifecycleError</td><td class="px-4 py-2">Container is disposed or in an invalid state</td></tr>
+              <tr class="bg-gray-50"><td class="px-4 py-2 font-bold text-zudo-red">ContainerDisposalError</td><td class="px-4 py-2">One or more instances failed to dispose (aggregates errors)</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- ==================== TESTING ==================== -->
       <section id="testing" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Testing</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Testing</h2>
         <p class="mb-4">Containers are designed for test isolation. Create a fresh container per test.</p>
 
         <div class="code-block">
@@ -851,36 +863,40 @@ container.<span class="fn">resolve</span>(TokenA);
 
       <!-- ==================== CONNECTIONS ==================== -->
       <section id="connections" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Connections to Other Packages</h2>
-        <table class="w-full border-2 border-black text-sm">
-          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Package</th><th class="px-4 py-2 text-left font-bold">Relationship</th></tr></thead>
-          <tbody>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/errors</td><td class="px-4 py-2">Dependency — all container errors extend BaseError</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/core</td><td class="px-4 py-2">Consumer — modules register through the container</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/config</td><td class="px-4 py-2">Consumer — config sources registered as providers</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/modules</td><td class="px-4 py-2">Consumer — each module gets a scoped container</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/events</td><td class="px-4 py-2">Consumer — EventBus registered through the container</td></tr>
-            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/logger</td><td class="px-4 py-2">Consumer — Logger transport registered through the container</td></tr>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/http</td><td class="px-4 py-2">Consumer — HTTP handlers resolved from the container</td></tr>
-            <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/cqrs</td><td class="px-4 py-2">Consumer — command/query handlers resolved from the container</td></tr>
-          </tbody>
-        </table>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Connections to Other Packages</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Package</th><th class="px-4 py-2 text-left font-bold">Relationship</th></tr></thead>
+            <tbody>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/errors</td><td class="px-4 py-2">Dependency — all container errors extend BaseError</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/core</td><td class="px-4 py-2">Consumer — modules register through the container</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/config</td><td class="px-4 py-2">Consumer — config sources registered as providers</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/modules</td><td class="px-4 py-2">Consumer — each module gets a scoped container</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/events</td><td class="px-4 py-2">Consumer — EventBus registered through the container</td></tr>
+              <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/logger</td><td class="px-4 py-2">Consumer — Logger transport registered through the container</td></tr>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudolib/http</td><td class="px-4 py-2">Consumer — HTTP handlers resolved from the container</td></tr>
+              <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">@zudolib/cqrs</td><td class="px-4 py-2">Consumer — command/query handlers resolved from the container</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- ==================== VERSION COMPATIBILITY ==================== -->
       <section id="version-compatibility" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Version Compatibility</h2>
-        <table class="w-full border-2 border-black text-sm">
-          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">@zudolib/container</th><th class="px-4 py-2 text-left font-bold">TypeScript</th><th class="px-4 py-2 text-left font-bold">Node.js</th><th class="px-4 py-2 text-left font-bold">Module</th></tr></thead>
-          <tbody>
-            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">1.0.x</td><td class="px-4 py-2">5.x – 7.x</td><td class="px-4 py-2">≥ 24.0</td><td class="px-4 py-2">ESM</td></tr>
-          </tbody>
-        </table>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Version Compatibility</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">@zudolib/container</th><th class="px-4 py-2 text-left font-bold">TypeScript</th><th class="px-4 py-2 text-left font-bold">Node.js</th><th class="px-4 py-2 text-left font-bold">Module</th></tr></thead>
+            <tbody>
+              <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">1.0.x</td><td class="px-4 py-2">5.x – 7.x</td><td class="px-4 py-2">≥ 24.0</td><td class="px-4 py-2">ESM</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- ==================== IMPROVEMENTS ==================== -->
       <section id="improvements" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Potential Improvements</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Potential Improvements</h2>
         <ul class="space-y-2 text-sm">
           <li class="border-l-4 border-zudo-red pl-3"><strong>Factory injection metadata:</strong> Auto-infer factory dependencies from function parameter types via TypeScript reflection</li>
           <li class="border-l-4 border-zudo-blue pl-3"><strong>Lazy resolution:</strong> Add <code class="bg-gray-100 px-1 font-bold">LazyToken</code> that returns a proxy resolving on first access</li>
@@ -892,7 +908,7 @@ container.<span class="fn">resolve</span>(TokenA);
 
       <!-- ==================== QUICK REFERENCE ==================== -->
       <section id="quick-reference" class="mb-12">
-        <h2 class="text-2xl font-black mb-4 border-b-2 border-black pb-2">Quick Reference</h2>
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Quick Reference</h2>
         <div class="code-block">
 <span class="cm">// ─── Create ───</span>
 <span class="kw">import</span> { createContainer, createStartedContainer } <span class="kw">from</span> <span class="str">"@zudolib/container"</span>;
@@ -967,8 +983,8 @@ container.<span class="fn">resolve</span>(TokenA);
       <div>&copy; 2026 Zudo. MIT License.</div>
       <div class="flex gap-4">
         <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
-        <a href="../../../packages/" class="hover:text-zudo-blue">Packages</a>
-        <a href="../../../roadmap.html" class="hover:text-zudo-yellow">Roadmap</a>
+        <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
+        <a href="../../roadmap.html" class="hover:text-zudo-yellow">Roadmap</a>
       </div>
     </div>
   </footer>

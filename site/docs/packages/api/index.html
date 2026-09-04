@@ -151,6 +151,7 @@
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../packages/" class="sidebar-item">Overview</a>
       <a href="../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
+      <a href="../../packages/api/" class="sidebar-item sidebar-item-active">@zudolib/api</a>
       <a href="../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
       <a href="../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
       <a href="../../packages/types/" class="sidebar-item">@zudolib/types</a>
@@ -187,7 +188,7 @@
         </div>
       </div>
 
-      <h2 class="text-h2 mb-4" id="overview">Overview</h2>
+      <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="overview">Overview</h2>
             <p class="text-body text-black/80 mb-4">
               <span class="code-inline">@zudolib/api</span> defines the public surface of your application capabilities. It provides transport-agnostic operation definitions, a typed execution context, an interceptor pipeline, an operation registry, and a discriminated result type.
             </p>
@@ -203,7 +204,7 @@
 
           <!-- ==================== SECTION: INSTALLATION ==================== -->
           <section class="mt-12" aria-labelledby="installation">
-            <h2 class="text-h2 mb-4" id="installation">Installation</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="installation">Installation</h2>
             <div class="code-block p-4 mb-4"><span class="cmt"># Install with npm</span>
 npm install @zudolib/api
 
@@ -218,7 +219,7 @@ pnpm add @zudolib/api</div>
 
           <!-- ==================== SECTION: QUICK START ==================== -->
           <section class="mt-12" aria-labelledby="quick-start">
-            <h2 class="text-h2 mb-4" id="quick-start">Quick Start</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="quick-start">Quick Start</h2>
             <p class="text-body text-black/80 mb-4">Define an operation, register it, and execute it:</p>
 
             <div class="code-block p-4 mb-4"><span class="kw">import</span> {
@@ -254,7 +255,7 @@ registry.<span class="fn">register</span>(getUser);
 
           <!-- ==================== SECTION: CORE CONCEPTS ==================== -->
           <section class="mt-12" aria-labelledby="core-concepts">
-            <h2 class="text-h2 mb-6" id="core-concepts">Core Concepts</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="core-concepts">Core Concepts</h2>
 
             <!-- --- defineOperation --- -->
             <article class="mb-12" id="define-operation">
@@ -399,7 +400,7 @@ registry.<span class="fn">register</span>(getUser);
 
           <!-- ==================== SECTION: CONTEXT ==================== -->
           <section class="mt-12" aria-labelledby="context-section">
-            <h2 class="text-h2 mb-6" id="context-section">Execution Context</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="context-section">Execution Context</h2>
 
             <!-- --- createAPIContext --- -->
             <article class="mb-12" id="create-api-context">
@@ -538,7 +539,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-ab
 
           <!-- ==================== SECTION: EXECUTOR ==================== -->
           <section class="mt-12" aria-labelledby="executor-section">
-            <h2 class="text-h2 mb-6" id="executor-section">Executor</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="executor-section">Executor</h2>
 
             <article class="mb-12" id="api-executor">
               <h3 class="text-h3 mb-3">
@@ -603,7 +604,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-ab
 
           <!-- ==================== SECTION: INTERCEPTORS ==================== -->
           <section class="mt-12" aria-labelledby="interceptors-section">
-            <h2 class="text-h2 mb-6" id="interceptors-section">Interceptors</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="interceptors-section">Interceptors</h2>
 
             <article class="mb-12" id="api-interceptor">
               <h3 class="text-h3 mb-3">
@@ -738,7 +739,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-ab
 
           <!-- ==================== SECTION: REGISTRY ==================== -->
           <section class="mt-12" aria-labelledby="registry-section">
-            <h2 class="text-h2 mb-6" id="registry-section">Operation Registry</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="registry-section">Operation Registry</h2>
 
             <article class="mb-12" id="api-operation-registry">
               <h3 class="text-h3 mb-3">
@@ -808,7 +809,7 @@ registry.<span class="fn">freeze</span>();</div>
 
           <!-- ==================== SECTION: RESULT TYPES ==================== -->
           <section class="mt-12" aria-labelledby="result-section">
-            <h2 class="text-h2 mb-6" id="result-section">Result Types</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="result-section">Result Types</h2>
             <p class="text-body text-black/80 mb-6">
               All operation results use a discriminated union type. Check <span class="code-inline">result.ok</span> to determine success or failure — never throw from handlers.
             </p>
@@ -882,7 +883,7 @@ registry.<span class="fn">freeze</span>();</div>
 
           <!-- ==================== SECTION: ERRORS ==================== -->
           <section class="mt-12" aria-labelledby="errors-section">
-            <h2 class="text-h2 mb-6" id="errors-section">Error Hierarchy</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="errors-section">Error Hierarchy</h2>
             <p class="text-body text-black/80 mb-4">
               All API errors are re-exported from <span class="code-inline">@zudolib/errors</span>. Throw these from handlers or return them via <span class="code-inline">apiFailure()</span>.
             </p>
@@ -960,7 +961,7 @@ registry.<span class="fn">freeze</span>();</div>
 
           <!-- ==================== SECTION: CONSTANTS ==================== -->
           <section class="mt-12" aria-labelledby="constants-section">
-            <h2 class="text-h2 mb-6" id="constants-section">Constants</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="constants-section">Constants</h2>
 
             <table class="doc-table mb-6">
               <thead><tr><th>Constant</th><th>Value</th><th>Description</th></tr></thead>
@@ -974,7 +975,7 @@ registry.<span class="fn">freeze</span>();</div>
 
           <!-- ==================== SECTION: USE CASES ==================== -->
           <section class="mt-12" aria-labelledby="use-cases">
-            <h2 class="text-h2 mb-6" id="use-cases">Use Cases</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="use-cases">Use Cases</h2>
 
             <article class="mb-12" id="use-case-rest-api">
               <h3 class="text-h3 mb-3">REST API with HTTP Transport</h3>
@@ -1150,7 +1151,7 @@ app.<span class="fn">use</span>(<span class="kw">async</span> (<span class="op">
 
           <!-- ==================== SECTION: COMPLETE EXAMPLE ==================== -->
           <section class="mt-12" aria-labelledby="complete-example">
-            <h2 class="text-h2 mb-6" id="complete-example">Complete Example</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="complete-example">Complete Example</h2>
             <p class="text-body text-black/80 mb-4">
               A full user management API with operations, interceptors, registry, and executor.
             </p>
@@ -1234,7 +1235,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
 
           <!-- ==================== SECTION: API SUMMARY ==================== -->
           <section class="mt-12" aria-labelledby="api-summary">
-            <h2 class="text-h2 mb-6" id="api-summary">API Summary</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="api-summary">API Summary</h2>
 
             <h3 class="text-h3 mb-3" id="exports-functions">Exported Functions</h3>
             <table class="doc-table mb-6">
@@ -1328,7 +1329,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
 
           <!-- ==================== SECTION: CONNECTIONS ==================== -->
           <section class="mt-12" aria-labelledby="connections">
-            <h2 class="text-h2 mb-6" id="connections">Connections to Other Packages</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="connections">Connections to Other Packages</h2>
 
             <table class="doc-table mb-6">
               <thead><tr><th>Package</th><th>Relationship</th><th>Usage</th></tr></thead>
@@ -1357,7 +1358,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
 
           <!-- ==================== SECTION: VERSION COMPATIBILITY ==================== -->
           <section class="mt-12" aria-labelledby="version-compat">
-            <h2 class="text-h2 mb-6" id="version-compat">Version Compatibility</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="version-compat">Version Compatibility</h2>
 
             <table class="doc-table mb-6">
               <thead><tr><th>Package</th><th>Required Version</th></tr></thead>
@@ -1374,7 +1375,7 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
 
           <!-- ==================== SECTION: IMPROVEMENTS ==================== -->
           <section class="mt-12" aria-labelledby="improvements">
-            <h2 class="text-h2 mb-6" id="improvements">Suggested Improvements</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="improvements">Suggested Improvements</h2>
 
             <div class="space-y-4">
               <div class="callout callout-tip">
@@ -1421,13 +1422,13 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
 
           <!-- ==================== SECTION: NEXT STEPS ==================== -->
           <section class="mt-12 pt-8 border-t-2 border-black/10" aria-labelledby="next-steps">
-            <h2 class="text-h2 mb-4" id="next-steps">Next Steps</h2>
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="next-steps">Next Steps</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <a href="../adapters/" class="block border-2 border-black p-6 hover:border-zudo-blue hover:bg-blue-50">
+              <a href="../adapters/" class="block border-4 border-black p-6 hover:border-zudo-blue hover:bg-blue-50">
                 <span class="text-label text-zudo-blue">Previous</span>
                 <div class="text-h3 mt-1">@zudolib/adapters</div>
               </a>
-              <a href="../auth/" class="block border-2 border-black p-6 hover:border-zudo-red hover:bg-red-50 text-right">
+              <a href="../auth/" class="block border-4 border-black p-6 hover:border-zudo-red hover:bg-red-50 text-right">
                 <span class="text-label text-zudo-red">Next</span>
                 <div class="text-h3 mt-1">@zudolib/auth</div>
               </a>
@@ -1439,21 +1440,40 @@ ctx.<span class="fn">set</span>(TenantIdContextKey, <span class="str">"tenant-xy
 
         </div>
 
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#overview" class="toc-link">Overview</a>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#quick-start" class="toc-link">Quick Start</a>
+      <a href="#core-concepts" class="toc-link">Core Concepts</a>
+      <a href="#context-section" class="toc-link">Execution Context</a>
+      <a href="#executor-section" class="toc-link">Executor</a>
+      <a href="#interceptors-section" class="toc-link">Interceptors</a>
+      <a href="#registry-section" class="toc-link">Operation Registry</a>
+      <a href="#result-section" class="toc-link">Result Types</a>
+      <a href="#errors-section" class="toc-link">Error Hierarchy</a>
+      <a href="#constants-section" class="toc-link">Constants</a>
+      <a href="#use-cases" class="toc-link">Use Cases</a>
+      <a href="#complete-example" class="toc-link">Complete Example</a>
+      <a href="#api-summary" class="toc-link">API Summary</a>
+      <a href="#connections" class="toc-link">Connections</a>
+      <a href="#version-compat" class="toc-link">Version Compat</a>
+      <a href="#improvements" class="toc-link">Improvements</a>
+    </aside>
+
+  </div>
+
   <!-- FOOTER -->
-  <footer class="border-t-4 border-black bg-black text-white mt-12">
-    <div class="max-w-screen-2xl mx-auto px-6 py-8">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
-            <span class="text-black font-black text-sm">Z</span>
-          </div>
-          <span class="font-black">ZUDO FRAMEWORK</span>
-        </div>
-        <div class="flex items-center gap-6 text-sm">
-          <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
-          <a href="../../packages/" class="hover:text-zudo-red">Packages</a>
-          <a href="../../roadmap.html" class="hover:text-zudo-red">Roadmap</a>
-        </div>
+  <footer class="bg-black text-white border-t-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8 flex items-center justify-between text-sm">
+      <div>&copy; 2026 Zudo. MIT License.</div>
+      <div class="flex gap-4">
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+        <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
+        <a href="../../roadmap.html" class="hover:text-zudo-yellow">Roadmap</a>
       </div>
     </div>
   </footer>

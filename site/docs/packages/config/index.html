@@ -145,6 +145,7 @@
       <div class="sidebar-section mt-4">Packages</div>
       <a href="../../packages/" class="sidebar-item">Overview</a>
       <a href="../../packages/adapters/" class="sidebar-item">@zudolib/adapters</a>
+      <a href="../../packages/config/" class="sidebar-item sidebar-item-active">@zudolib/config</a>
       <a href="../../packages/errors/" class="sidebar-item">@zudolib/errors</a>
       <a href="../../packages/constants/" class="sidebar-item">@zudolib/constants</a>
       <a href="../../packages/types/" class="sidebar-item">@zudolib/types</a>
@@ -949,7 +950,7 @@ DISPOSED  = <span class="str">'DISPOSED'</span>   <span class="cm">// Manager di
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="use-cases-heading">USE CASES</h2>
 
         <div class="space-y-6">
-          <div class="border-2 border-black p-6">
+          <div class="border-4 border-black p-6">
             <h3 class="font-bold mb-2">1. Application Configuration with Environment Variables</h3>
             <div class="code-block"><span class="kw">const</span> manager = <span class="kw">await</span> <span class="fn">initializeConfigManager</span>({
   sources: [
@@ -960,7 +961,7 @@ DISPOSED  = <span class="str">'DISPOSED'</span>   <span class="cm">// Manager di
 <span class="cm">// Environment variables override defaults</span></div>
           </div>
 
-          <div class="border-2 border-black p-6">
+          <div class="border-4 border-black p-6">
             <h3 class="font-bold mb-2">2. Multi-Source Configuration with Priority</h3>
             <div class="code-block"><span class="kw">const</span> manager = <span class="kw">await</span> <span class="fn">initializeConfigManager</span>({
   sources: [
@@ -972,7 +973,7 @@ DISPOSED  = <span class="str">'DISPOSED'</span>   <span class="cm">// Manager di
 <span class="cm">// Higher priority wins when keys overlap</span></div>
           </div>
 
-          <div class="border-2 border-black p-6">
+          <div class="border-4 border-black p-6">
             <h3 class="font-bold mb-2">3. Type-Safe Configuration Access</h3>
             <div class="code-block"><span class="kw">interface</span> <span class="tp">AppConfig</span> {
   <span class="str">'app.name'</span>: <span class="tp">string</span>;
@@ -986,7 +987,7 @@ DISPOSED  = <span class="str">'DISPOSED'</span>   <span class="cm">// Manager di
 <span class="kw">const</span> port = db.<span class="fn">requiredNumber</span>(<span class="str">'port'</span>);  <span class="cm">// auto-parsed</span></div>
           </div>
 
-          <div class="border-2 border-black p-6">
+          <div class="border-4 border-black p-6">
             <h3 class="font-bold mb-2">4. Configuration Validation with Schemas</h3>
             <div class="code-block"><span class="kw">const</span> { manager, config } = <span class="kw">await</span> configFactory.<span class="fn">validated</span>({
   schema: {
@@ -1000,7 +1001,7 @@ DISPOSED  = <span class="str">'DISPOSED'</span>   <span class="cm">// Manager di
 <span class="cm">// Throws ConfigSchemaValidationError if validation fails</span></div>
           </div>
 
-          <div class="border-2 border-black p-6">
+          <div class="border-4 border-black p-6">
             <h3 class="font-bold mb-2">5. Runtime Configuration Updates</h3>
             <div class="code-block"><span class="cm">// Update a value at runtime</span>
 manager.<span class="fn">set</span>(<span class="str">'app.debug'</span>, <span class="num">true</span>);
@@ -1014,7 +1015,7 @@ manager.<span class="fn">subscribe</span>((status) => {
 <span class="kw">await</span> manager.<span class="fn">reload</span>();</div>
           </div>
 
-          <div class="border-2 border-black p-6">
+          <div class="border-4 border-black p-6">
             <h3 class="font-bold mb-2">6. Scoped Configuration for Modules</h3>
             <div class="code-block"><span class="cm">// Each module gets its own scoped resolver</span>
 <span class="kw">const</span> authConfig = manager.<span class="fn">scoped</span>(<span class="str">'auth'</span>);
@@ -1142,33 +1143,52 @@ manager.<span class="fn">subscribe</span>((status) => {
 
       <!-- ==================== PREV/NEXT ==================== -->
       <div class="flex flex-col sm:flex-row justify-between items-stretch gap-4 mt-12 pt-8 border-t-4 border-black">
-        <a href="../cli/" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-yellow hover:border-black text-center">
+        <a href="../cli/" class="border-4 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-yellow hover:border-black text-center">
           ← @zudolib/cli
         </a>
-        <a href="../constants/" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-blue hover:text-white hover:border-black text-center">
+        <a href="../constants/" class="border-4 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-blue hover:text-white hover:border-black text-center">
           @zudolib/constants →
         </a>
       </div>
 
     
     </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#overview" class="toc-link">Overview</a>
+      <a href="#install" class="toc-link">Installation</a>
+      <a href="#architecture" class="toc-link">Architecture</a>
+      <a href="#quick-start" class="toc-link">Quick Start</a>
+      <a href="#config-value" class="toc-link">Config Value</a>
+      <a href="#config-entry" class="toc-link">Config Entry</a>
+      <a href="#config-source" class="toc-link">Config Source</a>
+      <a href="#config-store" class="toc-link">Config Store</a>
+      <a href="#config-resolver" class="toc-link">Config Resolver</a>
+      <a href="#config-schema" class="toc-link">Config Schema</a>
+      <a href="#config-loader" class="toc-link">Config Loader</a>
+      <a href="#config-manager" class="toc-link">Config Manager</a>
+      <a href="#config-factory" class="toc-link">Config Factory</a>
+      <a href="#types" class="toc-link">Types Reference</a>
+      <a href="#constants" class="toc-link">Constants</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#use-cases" class="toc-link">Use Cases</a>
+      <a href="#connections" class="toc-link">Connections</a>
+      <a href="#improvements" class="toc-link">Improvements</a>
+      <a href="#api-summary" class="toc-link">API Summary</a>
+    </aside>
+
   </div>
 
   <!-- FOOTER -->
-  <footer class="border-t-4 border-black bg-black text-white mt-12">
-    <div class="max-w-screen-2xl mx-auto px-6 py-8">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
-            <span class="text-black font-black text-sm">Z</span>
-          </div>
-          <span class="font-black">ZUDO FRAMEWORK</span>
-        </div>
-        <div class="flex items-center gap-6 text-sm">
-          <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
-          <a href="../../packages/" class="hover:text-zudo-red">Packages</a>
-          <a href="../../roadmap.html" class="hover:text-zudo-red">Roadmap</a>
-        </div>
+  <footer class="bg-black text-white border-t-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8 flex items-center justify-between text-sm">
+      <div>&copy; 2026 Zudo. MIT License.</div>
+      <div class="flex gap-4">
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+        <a href="../../packages/" class="hover:text-zudo-blue">Packages</a>
+        <a href="../../roadmap.html" class="hover:text-zudo-yellow">Roadmap</a>
       </div>
     </div>
   </footer>
