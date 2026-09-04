@@ -1,6 +1,6 @@
 {
   "name": "@zudojs/types",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Shared type guards, utility types, and type converters for the Zudojs framework.",
   "license": "MIT",
   "type": "module",

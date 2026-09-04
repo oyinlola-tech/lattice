@@ -1,6 +1,6 @@
 {
   "name": "@zudojs/storage",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Storage abstractions including database, object storage, repository, serialization, locking, and lifecycle.",
   "license": "MIT",
   "type": "module",

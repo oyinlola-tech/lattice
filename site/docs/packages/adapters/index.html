@@ -121,7 +121,7 @@
 
       <!-- Header -->
       <div class="border-4 border-black p-8 mb-10 relative">
-        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v1.0.0</div>
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
         <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/adapters</h1>
         <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
           Boundary layer between Zudojs and external platforms. Provides adapter contracts, a registry, capabilities, and transport abstractions so your application code never touches platform-specific APIs.
@@ -146,7 +146,7 @@ pnpm add @zudojs/adapters
 yarn add @zudojs/adapters</div>
 
         <div class="callout callout-note">
-          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/adapters depends on @zudojs/errors, @zudojs/constants, @zudojs/types, and @zudojs/lifecycle. All at version 1.0.0.
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/adapters depends on @zudojs/errors, @zudojs/constants, @zudojs/types, and @zudojs/lifecycle. All at version 0.0.1.
         </div>
       </section>
 
@@ -198,22 +198,22 @@ yarn add @zudojs/adapters</div>
             <tbody>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono text-sm">@zudojs/errors</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Adapter error hierarchy (AdapterError, AdapterNotFoundError, etc.)</td>
               </tr>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono text-sm">@zudojs/constants</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Branded types and constants</td>
               </tr>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono text-sm">@zudojs/types</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Type guards and utility types</td>
               </tr>
               <tr>
                 <td class="p-3 font-mono text-sm">@zudojs/lifecycle</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Lifecycle contracts and state machine</td>
               </tr>
             </tbody>
@@ -221,7 +221,7 @@ yarn add @zudojs/adapters</div>
         </div>
 
         <div class="mt-4 callout callout-warning">
-          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>1.0.0</code>. Always use matching versions across the ecosystem.
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.0.1</code>. Always use matching versions across the ecosystem.
         </div>
       </section>
 
@@ -337,7 +337,7 @@ yarn add @zudojs/adapters</div>
 
 <span class="kw">const</span> myAdapter: <span class="tp">Adapter</span> = {
   name: <span class="str">"my-custom-adapter"</span>,
-  version: <span class="str">"1.0.0"</span>,
+  version: <span class="str">"0.0.1"</span>,
   capabilities: {
     http: <span class="num">true</span>,
     gracefulShutdown: <span class="num">true</span>,
@@ -610,7 +610,7 @@ console.<span class="fn">log</span>(registry.size);      <span class="cm">// 2</
 }</div>
 
           <div class="callout callout-tip mt-4">
-            <strong class="text-zudo-green">Best With:</strong> <code>@zudojs/http</code> (v1.0.0), <code>@zudojs/security</code> (v1.0.0)
+            <strong class="text-zudo-green">Best With:</strong> <code>@zudojs/http</code> (v0.0.1), <code>@zudojs/security</code> (v0.0.1)
           </div>
         </div>
 
@@ -634,7 +634,7 @@ console.<span class="fn">log</span>(registry.size);      <span class="cm">// 2</
 }</div>
 
           <div class="callout callout-tip mt-4">
-            <strong class="text-zudo-green">Best With:</strong> <code>@zudojs/messaging</code> (v1.0.0), <code>@zudojs/events</code> (v1.0.0)
+            <strong class="text-zudo-green">Best With:</strong> <code>@zudojs/messaging</code> (v0.0.1), <code>@zudojs/events</code> (v0.0.1)
           </div>
         </div>
 
@@ -652,7 +652,7 @@ console.<span class="fn">log</span>(registry.size);      <span class="cm">// 2</
 }</div>
 
           <div class="callout callout-tip mt-4">
-            <strong class="text-zudo-green">Best With:</strong> <code>@zudojs/storage</code> (v1.0.0), <code>@zudojs/cache</code> (v1.0.0)
+            <strong class="text-zudo-green">Best With:</strong> <code>@zudojs/storage</code> (v0.0.1), <code>@zudojs/cache</code> (v0.0.1)
           </div>
         </div>
 
@@ -678,7 +678,7 @@ console.<span class="fn">log</span>(registry.size);      <span class="cm">// 2</
 }</div>
 
           <div class="callout callout-tip mt-4">
-            <strong class="text-zudo-green">Best With:</strong> <code>@zudojs/queue</code> (v1.0.0)
+            <strong class="text-zudo-green">Best With:</strong> <code>@zudojs/queue</code> (v0.0.1)
           </div>
         </div>
 
@@ -810,7 +810,7 @@ console.<span class="fn">log</span>(registry.size);      <span class="cm">// 2</
         <h3 class="text-lg font-bold mb-3 mt-6">createMockAdapter()</h3>
         <div class="code-block"><span class="kw">const</span> adapter = <span class="fn">createMockAdapter</span>({
   name: <span class="str">"test-http"</span>,
-  version: <span class="str">"1.0.0"</span>,
+  version: <span class="str">"0.0.1"</span>,
   capabilities: { http: <span class="num">true</span>, gracefulShutdown: <span class="num">true</span> },
   <span class="cm">// Optional: override lifecycle methods</span>
   initialize: <span class="kw">async</span> () => { <span class="cm">/* ... */</span> },
@@ -876,7 +876,7 @@ expect(registry.<span class="fn">has</span>(<span class="str">"http"</span>)).<s
 <span class="cm">// 2. Register HTTP adapter</span>
 <span class="kw">const</span> httpAdapter: <span class="tp">HTTPAdapter</span> = {
   name: <span class="str">"node-http"</span>,
-  version: <span class="str">"1.0.0"</span>,
+  version: <span class="str">"0.0.1"</span>,
   capabilities: { http: <span class="num">true</span>, gracefulShutdown: <span class="num">true</span> },
   <span class="kw">async</span> <span class="fn">initialize</span>() { <span class="cm">/* ... */</span> },
   <span class="kw">async</span> <span class="fn">start</span>() { <span class="cm">/* ... */</span> },
@@ -892,7 +892,7 @@ registry.<span class="fn">register</span>(httpAdapter);
 <span class="cm">// 3. Register storage adapter</span>
 <span class="kw">const</span> storageAdapter: <span class="tp">StorageAdapter</span> = {
   name: <span class="str">"s3-storage"</span>,
-  version: <span class="str">"1.0.0"</span>,
+  version: <span class="str">"0.0.1"</span>,
   capabilities: { filesystem: <span class="num">true</span> },
   <span class="kw">async</span> <span class="fn">initialize</span>() { <span class="cm">/* validate S3 config */</span> },
   <span class="kw">async</span> <span class="fn">start</span>() { <span class="cm">/* no-op */</span> },
@@ -948,55 +948,55 @@ process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span cla
             <tbody>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono">@zudojs/http</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Transport</td>
                 <td class="p-3">HTTP adapter provides request/response shapes that @zudojs/http consumes</td>
               </tr>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono">@zudojs/messaging</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Transport</td>
                 <td class="p-3">Message adapter bridges external message providers to the internal message bus</td>
               </tr>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono">@zudojs/storage</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Transport</td>
                 <td class="p-3">Storage adapter provides the implementation for storage abstractions</td>
               </tr>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono">@zudojs/queue</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Transport</td>
                 <td class="p-3">Queue adapter provides the implementation for background job processing</td>
               </tr>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono">@zudojs/scheduler</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Transport</td>
                 <td class="p-3">Scheduler adapter provides the implementation for job scheduling</td>
               </tr>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono">@zudojs/lifecycle</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Dependency</td>
                 <td class="p-3">Lifecycle contracts integrate with the lifecycle state machine</td>
               </tr>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono">@zudojs/runtime</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Consumer</td>
                 <td class="p-3">Runtime manages adapter lifecycle (initialize, start, stop, dispose)</td>
               </tr>
               <tr class="border-b-2 border-black/10">
                 <td class="p-3 font-mono">@zudojs/errors</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Dependency</td>
                 <td class="p-3">All adapter error types defined in @zudojs/errors</td>
               </tr>
               <tr>
                 <td class="p-3 font-mono">@zudojs/database</td>
-                <td class="p-3">1.0.0</td>
+                <td class="p-3">0.0.1</td>
                 <td class="p-3">Consumer</td>
                 <td class="p-3">Database clients use storage adapter interface for connection management</td>
               </tr>
@@ -1009,7 +1009,7 @@ process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span cla
       <section id="version-compatibility" class="mb-12">
         <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">VERSION COMPATIBILITY</h2>
         <div class="callout callout-warning">
-          <strong class="text-zudo-yellow">Stable Versions:</strong> All packages are at v1.0.0. The <code>workspace:*</code> protocol is used in development. When publishing, use exact version <code>1.0.0</code> for all internal dependencies.
+          <strong class="text-zudo-yellow">Stable Versions:</strong> All packages are at v0.0.1. The <code>workspace:*</code> protocol is used in development. When publishing, use exact version <code>0.0.1</code> for all internal dependencies.
         </div>
 
         <div class="border-4 border-black mt-4">
@@ -1017,21 +1017,21 @@ process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span cla
             <thead class="bg-black text-white">
               <tr>
                 <th class="p-3 text-left">Package</th>
-                <th class="p-3 text-left">adapters v1.0.0 works with</th>
+                <th class="p-3 text-left">adapters v0.0.1 works with</th>
                 <th class="p-3 text-left">Stability</th>
               </tr>
             </thead>
             <tbody>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/errors</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/constants</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/types</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/lifecycle</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/http</td><td class="p-3">v1.0.0 (peer)</td><td class="p-3 px-3 py-1 bg-zudo-yellow text-black font-bold text-xs inline-block">PEER</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/messaging</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/storage</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/queue</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/scheduler</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
-              <tr><td class="p-3 font-mono">@zudojs/runtime</td><td class="p-3">v1.0.0</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/errors</td><td class="p-3">v0.0.1</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/constants</td><td class="p-3">v0.0.1</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/types</td><td class="p-3">v0.0.1</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/lifecycle</td><td class="p-3">v0.0.1</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/http</td><td class="p-3">v0.0.1 (peer)</td><td class="p-3 px-3 py-1 bg-zudo-yellow text-black font-bold text-xs inline-block">PEER</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/messaging</td><td class="p-3">v0.0.1</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/storage</td><td class="p-3">v0.0.1</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/queue</td><td class="p-3">v0.0.1</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">@zudojs/scheduler</td><td class="p-3">v0.0.1</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
+              <tr><td class="p-3 font-mono">@zudojs/runtime</td><td class="p-3">v0.0.1</td><td class="p-3 px-3 py-1 bg-zudo-green text-black font-bold text-xs inline-block">STABLE</td></tr>
             </tbody>
           </table>
         </div>

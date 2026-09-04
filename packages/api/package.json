@@ -1,6 +1,6 @@
 {
   "name": "@zudojs/api",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Application-facing API layer for Zudojs — operation definitions, execution context, interceptors, policies, and transport-agnostic contracts.",
   "license": "MIT",
   "type": "module",

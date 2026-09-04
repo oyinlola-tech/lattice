@@ -1,6 +1,6 @@
 {
   "name": "@zudojs/openapi",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "OpenAPI 3.1 specification generation, validation, and SDK generation for Zudojs applications.",
   "license": "MIT",
   "type": "module",
