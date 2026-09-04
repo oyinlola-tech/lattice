@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Zudo Favicon — 32x32 -->
+  <rect x="0" y="0" width="32" height="32" fill="#FF0000" stroke="#000000" stroke-width="2"/>
+  <path d="M6 8h20l-20 16h20" stroke="#000000" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+</svg>
