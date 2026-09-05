@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/middleware — Composable Middleware Pipeline Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/middleware — composable middleware pipeline, composition, timing, error handling, and built-in middleware for the Zudojs framework.">
+  <meta name="keywords" content="zudojs, middleware, pipeline, composition, timing, rate limiting, error handling, context propagation">
+  <link rel="canonical" href="https://zudo.dev/docs/packages/middleware/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="@zudojs/middleware — Composable Middleware Pipeline Documentation">
+  <meta property="og:description" content="Composable middleware pipeline with composition, timing, error handling, and built-in middleware for the Zudojs framework.">
+  <meta property="og:url" content="https://zudo.dev/docs/packages/middleware/">
+  <meta property="og:site_name" content="Zudo">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-og.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="@zudojs/middleware — Composable Middleware Pipeline Documentation">
+  <meta name="twitter:description" content="Composable middleware pipeline with composition, timing, error handling, and built-in middleware for the Zudojs framework.">
+  <meta name="twitter:image" content="https://zudo.dev/assets/zudo-og.png">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "name": "@zudojs/middleware",
+    "description": "Composable middleware pipeline with composition, timing, error handling, and built-in middleware for the Zudojs framework.",
+    "url": "https://zudo.dev/docs/packages/middleware/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zudo",
+      "url": "https://zudo.dev"
+    },
+    "version": "0.0.1",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js >= 24",
+    "license": "https://opensource.org/licenses/MIT"
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages-middleware" class="sidebar-item sidebar-item-active">@zudojs/middleware</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/middleware</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.1.0</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/middleware</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Composable middleware pipeline for the Zudojs framework. Provides middleware composition, chaining, priority ordering, execution tracking with timing, error handling, context propagation, and built-in middleware for logging, errors, timeouts, and rate limiting.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">MIDDLEWARE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">PIPELINE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">COMPOSITION</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">TIMING</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/middleware
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/middleware
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/middleware</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/middleware depends on @zudojs/errors (workspace package at version 0.1.0). Uses the <code class="bg-black/10 px-1">BaseError</code> class for structured error handling in pipeline execution.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/middleware</code> is the foundation of cross-cutting concern handling across the Zudojs framework. It provides:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> A <strong>composable middleware pipeline</strong> where middleware functions chain via <code class="bg-black/10 px-1">next()</code></li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Type-safe middleware functions</strong> generic over context and result types</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Named middleware with priority</strong> — filter and sort by name, enabled flag, and numeric priority</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Middleware composition</strong> via the <code class="bg-black/10 px-1">compose()</code> function combining middleware and a handler</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Execution tracking with timing</strong> — pipeline reports which middleware ran and total duration</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Error handling</strong> — structured error classes for timeouts and next() misuse</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Context propagation</strong> — context object flows through every middleware in the chain</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Built-in middleware</strong> for logging, error handling, timeout enforcement, and rate limiting</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Pipeline options</strong> — configurable max middleware count and stop-on-error behavior</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Middleware wraps the request/response cycle with cross-cutting concerns. Each middleware calls <code class="bg-black/10 px-1">next()</code> to delegate to the next middleware or the final handler. This pattern is used by @zudojs/messaging, @zudojs/events, @zudojs/http, and other packages.
+        </div>
+      </section>
+
+      <!-- Where It Sits -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6 space-y-3">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">APPLICATION LAYER (CQRS, Events, Modules, HTTP Handlers)</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">MESSAGING LAYER (@zudojs/messaging, @zudojs/events)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">@zudojs/middleware (PIPELINE &amp; COMPOSITION)</div>
+          <div class="bg-black text-white p-3 font-bold text-center text-sm">@zudojs/errors (FOUNDATION LEAF PACKAGE)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          @zudojs/middleware sits below the messaging and event layers. It provides the generic pipeline infrastructure that higher-level packages use for their own middleware chains. It depends only on @zudojs/errors.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">BaseError hierarchy (MiddlewareError, MiddlewareTimeoutError, MiddlewareNextCalledMultipleTimesError)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.1.0</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <!-- Core Types -->
+      <section id="core-types" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CORE TYPES</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: Middleware</h3>
+        <p class="mb-3 text-sm">A middleware function that processes a context and calls the next middleware in the chain. Generic over context and result types.</p>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">Middleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span> = <span class="tp">void</span>&gt; = (
+  context: <span class="tp">TContext</span>,
+  next: () =&gt; <span class="tp">Promise</span>&lt;<span class="tp">TResult</span>&gt;,
+) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">TResult</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: NamedMiddleware</h3>
+        <p class="mb-3 text-sm">A middleware function with metadata — name, priority, and enabled flag for filtering and ordering.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">NamedMiddleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span> = <span class="tp">void</span>&gt; {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> handler: <span class="tp">Middleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span>&gt;;
+  <span class="kw">readonly</span> priority?: <span class="tp">number</span>;   <span class="cm">// default: 100 (lower = earlier)</span>
+  <span class="kw">readonly</span> enabled?: <span class="tp">boolean</span>;   <span class="cm">// default: true</span>
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: MiddlewareFactory</h3>
+        <p class="mb-3 text-sm">A factory function that creates named middleware from optional configuration.</p>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">MiddlewareFactory</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span> = <span class="tp">void</span>&gt; = (
+  options?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;,
+) =&gt; <span class="tp">NamedMiddleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span>&gt;;</div>
+      </section>
+
+      <!-- Middleware Composition -->
+      <section id="composition" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">MIDDLEWARE COMPOSITION</h2>
+        <p class="mb-4">
+          The composition module provides functions to combine, filter, sort, and wrap middleware functions.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: compose</h3>
+        <p class="mb-3 text-sm">Combines a list of middleware and a final handler into a single executable function. Middleware executes in order — first added, first executed.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">compose</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span>&gt;(
+  middlewareList: <span class="kw">readonly</span> <span class="tp">Middleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span>&gt;[],
+  handler: (context: <span class="tp">TContext</span>) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">TResult</span>&gt;,
+): (context: <span class="tp">TContext</span>) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">TResult</span>&gt;</div>
+
+        <div class="code-block mb-4"><span class="kw">import</span> { <span class="fn">compose</span> } <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="kw">const</span> handler = <span class="kw">async</span> (ctx) =&gt; ({ status: <span class="str">"ok"</span> });
+
+<span class="kw">const</span> pipeline = <span class="fn">compose</span>([loggingMw, authMw], handler);
+
+<span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">pipeline</span>(requestContext);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: resolveMiddleware</h3>
+        <p class="mb-3 text-sm">Filters out disabled middleware, sorts by priority (lower = earlier), and extracts handler functions.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">resolveMiddleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span>&gt;(
+  middlewareList: <span class="kw">readonly</span> <span class="tp">NamedMiddleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span>&gt;[],
+): <span class="tp">Middleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span>&gt;[]</div>
+
+        <div class="code-block mb-4"><span class="kw">import</span> { <span class="fn">resolveMiddleware</span> } <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="kw">const</span> middleware = [
+  { name: <span class="str">"auth"</span>, handler: authHandler, priority: <span class="num">10</span> },
+  { name: <span class="str">"logging"</span>, handler: logHandler, priority: <span class="num">50</span> },
+  { name: <span class="str">"debug"</span>, handler: debugHandler, enabled: <span class="num">false</span> },
+];
+
+<span class="kw">const</span> resolved = <span class="fn">resolveMiddleware</span>(middleware);
+<span class="cm">// [authHandler, logHandler] — debug excluded, auth before logging</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: withTiming</h3>
+        <p class="mb-3 text-sm">Wraps a middleware with timing metadata. Logs a warning if execution exceeds 100ms.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">withTiming</span>&lt;<span class="tp">TContext</span>&gt;(
+  name: <span class="tp">string</span>,
+  middleware: <span class="tp">Middleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">void</span>&gt;,
+): <span class="tp">NamedMiddleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">void</span>&gt;</div>
+
+        <div class="code-block mb-4"><span class="kw">import</span> { <span class="fn">withTiming</span> } <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="kw">const</span> timedAuth = <span class="fn">withTiming</span>(<span class="str">"auth"</span>, <span class="kw">async</span> (ctx, next) =&gt; {
+  <span class="cm">// verify token...</span>
+  <span class="kw">return</span> <span class="fn">next</span>();
+});</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Constant: MAX_DEPTH</h3>
+        <p class="mb-3 text-sm">Internal safety limit of <code class="bg-black/10 px-1">100</code> to prevent infinite recursion from misused <code class="bg-black/10 px-1">next()</code> calls.</p>
+      </section>
+
+      <!-- Pipeline -->
+      <section id="pipeline" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PIPELINE</h2>
+        <p class="mb-4">
+          The pipeline module creates execution-tracked middleware chains with structured results.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: PipelineResult</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PipelineResult</span>&lt;<span class="tp">TResult</span>&gt; {
+  <span class="kw">readonly</span> success: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> result?: <span class="tp">TResult</span>;
+  <span class="kw">readonly</span> error?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> durationMs: <span class="tp">number</span>;
+  <span class="kw">readonly</span> executedMiddleware: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: PipelineOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PipelineOptions</span> {
+  <span class="kw">readonly</span> maxMiddleware?: <span class="tp">number</span>;   <span class="cm">// default: 50</span>
+  <span class="kw">readonly</span> stopOnError?: <span class="tp">boolean</span>;    <span class="cm">// default: true</span>
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createPipeline</h3>
+        <p class="mb-3 text-sm">Creates a pipeline that resolves named middleware, tracks execution, and returns a structured result.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createPipeline</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span>&gt;(
+  middlewareList: <span class="kw">readonly</span> <span class="tp">NamedMiddleware</span>&lt;<span class="tp">TContext</span>, <span class="tp">TResult</span>&gt;[],
+  handler: (context: <span class="tp">TContext</span>) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">TResult</span>&gt;,
+  options?: <span class="tp">PipelineOptions</span>,
+): (context: <span class="tp">TContext</span>) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">PipelineResult</span>&lt;<span class="tp">TResult</span>&gt;&gt;</div>
+
+        <div class="code-block mb-4"><span class="kw">import</span> { <span class="fn">createPipeline</span> } <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="kw">const</span> pipeline = <span class="fn">createPipeline</span>(
+  [authMiddleware, loggingMiddleware],
+  <span class="kw">async</span> (ctx) =&gt; ({ status: <span class="str">"ok"</span> }),
+  { maxMiddleware: <span class="num">20</span>, stopOnError: <span class="num">true</span> },
+);
+
+<span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">pipeline</span>({ method: <span class="str">"GET"</span>, path: <span class="str">"/api/users"</span> });
+
+result.success;          <span class="cm">// true</span>
+result.result;           <span class="cm">// { status: "ok" }</span>
+result.durationMs;       <span class="cm">// 12.5</span>
+result.executedMiddleware; <span class="cm">// ["auth", "logging"]</span></div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Default Limits:</strong> The pipeline defaults to a maximum of 50 middleware. If exceeded, <code class="bg-black/10 px-1">createPipeline</code> throws immediately. Set <code class="bg-black/10 px-1">stopOnError: false</code> to propagate errors instead of capturing them.
+        </div>
+      </section>
+
+      <!-- Built-in Middleware -->
+      <section id="built-in-middleware" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">BUILT-IN MIDDLEWARE</h2>
+        <p class="mb-4">
+          Ready-made middleware for common concerns. Each returns a <code class="bg-black/5 px-1">NamedMiddleware</code> with a descriptive name.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LoggingContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggingContext</span> {
+  <span class="kw">readonly</span> requestId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> path?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> method?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">loggingMiddleware</h3>
+        <p class="mb-3 text-sm">Logs request start, completion time, and errors. Accepts an optional logger function (defaults to <code class="bg-black/10 px-1">console.log</code>).</p>
+        <div class="code-block mb-4"><span class="kw">import</span> { <span class="fn">loggingMiddleware</span> } <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="kw">const</span> mw = <span class="fn">loggingMiddleware</span>(); <span class="cm">// uses console.log</span>
+
+<span class="cm">// Or provide a custom logger</span>
+<span class="kw">const</span> mw2 = <span class="fn">loggingMiddleware</span>((msg) =&gt; logger.<span class="fn">info</span>(msg));</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">errorMiddleware</h3>
+        <p class="mb-3 text-sm">Catches errors and invokes an optional callback. Runs at priority 0 (first in chain).</p>
+        <div class="code-block mb-4"><span class="kw">import</span> { <span class="fn">errorMiddleware</span> } <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="kw">const</span> mw = <span class="fn">errorMiddleware</span>((error, ctx) =&gt; {
+  logger.<span class="fn">error</span>(<span class="str">"Pipeline failed:"</span>, error);
+});
+
+<span class="cm">// mw.name === "error-handler"</span>
+<span class="cm">// mw.priority === 0 (runs first)</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">timeoutMiddleware</h3>
+        <p class="mb-3 text-sm">Rejects if the pipeline exceeds the specified timeout. Uses <code class="bg-black/10 px-1">Promise.race</code> internally.</p>
+        <div class="code-block mb-4"><span class="kw">import</span> { <span class="fn">timeoutMiddleware</span> } <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="kw">const</span> mw = <span class="fn">timeoutMiddleware</span>(<span class="num">5000</span>); <span class="cm">// 5 second timeout</span>
+
+<span class="cm">// Throws: "Middleware timeout after 5000ms"</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">rateLimitMiddleware</h3>
+        <p class="mb-3 text-sm">Sliding window rate limiter per key. Requires context to have an optional <code class="bg-black/10 px-1">key</code> property.</p>
+        <div class="code-block mb-4"><span class="kw">import</span> { <span class="fn">rateLimitMiddleware</span> } <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="kw">const</span> mw = <span class="fn">rateLimitMiddleware</span>(<span class="num">100</span>, <span class="num">60_000</span>); <span class="cm">// 100 requests per minute</span>
+
+<span class="cm">// Context needs a key property</span>
+<span class="kw">type</span> <span class="tp">Ctx</span> = { <span class="kw">readonly</span> key?: <span class="tp">string</span>; <span class="cm">/* ... */</span> };</div>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="error-hierarchy" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudojs/errors</code> and re-exported by this package.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">MiddlewareError</td>
+                <td class="p-3">Base error for all middleware pipeline failures</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">MiddlewareTimeoutError</td>
+                <td class="p-3">A middleware exceeded its timeout duration</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">MiddlewareNextCalledMultipleTimesError</td>
+                <td class="p-3">A middleware called next() more than once</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Classes</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">MiddlewareError</span>,
+  <span class="tp">MiddlewareTimeoutError</span>,
+  <span class="tp">MiddlewareNextCalledMultipleTimesError</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="cm">// Base middleware error</span>
+<span class="kw">const</span> err = <span class="kw">new</span> <span class="tp">MiddlewareError</span>(<span class="str">"Pipeline failed"</span>, {
+  middlewareName: <span class="str">"auth"</span>,
+  cause: originalError,
+});
+
+<span class="cm">// Timeout error</span>
+<span class="kw">const</span> timeout = <span class="kw">new</span> <span class="tp">MiddlewareTimeoutError</span>(<span class="str">"auth"</span>, <span class="num">5000</span>);
+
+<span class="cm">// next() called multiple times</span>
+<span class="kw">const</span> misuse = <span class="kw">new</span> <span class="tp">MiddlewareNextCalledMultipleTimesError</span>(<span class="str">"auth"</span>);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Handling Pattern</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createPipeline</span> } <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="kw">const</span> pipeline = <span class="fn">createPipeline</span>(
+  [authMiddleware, loggingMiddleware],
+  handler,
+  { stopOnError: <span class="num">true</span> },
+);
+
+<span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">pipeline</span>(ctx);
+
+<span class="kw">if</span> (!result.success) {
+  <span class="kw">if</span> (result.error <span class="kw">instanceof</span> <span class="tp">MiddlewareTimeoutError</span>) {
+    console.<span class="fn">error</span>(<span class="str">"Pipeline timed out"</span>);
+  } <span class="kw">else</span> {
+    console.<span class="fn">error</span>(<span class="str">"Pipeline failed:"</span>, result.error);
+  }
+}</div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete working example: custom middleware, pipeline, logging, error handling, and rate limiting.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createPipeline</span>,
+  <span class="fn">loggingMiddleware</span>,
+  <span class="fn">errorMiddleware</span>,
+  <span class="fn">timeoutMiddleware</span>,
+  <span class="fn">rateLimitMiddleware</span>,
+  <span class="fn">withTiming</span>,
+  <span class="tp">MiddlewareTimeoutError</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/middleware"</span>;
+
+<span class="cm">// 1. Define a custom authentication middleware</span>
+<span class="kw">type</span> <span class="tp">RequestContext</span> = {
+  <span class="kw">readonly</span> method: <span class="tp">string</span>;
+  <span class="kw">readonly</span> path: <span class="tp">string</span>;
+  <span class="kw">readonly</span> key?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> token?: <span class="tp">string</span>;
+};
+
+<span class="kw">const</span> authMiddleware = <span class="fn">withTiming</span>(<span class="str">"auth"</span>, <span class="kw">async</span> (ctx, next) =&gt; {
+  <span class="kw">if</span> (!ctx.token) {
+    <span class="kw">throw new</span> <span class="tp">Error</span>(<span class="str">"Unauthorized: missing token"</span>);
+  }
+  <span class="cm">// verify token...</span>
+  console.<span class="fn">log</span>(<span class="str">"[auth] Token verified"</span>);
+  <span class="kw">return</span> <span class="fn">next</span>();
+});
+
+<span class="cm">// 2. Build the middleware stack</span>
+<span class="kw">const</span> middleware = [
+  <span class="fn">errorMiddleware</span>((error, ctx) =&gt; {
+    console.<span class="fn">error</span>(<span class="str">"[error]"</span>, error);
+  }),
+  <span class="fn">loggingMiddleware</span>(),
+  <span class="fn">timeoutMiddleware</span>(<span class="num">10_000</span>),
+  <span class="fn">rateLimitMiddleware</span>(<span class="num">100</span>, <span class="num">60_000</span>),
+  authMiddleware,
+];
+
+<span class="cm">// 3. Create the pipeline with a handler</span>
+<span class="kw">const</span> handler = <span class="kw">async</span> (ctx: <span class="tp">RequestContext</span>) =&gt; {
+  <span class="kw">return</span> {
+    status: <span class="str">"ok"</span>,
+    path: ctx.path,
+    timestamp: Date.<span class="fn">now</span>(),
+  };
+};
+
+<span class="kw">const</span> pipeline = <span class="fn">createPipeline</span>(middleware, handler, {
+  maxMiddleware: <span class="num">20</span>,
+  stopOnError: <span class="num">true</span>,
+});
+
+<span class="cm">// 4. Execute the pipeline</span>
+<span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">pipeline</span>({
+  method: <span class="str">"GET"</span>,
+  path: <span class="str">"/api/users"</span>,
+  token: <span class="str">"bearer_abc123"</span>,
+  key: <span class="str">"user-123"</span>,
+});
+
+<span class="cm">// 5. Handle the result</span>
+<span class="kw">if</span> (result.success) {
+  console.<span class="fn">log</span>(<span class="str">"Response:"</span>, result.result);
+  console.<span class="fn">log</span>(<span class="str">"Duration:"</span>, result.durationMs, <span class="str">"ms"</span>);
+  console.<span class="fn">log</span>(<span class="str">"Middleware executed:"</span>, result.executedMiddleware);
+  <span class="cm">// ["error-handler", "logging", "timeout", "rate-limit", "auth"]</span>
+} <span class="kw">else</span> {
+  <span class="kw">if</span> (result.error <span class="kw">instanceof</span> <span class="tp">MiddlewareTimeoutError</span>) {
+    console.<span class="fn">error</span>(<span class="str">"Request timed out"</span>);
+  } <span class="kw">else</span> {
+    console.<span class="fn">error</span>(<span class="str">"Request failed:"</span>, result.error);
+  }
+}</div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+</body>
+</html>

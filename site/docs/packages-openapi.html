@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/openapi — OpenAPI Specification Engine</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/openapi — the OpenAPI specification generation, validation, and serialization engine for Zudojs.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+        <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-openapi" class="sidebar-item sidebar-item-active">@zudojs/openapi</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/openapi</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.1.0</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/openapi</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          OpenAPI specification generation, validation, and serialization engine for the Zudojs framework. Converts route metadata and schemas into fully compliant OpenAPI 3.1 documents with JSON and YAML output.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">OPENAPI</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">SPECIFICATION</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">VALIDATION</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">SDK</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">SCHEMA</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/openapi
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/openapi
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/openapi</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/openapi depends on @zudojs/errors, @zudojs/constants, and @zudojs/schema. All at version 0.1.0.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/openapi</code> generates, validates, and serializes OpenAPI 3.1 specifications from your Zudojs application. It provides:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>OpenAPI 3.1 specification generation</strong> from route metadata and schemas</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Route scanning</strong> that converts Zudojs route patterns to OpenAPI path templates</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Schema conversion</strong> from Zudo schema definitions to OpenAPI schema objects</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Document validation</strong> — required fields, path params, operationId uniqueness, deprecated params</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>JSON and YAML serialization</strong> for serving documentation</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>$ref component references</strong> for reusable schemas, responses, and parameters</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Document builder pattern</strong> for programmatic document construction</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Built-in error hierarchy</strong> — 10 error classes for OpenAPI-specific failures</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>High-level manager class</strong> that coordinates generation, validation, and serialization</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Define your API in code using Zudojs routes and schemas. This package automatically produces a standards-compliant OpenAPI spec — no manual YAML editing required.
+        </div>
+      </section>
+
+      <!-- Architecture Position -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6 space-y-3">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">APPLICATION LAYER (Routes, Schemas, Metadata)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">@zudojs/openapi</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm flex justify-center gap-8">
+            <span>Router</span>
+            <span class="text-black/30">|</span>
+            <span>Schema</span>
+            <span class="text-black/30">|</span>
+            <span>Errors</span>
+            <span class="text-black/30">|</span>
+            <span>Constants</span>
+          </div>
+          <div class="bg-black text-white p-3 font-bold text-center text-sm">EXTERNAL (Swagger UI, Postman, Code Generators)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          The OpenAPI package sits between your application's route definitions and external documentation tools. It consumes route metadata and Zudo schemas, then produces a standard OpenAPI document.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Base error class and OpenAPI error hierarchy</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/constants</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Branded types and shared constants</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/schema</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Schema definitions for conversion to OpenAPI schemas</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.1.0</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <!-- Spec Types -->
+      <section id="spec-types" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SPEC TYPES</h2>
+        <p class="mb-4">Core OpenAPI specification types that map directly to the OpenAPI 3.1 standard.</p>
+
+        <h3 class="text-lg font-bold mb-3">OpenAPIVersion</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">OpenAPIVersion</span> =
+  | <span class="str">"3.0.0"</span> | <span class="str">"3.0.1"</span> | <span class="str">"3.0.2"</span> | <span class="str">"3.0.3"</span>
+  | <span class="str">"3.1.0"</span> | <span class="str">"3.1.1"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIDocument</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIDocument</span> {
+  <span class="kw">readonly</span> openapi: <span class="tp">string</span>;
+  <span class="kw">readonly</span> info: <span class="tp">OpenAPIInfo</span>;
+  <span class="kw">readonly</span> servers?: <span class="kw">readonly</span> <span class="tp">OpenAPIServer</span>[];
+  <span class="kw">readonly</span> paths: <span class="tp">OpenAPIPaths</span>;
+  <span class="kw">readonly</span> components?: <span class="tp">OpenAPIComponents</span>;
+  <span class="kw">readonly</span> security?: <span class="kw">readonly</span> <span class="tp">OpenAPISecurityRequirement</span>[];
+  <span class="kw">readonly</span> tags?: <span class="kw">readonly</span> <span class="tp">OpenAPITag</span>[];
+  <span class="kw">readonly</span> externalDocs?: <span class="tp">OpenAPIExternalDocumentation</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIInfo</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIInfo</span> {
+  <span class="kw">readonly</span> title: <span class="tp">string</span>;
+  <span class="kw">readonly</span> version: <span class="tp">string</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> summary?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> termsOfService?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> contact?: <span class="tp">OpenAPIContact</span>;
+  <span class="kw">readonly</span> license?: <span class="tp">OpenAPILicense</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIContact</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIContact</span> {
+  <span class="kw">readonly</span> name?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> url?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> email?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPILicense</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPILicense</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> url?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIServer</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIServer</span> {
+  <span class="kw">readonly</span> url: <span class="tp">string</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> variables?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIServerVariable</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIServerVariable</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIServerVariable</span> {
+  <span class="kw">readonly</span> enum?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> default: <span class="tp">string</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIExternalDocumentation</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIExternalDocumentation</span> {
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> url: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPITag</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPITag</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> externalDocs?: <span class="tp">OpenAPIExternalDocumentation</span>;
+  <span class="kw">readonly</span> extensions?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIReference</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIReference</span> {
+  <span class="kw">readonly</span> <span class="str">$ref</span>: <span class="tp">string</span>;
+  <span class="kw">readonly</span> summary?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+}</div>
+      </section>
+
+      <!-- Paths & Operations -->
+      <section id="paths-operations" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PATHS & OPERATIONS</h2>
+
+        <h3 class="text-lg font-bold mb-3">OpenAPIPaths</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">OpenAPIPaths</span> = <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIPathItem</span> | <span class="tp">undefined</span>&gt;&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIPathItem</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIPathItem</span> {
+  <span class="kw">readonly</span> summary?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> get?: <span class="tp">OpenAPIOperation</span>;
+  <span class="kw">readonly</span> put?: <span class="tp">OpenAPIOperation</span>;
+  <span class="kw">readonly</span> post?: <span class="tp">OpenAPIOperation</span>;
+  <span class="kw">readonly</span> delete?: <span class="tp">OpenAPIOperation</span>;
+  <span class="kw">readonly</span> options?: <span class="tp">OpenAPIOperation</span>;
+  <span class="kw">readonly</span> head?: <span class="tp">OpenAPIOperation</span>;
+  <span class="kw">readonly</span> patch?: <span class="tp">OpenAPIOperation</span>;
+  <span class="kw">readonly</span> trace?: <span class="tp">OpenAPIOperation</span>;
+  <span class="kw">readonly</span> parameters?: <span class="kw">readonly</span> <span class="tp">OpenAPIParameter</span>[];
+  <span class="kw">readonly</span> servers?: <span class="kw">readonly</span> <span class="tp">OpenAPIServer</span>[];
+  <span class="kw">readonly</span> <span class="str">$ref</span>?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIOperation</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIOperation</span> {
+  <span class="kw">readonly</span> tags?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> summary?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> operationId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> parameters?: <span class="kw">readonly</span> <span class="tp">OpenAPIParameter</span>[];
+  <span class="kw">readonly</span> requestBody?: <span class="tp">OpenAPIRequestBody</span>;
+  <span class="kw">readonly</span> responses: <span class="tp">OpenAPIResponses</span>;
+  <span class="kw">readonly</span> callbacks?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIPathItem</span>&gt;&gt;&gt;&gt;;
+  <span class="kw">readonly</span> deprecated?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> security?: <span class="kw">readonly</span> <span class="tp">OpenAPISecurityRequirement</span>[];
+  <span class="kw">readonly</span> servers?: <span class="kw">readonly</span> <span class="tp">OpenAPIServer</span>[];
+  <span class="kw">readonly</span> externalDocs?: <span class="tp">OpenAPIExternalDocumentation</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIResponses</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">OpenAPIResponses</span> = <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIResponse</span>&gt;&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIParameter</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIParameter</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> in: <span class="tp">OpenAPIParameterLocation</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> required?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> deprecated?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> allowEmptyValue?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> schema?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> example?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> examples?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIExample</span>&gt;&gt;;
+  <span class="kw">readonly</span> content?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIMediaType</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIParameterLocation</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">OpenAPIParameterLocation</span> = <span class="str">"query"</span> | <span class="str">"header"</span> | <span class="str">"path"</span> | <span class="str">"cookie"</span>;</div>
+      </section>
+
+      <!-- Schema -->
+      <section id="schema" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SCHEMA</h2>
+
+        <h3 class="text-lg font-bold mb-3">OpenAPISchema</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPISchema</span> {
+  <span class="kw">readonly</span> title?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> type?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> properties?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPISchema</span>&gt;&gt;;
+  <span class="kw">readonly</span> required?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> format?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> default?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> nullable?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> readOnly?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> writeOnly?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> deprecated?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> example?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> enum?: <span class="kw">readonly</span> <span class="tp">unknown</span>[];
+  <span class="kw">readonly</span> <span class="str">$ref</span>?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> allOf?: <span class="kw">readonly</span> <span class="tp">OpenAPISchema</span>[];
+  <span class="kw">readonly</span> oneOf?: <span class="kw">readonly</span> <span class="tp">OpenAPISchema</span>[];
+  <span class="kw">readonly</span> anyOf?: <span class="kw">readonly</span> <span class="tp">OpenAPISchema</span>[];
+  <span class="kw">readonly</span> items?: <span class="tp">OpenAPISchema</span>;
+  <span class="kw">readonly</span> additionalProperties?: <span class="tp">OpenAPISchema</span> | <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> discriminator?: <span class="tp">OpenAPIDiscriminator</span>;
+  <span class="kw">readonly</span> xml?: <span class="tp">OpenAPIXml</span>;
+  <span class="kw">readonly</span> extensions?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIDiscriminator</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIDiscriminator</span> {
+  <span class="kw">readonly</span> propertyName: <span class="tp">string</span>;
+  <span class="kw">readonly</span> mapping?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;&gt;;
+  <span class="kw">readonly</span> oneOf?: <span class="kw">readonly</span> <span class="tp">OpenAPISchema</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIXml</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIXml</span> {
+  <span class="kw">readonly</span> name?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> namespace?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> prefix?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> attribute?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> wrapped?: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">SchemaConverter</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">SchemaConverter</span> {
+  <span class="fn">convert</span>(input: <span class="tp">unknown</span>, visited?: <span class="tp">Set</span>&lt;<span class="tp">object</span>&gt;): <span class="tp">SchemaConversionResult</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">SchemaConversionResult</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">SchemaConversionResult</span> {
+  <span class="kw">readonly</span> schema: <span class="tp">OpenAPISchema</span>;
+  <span class="kw">readonly</span> warnings: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">SchemaRegistry</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">SchemaRegistry</span> {
+  <span class="fn">register</span>(name: <span class="tp">string</span>, schema: <span class="tp">unknown</span>): <span class="tp">void</span>;
+  <span class="fn">get</span>(name: <span class="tp">string</span>): <span class="tp">OpenAPISchema</span> | <span class="tp">undefined</span>;
+  <span class="fn">convert</span>(name: <span class="tp">string</span>, schema: <span class="tp">unknown</span>): <span class="tp">OpenAPISchema</span>;
+  <span class="fn">ref</span>(name: <span class="tp">string</span>): { <span class="str">$ref</span>: <span class="tp">string</span> };
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Schema Functions</h3>
+        <div class="code-block"><span class="cm">// Convert a Zudo schema to OpenAPI</span>
+<span class="kw">function</span> <span class="fn">convertSchema</span>(input: <span class="tp">unknown</span>): <span class="tp">SchemaConversionResult</span>;
+
+<span class="cm">// Create a reusable schema converter</span>
+<span class="kw">function</span> <span class="fn">createSchemaConverter</span>(): <span class="tp">SchemaConverter</span>;
+
+<span class="cm">// Create a $ref to a component schema</span>
+<span class="kw">function</span> <span class="fn">createComponentReference</span>(
+  section: <span class="tp">string</span>,
+  name: <span class="tp">string</span>,
+): <span class="tp">OpenAPIReference</span>;</div>
+      </section>
+
+      <!-- Security -->
+      <section id="security" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SECURITY</h2>
+
+        <h3 class="text-lg font-bold mb-3">OpenAPISecurityRequirement</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPISecurityRequirement</span> {
+  <span class="kw">readonly</span> [key: <span class="tp">string</span>]: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPISecurityScheme</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPISecurityScheme</span> {
+  <span class="kw">readonly</span> type: <span class="str">"apiKey"</span> | <span class="str">"http"</span> | <span class="str">"mutualTLS"</span> | <span class="str">"oauth2"</span> | <span class="str">"openIdConnect"</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> name?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> in?: <span class="str">"query"</span> | <span class="str">"header"</span> | <span class="str">"cookie"</span>;
+  <span class="kw">readonly</span> scheme?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> bearerFormat?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> flows?: <span class="tp">OpenAPIOAuthFlows</span>;
+  <span class="kw">readonly</span> openIdConnectUrl?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIOAuthFlows</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIOAuthFlows</span> {
+  <span class="kw">readonly</span> implicit?: <span class="tp">OpenAPIOAuthFlow</span>;
+  <span class="kw">readonly</span> password?: <span class="tp">OpenAPIOAuthFlow</span>;
+  <span class="kw">readonly</span> clientCredentials?: <span class="tp">OpenAPIOAuthFlow</span>;
+  <span class="kw">readonly</span> authorizationCode?: <span class="tp">OpenAPIOAuthFlow</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIOAuthFlow</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIOAuthFlow</span> {
+  <span class="kw">readonly</span> authorizationUrl?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> tokenUrl?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> refreshUrl?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> scopes?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;&gt;;
+}</div>
+      </section>
+
+      <!-- Components -->
+      <section id="components" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">COMPONENTS</h2>
+
+        <h3 class="text-lg font-bold mb-3">OpenAPIComponents</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIComponents</span> {
+  <span class="kw">readonly</span> schemas?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPISchema</span>&gt;&gt;;
+  <span class="kw">readonly</span> responses?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIResponse</span>&gt;&gt;;
+  <span class="kw">readonly</span> parameters?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIParameter</span>&gt;&gt;;
+  <span class="kw">readonly</span> examples?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIExample</span>&gt;&gt;;
+  <span class="kw">readonly</span> requestBodies?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIRequestBody</span>&gt;&gt;;
+  <span class="kw">readonly</span> headers?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIHeader</span>&gt;&gt;;
+  <span class="kw">readonly</span> securitySchemes?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPISecurityScheme</span>&gt;&gt;;
+  <span class="kw">readonly</span> links?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPILink</span>&gt;&gt;;
+  <span class="kw">readonly</span> callbacks?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIPathItem</span>&gt;&gt;&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIResponse</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIResponse</span> {
+  <span class="kw">readonly</span> description: <span class="tp">string</span>;
+  <span class="kw">readonly</span> headers?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIHeader</span>&gt;&gt;;
+  <span class="kw">readonly</span> content?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIMediaType</span>&gt;&gt;;
+  <span class="kw">readonly</span> links?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPILink</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIRequestBody</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIRequestBody</span> {
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> content: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIMediaType</span>&gt;&gt;;
+  <span class="kw">readonly</span> required?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> extensions?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIMediaType</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIMediaType</span> {
+  <span class="kw">readonly</span> schema?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> example?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> examples?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIExample</span>&gt;&gt;;
+  <span class="kw">readonly</span> encoding?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIEncoding</span>&gt;&gt;;
+  <span class="kw">readonly</span> extensions?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIEncoding</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIEncoding</span> {
+  <span class="kw">readonly</span> contentType?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> headers?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIHeader</span>&gt;&gt;;
+  <span class="kw">readonly</span> style?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> explode?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> allowReserved?: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIHeader</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIHeader</span> {
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> required?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> deprecated?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> style?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> explode?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> allowEmptyValue?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> schema?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> example?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> examples?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIExample</span>&gt;&gt;;
+  <span class="kw">readonly</span> content?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">OpenAPIMediaType</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPILink</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPILink</span> {
+  <span class="kw">readonly</span> operationId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> parameters?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+  <span class="kw">readonly</span> requestBody?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> server?: <span class="tp">OpenAPIServer</span>;
+  <span class="kw">readonly</span> expression?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIExample</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIExample</span> {
+  <span class="kw">readonly</span> summary?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> value?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> externalUrl?: <span class="tp">string</span>;
+}</div>
+      </section>
+
+      <!-- Registry -->
+      <section id="registry" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">REGISTRY</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">OpenAPIRegistry</code> collects routes, schemas, and components, then generates a complete OpenAPI document.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">OpenAPIRegistry Interface</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Signature</th>
+                <th class="p-3 text-left">Returns</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registerRoute()</td>
+                <td class="p-3">registerRoute(route: OpenAPIRoute): void</td>
+                <td class="p-3">Registers a route. Throws on duplicate method+path.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registerSchema()</td>
+                <td class="p-3">registerSchema(name: string, schema: OpenAPISchema): void</td>
+                <td class="p-3">Registers a named schema component.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registerResponse()</td>
+                <td class="p-3">registerResponse(name: string, response: unknown): void</td>
+                <td class="p-3">Registers a reusable response component.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registerParameter()</td>
+                <td class="p-3">registerParameter(name: string, parameter: OpenAPIParameter): void</td>
+                <td class="p-3">Registers a reusable parameter component.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registerRequestBody()</td>
+                <td class="p-3">registerRequestBody(name: string, body: OpenAPIRequestBody): void</td>
+                <td class="p-3">Registers a reusable request body component.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registerHeader()</td>
+                <td class="p-3">registerHeader(name: string, header: unknown): void</td>
+                <td class="p-3">Registers a reusable header component.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registerExample()</td>
+                <td class="p-3">registerExample(name: string, example: unknown): void</td>
+                <td class="p-3">Registers a reusable example component.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registerSecurityScheme()</td>
+                <td class="p-3">registerSecurityScheme(name: string, scheme: OpenAPISecurityScheme): void</td>
+                <td class="p-3">Registers a reusable security scheme.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registerTag()</td>
+                <td class="p-3">registerTag(tag: OpenAPITag): void</td>
+                <td class="p-3">Registers a tag for grouping operations.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">ref()</td>
+                <td class="p-3">ref(section, name): OpenAPIReference</td>
+                <td class="p-3">Creates a $ref to a component.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">generate()</td>
+                <td class="p-3">generate(): OpenAPIDocument</td>
+                <td class="p-3">Generates the full OpenAPI document.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">clear()</td>
+                <td class="p-3">clear(): void</td>
+                <td class="p-3">Removes all registered items.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIRoute</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIRoute</span> {
+  <span class="kw">readonly</span> method: <span class="str">"get"</span> | <span class="str">"put"</span> | <span class="str">"post"</span> | <span class="str">"delete"</span> | <span class="str">"options"</span> | <span class="str">"head"</span> | <span class="str">"patch"</span> | <span class="str">"trace"</span>;
+  <span class="kw">readonly</span> path: <span class="tp">string</span>;
+  <span class="kw">readonly</span> operation: <span class="tp">OpenAPIOperation</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIComponentRegistration</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIComponentRegistration</span>&lt;<span class="tp">T</span>&gt; {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> value: <span class="tp">T</span>;
+}</div>
+      </section>
+
+      <!-- Route Scanning -->
+      <section id="route-scanning" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ROUTE SCANNING</h2>
+        <p class="mb-4">
+          The route scanner converts Zudojs-style routes (with <code class="bg-black/5 px-1">:param</code> syntax) into OpenAPI path templates (<code class="bg-black/5 px-1">{param}</code>).
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">RouteOpenAPIMetadata</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">RouteOpenAPIMetadata</span> {
+  <span class="kw">readonly</span> operationId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> summary?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> tags?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> deprecated?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> parameters?: <span class="kw">readonly</span> <span class="tp">RouteParameterMetadata</span>[];
+  <span class="kw">readonly</span> requestBody?: <span class="tp">OpenAPIRequestBody</span>;
+  <span class="kw">readonly</span> responses?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+  <span class="kw">readonly</span> security?: <span class="kw">readonly</span> <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="kw">readonly</span> <span class="tp">string</span>[]&gt;[];
+  <span class="kw">readonly</span> servers?: <span class="kw">readonly</span> { <span class="kw">readonly</span> url: <span class="tp">string</span>; <span class="kw">readonly</span> description?: <span class="tp">string</span> }[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">RouteParameterMetadata</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">RouteParameterMetadata</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> in: <span class="str">"query"</span> | <span class="str">"header"</span> | <span class="str">"path"</span> | <span class="str">"cookie"</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> required?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> deprecated?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> schema?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> example?: <span class="tp">unknown</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">RouteMetadata & RouteInfo</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">RouteMetadata</span> {
+  <span class="kw">readonly</span> openapi?: <span class="tp">RouteOpenAPIMetadata</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">RouteInfo</span> {
+  <span class="kw">readonly</span> method: <span class="str">"get"</span> | <span class="str">"put"</span> | <span class="str">"post"</span> | <span class="str">"delete"</span> | <span class="str">"options"</span> | <span class="str">"head"</span> | <span class="str">"patch"</span> | <span class="str">"trace"</span>;
+  <span class="kw">readonly</span> path: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata?: { <span class="kw">readonly</span> openapi?: <span class="tp">RouteOpenAPIMetadata</span> };
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIRouteScannerImpl</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">OpenAPIRouteScannerImpl</span> {
+  <span class="fn">addRoute</span>(route: <span class="tp">RouteInfo</span>): <span class="tp">void</span>;
+  <span class="fn">scan</span>(): <span class="kw">readonly</span> <span class="tp">OpenAPIRoute</span>[];
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Route Conversion Functions</h3>
+        <div class="code-block"><span class="cm">// Converts "/users/:id" to "/users/{id}"</span>
+<span class="kw">function</span> <span class="fn">toOpenAPIPath</span>(path: <span class="tp">string</span>): <span class="tp">string</span>;
+
+<span class="cm">// Converts a route with metadata into an OpenAPI operation</span>
+<span class="kw">function</span> <span class="fn">convertRouteToOpenAPI</span>(
+  method: <span class="tp">string</span>,
+  path: <span class="tp">string</span>,
+  metadata?: <span class="tp">RouteMetadata</span>,
+): { method: <span class="tp">string</span>; path: <span class="tp">string</span>; operation: <span class="tp">OpenAPIOperation</span> };
+
+<span class="cm">// Supported HTTP methods</span>
+<span class="kw">const</span> <span class="tp">ZUDOLIB_TO_OPENAPI_METHODS</span> = [
+  <span class="str">"get"</span>, <span class="str">"put"</span>, <span class="str">"post"</span>, <span class="str">"delete"</span>,
+  <span class="str">"options"</span>, <span class="str">"head"</span>, <span class="str">"patch"</span>, <span class="str">"trace"</span>,
+] <span class="kw">as const</span>;</div>
+
+        <div class="callout callout-warning mt-4">
+          <strong class="text-zudo-yellow">Optional Path Params:</strong> Optional path parameters (<code>:id?</code>) are not supported in OpenAPI. Use separate routes or a query parameter instead.
+        </div>
+      </section>
+
+      <!-- Document Builder -->
+      <section id="document-builder" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DOCUMENT BUILDER</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">OpenAPIDocumentBuilder</code> provides a fluent API for constructing OpenAPI documents programmatically.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">OpenAPIDocumentOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIDocumentOptions</span> {
+  <span class="kw">readonly</span> info: {
+    <span class="kw">readonly</span> title: <span class="tp">string</span>;
+    <span class="kw">readonly</span> version: <span class="tp">string</span>;
+    <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+    <span class="kw">readonly</span> summary?: <span class="tp">string</span>;
+    <span class="kw">readonly</span> termsOfService?: <span class="tp">string</span>;
+    <span class="kw">readonly</span> contact?: { <span class="kw">readonly</span> name?: <span class="tp">string</span>; <span class="kw">readonly</span> url?: <span class="tp">string</span>; <span class="kw">readonly</span> email?: <span class="tp">string</span> };
+    <span class="kw">readonly</span> license?: { <span class="kw">readonly</span> name: <span class="tp">string</span>; <span class="kw">readonly</span> url?: <span class="tp">string</span> };
+  };
+  <span class="kw">readonly</span> openapi?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> servers?: <span class="kw">readonly</span> { <span class="kw">readonly</span> url: <span class="tp">string</span>; <span class="kw">readonly</span> description?: <span class="tp">string</span> }[];
+  <span class="kw">readonly</span> tags?: <span class="kw">readonly</span> { <span class="kw">readonly</span> name: <span class="tp">string</span>; <span class="kw">readonly</span> description?: <span class="tp">string</span> }[];
+  <span class="kw">readonly</span> security?: <span class="kw">readonly</span> <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="kw">readonly</span> <span class="tp">string</span>[]&gt;[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIDocumentBuilder Methods</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">OpenAPIDocumentBuilder</span> {
+  <span class="kw">constructor</span>(options: <span class="tp">OpenAPIDocumentOptions</span>);
+
+  <span class="fn">version</span>(version: <span class="tp">string</span>): <span class="tp">this</span>;
+  <span class="fn">addServer</span>(server: { <span class="kw">readonly</span> url: <span class="tp">string</span>; <span class="kw">readonly</span> description?: <span class="tp">string</span> }): <span class="tp">this</span>;
+  <span class="fn">addTag</span>(tag: { <span class="kw">readonly</span> name: <span class="tp">string</span>; <span class="kw">readonly</span> description?: <span class="tp">string</span> }): <span class="tp">this</span>;
+  <span class="fn">addSecurity</span>(security: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="kw">readonly</span> <span class="tp">string</span>[]&gt;): <span class="tp">this</span>;
+  <span class="fn">addPath</span>(path: <span class="tp">string</span>, pathItem: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;): <span class="tp">this</span>;
+  <span class="fn">addSchema</span>(name: <span class="tp">string</span>, schema: <span class="tp">unknown</span>): <span class="tp">this</span>;
+  <span class="fn">addResponse</span>(name: <span class="tp">string</span>, response: <span class="tp">unknown</span>): <span class="tp">this</span>;
+  <span class="fn">addParameter</span>(name: <span class="tp">string</span>, parameter: <span class="tp">unknown</span>): <span class="tp">this</span>;
+  <span class="fn">addSecurityScheme</span>(name: <span class="tp">string</span>, scheme: <span class="tp">unknown</span>): <span class="tp">this</span>;
+  <span class="fn">build</span>(): <span class="tp">Readonly</span>&lt;<span class="tp">OpenAPIDocument</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Builder Pattern</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">OpenAPIDocumentBuilder</span> } <span class="kw">from</span> <span class="str">"@zudojs/openapi"</span>;
+
+<span class="kw">const</span> doc = <span class="kw">new</span> <span class="fn">OpenAPIDocumentBuilder</span>({
+  info: {
+    title: <span class="str">"My API"</span>,
+    version: <span class="str">"1.0.0"</span>,
+    description: <span class="str">"A sample API"</span>,
+  },
+})
+  .<span class="fn">addServer</span>({ url: <span class="str">"https://api.example.com"</span> })
+  .<span class="fn">addTag</span>({ name: <span class="str">"users"</span>, description: <span class="str">"User operations"</span> })
+  .<span class="fn">addSchema</span>(<span class="str">"User"</span>, { type: <span class="str">"object"</span>, properties: { id: { type: <span class="str">"string"</span> } } })
+  .<span class="fn">build</span>();</div>
+      </section>
+
+      <!-- Validation -->
+      <section id="validation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">VALIDATION</h2>
+
+        <h3 class="text-lg font-bold mb-3">OpenAPIValidator Interface</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIValidator</span> {
+  <span class="fn">validate</span>(document: <span class="tp">OpenAPIDocument</span>): {
+    <span class="kw">readonly</span> valid: <span class="tp">boolean</span>;
+    <span class="kw">readonly</span> errors: <span class="kw">readonly</span> <span class="tp">OpenAPIValidationIssue</span>[];
+    <span class="kw">readonly</span> warnings: <span class="kw">readonly</span> <span class="tp">OpenAPIValidationIssue</span>[];
+  };
+  <span class="fn">assertValid</span>(document: <span class="tp">OpenAPIDocument</span>): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">OpenAPIValidationIssue</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">OpenAPIValidationIssue</span> {
+  <span class="kw">readonly</span> path: <span class="kw">readonly</span> (<span class="tp">string</span> | <span class="tp">number</span>)[];
+  <span class="kw">readonly</span> message: <span class="tp">string</span>;
+  <span class="kw">readonly</span> severity: <span class="str">"error"</span> | <span class="str">"warning"</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Validation Checks</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Check</th>
+                <th class="p-3 text-left">Severity</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">openapi version required</td>
+                <td class="p-3">error</td>
+                <td class="p-3">Document must have an openapi version string</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">info object required</td>
+                <td class="p-3">error</td>
+                <td class="p-3">Document must have an info object</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">info.title required</td>
+                <td class="p-3">error</td>
+                <td class="p-3">Info must have a title</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">info.version required</td>
+                <td class="p-3">error</td>
+                <td class="p-3">Info must have a version</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">empty paths warning</td>
+                <td class="p-3">warning</td>
+                <td class="p-3">Document has no paths defined</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">unconverted path params</td>
+                <td class="p-3">error</td>
+                <td class="p-3">Paths must use {param} not :param</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">path param must be required</td>
+                <td class="p-3">error</td>
+                <td class="p-3">Path parameters must have required: true</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">duplicate operationId</td>
+                <td class="p-3">error</td>
+                <td class="p-3">operationId values must be unique across all operations</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Serialization -->
+      <section id="serialization" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SERIALIZATION</h2>
+        <p class="mb-4">Serialize OpenAPI documents to JSON or YAML for serving documentation.</p>
+
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">toOpenAPIJSON</span>, <span class="fn">toOpenAPIYAML</span> } <span class="kw">from</span> <span class="str">"@zudojs/openapi"</span>;
+
+<span class="kw">const</span> document = registry.<span class="fn">generate</span>();
+
+<span class="cm">// Serialize to JSON</span>
+<span class="kw">const</span> json = <span class="fn">toOpenAPIJSON</span>(document);
+
+<span class="cm">// Serialize to YAML</span>
+<span class="kw">const</span> yaml = <span class="fn">toOpenAPIYAML</span>(document);</div>
+
+        <div class="callout callout-note mt-4">
+          <strong class="text-zudo-blue">YAML Support:</strong> The YAML serializer currently falls back to formatted JSON. For true YAML output, integrate a YAML library alongside this package.
+        </div>
+      </section>
+
+      <!-- Constants -->
+      <section id="constants" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CONSTANTS</h2>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Constant</th>
+                <th class="p-3 text-left">Value</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">DEFAULT_OPENAPI_VERSION</td>
+                <td class="p-3">"3.1.0"</td>
+                <td class="p-3">Default OpenAPI specification version</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">MAX_OPERATION_ID_LENGTH</td>
+                <td class="p-3">128</td>
+                <td class="p-3">Maximum allowed operationId length</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">COMPONENT_REF_PREFIX</td>
+                <td class="p-3">"#/components"</td>
+                <td class="p-3">Prefix for $ref component references</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">DEFAULT_MEDIA_TYPE</td>
+                <td class="p-3">"application/json"</td>
+                <td class="p-3">Default content type for request/response bodies</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">STATUS_CODE_CATEGORIES</td>
+                <td class="p-3">{ INFORMATIONAL: "1XX", SUCCESS: "2XX", ... }</td>
+                <td class="p-3">HTTP status code category labels</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">DEFAULT_SERVER_URL</td>
+                <td class="p-3">"http://localhost"</td>
+                <td class="p-3">Default server URL for generated documents</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">DOCUMENT_CACHE_TTL_MS</td>
+                <td class="p-3">300000 (5 min)</td>
+                <td class="p-3">Cache TTL for generated documents</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="error-hierarchy" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All error types extend <code class="bg-black/5 px-1">OpenAPIError</code>, which extends <code class="bg-black/5 px-1">BaseError</code> from <code class="bg-black/5 px-1">@zudojs/errors</code>.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error Class</th>
+                <th class="p-3 text-left">Default Code</th>
+                <th class="p-3 text-left">Status</th>
+                <th class="p-3 text-left">Expose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">OpenAPIError</td>
+                <td class="p-3">OPENAPI_DOCUMENT</td>
+                <td class="p-3">500</td>
+                <td class="p-3">false</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">OpenAPIValidationError</td>
+                <td class="p-3">OPENAPI_VALIDATION</td>
+                <td class="p-3">400</td>
+                <td class="p-3">true</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">OpenAPIDocumentError</td>
+                <td class="p-3">OPENAPI_DOCUMENT</td>
+                <td class="p-3">500</td>
+                <td class="p-3">false</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">OpenAPIComponentError</td>
+                <td class="p-3">OPENAPI_COMPONENT</td>
+                <td class="p-3">500</td>
+                <td class="p-3">false</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">OpenAPIComponentConflictError</td>
+                <td class="p-3">OPENAPI_COMPONENT_CONFLICT</td>
+                <td class="p-3">409</td>
+                <td class="p-3">true</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">OpenAPIReferenceError</td>
+                <td class="p-3">OPENAPI_REFERENCE</td>
+                <td class="p-3">400</td>
+                <td class="p-3">true</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">OpenAPIRouteError</td>
+                <td class="p-3">OPENAPI_ROUTE</td>
+                <td class="p-3">500</td>
+                <td class="p-3">false</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">OpenAPISchemaError</td>
+                <td class="p-3">OPENAPI_SCHEMA</td>
+                <td class="p-3">500</td>
+                <td class="p-3">false</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">OpenAPISerializationError</td>
+                <td class="p-3">OPENAPI_SERIALIZATION</td>
+                <td class="p-3">500</td>
+                <td class="p-3">false</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">OpenAPIVersionError</td>
+                <td class="p-3">OPENAPI_VERSION</td>
+                <td class="p-3">400</td>
+                <td class="p-3">true</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">OpenAPIOperationError</td>
+                <td class="p-3">OPENAPI_OPERATION</td>
+                <td class="p-3">500</td>
+                <td class="p-3">false</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Handling</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">isOpenAPIError</span>,
+  <span class="tp">OpenAPIValidationError</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/openapi"</span>;
+
+<span class="kw">try</span> {
+  validator.<span class="fn">assertValid</span>(document);
+} <span class="kw">catch</span> (error) {
+  <span class="kw">if</span> (<span class="fn">isOpenAPIError</span>(error)) {
+    <span class="kw">if</span> (error <span class="kw">instanceof</span> <span class="tp">OpenAPIValidationError</span>) {
+      console.<span class="fn">error</span>(<span class="str">"Validation failed:"</span>, error.message);
+    }
+  }
+}</div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete working example: create a registry, register schemas and routes, build and validate the document, serialize to JSON, and serve it.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">OpenAPIRegistryImpl</span>,
+  <span class="tp">OpenAPIValidatorImpl</span>,
+  <span class="fn">toOpenAPIJSON</span>,
+  <span class="fn">toOpenAPIPath</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/openapi"</span>;
+
+<span class="cm">// 1. Create registry</span>
+<span class="kw">const</span> registry = <span class="kw">new</span> <span class="fn">OpenAPIRegistryImpl</span>(<span class="str">"3.1.0"</span>);
+
+<span class="cm">// 2. Register schemas</span>
+registry.<span class="fn">registerSchema</span>(<span class="str">"User"</span>, {
+  type: <span class="str">"object"</span>,
+  properties: {
+    id: { type: <span class="str">"string"</span>, format: <span class="str">"uuid"</span> },
+    name: { type: <span class="str">"string"</span> },
+    email: { type: <span class="str">"string"</span>, format: <span class="str">"email"</span> },
+  },
+  required: [<span class="str">"id"</span>, <span class="str">"name"</span>, <span class="str">"email"</span>],
+});
+
+registry.<span class="fn">registerSchema</span>(<span class="str">"CreateUserRequest"</span>, {
+  type: <span class="str">"object"</span>,
+  properties: {
+    name: { type: <span class="str">"string"</span> },
+    email: { type: <span class="str">"string"</span>, format: <span class="str">"email"</span> },
+  },
+  required: [<span class="str">"name"</span>, <span class="str">"email"</span>],
+});
+
+<span class="cm">// 3. Register security scheme</span>
+registry.<span class="fn">registerSecurityScheme</span>(<span class="str">"bearerAuth"</span>, {
+  type: <span class="str">"http"</span>,
+  scheme: <span class="str">"bearer"</span>,
+  bearerFormat: <span class="str">"JWT"</span>,
+});
+
+<span class="cm">// 4. Register routes</span>
+registry.<span class="fn">registerRoute</span>({
+  method: <span class="str">"get"</span>,
+  path: <span class="str">"/users"</span>,
+  operation: {
+    operationId: <span class="str">"listUsers"</span>,
+    summary: <span class="str">"List all users"</span>,
+    tags: [<span class="str">"users"</span>],
+    responses: {
+      <span class="str">"200"</span>: {
+        description: <span class="str">"A list of users"</span>,
+        content: {
+          <span class="str">"application/json"</span>: {
+            schema: {
+              type: <span class="str">"array"</span>,
+              items: registry.<span class="fn">ref</span>(<span class="str">"schemas"</span>, <span class="str">"User"</span>),
+            },
+          },
+        },
+      },
+    },
+  },
+});
+
+registry.<span class="fn">registerRoute</span>({
+  method: <span class="str">"post"</span>,
+  path: <span class="str">"/users"</span>,
+  operation: {
+    operationId: <span class="str">"createUser"</span>,
+    summary: <span class="str">"Create a new user"</span>,
+    tags: [<span class="str">"users"</span>],
+    security: [{ bearerAuth: [] }],
+    requestBody: {
+      content: {
+        <span class="str">"application/json"</span>: {
+          schema: registry.<span class="fn">ref</span>(<span class="str">"schemas"</span>, <span class="str">"CreateUserRequest"</span>),
+        },
+      },
+    },
+    responses: {
+      <span class="str">"201"</span>: {
+        description: <span class="str">"User created"</span>,
+        content: {
+          <span class="str">"application/json"</span>: {
+            schema: registry.<span class="fn">ref</span>(<span class="str">"schemas"</span>, <span class="str">"User"</span>),
+          },
+        },
+      },
+    },
+  },
+});
+
+registry.<span class="fn">registerRoute</span>({
+  method: <span class="str">"get"</span>,
+  path: <span class="str">"/users/:id"</span>,
+  operation: {
+    operationId: <span class="str">"getUser"</span>,
+    summary: <span class="str">"Get a user by ID"</span>,
+    tags: [<span class="str">"users"</span>],
+    parameters: [
+      { name: <span class="str">"id"</span>, in: <span class="str">"path"</span>, required: <span class="num">true</span>, schema: { type: <span class="str">"string"</span> } },
+    ],
+    responses: {
+      <span class="str">"200"</span>: {
+        description: <span class="str">"User found"</span>,
+        content: {
+          <span class="str">"application/json"</span>: {
+            schema: registry.<span class="fn">ref</span>(<span class="str">"schemas"</span>, <span class="str">"User"</span>),
+          },
+        },
+      },
+    },
+  },
+});
+
+<span class="cm">// 5. Generate document</span>
+<span class="kw">const</span> document = registry.<span class="fn">generate</span>();
+
+<span class="cm">// 6. Validate</span>
+<span class="kw">const</span> validator = <span class="kw">new</span> <span class="fn">OpenAPIValidatorImpl</span>();
+<span class="kw">const</span> result = validator.<span class="fn">validate</span>(document);
+console.<span class="fn">log</span>(<span class="str">"Valid:"</span>, result.valid);
+console.<span class="fn">log</span>(<span class="str">"Errors:"</span>, result.errors.length);
+console.<span class="fn">log</span>(<span class="str">"Warnings:"</span>, result.warnings.length);
+
+<span class="cm">// 7. Serialize to JSON</span>
+<span class="kw">const</span> json = <span class="fn">toOpenAPIJSON</span>(document);
+console.<span class="fn">log</span>(json);
+
+<span class="cm">// 8. Serve at /api-docs (example with @zudojs/http)</span>
+<span class="cm">// app.get("/api-docs", (req, res) => {</span>
+<span class="cm">//   res.json(JSON.parse(json));</span>
+<span class="cm">// });</span></div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#architecture-position" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#spec-types" class="toc-link">Spec Types</a>
+      <a href="#paths-operations" class="toc-link">Paths & Operations</a>
+      <a href="#schema" class="toc-link">Schema</a>
+      <a href="#security" class="toc-link">Security</a>
+      <a href="#components" class="toc-link">Components</a>
+      <a href="#registry" class="toc-link">Registry</a>
+      <a href="#route-scanning" class="toc-link">Route Scanning</a>
+      <a href="#document-builder" class="toc-link">Document Builder</a>
+      <a href="#validation" class="toc-link">Validation</a>
+      <a href="#serialization" class="toc-link">Serialization</a>
+      <a href="#constants" class="toc-link">Constants</a>
+      <a href="#error-hierarchy" class="toc-link">Error Hierarchy</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+
+
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>

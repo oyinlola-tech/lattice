@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/plugins — Plugin System Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/plugins — the controlled extension system for Zudojs applications.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-plugins" class="sidebar-item sidebar-item-active">@zudojs/plugins</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/plugins</span>
+      </div>
+
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/plugins</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Controlled extension system for the Zudojs framework. Provides plugin registration, dependency resolution with cycle detection, lifecycle management, and orchestration for Zudojs applications.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">PLUGINS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">EXTENSIONS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">LIFECYCLE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">DEPENDENCIES</span>
+        </div>
+      </div>
+
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/plugins
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/plugins
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/plugins</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/plugins depends on @zudojs/errors, @zudojs/constants, and @zudojs/types. All at version 0.0.1.
+        </div>
+      </section>
+
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/plugins</code> is the controlled extension system for Zudojs. It defines:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Plugin registration and lifecycle management</strong> with validated state transitions</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Dependency resolution</strong> with topological sorting and cycle detection</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>11 plugin states</strong> with a validated state machine and transition rules</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Plugin context injection</strong> — container, config, logger, events, and abort signals</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Lifecycle hooks</strong> — install, initialize, start, stop, dispose</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Diagnostic health reports</strong> with per-plugin health status</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>14 error classes</strong> covering every failure mode</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Event system</strong> for lifecycle events with timestamps and error context</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Plugins are self-contained extensions that follow a strict lifecycle. The plugin system resolves dependencies, enforces state transitions, and emits events — so you never have to orchestrate plugin order manually.
+        </div>
+      </section>
+
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6 space-y-3">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">APPLICATION LAYER (CQRS, Events, Modules)</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">
+            <div class="flex justify-center gap-4 text-xs">
+              <span class="px-2 py-1 bg-zudo-blue text-white">Registry</span>
+              <span class="px-2 py-1 bg-zudo-yellow text-black">Dependencies</span>
+              <span class="px-2 py-1 bg-zudo-green text-black">Lifecycle</span>
+              <span class="px-2 py-1 bg-zudo-red text-black">Events</span>
+              <span class="px-2 py-1 bg-black text-white">Diagnostics</span>
+            </div>
+          </div>
+          <div class="bg-black text-white p-3 font-bold text-center text-sm">PLUGIN SYSTEM (@zudojs/plugins)</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">RUNTIME LAYER (@zudojs/runtime, @zudojs/lifecycle)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">INFRASTRUCTURE (DI, Config, Logger, Events)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          The plugin system sits between the runtime layer and the application layer. It orchestrates plugin lifecycle and dependencies, providing a controlled extension point without coupling plugins to the core framework internals.
+        </p>
+      </section>
+
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.0.1</td>
+                <td class="p-3">14 plugin-specific error classes (PluginError, PluginRegistrationError, etc.)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/constants</td>
+                <td class="p-3">0.0.1</td>
+                <td class="p-3">Branded types and shared constants</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/types</td>
+                <td class="p-3">0.0.1</td>
+                <td class="p-3">Type guards and utility types</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.0.1</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <section id="plugin-interface" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PLUGIN INTERFACE</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: Plugin</h3>
+        <p class="mb-3 text-sm">Every plugin in the Zudojs ecosystem implements this contract:</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Plugin</span>&lt;<span class="tp">TOptions</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> metadata: <span class="tp">PluginMetadata</span>;
+
+  <span class="kw">readonly</span> dependencies?: <span class="kw">readonly</span> <span class="tp">PluginDependency</span>[];
+
+  <span class="kw">readonly</span> optionalDependencies?: <span class="kw">readonly</span> <span class="tp">PluginDependency</span>[];
+
+  <span class="fn">install</span>?(context: <span class="tp">PluginContext</span>, options: <span class="tp">TOptions</span>): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="fn">initialize</span>?(context: <span class="tp">PluginContext</span>): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="fn">start</span>?(context: <span class="tp">PluginContext</span>): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="fn">stop</span>?(context: <span class="tp">PluginContext</span>): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="fn">dispose</span>?(context: <span class="tp">PluginContext</span>): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PluginMetadata</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PluginMetadata</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> version?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> author?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> homepage?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> keywords?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> capabilities?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PluginDependency</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PluginDependency</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> version?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> optional?: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Properties</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Property</th>
+                <th class="p-3 text-left">Type</th>
+                <th class="p-3 text-left">Required</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">metadata</td>
+                <td class="p-3">PluginMetadata</td>
+                <td class="p-3">Yes</td>
+                <td class="p-3">Unique plugin identification with name, version, and capabilities.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">dependencies</td>
+                <td class="p-3">PluginDependency[]</td>
+                <td class="p-3">No</td>
+                <td class="p-3">Required plugins that must be installed before this one.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">optionalDependencies</td>
+                <td class="p-3">PluginDependency[]</td>
+                <td class="p-3">No</td>
+                <td class="p-3">Preferred plugins that enhance functionality but are not required.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">install()</td>
+                <td class="p-3">Function</td>
+                <td class="p-3">No</td>
+                <td class="p-3">Called first. Register services, validate config, set up infrastructure.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">initialize()</td>
+                <td class="p-3">Function</td>
+                <td class="p-3">No</td>
+                <td class="p-3">Called after install. Prepare resources, establish connections.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">start()</td>
+                <td class="p-3">Function</td>
+                <td class="p-3">No</td>
+                <td class="p-3">Begin active processing. Listen for requests, consume messages.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">stop()</td>
+                <td class="p-3">Function</td>
+                <td class="p-3">No</td>
+                <td class="p-3">Cease active processing. Stop accepting new work.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">dispose()</td>
+                <td class="p-3">Function</td>
+                <td class="p-3">No</td>
+                <td class="p-3">Release all resources. Close connections, clear timers.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="plugin-states" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PLUGIN STATES</h2>
+        <p class="mb-4">
+          Plugins move through a strict state machine. Invalid transitions throw <code class="bg-black/5 px-1">PluginStateError</code>.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">PluginState Type</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">PluginState</span> =
+  | <span class="str">"registered"</span>
+  | <span class="str">"installing"</span>
+  | <span class="str">"installed"</span>
+  | <span class="str">"initializing"</span>
+  | <span class="str">"initialized"</span>
+  | <span class="str">"starting"</span>
+  | <span class="str">"started"</span>
+  | <span class="str">"stopping"</span>
+  | <span class="str">"stopped"</span>
+  | <span class="str">"disposing"</span>
+  | <span class="str">"disposed"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Valid State Transitions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">From State</th>
+                <th class="p-3 text-left">Allowed Transitions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">registered</td><td class="p-3">installing</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">installing</td><td class="p-3">installed, failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">installed</td><td class="p-3">initializing, stopping</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">initializing</td><td class="p-3">initialized, failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">initialized</td><td class="p-3">starting, stopping</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">starting</td><td class="p-3">started, failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">started</td><td class="p-3">stopping</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">stopping</td><td class="p-3">stopped, failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">stopped</td><td class="p-3">disposing, starting</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">disposing</td><td class="p-3">disposed, failed</td></tr>
+              <tr><td class="p-3 font-mono">disposed</td><td class="p-3"><em>none (terminal)</em></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">isValidTransition()</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">isValidTransition</span> } <span class="kw">from</span> <span class="str">"@zudojs/plugins"</span>;
+
+<span class="fn">isValidTransition</span>(<span class="str">"registered"</span>, <span class="str">"installing"</span>);  <span class="cm">// true</span>
+<span class="fn">isValidTransition</span>(<span class="str">"registered"</span>, <span class="str">"started"</span>);     <span class="cm">// false</span>
+<span class="fn">isValidTransition</span>(<span class="str">"started"</span>, <span class="str">"stopping"</span>);      <span class="cm">// true</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">State Diagram</h3>
+        <div class="border-4 border-black p-6 font-mono text-sm space-y-1">
+          <div>registered → installing → installed → initializing → initialized → starting → started</div>
+          <div class="ml-8">↓ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓</div>
+          <div>failed ← installing, initializing, starting, stopping, disposing</div>
+          <div>stopped → disposing → disposed &nbsp;&nbsp;|&nbsp;&nbsp; stopped → starting (restart)</div>
+        </div>
+      </section>
+
+      <section id="plugin-context" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PLUGIN CONTEXT</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">PluginContext</code> is the controlled interface provided to plugins during lifecycle operations. It exposes framework services without leaking internals.
+        </p>
+
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PluginContext</span> {
+  <span class="kw">readonly</span> plugin: <span class="tp">PluginMetadata</span>;
+  <span class="kw">readonly</span> container?: <span class="tp">PluginContainer</span>;
+  <span class="kw">readonly</span> config?: <span class="tp">PluginConfig</span>;
+  <span class="kw">readonly</span> logger?: <span class="tp">PluginLogger</span>;
+  <span class="kw">readonly</span> events?: <span class="tp">PluginEvents</span>;
+  <span class="kw">readonly</span> signal: <span class="tp">AbortSignal</span>;
+
+  <span class="fn">onDispose</span>(handler: () => <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;): <span class="tp">void</span>;
+  <span class="fn">registerDisposable</span>(disposable: { <span class="fn">dispose</span>(): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; }): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Context Interfaces</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Interface</th>
+                <th class="p-3 text-left">Methods</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginContainer</td><td class="p-3">register(token, provider)</td><td class="p-3">Register services in the DI container</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginConfig</td><td class="p-3">get(key)</td><td class="p-3">Read configuration values</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginLogger</td><td class="p-3">info(), warn(), error()</td><td class="p-3">Structured logging with context</td></tr>
+              <tr><td class="p-3 font-mono">PluginEvents</td><td class="p-3">on(), off(), emit()</td><td class="p-3">Subscribe to and emit framework events</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createPluginContext()</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createPluginContext</span> } <span class="kw">from</span> <span class="str">"@zudojs/plugins"</span>;
+
+<span class="kw">const</span> context = <span class="fn">createPluginContext</span>(
+  { name: <span class="str">"my-plugin"</span>, version: <span class="str">"0.0.1"</span> },
+  {
+    container: myContainer,
+    config: myConfig,
+    logger: myLogger,
+    events: myEvents,
+  },
+);
+
+<span class="cm">// Register cleanup handlers</span>
+context.<span class="fn">onDispose</span>(<span class="kw">async</span> () => {
+  <span class="kw">await</span> <span class="fn">closeDatabase</span>();
+});
+
+<span class="cm">// Register disposable resources</span>
+context.<span class="fn">registerDisposable</span>({
+  <span class="kw">async</span> <span class="fn">dispose</span>() {
+    <span class="kw">await</span> <span class="fn">clearInterval</span>(timer);
+  },
+});</div>
+      </section>
+
+      <section id="registry" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">REGISTRY</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">PluginRegistry</code> manages plugin registration, lookup, and state tracking. Names are used as unique identifiers.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">PluginRegistry Interface</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PluginRegistry</span> {
+  <span class="fn">register</span>&lt;<span class="tp">TPlugin</span> <span class="kw">extends</span> <span class="tp">Plugin</span>&gt;(plugin: <span class="tp">TPlugin</span>, options?: <span class="tp">unknown</span>): <span class="tp">void</span>;
+  <span class="fn">get</span>&lt;<span class="tp">TPlugin</span>&gt;(name: <span class="tp">string</span>): <span class="tp">RegisteredPlugin</span>&lt;<span class="tp">TPlugin</span>&gt; | <span class="tp">undefined</span>;
+  <span class="fn">has</span>(name: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">list</span>(): <span class="kw">readonly</span> <span class="tp">RegisteredPlugin</span>[];
+  <span class="fn">remove</span>(name: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">RegisteredPlugin</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">RegisteredPlugin</span>&lt;<span class="tp">TPlugin</span> <span class="kw">extends</span> <span class="tp">Plugin</span> = <span class="tp">Plugin</span>&gt; {
+  <span class="kw">readonly</span> plugin: <span class="tp">TPlugin</span>;
+  <span class="kw">readonly</span> state: <span class="tp">PluginState</span>;
+  <span class="kw">readonly</span> options?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> disposables: <span class="tp">Array</span>&lt;{ <span class="fn">dispose</span>(): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; }&gt;;
+  <span class="fn">registerDisposable</span>(disposable: { <span class="fn">dispose</span>(): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; }): <span class="tp">void</span>;
+  <span class="fn">setState</span>(state: <span class="tp">PluginState</span>): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Methods</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Signature</th>
+                <th class="p-3 text-left">Returns</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">register()</td>
+                <td class="p-3">register(plugin, options?): void</td>
+                <td class="p-3">void. Throws <code>PluginAlreadyRegisteredError</code> on duplicate.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">get()</td>
+                <td class="p-3">get&lt;T&gt;(name): RegisteredPlugin&lt;T&gt; | undefined</td>
+                <td class="p-3">Registered plugin or undefined</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">has()</td>
+                <td class="p-3">has(name): boolean</td>
+                <td class="p-3">true if registered</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">list()</td>
+                <td class="p-3">list(): readonly RegisteredPlugin[]</td>
+                <td class="p-3">Frozen array of all registered plugins</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">remove()</td>
+                <td class="p-3">remove(name): boolean</td>
+                <td class="p-3">true if removed. Only works if state is registered or disposed.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">clear()</td>
+                <td class="p-3">clear(): void</td>
+                <td class="p-3">Removes all plugins</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="dependency-resolution" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCY RESOLUTION</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">DependencyResolver</code> performs topological sorting of plugins and detects missing dependencies and cycles.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">DependencyResolution</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">DependencyResolution</span> {
+  <span class="kw">readonly</span> ordered: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> missing: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> cycles: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Resolution Algorithm</h3>
+        <ol class="list-decimal list-inside space-y-2 mb-6">
+          <li>Collect all plugins and their dependency declarations</li>
+          <li>Check that all required (non-optional) dependencies are registered — collect missing names</li>
+          <li>If any are missing, return early with the missing list</li>
+          <li>Run DFS topological sort to determine startup order</li>
+          <li>If a cycle is detected during DFS, return early with the cycle path</li>
+          <li>Return the ordered list of plugin names for startup</li>
+        </ol>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">assertResolutionValid()</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">DependencyResolver</span>,
+  <span class="fn">assertResolutionValid</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/plugins"</span>;
+
+<span class="kw">const</span> resolver = <span class="kw">new</span> <span class="fn">DependencyResolver</span>();
+<span class="kw">const</span> resolution = resolver.<span class="fn">resolve</span>(dependencyMap);
+
+<span class="cm">// Throws PluginDependencyError or PluginDependencyCycleError</span>
+<span class="fn">assertResolutionValid</span>(resolution);
+
+<span class="cm">// Use ordered list for startup</span>
+<span class="kw">for</span> (<span class="kw">const</span> name <span class="kw">of</span> resolution.ordered) {
+  <span class="cm">// start plugin in order</span>
+}</div>
+      </section>
+
+      <section id="lifecycle" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LIFECYCLE</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">LifecycleController</code> executes lifecycle phases with state validation and event emission.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Methods</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">When Called</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">install()</td>
+                <td class="p-3">During startup</td>
+                <td class="p-3">Register services, validate config, set up infrastructure.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">initialize()</td>
+                <td class="p-3">After install</td>
+                <td class="p-3">Prepare resources, establish connections.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">start()</td>
+                <td class="p-3">After initialize</td>
+                <td class="p-3">Begin active processing.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">stop()</td>
+                <td class="p-3">During shutdown</td>
+                <td class="p-3">Cease active processing, stop accepting work.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">dispose()</td>
+                <td class="p-3">After stop</td>
+                <td class="p-3">Release resources, run registered disposables.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Lifecycle Flow</h3>
+        <div class="border-4 border-black p-6 font-mono text-sm space-y-1">
+          <div><span class="text-zudo-red font-bold">1.</span> install() → register services, validate config</div>
+          <div><span class="text-zudo-blue font-bold">2.</span> initialize() → prepare resources, connect</div>
+          <div><span class="text-zudo-green font-bold">3.</span> start() → begin active processing</div>
+          <div class="mt-3 border-t-2 border-black/10 pt-3">
+            <span class="text-zudo-yellow font-bold">4.</span> stop() → cease processing (during shutdown)</div>
+          <div><span class="text-zudo-red font-bold">5.</span> dispose() → release all resources, run disposables</div>
+        </div>
+      </section>
+
+      <section id="plugin-manager" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PLUGIN MANAGER</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">PluginManager</code> is the high-level orchestrator that coordinates the registry, dependency resolver, and lifecycle controller.
+        </p>
+
+        <div class="code-block"><span class="kw">class</span> <span class="tp">PluginManager</span> {
+  <span class="fn">register</span>&lt;<span class="tp">TPlugin</span> <span class="kw">extends</span> <span class="tp">Plugin</span>&gt;(plugin: <span class="tp">TPlugin</span>): <span class="tp">void</span>;
+  <span class="fn">get</span>&lt;<span class="tp">TPlugin</span>&gt;(name: <span class="tp">string</span>): <span class="tp">TPlugin</span> | <span class="tp">undefined</span>;
+  <span class="fn">has</span>(name: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">list</span>(): <span class="kw">readonly</span> <span class="tp">Plugin</span>[];
+  <span class="fn">start</span>(context: <span class="tp">PluginContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">stop</span>(context: <span class="tp">PluginContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">diagnostics</span>(): <span class="tp">PluginDiagnosticReport</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Methods</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">register()</td><td class="p-3">Register a plugin. Wraps registry errors in PluginRegistrationError.</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">get()</td><td class="p-3">Retrieve a plugin by name from the registry.</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">has()</td><td class="p-3">Check if a plugin is registered.</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">list()</td><td class="p-3">Return all registered plugins.</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">start()</td><td class="p-3">Resolve dependencies, then run install → initialize → start in topological order.</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">stop()</td><td class="p-3">Stop and dispose all plugins in reverse order.</td></tr>
+              <tr><td class="p-3 font-mono">diagnostics()</td><td class="p-3">Build a full diagnostic report with health status per plugin.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Integration Architecture</h3>
+        <div class="border-4 border-black p-4 space-y-2 font-mono text-sm">
+          <div class="bg-black text-white p-2 font-bold text-center">PluginManager</div>
+          <div class="flex gap-2 justify-center">
+            <div class="bg-zudo-blue text-white p-2 flex-1 text-center">PluginRegistryImpl</div>
+            <div class="bg-zudo-yellow text-black p-2 flex-1 text-center">DependencyResolver</div>
+            <div class="bg-zudo-green text-black p-2 flex-1 text-center">LifecycleController</div>
+          </div>
+          <div class="bg-zudo-red text-black p-2 text-center text-xs">PLUGIN_EVENTS + buildDiagnosticReport</div>
+        </div>
+      </section>
+
+      <section id="events" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EVENTS</h2>
+        <p class="mb-4">
+          The plugin system emits lifecycle events at each state transition. Events include the plugin metadata, current and previous state, timestamp, and any error.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">PLUGIN_EVENTS Constant</h3>
+        <div class="code-block"><span class="kw">const</span> PLUGIN_EVENTS = {
+  REGISTERED:    <span class="str">"plugin:registered"</span>,
+  INSTALLING:    <span class="str">"plugin:installing"</span>,
+  INSTALLED:     <span class="str">"plugin:installed"</span>,
+  INITIALIZING:  <span class="str">"plugin:initializing"</span>,
+  INITIALIZED:   <span class="str">"plugin:initialized"</span>,
+  STARTING:      <span class="str">"plugin:starting"</span>,
+  STARTED:       <span class="str">"plugin:started"</span>,
+  STOPPING:      <span class="str">"plugin:stopping"</span>,
+  STOPPED:       <span class="str">"plugin:stopped"</span>,
+  FAILED:        <span class="str">"plugin:failed"</span>,
+  DISPOSING:     <span class="str">"plugin:disposing"</span>,
+  DISPOSED:      <span class="str">"plugin:disposed"</span>,
+} <span class="kw">as const</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PluginLifecycleEvent</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PluginLifecycleEvent</span> {
+  <span class="kw">readonly</span> plugin: <span class="tp">PluginMetadata</span>;
+  <span class="kw">readonly</span> state: <span class="tp">PluginState</span>;
+  <span class="kw">readonly</span> previousState?: <span class="tp">PluginState</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+  <span class="kw">readonly</span> error?: <span class="tp">unknown</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createPluginLifecycleEvent()</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createPluginLifecycleEvent</span>,
+  <span class="tp">PLUGIN_EVENTS</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/plugins"</span>;
+
+<span class="kw">const</span> event = <span class="fn">createPluginLifecycleEvent</span>(
+  { name: <span class="str">"@zudojs/http"</span> },
+  <span class="str">"started"</span>,
+  <span class="str">"starting"</span>,
+);
+
+<span class="cm">// Subscribe to events</span>
+events.<span class="fn">on</span>(PLUGIN_EVENTS.STARTED, (event) => {
+  console.<span class="fn">log</span>(<span class="str">`Plugin ${event.plugin.name} started`</span>);
+});</div>
+      </section>
+
+      <section id="diagnostics" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DIAGNOSTICS</h2>
+        <p class="mb-4">
+          Diagnostic reports provide health status for each plugin and aggregate counts across the system.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">PluginHealthStatus</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">PluginHealthStatus</span> = <span class="str">"healthy"</span> | <span class="str">"degraded"</span> | <span class="str">"unhealthy"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PluginDiagnosticReport</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PluginDiagnosticReport</span> {
+  <span class="kw">readonly</span> plugins: <span class="kw">readonly</span> <span class="tp">PluginDiagnostic</span>[];
+  <span class="kw">readonly</span> total: <span class="tp">number</span>;
+  <span class="kw">readonly</span> healthy: <span class="tp">number</span>;
+  <span class="kw">readonly</span> degraded: <span class="tp">number</span>;
+  <span class="kw">readonly</span> unhealthy: <span class="tp">number</span>;
+  <span class="kw">readonly</span> failed: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Health Factory Functions</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createHealthyHealth</span>,
+  <span class="fn">createDegradedHealth</span>,
+  <span class="fn">createUnhealthyHealth</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/plugins"</span>;
+
+<span class="cm">// Healthy — plugin is started and running</span>
+<span class="kw">const</span> ok = <span class="fn">createHealthyHealth</span>();
+<span class="cm">// { status: "healthy" }</span>
+
+<span class="cm">// Degraded — plugin is installed/initialized but not started</span>
+<span class="kw">const</span> degraded = <span class="fn">createDegradedHealth</span>({ reason: <span class="str">"not started"</span> });
+
+<span class="cm">// Unhealthy — plugin has failed</span>
+<span class="kw">const</span> unhealthy = <span class="fn">createUnhealthyHealth</span>({ error: <span class="str">"connection refused"</span> });</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">buildDiagnosticReport()</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">buildDiagnosticReport</span> } <span class="kw">from</span> <span class="str">"@zudojs/plugins"</span>;
+
+<span class="kw">const</span> report = <span class="fn">buildDiagnosticReport</span>([
+  { plugin: httpPlugin, state: <span class="str">"started"</span> },
+  { plugin: authPlugin, state: <span class="str">"failed"</span> },
+]);
+
+console.<span class="fn">log</span>(report.healthy);  <span class="cm">// 1</span>
+console.<span class="fn">log</span>(report.failed);   <span class="cm">// 1</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Using PluginManager.diagnostics()</h3>
+        <div class="code-block"><span class="kw">const</span> manager = <span class="kw">new</span> <span class="fn">PluginManager</span>();
+manager.<span class="fn">register</span>(httpPlugin);
+manager.<span class="fn">register</span>(authPlugin);
+
+<span class="kw">await</span> manager.<span class="fn">start</span>(context);
+
+<span class="kw">const</span> report = manager.<span class="fn">diagnostics</span>();
+console.<span class="fn">log</span>(<span class="str">`Total: ${report.total}, Healthy: ${report.healthy}`</span>);</div>
+      </section>
+
+      <section id="error-hierarchy" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudojs/errors</code> and re-exported by this package.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginError</td><td class="p-3">Base error for all plugin issues</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginRegistrationError</td><td class="p-3">Failed to register a plugin</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginAlreadyRegisteredError</td><td class="p-3">Duplicate plugin name registration</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginNotFoundError</td><td class="p-3">Requested plugin not in registry</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginDependencyError</td><td class="p-3">Required dependency not registered</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginDependencyCycleError</td><td class="p-3">Circular dependency detected</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginInitializationError</td><td class="p-3">Plugin.initialize() failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginStartError</td><td class="p-3">Plugin.start() failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginStopError</td><td class="p-3">Plugin.stop() failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginDisposeError</td><td class="p-3">Plugin.dispose() or disposable failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginTimeoutError</td><td class="p-3">Plugin lifecycle operation timed out</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PluginStateError</td><td class="p-3">Invalid state transition attempted</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createPluginError()</td><td class="p-3">Factory function to create typed plugin errors</td></tr>
+              <tr><td class="p-3 font-mono">isPluginError()</td><td class="p-3">Type guard to check if an error is a plugin error</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Handling Pattern</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">isPluginError</span>,
+  <span class="tp">PluginDependencyCycleError</span>,
+  <span class="tp">PluginStateError</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/plugins"</span>;
+
+<span class="kw">try</span> {
+  <span class="kw">await</span> manager.<span class="fn">start</span>(context);
+} <span class="kw">catch</span> (error) {
+  <span class="kw">if</span> (<span class="fn">isPluginError</span>(error)) {
+    console.<span class="fn">error</span>(<span class="str">`Plugin error: ${error.message}`</span>);
+
+    <span class="kw">if</span> (error <span class="kw">instanceof</span> <span class="tp">PluginDependencyCycleError</span>) {
+      <span class="cm">// Log cycle path and fix dependencies</span>
+    }
+
+    <span class="kw">if</span> (error <span class="kw">instanceof</span> <span class="tp">PluginStateError</span>) {
+      <span class="cm">// Plugin attempted invalid transition</span>
+    }
+  }
+}</div>
+      </section>
+
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete example: create plugins with metadata and dependencies, register them, start with context, check diagnostics, and handle shutdown.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">PluginManager</span>,
+  <span class="fn">createPluginContext</span>,
+  <span class="tp">PLUGIN_EVENTS</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/plugins"</span>;
+<span class="kw">import type</span> { <span class="tp">Plugin</span> } <span class="kw">from</span> <span class="str">"@zudojs/plugins"</span>;
+
+<span class="cm">// 1. Define plugins</span>
+<span class="kw">const</span> eventsPlugin: <span class="tp">Plugin</span> = {
+  metadata: {
+    name: <span class="str">"@zudojs/events"</span>,
+    version: <span class="str">"0.0.1"</span>,
+    description: <span class="str">"Event system"</span>,
+  },
+  <span class="kw">async</span> <span class="fn">install</span>(ctx) {
+    ctx.logger?.<span class="fn">info</span>(<span class="str">"Events plugin installing"</span>);
+  },
+  <span class="kw">async</span> <span class="fn">start</span>(ctx) {
+    ctx.logger?.<span class="fn">info</span>(<span class="str">"Events plugin started"</span>);
+  },
+  <span class="kw">async</span> <span class="fn">stop</span>(ctx) {
+    ctx.logger?.<span class="fn">info</span>(<span class="str">"Events plugin stopped"</span>);
+  },
+};
+
+<span class="kw">const</span> httpPlugin: <span class="tp">Plugin</span> = {
+  metadata: {
+    name: <span class="str">"@zudojs/http"</span>,
+    version: <span class="str">"0.0.1"</span>,
+    description: <span class="str">"HTTP server"</span>,
+  },
+  <span class="kw">async</span> <span class="fn">install</span>(ctx) {
+    ctx.container?.<span class="fn">register</span>(<span class="str">"httpServer"</span>, httpServer);
+    ctx.logger?.<span class="fn">info</span>(<span class="str">"HTTP plugin installing"</span>);
+  },
+  <span class="kw">async</span> <span class="fn">start</span>(ctx) {
+    <span class="kw">await</span> httpServer.<span class="fn">listen</span>(<span class="num">3000</span>);
+    ctx.logger?.<span class="fn">info</span>(<span class="str">"HTTP server listening on :3000"</span>);
+  },
+  <span class="kw">async</span> <span class="fn">stop</span>(ctx) {
+    <span class="kw">await</span> httpServer.<span class="fn">close</span>();
+  },
+  <span class="kw">async</span> <span class="fn">dispose</span>(ctx) {
+    ctx.logger?.<span class="fn">info</span>(<span class="str">"HTTP plugin disposed"</span>);
+  },
+};
+
+<span class="cm">// 2. Create PluginManager</span>
+<span class="kw">const</span> manager = <span class="kw">new</span> <span class="fn">PluginManager</span>();
+
+<span class="cm">// 3. Register plugins</span>
+manager.<span class="fn">register</span>(eventsPlugin);
+manager.<span class="fn">register</span>(httpPlugin);
+
+<span class="cm">// 4. Create context</span>
+<span class="kw">const</span> context = <span class="fn">createPluginContext</span>(
+  { name: <span class="str">"app"</span> },
+  { logger: myLogger, events: myEvents },
+);
+
+<span class="cm">// 5. Start — resolves dependencies, runs lifecycle</span>
+<span class="kw">await</span> manager.<span class="fn">start</span>(context);
+
+<span class="cm">// 6. Check diagnostics</span>
+<span class="kw">const</span> report = manager.<span class="fn">diagnostics</span>();
+console.<span class="fn">log</span>(<span class="str">`Plugins: ${report.total}, Healthy: ${report.healthy}`</span>);
+
+<span class="cm">// 7. Handle events</span>
+context.events?.<span class="fn">on</span>(PLUGIN_EVENTS.STARTED, (event) => {
+  console.<span class="fn">log</span>(<span class="str">`✅ ${event.plugin.name} started`</span>);
+});
+
+<span class="cm">// 8. Graceful shutdown</span>
+process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span class="kw">async</span> () => {
+  <span class="kw">await</span> manager.<span class="fn">stop</span>(context);
+  process.<span class="fn">exit</span>(<span class="num">0</span>);
+});</div>
+      </section>
+
+    </main>
+
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#architecture-position" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#plugin-interface" class="toc-link">Plugin Interface</a>
+      <a href="#plugin-states" class="toc-link">Plugin States</a>
+      <a href="#plugin-context" class="toc-link">Plugin Context</a>
+      <a href="#registry" class="toc-link">Registry</a>
+      <a href="#dependency-resolution" class="toc-link">Dependency Resolution</a>
+      <a href="#lifecycle" class="toc-link">Lifecycle</a>
+      <a href="#plugin-manager" class="toc-link">Plugin Manager</a>
+      <a href="#events" class="toc-link">Events</a>
+      <a href="#diagnostics" class="toc-link">Diagnostics</a>
+      <a href="#error-hierarchy" class="toc-link">Error Hierarchy</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>

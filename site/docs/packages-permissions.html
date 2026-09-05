@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/permissions — Authorization Engine Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/permissions — RBAC, ABAC, resource authorization, wildcards, role hierarchy, policies, and abilities.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+        <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+      <a href="/docs/packages-permissions" class="sidebar-item sidebar-item-active">@zudojs/permissions</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/permissions</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/permissions</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Authorization engine for the Zudojs framework. Supports RBAC, ABAC, resource policies, wildcards, role hierarchy, condition combinators, ability compilation, and explain mode.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">RBAC</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">ABAC</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">AUTHORIZATION</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">PERMISSIONS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">POLICIES</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/permissions
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/permissions
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/permissions</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/permissions depends on @zudojs/errors and @zudojs/constants. @zudojs/http is an optional peer dependency for HTTP middleware integration.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/permissions</code> is a full-featured authorization engine. It provides:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>RBAC and ABAC</strong> authorization with role-based and attribute-based access control</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Permission parsing and matching</strong> with resource:action format and wildcard support</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Role hierarchy</strong> with inheritance chains and circular detection</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Rule engine</strong> with exact, wildcard, and conditional matching (deny-overrides by default)</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Policy evaluation</strong> with timeouts, error handling, and priority ordering</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Ability context</strong> for pre-resolved actors with can/cannot/check/explain</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Decision caching</strong> with configurable TTL and actor-level invalidation</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>HTTP middleware</strong> integration with actor extraction and permission guards</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Explain mode</strong> for debugging authorization decisions with step-by-step traces</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>13 error classes</strong> covering all permission, role, and policy failure modes</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Observability events</strong> with permission check metrics and duration tracking</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Authorization decisions are always explicit. No implicit grants. Deny overrides allow by default. Every check is traceable via explain mode.
+        </div>
+      </section>
+
+      <!-- Architecture Position -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6">
+          <div class="grid grid-cols-5 gap-3 items-center">
+            <div class="col-span-1 bg-zudo-red text-black p-3 font-bold text-center text-sm border-2 border-black">ROLES</div>
+            <div class="col-span-1 bg-zudo-blue text-white p-3 font-bold text-center text-sm border-2 border-black">RULES</div>
+            <div class="col-span-1 bg-zudo-yellow text-black p-3 font-bold text-center text-sm border-2 border-black">POLICIES</div>
+            <div class="col-span-1 bg-black text-white p-3 font-bold text-center text-sm border-2 border-black">CACHE</div>
+            <div class="col-span-1 bg-zudo-green text-black p-3 font-bold text-center text-sm border-2 border-black">HTTP</div>
+          </div>
+          <div class="flex justify-center my-3">
+            <div class="text-2xl font-bold">↓ ↓ ↓ ↓ ↓</div>
+          </div>
+          <div class="bg-black text-white p-4 font-bold text-center text-sm border-2 border-black">@zudojs/permissions — Authorization Engine</div>
+          <div class="flex justify-center my-3">
+            <div class="text-2xl font-bold">↑</div>
+          </div>
+          <div class="bg-white border-2 border-black p-4 font-bold text-center text-sm">APPLICATION LAYER (HTTP, CQRS, Modules)</div>
+          <div class="flex justify-center my-3">
+            <div class="text-2xl font-bold">↑</div>
+          </div>
+          <div class="bg-zudo-red text-black p-4 font-bold text-center text-sm border-2 border-black">OBSERVABILITY (Events, Metrics)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          The permissions engine sits between the application layer and the authorization sub-systems. It resolves actor roles, evaluates rules against policies, and produces decisions that applications enforce.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.0.1</td>
+                <td class="p-3">Base error classes (AuthorizationError, ErrorCode)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/constants</td>
+                <td class="p-3">0.0.1</td>
+                <td class="p-3">Branded types and shared constants</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/http</td>
+                <td class="p-3">0.0.1 (optional)</td>
+                <td class="p-3">HTTP middleware integration (optional peer dependency)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.0.1</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <!-- Core Types -->
+      <section id="core-types" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CORE TYPES</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PermissionActor</h3>
+        <p class="mb-3 text-sm">An entity requesting access — user, service, worker, bot, etc.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PermissionActor</span> {
+  <span class="kw">readonly</span> id: <span class="tp">string</span>;
+  <span class="kw">readonly</span> type?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> roles?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> permissions?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> deniedPermissions?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Permission</h3>
+        <p class="mb-3 text-sm">A parsed permission with resource and action.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Permission</span> {
+  <span class="kw">readonly</span> resource: <span class="tp">string</span>;
+  <span class="kw">readonly</span> action: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PermissionString</h3>
+        <p class="mb-3 text-sm">Permission string format: "resource:action" or wildcards like "post:*", "*:*".</p>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">PermissionString</span> = <span class="tp">string</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">RuleEffect</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">RuleEffect</span> = <span class="str">"allow"</span> | <span class="str">"deny"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PermissionRule</h3>
+        <p class="mb-3 text-sm">A permission rule that grants or denies access under conditions.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PermissionRule</span> {
+  <span class="kw">readonly</span> effect: <span class="tp">RuleEffect</span>;
+  <span class="kw">readonly</span> action: <span class="tp">string</span> | <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> resource: <span class="tp">string</span> | <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> condition?: <span class="tp">PermissionConditionFn</span>;
+  <span class="kw">readonly</span> priority?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> name?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PermissionConditionFn</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">PermissionConditionFn</span> = (
+  context: <span class="tp">PermissionContext</span>,
+) =&gt; <span class="tp">boolean</span> | <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PermissionContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PermissionContext</span> {
+  <span class="kw">readonly</span> actor: <span class="tp">PermissionActor</span>;
+  <span class="kw">readonly</span> permission: <span class="tp">Permission</span>;
+  <span class="kw">readonly</span> resource?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">ReadonlyMap</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PermissionDecision</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PermissionDecision</span> {
+  <span class="kw">readonly</span> allowed: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> reason?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> policy?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> matchedPermission?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">unknown</span>;
+}</div>
+      </section>
+
+      <!-- Roles & Hierarchy -->
+      <section id="roles-hierarchy" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ROLES & HIERARCHY</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">RoleDefinition</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">RoleDefinition</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> permissions: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> inherits?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> system?: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createRoleRegistry</h3>
+        <p class="mb-3 text-sm">Creates a central registry for role definitions with define/get/has/all/remove/clear methods.</p>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createRoleRegistry</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> roles = <span class="fn">createRoleRegistry</span>();
+
+roles.<span class="fn">define</span>({
+  name: <span class="str">"admin"</span>,
+  permissions: [<span class="str">"*:*"</span>],
+  description: <span class="str">"Full access"</span>,
+});
+
+roles.<span class="fn">define</span>({
+  name: <span class="str">"editor"</span>,
+  permissions: [<span class="str">"post:create"</span>, <span class="str">"post:update"</span>, <span class="str">"post:read"</span>],
+  inherits: [<span class="str">"viewer"</span>],
+});
+
+roles.<span class="fn">define</span>({
+  name: <span class="str">"viewer"</span>,
+  permissions: [<span class="str">"post:read"</span>, <span class="str">"comment:read"</span>],
+});</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">resolveRolePermissions</h3>
+        <p class="mb-3 text-sm">Resolves all permissions for a set of role names, following inheritance chains and detecting cycles.</p>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">resolveRolePermissions</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> perms = <span class="fn">resolveRolePermissions</span>(
+  [<span class="str">"editor"</span>],
+  (name) =&gt; roles.<span class="fn">get</span>(name),
+);
+<span class="cm">// ["post:create", "post:update", "post:read", "comment:read"]</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Role Errors</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">RoleNotFoundError</td><td class="p-3">Referenced role does not exist in the registry</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">DuplicateRoleError</td><td class="p-3">A duplicate role was registered</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">InvalidRoleError</td><td class="p-3">Role name is empty or has no permissions</td></tr>
+              <tr><td class="p-3 font-mono">CircularRoleInheritanceError</td><td class="p-3">Circular role inheritance detected (e.g. A→B→A)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Permissions Registry -->
+      <section id="permissions-registry" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PERMISSIONS REGISTRY</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createPermissionRegistry</h3>
+        <p class="mb-3 text-sm">Creates a central registry for defining and looking up permissions.</p>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createPermissionRegistry</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> registry = <span class="fn">createPermissionRegistry</span>();
+
+registry.<span class="fn">define</span>(<span class="str">"post:create"</span>, { description: <span class="str">"Create a post"</span> });
+registry.<span class="fn">define</span>(<span class="str">"post:read"</span>, { description: <span class="str">"Read a post"</span> });
+registry.<span class="fn">define</span>(<span class="str">"post:update"</span>, { implies: [<span class="str">"post:read"</span>] });
+registry.<span class="fn">define</span>(<span class="str">"post:delete"</span>, { implies: [<span class="str">"post:read"</span>] });
+
+registry.<span class="fn">has</span>(<span class="str">"post:create"</span>);  <span class="cm">// true</span>
+registry.<span class="fn">all</span>();              <span class="cm">// ["post:create", "post:read", "post:update", "post:delete"]</span>
+registry.<span class="fn">match</span>(<span class="str">"post:*"</span>);   <span class="cm">// all post permissions</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">parsePermission</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">parsePermission</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="fn">parsePermission</span>(<span class="str">"post:update"</span>);
+<span class="cm">// { resource: "post", action: "update" }</span>
+
+<span class="fn">parsePermission</span>(<span class="str">"billing.invoice:refund"</span>);
+<span class="cm">// { resource: "billing.invoice", action: "refund" }</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Matching Functions</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">matches</span>, <span class="fn">matchesPermission</span>, <span class="fn">isValidPermission</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="fn">matches</span>(<span class="str">"post:*"</span>, <span class="str">"post:update"</span>);    <span class="cm">// true</span>
+<span class="fn">matches</span>(<span class="str">"*:*"</span>, <span class="str">"anything:goes"</span>);     <span class="cm">// true</span>
+<span class="fn">matches</span>(<span class="str">"post:read"</span>, <span class="str">"post:update"</span>);  <span class="cm">// false</span>
+
+<span class="fn">isValidPermission</span>(<span class="str">"post:update"</span>);    <span class="cm">// true</span>
+<span class="fn">isValidPermission</span>(<span class="str">"invalid"</span>);        <span class="cm">// false</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Permission Errors</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PermissionNotFoundError</td><td class="p-3">Referenced permission not in registry</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">DuplicatePermissionError</td><td class="p-3">Duplicate permission registered</td></tr>
+              <tr><td class="p-3 font-mono">InvalidPermissionError</td><td class="p-3">Malformed permission string format</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Rule Engine -->
+      <section id="rule-engine" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">RULE ENGINE</h2>
+        <p class="mb-4">The rule engine compiles rules into an indexed structure for O(1) lookup. Rules support wildcards and priority-based deny-overrides.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ruleMatches</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">ruleMatches</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> rule: <span class="tp">PermissionRule</span> = {
+  effect: <span class="str">"allow"</span>,
+  action: <span class="str">"read"</span>,
+  resource: <span class="str">"post"</span>,
+};
+
+<span class="fn">ruleMatches</span>(rule, { resource: <span class="str">"post"</span>, action: <span class="str">"read"</span> });  <span class="cm">// true</span>
+<span class="fn">ruleMatches</span>(rule, { resource: <span class="str">"post"</span>, action: <span class="str">"write"</span> }); <span class="cm">// false</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">evaluateRules</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">evaluateRules</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> rules: <span class="tp">PermissionRule</span>[] = [
+  { effect: <span class="str">"allow"</span>, action: <span class="str">"read"</span>, resource: <span class="str">"post"</span>, priority: <span class="num">10</span> },
+  { effect: <span class="str">"deny"</span>, action: <span class="str">"read"</span>, resource: <span class="str">"post"</span>, priority: <span class="num">20</span> },
+];
+
+<span class="kw">const</span> result = <span class="fn">evaluateRules</span>(rules, { resource: <span class="str">"post"</span>, action: <span class="str">"read"</span> });
+<span class="cm">// { allowed: false, matchedRule: { effect: "deny", priority: 20 } }</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">compileRules &amp; findMatchingRules</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">compileRules</span>, <span class="fn">findMatchingRules</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> index = <span class="fn">compileRules</span>(rules);
+<span class="kw">const</span> matched = <span class="fn">findMatchingRules</span>(index, {
+  resource: <span class="str">"post"</span>,
+  action: <span class="str">"read"</span>,
+});</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">RuleIndex Structure</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">RuleIndex</span> {
+  <span class="cm">/** Exact matches: "post:update" → rules. */</span>
+  <span class="kw">readonly</span> exact: <span class="tp">ReadonlyMap</span>&lt;<span class="tp">string</span>, <span class="kw">readonly</span> <span class="tp">PermissionRule</span>[]&gt;;
+  <span class="cm">/** Resource wildcards: "post:*" → rules. */</span>
+  <span class="kw">readonly</span> resourceWildcard: <span class="tp">ReadonlyMap</span>&lt;<span class="tp">string</span>, <span class="kw">readonly</span> <span class="tp">PermissionRule</span>[]&gt;;
+  <span class="cm">/** Action wildcards: "*:read" → rules. */</span>
+  <span class="kw">readonly</span> actionWildcard: <span class="tp">ReadonlyMap</span>&lt;<span class="tp">string</span>, <span class="kw">readonly</span> <span class="tp">PermissionRule</span>[]&gt;;
+  <span class="cm">/** Global wildcards: "*:*" → rules. */</span>
+  <span class="kw">readonly</span> globalWildcard: <span class="kw">readonly</span> <span class="tp">PermissionRule</span>[];
+}</div>
+      </section>
+
+      <!-- Conditions -->
+      <section id="conditions" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CONDITIONS</h2>
+        <p class="mb-4">Condition combinators for composing ABAC policies. All functions return <code class="bg-black/5 px-1">PermissionConditionFn</code>.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">allOf</span>,
+  <span class="fn">anyOf</span>,
+  <span class="fn">not</span>,
+  <span class="fn">always</span>,
+  <span class="fn">never</span>,
+  <span class="fn">isOwner</span>,
+  <span class="fn">tenantIsolation</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="cm">// All conditions must return true</span>
+<span class="kw">const</span> adminAndOwner = <span class="fn">allOf</span>(
+  (ctx) =&gt; ctx.actor.roles?.includes(<span class="str">"admin"</span>),
+  <span class="fn">isOwner</span>(),
+);
+
+<span class="cm">// At least one condition must return true</span>
+<span class="kw">const</span> adminOrOwner = <span class="fn">anyOf</span>(
+  (ctx) =&gt; ctx.actor.roles?.includes(<span class="str">"admin"</span>),
+  <span class="fn">isOwner</span>(),
+);
+
+<span class="cm">// Negate a condition</span>
+<span class="kw">const</span> notAdmin = <span class="fn">not</span>((ctx) =&gt; ctx.actor.roles?.includes(<span class="str">"admin"</span>));
+
+<span class="cm">// Always allow / always deny</span>
+<span class="kw">const</span> pass = <span class="fn">always</span>();
+<span class="kw">const</span> fail = <span class="fn">never</span>();
+
+<span class="cm">// Check actor owns the resource (field: "ownerId" by default)</span>
+<span class="kw">const</span> ownerCheck = <span class="fn">isOwner</span>(<span class="str">"ownerId"</span>);
+
+<span class="cm">// Enforce tenant isolation</span>
+<span class="kw">const</span> tenantCheck = <span class="fn">tenantIsolation</span>(<span class="str">"tenantId"</span>, <span class="str">"tenantId"</span>);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Condition Summary</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Behavior</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">allOf(...fns)</td><td class="p-3">All conditions must return true</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">anyOf(...fns)</td><td class="p-3">At least one condition must return true</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">not(fn)</td><td class="p-3">Negate a condition</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">always()</td><td class="p-3">Unconditional pass</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">never()</td><td class="p-3">Unconditional fail</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">isOwner(field?)</td><td class="p-3">Actor owns the resource (checks resource[field] === actor.id)</td></tr>
+              <tr><td class="p-3 font-mono">tenantIsolation(aField?, rField?)</td><td class="p-3">Actor and resource share the same tenant</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Policies -->
+      <section id="policies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">POLICIES</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PermissionPolicyDefinition</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PermissionPolicyDefinition</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> permissions: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> cacheable?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> priority?: <span class="tp">number</span>;
+  <span class="fn">evaluate</span>(context: <span class="tp">PermissionContext</span>):
+    <span class="tp">PermissionDecision</span> | <span class="tp">Promise</span>&lt;<span class="tp">PermissionDecision</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createPolicyRegistry</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createPolicyRegistry</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> policies = <span class="fn">createPolicyRegistry</span>();
+
+policies.<span class="fn">define</span>({
+  name: <span class="str">"business-hours"</span>,
+  permissions: [<span class="str">"post:publish"</span>],
+  priority: <span class="num">10</span>,
+  <span class="fn">evaluate</span>(ctx) {
+    <span class="kw">const</span> hour = <span class="kw">new</span> <span class="fn">Date</span>().<span class="fn">getHours</span>();
+    <span class="kw">if</span> (hour &lt; <span class="num">9</span> || hour &gt; <span class="num">17</span>) {
+      <span class="kw">return</span> { allowed: <span class="num">false</span>, reason: <span class="str">"Outside business hours"</span> };
+    }
+    <span class="kw">return</span> { allowed: <span class="num">true</span>, reason: <span class="str">"Within business hours"</span> };
+  },
+});
+
+policies.<span class="fn">forPermission</span>(<span class="str">"post:publish"</span>); <span class="cm">// [business-hours policy]</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Policy Errors</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PolicyError</td><td class="p-3">Policy evaluation failed (fail-closed)</td></tr>
+              <tr><td class="p-3 font-mono">PolicyTimeoutError</td><td class="p-3">Policy evaluation exceeded the timeout</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Evaluator -->
+      <section id="evaluator" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EVALUATOR</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">EvaluatorOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">EvaluatorOptions</span> {
+  <span class="kw">readonly</span> getRole?: (name: <span class="tp">string</span>) =&gt; <span class="tp">RoleDefinition</span> | <span class="tp">undefined</span>;
+  <span class="kw">readonly</span> policies?: <span class="kw">readonly</span> <span class="tp">PermissionPolicyDefinition</span>[];
+  <span class="kw">readonly</span> policyTimeout?: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">evaluate</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">evaluate</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> decision = <span class="kw">await</span> <span class="fn">evaluate</span>(
+  { id: <span class="str">"user-1"</span>, roles: [<span class="str">"editor"</span>] },
+  <span class="str">"post:update"</span>,
+  postResource,
+  evaluatorOptions,
+);
+<span class="cm">// { allowed: true, reason: "role_permission", matchedPermission: "post:update" }</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">evaluateWithExplain</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">evaluateWithExplain</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">evaluateWithExplain</span>(
+  { id: <span class="str">"user-1"</span>, roles: [<span class="str">"editor"</span>] },
+  <span class="str">"post:update"</span>,
+  postResource,
+  evaluatorOptions,
+);
+<span class="cm">// { allowed: true, steps: [</span>
+<span class="cm">//   { type: "role", detail: "Role: editor", matched: true },</span>
+<span class="cm">//   { type: "permission", detail: "Permission: post:update", matched: true },</span>
+<span class="cm">//   { type: "permission", detail: "Rule matched", matched: true }</span>
+<span class="cm">// ]}</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">resolveActorPermissions</h3>
+        <p class="mb-3 text-sm">Resolves all permissions for an actor (direct + role-based).</p>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">resolveActorPermissions</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> perms = <span class="fn">resolveActorPermissions</span>(actor, evaluatorOptions);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PermissionEngine</h3>
+        <p class="mb-3 text-sm">The main public API for permission checks.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PermissionEngine</span> {
+  <span class="fn">can</span>(actor, permission, resource?, options?): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+  <span class="fn">check</span>(actor, permission, resource?, options?): <span class="tp">Promise</span>&lt;<span class="tp">PermissionDecision</span>&gt;;
+  <span class="fn">authorize</span>(actor, permission, resource?, options?): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">explain</span>(actor, permission, resource?, options?): <span class="tp">Promise</span>&lt;<span class="tp">ExplainResult</span>&gt;;
+  <span class="fn">createAbility</span>(actor): <span class="tp">Ability</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createPermissionEngine</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createPermissionEngine</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> engine = <span class="fn">createPermissionEngine</span>({
+  roles: [
+    { name: <span class="str">"admin"</span>, permissions: [<span class="str">"*:*"</span>] },
+    { name: <span class="str">"editor"</span>, permissions: [<span class="str">"post:*"</span>, <span class="str">"comment:read"</span>], inherits: [<span class="str">"viewer"</span>] },
+    { name: <span class="str">"viewer"</span>, permissions: [<span class="str">"post:read"</span>, <span class="str">"comment:read"</span>] },
+  ],
+  policies: [businessHoursPolicy],
+  policyTimeout: <span class="num">5000</span>,
+});
+
+<span class="cm">// Simple boolean check</span>
+<span class="kw">await</span> engine.<span class="fn">can</span>(editor, <span class="str">"post:update"</span>);  <span class="cm">// true</span>
+<span class="kw">await</span> engine.<span class="fn">can</span>(editor, <span class="str">"user:delete"</span>);  <span class="cm">// false</span>
+
+<span class="cm">// Full decision object</span>
+<span class="kw">const</span> decision = <span class="kw">await</span> engine.<span class="fn">check</span>(editor, <span class="str">"post:update"</span>);
+
+<span class="cm">// Throw on denial</span>
+<span class="kw">await</span> engine.<span class="fn">authorize</span>(editor, <span class="str">"user:delete"</span>);
+<span class="cm">// throws PermissionDeniedError</span></div>
+      </section>
+
+      <!-- Ability -->
+      <section id="ability" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ABILITY</h2>
+        <p class="mb-4">An Ability provides fast permission checks for a pre-resolved actor. Create once, check many times.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Ability Interface</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Ability</span> {
+  <span class="fn">can</span>(permission: <span class="tp">string</span>, resource?: <span class="tp">unknown</span>, options?: <span class="tp">AuthorizationOptions</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+  <span class="fn">cannot</span>(permission: <span class="tp">string</span>, resource?: <span class="tp">unknown</span>, options?: <span class="tp">AuthorizationOptions</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+  <span class="fn">check</span>(permission: <span class="tp">string</span>, resource?: <span class="tp">unknown</span>, options?: <span class="tp">AuthorizationOptions</span>): <span class="tp">Promise</span>&lt;<span class="tp">PermissionDecision</span>&gt;;
+  <span class="fn">explain</span>(permission: <span class="tp">string</span>, resource?: <span class="tp">unknown</span>, options?: <span class="tp">AuthorizationOptions</span>): <span class="tp">Promise</span>&lt;<span class="tp">ExplainResult</span>&gt;;
+  <span class="fn">authorize</span>(permission: <span class="tp">string</span>, resource?: <span class="tp">unknown</span>, options?: <span class="tp">AuthorizationOptions</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="kw">readonly</span> actor: <span class="tp">PermissionActor</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createAbility</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createAbility</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> ability = <span class="fn">createAbility</span>(editorActor, evaluatorOptions);
+
+<span class="kw">if</span> (<span class="kw">await</span> ability.<span class="fn">can</span>(<span class="str">"post:update"</span>)) {
+  <span class="cm">// Update the post</span>
+}
+
+<span class="kw">await</span> ability.<span class="fn">authorize</span>(<span class="str">"post:delete"</span>);
+<span class="cm">// throws PermissionDeniedError if not allowed</span></div>
+      </section>
+
+      <!-- Resolvers -->
+      <section id="resolvers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">RESOLVERS</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interfaces</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PermissionResolver</span> {
+  <span class="fn">resolvePermissions</span>(actor: <span class="tp">PermissionActor</span>): <span class="tp">Promise</span>&lt;<span class="kw">readonly</span> <span class="tp">PermissionRule</span>[]&gt;;
+}
+
+<span class="kw">interface</span> <span class="tp">RoleResolver</span> {
+  <span class="fn">resolveRoles</span>(actor: <span class="tp">PermissionActor</span>): <span class="tp">Promise</span>&lt;<span class="kw">readonly</span> <span class="tp">string</span>[]&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory Functions</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createMemoryPermissionResolver</span>,
+  <span class="fn">createMemoryRoleResolver</span>,
+  <span class="fn">createStaticPermissionResolver</span>,
+  <span class="fn">createStaticRoleResolver</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="cm">// In-memory — resolve from a Map</span>
+<span class="kw">const</span> permStore = <span class="kw">new</span> <span class="tp">Map</span>&lt;<span class="tp">string</span>, <span class="tp">PermissionRule</span>[]&gt;();
+permStore.<span class="fn">set</span>(<span class="str">"user-1"</span>, [
+  { effect: <span class="str">"allow"</span>, action: <span class="str">"read"</span>, resource: <span class="str">"post"</span> },
+]);
+<span class="kw">const</span> permResolver = <span class="fn">createMemoryPermissionResolver</span>(permStore);
+
+<span class="cm">// Static — always return the same rules</span>
+<span class="kw">const</span> staticResolver = <span class="fn">createStaticPermissionResolver</span>([
+  { effect: <span class="str">"allow"</span>, action: <span class="str">"*"</span>, resource: <span class="str">"*"</span> },
+]);
+
+<span class="cm">// Memory role resolver</span>
+<span class="kw">const</span> roleStore = <span class="kw">new</span> <span class="tp">Map</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>[]&gt;();
+roleStore.<span class="fn">set</span>(<span class="str">"user-1"</span>, [<span class="str">"editor"</span>]);
+<span class="kw">const</span> roleResolver = <span class="fn">createMemoryRoleResolver</span>(roleStore);</div>
+      </section>
+
+      <!-- Caching -->
+      <section id="caching" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CACHING</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PermissionCache Interface</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PermissionCache</span> {
+  <span class="fn">get</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">PermissionDecision</span> | <span class="tp">undefined</span>&gt;;
+  <span class="fn">set</span>(key: <span class="tp">string</span>, value: <span class="tp">PermissionDecision</span>, options?: { ttl?: <span class="tp">number</span> }): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">delete</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">invalidateActor</span>(actorId: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createMemoryPermissionCache</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createMemoryPermissionCache</span>,
+  <span class="fn">permissionCacheKey</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="cm">// Default TTL: 60000ms (1 minute)</span>
+<span class="kw">const</span> cache = <span class="fn">createMemoryPermissionCache</span>();
+
+<span class="cm">// Custom TTL: 5 minutes</span>
+<span class="kw">const</span> cache5m = <span class="fn">createMemoryPermissionCache</span>(<span class="num">300000</span>);
+
+<span class="cm">// Generate cache key</span>
+<span class="kw">const</span> key = <span class="fn">permissionCacheKey</span>(<span class="str">"user-1"</span>, <span class="str">"post:update"</span>, <span class="str">"post-42"</span>);
+<span class="cm">// "actor:user-1:post:update:post-42"</span>
+
+<span class="cm">// Use with engine</span>
+<span class="kw">const</span> cached = <span class="kw">await</span> cache.<span class="fn">get</span>(key);
+<span class="kw">if</span> (cached) {
+  <span class="cm">// Return cached decision</span>
+} <span class="kw">else</span> {
+  <span class="kw">const</span> decision = <span class="kw">await</span> engine.<span class="fn">check</span>(actor, <span class="str">"post:update"</span>, post);
+  <span class="kw">await</span> cache.<span class="fn">set</span>(key, decision, { ttl: <span class="num">60000</span> });
+}</div>
+      </section>
+
+      <!-- HTTP Middleware -->
+      <section id="http-middleware" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP MIDDLEWARE</h2>
+        <p class="mb-4">Middleware factories that integrate the authorization engine with <code class="bg-black/5 px-1">@zudojs/http</code>'s middleware pipeline.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Types</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">HttpMiddleware</span> = (
+  context: <span class="tp">HttpMiddlewareContext</span>,
+  next: () =&gt; <span class="tp">Promise</span>&lt;<span class="tp">HttpResponseContext</span>&gt;,
+) =&gt; <span class="tp">void</span> | Response | <span class="tp">HttpResponseContext</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span> | Response | <span class="tp">HttpResponseContext</span>&gt;;
+
+<span class="kw">const</span> ACTOR_STATE_KEY = <span class="str">"permissions:actor"</span>;
+<span class="kw">const</span> DECISION_STATE_KEY = <span class="str">"permissions:decision"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Middleware Factories</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createActorMiddleware</span>,
+  <span class="fn">createRequirePermissionMiddleware</span>,
+  <span class="fn">authorize</span>,
+  <span class="fn">createRequirePermissionsMiddleware</span>,
+  <span class="fn">createForbiddenResponse</span>,
+  <span class="fn">createJsonResponse</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="cm">// Extract actor from request</span>
+<span class="kw">const</span> actorMw = <span class="fn">createActorMiddleware</span>({
+  extractActor: (ctx) =&gt; {
+    <span class="kw">const</span> userId = ctx.request.headers.<span class="fn">get</span>(<span class="str">"x-user-id"</span>);
+    <span class="kw">if</span> (!userId) <span class="kw">return</span> <span class="num">undefined</span>;
+    <span class="kw">return</span> { id: userId, roles: [<span class="str">"editor"</span>] };
+  },
+});
+
+<span class="cm">// Check a specific permission</span>
+<span class="kw">const</span> requireMw = <span class="fn">createRequirePermissionMiddleware</span>(engine, {
+  permission: <span class="str">"post:update"</span>,
+  extractActor: (ctx) =&gt; ctx.state.<span class="fn">get</span>(ACTOR_STATE_KEY),
+});
+
+<span class="cm">// Shorthand: authorize with permission</span>
+<span class="kw">const</span> authMw = <span class="fn">authorize</span>(engine, <span class="str">"post:update"</span>, {
+  extractActor: (ctx) =&gt; ctx.state.<span class="fn">get</span>(ACTOR_STATE_KEY),
+});
+
+<span class="cm">// Check multiple permissions</span>
+<span class="kw">const</span> multiMw = <span class="fn">createRequirePermissionsMiddleware</span>(
+  engine,
+  [<span class="str">"post:read"</span>, <span class="str">"comment:read"</span>],
+  {
+    extractActor: (ctx) =&gt; ctx.state.<span class="fn">get</span>(ACTOR_STATE_KEY),
+  },
+);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">HTTP Options</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">AuthorizeMiddlewareOptions</span> {
+  <span class="fn">extractActor</span>(context: <span class="tp">HttpMiddlewareContext</span>):
+    <span class="tp">PermissionActor</span> | <span class="tp">Promise</span>&lt;<span class="tp">PermissionActor</span>&gt; | <span class="tp">undefined</span>;
+  <span class="kw">readonly</span> authorization?: <span class="tp">AuthorizationOptions</span>;
+  <span class="kw">readonly</span> deniedResponse?: (decision: <span class="tp">PermissionDecision</span>) =&gt; <span class="tp">unknown</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">RequirePermissionMiddlewareOptions</span> <span class="kw">extends</span> <span class="tp">AuthorizeMiddlewareOptions</span> {
+  <span class="kw">readonly</span> permission: <span class="tp">string</span>;
+  <span class="kw">readonly</span> extractResource?: (context: <span class="tp">HttpMiddlewareContext</span>) =&gt; <span class="tp">unknown</span>;
+}</div>
+      </section>
+
+      <!-- Observability -->
+      <section id="observability" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">OBSERVABILITY</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PermissionCheckEvent</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PermissionCheckEvent</span> {
+  <span class="kw">readonly</span> actorId: <span class="tp">string</span>;
+  <span class="kw">readonly</span> permission: <span class="tp">string</span>;
+  <span class="kw">readonly</span> resourceType?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> allowed: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> reason?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> durationMs: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createPermissionEventEmitter</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createPermissionEventEmitter</span>, <span class="fn">withObservability</span> } <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="kw">const</span> emitter = <span class="fn">createPermissionEventEmitter</span>();
+
+emitter.<span class="fn">on</span>((event) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">`[${event.actorId}] ${event.permission} → ${event.allowed} (${event.durationMs}ms)`</span>);
+});
+
+<span class="cm">// Wrap a check function with observability</span>
+<span class="kw">const</span> observedCheck = <span class="fn">withObservability</span>(emitter, engine.check);
+<span class="kw">await</span> <span class="fn">observedCheck</span>(actor, <span class="str">"post:update"</span>);
+<span class="cm">// Emits PermissionCheckEvent</span></div>
+      </section>
+
+      <!-- Utilities -->
+      <section id="utilities" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">UTILITIES</h2>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">extractResource</span>,
+  <span class="fn">extractAction</span>,
+  <span class="fn">buildPermission</span>,
+  <span class="fn">createActor</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="fn">extractResource</span>(<span class="str">"post:update"</span>);       <span class="cm">// "post"</span>
+<span class="fn">extractResource</span>(<span class="str">"billing.invoice:refund"</span>); <span class="cm">// "billing.invoice"</span>
+
+<span class="fn">extractAction</span>(<span class="str">"post:update"</span>);         <span class="cm">// "update"</span>
+
+<span class="fn">buildPermission</span>(<span class="str">"post"</span>, <span class="str">"update"</span>);     <span class="cm">// "post:update"</span>
+
+<span class="kw">const</span> actor = <span class="fn">createActor</span>(<span class="str">"user-1"</span>, {
+  type: <span class="str">"user"</span>,
+  roles: [<span class="str">"editor"</span>],
+  permissions: [<span class="str">"post:create"</span>],
+});</div>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="error-hierarchy" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All error types extend <code class="bg-black/5 px-1">PermissionError</code> which extends <code class="bg-black/5 px-1">AuthorizationError</code> from <code class="bg-black/5 px-1">@zudojs/errors</code>.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">ErrorCode</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PermissionError</td><td class="p-3">FORBIDDEN</td><td class="p-3">Base error for all permission failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PermissionDeniedError</td><td class="p-3">ACCESS_DENIED</td><td class="p-3">Actor is not authorized (thrown by authorize())</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PermissionNotFoundError</td><td class="p-3">NOT_FOUND</td><td class="p-3">Referenced permission not in registry</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">DuplicatePermissionError</td><td class="p-3">CONFLICT</td><td class="p-3">Duplicate permission registered</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">RoleNotFoundError</td><td class="p-3">NOT_FOUND</td><td class="p-3">Referenced role not in registry</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">DuplicateRoleError</td><td class="p-3">CONFLICT</td><td class="p-3">Duplicate role registered</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">InvalidPermissionError</td><td class="p-3">VALIDATION_FAILED</td><td class="p-3">Malformed permission string</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">InvalidRoleError</td><td class="p-3">VALIDATION_FAILED</td><td class="p-3">Invalid role definition</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">CircularRoleInheritanceError</td><td class="p-3">VALIDATION_FAILED</td><td class="p-3">Circular role inheritance detected</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PolicyError</td><td class="p-3">OPERATION_FAILED</td><td class="p-3">Policy evaluation failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PolicyTimeoutError</td><td class="p-3">TIMEOUT</td><td class="p-3">Policy evaluation exceeded timeout</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PermissionResolverError</td><td class="p-3">OPERATION_FAILED</td><td class="p-3">Permission resolver failed</td></tr>
+              <tr><td class="p-3 font-mono">AuthorizationAbortedError</td><td class="p-3">OPERATION_CANCELLED</td><td class="p-3">Authorization cancelled via AbortSignal</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete working example: define roles, create engine, create actor, check permissions, use ability, use HTTP middleware, add caching, and explain mode.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createPermissionEngine</span>,
+  <span class="fn">createRoleRegistry</span>,
+  <span class="fn">createAbility</span>,
+  <span class="fn">createMemoryPermissionCache</span>,
+  <span class="fn">permissionCacheKey</span>,
+  <span class="fn">createActorMiddleware</span>,
+  <span class="fn">authorize</span>,
+  <span class="fn">isOwner</span>,
+  <span class="fn">allOf</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/permissions"</span>;
+
+<span class="cm">// 1. Define roles</span>
+<span class="kw">const</span> roleRegistry = <span class="fn">createRoleRegistry</span>();
+roleRegistry.<span class="fn">define</span>({
+  name: <span class="str">"admin"</span>,
+  permissions: [<span class="str">"*:*"</span>],
+  description: <span class="str">"Full system access"</span>,
+  system: <span class="num">true</span>,
+});
+roleRegistry.<span class="fn">define</span>({
+  name: <span class="str">"editor"</span>,
+  permissions: [<span class="str">"post:create"</span>, <span class="str">"post:update"</span>, <span class="str">"post:read"</span>],
+  inherits: [<span class="str">"viewer"</span>],
+});
+roleRegistry.<span class="fn">define</span>({
+  name: <span class="str">"viewer"</span>,
+  permissions: [<span class="str">"post:read"</span>, <span class="str">"comment:read"</span>],
+});
+
+<span class="cm">// 2. Create the engine</span>
+<span class="kw">const</span> engine = <span class="fn">createPermissionEngine</span>({
+  roles: roleRegistry.<span class="fn">all</span>(),
+  policyTimeout: <span class="num">5000</span>,
+});
+
+<span class="cm">// 3. Create an actor</span>
+<span class="kw">const</span> editor = {
+  id: <span class="str">"user-1"</span>,
+  type: <span class="str">"user"</span>,
+  roles: [<span class="str">"editor"</span>],
+};
+
+<span class="cm">// 4. Check permissions</span>
+<span class="kw">const</span> canUpdate = <span class="kw">await</span> engine.<span class="fn">can</span>(editor, <span class="str">"post:update"</span>);
+<span class="kw">const</span> canDelete = <span class="kw">await</span> engine.<span class="fn">can</span>(editor, <span class="str">"post:delete"</span>);
+
+<span class="cm">// 5. Use ability for pre-resolved actor</span>
+<span class="kw">const</span> ability = engine.<span class="fn">createAbility</span>(editor);
+<span class="kw">if</span> (<span class="kw">await</span> ability.<span class="fn">can</span>(<span class="str">"post:update"</span>)) {
+  <span class="cm">// Update the post</span>
+}
+<span class="kw">await</span> ability.<span class="fn">authorize</span>(<span class="str">"post:delete"</span>);
+
+<span class="cm">// 6. HTTP middleware</span>
+<span class="kw">const</span> authMiddleware = <span class="fn">authorize</span>(engine, <span class="str">"post:update"</span>, {
+  extractActor: (ctx) =&gt; ctx.state.<span class="fn">get</span>(<span class="str">"permissions:actor"</span>),
+});
+
+<span class="cm">// 7. Caching</span>
+<span class="kw">const</span> cache = <span class="fn">createMemoryPermissionCache</span>(<span class="num">300000</span>);
+<span class="kw">const</span> key = <span class="fn">permissionCacheKey</span>(editor.id, <span class="str">"post:update"</span>);
+<span class="kw">const</span> cached = <span class="kw">await</span> cache.<span class="fn">get</span>(key);
+<span class="kw">if</span> (!cached) {
+  <span class="kw">const</span> decision = <span class="kw">await</span> engine.<span class="fn">check</span>(editor, <span class="str">"post:update"</span>);
+  <span class="kw">await</span> cache.<span class="fn">set</span>(key, decision, { ttl: <span class="num">300000</span> });
+}
+
+<span class="cm">// 8. Explain mode</span>
+<span class="kw">const</span> explanation = <span class="kw">await</span> engine.<span class="fn">explain</span>(editor, <span class="str">"post:update"</span>);
+console.<span class="fn">log</span>(explanation.steps);
+<span class="cm">// [</span>
+<span class="cm">//   { type: "role", detail: "Role: editor", matched: true },</span>
+<span class="cm">//   { type: "permission", detail: "Permission: post:update", matched: true },</span>
+<span class="cm">//   { type: "permission", detail: "Rule matched", matched: true }</span>
+<span class="cm">// ]</span></div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#architecture-position" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#core-types" class="toc-link">Core Types</a>
+      <a href="#roles-hierarchy" class="toc-link">Roles &amp; Hierarchy</a>
+      <a href="#permissions-registry" class="toc-link">Permissions Registry</a>
+      <a href="#rule-engine" class="toc-link">Rule Engine</a>
+      <a href="#conditions" class="toc-link">Conditions</a>
+      <a href="#policies" class="toc-link">Policies</a>
+      <a href="#evaluator" class="toc-link">Evaluator</a>
+      <a href="#ability" class="toc-link">Ability</a>
+      <a href="#resolvers" class="toc-link">Resolvers</a>
+      <a href="#caching" class="toc-link">Caching</a>
+      <a href="#http-middleware" class="toc-link">HTTP Middleware</a>
+      <a href="#observability" class="toc-link">Observability</a>
+      <a href="#utilities" class="toc-link">Utilities</a>
+      <a href="#error-hierarchy" class="toc-link">Error Hierarchy</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>

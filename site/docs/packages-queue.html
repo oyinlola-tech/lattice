@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/queue — Background Job Infrastructure</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/queue — background job processing with retry, backoff, dead letter, workers, and middleware.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+      <a href="/docs/packages-queue" class="sidebar-item sidebar-item-active">@zudojs/queue</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/queue</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.1.0</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/queue</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Background job and asynchronous task infrastructure. Provides an in-memory queue with processors, workers, retry policies, dead letter handling, middleware, serialization, and event emission.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">QUEUE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">JOBS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">WORKERS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">BACKGROUND</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">RETRY</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/queue
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/queue
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/queue</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/queue depends on @zudojs/errors, @zudojs/constants, and @zudojs/serialization. All at version 0.1.0.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/queue</code> provides a complete background job processing system. It handles the full lifecycle of asynchronous work:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Background job processing</strong> with an in-memory queue</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Job priority and scheduling</strong> — delayed jobs and priority queues</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Retry with backoff</strong> — fixed or exponential backoff strategies</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Dead letter queue</strong> for jobs that exhaust all retries</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Worker concurrency control</strong> — configurable parallelism</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Middleware pipeline</strong> — logging, timeout, and custom middleware</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Event system</strong> — 10 event types for job and worker lifecycle</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Job deduplication</strong> — prevent duplicate jobs via keys</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Progress tracking</strong> — report job progress with percent and step info</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Queue manager</strong> — manage multiple named queues from one manager</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Jobs are first-class objects with typed data, lifecycle states, and metadata. Workers poll queues, run processors, and handle retries automatically.
+        </div>
+      </section>
+
+      <!-- Where It Sits -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6">
+          <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm border-2 border-black">Workers</div>
+            <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm border-2 border-black">Processor</div>
+            <div class="bg-zudo-yellow text-black p-3 font-bold text-center text-sm border-2 border-black">RetryPolicy</div>
+          </div>
+          <div class="bg-black text-white p-4 font-bold text-center text-sm border-2 border-black mb-4">@zudojs/queue</div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="bg-zudo-green text-black p-3 font-bold text-center text-sm border-2 border-black">DeadLetter</div>
+            <div class="bg-white text-black p-3 font-bold text-center text-sm border-2 border-black">Events</div>
+            <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm border-2 border-black">Middleware</div>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          Workers consume jobs from queues and invoke registered processors. RetryPolicy handles backoff. DeadLetter stores failed jobs. Events and Middleware provide observability and cross-cutting concerns.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">JobError, QueueError, JobTimeoutError, WorkerLifecycleError, and other queue error types</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/constants</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">EntityId, Timestamp, and branded ID types (JobId, QueueName, JobName)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/serialization</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">JSONSerializer for job payload serialization and deserialization</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.1.0</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <!-- Branded Types -->
+      <section id="branded-types" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">BRANDED TYPES</h2>
+        <p class="mb-4">
+          Type-safe branded identifiers prevent mixing IDs across different domains. Created from <code class="bg-black/5 px-1">@zudojs/constants</code>.
+        </p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Type</th>
+                <th class="p-3 text-left">Description</th>
+                <th class="p-3 text-left">Factory</th>
+                <th class="p-3 text-left">Guard</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">JobId</td>
+                <td class="p-3">Unique job identifier (branded EntityId)</td>
+                <td class="p-3 font-mono">createJobId(id)</td>
+                <td class="p-3 font-mono">isJobId(value)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">QueueName</td>
+                <td class="p-3">Queue name (branded string)</td>
+                <td class="p-3 font-mono">createQueueName(name)</td>
+                <td class="p-3 font-mono">isQueueName(value)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">JobName</td>
+                <td class="p-3">Job type name (branded string)</td>
+                <td class="p-3 font-mono">createJobName(name)</td>
+                <td class="p-3 font-mono">isJobName(value)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block mt-4"><span class="kw">import</span> {
+  <span class="fn">createJobId</span>, <span class="fn">isJobId</span>,
+  <span class="fn">createQueueName</span>, <span class="fn">isQueueName</span>,
+  <span class="fn">createJobName</span>, <span class="fn">isJobName</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="kw">const</span> id = <span class="fn">createJobId</span>(<span class="str">"job_123"</span>);
+<span class="fn">isJobId</span>(id); <span class="cm">// true</span>
+<span class="fn">isJobId</span>(<span class="str">"not-branded"</span>); <span class="cm">// false (still a string check, but branded at type level)</span></div>
+      </section>
+
+      <!-- Enums -->
+      <section id="enums" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ENUMS</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">JobState</h3>
+        <p class="mb-3 text-sm">Lifecycle states for a job.</p>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Value</th>
+                <th class="p-3 text-left">String</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">WAITING</td><td class="p-3">"waiting"</td><td class="p-3">Queued, waiting to be picked up</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">SCHEDULED</td><td class="p-3">"scheduled"</td><td class="p-3">Delayed, not yet active</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">ACTIVE</td><td class="p-3">"active"</td><td class="p-3">Currently being processed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">COMPLETED</td><td class="p-3">"completed"</td><td class="p-3">Finished successfully</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">FAILED</td><td class="p-3">"failed"</td><td class="p-3">Processing failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">RETRYING</td><td class="p-3">"retrying"</td><td class="p-3">Failed but will retry</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">CANCELLED</td><td class="p-3">"cancelled"</td><td class="p-3">Cancelled by user</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PAUSED</td><td class="p-3">"paused"</td><td class="p-3">Queue paused, job waiting</td></tr>
+              <tr><td class="p-3 font-mono">DEAD_LETTER</td><td class="p-3">"dead_letter"</td><td class="p-3">Moved to dead letter store</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">BackoffType</h3>
+        <p class="mb-3 text-sm">Backoff strategy types for retries.</p>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Value</th>
+                <th class="p-3 text-left">String</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">FIXED</td><td class="p-3">"fixed"</td><td class="p-3">Same delay between retries</td></tr>
+              <tr><td class="p-3 font-mono">EXPONENTIAL</td><td class="p-3">"exponential"</td><td class="p-3">Delay doubles each attempt (configurable multiplier)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">WorkerState</h3>
+        <p class="mb-3 text-sm">Worker lifecycle states.</p>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Value</th>
+                <th class="p-3 text-left">String</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">CREATED</td><td class="p-3">"created"</td><td class="p-3">Worker created, not started</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">STARTING</td><td class="p-3">"starting"</td><td class="p-3">Starting up</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">RUNNING</td><td class="p-3">"running"</td><td class="p-3">Actively polling for jobs</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">DRAINING</td><td class="p-3">"draining"</td><td class="p-3">Stopping, finishing active jobs</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">STOPPED</td><td class="p-3">"stopped"</td><td class="p-3">Fully stopped</td></tr>
+              <tr><td class="p-3 font-mono">FAILED</td><td class="p-3">"failed"</td><td class="p-3">Failed during startup</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Job -->
+      <section id="job" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">JOB</h2>
+        <p class="mb-4">
+          A <code class="bg-black/5 px-1">Job</code> is a unit of work in the queue system. Jobs carry typed data, lifecycle state, retry info, and metadata.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: Job</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Job</span>&lt;<span class="tp">TData</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> id: <span class="tp">JobId</span>;
+  <span class="kw">readonly</span> name: <span class="tp">JobName</span>;
+  <span class="kw">readonly</span> queueName: <span class="tp">string</span>;
+  <span class="kw">readonly</span> data: <span class="tp">TData</span>;
+  <span class="kw">readonly</span> state: <span class="tp">JobState</span>;
+  <span class="kw">readonly</span> attempt: <span class="tp">number</span>;
+  <span class="kw">readonly</span> maxAttempts: <span class="tp">number</span>;
+  <span class="kw">readonly</span> priority: <span class="tp">number</span>;
+  <span class="kw">readonly</span> createdAt: <span class="tp">Timestamp</span>;
+  <span class="kw">readonly</span> updatedAt: <span class="tp">Timestamp</span>;
+  <span class="kw">readonly</span> scheduledAt?: <span class="tp">Timestamp</span>;
+  <span class="kw">readonly</span> startedAt?: <span class="tp">Timestamp</span>;
+  <span class="kw">readonly</span> completedAt?: <span class="tp">Timestamp</span>;
+  <span class="kw">readonly</span> failedAt?: <span class="tp">Timestamp</span>;
+  <span class="kw">readonly</span> error?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timeoutMs?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> deduplicationKey?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+  <span class="kw">readonly</span> backoff?: {
+    <span class="kw">readonly</span> type: <span class="tp">BackoffType</span>;
+    <span class="kw">readonly</span> delay: <span class="tp">number</span>;
+    <span class="kw">readonly</span> maxDelay?: <span class="tp">number</span>;
+    <span class="kw">readonly</span> multiplier?: <span class="tp">number</span>;
+  };
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: JobInput</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">JobInput</span>&lt;<span class="tp">TData</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> name: <span class="tp">JobName</span>;
+  <span class="kw">readonly</span> queueName: <span class="tp">string</span>;
+  <span class="kw">readonly</span> data: <span class="tp">TData</span>;
+  <span class="kw">readonly</span> options?: <span class="tp">JobOptions</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory Functions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Returns</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createJob(input, id?)</td><td class="p-3">Job</td><td class="p-3">Creates a new job with generated ID, timestamps, and initial state</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">isJob(value)</td><td class="p-3">boolean</td><td class="p-3">Type guard checking for id, name, state, and data</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">updateJobState(job, state, additional?)</td><td class="p-3">Job</td><td class="p-3">Returns new job with updated state and timestamps</td></tr>
+              <tr><td class="p-3 font-mono">incrementJobAttempt(job)</td><td class="p-3">Job</td><td class="p-3">Returns new job with attempt + 1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Job Options -->
+      <section id="job-options" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">JOB OPTIONS</h2>
+
+        <h3 class="text-lg font-bold mb-3">Interface: JobOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">JobOptions</span> {
+  <span class="kw">readonly</span> attempts?: <span class="tp">number</span>;          <span class="cm">// default: 1 (no retries)</span>
+  <span class="kw">readonly</span> backoff?: <span class="tp">BackoffOptions</span>;  <span class="cm">// retry strategy</span>
+  <span class="kw">readonly</span> delay?: <span class="tp">number</span>;           <span class="cm">// ms before job becomes active</span>
+  <span class="kw">readonly</span> priority?: <span class="tp">number</span>;        <span class="cm">// higher = higher priority</span>
+  <span class="kw">readonly</span> timeout?: <span class="tp">number</span>;        <span class="cm">// ms before job times out</span>
+  <span class="kw">readonly</span> deduplicationKey?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> scheduledAt?: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: BackoffOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">BackoffOptions</span> {
+  <span class="kw">readonly</span> type: <span class="tp">BackoffType</span>;       <span class="cm">// FIXED or EXPONENTIAL</span>
+  <span class="kw">readonly</span> delay: <span class="tp">number</span>;           <span class="cm">// initial delay in ms</span>
+  <span class="kw">readonly</span> maxDelay?: <span class="tp">number</span>;       <span class="cm">// max delay cap (exponential)</span>
+  <span class="kw">readonly</span> multiplier?: <span class="tp">number</span>;     <span class="cm">// default: 2</span>
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Defaults</h3>
+        <div class="code-block"><span class="kw">const</span> <span class="tp">DEFAULT_JOB_OPTIONS</span> = {
+  attempts: <span class="num">1</span>,
+  priority: <span class="num">50</span>,
+};</div>
+      </section>
+
+      <!-- Job Context & Results -->
+      <section id="job-context" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">JOB CONTEXT & RESULTS</h2>
+
+        <h3 class="text-lg font-bold mb-3">Interface: JobContext</h3>
+        <p class="mb-3 text-sm">Provided to every processor during job execution.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">JobContext</span>&lt;<span class="tp">TData</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> job: <span class="tp">Job</span>&lt;<span class="tp">TData</span>&gt;;
+  <span class="kw">readonly</span> signal: <span class="tp">AbortSignal</span>;
+  <span class="fn">updateProgress</span>(progress: <span class="tp">JobProgress</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">log</span>(message: <span class="tp">string</span>, data?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: JobResult</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">JobResult</span>&lt;<span class="tp">T</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> success: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> data?: <span class="tp">T</span>;
+  <span class="kw">readonly</span> error?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> durationMs: <span class="tp">number</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">Timestamp</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: JobProgress</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">JobProgress</span> {
+  <span class="kw">readonly</span> percent: <span class="tp">number</span>;            <span class="cm">// 0-100</span>
+  <span class="kw">readonly</span> step?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> totalSteps?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> currentStep?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> message?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">Timestamp</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory Functions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Returns</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createJobContext(job, signal?)</td><td class="p-3">JobContext</td><td class="p-3">Creates a context with progress tracking and logging</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">isJobContext(value)</td><td class="p-3">boolean</td><td class="p-3">Type guard for JobContext</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createJobResult(data)</td><td class="p-3">JobResult</td><td class="p-3">Success result with data</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createJobErrorResult(error)</td><td class="p-3">JobResult</td><td class="p-3">Failure result with error message</td></tr>
+              <tr><td class="p-3 font-mono">createJobProgress(percent, options?)</td><td class="p-3">JobProgress</td><td class="p-3">Progress report with percent and optional step info</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Processor -->
+      <section id="processor" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PROCESSOR</h2>
+        <p class="mb-4">
+          A <code class="bg-black/5 px-1">Processor</code> is a function that handles a specific job type. Processors are registered per job name and invoked by workers.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Type: Processor</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">Processor</span>&lt;<span class="tp">TData</span> = <span class="tp">unknown</span>, <span class="tp">TResult</span> = <span class="tp">unknown</span>&gt; = (
+  job: <span class="tp">Job</span>&lt;<span class="tp">TData</span>&gt;,
+  context: <span class="tp">JobContext</span>&lt;<span class="tp">TData</span>&gt;,
+) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">JobResult</span>&lt;<span class="tp">TResult</span>&gt;&gt; | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: ProcessorRegistry</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ProcessorRegistry</span> {
+  <span class="fn">register</span>&lt;<span class="tp">TData</span>, <span class="tp">TResult</span>&gt;(
+    jobName: <span class="tp">string</span>,
+    processor: <span class="tp">Processor</span>&lt;<span class="tp">TData</span>, <span class="tp">TResult</span>&gt;,
+    options?: { description?: <span class="tp">string</span> },
+  ): <span class="tp">void</span>;
+  <span class="fn">get</span>&lt;<span class="tp">TData</span>, <span class="tp">TResult</span>&gt;(jobName: <span class="tp">string</span>): <span class="tp">Processor</span>&lt;<span class="tp">TData</span>, <span class="tp">TResult</span>&gt; | <span class="tp">undefined</span>;
+  <span class="fn">has</span>(jobName: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">getAll</span>(): <span class="tp">ProcessorInfo</span>[];
+  <span class="fn">unregister</span>(jobName: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createProcessorRegistry</span> } <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="kw">const</span> registry = <span class="fn">createProcessorRegistry</span>();
+
+registry.<span class="fn">register</span>&lt;<span class="tp">EmailData</span>&gt;(<span class="str">"send-email"</span>, <span class="kw">async</span> (job, ctx) => {
+  ctx.<span class="fn">log</span>(<span class="str">"Sending email"</span>, { to: job.data.to });
+  <span class="cm">// ... send email logic</span>
+}, { description: <span class="str">"Sends transactional emails"</span> });
+
+registry.<span class="fn">has</span>(<span class="str">"send-email"</span>); <span class="cm">// true</span></div>
+      </section>
+
+      <!-- Queue Interface -->
+      <section id="queue-interface" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">QUEUE INTERFACE</h2>
+        <p class="mb-4">
+          A <code class="bg-black/5 px-1">Queue</code> is a named stream of jobs. Jobs are added to the queue and processed by workers.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: Queue</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Queue</span>&lt;<span class="tp">TData</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> name: <span class="tp">QueueName</span>;
+  <span class="fn">add</span>(name: <span class="tp">string</span>, data: <span class="tp">TData</span>, options?: <span class="tp">JobOptions</span>): <span class="tp">Promise</span>&lt;<span class="tp">Job</span>&lt;<span class="tp">TData</span>&gt;&gt;;
+  <span class="fn">process</span>(name: <span class="tp">string</span>, processor: <span class="tp">Processor</span>&lt;<span class="tp">TData</span>&gt;): <span class="tp">void</span>;
+  <span class="fn">getJob</span>(jobId: <span class="tp">JobId</span>): <span class="tp">Promise</span>&lt;<span class="tp">Job</span>&lt;<span class="tp">TData</span>&gt; | <span class="tp">null</span>&gt;;
+  <span class="fn">getNextJob</span>(): <span class="tp">Promise</span>&lt;<span class="tp">Job</span>&lt;<span class="tp">TData</span>&gt; | <span class="tp">null</span>&gt;;
+  <span class="fn">getProcessor</span>(name: <span class="tp">string</span>): <span class="tp">Processor</span>&lt;<span class="tp">TData</span>&gt; | <span class="tp">undefined</span>;
+  <span class="fn">getStats</span>(): <span class="tp">Promise</span>&lt;<span class="tp">QueueStats</span>&gt;;
+  <span class="fn">pause</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">resume</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">isPaused</span>(): <span class="tp">boolean</span>;
+  <span class="fn">close</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: QueueOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">QueueOptions</span> {
+  <span class="kw">readonly</span> concurrency?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> defaultJobOptions?: <span class="tp">Partial</span>&lt;<span class="tp">JobOptions</span>&gt;;
+  <span class="kw">readonly</span> serializer?: <span class="tp">Serializer</span>;
+  <span class="kw">readonly</span> middleware?: <span class="tp">QueueMiddleware</span>[];
+  <span class="kw">readonly</span> pollInterval?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> eventEmitter?: <span class="tp">QueueEventEmitter</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: QueueStats</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">QueueStats</span> {
+  <span class="kw">readonly</span> waiting: <span class="tp">number</span>;
+  <span class="kw">readonly</span> active: <span class="tp">number</span>;
+  <span class="kw">readonly</span> completed: <span class="tp">number</span>;
+  <span class="kw">readonly</span> failed: <span class="tp">number</span>;
+  <span class="kw">readonly</span> delayed: <span class="tp">number</span>;
+  <span class="kw">readonly</span> retrying: <span class="tp">number</span>;
+}</div>
+      </section>
+
+      <!-- In-Memory Queue -->
+      <section id="in-memory-queue" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">IN-MEMORY QUEUE</h2>
+        <p class="mb-4">
+          <code class="bg-black/5 px-1">InMemoryQueue</code> is the default queue implementation. Jobs are stored in memory and processed synchronously by workers.
+        </p>
+
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createInMemoryQueue</span> } <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="kw">const</span> queue = <span class="fn">createInMemoryQueue</span>&lt;<span class="tp">EmailData</span>&gt;(<span class="str">"emails"</span>, {
+  concurrency: <span class="num">5</span>,
+  pollInterval: <span class="num">200</span>,
+});
+
+<span class="cm">// Register a processor</span>
+queue.<span class="fn">process</span>(<span class="str">"send-email"</span>, <span class="kw">async</span> (job, ctx) => {
+  ctx.<span class="fn">log</span>(<span class="str">`Sending to ${job.data.to}`</span>);
+});
+
+<span class="cm">// Add a job</span>
+<span class="kw">const</span> job = <span class="kw">await</span> queue.<span class="fn">add</span>(<span class="str">"send-email"</span>, { to: <span class="str">"user@example.com"</span> }, {
+  attempts: <span class="num">3</span>,
+  backoff: { type: <span class="tp">BackoffType</span>.EXPONENTIAL, delay: <span class="num">1000</span> },
+});
+
+<span class="cm">// Get stats</span>
+<span class="kw">const</span> stats = <span class="kw">await</span> queue.<span class="fn">getStats</span>();</div>
+      </section>
+
+      <!-- Queue Manager -->
+      <section id="queue-manager" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">QUEUE MANAGER</h2>
+        <p class="mb-4">
+          <code class="bg-black/5 px-1">QueueManager</code> manages multiple named queues from a single entry point. Queues are lazily created on first access.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: QueueManager</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">QueueManager</span> {
+  <span class="fn">getQueue</span>&lt;<span class="tp">TData</span>&gt;(name: <span class="tp">QueueName</span>, options?: <span class="tp">QueueOptions</span>): <span class="tp">Queue</span>&lt;<span class="tp">TData</span>&gt;;
+  <span class="fn">getExistingQueue</span>&lt;<span class="tp">TData</span>&gt;(name: <span class="tp">QueueName</span>): <span class="tp">Queue</span>&lt;<span class="tp">TData</span>&gt; | <span class="tp">undefined</span>;
+  <span class="fn">hasQueue</span>(name: <span class="tp">QueueName</span>): <span class="tp">boolean</span>;
+  <span class="fn">getQueueNames</span>(): <span class="tp">QueueName</span>[];
+  <span class="fn">closeAll</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createQueueManager</span> } <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="kw">const</span> manager = <span class="fn">createQueueManager</span>();
+
+<span class="cm">// Get or create queues</span>
+<span class="kw">const</span> emailQueue = manager.<span class="fn">getQueue</span>(<span class="str">"emails"</span>);
+<span class="kw">const</span> reportQueue = manager.<span class="fn">getQueue</span>(<span class="str">"reports"</span>);
+
+<span class="cm">// Check existence</span>
+manager.<span class="fn">hasQueue</span>(<span class="str">"emails"</span>); <span class="cm">// true</span>
+
+<span class="cm">// List all queues</span>
+manager.<span class="fn">getQueueNames</span>(); <span class="cm">// ["emails", "reports"]</span>
+
+<span class="cm">// Close all on shutdown</span>
+<span class="kw">await</span> manager.<span class="fn">closeAll</span>();</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: QueueRegistry</h3>
+        <p class="mb-3 text-sm">Registry for queue instances, providing lookup and lifecycle management.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">QueueRegistry</span> {
+  <span class="fn">register</span>&lt;<span class="tp">TData</span>&gt;(queue: <span class="tp">Queue</span>&lt;<span class="tp">TData</span>&gt;): <span class="tp">void</span>;
+  <span class="fn">get</span>&lt;<span class="tp">TData</span>&gt;(name: <span class="tp">QueueName</span>): <span class="tp">Queue</span>&lt;<span class="tp">TData</span>&gt; | <span class="tp">undefined</span>;
+  <span class="fn">has</span>(name: <span class="tp">QueueName</span>): <span class="tp">boolean</span>;
+  <span class="fn">getAll</span>(): <span class="tp">QueueInfo</span>[];
+  <span class="fn">unregister</span>(name: <span class="tp">QueueName</span>): <span class="tp">boolean</span>;
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+}</div>
+      </section>
+
+      <!-- Workers -->
+      <section id="workers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WORKERS</h2>
+        <p class="mb-4">
+          A <code class="bg-black/5 px-1">Worker</code> polls a queue for jobs and executes registered processors with configurable concurrency.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: Worker</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Worker</span>&lt;<span class="tp">TData</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> id: <span class="tp">string</span>;
+  <span class="kw">readonly</span> queue: <span class="tp">Queue</span>&lt;<span class="tp">TData</span>&gt;;
+  <span class="kw">readonly</span> queueName: <span class="tp">string</span>;
+  <span class="kw">readonly</span> state: <span class="tp">WorkerState</span>;
+  <span class="fn">start</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">stop</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">forceStop</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">isRunning</span>(): <span class="tp">boolean</span>;
+  <span class="fn">getStats</span>(): <span class="tp">WorkerStats</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: WorkerOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">WorkerOptions</span> {
+  <span class="kw">readonly</span> concurrency?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> pollInterval?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> maxStalledCount?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> timeoutMs?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> middleware?: <span class="tp">QueueMiddleware</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: WorkerStats</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">WorkerStats</span> {
+  <span class="kw">readonly</span> processed: <span class="tp">number</span>;
+  <span class="kw">readonly</span> succeeded: <span class="tp">number</span>;
+  <span class="kw">readonly</span> failed: <span class="tp">number</span>;
+  <span class="kw">readonly</span> concurrency: <span class="tp">number</span>;
+  <span class="kw">readonly</span> state: <span class="tp">WorkerState</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createWorker</span>, <span class="fn">createInMemoryQueue</span> } <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="kw">const</span> queue = <span class="fn">createInMemoryQueue</span>(<span class="str">"emails"</span>);
+queue.<span class="fn">process</span>(<span class="str">"send-email"</span>, emailProcessor);
+
+<span class="kw">const</span> worker = <span class="fn">createWorker</span>(<span class="str">"worker-1"</span>, queue, {
+  concurrency: <span class="num">5</span>,
+  pollInterval: <span class="num">100</span>,
+});
+
+<span class="kw">await</span> worker.<span class="fn">start</span>();
+console.<span class="fn">log</span>(worker.<span class="fn">getStats</span>());
+<span class="cm">// { processed: 0, succeeded: 0, failed: 0, concurrency: 5, state: "running" }</span>
+
+<span class="cm">// Graceful shutdown</span>
+<span class="kw">await</span> worker.<span class="fn">stop</span>();</div>
+      </section>
+
+      <!-- Retry Policy -->
+      <section id="retry-policy" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">RETRY POLICY</h2>
+        <p class="mb-4">
+          Retry utilities for controlling how failed jobs are retried. Supports fixed and exponential backoff strategies.
+        </p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Returns</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">calculateRetryDelay(attempt, backoff?)</td><td class="p-3">number</td><td class="p-3">Computes delay in ms for the given attempt and backoff config</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">shouldRetry(attempt, maxAttempts)</td><td class="p-3">boolean</td><td class="p-3">Returns true if attempt &lt; maxAttempts</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createBackoffOptions(type, delay, options?)</td><td class="p-3">BackoffOptions</td><td class="p-3">Generic backoff options factory</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createFixedBackoff(delay)</td><td class="p-3">BackoffOptions</td><td class="p-3">Fixed backoff (same delay every retry)</td></tr>
+              <tr><td class="p-3 font-mono">createExponentialBackoff(delay, options?)</td><td class="p-3">BackoffOptions</td><td class="p-3">Exponential backoff (doubles each retry)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createExponentialBackoff</span>,
+  <span class="fn">calculateRetryDelay</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="kw">const</span> backoff = <span class="fn">createExponentialBackoff</span>(<span class="num">1000</span>, {
+  maxDelay: <span class="num">30000</span>,
+  multiplier: <span class="num">2</span>,
+});
+
+<span class="fn">calculateRetryDelay</span>(<span class="num">1</span>, backoff); <span class="cm">// 1000</span>
+<span class="fn">calculateRetryDelay</span>(<span class="num">2</span>, backoff); <span class="cm">// 2000</span>
+<span class="fn">calculateRetryDelay</span>(<span class="num">3</span>, backoff); <span class="cm">// 4000</span>
+<span class="fn">calculateRetryDelay</span>(<span class="num">4</span>, backoff); <span class="cm">// 8000</span>
+<span class="fn">calculateRetryDelay</span>(<span class="num">5</span>, backoff); <span class="cm">// 16000</span></div>
+      </section>
+
+      <!-- Dead Letter -->
+      <section id="dead-letter" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEAD LETTER</h2>
+        <p class="mb-4">
+          Jobs that exhaust all retry attempts are moved to a <code class="bg-black/5 px-1">DeadLetterStore</code> for inspection and potential reprocessing.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: DeadLetterJob</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">DeadLetterJob</span>&lt;<span class="tp">TData</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> job: <span class="tp">Job</span>&lt;<span class="tp">TData</span>&gt;;
+  <span class="kw">readonly</span> deadLetterAt: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> error: <span class="tp">Error</span>;
+  <span class="kw">readonly</span> attempts: <span class="tp">number</span>;
+  <span class="kw">readonly</span> reason?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: DeadLetterStore</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">DeadLetterStore</span>&lt;<span class="tp">TData</span> = <span class="tp">unknown</span>&gt; {
+  <span class="fn">add</span>(deadLetterJob: <span class="tp">DeadLetterJob</span>&lt;<span class="tp">TData</span>&gt;): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">get</span>(jobId: <span class="tp">JobId</span>): <span class="tp">Promise</span>&lt;<span class="tp">DeadLetterJob</span>&lt;<span class="tp">TData</span>&gt; | <span class="tp">null</span>&gt;;
+  <span class="fn">getAll</span>(): <span class="tp">Promise</span>&lt;<span class="tp">DeadLetterJob</span>&lt;<span class="tp">TData</span>&gt;[]&gt;;
+  <span class="fn">remove</span>(jobId: <span class="tp">JobId</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+  <span class="fn">clear</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Functions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createInMemoryDeadLetterStore()</td><td class="p-3">Creates an in-memory dead letter store (Map-backed)</td></tr>
+              <tr><td class="p-3 font-mono">moveToDeadLetter(store, job, error, options?)</td><td class="p-3">Moves a failed job into the dead letter store</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Middleware -->
+      <section id="middleware" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">MIDDLEWARE</h2>
+        <p class="mb-4">
+          Queue middleware wraps job processing for cross-cutting concerns like logging, timeouts, and metrics.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Types</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">QueueMiddlewareContext</span>&lt;<span class="tp">TData</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> job: <span class="tp">Job</span>&lt;<span class="tp">TData</span>&gt;;
+  <span class="kw">readonly</span> context: <span class="tp">JobContext</span>&lt;<span class="tp">TData</span>&gt;;
+  <span class="fn">next</span>(): <span class="tp">Promise</span>&lt;<span class="tp">JobResult</span> | <span class="tp">void</span>&gt;;
+}
+
+<span class="kw">type</span> <span class="tp">QueueMiddleware</span>&lt;<span class="tp">TData</span> = <span class="tp">unknown</span>&gt; = (
+  ctx: <span class="tp">QueueMiddlewareContext</span>&lt;<span class="tp">TData</span>&gt;,
+) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">JobResult</span> | <span class="tp">void</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Functions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createMiddlewareChain(middleware[])</td><td class="p-3">Composes an array of middleware into a single middleware function</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createLoggingMiddleware(logger?)</td><td class="p-3">Logs job start, completion, and failure with duration</td></tr>
+              <tr><td class="p-3 font-mono">createTimeoutMiddleware(timeoutMs)</td><td class="p-3">Throws JobTimeoutError if processing exceeds timeout</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createLoggingMiddleware</span>,
+  <span class="fn">createTimeoutMiddleware</span>,
+  <span class="fn">createInMemoryQueue</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="kw">const</span> queue = <span class="fn">createInMemoryQueue</span>(<span class="str">"emails"</span>, {
+  middleware: [
+    <span class="fn">createLoggingMiddleware</span>(),
+    <span class="fn">createTimeoutMiddleware</span>(<span class="num">30000</span>),
+  ],
+});</div>
+      </section>
+
+      <!-- Serialization -->
+      <section id="serialization" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SERIALIZATION</h2>
+        <p class="mb-4">
+          Serializers handle job payload serialization and deserialization. Backed by <code class="bg-black/5 px-1">@zudojs/serialization</code>.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: Serializer</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Serializer</span> {
+  <span class="fn">serialize</span>&lt;<span class="tp">T</span>&gt;(data: <span class="tp">T</span>): <span class="tp">string</span>;
+  <span class="fn">deserialize</span>&lt;<span class="tp">T</span>&gt;(data: <span class="tp">string</span>): <span class="tp">T</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Implementations</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Serializer</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JsonSerializer</td><td class="p-3">Default JSON serializer using @zudojs/serialization's JSONSerializer</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">PassthroughSerializer</td><td class="p-3">No-op for strings, falls back to JSON for objects</td></tr>
+              <tr><td class="p-3 font-mono">createJsonSerializer(options?)</td><td class="p-3">Custom JSON serializer with replacer, space, preserveTypes options</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Events -->
+      <section id="events" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EVENTS</h2>
+        <p class="mb-4">
+          <code class="bg-black/5 px-1">@zudojs/queue</code> emits 10 event types covering job lifecycle and worker lifecycle.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: QueueEvent</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">QueueEvent</span> {
+  <span class="kw">readonly</span> type: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">Timestamp</span>;
+  <span class="kw">readonly</span> queueName: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Event Types</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Event</th>
+                <th class="p-3 text-left">Type String</th>
+                <th class="p-3 text-left">Extra Fields</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobCreatedEvent</td><td class="p-3">"job:created"</td><td class="p-3">job</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobStartedEvent</td><td class="p-3">"job:started"</td><td class="p-3">job</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobProgressEvent</td><td class="p-3">"job:progress"</td><td class="p-3">job, progress</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobCompletedEvent</td><td class="p-3">"job:completed"</td><td class="p-3">job, result</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobFailedEvent</td><td class="p-3">"job:failed"</td><td class="p-3">job, error</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobRetryingEvent</td><td class="p-3">"job:retrying"</td><td class="p-3">job, attempt</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobCancelledEvent</td><td class="p-3">"job:cancelled"</td><td class="p-3">job</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">WorkerStartedEvent</td><td class="p-3">"worker:started"</td><td class="p-3">workerId</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">WorkerStoppedEvent</td><td class="p-3">"worker:stopped"</td><td class="p-3">workerId</td></tr>
+              <tr><td class="p-3 font-mono">WorkerErrorEvent</td><td class="p-3">"worker:error"</td><td class="p-3">workerId, error</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createQueueEvent</span> } <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="kw">const</span> event = <span class="fn">createQueueEvent</span>&lt;<span class="tp">JobCreatedEvent</span>&gt;(
+  <span class="str">"job:created"</span>,
+  <span class="str">"emails"</span>,
+  { job },
+);</div>
+      </section>
+
+      <!-- Event Emitter -->
+      <section id="event-emitter" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EVENT EMITTER</h2>
+        <p class="mb-4">
+          <code class="bg-black/5 px-1">QueueEventEmitter</code> provides a typed pub/sub interface for queue lifecycle events.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: QueueEventEmitter</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">QueueEventEmitter</span> {
+  <span class="fn">emit</span>&lt;<span class="tp">K</span> <span class="kw">extends</span> <span class="kw">keyof</span> <span class="tp">QueueEventMap</span>&gt;(
+    event: <span class="tp">K</span>,
+    data: <span class="tp">QueueEventMap</span>[<span class="tp">K</span>],
+  ): <span class="tp">void</span>;
+  <span class="fn">on</span>&lt;<span class="tp">K</span> <span class="kw">extends</span> <span class="kw">keyof</span> <span class="tp">QueueEventMap</span>&gt;(
+    event: <span class="tp">K</span>,
+    handler: (data: <span class="tp">QueueEventMap</span>[<span class="tp">K</span>]) =&gt; <span class="tp">void</span>,
+  ): () =&gt; <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Implementations</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Factory</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">createInMemoryQueueEventEmitter()</td><td class="p-3">In-memory emitter with synchronous handler invocation</td></tr>
+              <tr><td class="p-3 font-mono">createNoopQueueEventEmitter()</td><td class="p-3">No-op emitter for testing or when events are not needed</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createInMemoryQueueEventEmitter</span> } <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="kw">const</span> emitter = <span class="fn">createInMemoryQueueEventEmitter</span>();
+
+<span class="kw">const</span> unsub = emitter.<span class="fn">on</span>(<span class="str">"job:completed"</span>, (data) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">"Job done:"</span>, data.job.id);
+});
+
+emitter.<span class="fn">emit</span>(<span class="str">"job:completed"</span>, { job, result: <span class="str">"ok"</span> });
+
+unsub(); <span class="cm">// unsubscribe</span></div>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="errors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudojs/errors</code> and re-exported by this package.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobError</td><td class="p-3">Base error for all job-related issues</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">QueueClosedError</td><td class="p-3">Operation attempted on a closed queue</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">QueueDisposedError</td><td class="p-3">Operation attempted on a disposed queue</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobDuplicateError</td><td class="p-3">Duplicate job with same deduplication key</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobTimeoutError</td><td class="p-3">Job processing exceeded timeout</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">WorkerLifecycleError</td><td class="p-3">Invalid worker state transition (e.g. starting from running)</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">QueueError</td><td class="p-3">Generic queue error</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">JobMaxAttemptsError</td><td class="p-3">Job exceeded maximum retry attempts</td></tr>
+              <tr><td class="p-3 font-mono">toQueueError(error, context?)</td><td class="p-3">Wraps any error into a QueueError with context</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Handling Pattern</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">JobTimeoutError</span>, <span class="tp">WorkerLifecycleError</span> } <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="kw">try</span> {
+  <span class="kw">await</span> worker.<span class="fn">start</span>();
+} <span class="kw">catch</span> (error) {
+  <span class="kw">if</span> (error <span class="kw">instanceof</span> <span class="tp">WorkerLifecycleError</span>) {
+    console.<span class="fn">error</span>(<span class="str">"Worker failed:"</span>, error.message);
+  }
+}</div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete working example: create a queue, register processors, add jobs, create workers, handle events, and use retry with dead letter.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createInMemoryQueue</span>,
+  <span class="fn">createWorker</span>,
+  <span class="fn">createInMemoryQueueEventEmitter</span>,
+  <span class="fn">createLoggingMiddleware</span>,
+  <span class="fn">createTimeoutMiddleware</span>,
+  <span class="fn">createExponentialBackoff</span>,
+  <span class="fn">createInMemoryDeadLetterStore</span>,
+  <span class="fn">moveToDeadLetter</span>,
+  <span class="fn">createQueueManager</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+<span class="kw">import</span> <span class="kw">type</span> { <span class="tp">Job</span>, <span class="tp">JobContext</span> } <span class="kw">from</span> <span class="str">"@zudojs/queue"</span>;
+
+<span class="cm">// 1. Define job data types</span>
+<span class="kw">interface</span> <span class="tp">EmailData</span> {
+  <span class="kw">readonly</span> to: <span class="tp">string</span>;
+  <span class="kw">readonly</span> subject: <span class="tp">string</span>;
+  <span class="kw">readonly</span> body: <span class="tp">string</span>;
+}
+
+<span class="cm">// 2. Create event emitter and dead letter store</span>
+<span class="kw">const</span> emitter = <span class="fn">createInMemoryQueueEventEmitter</span>();
+<span class="kw">const</span> deadLetterStore = <span class="fn">createInMemoryDeadLetterStore</span>&lt;<span class="tp">EmailData</span>&gt;();
+
+<span class="cm">// 3. Create queue with middleware</span>
+<span class="kw">const</span> queue = <span class="fn">createInMemoryQueue</span>&lt;<span class="tp">EmailData</span>&gt;(<span class="str">"emails"</span>, {
+  concurrency: <span class="num">5</span>,
+  pollInterval: <span class="num">100</span>,
+  eventEmitter: emitter,
+  middleware: [
+    <span class="fn">createLoggingMiddleware</span>(),
+    <span class="fn">createTimeoutMiddleware</span>(<span class="num">30000</span>),
+  ],
+  defaultJobOptions: {
+    attempts: <span class="num">3</span>,
+    backoff: <span class="fn">createExponentialBackoff</span>(<span class="num">1000</span>, { maxDelay: <span class="num">30000</span> }),
+  },
+});
+
+<span class="cm">// 4. Register processor</span>
+queue.<span class="fn">process</span>(<span class="str">"send-email"</span>, <span class="kw">async</span> (
+  job: <span class="tp">Job</span>&lt;<span class="tp">EmailData</span>&gt;,
+  ctx: <span class="tp">JobContext</span>&lt;<span class="tp">EmailData</span>&gt;,
+) =&gt; {
+  ctx.<span class="fn">log</span>(<span class="str">"Sending email"</span>, {
+    to: job.data.to,
+    attempt: job.attempt,
+  });
+
+  <span class="cm">// Simulate email sending</span>
+  <span class="kw">if</span> (job.data.to === <span class="str">"fail@example.com"</span>) {
+    <span class="kw">throw new</span> <span class="tp">Error</span>(<span class="str">"SMTP connection refused"</span>);
+  }
+
+  <span class="cm">// Report progress</span>
+  <span class="kw">await</span> ctx.<span class="fn">updateProgress</span>({
+    percent: <span class="num">100</span>,
+    step: <span class="str">"sent"</span>,
+    message: <span class="str">"Email delivered"</span>,
+    timestamp: <span class="kw">new</span> <span class="tp">Date</span>().<span class="fn">toISOString</span>(),
+  });
+
+  <span class="kw">return</span> { success: <span class="num">true</span>, data: <span class="kw">null</span>, durationMs: <span class="num">150</span>, timestamp: <span class="kw">new</span> <span class="tp">Date</span>().<span class="fn">toISOString</span>() };
+});
+
+<span class="cm">// 5. Listen for events</span>
+emitter.<span class="fn">on</span>(<span class="str">"job:completed"</span>, (data) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">"Job completed:"</span>, data.job.id);
+});
+
+emitter.<span class="fn">on</span>(<span class="str">"job:failed"</span>, <span class="kw">async</span> (data) =&gt; {
+  console.<span class="fn">error</span>(<span class="str">"Job failed:"</span>, data.job.id, data.error.message);
+
+  <span class="cm">// Move to dead letter after max attempts</span>
+  <span class="kw">if</span> (data.job.attempt &gt;= data.job.maxAttempts) {
+    <span class="kw">await</span> <span class="fn">moveToDeadLetter</span>(deadLetterStore, data.job, data.error);
+    console.<span class="fn">log</span>(<span class="str">"Moved to dead letter:"</span>, data.job.id);
+  }
+});
+
+<span class="cm">// 6. Create worker</span>
+<span class="kw">const</span> worker = <span class="fn">createWorker</span>(<span class="str">"email-worker-1"</span>, queue, {
+  concurrency: <span class="num">5</span>,
+  pollInterval: <span class="num">100</span>,
+});
+<span class="kw">await</span> worker.<span class="fn">start</span>();
+
+<span class="cm">// 7. Add jobs</span>
+<span class="kw">await</span> queue.<span class="fn">add</span>(<span class="str">"send-email"</span>, {
+  to: <span class="str">"user@example.com"</span>,
+  subject: <span class="str">"Hello"</span>,
+  body: <span class="str">"Welcome!"</span>,
+});
+
+<span class="kw">await</span> queue.<span class="fn">add</span>(<span class="str">"send-email"</span>, {
+  to: <span class="str">"fail@example.com"</span>,
+  subject: <span class="str">"Will fail"</span>,
+  body: <span class="str">"..."</span>,
+});
+
+<span class="cm">// 8. Check stats</span>
+<span class="kw">const</span> stats = <span class="kw">await</span> queue.<span class="fn">getStats</span>();
+console.<span class="fn">log</span>(<span class="str">"Queue stats:"</span>, stats);
+
+<span class="cm">// 9. Check dead letter</span>
+<span class="kw">const</span> deadJobs = <span class="kw">await</span> deadLetterStore.<span class="fn">getAll</span>();
+console.<span class="fn">log</span>(<span class="str">"Dead letter jobs:"</span>, deadJobs.length);
+
+<span class="cm">// 10. Graceful shutdown</span>
+<span class="kw">await</span> worker.<span class="fn">stop</span>();
+<span class="kw">await</span> queue.<span class="fn">close</span>();</div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#architecture-position" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#branded-types" class="toc-link">Branded Types</a>
+      <a href="#enums" class="toc-link">Enums</a>
+      <a href="#job" class="toc-link">Job</a>
+      <a href="#job-options" class="toc-link">Job Options</a>
+      <a href="#job-context" class="toc-link">Job Context &amp; Results</a>
+      <a href="#processor" class="toc-link">Processor</a>
+      <a href="#queue-interface" class="toc-link">Queue Interface</a>
+      <a href="#in-memory-queue" class="toc-link">In-Memory Queue</a>
+      <a href="#queue-manager" class="toc-link">Queue Manager</a>
+      <a href="#workers" class="toc-link">Workers</a>
+      <a href="#retry-policy" class="toc-link">Retry Policy</a>
+      <a href="#dead-letter" class="toc-link">Dead Letter</a>
+      <a href="#middleware" class="toc-link">Middleware</a>
+      <a href="#serialization" class="toc-link">Serialization</a>
+      <a href="#events" class="toc-link">Events</a>
+      <a href="#event-emitter" class="toc-link">Event Emitter</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>
