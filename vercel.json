@@ -1,6 +1,8 @@
 {
+  "framework": null,
   "outputDirectory": "site",
   "installCommand": "echo noop",
+  "buildCommand": "echo noop",
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
