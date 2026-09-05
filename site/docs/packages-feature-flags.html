@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/feature-flags — Feature Flag System Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/feature-flags — deterministic rollouts, rule engine, providers, variants, and evaluation context for the Zudojs framework.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages/events" class="sidebar-item">@zudojs/events</a>
+      <a href="/docs/packages/errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages/constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+      <a href="/docs/packages/feature-flags" class="sidebar-item sidebar-item-active">@zudojs/feature-flags</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/feature-flags</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/feature-flags</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Feature flag system with deterministic rollouts, a rule engine, multiple providers, variants, snapshots, and evaluation context. Toggle features without redeploying.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">FEATURE FLAGS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">ROLLOUTS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">TARGETING</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">VARIANTS</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/feature-flags
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/feature-flags
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/feature-flags</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependency:</strong> @zudojs/feature-flags depends on @zudojs/errors (v0.0.1) for its error hierarchy.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/feature-flags</code> gives you a complete feature flag system. It defines:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Evaluation engine</strong> — deterministic flag evaluation with context-aware targeting</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Rule engine</strong> — 7 rule types: static, user, tenant, attribute, percentage, schedule, variant</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Multiple providers</strong> — in-memory, environment variables, composite, and cached providers</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Rollout bucketing</strong> — deterministic FNV-1a hashing for consistent percentage rollouts</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Variant assignment</strong> — weighted variant assignment for A/B testing</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Dependency resolution</strong> — flags can depend on other flags with cycle detection</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Snapshots</strong> — evaluate all flags at once for a given context</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Feature flags are evaluated locally — no network calls at evaluation time. Providers fetch definitions; the evaluator runs synchronously with deterministic results.
+        </div>
+      </section>
+
+      <!-- Architecture Position -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6 space-y-3">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">TRANSPORT LAYER (HTTP, CLI, WebSocket)</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">FEATURE FLAGS (@zudojs/feature-flags)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">APPLICATION LAYER (CQRS, Modules, Services)</div>
+          <div class="bg-black text-white p-3 font-bold text-center text-sm">INFRASTRUCTURE (Container, Config, Logger)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          Feature flags sit between transport and application layers. HTTP handlers check flags before executing routes. Application services gate features. Infrastructure observes for logging.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.0.1</td>
+                <td class="p-3">Feature flag error hierarchy (FeatureFlagError, NotFoundError, ProviderError, etc.)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Core Types -->
+      <section id="types" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CORE TYPES</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">FeatureFlagValue</h3>
+        <p class="mb-3 text-sm">A feature flag value — boolean for simple toggles, string/number for variants.</p>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">FeatureFlagValue</span> = <span class="tp">boolean</span> | <span class="tp">string</span> | <span class="tp">number</span> | <span class="tp">null</span> | <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">FeatureFlagState</h3>
+        <p class="mb-3 text-sm">Feature flag lifecycle state.</p>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">FeatureFlagState</span> = <span class="str">"active"</span> | <span class="str">"disabled"</span> | <span class="str">"archived"</span> | <span class="str">"draft"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">FeatureFlagVisibility</h3>
+        <p class="mb-3 text-sm">Feature flag visibility scope.</p>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">FeatureFlagVisibility</span> = <span class="str">"server"</span> | <span class="str">"client"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">FeatureFlagContext</h3>
+        <p class="mb-3 text-sm">Context passed to flag evaluators for targeting decisions.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">FeatureFlagContext</span> {
+  <span class="kw">readonly</span> userId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> tenantId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> sessionId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> environment?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> attributes?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">FeatureFlag</h3>
+        <p class="mb-3 text-sm">A complete feature flag definition.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">FeatureFlag</span> {
+  <span class="kw">readonly</span> key: <span class="tp">string</span>;
+  <span class="kw">readonly</span> defaultValue: <span class="tp">FeatureFlagValue</span>;
+  <span class="kw">readonly</span> enabled: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> state?: <span class="tp">FeatureFlagState</span>;
+  <span class="kw">readonly</span> visibility?: <span class="tp">FeatureFlagVisibility</span>;
+  <span class="kw">readonly</span> rules?: <span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlagRule</span>[]&gt;;
+  <span class="kw">readonly</span> variants?: <span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlagVariant</span>[]&gt;;
+  <span class="kw">readonly</span> dependencies?: <span class="tp">Readonly</span>&lt;<span class="tp">string</span>[]&gt;;
+  <span class="kw">readonly</span> metadata?: <span class="tp">FeatureFlagMetadata</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">FeatureFlagMetadata</h3>
+        <p class="mb-3 text-sm">Metadata about a feature flag.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">FeatureFlagMetadata</span> {
+  <span class="kw">readonly</span> owner?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> team?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> createdAt?: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> updatedAt?: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> expiresAt?: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> ticket?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> tags?: <span class="tp">Readonly</span>&lt;<span class="tp">string</span>[]&gt;;
+}</div>
+      </section>
+
+      <!-- Rule Types -->
+      <section id="rules" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">RULE TYPES</h2>
+        <p class="mb-4 text-sm">Rules determine how flags are evaluated. Each rule type targets differently.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Rule Type</th>
+                <th class="p-3 text-left">Interface</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">static</td>
+                <td class="p-3">FeatureFlagStaticRule</td>
+                <td class="p-3">Always returns its value. No targeting.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">user</td>
+                <td class="p-3">FeatureFlagUserRule</td>
+                <td class="p-3">Targets specific users by ID list.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">tenant</td>
+                <td class="p-3">FeatureFlagTenantRule</td>
+                <td class="p-3">Targets specific tenants by ID list.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">attribute</td>
+                <td class="p-3">FeatureFlagAttributeRule</td>
+                <td class="p-3">Targets by attribute matching with operators.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">percentage</td>
+                <td class="p-3">FeatureFlagPercentageRule</td>
+                <td class="p-3">Percentage-based rollout. Deterministic per subject.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">schedule</td>
+                <td class="p-3">FeatureFlagScheduleRule</td>
+                <td class="p-3">Time-windowed rule. Enabled only within date range.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">variant</td>
+                <td class="p-3">FeatureFlagVariantRule</td>
+                <td class="p-3">Assigns a variant key based on weight.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Rule Interfaces</h3>
+        <div class="code-block"><span class="cm">// Static — always returns its value</span>
+<span class="kw">interface</span> <span class="tp">FeatureFlagStaticRule</span> {
+  <span class="kw">readonly</span> type: <span class="str">"static"</span>;
+  <span class="kw">readonly</span> value: <span class="tp">FeatureFlagValue</span>;
+}
+
+<span class="cm">// User — targets specific users by ID</span>
+<span class="kw">interface</span> <span class="tp">FeatureFlagUserRule</span> {
+  <span class="kw">readonly</span> type: <span class="str">"user"</span>;
+  <span class="kw">readonly</span> users: <span class="tp">Readonly</span>&lt;<span class="tp">string</span>[]&gt;;
+  <span class="kw">readonly</span> value: <span class="tp">FeatureFlagValue</span>;
+}
+
+<span class="cm">// Tenant — targets specific tenants by ID</span>
+<span class="kw">interface</span> <span class="tp">FeatureFlagTenantRule</span> {
+  <span class="kw">readonly</span> type: <span class="str">"tenant"</span>;
+  <span class="kw">readonly</span> tenants: <span class="tp">Readonly</span>&lt;<span class="tp">string</span>[]&gt;;
+  <span class="kw">readonly</span> value: <span class="tp">FeatureFlagValue</span>;
+}
+
+<span class="cm">// Attribute — targets by attribute matching</span>
+<span class="kw">interface</span> <span class="tp">FeatureFlagAttributeRule</span> {
+  <span class="kw">readonly</span> type: <span class="str">"attribute"</span>;
+  <span class="kw">readonly</span> attribute: <span class="tp">string</span>;
+  <span class="kw">readonly</span> operator: <span class="tp">FeatureFlagOperator</span>;
+  <span class="kw">readonly</span> value: <span class="tp">unknown</span>;
+}
+
+<span class="cm">// Percentage — deterministic rollout</span>
+<span class="kw">interface</span> <span class="tp">FeatureFlagPercentageRule</span> {
+  <span class="kw">readonly</span> type: <span class="str">"percentage"</span>;
+  <span class="kw">readonly</span> percentage: <span class="tp">number</span>;
+  <span class="kw">readonly</span> value: <span class="tp">FeatureFlagValue</span>;
+}
+
+<span class="cm">// Schedule — time-windowed</span>
+<span class="kw">interface</span> <span class="tp">FeatureFlagScheduleRule</span> {
+  <span class="kw">readonly</span> type: <span class="str">"schedule"</span>;
+  <span class="kw">readonly</span> startAt: <span class="tp">string</span>;
+  <span class="kw">readonly</span> endAt: <span class="tp">string</span>;
+  <span class="kw">readonly</span> value: <span class="tp">FeatureFlagValue</span>;
+}
+
+<span class="cm">// Variant — weighted variant assignment</span>
+<span class="kw">interface</span> <span class="tp">FeatureFlagVariantRule</span> {
+  <span class="kw">readonly</span> type: <span class="str">"variant"</span>;
+  <span class="kw">readonly</span> variants: <span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlagVariant</span>[]&gt;;
+}
+
+<span class="kw">interface</span> <span class="tp">FeatureFlagVariant</span> {
+  <span class="kw">readonly</span> key: <span class="tp">string</span>;
+  <span class="kw">readonly</span> weight: <span class="tp">number</span>;
+}
+
+<span class="cm">// Union of all rule types</span>
+<span class="kw">type</span> <span class="tp">FeatureFlagRule</span> =
+  | <span class="tp">FeatureFlagStaticRule</span>
+  | <span class="tp">FeatureFlagUserRule</span>
+  | <span class="tp">FeatureFlagTenantRule</span>
+  | <span class="tp">FeatureFlagAttributeRule</span>
+  | <span class="tp">FeatureFlagPercentageRule</span>
+  | <span class="tp">FeatureFlagScheduleRule</span>
+  | <span class="tp">FeatureFlagVariantRule</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Attribute Operators</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">FeatureFlagOperator</span> =
+  | <span class="str">"equals"</span>          <span class="cm">// exact match</span>
+  | <span class="str">"not_equals"</span>      <span class="cm">// not equal</span>
+  | <span class="str">"contains"</span>        <span class="cm">// string contains</span>
+  | <span class="str">"starts_with"</span>     <span class="cm">// string prefix</span>
+  | <span class="str">"ends_with"</span>       <span class="cm">// string suffix</span>
+  | <span class="str">"in"</span>              <span class="cm">// value in list</span>
+  | <span class="str">"not_in"</span>          <span class="cm">// value not in list</span>
+  | <span class="str">"greater_than"</span>    <span class="cm">// numeric &gt;</span>
+  | <span class="str">"greater_than_or_equal"</span> <span class="cm">// numeric &gt;=</span>
+  | <span class="str">"less_than"</span>       <span class="cm">// numeric &lt;</span>
+  | <span class="str">"less_than_or_equal"</span> <span class="cm">// numeric &lt;=</span>
+  | <span class="str">"exists"</span>          <span class="cm">// attribute exists</span>
+  | <span class="str">"matches"</span>;        <span class="cm">// regex match</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Rule Evaluation</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">RuleEvaluationResult</span> {
+  <span class="kw">readonly</span> matched: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> value?: <span class="tp">FeatureFlagValue</span>;
+  <span class="kw">readonly</span> variant?: <span class="tp">string</span>;
+}
+
+<span class="kw">function</span> <span class="fn">evaluateRule</span>(
+  rule: <span class="tp">FeatureFlagRule</span>,
+  context: <span class="tp">FeatureFlagContext</span>,
+  flagKey: <span class="tp">string</span>,
+): <span class="tp">RuleEvaluationResult</span>;</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">First Match Wins:</strong> Rules are evaluated in order. The first matching rule determines the flag value. If no rules match, the <code>defaultValue</code> is used.
+        </div>
+      </section>
+
+      <!-- Evaluation -->
+      <section id="evaluation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EVALUATION</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">FeatureFlagEvaluation</h3>
+        <p class="mb-3 text-sm">The result of evaluating a feature flag.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">FeatureFlagEvaluation</span>&lt;<span class="tp">TValue</span> <span class="kw">extends</span> <span class="tp">FeatureFlagValue</span> = <span class="tp">FeatureFlagValue</span>&gt; {
+  <span class="kw">readonly</span> key: <span class="tp">string</span>;
+  <span class="kw">readonly</span> value: <span class="tp">TValue</span>;
+  <span class="kw">readonly</span> reason: <span class="tp">FeatureFlagEvaluationReason</span>;
+  <span class="kw">readonly</span> matchedRule?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> variant?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> defaulted: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Evaluation Reasons</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Reason</th>
+                <th class="p-3 text-left">Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono text-sm">default</td><td class="p-3">No rules matched; used defaultValue</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono text-sm">static</td><td class="p-3">A static rule matched</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono text-sm">rule_match</td><td class="p-3">A rule matched by condition</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono text-sm">target_match</td><td class="p-3">User or tenant rule matched</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono text-sm">percentage_rollout</td><td class="p-3">Percentage rollout matched</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono text-sm">variant_assignment</td><td class="p-3">Variant assigned</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono text-sm">disabled</td><td class="p-3">Flag is disabled</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono text-sm">not_found</td><td class="p-3">Flag does not exist</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono text-sm">error</td><td class="p-3">Evaluation error occurred</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono text-sm">dependency_disabled</td><td class="p-3">A required dependency is disabled</td></tr>
+              <tr><td class="p-3 font-mono text-sm">expired</td><td class="p-3">Flag has expired (schedule rule)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">evaluateFlag</h3>
+        <p class="mb-3 text-sm">Evaluate a single feature flag against a context.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">evaluateFlag</span>&lt;<span class="tp">TValue</span> <span class="kw">extends</span> <span class="tp">FeatureFlagValue</span> = <span class="tp">FeatureFlagValue</span>&gt;(
+  flag: <span class="tp">FeatureFlag</span>,
+  context?: <span class="tp">FeatureFlagContext</span>,
+): <span class="tp">FeatureFlagEvaluation</span>&lt;<span class="tp">TValue</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Using evaluateRule Directly</h3>
+        <p class="mb-3 text-sm">Evaluate a single rule against a context.</p>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">evaluateRule</span> } <span class="kw">from</span> <span class="str">"@zudojs/feature-flags"</span>;
+
+<span class="kw">const</span> result = <span class="fn">evaluateRule</span>(
+  { type: <span class="str">"percentage"</span>, percentage: <span class="num">50</span>, value: <span class="kw">true</span> },
+  { userId: <span class="str">"user-123"</span> },
+  <span class="str">"my-flag"</span>,
+);
+<span class="cm">// result: { matched: boolean, value?: boolean }</span></div>
+      </section>
+
+      <!-- Main API: createFeatureFlags -->
+      <section id="create-feature-flags" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">MAIN API — createFeatureFlags</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Options</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">FeatureFlagsOptions</span> {
+  <span class="kw">readonly</span> provider: <span class="tp">FeatureFlagProvider</span>;
+  <span class="kw">readonly</span> defaultContext?: <span class="tp">FeatureFlagContext</span>;
+  <span class="kw">readonly</span> throwOnMissing?: <span class="tp">boolean</span>;  <span class="cm">// default: false</span>
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Returned API</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createFeatureFlags</span>(options: <span class="tp">FeatureFlagsOptions</span>): {
+  <span class="cm">// Check if a flag is enabled (boolean shorthand)</span>
+  <span class="fn">isEnabled</span>(key: <span class="tp">string</span>, context?: <span class="tp">FeatureFlagContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+
+  <span class="cm">// Get a flag value with optional type parameter</span>
+  <span class="fn">get</span>&lt;<span class="tp">T</span> <span class="kw">extends</span> <span class="tp">FeatureFlagValue</span> = <span class="tp">FeatureFlagValue</span>&gt;(
+    key: <span class="tp">string</span>, context?: <span class="tp">FeatureFlagContext</span>
+  ): <span class="tp">Promise</span>&lt;<span class="tp">T</span> | <span class="tp">undefined</span>&gt;;
+
+  <span class="cm">// Get a boolean flag with a default fallback</span>
+  <span class="fn">getBoolean</span>(
+    key: <span class="tp">string</span>, defaultValue: <span class="tp">boolean</span>, context?: <span class="tp">FeatureFlagContext</span>
+  ): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+
+  <span class="cm">// Full evaluation with reason and metadata</span>
+  <span class="fn">evaluate</span>&lt;<span class="tp">T</span> <span class="kw">extends</span> <span class="tp">FeatureFlagValue</span> = <span class="tp">FeatureFlagValue</span>&gt;(
+    key: <span class="tp">string</span>, context?: <span class="tp">FeatureFlagContext</span>
+  ): <span class="tp">Promise</span>&lt;<span class="tp">FeatureFlagEvaluation</span>&lt;<span class="tp">T</span>&gt;&gt;;
+
+  <span class="cm">// Evaluate all flags at once</span>
+  <span class="fn">snapshot</span>(context?: <span class="tp">FeatureFlagContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">ReadonlyMap</span>&lt;<span class="tp">string</span>, <span class="tp">FeatureFlagEvaluation</span>&gt;&gt;;
+
+  <span class="cm">// Refresh flags from provider</span>
+  <span class="fn">refresh</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="cm">// Get all flag definitions</span>
+  <span class="fn">getAll</span>(): <span class="tp">Promise</span>&lt;<span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlag</span>[]&gt;&gt;;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Full Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createFeatureFlags</span>, <span class="fn">createMemoryProvider</span> } <span class="kw">from</span> <span class="str">"@zudojs/feature-flags"</span>;
+
+<span class="kw">const</span> provider = <span class="fn">createMemoryProvider</span>([
+  {
+    key: <span class="str">"dark-mode"</span>,
+    defaultValue: <span class="kw">false</span>,
+    enabled: <span class="kw">true</span>,
+    description: <span class="str">"Enable dark mode UI"</span>,
+    state: <span class="str">"active"</span>,
+  },
+  {
+    key: <span class="str">"new-checkout"</span>,
+    defaultValue: <span class="kw">false</span>,
+    enabled: <span class="kw">true</span>,
+    state: <span class="str">"active"</span>,
+    rules: [
+      {
+        type: <span class="str">"percentage"</span>,
+        percentage: <span class="num">25</span>,
+        value: <span class="kw">true</span>,
+      },
+    ],
+  },
+]);
+
+<span class="kw">const</span> flags = <span class="fn">createFeatureFlags</span>({ provider });
+
+<span class="cm">// Simple boolean check</span>
+<span class="kw">const</span> darkMode = <span class="kw">await</span> flags.<span class="fn">isEnabled</span>(<span class="str">"dark-mode"</span>);
+
+<span class="cm">// Get value with type</span>
+<span class="kw">const</span> checkout = <span class="kw">await</span> flags.<span class="fn">get</span>&lt;<span class="tp">boolean</span>&gt;(<span class="str">"new-checkout"</span>);
+
+<span class="cm">// Full evaluation with reason</span>
+<span class="kw">const</span> result = <span class="kw">await</span> flags.<span class="fn">evaluate</span>(<span class="str">"new-checkout"</span>, {
+  userId: <span class="str">"user-42"</span>,
+});
+<span class="cm">// result: { key, value, reason: "percentage_rollout", defaulted: false }</span>
+
+<span class="cm">// Snapshot all flags</span>
+<span class="kw">const</span> all = <span class="kw">await</span> flags.<span class="fn">snapshot</span>({ userId: <span class="str">"user-42"</span> });</div>
+      </section>
+
+      <!-- Providers -->
+      <section id="providers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">PROVIDERS</h2>
+        <p class="mb-4 text-sm">Providers fetch feature flag definitions from a source. Chain them with composite and cached for production use.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">FeatureFlagProvider Interface</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">FeatureFlagProvider</span> {
+  <span class="fn">get</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">FeatureFlag</span> | <span class="tp">undefined</span>&gt;;
+  <span class="fn">getAll</span>(): <span class="tp">Promise</span>&lt;<span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlag</span>[]&gt;&gt;;
+  <span class="fn">refresh</span>?(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">subscribe</span>?(listener: <span class="tp">FeatureFlagChangeListener</span>): <span class="tp">Unsubscribe</span>;
+}
+
+<span class="kw">type</span> <span class="tp">FeatureFlagChangeListener</span> = (flags: <span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlag</span>[]&gt;) =&gt; <span class="tp">void</span>;
+<span class="kw">type</span> <span class="tp">Unsubscribe</span> = () =&gt; <span class="tp">void</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createMemoryProvider</h3>
+        <p class="mb-3 text-sm">In-memory provider. Flags stored in a Map. Also exposes <code>set()</code> and <code>delete()</code>.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createMemoryProvider</span>(
+  flags?: <span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlag</span>[]&gt;
+): <span class="tp">FeatureFlagProvider</span> & {
+  <span class="fn">set</span>(flag: <span class="tp">FeatureFlag</span>): <span class="tp">void</span>;
+  <span class="fn">delete</span>(key: <span class="tp">string</span>): <span class="tp">boolean</span>;
+};</div>
+
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createMemoryProvider</span> } <span class="kw">from</span> <span class="str">"@zudojs/feature-flags"</span>;
+
+<span class="kw">const</span> provider = <span class="fn">createMemoryProvider</span>();
+provider.<span class="fn">set</span>({
+  key: <span class="str">"new-ui"</span>,
+  defaultValue: <span class="kw">false</span>,
+  enabled: <span class="kw">true</span>,
+});
+provider.<span class="fn">delete</span>(<span class="str">"new-ui"</span>);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createEnvironmentProvider</h3>
+        <p class="mb-3 text-sm">Reads <code>FEATURE_&lt;KEY&gt;</code> environment variables. Parses booleans, numbers, and strings automatically.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">EnvironmentProviderOptions</span> {
+  <span class="kw">readonly</span> prefix?: <span class="tp">string</span>;   <span class="cm">// default: "FEATURE_"</span>
+  <span class="kw">readonly</span> env?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span> | <span class="tp">undefined</span>&gt;&gt;;
+}
+
+<span class="kw">function</span> <span class="fn">createEnvironmentProvider</span>(
+  options?: <span class="tp">EnvironmentProviderOptions</span>
+): <span class="tp">FeatureFlagProvider</span>;</div>
+
+        <div class="code-block"><span class="cm">// FEATURE_DARK_MODE=true FEATURE_ROLLOUT_PERCENT=25</span>
+<span class="kw">const</span> provider = <span class="fn">createEnvironmentProvider</span>();
+<span class="kw">const</span> flag = <span class="kw">await</span> provider.<span class="fn">get</span>(<span class="str">"dark-mode"</span>);
+<span class="cm">// flag: { key: "dark-mode", defaultValue: true, enabled: true }</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createCompositeProvider</h3>
+        <p class="mb-3 text-sm">Queries providers in order. First provider to return a flag wins. <code>getAll()</code> merges with earlier providers taking priority.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createCompositeProvider</span>(
+  providers: <span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlagProvider</span>[]&gt;
+): <span class="tp">FeatureFlagProvider</span>;</div>
+
+        <div class="code-block"><span class="kw">const</span> provider = <span class="fn">createCompositeProvider</span>([
+  <span class="fn">createEnvironmentProvider</span>(),  <span class="cm">// highest priority</span>
+  <span class="fn">createMemoryProvider</span>(flags),  <span class="cm">// fallback</span>
+]);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createCachedProvider</h3>
+        <p class="mb-3 text-sm">Wraps a provider with in-memory TTL caching.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">CachedProviderOptions</span> {
+  <span class="kw">readonly</span> ttl?: <span class="tp">number</span>;  <span class="cm">// default: 30_000 (ms)</span>
+}
+
+<span class="kw">function</span> <span class="fn">createCachedProvider</span>(
+  inner: <span class="tp">FeatureFlagProvider</span>,
+  options?: <span class="tp">CachedProviderOptions</span>
+): <span class="tp">FeatureFlagProvider</span>;</div>
+
+        <div class="code-block"><span class="kw">const</span> provider = <span class="fn">createCachedProvider</span>(
+  <span class="fn">createEnvironmentProvider</span>(),
+  { ttl: <span class="num">60_000</span> }  <span class="cm">// cache for 60 seconds</span>
+);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Production Pattern</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createFeatureFlags</span>,
+  <span class="fn">createCompositeProvider</span>,
+  <span class="fn">createCachedProvider</span>,
+  <span class="fn">createEnvironmentProvider</span>,
+  <span class="fn">createMemoryProvider</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/feature-flags"</span>;
+
+<span class="kw">const</span> provider = <span class="fn">createCachedProvider</span>(
+  <span class="fn">createCompositeProvider</span>([
+    <span class="fn">createEnvironmentProvider</span>(),
+    <span class="fn">createMemoryProvider</span>(flags),
+  ]),
+  { ttl: <span class="num">30_000</span> }
+);
+
+<span class="kw">const</span> featureFlags = <span class="fn">createFeatureFlags</span>({
+  provider,
+  defaultContext: { environment: <span class="str">"production"</span> },
+  throwOnMissing: <span class="kw">false</span>,
+});</div>
+      </section>
+
+      <!-- Registry -->
+      <section id="registry" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">REGISTRY</h2>
+        <p class="mb-4 text-sm">An in-memory feature flag registry with O(1) lookup by key.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">FeatureFlagRegistry Interface</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">FeatureFlagRegistry</span> {
+  <span class="fn">get</span>(key: <span class="tp">string</span>): <span class="tp">FeatureFlag</span> | <span class="tp">undefined</span>;
+  <span class="fn">getAll</span>(): <span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlag</span>[]&gt;;
+  <span class="fn">set</span>(flag: <span class="tp">FeatureFlag</span>): <span class="tp">void</span>;
+  <span class="fn">setAll</span>(flags: <span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlag</span>[]&gt;): <span class="tp">void</span>;
+  <span class="fn">delete</span>(key: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">has</span>(key: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> size: <span class="tp">number</span>;
+}
+
+<span class="kw">function</span> <span class="fn">createFeatureFlagRegistry</span>(
+  flags?: <span class="tp">Readonly</span>&lt;<span class="tp">FeatureFlag</span>[]&gt;
+): <span class="tp">FeatureFlagRegistry</span>;</div>
+
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createFeatureFlagRegistry</span> } <span class="kw">from</span> <span class="str">"@zudojs/feature-flags"</span>;
+
+<span class="kw">const</span> registry = <span class="fn">createFeatureFlagRegistry</span>([
+  { key: <span class="str">"flag-a"</span>, defaultValue: <span class="kw">true</span>, enabled: <span class="kw">true</span> },
+  { key: <span class="str">"flag-b"</span>, defaultValue: <span class="kw">false</span>, enabled: <span class="kw">true</span> },
+]);
+
+registry.<span class="fn">has</span>(<span class="str">"flag-a"</span>);  <span class="cm">// true</span>
+registry.<span class="fn">get</span>(<span class="str">"flag-a"</span>);  <span class="cm">// FeatureFlag object</span>
+registry.<span class="fn">size</span>;            <span class="cm">// 2</span></div>
+      </section>
+
+      <!-- Rollout Utilities -->
+      <section id="rollout" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ROLLOUT UTILITIES</h2>
+        <p class="mb-4 text-sm">Deterministic FNV-1a hashing for consistent percentage rollouts.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">hashString</h3>
+        <p class="mb-3 text-sm">Compute a deterministic 32-bit unsigned hash using FNV-1a.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">hashString</span>(value: <span class="tp">string</span>): <span class="tp">number</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">getBucket</h3>
+        <p class="mb-3 text-sm">Compute a deterministic bucket for a flag rollout.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">getBucket</span>(
+  key: <span class="tp">string</span>,
+  subject: <span class="tp">string</span>,
+  buckets?: <span class="tp">number</span>,  <span class="cm">// default: 10_000</span>
+): <span class="tp">number</span>;  <span class="cm">// returns value in [0, buckets)</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">isInRollout</h3>
+        <p class="mb-3 text-sm">Check whether a subject falls within a percentage rollout.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">isInRollout</span>(
+  key: <span class="tp">string</span>,
+  subject: <span class="tp">string</span>,
+  percentage: <span class="tp">number</span>,  <span class="cm">// 0 to 100, supports decimals like 25.5</span>
+): <span class="tp">boolean</span>;</div>
+
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">isInRollout</span>, <span class="fn">getBucket</span> } <span class="kw">from</span> <span class="str">"@zudojs/feature-flags"</span>;
+
+<span class="cm">// Same user always gets the same result</span>
+<span class="fn">isInRollout</span>(<span class="str">"new-feature"</span>, <span class="str">"user-42"</span>, <span class="num">25</span>);  <span class="cm">// true or false, deterministic</span>
+<span class="fn">isInRollout</span>(<span class="str">"new-feature"</span>, <span class="str">"user-42"</span>, <span class="num">25</span>);  <span class="cm">// same result every time</span>
+
+<span class="cm">// Check exact bucket</span>
+<span class="fn">getBucket</span>(<span class="str">"new-feature"</span>, <span class="str">"user-42"</span>);  <span class="cm">// e.g. 4217</span></div>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Deterministic:</strong> The same (flag key, subject) pair always produces the same bucket. This means users consistently see the same variant without server-side state.
+        </div>
+      </section>
+
+      <!-- Attribute Helpers -->
+      <section id="attribute-helpers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ATTRIBUTE HELPERS</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">resolvePath</h3>
+        <p class="mb-3 text-sm">Safely resolve a dot-notation path from an object.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">resolvePath</span>(obj: <span class="tp">unknown</span>, path: <span class="tp">string</span>): <span class="tp">unknown</span>;</div>
+
+        <div class="code-block"><span class="fn">resolvePath</span>({ user: { country: <span class="str">"NG"</span> } }, <span class="str">"user.country"</span>);  <span class="cm">// "NG"</span>
+<span class="fn">resolvePath</span>({ user: {} }, <span class="str">"user.country"</span>);  <span class="cm">// undefined</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">matchAttribute</h3>
+        <p class="mb-3 text-sm">Evaluate an attribute rule against a context value.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">matchAttribute</span>(
+  actual: <span class="tp">unknown</span>,
+  operator: <span class="tp">FeatureFlagOperator</span>,
+  expected: <span class="tp">unknown</span>,
+): <span class="tp">boolean</span>;</div>
+
+        <div class="code-block"><span class="fn">matchAttribute</span>(<span class="str">"NG"</span>, <span class="str">"equals"</span>, <span class="str">"NG"</span>);          <span class="cm">// true</span>
+<span class="fn">matchAttribute</span>(<span class="str">"Lagos"</span>, <span class="str">"contains"</span>, <span class="str">"Lag"</span>);    <span class="cm">// true</span>
+<span class="fn">matchAttribute</span>(<span class="num">25</span>, <span class="str">"greater_than"</span>, <span class="num">18</span>);     <span class="cm">// true</span>
+<span class="fn">matchAttribute</span>(<span class="str">"free"</span>, <span class="str">"in"</span>, [<span class="str">"free"</span>, <span class="str">"trial"</span>]); <span class="cm">// true</span></div>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="errors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4 text-sm">All errors extend <code>FeatureFlagError</code> which extends <code>ApplicationError</code> from @zudojs/errors.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error Class</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">FeatureFlagNotFoundError</td>
+                <td class="p-3">Requested flag does not exist and <code>throwOnMissing: true</code></td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">FeatureFlagProviderError</td>
+                <td class="p-3">Provider fails to fetch or parse flag definitions</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">FeatureFlagEvaluationError</td>
+                <td class="p-3">Evaluation encounters an error during rule processing</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">FeatureFlagRuleError</td>
+                <td class="p-3">A flag rule is malformed or has invalid configuration</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">FeatureFlagDependencyError</td>
+                <td class="p-3">Flag dependencies form a cycle</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">FeatureFlagConfigurationError</td>
+                <td class="p-3">Flag configuration is invalid</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">FeatureFlagTypeError</td>
+                <td class="p-3">Flag value has an unexpected type</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Handling Pattern</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">FeatureFlagError</span>,
+  <span class="tp">FeatureFlagNotFoundError</span>,
+  <span class="tp">FeatureFlagProviderError</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/feature-flags"</span>;
+
+<span class="kw">try</span> {
+  <span class="kw">const</span> value = <span class="kw">await</span> flags.<span class="fn">isEnabled</span>(<span class="str">"my-flag"</span>);
+} <span class="kw">catch</span> (error) {
+  <span class="kw">if</span> (error <span class="kw">instanceof</span> <span class="tp">FeatureFlagNotFoundError</span>) {
+    <span class="cm">// Flag doesn't exist</span>
+  } <span class="kw">else if</span> (error <span class="kw">instanceof</span> <span class="tp">FeatureFlagProviderError</span>) {
+    <span class="cm">// Provider failed</span>
+  } <span class="kw">else if</span> (error <span class="kw">instanceof</span> <span class="tp">FeatureFlagError</span>) {
+    <span class="cm">// Any other feature flag error</span>
+  }
+}</div>
+      </section>
+
+      <!-- Dependency Resolution -->
+      <section id="dependencies-section" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCY RESOLUTION</h2>
+        <p class="mb-4 text-sm">Flags can depend on other flags. Dependencies are resolved recursively with cycle detection.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Defining Dependencies</h3>
+        <div class="code-block"><span class="kw">const</span> flags = [
+  {
+    key: <span class="str">"base-feature"</span>,
+    defaultValue: <span class="kw">true</span>,
+    enabled: <span class="kw">true</span>,
+  },
+  {
+    key: <span class="str">"advanced-feature"</span>,
+    defaultValue: <span class="kw">false</span>,
+    enabled: <span class="kw">true</span>,
+    dependencies: [<span class="str">"base-feature"</span>],  <span class="cm">// requires base-feature to be enabled</span>
+    rules: [
+      { type: <span class="str">"percentage"</span>, percentage: <span class="num">50</span>, value: <span class="kw">true</span> },
+    ],
+  },
+];</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">How It Works</h3>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> When evaluating <code>advanced-feature</code>, the evaluator checks <code>base-feature</code> first</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> If <code>base-feature</code> is disabled, the result reason is <code>dependency_disabled</code></li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> Circular dependencies throw <code>FeatureFlagDependencyError</code></li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> Dependencies are resolved via the same provider, not the registry</li>
+        </ul>
+      </section>
+
+      <!-- Utility Functions -->
+      <section id="utilities" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">UTILITY FUNCTIONS</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">isPlainObject</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">isPlainObject</span>(value: <span class="tp">unknown</span>): value <span class="kw">is</span> <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">valuesEqual</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">valuesEqual</span>(
+  a: <span class="tp">FeatureFlagValue</span>,
+  b: <span class="tp">FeatureFlagValue</span>
+): <span class="tp">boolean</span>;</div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="integration-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4 text-sm">Complete working example combining providers, targeting, rollouts, variants, and error handling.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createFeatureFlags</span>,
+  <span class="fn">createMemoryProvider</span>,
+  <span class="fn">createEnvironmentProvider</span>,
+  <span class="fn">createCompositeProvider</span>,
+  <span class="fn">createCachedProvider</span>,
+  <span class="tp">FeatureFlag</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/feature-flags"</span>;
+
+<span class="cm">// 1. Define flags</span>
+<span class="kw">const</span> flags: <span class="tp">FeatureFlag</span>[] = [
+  {
+    key: <span class="str">"dark-mode"</span>,
+    defaultValue: <span class="kw">false</span>,
+    enabled: <span class="kw">true</span>,
+    description: <span class="str">"Enable dark mode UI"</span>,
+    state: <span class="str">"active"</span>,
+    visibility: <span class="str">"client"</span>,
+  },
+  {
+    key: <span class="str">"new-checkout"</span>,
+    defaultValue: <span class="kw">false</span>,
+    enabled: <span class="kw">true</span>,
+    state: <span class="str">"active"</span>,
+    rules: [
+      { type: <span class="str">"user"</span>, users: [<span class="str">"user-1"</span>, <span class="str">"user-2"</span>], value: <span class="kw">true</span> },
+      { type: <span class="str">"percentage"</span>, percentage: <span class="num">25</span>, value: <span class="kw">true</span> },
+    ],
+  },
+  {
+    key: <span class="str">"pricing-tier"</span>,
+    defaultValue: <span class="str">"free"</span>,
+    enabled: <span class="kw">true</span>,
+    state: <span class="str">"active"</span>,
+    rules: [
+      {
+        type: <span class="str">"attribute"</span>,
+        attribute: <span class="str">"plan"</span>,
+        operator: <span class="str">"equals"</span>,
+        value: <span class="str">"enterprise"</span>,
+      },
+    ],
+    variants: [
+      { key: <span class="str">"control"</span>, weight: <span class="num">50</span> },
+      { key: <span class="str">"treatment"</span>, weight: <span class="num">50</span> },
+    ],
+  },
+];
+
+<span class="cm">// 2. Create provider chain</span>
+<span class="kw">const</span> provider = <span class="fn">createCachedProvider</span>(
+  <span class="fn">createCompositeProvider</span>([
+    <span class="fn">createEnvironmentProvider</span>(),
+    <span class="fn">createMemoryProvider</span>(flags),
+  ]),
+  { ttl: <span class="num">30_000</span> }
+);
+
+<span class="cm">// 3. Create feature flags instance</span>
+<span class="kw">const</span> featureFlags = <span class="fn">createFeatureFlags</span>({
+  provider,
+  defaultContext: { environment: <span class="str">"production"</span> },
+});
+
+<span class="cm">// 4. Use in your application</span>
+<span class="kw">async function</span> <span class="fn">handleRequest</span>(userId: <span class="tp">string</span>, plan: <span class="tp">string</span>) {
+  <span class="kw">const</span> context = { userId, attributes: { plan } };
+
+  <span class="cm">// Simple boolean check</span>
+  <span class="kw">if</span> (<span class="kw">await</span> featureFlags.<span class="fn">isEnabled</span>(<span class="str">"dark-mode"</span>, context)) {
+    <span class="cm">// apply dark mode</span>
+  }
+
+  <span class="cm">// Full evaluation</span>
+  <span class="kw">const</span> checkout = <span class="kw">await</span> featureFlags.<span class="fn">evaluate</span>(<span class="str">"new-checkout"</span>, context);
+  <span class="kw">if</span> (checkout.value) {
+    <span class="cm">// show new checkout flow</span>
+  }
+
+  <span class="cm">// Variant assignment</span>
+  <span class="kw">const</span> tier = <span class="kw">await</span> featureFlags.<span class="fn">evaluate</span>&lt;<span class="tp">string</span>&gt;(<span class="str">"pricing-tier"</span>, context);
+  <span class="kw">if</span> (tier.variant === <span class="str">"treatment"</span>) {
+    <span class="cm">// apply treatment pricing</span>
+  }
+
+  <span class="cm">// Snapshot all flags</span>
+  <span class="kw">const</span> allFlags = <span class="kw">await</span> featureFlags.<span class="fn">snapshot</span>(context);
+  console.<span class="fn">log</span>(Object.<span class="fn">fromEntries</span>(allFlags));
+}</div>
+      </section>
+
+      <!-- Source Location -->
+      <section id="source-location" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SOURCE LOCATION</h2>
+        <div class="border-4 border-black p-6">
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <div class="font-bold mb-2">Source Code</div>
+              <div class="font-mono text-black/70">packages/feature-flags/src/</div>
+            </div>
+            <div>
+              <div class="font-bold mb-2">Test Suite</div>
+              <div class="font-mono text-black/70">packages/feature-flags/tests/</div>
+            </div>
+            <div>
+              <div class="font-bold mb-2">Public API</div>
+              <div class="font-mono text-black/70">src/index.ts</div>
+            </div>
+            <div>
+              <div class="font-bold mb-2">Dependencies</div>
+              <div class="font-mono text-black/70">@zudojs/errors (0.0.1)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>

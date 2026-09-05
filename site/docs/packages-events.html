@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/events — Event Bus Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/events — the event bus, emitter, middleware, and registry for Zudojs.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-events" class="sidebar-item sidebar-item-active">@zudojs/events</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/events</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.1.0</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/events</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Event bus, emitter, middleware pipeline, and registry for Zudojs. Provides typed pub/sub, namespace pattern matching, middleware interception, and a centralized event definition store.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">EVENT BUS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">MIDDLEWARE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">PUB/SUB</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/events
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/events
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/events</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/events depends on @zudojs/errors, @zudojs/constants, and @zudojs/types. All at version 0.1.0.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/events</code> is the event infrastructure for Zudojs. It provides:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> An <strong>EventBus</strong> that coordinates publish/subscribe with lifecycle management</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> An <strong>EventEmitter</strong> for low-level event dispatching with pattern matching</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> An <strong>EventRegistry</strong> that stores event definitions and handler mappings</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> A <strong>middleware pipeline</strong> that intercepts events before/after/around handlers</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Pattern matching</strong> with exact names, namespace wildcards (<code>user.*</code>), and catch-all (<code>*</code>)</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Events are first-class citizens. Define them once in the registry, publish them through the bus, and let middleware handle cross-cutting concerns like logging, validation, and timing.
+        </div>
+      </section>
+
+      <!-- Architecture Position -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6 space-y-3">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">APPLICATION LAYER (CQRS, Modules, Handlers)</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">EVENT BUS (@zudojs/events)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">MESSAGING LAYER (@zudojs/messaging)</div>
+          <div class="bg-black text-white p-3 font-bold text-center text-sm">ADAPTER LAYER (@zudojs/adapters, External Platforms)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          Events sit at the application boundary. Application code publishes events through the bus. The bus dispatches them to registered handlers, optionally routing them through middleware. For cross-service communication, events flow down to the messaging layer.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Event error hierarchy (EventError, EventNotRegisteredError, etc.)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/constants</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Branded types (EventId, CorrelationId) and constants</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/types</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Type guards (isPlainObject) and utility types (Maybe, DeepReadonly)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.1.0</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <!-- Core API: Event -->
+      <section id="core-api-event" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CORE API — EVENT</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: Event</h3>
+        <p class="mb-3 text-sm">The base shape for all events flowing through the bus:</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Event</span>&lt;<span class="tp">TName</span> <span class="kw">extends</span> <span class="tp">string</span> = <span class="tp">string</span>, <span class="tp">TPayload</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> name: <span class="tp">TName</span>;
+  <span class="kw">readonly</span> payload: <span class="tp">TPayload</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+  <span class="kw">readonly</span> correlationId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: EventInput</h3>
+        <p class="mb-3 text-sm">The input shape when creating events (timestamp is auto-generated):</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">EventInput</span>&lt;<span class="tp">TName</span> <span class="kw">extends</span> <span class="tp">string</span> = <span class="tp">string</span>, <span class="tp">TPayload</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> name: <span class="tp">TName</span>;
+  <span class="kw">readonly</span> payload: <span class="tp">TPayload</span>;
+  <span class="kw">readonly</span> correlationId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: EventDefinition</h3>
+        <p class="mb-3 text-sm">A registered event definition with schema and handler references:</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">EventDefinition</span>&lt;<span class="tp">TName</span> <span class="kw">extends</span> <span class="tp">string</span> = <span class="tp">string</span>, <span class="tp">TPayload</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> name: <span class="tp">TName</span>;
+  <span class="kw">readonly</span> description?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> version?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> schema?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> handlerCount: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Creating Events</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">defineEvent</span>, <span class="fn">createEvent</span> } <span class="kw">from</span> <span class="str">"@zudojs/events"</span>;
+
+<span class="cm">// Define a reusable event type</span>
+<span class="kw">const</span> UserCreated = <span class="fn">defineEvent</span>&lt;<span class="str">"user.created"</span>, { id: <span class="tp">string</span>; email: <span class="tp">string</span> }&gt;(<span class="str">"user.created"</span>);
+
+<span class="cm">// Create an instance</span>
+<span class="kw">const</span> event = <span class="fn">createEvent</span>(<span class="str">"user.created"</span>, {
+  id: <span class="str">"abc-123"</span>,
+  email: <span class="str">"alice@example.com"</span>,
+});
+
+<span class="cm">// event.name === "user.created"</span>
+<span class="cm">// event.timestamp === Date.now()</span></div>
+      </section>
+
+      <!-- EventBus -->
+      <section id="event-bus" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EVENT BUS</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">EventBus</code> is the central coordination point. It manages lifecycle, registration, publishing, middleware, and handler dispatch.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: EventBusOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">EventBusOptions</span> {
+  <span class="kw">readonly</span> name?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> errorHandler?: (error: <span class="tp">unknown</span>) => <span class="tp">void</span>;
+  <span class="kw">readonly</span> maxListeners?: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Enum: EventBusState</h3>
+        <div class="code-block"><span class="kw">enum</span> <span class="tp">EventBusState</span> {
+  IDLE = <span class="str">"idle"</span>,
+  STARTING = <span class="str">"starting"</span>,
+  RUNNING = <span class="str">"running"</span>,
+  STOPPING = <span class="str">"stopping"</span>,
+  STOPPED = <span class="str">"stopped"</span>,
+  ERROR = <span class="str">"error"</span>,
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory Functions</h3>
+        <div class="code-block"><span class="cm">// Create a bus that starts in IDLE state</span>
+<span class="kw">const</span> bus = <span class="fn">createEventBus</span>({ name: <span class="str">"app-events"</span> });
+
+<span class="cm">// Create a bus that starts in RUNNING state</span>
+<span class="kw">const</span> bus = <span class="fn">createStartedEventBus</span>({ name: <span class="str">"app-events"</span> });</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Methods</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Signature</th>
+                <th class="p-3 text-left">Returns</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">start()</td>
+                <td class="p-3">start(): Promise&lt;void&gt;</td>
+                <td class="p-3">Transitions IDLE → RUNNING. Rejects if not IDLE.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">stop()</td>
+                <td class="p-3">stop(): Promise&lt;void&gt;</td>
+                <td class="p-3">Transitions RUNNING → STOPPED. Rejects if not RUNNING.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">register()</td>
+                <td class="p-3">register(definition: EventDefinition): void</td>
+                <td class="p-3">Registers an event definition. Throws on duplicate.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">on()</td>
+                <td class="p-3">on(name: string, handler: EventHandler): EventSubscription</td>
+                <td class="p-3">Subscribes to an event. Returns subscription for cleanup.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">once()</td>
+                <td class="p-3">once(name: string, handler: EventHandler): EventSubscription</td>
+                <td class="p-3">Subscribes for one invocation only.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">onAny()</td>
+                <td class="p-3">onAny(handler: (event: Event) => void): EventSubscription</td>
+                <td class="p-3">Subscribes to all events.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">off()</td>
+                <td class="p-3">off(subscription: EventSubscription): void</td>
+                <td class="p-3">Removes a specific subscription.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">use()</td>
+                <td class="p-3">use(middleware: EventMiddleware): void</td>
+                <td class="p-3">Registers middleware in the pipeline.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">publish()</td>
+                <td class="p-3">publish(event: EventInput): Promise&lt;void&gt;</td>
+                <td class="p-3">Publishes an event through the middleware pipeline.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">publishEvent()</td>
+                <td class="p-3">publishEvent&lt;T&gt;(name: string, payload: T): Promise&lt;void&gt;</td>
+                <td class="p-3">Shorthand for publish with auto-timestamp.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">emit()</td>
+                <td class="p-3">emit(name: string, payload: unknown): void</td>
+                <td class="p-3">Synchronous emit (bypasses middleware).</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getDefinition()</td>
+                <td class="p-3">getDefinition(name: string): EventDefinition | undefined</td>
+                <td class="p-3">Retrieves event definition by name.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">hasEvent()</td>
+                <td class="p-3">hasEvent(name: string): boolean</td>
+                <td class="p-3">True if event is registered.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">unregister()</td>
+                <td class="p-3">unregister(name: string): void</td>
+                <td class="p-3">Removes event definition and all handlers.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">dispose()</td>
+                <td class="p-3">dispose(): Promise&lt;void&gt;</td>
+                <td class="p-3">Releases all resources, clears handlers.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Creating and Using a Bus</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createStartedEventBus</span>,
+  <span class="fn">defineEvent</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/events"</span>;
+
+<span class="kw">const</span> bus = <span class="fn">createStartedEventBus</span>({ name: <span class="str">"app"</span> });
+
+<span class="cm">// Register an event definition</span>
+bus.<span class="fn">register</span>({
+  name: <span class="str">"user.created"</span>,
+  description: <span class="str">"Emitted when a new user signs up"</span>,
+  version: <span class="str">"1.0.0"</span>,
+});
+
+<span class="cm">// Subscribe</span>
+bus.<span class="fn">on</span>(<span class="str">"user.created"</span>, <span class="kw">async</span> (event) => {
+  console.<span class="fn">log</span>(<span class="str">`New user: ${event.payload.email}`</span>);
+});
+
+<span class="cm">// Publish</span>
+<span class="kw">await</span> bus.<span class="fn">publish</span>({
+  name: <span class="str">"user.created"</span>,
+  payload: { id: <span class="str">"1"</span>, email: <span class="str">"alice@example.com"</span> },
+});
+
+<span class="cm">// Cleanup</span>
+<span class="kw">await</span> bus.<span class="fn">dispose</span>();</div>
+      </section>
+
+      <!-- EventEmitter -->
+      <section id="event-emitter" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EVENT EMITTER</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">EventEmitter</code> handles low-level event dispatching with pattern matching support. The EventBus wraps an internal emitter.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Enum: EventEmitterMode</h3>
+        <div class="code-block"><span class="kw">enum</span> <span class="tp">EventEmitterMode</span> {
+  SYNCHRONOUS = <span class="str">"synchronous"</span>,
+  ASYNCHRONOUS = <span class="str">"asynchronous"</span>,
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Enum: EventErrorMode</h3>
+        <div class="code-block"><span class="kw">enum</span> <span class="tp">EventErrorMode</span> {
+  THROW = <span class="str">"throw"</span>,
+  CATCH = <span class="str">"catch"</span>,
+  PROPAGATE = <span class="str">"propagate"</span>,
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Methods</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Signature</th>
+                <th class="p-3 text-left">Returns</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">on()</td>
+                <td class="p-3">on(pattern: string, handler: EventHandler): EventSubscription</td>
+                <td class="p-3">Subscribes to events matching the pattern.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">once()</td>
+                <td class="p-3">once(pattern: string, handler: EventHandler): EventSubscription</td>
+                <td class="p-3">Subscribes for one invocation, then auto-removes.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">onAny()</td>
+                <td class="p-3">onAny(handler: (event: Event) => void): EventSubscription</td>
+                <td class="p-3">Subscribes to all events regardless of name.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">off()</td>
+                <td class="p-3">off(subscription: EventSubscription): void</td>
+                <td class="p-3">Removes a subscription.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">emit()</td>
+                <td class="p-3">emit(name: string, payload: unknown): void</td>
+                <td class="p-3">Synchronous dispatch. Calls matching handlers.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">emitEvent()</td>
+                <td class="p-3">emitEvent(event: Event): Promise&lt;void&gt;</td>
+                <td class="p-3">Async dispatch of a full Event object.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">removeAllListeners()</td>
+                <td class="p-3">removeAllListeners(pattern?: string): void</td>
+                <td class="p-3">Removes all listeners for a pattern, or all listeners.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createSubscriptionGroup()</td>
+                <td class="p-3">createSubscriptionGroup(): EventSubscriptionGroup</td>
+                <td class="p-3">Creates a group for batch unsubscribe.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">dispose()</td>
+                <td class="p-3">dispose(): void</td>
+                <td class="p-3">Clears all listeners.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- EventRegistry -->
+      <section id="event-registry" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EVENT REGISTRY</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">EventRegistry</code> is a centralized store for event definitions and handler mappings. It enables event discovery, validation, and subscription management.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Enum: EventRegistryChangeType</h3>
+        <div class="code-block"><span class="kw">enum</span> <span class="tp">EventRegistryChangeType</span> {
+  REGISTERED = <span class="str">"registered"</span>,
+  UNREGISTERED = <span class="str">"unregistered"</span>,
+  HANDLER_ADDED = <span class="str">"handler_added"</span>,
+  HANDLER_REMOVED = <span class="str">"handler_removed"</span>,
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Methods</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Signature</th>
+                <th class="p-3 text-left">Returns</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">register()</td>
+                <td class="p-3">register(definition: EventDefinition): void</td>
+                <td class="p-3">Stores an event definition. Throws on duplicate.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registerHandler()</td>
+                <td class="p-3">registerHandler(name: string, handler: EventHandler): void</td>
+                <td class="p-3">Associates a handler with an event name.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">get()</td>
+                <td class="p-3">get(name: string): EventDefinition | undefined</td>
+                <td class="p-3">Retrieves a definition by name.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">require()</td>
+                <td class="p-3">require(name: string): EventDefinition</td>
+                <td class="p-3">Retrieves or throws EventNotRegisteredError.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">has()</td>
+                <td class="p-3">has(name: string): boolean</td>
+                <td class="p-3">True if event is registered.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">unregister()</td>
+                <td class="p-3">unregister(name: string): void</td>
+                <td class="p-3">Removes event definition and its handlers.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getHandler()</td>
+                <td class="p-3">getHandler(name: string): EventHandler | undefined</td>
+                <td class="p-3">Returns the first registered handler for an event.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getDefinitions()</td>
+                <td class="p-3">getDefinitions(): readonly EventDefinition[]</td>
+                <td class="p-3">All registered definitions.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getHandlers()</td>
+                <td class="p-3">getHandlers(): ReadonlyMap&lt;string, EventHandler[]&gt;</td>
+                <td class="p-3">All handlers keyed by event name.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getHandlersForEvent()</td>
+                <td class="p-3">getHandlersForEvent(name: string): EventHandler[]</td>
+                <td class="p-3">All handlers for a specific event name.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">subscribe()</td>
+                <td class="p-3">subscribe(name: string, handler: EventHandler): EventSubscription</td>
+                <td class="p-3">Registers handler and returns subscription.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">clear()</td>
+                <td class="p-3">clear(): void</td>
+                <td class="p-3">Removes all definitions and handlers.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">dispose()</td>
+                <td class="p-3">dispose(): void</td>
+                <td class="p-3">Clears all data and subscriptions.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Handlers -->
+      <section id="handlers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HANDLERS</h2>
+
+        <h3 class="text-lg font-bold mb-3">Type: EventHandler</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">EventHandler</span> = (
+  event: <span class="tp">Event</span>,
+  context: <span class="tp">EventHandlerContext</span>,
+) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; | <span class="tp">void</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: EventHandlerContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">EventHandlerContext</span> {
+  <span class="kw">readonly</span> eventName: <span class="tp">string</span>;
+  <span class="kw">readonly</span> handlerName?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+  <span class="kw">readonly</span> correlationId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> abortSignal?: <span class="tp">AbortSignal</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: EventHandlerOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">EventHandlerOptions</span> {
+  <span class="kw">readonly</span> priority?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> once?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> errorHandler?: (error: <span class="tp">unknown</span>) =&gt; <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Pattern Matching</h3>
+        <p class="mb-3 text-sm">Handlers are matched against event names using three patterns:</p>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Pattern</th>
+                <th class="p-3 text-left">Example</th>
+                <th class="p-3 text-left">Matches</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">Exact</td>
+                <td class="p-3"><code>"user.created"</code></td>
+                <td class="p-3">Only <code>"user.created"</code></td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">Namespace wildcard</td>
+                <td class="p-3"><code>"user.*"</code></td>
+                <td class="p-3">All events under <code>user.</code> namespace: <code>user.created</code>, <code>user.updated</code>, <code>user.deleted</code></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">Catch-all</td>
+                <td class="p-3"><code>"*"</code></td>
+                <td class="p-3">Every event regardless of name</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Registering Handlers</h3>
+        <div class="code-block"><span class="cm">// Exact match</span>
+bus.<span class="fn">on</span>(<span class="str">"user.created"</span>, <span class="kw">async</span> (event, ctx) => {
+  console.<span class="fn">log</span>(<span class="str">"User created:"</span>, event.payload);
+});
+
+<span class="cm">// Namespace wildcard</span>
+bus.<span class="fn">on</span>(<span class="str">"user.*"</span>, <span class="kw">async</span> (event, ctx) => {
+  console.<span class="fn">log</span>(<span class="str">`User event: ${event.name}`</span>);
+});
+
+<span class="cm">// Catch-all</span>
+bus.<span class="fn">on</span>(<span class="str">"*"</span>, <span class="kw">async</span> (event, ctx) => {
+  <span class="cm">// Log every event</span>
+  logger.<span class="fn">info</span>(<span class="str">"event published"</span>, {
+    name: event.name,
+    correlationId: ctx.correlationId,
+  });
+});</div>
+      </section>
+
+      <!-- Subscriptions -->
+      <section id="subscriptions" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SUBSCRIPTIONS</h2>
+
+        <h3 class="text-lg font-bold mb-3">Interface: EventSubscription</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">EventSubscription</span> {
+  <span class="kw">readonly</span> id: <span class="tp">string</span>;
+  <span class="kw">readonly</span> eventName: <span class="tp">string</span>;
+  <span class="kw">readonly</span> pattern: <span class="tp">string</span>;
+  <span class="fn">unsubscribe</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: EventSubscriptionGroup</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">EventSubscriptionGroup</span> {
+  <span class="fn">add</span>(subscription: <span class="tp">EventSubscription</span>): <span class="tp">void</span>;
+  <span class="fn">unsubscribeAll</span>(): <span class="tp">void</span>;
+  <span class="kw">readonly</span> size: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Cleanup Pattern</h3>
+        <div class="code-block"><span class="cm">// Individual unsubscribe</span>
+<span class="kw">const</span> sub = bus.<span class="fn">on</span>(<span class="str">"user.created"</span>, handler);
+<span class="cm">// Later...</span>
+sub.<span class="fn">unsubscribe</span>();
+
+<span class="cm">// Batch unsubscribe with group</span>
+<span class="kw">const</span> group = bus.<span class="fn">createSubscriptionGroup</span>();
+group.<span class="fn">add</span>(bus.<span class="fn">on</span>(<span class="str">"user.created"</span>, handler1));
+group.<span class="fn">add</span>(bus.<span class="fn">on</span>(<span class="str">"user.updated"</span>, handler2));
+
+<span class="cm">// Cleanup all at once</span>
+group.<span class="fn">unsubscribeAll</span>();</div>
+      </section>
+
+      <!-- Middleware -->
+      <section id="middleware" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">MIDDLEWARE</h2>
+        <p class="mb-4">
+          Middleware intercepts events at three points: before dispatch, after dispatch, and around the entire pipeline. This is where you add logging, validation, metrics, and error handling.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Type: EventMiddleware</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">EventMiddleware</span> = (
+  context: <span class="tp">EventMiddlewareContext</span>,
+  next: () =&gt; <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;,
+) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: EventMiddlewareContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">EventMiddlewareContext</span> {
+  <span class="kw">readonly</span> event: <span class="tp">Event</span>;
+  <span class="kw">readonly</span> eventName: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+  <span class="kw">readonly</span> handlerCount: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Built-in Middleware</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Middleware</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">beforeEvent()</td>
+                <td class="p-3">Runs logic before event dispatch</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">afterEvent()</td>
+                <td class="p-3">Runs logic after event dispatch completes</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">aroundEvent()</td>
+                <td class="p-3">Wraps the entire dispatch (before + after)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">validateEventMiddleware()</td>
+                <td class="p-3">Validates event payload against registered schema</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">timingEventMiddleware()</td>
+                <td class="p-3">Measures handler execution time and logs it</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Middleware Pipeline</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">timingEventMiddleware</span>,
+  <span class="fn">validateEventMiddleware</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/events"</span>;
+
+<span class="cm">// Timing middleware</span>
+bus.<span class="fn">use</span>(<span class="fn">timingEventMiddleware</span>());
+
+<span class="cm">// Validation middleware</span>
+bus.<span class="fn">use</span>(<span class="fn">validateEventMiddleware</span>());
+
+<span class="cm">// Custom middleware</span>
+bus.<span class="fn">use</span>(<span class="kw">async</span> (ctx, next) => {
+  console.<span class="fn">log</span>(<span class="str">`→ ${ctx.event.name} (${ctx.handlerCount} handlers)`</span>);
+  <span class="kw">const</span> start = Date.<span class="fn">now</span>();
+  <span class="kw">await</span> <span class="fn">next</span>();
+  console.<span class="fn">log</span>(<span class="str">`← ${ctx.event.name} in ${Date.<span class="fn">now</span>() - start}ms`</span>);
+});</div>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="errors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudojs/errors</code> and re-exported by this package.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">EventError</td><td class="p-3">Base error for all event-related issues</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">EventNotRegisteredError</td><td class="p-3">Publishing an event not in the registry</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">EventHandlerError</td><td class="p-3">A handler threw during dispatch</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">EventBusNotRunningError</td><td class="p-3">Publishing on a bus not in RUNNING state</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">EventBusAlreadyRunningError</td><td class="p-3">Starting a bus already in RUNNING state</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">EventMiddlewareError</td><td class="p-3">A middleware threw during pipeline execution</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">EventValidationError</td><td class="p-3">Event payload failed schema validation</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">EventTimeoutError</td><td class="p-3">Event handler exceeded timeout</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">EventDuplicateError</td><td class="p-3">Duplicate event registration</td></tr>
+              <tr><td class="p-3 font-mono">EventDisposeError</td><td class="p-3">Error during bus disposal</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Handling Pattern</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">isEventError</span>,
+  <span class="tp">EventHandlerError</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/events"</span>;
+
+<span class="kw">try</span> {
+  <span class="kw">await</span> bus.<span class="fn">publish</span>(event);
+} <span class="kw">catch</span> (error) {
+  <span class="kw">if</span> (<span class="fn">isEventError</span>(error)) {
+    console.<span class="fn">error</span>(<span class="str">`Event ${error.eventName}: ${error.message}`</span>);
+    <span class="kw">if</span> (error <span class="kw">instanceof</span> <span class="tp">EventHandlerError</span>) {
+      <span class="cm">// Handler-specific error handling</span>
+    }
+  }
+}</div>
+      </section>
+
+      <!-- Testing -->
+      <section id="testing" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TESTING</h2>
+        <p class="mb-4">Import from <code class="bg-black/5 px-1">@zudojs/events</code> for test utilities. The bus is fully synchronous-friendly for testing.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Full Test Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">describe</span>, <span class="fn">it</span>, <span class="fn">expect</span> } <span class="kw">from</span> <span class="str">"vitest"</span>;
+<span class="kw">import</span> {
+  <span class="fn">createEventBus</span>,
+  <span class="fn">createStartedEventBus</span>,
+  <span class="fn">defineEvent</span>,
+  <span class="fn">createEvent</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/events"</span>;
+
+<span class="fn">describe</span>(<span class="str">"EventBus"</span>, () => {
+  <span class="fn">it</span>(<span class="str">"delivers events to subscribers"</span>, <span class="kw">async</span> () => {
+    <span class="kw">const</span> bus = <span class="fn">createStartedEventBus</span>();
+    <span class="kw">const</span> received: <span class="tp">unknown</span>[] = [];
+
+    bus.<span class="fn">register</span>({ name: <span class="str">"test.event"</span> });
+    bus.<span class="fn">on</span>(<span class="str">"test.event"</span>, <span class="kw">async</span> (event) => {
+      received.<span class="fn">push</span>(event.payload);
+    });
+
+    <span class="kw">await</span> bus.<span class="fn">publish</span>({
+      name: <span class="str">"test.event"</span>,
+      payload: { value: <span class="num">42</span> },
+    });
+
+    <span class="fn">expect</span>(received).<span class="fn">toHaveLength</span>(<span class="num">1</span>);
+    <span class="fn">expect</span>(received[<span class="num">0</span>]).<span class="fn">toEqual</span>({ value: <span class="num">42</span> });
+
+    <span class="kw">await</span> bus.<span class="fn">dispose</span>();
+  });
+
+  <span class="fn">it</span>(<span class="str">"supports namespace wildcards"</span>, <span class="kw">async</span> () => {
+    <span class="kw">const</span> bus = <span class="fn">createStartedEventBus</span>();
+    <span class="kw">const</span> events: <span class="tp">string</span>[] = [];
+
+    bus.<span class="fn">on</span>(<span class="str">"user.*"</span>, <span class="kw">async</span> (event) => {
+      events.<span class="fn">push</span>(event.name);
+    });
+
+    <span class="kw">await</span> bus.<span class="fn">publish</span>({ name: <span class="str">"user.created"</span>, payload: {} });
+    <span class="kw">await</span> bus.<span class="fn">publish</span>({ name: <span class="str">"user.updated"</span>, payload: {} });
+    <span class="kw">await</span> bus.<span class="fn">publish</span>({ name: <span class="str">"order.created"</span>, payload: {} });
+
+    <span class="fn">expect</span>(events).<span class="fn">toEqual</span>([<span class="str">"user.created"</span>, <span class="str">"user.updated"</span>]);
+
+    <span class="kw">await</span> bus.<span class="fn">dispose</span>();
+  });
+
+  <span class="fn">it</span>(<span class="str">"executes middleware pipeline"</span>, <span class="kw">async</span> () => {
+    <span class="kw">const</span> bus = <span class="fn">createStartedEventBus</span>();
+    <span class="kw">const</span> log: <span class="tp">string</span>[] = [];
+
+    bus.<span class="fn">use</span>(<span class="kw">async</span> (ctx, next) => {
+      log.<span class="fn">push</span>(<span class="str">"before"</span>);
+      <span class="kw">await</span> <span class="fn">next</span>();
+      log.<span class="fn">push</span>(<span class="str">"after"</span>);
+    });
+
+    bus.<span class="fn">register</span>({ name: <span class="str">"test.event"</span> });
+    bus.<span class="fn">on</span>(<span class="str">"test.event"</span>, <span class="kw">async</span> () => {
+      log.<span class="fn">push</span>(<span class="str">"handler"</span>);
+    });
+
+    <span class="kw">await</span> bus.<span class="fn">publish</span>({ name: <span class="str">"test.event"</span>, payload: {} });
+
+    <span class="fn">expect</span>(log).<span class="fn">toEqual</span>([<span class="str">"before"</span>, <span class="str">"handler"</span>, <span class="str">"after"</span>]);
+
+    <span class="kw">await</span> bus.<span class="fn">dispose</span>();
+  });
+
+  <span class="fn">it</span>(<span class="str">"unsubscribes correctly"</span>, <span class="kw">async</span> () => {
+    <span class="kw">const</span> bus = <span class="fn">createStartedEventBus</span>();
+    <span class="kw">let</span> count = <span class="num">0</span>;
+
+    <span class="kw">const</span> sub = bus.<span class="fn">on</span>(<span class="str">"counter"</span>, <span class="kw">async</span> () => {
+      count++;
+    });
+
+    <span class="kw">await</span> bus.<span class="fn">publish</span>({ name: <span class="str">"counter"</span>, payload: {} });
+    <span class="fn">expect</span>(count).<span class="fn">toBe</span>(<span class="num">1</span>);
+
+    sub.<span class="fn">unsubscribe</span>();
+
+    <span class="kw">await</span> bus.<span class="fn">publish</span>({ name: <span class="str">"counter"</span>, payload: {} });
+    <span class="fn">expect</span>(count).<span class="fn">toBe</span>(<span class="num">1</span>);
+
+    <span class="kw">await</span> bus.<span class="fn">dispose</span>();
+  });
+});</div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete example: define events, register on bus, add middleware, publish, and handle.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createStartedEventBus</span>,
+  <span class="fn">defineEvent</span>,
+  <span class="fn">createEvent</span>,
+  <span class="fn">timingEventMiddleware</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/events"</span>;
+
+<span class="cm">// 1. Define event types</span>
+<span class="kw">const</span> UserCreated = <span class="fn">defineEvent</span>&lt;<span class="str">"user.created"</span>, {
+  id: <span class="tp">string</span>;
+  email: <span class="tp">string</span>;
+}&gt;(<span class="str">"user.created"</span>);
+
+<span class="kw">const</span> UserDeleted = <span class="fn">defineEvent</span>&lt;<span class="str">"user.deleted"</span>, {
+  id: <span class="tp">string</span>;
+}&gt;(<span class="str">"user.deleted"</span>);
+
+<span class="cm">// 2. Create bus with middleware</span>
+<span class="kw">const</span> bus = <span class="fn">createStartedEventBus</span>({ name: <span class="str">"app"</span> });
+bus.<span class="fn">use</span>(<span class="fn">timingEventMiddleware</span>());
+
+<span class="cm">// 3. Register event definitions</span>
+bus.<span class="fn">register</span>({ name: <span class="str">"user.created"</span>, version: <span class="str">"1.0.0"</span> });
+bus.<span class="fn">register</span>({ name: <span class="str">"user.deleted"</span>, version: <span class="str">"1.0.0"</span> });
+
+<span class="cm">// 4. Subscribe to specific events</span>
+bus.<span class="fn">on</span>(<span class="str">"user.created"</span>, <span class="kw">async</span> (event, ctx) => {
+  <span class="kw">await</span> <span class="fn">sendWelcomeEmail</span>(event.payload.email);
+});
+
+<span class="cm">// 5. Subscribe to namespace</span>
+bus.<span class="fn">on</span>(<span class="str">"user.*"</span>, <span class="kw">async</span> (event) => {
+  <span class="kw">await</span> <span class="fn">auditLog</span>(event.name, event.payload);
+});
+
+<span class="cm">// 6. Global catch-all for metrics</span>
+bus.<span class="fn">onAny</span>(<span class="kw">async</span> (event) => {
+  metrics.<span class="fn">increment</span>(<span class="str">`event.${event.name}`</span>);
+});
+
+<span class="cm">// 7. Publish events</span>
+<span class="kw">await</span> bus.<span class="fn">publish</span>({
+  name: <span class="str">"user.created"</span>,
+  payload: { id: <span class="str">"u-001"</span>, email: <span class="str">"alice@example.com"</span> },
+  correlationId: <span class="str">"req-abc-123"</span>,
+});
+
+<span class="cm">// 8. Graceful shutdown</span>
+process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span class="kw">async</span> () => {
+  <span class="kw">await</span> bus.<span class="fn">dispose</span>();
+  process.<span class="fn">exit</span>(<span class="num">0</span>);
+});</div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#architecture-position" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#core-api-event" class="toc-link">Core API — Event</a>
+      <a href="#event-bus" class="toc-link">Event Bus</a>
+      <a href="#event-emitter" class="toc-link">Event Emitter</a>
+      <a href="#event-registry" class="toc-link">Event Registry</a>
+      <a href="#handlers" class="toc-link">Handlers</a>
+      <a href="#subscriptions" class="toc-link">Subscriptions</a>
+      <a href="#middleware" class="toc-link">Middleware</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#testing" class="toc-link">Testing</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>
