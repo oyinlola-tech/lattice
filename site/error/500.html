@@ -10,6 +10,7 @@
   <script src="/js/tailwind-config.js"></script>
   <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
   <link rel="stylesheet" href="/css/errors.css">
+  <link rel="stylesheet" href="/css/playground.css">
 </head>
 <body class="bg-black text-white min-h-screen flex flex-col">
 
@@ -88,17 +89,10 @@
   </main>
 
   <!-- Footer -->
-  <footer class="border-t-2 border-white px-6 py-4">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-      <p class="text-xs text-gray-500">© 2026 Zudo Framework</p>
-      <div class="flex items-center gap-4 text-xs">
-        <a href="/" class="text-gray-500 hover:text-white font-medium">Home</a>
-        <a href="/docs/packages" class="text-gray-500 hover:text-white font-medium">Docs</a>
-        <a href="https://github.com/oyinlola-tech/zudo" class="text-gray-500 hover:text-white font-medium" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-  </footer>
+  <div id="zudo-footer"></div>
 
   <script src="/js/router.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
 </body>
 </html>

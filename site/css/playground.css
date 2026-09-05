@@ -1,0 +1,187 @@
+/* Zudo Code Playground — Floating Editor */
+
+.playground-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 56px;
+  height: 56px;
+  background: #000;
+  color: #FFF;
+  border: 3px solid #FF0000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.25rem;
+  font-family: system-ui, monospace;
+}
+
+.playground-toggle:hover {
+  background: #FF0000;
+  color: #000;
+}
+
+.playground-panel {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 520px;
+  height: 55vh;
+  max-height: 55vh;
+  background: #0D1117;
+  border-left: 3px solid #FF0000;
+  border-top: 3px solid #FF0000;
+  z-index: 10000;
+  display: none;
+  flex-direction: column;
+  font-family: 'Courier New', monospace;
+}
+
+.playground-panel.open {
+  display: flex;
+}
+
+.playground-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #161B22;
+  border-bottom: 2px solid #FF0000;
+  flex-shrink: 0;
+}
+
+.playground-header-title {
+  color: #FFF;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.playground-header-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.playground-btn {
+  padding: 4px 12px;
+  border: 2px solid #FFF;
+  background: transparent;
+  color: #FFF;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: system-ui, monospace;
+}
+
+.playground-btn:hover {
+  background: #FFF;
+  color: #000;
+}
+
+.playground-btn-run {
+  border-color: #00FF00;
+  color: #00FF00;
+}
+
+.playground-btn-run:hover {
+  background: #00FF00;
+  color: #000;
+}
+
+.playground-btn-clear {
+  border-color: #FF0000;
+  color: #FF0000;
+}
+
+.playground-btn-clear:hover {
+  background: #FF0000;
+  color: #000;
+}
+
+.playground-btn-close {
+  border-color: #666;
+  color: #666;
+}
+
+.playground-btn-close:hover {
+  background: #666;
+  color: #000;
+}
+
+.playground-editor-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.playground-editor {
+  flex: 1;
+  width: 100%;
+  background: #0D1117;
+  color: #00FF00;
+  border: none;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  tab-size: 2;
+}
+
+.playground-output-wrap {
+  border-top: 2px solid #333;
+  height: 140px;
+  flex-shrink: 0;
+}
+
+.playground-output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px;
+  background: #161B22;
+  border-bottom: 1px solid #333;
+}
+
+.playground-output-label {
+  color: #888;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.playground-output {
+  width: 100%;
+  height: calc(100% - 24px);
+  background: #0D1117;
+  color: #CCC;
+  border: none;
+  padding: 8px 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  resize: none;
+  outline: none;
+  overflow-y: auto;
+}
+
+.playground-output .log-error { color: #FF4444; }
+.playground-output .log-warn { color: #FFAA00; }
+.playground-output .log-info { color: #00AAFF; }
+.playground-output .log-result { color: #00FF00; }
+
+@media (max-width: 640px) {
+  .playground-panel {
+    width: 100vw;
+    height: 70vh;
+  }
+}
