@@ -1,84 +1,59 @@
 # Zudo Documentation Site
 
-This directory contains the public-facing documentation website for the Zudo framework.
+Public-facing documentation website for the Zudo framework.
 
 ## Structure
 
 ```
 site/
-├── index.html          # Landing page
-├── design.md           # Design system documentation
+├── index.html              # Landing page
+├── design.md               # Design system documentation
 ├── css/
-│   └── styles.css      # Custom styles (Brutalist design system)
+│   ├── docs.css            # Documentation pages
+│   ├── home.css            # Landing page
+│   ├── errors.css          # Error pages (404, 401, 403, 500, 503)
+│   ├── packages.css        # Package filter buttons
+│   └── playground.css      # Floating code playground
 ├── js/
-│   ├── search.js       # Client-side search with keyboard navigation
-│   ├── navigation.js   # Sidebar navigation, breadcrumbs, TOC
-│   └── main.js         # Global interactions (copy code, scroll)
-└── docs/               # Documentation pages (to be created)
+│   ├── tailwind-config.js  # Shared Tailwind config
+│   ├── components.js       # Reusable nav/footer injection
+│   ├── playground.js       # Floating code playground
+│   ├── router.js           # Client-side navigation
+│   ├── toc.js              # TOC IntersectionObserver
+│   ├── docs.js             # Docs sidebar/TOC/search/code-copy
+│   ├── home.js             # Homepage search/menu
+│   ├── error-pages.js      # Error page scripts
+│   └── packages.js         # Package filter scripts
+├── docs/                   # 31 documentation pages
+├── error/                  # 5 error pages
+└── assets/                 # SVG icons (favicon, logo, icon)
 ```
-
-## Design System
-
-The site uses a **Brutalist** design system:
-
-- Zero border-radius
-- No transitions (instant state changes)
-- Bold typography (700+)
-- Pure primary colors (Red, Blue, Yellow, Black, White)
-- Visible borders
-- System fonts only
-- SVG icons only
-
-See `design.md` for the complete design system documentation.
-
-## Development
-
-To preview the site locally:
-
-```bash
-# Using Python
-cd site
-python3 -m http.server 8000
-
-# Using Node.js
-npx serve site
-
-# Using PHP
-cd site
-php -S localhost:8000
-```
-
-Then open `http://localhost:8000` in your browser.
 
 ## Deployment
 
-The site is deployed to GitHub Pages from the `site/` directory.
+Vercel config is at the repo root (`vercel.json`), not in this directory.
 
-### Automatic Deployment
+- `outputDirectory: "site"` — Vercel serves files from this folder
+- `installCommand: "echo noop"` — skips monorepo install (static site, no build)
+- Clean URLs enabled — `/docs/packages/auth` serves `packages-auth.html`
 
-Push changes to the `main` branch. GitHub Actions will automatically build and deploy.
-
-### Manual Deployment
+### Deploy
 
 ```bash
-# Using GitHub CLI
-gh api repos/:owner/:repo/pages -X POST -f build_type=legacy -f source.branch=main -f source.path=/site
+# From repo root
+vercel --prod
+
+# Or push to main — Vercel auto-deploys
 ```
 
-## SEO
+## Local Development
 
-Each page includes:
+```bash
+cd site
+npx serve .
+```
 
-- Unique `<title>` tag
-- Meta description
-- Open Graph tags
-- Semantic HTML structure
-- Proper heading hierarchy
+## Design
 
-## Accessibility
-
-- Keyboard navigable
-- Focus visible states
-- Semantic HTML
-- ARIA labels where needed
-- High contrast (4.5:1 minimum)
+Softened brutalist system — zero border-radius, visible borders, muted palette.
+See `design.md` for full documentation.
