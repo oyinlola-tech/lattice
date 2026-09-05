@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/logger — Structured Logging Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/logger — structured logging with transports, formatters, context propagation, and lifecycle management for the Zudojs framework.">
+  <meta name="keywords" content="zudo, logger, logging, structured-logs, transports, formatters, context, TypeScript, framework">
+  <link rel="canonical" href="https://zudo.dev/docs/packages/logger/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="@zudojs/logger — Structured Logging Documentation">
+  <meta property="og:description" content="Structured logging with transports, formatters, context propagation, and lifecycle management for the Zudojs framework.">
+  <meta property="og:url" content="https://zudo.dev/docs/packages/logger/">
+  <meta property="og:site_name" content="Zudo">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-og.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="@zudojs/logger — Structured Logging Documentation">
+  <meta name="twitter:description" content="Structured logging with transports, formatters, context propagation, and lifecycle management for the Zudojs framework.">
+  <meta name="twitter:image" content="https://zudo.dev/assets/zudo-og.png">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "name": "@zudojs/logger",
+    "description": "Structured logging with transports, formatters, context propagation, and lifecycle management for the Zudojs framework.",
+    "url": "https://zudo.dev/docs/packages/logger/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zudo",
+      "url": "https://zudo.dev"
+    },
+    "version": "0.0.1",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js >= 24",
+    "license": "https://opensource.org/licenses/MIT"
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages-logger" class="sidebar-item sidebar-item-active">@zudojs/logger</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/logger</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/logger</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Structured logging with transports, formatters, context propagation, child loggers, and lifecycle management. Every log entry is a typed, serialized object flowing through a configurable pipeline.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">LOGGING</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">STRUCTURED</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">TRANSPORTS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">CONTEXT</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/logger
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/logger
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/logger</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependency:</strong> <code>@zudojs/logger</code> depends on <code>@zudojs/errors</code> for its error hierarchy (<code>LoggingError</code>, <code>LoggerTransportError</code>, etc.).
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/logger</code> is the structured logging infrastructure for Zudojs. It provides:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Structured logging</strong> — every log entry is a typed <code>LoggerEntry</code> object, not a plain string</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Six log levels</strong> — FATAL, ERROR, WARN, INFO, DEBUG, TRACE with numeric severity ordering</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Multiple transports</strong> — console, buffered, conditional, and multi-transport composition</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Formatters</strong> — JSON, text, compact, structured, development, and production formatters</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Context propagation</strong> — correlationId, requestId, traceId, spanId, userId, tenantId, sessionId, jobId, moduleId, operationId</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Child loggers</strong> — inherit parent configuration and merge metadata</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Factory pattern</strong> — <code>LoggerFactory</code> manages logger creation, caching, and lifecycle</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Lifecycle management</strong> — enable/disable, flush, close, and dispose operations</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Buffered transport</strong> — batch entries before forwarding with configurable size and flush interval</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Conditional transport</strong> — forward entries only when a predicate passes</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Async logging</strong> — optional asynchronous dispatch with configurable transport timeout</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Log entries are structured data objects, not formatted strings. The formatter layer handles presentation; the transport layer handles delivery. This separation makes it trivial to switch between development and production output without touching application code.
+        </div>
+      </section>
+
+      <!-- Architecture Position -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6 space-y-3">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">APPLICATION LAYER (CQRS, Modules, Handlers)</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">FEATURE PACKAGES (http, database, cache, auth, queue)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">LOGGER (@zudojs/logger)</div>
+          <div class="bg-black text-white p-3 font-bold text-center text-sm">@zudojs/errors (FOUNDATION LEAF PACKAGE)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          <code>@zudojs/logger</code> sits in the infrastructure layer. Application code and feature packages create loggers. The logger formats entries and dispatches them to transports. Its only internal dependency is <code>@zudojs/errors</code> for the error hierarchy.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Error hierarchy (LoggingError, LoggerTransportError, LoggerFormatterError, etc.)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm" colspan="3" class="text-center text-black/40 italic">Dev dependencies: typescript 7.x, vitest</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.0.1</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <!-- Log Levels -->
+      <section id="log-levels" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LOG LEVELS</h2>
+        <p class="mb-4">
+          Six severity levels with numeric ordering. Lower values represent more severe messages. The logger compares <code>messageLevel &lt;= threshold</code> to decide whether to emit.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Enum: LoggerLevel</h3>
+        <div class="code-block"><span class="kw">enum</span> <span class="tp">LoggerLevel</span> {
+  FATAL = <span class="num">0</span>,
+  ERROR = <span class="num">1</span>,
+  WARN  = <span class="num">2</span>,
+  INFO  = <span class="num">3</span>,
+  DEBUG = <span class="num">4</span>,
+  TRACE = <span class="num">5</span>,
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: LoggerLevelName</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">LoggerLevelName</span> =
+  <span class="str">"fatal"</span> | <span class="str">"error"</span> | <span class="str">"warn"</span> | <span class="str">"info"</span> | <span class="str">"debug"</span> | <span class="str">"trace"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Utility Functions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Signature</th>
+                <th class="p-3 text-left">Returns</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">loggerLevelToName</td>
+                <td class="p-3">(level: LoggerLevel) =&gt; LoggerLevelName</td>
+                <td class="p-3">Converts numeric level to canonical string name</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">loggerLevelFromName</td>
+                <td class="p-3">(name: string) =&gt; LoggerLevel</td>
+                <td class="p-3">Converts string name to enum value (accepts "warning", "information")</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">shouldLog</td>
+                <td class="p-3">(threshold, messageLevel) =&gt; boolean</td>
+                <td class="p-3">True if message should be emitted at the given threshold</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getLoggerLevels</td>
+                <td class="p-3">() =&gt; readonly LoggerLevel[]</td>
+                <td class="p-3">Returns all six canonical levels</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getLoggerLevelNames</td>
+                <td class="p-3">() =&gt; readonly LoggerLevelName[]</td>
+                <td class="p-3">Returns all six canonical level names</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-note mt-4">
+          <strong class="text-zudo-blue">Threshold Behavior:</strong> A logger set to <code>LoggerLevel.WARN</code> (2) emits FATAL (0), ERROR (1), and WARN (2). It suppresses INFO (3), DEBUG (4), and TRACE (5).
+        </div>
+      </section>
+
+      <!-- Logger Interface -->
+      <section id="logger-interface" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LOGGER INTERFACE</h2>
+        <p class="mb-4">
+          The core contract every logger implementation satisfies. Application code depends on this interface, not concrete classes.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: Logger</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Logger</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> level: <span class="tp">LoggerLevel</span>;
+  <span class="kw">readonly</span> enabled: <span class="tp">boolean</span>;
+
+  <span class="fn">fatal</span>(message: <span class="tp">string</span>, metadata?: <span class="tp">LogMetadata</span>): <span class="tp">void</span>;
+  <span class="fn">error</span>(message: <span class="tp">string</span>, metadata?: <span class="tp">LogMetadata</span>): <span class="tp">void</span>;
+  <span class="fn">warn</span>(message: <span class="tp">string</span>, metadata?: <span class="tp">LogMetadata</span>): <span class="tp">void</span>;
+  <span class="fn">info</span>(message: <span class="tp">string</span>, metadata?: <span class="tp">LogMetadata</span>): <span class="tp">void</span>;
+  <span class="fn">debug</span>(message: <span class="tp">string</span>, metadata?: <span class="tp">LogMetadata</span>): <span class="tp">void</span>;
+  <span class="fn">trace</span>(message: <span class="tp">string</span>, metadata?: <span class="tp">LogMetadata</span>): <span class="tp">void</span>;
+
+  <span class="fn">log</span>(level: <span class="tp">LoggerLevel</span>, message: <span class="tp">string</span>, options?: <span class="tp">LogOptions</span>): <span class="tp">void</span>;
+
+  <span class="fn">child</span>(options?: <span class="tp">ChildLoggerOptions</span>): <span class="tp">Logger</span>;
+  <span class="fn">withContext</span>(context: <span class="tp">LoggerContext</span>): <span class="tp">Logger</span>;
+
+  <span class="fn">setLevel</span>(level: <span class="tp">LoggerLevel</span>): <span class="tp">void</span>;
+  <span class="fn">enable</span>(): <span class="tp">void</span>;
+  <span class="fn">disable</span>(): <span class="tp">void</span>;
+
+  <span class="fn">flush</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">close</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Methods</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">fatal / error / warn / info / debug / trace</td>
+                <td class="p-3">Log at the corresponding severity level with optional metadata</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">log(level, message, options?)</td>
+                <td class="p-3">Dynamic level logging with extended options (error, source, context)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">child(options?)</td>
+                <td class="p-3">Creates a child logger inheriting configuration and merging metadata</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">withContext(context)</td>
+                <td class="p-3">Returns a scoped logger that injects context into every entry</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">setLevel(level)</td>
+                <td class="p-3">Changes the log level threshold at runtime</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">enable() / disable()</td>
+                <td class="p-3">Toggle the logger on/off without destroying it</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">flush()</td>
+                <td class="p-3">Waits for all buffered transport writes to complete</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">close()</td>
+                <td class="p-3">Flushes and releases all transport resources</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Creating Loggers -->
+      <section id="creating-loggers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CREATING LOGGERS</h2>
+
+        <h3 class="text-lg font-bold mb-3">Function: createLogger</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createLogger</span>(options?: <span class="tp">LoggerOptions</span>): <span class="tp">Logger</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LoggerOptions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Option</th>
+                <th class="p-3 text-left">Type</th>
+                <th class="p-3 text-left">Default</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">name</td>
+                <td class="p-3">string</td>
+                <td class="p-3">"zudojs"</td>
+                <td class="p-3">Logger identifier in log entries</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">level</td>
+                <td class="p-3">LoggerLevel</td>
+                <td class="p-3">INFO (3)</td>
+                <td class="p-3">Minimum severity threshold</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">environment</td>
+                <td class="p-3">string</td>
+                <td class="p-3">undefined</td>
+                <td class="p-3">Environment name (development, production, etc.)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">metadata</td>
+                <td class="p-3">LoggerContextData</td>
+                <td class="p-3">{}</td>
+                <td class="p-3">Default metadata merged into every entry</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">formatter</td>
+                <td class="p-3">LoggerFormatterLike</td>
+                <td class="p-3">"text"</td>
+                <td class="p-3">Formatter for converting entries to output</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">transports</td>
+                <td class="p-3">LoggerTransportLike[]</td>
+                <td class="p-3">[]</td>
+                <td class="p-3">Destinations for formatted log entries</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">enabled</td>
+                <td class="p-3">boolean</td>
+                <td class="p-3">true</td>
+                <td class="p-3">Whether the logger starts enabled</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">throwTransportErrors</td>
+                <td class="p-3">boolean</td>
+                <td class="p-3">false</td>
+                <td class="p-3">Whether to throw on transport failures</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">asynchronous</td>
+                <td class="p-3">boolean</td>
+                <td class="p-3">false</td>
+                <td class="p-3">Enable async transport dispatch</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">transportTimeout</td>
+                <td class="p-3">number</td>
+                <td class="p-3">10000</td>
+                <td class="p-3">Timeout in ms for async transport operations</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">inheritContext</td>
+                <td class="p-3">boolean</td>
+                <td class="p-3">true</td>
+                <td class="p-3">Whether child loggers inherit parent context</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">mutable</td>
+                <td class="p-3">boolean</td>
+                <td class="p-3">true</td>
+                <td class="p-3">Whether the logger configuration can be changed at runtime</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Constants &amp; Helpers</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Export</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">DEFAULT_LOGGER_OPTIONS</td>
+                <td class="p-3">Default values for boolean/numeric logger options</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">resolveLoggerOptions(options)</td>
+                <td class="p-3">Validates and normalizes partial options into a full LoggerConfiguration</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">validateLoggerOptions(options)</td>
+                <td class="p-3">Throws TypeError/RangeError if options are invalid</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">mergeLoggerOptions(base, override)</td>
+                <td class="p-3">Merges two option objects (override wins)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Basic Logger</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createLogger</span>, <span class="tp">LoggerLevel</span> } <span class="kw">from</span> <span class="str">"@zudojs/logger"</span>;
+
+<span class="kw">const</span> logger = <span class="fn">createLogger</span>({
+  name: <span class="str">"my-app"</span>,
+  level: <span class="tp">LoggerLevel</span>.DEBUG,
+  environment: <span class="str">"development"</span>,
+});
+
+logger.<span class="fn">info</span>(<span class="str">"Application started"</span>, { port: <span class="num">3000</span> });
+logger.<span class="fn">debug</span>(<span class="str">"Config loaded"</span>, { configPath: <span class="str">"./config.json"</span> });
+logger.<span class="fn">error</span>(<span class="str">"Connection failed"</span>, { host: <span class="str">"localhost"</span>, retryCount: <span class="num">3</span> });</div>
+      </section>
+
+      <!-- Child Loggers -->
+      <section id="child-loggers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CHILD LOGGERS</h2>
+        <p class="mb-4">
+          Child loggers inherit parent configuration (transports, formatter, level) and merge metadata. Every entry from a child logger includes both parent and child metadata.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: ChildLoggerOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ChildLoggerOptions</span> {
+  <span class="kw">readonly</span> name?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">LoggerContextData</span>;
+  <span class="kw">readonly</span> level?: <span class="tp">LoggerLevel</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Child Loggers</h3>
+        <div class="code-block"><span class="kw">const</span> parent = <span class="fn">createLogger</span>({ name: <span class="str">"app"</span> });
+
+<span class="cm">// Child inherits transports, formatter, level</span>
+<span class="kw">const</span> child = parent.<span class="fn">child</span>({
+  name: <span class="str">"app:auth"</span>,
+  metadata: { module: <span class="str">"authentication"</span> },
+});
+
+child.<span class="fn">info</span>(<span class="str">"Login successful"</span>, { userId: <span class="str">"u_123"</span> });
+<span class="cm">// Entry includes both parent name and child metadata</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: ContextLogger</h3>
+        <p class="mb-3 text-sm">A logger wrapper that provides scoped context. Every log call runs within the stored context.</p>
+        <div class="code-block"><span class="kw">const</span> scoped = logger.<span class="fn">withContext</span>({
+  identifiers: { requestId: <span class="str">"req_456"</span>, userId: <span class="str">"u_789"</span> },
+  metadata: { operation: <span class="str">"getUser"</span> },
+});
+
+<span class="cm">// Every entry from scoped includes the context identifiers</span>
+scoped.<span class="fn">info</span>(<span class="str">"Fetching user"</span>);
+<span class="cm">// Entry has requestId: "req_456", userId: "u_789"</span></div>
+      </section>
+
+      <!-- Log Context -->
+      <section id="log-context" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LOG CONTEXT</h2>
+        <p class="mb-4">
+          Context propagates correlation identifiers and metadata through the log pipeline. Use <code>AsyncLocalStorage</code>-compatible storage to propagate context across async boundaries.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: LoggerContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggerContext</span> {
+  <span class="kw">readonly</span> identifiers: <span class="tp">LoggerContextIdentifiers</span>;
+  <span class="kw">readonly</span> metadata: <span class="tp">LoggerContextData</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LoggerContextIdentifiers</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggerContextIdentifiers</span> {
+  <span class="kw">readonly</span> correlationId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> requestId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> traceId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> spanId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> userId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> tenantId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> sessionId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> jobId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> moduleId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> operationId?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LoggerContextData</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggerContextData</span> {
+  <span class="kw">readonly</span> custom?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+  <span class="kw">readonly</span> [key: <span class="tp">string</span>]: <span class="tp">unknown</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LoggerContextStorage</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggerContextStorage</span> {
+  <span class="fn">get</span>(): <span class="tp">LoggerContext</span> | <span class="tp">undefined</span>;
+  <span class="fn">set</span>(context: <span class="tp">LoggerContext</span>): <span class="tp">void</span>;
+  <span class="fn">run</span>&lt;<span class="tp">T</span>&gt;(context: <span class="tp">LoggerContext</span>, callback: () =&gt; <span class="tp">T</span>): <span class="tp">T</span>;
+  <span class="fn">with</span>&lt;<span class="tp">T</span>&gt;(context: <span class="tp">LoggerContext</span>, callback: () =&gt; <span class="tp">T</span>): <span class="tp">T</span>;
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Context Functions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createLoggerContext(options?)</td>
+                <td class="p-3">Creates a frozen LoggerContext from identifiers and metadata</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">mergeLoggerContexts(base, override)</td>
+                <td class="p-3">Merges two contexts (override identifiers and metadata win)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">withLoggerContext(context, metadata)</td>
+                <td class="p-3">Extends a context with additional metadata</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">withLoggerIdentifiers(context, identifiers)</td>
+                <td class="p-3">Extends a context with additional identifiers</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createLoggerContextStorage()</td>
+                <td class="p-3">Creates a stack-based context storage for propagation</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">isLoggerContext(value)</td>
+                <td class="p-3">Type guard checking for identifiers and metadata properties</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Log Entry -->
+      <section id="log-entry" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LOG ENTRY</h2>
+        <p class="mb-4">
+          Every log call produces a <code>LoggerEntry</code> — a frozen, typed object containing all data for that log event.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: LoggerEntry</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggerEntry</span> {
+  <span class="kw">readonly</span> id: <span class="tp">string</span>;
+  <span class="kw">readonly</span> level: <span class="tp">LoggerLevel</span>;
+  <span class="kw">readonly</span> levelName: <span class="tp">LoggerLevelName</span>;
+  <span class="kw">readonly</span> message: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata: <span class="tp">LogMetadata</span>;
+  <span class="kw">readonly</span> context?: <span class="tp">LoggerEntryContext</span>;
+  <span class="kw">readonly</span> source?: <span class="tp">LoggerSource</span>;
+  <span class="kw">readonly</span> error?: <span class="tp">Error</span>;
+  <span class="kw">readonly</span> logger?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> timestampMs: <span class="tp">number</span>;
+  <span class="kw">readonly</span> pid?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> hostname?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> environment?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LoggerEntryInput</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggerEntryInput</span> {
+  <span class="kw">readonly</span> id?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> level: <span class="tp">LoggerLevel</span>;
+  <span class="kw">readonly</span> levelName?: <span class="tp">LoggerLevelName</span>;
+  <span class="kw">readonly</span> message: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">LogMetadata</span>;
+  <span class="kw">readonly</span> context?: <span class="tp">LoggerEntryContext</span>;
+  <span class="kw">readonly</span> source?: <span class="tp">LoggerSource</span>;
+  <span class="kw">readonly</span> error?: <span class="tp">Error</span>;
+  <span class="kw">readonly</span> logger?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timestamp?: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> pid?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> hostname?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> environment?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Related Types</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Type</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">LogMetadata</td>
+                <td class="p-3">Readonly record of string keys to LogValue</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">LogValue</td>
+                <td class="p-3">string, number, boolean, bigint, null, undefined, Date, Error, arrays, objects</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">LoggerSource</td>
+                <td class="p-3">Service, component, module, file, function, line</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">LoggerEntryContext</td>
+                <td class="p-3">correlationId, requestId, traceId, spanId, userId, tenantId, metadata</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Creating Entries</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createLoggerEntry</span>, <span class="tp">LoggerLevel</span> } <span class="kw">from</span> <span class="str">"@zudojs/logger"</span>;
+
+<span class="kw">const</span> entry = <span class="fn">createLoggerEntry</span>({
+  level: <span class="tp">LoggerLevel</span>.INFO,
+  message: <span class="str">"User signed in"</span>,
+  metadata: { userId: <span class="str">"u_123"</span> },
+  logger: <span class="str">"auth"</span>,
+});
+
+<span class="cm">// entry.id — auto-generated unique ID</span>
+<span class="cm">// entry.timestamp — Date.now()</span>
+<span class="cm">// entry.levelName — "info"</span></div>
+      </section>
+
+      <!-- Formatters -->
+      <section id="formatters" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FORMATTERS</h2>
+        <p class="mb-4">
+          Formatters convert a <code>LoggerEntry</code> into output — either a string or a structured object. The transport receives formatted output, not raw entries.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: LoggerFormatter</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggerFormatter</span>&lt;<span class="tp">TOutput</span>&gt; {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="fn">format</span>(entry: <span class="tp">LoggerEntry</span>, context?: <span class="tp">LoggerFormatterContext</span>): <span class="tp">TOutput</span>;
+}
+
+<span class="kw">type</span> <span class="tp">LoggerFormatterFunction</span>&lt;<span class="tp">TOutput</span>&gt; = (
+  entry: <span class="tp">LoggerEntry</span>,
+  context: <span class="tp">LoggerFormatterContext</span>,
+) =&gt; <span class="tp">TOutput</span>;
+
+<span class="kw">type</span> <span class="tp">LoggerFormatterLike</span>&lt;<span class="tp">TOutput</span>&gt; =
+  <span class="tp">LoggerFormatter</span>&lt;<span class="tp">TOutput</span>&gt; | <span class="tp">LoggerFormatterFunction</span>&lt;<span class="tp">TOutput</span>&gt; | <span class="tp">string</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LoggerFormatterContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggerFormatterContext</span> {
+  <span class="kw">readonly</span> loggerName?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> environment?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> colors?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> includeStackTrace?: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Built-in Formatters</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Output</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createJsonLoggerFormatter()</td>
+                <td class="p-3">string</td>
+                <td class="p-3">JSON output with optional pretty-printing</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createTextLoggerFormatter()</td>
+                <td class="p-3">string</td>
+                <td class="p-3">Human-readable text with timestamps, context, metadata</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createCompactLoggerFormatter()</td>
+                <td class="p-3">string</td>
+                <td class="p-3">Minimal output: LEVEL logger: message</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createDevelopmentLoggerFormatter()</td>
+                <td class="p-3">string</td>
+                <td class="p-3">Full details: timestamp, logger, message, context, source, stack</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createProductionLoggerFormatter()</td>
+                <td class="p-3">string</td>
+                <td class="p-3">JSON output (alias for JSON formatter)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">createStructuredLoggerFormatter()</td>
+                <td class="p-3">Record</td>
+                <td class="p-3">Returns structured object (not stringified)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Options Interfaces</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">JsonLoggerFormatterOptions</span> {
+  <span class="kw">readonly</span> name?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> pretty?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> indent?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> includeUndefined?: <span class="tp">boolean</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">TextLoggerFormatterOptions</span> {
+  <span class="kw">readonly</span> name?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> includeTimestamp?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> includeLogger?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> includeMetadata?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> includeContext?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> includeSource?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> includeStackTrace?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> metadataSeparator?: <span class="tp">string</span>;
+}</div>
+      </section>
+
+      <!-- Transports -->
+      <section id="transports" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TRANSPORTS</h2>
+        <p class="mb-4">
+          Transports receive formatted entries and deliver them to their destination — console, file, network, or any custom sink. A logger can have multiple transports.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: LoggerTransport</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggerTransport</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> enabled: <span class="tp">boolean</span>;
+  <span class="fn">write</span>(entry: <span class="tp">LoggerEntry</span>, context?: <span class="tp">LoggerTransportContext</span>): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">flush</span>?(): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">close</span>?(): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}
+
+<span class="kw">type</span> <span class="tp">LoggerTransportFunction</span> = (
+  entry: <span class="tp">LoggerEntry</span>,
+  context: <span class="tp">LoggerTransportContext</span>,
+) =&gt; <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+<span class="kw">type</span> <span class="tp">LoggerTransportLike</span> = <span class="tp">LoggerTransport</span> | <span class="tp">LoggerTransportFunction</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Built-in Transports</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createConsoleLoggerTransport()</td>
+                <td class="p-3">Writes to console.error / console.warn / console.info / console.debug based on level</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createConditionalLoggerTransport(transport, predicate)</td>
+                <td class="p-3">Forwards entries only when the predicate returns true</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createMultiLoggerTransport(transports)</td>
+                <td class="p-3">Fans out entries to multiple transports sequentially</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">createBufferedLoggerTransport(transport, options?)</td>
+                <td class="p-3">Batches entries in memory and flushes by size or interval</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Transport Helpers</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createLoggerTransport(transport, options?)</td>
+                <td class="p-3">Wraps a transport or function into a RegisteredLoggerTransport</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">enableLoggerTransport(transport)</td>
+                <td class="p-3">Returns a new registered transport with enabled=true</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">disableLoggerTransport(transport)</td>
+                <td class="p-3">Returns a new registered transport with enabled=false</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Buffered Transport Options</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LoggerBufferedTransportOptions</span> {
+  <span class="kw">readonly</span> name?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> enabled?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> maxSize?: <span class="tp">number</span>;       <span class="cm">// default: 100</span>
+  <span class="kw">readonly</span> flushInterval?: <span class="tp">number</span>; <span class="cm">// default: 0 (no auto-flush)</span>
+}</div>
+      </section>
+
+      <!-- Logger Factory -->
+      <section id="logger-factory" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LOGGER FACTORY</h2>
+        <p class="mb-4">
+          <code>LoggerFactory</code> manages logger creation, caching, and lifecycle. It ensures consistent configuration across the application and prevents duplicate loggers.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Class: LoggerFactory</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">LoggerFactory</span> {
+  <span class="kw">constructor</span>(defaults?: <span class="tp">LoggerOptions</span>);
+
+  <span class="fn">create</span>(name?: <span class="tp">string</span>, options?: <span class="tp">LoggerOptions</span>, forceNew?: <span class="tp">boolean</span>): <span class="tp">Logger</span>;
+  <span class="fn">get</span>(name: <span class="tp">string</span>): <span class="tp">Logger</span> | <span class="tp">undefined</span>;
+  <span class="fn">getOrCreate</span>(name: <span class="tp">string</span>, options?: <span class="tp">LoggerOptions</span>): <span class="tp">Logger</span>;
+  <span class="fn">child</span>(parent: <span class="tp">Logger</span>, options?: <span class="tp">ChildLoggerOptions</span>): <span class="tp">Logger</span>;
+  <span class="fn">remove</span>(name: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">dispose</span>(name: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+  <span class="fn">disposeAll</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">flushAll</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">getAll</span>(): <span class="kw">readonly</span> <span class="tp">Logger</span>[];
+  <span class="fn">has</span>(name: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">createTransient</span>(options?: <span class="tp">LoggerOptions</span>): <span class="tp">Logger</span>;
+  <span class="kw">readonly</span> size: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory Functions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createLoggerFactory(defaults?)</td>
+                <td class="p-3">Creates a new LoggerFactory with optional default options</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createFactoryLogger(factory, name, options?)</td>
+                <td class="p-3">Creates a logger through a factory</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">getFactoryLogger(factory, name)</td>
+                <td class="p-3">Gets or creates a logger from a factory</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Factory Usage</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createLoggerFactory</span>, <span class="tp">LoggerLevel</span> } <span class="kw">from</span> <span class="str">"@zudojs/logger"</span>;
+
+<span class="kw">const</span> factory = <span class="fn">createLoggerFactory</span>({
+  level: <span class="tp">LoggerLevel</span>.DEBUG,
+  environment: <span class="str">"production"</span>,
+});
+
+<span class="cm">// Creates "api" logger with factory defaults</span>
+<span class="kw">const</span> apiLogger = factory.<span class="fn">create</span>(<span class="str">"api"</span>);
+
+<span class="cm">// Returns existing "api" logger</span>
+<span class="kw">const</span> same = factory.<span class="fn">get</span>(<span class="str">"api"</span>);
+
+<span class="cm">// Create without registering</span>
+<span class="kw">const</span> transient = factory.<span class="fn">createTransient</span>({ name: <span class="str">"temp"</span> });
+
+<span class="cm">// Cleanup</span>
+<span class="kw">await</span> factory.<span class="fn">disposeAll</span>();</div>
+      </section>
+
+      <!-- Logger Manager -->
+      <section id="logger-manager" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LOGGER MANAGER</h2>
+        <p class="mb-4">
+          <code>LoggerManager</code> provides application-wide logger management with initialization, lifecycle, and a default application logger.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Class: LoggerManager</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">LoggerManager</span> {
+  <span class="kw">constructor</span>(options?: <span class="tp">LoggerOptions</span>);
+
+  <span class="fn">initialize</span>(options?: <span class="tp">LoggerOptions</span>): <span class="tp">Logger</span>;
+  <span class="fn">getLogger</span>(): <span class="tp">Logger</span>;
+  <span class="fn">get</span>(name: <span class="tp">string</span>, options?: <span class="tp">LoggerOptions</span>): <span class="tp">Logger</span>;
+  <span class="fn">create</span>(name: <span class="tp">string</span>, options?: <span class="tp">LoggerOptions</span>): <span class="tp">Logger</span>;
+  <span class="fn">has</span>(name: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">remove</span>(name: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">flush</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">close</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">getAll</span>(): <span class="kw">readonly</span> <span class="tp">Logger</span>[];
+  <span class="fn">getFactory</span>(): <span class="tp">LoggerFactory</span>;
+  <span class="kw">readonly</span> size: <span class="tp">number</span>;
+  <span class="kw">readonly</span> isInitialized: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> isClosed: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Manager Functions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">createLoggerManager(options?)</td>
+                <td class="p-3">Creates an uninitialized LoggerManager</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">initializeLoggerManager(options?)</td>
+                <td class="p-3">Creates and initializes a LoggerManager in one call</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">createManagedDefaultLogger(name?)</td>
+                <td class="p-3">Creates a standalone default logger (no manager)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Manager Usage</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">initializeLoggerManager</span>, <span class="tp">LoggerLevel</span> } <span class="kw">from</span> <span class="str">"@zudojs/logger"</span>;
+
+<span class="kw">const</span> manager = <span class="fn">initializeLoggerManager</span>({
+  name: <span class="str">"app"</span>,
+  level: <span class="tp">LoggerLevel</span>.DEBUG,
+});
+
+<span class="cm">// Default application logger</span>
+<span class="kw">const</span> appLogger = manager.<span class="fn">getLogger</span>();
+appLogger.<span class="fn">info</span>(<span class="str">"Application started"</span>);
+
+<span class="cm">// Named loggers</span>
+<span class="kw">const</span> authLogger = manager.<span class="fn">get</span>(<span class="str">"auth"</span>);
+<span class="kw">const</span> dbLogger = manager.<span class="fn">get</span>(<span class="str">"database"</span>);
+
+<span class="cm">// Shutdown</span>
+<span class="kw">await</span> manager.<span class="fn">close</span>();</div>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="errors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All error types extend <code>LoggingError</code> from <code>@zudojs/errors</code>. The base <code>LoggerError</code> adds a <code>loggerCode</code> string for fine-grained classification.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error Class</th>
+                <th class="p-3 text-left">Code</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">LoggerError</td><td class="p-3">LOGGER_ERROR</td><td class="p-3">Base error for all logger failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">LoggerConfigurationError</td><td class="p-3">LOGGER_CONFIGURATION_ERROR</td><td class="p-3">Invalid logger options or configuration</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">LoggerDisposedError</td><td class="p-3">LOGGER_DISPOSED</td><td class="p-3">Operation on a disposed logger</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">LoggerTransportError</td><td class="p-3">LOGGER_TRANSPORT_ERROR</td><td class="p-3">A transport write/flush/close failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">LoggerFormatterError</td><td class="p-3">LOGGER_FORMATTER_ERROR</td><td class="p-3">A formatter threw during format</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">InvalidLoggerEntryError</td><td class="p-3">INVALID_LOGGER_ENTRY</td><td class="p-3">A log entry is malformed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">InvalidLoggerLevelError</td><td class="p-3">INVALID_LOGGER_LEVEL</td><td class="p-3">An invalid level value was supplied</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">LoggerTimeoutError</td><td class="p-3">LOGGER_TRANSPORT_ERROR</td><td class="p-3">Transport exceeded its timeout</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">LoggerTransportClosedError</td><td class="p-3">LOGGER_TRANSPORT_ERROR</td><td class="p-3">Operation on a closed transport</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">LoggerFormatterNotFoundError</td><td class="p-3">LOGGER_FORMATTER_NOT_FOUND</td><td class="p-3">Named formatter doesn't exist</td></tr>
+              <tr><td class="p-3 font-mono">LoggerTransportNotFoundError</td><td class="p-3">LOGGER_TRANSPORT_NOT_FOUND</td><td class="p-3">Named transport doesn't exist</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete working example: factory, transports, formatters, context, and child loggers.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createLoggerFactory</span>,
+  <span class="fn">createLoggerContext</span>,
+  <span class="fn">createConsoleLoggerTransport</span>,
+  <span class="fn">createBufferedLoggerTransport</span>,
+  <span class="fn">createConditionalLoggerTransport</span>,
+  <span class="fn">createJsonLoggerFormatter</span>,
+  <span class="fn">createDevelopmentLoggerFormatter</span>,
+  <span class="tp">LoggerLevel</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/logger"</span>;
+
+<span class="cm">// 1. Create transports</span>
+<span class="kw">const</span> consoleTransport = <span class="fn">createConsoleLoggerTransport</span>();
+
+<span class="kw">const</span> fileTransport = <span class="fn">createBufferedLoggerTransport</span>(
+  <span class="kw">async</span> (entry) => {
+    <span class="kw">await</span> <span class="fn">appendToFile</span>(<span class="str">"app.log"</span>, entry);
+  },
+  { name: <span class="str">"file"</span>, maxSize: <span class="num">50</span>, flushInterval: <span class="num">5000</span> },
+);
+
+<span class="cm">// 2. Create a conditional transport (errors only)</span>
+<span class="kw">const</span> errorTransport = <span class="fn">createConditionalLoggerTransport</span>(
+  <span class="kw">async</span> (entry) => {
+    <span class="kw">await</span> <span class="fn">sendToSentry</span>(entry);
+  },
+  (entry) =&gt; entry.level &lt;= <span class="num">1</span>, <span class="cm">// ERROR and FATAL only</span>
+  { name: <span class="str">"sentry"</span> },
+);
+
+<span class="cm">// 3. Create a factory with defaults</span>
+<span class="kw">const</span> factory = <span class="fn">createLoggerFactory</span>({
+  level: <span class="tp">LoggerLevel</span>.DEBUG,
+  environment: process.env.NODE_ENV,
+  formatter: <span class="fn">createDevelopmentLoggerFormatter</span>(),
+  transports: [consoleTransport, fileTransport, errorTransport],
+});
+
+<span class="cm">// 4. Create loggers</span>
+<span class="kw">const</span> appLogger = factory.<span class="fn">create</span>(<span class="str">"app"</span>);
+<span class="kw">const</span> authLogger = factory.<span class="fn">create</span>(<span class="str">"app:auth"</span>, {
+  metadata: { module: <span class="str">"authentication"</span> },
+});
+
+<span class="cm">// 5. Create scoped context</span>
+<span class="kw">const</span> requestContext = <span class="fn">createLoggerContext</span>({
+  correlationId: <span class="str">"corr_abc"</span>,
+  requestId: <span class="str">"req_123"</span>,
+  userId: <span class="str">"user_456"</span>,
+});
+
+<span class="kw">const</span> scoped = authLogger.<span class="fn">withContext</span>(requestContext);
+
+<span class="cm">// 6. Log with full context</span>
+scoped.<span class="fn">info</span>(<span class="str">"Login attempt"</span>, { provider: <span class="str">"google"</span> });
+scoped.<span class="fn">error</span>(<span class="str">"Login failed"</span>, { reason: <span class="str">"invalid_token"</span> });
+
+<span class="cm">// 7. Child logger in a different module</span>
+<span class="kw">const</span> dbLogger = factory.<span class="fn">create</span>(<span class="str">"app:database"</span>);
+<span class="kw">const</span> queryLogger = dbLogger.<span class="fn">child</span>({
+  name: <span class="str">"app:database:query"</span>,
+  metadata: { table: <span class="str">"users"</span> },
+});
+
+queryLogger.<span class="fn">debug</span>(<span class="str">"SELECT * FROM users"</span>, { duration: <span class="num">42</span> });
+
+<span class="cm">// 8. Switch to production formatter</span>
+<span class="kw">const</span> prodFactory = <span class="fn">createLoggerFactory</span>({
+  level: <span class="tp">LoggerLevel</span>.INFO,
+  formatter: <span class="fn">createJsonLoggerFormatter</span>({ pretty: <span class="num">false</span> }),
+  transports: [fileTransport, errorTransport],
+});
+
+<span class="cm">// 9. Cleanup</span>
+process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span class="kw">async</span> () => {
+  <span class="kw">await</span> factory.<span class="fn">disposeAll</span>();
+  process.<span class="fn">exit</span>(<span class="num">0</span>);
+});</div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#architecture-position" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#log-levels" class="toc-link">Log Levels</a>
+      <a href="#logger-interface" class="toc-link">Logger Interface</a>
+      <a href="#creating-loggers" class="toc-link">Creating Loggers</a>
+      <a href="#child-loggers" class="toc-link">Child Loggers</a>
+      <a href="#log-context" class="toc-link">Log Context</a>
+      <a href="#log-entry" class="toc-link">Log Entry</a>
+      <a href="#formatters" class="toc-link">Formatters</a>
+      <a href="#transports" class="toc-link">Transports</a>
+      <a href="#logger-factory" class="toc-link">Logger Factory</a>
+      <a href="#logger-manager" class="toc-link">Logger Manager</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>

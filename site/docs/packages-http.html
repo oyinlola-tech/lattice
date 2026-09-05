@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/http — HTTP Primitives, Routing, Middleware & Server Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/http — HTTP server, request/response handling, routing, middleware pipeline, client, headers, CORS, CSP, security headers, caching, streaming, validation, content negotiation, multipart, cookies, proxy, compression, HSTS, and more.">
+  <meta name="keywords" content="zudo, http, server, routing, middleware, request, response, CORS, CSP, headers, caching, streaming, validation, REST API, Node.js">
+  <meta name="author" content="Oyinlola">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/packages/http/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="@zudojs/http — HTTP Primitives, Routing, Middleware & Server">
+  <meta property="og:description" content="HTTP server, request/response handling, routing, middleware pipeline, client, headers, CORS, CSP, security headers, and more.">
+  <meta property="og:url" content="https://zudo.dev/docs/packages/http/">
+  <meta property="og:site_name" content="Zudo">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo.svg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="@zudojs/http — HTTP Primitives, Routing, Middleware & Server">
+  <meta name="twitter:description" content="HTTP server, request/response handling, routing, middleware pipeline, client, headers, CORS, CSP, security headers, and more.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "@zudojs/http — HTTP Primitives, Routing, Middleware & Server",
+    "description": "HTTP server, request/response handling, routing, middleware pipeline, client, headers, CORS, CSP, security headers, and more for the Zudo framework.",
+    "url": "https://zudo.dev/docs/packages/http/",
+    "author": { "@type": "Person", "name": "Oyinlola" },
+    "publisher": { "@type": "Organization", "name": "Zudo" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://zudo.dev/docs/packages/http/" },
+    "codeRepository": "https://github.com/oyinlola-tech/zudo",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js 24+",
+    "license": "https://opensource.org/licenses/MIT"
+  }
+  </script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages-container" class="sidebar-item">@zudojs/container</a>
+      <a href="/docs/packages-http" class="sidebar-item sidebar-item-active">@zudojs/http</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- BREADCRUMBS -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/http</span>
+      </div>
+
+      <!-- HEADER -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.1.0</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/http</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          HTTP primitives, request/response handling, routing, middleware pipeline, HTTP client, headers management, CORS, CSP, security headers, caching, streaming, validation, content negotiation, multipart, cookies, proxy, compression, HSTS, and more.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">HTTP</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">SERVER</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">ROUTING</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">MIDDLEWARE</span>
+        </div>
+      </div>
+
+      <!-- ==================== INSTALLATION ==================== -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/http
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/http
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/http</div>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Peer Dependencies:</strong> <code>@zudojs/http</code> depends on <code>@zudojs/core</code>, <code>@zudojs/errors</code>, <code>@zudojs/logger</code>, and <code>@zudojs/security</code>. Install them if not already present.
+        </div>
+      </section>
+
+      <!-- ==================== WHAT IT DOES ==================== -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/http</code> is the complete HTTP layer for the Zudo framework. It provides:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>HTTP server</strong> — create, start, stop, restart with lifecycle management</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Request/response handling</strong> — typed HTTPRequest, HTTPResponse, HTTPContext</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Routing</strong> — tree-based route matching with parameters, wildcards, and compilation</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Middleware pipeline</strong> — composable middleware with timing, logging, security, CORS, static file serving</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>HTTP client</strong> — request/response with interceptors, retry, abort, and error normalization</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Headers management</strong> — typed HTTPHeaders class with constants, authorization helpers, cache control, ETag, date, forwarded, and security headers</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>CORS</strong> — policy-based cross-origin resource sharing with origin matching</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>CSP</strong> — Content Security Policy directives, nonce generation, and nonce sources</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Security headers</strong> — HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy, and more</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Caching</strong> — Cache-Control parsing, formatting, freshness calculation, response storable checks</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Streaming</strong> — read, pipe, copy, consume, progress tracking, drain waiting</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Validation</strong> — HTTP method, header name, URL, status code, content type, content length validators</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Content negotiation</strong> — content type, language, and encoding negotiation</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Multipart</strong> — file upload parsing with field handling</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Cookies</strong> — CookieCollection with options, parsing, and value management</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Proxy</strong> — trust proxy configuration, client IP resolution, protocol detection</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Compression</strong> — encoding negotiation and compression decisions</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>HSTS</strong> — HTTP Strict Transport Security parsing and formatting</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Keep-alive</strong> — connection keep-alive configuration and defaults</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Conditional requests</strong> — ETag and If-None-Match handling</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Interceptors</strong> — request/response/error interceptors with priority ordering</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Content disposition</strong> — inline and attachment disposition types with parameters</li>
+        </ul>
+      </section>
+
+      <!-- ==================== WHERE IT SITS ==================== -->
+      <section id="where-it-sits" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6 space-y-3">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">APPLICATION LAYER (CQRS, Events, Modules)</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">HTTP (@zudojs/http) ← YOU ARE HERE</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">INFRASTRUCTURE PACKAGES (logger, container, config, middleware)</div>
+          <div class="bg-zudo-green text-black p-3 font-bold text-center text-sm">@zudojs/errors + @zudojs/constants + @zudojs/types (FOUNDATION)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          <code>@zudojs/http</code> sits in the transport layer, bridging the application logic with the outside world. It depends on core infrastructure packages and is consumed by application-level modules.
+        </p>
+      </section>
+
+      <!-- ==================== DEPENDENCIES ==================== -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/core</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Lifecycle, context propagation, runtime</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">BaseError, error codes, error categories</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/logger</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Structured logging for request/response</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/security</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Input validation, rate limiting, security primitives</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== CORE TYPES ==================== -->
+      <section id="core-types" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CORE TYPES</h2>
+        <p class="mb-4">The fundamental types that underpin every HTTP operation.</p>
+
+        <div class="code-block"><span class="cm">// HTTP Methods</span>
+<span class="kw">type</span> <span class="tp">HTTPMethod</span> = <span class="str">"GET"</span> | <span class="str">"POST"</span> | <span class="str">"PUT"</span> | <span class="str">"PATCH"</span> | <span class="str">"DELETE"</span> | <span class="str">"HEAD"</span> | <span class="str">"OPTIONS"</span>;
+
+<span class="cm">// HTTP Status Codes</span>
+<span class="kw">type</span> <span class="tp">HTTPStatusCode</span> = <span class="tp">number</span>; <span class="cm">// 100–599</span>
+
+<span class="cm">// HTTP Headers</span>
+<span class="kw">class</span> <span class="tp">HTTPHeaders</span> {
+  <span class="kw">constructor</span>(init?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span> | <span class="tp">string</span>[]&gt;);
+  <span class="fn">get</span>(name: <span class="tp">string</span>): <span class="tp">string</span> | <span class="tp">undefined</span>;
+  <span class="fn">set</span>(name: <span class="tp">string</span>, value: <span class="tp">string</span>): <span class="kw">this</span>;
+  <span class="fn">has</span>(name: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">delete</span>(name: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">entries</span>(): <span class="tp">IterableIterator</span>&lt;[<span class="tp">string</span>, <span class="tp">string</span>]&gt;;
+  <span class="fn">toJSON</span>(): <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+}
+
+<span class="cm">// HTTP Context</span>
+<span class="kw">class</span> <span class="tp">HTTPContext</span> {
+  <span class="kw">readonly</span> requestId: <span class="tp">string</span>;
+  <span class="kw">readonly</span> method: <span class="tp">HTTPMethod</span>;
+  <span class="kw">readonly</span> url: <span class="tp">URL</span>;
+  <span class="kw">readonly</span> headers: <span class="tp">HTTPHeaders</span>;
+  <span class="kw">readonly</span> body: <span class="tp">unknown</span>;
+}
+
+<span class="cm">// HTTP Request</span>
+<span class="kw">class</span> <span class="tp">HTTPRequest</span> {
+  <span class="kw">readonly</span> method: <span class="tp">HTTPMethod</span>;
+  <span class="kw">readonly</span> url: <span class="tp">URL</span>;
+  <span class="kw">readonly</span> headers: <span class="tp">HTTPHeaders</span>;
+  <span class="fn">json</span>&lt;T&gt;(): <span class="tp">Promise</span>&lt;<span class="tp">T</span>&gt;;
+  <span class="fn">text</span>(): <span class="tp">Promise</span>&lt;<span class="tp">string</span>&gt;;
+  <span class="fn">arrayBuffer</span>(): <span class="tp">Promise</span>&lt;<span class="tp">ArrayBuffer</span>&gt;;
+}
+
+<span class="cm">// HTTP Response</span>
+<span class="kw">class</span> <span class="tp">HTTPResponse</span> {
+  <span class="kw">readonly</span> statusCode: <span class="tp">HTTPStatusCode</span>;
+  <span class="kw">readonly</span> headers: <span class="tp">HTTPHeaders</span>;
+  <span class="fn">json</span>(data: <span class="tp">unknown</span>): <span class="kw">this</span>;
+  <span class="fn">status</span>(code: <span class="tp">HTTPStatusCode</span>): <span class="kw">this</span>;
+  <span class="fn">header</span>(name: <span class="tp">string</span>, value: <span class="tp">string</span>): <span class="kw">this</span>;
+}
+
+<span class="cm">// Route definitions</span>
+<span class="kw">type</span> <span class="tp">HTTPRoute</span> = {
+  <span class="kw">readonly</span> method: <span class="tp">HTTPMethod</span> | <span class="tp">HTTPMethod</span>[];
+  <span class="kw">readonly</span> path: <span class="tp">string</span>;
+  <span class="kw">readonly</span> handler: <span class="tp">HTTPRouteHandler</span>;
+  <span class="kw">readonly</span> middleware?: <span class="tp">HTTPMiddleware</span>[];
+};
+
+<span class="cm">// Middleware</span>
+<span class="kw">type</span> <span class="tp">HTTPMiddleware</span> = (
+  ctx: <span class="tp">HTTPContext</span>,
+  next: () =&gt; <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;
+) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+<span class="cm">// Server options</span>
+<span class="kw">interface</span> <span class="tp">HTTPServerOptions</span> {
+  <span class="kw">readonly</span> port?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> host?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> trustProxy?: <span class="tp">TrustProxy</span>;
+  <span class="kw">readonly</span> timeout?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> keepAlive?: <span class="tp">KeepAliveOptions</span>;
+}
+
+<span class="cm">// Client options</span>
+<span class="kw">interface</span> <span class="tp">HTTPClientOptions</span> {
+  <span class="kw">readonly</span> baseURL?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timeout?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> headers?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+  <span class="kw">readonly</span> retry?: <span class="tp">HttpRetryOptions</span>;
+}
+
+<span class="cm">// Body, Cookies, Query</span>
+<span class="kw">type</span> <span class="tp">HTTPBody</span> = <span class="tp">unknown</span>;
+<span class="kw">class</span> <span class="tp">CookieCollection</span> { ... }
+<span class="kw">type</span> <span class="tp">HTTPQuery</span> = <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span> | <span class="tp">string</span>[]&gt;;</div>
+      </section>
+
+      <!-- ==================== HTTP STATUS CODES ==================== -->
+      <section id="http-status-codes" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP STATUS CODES</h2>
+        <p class="mb-4">Type-safe status code classification and utility functions.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Range</th>
+                <th class="p-3 text-left">Type</th>
+                <th class="p-3 text-left">Examples</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">1xx</td>
+                <td class="p-3"><code>InformationalStatus</code></td>
+                <td class="p-3">100 Continue, 101 Switching Protocols</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">2xx</td>
+                <td class="p-3"><code>SuccessStatus</code></td>
+                <td class="p-3">200 OK, 201 Created, 204 No Content</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">3xx</td>
+                <td class="p-3"><code>RedirectionStatus</code></td>
+                <td class="p-3">301 Moved, 304 Not Modified</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">4xx</td>
+                <td class="p-3"><code>ClientErrorStatus</code></td>
+                <td class="p-3">400 Bad Request, 401 Unauthorized, 404 Not Found</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">5xx</td>
+                <td class="p-3"><code>ServerErrorStatus</code></td>
+                <td class="p-3">500 Internal Error, 502 Bad Gateway, 503 Unavailable</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Utility Functions</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">isSuccess</span>,
+  <span class="fn">isNotFound</span>,
+  <span class="fn">isClientError</span>,
+  <span class="fn">isServerError</span>,
+  <span class="fn">isRedirect</span>,
+  <span class="fn">isInformational</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="fn">isSuccess</span>(<span class="num">200</span>);       <span class="cm">// true</span>
+<span class="fn">isNotFound</span>(<span class="num">404</span>);      <span class="cm">// true</span>
+<span class="fn">isClientError</span>(<span class="num">400</span>);   <span class="cm">// true</span>
+<span class="fn">isServerError</span>(<span class="num">500</span>);   <span class="cm">// true</span>
+<span class="fn">isRedirect</span>(<span class="num">301</span>);      <span class="cm">// true</span></div>
+      </section>
+
+      <!-- ==================== HTTP ROUTER ==================== -->
+      <section id="http-router" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP ROUTER</h2>
+        <p class="mb-4">Tree-based route matching with parameter extraction, wildcards, and compiled patterns.</p>
+
+        <h3 class="text-lg font-bold mb-3">Route Types</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">RouteDefinition</span> {
+  <span class="kw">readonly</span> method: <span class="tp">HTTPMethod</span> | <span class="tp">HTTPMethod</span>[];
+  <span class="kw">readonly</span> path: <span class="tp">string</span>;
+  <span class="kw">readonly</span> handler: <span class="tp">RouteDispatchHandler</span>;
+  <span class="kw">readonly</span> middleware?: <span class="tp">readonly</span> <span class="tp">HTTPMiddleware</span>[];
+}
+
+<span class="kw">interface</span> <span class="tp">RouteOptions</span> {
+  <span class="kw">readonly</span> prefix?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> middleware?: <span class="tp">readonly</span> <span class="tp">HTTPMiddleware</span>[];
+}
+
+<span class="kw">interface</span> <span class="tp">MatchedRoute</span> {
+  <span class="kw">readonly</span> handler: <span class="tp">RouteDispatchHandler</span>;
+  <span class="kw">readonly</span> params: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+  <span class="kw">readonly</span> middleware: <span class="tp">readonly</span> <span class="tp">HTTPMiddleware</span>[];
+}
+
+<span class="kw">interface</span> <span class="tp">RouterOptions</span> {
+  <span class="kw">readonly</span> caseSensitive?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> strictTrailingSlash?: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Router Functions</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createRouteDispatcher</span>,
+  <span class="fn">dispatchRoute</span>,
+  <span class="fn">compileRoutePattern</span>,
+  <span class="fn">matchCompiledRoute</span>,
+  <span class="tp">RouterContext</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Create a dispatcher from route definitions</span>
+<span class="kw">const</span> dispatcher = <span class="fn">createRouteDispatcher</span>(routes, {
+  caseSensitive: <span class="num">false</span>,
+});
+
+<span class="cm">// Compile a pattern for reuse</span>
+<span class="kw">const</span> compiled = <span class="fn">compileRoutePattern</span>(<span class="str">"/users/:id/posts/:postId"</span>);
+
+<span class="cm">// Match against a compiled pattern</span>
+<span class="kw">const</span> match = <span class="fn">matchCompiledRoute</span>(compiled, <span class="str">"/users/123/posts/456"</span>);
+<span class="cm">// { params: { id: "123", postId: "456" } }</span></div>
+      </section>
+
+      <!-- ==================== HTTP SERVER ==================== -->
+      <section id="http-server" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP SERVER</h2>
+        <p class="mb-4">Full-featured HTTP server with lifecycle management, timeouts, and event hooks.</p>
+
+        <h3 class="text-lg font-bold mb-3">HttpServer Class</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">HttpServer</span>,
+  <span class="tp">HttpServerManager</span>,
+  <span class="fn">createHttpServer</span>,
+  <span class="fn">startServer</span>,
+  <span class="fn">stopServer</span>,
+  <span class="fn">restartServer</span>,
+  <span class="fn">withTimeout</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="kw">const</span> server = <span class="fn">createHttpServer</span>({
+  port: <span class="num">3000</span>,
+  host: <span class="str">"0.0.0.0"</span>,
+  trustProxy: <span class="num">true</span>,
+  timeout: <span class="num">30000</span>,
+  keepAlive: { enabled: <span class="num">true</span>, timeout: <span class="num">5000</span> },
+});
+
+<span class="cm">// Lifecycle</span>
+<span class="kw">await</span> <span class="fn">startServer</span>(server);
+<span class="kw">await</span> <span class="fn">restartServer</span>(server);
+<span class="kw">await</span> <span class="fn">stopServer</span>(server);
+
+<span class="cm">// Timeout wrapper</span>
+<span class="kw">const</span> fast = <span class="fn">withTimeout</span>(server, <span class="num">5000</span>);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Server Options &amp; State</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">HttpServerOptions</span> {
+  <span class="kw">readonly</span> port?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> host?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> trustProxy?: <span class="tp">TrustProxy</span>;
+  <span class="kw">readonly</span> timeout?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> keepAlive?: <span class="tp">KeepAliveOptions</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">HttpServerState</span> {
+  <span class="kw">readonly</span> status: <span class="str">"idle"</span> | <span class="str">"starting"</span> | <span class="str">"listening"</span> | <span class="str">"stopping"</span> | <span class="str">"stopped"</span>;
+  <span class="kw">readonly</span> port?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> uptime?: <span class="tp">number</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">HttpServerEvents</span> {
+  <span class="fn">onStart</span>?: () =&gt; <span class="tp">void</span>;
+  <span class="fn">onStop</span>?: () =&gt; <span class="tp">void</span>;
+  <span class="fn">onError</span>?: (err: <span class="tp">Error</span>) =&gt; <span class="tp">void</span>;
+  <span class="fn">onRequest</span>?: (req: <span class="tp">HTTPRequest</span>) =&gt; <span class="tp">void</span>;
+}</div>
+      </section>
+
+      <!-- ==================== HTTP CLIENT ==================== -->
+      <section id="http-client" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP CLIENT</h2>
+        <p class="mb-4">HTTP client with interceptors, retry, abort signals, and error normalization.</p>
+
+        <h3 class="text-lg font-bold mb-3">HttpClient Class</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">HttpClient</span>,
+  <span class="tp">HttpClientRequestConfig</span>,
+  <span class="tp">HttpClientResponse</span>,
+  <span class="tp">HttpRetryOptions</span>,
+  <span class="fn">executeWithRetry</span>,
+  <span class="fn">combineAbortSignals</span>,
+  <span class="fn">normalizeClientError</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="kw">const</span> client = <span class="kw">new</span> <span class="tp">HttpClient</span>({
+  baseURL: <span class="str">"https://api.example.com"</span>,
+  timeout: <span class="num">10000</span>,
+  headers: { <span class="str">"Accept"</span>: <span class="str">"application/json"</span> },
+  retry: { maxRetries: <span class="num">3</span>, delay: <span class="num">1000</span>, backoff: <span class="str">"exponential"</span> },
+});
+
+<span class="cm">// Make a request</span>
+<span class="kw">const</span> response = <span class="kw">await</span> client.<span class="fn">get</span>&lt;<span class="tp">User</span>[]&gt;(<span class="str">"/users"</span>);
+
+<span class="cm">// Combine abort signals</span>
+<span class="kw">const</span> combined = <span class="fn">combineAbortSignals</span>(controller1.signal, controller2.signal);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interceptors</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">HttpClientInterceptors</span> {
+  <span class="kw">readonly</span> request?: <span class="tp">readonly</span> ((config: <span class="tp">HttpClientRequestConfig</span>) =&gt; <span class="tp">HttpClientRequestConfig</span> | <span class="tp">Promise</span>&lt;<span class="tp">HttpClientRequestConfig</span>&gt;)[];
+  <span class="kw">readonly</span> response?: <span class="tp">readonly</span> ((response: <span class="tp">HttpClientResponse</span>) =&gt; <span class="tp">HttpClientResponse</span> | <span class="tp">Promise</span>&lt;<span class="tp">HttpClientResponse</span>&gt;)[];
+  <span class="kw">readonly</span> error?: <span class="tp">readonly</span> ((error: <span class="tp">Error</span>) =&gt; <span class="tp">Error</span> | <span class="tp">Promise</span>&lt;<span class="tp">Error</span>&gt;)[];
+}</div>
+      </section>
+
+      <!-- ==================== HTTP MIDDLEWARE ==================== -->
+      <section id="http-middleware" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP MIDDLEWARE</h2>
+        <p class="mb-4">Composable middleware pipeline with timing, logging, security, CORS, static file serving, and more.</p>
+
+        <h3 class="text-lg font-bold mb-3">Middleware Type</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">HttpMiddleware</span> = (
+  ctx: <span class="tp">HttpMiddlewareContext</span>,
+  next: () =&gt; <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;
+) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+<span class="kw">interface</span> <span class="tp">HttpMiddlewareContext</span> {
+  <span class="kw">readonly</span> request: <span class="tp">HTTPRequest</span>;
+  <span class="kw">readonly</span> response: <span class="tp">HTTPResponse</span>;
+  <span class="kw">readonly</span> state: <span class="tp">Map</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Pipeline Functions</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">executePipeline</span>,
+  <span class="fn">composeRouteMiddleware</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Execute a middleware pipeline</span>
+<span class="kw">await</span> <span class="fn">executePipeline</span>(middleware, context);
+
+<span class="cm">// Compose route-specific middleware with global middleware</span>
+<span class="kw">const</span> composed = <span class="fn">composeRouteMiddleware</span>(globalMiddleware, routeMiddleware);</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Built-in Middleware</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Middleware</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">timing</td><td class="p-3">Records request duration and adds X-Response-Time header</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">logging</td><td class="p-3">Structured request/response logging via @zudojs/logger</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">security</td><td class="p-3">Security headers and input validation</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">cors</td><td class="p-3">Cross-Origin Resource Sharing policy enforcement</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">static</td><td class="p-3">Static file serving with MIME type detection</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">image</td><td class="p-3">Image serving with format negotiation</td></tr>
+              <tr>
+                <td class="p-3 font-mono">video</td><td class="p-3">Video streaming with range request support</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== HTTP INTERCEPTORS ==================== -->
+      <section id="http-interceptors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP INTERCEPTORS</h2>
+        <p class="mb-4">Request/response/error interceptors with phase and priority ordering.</p>
+
+        <h3 class="text-lg font-bold mb-3">InterceptorManager</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">HttpInterceptorManager</span>,
+  <span class="tp">InterceptorPhase</span>,
+  <span class="tp">InterceptorPriority</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="kw">const</span> manager = <span class="kw">new</span> <span class="tp">HttpInterceptorManager</span>();
+
+manager.<span class="fn">add</span>({
+  phase: <span class="tp">InterceptorPhase</span>.REQUEST,
+  priority: <span class="tp">InterceptorPriority</span>.HIGH,
+  handler: (config) =&gt; {
+    config.headers[<span class="str">"X-Request-ID"</span>] = <span class="fn">generateId</span>();
+    <span class="kw">return</span> config;
+  },
+});</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Built-in Interceptors</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Interceptor</th>
+                <th class="p-3 text-left">Phase</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">requestId</td><td class="p-3">Request</td><td class="p-3">Generates unique request ID</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">userAgent</td><td class="p-3">Request</td><td class="p-3">Sets User-Agent header</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">bearerToken</td><td class="p-3">Request</td><td class="p-3">Adds Authorization: Bearer header</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">jsonAccept</td><td class="p-3">Request</td><td class="p-3">Sets Accept: application/json</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">responseHeader</td><td class="p-3">Response</td><td class="p-3">Adds custom response headers</td></tr>
+              <tr>
+                <td class="p-3 font-mono">statusError</td><td class="p-3">Error</td><td class="p-3">Normalizes error responses by status code</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== HTTP HEADERS ==================== -->
+      <section id="http-headers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP HEADERS</h2>
+        <p class="mb-4">Typed headers class with constants, authorization, cache control, ETag, date, forwarded, security, negotiation, range, and conversion helpers.</p>
+
+        <h3 class="text-lg font-bold mb-3">HTTPHeaders Class</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">HTTPHeaders</span>,
+  <span class="fn">createHeaders</span>,
+  <span class="fn">normalizeHeaders</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="kw">const</span> headers = <span class="fn">createHeaders</span>({
+  <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>,
+  <span class="str">"Authorization"</span>: <span class="str">"Bearer token123"</span>,
+});
+
+headers.<span class="fn">get</span>(<span class="str">"Content-Type"</span>); <span class="cm">// "application/json"</span>
+headers.<span class="fn">has</span>(<span class="str">"Authorization"</span>); <span class="cm">// true</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Header Constants</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">HEADER_CONTENT_TYPE</span>,
+  <span class="tp">HEADER_AUTHORIZATION</span>,
+  <span class="tp">HEADER_CACHE_CONTROL</span>,
+  <span class="tp">HEADER_ACCEPT</span>,
+  <span class="tp">HEADER_USER_AGENT</span>,
+  <span class="tp">HEADER_X_REQUEST_ID</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Authorization Helpers</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">parseBasicAuthorization</span>,
+  <span class="fn">formatBearerAuthorization</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="kw">const</span> creds = <span class="fn">parseBasicAuthorization</span>(<span class="str">"Basic dXNlcjpwYXNz"</span>);
+<span class="cm">// { username: "user", password: "pass" }</span>
+
+<span class="kw">const</span> bearer = <span class="fn">formatBearerAuthorization</span>(<span class="str">"my-token"</span>);
+<span class="cm">// "Bearer my-token"</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Additional Helpers</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Category</th>
+                <th class="p-3 text-left">Functions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">Cache Control</td><td class="p-3">parseCacheControl, formatCacheControl, createCacheControl</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">ETag</td><td class="p-3">parseETag, formatETag, generateETag</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">Date</td><td class="p-3">parseDateHeader, formatDateHeader</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">Forwarded</td><td class="p-3">parseForwarded, formatForwarded</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">Security</td><td class="p-3">createSecurityHeaders, createRecommendedSecurityHeaders</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">Negotiation</td><td class="p-3">negotiateContentType, negotiateLanguage, negotiateEncoding</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">Range</td><td class="p-3">parseRangeHeader, formatRangeHeader</td></tr>
+              <tr>
+                <td class="p-3 font-mono">Conversion</td><td class="p-3">headersToObject, objectToHeaders, headersToMap</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== HTTP BODY ==================== -->
+      <section id="http-body" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP BODY</h2>
+        <p class="mb-4">Request body parsing with format detection and form data handling.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">parseRequestBody</span>,
+  <span class="fn">detectBodyFormat</span>,
+  <span class="fn">parseFormData</span>,
+  <span class="tp">HTTPFormDataError</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Parse body based on content type</span>
+<span class="kw">const</span> body = <span class="kw">await</span> <span class="fn">parseRequestBody</span>(request);
+
+<span class="cm">// Detect body format</span>
+<span class="kw">const</span> format = <span class="fn">detectBodyFormat</span>(headers);
+<span class="cm">// "json" | "form" | "multipart" | "text" | "binary"</span>
+
+<span class="cm">// Parse form data</span>
+<span class="kw">const</span> form = <span class="kw">await</span> <span class="fn">parseFormData</span>(request, { maxFileSize: <span class="num">10</span> * <span class="num">1024</span> * <span class="num">1024</span> });</div>
+      </section>
+
+      <!-- ==================== HTTP COOKIES ==================== -->
+      <section id="http-cookies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP COOKIES</h2>
+        <p class="mb-4">CookieCollection for managing cookies with options, parsing, and value management.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">CookieCollection</span>,
+  <span class="fn">parseCookieHeader</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Parse a Cookie header</span>
+<span class="kw">const</span> cookies = <span class="fn">parseCookieHeader</span>(<span class="str">"session=abc123; theme=dark"</span>);
+
+<span class="cm">// Create a collection</span>
+<span class="kw">const</span> collection = <span class="kw">new</span> <span class="tp">CookieCollection</span>(cookies);
+collection.<span class="fn">get</span>(<span class="str">"session"</span>);   <span class="cm">// "abc123"</span>
+collection.<span class="fn">has</span>(<span class="str">"theme"</span>);     <span class="cm">// true</span>
+collection.<span class="fn">set</span>(<span class="str">"lang"</span>, <span class="str">"en"</span>, { httpOnly: <span class="num">true</span>, maxAge: <span class="num">86400</span> });</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">CookieOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">CookieOptions</span> {
+  <span class="kw">readonly</span> domain?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> path?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> expires?: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> maxAge?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> secure?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> httpOnly?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> sameSite?: <span class="str">"strict"</span> | <span class="str">"lax"</span> | <span class="str">"none"</span>;
+}</div>
+      </section>
+
+      <!-- ==================== HTTP CORS ==================== -->
+      <section id="http-cors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP CORS</h2>
+        <p class="mb-4">Cross-Origin Resource Sharing with policy-based origin matching.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">CorsOptions</span>,
+  <span class="tp">CorsResult</span>,
+  <span class="tp">CorsPolicy</span>,
+  <span class="tp">CorsOrigin</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="kw">const</span> cors: <span class="tp">CorsOptions</span> = {
+  origin: [<span class="str">"https://example.com"</span>, <span class="str">"https://app.example.com"</span>],
+  methods: [<span class="str">"GET"</span>, <span class="str">"POST"</span>, <span class="str">"PUT"</span>, <span class="str">"DELETE"</span>],
+  allowedHeaders: [<span class="str">"Content-Type"</span>, <span class="str">"Authorization"</span>],
+  credentials: <span class="num">true</span>,
+  maxAge: <span class="num">86400</span>,
+};
+
+<span class="cm">// CorsOrigin can be:</span>
+<span class="cm">// - string | string[] (exact match)</span>
+<span class="cm">// - RegExp | RegExp[] (pattern match)</span>
+<span class="cm">// - ((origin: string) => boolean) (function match)</span>
+<span class="cm">// - "*" (allow all)</span></div>
+      </section>
+
+      <!-- ==================== HTTP CSP ==================== -->
+      <section id="http-csp" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP CSP</h2>
+        <p class="mb-4">Content Security Policy directives, nonce generation, and nonce sources.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">CSPOptions</span>,
+  <span class="tp">CSPResult</span>,
+  <span class="tp">CSPDirectives</span>,
+  <span class="fn">parseCSP</span>,
+  <span class="fn">formatCSP</span>,
+  <span class="fn">createCSP</span>,
+  <span class="fn">strictCSP</span>,
+  <span class="fn">apiCSP</span>,
+  <span class="fn">generateCSPNonce</span>,
+  <span class="fn">createNonceSource</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Parse a CSP header</span>
+<span class="kw">const</span> directives = <span class="fn">parseCSP</span>(<span class="str">"default-src 'self'; script-src 'self' 'nonce-abc123'"</span>);
+
+<span class="cm">// Format directives back to header</span>
+<span class="kw">const</span> header = <span class="fn">formatCSP</span>(directives);
+
+<span class="cm">// Generate a nonce</span>
+<span class="kw">const</span> nonce = <span class="fn">generateCSPNonce</span>();
+<span class="cm">// "a1b2c3d4e5f6..." (base64 random)</span>
+
+<span class="cm">// Create a nonce source for reuse</span>
+<span class="kw">const</span> source = <span class="fn">createNonceSource</span>();
+
+<span class="cm">// Preset CSP policies</span>
+<span class="kw">const</span> strict = <span class="fn">strictCSP</span>();   <span class="cm">// Minimal, restrictive policy</span>
+<span class="kw">const</span> api = <span class="fn">apiCSP</span>();         <span class="cm">// API-friendly policy</span></div>
+      </section>
+
+      <!-- ==================== HTTP SECURITY HEADERS ==================== -->
+      <section id="http-security-headers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP SECURITY HEADERS</h2>
+        <p class="mb-4">Complete security header suite with individual formatters.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">SecurityHeadersOptions</span>,
+  <span class="tp">SecurityHeaders</span>,
+  <span class="fn">createSecurityHeaders</span>,
+  <span class="fn">createRecommendedSecurityHeaders</span>,
+  <span class="fn">contentSecurityPolicyHeader</span>,
+  <span class="fn">strictTransportSecurityHeader</span>,
+  <span class="fn">xFrameOptionsHeader</span>,
+  <span class="fn">referrerPolicyHeader</span>,
+  <span class="fn">permissionsPolicyHeader</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Get all recommended security headers</span>
+<span class="kw">const</span> headers = <span class="fn">createRecommendedSecurityHeaders</span>();
+<span class="cm">// { "Content-Security-Policy": "...", "Strict-Transport-Security": "max-age=31536000", ... }</span>
+
+<span class="cm">// Or customize</span>
+<span class="kw">const</span> custom = <span class="fn">createSecurityHeaders</span>({
+  contentSecurityPolicy: { <span class="str">"default-src"</span>: [<span class="str">"'self'"</span>] },
+  strictTransportSecurity: { maxAge: <span class="num">63072000</span>, includeSubDomains: <span class="num">true</span> },
+  xFrameOptions: <span class="str">"DENY"</span>,
+  referrerPolicy: <span class="str">"strict-origin-when-cross-origin"</span>,
+});</div>
+      </section>
+
+      <!-- ==================== HTTP VALIDATION ==================== -->
+      <section id="http-validation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP VALIDATION</h2>
+        <p class="mb-4">Validators for HTTP methods, headers, URLs, status codes, content types, and more.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">isValidHTTPMethod</span>,
+  <span class="fn">isValidHeaderName</span>,
+  <span class="fn">isValidURL</span>,
+  <span class="fn">isValidStatusCode</span>,
+  <span class="fn">isValidContentLength</span>,
+  <span class="fn">isValidContentType</span>,
+  <span class="fn">assertValidHeader</span>,
+  <span class="fn">assertValidURL</span>,
+  <span class="fn">validateHTTPMessage</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="fn">isValidHTTPMethod</span>(<span class="str">"GET"</span>);        <span class="cm">// true</span>
+<span class="fn">isValidHTTPMethod</span>(<span class="str">"INVALID"</span>);    <span class="cm">// false</span>
+<span class="fn">isValidHeaderName</span>(<span class="str">"Content-Type"</span>); <span class="cm">// true</span>
+<span class="fn">isValidURL</span>(<span class="str">"https://example.com"</span>); <span class="cm">// true</span>
+<span class="fn">isValidStatusCode</span>(<span class="num">200</span>);          <span class="cm">// true</span>
+<span class="fn">isValidContentType</span>(<span class="str">"application/json"</span>); <span class="cm">// true</span>
+
+<span class="cm">// Throws on invalid input</span>
+<span class="fn">assertValidHeader</span>(<span class="str">"X-Bad Header"</span>); <span class="cm">// throws</span>
+<span class="fn">assertValidURL</span>(<span class="str">"not-a-url"</span>);       <span class="cm">// throws</span></div>
+      </section>
+
+      <!-- ==================== HTTP STREAM ==================== -->
+      <section id="http-stream" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP STREAM</h2>
+        <p class="mb-4">Stream reading, piping, copying, progress tracking, and drain waiting.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">readStream</span>,
+  <span class="fn">readStreamAsString</span>,
+  <span class="fn">pipeStream</span>,
+  <span class="fn">copyStream</span>,
+  <span class="fn">consumeStream</span>,
+  <span class="fn">createPassThrough</span>,
+  <span class="fn">pipeStreamWithProgress</span>,
+  <span class="fn">writeToStream</span>,
+  <span class="fn">waitForDrain</span>,
+  <span class="fn">destroyStream</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Read entire stream as buffer</span>
+<span class="kw">const</span> data = <span class="kw">await</span> <span class="fn">readStream</span>(stream);
+
+<span class="cm">// Read as string</span>
+<span class="kw">const</span> text = <span class="kw">await</span> <span class="fn">readStreamAsString</span>(stream);
+
+<span class="cm">// Pipe with progress tracking</span>
+<span class="kw">await</span> <span class="fn">pipeStreamWithProgress</span>(source, dest, {
+  <span class="fn">onProgress</span>: (progress: <span class="tp">StreamProgress</span>) =&gt; {
+    console.<span class="fn">log</span>(<span class="str">`${progress.bytesTransferred} / ${progress.totalBytes}`</span>);
+  },
+});
+
+<span class="cm">// Safe drain waiting</span>
+<span class="kw">await</span> <span class="fn">waitForDrain</span>(writable);
+
+<span class="cm">// Cleanup</span>
+<span class="fn">destroyStream</span>(stream);</div>
+      </section>
+
+      <!-- ==================== HTTP TRUST PROXY ==================== -->
+      <section id="http-trust-proxy" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP TRUST PROXY</h2>
+        <p class="mb-4">Trust proxy configuration for reverse proxy deployments.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">TrustProxy</span>,
+  <span class="fn">compileTrustProxy</span>,
+  <span class="fn">getClientIp</span>,
+  <span class="fn">getRequestProtocol</span>,
+  <span class="fn">isSecureRequest</span>,
+  <span class="fn">getRequestHostname</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Configure trust proxy</span>
+<span class="kw">const</span> trust = <span class="fn">compileTrustProxy</span>(<span class="num">1</span>); <span class="cm">// trust first proxy</span>
+
+<span class="cm">// Extract client IP</span>
+<span class="kw">const</span> ip = <span class="fn">getClientIp</span>(request, trust);
+
+<span class="cm">// Detect protocol</span>
+<span class="kw">const</span> proto = <span class="fn">getRequestProtocol</span>(request, trust);
+
+<span class="cm">// Check if request is HTTPS</span>
+<span class="kw">const</span> secure = <span class="fn">isSecureRequest</span>(request, trust);
+
+<span class="cm">// Get hostname</span>
+<span class="kw">const</span> host = <span class="fn">getRequestHostname</span>(request, trust);</div>
+      </section>
+
+      <!-- ==================== HTTP CACHE CONTROL ==================== -->
+      <section id="http-cache-control" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP CACHE CONTROL</h2>
+        <p class="mb-4">Cache-Control header parsing, formatting, freshness calculation, and response storable checks.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">parseCacheControl</span>,
+  <span class="fn">formatCacheControl</span>,
+  <span class="fn">createCacheControl</span>,
+  <span class="fn">isResponseStorable</span>,
+  <span class="fn">calculateFreshness</span>,
+  <span class="fn">isFresh</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Parse Cache-Control header</span>
+<span class="kw">const</span> directives = <span class="fn">parseCacheControl</span>(<span class="str">"public, max-age=3600, must-revalidate"</span>);
+<span class="cm">// { public: true, "max-age": 3600, "must-revalidate": true }</span>
+
+<span class="cm">// Create from options</span>
+<span class="kw">const</span> cc = <span class="fn">createCacheControl</span>({
+  public: <span class="num">true</span>,
+  maxAge: <span class="num">3600</span>,
+  noCache: <span class="num">false</span>,
+});
+
+<span class="cm">// Format back to string</span>
+<span class="kw">const</span> header = <span class="fn">formatCacheControl</span>(cc);
+
+<span class="cm">// Check freshness</span>
+<span class="kw">const</span> freshness = <span class="fn">calculateFreshness</span>(directives, responseDate, now);
+<span class="kw">const</span> fresh = <span class="fn">isFresh</span>(directives, responseDate, now);</div>
+      </section>
+
+      <!-- ==================== HTTP CONTENT TYPE ==================== -->
+      <section id="http-content-type" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP CONTENT TYPE</h2>
+        <p class="mb-4">Content type parsing, formatting, matching, and constructors.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">parseContentType</span>,
+  <span class="fn">formatContentType</span>,
+  <span class="fn">createContentType</span>,
+  <span class="fn">matchesContentType</span>,
+  <span class="fn">isJSON</span>,
+  <span class="fn">isText</span>,
+  <span class="fn">isXML</span>,
+  <span class="tp">jsonContentType</span>,
+  <span class="tp">textContentType</span>,
+  <span class="tp">htmlContentType</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Parse content type string</span>
+<span class="kw">const</span> ct = <span class="fn">parseContentType</span>(<span class="str">"application/json; charset=utf-8"</span>);
+<span class="cm">// { type: "application/json", parameters: { charset: "utf-8" } }</span>
+
+<span class="cm">// Check types</span>
+<span class="fn">isJSON</span>(<span class="str">"application/json"</span>);  <span class="cm">// true</span>
+<span class="fn">isText</span>(<span class="str">"text/plain"</span>);        <span class="cm">// true</span>
+<span class="fn">isXML</span>(<span class="str">"application/xml"</span>);    <span class="cm">// true</span>
+
+<span class="cm">// Match against accepted types</span>
+<span class="fn">matchesContentType</span>(<span class="str">"application/json"</span>, [<span class="str">"application/json"</span>, <span class="str">"text/json"</span>]); <span class="cm">// true</span></div>
+      </section>
+
+      <!-- ==================== HTTP MULTIPART ==================== -->
+      <section id="http-multipart" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP MULTIPART</h2>
+        <p class="mb-4">Multipart form data parsing with file upload handling.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">parseMultipart</span>,
+  <span class="tp">MultipartFile</span>,
+  <span class="tp">MultipartField</span>,
+  <span class="tp">MultipartForm</span>,
+  <span class="tp">MultipartOptions</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="kw">const</span> form: <span class="tp">MultipartForm</span> = <span class="kw">await</span> <span class="fn">parseMultipart</span>(request, {
+  maxFileSize: <span class="num">10</span> * <span class="num">1024</span> * <span class="num">1024</span>,
+  maxFiles: <span class="num">5</span>,
+});
+
+<span class="cm">// Access files</span>
+<span class="kw">for</span> (<span class="kw">const</span> file <span class="kw">of</span> form.files) {
+  console.<span class="fn">log</span>(file.filename, file.mimetype, file.data.length);
+}
+
+<span class="cm">// Access text fields</span>
+<span class="kw">for</span> (<span class="kw">const</span> field <span class="kw">of</span> form.fields) {
+  console.<span class="fn">log</span>(field.name, field.value);
+}</div>
+      </section>
+
+      <!-- ==================== HTTP QUERY ==================== -->
+      <section id="http-query" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP QUERY</h2>
+        <p class="mb-4">Query string parsing and manipulation.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">parseQuery</span>,
+  <span class="fn">getQuery</span>,
+  <span class="fn">parseQueryString</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Parse from URL</span>
+<span class="kw">const</span> query = <span class="fn">parseQuery</span>(<span class="str">"?page=1&limit=20&tags=ts&tags=node"</span>);
+<span class="cm">// { page: "1", limit: "20", tags: ["ts", "node"] }</span>
+
+<span class="cm">// Get a specific value</span>
+<span class="kw">const</span> page = <span class="fn">getQuery</span>(request, <span class="str">"page"</span>); <span class="cm">// "1"</span>
+
+<span class="cm">// Parse raw string</span>
+<span class="kw">const</span> q = <span class="fn">parseQueryString</span>(<span class="str">"foo=bar&baz=qux"</span>);</div>
+      </section>
+
+      <!-- ==================== HTTP REDIRECT ==================== -->
+      <section id="http-redirect" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP REDIRECT</h2>
+        <p class="mb-4">Redirect options, results, and policy constants.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">RedirectOptions</span>,
+  <span class="tp">RedirectResult</span>,
+  <span class="tp">RedirectPolicy</span>,
+  <span class="tp">REDIRECT_STATUS_CODES</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// REDIRECT_STATUS_CODES mapping</span>
+<span class="cm">// {</span>
+<span class="cm">//   [RedirectPolicy.TEMPORARY]: 307,</span>
+<span class="cm">//   [RedirectPolicy.PERMANENT]: 301,</span>
+<span class="cm">//   [RedirectPolicy.SEE_OTHER]: 303,</span>
+<span class="cm">//   [RedirectPolicy.NOT_MODIFIED]: 304,</span>
+<span class="cm">//   [RedirectPolicy.TEMPORARY_REDIRECT]: 307,</span>
+<span class="cm">//   [RedirectPolicy.PERMANENT_REDIRECT]: 308,</span>
+<span class="cm">// }</span></div>
+      </section>
+
+      <!-- ==================== HTTP NEGOTIATION ==================== -->
+      <section id="http-negotiation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP NEGOTIATION</h2>
+        <p class="mb-4">Content type, language, and encoding negotiation.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">negotiateContentType</span>,
+  <span class="fn">negotiateLanguage</span>,
+  <span class="fn">negotiateEncoding</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Content type negotiation</span>
+<span class="kw">const</span> contentType = <span class="fn">negotiateContentType</span>(
+  request,
+  [<span class="str">"application/json"</span>, <span class="str">"text/html"</span>]
+);
+
+<span class="cm">// Language negotiation</span>
+<span class="kw">const</span> language = <span class="fn">negotiateLanguage</span>(
+  request,
+  [<span class="str">"en"</span>, <span class="str">"fr"</span>, <span class="str">"de"</span>]
+);
+
+<span class="cm">// Encoding negotiation</span>
+<span class="kw">const</span> encoding = <span class="fn">negotiateEncoding</span>(
+  request,
+  [<span class="str">"gzip"</span>, <span class="str">"br"</span>, <span class="str">"deflate"</span>]
+);</div>
+      </section>
+
+      <!-- ==================== HTTP KEEP ALIVE ==================== -->
+      <section id="http-keep-alive" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP KEEP ALIVE</h2>
+        <p class="mb-4">Connection keep-alive configuration and defaults.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">KeepAliveOptions</span>,
+  <span class="tp">KeepAliveConfig</span>,
+  <span class="tp">DEFAULT_KEEP_ALIVE_TIMEOUT</span>,
+  <span class="tp">DEFAULT_KEEP_ALIVE_INTERVAL</span>,
+  <span class="tp">DEFAULT_KEEP_ALIVE_MAX_REQUESTS</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Defaults</span>
+<span class="cm">// DEFAULT_KEEP_ALIVE_TIMEOUT = 5000</span>
+<span class="cm">// DEFAULT_KEEP_ALIVE_INTERVAL = 1000</span>
+<span class="cm">// DEFAULT_KEEP_ALIVE_MAX_REQUESTS = 100</span>
+
+<span class="kw">const</span> keepAlive: <span class="tp">KeepAliveOptions</span> = {
+  enabled: <span class="num">true</span>,
+  timeout: <span class="num">5000</span>,
+  interval: <span class="num">1000</span>,
+  maxRequests: <span class="num">100</span>,
+};</div>
+      </section>
+
+      <!-- ==================== HTTP AGENT ==================== -->
+      <section id="http-agent" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP AGENT</h2>
+        <p class="mb-4">HTTP agent protocol, configuration, and instance management.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">HTTPAgentProtocol</span>,
+  <span class="tp">HTTPAgentConfig</span>,
+  <span class="tp">HTTPAgentInstance</span>,
+  <span class="tp">DEFAULT_AGENT_KEEP_ALIVE</span>,
+  <span class="tp">DEFAULT_AGENT_MAX_SOCKETS</span>,
+  <span class="tp">DEFAULT_AGENT_TIMEOUT</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// Defaults</span>
+<span class="cm">// DEFAULT_AGENT_KEEP_ALIVE = true</span>
+<span class="cm">// DEFAULT_AGENT_MAX_SOCKETS = Infinity</span>
+<span class="cm">// DEFAULT_AGENT_TIMEOUT = 0</span></div>
+      </section>
+
+      <!-- ==================== HTTP PROXY ==================== -->
+      <section id="http-proxy" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP PROXY</h2>
+        <p class="mb-4">Proxy target configuration, options, and forwarded address handling.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">ProxyTarget</span>,
+  <span class="tp">ProxyOptions</span>,
+  <span class="tp">ProxyRequest</span>,
+  <span class="tp">ForwardedAddress</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="kw">interface</span> <span class="tp">ProxyTarget</span> {
+  <span class="kw">readonly</span> host: <span class="tp">string</span>;
+  <span class="kw">readonly</span> port: <span class="tp">number</span>;
+  <span class="kw">readonly</span> protocol?: <span class="str">"http:"</span> | <span class="str">"https:"</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">ProxyOptions</span> {
+  <span class="kw">readonly</span> target: <span class="tp">ProxyTarget</span>;
+  <span class="kw">readonly</span> changeOrigin?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> pathRewrite?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+}</div>
+      </section>
+
+      <!-- ==================== HTTP HSTS ==================== -->
+      <section id="http-hsts" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP HSTS</h2>
+        <p class="mb-4">HTTP Strict Transport Security parsing and formatting.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">HSTSOptions</span>,
+  <span class="tp">HSTSPolicy</span>,
+  <span class="tp">HSTSResult</span>,
+  <span class="fn">parseHSTS</span>,
+  <span class="tp">STRICT_TRANSPORT_SECURITY_HEADER</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="kw">const</span> parsed = <span class="fn">parseHSTS</span>(<span class="str">"max-age=31536000; includeSubDomains; preload"</span>);
+<span class="cm">// { maxAge: 31536000, includeSubDomains: true, preload: true }</span>
+
+<span class="cm">// STRICT_TRANSPORT_SECURITY_HEADER = "strict-transport-security"</span></div>
+      </section>
+
+      <!-- ==================== HTTP COMPRESSION ==================== -->
+      <section id="http-compression" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP COMPRESSION</h2>
+        <p class="mb-4">Compression encoding negotiation and decision making.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">CompressionEncoding</span>,
+  <span class="tp">CompressionPreference</span>,
+  <span class="tp">CompressionOptions</span>,
+  <span class="tp">CompressionDecision</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// CompressionEncoding: "gzip" | "deflate" | "br" | "zstd" | "identity"</span>
+<span class="cm">// CompressionPreference: "none" | "fastest" | "best" | "balanced"</span></div>
+      </section>
+
+      <!-- ==================== HTTP CONTENT DISPOSITION ==================== -->
+      <section id="http-content-disposition" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP CONTENT DISPOSITION</h2>
+        <p class="mb-4">Content-Disposition header types and options.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">ContentDispositionType</span>,
+  <span class="tp">ContentDisposition</span>,
+  <span class="tp">ContentDispositionOptions</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// ContentDispositionType: "inline" | "attachment"</span>
+<span class="cm">// ContentDisposition: { type, filename?, parameters? }</span></div>
+      </section>
+
+      <!-- ==================== ERROR HIERARCHY ==================== -->
+      <section id="error-hierarchy" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All HTTP errors extend <code>BaseError</code> from <code>@zudojs/errors</code>.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error Class</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-zudo-red">HttpError</td>
+                <td class="p-3">Generic HTTP error with any status code</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-zudo-red">HttpMiddlewareError</td>
+                <td class="p-3">Middleware execution failure</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-zudo-red">HttpMiddlewarePipelineError</td>
+                <td class="p-3">Pipeline-level middleware failure</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-zudo-red">HttpClientError</td>
+                <td class="p-3">HTTP client request failure</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-zudo-red">HttpClientTimeoutError</td>
+                <td class="p-3">Client request timeout</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-zudo-red">HttpClientAbortError</td>
+                <td class="p-3">Client request aborted</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-zudo-red">HttpClientNetworkError</td>
+                <td class="p-3">Client network connectivity failure</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-zudo-red">HTTPFormDataError</td>
+                <td class="p-3">Form data processing failure</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-zudo-red">HTTPFormDataLimitError</td>
+                <td class="p-3">Form data size limit exceeded</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-zudo-red">HTTPFormDataParseError</td>
+                <td class="p-3">Form data parsing failure</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-zudo-red">StreamError</td>
+                <td class="p-3">Stream processing failure</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== FULL INTEGRATION EXAMPLE ==================== -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete working example: HTTP server with routes, middleware, CORS, and security headers.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createHttpServer</span>,
+  <span class="fn">startServer</span>,
+  <span class="fn">stopServer</span>,
+  <span class="fn">createRouteDispatcher</span>,
+  <span class="fn">executePipeline</span>,
+  <span class="fn">createSecurityHeaders</span>,
+  <span class="fn">createRecommendedSecurityHeaders</span>,
+  <span class="fn">generateCSPNonce</span>,
+  <span class="fn">createCacheControl</span>,
+  <span class="fn">formatCacheControl</span>,
+  <span class="fn">parseRequestBody</span>,
+  <span class="fn">getClientIp</span>,
+  <span class="fn">compileTrustProxy</span>,
+  <span class="tp">HTTPMethod</span>,
+  <span class="tp">HTTPHeaders</span>,
+  <span class="tp">HTTPContext</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/http"</span>;
+
+<span class="cm">// 1. Configure trust proxy</span>
+<span class="kw">const</span> trust = <span class="fn">compileTrustProxy</span>(<span class="num">1</span>);
+
+<span class="cm">// 2. Security headers middleware</span>
+<span class="kw">const</span> securityMiddleware = <span class="kw">async</span> (ctx, next) =&gt; {
+  <span class="kw">const</span> headers = <span class="fn">createRecommendedSecurityHeaders</span>();
+  <span class="kw">for</span> (<span class="kw">const</span> [key, value] <span class="kw">of</span> Object.<span class="fn">entries</span>(headers)) {
+    ctx.response.<span class="fn">header</span>(key, value);
+  }
+  <span class="kw">await</span> <span class="fn">next</span>();
+};
+
+<span class="cm">// 3. Logging middleware</span>
+<span class="kw">const</span> loggingMiddleware = <span class="kw">async</span> (ctx, next) =&gt; {
+  <span class="kw">const</span> start = Date.<span class="fn">now</span>();
+  <span class="kw">const</span> ip = <span class="fn">getClientIp</span>(ctx.request, trust);
+  console.<span class="fn">log</span>(<span class="str">`→ ${ctx.method} ${ctx.url.pathname} from ${ip}`</span>);
+  <span class="kw">await</span> <span class="fn">next</span>();
+  <span class="kw">const</span> duration = Date.<span class="fn">now</span>() - start;
+  console.<span class="fn">log</span>(<span class="str">`← ${ctx.response.statusCode} (${duration}ms)`</span>);
+};
+
+<span class="cm">// 4. Define routes</span>
+<span class="kw">const</span> routes = [
+  {
+    method: <span class="str">"GET"</span> <span class="kw">as</span> <span class="tp">HTTPMethod</span>,
+    path: <span class="str">"/api/users"</span>,
+    handler: <span class="kw">async</span> (ctx) =&gt; {
+      <span class="kw">const</span> cache = <span class="fn">createCacheControl</span>({ public: <span class="num">true</span>, maxAge: <span class="num">60</span> });
+      ctx.response
+        .<span class="fn">header</span>(<span class="str">"Cache-Control"</span>, <span class="fn">formatCacheControl</span>(cache))
+        .<span class="fn">json</span>({ users: [{ id: <span class="num">1</span>, name: <span class="str">"Alice"</span> }] });
+    },
+  },
+  {
+    method: <span class="str">"POST"</span> <span class="kw">as</span> <span class="tp">HTTPMethod</span>,
+    path: <span class="str">"/api/users"</span>,
+    handler: <span class="kw">async</span> (ctx) =&gt; {
+      <span class="kw">const</span> body = <span class="kw">await</span> <span class="fn">parseRequestBody</span>(ctx.request);
+      ctx.response.<span class="fn">status</span>(<span class="num">201</span>).<span class="fn">json</span>({ id: <span class="num">2</span>, ...body });
+    },
+  },
+  {
+    method: <span class="str">"GET"</span> <span class="kw">as</span> <span class="tp">HTTPMethod</span>,
+    path: <span class="str">"/api/health"</span>,
+    handler: <span class="kw">async</span> (ctx) =&gt; {
+      ctx.response.<span class="fn">json</span>({ status: <span class="str">"ok"</span>, timestamp: <span class="kw">new</span> <span class="tp">Date</span>().<span class="fn">toISOString</span>() });
+    },
+  },
+];
+
+<span class="cm">// 5. Create dispatcher</span>
+<span class="kw">const</span> dispatcher = <span class="fn">createRouteDispatcher</span>(routes);
+
+<span class="cm">// 6. Create and start server</span>
+<span class="kw">const</span> server = <span class="fn">createHttpServer</span>({
+  port: <span class="num">3000</span>,
+  host: <span class="str">"0.0.0.0"</span>,
+  trustProxy: trust,
+  timeout: <span class="num">30000</span>,
+});
+
+server.<span class="fn">use</span>(securityMiddleware);
+server.<span class="fn">use</span>(loggingMiddleware);
+server.<span class="fn">use</span>(dispatcher);
+
+<span class="kw">await</span> <span class="fn">startServer</span>(server);
+console.<span class="fn">log</span>(<span class="str">"Server listening on http://localhost:3000"</span>);
+
+<span class="cm">// Graceful shutdown</span>
+process.<span class="fn">on</span>(<span class="str">"SIGTERM"</span>, <span class="kw">async</span> () =&gt; {
+  <span class="kw">await</span> <span class="fn">stopServer</span>(server);
+  process.<span class="fn">exit</span>(<span class="num">0</span>);
+});</div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#where-it-sits" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#core-types" class="toc-link">Core Types</a>
+      <a href="#http-status-codes" class="toc-link">Status Codes</a>
+      <a href="#http-router" class="toc-link">Router</a>
+      <a href="#http-server" class="toc-link">Server</a>
+      <a href="#http-client" class="toc-link">Client</a>
+      <a href="#http-middleware" class="toc-link">Middleware</a>
+      <a href="#http-interceptors" class="toc-link">Interceptors</a>
+      <a href="#http-headers" class="toc-link">Headers</a>
+      <a href="#http-body" class="toc-link">Body</a>
+      <a href="#http-cookies" class="toc-link">Cookies</a>
+      <a href="#http-cors" class="toc-link">CORS</a>
+      <a href="#http-csp" class="toc-link">CSP</a>
+      <a href="#http-security-headers" class="toc-link">Security Headers</a>
+      <a href="#http-validation" class="toc-link">Validation</a>
+      <a href="#http-stream" class="toc-link">Stream</a>
+      <a href="#http-trust-proxy" class="toc-link">Trust Proxy</a>
+      <a href="#http-cache-control" class="toc-link">Cache Control</a>
+      <a href="#http-content-type" class="toc-link">Content Type</a>
+      <a href="#http-multipart" class="toc-link">Multipart</a>
+      <a href="#http-query" class="toc-link">Query</a>
+      <a href="#http-redirect" class="toc-link">Redirect</a>
+      <a href="#http-negotiation" class="toc-link">Negotiation</a>
+      <a href="#http-keep-alive" class="toc-link">Keep Alive</a>
+      <a href="#http-agent" class="toc-link">Agent</a>
+      <a href="#http-proxy" class="toc-link">Proxy</a>
+      <a href="#http-hsts" class="toc-link">HSTS</a>
+      <a href="#http-compression" class="toc-link">Compression</a>
+      <a href="#http-content-disposition" class="toc-link">Content Disposition</a>
+      <a href="#error-hierarchy" class="toc-link">Error Hierarchy</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>

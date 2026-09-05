@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/lifecycle — Lifecycle Orchestration Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/lifecycle — state machine, component lifecycle hooks, dependency ordering, graceful shutdown, signal handling, and rollback for the Zudojs framework.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages/events" class="sidebar-item">@zudojs/events</a>
+      <a href="/docs/packages/errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages/constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+      <a href="/docs/packages/lifecycle" class="sidebar-item sidebar-item-active">@zudojs/lifecycle</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/lifecycle</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.1.0</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/lifecycle</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Application and component lifecycle orchestration — state machine, dependency ordering, graceful shutdown, signal handling, retry with backoff, rollback, and execution plans.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">LIFECYCLE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">STATE MACHINE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">SHUTDOWN</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">SIGNALS</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/lifecycle
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/lifecycle
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/lifecycle</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/lifecycle depends on @zudojs/errors and @zudojs/constants. All at version 0.1.0.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/lifecycle</code> is the lifecycle orchestration engine for Zudojs. It provides:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> A <strong>LifecycleStateMachine</strong> that validates and tracks state transitions (IDLE → INITIALIZING → INITIALIZED → STARTING → STARTED → READY → STOPPING → STOPPED → DISPOSED)</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Component lifecycle hooks</strong> — initialize, start, ready, stop, dispose — that components implement as needed</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Dependency ordering</strong> via topological sort and a directed acyclic graph</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Graceful shutdown</strong> with reverse-ordered teardown and configurable timeouts</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Signal handling</strong> — automatic SIGINT/SIGTERM interception to trigger shutdown</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> A <strong>LifecycleEventEmitter</strong> that emits 16 typed events for observability integration</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Retry with backoff</strong> — configurable exponential or fixed retry for component operations</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Concurrency control</strong> — parallel execution of independent components with configurable limits</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Rollback support</strong> — components that fail during startup can be disposed in reverse order</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Execution plans</strong> — build ordered startup/shutdown stages from the dependency graph</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Components declare what they need. The lifecycle manager figures out the order, handles concurrency, manages timeouts, and ensures clean shutdown — all driven by a validated state machine.
+        </div>
+      </section>
+
+      <!-- Where It Sits -->
+      <section id="where-it-sits" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6 space-y-3">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">APPLICATION LAYER (Modules, CQRS, HTTP)</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">LIFECYCLE MANAGER (@zudojs/lifecycle)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">RUNTIME (@zudojs/runtime, Orchestrator)</div>
+          <div class="bg-black text-white p-3 font-bold text-center text-sm">INFRASTRUCTURE (DI, Config, Events)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          The lifecycle manager sits between the application layer and the runtime. Modules register themselves as components. The manager resolves their dependency order, executes their hooks during startup and shutdown, and integrates with the runtime for process-level coordination.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Error hierarchy (LifecycleError, LifecycleStateError, LifecycleTimeoutError, etc.)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/constants</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">LifecycleState, LifecyclePhase enums, valid transitions, and default values</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.1.0</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <!-- Lifecycle States -->
+      <section id="lifecycle-states" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LIFECYCLE STATES</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">LifecycleState</code> enum defines every state a component or application can be in. The state machine enforces valid transitions between them.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Enum: LifecycleState</h3>
+        <div class="code-block"><span class="kw">enum</span> <span class="tp">LifecycleState</span> {
+  IDLE = <span class="str">"idle"</span>,
+  INITIALIZING = <span class="str">"initializing"</span>,
+  INITIALIZED = <span class="str">"initialized"</span>,
+  STARTING = <span class="str">"starting"</span>,
+  STARTED = <span class="str">"started"</span>,
+  READY = <span class="str">"ready"</span>,
+  STOPPING = <span class="str">"stopping"</span>,
+  STOPPED = <span class="str">"stopped"</span>,
+  FAILED = <span class="str">"failed"</span>,
+  DISPOSED = <span class="str">"disposed"</span>,
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Valid Transitions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">From</th>
+                <th class="p-3 text-left">To (allowed)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">IDLE</td>
+                <td class="p-3">INITIALIZING, DISPOSED</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">INITIALIZING</td>
+                <td class="p-3">INITIALIZED, FAILED</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">INITIALIZED</td>
+                <td class="p-3">STARTING, STOPPING, DISPOSED</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">STARTING</td>
+                <td class="p-3">STARTED, FAILED</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">STARTED</td>
+                <td class="p-3">READY, STOPPING, FAILED</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">READY</td>
+                <td class="p-3">STOPPING, FAILED</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">STOPPING</td>
+                <td class="p-3">STOPPED, FAILED</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">STOPPED</td>
+                <td class="p-3">DISPOSED</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">FAILED</td>
+                <td class="p-3">STOPPING, DISPOSED</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">DISPOSED</td>
+                <td class="p-3">— (terminal)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Startup Path</h3>
+        <div class="code-block">IDLE → INITIALIZING → INITIALIZED → STARTING → STARTED → READY</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Shutdown Path</h3>
+        <div class="code-block">READY → STOPPING → STOPPED → DISPOSED</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">FAILED State:</strong> A component can enter FAILED from any active state. From FAILED, it can transition to STOPPING (for cleanup) or directly to DISPOSED.
+        </div>
+      </section>
+
+      <!-- Lifecycle Phases -->
+      <section id="lifecycle-phases" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LIFECYCLE PHASES</h2>
+        <p class="mb-4">
+          Phases are the discrete hooks that components can implement. The manager executes these hooks in dependency order during startup and shutdown.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Enum: LifecyclePhase</h3>
+        <div class="code-block"><span class="kw">enum</span> <span class="tp">LifecyclePhase</span> {
+  INITIALIZE = <span class="str">"initialize"</span>,
+  START = <span class="str">"start"</span>,
+  READY = <span class="str">"ready"</span>,
+  STOP = <span class="str">"stop"</span>,
+  DISPOSE = <span class="str">"dispose"</span>,
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Ordered Phase Arrays</h3>
+        <div class="code-block"><span class="cm">// Startup phases — executed in order</span>
+<span class="kw">const</span> STARTUP_PHASES = [
+  LifecyclePhase.INITIALIZE,
+  LifecyclePhase.START,
+  LifecyclePhase.READY,
+];
+
+<span class="cm">// Shutdown phases — executed in reverse dependency order</span>
+<span class="kw">const</span> SHUTDOWN_PHASES = [
+  LifecyclePhase.STOP,
+  LifecyclePhase.DISPOSE,
+];</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Helper Functions</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Function</th>
+                <th class="p-3 text-left">Returns</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getPhaseHookName(phase)</td>
+                <td class="p-3">String hook name for a phase (e.g. <code>"initialize"</code>)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">getComponentMethod(phase)</td>
+                <td class="p-3">Method name to call on a component (e.g. <code>"start"</code>)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Component Interface -->
+      <section id="component-interface" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">COMPONENT INTERFACE</h2>
+        <p class="mb-4">
+          Components implement <code class="bg-black/5 px-1">LifecycleComponent</code> to participate in the lifecycle. All hook methods are optional — implement only what you need.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: LifecycleComponent</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LifecycleComponent</span> {
+  <span class="cm">/** Unique name identifying this component. */</span>
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+
+  <span class="cm">/** Prepare configuration, create internal objects. */</span>
+  <span class="fn">initialize</span>?(context: <span class="tp">LifecycleContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="cm">/** Connect to databases, start servers. */</span>
+  <span class="fn">start</span>?(context: <span class="tp">LifecycleContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="cm">/** Confirm ready to serve (health check, warm-up). */</span>
+  <span class="fn">ready</span>?(context: <span class="tp">LifecycleContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="cm">/** Stop accepting work, drain queues. */</span>
+  <span class="fn">stop</span>?(context: <span class="tp">LifecycleContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="cm">/** Final resource cleanup. */</span>
+  <span class="fn">dispose</span>?(context: <span class="tp">LifecycleContext</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LifecycleRegistrationOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LifecycleRegistrationOptions</span> {
+  <span class="kw">readonly</span> id?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> dependsOn?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> priority?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> critical?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> timeout?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> retry?: <span class="tp">LifecycleRetryOptions</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LifecycleRetryOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LifecycleRetryOptions</span> {
+  <span class="kw">readonly</span> attempts?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> delay?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> maxDelay?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> backoff?: <span class="str">"fixed"</span> | <span class="str">"exponential"</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LifecycleRegistration</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LifecycleRegistration</span> {
+  <span class="kw">readonly</span> id: <span class="tp">string</span>;
+  <span class="kw">readonly</span> component: <span class="tp">LifecycleComponent</span>;
+  <span class="kw">readonly</span> dependsOn: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> priority: <span class="tp">number</span>;
+  <span class="kw">readonly</span> critical: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> timeout: <span class="tp">number</span>;
+  <span class="kw">readonly</span> retry: <span class="tp">LifecycleRetryOptions</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Implementing a Component</h3>
+        <div class="code-block"><span class="kw">import</span> <span class="kw">type</span> { <span class="tp">LifecycleComponent</span>, <span class="tp">LifecycleContext</span> } <span class="kw">from</span> <span class="str">"@zudojs/lifecycle"</span>;
+
+<span class="kw">const</span> database: <span class="tp">LifecycleComponent</span> = {
+  name: <span class="str">"database"</span>,
+
+  <span class="kw">async</span> <span class="fn">initialize</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    <span class="cm">// Load config, validate connection string</span>
+  },
+
+  <span class="kw">async</span> <span class="fn">start</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    <span class="cm">// Open connection pool</span>
+  },
+
+  <span class="kw">async</span> <span class="fn">ready</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    <span class="cm">// Run health check query</span>
+  },
+
+  <span class="kw">async</span> <span class="fn">stop</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    <span class="cm">// Drain connections</span>
+  },
+
+  <span class="kw">async</span> <span class="fn">dispose</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    <span class="cm">// Close connection pool</span>
+  },
+};</div>
+      </section>
+
+      <!-- Lifecycle Context -->
+      <section id="lifecycle-context" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LIFECYCLE CONTEXT</h2>
+        <p class="mb-4">
+          Every component hook receives a <code class="bg-black/5 px-1">LifecycleContext</code> with cancellation support, phase info, and metadata.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: LifecycleContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LifecycleContext</span> {
+  <span class="kw">readonly</span> signal: <span class="tp">AbortSignal</span>;
+  <span class="kw">readonly</span> phase: <span class="tp">LifecyclePhase</span>;
+  <span class="kw">readonly</span> startedAt: <span class="tp">number</span>;
+  <span class="kw">readonly</span> metadata: <span class="tp">ReadonlyMap</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory Function</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createLifecycleContext</span>(
+  phase: <span class="tp">LifecyclePhase</span>,
+  startedAt: <span class="tp">number</span>,
+  signal?: <span class="tp">AbortSignal</span>,
+  metadata?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;,
+): <span class="tp">LifecycleContext</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Using Context</h3>
+        <div class="code-block"><span class="kw">async</span> <span class="fn">start</span>(ctx: <span class="tp">LifecycleContext</span>) {
+  <span class="cm">// Check if operation was cancelled</span>
+  <span class="kw">if</span> (ctx.signal.aborted) <span class="kw">return</span>;
+
+  <span class="cm">// Long-running operation with abort support</span>
+  <span class="kw">await</span> <span class="fn">connectToDatabase</span>(ctx.signal);
+
+  <span class="cm">// Read metadata</span>
+  <span class="kw">const</span> env = ctx.metadata.<span class="fn">get</span>(<span class="str">"environment"</span>);
+}</div>
+      </section>
+
+      <!-- Lifecycle Manager -->
+      <section id="lifecycle-manager" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LIFECYCLE MANAGER</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">LifecycleManager</code> is the central orchestrator. It registers components, resolves dependency order, executes hooks, handles signals, and manages shutdown.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: LifecycleManagerOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LifecycleManagerOptions</span> {
+  <span class="kw">readonly</span> concurrency?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> shutdownTimeout?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> handleSignals?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> signals?: <span class="kw">readonly</span> <span class="tp">NodeJS.Signals</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: LifecycleManager</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Member</th>
+                <th class="p-3 text-left">Type / Signature</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">register()</td>
+                <td class="p-3">register(component, options?): void</td>
+                <td class="p-3">Register a component with optional config</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">start()</td>
+                <td class="p-3">start(): Promise&lt;void&gt;</td>
+                <td class="p-3">Execute startup phases (idempotent)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">shutdown()</td>
+                <td class="p-3">shutdown(): Promise&lt;void&gt;</td>
+                <td class="p-3">Execute shutdown phases (idempotent)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">state</td>
+                <td class="p-3">LifecycleState (getter)</td>
+                <td class="p-3">Current application state</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">events</td>
+                <td class="p-3">LifecycleEventEmitter (getter)</td>
+                <td class="p-3">Event emitter for observability</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">registry</td>
+                <td class="p-3">LifecycleRegistry (getter)</td>
+                <td class="p-3">The component registry</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getStatus()</td>
+                <td class="p-3">getStatus(): ReadonlyMap&lt;string, { state, results }&gt;</td>
+                <td class="p-3">Per-component state and execution results</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">dispose()</td>
+                <td class="p-3">dispose(): void</td>
+                <td class="p-3">Clean up signal handlers and event listeners</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory Function</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createLifecycleManager</span>(
+  options?: <span class="tp">LifecycleManagerOptions</span>,
+): <span class="tp">LifecycleManager</span></div>
+      </section>
+
+      <!-- Lifecycle Registry -->
+      <section id="lifecycle-registry" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LIFECYCLE REGISTRY</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">LifecycleRegistry</code> manages component registration, validates dependencies, and builds the dependency graph.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Class: LifecycleRegistry</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Signature</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">register()</td>
+                <td class="p-3">register(component, options?): void</td>
+                <td class="p-3">Register a component. Throws if frozen or duplicate.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">validate()</td>
+                <td class="p-3">validate(): void</td>
+                <td class="p-3">Validate all dependencies exist and graph is acyclic.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">freeze()</td>
+                <td class="p-3">freeze(): void</td>
+                <td class="p-3">Validate and lock — no more registrations allowed.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">get()</td>
+                <td class="p-3">get(id): LifecycleRegistration | undefined</td>
+                <td class="p-3">Look up a registration by ID.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getAll()</td>
+                <td class="p-3">getAll(): readonly LifecycleRegistration[]</td>
+                <td class="p-3">All registrations.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getIds()</td>
+                <td class="p-3">getIds(): readonly string[]</td>
+                <td class="p-3">All registration IDs.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">graph</td>
+                <td class="p-3">DependencyGraph (getter)</td>
+                <td class="p-3">The dependency graph.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">size</td>
+                <td class="p-3">number (getter)</td>
+                <td class="p-3">Number of registered components.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Registration</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createLifecycleManager</span> } <span class="kw">from</span> <span class="str">"@zudojs/lifecycle"</span>;
+
+<span class="kw">const</span> manager = <span class="fn">createLifecycleManager</span>();
+
+manager.<span class="fn">register</span>(database, {
+  id: <span class="str">"database"</span>,
+  critical: <span class="kw">true</span>,
+  timeout: <span class="num">10_000</span>,
+});
+
+manager.<span class="fn">register</span>(queue, {
+  id: <span class="str">"queue"</span>,
+  dependsOn: [<span class="str">"database"</span>],
+  retry: { attempts: <span class="num">3</span>, backoff: <span class="str">"exponential"</span> },
+});
+
+manager.<span class="fn">register</span>(server, {
+  id: <span class="str">"server"</span>,
+  dependsOn: [<span class="str">"queue"</span>],
+  priority: <span class="num">10</span>,
+});</div>
+      </section>
+
+      <!-- State Machine -->
+      <section id="state-machine" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">STATE MACHINE</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">LifecycleStateMachine</code> tracks and validates state transitions for a single entity (component or application).
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Class: LifecycleStateMachine</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Member</th>
+                <th class="p-3 text-left">Type / Signature</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">state</td>
+                <td class="p-3">LifecycleState (getter)</td>
+                <td class="p-3">Current state</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">isTerminal</td>
+                <td class="p-3">boolean (getter)</td>
+                <td class="p-3">True if STOPPED or DISPOSED</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">isRunning</td>
+                <td class="p-3">boolean (getter)</td>
+                <td class="p-3">True if STARTED or READY</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">transition()</td>
+                <td class="p-3">transition(to: LifecycleState): void</td>
+                <td class="p-3">Validate and apply transition. Throws on invalid.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">canTransition()</td>
+                <td class="p-3">canTransition(to): boolean</td>
+                <td class="p-3">Check if transition is valid.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">forceState()</td>
+                <td class="p-3">forceState(state): void</td>
+                <td class="p-3">Set state without validation (recovery/init only).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">LifecycleStateMachine</span> } <span class="kw">from</span> <span class="str">"@zudojs/lifecycle"</span>;
+
+<span class="kw">const</span> sm = <span class="kw">new</span> <span class="tp">LifecycleStateMachine</span>(<span class="str">"database"</span>);
+
+sm.state;         <span class="cm">// "idle"</span>
+sm.isTerminal;    <span class="cm">// false</span>
+sm.isRunning;     <span class="cm">// false</span>
+
+sm.<span class="fn">transition</span>(LifecycleState.INITIALIZING);
+sm.state;         <span class="cm">// "initializing"</span>
+
+sm.<span class="fn">canTransition</span>(LifecycleState.INITIALIZED); <span class="cm">// true</span>
+sm.<span class="fn">canTransition</span>(LifecycleState.READY);         <span class="cm">// false</span></div>
+      </section>
+
+      <!-- Dependency Graph -->
+      <section id="dependency-graph" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCY GRAPH</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">DependencyGraph</code> is a directed acyclic graph that tracks component dependencies, detects cycles, and enables topological ordering.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Class: DependencyGraph</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Signature</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">addNode()</td>
+                <td class="p-3">addNode(id: string): void</td>
+                <td class="p-3">Add a node to the graph.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">addEdge()</td>
+                <td class="p-3">addEdge(from, to): void</td>
+                <td class="p-3">Add a directed edge: from depends on to.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getNodes()</td>
+                <td class="p-3">getNodes(): readonly string[]</td>
+                <td class="p-3">All nodes.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getDependencies()</td>
+                <td class="p-3">getDependencies(id): readonly string[]</td>
+                <td class="p-3">Nodes that id depends on.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getDependents()</td>
+                <td class="p-3">getDependents(id): readonly string[]</td>
+                <td class="p-3">Nodes that depend on id.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">validate()</td>
+                <td class="p-3">validate(): void</td>
+                <td class="p-3">Throw LifecycleDependencyError if cycle detected.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Topological Sort Functions</h3>
+        <div class="code-block"><span class="cm">// Forward order for startup: dependencies first</span>
+<span class="kw">function</span> <span class="fn">topologicalSort</span>(
+  graph: <span class="tp">DependencyGraph</span>,
+  priorities?: <span class="tp">ReadonlyMap</span>&lt;<span class="tp">string</span>, <span class="tp">number</span>&gt;,
+): <span class="kw">readonly</span> <span class="tp">TopologicalStage</span>[]
+
+<span class="cm">// Reverse order for shutdown: dependents first</span>
+<span class="kw">function</span> <span class="fn">reverseTopologicalSort</span>(
+  graph: <span class="tp">DependencyGraph</span>,
+  priorities?: <span class="tp">ReadonlyMap</span>&lt;<span class="tp">string</span>, <span class="tp">number</span>&gt;,
+): <span class="kw">readonly</span> <span class="tp">TopologicalStage</span>[]
+
+<span class="cm">// A stage is a group of components that can run in parallel</span>
+<span class="kw">type</span> <span class="tp">TopologicalStage</span> = <span class="kw">readonly</span> <span class="tp">string</span>[];</div>
+      </section>
+
+      <!-- Execution Plans -->
+      <section id="execution-plans" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EXECUTION PLANS</h2>
+        <p class="mb-4">
+          Execution plans translate the dependency graph into ordered stages for a specific lifecycle phase.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Interface: ExecutionPlan</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ExecutionPlan</span> {
+  <span class="kw">readonly</span> stages: <span class="kw">readonly</span> <span class="tp">ExecutionStage</span>[];
+  <span class="kw">readonly</span> phase: <span class="tp">LifecyclePhase</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: ExecutionStage</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ExecutionStage</span> {
+  <span class="kw">readonly</span> components: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> phase: <span class="tp">LifecyclePhase</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory Function</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">buildExecutionPlan</span>(
+  registrations: <span class="kw">readonly</span> <span class="tp">LifecycleRegistration</span>[],
+  phase: <span class="tp">LifecyclePhase</span>,
+): <span class="tp">ExecutionPlan</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">buildExecutionPlan</span>, <span class="tp">LifecyclePhase</span> } <span class="kw">from</span> <span class="str">"@zudojs/lifecycle"</span>;
+
+<span class="kw">const</span> plan = <span class="fn">buildExecutionPlan</span>(registrations, LifecyclePhase.START);
+
+<span class="cm">// plan.stages might be:</span>
+<span class="cm">// [</span>
+<span class="cm">//   { components: ["database"], phase: "start" },</span>
+<span class="cm">//   { components: ["queue"], phase: "start" },</span>
+<span class="cm">//   { components: ["server", "cache"], phase: "start" },</span>
+<span class="cm">// ]</span></div>
+      </section>
+
+      <!-- Executor -->
+      <section id="executor" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EXECUTOR</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">LifecycleExecutor</code> runs component hooks with timeout, retry, and concurrency support.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Class: LifecycleExecutor</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Signature</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">execute()</td>
+                <td class="p-3">execute(registration, phase, context): Promise&lt;ExecutionResult&gt;</td>
+                <td class="p-3">Run a single component hook with retry and timeout.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">executeStage()</td>
+                <td class="p-3">executeStage(registrations, phase, context, concurrency): Promise&lt;ExecutionResult[]&gt;</td>
+                <td class="p-3">Run a stage of components with concurrency limit.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: ExecutionResult</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ExecutionResult</span> {
+  <span class="kw">readonly</span> id: <span class="tp">string</span>;
+  <span class="kw">readonly</span> phase: <span class="tp">LifecyclePhase</span>;
+  <span class="kw">readonly</span> duration: <span class="tp">number</span>;
+  <span class="kw">readonly</span> error?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> success: <span class="tp">boolean</span>;
+}</div>
+      </section>
+
+      <!-- Events -->
+      <section id="events" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">EVENTS</h2>
+        <p class="mb-4">
+          The <code class="bg-black/5 px-1">LifecycleEventEmitter</code> emits typed events at each lifecycle phase, enabling observability integration without depending on @zudojs/events.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Class: LifecycleEventEmitter</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Signature</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">on()</td>
+                <td class="p-3">on(type, listener): () =&gt; void</td>
+                <td class="p-3">Subscribe to an event type. Returns unsubscribe function.</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">emit()</td>
+                <td class="p-3">emit(type, data): void</td>
+                <td class="p-3">Emit an event with timestamp.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">clear()</td>
+                <td class="p-3">clear(): void</td>
+                <td class="p-3">Remove all listeners.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Enum: LifecycleEventType (16 event types)</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">LifecycleEventType</span> =
+  | <span class="str">"component:registered"</span>
+  | <span class="str">"component:initializing"</span>
+  | <span class="str">"component:initialized"</span>
+  | <span class="str">"component:starting"</span>
+  | <span class="str">"component:started"</span>
+  | <span class="str">"component:ready"</span>
+  | <span class="str">"component:stopping"</span>
+  | <span class="str">"component:stopped"</span>
+  | <span class="str">"component:failed"</span>
+  | <span class="str">"application:initializing"</span>
+  | <span class="str">"application:initialized"</span>
+  | <span class="str">"application:starting"</span>
+  | <span class="str">"application:ready"</span>
+  | <span class="str">"application:stopping"</span>
+  | <span class="str">"application:stopped"</span>
+  | <span class="str">"application:disposed"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Event Payloads</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LifecycleEvent</span> {
+  <span class="kw">readonly</span> type: <span class="tp">LifecycleEventType</span>;
+  <span class="kw">readonly</span> component?: <span class="tp">LifecycleComponentEvent</span>;
+  <span class="kw">readonly</span> duration?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> error?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">LifecycleComponentEvent</span> {
+  <span class="kw">readonly</span> componentId: <span class="tp">string</span>;
+  <span class="kw">readonly</span> duration?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> error?: <span class="tp">unknown</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">LifecycleApplicationEvent</span> {
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+  <span class="kw">readonly</span> duration?: <span class="tp">number</span>;
+}
+
+<span class="kw">type</span> <span class="tp">LifecycleEventListener</span> = (event: <span class="tp">LifecycleEvent</span>) => <span class="tp">void</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Observability Integration</h3>
+        <div class="code-block">manager.events.<span class="fn">on</span>(<span class="str">"component:started"</span>, (event) => {
+  logger.<span class="fn">info</span>(<span class="str">"component started"</span>, {
+    componentId: event.component?.componentId,
+    duration: event.duration,
+  });
+});
+
+manager.events.<span class="fn">on</span>(<span class="str">"component:failed"</span>, (event) => {
+  logger.<span class="fn">error</span>(<span class="str">"component failed"</span>, {
+    componentId: event.component?.componentId,
+    error: event.error,
+  });
+});</div>
+      </section>
+
+      <!-- Signal Handling -->
+      <section id="signal-handling" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SIGNAL HANDLING</h2>
+        <p class="mb-4">
+          Automatic process signal interception for graceful shutdown. The lifecycle manager installs these by default.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Function: installSignalHandlers</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">installSignalHandlers</span>(options: <span class="tp">SignalHandlerOptions</span>): () =&gt; <span class="tp">void</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: SignalHandlerOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">SignalHandlerOptions</span> {
+  <span class="kw">readonly</span> signals?: <span class="kw">readonly</span> <span class="tp">NodeJS.Signals</span>[];
+  <span class="kw">readonly</span> handler: () =&gt; <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Constant: DEFAULT_SHUTDOWN_SIGNALS</h3>
+        <div class="code-block"><span class="kw">const</span> DEFAULT_SHUTDOWN_SIGNALS: <span class="kw">readonly</span> <span class="tp">NodeJS.Signals</span>[] =
+  [<span class="str">"SIGINT"</span>, <span class="str">"SIGTERM"</span>];</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Custom Signal Handling</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">installSignalHandlers</span> } <span class="kw">from</span> <span class="str">"@zudojs/lifecycle"</span>;
+
+<span class="kw">const</span> cleanup = <span class="fn">installSignalHandlers</span>({
+  signals: [<span class="str">"SIGINT"</span>, <span class="str">"SIGTERM"</span>, <span class="str">"SIGHUP"</span>],
+  handler: () => {
+    console.<span class="fn">log</span>(<span class="str">"Signal received, shutting down..."</span>);
+    <span class="kw">void</span> manager.<span class="fn">shutdown</span>();
+  },
+});
+
+<span class="cm">// Later, remove handlers</span>
+cleanup();</div>
+      </section>
+
+      <!-- Async Utilities -->
+      <section id="async-utilities" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ASYNC UTILITIES</h2>
+        <p class="mb-4">
+          Helper functions for timeout, abort, and concurrency control used internally by the executor.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">Function: withTimeout</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">withTimeout</span>&lt;<span class="tp">T</span>&gt;(
+  fn: () =&gt; <span class="tp">Promise</span>&lt;<span class="tp">T</span>&gt;,
+  timeoutMs: <span class="tp">number</span>,
+  componentId: <span class="tp">string</span>,
+  phase: <span class="tp">string</span>,
+): <span class="tp">Promise</span>&lt;<span class="tp">T</span>&gt;</div>
+        <p class="mt-2 text-sm text-black/60">Wraps an async function with a timeout. Throws LifecycleTimeoutError if exceeded.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: withAbort</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">withAbort</span>&lt;<span class="tp">T</span>&gt;(
+  fn: (signal: <span class="tp">AbortSignal</span>) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">T</span>&gt;,
+  signal: <span class="tp">AbortSignal</span>,
+): <span class="tp">Promise</span>&lt;<span class="tp">T</span>&gt;</div>
+        <p class="mt-2 text-sm text-black/60">Wraps an async function with abort signal support. Rejects when the signal is aborted.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: withConcurrency</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">withConcurrency</span>&lt;<span class="tp">T</span>&gt;(
+  items: <span class="kw">readonly</span> <span class="tp">T</span>[],
+  concurrency: <span class="tp">number</span>,
+  fn: (item: <span class="tp">T</span>, index: <span class="tp">number</span>) =&gt; <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;,
+): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;</div>
+        <p class="mt-2 text-sm text-black/60">Execute async operations on an array with a maximum concurrency limit.</p>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="errors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudojs/errors</code> and re-exported by this package.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">LifecycleError</td>
+                <td class="p-3">Base error for all lifecycle-related issues</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">LifecycleStateError</td>
+                <td class="p-3">Invalid state transition attempted</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">LifecycleTimeoutError</td>
+                <td class="p-3">Component operation exceeded timeout</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">LifecycleDependencyError</td>
+                <td class="p-3">Circular dependency or missing dependency detected</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">LifecycleComponentError</td>
+                <td class="p-3">A component hook threw during execution</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete working example: register components with dependencies, handle signals, observe events, and manage the full lifecycle.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createLifecycleManager</span>,
+  <span class="fn">installSignalHandlers</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/lifecycle"</span>;
+<span class="kw">import</span> <span class="kw">type</span> { <span class="tp">LifecycleComponent</span>, <span class="tp">LifecycleContext</span> } <span class="kw">from</span> <span class="str">"@zudojs/lifecycle"</span>;
+
+<span class="cm">// 1. Define components</span>
+<span class="kw">const</span> database: <span class="tp">LifecycleComponent</span> = {
+  name: <span class="str">"database"</span>,
+  <span class="kw">async</span> <span class="fn">initialize</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    console.<span class="fn">log</span>(<span class="str">"Database: loading config..."</span>);
+  },
+  <span class="kw">async</span> <span class="fn">start</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    console.<span class="fn">log</span>(<span class="str">"Database: connecting..."</span>);
+    <span class="cm">// await pool.connect(ctx.signal);</span>
+  },
+  <span class="kw">async</span> <span class="fn">stop</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    console.<span class="fn">log</span>(<span class="str">"Database: draining connections..."</span>);
+  },
+  <span class="kw">async</span> <span class="fn">dispose</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    console.<span class="fn">log</span>(<span class="str">"Database: pool closed."</span>);
+  },
+};
+
+<span class="kw">const</span> cache: <span class="tp">LifecycleComponent</span> = {
+  name: <span class="str">"cache"</span>,
+  <span class="kw">async</span> <span class="fn">start</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    console.<span class="fn">log</span>(<span class="str">"Cache: warming up..."</span>);
+  },
+  <span class="kw">async</span> <span class="fn">stop</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    console.<span class="fn">log</span>(<span class="str">"Cache: clearing..."</span>);
+  },
+};
+
+<span class="kw">const</span> server: <span class="tp">LifecycleComponent</span> = {
+  name: <span class="str">"server"</span>,
+  <span class="kw">async</span> <span class="fn">start</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    console.<span class="fn">log</span>(<span class="str">"Server: listening on :3000"</span>);
+  },
+  <span class="kw">async</span> <span class="fn">stop</span>(ctx: <span class="tp">LifecycleContext</span>) {
+    console.<span class="fn">log</span>(<span class="str">"Server: closing connections..."</span>);
+  },
+};
+
+<span class="cm">// 2. Create manager with options</span>
+<span class="kw">const</span> manager = <span class="fn">createLifecycleManager</span>({
+  concurrency: <span class="num">5</span>,
+  shutdownTimeout: <span class="num">30_000</span>,
+  handleSignals: <span class="kw">true</span>,
+  signals: [<span class="str">"SIGINT"</span>, <span class="str">"SIGTERM"</span>],
+});
+
+<span class="cm">// 3. Register components with dependencies</span>
+manager.<span class="fn">register</span>(database, {
+  id: <span class="str">"database"</span>,
+  critical: <span class="kw">true</span>,
+  timeout: <span class="num">15_000</span>,
+});
+
+manager.<span class="fn">register</span>(cache, {
+  id: <span class="str">"cache"</span>,
+  dependsOn: [<span class="str">"database"</span>],
+  critical: <span class="kw">false</span>,
+});
+
+manager.<span class="fn">register</span>(server, {
+  id: <span class="str">"server"</span>,
+  dependsOn: [<span class="str">"database"</span>, <span class="str">"cache"</span>],
+  priority: <span class="num">10</span>,
+  timeout: <span class="num">10_000</span>,
+  retry: {
+    attempts: <span class="num">2</span>,
+    delay: <span class="num">1_000</span>,
+    backoff: <span class="str">"exponential"</span>,
+  },
+});
+
+<span class="cm">// 4. Observe lifecycle events</span>
+manager.events.<span class="fn">on</span>(<span class="str">"component:started"</span>, (event) => {
+  console.<span class="fn">log</span>(<span class="str">`✓ ${event.component?.componentId} started (${event.duration}ms)`</span>);
+});
+
+manager.events.<span class="fn">on</span>(<span class="str">"application:ready"</span>, (event) => {
+  console.<span class="fn">log</span>(<span class="str">`🚀 Application ready in ${event.duration}ms`</span>);
+});
+
+<span class="cm">// 5. Start the application</span>
+<span class="kw">await</span> manager.<span class="fn">start</span>();
+
+<span class="cm">// Application is running. Check component status:</span>
+<span class="kw">const</span> status = manager.<span class="fn">getStatus</span>();
+<span class="kw">for</span> (<span class="kw">const</span> [id, info] <span class="kw">of</span> status) {
+  console.<span class="fn">log</span>(<span class="str">`${id}: ${info.state}`</span>);
+}
+
+<span class="cm">// 6. Graceful shutdown (triggered by SIGTERM or manually)</span>
+<span class="cm">// Signal handlers are already installed — just wait.</span>
+<span class="cm">// Or trigger manually:</span>
+<span class="kw">await</span> manager.<span class="fn">shutdown</span>();
+manager.<span class="fn">dispose</span>();</div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#where-it-sits" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#lifecycle-states" class="toc-link">Lifecycle States</a>
+      <a href="#lifecycle-phases" class="toc-link">Lifecycle Phases</a>
+      <a href="#component-interface" class="toc-link">Component Interface</a>
+      <a href="#lifecycle-context" class="toc-link">Lifecycle Context</a>
+      <a href="#lifecycle-manager" class="toc-link">Lifecycle Manager</a>
+      <a href="#lifecycle-registry" class="toc-link">Lifecycle Registry</a>
+      <a href="#state-machine" class="toc-link">State Machine</a>
+      <a href="#dependency-graph" class="toc-link">Dependency Graph</a>
+      <a href="#execution-plans" class="toc-link">Execution Plans</a>
+      <a href="#executor" class="toc-link">Executor</a>
+      <a href="#events" class="toc-link">Events</a>
+      <a href="#signal-handling" class="toc-link">Signal Handling</a>
+      <a href="#async-utilities" class="toc-link">Async Utilities</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>

@@ -62,7 +62,8 @@
     { "source": "/401", "destination": "/error/401.html" },
     { "source": "/403", "destination": "/error/403.html" },
     { "source": "/500", "destination": "/error/500.html" },
-    { "source": "/503", "destination": "/error/503.html" }
+    { "source": "/503", "destination": "/error/503.html" },
+    { "source": "/(.*)", "destination": "/error/404.html" }
   ],
   "headers": [
     {
