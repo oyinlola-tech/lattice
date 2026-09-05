@@ -1,0 +1,9 @@
+{
+  "name": "zudo-docs",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Zudo framework documentation site",
+  "engines": {
+    "node": ">=24"
+  }
+}
