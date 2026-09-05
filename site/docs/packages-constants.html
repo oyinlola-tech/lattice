@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/constants — Shared Constants, Enums & Type-Safe Literals</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/constants — branded types, HTTP constants, lifecycle states, validation patterns, cache strategies, serialization limits, and runtime utilities for the Zudo framework.">
+  <meta name="keywords" content="zudo, constants, branded types, HTTP status, lifecycle, validation, cache, serialization, TypeScript">
+  <meta name="author" content="Oyinlola">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/packages/constants/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="@zudojs/constants — Shared Constants & Type-Safe Literals">
+  <meta property="og:description" content="Branded types, HTTP constants, lifecycle states, validation patterns, cache strategies, and runtime utilities for Zudo.">
+  <meta property="og:url" content="https://zudo.dev/docs/packages/constants/">
+  <meta property="og:site_name" content="Zudo">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo.svg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="@zudojs/constants — Shared Constants & Type-Safe Literals">
+  <meta name="twitter:description" content="Branded types, HTTP constants, lifecycle states, validation patterns, cache strategies, and runtime utilities for Zudo.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "@zudojs/constants — Shared Constants, Enums & Type-Safe Literals",
+    "description": "Branded types, HTTP constants, lifecycle states, validation patterns, cache strategies, serialization limits, and runtime utilities for the Zudo framework.",
+    "url": "https://zudo.dev/docs/packages/constants/",
+    "author": { "@type": "Person", "name": "Oyinlola" },
+    "publisher": { "@type": "Organization", "name": "Zudo" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://zudo.dev/docs/packages/constants/" },
+    "codeRepository": "https://github.com/oyinlola-tech/zudo",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js 24+",
+    "license": "https://opensource.org/licenses/MIT"
+  }
+  </script>
+  <link rel="stylesheet" href="/css/docs.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+          <span class="text-black font-black text-sm">Z</span>
+        </div>
+        <span class="text-xl font-black">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+        <a href="/docs/getting-started" class="hover:text-zudo-red">Docs</a>
+        <a href="/docs/packages" class="hover:text-zudo-red text-zudo-red">Packages</a>
+        <a href="/docs/architecture" class="hover:text-zudo-red">Architecture</a>
+        <a href="/docs/concepts" class="hover:text-zudo-red">Concepts</a>
+      </div>
+      <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="p-2 border-2 border-white hover:bg-white hover:text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+            <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item sidebar-item-active">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- BREADCRUMBS -->
+            <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/constants</span>
+      </div>
+
+      <!-- HEADER -->
+            <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/constants</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Shared constants, branded types, enums, and type-safe literals for the entire Zudo ecosystem.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">LEAF PACKAGE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">NO DEPENDENCIES</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">TypeScript</span>
+        </div>
+      </div>
+
+      <!-- ==================== OVERVIEW ==================== -->
+      <section id="overview" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Overview</h2>
+        <p class="mb-4">
+          <code class="bg-gray-100 px-1 font-bold">@zudojs/constants</code> is the lowest-level package in the Zudo framework. It defines the shared vocabulary — types, enums, limits, patterns, and sentinel values — that every other package references. You never import these from individual packages; you always import from <code class="bg-gray-100 px-1 font-bold">@zudojs/constants</code>.
+        </p>
+        <div class="callout callout-note">
+          <strong>Rule:</strong> Never redefine a type that already exists in <code class="bg-gray-100 px-1 font-bold">@zudojs/constants</code>. Import it instead. See the Type Ownership Table in AGENTS.md.
+        </div>
+        <h3 class="text-xl font-black mt-6 mb-3">What's Inside</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="border-2 border-black p-3 bg-zudo-red text-white text-center">
+            <div class="text-2xl font-black">17</div>
+            <div class="text-xs font-bold">BRANDED TYPES</div>
+          </div>
+          <div class="border-2 border-black p-3 bg-zudo-blue text-white text-center">
+            <div class="text-2xl font-black">3</div>
+            <div class="text-xs font-bold">ENUMS</div>
+          </div>
+          <div class="border-2 border-black p-3 bg-zudo-yellow text-center">
+            <div class="text-2xl font-black">25+</div>
+            <div class="text-xs font-bold">CONST OBJECTS</div>
+          </div>
+          <div class="border-2 border-black p-3 bg-zudo-green text-black text-center">
+            <div class="text-2xl font-black">21</div>
+            <div class="text-xs font-bold">FUNCTIONS</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== INSTALLATION ==================== -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Installation</h2>
+        <div class="code-block">
+<span class="cm">// npm</span>
+npm install @zudojs/constants
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/constants
+
+<span class="cm">// Import everything</span>
+<span class="kw">import</span> { UserId, HttpStatus, LifecycleState } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// Import specific modules</span>
+<span class="kw">import</span> { HttpMethod } <span class="kw">from</span> <span class="str">"@zudojs/constants/http"</span>;
+<span class="kw">import</span> { TimeUnit } <span class="kw">from</span> <span class="str">"@zudojs/constants/time"</span>;
+        </div>
+      </section>
+
+      <!-- ==================== BRANDED TYPES ==================== -->
+      <section id="branded-types" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Branded Types</h2>
+        <p class="mb-4">
+          Branded types prevent mixing unrelated string/number values at compile time. A <code class="bg-gray-100 px-1 font-bold">UserId</code> is structurally a <code class="bg-gray-100 px-1 font-bold">string</code>, but TypeScript won't let you pass a plain string where a <code class="bg-gray-100 px-1 font-bold">UserId</code> is expected.
+        </p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">The Brand Utility</h3>
+        <div class="code-block">
+<span class="cm">// src/common/common.type.ts</span>
+<span class="kw">export type</span> <span class="tp">Brand</span>&lt;T, B&gt; = T & { <span class="kw">readonly</span> __brand: B };
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">ID Types</h3>
+        <table class="w-full text-smw-full border-2 border-black text-sm mb-4">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Base</th><th class="px-4 py-2 text-left font-bold">Description</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">UserId</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Unique user identifier</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">EventId</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Unique event identifier</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">RequestId</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Unique HTTP request identifier</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">CorrelationId</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Groups related events/requests across services</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">SessionId</td><td class="px-4 py-2">string</td><td class="px-4 py-2">User session identifier</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">TenantId</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Multi-tenant organization identifier</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">MessageId</td><td class="px-4 py-2">string</td><td class="px-4 py-2">In-process message identifier</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">MessageCausationId</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Links a message to the event that caused it</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">TokenId</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Authentication token identifier</td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">EntityId</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Generic entity identifier (unbranded)</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="text-xl font-black mt-6 mb-3">String Types</h3>
+        <table class="w-full text-smw-full border-2 border-black text-sm mb-4">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Type</th><th class="px-4 py-2 text-left font-bold">Base</th><th class="px-4 py-2 text-left font-bold">Description</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">Timestamp</td><td class="px-4 py-2">string</td><td class="px-4 py-2">ISO 8601 timestamp string</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">Url</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Valid URL string</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">EmailAddress</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Valid email address string</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">HexString</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Hex-encoded string (e.g. hashes)</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">Base64String</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Base64-encoded string</td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold text-zudo-blue">JsonString</td><td class="px-4 py-2">string</td><td class="px-4 py-2">Valid JSON string</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Factory Functions</h3>
+        <p class="mb-3">Create branded values from raw strings. These cast the value at runtime — no validation is performed.</p>
+        <div class="code-block">
+<span class="kw">import</span> {
+  createUserId, createEventId, createRequestId,
+  createCorrelationId, createTimestamp
+} <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="kw">const</span> userId = <span class="fn">createUserId</span>(<span class="str">"usr_abc123"</span>);    <span class="cm">// UserId</span>
+<span class="kw">const</span> eventId = <span class="fn">createEventId</span>(<span class="str">"evt_xyz789"</span>);  <span class="cm">// EventId</span>
+<span class="kw">const</span> reqId = <span class="fn">createRequestId</span>(<span class="str">"req_001"</span>);     <span class="cm">// RequestId</span>
+<span class="kw">const</span> corrId = <span class="fn">createCorrelationId</span>(<span class="str">"corr_001"</span>);<span class="cm">// CorrelationId</span>
+<span class="kw">const</span> ts = <span class="fn">createTimestamp</span>(<span class="str">"2026-01-15T10:30:00.000Z"</span>); <span class="cm">// Timestamp</span>
+
+<span class="cm">// These now prevent accidental mixing:</span>
+<span class="kw">function</span> <span class="fn">getUser</span>(id: <span class="tp">UserId</span>): <span class="tp">User</span> { <span class="cm">/* ... */</span> }
+<span class="fn">getUser</span>(userId);     <span class="cm">// ✅ compiles</span>
+<span class="fn">getUser</span>(eventId);    <span class="cm">// ❌ Type error — EventId is not UserId</span>
+<span class="fn">getUser</span>(<span class="str">"usr_abc"</span>);  <span class="cm">// ❌ Type error — string is not UserId</span>
+        </div>
+      </section>
+
+      <!-- ==================== SENTINEL VALUES ==================== -->
+      <section id="sentinel-values" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Sentinel Values & Limits</h2>
+        <p class="mb-4">Frozen constant objects used across the framework for consistency.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Sentinel</h3>
+        <div class="code-block">
+<span class="kw">import</span> { Sentinel } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+Sentinel.NULL       <span class="cm">// null</span>
+Sentinel.UNDEFINED  <span class="cm">// undefined</span>
+Sentinel.DELETED    <span class="cm">// "__DELETED__" — soft delete marker</span>
+Sentinel.PLACEHOLDER<span class="cm">// "__PLACEHOLDER__" — placeholder value</span>
+Sentinel.WILDCARD   <span class="cm">// "*" — match-all token</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Limits</h3>
+        <table class="w-full text-smw-full border-2 border-black text-sm mb-4">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Constant</th><th class="px-4 py-2 text-left font-bold">Value</th><th class="px-4 py-2 text-left font-bold">Description</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">MAX_DISPLAY_LENGTH</td><td class="px-4 py-2 font-mono">255</td><td class="px-4 py-2">Max characters for display strings</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">MAX_TEXT_LENGTH</td><td class="px-4 py-2 font-mono">10,000</td><td class="px-4 py-2">Max characters for text fields</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">MAX_ID_LENGTH</td><td class="px-4 py-2 font-mono">128</td><td class="px-4 py-2">Max characters for IDs</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">MAX_PAGE_SIZE</td><td class="px-4 py-2 font-mono">100</td><td class="px-4 py-2">Max items per page</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">DEFAULT_PAGE_SIZE</td><td class="px-4 py-2 font-mono">20</td><td class="px-4 py-2">Default items per page</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">MAX_NESTING_DEPTH</td><td class="px-4 py-2 font-mono">10</td><td class="px-4 py-2">Max object nesting depth</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">MAX_RETRY_ATTEMPTS</td><td class="px-4 py-2 font-mono">5</td><td class="px-4 py-2">Max retry attempts</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">MAX_CONCURRENCY</td><td class="px-4 py-2 font-mono">10</td><td class="px-4 py-2">Max concurrent operations</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">MAX_BUFFER_SIZE</td><td class="px-4 py-2 font-mono">65,536</td><td class="px-4 py-2">Max buffer size in bytes</td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold">MAX_FILE_SIZE</td><td class="px-4 py-2 font-mono">10,485,760</td><td class="px-4 py-2">Max file size (10 MB)</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Defaults</h3>
+        <table class="w-full text-smw-full border-2 border-black text-sm mb-4">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Constant</th><th class="px-4 py-2 text-left font-bold">Value</th><th class="px-4 py-2 text-left font-bold">Description</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">ENCODING</td><td class="px-4 py-2 font-mono">"utf-8"</td><td class="px-4 py-2">Default text encoding</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">CONTENT_TYPE</td><td class="px-4 py-2 font-mono">"application/json"</td><td class="px-4 py-2">Default content type</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">DATE_FORMAT</td><td class="px-4 py-2 font-mono">"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"</td><td class="px-4 py-2">ISO 8601 date format</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">TIMEZONE</td><td class="px-4 py-2 font-mono">"UTC"</td><td class="px-4 py-2">Default timezone</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">LOCALE</td><td class="px-4 py-2 font-mono">"en-US"</td><td class="px-4 py-2">Default locale</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">PORT</td><td class="px-4 py-2 font-mono">3000</td><td class="px-4 py-2">Default HTTP port</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">HOSTNAME</td><td class="px-4 py-2 font-mono">"localhost"</td><td class="px-4 py-2">Default hostname</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">PROTOCOL</td><td class="px-4 py-2 font-mono">"http"</td><td class="px-4 py-2">Default protocol</td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold">SALT_ROUNDS</td><td class="px-4 py-2 font-mono">12</td><td class="px-4 py-2">Password hashing salt rounds</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ==================== HTTP ==================== -->
+      <section id="http" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">HTTP Constants</h2>
+        <p class="mb-4">Complete set of HTTP methods, status codes, headers, content types, and helper functions.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">HttpMethods</h3>
+        <div class="code-block">
+<span class="kw">import</span> { HttpMethods, HTTP_METHODS, SAFE_HTTP_METHODS, IDEMPOTENT_HTTP_METHODS } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+HttpMethods.GET     <span class="cm">// "GET"</span>
+HttpMethods.POST    <span class="cm">// "POST"</span>
+HttpMethods.PUT     <span class="cm">// "PUT"</span>
+HttpMethods.PATCH   <span class="cm">// "PATCH"</span>
+HttpMethods.DELETE  <span class="cm">// "DELETE"</span>
+HttpMethods.HEAD    <span class="cm">// "HEAD"</span>
+HttpMethods.OPTIONS <span class="cm">// "OPTIONS"</span>
+HttpMethods.TRACE   <span class="cm">// "TRACE"</span>
+HttpMethods.CONNECT <span class="cm">// "CONNECT"</span>
+
+HTTP_METHODS             <span class="cm">// ReadonlySet of all 9 methods</span>
+SAFE_HTTP_METHODS        <span class="cm">// ReadonlySet: GET, HEAD, OPTIONS</span>
+IDEMPOTENT_HTTP_METHODS  <span class="cm">// ReadonlySet: GET, HEAD, PUT, DELETE, OPTIONS, TRACE</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">HttpStatus Codes</h3>
+        <div class="code-block">
+<span class="kw">import</span> { HttpStatus } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// 2xx Success</span>
+HttpStatus.OK                 <span class="cm">// 200</span>
+HttpStatus.CREATED            <span class="cm">// 201</span>
+HttpStatus.ACCEPTED           <span class="cm">// 202</span>
+HttpStatus.NO_CONTENT         <span class="cm">// 204</span>
+HttpStatus.PARTIAL_CONTENT    <span class="cm">// 206</span>
+
+<span class="cm">// 3xx Redirection</span>
+HttpStatus.MOVED_PERMANENTLY  <span class="cm">// 301</span>
+HttpStatus.FOUND              <span class="cm">// 302</span>
+HttpStatus.NOT_MODIFIED       <span class="cm">// 304</span>
+HttpStatus.TEMPORARY_REDIRECT <span class="cm">// 307</span>
+
+<span class="cm">// 4xx Client Error</span>
+HttpStatus.BAD_REQUEST            <span class="cm">// 400</span>
+HttpStatus.UNAUTHORIZED           <span class="cm">// 401</span>
+HttpStatus.FORBIDDEN              <span class="cm">// 403</span>
+HttpStatus.NOT_FOUND              <span class="cm">// 404</span>
+HttpStatus.CONFLICT               <span class="cm">// 409</span>
+HttpStatus.UNPROCESSABLE_ENTITY   <span class="cm">// 422</span>
+HttpStatus.TOO_MANY_REQUESTS      <span class="cm">// 429</span>
+
+<span class="cm">// 5xx Server Error</span>
+HttpStatus.INTERNAL_SERVER_ERROR  <span class="cm">// 500</span>
+HttpStatus.BAD_GATEWAY            <span class="cm">// 502</span>
+HttpStatus.SERVICE_UNAVAILABLE    <span class="cm">// 503</span>
+HttpStatus.GATEWAY_TIMEOUT        <span class="cm">// 504</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Status Code Helpers</h3>
+        <div class="code-block">
+<span class="kw">import</span> { isSuccessStatus, isErrorStatus, isClientError, isServerError, isRedirectStatus } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="fn">isSuccessStatus</span>(<span class="num">200</span>)  <span class="cm">// true  — 200 >= 200 && 200 < 300</span>
+<span class="fn">isSuccessStatus</span>(<span class="num">404</span>)  <span class="cm">// false</span>
+<span class="fn">isRedirectStatus</span>(<span class="num">301</span>) <span class="cm">// true  — 301 >= 300 && 301 < 400</span>
+<span class="fn">isClientError</span>(<span class="num">422</span>)    <span class="cm">// true  — 422 >= 400 && 422 < 500</span>
+<span class="fn">isServerError</span>(<span class="num">503</span>)    <span class="cm">// true  — 503 >= 500 && 503 < 600</span>
+<span class="fn">isErrorStatus</span>(<span class="num">500</span>)    <span class="cm">// true  — isClientError || isServerError</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">HttpHeaders</h3>
+        <div class="code-block">
+<span class="kw">import</span> { HttpHeader } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+HttpHeader.AUTHORIZATION     <span class="cm">// "Authorization"</span>
+HttpHeader.CONTENT_TYPE      <span class="cm">// "Content-Type"</span>
+HttpHeader.CACHE_CONTROL     <span class="cm">// "Cache-Control"</span>
+HttpHeader.X_REQUEST_ID      <span class="cm">// "X-Request-Id"</span>
+HttpHeader.X_CORRELATION_ID  <span class="cm">// "X-Correlation-Id"</span>
+HttpHeader.X_API_KEY         <span class="cm">// "X-Api-Key"</span>
+HttpHeader.COOKIE            <span class="cm">// "Cookie"</span>
+HttpHeader.SET_COOKIE        <span class="cm">// "Set-Cookie"</span>
+HttpHeader.USER_AGENT        <span class="cm">// "User-Agent"</span>
+HttpHeader.ORIGIN            <span class="cm">// "Origin"</span>
+<span class="cm">// ... 28 total header constants</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">ContentTypes</h3>
+        <div class="code-block">
+<span class="kw">import</span> { ContentTypes, buildContentType } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+ContentTypes.JSON                 <span class="cm">// "application/json"</span>
+ContentTypes.TEXT_PLAIN           <span class="cm">// "text/plain"</span>
+ContentTypes.FORM_URLENCODED      <span class="cm">// "application/x-www-form-urlencoded"</span>
+ContentTypes.MULTIPART_FORM_DATA  <span class="cm">// "multipart/form-data"</span>
+ContentTypes.OCTET_STREAM         <span class="cm">// "application/octet-stream"</span>
+ContentTypes.IMAGE_PNG            <span class="cm">// "image/png"</span>
+ContentTypes.IMAGE_JPEG           <span class="cm">// "image/jpeg"</span>
+ContentTypes.PDF                  <span class="cm">// "application/pdf"</span>
+ContentTypes.WILDCARD             <span class="cm">// "*/*"</span>
+<span class="cm">// ... 21 total content types</span>
+
+<span class="cm">// Build content-type header with charset</span>
+<span class="fn">buildContentType</span>(ContentTypes.JSON, <span class="str">"utf-8"</span>);
+<span class="cm">// → "application/json; charset=utf-8"</span>
+
+<span class="fn">buildContentType</span>(ContentTypes.TEXT_PLAIN);
+<span class="cm">// → "text/plain"</span>
+        </div>
+      </section>
+
+      <!-- ==================== ENVIRONMENT ==================== -->
+      <section id="environment" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Environment</h2>
+        <p class="mb-4">Type-safe environment detection and validation.</p>
+
+        <div class="code-block">
+<span class="kw">import</span> {
+  Environments, ENVIRONMENTS,
+  resolveEnvironment, isValidEnvironment,
+  isProduction, isDevelopment, isTest
+} <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// Environment enum</span>
+Environments.DEVELOPMENT  <span class="cm">// "development"</span>
+Environments.TEST         <span class="cm">// "test"</span>
+Environments.STAGING      <span class="cm">// "staging"</span>
+Environments.PRODUCTION   <span class="cm">// "production"</span>
+
+<span class="cm">// Type guard</span>
+<span class="fn">isValidEnvironment</span>(<span class="str">"production"</span>)  <span class="cm">// true</span>
+<span class="fn">isValidEnvironment</span>(<span class="str">"local"</span>)      <span class="cm">// false</span>
+
+<span class="cm">// Resolve from NODE_ENV (accepts dev/development, prod/production)</span>
+<span class="kw">const</span> env = <span class="fn">resolveEnvironment</span>();  <span class="cm">// reads process.env.NODE_ENV</span>
+<span class="kw">const</span> env2 = <span class="fn">resolveEnvironment</span>(<span class="str">"staging"</span>);  <span class="cm">// override</span>
+
+<span class="cm">// Convenience checks</span>
+<span class="fn">isProduction</span>()   <span class="cm">// true if NODE_ENV === "production"</span>
+<span class="fn">isDevelopment</span>()  <span class="cm">// true if NODE_ENV === "development" (default)</span>
+<span class="fn">isTest</span>()         <span class="cm">// true if NODE_ENV === "test"</span>
+        </div>
+        <div class="callout callout-tip">
+          <strong>Tip:</strong> <code class="bg-gray-100 px-1 font-bold">resolveEnvironment()</code> defaults to <code class="bg-gray-100 px-1 font-bold">"development"</code> if <code class="bg-gray-100 px-1 font-bold">NODE_ENV</code> is not set. It accepts both short forms (<code class="bg-gray-100 px-1 font-bold">dev</code>, <code class="bg-gray-100 px-1 font-bold">prod</code>) and long forms.
+        </div>
+      </section>
+
+      <!-- ==================== TIME ==================== -->
+      <section id="time" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Time Constants</h2>
+        <p class="mb-4">Duration values, timeouts, retry defaults, and conversion utilities.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">TimeMs — Millisecond Conversions</h3>
+        <div class="code-block">
+<span class="kw">import</span> { TimeMs } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+TimeMs.MILLISECOND  <span class="cm">// 1</span>
+TimeMs.SECOND       <span class="cm">// 1,000</span>
+TimeMs.MINUTE       <span class="cm">// 60,000</span>
+TimeMs.HOUR         <span class="cm">// 3,600,000</span>
+TimeMs.DAY          <span class="cm">// 86,400,000</span>
+TimeMs.WEEK         <span class="cm">// 604,800,000</span>
+TimeMs.MONTH        <span class="cm">// 2,592,000,000 (30 days)</span>
+TimeMs.YEAR         <span class="cm">// 31,536,000,000 (365 days)</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">DefaultTimeout</h3>
+        <table class="w-full text-smw-full border-2 border-black text-sm mb-4">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Constant</th><th class="px-4 py-2 text-left font-bold">Value</th><th class="px-4 py-2 text-left font-bold">Use Case</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">FAST</td><td class="px-4 py-2 font-mono">1s</td><td class="px-4 py-2">Quick in-memory operations</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">STANDARD</td><td class="px-4 py-2 font-mono">10s</td><td class="px-4 py-2">General operations</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">SLOW</td><td class="px-4 py-2 font-mono">30s</td><td class="px-4 py-2">Heavy processing</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">DATABASE</td><td class="px-4 py-2 font-mono">15s</td><td class="px-4 py-2">Database queries</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">HTTP_REQUEST</td><td class="px-4 py-2 font-mono">10s</td><td class="px-4 py-2">Outbound HTTP calls</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">WEBSOCKET</td><td class="px-4 py-2 font-mono">5s</td><td class="px-4 py-2">WebSocket handshake</td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold">BACKGROUND</td><td class="px-4 py-2 font-mono">60s</td><td class="px-4 py-2">Background jobs</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="text-xl font-black mt-6 mb-3">DefaultRetry</h3>
+        <div class="code-block">
+<span class="kw">import</span> { DefaultRetry } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+DefaultRetry.MAX_ATTEMPTS     <span class="cm">// 3</span>
+DefaultRetry.BASE_DELAY_MS    <span class="cm">// 1,000</span>
+DefaultRetry.MAX_DELAY_MS     <span class="cm">// 30,000</span>
+DefaultRetry.BACKOFF_MULTIPLIER<span class="cm">// 2</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Conversion Utilities</h3>
+        <div class="code-block">
+<span class="kw">import</span> { toMilliseconds, formatDuration } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// Convert any unit to milliseconds</span>
+<span class="fn">toMilliseconds</span>(<span class="num">5</span>, <span class="str">"seconds"</span>)    <span class="cm">// 5000</span>
+<span class="fn">toMilliseconds</span>(<span class="num">2</span>, <span class="str">"minutes"</span>)    <span class="cm">// 120000</span>
+<span class="fn">toMilliseconds</span>(<span class="num">1</span>, <span class="str">"hours"</span>)      <span class="cm">// 3600000</span>
+<span class="fn">toMilliseconds</span>(<span class="num">3</span>, <span class="str">"days"</span>)       <span class="cm">// 259200000</span>
+
+<span class="cm">// Format milliseconds to human-readable string</span>
+<span class="fn">formatDuration</span>(<span class="num">5000</span>)             <span class="cm">// "5s"</span>
+<span class="fn">formatDuration</span>(<span class="num">90000</span>)            <span class="cm">// "1m 30s"</span>
+<span class="fn">formatDuration</span>(<span class="num">4500000</span>)          <span class="cm">// "1h 15m"</span>
+<span class="fn">formatDuration</span>(<span class="num">259200000</span>)        <span class="cm">// "3d"</span>
+        </div>
+      </section>
+
+      <!-- ==================== VALIDATION ==================== -->
+      <section id="validation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Validation Constants</h2>
+        <p class="mb-4">Pre-built regex patterns and length/range limits for input validation.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">ValidationPattern — Regex Patterns</h3>
+        <table class="w-full text-smw-full border-2 border-black text-sm mb-4">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Pattern</th><th class="px-4 py-2 text-left font-bold">Regex</th><th class="px-4 py-2 text-left font-bold">Matches</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">EMAIL</td><td class="px-4 py-2 font-mono text-xs">/^[^\s@]+@[^\s@]+\.[^\s@]+$/</td><td class="px-4 py-2">Email addresses</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">UUID</td><td class="px-4 py-2 font-mono text-xs">/^[0-9a-f]{8}-...$/</td><td class="px-4 py-2">UUID v1-v5</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">IPV4</td><td class="px-4 py-2 font-mono text-xs">/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/</td><td class="px-4 py-2">IPv4 addresses</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">IPV6</td><td class="px-4 py-2 font-mono text-xs">/^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/</td><td class="px-4 py-2">IPv6 addresses</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">ISO_DATE_TIME</td><td class="px-4 py-2 font-mono text-xs">/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/</td><td class="px-4 py-2">ISO 8601 datetime</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">ISO_DATE</td><td class="px-4 py-2 font-mono text-xs">/^\d{4}-\d{2}-\d{2}$/</td><td class="px-4 py-2">ISO 8601 date</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">ALPHANUMERIC</td><td class="px-4 py-2 font-mono text-xs">/^[a-zA-Z0-9]+$/</td><td class="px-4 py-2">Letters and digits</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">SLUG</td><td class="px-4 py-2 font-mono text-xs">/^[a-z0-9]+(-[a-z0-9]+)*$/</td><td class="px-4 py-2">URL slugs</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">HEX_COLOR</td><td class="px-4 py-2 font-mono text-xs">/^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/</td><td class="px-4 py-2">Hex colors</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">URL</td><td class="px-4 py-2 font-mono text-xs">/^https?:\/\/.+/</td><td class="px-4 py-2">HTTP/HTTPS URLs</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-mono font-bold">SEMVER</td><td class="px-4 py-2 font-mono text-xs">/^\d+\.\d+\.\d+$/</td><td class="px-4 py-2">Semantic version</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-mono font-bold">PHONE</td><td class="px-4 py-2 font-mono text-xs">/^\+?[1-9]\d{1,14}$/</td><td class="px-4 py-2">E.164 phone numbers</td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-mono font-bold">FILE_NAME</td><td class="px-4 py-2 font-mono text-xs">/^[a-zA-Z0-9._-]+$/</td><td class="px-4 py-2">Safe filenames</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="text-xl font-black mt-6 mb-3">ValidationLength & ValidationRange</h3>
+        <div class="code-block">
+<span class="kw">import</span> { ValidationLength, ValidationRange } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// Max lengths for common fields</span>
+ValidationLength.SHORT            <span class="cm">// 64</span>
+ValidationLength.NAME             <span class="cm">// 128</span>
+ValidationLength.EMAIL            <span class="cm">// 255</span>
+ValidationLength.DISPLAY          <span class="cm">// 255</span>
+ValidationLength.DESCRIPTION_SHORT<span class="cm">// 500</span>
+ValidationLength.DESCRIPTION_LONG <span class="cm">// 5,000</span>
+ValidationLength.URL              <span class="cm">// 2,048</span>
+ValidationLength.PASSWORD         <span class="cm">// 128</span>
+ValidationLength.FULL_TEXT        <span class="cm">// 50,000</span>
+
+<span class="cm">// Numeric ranges</span>
+ValidationRange.MIN_PORT          <span class="cm">// 1</span>
+ValidationRange.MAX_PORT          <span class="cm">// 65,535</span>
+ValidationRange.MIN_PERCENTAGE    <span class="cm">// 0</span>
+ValidationRange.MAX_PERCENTAGE    <span class="cm">// 100</span>
+ValidationRange.MAX_PAGE_SIZE     <span class="cm">// 100</span>
+ValidationRange.MAX_TIMEOUT_SECONDS<span class="cm">// 3,600</span>
+ValidationRange.MAX_RETRIES       <span class="cm">// 10</span>
+        </div>
+      </section>
+
+      <!-- ==================== CACHE ==================== -->
+      <section id="cache" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Cache Constants</h2>
+        <p class="mb-4">Cache strategies, durations, and header builders.</p>
+
+        <div class="code-block">
+<span class="kw">import</span> {
+  CacheStrategies, CacheDuration,
+  buildCacheControl
+} <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// Cache strategies</span>
+CacheStrategies.NO_STORE        <span class="cm">// "no-store" — never cache</span>
+CacheStrategies.NO_CACHE        <span class="cm">// "no-cache" — revalidate before use</span>
+CacheStrategies.PRIVATE         <span class="cm">// "private" — user-specific cache</span>
+CacheStrategies.PUBLIC          <span class="cm">// "public" — shared cache</span>
+CacheStrategies.MUST_REVALIDATE <span class="cm">// "must-revalidate"</span>
+CacheStrategies.IMMUTABLE       <span class="cm">// "immutable" — never changes</span>
+
+<span class="cm">// Pre-defined durations (seconds)</span>
+CacheDuration.NONE       <span class="cm">// 0</span>
+CacheDuration.SHORT      <span class="cm">// 10</span>
+CacheDuration.MEDIUM     <span class="cm">// 300 (5 min)</span>
+CacheDuration.LONG       <span class="cm">// 3,600 (1 hour)</span>
+CacheDuration.VERY_LONG  <span class="cm">// 86,400 (1 day)</span>
+CacheDuration.WEEK       <span class="cm">// 604,800 (7 days)</span>
+
+<span class="cm">// Build Cache-Control header</span>
+<span class="kw">const</span> header = <span class="fn">buildCacheControl</span>({
+  strategy: CacheStrategies.PUBLIC,
+  maxAge: CacheDuration.LONG,
+  staleWhileRevalidate: CacheDuration.SHORT,
+});
+<span class="cm">// → "public, max-age=3600, stale-while-revalidate=10"</span>
+        </div>
+      </section>
+
+      <!-- ==================== PRIORITY ==================== -->
+      <section id="priority" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Priority</h2>
+        <p class="mb-4">Priority levels with numeric weights for sorting and comparison.</p>
+
+        <div class="code-block">
+<span class="kw">import</span> { Priorities, PriorityWeight, comparePriority } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+Priorities.CRITICAL     <span class="cm">// "critical"</span>
+Priorities.HIGH         <span class="cm">// "high"</span>
+Priorities.NORMAL       <span class="cm">// "normal"</span>
+Priorities.LOW          <span class="cm">// "low"</span>
+Priorities.BACKGROUND   <span class="cm">// "background"</span>
+
+<span class="cm">// Numeric weights</span>
+PriorityWeight.critical  <span class="cm">// 100</span>
+PriorityWeight.high      <span class="cm">// 75</span>
+PriorityWeight.normal    <span class="cm">// 50</span>
+PriorityWeight.low       <span class="cm">// 25</span>
+PriorityWeight.background<span class="cm">// 10</span>
+
+<span class="cm">// Compare priorities (negative = a is more urgent)</span>
+<span class="fn">comparePriority</span>(<span class="str">"critical"</span>, <span class="str">"low"</span>)   <span class="cm">// -75</span>
+<span class="fn">comparePriority</span>(<span class="str">"low"</span>, <span class="str">"critical"</span>)   <span class="cm">// 75</span>
+<span class="fn">comparePriority</span>(<span class="str">"normal"</span>, <span class="str">"normal"</span>)  <span class="cm">// 0</span>
+
+<span class="cm">// Sort tasks by priority</span>
+tasks.sort((a, b) =&gt; <span class="fn">comparePriority</span>(a.priority, b.priority));
+        </div>
+      </section>
+
+      <!-- ==================== SERIALIZATION ==================== -->
+      <section id="serialization" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Serialization Constants</h2>
+        <p class="mb-4">Formats, content types, limits, and envelope tags for data serialization.</p>
+
+        <div class="code-block">
+<span class="kw">import</span> {
+  SerializationFormat, SerializationContentType,
+  SerializationLimits, SerializationTags,
+  SERIALIZATION_SCHEMA_VERSION
+} <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+SerializationFormat.JSON         <span class="cm">// "json"</span>
+SerializationFormat.TEXT         <span class="cm">// "text"</span>
+SerializationFormat.BINARY       <span class="cm">// "binary"</span>
+SerializationFormat.MESSAGEPACK  <span class="cm">// "messagepack"</span>
+
+SerializationContentType.JSON    <span class="cm">// "application/json"</span>
+SerializationContentType.TEXT    <span class="cm">// "text/plain"</span>
+SerializationContentType.OCTET   <span class="cm">// "application/octet-stream"</span>
+SerializationContentType.MSGPACK <span class="cm">// "application/msgpack"</span>
+
+SerializationLimits.MAX_SIZE           <span class="cm">// 10,485,760 (10 MB)</span>
+SerializationLimits.MAX_DEPTH          <span class="cm">// 128</span>
+SerializationLimits.MAX_TRANSFORMERS   <span class="cm">// 256</span>
+SerializationLimits.MAX_TYPE_TAG_LENGTH<span class="cm">// 128</span>
+
+SerializationTags.TYPE     <span class="cm">// "$type"</span>
+SerializationTags.VALUE    <span class="cm">// "$value"</span>
+SerializationTags.ENCODING <span class="cm">// "$encoding"</span>
+
+SERIALIZATION_SCHEMA_VERSION  <span class="cm">// 1</span>
+        </div>
+      </section>
+
+      <!-- ==================== SCHEMA ==================== -->
+      <section id="schema" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Schema Constants</h2>
+        <p class="mb-4">Issue codes, default limits, and format regexes for schema validation.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">SchemaIssueCode</h3>
+        <div class="code-block">
+<span class="kw">import</span> { SchemaIssueCode } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+SchemaIssueCode.INVALID_TYPE
+SchemaIssueCode.REQUIRED
+SchemaIssueCode.INVALID_LITERAL
+SchemaIssueCode.INVALID_ENUM
+SchemaIssueCode.INVALID_UNION
+SchemaIssueCode.INVALID_STRING
+SchemaIssueCode.INVALID_FORMAT
+SchemaIssueCode.INVALID_NUMBER
+SchemaIssueCode.TOO_SMALL
+SchemaIssueCode.TOO_LARGE
+SchemaIssueCode.INVALID_LENGTH
+SchemaIssueCode.INVALID_KEY
+SchemaIssueCode.INVALID_ELEMENT
+SchemaIssueCode.UNKNOWN_KEYS
+SchemaIssueCode.CIRCULAR_REFERENCE
+SchemaIssueCode.MAX_DEPTH_EXCEEDED
+SchemaIssueCode.CUSTOM
+SchemaIssueCode.PREPROCESS_FAILED
+SchemaIssueCode.TRANSFORM_FAILED
+SchemaIssueCode.REFINE_FAILED
+SchemaIssueCode.COERCION_FAILED
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Schema Defaults & Security</h3>
+        <div class="code-block">
+<span class="kw">import</span> {
+  SCHEMA_DEFAULT_MAX_DEPTH,
+  SCHEMA_DEFAULT_MAX_STRING_LENGTH,
+  SCHEMA_DEFAULT_MAX_ARRAY_LENGTH,
+  SCHEMA_DEFAULT_MAX_OBJECT_KEYS,
+  SCHEMA_FORBIDDEN_KEYS,
+  SCHEMA_STRING_FORMATS
+} <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+SCHEMA_DEFAULT_MAX_DEPTH         <span class="cm">// 100</span>
+SCHEMA_DEFAULT_MAX_STRING_LENGTH <span class="cm">// 255</span>
+SCHEMA_DEFAULT_MAX_ARRAY_LENGTH  <span class="cm">// 1,000</span>
+SCHEMA_DEFAULT_MAX_OBJECT_KEYS   <span class="cm">// 100</span>
+
+<span class="cm">// Prototype pollution guard</span>
+SCHEMA_FORBIDDEN_KEYS  <span class="cm">// Set: ["__proto__", "constructor", "prototype"]</span>
+
+<span class="cm">// Built-in format regexes</span>
+SCHEMA_STRING_FORMATS.EMAIL       <span class="cm">// RegExp</span>
+SCHEMA_STRING_FORMATS.URL         <span class="cm">// RegExp</span>
+SCHEMA_STRING_FORMATS.UUID        <span class="cm">// RegExp</span>
+SCHEMA_STRING_FORMATS.UUID_V4     <span class="cm">// RegExp</span>
+SCHEMA_STRING_FORMATS.DATETIME    <span class="cm">// RegExp</span>
+SCHEMA_STRING_FORMATS.DATE        <span class="cm">// RegExp</span>
+SCHEMA_STRING_FORMATS.IPV4        <span class="cm">// RegExp</span>
+SCHEMA_STRING_FORMATS.IPV6        <span class="cm">// RegExp</span>
+SCHEMA_STRING_FORMATS.HEX_COLOR   <span class="cm">// RegExp</span>
+SCHEMA_STRING_FORMATS.PHONE       <span class="cm">// RegExp</span>
+SCHEMA_STRING_FORMATS.TIME        <span class="cm">// RegExp</span>
+        </div>
+      </section>
+
+      <!-- ==================== LIFECYCLE ==================== -->
+      <section id="lifecycle" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Lifecycle Constants</h2>
+        <p class="mb-4">State machine states, phases, valid transitions, and default timeouts.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">LifecycleState</h3>
+        <div class="code-block">
+<span class="kw">import</span> { LifecycleState } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+LifecycleState.IDLE           <span class="cm">// "idle"</span>
+LifecycleState.INITIALIZING   <span class="cm">// "initializing"</span>
+LifecycleState.INITIALIZED    <span class="cm">// "initialized"</span>
+LifecycleState.STARTING       <span class="cm">// "starting"</span>
+LifecycleState.STARTED        <span class="cm">// "started"</span>
+LifecycleState.READY          <span class="cm">// "ready"</span>
+LifecycleState.STOPPING       <span class="cm">// "stopping"</span>
+LifecycleState.STOPPED        <span class="cm">// "stopped"</span>
+LifecycleState.FAILED         <span class="cm">// "failed"</span>
+LifecycleState.DISPOSED       <span class="cm">// "disposed"</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">LifecyclePhase</h3>
+        <div class="code-block">
+<span class="kw">import</span> { LifecyclePhase } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+LifecyclePhase.INITIALIZE <span class="cm">// "initialize"</span>
+LifecyclePhase.START      <span class="cm">// "start"</span>
+LifecyclePhase.READY      <span class="cm">// "ready"</span>
+LifecyclePhase.STOP       <span class="cm">// "stop"</span>
+LifecyclePhase.DISPOSE    <span class="cm">// "dispose"</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Valid Transitions</h3>
+        <p class="mb-3">The state machine enforces legal transitions:</p>
+        <div class="code-block">
+<span class="kw">import</span> { LIFECYCLE_VALID_TRANSITIONS } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// idle → initializing, failed</span>
+<span class="cm">// initializing → initialized, failed</span>
+<span class="cm">// initialized → starting, failed, disposed</span>
+<span class="cm">// starting → started, failed, disposed</span>
+<span class="cm">// started → ready, stopping, failed</span>
+<span class="cm">// ready → stopping, failed</span>
+<span class="cm">// stopping → stopped, failed</span>
+<span class="cm">// stopped → disposed</span>
+<span class="cm">// failed → disposed</span>
+<span class="cm">// disposed → (terminal state)</span>
+
+<span class="kw">const</span> nextStates = LIFECYCLE_VALID_TRANSITIONS[LifecycleState.IDLE];
+<span class="cm">// → [LifecycleState.INITIALIZING, LifecycleState.FAILED]</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Default Timeouts</h3>
+        <div class="code-block">
+LIFECYCLE_DEFAULT_TIMEOUT         <span class="cm">// 30,000 ms (30s)</span>
+LIFECYCLE_DEFAULT_START_TIMEOUT   <span class="cm">// 30,000 ms</span>
+LIFECYCLE_DEFAULT_STOP_TIMEOUT    <span class="cm">// 10,000 ms (10s)</span>
+LIFECYCLE_DEFAULT_SHUTDOWN_TIMEOUT<span class="cm">// 30,000 ms</span>
+LIFECYCLE_DEFAULT_CONCURRENCY     <span class="cm">// 10</span>
+LIFECYCLE_DEFAULT_RETRY_ATTEMPTS  <span class="cm">// 3</span>
+LIFECYCLE_DEFAULT_RETRY_DELAY     <span class="cm">// 500 ms</span>
+LIFECYCLE_DEFAULT_RETRY_MAX_DELAY <span class="cm">// 10,000 ms</span>
+        </div>
+      </section>
+
+      <!-- ==================== RUNTIME ==================== -->
+      <section id="runtime" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Runtime Utilities</h2>
+        <p class="mb-4">Injectable clock and random for deterministic testing.</p>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Clock</h3>
+        <div class="code-block">
+<span class="kw">import</span> { systemClock, createMockClock } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// Use real system time</span>
+<span class="kw">const</span> now = systemClock.<span class="fn">now</span>();     <span class="cm">// Date.now()</span>
+<span class="kw">const</span> date = systemClock.<span class="fn">Date</span>();  <span class="cm">// new Date()</span>
+
+<span class="cm">// Create a fixed clock for testing</span>
+<span class="kw">const</span> mock = <span class="fn">createMockClock</span>(<span class="num">1000000</span>);
+mock.<span class="fn">now</span>()       <span class="cm">// always 1000000</span>
+mock.<span class="fn">Date</span>()      <span class="cm">// always Date at 1000000</span>
+        </div>
+
+        <h3 class="text-xl font-black mt-6 mb-3">Random</h3>
+        <div class="code-block">
+<span class="kw">import</span> { systemRandom, createMockRandom } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// Use real randomness</span>
+systemRandom.<span class="fn">random</span>()                    <span class="cm">// Math.random()</span>
+systemRandom.<span class="fn">randomInt</span>(<span class="num">1</span>, <span class="num">100</span>)          <span class="cm">// random int in [1, 100)</span>
+systemRandom.<span class="fn">randomString</span>(<span class="num">16</span>)           <span class="cm">// random alphanumeric string</span>
+systemRandom.<span class="fn">randomBytes</span>(<span class="num">32</span>)           <span class="cm">// random Uint8Array(32)</span>
+
+<span class="cm">// Deterministic PRNG for testing</span>
+<span class="kw">const</span> mock = <span class="fn">createMockRandom</span>(<span class="num">42</span>);
+mock.<span class="fn">random</span>()        <span class="cm">// deterministic sequence</span>
+mock.<span class="fn">randomInt</span>(<span class="num">1</span>, <span class="num">10</span>)<span class="cm">// deterministic int</span>
+        </div>
+      </section>
+
+      <!-- ==================== ERRORS ==================== -->
+      <section id="errors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Errors</h2>
+        <p class="mb-4">Package-specific errors extending <code class="bg-gray-100 px-1 font-bold">BaseError</code> from <code class="bg-gray-100 px-1 font-bold">@zudojs/errors</code>.</p>
+
+        <div class="code-block">
+<span class="kw">import</span> { InvalidConstantError, ConstantContextError } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// Thrown when an invalid constant value is used</span>
+<span class="kw">throw new</span> <span class="fn">InvalidConstantError</span>(<span class="str">"Invalid HTTP method: CHEESE"</span>);
+
+<span class="cm">// Thrown when a constant is used outside its valid context</span>
+<span class="kw">throw new</span> <span class="fn">ConstantContextError</span>(<span class="str">"Lifecycle transition not allowed"</span>);
+        </div>
+        <div class="callout callout-warning">
+          <strong>Note:</strong> These extend <code class="bg-gray-100 px-1 font-bold">BaseError</code> from <code class="bg-gray-100 px-1 font-bold">@zudojs/errors</code>, not <code class="bg-gray-100 px-1 font-bold">Error</code> directly. The base error type must always come from the errors package.
+        </div>
+      </section>
+
+      <!-- ==================== TESTING ==================== -->
+      <section id="testing" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Testing</h2>
+        <p class="mb-4">How to use constants in tests with mock utilities.</p>
+
+        <div class="code-block">
+<span class="kw">import</span> { describe, it, expect } <span class="kw">from</span> <span class="str">"vitest"</span>;
+<span class="kw">import</span> {
+  createMockClock, createMockRandom,
+  LifecycleState, LIFECYCLE_VALID_TRANSITIONS
+} <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="fn">describe</span>(<span class="str">"Lifecycle transitions"</span>, () =&gt; {
+  <span class="fn">it</span>(<span class="str">"should only allow valid transitions"</span>, () =&gt; {
+    <span class="kw">const</span> valid = LIFECYCLE_VALID_TRANSITIONS[LifecycleState.IDLE];
+    <span class="fn">expect</span>(valid).<span class="fn">toContain</span>(LifecycleState.INITIALIZING);
+    <span class="fn">expect</span>(valid).<span class="fn">toContain</span>(LifecycleState.FAILED);
+    <span class="fn">expect</span>(valid).<span class="fn">not</span>.<span class="fn">toContain</span>(LifecycleState.READY);
+  });
+});
+
+<span class="fn">describe</span>(<span class="str">"Time conversion"</span>, () =&gt; {
+  <span class="fn">it</span>(<span class="str">"should convert seconds to milliseconds"</span>, () =&gt; {
+    <span class="fn">expect</span>(<span class="fn">toMilliseconds</span>(<span class="num">5</span>, <span class="str">"seconds"</span>)).<span class="fn">toBe</span>(<span class="num">5000</span>);
+  });
+});
+
+<span class="fn">describe</span>(<span class="str">"Mock clock"</span>, () =&gt; {
+  <span class="fn">it</span>(<span class="str">"should return fixed time"</span>, () =&gt; {
+    <span class="kw">const</span> clock = <span class="fn">createMockClock</span>(<span class="num">1000</span>);
+    <span class="fn">expect</span>(clock.<span class="fn">now</span>()).<span class="fn">toBe</span>(<span class="num">1000</span>);
+    <span class="fn">expect</span>(clock.<span class="fn">now</span>()).<span class="fn">toBe</span>(<span class="num">1000</span>); <span class="cm">// doesn't advance</span>
+  });
+});
+        </div>
+      </section>
+
+      <!-- ==================== CONNECTIONS ==================== -->
+      <section id="connections" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Connections to Other Packages</h2>
+        <p class="mb-4">How <code class="bg-gray-100 px-1 font-bold">@zudojs/constants</code> connects to the rest of the framework.</p>
+
+        <table class="w-full text-smw-full border-2 border-black text-sm mb-4">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">Package</th><th class="px-4 py-2 text-left font-bold">What it uses from constants</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/errors</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">ErrorCode</code>, <code class="bg-gray-100 px-1">ErrorCategory</code> (consumer)</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/logger</td><td class="px-4 py-2">Log level constants</td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/events</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">EventId</code>, <code class="bg-gray-100 px-1">CorrelationId</code></td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/messaging</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">MessageId</code>, <code class="bg-gray-100 px-1">MessageCausationId</code></td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/http</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">HttpMethod</code>, <code class="bg-gray-100 px-1">HttpStatus</code>, <code class="bg-gray-100 px-1">HttpHeader</code></td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/config</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">Environment</code>, <code class="bg-gray-100 px-1">resolveEnvironment</code></td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/cache</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">CacheStrategy</code>, <code class="bg-gray-100 px-1">CacheDuration</code></td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/serialization</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">SerializationFormat</code>, <code class="bg-gray-100 px-1">SerializationTags</code></td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/schema</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">SchemaIssueCode</code>, <code class="bg-gray-100 px-1">SCHEMA_DEFAULT_*</code></td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/lifecycle</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">LifecycleState</code>, <code class="bg-gray-100 px-1">LifecyclePhase</code></td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/permissions</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">Priority</code> levels</td></tr>
+            <tr class="border-b border-black/10 bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/auth</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">TokenId</code>, <code class="bg-gray-100 px-1">SessionId</code></td></tr>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">@zudojs/tenancy</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">TenantId</code></td></tr>
+            <tr class="bg-gray-50"><td class="px-4 py-2 font-bold">@zudojs/validation</td><td class="px-4 py-2"><code class="bg-gray-100 px-1">ValidationPattern</code>, <code class="bg-gray-100 px-1">ValidationLength</code></td></tr>
+          </tbody>
+        </table>
+        <div class="callout callout-note">
+          <strong>Rule:</strong> This is a <strong>leaf package</strong>. It depends only on <code class="bg-gray-100 px-1 font-bold">@zudojs/errors</code>. No other <code class="bg-gray-100 px-1 font-bold">@zudojs/*</code> package is a dependency. Every other package can import from it.
+        </div>
+      </section>
+
+      <!-- ==================== VERSION COMPATIBILITY ==================== -->
+      <section id="version-compatibility" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Version Compatibility</h2>
+        <table class="w-full text-smw-full border-2 border-black text-sm">
+          <thead class="bg-black text-white"><tr><th class="px-4 py-2 text-left font-bold">@zudojs/constants</th><th class="px-4 py-2 text-left font-bold">TypeScript</th><th class="px-4 py-2 text-left font-bold">Node.js</th><th class="px-4 py-2 text-left font-bold">Module</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-black/10"><td class="px-4 py-2 font-bold">1.0.x</td><td class="px-4 py-2">5.x – 7.x</td><td class="px-4 py-2">≥ 24.0</td><td class="px-4 py-2">ESM</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ==================== IMPROVEMENTS ==================== -->
+      <section id="improvements" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Potential Improvements</h2>
+        <ul class="space-y-2 text-sm">
+          <li class="border-l-4 border-zudo-red pl-3"><strong>Branded type validation:</strong> Add runtime validation helpers for branded types (e.g. <code class="bg-gray-100 px-1 font-bold">isValidUserId</code>)</li>
+          <li class="border-l-4 border-zudo-blue pl-3"><strong>More HTTP statuses:</strong> Add lesser-used statuses (408 Request Timeout, 413 Payload Too Large, etc.)</li>
+          <li class="border-l-4 border-zudo-yellow pl-3"><strong>Locale constants:</strong> Add common locale codes, currency symbols, and timezone lists</li>
+          <li class="border-l-4 border-zudo-green pl-3"><strong>Protocol constants:</strong> Add WebSocket, gRPC, and MQTT protocol constants</li>
+          <li class="border-l-4 border-black pl-3"><strong>Comprehensive regex:</strong> Expand <code class="bg-gray-100 px-1 font-bold">ValidationPattern</code> with credit card, IBAN, and postal code patterns</li>
+        </ul>
+      </section>
+
+      <!-- ==================== QUICK REFERENCE ==================== -->
+      <section id="quick-reference" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase">Quick Reference</h2>
+        <div class="code-block">
+<span class="cm">// ─── Branded Types ───</span>
+<span class="kw">import</span> { UserId, EventId, RequestId, Timestamp, createUserId } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── HTTP ───</span>
+<span class="kw">import</span> { HttpMethod, HttpStatus, HttpHeader, ContentTypes, isSuccessStatus } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Environment ───</span>
+<span class="kw">import</span> { Environments, resolveEnvironment, isProduction } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Time ───</span>
+<span class="kw">import</span> { TimeMs, DefaultTimeout, DefaultRetry, toMilliseconds, formatDuration } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Validation ───</span>
+<span class="kw">import</span> { ValidationPattern, ValidationLength, ValidationRange } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Cache ───</span>
+<span class="kw">import</span> { CacheStrategies, CacheDuration, buildCacheControl } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Priority ───</span>
+<span class="kw">import</span> { Priorities, PriorityWeight, comparePriority } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Serialization ───</span>
+<span class="kw">import</span> { SerializationFormat, SerializationTags, SerializationLimits } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Schema ───</span>
+<span class="kw">import</span> { SchemaIssueCode, SCHEMA_STRING_FORMATS, SCHEMA_FORBIDDEN_KEYS } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Lifecycle ───</span>
+<span class="kw">import</span> { LifecycleState, LifecyclePhase, LIFECYCLE_VALID_TRANSITIONS } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Runtime ───</span>
+<span class="kw">import</span> { systemClock, createMockClock, systemRandom, createMockRandom } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Errors ───</span>
+<span class="kw">import</span> { InvalidConstantError, ConstantContextError } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+
+<span class="cm">// ─── Sentinels & Limits ───</span>
+<span class="kw">import</span> { Sentinel, Limits, Defaults, NONE, EMPTY } <span class="kw">from</span> <span class="str">"@zudojs/constants"</span>;
+        </div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-48 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 hidden lg:block">
+      <div class="p-4 text-xs font-bold uppercase text-gray-400 tracking-wider">On this page</div>
+      <a href="#overview" class="toc-link">Overview</a>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#branded-types" class="toc-link">Branded Types</a>
+      <a href="#sentinel-values" class="toc-link">Sentinels & Limits</a>
+      <a href="#http" class="toc-link">HTTP Constants</a>
+      <a href="#environment" class="toc-link">Environment</a>
+      <a href="#time" class="toc-link">Time Constants</a>
+      <a href="#validation" class="toc-link">Validation Constants</a>
+      <a href="#cache" class="toc-link">Cache Constants</a>
+      <a href="#priority" class="toc-link">Priority</a>
+      <a href="#serialization" class="toc-link">Serialization</a>
+      <a href="#schema" class="toc-link">Schema Constants</a>
+      <a href="#lifecycle" class="toc-link">Lifecycle</a>
+      <a href="#runtime" class="toc-link">Runtime Utilities</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#testing" class="toc-link">Testing</a>
+      <a href="#connections" class="toc-link">Connections</a>
+      <a href="#version-compatibility" class="toc-link">Version Compat</a>
+      <a href="#improvements" class="toc-link">Improvements</a>
+      <a href="#quick-reference" class="toc-link">Quick Reference</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-black text-white border-t-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8 flex items-center justify-between text-sm">
+      <div>&copy; 2026 Zudo. MIT License.</div>
+      <div class="flex gap-4">
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <a href="/docs/roadmap" class="hover:text-zudo-yellow">Roadmap</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/toc.js"></script>
+
+  <script src="/js/router.js"></script>
+</body>
+</html>

@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/cli — Command-Line Interface Framework | Zudo Framework</title>
+  <meta name="description" content="Complete reference for zudojs-cli v0.0.1. Create, scaffold, generate, and manage Zudo projects with interactive prompts, 11 frontend adapters, 4 package managers, and 13 schematics.">
+  <meta name="keywords" content="zudojs, cli, command-line, scaffolding, code generation, create, generate, add, doctor, monorepo, TypeScript, framework">
+  <meta name="author" content="Oyinlola Tech">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/packages/cli/">
+
+  <meta property="og:title" content="@zudojs/cli — Command-Line Interface Framework | Zudo Framework">
+  <meta property="og:description" content="Complete reference for zudojs-cli v0.0.1. Create, scaffold, generate, and manage Zudo projects.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zudo.dev/docs/packages/cli/">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
+  <meta property="og:site_name" content="Zudo Framework">
+  <meta property="article:published_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:modified_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:section" content="Packages">
+  <meta property="article:tag" content="CLI">
+  <meta property="article:tag" content="Scaffolding">
+  <meta property="article:tag" content="Code Generation">
+  <meta property="article:tag" content="Commands">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="@zudojs/cli — Command-Line Interface Framework">
+  <meta name="twitter:description" content="Complete reference for zudojs-cli v0.0.1. Create, scaffold, generate, and manage Zudo projects.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "@zudojs/cli — Command-Line Interface Framework",
+    "description": "Complete reference for zudojs-cli v0.0.1. Create, scaffold, generate, and manage Zudo projects with interactive prompts, 11 frontend adapters, 4 package managers, and 13 schematics.",
+    "version": "0.0.1",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js >= 24.0.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "repository": {
+      "@type": "CodeRepository",
+      "url": "https://github.com/oyinlola-tech/zudo"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Oyinlola Tech",
+      "url": "https://github.com/oyinlola-tech"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zudo"
+    },
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-01-01",
+    "mainEntityOfPage": "https://zudo.dev/docs/packages/cli/",
+    "keywords": "zudojs, cli, scaffolding, code generation, create, generate, monorepo, TypeScript",
+    "articleSection": "Packages",
+    "dependencies": ["@zudojs/errors", "@zudojs/logger", "@zudojs/config", "@zudojs/core"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
+      { "@type": "ListItem", "position": 2, "name": "Packages", "item": "https://zudo.dev/docs/packages/" },
+      { "@type": "ListItem", "position": 3, "name": "@zudojs/cli", "item": "https://zudo.dev/docs/packages/cli/" }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-white text-black">
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+          <span class="text-black font-black text-sm">Z</span>
+        </div>
+        <span class="text-xl font-black">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+        <a href="/docs/getting-started" class="hover:text-zudo-red">Docs</a>
+        <a href="/docs/packages" class="hover:text-zudo-red text-zudo-red">Packages</a>
+        <a href="/docs/architecture" class="hover:text-zudo-red">Architecture</a>
+        <a href="/docs/concepts" class="hover:text-zudo-red">Concepts</a>
+      </div>
+      <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="p-2 border-2 border-white hover:bg-white hover:text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+            <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/cli</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/cli</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Command-line interface infrastructure for Zudo — command registration, argument parsing, interactive prompts, output formatting, and progress display
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">CLI</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">COMMANDS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">INTERACTIVE</span>
+        </div>
+      </div>
+
+      <!-- ==================== OVERVIEW ==================== -->
+      <section id="overview" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Overview</h2>
+        <p class="mb-4 leading-relaxed">
+          <code>zudojs-cli</code> is the command-line interface for the Zudo framework. It provides project scaffolding, code generation, dependency management, and project diagnostics — all with interactive prompts powered by <code>@clack/prompts</code>.
+        </p>
+        <p class="mb-4 leading-relaxed">
+          The CLI supports <strong>11 frontend frameworks</strong> (React, Next, Vue, Nuxt, Angular, Svelte, SvelteKit, Astro, Vanilla, Flutter, React Native), <strong>4 package managers</strong> (pnpm, npm, yarn, bun), <strong>3 database engines</strong> (PostgreSQL, MySQL, SQLite), and <strong>13 code schematics</strong> for generating services, modules, commands, queries, and more.
+        </p>
+
+        <div class="callout callout-note mb-6">
+          <p class="text-sm font-bold mb-1">KEY FEATURES</p>
+          <ul class="text-sm space-y-1">
+            <li>• <strong>Interactive prompts</strong> — Guided project creation with @clack/prompts</li>
+            <li>• <strong>Multi-architecture</strong> — Monolith, modular-monolith, microservice</li>
+            <li>• <strong>Fullstack support</strong> — Backend + frontend in a single workspace</li>
+            <li>• <strong>Code schematics</strong> — Generate services, modules, commands, queries, controllers, and more</li>
+            <li>• <strong>Rollback safety</strong> — Automatic cleanup on generation failures</li>
+            <li>• <strong>Manifest tracking</strong> — Project configuration stored in zudojs.json</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ==================== INSTALLATION ==================== -->
+      <section id="install" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Installation</h2>
+        <div class="code-block mb-4">
+<span class="cm"># Install globally</span>
+npm install -g zudojs-cli
+
+<span class="cm"># Or use npx (no install required)</span>
+npx zudojs create my-project
+
+<span class="cm"># With pnpm</span>
+pnpm dlx zudojs-cli create my-project
+        </div>
+        <p class="text-sm text-gray-600 mb-4"><strong>Binary:</strong> <code>zudojs</code> → <code>./dist/src/bin/zudojs.js</code></p>
+      </section>
+
+      <!-- ==================== QUICK START ==================== -->
+      <section id="quick-start" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Quick Start</h2>
+
+        <div class="code-block mb-6">
+<span class="cm"># Create a new project (interactive)</span>
+zudojs create my-app
+
+<span class="cm"># Create with explicit flags (non-interactive)</span>
+zudojs create my-app \
+  --type backend \
+  --architecture monolith \
+  --database postgresql \
+  --package-manager pnpm
+
+<span class="cm"># Generate a service</span>
+zudojs generate service UserService
+
+<span class="cm"># Generate a module</span>
+zudojs generate module auth
+
+<span class="cm"># Add a feature</span>
+zudojs add database
+
+<span class="cm"># Diagnose project issues</span>
+zudojs doctor
+
+<span class="cm"># Show project info</span>
+zudojs info
+        </div>
+      </section>
+
+      <!-- ==================== COMMANDS ==================== -->
+      <section id="commands" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Built-in Commands</h2>
+        <p class="mb-4 leading-relaxed">The CLI ships with 6 built-in commands. Each supports both interactive prompts and non-interactive flags.</p>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Command</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Alias</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">create</td><td class="border border-black px-4 py-2 font-mono text-xs">—</td><td class="border border-black px-4 py-2">Scaffold a new Zudo project</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">generate</td><td class="border border-black px-4 py-2 font-mono text-xs">g</td><td class="border border-black px-4 py-2">Generate code from schematics</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">add</td><td class="border border-black px-4 py-2 font-mono text-xs">—</td><td class="border border-black px-4 py-2">Add a feature package to the project</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">doctor</td><td class="border border-black px-4 py-2 font-mono text-xs">—</td><td class="border border-black px-4 py-2">Run project diagnostics</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">info</td><td class="border border-black px-4 py-2 font-mono text-xs">—</td><td class="border border-black px-4 py-2">Show project info and dependencies</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">dev</td><td class="border border-black px-4 py-2 font-mono text-xs">—</td><td class="border border-black px-4 py-2">Start development server</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== CREATE ==================== -->
+      <section id="create" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">create</h2>
+        <p class="mb-4 leading-relaxed">Scaffold a new Zudo project with interactive prompts or explicit flags. Supports backend, frontend, and fullstack project types.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interactive Mode</h3>
+        <div class="code-block mb-4">
+zudojs create my-project
+
+<span class="cm">// Prompts for:</span>
+<span class="cm">// 1. Project name</span>
+<span class="cm">// 2. Project type (backend / frontend / fullstack)</span>
+<span class="cm">// 3. Backend architecture (monolith / modular-monolith / microservice)</span>
+<span class="cm">// 4. Database (postgresql / mysql / sqlite)</span>
+<span class="cm">// 5. API style (rest / graphql / rpc)</span>
+<span class="cm">// 6. Frontend framework (if applicable)</span>
+<span class="cm">// 7. Frontend architecture</span>
+<span class="cm">// 8. Package manager (pnpm / npm / yarn / bun)</span>
+<span class="cm">// 9. Capabilities (cqrs, messaging, observability, openapi, database, queue)</span>
+<span class="cm">// 10. Confirmation</span>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Non-Interactive Mode</h3>
+        <div class="code-block mb-4">
+zudojs create my-project \
+  --type backend \
+  --architecture modular-monolith \
+  --database postgresql \
+  --api rest \
+  --package-manager pnpm \
+  --language typescript \
+  --no-install \
+  --no-git
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Options</h3>
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Flag</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Short</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Default</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">--type</td><td class="border border-black px-4 py-2 font-mono text-xs">-t</td><td class="border border-black px-4 py-2 font-mono text-xs">backend</td><td class="border border-black px-4 py-2">Project type</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">--architecture</td><td class="border border-black px-4 py-2 font-mono text-xs">-a</td><td class="border border-black px-4 py-2 font-mono text-xs">monolith</td><td class="border border-black px-4 py-2">Backend architecture</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">--database</td><td class="border border-black px-4 py-2 font-mono text-xs">-d</td><td class="border border-black px-4 py-2 font-mono text-xs">postgresql</td><td class="border border-black px-4 py-2">Database provider</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">--api</td><td class="border border-black px-4 py-2 font-mono text-xs">—</td><td class="border border-black px-4 py-2 font-mono text-xs">rest</td><td class="border border-black px-4 py-2">API style</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">--package-manager</td><td class="border border-black px-4 py-2 font-mono text-xs">-p</td><td class="border border-black px-4 py-2 font-mono text-xs">pnpm</td><td class="border border-black px-4 py-2">Package manager</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">--frontend</td><td class="border border-black px-4 py-2 font-mono text-xs">-f</td><td class="border border-black px-4 py-2 font-mono text-xs">none</td><td class="border border-black px-4 py-2">Frontend framework</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">--frontend-architecture</td><td class="border border-black px-4 py-2 font-mono text-xs">-fa</td><td class="border border-black px-4 py-2 font-mono text-xs">zudojs-standard</td><td class="border border-black px-4 py-2">Frontend architecture</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">--language</td><td class="border border-black px-4 py-2 font-mono text-xs">-l</td><td class="border border-black px-4 py-2 font-mono text-xs">typescript</td><td class="border border-black px-4 py-2">Language</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">--services</td><td class="border border-black px-4 py-2 font-mono text-xs">—</td><td class="border border-black px-4 py-2 font-mono text-xs">—</td><td class="border border-black px-4 py-2">Comma-separated feature list</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">--no-install</td><td class="border border-black px-4 py-2 font-mono text-xs">—</td><td class="border border-black px-4 py-2 font-mono text-xs">false</td><td class="border border-black px-4 py-2">Skip dependency installation</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">--no-git</td><td class="border border-black px-4 py-2 font-mono text-xs">—</td><td class="border border-black px-4 py-2 font-mono text-xs">false</td><td class="border border-black px-4 py-2">Skip git initialization</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== GENERATE ==================== -->
+      <section id="generate" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">generate</h2>
+        <p class="mb-4 leading-relaxed">Generate code from 13 schematics. Reads <code>zudojs.config.ts</code> to determine project architecture and file placement.</p>
+
+        <div class="code-block mb-4">
+<span class="cm"># Generate a service</span>
+zudojs generate service UserService
+
+<span class="cm"># Generate a module</span>
+zudojs generate module auth
+
+<span class="cm"># Generate a CQRS command</span>
+zudojs generate command CreateUser --service users
+
+<span class="cm"># Generate a controller</span>
+zudojs generate controller ProductController
+
+<span class="cm"># Dry run (preview files without writing)</span>
+zudojs generate service OrderService --dry-run
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Available Schematics</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">service</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">module</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">command</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">query</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">controller</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">repository</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">middleware</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">event</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">job</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">route</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">model</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">dto</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">validator</div>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Architecture-Aware Placement</h3>
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Architecture</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Services Go To</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Modules Go To</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">monolith</td><td class="border border-black px-4 py-2 font-mono text-xs">src/</td><td class="border border-black px-4 py-2 font-mono text-xs">src/modules/</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">modular-monolith</td><td class="border border-black px-4 py-2 font-mono text-xs">src/</td><td class="border border-black px-4 py-2 font-mono text-xs">src/modules/</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">microservice</td><td class="border border-black px-4 py-2 font-mono text-xs">apps/</td><td class="border border-black px-4 py-2 font-mono text-xs">apps/default/</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== ADD ==================== -->
+      <section id="add" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">add</h2>
+        <p class="mb-4 leading-relaxed">Add a feature package to your Zudo project. Updates <code>package.json</code>, <code>zudojs.config.ts</code>, and the manifest.</p>
+
+        <div class="code-block mb-4">
+<span class="cm"># Add database support</span>
+zudojs add database
+
+<span class="cm"># Add queue support</span>
+zudojs add queue
+
+<span class="cm"># Add without installing</span>
+zudojs add cache --skip-install
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Available Features</h3>
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Feature</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Packages Installed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">database</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/database</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">queue</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/queue</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">messaging</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/messaging</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">openapi</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/openapi</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">observability</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/observability</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">security</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/security</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">cache</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/cache</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">storage</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/storage</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">scheduler</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/queue</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">docs</td><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/docs</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== DOCTOR ==================== -->
+      <section id="doctor" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">doctor</h2>
+        <p class="mb-4 leading-relaxed">Run project diagnostics to check for common issues.</p>
+
+        <div class="code-block mb-4">
+zudojs doctor
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Checks Performed</h3>
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Check</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">What It Verifies</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">Node.js version</td><td class="border border-black px-4 py-2">Node.js >= v24</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">Package manager</td><td class="border border-black px-4 py-2">Lock file exists (pnpm/npm/yarn)</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">TypeScript config</td><td class="border border-black px-4 py-2">tsconfig.json exists</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">Zudojs config</td><td class="border border-black px-4 py-2">zudojs.config.ts or package.json#zudojs</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">Dependencies</td><td class="border border-black px-4 py-2">@zudojs/* packages installed</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">Architecture</td><td class="border border-black px-4 py-2">No architecture violations detected</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== INFO ==================== -->
+      <section id="info" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">info</h2>
+        <p class="mb-4 leading-relaxed">Display project information and installed Zudo dependencies.</p>
+
+        <div class="code-block mb-4">
+zudojs info
+
+<span class="cm">// Output:</span>
+<span class="cm">// Zudojs Project Info</span>
+<span class="cm">//</span>
+<span class="cm">// Project: my-app</span>
+<span class="cm">// Version: 0.0.1</span>
+<span class="cm">// Package Manager: pnpm</span>
+<span class="cm">//</span>
+<span class="cm">// Zudojs Dependencies:</span>
+<span class="cm">//   @zudojs/core: workspace:*</span>
+<span class="cm">//   @zudojs/errors: workspace:*</span>
+<span class="cm">//   @zudojs/logger: workspace:*</span>
+        </div>
+      </section>
+
+      <!-- ==================== ADAPTERS ==================== -->
+      <section id="adapters" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Adapters</h2>
+        <p class="mb-4 leading-relaxed">The CLI uses adapter patterns for frontend frameworks, package managers, and databases.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Frontend Adapters (11)</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">ReactAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">NextAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">VueAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">NuxtAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">AngularAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">SvelteAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">SvelteKitAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">AstroAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">VanillaAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">FlutterAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">ReactNativeAdapter</div>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Package Manager Adapters (4)</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">PnpmAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">NpmAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">YarnAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">BunAdapter</div>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Database Adapters (3)</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">PostgresAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">MySqlAdapter</div>
+          <div class="border-2 border-black px-3 py-2 text-sm font-bold">SqliteAdapter</div>
+        </div>
+      </section>
+
+      <!-- ==================== GENERATORS ==================== -->
+      <section id="generators" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Generators</h2>
+        <p class="mb-4 leading-relaxed">Code generators for different project aspects.</p>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Generator</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">generateProject()</td><td class="border border-black px-4 py-2">Generate full project from ScaffoldOptions</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">BackendGenerator</td><td class="border border-black px-4 py-2">Generate backend structure</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">FrontendGenerator</td><td class="border border-black px-4 py-2">Generate frontend with framework adapter</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">FullstackComposer</td><td class="border border-black px-4 py-2">Compose backend + frontend workspace</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">IntegrationGenerator</td><td class="border border-black px-4 py-2">Generate API integration configs</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">InfrastructureGenerator</td><td class="border border-black px-4 py-2">Docker, CI/CD, infrastructure files</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== APPLICATION ==================== -->
+      <section id="application" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Application API</h2>
+        <p class="mb-4 leading-relaxed">Create custom CLI applications using the <code>ZudojsCLI</code> class.</p>
+
+        <div class="code-block mb-4">
+<span class="kw">import</span> { <span class="fn">createCLI</span>, <span class="fn">command</span> } <span class="kw">from</span> <span class="str">"zudojs-cli"</span>;
+
+<span class="kw">const</span> app = <span class="fn">createCLI</span>({
+  <span class="fn">name</span>: <span class="str">"my-tool"</span>,
+  <span class="fn">version</span>: <span class="str">"0.0.1"</span>,
+  <span class="fn">description</span>: <span class="str">"My custom CLI tool"</span>,
+});
+
+app.<span class="fn">register</span>(
+  <span class="fn">command</span>(<span class="str">"greet"</span>, (ctx) => {
+    <span class="kw">const</span> name = ctx.values[<span class="str">"name"</span>] ?? <span class="str">"World"</span>;
+    console.<span class="fn">log</span>(<span class="str">`Hello, ${name}!`</span>);
+  })
+);
+
+app.<span class="fn">register</span>(
+  <span class="fn">command</span>(<span class="str">"build"</span>, <span class="kw">async</span> (ctx) => {
+    <span class="kw">await</span> <span class="fn">buildProject</span>(ctx.values);
+  })
+);
+
+<span class="cm">// Lifecycle hooks</span>
+app.<span class="fn">use</span>({
+  <span class="fn">beforeRun</span>: (ctx) => console.<span class="fn">log</span>(<span class="str">`Running ${ctx.command}...`</span>),
+  <span class="fn">afterRun</span>: (ctx, code) => console.<span class="fn">log</span>(<span class="str">`Done (exit ${code})`</span>),
+  <span class="fn">onError</span>: (err) => console.<span class="fn">error</span>(<span class="str">`Error: ${err.message}`</span>),
+});
+
+<span class="kw">const</span> exitCode = <span class="kw">await</span> app.<span class="fn">run</span>();
+process.<span class="fn">exit</span>(exitCode);
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ZudojsCLI Methods</h3>
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Method</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Returns</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">register(cmd)</td><td class="border border-black px-4 py-2 font-mono text-xs">this</td><td class="border border-black px-4 py-2">Register a single command</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">registerMany(cmds)</td><td class="border border-black px-4 py-2 font-mono text-xs">this</td><td class="border border-black px-4 py-2">Register multiple commands</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">use(hooks)</td><td class="border border-black px-4 py-2 font-mono text-xs">this</td><td class="border border-black px-4 py-2">Set lifecycle hooks</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">run(args?)</td><td class="border border-black px-4 py-2 font-mono text-xs">Promise&lt;number&gt;</td><td class="border border-black px-4 py-2">Execute the CLI, returns exit code</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">isRunning</td><td class="border border-black px-4 py-2 font-mono text-xs">boolean</td><td class="border border-black px-4 py-2">Whether app is currently running</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">commandCount</td><td class="border border-black px-4 py-2 font-mono text-xs">number</td><td class="border border-black px-4 py-2">Number of registered commands</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== PARSER ==================== -->
+      <section id="parser" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Parser</h2>
+        <p class="mb-4 leading-relaxed">Parses CLI arguments into structured commands, options, and positional arguments.</p>
+
+        <div class="code-block mb-4">
+<span class="kw">import</span> { <span class="tp">CLIParser</span>, <span class="fn">parseCLIArguments</span> } <span class="kw">from</span> <span class="str">"zudojs-cli"</span>;
+
+<span class="cm">// Standalone parsing</span>
+<span class="kw">const</span> result = <span class="fn">parseCLIArguments</span>([
+  <span class="str">"create"</span>, <span class="str">"my-app"</span>,
+  <span class="str">"--type"</span>, <span class="str">"backend"</span>,
+  <span class="str">"-d"</span>, <span class="str">"postgresql"</span>
+]);
+
+<span class="cm">// result: {</span>
+<span class="cm">//   command: "create",</span>
+<span class="cm">//   commands: ["create"],</span>
+<span class="cm">//   args: ["my-app"],</span>
+<span class="cm">//   options: { type: "backend", d: "postgresql" }</span>
+<span class="cm">// }</span>
+
+<span class="cm">// Parser with options</span>
+<span class="kw">const</span> parser = <span class="kw">new</span> <span class="tp">CLIParser</span>({
+  <span class="fn">allowUnknownOptions</span>: <span class="num">false</span>,
+  <span class="fn">stopAtFirstArgument</span>: <span class="num">false</span>
+});
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Helper Functions</h3>
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Function</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Returns</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">parseCLIArguments(args)</td><td class="border border-black px-4 py-2 font-mono text-xs">ParsedCLIInput</td><td class="border border-black px-4 py-2">Parse raw argument array</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">parseOptionValue(val)</td><td class="border border-black px-4 py-2 font-mono text-xs">CLIValue</td><td class="border border-black px-4 py-2">Parse a single option value</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">parseBoolean(val)</td><td class="border border-black px-4 py-2 font-mono text-xs">boolean</td><td class="border border-black px-4 py-2">Parse string to boolean</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">isOption(token)</td><td class="border border-black px-4 py-2 font-mono text-xs">boolean</td><td class="border border-black px-4 py-2">Check if token is an option</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">isLongOption(token)</td><td class="border border-black px-4 py-2 font-mono text-xs">boolean</td><td class="border border-black px-4 py-2">Check if --flag style</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">isShortOption(token)</td><td class="border border-black px-4 py-2 font-mono text-xs">boolean</td><td class="border border-black px-4 py-2">Check if -f style</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">resolveCommand(cmds, name)</td><td class="border border-black px-4 py-2 font-mono text-xs">CLICommand | undefined</td><td class="border border-black px-4 py-2">Resolve command by name or alias</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== TYPES ==================== -->
+      <section id="types" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Types Reference</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ProjectConfiguration</h3>
+        <div class="code-block mb-4">
+<span class="kw">interface</span> <span class="tp">ProjectConfiguration</span> {
+  <span class="fn">name</span>: <span class="tp">string</span>;
+  <span class="fn">type</span>: <span class="str">"backend"</span> | <span class="str">"frontend"</span> | <span class="str">"fullstack"</span>;
+  <span class="fn">backend</span>?: {
+    <span class="fn">architecture</span>: <span class="str">"monolith"</span> | <span class="str">"modular-monolith"</span> | <span class="str">"microservice"</span>;
+    <span class="fn">api</span>?: <span class="str">"rest"</span> | <span class="str">"graphql"</span> | <span class="str">"rpc"</span>;
+    <span class="fn">database</span>?: <span class="str">"postgresql"</span> | <span class="str">"mysql"</span> | <span class="str">"sqlite"</span> | <span class="str">"mongodb"</span>;
+  };
+  <span class="fn">frontend</span>?: {
+    <span class="fn">framework</span>: <span class="tp">FrontendFramework</span>;
+    <span class="fn">architecture</span>: <span class="tp">FrontendArchitecture</span>;
+    <span class="fn">language</span>?: <span class="str">"typescript"</span> | <span class="str">"javascript"</span>;
+  };
+  <span class="fn">workspace</span>?: {
+    <span class="fn">packageManager</span>: <span class="str">"pnpm"</span> | <span class="str">"npm"</span> | <span class="str">"yarn"</span> | <span class="str">"bun"</span>;
+  };
+  <span class="fn">features</span>?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ScaffoldOptions</h3>
+        <div class="code-block mb-4">
+<span class="kw">interface</span> <span class="tp">ScaffoldOptions</span> {
+  <span class="fn">projectName</span>: <span class="tp">string</span>;
+  <span class="fn">projectType</span>?: <span class="tp">ProjectType</span>;
+  <span class="fn">architecture</span>: <span class="tp">ArchitectureType</span>;
+  <span class="fn">packageManager</span>: <span class="tp">PackageManager</span>;
+  <span class="fn">database</span>?: <span class="tp">DatabaseEngine</span>;
+  <span class="fn">api</span>?: <span class="tp">ApiStyle</span>;
+  <span class="fn">frontend</span>?: <span class="tp">FrontendFramework</span> | <span class="str">"none"</span>;
+  <span class="fn">services</span>: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="fn">enableCQRS</span>: <span class="tp">boolean</span>;
+  <span class="fn">enableMessaging</span>: <span class="tp">boolean</span>;
+  <span class="fn">enableObservability</span>: <span class="tp">boolean</span>;
+  <span class="fn">enableOpenAPI</span>: <span class="tp">boolean</span>;
+  <span class="fn">enableDatabase</span>: <span class="tp">boolean</span>;
+  <span class="fn">enableQueue</span>: <span class="tp">boolean</span>;
+  <span class="fn">installDeps</span>: <span class="tp">boolean</span>;
+  <span class="fn">initGit</span>: <span class="tp">boolean</span>;
+}
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">CLICommand</h3>
+        <div class="code-block mb-4">
+<span class="kw">interface</span> <span class="tp">CLICommand</span> {
+  <span class="fn">name</span>: <span class="tp">string</span>;
+  <span class="fn">description</span>?: <span class="tp">string</span>;
+  <span class="fn">aliases</span>?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="fn">options</span>?: <span class="kw">readonly</span> <span class="tp">CLIOption</span>[];
+  <span class="fn">arguments</span>?: <span class="kw">readonly</span> <span class="tp">CLIArgument</span>[];
+  <span class="fn">execute</span>(context: <span class="tp">CLIContext</span>): <span class="tp">void</span> | <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">CLIContext</h3>
+        <div class="code-block mb-4">
+<span class="kw">interface</span> <span class="tp">CLIContext</span> {
+  <span class="kw">readonly</span> <span class="fn">args</span>: <span class="tp">CLIArguments</span>;
+  <span class="kw">readonly</span> <span class="fn">values</span>: <span class="tp">CLIValues</span>;
+  <span class="kw">readonly</span> <span class="fn">command</span>?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> <span class="fn">cwd</span>: <span class="tp">string</span>;
+  <span class="kw">readonly</span> <span class="fn">env</span>: <span class="tp">CLIEnvironment</span>;
+  <span class="kw">readonly</span> <span class="fn">logger</span>: <span class="tp">Logger</span>;
+}
+        </div>
+      </section>
+
+      <!-- ==================== CONSTANTS ==================== -->
+      <section id="constants" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Constants</h2>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Constant</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLI_NAME</td><td class="border border-black px-4 py-2 font-mono text-xs">"zudojs"</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLI_DEFAULTS.VERSION</td><td class="border border-black px-4 py-2 font-mono text-xs">"0.1.0"</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLI_COMMANDS.HELP</td><td class="border border-black px-4 py-2 font-mono text-xs">"help"</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLI_COMMANDS.VERSION</td><td class="border border-black px-4 py-2 font-mono text-xs">"version"</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLI_ALIASES.HELP</td><td class="border border-black px-4 py-2 font-mono text-xs">["-h", "--help"]</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLI_ALIASES.VERSION</td><td class="border border-black px-4 py-2 font-mono text-xs">["-v", "--version"]</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLI_EXIT_CODES.SUCCESS</td><td class="border border-black px-4 py-2 font-mono text-xs">0</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLI_EXIT_CODES.GENERAL_ERROR</td><td class="border border-black px-4 py-2 font-mono text-xs">1</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLI_EXIT_CODES.INVALID_ARGUMENTS</td><td class="border border-black px-4 py-2 font-mono text-xs">2</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLI_EXIT_CODES.COMMAND_NOT_FOUND</td><td class="border border-black px-4 py-2 font-mono text-xs">3</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLI_EXIT_CODES.PERMISSION_DENIED</td><td class="border border-black px-4 py-2 font-mono text-xs">4</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLI_EXIT_CODES.INTERRUPTED</td><td class="border border-black px-4 py-2 font-mono text-xs">130</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLI_LIMITS.MAX_COMMAND_NAME_LENGTH</td><td class="border border-black px-4 py-2 font-mono text-xs">100</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLI_LIMITS.MAX_DESCRIPTION_LENGTH</td><td class="border border-black px-4 py-2 font-mono text-xs">500</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== ERRORS ==================== -->
+      <section id="errors" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Errors</h2>
+        <p class="mb-4 leading-relaxed">The CLI provides a comprehensive error hierarchy for different failure modes.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Classes</h3>
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Error</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Usage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLIError</td><td class="border border-black px-4 py-2">Base CLI error class</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CommandNotFoundError</td><td class="border border-black px-4 py-2">Unknown command entered</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">DuplicateCommandError</td><td class="border border-black px-4 py-2">Command name already registered</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">InvalidCommandNameError</td><td class="border border-black px-4 py-2">Command name fails validation</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">InvalidArgumentsError</td><td class="border border-black px-4 py-2">Wrong argument count or type</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">MissingArgumentError</td><td class="border border-black px-4 py-2">Required argument not provided</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">InvalidOptionError</td><td class="border border-black px-4 py-2">Unknown option provided</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">MissingOptionValueError</td><td class="border border-black px-4 py-2">Option requires a value</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">DuplicateOptionError</td><td class="border border-black px-4 py-2">Option specified twice</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLIExecutionError</td><td class="border border-black px-4 py-2">Command execution failed</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLIPermissionError</td><td class="border border-black px-4 py-2">Insufficient permissions</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLIInterruptedError</td><td class="border border-black px-4 py-2">Process interrupted (Ctrl+C)</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLIConfigurationError</td><td class="border border-black px-4 py-2">Invalid CLI configuration</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Helpers</h3>
+        <div class="code-block mb-4">
+<span class="kw">import</span> {
+  <span class="fn">isCLIError</span>,
+  <span class="fn">normalizeCLIError</span>,
+  <span class="fn">getCLIExitCode</span>,
+  <span class="fn">getCLIErrorCode</span>
+} <span class="kw">from</span> <span class="str">"zudojs-cli"</span>;
+
+<span class="kw">try</span> {
+  <span class="kw">await</span> app.<span class="fn">run</span>();
+} <span class="kw">catch</span> (err) {
+  <span class="kw">if</span> (<span class="fn">isCLIError</span>(err)) {
+    console.<span class="fn">error</span>(<span class="str">`[${err.code}] ${err.message}`</span>);
+    process.<span class="fn">exit</span>(<span class="fn">getCLIExitCode</span>(err));
+  }
+}
+        </div>
+      </section>
+
+      <!-- ==================== CONNECTIONS ==================== -->
+      <section id="connections" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Package Connections</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          <a href="/docs/packages-errors" class="border-2 border-black p-4 hover:border-zudo-red hover:bg-red-50">
+            <p class="font-bold text-sm">@zudojs/errors</p>
+            <p class="text-xs text-gray-600">CLIError base class, error normalization</p>
+          </a>
+          <a href="/docs/packages/logger" class="border-2 border-black p-4 hover:border-zudo-blue hover:bg-blue-50">
+            <p class="font-bold text-sm">@zudojs/logger</p>
+            <p class="text-xs text-gray-600">CLIContext.logger for output</p>
+          </a>
+          <a href="/docs/packages-config" class="border-2 border-black p-4 hover:border-zudo-green hover:bg-green-50">
+            <p class="font-bold text-sm">@zudojs/config</p>
+            <p class="text-xs text-gray-600">Configuration source integration</p>
+          </a>
+          <a href="/docs/packages-core" class="border-2 border-black p-4 hover:border-zudo-yellow hover:bg-yellow-50">
+            <p class="font-bold text-sm">@zudojs/core</p>
+            <p class="text-xs text-gray-600">Runtime, lifecycle, module system</p>
+          </a>
+          <a href="/docs/packages/schema" class="border-2 border-black p-4 hover:border-zudo-pink hover:bg-pink-50">
+            <p class="font-bold text-sm">@zudojs/schema</p>
+            <p class="text-xs text-gray-600">Configuration validation</p>
+          </a>
+          <a href="/docs/packages/serialization" class="border-2 border-black p-4 hover:border-zudo-green hover:bg-green-50">
+            <p class="font-bold text-sm">@zudojs/serialization</p>
+            <p class="text-xs text-gray-600">Manifest serialization</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- ==================== IMPROVEMENTS ==================== -->
+      <section id="improvements" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">Suggested Improvements</h2>
+
+        <div class="space-y-4">
+          <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
+            <p class="font-bold text-sm mb-1">1. Plugin System</p>
+            <p class="text-sm text-gray-600">Allow third-party plugins to register custom schematics, adapters, and commands via a plugin API.</p>
+          </div>
+          <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
+            <p class="font-bold text-sm mb-1">2. Watch Mode for Generators</p>
+            <p class="text-sm text-gray-600">Add <code>--watch</code> flag to <code>generate</code> that re-runs schematics when files change.</p>
+          </div>
+          <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
+            <p class="font-bold text-sm mb-1">3. Custom Schematics</p>
+            <p class="text-sm text-gray-600">Support user-defined schematics in <code>.zudojs/schematics/</code> directory.</p>
+          </div>
+          <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
+            <p class="font-bold text-sm mb-1">4. Telemetry Opt-In</p>
+            <p class="text-sm text-gray-600">Anonymous usage analytics to improve CLI UX (with clear opt-out).</p>
+          </div>
+          <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
+            <p class="font-bold text-sm mb-1">5. Interactive Add Command</p>
+            <p class="text-sm text-gray-600">Prompt for feature selection when <code>zudojs add</code> is run without arguments.</p>
+          </div>
+          <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
+            <p class="font-bold text-sm mb-1">6. Migration Command</p>
+            <p class="text-sm text-gray-600"><code>zudojs migrate</code> to upgrade project scaffolding between Zudo versions.</p>
+          </div>
+          <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
+            <p class="font-bold text-sm mb-1">7. Diff Preview for Generate</p>
+            <p class="text-sm text-gray-600"><code>--diff</code> flag to show what files will be created/modified before writing.</p>
+          </div>
+          <div class="border-l-4 border-zudo-yellow p-4 bg-yellow-50">
+            <p class="font-bold text-sm mb-1">8. Shell Completions</p>
+            <p class="text-sm text-gray-600"><code>zudojs completion bash/zsh/fish</code> for auto-completion in terminals.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== API SUMMARY ==================== -->
+      <section id="api-summary" class="mb-16">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">API Summary</h2>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Export</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Kind</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">createCLI()</td><td class="border border-black px-4 py-2">Factory</td><td class="border border-black px-4 py-2">Create CLI application</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">createCommand()</td><td class="border border-black px-4 py-2">Factory</td><td class="border border-black px-4 py-2">Create a CLI command</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">command()</td><td class="border border-black px-4 py-2">Factory</td><td class="border border-black px-4 py-2">Shorthand command creator</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">createCLIWriter()</td><td class="border border-black px-4 py-2">Factory</td><td class="border border-black px-4 py-2">Output writer</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ZudojsCLI</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Main CLI application</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLICommandRegistry</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Command registry</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">CLIParser</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Argument parser</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">CLICommandBuilder</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Command builder</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">FrontendAdapterRegistry</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Frontend adapter registry</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">PackageManagerRegistry</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Package manager registry</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">GeneratorRegistry</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Generator registry</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">DependencyRegistry</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Dependency registry</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">RollbackManager</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Rollback on failure</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ManifestManager</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Project manifest I/O</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ProcessRunner</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Process execution</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">TaskRunner</td><td class="border border-black px-4 py-2">Class</td><td class="border border-black px-4 py-2">Task orchestration</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Frontend Adapter Exports</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6 font-mono text-xs">
+          <div class="border border-black px-3 py-2">ReactAdapter</div>
+          <div class="border border-black px-3 py-2">NextAdapter</div>
+          <div class="border border-black px-3 py-2">VueAdapter</div>
+          <div class="border border-black px-3 py-2">NuxtAdapter</div>
+          <div class="border border-black px-3 py-2">AngularAdapter</div>
+          <div class="border border-black px-3 py-2">SvelteAdapter</div>
+          <div class="border border-black px-3 py-2">SvelteKitAdapter</div>
+          <div class="border border-black px-3 py-2">AstroAdapter</div>
+          <div class="border border-black px-3 py-2">VanillaAdapter</div>
+          <div class="border border-black px-3 py-2">FlutterAdapter</div>
+          <div class="border border-black px-3 py-2">ReactNativeAdapter</div>
+        </div>
+      </section>
+
+      <!-- ==================== PREV / NEXT ==================== -->
+      <nav class="flex items-center justify-between border-t-2 border-black pt-6 mt-16" aria-label="Pagination">
+        <a href="/docs/packages-cache" class="border-4 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-yellow hover:border-black">
+          ← @zudojs/cache
+        </a>
+        <a href="/docs/packages-config" class="border-4 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-blue hover:text-white hover:border-black">
+          @zudojs/config →
+        </a>
+      </nav>
+
+    
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#overview" class="toc-link">Overview</a>
+      <a href="#install" class="toc-link">Installation</a>
+      <a href="#quick-start" class="toc-link">Quick Start</a>
+      <a href="#commands" class="toc-link">Built-in Commands</a>
+      <a href="#create" class="toc-link">create</a>
+      <a href="#generate" class="toc-link">generate</a>
+      <a href="#add" class="toc-link">add</a>
+      <a href="#doctor" class="toc-link">doctor</a>
+      <a href="#info" class="toc-link">info</a>
+      <a href="#adapters" class="toc-link">Adapters</a>
+      <a href="#generators" class="toc-link">Generators</a>
+      <a href="#application" class="toc-link">Application API</a>
+      <a href="#parser" class="toc-link">Parser</a>
+      <a href="#types" class="toc-link">Types Reference</a>
+      <a href="#constants" class="toc-link">Constants</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#connections" class="toc-link">Package Connections</a>
+      <a href="#improvements" class="toc-link">Suggested Improvements</a>
+      <a href="#api-summary" class="toc-link">API Summary</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-black text-white border-t-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8 flex items-center justify-between text-sm">
+      <div>&copy; 2026 Zudo. MIT License.</div>
+      <div class="flex gap-4">
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <a href="/docs/roadmap" class="hover:text-zudo-yellow">Roadmap</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/toc.js"></script>
+
+  <script src="/js/router.js"></script>
+</body>
+</html>

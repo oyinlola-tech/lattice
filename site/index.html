@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zudo — Modular TypeScript Framework</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
   <meta name="description" content="A modular TypeScript framework for building scalable, maintainable, and production-ready applications. Backend, frontend, or fullstack.">
   <meta name="keywords" content="TypeScript, framework, modular, dependency injection, CQRS, event-driven, backend, frontend, fullstack">
 
@@ -21,173 +22,9 @@
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'zudo-red': '#FF0000',
-            'zudo-blue': '#0000FF',
-            'zudo-yellow': '#FFFF00',
-            'zudo-black': '#000000',
-            'zudo-white': '#FFFFFF',
-            'zudo-green': '#00FF00',
-            'zudo-pink': '#FF00FF',
-          },
-          fontFamily: {
-            'system': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'monospace'],
-          },
-          borderRadius: {
-            'none': '0px',
-          },
-        }
-      }
-    }
-  </script>
+  <script src="/js/tailwind-config.js"></script>
 
-  <style>
-    * {
-      border-radius: 0px !important;
-      transition: none !important;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
-    }
-
-    .brutalist-border {
-      border: 3px solid #000000;
-    }
-
-    .brutalist-border-white {
-      border: 3px solid #FFFFFF;
-    }
-
-    .brutalist-border-red {
-      border: 3px solid #FF0000;
-    }
-
-    .brutalist-border-blue {
-      border: 3px solid #0000FF;
-    }
-
-    .code-block {
-      background: #1a1a1a;
-      color: #00FF00;
-      border: 2px solid #333333;
-      font-family: 'Courier New', monospace;
-      font-size: 0.875rem;
-      overflow-x: auto;
-    }
-
-    .code-block .keyword { color: #FF00FF; }
-    .code-block .string { color: #FFFF00; }
-    .code-block .comment { color: #666666; }
-    .code-block .function { color: #0000FF; }
-
-    .nav-link {
-      position: relative;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 3px;
-      background: #FF0000;
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 8px 8px 0px #000000;
-    }
-
-    .pkg-card:hover {
-      background: #0000FF;
-      color: #FFFFFF;
-      border-color: #0000FF;
-    }
-
-    .pkg-card:hover .pkg-arrow {
-      color: #FFFFFF;
-    }
-
-    .layer-box {
-      border: 3px solid #000000;
-      position: relative;
-    }
-
-    .layer-box::before {
-      content: '';
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      right: -4px;
-      bottom: -4px;
-      border: 2px solid #FF0000;
-      z-index: -1;
-    }
-
-    .step-number {
-      width: 48px;
-      height: 48px;
-      background: #FF0000;
-      color: #000000;
-      border: 3px solid #000000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 1.25rem;
-    }
-
-    .search-overlay {
-      background: rgba(0, 0, 0, 0.95);
-    }
-
-    .search-input {
-      background: #1a1a1a;
-      border: 3px solid #FFFFFF;
-      color: #FFFFFF;
-      font-family: system-ui, monospace;
-    }
-
-    .search-input:focus {
-      outline: 3px solid #0000FF;
-      outline-offset: 0;
-    }
-
-    .search-result:hover {
-      background: #1a1a1a;
-      border-color: #FF0000;
-    }
-
-    @media (max-width: 768px) {
-      .hero-visual {
-        display: none;
-      }
-    }
-
-    .grid-lines {
-      background-image: 
-        linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-      background-size: 40px 40px;
-    }
-
-    .grid-lines-dark {
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/home.css">
 </head>
 <body class="bg-zudo-white text-zudo-black">
 
@@ -204,11 +41,11 @@
 
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-8">
-        <a href="docs/getting-started/" class="nav-link text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
-        <a href="docs/packages/" class="nav-link text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Packages</a>
-        <a href="docs/architecture/" class="nav-link text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
-        <a href="docs/contributing/" class="nav-link text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Contributing</a>
-        <a href="docs/roadmap.html" class="nav-link text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Roadmap</a>
+        <a href="/docs/getting-started" class="nav-link text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
+        <a href="/docs/packages" class="nav-link text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Packages</a>
+        <a href="/docs/architecture" class="nav-link text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
+        <a href="/docs/contributing" class="nav-link text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Contributing</a>
+        <a href="/docs/roadmap" class="nav-link text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Roadmap</a>
       </div>
 
       <!-- Actions -->
@@ -229,7 +66,7 @@
         </a>
 
         <!-- CTA -->
-        <a href="docs/getting-started/" class="hidden sm:inline-block px-5 py-2 bg-zudo-red text-zudo-black font-bold border-3 border-zudo-white hover:bg-zudo-yellow hover:border-zudo-black">
+        <a href="/docs/getting-started" class="hidden sm:inline-block px-5 py-2 bg-zudo-red text-zudo-black font-bold border-3 border-zudo-white hover:bg-zudo-yellow hover:border-zudo-black">
           Get Started
         </a>
 
@@ -245,12 +82,12 @@
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden md:hidden border-t-2 border-zudo-red px-6 py-4">
       <div class="flex flex-col gap-4">
-        <a href="docs/getting-started/" class="text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
-        <a href="docs/packages/" class="text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Packages</a>
-        <a href="docs/architecture/" class="text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
-        <a href="docs/contributing/" class="text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Contributing</a>
-        <a href="docs/roadmap.html" class="text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Roadmap</a>
-        <a href="docs/getting-started/" class="mt-2 px-5 py-2 bg-zudo-red text-zudo-black font-bold border-3 border-zudo-white text-center hover:bg-zudo-yellow">
+        <a href="/docs/getting-started" class="text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Docs</a>
+        <a href="/docs/packages" class="text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Packages</a>
+        <a href="/docs/architecture" class="text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Architecture</a>
+        <a href="/docs/contributing" class="text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Contributing</a>
+        <a href="/docs/roadmap" class="text-sm font-bold uppercase tracking-wider hover:text-zudo-red">Roadmap</a>
+        <a href="/docs/getting-started" class="mt-2 px-5 py-2 bg-zudo-red text-zudo-black font-bold border-3 border-zudo-white text-center hover:bg-zudo-yellow">
           Get Started
         </a>
       </div>
@@ -302,10 +139,10 @@
             A modular TypeScript framework for scalable, maintainable, production-ready applications. Backend, frontend, or fullstack.
           </p>
           <div class="flex flex-wrap gap-4">
-            <a href="docs/getting-started/" class="px-8 py-4 bg-zudo-red text-zudo-black font-bold text-lg border-3 border-zudo-white hover:bg-zudo-yellow hover:border-zudo-black">
+            <a href="/docs/getting-started" class="px-8 py-4 bg-zudo-red text-zudo-black font-bold text-lg border-3 border-zudo-white hover:bg-zudo-yellow hover:border-zudo-black">
               Get Started →
             </a>
-            <a href="docs/architecture/" class="px-8 py-4 bg-transparent text-zudo-white font-bold text-lg border-3 border-zudo-white hover:bg-zudo-white hover:text-zudo-black">
+            <a href="/docs/architecture" class="px-8 py-4 bg-transparent text-zudo-white font-bold text-lg border-3 border-zudo-white hover:bg-zudo-white hover:text-zudo-black">
               Read Docs
             </a>
           </div>
@@ -455,7 +292,7 @@
               Every component follows a strict lifecycle: register → install → initialize → start → running → stop → dispose. Coordinated by the runtime, not left to chance.
             </p>
           </div>
-          <a href="docs/architecture/" class="inline-block px-6 py-3 border-3 border-zudo-white text-zudo-white font-bold hover:bg-zudo-white hover:text-zudo-black">
+          <a href="/docs/architecture" class="inline-block px-6 py-3 border-3 border-zudo-white text-zudo-white font-bold hover:bg-zudo-white hover:text-zudo-black">
             Full Architecture →
           </a>
         </div>
@@ -473,7 +310,7 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Foundation -->
-        <a href="docs/packages/#foundation" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
+        <a href="/docs/packages/#foundation" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-bold uppercase tracking-wider text-zudo-red">Foundation</span>
             <span class="pkg-arrow text-zudo-black font-bold">→</span>
@@ -485,7 +322,7 @@
         </a>
 
         <!-- Runtime -->
-        <a href="docs/packages/#runtime" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
+        <a href="/docs/packages/#runtime" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-bold uppercase tracking-wider text-zudo-blue">Runtime</span>
             <span class="pkg-arrow text-zudo-black font-bold">→</span>
@@ -497,7 +334,7 @@
         </a>
 
         <!-- Application -->
-        <a href="docs/packages/#application" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
+        <a href="/docs/packages/#application" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-bold uppercase tracking-wider text-zudo-yellow">Application</span>
             <span class="pkg-arrow text-zudo-black font-bold">→</span>
@@ -509,7 +346,7 @@
         </a>
 
         <!-- Transport -->
-        <a href="docs/packages/#transport" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
+        <a href="/docs/packages/#transport" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-bold uppercase tracking-wider text-zudo-green">Transport</span>
             <span class="pkg-arrow text-zudo-black font-bold">→</span>
@@ -521,7 +358,7 @@
         </a>
 
         <!-- Security -->
-        <a href="docs/packages/#security" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
+        <a href="/docs/packages/#security" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-bold uppercase tracking-wider text-zudo-red">Security</span>
             <span class="pkg-arrow text-zudo-black font-bold">→</span>
@@ -533,7 +370,7 @@
         </a>
 
         <!-- Platform -->
-        <a href="docs/packages/#platform" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
+        <a href="/docs/packages/#platform" class="pkg-card block border-4 border-zudo-black p-6 bg-zudo-white hover:transition-none">
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-bold uppercase tracking-wider text-zudo-pink">Platform</span>
             <span class="pkg-arrow text-zudo-black font-bold">→</span>
@@ -618,7 +455,7 @@ server.<span class="text-zudo-blue">get</span>(<span class="text-zudo-yellow">"/
 <span class="text-zudo-pink">await</span> app.<span class="text-zudo-blue">start</span>();</pre>
           </div>
           <div class="mt-6">
-            <a href="docs/getting-started/first-app.html" class="inline-block px-6 py-3 border-3 border-zudo-green text-zudo-green font-bold hover:bg-zudo-green hover:text-zudo-black">
+            <a href="/docs/getting-started-first-app" class="inline-block px-6 py-3 border-3 border-zudo-green text-zudo-green font-bold hover:bg-zudo-green hover:text-zudo-black">
               Full Tutorial →
             </a>
           </div>
@@ -691,7 +528,7 @@ server.<span class="text-zudo-blue">get</span>(<span class="text-zudo-yellow">"/
         Zudo gives you the building blocks. You decide the architecture. No opinions imposed. No magic hidden.
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="docs/getting-started/" class="px-10 py-5 bg-zudo-black text-zudo-white font-bold text-lg border-3 border-zudo-white hover:bg-zudo-blue hover:border-zudo-white">
+        <a href="/docs/getting-started" class="px-10 py-5 bg-zudo-black text-zudo-white font-bold text-lg border-3 border-zudo-white hover:bg-zudo-blue hover:border-zudo-white">
           Get Started Now →
         </a>
         <a href="https://github.com/oyinlola-tech/zudo" target="_blank" rel="noopener" class="px-10 py-5 bg-transparent text-zudo-black font-bold text-lg border-3 border-zudo-black hover:bg-zudo-black hover:text-zudo-white">
@@ -722,10 +559,10 @@ server.<span class="text-zudo-blue">get</span>(<span class="text-zudo-yellow">"/
         <div>
           <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-zudo-red">Documentation</h4>
           <ul class="space-y-2">
-            <li><a href="docs/getting-started/" class="text-sm text-zudo-white/70 hover:text-zudo-white">Getting Started</a></li>
-            <li><a href="docs/architecture/" class="text-sm text-zudo-white/70 hover:text-zudo-white">Architecture</a></li>
-            <li><a href="docs/concepts/" class="text-sm text-zudo-white/70 hover:text-zudo-white">Concepts</a></li>
-            <li><a href="docs/packages/" class="text-sm text-zudo-white/70 hover:text-zudo-white">Packages</a></li>
+            <li><a href="/docs/getting-started" class="text-sm text-zudo-white/70 hover:text-zudo-white">Getting Started</a></li>
+            <li><a href="/docs/architecture" class="text-sm text-zudo-white/70 hover:text-zudo-white">Architecture</a></li>
+            <li><a href="/docs/concepts" class="text-sm text-zudo-white/70 hover:text-zudo-white">Concepts</a></li>
+            <li><a href="/docs/packages" class="text-sm text-zudo-white/70 hover:text-zudo-white">Packages</a></li>
           </ul>
         </div>
 
@@ -733,9 +570,9 @@ server.<span class="text-zudo-blue">get</span>(<span class="text-zudo-yellow">"/
         <div>
           <h4 class="font-bold text-sm uppercase tracking-wider mb-4 text-zudo-blue">Community</h4>
           <ul class="space-y-2">
-            <li><a href="docs/contributing/" class="text-sm text-zudo-white/70 hover:text-zudo-white">Contributing</a></li>
-            <li><a href="docs/roadmap.html" class="text-sm text-zudo-white/70 hover:text-zudo-white">Roadmap</a></li>
-            <li><a href="docs/rules.html" class="text-sm text-zudo-white/70 hover:text-zudo-white">Package Rules</a></li>
+            <li><a href="/docs/contributing" class="text-sm text-zudo-white/70 hover:text-zudo-white">Contributing</a></li>
+            <li><a href="/docs/roadmap" class="text-sm text-zudo-white/70 hover:text-zudo-white">Roadmap</a></li>
+            <li><a href="/docs/rules" class="text-sm text-zudo-white/70 hover:text-zudo-white">Package Rules</a></li>
             <li><a href="https://github.com/oyinlola-tech/zudo/issues" target="_blank" rel="noopener" class="text-sm text-zudo-white/70 hover:text-zudo-white">Report Issue</a></li>
           </ul>
         </div>
@@ -781,95 +618,8 @@ server.<span class="text-zudo-blue">get</span>(<span class="text-zudo-yellow">"/
   </footer>
 
   <!-- ==================== SCRIPTS ==================== -->
-  <script>
-    // Mobile menu toggle
-    const mobileMenuTrigger = document.getElementById('mobileMenuTrigger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenuTrigger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+  <script src="/js/home.js"></script>
 
-    // Search overlay
-    const searchTrigger = document.getElementById('searchTrigger');
-    const searchOverlay = document.getElementById('searchOverlay');
-    const searchClose = document.getElementById('searchClose');
-    const searchInput = document.getElementById('searchInput');
-
-    searchTrigger.addEventListener('click', () => {
-      searchOverlay.classList.remove('hidden');
-      searchInput.focus();
-    });
-
-    searchClose.addEventListener('click', () => {
-      searchOverlay.classList.add('hidden');
-      searchInput.value = '';
-      document.getElementById('searchResults').innerHTML = '';
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        searchOverlay.classList.add('hidden');
-        searchInput.value = '';
-        document.getElementById('searchResults').innerHTML = '';
-      }
-      // Cmd/Ctrl + K to open search
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        searchOverlay.classList.remove('hidden');
-        searchInput.focus();
-      }
-    });
-
-    // Search index (static data for demo)
-    const searchIndex = [
-      { title: 'Installation', path: 'docs/getting-started/', excerpt: 'Install Zudo packages from npm. Node.js >= 24 required.' },
-      { title: 'Your First App', path: 'docs/getting-started/first-app.html', excerpt: 'Scaffold a project with the CLI and start building.' },
-      { title: 'Project Structure', path: 'docs/getting-started/project-structure.html', excerpt: 'Standard layout for Zudo applications.' },
-      { title: 'Architecture Overview', path: 'docs/architecture/', excerpt: 'Five-layer architecture with dependency direction.' },
-      { title: 'Module System', path: 'docs/architecture/module-system.html', excerpt: 'Modules as self-contained units of functionality.' },
-      { title: 'Runtime', path: 'docs/architecture/runtime.html', excerpt: 'Application lifecycle orchestrator.' },
-      { title: 'Adapters', path: 'docs/architecture/adapters.html', excerpt: 'Boundary layer between Zudo and external platforms.' },
-      { title: 'Dependency Direction', path: 'docs/architecture/dependency-direction.html', excerpt: 'Dependencies flow inward through five tiers.' },
-      { title: 'Application', path: 'docs/concepts/', excerpt: 'Top-level container for modules, plugins, and infrastructure.' },
-      { title: 'Configuration', path: 'docs/concepts/configuration.html', excerpt: 'Layered configuration with clear precedence.' },
-      { title: 'Contexts', path: 'docs/concepts/contexts.html', excerpt: 'AsyncLocalStorage for context propagation.' },
-      { title: 'Dependency Injection', path: 'docs/concepts/dependency-injection.html', excerpt: 'Token-based DI container with scoped lifecycles.' },
-      { title: 'Lifecycle', path: 'docs/concepts/lifecycle.html', excerpt: 'State machine for component lifecycle management.' },
-      { title: 'Modules', path: 'docs/concepts/modules.html', excerpt: 'Primary building blocks with explicit boundaries.' },
-      { title: 'Packages', path: 'docs/packages/', excerpt: '30+ packages for every infrastructure concern.' },
-      { title: 'Contributing', path: 'docs/contributing/', excerpt: 'How to contribute to the Zudo framework.' },
-      { title: 'Roadmap', path: 'docs/roadmap.html', excerpt: 'Implementation status and future directions.' },
-      { title: 'Package Rules', path: 'docs/rules.html', excerpt: 'Internal development standards for every package.' },
-    ];
-
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      const resultsContainer = document.getElementById('searchResults');
-
-      if (query.length < 2) {
-        resultsContainer.innerHTML = '';
-        return;
-      }
-
-      const results = searchIndex.filter(item =>
-        item.title.toLowerCase().includes(query) ||
-        item.excerpt.toLowerCase().includes(query)
-      );
-
-      if (results.length === 0) {
-        resultsContainer.innerHTML = '<div class="text-zudo-white/50 py-4">No results found.</div>';
-        return;
-      }
-
-      resultsContainer.innerHTML = results.map(item => `
-        <a href="${item.path}" class="search-result block border-2 border-zudo-white/20 p-4 mb-2 hover:border-zudo-red">
-          <div class="font-bold">${item.title}</div>
-          <div class="text-sm text-zudo-white/50 mt-1">${item.excerpt}</div>
-          <div class="text-xs text-zudo-blue mt-2 font-mono">${item.path}</div>
-        </a>
-      `).join('');
-    });
-  </script>
-
+  <script src="/js/router.js"></script>
 </body>
 </html>

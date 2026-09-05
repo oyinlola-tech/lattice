@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adapters — Zudo Framework</title>
+  <meta name="description" content="Platform-agnostic boundary layer between Zudo and external systems. Adapter pattern, registration, capabilities, transport abstractions, and custom adapter creation.">
+  <meta name="keywords" content="zudo, adapters, boundary layer, platform-agnostic, transport, external systems, adapter pattern, typescript">
+  <meta name="author" content="Oyinlola Tech">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/architecture/adapters/">
+
+  <meta property="og:title" content="Adapters — Zudo Framework">
+  <meta property="og:description" content="Platform-agnostic boundary layer between Zudo and external systems.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zudo.dev/docs/architecture/adapters/">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
+  <meta property="og:site_name" content="Zudo Framework">
+  <meta property="article:published_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:modified_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:section" content="Architecture">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Adapters — Zudo Framework">
+  <meta name="twitter:description" content="Platform-agnostic boundary layer between Zudo and external systems.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Adapters — Zudo Framework",
+    "description": "Platform-agnostic boundary layer between Zudo and external systems in the Zudo TypeScript framework.",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js >= 24.0.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "repository": {
+      "@type": "CodeRepository",
+      "url": "https://github.com/oyinlola-tech/zudo"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Oyinlola Tech",
+      "url": "https://github.com/oyinlola-tech"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zudo"
+    },
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-01-01",
+    "mainEntityOfPage": "https://zudo.dev/docs/architecture/adapters/",
+    "keywords": "zudo, adapters, boundary layer, platform-agnostic, transport, external systems",
+    "articleSection": "Architecture"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
+      { "@type": "ListItem", "position": 2, "name": "Architecture", "item": "https://zudo.dev/docs/architecture/" },
+      { "@type": "ListItem", "position": 3, "name": "Adapters", "item": "https://zudo.dev/docs/architecture/adapters/" }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+          <span class="text-black font-black text-sm">Z</span>
+        </div>
+        <span class="text-xl font-black">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+        <a href="/docs/getting-started" class="hover:text-zudo-red">Docs</a>
+        <a href="/docs/packages" class="hover:text-zudo-red">Packages</a>
+        <a href="/docs/architecture" class="hover:text-zudo-red">Architecture</a>
+        <a href="/docs/concepts" class="hover:text-zudo-red">Concepts</a>
+      </div>
+      <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="p-2 border-2 border-white hover:bg-white hover:text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- LAYOUT -->
+  <div class="flex max-w-screen-2xl mx-auto">
+
+        <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item sidebar-item-active">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/architecture" class="hover:text-zudo-blue">Architecture</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">Adapters</span>
+      </div>
+      <!-- HERO -->
+            <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">Adapters</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Boundary layer between Zudo and external platforms.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">ADAPTERS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">BOUNDARY</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">PLATFORM</span>
+        </div>
+      </div>
+
+      <!-- OVERVIEW -->
+      <section id="overview" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Overview</h2>
+        <p class="mb-4 leading-relaxed">
+          Adapters are Zudo's boundary layer for integrating with external platforms, services, and transports. They follow the <strong>adapter pattern</strong> — translating between Zudo's internal interfaces and the specific APIs of external systems.
+        </p>
+        <p class="mb-4 leading-relaxed">
+          The adapter system makes your application code platform-agnostic. Swap HTTP frameworks, databases, or message brokers without changing business logic.
+        </p>
+
+        <div class="callout callout-note mb-6">
+          <p class="text-sm font-bold mb-1">ADAPTER PATTERN</p>
+          <ul class="text-sm space-y-1">
+            <li>• <strong>Interface</strong> — Standardized adapter contract defined by Zudo</li>
+            <li>• <strong>Implementation</strong> — Platform-specific adapter (Express, Redis, RabbitMQ)</li>
+            <li>• <strong>Registry</strong> — Central registration for runtime adapter resolution</li>
+            <li>• <strong>Capabilities</strong> — Feature negotiation between Zudo and adapters</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ADAPTER PATTERN -->
+      <section id="pattern" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Adapter Pattern</h2>
+        <p class="mb-4 leading-relaxed">
+          Every adapter implements the <code>Adapter</code> interface, which defines the contract for connecting to and interacting with external systems:
+        </p>
+
+        <div class="code-block mb-6">
+<span class="kw">interface</span> <span class="tp">Adapter</span>&lt;TConfig&gt; {
+  <span class="fn">name</span>: <span class="tp">string</span>;
+  <span class="fn">version</span>: <span class="tp">string</span>;
+
+  <span class="cm">// Lifecycle</span>
+  <span class="fn">connect</span>(config: TConfig): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">disconnect</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">isConnected</span>(): <span class="tp">boolean</span>;
+
+  <span class="cm">// Capabilities</span>
+  <span class="fn">getCapabilities</span>(): <span class="tp">AdapterCapability</span>[];
+
+  <span class="cm">// Health</span>
+  <span class="fn">healthCheck</span>(): <span class="tp">Promise</span>&lt;<span class="tp">AdapterHealth</span>&gt;;
+}
+        </div>
+      </section>
+
+      <!-- REGISTRATION -->
+      <section id="registration" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Adapter Registration</h2>
+        <p class="mb-4 leading-relaxed">
+          Adapters are registered with the adapter registry before the runtime starts. Multiple adapters of the same type can be registered with different names.
+        </p>
+
+        <div class="code-block mb-6">
+<span class="kw">import</span> { <span class="fn">createAdapterRegistry</span> } <span class="kw">from</span> <span class="str">"@zudojs/adapters"</span>;
+<span class="kw">import</span> { <span class="fn">ExpressHttpAdapter</span> } <span class="kw">from</span> <span class="str">"./adapters/express.js"</span>;
+<span class="kw">import</span> { <span class="fn">RedisCacheAdapter</span> } <span class="kw">from</span> <span class="str">"./adapters/redis.js"</span>;
+
+<span class="kw">const</span> registry = <span class="fn">createAdapterRegistry</span>();
+
+<span class="cm">// Register adapters</span>
+registry.<span class="fn">register</span>(<span class="str">"http"</span>, <span class="kw">new</span> <span class="tp">ExpressHttpAdapter</span>());
+registry.<span class="fn">register</span>(<span class="str">"cache"</span>, <span class="kw">new</span> <span class="tp">RedisCacheAdapter</span>());
+
+<span class="cm">// Connect all adapters</span>
+<span class="kw">await</span> registry.<span class="fn">connectAll</span>();
+
+<span class="cm">// Resolve a specific adapter</span>
+<span class="kw">const</span> http = registry.<span class="fn">get</span>(<span class="str">"http"</span>);
+        </div>
+      </section>
+
+      <!-- CAPABILITIES -->
+      <section id="capabilities" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Adapter Capabilities</h2>
+        <p class="mb-4 leading-relaxed">
+          Capabilities declare what features an adapter supports. The runtime uses capabilities to negotiate features and enable/disable functionality.
+        </p>
+
+        <div class="code-block mb-6">
+<span class="kw">type</span> <span class="tp">AdapterCapability</span> =
+  | <span class="str">"streaming"</span>         <span class="cm">// Supports streaming responses</span>
+  | <span class="str">"websockets"</span>        <span class="cm">// Supports WebSocket connections</span>
+  | <span class="str">"server-sent-events"</span> <span class="cm">// Supports SSE</span>
+  | <span class="str">"file-upload"</span>       <span class="cm">// Supports multipart file uploads</span>
+  | <span class="str">"compression"</span>       <span class="cm">// Supports response compression</span>
+  | <span class="str">"caching"</span>           <span class="cm">// Supports response caching</span>
+  | <span class="str">"batching"</span>          <span class="cm">// Supports request batching</span>
+  | <span class="str">"retry"</span>;            <span class="cm">// Supports automatic retries</span>
+
+<span class="cm">// Check capabilities at runtime</span>
+<span class="kw">const</span> caps = adapter.<span class="fn">getCapabilities</span>();
+<span class="kw">if</span> (caps.<span class="fn">includes</span>(<span class="str">"streaming"</span>)) {
+  <span class="cm">// Use streaming API</span>
+}
+        </div>
+      </section>
+
+      <!-- TRANSPORT ABSTRACTIONS -->
+      <section id="transports" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Transport Abstractions</h2>
+        <p class="mb-4 leading-relaxed">
+          Zudo provides transport abstractions for common communication patterns. Adapters implement these abstractions for specific platforms.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold mb-2">HTTP Transport</h4>
+            <p class="text-sm text-gray-600 mb-3">Request/response communication over HTTP. Adapters: Express, Fastify, Hono, Node.js native.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag tag-green text-[0.6rem]">REST</span>
+              <span class="tag tag-blue text-[0.6rem]">GraphQL</span>
+              <span class="tag tag-yellow text-[0.6rem]">RPC</span>
+            </div>
+          </div>
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold mb-2">Message Transport</h4>
+            <p class="text-sm text-gray-600 mb-3">Asynchronous messaging between services. Adapters: Redis, RabbitMQ, Kafka, in-memory.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag tag-green text-[0.6rem]">Pub/Sub</span>
+              <span class="tag tag-blue text-[0.6rem]">Queue</span>
+              <span class="tag tag-yellow text-[0.6rem]">Stream</span>
+            </div>
+          </div>
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold mb-2">Storage Transport</h4>
+            <p class="text-sm text-gray-600 mb-3">Data persistence and retrieval. Adapters: PostgreSQL, MongoDB, S3, file system.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag tag-green text-[0.6rem]">SQL</span>
+              <span class="tag tag-blue text-[0.6rem]">NoSQL</span>
+              <span class="tag tag-yellow text-[0.6rem]">Object</span>
+            </div>
+          </div>
+          <div class="border-2 border-black p-5">
+            <h4 class="font-bold mb-2">Cache Transport</h4>
+            <p class="text-sm text-gray-600 mb-3">Caching layer. Adapters: Memory, Redis, Memcached.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag tag-green text-[0.6rem]">In-Memory</span>
+              <span class="tag tag-blue text-[0.6rem]">Distributed</span>
+              <span class="tag tag-yellow text-[0.6rem]">CDN</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CUSTOM ADAPTERS -->
+      <section id="custom" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Creating Custom Adapters</h2>
+        <p class="mb-4 leading-relaxed">
+          To create a custom adapter, implement the <code>Adapter</code> interface and register it with the registry:
+        </p>
+
+        <div class="code-block mb-6">
+<span class="kw">import</span> { <span class="tp">Adapter</span>, <span class="tp">AdapterHealth</span>, <span class="tp">AdapterCapability</span> } <span class="kw">from</span> <span class="str">"@zudojs/adapters"</span>;
+
+<span class="kw">class</span> <span class="tp">PostgresAdapter</span> <span class="kw">implements</span> <span class="tp">Adapter</span>&lt;<span class="tp">PostgresConfig</span>&gt; {
+  <span class="kw">readonly</span> <span class="fn">name</span> = <span class="str">"postgres"</span>;
+  <span class="kw">readonly</span> <span class="fn">version</span> = <span class="str">"1.0.0"</span>;
+
+  <span class="kw">private</span> pool: <span class="tp">Pool</span> | <span class="tp">null</span> = <span class="num">null</span>;
+
+  <span class="kw">async</span> <span class="fn">connect</span>(config: <span class="tp">PostgresConfig</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; {
+    <span class="kw">this</span>.pool = <span class="kw">new</span> <span class="tp">Pool</span>(config);
+    <span class="kw">await</span> <span class="kw">this</span>.pool.<span class="fn">connect</span>();
+  }
+
+  <span class="kw">async</span> <span class="fn">disconnect</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; {
+    <span class="kw">await</span> <span class="kw">this</span>.pool?.<span class="fn">end</span>();
+    <span class="kw">this</span>.pool = <span class="num">null</span>;
+  }
+
+  <span class="fn">isConnected</span>(): <span class="tp">boolean</span> {
+    <span class="kw">return</span> <span class="kw">this</span>.pool !== <span class="num">null</span>;
+  }
+
+  <span class="fn">getCapabilities</span>(): <span class="tp">AdapterCapability</span>[] {
+    <span class="kw">return</span> [<span class="str">"batching"</span>, <span class="str">"retry"</span>];
+  }
+
+  <span class="kw">async</span> <span class="fn">healthCheck</span>(): <span class="tp">Promise</span>&lt;<span class="tp">AdapterHealth</span>&gt; {
+    <span class="kw">try</span> {
+      <span class="kw">await</span> <span class="kw">this</span>.pool?.<span class="fn">query</span>(<span class="str">"SELECT 1"</span>);
+      <span class="kw">return</span> { <span class="fn">healthy</span>: <span class="num">true</span>, <span class="fn">adapter</span>: <span class="kw">this</span>.name };
+    } <span class="kw">catch</span> (e) {
+      <span class="kw">return</span> { <span class="fn">healthy</span>: <span class="num">false</span>, <span class="fn">adapter</span>: <span class="kw">this</span>.name, <span class="fn">error</span>: e };
+    }
+  }
+}
+
+<span class="cm">// Register with the registry</span>
+registry.<span class="fn">register</span>(<span class="str">"database"</span>, <span class="kw">new</span> <span class="tp">PostgresAdapter</span>());
+        </div>
+      </section>
+
+      <!-- PREV / NEXT -->
+      <nav class="flex items-center justify-between border-t-2 border-black pt-6 mt-16" aria-label="Pagination">
+        <a href="/docs/packages/runtime" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-yellow hover:border-black">
+          ← Runtime
+        </a>
+        <a href="dependency-direction.html" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-blue hover:text-white hover:border-black">
+          Dependency Direction →
+        </a>
+      </nav>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS (RIGHT) -->
+    <aside id="docToc" class="doc-toc-sidebar hidden xl:block w-56 flex-shrink-0" role="complementary" aria-label="Table of contents">
+      <div class="sticky top-20 py-8 pr-4">
+        <p class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-3">On This Page</p>
+        <a href="#overview" class="toc-link toc-link-active">Overview</a>
+        <a href="#pattern" class="toc-link">Adapter Pattern</a>
+        <a href="#registration" class="toc-link">Registration</a>
+        <a href="#capabilities" class="toc-link">Capabilities</a>
+        <a href="#transports" class="toc-link">Transport Abstractions</a>
+        <a href="#custom" class="toc-link">Custom Adapters</a>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="/js/docs.js"></script>
+  <script src="/js/router.js"></script>
+</body>
+
+  <!-- FOOTER -->
+  <footer class="border-t-4 border-black bg-black text-white mt-12">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+            <span class="text-black font-black text-sm">Z</span>
+          </div>
+          <span class="font-black">ZUDO FRAMEWORK</span>
+        </div>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+          <a href="/docs/packages" class="hover:text-zudo-red">Packages</a>
+          <a href="/docs/roadmap" class="hover:text-zudo-red">Roadmap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/toc.js"></script>
+
+</body>
+</html>

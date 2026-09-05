@@ -1,0 +1,56 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "outputDirectory": "site",
+  "rewrites": [
+    { "source": "/docs/getting-started/first-app", "destination": "/docs-getting-started-first-app.html" },
+    { "source": "/docs/getting-started/project-structure", "destination": "/docs-getting-started-project-structure.html" },
+    { "source": "/docs/getting-started", "destination": "/docs-getting-started.html" },
+    { "source": "/docs/concepts/configuration", "destination": "/docs-concepts-configuration.html" },
+    { "source": "/docs/concepts/contexts", "destination": "/docs-concepts-contexts.html" },
+    { "source": "/docs/concepts/dependency-injection", "destination": "/docs-concepts-dependency-injection.html" },
+    { "source": "/docs/concepts/lifecycle", "destination": "/docs-concepts-lifecycle.html" },
+    { "source": "/docs/concepts/modules", "destination": "/docs-concepts-modules.html" },
+    { "source": "/docs/concepts", "destination": "/docs-concepts.html" },
+    { "source": "/docs/architecture/adapters", "destination": "/docs-architecture-adapters.html" },
+    { "source": "/docs/architecture/dependency-direction", "destination": "/docs-architecture-dependency-direction.html" },
+    { "source": "/docs/architecture/module-system", "destination": "/docs-architecture-module-system.html" },
+    { "source": "/docs/architecture/runtime", "destination": "/docs-architecture-runtime.html" },
+    { "source": "/docs/architecture", "destination": "/docs-architecture.html" },
+    { "source": "/docs/packages/adapters", "destination": "/docs-packages-adapters.html" },
+    { "source": "/docs/packages/api", "destination": "/docs-packages-api.html" },
+    { "source": "/docs/packages/auth", "destination": "/docs-packages-auth.html" },
+    { "source": "/docs/packages/cache", "destination": "/docs-packages-cache.html" },
+    { "source": "/docs/packages/cli", "destination": "/docs-packages-cli.html" },
+    { "source": "/docs/packages/config", "destination": "/docs-packages-config.html" },
+    { "source": "/docs/packages/constants", "destination": "/docs-packages-constants.html" },
+    { "source": "/docs/packages/container", "destination": "/docs-packages-container.html" },
+    { "source": "/docs/packages/core", "destination": "/docs-packages-core.html" },
+    { "source": "/docs/packages/cqrs", "destination": "/docs-packages-cqrs.html" },
+    { "source": "/docs/packages/crypto", "destination": "/docs-packages-crypto.html" },
+    { "source": "/docs/packages/database", "destination": "/docs-packages-database.html" },
+    { "source": "/docs/packages/docs", "destination": "/docs-packages-docs.html" },
+    { "source": "/docs/packages/errors", "destination": "/docs-packages-errors.html" },
+    { "source": "/docs/packages", "destination": "/docs-packages.html" },
+    { "source": "/docs/rules", "destination": "/docs-rules.html" },
+    { "source": "/docs/roadmap", "destination": "/docs-roadmap.html" },
+    { "source": "/docs/contributing", "destination": "/docs-contributing.html" },
+    { "source": "/docs", "destination": "/docs-getting-started.html" },
+    { "source": "/packages", "destination": "/docs-packages.html" },
+    { "source": "/packages/:pkg", "destination": "/docs-packages-:pkg.html" }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/css/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    }
+  ]
+}

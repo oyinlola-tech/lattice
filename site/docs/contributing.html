@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roadmap — Zudo Framework</title>
-  <meta name="description" content="Where Zudo is headed. Features, milestones, and vision. Current releases, near-term, mid-term, and long-term goals.">
-  <meta name="keywords" content="zudo, roadmap, features, milestones, vision, future, releases, planning">
+  <title>Contributing — Zudo Framework</title>
+  <meta name="description" content="Help build the Zudo framework. Guidelines for contributions, development setup, code style, testing, and PR review process.">
+  <meta name="keywords" content="zudo, contributing, open source, pull request, development setup, code style, testing, guidelines">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://zudo.dev/docs/roadmap.html">
+  <link rel="canonical" href="https://zudo.dev/docs/contributing/">
 
-  <meta property="og:title" content="Roadmap — Zudo Framework">
-  <meta property="og:description" content="Where Zudo is headed. Features, milestones, and vision.">
+  <meta property="og:title" content="Contributing — Zudo Framework">
+  <meta property="og:description" content="Help build the Zudo framework. Guidelines for contributions.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://zudo.dev/docs/roadmap.html">
+  <meta property="og:url" content="https://zudo.dev/docs/contributing/">
   <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
   <meta property="og:site_name" content="Zudo Framework">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Roadmap — Zudo Framework">
-  <meta name="twitter:description" content="Where Zudo is headed. Features, milestones, and vision.">
+  <meta name="twitter:title" content="Contributing — Zudo Framework">
+  <meta name="twitter:description" content="Help build the Zudo framework. Guidelines for contributions.">
 
   <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
 
@@ -30,15 +30,15 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Roadmap — Zudo Framework",
-    "description": "Where Zudo is headed. Features, milestones, and vision for the framework.",
+    "headline": "Contributing — Zudo Framework",
+    "description": "Help build the Zudo framework. Guidelines for contributions, development setup, code style, testing, and PR review process.",
     "programmingLanguage": "TypeScript",
     "license": "https://opensource.org/licenses/MIT",
     "repository": { "@type": "CodeRepository", "url": "https://github.com/oyinlola-tech/zudo" },
     "author": { "@type": "Organization", "name": "Oyinlola Tech" },
     "publisher": { "@type": "Organization", "name": "Zudo" },
     "datePublished": "2026-01-01",
-    "keywords": "zudo, roadmap, features, milestones, vision"
+    "keywords": "zudo, contributing, open source, pull request, development setup"
   }
   </script>
   <script type="application/ld+json">
@@ -47,7 +47,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
-      { "@type": "ListItem", "position": 2, "name": "Roadmap", "item": "https://zudo.dev/docs/roadmap.html" }
+      { "@type": "ListItem", "position": 2, "name": "Contributing", "item": "https://zudo.dev/docs/contributing/" }
     ]
   }
   </script>
@@ -128,9 +128,9 @@
       <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
 
       <div class="sidebar-section mt-4">Reference</div>
-      <a href="/docs/roadmap" class="sidebar-item sidebar-item-active">Roadmap</a>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
       <a href="/docs/rules" class="sidebar-item">Package Rules</a>
-      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+      <a href="/docs/contributing" class="sidebar-item sidebar-item-active">Contributing</a>
     </aside>
 
     <!-- MAIN CONTENT -->
@@ -140,20 +140,20 @@
         <span class="mx-2 text-black/30">/</span>
         <a href="/" class="hover:text-zudo-blue">Docs</a>
         <span class="mx-2 text-black/30">/</span>
-        <span class="text-black/50">Roadmap</span>
+        <span class="text-black/50">Contributing</span>
       </div>
 
       <!-- PAGE HEADER -->
             <div class="border-4 border-black p-8 mb-10 relative">
         <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
-        <h1 class="text-4xl font-black mb-3 mt-2">Roadmap</h1>
+        <h1 class="text-4xl font-black mb-3 mt-2">Contributing</h1>
         <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
-          Implementation status, completed milestones, and future directions for the Zudo framework.
+          How to contribute to the Zudo framework — setup, workflow, code style, and PR process.
         </p>
         <div class="flex flex-wrap gap-2 mt-4">
-          <span class="px-3 py-1 border-2 border-black text-xs font-bold">ROADMAP</span>
-          <span class="px-3 py-1 border-2 border-black text-xs font-bold">STATUS</span>
-          <span class="px-3 py-1 border-2 border-black text-xs font-bold">FUTURE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">CONTRIBUTING</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">OPEN SOURCE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">PR</span>
         </div>
       </div>
 
@@ -161,126 +161,152 @@
       <div class="flex">
         <div class="content-area flex-1 px-6 py-10">
 
-          <!-- TIMELINE -->
-          <section aria-labelledby="timeline">
-            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase" id="timeline">Timeline</h2>
-
-            <!-- CURRENT: v1.0.0 -->
-            <div class="flex gap-6 mb-8">
-              <div class="flex flex-col items-center">
-                <div class="w-4 h-4 bg-zudo-green border-2 border-black"></div>
-                <div class="w-0.5 h-full bg-black/10"></div>
+          <!-- HOW TO CONTRIBUTE -->
+          <section aria-labelledby="how-to">
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase" id="how-to">How to Contribute</h2>
+            <p class="text-body text-black/80 mb-4">
+              We welcome contributions of all kinds — bug fixes, new features, documentation improvements, and more.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <div class="border-2 border-black p-4 text-center">
+                <div class="text-3xl font-black text-zudo-red mb-2">01</div>
+                <div class="text-sm font-bold uppercase tracking-wider mb-1">Fork</div>
+                <div class="text-xs text-black/50">Fork the repository</div>
               </div>
-              <div class="flex-1 pb-8">
-                <div class="flex items-center gap-3 mb-3">
-                  <span class="tag tag-green">Current</span>
-                  <h3 class="text-h3">v1.0.0 — Core Framework</h3>
-                </div>
-                <p class="text-sm text-black/60 mb-3">The foundational release. 38 packages across 6 architecture layers.</p>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">DI Container</div>
-                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">Event Bus</div>
-                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">Config System</div>
-                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">Lifecycle</div>
-                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">CQRS Primitives</div>
-                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">Auth Stack</div>
-                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">HTTP Server</div>
-                  <div class="border border-black/10 px-3 py-2 text-xs font-bold">CLI Tooling</div>
-                </div>
+              <div class="border-2 border-black p-4 text-center">
+                <div class="text-3xl font-black text-zudo-blue mb-2">02</div>
+                <div class="text-sm font-bold uppercase tracking-wider mb-1">Branch</div>
+                <div class="text-xs text-black/50">Create a feature branch</div>
               </div>
-            </div>
-
-            <!-- NEAR-TERM -->
-            <div class="flex gap-6 mb-8">
-              <div class="flex flex-col items-center">
-                <div class="w-4 h-4 bg-zudo-blue border-2 border-black"></div>
-                <div class="w-0.5 h-full bg-black/10"></div>
+              <div class="border-2 border-black p-4 text-center">
+                <div class="text-3xl font-black text-zudo-green mb-2">03</div>
+                <div class="text-sm font-bold uppercase tracking-wider mb-1">Code</div>
+                <div class="text-xs text-black/50">Make your changes</div>
               </div>
-              <div class="flex-1 pb-8">
-                <div class="flex items-center gap-3 mb-3">
-                  <span class="tag tag-blue">Next</span>
-                  <h3 class="text-h3">Near-Term — Expand Ecosystem</h3>
-                </div>
-                <p class="text-sm text-black/60 mb-3">Broadening the package ecosystem and developer experience.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-blue mb-1">Additional Adapters</div>
-                    <p class="text-xs text-black/50">Express, Fastify, Koa, Hono transport adapters.</p>
-                  </div>
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-blue mb-1">More Schematics</div>
-                    <p class="text-xs text-black/50">Code generation templates for modules, services, handlers.</p>
-                  </div>
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-blue mb-1">CLI Enhancements</div>
-                    <p class="text-xs text-black/50">Interactive project setup, package upgrades, migration tools.</p>
-                  </div>
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-blue mb-1">Documentation Site</div>
-                    <p class="text-xs text-black/50">Full reference docs, guides, tutorials, and examples.</p>
-                  </div>
-                </div>
+              <div class="border-2 border-black p-4 text-center">
+                <div class="text-3xl font-black text-zudo-yellow mb-2">04</div>
+                <div class="text-sm font-bold uppercase tracking-wider mb-1">PR</div>
+                <div class="text-xs text-black/50">Submit a pull request</div>
               </div>
             </div>
+          </section>
 
-            <!-- MID-TERM -->
-            <div class="flex gap-6 mb-8">
-              <div class="flex flex-col items-center">
-                <div class="w-4 h-4 bg-zudo-yellow border-2 border-black"></div>
-                <div class="w-0.5 h-full bg-black/10"></div>
+          <!-- DEVELOPMENT SETUP -->
+          <section class="mt-12" aria-labelledby="setup">
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase" id="setup">Development Setup</h2>
+            <div class="code-block p-4 mb-4"><span class="cmt"># Clone your fork</span>
+git clone https://github.com/YOUR_USERNAME/zudo.git
+cd zudo
+
+<span class="cmt"># Install dependencies</span>
+npm install
+
+<span class="cmt"># Build all packages</span>
+npm run build
+
+<span class="cmt"># Run all tests</span>
+npm test
+
+<span class="cmt"># Run tests for a specific package</span>
+npm run --workspace=@zudojs/errors test</div>
+          </section>
+
+          <!-- CODE STYLE -->
+          <section class="mt-12" aria-labelledby="code-style">
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase" id="code-style">Code Style &amp; Conventions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="border-2 border-black p-4">
+                <div class="text-xs font-bold uppercase tracking-wider text-zudo-green mb-2">Required</div>
+                <ul class="text-sm text-black/60 space-y-1">
+                  <li>Named exports only (no default exports)</li>
+                  <li><span class="code-inline">readonly</span> on all interface properties</li>
+                  <li><span class="code-inline">import type</span> for type-only imports</li>
+                  <li><span class="code-inline">.js</span> extensions on all relative imports</li>
+                  <li>JSDoc on all public API surfaces</li>
+                </ul>
               </div>
-              <div class="flex-1 pb-8">
-                <div class="flex items-center gap-3 mb-3">
-                  <span class="tag tag-yellow">Mid-Term</span>
-                  <h3 class="text-h3">Mid-Term — Platform &amp; Integrations</h3>
-                </div>
-                <p class="text-sm text-black/60 mb-3">Building the ecosystem around Zudo.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider mb-1">Plugin Marketplace</div>
-                    <p class="text-xs text-black/50">Discover and install community plugins. Version management, compatibility checks.</p>
-                  </div>
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider mb-1">Cloud Integrations</div>
-                    <p class="text-xs text-black/50">AWS, GCP, Azure adapters. Serverless deployment, container orchestration.</p>
-                  </div>
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider mb-1">Monitoring Dashboards</div>
-                    <p class="text-xs text-black/50">Pre-built Grafana dashboards, Prometheus exporters, health check endpoints.</p>
-                  </div>
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider mb-1">Admin UI</div>
-                    <p class="text-xs text-black/50">Built-in admin interface for managing config, users, and feature flags.</p>
-                  </div>
-                </div>
+              <div class="border-2 border-black p-4">
+                <div class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-2">Forbidden</div>
+                <ul class="text-sm text-black/60 space-y-1">
+                  <li>No <span class="code-inline">any</span> — use <span class="code-inline">unknown</span> or specific types</li>
+                  <li>No <span class="code-inline">var</span> — use <span class="code-inline">const</span> or <span class="code-inline">let</span></li>
+                  <li>No default exports</li>
+                  <li>No business logic in barrel <span class="code-inline">index.ts</span> files</li>
+                  <li>No inline comments unless absolutely necessary</li>
+                </ul>
               </div>
             </div>
+          </section>
 
-            <!-- LONG-TERM -->
-            <div class="flex gap-6 mb-8">
-              <div class="flex flex-col items-center">
-                <div class="w-4 h-4 bg-zudo-red border-2 border-black"></div>
+          <!-- TESTING REQUIREMENTS -->
+          <section class="mt-12" aria-labelledby="testing">
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase" id="testing">Testing Requirements</h2>
+            <p class="text-body text-black/80 mb-4">
+              All new code must include unit tests. Tests run with Vitest.
+            </p>
+            <div class="code-block p-4 mb-4"><span class="cmt"># Run all tests</span>
+npm test
+
+<span class="cmt"># Run tests for a specific package</span>
+npm run --workspace=@zudojs/errors test
+
+<span class="cmt"># Run tests with coverage</span>
+npm run test:coverage</div>
+            <div class="callout callout-warning mb-6">
+              <strong class="text-sm uppercase tracking-wider text-zudo-yellow">Before Submitting</strong>
+              <p class="text-sm mt-1">Always run <span class="code-inline">npm run typecheck</span> and <span class="code-inline">npm test</span> before submitting your PR. CI will reject PRs that fail these checks.</p>
+            </div>
+          </section>
+
+          <!-- PR REVIEW PROCESS -->
+          <section class="mt-12" aria-labelledby="pr-review">
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase" id="pr-review">PR Review Process</h2>
+            <table class="w-full text-smdoc-table mb-6">
+              <thead>
+                <tr>
+                  <th>Severity</th>
+                  <th>Category</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="tag tag-red">Critical</span></td>
+                  <td>Error hierarchy, DI container, lifecycle state machine changes</td>
+                  <td>Must be reviewed by maintainer</td>
+                </tr>
+                <tr>
+                  <td><span class="tag tag-yellow">Should Fix</span></td>
+                  <td>Files &gt; 150 lines, folders &gt; 5 files, wrong naming convention</td>
+                  <td>Fix before merge</td>
+                </tr>
+                <tr>
+                  <td><span class="tag tag-green">Nice to Have</span></td>
+                  <td>Missing JSDoc, missing tests, missing barrel exports</td>
+                  <td>Address in follow-up</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- ISSUE TEMPLATES -->
+          <section class="mt-12" aria-labelledby="issues">
+            <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2 uppercase" id="issues">Issue Templates</h2>
+            <p class="text-body text-black/80 mb-4">
+              Use the appropriate issue template when reporting bugs or requesting features.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="border-2 border-black p-4">
+                <div class="text-sm font-bold uppercase tracking-wider text-zudo-red mb-2">Bug Report</div>
+                <p class="text-xs text-black/50">Include reproduction steps, expected vs actual behavior, and environment details.</p>
               </div>
-              <div class="flex-1">
-                <div class="flex items-center gap-3 mb-3">
-                  <span class="tag tag-red">Vision</span>
-                  <h3 class="text-h3">Long-Term — The Future</h3>
-                </div>
-                <p class="text-sm text-black/60 mb-3">Where Zudo is ultimately headed.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-1">Multi-Runtime</div>
-                    <p class="text-xs text-black/50">Run Zudo on Node.js, Deno, Bun, and Cloudflare Workers.</p>
-                  </div>
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-1">Edge Computing</div>
-                    <p class="text-xs text-black/50">Deploy Zudo modules to edge locations with zero config.</p>
-                  </div>
-                  <div class="border-2 border-black p-3">
-                    <div class="text-xs font-bold uppercase tracking-wider text-zudo-red mb-1">AI-Assisted Dev</div>
-                    <p class="text-xs text-black/50">AI code generation, auto-completion, and intelligent refactoring.</p>
-                  </div>
-                </div>
+              <div class="border-2 border-black p-4">
+                <div class="text-sm font-bold uppercase tracking-wider text-zudo-blue mb-2">Feature Request</div>
+                <p class="text-xs text-black/50">Describe the problem, your proposed solution, and alternatives considered.</p>
+              </div>
+              <div class="border-2 border-black p-4">
+                <div class="text-sm font-bold uppercase tracking-wider text-zudo-green mb-2">Documentation</div>
+                <p class="text-xs text-black/50">Report missing or incorrect documentation with the affected page URL.</p>
               </div>
             </div>
           </section>

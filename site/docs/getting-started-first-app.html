@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your First App — Zudo Framework</title>
+  <meta name="description" content="Build a complete Zudo application from scratch in 5 minutes. Step-by-step tutorial with code examples for project setup, configuration, and running your first app.">
+  <meta name="keywords" content="zudo, first app, tutorial, getting started, typescript, framework, quick start">
+  <meta name="author" content="Oyinlola Tech">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/getting-started/first-app.html">
+
+  <meta property="og:title" content="Your First App — Zudo Framework">
+  <meta property="og:description" content="Build a complete Zudo application from scratch in 5 minutes.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zudo.dev/docs/getting-started/first-app.html">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
+  <meta property="og:site_name" content="Zudo Framework">
+  <meta property="article:published_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:modified_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:section" content="Getting Started">
+  <meta property="article:tag" content="Tutorial">
+  <meta property="article:tag" content="First App">
+  <meta property="article:tag" content="Quick Start">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Your First App — Zudo Framework">
+  <meta name="twitter:description" content="Build a complete Zudo application from scratch in 5 minutes.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Your First App — Zudo Framework",
+    "description": "Build a complete Zudo application from scratch in 5 minutes. Step-by-step tutorial with code examples.",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js >= 24.0.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "repository": {
+      "@type": "CodeRepository",
+      "url": "https://github.com/oyinlola-tech/zudo"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Oyinlola Tech",
+      "url": "https://github.com/oyinlola-tech"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zudo"
+    },
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-01-01",
+    "mainEntityOfPage": "https://zudo.dev/docs/getting-started/first-app.html",
+    "keywords": "zudo, first app, tutorial, getting started, typescript, framework",
+    "articleSection": "Getting Started",
+    "dependencies": ["@zudojs/core", "@zudojs/config", "@zudojs/logger", "@zudojs/errors"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
+      { "@type": "ListItem", "position": 2, "name": "Getting Started", "item": "https://zudo.dev/docs/getting-started/" },
+      { "@type": "ListItem", "position": 3, "name": "Your First App", "item": "https://zudo.dev/docs/getting-started/first-app.html" }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+          <span class="text-black font-black text-sm">Z</span>
+        </div>
+        <span class="text-xl font-black">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+        <a href="/docs/getting-started" class="hover:text-zudo-red">Docs</a>
+        <a href="/docs/packages" class="hover:text-zudo-red">Packages</a>
+        <a href="/docs/architecture" class="hover:text-zudo-red">Architecture</a>
+        <a href="/docs/concepts" class="hover:text-zudo-red">Concepts</a>
+      </div>
+      <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="p-2 border-2 border-white hover:bg-white hover:text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ==================== SEARCH OVERLAY ==================== -->
+
+  <!-- ==================== LAYOUT ==================== -->
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- ==================== SIDEBAR ==================== -->
+        <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item sidebar-item-active">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/getting-started" class="hover:text-zudo-blue">Getting-Started</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">First App</span>
+      </div>
+      <!-- Hero -->
+            <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">Your First App</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Scaffold a Zudo project with the CLI and build your first module.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">SCAFFOLD</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">CLI</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">FIRST APP</span>
+        </div>
+      </div>
+      <!-- ==================== STEP 1 ==================== -->
+      <section id="step-1-project-setup" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Step 1: Project Setup</h2>
+        <p class="mb-4 leading-relaxed">Create a new directory and initialize the project:</p>
+
+        <div class="code-block mb-4">
+<span class="cm"># Create and enter the project directory</span>
+mkdir zudo-hello && cd zudo-hello
+
+<span class="cm"># Initialize package.json</span>
+npm init -y
+
+<span class="cm"># Install Zudo core packages</span>
+npm install @zudojs/core @zudojs/config @zudojs/logger @zudojs/errors
+
+<span class="cm"># Install TypeScript as a dev dependency</span>
+npm install -D typescript @types/node
+
+<span class="cm"># Create tsconfig.json</span>
+npx tsc --init --target ES2022 --module NodeNext --moduleResolution NodeNext --outDir dist --rootDir src --strict --esModuleInterop
+        </div>
+
+        <div class="callout callout-tip mb-6">
+          <p class="text-sm font-bold mb-1">TIP</p>
+          <p class="text-sm">Zudo requires <code class="code-inline">Node.js ≥ 24</code> and <code class="code-inline">TypeScript ≥ 7.0</code>. Check your versions with <code class="code-inline">node --version</code> and <code class="code-inline">npx tsc --version</code>.</p>
+        </div>
+
+        <p class="mb-4 leading-relaxed">Your project structure should now look like this:</p>
+        <div class="border-2 border-black p-5 bg-gray-50 mb-4 font-mono text-sm leading-loose">
+<pre class="whitespace-pre-wrap">zudo-hello/
+├── node_modules/
+├── package.json
+└── tsconfig.json</pre>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 2 ==================== -->
+      <section id="step-2-create-entry" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Step 2: Create Entry Point</h2>
+        <p class="mb-4 leading-relaxed">Create the main application file at <code class="code-inline">src/index.ts</code>:</p>
+
+        <div class="code-block mb-4">
+<span class="kw">import</span> { <span class="fn">createContainer</span> } <span class="kw">from</span> <span class="str">"@zudojs/core"</span>;
+<span class="kw">import</span> { <span class="fn">createLogger</span> } <span class="kw">from</span> <span class="str">"@zudojs/logger"</span>;
+
+<span class="cm">// Create a logger instance</span>
+<span class="kw">const</span> logger = <span class="fn">createLogger</span>({
+  <span class="fn">level</span>: <span class="str">"info"</span>,
+  <span class="fn">service</span>: <span class="str">"hello-world"</span>,
+});
+
+<span class="cm">// Create the DI container</span>
+<span class="kw">const</span> container = <span class="fn">createContainer</span>();
+
+<span class="cm">// Register the logger as a singleton</span>
+container.<span class="fn">register</span>(<span class="str">"logger"</span>, () => logger, { <span class="fn">singleton</span>: <span class="num">true</span> });
+
+<span class="cm">// Define a simple service</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name: <span class="tp">string</span>): <span class="tp">string</span> {
+  <span class="kw">return</span> <span class="str">`Hello, ${name}! Welcome to Zudo.`</span>;
+}
+
+<span class="cm">// Main function</span>
+<span class="kw">async function</span> <span class="fn">main</span>() {
+  logger.<span class="fn">info</span>(<span class="str">"Starting Zudo application..."</span>);
+
+  <span class="cm">// Resolve the logger from the container</span>
+  <span class="kw">const</span> log = container.<span class="fn">resolve</span>(<span class="str">"logger"</span>);
+
+  <span class="cm">// Use the greet function</span>
+  <span class="kw">const</span> message = <span class="fn">greet</span>(<span class="str">"World"</span>);
+  log.<span class="fn">info</span>(message);
+
+  <span class="cm">// Log application readiness</span>
+  log.<span class="fn">info</span>(<span class="str">"Application is ready!"</span>);
+}
+
+<span class="cm">// Run the application</span>
+<span class="fn">main</span>().<span class="fn">catch</span>((err) => {
+  console.<span class="fn">error</span>(<span class="str">"Fatal error:"</span>, err);
+  process.<span class="fn">exit</span>(<span class="num">1</span>);
+});
+        </div>
+
+        <div class="callout callout-note mb-6">
+          <p class="text-sm font-bold mb-1">WHAT THIS DOES</p>
+          <ul class="text-sm space-y-1">
+            <li>• Creates a <code>createLogger</code> instance for structured logging</li>
+            <li>• Creates a <code>createContainer</code> for dependency injection</li>
+            <li>• Registers the logger as a singleton service</li>
+            <li>• Defines a simple <code>greet</code> function</li>
+            <li>• Runs the app, resolving dependencies from the container</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 3 ==================== -->
+      <section id="step-3-configuration" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Step 3: Configuration</h2>
+        <p class="mb-4 leading-relaxed">Create a configuration file at <code class="code-inline">zudo.config.ts</code> in the project root:</p>
+
+        <div class="code-block mb-4">
+<span class="kw">import</span> { <span class="fn">defineConfig</span> } <span class="kw">from</span> <span class="str">"@zudojs/config"</span>;
+
+<span class="kw">export default</span> <span class="fn">defineConfig</span>({
+  <span class="fn">app</span>: {
+    <span class="fn">name</span>: <span class="str">"zudo-hello"</span>,
+    <span class="fn">version</span>: <span class="str">"1.0.0"</span>,
+  },
+  <span class="fn">server</span>: {
+    <span class="fn">port</span>: <span class="num">3000</span>,
+    <span class="fn">host</span>: <span class="str">"localhost"</span>,
+  },
+  <span class="fn">logging</span>: {
+    <span class="fn">level</span>: process.env.<span class="tp">NODE_ENV</span> === <span class="str">"production"</span> ? <span class="str">"warn"</span> : <span class="str">"info"</span>,
+  },
+});
+        </div>
+
+        <div class="callout callout-warning mb-6">
+          <p class="text-sm font-bold mb-1">WARNING</p>
+          <p class="text-sm">Never commit sensitive values (API keys, passwords, secrets) to your configuration file. Use environment variables for all sensitive configuration.</p>
+        </div>
+
+        <p class="mb-4 leading-relaxed">Your project structure now looks like:</p>
+        <div class="border-2 border-black p-5 bg-gray-50 mb-4 font-mono text-sm leading-loose">
+<pre class="whitespace-pre-wrap">zudo-hello/
+├── node_modules/
+├── src/
+│   └── index.ts
+├── package.json
+├── tsconfig.json
+└── zudo.config.ts</pre>
+        </div>
+      </section>
+
+      <!-- ==================== STEP 4 ==================== -->
+      <section id="step-4-run" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Step 4: Run the App</h2>
+        <p class="mb-4 leading-relaxed">Compile and run the application:</p>
+
+        <div class="code-block mb-4">
+<span class="cm"># Compile TypeScript to JavaScript</span>
+npx tsc
+
+<span class="cm"># Run the compiled application</span>
+node dist/index.js
+        </div>
+
+        <p class="mb-4 leading-relaxed">You should see the following output:</p>
+        <div class="border-2 border-zudo-green p-4 bg-gray-50 mb-4 font-mono text-sm">
+          <code>[INFO] [hello-world] Starting Zudo application...</code><br>
+          <code>[INFO] [hello-world] Hello, World! Welcome to Zudo.</code><br>
+          <code>[INFO] [hello-world] Application is ready!</code>
+        </div>
+
+        <div class="callout callout-tip mb-6">
+          <p class="text-sm font-bold mb-1">DEVELOPMENT MODE</p>
+          <p class="text-sm">For faster iteration during development, use <code class="code-inline">npx tsx src/index.ts</code> to run TypeScript directly without a compile step. Install <code class="code-inline">tsx</code> with <code class="code-inline">npm install -D tsx</code>.</p>
+        </div>
+
+        <p class="mb-4 leading-relaxed">Add these scripts to your <code class="code-inline">package.json</code>:</p>
+
+        <div class="code-block mb-4">
+{
+  <span class="str">"scripts"</span>: {
+    <span class="str">"build"</span>: <span class="str">"tsc"</span>,
+    <span class="str">"start"</span>: <span class="str">"node dist/index.js"</span>,
+    <span class="str">"dev"</span>: <span class="str">"tsx src/index.ts"</span>
+  }
+}
+        </div>
+
+        <p class="mb-4 leading-relaxed">Now you can use:</p>
+        <div class="code-block mb-4">
+<span class="cm"># Development mode (no compile step)</span>
+npm run dev
+
+<span class="cm"># Production mode</span>
+npm run build && npm start
+        </div>
+      </section>
+
+      <!-- ==================== WHAT YOU BUILT ==================== -->
+      <section id="what-you-built" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">What You Built</h2>
+        <p class="mb-4 leading-relaxed">In just a few minutes, you've created a Zudo application with:</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div class="border-2 border-black p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 bg-zudo-green border border-black flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="font-bold text-sm">DI Container</span>
+            </div>
+            <p class="text-xs text-gray-600">Token-based dependency injection for managing application services and lifetimes.</p>
+          </div>
+
+          <div class="border-2 border-black p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 bg-zudo-green border border-black flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="font-bold text-sm">Structured Logging</span>
+            </div>
+            <p class="text-xs text-gray-600">Contextual logging with levels, services, and structured output.</p>
+          </div>
+
+          <div class="border-2 border-black p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 bg-zudo-green border border-black flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="font-bold text-sm">Layered Configuration</span>
+            </div>
+            <p class="text-xs text-gray-600">Config file + environment variables with priority ordering and validation.</p>
+          </div>
+
+          <div class="border-2 border-black p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 bg-zudo-green border border-black flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="font-bold text-sm">TypeScript First</span>
+            </div>
+            <p class="text-xs text-gray-600">Full type safety with strict mode, typed configurations, and compile-time checks.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ADDING DEPENDENCIES ==================== -->
+      <section id="adding-dependencies" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Adding More Packages</h2>
+        <p class="mb-4 leading-relaxed">As your application grows, add packages as needed:</p>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead class="bg-zudo-black text-white">
+              <tr>
+                <th class="border border-black px-4 py-2 text-left font-bold">Package</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Install Command</th>
+                <th class="border border-black px-4 py-2 text-left font-bold">Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/errors</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/errors</td><td class="border border-black px-4 py-2">Shared error classes and error codes</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/http</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/http</td><td class="border border-black px-4 py-2">HTTP server, routing, middleware</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/auth</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/auth</td><td class="border border-black px-4 py-2">JWT, sessions, RBAC</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/events</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/events</td><td class="border border-black px-4 py-2">Event bus, emitter, middleware</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/cache</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/cache</td><td class="border border-black px-4 py-2">Caching with memory adapter</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">@zudojs/validation</td><td class="border border-black px-4 py-2 font-mono text-xs text-xs">npm i @zudojs/validation</td><td class="border border-black px-4 py-2">Schema validation with Zod</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-note mb-6">
+          <p class="text-sm font-bold mb-1">INSTALL ALL AT ONCE</p>
+          <p class="text-sm">To install all commonly used packages: <code class="code-inline">npm install @zudojs/errors @zudojs/types @zudojs/constants @zudojs/http @zudojs/auth @zudojs/events @zudojs/cache</code></p>
+        </div>
+      </section>
+
+      <!-- ==================== NEXT STEPS ==================== -->
+      <section id="next-steps" class="mb-16">
+        <h2 class="text-2xl font-bold mb-4 border-b-4 border-black pb-2 uppercase">Next Steps</h2>
+        <p class="mb-6 leading-relaxed">Now that your app is running, explore these topics:</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a href="project-structure.html" class="border-2 border-black p-5 hover:border-zudo-blue bg-white">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 bg-zudo-blue border-2 border-black flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2.5" stroke-linecap="square"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <span class="font-bold text-sm">Project Structure</span>
+            </div>
+            <p class="text-sm text-gray-600">Learn the standard Zudo project layout and conventions.</p>
+          </a>
+
+          <a href="/docs/architecture" class="border-2 border-black p-5 hover:border-zudo-red bg-white">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 bg-zudo-red border-2 border-black flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="square"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              </div>
+              <span class="font-bold text-sm">DI Container</span>
+            </div>
+            <p class="text-sm text-gray-600">Deep dive into token-based dependency injection.</p>
+          </a>
+
+          <a href="/docs/architecture-runtime" class="border-2 border-black p-5 hover:border-zudo-green bg-white">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 bg-zudo-green border-2 border-black flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="square"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <span class="font-bold text-sm">Lifecycle</span>
+            </div>
+            <p class="text-sm text-gray-600">State machine, dependency ordering, and graceful shutdown.</p>
+          </a>
+
+          <a href="/docs/packages" class="border-2 border-black p-5 hover:border-zudo-yellow bg-white">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 bg-zudo-yellow border-2 border-black flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="square"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <span class="font-bold text-sm">Browse Packages</span>
+            </div>
+            <p class="text-sm text-gray-600">Explore the full @zudojs package ecosystem.</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- ==================== PREV / NEXT ==================== -->
+      <nav class="flex items-center justify-between border-t-2 border-black pt-6 mt-16" aria-label="Pagination">
+        <a href="index.html" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-yellow hover:border-black">
+          ← Getting Started
+        </a>
+        <a href="project-structure.html" class="border-2 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-green hover:border-black">
+          Project Structure →
+        </a>
+      </nav>
+
+    </main>
+  </div>
+
+  <script src="/js/docs.js"></script>
+  <script src="/js/router.js"></script>
+</body>
+
+  <!-- FOOTER -->
+  <footer class="border-t-4 border-black bg-black text-white mt-12">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+            <span class="text-black font-black text-sm">Z</span>
+          </div>
+          <span class="font-black">ZUDO FRAMEWORK</span>
+        </div>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+          <a href="/docs/packages" class="hover:text-zudo-red">Packages</a>
+          <a href="/docs/roadmap" class="hover:text-zudo-red">Roadmap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/toc.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | Zudo Framework</title>
+  <meta name="description" content="The page you're looking for doesn't exist. Return to the Zudo Framework documentation.">
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <link rel="stylesheet" href="/css/errors.css">
+</head>
+<body class="bg-white text-black min-h-screen flex flex-col">
+
+  <!-- Top Bar -->
+  <header class="border-b-2 border-black px-6 py-4">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 hover:opacity-80">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" fill="#FF0000"/>
+          <path d="M8 8h10v4H12v4h5v4H12v8H8V8z" fill="#000000"/>
+          <rect x="22" y="8" width="2" height="24" fill="#FFFF00"/>
+        </svg>
+        <span class="text-xl font-black tracking-tight">ZUDO</span>
+      </a>
+      <a href="/" class="text-sm font-bold border-2 border-black px-4 py-2 hover:bg-black hover:text-white">
+        ← BACK TO HOME
+      </a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-6 py-16">
+    <div class="text-center max-w-2xl">
+
+      <!-- Error Code -->
+      <div class="mb-8">
+        <h1
+          class="glitch font-black text-[8rem] sm:text-[12rem] leading-none text-black select-none"
+          data-text="404"
+        >
+          404
+        </h1>
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t-4 border-zudo-red mb-8"></div>
+
+      <!-- Message -->
+      <h2 class="text-2xl sm:text-3xl font-bold mb-4">
+        PAGE NOT FOUND
+      </h2>
+      <p class="text-base sm:text-lg text-gray-600 mb-8 max-w-md mx-auto leading-relaxed">
+        The page you're looking for doesn't exist. It may have been moved, deleted, or you may have entered an incorrect URL.
+      </p>
+
+      <!-- Actions -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/"
+          class="inline-block bg-zudo-red text-white font-bold text-sm px-8 py-4 border-2 border-black hover:bg-red-700 w-full sm:w-auto text-center"
+        >
+          GO HOME
+        </a>
+        <a
+          href="/docs/packages"
+          class="inline-block bg-white text-black font-bold text-sm px-8 py-4 border-2 border-black hover:bg-zudo-yellow w-full sm:w-auto text-center"
+        >
+          VIEW DOCUMENTATION
+        </a>
+        <a
+          href="javascript:history.back()"
+          class="inline-block bg-white text-black font-bold text-sm px-8 py-4 border-2 border-black hover:bg-gray-100 w-full sm:w-auto text-center"
+        >
+          GO BACK
+        </a>
+      </div>
+
+      <!-- Search Hint -->
+      <div class="mt-12 border-2 border-dashed border-gray-300 p-6">
+        <p class="text-sm text-gray-500 mb-2">Or try searching:</p>
+        <div class="flex items-center max-w-md mx-auto border-2 border-black">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search docs..."
+            class="flex-1 px-4 py-3 text-sm font-mono outline-none bg-white"
+            aria-label="Search documentation"
+          >
+          <button
+            id="search-btn"
+            class="bg-zudo-blue text-white font-bold text-sm px-6 py-3 border-l-2 border-black hover:bg-blue-700"
+          >
+            SEARCH
+          </button>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">Press <kbd class="border border-gray-300 px-1 py-0.5 text-xs font-mono">Ctrl+K</kbd> to open search</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t-2 border-black px-6 py-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p class="text-xs text-gray-500">© 2026 Zudo Framework</p>
+      <div class="flex items-center gap-4 text-xs">
+        <a href="/" class="text-gray-500 hover:text-black font-medium">Home</a>
+        <a href="/docs/packages" class="text-gray-500 hover:text-black font-medium">Docs</a>
+        <a href="https://github.com/oyinlola-tech/zudo" class="text-gray-500 hover:text-black font-medium" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/error-pages.js"></script>
+  <script src="/js/router.js"></script>
+</body>
+</html>

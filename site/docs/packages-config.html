@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/config — Layered Configuration System | Zudo Framework</title>
+  <meta name="description" content="Complete reference for @zudojs/config v0.0.1. Layered configuration with sources, stores, resolvers, schema validation, and lifecycle management for the Zudo TypeScript framework.">
+  <meta name="keywords" content="zudojs, config, configuration, config manager, config store, config resolver, config schema, config source, config loader, TypeScript, framework">
+  <meta name="author" content="Oyinlola Tech">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zudo.dev/docs/packages/config/">
+
+  <meta property="og:title" content="@zudojs/config — Layered Configuration System | Zudo Framework">
+  <meta property="og:description" content="Complete reference for @zudojs/config v0.0.1. Sources, stores, resolvers, schema validation, lifecycle management.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zudo.dev/docs/packages/config/">
+  <meta property="og:image" content="https://zudo.dev/assets/zudo-logo-icon.svg">
+  <meta property="og:site_name" content="Zudo Framework">
+  <meta property="article:published_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:modified_time" content="2026-01-01T00:00:00Z">
+  <meta property="article:section" content="Packages">
+  <meta property="article:tag" content="Config">
+  <meta property="article:tag" content="Configuration">
+  <meta property="article:tag" content="Validation">
+  <meta property="article:tag" content="Sources">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="@zudojs/config — Layered Configuration System">
+  <meta name="twitter:description" content="Complete reference for @zudojs/config v0.0.1. Sources, stores, resolvers, schema validation, lifecycle.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "@zudojs/config — Layered Configuration System",
+    "description": "Complete reference for @zudojs/config v0.0.1. Layered configuration with sources, stores, resolvers, schema validation, and lifecycle management.",
+    "version": "0.0.1",
+    "programmingLanguage": "TypeScript",
+    "runtimePlatform": "Node.js >= 24.0.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "repository": {
+      "@type": "CodeRepository",
+      "url": "https://github.com/oyinlola-tech/zudo"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Oyinlola Tech",
+      "url": "https://github.com/oyinlola-tech"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zudo"
+    },
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-01-01",
+    "mainEntityOfPage": "https://zudo.dev/docs/packages/config/",
+    "keywords": "zudojs, config, configuration, config manager, config store, config resolver, config schema, config source",
+    "articleSection": "Packages",
+    "dependencies": ["@zudojs/errors"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zudo.dev" },
+      { "@type": "ListItem", "position": 2, "name": "Packages", "item": "https://zudo.dev/docs/packages/" },
+      { "@type": "ListItem", "position": 3, "name": "@zudojs/config", "item": "https://zudo.dev/docs/packages/config/" }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-white text-black">
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-black text-white border-b-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-zudo-red border-2 border-white flex items-center justify-center">
+          <span class="text-black font-black text-sm">Z</span>
+        </div>
+        <span class="text-xl font-black">ZUDO</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+        <a href="/docs/getting-started" class="hover:text-zudo-red">Docs</a>
+        <a href="/docs/packages" class="hover:text-zudo-red text-zudo-red">Packages</a>
+        <a href="/docs/architecture" class="hover:text-zudo-red">Architecture</a>
+        <a href="/docs/concepts" class="hover:text-zudo-red">Concepts</a>
+      </div>
+      <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="p-2 border-2 border-white hover:bg-white hover:text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+            <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/config</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/config</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Layered configuration system for Zudo — environment variables, JSON files, runtime overrides, type-safe schemas, and sensitive value redaction
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">CONFIGURATION</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">ENV VARS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">REDACTION</span>
+        </div>
+      </div>
+
+      <section id="overview" class="mb-16" aria-labelledby="overview-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="overview-heading">OVERVIEW</h2>
+        <p class="mb-4 text-gray-700 leading-relaxed">
+          <span class="font-bold">@zudojs/config</span> provides a complete, layered configuration system for Zudo applications. It handles loading configuration from multiple sources (environment variables, files, memory, remote), storing values in a reactive in-memory store, resolving typed values with schema validation, and managing the full configuration lifecycle.
+        </p>
+
+        <div class="code-block mb-6"><span class="cm">// The configuration pipeline</span>
+Source → Store → Resolver → Manager
+
+<span class="cm">// Sources load raw key-value pairs</span>
+<span class="cm">// Store holds entries with metadata</span>
+<span class="cm">// Resolver provides typed, validated access</span>
+<span class="cm">// Manager orchestrates the full lifecycle</span></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div class="border-2 border-black p-4">
+            <h3 class="font-bold text-sm mb-2">Multi-Source Loading</h3>
+            <p class="text-sm text-gray-600">Load from environment, files, memory, or remote sources with priority-based resolution.</p>
+          </div>
+          <div class="border-2 border-black p-4">
+            <h3 class="font-bold text-sm mb-2">Type-Safe Access</h3>
+            <p class="text-sm text-gray-600">Typed resolver methods for string, number, boolean, date, object, and array values.</p>
+          </div>
+          <div class="border-2 border-black p-4">
+            <h3 class="font-bold text-sm mb-2">Schema Validation</h3>
+            <p class="text-sm text-gray-600">Define schemas with types, constraints, defaults, and custom validators.</p>
+          </div>
+          <div class="border-2 border-black p-4">
+            <h3 class="font-bold text-sm mb-2">Lifecycle Management</h3>
+            <p class="text-sm text-gray-600">State machine: CREATED → LOADING → READY → RELOADING → FAILED → DISPOSED.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SECTION: INSTALLATION ==================== -->
+      <section id="install" class="mb-16" aria-labelledby="install-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="install-heading">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/config
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/config
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/config</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Dependency:</strong> @zudojs/config depends on @zudojs/errors (workspace:*). It uses ConfigurationError and related error factories from that package.
+        </div>
+      </section>
+
+      <!-- ==================== SECTION: ARCHITECTURE ==================== -->
+      <section id="architecture" class="mb-16" aria-labelledby="architecture-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="architecture-heading">ARCHITECTURE</h2>
+        <p class="mb-4 text-gray-700">The config package follows a layered architecture where each layer has a single responsibility:</p>
+
+        <div class="code-block mb-6"><span class="cm">// Layered architecture</span>
+<span class="fn">configFactory</span>    <span class="cm">// Convenience facade</span>
+    ↓
+<span class="fn">configManager</span>    <span class="cm">// Lifecycle orchestration</span>
+    ├── <span class="fn">configLoader</span>     <span class="cm">// Loads sources into store</span>
+    │     └── <span class="fn">configSource</span>  <span class="cm">// Source abstractions + factories</span>
+    ├── <span class="fn">configStore</span>      <span class="cm">// In-memory key-value with events</span>
+    │     └── <span class="fn">configEntry</span>   <span class="cm">// Typed entry with metadata</span>
+    └── <span class="fn">configResolver</span>   <span class="cm">// Typed access + validation</span>
+          ├── <span class="fn">configSchema</span>    <span class="cm">// Schema types + validation</span>
+          ├── <span class="fn">ScopedResolver</span>  <span class="cm">// Prefix-scoped sub-resolver</span>
+          └── <span class="fn">accessors</span>       <span class="cm">// Standalone typed accessors</span></div>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Design Principle:</strong> Each layer depends only on layers below it. The factory depends on the manager, which depends on loader/store/resolver. The resolver depends on the store and schema. This ensures clean separation of concerns.
+        </div>
+      </section>
+
+      <!-- ==================== SECTION: QUICK START ==================== -->
+      <section id="quick-start" class="mb-16" aria-labelledby="quick-start-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="quick-start-heading">QUICK START</h2>
+
+        <h3 class="text-lg font-bold mb-3">Create and Load Configuration</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> { <span class="fn">createConfigManager</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="kw">const</span> manager = <span class="fn">createConfigManager</span>({
+  initialValues: {
+    <span class="str">'app.name'</span>: <span class="str">'My App'</span>,
+    <span class="str">'app.port'</span>: <span class="num">3000</span>,
+    <span class="str">'app.debug'</span>: <span class="num">true</span>,
+    <span class="str">'db.host'</span>: <span class="str">'localhost'</span>,
+    <span class="str">'db.port'</span>: <span class="num">5432</span>,
+  }
+});
+
+<span class="kw">await</span> manager.<span class="fn">load</span>();
+
+<span class="cm">// Type-safe access</span>
+<span class="kw">const</span> name = manager.<span class="fn">string</span>(<span class="str">'app.name'</span>);       <span class="cm">// 'My App'</span>
+<span class="kw">const</span> port = manager.<span class="fn">number</span>(<span class="str">'app.port'</span>);       <span class="cm">// 3000</span>
+<span class="kw">const</span> debug = manager.<span class="fn">boolean</span>(<span class="str">'app.debug'</span>);   <span class="cm">// true</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Using ConfigFactory (Shorthand)</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> { <span class="fn">configFactory</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="kw">const</span> manager = <span class="kw">await</span> configFactory.<span class="fn">initialize</span>({
+  initialValues: {
+    <span class="str">'app.name'</span>: <span class="str">'My App'</span>,
+    <span class="str">'app.port'</span>: <span class="num">3000</span>,
+  }
+});
+
+<span class="cm">// Or create a validated configuration</span>
+<span class="kw">const</span> { manager, config } = <span class="kw">await</span> configFactory.<span class="fn">validated</span>({
+  schema: {
+    type: <span class="str">'object'</span>,
+    properties: {
+      <span class="str">'app.name'</span>: { type: <span class="str">'string'</span>, required: <span class="num">true</span> },
+      <span class="str">'app.port'</span>: { type: <span class="str">'number'</span>, min: <span class="num">1</span>, max: <span class="num">65535</span> },
+    }
+  }
+});</div>
+
+        <h3 class="text-lg font-bold mb-3">Scoped Resolvers</h3>
+        <div class="code-block"><span class="kw">const</span> db = manager.<span class="fn">scoped</span>(<span class="str">'db'</span>);
+
+<span class="cm">// All keys are automatically prefixed</span>
+<span class="kw">const</span> host = db.<span class="fn">string</span>(<span class="str">'host'</span>);     <span class="cm">// reads 'db.host'</span>
+<span class="kw">const</span> port = db.<span class="fn">number</span>(<span class="str">'port'</span>);     <span class="cm">// reads 'db.port'</span>
+<span class="kw">const</span> name = db.<span class="fn">string</span>(<span class="str">'name'</span>);     <span class="cm">// reads 'db.name'</span></div>
+      </section>
+
+      <!-- ==================== SECTION: CONFIG VALUE ==================== -->
+      <section id="config-value" class="mb-16" aria-labelledby="config-value-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="config-value-heading">CONFIG VALUE</h2>
+        <p class="mb-4 text-gray-700">The foundation types and utilities for configuration values.</p>
+
+        <h3 class="text-lg font-bold mb-3">Types</h3>
+        <div class="code-block mb-6"><span class="cm">// Primitives that can be config values</span>
+<span class="kw">type</span> <span class="tp">ConfigPrimitive</span> = <span class="tp">string</span> | <span class="tp">number</span> | <span class="tp">boolean</span> | <span class="tp">bigint</span> | <span class="tp">null</span> | <span class="tp">undefined</span>;
+
+<span class="cm">// JSON-compatible recursive type</span>
+<span class="kw">type</span> <span class="tp">ConfigJsonValue</span> = <span class="tp">string</span> | <span class="tp">number</span> | <span class="tp">boolean</span> | <span class="tp">null</span>
+  | <span class="tp">ConfigJsonValue</span>[] | { [<span class="tp">key</span>: <span class="tp">string</span>]: <span class="tp">ConfigJsonValue</span> };
+
+<span class="cm">// Full config value (includes Date and recursive structures)</span>
+<span class="kw">type</span> <span class="tp">ConfigValue</span> = <span class="tp">ConfigPrimitive</span> | <span class="tp">Date</span>
+  | <span class="tp">ConfigValue</span>[] | { [<span class="tp">key</span>: <span class="tp">string</span>]: <span class="tp">ConfigValue</span> };</div>
+
+        <h3 class="text-lg font-bold mb-3">Type Guards</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> { <span class="fn">isConfigPrimitive</span>, <span class="fn">isConfigObject</span>, <span class="fn">isConfigValue</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="fn">isConfigPrimitive</span>(<span class="str">'hello'</span>);  <span class="cm">// true</span>
+<span class="fn">isConfigPrimitive</span>(<span class="num">42</span>);       <span class="cm">// true</span>
+<span class="fn">isConfigPrimitive</span>([]);       <span class="cm">// false</span>
+
+<span class="fn">isConfigObject</span>({ a: <span class="num">1</span> });   <span class="cm">// true</span>
+<span class="fn">isConfigObject</span>([<span class="num">1</span>, <span class="num">2</span>]);     <span class="cm">// false (arrays are not objects)</span>
+<span class="fn">isConfigObject</span>(<span class="kw">new</span> <span class="tp">Date</span>()); <span class="cm">// false</span>
+
+<span class="fn">isConfigValue</span>(<span class="str">'hello'</span>);     <span class="cm">// true</span>
+<span class="fn">isConfigValue</span>({ a: [<span class="num">1</span>, <span class="num">2</span>] }); <span class="cm">// true (recursive)</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Parsers</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> {
+  <span class="fn">parseConfigString</span>, <span class="fn">parseConfigBoolean</span>,
+  <span class="fn">parseConfigNumber</span>, <span class="fn">parseConfigDate</span>
+} <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="fn">parseConfigBoolean</span>(<span class="str">'true'</span>);   <span class="cm">// true</span>
+<span class="fn">parseConfigBoolean</span>(<span class="str">'yes'</span>);    <span class="cm">// true</span>
+<span class="fn">parseConfigBoolean</span>(<span class="str">'1'</span>);      <span class="cm">// true</span>
+<span class="fn">parseConfigBoolean</span>(<span class="str">'no'</span>);     <span class="cm">// false</span>
+
+<span class="fn">parseConfigNumber</span>(<span class="str">'42'</span>);      <span class="cm">// 42</span>
+<span class="fn">parseConfigNumber</span>(<span class="str">'3.14'</span>);    <span class="cm">// 3.14</span>
+
+<span class="fn">parseConfigDate</span>(<span class="str">'2026-01-01'</span>); <span class="cm">// Date object</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Utilities</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">freezeConfigValue</span>, <span class="fn">cloneConfigValue</span>, <span class="fn">configValuesEqual</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="kw">const</span> frozen = <span class="fn">freezeConfigValue</span>({ nested: { value: <span class="num">42</span> } });
+<span class="cm">// Deep freeze — all levels are immutable</span>
+
+<span class="kw">const</span> cloned = <span class="fn">cloneConfigValue</span>(frozen);
+<span class="cm">// Deep clone — Date objects are cloned via new Date()</span>
+
+<span class="fn">configValuesEqual</span>({ a: <span class="num">1</span> }, { a: <span class="num">1</span> }); <span class="cm">// true</span>
+<span class="fn">configValuesEqual</span>({ a: <span class="num">1</span> }, { a: <span class="num">2</span> }); <span class="cm">// false</span></div>
+      </section>
+
+      <!-- ==================== SECTION: CONFIG ENTRY ==================== -->
+      <section id="config-entry" class="mb-16" aria-labelledby="config-entry-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="config-entry-heading">CONFIG ENTRY</h2>
+        <p class="mb-4 text-gray-700">Configuration entries wrap values with provenance metadata — tracking where each value came from, its priority, and whether it's sensitive.</p>
+
+        <h3 class="text-lg font-bold mb-3">Interface</h3>
+        <div class="code-block mb-6"><span class="kw">interface</span> <span class="tp">ConfigEntry</span>&lt;<span class="tp">T</span>&gt; {
+  <span class="kw">readonly</span> <span class="tp">key</span>: <span class="tp">string</span>;
+  <span class="kw">readonly</span> <span class="tp">value</span>: <span class="tp">T</span>;
+  <span class="kw">readonly</span> <span class="tp">source</span>: <span class="tp">string</span>;
+  <span class="kw">readonly</span> <span class="tp">sourceType</span>: <span class="tp">ConfigSourceType</span>;
+  <span class="kw">readonly</span> <span class="tp">priority</span>: <span class="tp">number</span>;
+  <span class="kw">readonly</span> <span class="tp">sensitive</span>: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> <span class="tp">resolved</span>: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> <span class="tp">createdAt</span>: <span class="tp">Date</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3">Functions</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createConfigEntry</span>, <span class="fn">isConfigEntry</span>,
+  <span class="fn">toSafeConfigEntry</span>, <span class="fn">serializeConfigEntry</span>,
+  <span class="fn">sortConfigEntries</span>
+} <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="kw">const</span> entry = <span class="fn">createConfigEntry</span>({
+  key: <span class="str">'db.password'</span>,
+  value: <span class="str">'secret123'</span>,
+  source: <span class="str">'environment'</span>,
+  sourceType: <span class="tp">ConfigSourceType</span>.ENVIRONMENT,
+  priority: <span class="num">100</span>,
+  sensitive: <span class="num">true</span>,
+});
+
+<span class="fn">isConfigEntry</span>(entry);          <span class="cm">// true</span>
+<span class="fn">toSafeConfigEntry</span>(entry);     <span class="cm">// value: '[REDACTED]'</span>
+<span class="fn">serializeConfigEntry</span>(entry);  <span class="cm">// plain object (redacted)</span></div>
+      </section>
+
+      <!-- ==================== SECTION: CONFIG SOURCE ==================== -->
+      <section id="config-source" class="mb-16" aria-labelledby="config-source-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="config-source-heading">CONFIG SOURCE</h2>
+        <p class="mb-4 text-gray-700">Sources are the entry point for configuration data. They load key-value pairs from various origins.</p>
+
+        <h3 class="text-lg font-bold mb-3">Source Types</h3>
+        <div class="code-block mb-6"><span class="kw">enum</span> <span class="tp">ConfigSourceType</span> {
+  DEFAULTS    = <span class="str">'DEFAULTS'</span>,     <span class="cm">// Priority: -1000</span>
+  ENVIRONMENT = <span class="str">'ENVIRONMENT'</span>,  <span class="cm">// process.env</span>
+  FILE        = <span class="str">'FILE'</span>,         <span class="cm">// JSON/YAML files</span>
+  MEMORY      = <span class="str">'MEMORY'</span>,       <span class="cm">// In-memory object</span>
+  REMOTE      = <span class="str">'REMOTE'</span>,       <span class="cm">// HTTP endpoints</span>
+  CUSTOM      = <span class="str">'CUSTOM'</span>,       <span class="cm">// User-defined</span>
+}</div>
+
+        <h3 class="text-lg font-bold mb-3">Creating Sources</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> {
+  <span class="fn">createMemoryConfigSource</span>,
+  <span class="fn">createDefaultsConfigSource</span>,
+  <span class="fn">createCustomConfigSource</span>,
+  <span class="fn">createConfigSource</span>
+} <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="cm">// In-memory source</span>
+<span class="kw">const</span> memSource = <span class="fn">createMemoryConfigSource</span>({
+  <span class="str">'app.name'</span>: <span class="str">'My App'</span>,
+  <span class="str">'app.port'</span>: <span class="num">3000</span>,
+});
+
+<span class="cm">// Defaults source (lowest priority)</span>
+<span class="kw">const</span> defaults = <span class="fn">createDefaultsConfigSource</span>({
+  <span class="str">'app.port'</span>: <span class="num">8080</span>,
+  <span class="str">'app.debug'</span>: <span class="num">false</span>,
+});
+
+<span class="cm">// Custom async source</span>
+<span class="kw">const</span> remote = <span class="fn">createCustomConfigSource</span>(<span class="str">'remote'</span>, <span class="kw">async</span> (ctx) => {
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'https://api.example.com/config'</span>);
+  <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+  <span class="kw">return</span> { values: data, source: <span class="str">'remote'</span>, type: <span class="tp">ConfigSourceType</span>.CUSTOM };
+});</div>
+
+        <h3 class="text-lg font-bold mb-3">Loading Sources</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">loadConfigSources</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="cm">// Load multiple sources in priority order</span>
+<span class="kw">const</span> results = <span class="kw">await</span> <span class="fn">loadConfigSources</span>([defaults, memSource, remote], {
+  environment: <span class="str">'production'</span>,
+  namespace: <span class="str">'myapp'</span>,
+});</div>
+      </section>
+
+      <!-- ==================== SECTION: CONFIG STORE ==================== -->
+      <section id="config-store" class="mb-16" aria-labelledby="config-store-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="config-store-heading">CONFIG STORE</h2>
+        <p class="mb-4 text-gray-700">The central in-memory key-value store backed by a Map. Supports change events, snapshots, and prefix-based queries.</p>
+
+        <h3 class="text-lg font-bold mb-3">Creating a Store</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> { <span class="fn">createConfigStore</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="kw">const</span> store = <span class="fn">createConfigStore</span>({
+  initialValues: {
+    <span class="str">'app.name'</span>: <span class="str">'My App'</span>,
+    <span class="str">'app.port'</span>: <span class="num">3000</span>,
+  },
+  freeze: <span class="num">true</span>,  <span class="cm">// Deep freeze all values</span>
+});</div>
+
+        <h3 class="text-lg font-bold mb-3">Reading and Writing</h3>
+        <div class="code-block mb-6">store.<span class="fn">has</span>(<span class="str">'app.name'</span>);           <span class="cm">// true</span>
+store.<span class="fn">get</span>(<span class="str">'app.name'</span>);            <span class="cm">// 'My App'</span>
+store.<span class="fn">getOrDefault</span>(<span class="str">'missing'</span>, <span class="num">42</span>);  <span class="cm">// 42</span>
+
+store.<span class="fn">set</span>(<span class="str">'app.debug'</span>, <span class="num">true</span>);
+store.<span class="fn">setMany</span>({ <span class="str">'a'</span>: <span class="num">1</span>, <span class="str">'b'</span>: <span class="num">2</span> });
+store.<span class="fn">delete</span>(<span class="str">'app.debug'</span>);
+
+<span class="cm">// Get all entries with metadata</span>
+<span class="kw">const</span> entries = store.<span class="fn">getEntries</span>();
+<span class="kw">const</span> keys = store.<span class="fn">keys</span>();          <span class="cm">// ['app.name', 'app.port']</span>
+<span class="kw">const</span> obj = store.<span class="fn">toObject</span>();      <span class="cm">// { 'app.name': 'My App', ... }</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Prefix Queries</h3>
+        <div class="code-block mb-6"><span class="cm">// Get all entries with a given prefix</span>
+<span class="kw">const</span> dbEntries = store.<span class="fn">getByPrefix</span>(<span class="str">'db.'</span>);
+
+<span class="cm">// Get values as an object with prefix stripped</span>
+<span class="kw">const</span> dbConfig = store.<span class="fn">getObjectByPrefix</span>(<span class="str">'db.'</span>);
+<span class="cm">// { host: 'localhost', port: 5432 }  (not 'db.host', 'db.port')</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Change Events</h3>
+        <div class="code-block mb-6"><span class="kw">const</span> unsubscribe = store.<span class="fn">subscribe</span>((event) => {
+  console.<span class="fn">log</span>(<span class="str">`Changed: <span class="kw">${</span>event.key<span class="kw">}</span>`</span>);
+  console.<span class="fn">log</span>(<span class="str">`Previous: <span class="kw">${</span>event.previous<span class="kw">}</span>`</span>);
+  console.<span class="fn">log</span>(<span class="str">`Current: <span class="kw">${</span>event.current<span class="kw">}</span>`</span>);
+});
+
+store.<span class="fn">set</span>(<span class="str">'app.port'</span>, <span class="num">4000</span>);  <span class="cm">// Fires listener</span>
+<span class="fn">unsubscribe</span>();                <span class="cm">// Stop listening</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Snapshot and Replace</h3>
+        <div class="code-block"><span class="cm">// Create an immutable copy</span>
+<span class="kw">const</span> snapshot = store.<span class="fn">snapshot</span>();
+
+<span class="cm">// Replace all values (deletes keys not in new values)</span>
+store.<span class="fn">replace</span>({
+  <span class="str">'app.name'</span>: <span class="str">'New App'</span>,
+  <span class="str">'app.port'</span>: <span class="num">8080</span>,
+});</div>
+      </section>
+
+      <!-- ==================== SECTION: CONFIG RESOLVER ==================== -->
+      <section id="config-resolver" class="mb-16" aria-labelledby="config-resolver-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="config-resolver-heading">CONFIG RESOLVER</h2>
+        <p class="mb-4 text-gray-700">Type-safe value resolution from the store with automatic parsing, schema validation, and scoped access.</p>
+
+        <h3 class="text-lg font-bold mb-3">Creating a Resolver</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> { <span class="fn">createConfigResolver</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="kw">const</span> resolver = <span class="fn">createConfigResolver</span>(store, {
+  strict: <span class="num">false</span>,       <span class="cm">// Don't throw on invalid types</span>
+  allowUndefined: <span class="num">true</span>, <span class="cm">// Return undefined for missing keys</span>
+  clone: <span class="num">true</span>,         <span class="cm">// Clone values on read</span>
+});</div>
+
+        <h3 class="text-lg font-bold mb-3">Typed Accessors</h3>
+        <div class="code-block mb-6"><span class="cm">// String (always returns string or undefined)</span>
+resolver.<span class="fn">string</span>(<span class="str">'app.name'</span>);            <span class="cm">// 'My App'</span>
+resolver.<span class="fn">string</span>(<span class="str">'missing'</span>, <span class="str">'default'</span>);  <span class="cm">// 'default'</span>
+resolver.<span class="fn">requiredString</span>(<span class="str">'app.name'</span>);    <span class="cm">// throws if missing</span>
+
+<span class="cm">// Number (auto-parses from string)</span>
+resolver.<span class="fn">number</span>(<span class="str">'app.port'</span>);             <span class="cm">// 3000</span>
+resolver.<span class="fn">number</span>(<span class="str">'env.port'</span>, <span class="num">8080</span>);       <span class="cm">// 8080 if missing</span>
+
+<span class="cm">// Boolean (parses "true"/"1"/"yes"/"y"/"on")</span>
+resolver.<span class="fn">boolean</span>(<span class="str">'app.debug'</span>);           <span class="cm">// true</span>
+
+<span class="cm">// Date (parses ISO strings)</span>
+resolver.<span class="fn">date</span>(<span class="str">'app.created'</span>);            <span class="cm">// Date object</span>
+
+<span class="cm">// Object and Array</span>
+resolver.<span class="fn">object</span>&lt;<span class="tp">DbConfig</span>&gt;(<span class="str">'db'</span>);       <span class="cm">// typed object</span>
+resolver.<span class="fn">array</span>&lt;<span class="tp">string</span>&gt;(<span class="str">'app.tags'</span>);    <span class="cm">// typed array</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Schema Validation</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> { <span class="fn">createConfigResolver</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="kw">const</span> port = resolver.<span class="fn">resolve</span>(<span class="str">'app.port'</span>, {
+  type: <span class="str">'number'</span>,
+  min: <span class="num">1</span>,
+  max: <span class="num">65535</span>,
+  integer: <span class="num">true</span>,
+});
+
+<span class="cm">// Full diagnostic result</span>
+<span class="kw">const</span> result = resolver.<span class="fn">resolveResult</span>(<span class="str">'app.port'</span>, schema);
+<span class="cm">// { key: 'app.port', value: 3000, found: true, valid: true, issues: [] }</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Scoped Resolver</h3>
+        <div class="code-block mb-6"><span class="cm">// Create a sub-resolver with a key prefix</span>
+<span class="kw">const</span> db = resolver.<span class="fn">scoped</span>(<span class="str">'database'</span>);
+
+db.<span class="fn">string</span>(<span class="str">'host'</span>);     <span class="cm">// reads 'database.host'</span>
+db.<span class="fn">number</span>(<span class="str">'port'</span>);     <span class="cm">// reads 'database.port'</span>
+db.<span class="fn">string</span>(<span class="str">'name'</span>);     <span class="cm">// reads 'database.name'</span>
+
+<span class="cm">// Nested scoping</span>
+<span class="kw">const</span> dbPool = db.<span class="fn">scoped</span>(<span class="str">'pool'</span>);
+dbPool.<span class="fn">number</span>(<span class="str">'maxSize'</span>); <span class="cm">// reads 'database.pool.maxSize'</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Standalone Accessors</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">resolveString</span>, <span class="fn">resolveNumber</span>, <span class="fn">resolveBoolean</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="cm">// Use without a ConfigResolver instance</span>
+<span class="kw">const</span> val = <span class="fn">resolveString</span>(
+  (key) => store.<span class="fn">get</span>(key),
+  <span class="str">'app.name'</span>,
+  <span class="str">'default'</span>
+);</div>
+      </section>
+
+      <!-- ==================== SECTION: CONFIG SCHEMA ==================== -->
+      <section id="config-schema" class="mb-16" aria-labelledby="config-schema-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="config-schema-heading">CONFIG SCHEMA</h2>
+        <p class="mb-4 text-gray-700">Schema validation for configuration values with type checking, constraints, defaults, and custom validators.</p>
+
+        <h3 class="text-lg font-bold mb-3">Schema Types</h3>
+        <div class="code-block mb-6"><span class="kw">enum</span> <span class="tp">ConfigValueType</span> {
+  STRING  = <span class="str">'STRING'</span>,
+  NUMBER  = <span class="str">'NUMBER'</span>,
+  BOOLEAN = <span class="str">'BOOLEAN'</span>,
+  BIGINT  = <span class="str">'BIGINT'</span>,
+  DATE    = <span class="str">'DATE'</span>,
+  OBJECT  = <span class="str">'OBJECT'</span>,
+  ARRAY   = <span class="str">'ARRAY'</span>,
+  NULL    = <span class="str">'NULL'</span>,
+  ANY     = <span class="str">'ANY'</span>,
+}</div>
+
+        <h3 class="text-lg font-bold mb-3">Schema Interfaces</h3>
+        <div class="code-block mb-6"><span class="cm">// Base schema</span>
+<span class="kw">interface</span> <span class="tp">ConfigSchema</span>&lt;<span class="tp">T</span>&gt; {
+  type: <span class="tp">ConfigValueType</span>;
+  required?: <span class="tp">boolean</span>;
+  nullable?: <span class="tp">boolean</span>;
+  default?: <span class="tp">T</span> | <span class="tp">ConfigSchemaBuilder</span>;
+  description?: <span class="tp">string</span>;
+  secret?: <span class="tp">boolean</span>;
+  validate?: (value: <span class="tp">T</span>) => <span class="tp">boolean</span> | <span class="tp">string</span>;
+  transform?: (value: <span class="tp">T</span>) => <span class="tp">T</span>;
+}
+
+<span class="cm">// String schema</span>
+<span class="kw">interface</span> <span class="tp">ConfigStringSchema</span> <span class="kw">extends</span> <span class="tp">ConfigSchema</span>&lt;<span class="tp">string</span>&gt; {
+  type: <span class="str">'STRING'</span>;
+  minLength?: <span class="tp">number</span>;
+  maxLength?: <span class="tp">number</span>;
+  pattern?: <span class="tp">RegExp</span>;
+  enum?: <span class="tp">string</span>[];
+}
+
+<span class="cm">// Number schema</span>
+<span class="kw">interface</span> <span class="tp">ConfigNumberSchema</span> <span class="kw">extends</span> <span class="tp">ConfigSchema</span>&lt;<span class="tp">number</span>&gt; {
+  type: <span class="str">'NUMBER'</span>;
+  min?: <span class="tp">number</span>;
+  max?: <span class="tp">number</span>;
+  integer?: <span class="tp">boolean</span>;
+  positive?: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3">Validation</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> { <span class="fn">validateConfigObject</span>, <span class="fn">assertValidConfig</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="kw">const</span> schema = {
+  type: <span class="str">'object'</span>,
+  properties: {
+    <span class="str">'app.name'</span>: { type: <span class="str">'string'</span>, required: <span class="num">true</span>, minLength: <span class="num">1</span> },
+    <span class="str">'app.port'</span>: { type: <span class="str">'number'</span>, min: <span class="num">1</span>, max: <span class="num">65535</span>, integer: <span class="num">true</span> },
+    <span class="str">'app.debug'</span>: { type: <span class="str">'boolean'</span>, default: <span class="num">false</span> },
+  }
+};
+
+<span class="kw">const</span> result = <span class="fn">validateConfigObject</span>(configValues, schema);
+<span class="cm">// { valid: true, value: {...}, issues: [] }</span>
+
+<span class="cm">// Or throw on validation failure</span>
+<span class="fn">assertValidConfig</span>(configValues, schema);
+<span class="cm">// Throws ConfigSchemaValidationError if invalid</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Validation Error</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">ConfigSchemaValidationError</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="kw">try</span> {
+  <span class="fn">assertValidConfig</span>(values, schema);
+} <span class="kw">catch</span> (error) {
+  <span class="kw">if</span> (error <span class="kw">instanceof</span> <span class="tp">ConfigSchemaValidationError</span>) {
+    console.<span class="fn">log</span>(error.issues);
+    <span class="cm">// [{ path: 'app.port', message: 'must be >= 1', code: 'MIN', ... }]</span>
+  }
+}</div>
+      </section>
+
+      <!-- ==================== SECTION: CONFIG LOADER ==================== -->
+      <section id="config-loader" class="mb-16" aria-labelledby="config-loader-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="config-loader-heading">CONFIG LOADER</h2>
+        <p class="mb-4 text-gray-700">Orchestrates loading configuration from multiple sources into the store with priority-based resolution.</p>
+
+        <h3 class="text-lg font-bold mb-3">Creating a Loader</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> { <span class="fn">createConfigLoader</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="kw">const</span> loader = <span class="fn">createConfigLoader</span>({
+  sources: [defaultsSource, envSource, fileSource],
+  context: { environment: <span class="str">'production'</span> },
+  freeze: <span class="num">true</span>,
+  onSourceLoaded: (result) => {
+    console.<span class="fn">log</span>(<span class="str">`Loaded <span class="kw">${</span>result.values.length<span class="kw">}</span> values from <span class="kw">${</span>result.source<span class="kw">}</span>`</span>);
+  },
+  onSourceError: (error, source) => {
+    console.<span class="fn">error</span>(<span class="str">`Failed to load <span class="kw">${</span>source.name<span class="kw">}</span>: <span class="kw">${</span>error.message<span class="kw">}</span>`</span>);
+  },
+});</div>
+
+        <h3 class="text-lg font-bold mb-3">Loading</h3>
+        <div class="code-block mb-6"><span class="cm">// Load all sources</span>
+<span class="kw">const</span> result = <span class="kw">await</span> loader.<span class="fn">load</span>();
+<span class="cm">// { store, entries, sources, loadedAt }</span>
+
+<span class="cm">// Reload from scratch</span>
+<span class="kw">await</span> loader.<span class="fn">reload</span>();
+
+<span class="cm">// Load specific sources only</span>
+<span class="kw">await</span> loader.<span class="fn">loadSources</span>([envSource]);</div>
+
+        <h3 class="text-lg font-bold mb-3">Managing Sources</h3>
+        <div class="code-block mb-6">loader.<span class="fn">addSource</span>(newSource);
+loader.<span class="fn">removeSource</span>(<span class="str">'remote'</span>);
+<span class="kw">const</span> src = loader.<span class="fn">getSource</span>(<span class="str">'environment'</span>);</div>
+
+        <h3 class="text-lg font-bold mb-3">One-Shot Loading</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">loadConfiguration</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="cm">// Create, load, and dispose in one call</span>
+<span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">loadConfiguration</span>(sources, {
+  context: { environment: <span class="str">'production'</span> },
+});</div>
+      </section>
+
+      <!-- ==================== SECTION: CONFIG MANAGER ==================== -->
+      <section id="config-manager" class="mb-16" aria-labelledby="config-manager-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="config-manager-heading">CONFIG MANAGER</h2>
+        <p class="mb-4 text-gray-700">The central orchestration class that coordinates the loader, store, and resolver with a lifecycle state machine.</p>
+
+        <h3 class="text-lg font-bold mb-3">Lifecycle States</h3>
+        <div class="code-block mb-6"><span class="kw">enum</span> <span class="tp">ConfigManagerState</span> {
+  CREATED    = <span class="str">'CREATED'</span>,     <span class="cm">// Initial state</span>
+  LOADING    = <span class="str">'LOADING'</span>,     <span class="cm">// Loading from sources</span>
+  READY      = <span class="str">'READY'</span>,       <span class="cm">// Configuration available</span>
+  RELOADING  = <span class="str">'RELOADING'</span>,   <span class="cm">// Reloading from sources</span>
+  FAILED     = <span class="str">'FAILED'</span>,      <span class="cm">// Load failed</span>
+  DISPOSED   = <span class="str">'DISPOSED'</span>,    <span class="cm">// Manager disposed</span>
+}</div>
+
+        <h3 class="text-lg font-bold mb-3">Creating a Manager</h3>
+        <div class="code-block mb-6"><span class="kw">import</span> { <span class="fn">createConfigManager</span>, <span class="fn">initializeConfigManager</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="cm">// Create without loading</span>
+<span class="kw">const</span> manager = <span class="fn">createConfigManager</span>({
+  sources: [envSource, fileSource],
+  initialValues: { <span class="str">'app.name'</span>: <span class="str">'My App'</span> },
+  freeze: <span class="num">true</span>,
+  strict: <span class="num">false</span>,
+});
+
+<span class="cm">// Create and load in one step</span>
+<span class="kw">const</span> manager = <span class="kw">await</span> <span class="fn">initializeConfigManager</span>({
+  sources: [envSource],
+  initialValues: { <span class="str">'app.port'</span>: <span class="num">3000</span> },
+});</div>
+
+        <h3 class="text-lg font-bold mb-3">Lifecycle Methods</h3>
+        <div class="code-block mb-6"><span class="kw">await</span> manager.<span class="fn">load</span>();      <span class="cm">// CREATED → LOADING → READY</span>
+<span class="kw">await</span> manager.<span class="fn">reload</span>();    <span class="cm">// READY → RELOADING → READY</span>
+manager.<span class="fn">getState</span>();        <span class="cm">// 'READY'</span>
+manager.<span class="fn">isReady</span>;           <span class="cm">// true</span>
+manager.<span class="fn">isLoading</span>;         <span class="cm">// false</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Typed Access (Same as Resolver)</h3>
+        <div class="code-block mb-6">manager.<span class="fn">string</span>(<span class="str">'app.name'</span>);
+manager.<span class="fn">number</span>(<span class="str">'app.port'</span>);
+manager.<span class="fn">boolean</span>(<span class="str">'app.debug'</span>);
+manager.<span class="fn">required</span>&lt;<span class="tp">string</span>&gt;(<span class="str">'app.name'</span>);
+manager.<span class="fn">object</span>&lt;<span class="tp">DbConfig</span>&gt;(<span class="str">'db'</span>);
+manager.<span class="fn">array</span>&lt;<span class="tp">string</span>&gt;(<span class="str">'app.tags'</span>);
+manager.<span class="fn">scoped</span>(<span class="str">'db'</span>);</div>
+
+        <h3 class="text-lg font-bold mb-3">Runtime Updates</h3>
+        <div class="code-block mb-6">manager.<span class="fn">set</span>(<span class="str">'app.debug'</span>, <span class="num">true</span>);
+manager.<span class="fn">delete</span>(<span class="str">'app.debug'</span>);
+manager.<span class="fn">toObject</span>();  <span class="cm">// all values as plain object</span></div>
+
+        <h3 class="text-lg font-bold mb-3">Source Management</h3>
+        <div class="code-block mb-6">manager.<span class="fn">addSource</span>(newSource);
+manager.<span class="fn">addSourceLoader</span>(<span class="str">'custom'</span>, <span class="kw">async</span> (ctx) => ({ ... }));
+manager.<span class="fn">removeSource</span>(<span class="str">'old-source'</span>);</div>
+
+        <h3 class="text-lg font-bold mb-3">Validation and Status</h3>
+        <div class="code-block mb-6"><span class="cm">// Validate entire config against a schema</span>
+<span class="kw">const</span> config = manager.<span class="fn">validate</span>&lt;<span class="tp">AppConfig</span>&gt;(appSchema);
+
+<span class="cm">// Get status snapshot</span>
+<span class="kw">const</span> status = manager.<span class="fn">getStatus</span>();
+<span class="cm">// { state: 'READY', loaded: true, loading: false, size: 42, lastLoadedAt: Date }</span>
+
+<span class="cm">// Subscribe to state changes</span>
+<span class="kw">const</span> unsub = manager.<span class="fn">subscribe</span>((status) => {
+  console.<span class="fn">log</span>(<span class="str">`State: <span class="kw">${</span>status.state<span class="kw">}</span>`</span>);
+});</div>
+
+        <h3 class="text-lg font-bold mb-3">Cleanup</h3>
+        <div class="code-block"><span class="kw">await</span> manager.<span class="fn">dispose</span>();
+<span class="cm">// Closes all sources, clears store, removes listeners</span></div>
+      </section>
+
+      <!-- ==================== SECTION: CONFIG FACTORY ==================== -->
+      <section id="config-factory" class="mb-16" aria-labelledby="config-factory-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="config-factory-heading">CONFIG FACTORY</h2>
+        <p class="mb-4 text-gray-700">High-level convenience functions for common configuration patterns.</p>
+
+        <div class="code-block mb-6"><span class="kw">import</span> { <span class="fn">configFactory</span> } <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;
+
+<span class="cm">// Create without loading</span>
+<span class="kw">const</span> manager = configFactory.<span class="fn">create</span>({ initialValues });
+
+<span class="cm">// Create and load</span>
+<span class="kw">const</span> manager = <span class="kw">await</span> configFactory.<span class="fn">initialize</span>({ sources });
+
+<span class="cm">// Create from key-value map</span>
+<span class="kw">const</span> manager = configFactory.<span class="fn">fromValues</span>({ <span class="str">'key'</span>: <span class="str">'value'</span> });
+
+<span class="cm">// Create from sources</span>
+<span class="kw">const</span> manager = configFactory.<span class="fn">fromSources</span>([source1, source2]);
+
+<span class="cm">// Create from existing store</span>
+<span class="kw">const</span> manager = configFactory.<span class="fn">fromStore</span>(existingStore);
+
+<span class="cm">// Create, load, and validate</span>
+<span class="kw">const</span> { manager, config } = <span class="kw">await</span> configFactory.<span class="fn">validated</span>({
+  sources,
+  schema: appSchema,
+});</div>
+      </section>
+
+      <!-- ==================== SECTION: TYPES ==================== -->
+      <section id="types" class="mb-16" aria-labelledby="types-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="types-heading">TYPES REFERENCE</h2>
+        <p class="mb-4 text-gray-700">All exported types, interfaces, and type aliases.</p>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-smw-full border-2 border-black text-sm">
+            <thead>
+              <tr class="bg-zudo-black text-white">
+                <th class="border border-black px-4 py-2 text-left">Type</th>
+                <th class="border border-black px-4 py-2 text-left">Module</th>
+                <th class="border border-black px-4 py-2 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigPrimitive</td><td class="border border-black px-4 py-2">configValue</td><td class="border border-black px-4 py-2">string | number | boolean | bigint | null | undefined</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigJsonValue</td><td class="border border-black px-4 py-2">configValue</td><td class="border border-black px-4 py-2">JSON-compatible recursive type</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigValue</td><td class="border border-black px-4 py-2">configValue</td><td class="border border-black px-4 py-2">Full config value type</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigEntry&lt;T&gt;</td><td class="border border-black px-4 py-2">configEntry</td><td class="border border-black px-4 py-2">Resolved entry with metadata</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigEntryOptions&lt;T&gt;</td><td class="border border-black px-4 py-2">configEntry</td><td class="border border-black px-4 py-2">Options for creating an entry</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigSource</td><td class="border border-black px-4 py-2">configSource</td><td class="border border-black px-4 py-2">Full source contract</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigSourceEntry</td><td class="border border-black px-4 py-2">configSource</td><td class="border border-black px-4 py-2">Single value from a source</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigSourceContext</td><td class="border border-black px-4 py-2">configSource</td><td class="border border-black px-4 py-2">Load context</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigSourceResult</td><td class="border border-black px-4 py-2">configSource</td><td class="border border-black px-4 py-2">Source load result</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigChangeEvent</td><td class="border border-black px-4 py-2">configStore</td><td class="border border-black px-4 py-2">Change event payload</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigStoreOptions</td><td class="border border-black px-4 py-2">configStore</td><td class="border border-black px-4 py-2">Store initialization options</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigResolverOptions</td><td class="border border-black px-4 py-2">configResolver</td><td class="border border-black px-4 py-2">Resolver options</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigResolutionResult&lt;T&gt;</td><td class="border border-black px-4 py-2">configResolver</td><td class="border border-black px-4 py-2">Full diagnostic result</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigSchema&lt;T&gt;</td><td class="border border-black px-4 py-2">configSchema</td><td class="border border-black px-4 py-2">Base schema interface</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigObjectSchema&lt;T&gt;</td><td class="border border-black px-4 py-2">configSchema</td><td class="border border-black px-4 py-2">Object schema</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigArraySchema&lt;T&gt;</td><td class="border border-black px-4 py-2">configSchema</td><td class="border border-black px-4 py-2">Array schema</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigStringSchema</td><td class="border border-black px-4 py-2">configSchema</td><td class="border border-black px-4 py-2">String schema with constraints</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigNumberSchema</td><td class="border border-black px-4 py-2">configSchema</td><td class="border border-black px-4 py-2">Number schema with constraints</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigValidationIssue</td><td class="border border-black px-4 py-2">configSchema</td><td class="border border-black px-4 py-2">Validation issue</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigValidationResult</td><td class="border border-black px-4 py-2">configSchema</td><td class="border border-black px-4 py-2">Validation result</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigManagerOptions</td><td class="border border-black px-4 py-2">configManager</td><td class="border border-black px-4 py-2">Manager options</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigManagerStatus</td><td class="border border-black px-4 py-2">configManager</td><td class="border border-black px-4 py-2">Manager status snapshot</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigLoaderOptions</td><td class="border border-black px-4 py-2">configLoader</td><td class="border border-black px-4 py-2">Loader options</td></tr>
+              <tr class="bg-gray-50"><td class="border border-black px-4 py-2 font-mono text-xs">ConfigLoadResult</td><td class="border border-black px-4 py-2">configLoader</td><td class="border border-black px-4 py-2">Load result</td></tr>
+              <tr><td class="border border-black px-4 py-2 font-mono text-xs">ConfigFactoryOptions</td><td class="border border-black px-4 py-2">configFactory</td><td class="border border-black px-4 py-2">Factory options</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== SECTION: CONSTANTS ==================== -->
+      <section id="constants" class="mb-16" aria-labelledby="constants-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="constants-heading">CONSTANTS</h2>
+        <p class="mb-4 text-gray-700">All exported enums and their values.</p>
+
+        <h3 class="text-lg font-bold mb-3">ConfigSourceType</h3>
+        <div class="code-block mb-6">DEFAULTS    = <span class="str">'DEFAULTS'</span>      <span class="cm">// Priority: -1000</span>
+ENVIRONMENT = <span class="str">'ENVIRONMENT'</span>   <span class="cm">// process.env</span>
+FILE        = <span class="str">'FILE'</span>          <span class="cm">// JSON/YAML files</span>
+MEMORY      = <span class="str">'MEMORY'</span>        <span class="cm">// In-memory object</span>
+REMOTE      = <span class="str">'REMOTE'</span>        <span class="cm">// HTTP endpoints</span>
+CUSTOM      = <span class="str">'CUSTOM'</span>        <span class="cm">// User-defined</span></div>
+
+        <h3 class="text-lg font-bold mb-3">ConfigValueType</h3>
+        <div class="code-block mb-6">STRING = <span class="str">'STRING'</span>  |  NUMBER = <span class="str">'NUMBER'</span>  |  BOOLEAN = <span class="str">'BOOLEAN'</span>
+BIGINT = <span class="str">'BIGINT'</span>  |  DATE = <span class="str">'DATE'</span>      |  OBJECT = <span class="str">'OBJECT'</span>
+ARRAY = <span class="str">'ARRAY'</span>   |  NULL = <span class="str">'NULL'</span>      |  ANY = <span class="str">'ANY'</span></div>
+
+        <h3 class="text-lg font-bold mb-3">ConfigValidationSeverity</h3>
+        <div class="code-block mb-6">ERROR   = <span class="str">'ERROR'</span>
+WARNING = <span class="str">'WARNING'</span></div>
+
+        <h3 class="text-lg font-bold mb-3">ConfigManagerState</h3>
+        <div class="code-block">CREATED   = <span class="str">'CREATED'</span>    <span class="cm">// Initial state</span>
+LOADING   = <span class="str">'LOADING'</span>    <span class="cm">// Loading from sources</span>
+READY     = <span class="str">'READY'</span>      <span class="cm">// Configuration available</span>
+RELOADING = <span class="str">'RELOADING'</span>  <span class="cm">// Reloading from sources</span>
+FAILED    = <span class="str">'FAILED'</span>     <span class="cm">// Load failed</span>
+DISPOSED  = <span class="str">'DISPOSED'</span>   <span class="cm">// Manager disposed</span></div>
+      </section>
+
+      <!-- ==================== SECTION: ERRORS ==================== -->
+      <section id="errors" class="mb-16" aria-labelledby="errors-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="errors-heading">ERRORS</h2>
+        <p class="mb-4 text-gray-700">All error classes, their fields, and when they are thrown.</p>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-smw-full border-2 border-black text-sm mb-6">
+            <thead>
+              <tr class="bg-zudo-black text-white">
+                <th class="border border-black px-4 py-2 text-left">Class</th>
+                <th class="border border-black px-4 py-2 text-left">Extends</th>
+                <th class="border border-black px-4 py-2 text-left">Fields</th>
+                <th class="border border-black px-4 py-2 text-left">Thrown When</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border border-black px-4 py-2 font-mono text-xs">ConfigManagerValidationError</td>
+                <td class="border border-black px-4 py-2">ConfigurationError</td>
+                <td class="border border-black px-4 py-2">issues: readonly unknown[]</td>
+                <td class="border border-black px-4 py-2">manager.validate() fails against object schema</td>
+              </tr>
+              <tr class="bg-gray-50">
+                <td class="border border-black px-4 py-2 font-mono text-xs">ConfigSchemaValidationError</td>
+                <td class="border border-black px-4 py-2">ConfigurationError</td>
+                <td class="border border-black px-4 py-2">issues: ConfigValidationIssue[]</td>
+                <td class="border border-black px-4 py-2">assertValidConfig() fails</td>
+              </tr>
+              <tr>
+                <td class="border border-black px-4 py-2 font-mono text-xs">ConfigResolutionError</td>
+                <td class="border border-black px-4 py-2">ConfigurationError</td>
+                <td class="border border-black px-4 py-2">key: string, issues: unknown[]</td>
+                <td class="border border-black px-4 py-2">Type mismatch in strict mode, missing required value</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3">Re-exported from @zudojs/errors</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">ConfigurationError</span>,
+  <span class="fn">createConfigurationError</span>,
+  <span class="fn">isConfigurationError</span>,
+  <span class="fn">missingConfigurationError</span>,
+  <span class="fn">invalidConfigurationError</span>,
+} <span class="kw">from</span> <span class="str">'@zudojs/config'</span>;</div>
+      </section>
+
+      <!-- ==================== SECTION: USE CASES ==================== -->
+      <section id="use-cases" class="mb-16" aria-labelledby="use-cases-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="use-cases-heading">USE CASES</h2>
+
+        <div class="space-y-6">
+          <div class="border-4 border-black p-6">
+            <h3 class="font-bold mb-2">1. Application Configuration with Environment Variables</h3>
+            <div class="code-block"><span class="kw">const</span> manager = <span class="kw">await</span> <span class="fn">initializeConfigManager</span>({
+  sources: [
+    <span class="fn">createDefaultsConfigSource</span>({ <span class="str">'app.port'</span>: <span class="num">3000</span> }),
+    <span class="fn">createMemoryConfigSource</span>(process.env, { name: <span class="str">'env'</span> }),
+  ],
+});
+<span class="cm">// Environment variables override defaults</span></div>
+          </div>
+
+          <div class="border-4 border-black p-6">
+            <h3 class="font-bold mb-2">2. Multi-Source Configuration with Priority</h3>
+            <div class="code-block"><span class="kw">const</span> manager = <span class="kw">await</span> <span class="fn">initializeConfigManager</span>({
+  sources: [
+    <span class="fn">createDefaultsConfigSource</span>(defaults),    <span class="cm">// priority: -1000</span>
+    fileSource,                                 <span class="cm">// priority: 0</span>
+    <span class="fn">createCustomConfigSource</span>(<span class="str">'env'</span>, envLoader, { priority: <span class="num">100</span> }),
+  ],
+});
+<span class="cm">// Higher priority wins when keys overlap</span></div>
+          </div>
+
+          <div class="border-4 border-black p-6">
+            <h3 class="font-bold mb-2">3. Type-Safe Configuration Access</h3>
+            <div class="code-block"><span class="kw">interface</span> <span class="tp">AppConfig</span> {
+  <span class="str">'app.name'</span>: <span class="tp">string</span>;
+  <span class="str">'app.port'</span>: <span class="tp">number</span>;
+  <span class="str">'db.host'</span>: <span class="tp">string</span>;
+  <span class="str">'db.port'</span>: <span class="tp">number</span>;
+}
+
+<span class="kw">const</span> db = manager.<span class="fn">scoped</span>(<span class="str">'db'</span>);
+<span class="kw">const</span> host = db.<span class="fn">requiredString</span>(<span class="str">'host'</span>);  <span class="cm">// type-safe</span>
+<span class="kw">const</span> port = db.<span class="fn">requiredNumber</span>(<span class="str">'port'</span>);  <span class="cm">// auto-parsed</span></div>
+          </div>
+
+          <div class="border-4 border-black p-6">
+            <h3 class="font-bold mb-2">4. Configuration Validation with Schemas</h3>
+            <div class="code-block"><span class="kw">const</span> { manager, config } = <span class="kw">await</span> configFactory.<span class="fn">validated</span>({
+  schema: {
+    type: <span class="str">'object'</span>,
+    properties: {
+      <span class="str">'app.port'</span>: { type: <span class="str">'number'</span>, min: <span class="num">1</span>, max: <span class="num">65535</span> },
+      <span class="str">'app.name'</span>: { type: <span class="str">'string'</span>, required: <span class="num">true</span> },
+    }
+  }
+});
+<span class="cm">// Throws ConfigSchemaValidationError if validation fails</span></div>
+          </div>
+
+          <div class="border-4 border-black p-6">
+            <h3 class="font-bold mb-2">5. Runtime Configuration Updates</h3>
+            <div class="code-block"><span class="cm">// Update a value at runtime</span>
+manager.<span class="fn">set</span>(<span class="str">'app.debug'</span>, <span class="num">true</span>);
+
+<span class="cm">// Listen for changes</span>
+manager.<span class="fn">subscribe</span>((status) => {
+  console.<span class="fn">log</span>(<span class="str">`Config updated: <span class="kw">${</span>status.size<span class="kw">}</span> entries`</span>);
+});
+
+<span class="cm">// Reload from sources</span>
+<span class="kw">await</span> manager.<span class="fn">reload</span>();</div>
+          </div>
+
+          <div class="border-4 border-black p-6">
+            <h3 class="font-bold mb-2">6. Scoped Configuration for Modules</h3>
+            <div class="code-block"><span class="cm">// Each module gets its own scoped resolver</span>
+<span class="kw">const</span> authConfig = manager.<span class="fn">scoped</span>(<span class="str">'auth'</span>);
+<span class="kw">const</span> dbConfig = manager.<span class="fn">scoped</span>(<span class="str">'db'</span>);
+<span class="kw">const</span> cacheConfig = manager.<span class="fn">scoped</span>(<span class="str">'cache'</span>);
+
+<span class="cm">// Modules access only their own config</span>
+<span class="kw">const</span> secret = authConfig.<span class="fn">requiredString</span>(<span class="str">'jwtSecret'</span>);
+<span class="kw">const</span> host = dbConfig.<span class="fn">requiredString</span>(<span class="str">'host'</span>);
+<span class="kw">const</span> ttl = cacheConfig.<span class="fn">number</span>(<span class="str">'ttl'</span>, <span class="num">3600</span>);</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SECTION: CONNECTIONS ==================== -->
+      <section id="connections" class="mb-16" aria-labelledby="connections-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="connections-heading">CONNECTIONS</h2>
+        <p class="mb-4 text-gray-700">How @zudojs/config integrates with other Zudo packages.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a href="/docs/packages-errors" class="border-2 border-black p-4 hover:border-zudo-red hover:bg-red-50">
+            <h3 class="font-bold">@zudojs/errors</h3>
+            <p class="text-sm text-gray-600">ConfigurationError base class and error factories</p>
+          </a>
+          <a href="/docs/packages/logger" class="border-2 border-black p-4 hover:border-zudo-yellow hover:bg-yellow-50">
+            <h3 class="font-bold">@zudojs/logger</h3>
+            <p class="text-sm text-gray-600">Configure logging levels, transports, and formats</p>
+          </a>
+          <a href="/docs/packages-container" class="border-2 border-black p-4 hover:border-zudo-blue hover:bg-blue-50">
+            <h3 class="font-bold">@zudojs/container</h3>
+            <p class="text-sm text-gray-600">Register ConfigManager as a container singleton</p>
+          </a>
+          <a href="/docs/packages/lifecycle" class="border-2 border-black p-4 hover:border-zudo-red hover:bg-red-50">
+            <h3 class="font-bold">@zudojs/lifecycle</h3>
+            <p class="text-sm text-gray-600">Integrate config loading into application lifecycle</p>
+          </a>
+          <a href="/docs/packages-core" class="border-2 border-black p-4 hover:border-zudo-green hover:bg-green-50">
+            <h3 class="font-bold">@zudojs/core</h3>
+            <p class="text-sm text-gray-600">Application-level configuration management</p>
+          </a>
+          <a href="/docs/packages/schema" class="border-2 border-black p-4 hover:border-zudo-pink hover:bg-pink-50">
+            <h3 class="font-bold">@zudojs/schema</h3>
+            <p class="text-sm text-gray-600">Advanced schema validation and type inference</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- ==================== SECTION: IMPROVEMENTS ==================== -->
+      <section id="improvements" class="mb-16" aria-labelledby="improvements-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="improvements-heading">IMPROVEMENTS</h2>
+
+        <div class="callout callout-tip mb-4">
+          <strong class="text-zudo-green">Best Practices</strong>
+        </div>
+
+        <ul class="space-y-3 text-gray-700">
+          <li class="border-l-4 border-zudo-green pl-4"><strong>Use scoped resolvers</strong> — Isolate module configuration with <code class="bg-gray-100 px-1">manager.scoped('module')</code> to prevent accidental cross-module access.</li>
+          <li class="border-l-4 border-zudo-blue pl-4"><strong>Validate early</strong> — Use <code class="bg-gray-100 px-1">configFactory.validated()</code> at startup to catch configuration errors before the app runs.</li>
+          <li class="border-l-4 border-zudo-yellow pl-4"><strong>Mark sensitive values</strong> — Set <code class="bg-gray-100 px-1">sensitive: true</code> on entries containing secrets to enable automatic redaction in logs.</li>
+          <li class="border-l-4 border-zudo-red pl-4"><strong>Use priority ordering</strong> — Set environment sources at higher priority than file sources, and file sources higher than defaults.</li>
+          <li class="border-l-4 border-zudo-pink pl-4"><strong>Freeze in production</strong> — Enable <code class="bg-gray-100 px-1">freeze: true</code> to prevent accidental mutation of configuration values.</li>
+          <li class="border-l-4 border-zudo-green pl-4"><strong>Subscribe to changes</strong> — Use <code class="bg-gray-100 px-1">store.subscribe()</code> to react to runtime configuration updates.</li>
+          <li class="border-l-4 border-zudo-blue pl-4"><strong>Use typed accessors</strong> — Prefer <code class="bg-gray-100 px-1">manager.string()</code>, <code class="bg-gray-100 px-1">manager.number()</code> over raw <code class="bg-gray-100 px-1">manager.get()</code> for type safety.</li>
+          <li class="border-l-4 border-zudo-yellow pl-4"><strong>Handle reload gracefully</strong> — Subscribe to manager state changes to respond to configuration reloads.</li>
+        </ul>
+      </section>
+
+      <!-- ==================== SECTION: API SUMMARY ==================== -->
+      <section id="api-summary" class="mb-16" aria-labelledby="api-summary-heading">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2" id="api-summary-heading">API SUMMARY</h2>
+        <p class="mb-4 text-gray-700">Compact reference of all exports organized by submodule.</p>
+
+        <div class="space-y-4">
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-4 py-2 font-bold text-sm">configValue</div>
+            <div class="px-4 py-3 text-sm font-mono">ConfigPrimitive, ConfigJsonValue, ConfigValue, ResolvedConfigValue, isConfigPrimitive, isConfigObject, isConfigValue, toConfigJsonValue, configValueToString, parseConfigString, parseConfigBoolean, parseConfigNumber, parseConfigBigInt, parseConfigDate, freezeConfigValue, cloneConfigValue, configValuesEqual</div>
+          </div>
+
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-4 py-2 font-bold text-sm">configEntry</div>
+            <div class="px-4 py-3 text-sm font-mono">ConfigEntry, ConfigEntryOptions, createConfigEntry, updateConfigEntry, isConfigEntry, redactConfigValue, toSafeConfigEntry, serializeConfigEntry, withConfigEntrySource, configEntriesEqual, sortConfigEntries</div>
+          </div>
+
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-4 py-2 font-bold text-sm">configSource</div>
+            <div class="px-4 py-3 text-sm font-mono">ConfigSourceType, ConfigSourceEntry, ConfigSourceContext, ConfigSourceResult, ConfigSource, ConfigSourceLoader, FunctionConfigSource, ConfigSourceOptions, isConfigSource, createConfigSource, createMemoryConfigSource, createDefaultsConfigSource, createCustomConfigSource, normalizeConfigSourceResult, sortConfigSources, findConfigSource, deduplicateConfigSources, loadConfigSource, loadConfigSources</div>
+          </div>
+
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-4 py-2 font-bold text-sm">configStore</div>
+            <div class="px-4 py-3 text-sm font-mono">ConfigStore, ConfigChangeEvent, ConfigChangeListener, ConfigStoreOptions, createConfigStore, normalizeKey</div>
+          </div>
+
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-4 py-2 font-bold text-sm">configResolver</div>
+            <div class="px-4 py-3 text-sm font-mono">ConfigResolver, ScopedConfigResolver, ConfigResolverOptions, ConfigResolutionResult, ConfigResolutionError, createConfigResolver, resolveString, resolveRequiredString, resolveNumber, resolveRequiredNumber, resolveBoolean, resolveRequiredBoolean, resolveBigint, resolveDate, resolveRequiredDate, resolveObject, resolveArray</div>
+          </div>
+
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-4 py-2 font-bold text-sm">configSchema</div>
+            <div class="px-4 py-3 text-sm font-mono">ConfigValueType, ConfigValidationSeverity, ConfigValidationIssue, ConfigValidationResult, ConfigValidationContext, ConfigSchema, ConfigObjectSchema, ConfigArraySchema, ConfigStringSchema, ConfigNumberSchema, ConfigBooleanSchema, ConfigSchemaDefinition, ConfigSchemaBuilder, getConfigValueType, matchesConfigType, createConfigValidationIssue, validateConfigValue, validateConfigObject, assertValidConfig, ConfigSchemaValidationError</div>
+          </div>
+
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-4 py-2 font-bold text-sm">configLoader</div>
+            <div class="px-4 py-3 text-sm font-mono">ConfigLoader, ConfigLoaderOptions, ConfigLoadResult, createConfigLoader, loadConfiguration, sourceResultsToEntries</div>
+          </div>
+
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-4 py-2 font-bold text-sm">configManager</div>
+            <div class="px-4 py-3 text-sm font-mono">ConfigManager, ConfigManagerState, ConfigManagerOptions, ConfigManagerStatus, ConfigManagerListener, ConfigManagerValidationError, createConfigManager, initializeConfigManager</div>
+          </div>
+
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-4 py-2 font-bold text-sm">configFactory</div>
+            <div class="px-4 py-3 text-sm font-mono">configFactory, createConfiguration, createInitializedConfiguration, createConfigurationFromValues, createConfigurationFromSources, createConfigurationFromStore, createValidatedConfiguration, ConfigFactoryOptions</div>
+          </div>
+
+          <div class="border-2 border-black">
+            <div class="bg-zudo-black text-white px-4 py-2 font-bold text-sm">Re-exports from @zudojs/errors</div>
+            <div class="px-4 py-3 text-sm font-mono">ConfigurationError, createConfigurationError, isConfigurationError, missingConfigurationError, invalidConfigurationError</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PREV/NEXT ==================== -->
+      <div class="flex flex-col sm:flex-row justify-between items-stretch gap-4 mt-12 pt-8 border-t-4 border-black">
+        <a href="/docs/packages-cli" class="border-4 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-yellow hover:border-black text-center">
+          ← @zudojs/cli
+        </a>
+        <a href="/docs/packages-constants" class="border-4 border-black px-6 py-3 text-sm font-bold hover:bg-zudo-blue hover:text-white hover:border-black text-center">
+          @zudojs/constants →
+        </a>
+      </div>
+
+    
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#overview" class="toc-link">Overview</a>
+      <a href="#install" class="toc-link">Installation</a>
+      <a href="#architecture" class="toc-link">Architecture</a>
+      <a href="#quick-start" class="toc-link">Quick Start</a>
+      <a href="#config-value" class="toc-link">Config Value</a>
+      <a href="#config-entry" class="toc-link">Config Entry</a>
+      <a href="#config-source" class="toc-link">Config Source</a>
+      <a href="#config-store" class="toc-link">Config Store</a>
+      <a href="#config-resolver" class="toc-link">Config Resolver</a>
+      <a href="#config-schema" class="toc-link">Config Schema</a>
+      <a href="#config-loader" class="toc-link">Config Loader</a>
+      <a href="#config-manager" class="toc-link">Config Manager</a>
+      <a href="#config-factory" class="toc-link">Config Factory</a>
+      <a href="#types" class="toc-link">Types Reference</a>
+      <a href="#constants" class="toc-link">Constants</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#use-cases" class="toc-link">Use Cases</a>
+      <a href="#connections" class="toc-link">Connections</a>
+      <a href="#improvements" class="toc-link">Improvements</a>
+      <a href="#api-summary" class="toc-link">API Summary</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-black text-white border-t-4 border-zudo-red">
+    <div class="max-w-screen-2xl mx-auto px-6 py-8 flex items-center justify-between text-sm">
+      <div>&copy; 2026 Zudo. MIT License.</div>
+      <div class="flex gap-4">
+        <a href="https://github.com/oyinlola-tech/zudo" target="_blank" class="hover:text-zudo-red">GitHub</a>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <a href="/docs/roadmap" class="hover:text-zudo-yellow">Roadmap</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/toc.js"></script>
+
+  <script src="/js/router.js"></script>
+</body>
+</html>
