@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/tenancy — Multi-Tenant Context &amp; Isolation Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/tenancy — multi-tenant context propagation, resolver chains, trust levels, and guard middleware for the Zudojs framework.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+      <a href="/docs/packages-tenancy" class="sidebar-item sidebar-item-active">@zudojs/tenancy</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/tenancy</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.0.1</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/tenancy</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Multi-tenant context and isolation for the Zudojs framework. Provides tenant resolution, AsyncLocalStorage propagation, resolver chains, trust levels, guard middleware, and isolation strategies.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">TENANCY</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">MULTI-TENANT</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">RESOLUTION</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">ISOLATION</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">SAAS</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/tenancy
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/tenancy
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/tenancy</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/tenancy depends on @zudojs/errors and @zudojs/constants (required). @zudojs/http is an optional peer dependency — only needed for HTTP middleware.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/tenancy</code> provides the full multi-tenant infrastructure for SaaS applications:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Branded <code>TenantId</code></strong> type for type-safe tenant identification</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Tenant resolution</strong> from headers, subdomains, paths, JWT claims, and API keys</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>AsyncLocalStorage-based context propagation</strong> — tenant context flows through async call chains automatically</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Resolver chain</strong> with priority ordering and conflict detection</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Tenant status lifecycle</strong> — provisioning, active, inactive, suspended, deleting, deleted</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Isolation strategies</strong> — shared, schema, database, hybrid</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Trust levels</strong> — trusted, verified, untrusted — with guard enforcement</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>HTTP middleware</strong> for automatic tenant resolution and propagation</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>In-memory repository and cache</strong> implementations</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Domain registry</strong> for domain-to-tenant mapping</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Tenant manager</strong> with cache-aside pattern</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>10 error types</strong> covering every failure mode</li>
+        </ul>
+      </section>
+
+      <!-- Architecture Position -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6 space-y-3">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">HTTP / API LAYER (@zudojs/http, @zudojs/security)</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">APPLICATION LAYER (CQRS, Events, Modules)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">TENANCY LAYER (@zudojs/tenancy)</div>
+          <div class="bg-black text-white p-3 font-bold text-center text-sm">CONTEXT &amp; STORAGE (@zudojs/context, @zudojs/database)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          Tenancy sits between the transport layer and application logic. HTTP middleware resolves the tenant from requests, then context flows through AsyncLocalStorage into all downstream operations.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.0.1</td>
+                <td class="p-3">TenantError hierarchy (TenantError, TenantNotFoundError, etc.)</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/constants</td>
+                <td class="p-3">0.0.1</td>
+                <td class="p-3">Branded types and constants</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/http</td>
+                <td class="p-3">0.0.1 (optional peer)</td>
+                <td class="p-3">HTTP middleware types and integration</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.0.1</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <!-- Types -->
+      <section id="types" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TYPES</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantId</h3>
+        <p class="mb-3 text-sm">A branded string type that prevents accidentally passing a plain string where a tenant ID is expected.</p>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TenantId</span> = <span class="tp">string</span> &amp; { <span class="kw">readonly</span> [TenantIdBrand]: <span class="tp">true</span> };
+
+<span class="kw">function</span> <span class="fn">createTenantId</span>(value: <span class="tp">string</span>): <span class="tp">TenantId</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantStatus</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TenantStatus</span> =
+  | <span class="str">"provisioning"</span>
+  | <span class="str">"active"</span>
+  | <span class="str">"inactive"</span>
+  | <span class="str">"suspended"</span>
+  | <span class="str">"deleting"</span>
+  | <span class="str">"deleted"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantIsolationStrategy</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TenantIsolationStrategy</span> =
+  | <span class="str">"shared"</span>    <span class="cm">// shared tables with tenantId column</span>
+  | <span class="str">"schema"</span>    <span class="cm">// separate schemas per tenant</span>
+  | <span class="str">"database"</span>  <span class="cm">// separate databases per tenant</span>
+  | <span class="str">"hybrid"</span>;   <span class="cm">// mix of strategies</span></div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenancyMode</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TenancyMode</span> = <span class="str">"tenant"</span> | <span class="str">"system"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantResolutionSource</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TenantResolutionSource</span> =
+  | <span class="str">"header"</span>
+  | <span class="str">"subdomain"</span>
+  | <span class="str">"domain"</span>
+  | <span class="str">"path"</span>
+  | <span class="str">"jwt"</span>
+  | <span class="str">"api-key"</span>
+  | <span class="str">"manual"</span>
+  | <span class="str">"system"</span>
+  | <span class="str">"custom"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantTrustLevel</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TenantTrustLevel</span> = <span class="str">"trusted"</span> | <span class="str">"verified"</span> | <span class="str">"untrusted"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantRequirement</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TenantRequirement</span> = <span class="str">"required"</span> | <span class="str">"optional"</span> | <span class="str">"forbidden"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ExecutionTenantContext</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">ExecutionTenantContext</span> = <span class="tp">SystemContext</span> | <span class="tp">TenantExecutionContext</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantResource</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantResource</span> {
+  <span class="kw">readonly</span> tenantId: <span class="tp">TenantId</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantDomain</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantDomain</span> {
+  <span class="kw">readonly</span> domain: <span class="tp">string</span>;
+  <span class="kw">readonly</span> tenantId: <span class="tp">TenantId</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantScopeOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantScopeOptions</span> {
+  <span class="kw">readonly</span> prefix?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> separator?: <span class="tp">string</span>;
+}</div>
+      </section>
+
+      <!-- Interfaces -->
+      <section id="interfaces" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INTERFACES</h2>
+
+        <h3 class="text-lg font-bold mb-3">Tenant</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Tenant</span> {
+  <span class="kw">readonly</span> id: <span class="tp">TenantId</span>;
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> slug?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> status: <span class="tp">TenantStatus</span>;
+  <span class="kw">readonly</span> metadata: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+  <span class="kw">readonly</span> createdAt?: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> updatedAt?: <span class="tp">Date</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantContext</span> {
+  <span class="kw">readonly</span> tenantId: <span class="tp">TenantId</span>;
+  <span class="kw">readonly</span> source: <span class="tp">TenantResolutionSource</span>;
+  <span class="kw">readonly</span> trust: <span class="tp">TenantTrustLevel</span>;
+  <span class="kw">readonly</span> resolvedAt: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> metadata: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">SystemContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">SystemContext</span> {
+  <span class="kw">readonly</span> mode: <span class="str">"system"</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantExecutionContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantExecutionContext</span> {
+  <span class="kw">readonly</span> mode: <span class="str">"tenant"</span>;
+  <span class="kw">readonly</span> tenant: <span class="tp">Tenant</span>;
+  <span class="kw">readonly</span> context: <span class="tp">TenantContext</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantResolution</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantResolution</span> {
+  <span class="kw">readonly</span> tenantId: <span class="tp">TenantId</span>;
+  <span class="kw">readonly</span> source: <span class="tp">TenantResolutionSource</span>;
+  <span class="kw">readonly</span> trust: <span class="tp">TenantTrustLevel</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Readonly</span>&lt;<span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantResolutionResult</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantResolutionResult</span> {
+  <span class="kw">readonly</span> resolution: <span class="tp">TenantResolution</span> | <span class="tp">undefined</span>;
+  <span class="kw">readonly</span> candidates: <span class="tp">readonly</span> <span class="tp">TenantResolution</span>[];
+  <span class="kw">readonly</span> conflict: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantResolver</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantResolver</span>&lt;<span class="tp">Context</span> = <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> priority: <span class="tp">number</span>;
+  <span class="fn">resolve</span>(context: <span class="tp">Context</span>): <span class="tp">Promise</span>&lt;<span class="tp">TenantResolution</span> | <span class="tp">undefined</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ResolverChainOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ResolverChainOptions</span> {
+  <span class="kw">readonly</span> detectConflicts?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> throwOnConflict?: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantRepository</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantRepository</span> {
+  <span class="fn">findById</span>(id: <span class="tp">TenantId</span>): <span class="tp">Promise</span>&lt;<span class="tp">Tenant</span> | <span class="tp">undefined</span>&gt;;
+  <span class="fn">findBySlug</span>?(slug: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">Tenant</span> | <span class="tp">undefined</span>&gt;;
+  <span class="fn">findByDomain</span>?(domain: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">Tenant</span> | <span class="tp">undefined</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantCache</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantCache</span> {
+  <span class="fn">get</span>(id: <span class="tp">TenantId</span>): <span class="tp">Promise</span>&lt;<span class="tp">Tenant</span> | <span class="tp">undefined</span>&gt;;
+  <span class="fn">set</span>(tenant: <span class="tp">Tenant</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">delete</span>(id: <span class="tp">TenantId</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantManager</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantManager</span> {
+  <span class="fn">resolve</span>(context: <span class="tp">unknown</span>): <span class="tp">Promise</span>&lt;<span class="tp">Tenant</span> | <span class="tp">undefined</span>&gt;;
+  <span class="fn">get</span>(id: <span class="tp">TenantId</span>): <span class="tp">Promise</span>&lt;<span class="tp">Tenant</span> | <span class="tp">undefined</span>&gt;;
+  <span class="fn">require</span>(id: <span class="tp">TenantId</span>): <span class="tp">Promise</span>&lt;<span class="tp">Tenant</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantProvisioner</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantProvisioner</span> {
+  <span class="fn">provision</span>(tenant: <span class="tp">Tenant</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantIsolationConfig</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantIsolationConfig</span> {
+  <span class="kw">readonly</span> strategy: <span class="tp">TenantIsolationStrategy</span>;
+  <span class="kw">readonly</span> identifier?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenantConfigurationProvider</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantConfigurationProvider</span> {
+  <span class="fn">get</span>&lt;<span class="tp">T</span> = <span class="tp">unknown</span>&gt;(tenantId: <span class="tp">TenantId</span>, key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">T</span> | <span class="tp">undefined</span>&gt;;
+  <span class="fn">set</span>&lt;<span class="tp">T</span> = <span class="tp">unknown</span>&gt;(tenantId: <span class="tp">TenantId</span>, key: <span class="tp">string</span>, value: <span class="tp">T</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TenancyOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenancyOptions</span> {
+  <span class="kw">readonly</span> resolvers?: <span class="tp">readonly</span> <span class="tp">TenantResolver</span>[];
+  <span class="kw">readonly</span> repository?: <span class="tp">TenantRepository</span>;
+  <span class="kw">readonly</span> cache?: <span class="tp">TenantCache</span>;
+  <span class="kw">readonly</span> provisioner?: <span class="tp">TenantProvisioner</span>;
+  <span class="kw">readonly</span> configuration?: <span class="tp">TenantConfigurationProvider</span>;
+  <span class="kw">readonly</span> defaultRequirement?: <span class="tp">TenantRequirement</span>;
+  <span class="kw">readonly</span> detectConflicts?: <span class="tp">boolean</span>;
+}</div>
+      </section>
+
+      <!-- Tenant ID -->
+      <section id="tenant-id" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TENANT ID</h2>
+        <p class="mb-4">
+          <code class="bg-black/5 px-1">TenantId</code> is a branded string type that prevents accidental misuse. Use <code class="bg-black/5 px-1">createTenantId()</code> to create validated instances.
+        </p>
+
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createTenantId</span>, <span class="kw">type</span> <span class="tp">TenantId</span> } <span class="kw">from</span> <span class="str">"@zudojs/tenancy"</span>;
+
+<span class="cm">// Create a tenant ID</span>
+<span class="kw">const</span> id = <span class="fn">createTenantId</span>(<span class="str">"acme-corp"</span>);
+
+<span class="cm">// TypeScript prevents passing a plain string</span>
+<span class="kw">function</span> <span class="fn">getTenant</span>(id: <span class="tp">TenantId</span>) { <span class="cm">/* ... */</span> }
+<span class="fn">getTenant</span>(<span class="str">"acme-corp"</span>);   <span class="cm">// ❌ Type error</span>
+<span class="fn">getTenant</span>(id);              <span class="cm">// ✅ Works</span></div>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Why Branded Types?</strong> Branded types catch bugs at compile time. You can't accidentally mix up a <code>TenantId</code> with a regular string or another branded type like <code>UserId</code>.
+        </div>
+      </section>
+
+      <!-- Context -->
+      <section id="context" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CONTEXT</h2>
+        <p class="mb-4">
+          Tenant context is propagated through <code class="bg-black/5 px-1">AsyncLocalStorage</code>. All async code within a <code class="bg-black/5 px-1">run()</code> call automatically has access to the current tenant.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">TenantContextStorage</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantContextStorage</span> {
+  <span class="fn">get</span>(): <span class="tp">ExecutionTenantContext</span> | <span class="tp">undefined</span>;
+  <span class="fn">run</span>&lt;<span class="tp">T</span>&gt;(context: <span class="tp">ExecutionTenantContext</span>, callback: () => <span class="tp">T</span>): <span class="tp">T</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory Functions</h3>
+        <div class="code-block"><span class="cm">// Create a new storage instance</span>
+<span class="kw">function</span> <span class="fn">createTenantContextStorage</span>(): <span class="tp">TenantContextStorage</span>;
+
+<span class="cm">// Get or create the default storage singleton</span>
+<span class="kw">function</span> <span class="fn">getDefaultStorage</span>(): <span class="tp">TenantContextStorage</span>;
+
+<span class="cm">// Reset default storage (for testing)</span>
+<span class="kw">function</span> <span class="fn">resetDefaultStorage</span>(): <span class="tp">void</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ContextManagerOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ContextManagerOptions</span> {
+  <span class="kw">readonly</span> storage: <span class="tp">TenantContextStorage</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createContextManager</h3>
+        <p class="mb-3 text-sm">Creates a high-level context manager with convenience methods:</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createContextManager</span>(options: <span class="tp">ContextManagerOptions</span>): {
+  <span class="cm">/** Get current execution context (tenant or system). */</span>
+  <span class="fn">getCurrent</span>(): <span class="tp">ExecutionTenantContext</span> | <span class="tp">undefined</span>;
+
+  <span class="cm">/** Get current tenant, if in tenant mode. */</span>
+  <span class="fn">getCurrentTenant</span>(): <span class="tp">Tenant</span> | <span class="tp">undefined</span>;
+
+  <span class="cm">/** Require current tenant — throws TenantContextMissingError if absent. */</span>
+  <span class="fn">requireCurrentTenant</span>(): <span class="tp">Tenant</span>;
+
+  <span class="cm">/** Check if running in system mode (no tenant). */</span>
+  <span class="fn">isSystemMode</span>(): <span class="tp">boolean</span>;
+
+  <span class="cm">/** Run callback within a tenant context. */</span>
+  <span class="fn">run</span>&lt;<span class="tp">T</span>&gt;(tenant: <span class="tp">Tenant</span>, callback: () => <span class="tp">T</span>): <span class="tp">T</span>;
+
+  <span class="cm">/** Run callback in system mode (no tenant). */</span>
+  <span class="fn">runSystem</span>&lt;<span class="tp">T</span>&gt;(callback: () => <span class="tp">T</span>): <span class="tp">T</span>;
+
+  <span class="cm">/** Run callback with a specific tenant (alias for run). */</span>
+  <span class="fn">runAs</span>&lt;<span class="tp">T</span>&gt;(tenant: <span class="tp">Tenant</span>, callback: () => <span class="tp">T</span>): <span class="tp">T</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example: Context Propagation</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createContextManager</span>,
+  <span class="fn">getDefaultStorage</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/tenancy"</span>;
+
+<span class="kw">const</span> ctx = <span class="fn">createContextManager</span>({
+  storage: <span class="fn">getDefaultStorage</span>(),
+});
+
+<span class="cm">// Run within tenant context</span>
+ctx.<span class="fn">run</span>(tenant, () => {
+  console.<span class="fn">log</span>(ctx.<span class="fn">getCurrentTenant</span>()); <span class="cm">// Tenant { id: "acme", ... }</span>
+
+  <span class="cm">// Async operations automatically inherit context</span>
+  <span class="kw">await</span> <span class="fn">loadOrders</span>(); <span class="cm">// Can access ctx.getCurrentTenant() inside</span>
+});
+
+<span class="cm">// System mode (no tenant)</span>
+ctx.<span class="fn">runSystem</span>(() => {
+  console.<span class="fn">log</span>(ctx.<span class="fn">isSystemMode</span>()); <span class="cm">// true</span>
+  console.<span class="fn">log</span>(ctx.<span class="fn">getCurrentTenant</span>()); <span class="cm">// undefined</span>
+});</div>
+      </section>
+
+      <!-- Resolvers -->
+      <section id="resolvers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">RESOLVERS</h2>
+        <p class="mb-4">
+          Resolvers extract tenant identity from a context. Chain multiple resolvers together — they run in priority order with optional conflict detection.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">createResolverChain</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createResolverChain</span>&lt;<span class="tp">Context</span> = <span class="tp">unknown</span>&gt;(
+  resolvers: <span class="tp">readonly</span> <span class="tp">TenantResolver</span>&lt;<span class="tp">Context</span>&gt;[],
+  options?: <span class="tp">ResolverChainOptions</span>,
+): {
+  <span class="fn">resolve</span>(context: <span class="tp">Context</span>): <span class="tp">Promise</span>&lt;<span class="tp">TenantResolutionResult</span>&gt;;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createHeaderResolver</h3>
+        <p class="mb-3 text-sm">Reads tenant ID from an HTTP header. Default header: <code>x-tenant-id</code>. Default priority: <code>80</code>.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">HeaderResolverOptions</span> {
+  <span class="kw">readonly</span> headerName?: <span class="tp">string</span>;  <span class="cm">// default: "x-tenant-id"</span>
+  <span class="kw">readonly</span> priority?: <span class="tp">number</span>;    <span class="cm">// default: 80</span>
+}
+
+<span class="kw">function</span> <span class="fn">createHeaderResolver</span>(
+  options?: <span class="tp">HeaderResolverOptions</span>,
+): <span class="tp">TenantResolver</span>&lt;<span class="tp">HeaderContext</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createSubdomainResolver</h3>
+        <p class="mb-3 text-sm">Extracts tenant from subdomain. E.g. <code>acme.example.com</code> → <code>"acme"</code>. Default priority: <code>70</code>.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">SubdomainResolverOptions</span> {
+  <span class="kw">readonly</span> baseDomain?: <span class="tp">string</span>;  <span class="cm">// e.g. "example.com"</span>
+  <span class="kw">readonly</span> priority?: <span class="tp">number</span>;    <span class="cm">// default: 70</span>
+}
+
+<span class="kw">function</span> <span class="fn">createSubdomainResolver</span>(
+  options?: <span class="tp">SubdomainResolverOptions</span>,
+): <span class="tp">TenantResolver</span>&lt;<span class="tp">SubdomainContext</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createPathResolver</h3>
+        <p class="mb-3 text-sm">Extracts tenant from URL path. E.g. <code>/acme/users</code> → <code>"acme"</code>. Default priority: <code>60</code>. Trust: <code>untrusted</code>.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PathResolverOptions</span> {
+  <span class="kw">readonly</span> prefix?: <span class="tp">string</span>;      <span class="cm">// prefix to strip, e.g. "/tenant"</span>
+  <span class="kw">readonly</span> priority?: <span class="tp">number</span>;    <span class="cm">// default: 60</span>
+}
+
+<span class="kw">function</span> <span class="fn">createPathResolver</span>(
+  options?: <span class="tp">PathResolverOptions</span>,
+): <span class="tp">TenantResolver</span>&lt;<span class="tp">PathContext</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createJwtResolver</h3>
+        <p class="mb-3 text-sm">Reads tenant ID from JWT claims. Default claim key: <code>tenant_id</code>. Default priority: <code>100</code>. Trust: <code>trusted</code>.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">JwtResolverOptions</span> {
+  <span class="kw">readonly</span> claimKey?: <span class="tp">string</span>;    <span class="cm">// default: "tenant_id"</span>
+  <span class="kw">readonly</span> priority?: <span class="tp">number</span>;    <span class="cm">// default: 100</span>
+}
+
+<span class="kw">function</span> <span class="fn">createJwtResolver</span>(
+  options?: <span class="tp">JwtResolverOptions</span>,
+): <span class="tp">TenantResolver</span>&lt;<span class="tp">JwtContext</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Priority Defaults</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Resolver</th>
+                <th class="p-3 text-left">Default Priority</th>
+                <th class="p-3 text-left">Trust Level</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">jwt</td><td class="p-3">100</td><td class="p-3">trusted</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">header</td><td class="p-3">80</td><td class="p-3">verified</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">subdomain</td><td class="p-3">70</td><td class="p-3">verified</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">path</td><td class="p-3">60</td><td class="p-3">untrusted</td></tr>
+              <tr><td class="p-3 font-mono">custom</td><td class="p-3">varies</td><td class="p-3">varies</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Repository -->
+      <section id="repository" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">REPOSITORY</h2>
+
+        <h3 class="text-lg font-bold mb-3">createMemoryTenantRepository</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createMemoryTenantRepository</span>(): <span class="tp">TenantRepository</span> &amp; {
+  <span class="fn">add</span>(tenant: <span class="tp">Tenant</span>): <span class="tp">void</span>;
+  <span class="fn">remove</span>(id: <span class="tp">TenantId</span>): <span class="tp">void</span>;
+  <span class="fn">all</span>(): <span class="tp">readonly</span> <span class="tp">Tenant</span>[];
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createDomainRegistry</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createDomainRegistry</span>(): {
+  <span class="fn">register</span>(domain: <span class="tp">string</span>, tenantId: <span class="tp">TenantId</span>): <span class="tp">void</span>;
+  <span class="fn">unregister</span>(domain: <span class="tp">string</span>): <span class="tp">void</span>;
+  <span class="fn">resolve</span>(domain: <span class="tp">string</span>): <span class="tp">TenantId</span> | <span class="tp">undefined</span>;
+  <span class="fn">all</span>(): <span class="tp">readonly</span> <span class="tp">TenantDomain</span>[];
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createTenantManager</h3>
+        <p class="mb-3 text-sm">High-level orchestration with cache-aside pattern:</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantManagerOptions</span> {
+  <span class="kw">readonly</span> repository: <span class="tp">TenantRepository</span>;
+  <span class="kw">readonly</span> cache?: <span class="tp">TenantCache</span>;
+  <span class="kw">readonly</span> storage: <span class="tp">TenantContextStorage</span>;
+}
+
+<span class="kw">function</span> <span class="fn">createTenantManager</span>(options: <span class="tp">TenantManagerOptions</span>): {
+  <span class="cm">/** Resolve tenant from a resolution result. */</span>
+  <span class="fn">resolve</span>(resolution: <span class="tp">TenantResolution</span>): <span class="tp">Promise</span>&lt;<span class="tp">Tenant</span> | <span class="tp">undefined</span>&gt;;
+
+  <span class="cm">/** Get tenant by ID. */</span>
+  <span class="fn">get</span>(id: <span class="tp">TenantId</span>): <span class="tp">Promise</span>&lt;<span class="tp">Tenant</span> | <span class="tp">undefined</span>&gt;;
+
+  <span class="cm">/** Require tenant by ID — throws TenantNotFoundError if missing. */</span>
+  <span class="fn">require</span>(id: <span class="tp">TenantId</span>): <span class="tp">Promise</span>&lt;<span class="tp">Tenant</span>&gt;;
+
+  <span class="cm">/** Validate tenant is in "active" status — throws TenantUnavailableError. */</span>
+  <span class="fn">assertActive</span>(tenant: <span class="tp">Tenant</span>): <span class="tp">void</span>;
+
+  <span class="cm">/** Get current tenant from AsyncLocalStorage context. */</span>
+  <span class="fn">getCurrent</span>(): <span class="tp">Tenant</span> | <span class="tp">undefined</span>;
+
+  <span class="cm">/** Invalidate cached tenant. */</span>
+  <span class="fn">invalidate</span>(id: <span class="tp">TenantId</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+};</div>
+      </section>
+
+      <!-- Security -->
+      <section id="security" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SECURITY</h2>
+
+        <div class="code-block"><span class="cm">/** Get default trust level for a resolution source. */</span>
+<span class="kw">function</span> <span class="fn">getDefaultTrust</span>(source: <span class="tp">TenantResolutionSource</span>): <span class="tp">TenantTrustLevel</span>;
+
+<span class="cm">/** Validate tenant is in "active" status. Throws TenantUnavailableError. */</span>
+<span class="kw">function</span> <span class="fn">assertTenantUsable</span>(tenant: <span class="tp">Tenant</span>): <span class="tp">void</span>;
+
+<span class="cm">/** Validate resource belongs to tenant. Throws TenantIsolationError. */</span>
+<span class="kw">function</span> <span class="fn">assertTenantOwnership</span>(
+  resource: <span class="tp">TenantResource</span>,
+  tenantId: <span class="tp">TenantId</span>,
+): <span class="tp">void</span>;
+
+<span class="cm">/** Validate trust level meets requirement. Throws TenantAccessDeniedError. */</span>
+<span class="kw">function</span> <span class="fn">assertTrustLevel</span>(
+  actual: <span class="tp">TenantTrustLevel</span>,
+  required: <span class="tp">TenantTrustLevel</span>,
+  source: <span class="tp">TenantResolutionSource</span>,
+): <span class="tp">void</span>;
+
+<span class="cm">/** Create a tenant-scoped key string. */</span>
+<span class="kw">function</span> <span class="fn">tenantKey</span>(
+  tenantId: <span class="tp">TenantId</span>,
+  key: <span class="tp">string</span>,
+  separator?: <span class="tp">string</span>,
+): <span class="tp">string</span>;
+
+<span class="cm">/** Create a tenant-scoped cache key. */</span>
+<span class="kw">function</span> <span class="fn">createTenantCacheKey</span>(tenantId: <span class="tp">TenantId</span>, key: <span class="tp">string</span>): <span class="tp">string</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Default Trust Map</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Source</th>
+                <th class="p-3 text-left">Default Trust</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">jwt</td><td class="p-3">trusted</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">api-key</td><td class="p-3">trusted</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">manual</td><td class="p-3">trusted</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">system</td><td class="p-3">trusted</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">header</td><td class="p-3">verified</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">subdomain</td><td class="p-3">verified</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">domain</td><td class="p-3">verified</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">path</td><td class="p-3">untrusted</td></tr>
+              <tr><td class="p-3 font-mono">custom</td><td class="p-3">untrusted</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- HTTP Middleware -->
+      <section id="http-middleware" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP MIDDLEWARE</h2>
+        <p class="mb-4">
+          Middleware factories for <code class="bg-black/5 px-1">@zudojs/http</code> integration. Requires the optional <code class="bg-black/5 px-1">@zudojs/http</code> peer dependency.
+        </p>
+
+        <h3 class="text-lg font-bold mb-3">createResolveTenantMiddleware</h3>
+        <p class="mb-3 text-sm">Resolves the tenant from the request and stores it in context state and AsyncLocalStorage.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ResolveTenantMiddlewareOptions</span> {
+  <span class="kw">readonly</span> resolver: <span class="tp">TenantResolver</span>;
+  <span class="kw">readonly</span> repository: <span class="tp">TenantRepository</span>;
+  <span class="kw">readonly</span> storage: <span class="tp">TenantContextStorage</span>;
+  <span class="kw">readonly</span> notFoundResponse?: (
+    resolution: <span class="tp">TenantResolution</span> | <span class="tp">undefined</span>,
+  ) => <span class="tp">unknown</span>;
+}
+
+<span class="kw">function</span> <span class="fn">createResolveTenantMiddleware</span>(
+  options: <span class="tp">ResolveTenantMiddlewareOptions</span>,
+): <span class="tp">HttpMiddleware</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createRequireTenantMiddleware</h3>
+        <p class="mb-3 text-sm">Enforces tenant presence. Must run after <code>createResolveTenantMiddleware</code>.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">RequireTenantMiddlewareOptions</span> {
+  <span class="kw">readonly</span> requirement?: <span class="tp">TenantRequirement</span>;  <span class="cm">// default: "required"</span>
+  <span class="kw">readonly</span> deniedResponse?: (tenant: <span class="tp">Tenant</span> | <span class="tp">undefined</span>) => <span class="tp">unknown</span>;
+}
+
+<span class="kw">function</span> <span class="fn">createRequireTenantMiddleware</span>(
+  options?: <span class="tp">RequireTenantMiddlewareOptions</span>,
+): <span class="tp">HttpMiddleware</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createTenantGuardMiddleware</h3>
+        <p class="mb-3 text-sm">Validates that the resolved tenant is in "active" status before proceeding.</p>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TenantGuardMiddlewareOptions</span> {
+  <span class="kw">readonly</span> storage: <span class="tp">TenantContextStorage</span>;
+  <span class="kw">readonly</span> repository: <span class="tp">TenantRepository</span>;
+}
+
+<span class="kw">function</span> <span class="fn">createTenantGuardMiddleware</span>(
+  options: <span class="tp">TenantGuardMiddlewareOptions</span>,
+): <span class="tp">HttpMiddleware</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createTenantPropagationMiddleware</h3>
+        <p class="mb-3 text-sm">Propagates tenant context from request state into AsyncLocalStorage for downstream handlers.</p>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createTenantPropagationMiddleware</span>(
+  storage: <span class="tp">TenantContextStorage</span>,
+): <span class="tp">HttpMiddleware</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Middleware Stack Example</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createResolveTenantMiddleware</span>,
+  <span class="fn">createRequireTenantMiddleware</span>,
+  <span class="fn">createTenantGuardMiddleware</span>,
+  <span class="fn">createTenantPropagationMiddleware</span>,
+  <span class="fn">getDefaultStorage</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/tenancy"</span>;
+
+<span class="kw">const</span> storage = <span class="fn">getDefaultStorage</span>();
+
+<span class="cm">// Apply in order:</span>
+app.<span class="fn">use</span>(<span class="fn">createResolveTenantMiddleware</span>({ resolver, repository, storage }));
+app.<span class="fn">use</span>(<span class="fn">createRequireTenantMiddleware</span>({ requirement: <span class="str">"required"</span> }));
+app.<span class="fn">use</span>(<span class="fn">createTenantGuardMiddleware</span>({ storage, repository }));
+app.<span class="fn">use</span>(<span class="fn">createTenantPropagationMiddleware</span>(storage));</div>
+      </section>
+
+      <!-- HTTP Helpers -->
+      <section id="http-helpers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP HELPERS</h2>
+        <p class="mb-4">Response helper functions for tenancy middleware error cases.</p>
+
+        <div class="code-block"><span class="cm">/** Create a JSON error response with status code. */</span>
+<span class="kw">function</span> <span class="fn">createJsonErrorResponse</span>(
+  status: <span class="tp">number</span>,
+  message: <span class="tp">string</span>,
+): {
+  <span class="kw">readonly</span> status: <span class="tp">number</span>;
+  <span class="kw">readonly</span> body: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+};
+
+<span class="cm">/** Create a 400 Bad Request response. */</span>
+<span class="kw">function</span> <span class="fn">createBadRequest</span>(message: <span class="tp">string</span>): <span class="tp">HttpResponse</span>;
+
+<span class="cm">/** Create a 401 Unauthorized response. */</span>
+<span class="kw">function</span> <span class="fn">createUnauthorized</span>(message: <span class="tp">string</span>): <span class="tp">HttpResponse</span>;
+
+<span class="cm">/** Create a 403 Forbidden response. */</span>
+<span class="kw">function</span> <span class="fn">createForbidden</span>(message: <span class="tp">string</span>): <span class="tp">HttpResponse</span>;
+
+<span class="cm">/** Create a 404 Not Found response. */</span>
+<span class="kw">function</span> <span class="fn">createNotFound</span>(message: <span class="tp">string</span>): <span class="tp">HttpResponse</span>;</div>
+      </section>
+
+      <!-- Utilities -->
+      <section id="utilities" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">UTILITIES</h2>
+
+        <div class="code-block"><span class="cm">/** Check if a tenant is in "active" status. */</span>
+<span class="kw">function</span> <span class="fn">isTenantActive</span>(tenant: <span class="tp">Tenant</span>): <span class="tp">boolean</span>;
+
+<span class="cm">/** Check if two tenant IDs match. */</span>
+<span class="kw">function</span> <span class="fn">sameTenant</span>(a: <span class="tp">TenantId</span>, b: <span class="tp">TenantId</span>): <span class="tp">boolean</span>;
+
+<span class="cm">/** Create a tenant summary string for logging. */</span>
+<span class="kw">function</span> <span class="fn">summarizeTenant</span>(tenant: <span class="tp">Tenant</span>): <span class="tp">string</span>;
+<span class="cm">// → "Tenant(acme, Acme Corp, active)"</span>
+
+<span class="cm">/** Create a tenant context summary string for logging. */</span>
+<span class="kw">function</span> <span class="fn">summarizeContext</span>(ctx: <span class="tp">TenantContext</span>): <span class="tp">string</span>;
+<span class="cm">// → "TenantContext(acme, source=header, trust=verified)"</span></div>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="error-hierarchy" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudojs/errors</code> and re-exported by this package. The base <code class="bg-black/5 px-1">TenantError</code> extends <code class="bg-black/5 px-1">AuthorizationError</code>.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">TenantError</td><td class="p-3">Base error for all tenancy failures</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">InvalidTenantIdError</td><td class="p-3">Tenant ID is empty or invalid</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">TenantNotFoundError</td><td class="p-3">Tenant with given ID does not exist</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">TenantContextMissingError</td><td class="p-3">Required tenant context not in AsyncLocalStorage</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">TenantResolutionError</td><td class="p-3">Tenant resolution failed</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">TenantResolutionConflictError</td><td class="p-3">Multiple resolvers returned different tenants</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">TenantUnavailableError</td><td class="p-3">Tenant is not in an usable state (not active)</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">TenantAccessDeniedError</td><td class="p-3">Insufficient trust level or access denied</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">TenantAlreadyExistsError</td><td class="p-3">Tenant with identifier already exists</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">TenantProvisioningError</td><td class="p-3">Tenant setup/provisioning failed</td></tr>
+              <tr><td class="p-3 font-mono">TenantIsolationError</td><td class="p-3">Tenant isolation violation detected</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Handling Pattern</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">TenantNotFoundError</span>,
+  <span class="tp">TenantUnavailableError</span>,
+  <span class="tp">TenantIsolationError</span>,
+  <span class="tp">TenantContextMissingError</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/tenancy"</span>;
+
+<span class="kw">try</span> {
+  <span class="kw">const</span> tenant = <span class="kw">await</span> manager.<span class="fn">require</span>(id);
+  manager.<span class="fn">assertActive</span>(tenant);
+  <span class="fn">assertTenantOwnership</span>(resource, tenant.id);
+} <span class="kw">catch</span> (error) {
+  <span class="kw">if</span> (error <span class="kw">instanceof</span> <span class="tp">TenantNotFoundError</span>) {
+    <span class="cm">// 404 — tenant doesn't exist</span>
+  } <span class="kw">else if</span> (error <span class="kw">instanceof</span> <span class="tp">TenantUnavailableError</span>) {
+    <span class="cm">// 403 — tenant is suspended/inactive</span>
+  } <span class="kw">else if</span> (error <span class="kw">instanceof</span> <span class="tp">TenantIsolationError</span>) {
+    <span class="cm">// 403 — accessing wrong tenant's resource</span>
+  } <span class="kw">else if</span> (error <span class="kw">instanceof</span> <span class="tp">TenantContextMissingError</span>) {
+    <span class="cm">// 401 — no tenant context in request</span>
+  }
+}</div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete working example: tenant resolution, context propagation, middleware, and guard enforcement.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createTenantId</span>,
+  <span class="fn">createHeaderResolver</span>,
+  <span class="fn">createSubdomainResolver</span>,
+  <span class="fn">createResolverChain</span>,
+  <span class="fn">createMemoryTenantRepository</span>,
+  <span class="fn">createTenantManager</span>,
+  <span class="fn">createContextManager</span>,
+  <span class="fn">getDefaultStorage</span>,
+  <span class="fn">assertTenantUsable</span>,
+  <span class="fn">assertTenantOwnership</span>,
+  <span class="fn">isTenantActive</span>,
+  <span class="fn">sameTenant</span>,
+  <span class="fn">createResolveTenantMiddleware</span>,
+  <span class="fn">createRequireTenantMiddleware</span>,
+  <span class="fn">createTenantGuardMiddleware</span>,
+  <span class="fn">createTenantPropagationMiddleware</span>,
+  <span class="fn">createForbidden</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/tenancy"</span>;
+<span class="kw">import</span> <span class="kw">type</span> { <span class="tp">Tenant</span>, <span class="tp">TenantId</span> } <span class="kw">from</span> <span class="str">"@zudojs/tenancy"</span>;
+
+<span class="cm">// 1. Create tenant IDs</span>
+<span class="kw">const</span> acmeId = <span class="fn">createTenantId</span>(<span class="str">"acme-corp"</span>);
+<span class="kw">const</span> globexId = <span class="fn">createTenantId</span>(<span class="str">"globex-inc"</span>);
+
+<span class="cm">// 2. Set up repository</span>
+<span class="kw">const</span> repo = <span class="fn">createMemoryTenantRepository</span>();
+repo.<span class="fn">add</span>({
+  id: acmeId,
+  name: <span class="str">"Acme Corp"</span>,
+  slug: <span class="str">"acme"</span>,
+  status: <span class="str">"active"</span>,
+  metadata: { plan: <span class="str">"enterprise"</span> },
+});
+repo.<span class="fn">add</span>({
+  id: globexId,
+  name: <span class="str">"Globex Inc"</span>,
+  slug: <span class="str">"globex"</span>,
+  status: <span class="str">"suspended"</span>,
+  metadata: { plan: <span class="str">"starter"</span> },
+});
+
+<span class="cm">// 3. Set up resolvers</span>
+<span class="kw">const</span> headerResolver = <span class="fn">createHeaderResolver</span>({
+  headerName: <span class="str">"x-tenant-id"</span>,
+  priority: <span class="num">80</span>,
+});
+<span class="kw">const</span> subdomainResolver = <span class="fn">createSubdomainResolver</span>({
+  baseDomain: <span class="str">"example.com"</span>,
+  priority: <span class="num">70</span>,
+});
+
+<span class="kw">const</span> chain = <span class="fn">createResolverChain</span>(
+  [headerResolver, subdomainResolver],
+  { detectConflicts: <span class="num">true</span> },
+);
+
+<span class="cm">// 4. Set up context manager</span>
+<span class="kw">const</span> storage = <span class="fn">getDefaultStorage</span>();
+<span class="kw">const</span> ctxManager = <span class="fn">createContextManager</span>({ storage });
+
+<span class="cm">// 5. Set up tenant manager</span>
+<span class="kw">const</span> tenantManager = <span class="fn">createTenantManager</span>({
+  repository: repo,
+  storage,
+});
+
+<span class="cm">// 6. HTTP middleware stack</span>
+app.<span class="fn">use</span>(<span class="fn">createResolveTenantMiddleware</span>({
+  resolver: headerResolver,
+  repository: repo,
+  storage,
+}));
+app.<span class="fn">use</span>(<span class="fn">createRequireTenantMiddleware</span>({
+  requirement: <span class="str">"required"</span>,
+}));
+app.<span class="fn">use</span>(<span class="fn">createTenantGuardMiddleware</span>({ storage, repository: repo }));
+app.<span class="fn">use</span>(<span class="fn">createTenantPropagationMiddleware</span>(storage));
+
+<span class="cm">// 7. Route handler — tenant context is automatic</span>
+app.<span class="fn">get</span>(<span class="str">"/api/orders"</span>, <span class="kw">async</span> (req) => {
+  <span class="cm">// Tenant is already resolved and in context</span>
+  <span class="kw">const</span> tenant = ctxManager.<span class="fn">requireCurrentTenant</span>();
+  <span class="fn">assertTenantUsable</span>(tenant);
+
+  <span class="kw">const</span> orders = <span class="kw">await</span> <span class="fn">loadOrdersForTenant</span>(tenant.id);
+  <span class="kw">return</span> { orders };
+});
+
+<span class="cm">// 8. Guard a resource against wrong-tenant access</span>
+app.<span class="fn">get</span>(<span class="str">"/api/orders/:orderId"</span>, <span class="kw">async</span> (req) => {
+  <span class="kw">const</span> tenant = ctxManager.<span class="fn">requireCurrentTenant</span>();
+  <span class="kw">const</span> order = <span class="kw">await</span> <span class="fn">loadOrder</span>(req.params.orderId);
+
+  <span class="cm">// Ensure order belongs to current tenant</span>
+  <span class="fn">assertTenantOwnership</span>(order, tenant.id);
+
+  <span class="kw">return</span> { order };
+});
+
+<span class="cm">// 9. Run async operations within tenant context</span>
+<span class="kw">async function</span> <span class="fn">processWebhook</span>(tenantId: <span class="tp">TenantId</span>, payload: <span class="tp">unknown</span>) {
+  <span class="kw">const</span> tenant = <span class="kw">await</span> tenantManager.<span class="fn">require</span>(tenantId);
+
+  <span class="kw">return</span> ctxManager.<span class="fn">run</span>(tenant, <span class="kw">async</span> () => {
+    <span class="cm">// All async calls here inherit the tenant context</span>
+    <span class="kw">const</span> config = <span class="kw">await</span> <span class="fn">loadTenantConfig</span>(tenant.id);
+    <span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">handlePayload</span>(config, payload);
+    <span class="kw">return</span> result;
+  });
+}
+
+<span class="cm">// 10. System-level operations (no tenant)</span>
+<span class="kw">async function</span> <span class="fn">runSystemJob</span>() {
+  <span class="kw">return</span> ctxManager.<span class="fn">runSystem</span>(<span class="kw">async</span> () => {
+    <span class="cm">// No tenant context — system-level access</span>
+    <span class="kw">const</span> allTenants = repo.<span class="fn">all</span>();
+    <span class="kw">for</span> (<span class="kw">const</span> t <span class="kw">of</span> allTenants) {
+      <span class="kw">if</span> (<span class="fn">isTenantActive</span>(t)) {
+        <span class="kw">await</span> <span class="fn">sendBillingCycleEmail</span>(t);
+      }
+    }
+  });
+}</div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#architecture-position" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#types" class="toc-link">Types</a>
+      <a href="#interfaces" class="toc-link">Interfaces</a>
+      <a href="#tenant-id" class="toc-link">Tenant ID</a>
+      <a href="#context" class="toc-link">Context</a>
+      <a href="#resolvers" class="toc-link">Resolvers</a>
+      <a href="#repository" class="toc-link">Repository</a>
+      <a href="#security" class="toc-link">Security</a>
+      <a href="#http-middleware" class="toc-link">HTTP Middleware</a>
+      <a href="#http-helpers" class="toc-link">HTTP Helpers</a>
+      <a href="#utilities" class="toc-link">Utilities</a>
+      <a href="#error-hierarchy" class="toc-link">Error Hierarchy</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>

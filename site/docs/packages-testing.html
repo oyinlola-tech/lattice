@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/testing — Testing Utilities Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/testing — mock functions, spies, fixtures, assertions, test clock, and test utilities for the Zudojs ecosystem.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+      <a href="/docs/packages-testing" class="sidebar-item sidebar-item-active">@zudojs/testing</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/testing</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.1.0</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/testing</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Testing utilities for the Zudojs ecosystem. Mock functions, spies, stubs, test clock, cleanup management, HTTP builders, assertion helpers, fixture factories, and full test context — everything you need for comprehensive testing.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">TESTING</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">MOCKS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">FIXTURES</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">ASSERTIONS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">VITEST</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/testing
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/testing
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/testing</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/testing depends on 14 packages: @zudojs/config, @zudojs/constants, @zudojs/container, @zudojs/errors, @zudojs/events, @zudojs/http, @zudojs/logger, @zudojs/messaging, @zudojs/middleware, @zudojs/queue, @zudojs/security, @zudojs/serialization, @zudojs/storage, @zudojs/types, @zudojs/validation. All at version 0.1.0.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/testing</code> provides a complete testing toolkit for Zudojs applications:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Mock functions</strong> with call tracking and return value control</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Spy functions</strong> for wrapping real implementations with call recording</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Stub and stub class generators</strong> for replacing implementations</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Test clock</strong> for time control — advance, set, and reset simulated time</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Cleanup manager</strong> for resource disposal tracking</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Test context</strong> combining clock, cleanup, log/event/message recorders</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Test container</strong> with dependency overrides for DI testing</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Spy logger</strong> with call filtering by method, message, or metadata</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Test config manager</strong> for configuration testing</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Test event bus</strong> with published event recording</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Test message bus</strong> with dispatched message recording</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Test queue</strong> with job recording</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>HTTP request/response builders</strong> with fluent API</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Assertion helpers</strong> for HTTP, errors, events, messages, serialization</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>In-memory test storage</strong> for isolated storage testing</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Fixture factories</strong> for events and messages</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Test application</strong> combining container, logger, clock, cleanup</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Tests should be fast, isolated, and deterministic. @zudojs/testing gives you tools that make every part of your Zudojs application testable without external dependencies.
+        </div>
+      </section>
+
+      <!-- Where It Sits -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm border-2 border-black">TEST APPLICATION</div>
+          <div class="grid grid-cols-4 gap-2 my-2">
+            <div class="bg-zudo-blue text-white p-2 font-bold text-center text-xs border-2 border-black">Mocking</div>
+            <div class="bg-zudo-yellow text-black p-2 font-bold text-center text-xs border-2 border-black">Assertions</div>
+            <div class="bg-zudo-green text-black p-2 font-bold text-center text-xs border-2 border-black">Fixtures</div>
+            <div class="bg-black text-white p-2 font-bold text-center text-xs border-2 border-black">HTTP</div>
+          </div>
+          <div class="grid grid-cols-4 gap-2 my-2">
+            <div class="bg-zudo-red text-black p-2 font-bold text-center text-xs border-2 border-black">Clock</div>
+            <div class="bg-zudo-blue text-white p-2 font-bold text-center text-xs border-2 border-black">Container</div>
+            <div class="bg-zudo-yellow text-black p-2 font-bold text-center text-xs border-2 border-black">Context</div>
+            <div class="bg-zudo-green text-black p-2 font-bold text-center text-xs border-2 border-black">EventBus</div>
+          </div>
+          <div class="grid grid-cols-4 gap-2 my-2">
+            <div class="bg-black text-white p-2 font-bold text-center text-xs border-2 border-black">MessageBus</div>
+            <div class="bg-zudo-red text-black p-2 font-bold text-center text-xs border-2 border-black">Queue</div>
+            <div class="bg-zudo-blue text-white p-2 font-bold text-center text-xs border-2 border-black">Config</div>
+            <div class="bg-zudo-yellow text-black p-2 font-bold text-center text-xs border-2 border-black">Logger</div>
+          </div>
+          <div class="grid grid-cols-2 gap-2 my-2">
+            <div class="bg-zudo-green text-black p-2 font-bold text-center text-xs border-2 border-black">Serialization</div>
+            <div class="bg-zudo-red text-black p-2 font-bold text-center text-xs border-2 border-black">Storage / Cleanup</div>
+          </div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm mt-2">APPLICATION LAYER (CQRS, Events, Modules)</div>
+          <div class="bg-black text-white p-3 font-bold text-center text-sm">RUNTIME / CORE</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          Testing utilities wrap every major Zudojs package. They sit alongside your application code during tests, providing controlled alternatives to production implementations.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/config</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">TestConfigManager wraps config sources</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/constants</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Branded types and shared constants</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/container</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">TestContainer wraps DI container with overrides</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Error types for assertion helpers</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/events</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">TestEventBus records published events</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/http</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">HTTP request/response builders</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/logger</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">SpyLogger captures log calls</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/messaging</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">TestMessageBus records dispatched messages</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/middleware</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Middleware testing support</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/queue</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">TestQueue records enqueued jobs</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/security</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Security assertion helpers</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/serialization</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Serialization round-trip assertion helpers</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/storage</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">InMemoryTestStorage for isolated tests</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/types</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Type guards and utility types</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/validation</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Validation assertion helpers</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.1.0</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <!-- Cleanup Manager -->
+      <section id="cleanup-manager" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CLEANUP MANAGER</h2>
+        <p class="mb-4">Tracks resources that need disposal after tests. Registers cleanup functions and disposes them in reverse order.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: CleanupManager</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">CleanupManager</span> {
+  <span class="kw">readonly</span> disposed: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> count: <span class="tp">number</span>;
+  <span class="fn">register</span>(entry: <span class="tp">CleanupEntry</span>): <span class="tp">void</span>;
+  <span class="fn">dispose</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: CleanupEntry</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">CleanupEntry</span> = {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> fn: () => <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt; | <span class="tp">void</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: CleanupManagerOptions</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">CleanupManagerOptions</span> = {
+  <span class="kw">readonly</span> onError?: (error: <span class="tp">Error</span>, name: <span class="tp">string</span>) => <span class="tp">void</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createCleanupManager</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createCleanupManager</span>(
+  options?: <span class="tp">CleanupManagerOptions</span>
+): <span class="tp">CleanupManager</span>;</div>
+
+        <div class="callout callout-tip mt-4">
+          <strong class="text-zudo-green">Best Practice:</strong> Always call <code>cleanup.dispose()</code> in your test teardown. The cleanup manager runs entries in reverse registration order.
+        </div>
+      </section>
+
+      <!-- Test Clock -->
+      <section id="test-clock" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TEST CLOCK</h2>
+        <p class="mb-4">Deterministic time control for tests. Advance, set, and reset simulated time without waiting for real time to pass.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: TestClock</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TestClock</span> {
+  <span class="kw">readonly</span> now: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+  <span class="fn">set</span>(date: <span class="tp">Date</span> | <span class="tp">number</span>): <span class="tp">void</span>;
+  <span class="fn">advance</span>(ms: <span class="tp">number</span>): <span class="tp">void</span>;
+  <span class="fn">add</span>(duration: <span class="tp">Partial</span>&lt;<span class="tp">Duration</span>&gt;): <span class="tp">void</span>;
+  <span class="fn">reset</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createTestClock</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createTestClock</span>(
+  initialTime?: <span class="tp">Date</span> | <span class="tp">number</span>
+): <span class="tp">TestClock</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createTestClock</span> } <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="kw">const</span> clock = <span class="fn">createTestClock</span>(<span class="kw">new</span> <span class="fn">Date</span>(<span class="str">"2026-01-01T00:00:00Z"</span>));
+
+expect(clock.timestamp).<span class="fn">toBe</span>(<span class="num">1735689600000</span>);
+
+clock.<span class="fn">advance</span>(<span class="num">60000</span>); <span class="cm">// +1 minute</span>
+expect(clock.now.<span class="fn">toISOString</span>()).<span class="fn">toBe</span>(<span class="str">"2026-01-01T00:01:00.000Z"</span>);
+
+clock.<span class="fn">add</span>({ hours: <span class="num">2</span> }); <span class="cm">// +2 hours</span>
+expect(clock.now.<span class="fn">getHours</span>()).<span class="fn">toBe</span>(<span class="num">2</span>);
+
+clock.<span class="fn">reset</span>(); <span class="cm">// Back to original time</span></div>
+      </section>
+
+      <!-- Test Context -->
+      <section id="test-context" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TEST CONTEXT</h2>
+        <p class="mb-4">Combines clock, cleanup, and recorders into a single test context. Create one context per test for full isolation.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: TestContext</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TestContext</span> {
+  <span class="kw">readonly</span> clock: <span class="tp">TestClock</span>;
+  <span class="kw">readonly</span> cleanup: <span class="tp">CleanupManager</span>;
+  <span class="kw">readonly</span> logs: <span class="tp">LogRecorder</span>;
+  <span class="kw">readonly</span> events: <span class="tp">EventRecorder</span>;
+  <span class="kw">readonly</span> messages: <span class="tp">MessageRecorder</span>;
+  <span class="fn">dispose</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: TestContextOptions</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TestContextOptions</span> = {
+  <span class="kw">readonly</span> initialTime?: <span class="tp">Date</span> | <span class="tp">number</span>;
+  <span class="kw">readonly</span> onError?: (error: <span class="tp">Error</span>) => <span class="tp">void</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createTestContext</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createTestContext</span>(
+  options?: <span class="tp">TestContextOptions</span>
+): <span class="tp">TestContext</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LogRecorder</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LogRecorder</span> {
+  <span class="kw">readonly</span> entries: <span class="tp">readonly</span> <span class="tp">CapturedLogEntry</span>[];
+  <span class="kw">readonly</span> count: <span class="tp">number</span>;
+  <span class="fn">record</span>(entry: <span class="tp">CapturedLogEntry</span>): <span class="tp">void</span>;
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+  <span class="fn">findByLevel</span>(level: <span class="tp">string</span>): <span class="tp">CapturedLogEntry</span>[];
+  <span class="fn">findByMessage</span>(pattern: <span class="tp">string</span> | <span class="tp">RegExp</span>): <span class="tp">CapturedLogEntry</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: CapturedLogEntry</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">CapturedLogEntry</span> = {
+  <span class="kw">readonly</span> level: <span class="tp">string</span>;
+  <span class="kw">readonly</span> message: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: EventRecorder</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">EventRecorder</span> {
+  <span class="kw">readonly</span> entries: <span class="tp">readonly</span> <span class="tp">CapturedEvent</span>[];
+  <span class="kw">readonly</span> count: <span class="tp">number</span>;
+  <span class="fn">record</span>(entry: <span class="tp">CapturedEvent</span>): <span class="tp">void</span>;
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+  <span class="fn">findByType</span>(type: <span class="tp">string</span>): <span class="tp">CapturedEvent</span>[];
+  <span class="fn">findByPayload</span>(predicate: (payload: <span class="tp">unknown</span>) => <span class="tp">boolean</span>): <span class="tp">CapturedEvent</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: CapturedEvent</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">CapturedEvent</span> = {
+  <span class="kw">readonly</span> type: <span class="tp">string</span>;
+  <span class="kw">readonly</span> payload: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: MessageRecorder</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">MessageRecorder</span> {
+  <span class="kw">readonly</span> entries: <span class="tp">readonly</span> <span class="tp">CapturedMessage</span>[];
+  <span class="kw">readonly</span> count: <span class="tp">number</span>;
+  <span class="fn">record</span>(entry: <span class="tp">CapturedMessage</span>): <span class="tp">void</span>;
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+  <span class="fn">findByType</span>(type: <span class="tp">string</span>): <span class="tp">CapturedMessage</span>[];
+  <span class="fn">findByCorrelationId</span>(id: <span class="tp">string</span>): <span class="tp">CapturedMessage</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: CapturedMessage</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">CapturedMessage</span> = {
+  <span class="kw">readonly</span> type: <span class="tp">string</span>;
+  <span class="kw">readonly</span> payload: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> correlationId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createTestContext</span> } <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="kw">const</span> ctx = <span class="fn">createTestContext</span>();
+
+<span class="cm">// Use the clock</span>
+ctx.clock.<span class="fn">advance</span>(<span class="num">5000</span>);
+
+<span class="cm">// Record and query logs</span>
+ctx.logs.<span class="fn">record</span>({ level: <span class="str">"info"</span>, message: <span class="str">"started"</span>, timestamp: Date.<span class="fn">now</span>() });
+expect(ctx.logs.<span class="fn">findByLevel</span>(<span class="str">"info"</span>)).toHaveLength(<span class="num">1</span>);
+
+<span class="cm">// Dispose everything</span>
+<span class="kw">await</span> ctx.<span class="fn">dispose</span>();</div>
+      </section>
+
+      <!-- Test Container -->
+      <section id="test-container" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TEST CONTAINER</h2>
+        <p class="mb-4">Wraps the DI container with dependency overrides for isolated testing. Register real or mock dependencies per test.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: TestContainer</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TestContainer</span> {
+  <span class="kw">readonly</span> container: <span class="tp">Container</span>;
+  <span class="fn">resolve</span>&lt;<span class="tp">T</span>&gt;(token: <span class="tp">Token</span>&lt;<span class="tp">T</span>&gt;): <span class="tp">T</span>;
+  <span class="fn">has</span>(token: <span class="tp">Token</span>&lt;<span class="tp">unknown</span>&gt;): <span class="tp">boolean</span>;
+  <span class="fn">dispose</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: DependencyOverride</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">DependencyOverride</span>&lt;<span class="tp">T</span>&gt; = {
+  <span class="kw">readonly</span> token: <span class="tp">Token</span>&lt;<span class="tp">T</span>&gt;;
+  <span class="kw">readonly</span> value: <span class="tp">T</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: TestContainerOptions</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TestContainerOptions</span> = {
+  <span class="kw">readonly</span> overrides?: <span class="tp">DependencyOverride</span>&lt;<span class="tp">unknown</span>&gt;[];
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createTestContainer</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createTestContainer</span>(
+  options?: <span class="tp">TestContainerOptions</span>
+): <span class="tp">TestContainer</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createTestContainer</span> } <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="kw">const</span> tc = <span class="fn">createTestContainer</span>({
+  overrides: [
+    { token: <span class="str">"DatabaseService"</span>, value: <span class="fn">createMockDatabase</span>() },
+    { token: <span class="str">"CacheService"</span>, value: <span class="fn">createMockCache</span>() },
+  ],
+});
+
+<span class="kw">const</span> db = tc.<span class="fn">resolve</span>(<span class="str">"DatabaseService"</span>);
+expect(db.query).toBeDefined();
+
+<span class="kw">await</span> tc.<span class="fn">dispose</span>();</div>
+      </section>
+
+      <!-- Spy Logger -->
+      <section id="spy-logger" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SPY LOGGER</h2>
+        <p class="mb-4">Captures log calls with filtering by method, message content, or metadata. Useful for asserting that specific log output occurred.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: SpyLogger</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">SpyLogger</span> {
+  <span class="kw">readonly</span> calls: <span class="tp">readonly</span> <span class="tp">LogCall</span>[];
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+  <span class="fn">findByMethod</span>(method: <span class="tp">string</span>): <span class="tp">LogCall</span>[];
+  <span class="fn">findByMessage</span>(pattern: <span class="tp">string</span> | <span class="tp">RegExp</span>): <span class="tp">LogCall</span>[];
+  <span class="fn">findByMetadata</span>(predicate: (meta: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;) => <span class="tp">boolean</span>): <span class="tp">LogCall</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: LogCall</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">LogCall</span> = {
+  <span class="kw">readonly</span> method: <span class="tp">string</span>;
+  <span class="kw">readonly</span> args: <span class="tp">readonly</span> <span class="tp">unknown</span>[];
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createSpyLogger</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createSpyLogger</span>(): <span class="tp">SpyLogger</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createSpyLogger</span> } <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="kw">const</span> spy = <span class="fn">createSpyLogger</span>();
+spy.<span class="fn">findByMethod</span>(<span class="str">"info"</span>); <span class="cm">// All info calls</span>
+spy.<span class="fn">findByMessage</span>(<span class="str">/user.*created/i</span>); <span class="cm">// Messages matching regex</span>
+spy.<span class="fn">findByMetadata</span>((m) => m.userId === <span class="str">"123"</span>); <span class="cm">// By metadata</span></div>
+      </section>
+
+      <!-- Test Config -->
+      <section id="test-config" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TEST CONFIG</h2>
+        <p class="mb-4">Wraps the configuration manager for test-specific config values. Override, set, and query config without touching real config files.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: TestConfigManager</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TestConfigManager</span> {
+  <span class="kw">readonly</span> manager: <span class="tp">ConfigManager</span>;
+  <span class="fn">set</span>&lt;<span class="tp">T</span>&gt;(key: <span class="tp">string</span>, value: <span class="tp">T</span>): <span class="tp">void</span>;
+  <span class="fn">get</span>&lt;<span class="tp">T</span>&gt;(key: <span class="tp">string</span>): <span class="tp">T</span> | <span class="tp">undefined</span>;
+  <span class="fn">load</span>(source: <span class="tp">ConfigSource</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">getStatus</span>(): <span class="tp">ConfigStatus</span>;
+  <span class="fn">dispose</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createTestConfigManager</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createTestConfigManager</span>(
+  initialConfig?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;
+): <span class="tp">TestConfigManager</span>;</div>
+      </section>
+
+      <!-- Test Event Bus -->
+      <section id="test-event-bus" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TEST EVENT BUS</h2>
+        <p class="mb-4">Wraps the event bus with published event recording. Assert that specific events were published with expected payloads.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: TestEventBus</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TestEventBus</span> {
+  <span class="kw">readonly</span> bus: <span class="tp">EventBus</span>;
+  <span class="kw">readonly</span> published: <span class="tp">readonly</span> <span class="tp">RecordedEvent</span>[];
+  <span class="fn">publish</span>(type: <span class="tp">string</span>, payload: <span class="tp">unknown</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">findByType</span>(type: <span class="tp">string</span>): <span class="tp">RecordedEvent</span>[];
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+  <span class="fn">dispose</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: RecordedEvent</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">RecordedEvent</span> = {
+  <span class="kw">readonly</span> type: <span class="tp">string</span>;
+  <span class="kw">readonly</span> payload: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createTestEventBus</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createTestEventBus</span>(): <span class="tp">TestEventBus</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createTestEventBus</span> } <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="kw">const</span> bus = <span class="fn">createTestEventBus</span>();
+<span class="kw">await</span> bus.<span class="fn">publish</span>(<span class="str">"user.created"</span>, { id: <span class="str">"123"</span> });
+
+expect(bus.published).toHaveLength(<span class="num">1</span>);
+expect(bus.<span class="fn">findByType</span>(<span class="str">"user.created"</span>)).toHaveLength(<span class="num">1</span>);
+
+<span class="kw">await</span> bus.<span class="fn">dispose</span>();</div>
+      </section>
+
+      <!-- Test Message Bus -->
+      <section id="test-message-bus" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TEST MESSAGE BUS</h2>
+        <p class="mb-4">Wraps the message bus with dispatched message recording. Assert that specific messages were sent with expected payloads.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: TestMessageBus</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TestMessageBus</span> {
+  <span class="kw">readonly</span> bus: <span class="tp">MessageBus</span>;
+  <span class="kw">readonly</span> dispatched: <span class="tp">readonly</span> <span class="tp">RecordedMessage</span>[];
+  <span class="fn">send</span>(type: <span class="tp">string</span>, payload: <span class="tp">unknown</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">findByType</span>(type: <span class="tp">string</span>): <span class="tp">RecordedMessage</span>[];
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+  <span class="fn">dispose</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: RecordedMessage</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">RecordedMessage</span> = {
+  <span class="kw">readonly</span> type: <span class="tp">string</span>;
+  <span class="kw">readonly</span> payload: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> correlationId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createTestMessageBus</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createTestMessageBus</span>(): <span class="tp">TestMessageBus</span>;</div>
+      </section>
+
+      <!-- Test Queue -->
+      <section id="test-queue" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TEST QUEUE</h2>
+        <p class="mb-4">Wraps the queue with job recording. Assert that specific jobs were enqueued with expected data.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: TestQueue</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TestQueue</span> {
+  <span class="kw">readonly</span> queue: <span class="tp">Queue</span>;
+  <span class="kw">readonly</span> jobs: <span class="tp">readonly</span> <span class="tp">RecordedJob</span>[];
+  <span class="fn">add</span>(name: <span class="tp">string</span>, data: <span class="tp">unknown</span>): <span class="tp">Promise</span>&lt;<span class="tp">string</span>&gt;;
+  <span class="fn">findByName</span>(name: <span class="tp">string</span>): <span class="tp">RecordedJob</span>[];
+  <span class="fn">getStats</span>(): { total: <span class="tp">number</span>; byName: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">number</span>&gt; };
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+  <span class="fn">close</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: RecordedJob</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">RecordedJob</span> = {
+  <span class="kw">readonly</span> id: <span class="tp">string</span>;
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> data: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> timestamp: <span class="tp">number</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createTestQueue</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createTestQueue</span>(): <span class="tp">TestQueue</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createTestQueue</span> } <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="kw">const</span> q = <span class="fn">createTestQueue</span>();
+<span class="kw">await</span> q.<span class="fn">add</span>(<span class="str">"send-email"</span>, { to: <span class="str">"user@test.com"</span> });
+
+expect(q.jobs).toHaveLength(<span class="num">1</span>);
+expect(q.<span class="fn">findByName</span>(<span class="str">"send-email"</span>)).toHaveLength(<span class="num">1</span>);
+
+<span class="kw">const</span> stats = q.<span class="fn">getStats</span>();
+expect(stats.total).<span class="fn">toBe</span>(<span class="num">1</span>);
+
+<span class="kw">await</span> q.<span class="fn">close</span>();</div>
+      </section>
+
+      <!-- HTTP Testing -->
+      <section id="http-testing" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HTTP TESTING</h2>
+        <p class="mb-4">Fluent builders for constructing test HTTP requests and responses. No real HTTP calls needed.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: TestHTTPRequest</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TestHTTPRequest</span> = {
+  <span class="kw">readonly</span> method: <span class="tp">string</span>;
+  <span class="kw">readonly</span> url: <span class="tp">string</span>;
+  <span class="kw">readonly</span> path: <span class="tp">string</span>;
+  <span class="kw">readonly</span> headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+  <span class="kw">readonly</span> query: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+  <span class="kw">readonly</span> params: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+  <span class="kw">readonly</span> body?: <span class="tp">unknown</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: TestHTTPResponse</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TestHTTPResponse</span> = {
+  <span class="kw">readonly</span> status: <span class="tp">number</span>;
+  <span class="kw">readonly</span> headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+  <span class="kw">readonly</span> body: <span class="tp">unknown</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: HTTPRequestBuilder</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">HTTPRequestBuilder</span> {
+  <span class="kw">static</span> <span class="fn">GET</span>(url: <span class="tp">string</span>): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="kw">static</span> <span class="fn">POST</span>(url: <span class="tp">string</span>): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="kw">static</span> <span class="fn">PUT</span>(url: <span class="tp">string</span>): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="kw">static</span> <span class="fn">PATCH</span>(url: <span class="tp">string</span>): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="kw">static</span> <span class="fn">DELETE</span>(url: <span class="tp">string</span>): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="kw">static</span> <span class="fn">HEAD</span>(url: <span class="tp">string</span>): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="kw">static</span> <span class="fn">OPTIONS</span>(url: <span class="tp">string</span>): <span class="tp">HTTPRequestBuilder</span>;
+
+  <span class="fn">withHeader</span>(key: <span class="tp">string</span>, value: <span class="tp">string</span>): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="fn">withHeaders</span>(headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="fn">withQuery</span>(params: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="fn">withParam</span>(key: <span class="tp">string</span>, value: <span class="tp">string</span>): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="fn">withBody</span>(body: <span class="tp">unknown</span>): <span class="tp">HTTPRequestBuilder</span>;
+  <span class="fn">build</span>(): <span class="tp">TestHTTPRequest</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: HTTPResponseBuilder</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">HTTPResponseBuilder</span> {
+  <span class="kw">static</span> <span class="fn">create</span>(): <span class="tp">HTTPResponseBuilder</span>;
+
+  <span class="fn">status</span>(code: <span class="tp">number</span>): <span class="tp">HTTPResponseBuilder</span>;
+  <span class="fn">header</span>(key: <span class="tp">string</span>, value: <span class="tp">string</span>): <span class="tp">HTTPResponseBuilder</span>;
+  <span class="fn">headers</span>(headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;): <span class="tp">HTTPResponseBuilder</span>;
+  <span class="fn">json</span>(data: <span class="tp">unknown</span>): <span class="tp">HTTPResponseBuilder</span>;
+  <span class="fn">text</span>(content: <span class="tp">string</span>): <span class="tp">HTTPResponseBuilder</span>;
+  <span class="fn">html</span>(content: <span class="tp">string</span>): <span class="tp">HTTPResponseBuilder</span>;
+  <span class="fn">empty</span>(): <span class="tp">HTTPResponseBuilder</span>;
+  <span class="fn">build</span>(): <span class="tp">TestHTTPResponse</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Factory Functions</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createTestHTTPRequest</span>(options: {
+  method?: <span class="tp">string</span>;
+  url?: <span class="tp">string</span>;
+  path?: <span class="tp">string</span>;
+  headers?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+  query?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+  params?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+  body?: <span class="tp">unknown</span>;
+}): <span class="tp">TestHTTPRequest</span>;
+
+<span class="kw">function</span> <span class="fn">createHTTPRequest</span>(): <span class="tp">HTTPRequestBuilder</span>;
+<span class="kw">function</span> <span class="fn">createTestHTTPResponse</span>(options: {
+  status?: <span class="tp">number</span>;
+  headers?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+  body?: <span class="tp">unknown</span>;
+}): <span class="tp">TestHTTPResponse</span>;
+
+<span class="kw">function</span> <span class="fn">createHTTPResponse</span>(): <span class="tp">HTTPResponseBuilder</span>;
+<span class="kw">function</span> <span class="fn">jsonResponse</span>(data: <span class="tp">unknown</span>): <span class="tp">TestHTTPResponse</span>;
+<span class="kw">function</span> <span class="fn">createdResponse</span>(data: <span class="tp">unknown</span>): <span class="tp">TestHTTPResponse</span>;
+<span class="kw">function</span> <span class="fn">noContentResponse</span>(): <span class="tp">TestHTTPResponse</span>;
+<span class="kw">function</span> <span class="fn">badRequestResponse</span>(error: <span class="tp">string</span>): <span class="tp">TestHTTPResponse</span>;
+<span class="kw">function</span> <span class="fn">notFoundResponse</span>(): <span class="tp">TestHTTPResponse</span>;
+<span class="kw">function</span> <span class="fn">serverErrorResponse</span>(error: <span class="tp">string</span>): <span class="tp">TestHTTPResponse</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">HTTPRequestBuilder</span>,
+  <span class="fn">jsonResponse</span>,
+  <span class="fn">createdResponse</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="cm">// Build a request</span>
+<span class="kw">const</span> req = <span class="tp">HTTPRequestBuilder</span>
+  .<span class="fn">POST</span>(<span class="str">"/api/users"</span>)
+  .<span class="fn">withHeader</span>(<span class="str">"Content-Type"</span>, <span class="str">"application/json"</span>)
+  .<span class="fn">withBody</span>({ name: <span class="str">"Alice"</span>, email: <span class="str">"alice@test.com"</span> })
+  .<span class="fn">build</span>();
+
+expect(req.method).<span class="fn">toBe</span>(<span class="str">"POST"</span>);
+expect(req.body).toEqual({ name: <span class="str">"Alice"</span>, email: <span class="str">"alice@test.com"</span> });
+
+<span class="cm">// Quick response builders</span>
+<span class="kw">const</span> res = <span class="fn">jsonResponse</span>({ id: <span class="str">"1"</span>, name: <span class="str">"Alice"</span> });
+expect(res.status).<span class="fn">toBe</span>(<span class="num">200</span>);
+
+<span class="kw">const</span> created = <span class="fn">createdResponse</span>({ id: <span class="str">"1"</span> });
+expect(created.status).<span class="fn">toBe</span>(<span class="num">201</span>);</div>
+      </section>
+
+      <!-- Mocking -->
+      <section id="mocking" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">MOCKING</h2>
+        <p class="mb-4">Mock functions, spy functions, spy methods, stubs, and stub class generators for isolating units under test.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: MockFn</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">MockFn</span>&lt;<span class="tp">T</span> <span class="kw">extends</span> (...args: <span class="tp">unknown</span>[]) => <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> calls: <span class="tp">readonly</span> <span class="tp">unknown</span>[][];
+  <span class="kw">readonly</span> results: <span class="tp">readonly</span> { value: <span class="tp">unknown</span>; thrown?: <span class="tp">Error</span> }[];
+  <span class="kw">readonly</span> invoked: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> callCount: <span class="tp">number</span>;
+  <span class="fn">mockReturnValue</span>(value: <span class="tp">unknown</span>): <span class="tp">MockFn</span>&lt;<span class="tp">T</span>&gt;;
+  <span class="fn">mockResolvedValue</span>(value: <span class="tp">unknown</span>): <span class="tp">MockFn</span>&lt;<span class="tp">T</span>&gt;;
+  <span class="fn">mockRejectedValue</span>(error: <span class="tp">Error</span>): <span class="tp">MockFn</span>&lt;<span class="tp">T</span>&gt;;
+  <span class="fn">mockImplementation</span>(fn: <span class="tp">T</span>): <span class="tp">MockFn</span>&lt;<span class="tp">T</span>&gt;;
+  <span class="fn">mockReset</span>(): <span class="tp">void</span>;
+  <span class="fn">mockClear</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createMockFn</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createMockFn</span>&lt;<span class="tp">T</span> <span class="kw">extends</span> (...args: <span class="tp">unknown</span>[]) => <span class="tp">unknown</span>&gt;(
+  implementation?: <span class="tp">T</span>
+): <span class="tp">MockFn</span>&lt;<span class="tp">T</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: SpyFn</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">SpyFn</span>&lt;<span class="tp">T</span> <span class="kw">extends</span> (...args: <span class="tp">unknown</span>[]) => <span class="tp">unknown</span>&gt; {
+  <span class="kw">readonly</span> original: <span class="tp">T</span>;
+  <span class="kw">readonly</span> calls: <span class="tp">readonly</span> <span class="tp">unknown</span>[][];
+  <span class="kw">readonly</span> results: <span class="tp">readonly</span> { value: <span class="tp">unknown</span>; thrown?: <span class="tp">Error</span> }[];
+  <span class="kw">readonly</span> callCount: <span class="tp">number</span>;
+  <span class="fn">restore</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createSpyFn</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createSpyFn</span>&lt;<span class="tp">T</span> <span class="kw">extends</span> (...args: <span class="tp">unknown</span>[]) => <span class="tp">unknown</span>&gt;(
+  original: <span class="tp">T</span>
+): <span class="tp">SpyFn</span>&lt;<span class="tp">T</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: SpyMethod</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">SpyMethod</span>&lt;<span class="tp">T</span>&gt; {
+  <span class="kw">readonly</span> object: <span class="tp">T</span>;
+  <span class="kw">readonly</span> property: <span class="tp">string</span>;
+  <span class="kw">readonly</span> calls: <span class="tp">readonly</span> <span class="tp">unknown</span>[][];
+  <span class="kw">readonly</span> callCount: <span class="tp">number</span>;
+  <span class="fn">restore</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createSpyMethod</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createSpyMethod</span>&lt;<span class="tp">T</span>&gt;(
+  object: <span class="tp">T</span>,
+  property: <span class="kw">keyof</span> <span class="tp">T</span>
+): <span class="tp">SpyMethod</span>&lt;<span class="tp">T</span>&gt;;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createStub</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createStub</span>&lt;<span class="tp">T</span>&gt;(
+  overrides: <span class="tp">Partial</span>&lt;<span class="tp">T</span>&gt;
+): <span class="tp">T</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createStubClass</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createStubClass</span>&lt;<span class="tp">T</span>&gt;(
+  base: <span class="kw">new</span> (...args: <span class="tp">unknown</span>[]) => <span class="tp">T</span>,
+  overrides?: <span class="tp">Partial</span>&lt;<span class="tp">T</span>&gt;
+): <span class="kw">new</span> () => <span class="tp">T</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createMockFn</span>,
+  <span class="fn">createSpyFn</span>,
+  <span class="fn">createSpyMethod</span>,
+  <span class="fn">createStub</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="cm">// Mock function</span>
+<span class="kw">const</span> fn = <span class="fn">createMockFn</span>();
+fn.<span class="fn">mockReturnValue</span>(<span class="num">42</span>);
+expect(<span class="fn">fn</span>()).<span class="fn">toBe</span>(<span class="num">42</span>);
+expect(fn.callCount).<span class="fn">toBe</span>(<span class="num">1</span>);
+
+<span class="cm">// Spy function</span>
+<span class="kw">const</span> realFn = (x: <span class="tp">number</span>) => x * <span class="num">2</span>;
+<span class="kw">const</span> spy = <span class="fn">createSpyFn</span>(realFn);
+expect(<span class="fn">spy</span>(<span class="num">5</span>)).<span class="fn">toBe</span>(<span class="num">10</span>);
+expect(spy.callCount).<span class="fn">toBe</span>(<span class="num">1</span>);
+spy.<span class="fn">restore</span>();
+
+<span class="cm">// Stub object</span>
+<span class="kw">const</span> service = <span class="fn">createStub</span>&lt;<span class="tp">UserService</span>&gt;({
+  findById: <span class="kw">async</span> () => ({ id: <span class="str">"1"</span>, name: <span class="str">"Alice"</span> }),
+});
+
+<span class="cm">// Spy method</span>
+<span class="kw">const</span> spyMethod = <span class="fn">createSpyMethod</span>(service, <span class="str">"findById"</span>);
+<span class="kw">await</span> service.<span class="fn">findById</span>(<span class="str">"1"</span>);
+expect(spyMethod.callCount).<span class="fn">toBe</span>(<span class="num">1</span>);
+spyMethod.<span class="fn">restore</span>();</div>
+      </section>
+
+      <!-- Fixtures -->
+      <section id="fixtures" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FIXTURES</h2>
+        <p class="mb-4">Factory functions for creating test events and messages with sensible defaults.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: CreateEventOptions</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">CreateEventOptions</span> = {
+  <span class="kw">readonly</span> type?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> payload?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> timestamp?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: CreateMessageOptions</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">CreateMessageOptions</span> = {
+  <span class="kw">readonly</span> type?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> payload?: <span class="tp">unknown</span>;
+  <span class="kw">readonly</span> correlationId?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> timestamp?: <span class="tp">number</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Functions</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createEvent</span>(options?: <span class="tp">CreateEventOptions</span>): <span class="tp">CapturedEvent</span>;
+<span class="kw">function</span> <span class="fn">createEventInput</span>(options?: <span class="tp">CreateEventOptions</span>): <span class="tp">EventInput</span>;
+<span class="kw">function</span> <span class="fn">createEvents</span>(count: <span class="tp">number</span>, options?: <span class="tp">CreateEventOptions</span>): <span class="tp">CapturedEvent</span>[];
+
+<span class="kw">function</span> <span class="fn">createMessage</span>(options?: <span class="tp">CreateMessageOptions</span>): <span class="tp">CapturedMessage</span>;
+<span class="kw">function</span> <span class="fn">createMessageInput</span>(options?: <span class="tp">CreateMessageOptions</span>): <span class="tp">MessageInput</span>;
+<span class="kw">function</span> <span class="fn">createMessages</span>(count: <span class="tp">number</span>, options?: <span class="tp">CreateMessageOptions</span>): <span class="tp">CapturedMessage</span>[];</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">createEvent</span>,
+  <span class="fn">createEvents</span>,
+  <span class="fn">createMessage</span>,
+  <span class="fn">createMessages</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="cm">// Single event with defaults</span>
+<span class="kw">const</span> event = <span class="fn">createEvent</span>();
+expect(event.type).<span class="fn">toBe</span>(<span class="str">"test.event"</span>);
+
+<span class="cm">// Custom event</span>
+<span class="kw">const</span> userEvent = <span class="fn">createEvent</span>({
+  type: <span class="str">"user.created"</span>,
+  payload: { id: <span class="str">"123"</span>, name: <span class="str">"Alice"</span> },
+});
+
+<span class="cm">// Batch</span>
+<span class="kw">const</span> events = <span class="fn">createEvents</span>(<span class="num">5</span>, { type: <span class="str">"item.added"</span> });
+expect(events).toHaveLength(<span class="num">5</span>);</div>
+      </section>
+
+      <!-- Assertions -->
+      <section id="assertions" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ASSERTIONS</h2>
+        <p class="mb-4">Ready-made assertion helpers for HTTP responses, errors, events, messages, and serialization round-trips.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">HTTP Assertions</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">assertResponseStatus</span>(response: <span class="tp">TestHTTPResponse</span>, expected: <span class="tp">number</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertResponseHeader</span>(response: <span class="tp">TestHTTPResponse</span>, key: <span class="tp">string</span>, value: <span class="tp">string</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertResponseBody</span>(response: <span class="tp">TestHTTPResponse</span>, expected: <span class="tp">unknown</span>): <span class="tp">void</span>;
+
+<span class="kw">function</span> <span class="fn">assertOK</span>(response: <span class="tp">TestHTTPResponse</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertCreated</span>(response: <span class="tp">TestHTTPResponse</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertNoContent</span>(response: <span class="tp">TestHTTPResponse</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertBadRequest</span>(response: <span class="tp">TestHTTPResponse</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertNotFound</span>(response: <span class="tp">TestHTTPResponse</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertServerError</span>(response: <span class="tp">TestHTTPResponse</span>): <span class="tp">void</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Assertions</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">assertThrows</span>(
+  fn: () => <span class="tp">unknown</span>,
+  errorType?: <span class="kw">new</span> (...args: <span class="tp">unknown</span>[]) => <span class="tp">Error</span>,
+  message?: <span class="tp">string</span> | <span class="tp">RegExp</span>
+): <span class="tp">void</span>;
+
+<span class="kw">function</span> <span class="fn">assertRejects</span>(
+  fn: () => <span class="tp">Promise</span>&lt;<span class="tp">unknown</span>&gt;,
+  errorType?: <span class="kw">new</span> (...args: <span class="tp">unknown</span>[]) => <span class="tp">Error</span>,
+  message?: <span class="tp">string</span> | <span class="tp">RegExp</span>
+): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+<span class="kw">function</span> <span class="fn">assertErrorCode</span>(error: <span class="tp">Error</span>, code: <span class="tp">string</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertErrorMetadata</span>(
+  error: <span class="tp">Error</span>,
+  predicate: (meta: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;) => <span class="tp">boolean</span>
+): <span class="tp">void</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Event Assertions</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">assertEventType</span>(event: <span class="tp">CapturedEvent</span>, type: <span class="tp">string</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertEventPayload</span>(event: <span class="tp">CapturedEvent</span>, expected: <span class="tp">unknown</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertRecordedEventType</span>(events: <span class="tp">readonly</span> <span class="tp">CapturedEvent</span>[], type: <span class="tp">string</span>): <span class="tp">void</span>;
+<span class="kw">function</span> <span class="fn">assertEventPublished</span>(
+  bus: <span class="tp">TestEventBus</span>,
+  type: <span class="tp">string</span>,
+  payload?: <span class="tp">unknown</span>
+): <span class="tp">void</span>;
+
+<span class="kw">function</span> <span class="fn">assertMessageDispatched</span>(
+  bus: <span class="tp">TestMessageBus</span>,
+  type: <span class="tp">string</span>,
+  payload?: <span class="tp">unknown</span>
+): <span class="tp">void</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Serialization Assertions</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">assertSerializesCorrectly</span>(
+  serializer: <span class="tp">Serializer</span>,
+  value: <span class="tp">unknown</span>
+): <span class="tp">void</span>;
+
+<span class="kw">function</span> <span class="fn">assertSerializesTo</span>(
+  serializer: <span class="tp">Serializer</span>,
+  value: <span class="tp">unknown</span>,
+  expected: <span class="tp">string</span>
+): <span class="tp">void</span>;
+
+<span class="kw">function</span> <span class="fn">assertDeserializesTo</span>(
+  serializer: <span class="tp">Serializer</span>,
+  input: <span class="tp">string</span>,
+  expected: <span class="tp">unknown</span>
+): <span class="tp">void</span>;
+
+<span class="kw">function</span> <span class="fn">assertTypePreservesRoundTrip</span>(
+  serializer: <span class="tp">Serializer</span>,
+  value: <span class="tp">unknown</span>
+): <span class="tp">void</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="fn">assertOK</span>,
+  <span class="fn">assertCreated</span>,
+  <span class="fn">assertBadRequest</span>,
+  <span class="fn">assertThrows</span>,
+  <span class="fn">assertEventPublished</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="cm">// HTTP assertions</span>
+<span class="kw">const</span> res = <span class="fn">jsonResponse</span>({ users: [] });
+<span class="fn">assertOK</span>(res);
+<span class="fn">assertResponseHeader</span>(res, <span class="str">"content-type"</span>, <span class="str">"application/json"</span>);
+
+<span class="cm">// Error assertions</span>
+<span class="fn">assertThrows</span>(
+  () => <span class="fn">throwNotFound</span>(),
+  <span class="tp">NotFoundError</span>,
+  <span class="str">/not found/i</span>
+);
+
+<span class="cm">// Event assertions</span>
+<span class="fn">assertEventPublished</span>(testBus, <span class="str">"user.created"</span>, { id: <span class="str">"123"</span> });</div>
+      </section>
+
+      <!-- Test Application -->
+      <section id="test-application" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TEST APPLICATION</h2>
+        <p class="mb-4">Combines container, logger, clock, and cleanup into a single test application. One object for full test setup.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: TestApplication</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TestApplication</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> container: <span class="tp">TestContainer</span>;
+  <span class="kw">readonly</span> logger: <span class="tp">SpyLogger</span>;
+  <span class="kw">readonly</span> clock: <span class="tp">TestClock</span>;
+  <span class="kw">readonly</span> cleanup: <span class="tp">CleanupManager</span>;
+  <span class="fn">dispose</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Type: TestApplicationOptions</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TestApplicationOptions</span> = {
+  <span class="kw">readonly</span> name?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> overrides?: <span class="tp">DependencyOverride</span>&lt;<span class="tp">unknown</span>&gt;[];
+  <span class="kw">readonly</span> initialTime?: <span class="tp">Date</span> | <span class="tp">number</span>;
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Function: createTestApplication</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createTestApplication</span>(
+  options?: <span class="tp">TestApplicationOptions</span>
+): <span class="tp">TestApplication</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">createTestApplication</span> } <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="kw">const</span> app = <span class="fn">createTestApplication</span>({
+  name: <span class="str">"my-service-test"</span>,
+  overrides: [
+    { token: <span class="str">"DB"</span>, value: <span class="fn">createMockDatabase</span>() },
+  ],
+});
+
+<span class="cm">// Use container</span>
+<span class="kw">const</span> db = app.container.<span class="fn">resolve</span>(<span class="str">"DB"</span>);
+
+<span class="cm">// Use clock</span>
+app.clock.<span class="fn">advance</span>(<span class="num">60000</span>);
+
+<span class="cm">// Check logs</span>
+expect(app.logger.<span class="fn">findByMethod</span>(<span class="str">"error"</span>)).toHaveLength(<span class="num">0</span>);
+
+<span class="cm">// Cleanup</span>
+<span class="kw">await</span> app.<span class="fn">dispose</span>();</div>
+      </section>
+
+      <!-- Test Storage -->
+      <section id="test-storage" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TEST STORAGE</h2>
+        <p class="mb-4">In-memory key-value store for isolated storage testing. No external dependencies required.</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: InMemoryTestStorage</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">InMemoryTestStorage</span> {
+  <span class="kw">constructor</span>(initialData?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;);
+
+  <span class="kw">readonly</span> size: <span class="tp">number</span>;
+
+  <span class="fn">get</span>&lt;<span class="tp">T</span>&gt;(key: <span class="tp">string</span>): <span class="tp">T</span> | <span class="tp">undefined</span>;
+  <span class="fn">set</span>(key: <span class="tp">string</span>, value: <span class="tp">unknown</span>): <span class="tp">void</span>;
+  <span class="fn">delete</span>(key: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">has</span>(key: <span class="tp">string</span>): <span class="tp">boolean</span>;
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+  <span class="fn">keys</span>(): <span class="tp">string</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Example</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">InMemoryTestStorage</span> } <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="kw">const</span> store = <span class="kw">new</span> <span class="tp">InMemoryTestStorage</span>({
+  <span class="str">"users:1"</span>: { id: <span class="str">"1"</span>, name: <span class="str">"Alice"</span> },
+});
+
+store.<span class="fn">set</span>(<span class="str">"users:2"</span>, { id: <span class="str">"2"</span>, name: <span class="str">"Bob"</span> });
+expect(store.size).<span class="fn">toBe</span>(<span class="num">2</span>);
+expect(store.<span class="fn">has</span>(<span class="str">"users:1"</span>)).<span class="fn">toBe</span>(<span class="num">true</span>);
+
+<span class="kw">const</span> user = store.<span class="fn">get</span>(<span class="str">"users:1"</span>);
+expect(user).toEqual({ id: <span class="str">"1"</span>, name: <span class="str">"Alice"</span> });
+
+store.<span class="fn">delete</span>(<span class="str">"users:2"</span>);
+expect(store.<span class="fn">keys</span>()).toEqual([<span class="str">"users:1"</span>]);</div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete working test: context, mocks, HTTP, assertions, clock, cleanup.</p>
+
+        <div class="code-block"><span class="kw">import</span> { <span class="fn">describe</span>, <span class="fn">it</span>, <span class="fn">expect</span>, <span class="fn">beforeEach</span>, <span class="fn">afterEach</span> } <span class="kw">from</span> <span class="str">"vitest"</span>;
+<span class="kw">import</span> {
+  <span class="fn">createTestContext</span>,
+  <span class="fn">createMockFn</span>,
+  <span class="fn">createSpyFn</span>,
+  <span class="fn">HTTPRequestBuilder</span>,
+  <span class="fn">jsonResponse</span>,
+  <span class="fn">createdResponse</span>,
+  <span class="fn">assertOK</span>,
+  <span class="fn">assertCreated</span>,
+  <span class="fn">assertThrows</span>,
+  <span class="fn">assertEventPublished</span>,
+  <span class="tp">InMemoryTestStorage</span>,
+  <span class="fn">createEvent</span>,
+  <span class="fn">createTestEventBus</span>,
+  <span class="fn">createTestApplication</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/testing"</span>;
+
+<span class="fn">describe</span>(<span class="str">"UserService"</span>, () => {
+  <span class="kw">let</span> ctx: <span class="kw">typeof</span> ctx;
+  <span class="kw">let</span> app: <span class="kw">typeof</span> app;
+  <span class="kw">let</span> bus: <span class="kw">typeof</span> bus;
+  <span class="kw">let</span> store: <span class="tp">InMemoryTestStorage</span>;
+
+  <span class="fn">beforeEach</span>(() => {
+    ctx = <span class="fn">createTestContext</span>();
+    app = <span class="fn">createTestApplication</span>({ name: <span class="str">"user-service-test"</span> });
+    bus = <span class="fn">createTestEventBus</span>();
+    store = <span class="kw">new</span> <span class="tp">InMemoryTestStorage</span>();
+  });
+
+  <span class="fn">afterEach</span>(<span class="kw">async</span> () => {
+    <span class="kw">await</span> ctx.<span class="fn">dispose</span>();
+    <span class="kw">await</span> app.<span class="fn">dispose</span>();
+    <span class="kw">await</span> bus.<span class="fn">dispose</span>();
+  });
+
+  <span class="fn">it</span>(<span class="str">"creates a user"</span>, <span class="kw">async</span> () => {
+    <span class="cm">// Mock the repository</span>
+    <span class="kw">const</span> repo = <span class="fn">createMockFn</span>();
+    repo.<span class="fn">mockResolvedValue</span>({ id: <span class="str">"1"</span>, name: <span class="str">"Alice"</span> });
+
+    <span class="cm">// Build test request</span>
+    <span class="kw">const</span> request = <span class="tp">HTTPRequestBuilder</span>
+      .<span class="fn">POST</span>(<span class="str">"/api/users"</span>)
+      .<span class="fn">withBody</span>({ name: <span class="str">"Alice"</span>, email: <span class="str">"alice@test.com"</span> })
+      .<span class="fn">build</span>();
+
+    <span class="cm">// Simulate handler</span>
+    <span class="kw">const</span> user = <span class="kw">await</span> <span class="fn">repo</span>(request.body);
+    <span class="kw">const</span> response = <span class="fn">createdResponse</span>(user);
+
+    <span class="cm">// Assert HTTP response</span>
+    <span class="fn">assertCreated</span>(response);
+    expect(response.body).toEqual({ id: <span class="str">"1"</span>, name: <span class="str">"Alice"</span> });
+
+    <span class="cm">// Store and verify</span>
+    store.<span class="fn">set</span>(<span class="str">`users:${user.id}`</span>, user);
+    expect(store.size).<span class="fn">toBe</span>(<span class="num">1</span>);
+
+    <span class="cm">// Assert event was published</span>
+    <span class="kw">await</span> bus.<span class="fn">publish</span>(<span class="str">"user.created"</span>, user);
+    <span class="fn">assertEventPublished</span>(bus, <span class="str">"user.created"</span>, { id: <span class="str">"1"</span> });
+  });
+
+  <span class="fn">it</span>(<span class="str">"validates user data"</span>, () => {
+    <span class="fn">assertThrows</span>(() => {
+      <span class="fn">validateUser</span>({ name: <span class="str">""</span> });
+    }, <span class="tp">ValidationError</span>, <span class="str">/name is required/i</span>);
+  });
+
+  <span class="fn">it</span>(<span class="str">"advances time for expiry checks"</span>, () => {
+    ctx.clock.<span class="fn">set</span>(<span class="kw">new</span> <span class="fn">Date</span>(<span class="str">"2026-01-01"</span>));
+    expect(isTokenExpired(<span class="str">"2026-01-02"</span>)).<span class="fn">toBe</span>(<span class="num">false</span>);
+
+    ctx.clock.<span class="fn">advance</span>(<span class="num">86400000</span>); <span class="cm">// +1 day</span>
+    expect(isTokenExpired(<span class="str">"2026-01-02"</span>)).<span class="fn">toBe</span>(<span class="num">true</span>);
+  });
+
+  <span class="fn">it</span>(<span class="str">"tracks cleanup"</span>, <span class="kw">async</span> () => {
+    <span class="kw">const</span> cleanupFn = <span class="fn">createMockFn</span>();
+    ctx.cleanup.<span class="fn">register</span>({ name: <span class="str">"db-connection"</span>, fn: cleanupFn });
+
+    expect(ctx.cleanup.count).<span class="fn">toBe</span>(<span class="num">1</span>);
+
+    <span class="kw">await</span> ctx.<span class="fn">dispose</span>();
+    expect(cleanupFn.callCount).<span class="fn">toBe</span>(<span class="num">1</span>);
+  });
+});</div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#architecture-position" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#cleanup-manager" class="toc-link">Cleanup Manager</a>
+      <a href="#test-clock" class="toc-link">Test Clock</a>
+      <a href="#test-context" class="toc-link">Test Context</a>
+      <a href="#test-container" class="toc-link">Test Container</a>
+      <a href="#spy-logger" class="toc-link">Spy Logger</a>
+      <a href="#test-config" class="toc-link">Test Config</a>
+      <a href="#test-event-bus" class="toc-link">Test Event Bus</a>
+      <a href="#test-message-bus" class="toc-link">Test Message Bus</a>
+      <a href="#test-queue" class="toc-link">Test Queue</a>
+      <a href="#http-testing" class="toc-link">HTTP Testing</a>
+      <a href="#mocking" class="toc-link">Mocking</a>
+      <a href="#fixtures" class="toc-link">Fixtures</a>
+      <a href="#assertions" class="toc-link">Assertions</a>
+      <a href="#test-application" class="toc-link">Test Application</a>
+      <a href="#test-storage" class="toc-link">Test Storage</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>

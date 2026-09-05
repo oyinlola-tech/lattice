@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/storage — Storage Infrastructure Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/storage — database, object storage, repository, serialization, locking, and lifecycle abstractions.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-storage" class="sidebar-item sidebar-item-active">@zudojs/storage</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/storage</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.1.0</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/storage</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Storage infrastructure for the Zudojs framework. Database abstraction with connection pooling, transaction support with savepoints, generic repository pattern, object storage, distributed locking, lifecycle management, and health checking.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">STORAGE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">DATABASE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">OBJECT</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">REPOSITORY</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">LOCKING</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">LIFECYCLE</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">HEALTH</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/storage
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/storage
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/storage</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/storage depends on @zudojs/errors, @zudojs/constants, @zudojs/types, and @zudojs/serialization. All at version 0.1.0.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/storage</code> is the storage infrastructure layer for the Zudojs framework. It provides:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Database abstraction</strong> with connection pooling, backpressure, and health checks</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Transaction support</strong> with isolation levels and savepoints</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Generic repository pattern</strong> for CRUD operations on any entity</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Local file-based object storage</strong> with path traversal protection</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>In-memory distributed lock manager</strong> with TTL and wait queues</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Storage lifecycle management</strong> with phase transitions (uninitialized → initializing → ready → draining → drained → shutdown)</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Health checking</strong> with component registration and aggregated reports</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>JSON serialization</strong> with type preservation (BigInt, Date, Map, Set, Uint8Array)</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Pool statistics and monitoring</strong> for connection usage tracking</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Graceful drain and shutdown</strong> for all storage components</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> Application code depends on interfaces like <code>Database</code>, <code>ObjectStorage</code>, and <code>Repository</code>. Concrete implementations are swapped without changing business logic.
+        </div>
+      </section>
+
+      <!-- Architecture Position -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6 space-y-3">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">APPLICATION LAYER (CQRS, Events, Modules)</div>
+          <div class="bg-white border-2 border-black p-3 font-bold text-center text-sm">SERVICE LAYER (Business Logic, Repositories)</div>
+          <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm">STORAGE LAYER (@zudojs/storage)</div>
+          <div class="grid grid-cols-6 gap-2 text-center text-xs">
+            <div class="bg-zudo-yellow text-black p-2 font-bold border-2 border-black">Database</div>
+            <div class="bg-zudo-green text-black p-2 font-bold border-2 border-black">ObjectStorage</div>
+            <div class="bg-zudo-red text-black p-2 font-bold border-2 border-black">Repository</div>
+            <div class="bg-zudo-blue text-white p-2 font-bold border-2 border-black">Locking</div>
+            <div class="bg-black text-white p-2 font-bold border-2 border-black">Lifecycle</div>
+            <div class="bg-zudo-yellow text-black p-2 font-bold border-2 border-black">Health</div>
+          </div>
+          <div class="bg-black text-white p-3 font-bold text-center text-sm">EXTERNAL DRIVERS (PostgreSQL, S3, Redis)</div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          The storage layer sits between business logic and external drivers. It defines driver-independent interfaces so application code never touches platform-specific APIs.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">StorageError, NotFoundError, and error codes</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/constants</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Branded types and shared constants</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/types</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Type guards and utility types</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/serialization</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">JSONSerializer for type-preserving serialization</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 callout callout-warning">
+          <strong class="text-zudo-yellow">Version Lock:</strong> All internal dependencies use <code>workspace:*</code> in development. When published, they use exact version <code>0.1.0</code>. Always use matching versions across the ecosystem.
+        </div>
+      </section>
+
+      <!-- Types -->
+      <section id="types" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TYPES</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ConnectionState</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">ConnectionState</span> =
+  | <span class="str">"idle"</span>
+  | <span class="str">"connecting"</span>
+  | <span class="str">"connected"</span>
+  | <span class="str">"disconnecting"</span>
+  | <span class="str">"disconnected"</span>
+  | <span class="str">"error"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TransactionState</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">TransactionState</span> =
+  | <span class="str">"active"</span>
+  | <span class="str">"committed"</span>
+  | <span class="str">"rolledback"</span>
+  | <span class="str">"failed"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">IsolationLevel</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">IsolationLevel</span> =
+  | <span class="str">"read-uncommitted"</span>
+  | <span class="str">"read-committed"</span>
+  | <span class="str">"repeatable-read"</span>
+  | <span class="str">"serializable"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">QueryParameter</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">QueryParameter</span> =
+  | <span class="tp">string</span>
+  | <span class="tp">number</span>
+  | <span class="tp">boolean</span>
+  | <span class="num">null</span>
+  | <span class="tp">Date</span>
+  | <span class="tp">Buffer</span>
+  | <span class="tp">Uint8Array</span>
+  | <span class="tp">bigint</span>
+  | <span class="tp">QueryParameter</span>[];</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">SerializationFormat</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">SerializationFormat</span> = <span class="str">"json"</span> | <span class="str">"msgpack"</span> | <span class="str">"binary"</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">StorageLifecyclePhase</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">StorageLifecyclePhase</span> =
+  | <span class="str">"uninitialized"</span>
+  | <span class="str">"initializing"</span>
+  | <span class="str">"ready"</span>
+  | <span class="str">"draining"</span>
+  | <span class="str">"drained"</span>
+  | <span class="str">"shutdown"</span>;</div>
+      </section>
+
+      <!-- Database -->
+      <section id="database" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DATABASE</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: Database</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Database</span> {
+  <span class="fn">connect</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">disconnect</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">query</span>&lt;<span class="tp">T</span> = <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;(query: <span class="tp">Query</span>): <span class="tp">Promise</span>&lt;<span class="tp">QueryResult</span>&lt;<span class="tp">T</span>&gt;&gt;;
+  <span class="fn">execute</span>(query: <span class="tp">Query</span>): <span class="tp">Promise</span>&lt;<span class="tp">ExecuteResult</span>&gt;;
+  <span class="fn">transaction</span>&lt;<span class="tp">T</span>&gt;(
+    callback: (tx: <span class="tp">Transaction</span>) => <span class="tp">Promise</span>&lt;<span class="tp">T</span>&gt;,
+    options?: <span class="tp">TransactionOptions</span>,
+  ): <span class="tp">Promise</span>&lt;<span class="tp">T</span>&gt;;
+  <span class="fn">healthCheck</span>(): <span class="tp">Promise</span>&lt;<span class="tp">StorageHealth</span>&gt;;
+  <span class="fn">getPoolStats</span>(): <span class="tp">PoolStats</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: Connection</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Connection</span> {
+  <span class="kw">readonly</span> id: <span class="tp">string</span>;
+  <span class="kw">readonly</span> state: <span class="tp">ConnectionState</span>;
+  <span class="fn">query</span>&lt;<span class="tp">T</span> = <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;(query: <span class="tp">Query</span>): <span class="tp">Promise</span>&lt;<span class="tp">QueryResult</span>&lt;<span class="tp">T</span>&gt;&gt;;
+  <span class="fn">execute</span>(query: <span class="tp">Query</span>): <span class="tp">Promise</span>&lt;<span class="tp">ExecuteResult</span>&gt;;
+  <span class="fn">ping</span>(): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+  <span class="fn">close</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: ConnectionPool</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">ConnectionPool</span> {
+  <span class="kw">constructor</span>(
+    factory: () => <span class="tp">Promise</span>&lt;<span class="tp">Connection</span>&gt;,
+    options?: <span class="tp">Partial</span>&lt;<span class="tp">ConnectionPoolOptions</span>&gt;,
+  );
+
+  <span class="cm">/** Initialize the pool with minimum connections. */</span>
+  <span class="fn">initialize</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="cm">/** Acquire a connection from the pool. */</span>
+  <span class="fn">acquire</span>(): <span class="tp">Promise</span>&lt;<span class="tp">Connection</span>&gt;;
+
+  <span class="cm">/** Release a connection back to the pool. */</span>
+  <span class="fn">release</span>(connection: <span class="tp">Connection</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="cm">/** Use a connection and automatically release it. */</span>
+  <span class="fn">use</span>&lt;<span class="tp">T</span>&gt;(fn: (conn: <span class="tp">Connection</span>) => <span class="tp">Promise</span>&lt;<span class="tp">T</span>&gt;): <span class="tp">Promise</span>&lt;<span class="tp">T</span>&gt;;
+
+  <span class="cm">/** Get pool statistics. */</span>
+  <span class="fn">getStats</span>(): <span class="tp">PoolStats</span>;
+
+  <span class="cm">/** Drain all connections gracefully. */</span>
+  <span class="fn">drain</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="cm">/** Check if the pool is healthy. */</span>
+  <span class="fn">healthCheck</span>(): <span class="tp">Promise</span>&lt;{ healthy: <span class="tp">boolean</span>; stats: <span class="tp">PoolStats</span> }&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ConnectionPoolOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ConnectionPoolOptions</span> {
+  <span class="kw">readonly</span> min: <span class="tp">number</span>;
+  <span class="kw">readonly</span> max: <span class="tp">number</span>;
+  <span class="kw">readonly</span> acquireTimeout: <span class="tp">number</span>;
+  <span class="kw">readonly</span> idleTimeout: <span class="tp">number</span>;
+  <span class="kw">readonly</span> connectionTimeout: <span class="tp">number</span>;
+  <span class="kw">readonly</span> maxLifetime: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">PoolStats</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">PoolStats</span> {
+  <span class="kw">readonly</span> total: <span class="tp">number</span>;
+  <span class="kw">readonly</span> idle: <span class="tp">number</span>;
+  <span class="kw">readonly</span> active: <span class="tp">number</span>;
+  <span class="kw">readonly</span> waiting: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: Transaction</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Transaction</span> {
+  <span class="kw">readonly</span> id: <span class="tp">string</span>;
+  <span class="kw">readonly</span> state: <span class="tp">TransactionState</span>;
+  <span class="fn">query</span>&lt;<span class="tp">T</span> = <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;(query: <span class="tp">Query</span>): <span class="tp">Promise</span>&lt;<span class="tp">QueryResult</span>&lt;<span class="tp">T</span>&gt;&gt;;
+  <span class="fn">execute</span>(query: <span class="tp">Query</span>): <span class="tp">Promise</span>&lt;<span class="tp">ExecuteResult</span>&gt;;
+  <span class="fn">savepoint</span>(name: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">rollbackToSavepoint</span>(name: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">TransactionOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">TransactionOptions</span> {
+  <span class="kw">readonly</span> isolationLevel?: <span class="tp">IsolationLevel</span>;
+  <span class="kw">readonly</span> timeout?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> readOnly?: <span class="tp">boolean</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Query, QueryResult, ExecuteResult, FieldInfo</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Query</span> {
+  <span class="kw">readonly</span> text: <span class="tp">string</span>;
+  <span class="kw">readonly</span> parameters?: <span class="kw">readonly</span> <span class="tp">QueryParameter</span>[];
+}
+
+<span class="kw">interface</span> <span class="tp">QueryResult</span>&lt;<span class="tp">T</span> = <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt; {
+  <span class="kw">readonly</span> rows: <span class="kw">readonly</span> <span class="tp">T</span>[];
+  <span class="kw">readonly</span> rowCount: <span class="tp">number</span>;
+  <span class="kw">readonly</span> fields: <span class="kw">readonly</span> <span class="tp">FieldInfo</span>[];
+  <span class="kw">readonly</span> durationMs?: <span class="tp">number</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">ExecuteResult</span> {
+  <span class="kw">readonly</span> rowCount: <span class="tp">number</span>;
+  <span class="kw">readonly</span> durationMs?: <span class="tp">number</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">FieldInfo</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> oid?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> dataType?: <span class="tp">string</span>;
+}</div>
+      </section>
+
+      <!-- Repository -->
+      <section id="repository" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">REPOSITORY</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: Repository&lt;Entity, ID&gt;</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Repository</span>&lt;<span class="tp">Entity</span>, <span class="tp">ID</span>&gt; {
+  <span class="fn">findById</span>(id: <span class="tp">ID</span>): <span class="tp">Promise</span>&lt;<span class="tp">Entity</span> | <span class="num">null</span>&gt;;
+  <span class="fn">findByIds</span>(ids: <span class="kw">readonly</span> <span class="tp">ID</span>[]): <span class="tp">Promise</span>&lt;<span class="kw">readonly</span> <span class="tp">Entity</span>[]&gt;;
+  <span class="fn">create</span>(entity: <span class="tp">Entity</span>): <span class="tp">Promise</span>&lt;<span class="tp">Entity</span>&gt;;
+  <span class="fn">update</span>(id: <span class="tp">ID</span>, changes: <span class="tp">Partial</span>&lt;<span class="tp">Entity</span>&gt;): <span class="tp">Promise</span>&lt;<span class="tp">Entity</span>&gt;;
+  <span class="fn">delete</span>(id: <span class="tp">ID</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">exists</span>(id: <span class="tp">ID</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: BaseRepository&lt;Entity, ID&gt;</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">BaseRepository</span>&lt;<span class="tp">Entity</span> <span class="kw">extends</span> <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;, <span class="tp">ID</span> = <span class="tp">string</span>&gt; {
+  <span class="kw">constructor</span>(
+    database: <span class="tp">Database</span>,
+    options: <span class="tp">BaseRepositoryOptions</span>,
+  );
+
+  <span class="cm">/** Find an entity by its primary key. */</span>
+  <span class="fn">findById</span>(id: <span class="tp">ID</span>): <span class="tp">Promise</span>&lt;<span class="tp">Entity</span> | <span class="num">null</span>&gt;;
+
+  <span class="cm">/** Find multiple entities by their IDs. */</span>
+  <span class="fn">findByIds</span>(ids: <span class="kw">readonly</span> <span class="tp">ID</span>[]): <span class="tp">Promise</span>&lt;<span class="kw">readonly</span> <span class="tp">Entity</span>[]&gt;;
+
+  <span class="cm">/** Create a new entity. */</span>
+  <span class="fn">create</span>(entity: <span class="tp">Entity</span>): <span class="tp">Promise</span>&lt;<span class="tp">Entity</span>&gt;;
+
+  <span class="cm">/** Update an entity by primary key. */</span>
+  <span class="fn">update</span>(id: <span class="tp">ID</span>, changes: <span class="tp">Partial</span>&lt;<span class="tp">Entity</span>&gt;): <span class="tp">Promise</span>&lt;<span class="tp">Entity</span>&gt;;
+
+  <span class="cm">/** Delete an entity by primary key. */</span>
+  <span class="fn">delete</span>(id: <span class="tp">ID</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+
+  <span class="cm">/** Check if an entity exists by primary key. */</span>
+  <span class="fn">exists</span>(id: <span class="tp">ID</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+
+  <span class="cm">/** Find all entities with optional limit and offset. */</span>
+  <span class="fn">findAll</span>(options?: {
+    <span class="kw">readonly</span> limit?: <span class="tp">number</span>;
+    <span class="kw">readonly</span> offset?: <span class="tp">number</span>;
+    <span class="kw">readonly</span> orderBy?: <span class="tp">string</span>;
+    <span class="kw">readonly</span> order?: <span class="str">"ASC"</span> | <span class="str">"DESC"</span>;
+  }): <span class="tp">Promise</span>&lt;<span class="kw">readonly</span> <span class="tp">Entity</span>[]&gt;;
+
+  <span class="cm">/** Count entities matching optional where conditions. */</span>
+  <span class="fn">count</span>(where?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">QueryParameter</span>&gt;): <span class="tp">Promise</span>&lt;<span class="tp">number</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">BaseRepositoryOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">BaseRepositoryOptions</span> {
+  <span class="cm">/** The database table name. */</span>
+  <span class="kw">readonly</span> tableName: <span class="tp">string</span>;
+  <span class="cm">/** The primary key column name (default: "id"). */</span>
+  <span class="kw">readonly</span> primaryKey?: <span class="tp">string</span>;
+}</div>
+      </section>
+
+      <!-- Object Storage -->
+      <section id="object-storage" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">OBJECT STORAGE</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: ObjectStorage</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ObjectStorage</span> {
+  <span class="fn">put</span>(
+    key: <span class="tp">string</span>,
+    data: <span class="tp">Uint8Array</span> | <span class="tp">ReadableStream</span>&lt;<span class="tp">Uint8Array</span>&gt;,
+    options?: <span class="tp">ObjectPutOptions</span>,
+  ): <span class="tp">Promise</span>&lt;<span class="tp">ObjectMetadata</span>&gt;;
+  <span class="fn">get</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">ObjectData</span> | <span class="num">null</span>&gt;;
+  <span class="fn">delete</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">exists</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+  <span class="fn">metadata</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">ObjectMetadata</span> | <span class="num">null</span>&gt;;
+  <span class="fn">list</span>(
+    prefix?: <span class="tp">string</span>,
+    options?: {
+      <span class="kw">readonly</span> maxKeys?: <span class="tp">number</span>;
+      <span class="kw">readonly</span> continuationToken?: <span class="tp">string</span>;
+    },
+  ): <span class="tp">Promise</span>&lt;<span class="tp">ListObjectsResult</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: LocalObjectStorage</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">LocalObjectStorage</span> <span class="kw">implements</span> <span class="tp">ObjectStorage</span> {
+  <span class="kw">constructor</span>(basePath: <span class="tp">string</span>);
+
+  <span class="fn">put</span>(
+    key: <span class="tp">string</span>,
+    data: <span class="tp">Uint8Array</span> | <span class="tp">ReadableStream</span>&lt;<span class="tp">Uint8Array</span>&gt;,
+    options?: <span class="tp">ObjectPutOptions</span>,
+  ): <span class="tp">Promise</span>&lt;<span class="tp">ObjectMetadata</span>&gt;;
+  <span class="fn">get</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">ObjectData</span> | <span class="num">null</span>&gt;;
+  <span class="fn">delete</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">exists</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+  <span class="fn">metadata</span>(key: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">ObjectMetadata</span> | <span class="num">null</span>&gt;;
+  <span class="fn">list</span>(
+    prefix?: <span class="tp">string</span>,
+    options?: { <span class="kw">readonly</span> maxKeys?: <span class="tp">number</span>; <span class="kw">readonly</span> continuationToken?: <span class="tp">string</span> },
+  ): <span class="tp">Promise</span>&lt;<span class="tp">ListObjectsResult</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ObjectPutOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ObjectPutOptions</span> {
+  <span class="kw">readonly</span> contentType?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+  <span class="kw">readonly</span> cacheControl?: <span class="tp">string</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ObjectMetadata</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ObjectMetadata</span> {
+  <span class="kw">readonly</span> key: <span class="tp">string</span>;
+  <span class="kw">readonly</span> contentType?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> size: <span class="tp">number</span>;
+  <span class="kw">readonly</span> lastModified: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> etag?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> metadata?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ObjectData</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ObjectData</span> {
+  <span class="kw">readonly</span> metadata: <span class="tp">ObjectMetadata</span>;
+  <span class="kw">readonly</span> body: <span class="tp">ReadableStream</span>&lt;<span class="tp">Uint8Array</span>&gt;;
+  <span class="cm">/** Read entire content as Uint8Array (use only for small objects). */</span>
+  <span class="fn">arrayBuffer</span>(): <span class="tp">Promise</span>&lt;<span class="tp">ArrayBuffer</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">ListObjectsResult</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ListObjectsResult</span> {
+  <span class="kw">readonly</span> objects: <span class="kw">readonly</span> <span class="tp">ObjectMetadata</span>[];
+  <span class="kw">readonly</span> continuationToken?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> isTruncated: <span class="tp">boolean</span>;
+}</div>
+      </section>
+
+      <!-- Locking -->
+      <section id="locking" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LOCKING</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: LockManager</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LockManager</span> {
+  <span class="fn">acquire</span>(resource: <span class="tp">string</span>, options?: <span class="tp">LockOptions</span>): <span class="tp">Promise</span>&lt;<span class="tp">Lock</span>&gt;;
+  <span class="fn">tryAcquire</span>(resource: <span class="tp">string</span>, ttlMs: <span class="tp">number</span>): <span class="tp">Promise</span>&lt;<span class="tp">Lock</span> | <span class="num">null</span>&gt;;
+  <span class="fn">isLocked</span>(resource: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: InMemoryLockManager</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">InMemoryLockManager</span> <span class="kw">implements</span> <span class="tp">LockManager</span> {
+  <span class="fn">acquire</span>(resource: <span class="tp">string</span>, options?: <span class="tp">LockOptions</span>): <span class="tp">Promise</span>&lt;<span class="tp">Lock</span>&gt;;
+  <span class="fn">tryAcquire</span>(resource: <span class="tp">string</span>, ttlMs: <span class="tp">number</span>): <span class="tp">Promise</span>&lt;<span class="tp">Lock</span> | <span class="num">null</span>&gt;;
+  <span class="fn">isLocked</span>(resource: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">boolean</span>&gt;;
+
+  <span class="cm">/** Clean up expired locks. */</span>
+  <span class="fn">cleanup</span>(): <span class="tp">void</span>;
+
+  <span class="cm">/** Release all locks and clean up. */</span>
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: Lock</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Lock</span> {
+  <span class="kw">readonly</span> lockId: <span class="tp">string</span>;
+  <span class="kw">readonly</span> resource: <span class="tp">string</span>;
+  <span class="kw">readonly</span> acquiredAt: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> expiresAt: <span class="tp">Date</span>;
+  <span class="fn">release</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">extend</span>(durationMs: <span class="tp">number</span>): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">LockOptions</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">LockOptions</span> {
+  <span class="kw">readonly</span> timeout: <span class="tp">number</span>;
+  <span class="kw">readonly</span> ttl: <span class="tp">number</span>;
+  <span class="kw">readonly</span> retryInterval?: <span class="tp">number</span>;
+}</div>
+      </section>
+
+      <!-- Lifecycle -->
+      <section id="lifecycle" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">LIFECYCLE</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: StorageLifecycle</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">StorageLifecycle</span> {
+  <span class="fn">initialize</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">start</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">healthCheck</span>(): <span class="tp">Promise</span>&lt;<span class="tp">StorageHealth</span>&gt;;
+  <span class="fn">drain</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">shutdown</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">getPhase</span>(): <span class="tp">StorageLifecyclePhase</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: StorageLifecycleManager</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">StorageLifecycleManager</span> <span class="kw">implements</span> <span class="tp">StorageLifecycle</span> {
+  <span class="cm">/** Register a storage component for lifecycle management. */</span>
+  <span class="fn">register</span>(component: <span class="tp">StorageLifecycle</span>): <span class="tp">void</span>;
+
+  <span class="fn">initialize</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">start</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">healthCheck</span>(): <span class="tp">Promise</span>&lt;<span class="tp">StorageHealth</span>&gt;;
+  <span class="fn">drain</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">shutdown</span>(): <span class="tp">Promise</span>&lt;<span class="tp">void</span>&gt;;
+  <span class="fn">getPhase</span>(): <span class="tp">StorageLifecyclePhase</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">StorageLifecyclePhase</h3>
+        <div class="code-block"><span class="kw">type</span> <span class="tp">StorageLifecyclePhase</span> =
+  | <span class="str">"uninitialized"</span>   <span class="cm">// Initial state</span>
+  | <span class="str">"initializing"</span>    <span class="cm">// Components starting up</span>
+  | <span class="str">"ready"</span>           <span class="cm">// All components ready</span>
+  | <span class="str">"draining"</span>        <span class="cm">// Gracefully draining</span>
+  | <span class="str">"drained"</span>         <span class="cm">// All work completed</span>
+  | <span class="str">"shutdown"</span>;       <span class="cm">// Fully shut down</span></div>
+
+        <div class="callout callout-tip mt-4">
+          <strong class="text-zudo-green">Phase Transitions:</strong> The lifecycle follows a strict state machine. You cannot start from <code>initializing</code> — you must reach <code>ready</code> first. Attempting invalid transitions throws <code>STORAGE_LIFECYCLE_INVALID_PHASE</code>.
+        </div>
+      </section>
+
+      <!-- Health -->
+      <section id="health" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HEALTH</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: HealthChecker</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">HealthChecker</span> {
+  <span class="cm">/** Register a component for health checking. */</span>
+  <span class="fn">register</span>(name: <span class="tp">string</span>, component: <span class="tp">StorageLifecycle</span>): <span class="tp">void</span>;
+
+  <span class="cm">/** Remove a component from health checking. */</span>
+  <span class="fn">unregister</span>(name: <span class="tp">string</span>): <span class="tp">void</span>;
+
+  <span class="cm">/** Check health of all registered components. */</span>
+  <span class="fn">checkAll</span>(): <span class="tp">Promise</span>&lt;<span class="tp">StorageHealthReport</span>&gt;;
+
+  <span class="cm">/** Check health of a single component. */</span>
+  <span class="fn">checkOne</span>(name: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">StorageHealth</span> | <span class="num">null</span>&gt;;
+
+  <span class="cm">/** Get names of all registered components. */</span>
+  <span class="fn">getRegisteredComponents</span>(): <span class="kw">readonly</span> <span class="tp">string</span>[];
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: StorageHealth</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">StorageHealth</span> {
+  <span class="kw">readonly</span> healthy: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> latencyMs: <span class="tp">number</span>;
+  <span class="kw">readonly</span> status: <span class="tp">string</span>;
+  <span class="kw">readonly</span> details?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: StorageHealthReport</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">StorageHealthReport</span> {
+  <span class="kw">readonly</span> healthy: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> components: <span class="kw">readonly</span> <span class="tp">ComponentHealth</span>[];
+  <span class="kw">readonly</span> durationMs: <span class="tp">number</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: ComponentHealth</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">ComponentHealth</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> health: <span class="tp">StorageHealth</span>;
+}</div>
+      </section>
+
+      <!-- Serialization -->
+      <section id="serialization" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SERIALIZATION</h2>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Interface: Serializer</h3>
+        <div class="code-block"><span class="kw">interface</span> <span class="tp">Serializer</span> {
+  <span class="fn">serialize</span>&lt;<span class="tp">T</span>&gt;(value: <span class="tp">T</span>, format?: <span class="tp">SerializationFormat</span>): <span class="tp">Uint8Array</span>;
+  <span class="fn">deserialize</span>&lt;<span class="tp">T</span>&gt;(data: <span class="tp">Uint8Array</span>, format?: <span class="tp">SerializationFormat</span>): <span class="tp">T</span>;
+}</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Class: JsonSerializer</h3>
+        <div class="code-block"><span class="kw">class</span> <span class="tp">JsonSerializer</span> <span class="kw">implements</span> <span class="tp">Serializer</span> {
+  <span class="kw">constructor</span>();
+
+  <span class="cm">/** Serialize a value to Uint8Array with type preservation. */</span>
+  <span class="fn">serialize</span>&lt;<span class="tp">T</span>&gt;(value: <span class="tp">T</span>, format?: <span class="tp">SerializationFormat</span>): <span class="tp">Uint8Array</span>;
+
+  <span class="cm">/** Deserialize a Uint8Array back to the original value. */</span>
+  <span class="fn">deserialize</span>&lt;<span class="tp">T</span>&gt;(data: <span class="tp">Uint8Array</span>, format?: <span class="tp">SerializationFormat</span>): <span class="tp">T</span>;
+}</div>
+
+        <div class="callout callout-tip mt-4">
+          <strong class="text-zudo-green">Type Preservation:</strong> <code>JsonSerializer</code> delegates to <code>@zudojs/serialization</code>'s JSONSerializer with <code>preserveTypes: true</code>. This handles BigInt, Date, Map, Set, and Uint8Array correctly — values that standard <code>JSON.parse</code> loses.
+        </div>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="errors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">All error types are defined in <code class="bg-black/5 px-1">@zudojs/errors</code>. Storage uses <code>StorageError</code> as its base error class.</p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error</th>
+                <th class="p-3 text-left">Code</th>
+                <th class="p-3 text-left">When Thrown</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">StorageError</td><td class="p-3">—</td><td class="p-3">Base error for all storage issues</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">NotFoundError</td><td class="p-3">—</td><td class="p-3">Entity not found in repository</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">StorageError</td><td class="p-3 font-mono text-xs">STORAGE_CONNECTION_POOL_CLOSED</td><td class="p-3">Acquiring from a drained pool</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">NotFoundError</td><td class="p-3 font-mono text-xs">STORAGE_ENTITY_NOT_FOUND</td><td class="p-3">Update called with non-existent ID</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">StorageError</td><td class="p-3 font-mono text-xs">STORAGE_PATH_TRAVERSAL</td><td class="p-3">Key resolves outside basePath</td></tr>
+              <tr class="border-b-2 border-black/10"><td class="p-3 font-mono">StorageError</td><td class="p-3 font-mono text-xs">STORAGE_LOCK_ACQUIRE_TIMEOUT</td><td class="p-3">Lock not acquired within timeout</td></tr>
+              <tr><td class="p-3 font-mono">StorageError</td><td class="p-3 font-mono text-xs">STORAGE_LIFECYCLE_INVALID_PHASE</td><td class="p-3">Invalid lifecycle phase transition</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">Error Handling Pattern</h3>
+        <div class="code-block"><span class="kw">import</span> { <span class="tp">StorageError</span>, <span class="tp">NotFoundError</span> } <span class="kw">from</span> <span class="str">"@zudojs/errors"</span>;
+
+<span class="kw">try</span> {
+  <span class="kw">await</span> repo.<span class="fn">update</span>(<span class="str">"non-existent"</span>, { name: <span class="str">"updated"</span> });
+} <span class="kw">catch</span> (error) {
+  <span class="kw">if</span> (error <span class="kw">instanceof</span> <span class="tp">NotFoundError</span>) {
+    console.<span class="fn">error</span>(<span class="str">"Entity not found:"</span>, error.message);
+  } <span class="kw">else if</span> (error <span class="kw">instanceof</span> <span class="tp">StorageError</span>) {
+    console.<span class="fn">error</span>(<span class="str">"Storage error:"</span>, error.code, error.message);
+  }
+}</div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete example: connection pool, repository, object storage, locking, lifecycle, and health checking.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="tp">ConnectionPool</span>,
+  <span class="tp">BaseRepository</span>,
+  <span class="tp">LocalObjectStorage</span>,
+  <span class="tp">InMemoryLockManager</span>,
+  <span class="tp">StorageLifecycleManager</span>,
+  <span class="tp">HealthChecker</span>,
+  <span class="tp">JsonSerializer</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/storage"</span>;
+<span class="kw">import</span> <span class="kw">type</span> { <span class="tp">Database</span>, <span class="tp">ObjectStorage</span> } <span class="kw">from</span> <span class="str">"@zudojs/storage"</span>;
+
+<span class="cm">// 1. Create connection pool</span>
+<span class="kw">const</span> pool = <span class="kw">new</span> <span class="fn">ConnectionPool</span>(
+  <span class="kw">async</span> () => <span class="kw">await</span> <span class="fn">createPostgresConnection</span>(),
+  { min: <span class="num">2</span>, max: <span class="num">10</span>, acquireTimeout: <span class="num">5000</span> }
+);
+<span class="kw">await</span> pool.<span class="fn">initialize</span>();
+
+<span class="cm">// 2. Use repository pattern</span>
+<span class="kw">interface</span> <span class="tp">User</span> {
+  id: <span class="tp">string</span>;
+  name: <span class="tp">string</span>;
+  email: <span class="tp">string</span>;
+}
+
+<span class="kw">class</span> <span class="tp">UserRepository</span> <span class="kw">extends</span> <span class="tp">BaseRepository</span>&lt;<span class="tp">User</span>&gt; {
+  <span class="kw">async</span> <span class="fn">findByEmail</span>(email: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">User</span> | <span class="num">null</span>&gt; {
+    <span class="kw">const</span> result = <span class="kw">await</span> <span class="kw">this</span>.database.<span class="fn">query</span>&lt;<span class="tp">User</span>&gt;({
+      text: <span class="str">`SELECT * FROM users WHERE email = $1`</span>,
+      parameters: [email],
+    });
+    <span class="kw">return</span> result.rows[<span class="num">0</span>] ?? <span class="num">null</span>;
+  }
+}
+
+<span class="kw">const</span> userRepo = <span class="kw">new</span> <span class="fn">UserRepository</span>(database, { tableName: <span class="str">"users"</span> });
+<span class="kw">const</span> user = <span class="kw">await</span> userRepo.<span class="fn">create</span>({ id: <span class="str">"1"</span>, name: <span class="str">"Alice"</span>, email: <span class="str">"alice@example.com"</span> });
+<span class="kw">const</span> found = <span class="kw">await</span> userRepo.<span class="fn">findById</span>(<span class="str">"1"</span>);
+<span class="kw">const</span> exists = <span class="kw">await</span> userRepo.<span class="fn">exists</span>(<span class="str">"1"</span>);
+
+<span class="cm">// 3. Object storage operations</span>
+<span class="kw">const</span> storage = <span class="kw">new</span> <span class="fn">LocalObjectStorage</span>(<span class="str">"./data"</span>);
+<span class="kw">const</span> meta = <span class="kw">await</span> storage.<span class="fn">put</span>(<span class="str">"uploads/photo.jpg"</span>, imageBytes, {
+  contentType: <span class="str">"image/jpeg"</span>,
+});
+<span class="kw">const</span> obj = <span class="kw">await</span> storage.<span class="fn">get</span>(<span class="str">"uploads/photo.jpg"</span>);
+<span class="kw">const</span> buffer = <span class="kw">await</span> obj!.<span class="fn">arrayBuffer</span>();
+<span class="kw">const</span> listed = <span class="kw">await</span> storage.<span class="fn">list</span>(<span class="str">"uploads/"</span>);
+
+<span class="cm">// 4. Acquire and release locks</span>
+<span class="kw">const</span> lockManager = <span class="kw">new</span> <span class="fn">InMemoryLockManager</span>();
+<span class="kw">const</span> lock = <span class="kw">await</span> lockManager.<span class="fn">acquire</span>(<span class="str">"resource:123"</span>, {
+  timeout: <span class="num">5000</span>,
+  ttl: <span class="num">30000</span>,
+});
+<span class="kw">try</span> {
+  <span class="cm">// Do protected work</span>
+  <span class="kw">await</span> <span class="fn">processData</span>();
+} <span class="kw">finally</span> {
+  <span class="kw">await</span> lock.<span class="fn">release</span>();
+}
+
+<span class="cm">// 5. Lifecycle management</span>
+<span class="kw">const</span> lifecycle = <span class="kw">new</span> <span class="fn">StorageLifecycleManager</span>();
+lifecycle.<span class="fn">register</span>(pool);
+lifecycle.<span class="fn">register</span>(lockManager);
+<span class="kw">await</span> lifecycle.<span class="fn">initialize</span>();   <span class="cm">// uninitialized → initializing → ready</span>
+<span class="kw">await</span> lifecycle.<span class="fn">start</span>();        <span class="cm">// ready → ready (components started)</span>
+
+<span class="cm">// 6. Health checking</span>
+<span class="kw">const</span> checker = <span class="kw">new</span> <span class="fn">HealthChecker</span>();
+checker.<span class="fn">register</span>(<span class="str">"pool"</span>, pool);
+checker.<span class="fn">register</span>(<span class="str">"lifecycle"</span>, lifecycle);
+<span class="kw">const</span> report = <span class="kw">await</span> checker.<span class="fn">checkAll</span>();
+console.<span class="fn">log</span>(report.healthy); <span class="cm">// true or false</span>
+
+<span class="cm">// 7. Graceful shutdown</span>
+<span class="kw">await</span> lifecycle.<span class="fn">drain</span>();    <span class="cm">// ready → draining → drained</span>
+<span class="kw">await</span> lifecycle.<span class="fn">shutdown</span>(); <span class="cm">// drained → shutdown</span>
+<span class="kw">await</span> pool.<span class="fn">drain</span>();        <span class="cm">// Close all connections</span></div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#architecture-position" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#types" class="toc-link">Types</a>
+      <a href="#database" class="toc-link">Database</a>
+      <a href="#repository" class="toc-link">Repository</a>
+      <a href="#object-storage" class="toc-link">Object Storage</a>
+      <a href="#locking" class="toc-link">Locking</a>
+      <a href="#lifecycle" class="toc-link">Lifecycle</a>
+      <a href="#health" class="toc-link">Health</a>
+      <a href="#serialization" class="toc-link">Serialization</a>
+      <a href="#errors" class="toc-link">Error Hierarchy</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>

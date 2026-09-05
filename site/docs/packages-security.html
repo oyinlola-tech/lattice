@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@zudojs/security — Security Primitives Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/zudo-favicon.svg">
+  <meta name="description" content="Complete documentation for @zudojs/security — input validation, CORS, CSRF, rate limiting, security headers, and more.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/playground.css">
+</head>
+<body class="bg-white text-black">
+
+  <!-- NAVBAR -->
+  <div id="zudo-nav"></div>
+
+  <div class="flex max-w-screen-2xl mx-auto">
+
+    <!-- SIDEBAR -->
+    <aside class="doc-sidebar w-60 border-r-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0">
+      <div class="sidebar-section">Getting Started</div>
+      <a href="/docs/getting-started" class="sidebar-item">Installation</a>
+      <a href="/docs/getting-started-first-app" class="sidebar-item">Your First App</a>
+      <a href="/docs/getting-started-project-structure" class="sidebar-item">Project Structure</a>
+
+      <div class="sidebar-section mt-4">Architecture</div>
+      <a href="/docs/architecture" class="sidebar-item">Overview</a>
+      <a href="/docs/architecture-module-system" class="sidebar-item">Module System</a>
+      <a href="/docs/architecture-runtime" class="sidebar-item">Runtime</a>
+      <a href="/docs/architecture-adapters" class="sidebar-item">Adapters</a>
+      <a href="/docs/architecture-dependency-direction" class="sidebar-item">Dependency Direction</a>
+
+      <div class="sidebar-section mt-4">Concepts</div>
+      <a href="/docs/concepts" class="sidebar-item">Application</a>
+      <a href="/docs/concepts-configuration" class="sidebar-item">Configuration</a>
+      <a href="/docs/concepts-contexts" class="sidebar-item">Contexts</a>
+      <a href="/docs/concepts-dependency-injection" class="sidebar-item">Dependency Injection</a>
+      <a href="/docs/concepts-lifecycle" class="sidebar-item">Lifecycle</a>
+      <a href="/docs/concepts-modules" class="sidebar-item">Modules</a>
+
+      <div class="sidebar-section mt-4">Packages</div>
+      <a href="/docs/packages" class="sidebar-item">Overview</a>
+      <a href="/docs/packages-adapters" class="sidebar-item">@zudojs/adapters</a>
+      <a href="/docs/packages-errors" class="sidebar-item">@zudojs/errors</a>
+      <a href="/docs/packages-constants" class="sidebar-item">@zudojs/constants</a>
+      <a href="/docs/packages/types" class="sidebar-item">@zudojs/types</a>
+      <a href="/docs/packages-security" class="sidebar-item sidebar-item-active">@zudojs/security</a>
+
+      <div class="sidebar-section mt-4">Reference</div>
+      <a href="/docs/roadmap" class="sidebar-item">Roadmap</a>
+      <a href="/docs/rules" class="sidebar-item">Package Rules</a>
+      <a href="/docs/contributing" class="sidebar-item">Contributing</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 px-8 py-10 max-w-4xl">
+
+      <!-- Breadcrumbs -->
+      <div class="text-sm mb-6">
+        <a href="/" class="hover:text-zudo-blue">Docs</a>
+        <span class="mx-2 text-black/30">/</span>
+        <a href="/docs/packages" class="hover:text-zudo-blue">Packages</a>
+        <span class="mx-2 text-black/30">/</span>
+        <span class="text-black/50">@zudojs/security</span>
+      </div>
+
+      <!-- Header -->
+      <div class="border-4 border-black p-8 mb-10 relative">
+        <div class="absolute -top-3 left-6 px-3 py-1 bg-zudo-red text-black font-black text-sm border-2 border-black">v0.1.0</div>
+        <h1 class="text-4xl font-black mb-3 mt-2">@zudojs/security</h1>
+        <p class="text-lg text-black/70 leading-relaxed max-w-2xl">
+          Security primitives for input validation, header security, CORS, CSRF protection, rate limiting, and security headers with secure defaults.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">SECURITY</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">INPUT VALIDATION</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">CORS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">CSRF</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">RATE LIMITING</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">HEADERS</span>
+          <span class="px-3 py-1 border-2 border-black text-xs font-bold">SANITIZATION</span>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INSTALLATION</h2>
+        <div class="code-block mb-4"><span class="cm">// npm</span>
+npm install @zudojs/security
+
+<span class="cm">// pnpm</span>
+pnpm add @zudojs/security
+
+<span class="cm">// yarn</span>
+yarn add @zudojs/security</div>
+
+        <div class="callout callout-note">
+          <strong class="text-zudo-blue">Peer Dependencies:</strong> @zudojs/security depends on @zudojs/errors and @zudojs/constants. All at version 0.1.0.
+        </div>
+      </section>
+
+      <!-- What It Does -->
+      <section id="what-it-does" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHAT IT DOES</h2>
+        <p class="mb-4 leading-relaxed">
+          <code class="bg-black/5 px-1">@zudojs/security</code> provides comprehensive security primitives for the Zudojs framework:
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Input sanitization</strong> against SQL injection and XSS attacks</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>CORS</strong> origin, method, and header validation</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>CSRF</strong> token generation and validation with HMAC signatures</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Rate limiting</strong> with sliding window algorithm</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Security response headers</strong> generation with secure defaults</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>Body size validation</strong> with content-type-aware presets</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Cookie parsing</strong> and secure serialization with HttpOnly, Secure, SameSite</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>URL validation</strong> and path normalization with traversal blocking</li>
+          <li class="flex gap-2"><span class="text-zudo-red font-bold">→</span> <strong>Request target validation</strong> against null bytes and control characters</li>
+          <li class="flex gap-2"><span class="text-zudo-blue font-bold">→</span> <strong>HTML escaping</strong> and stripping for output safety</li>
+          <li class="flex gap-2"><span class="text-zudo-yellow font-bold">→</span> <strong>Threat detection</strong> for SQL injection, XSS, null bytes, and control characters</li>
+          <li class="flex gap-2"><span class="text-zudo-green font-bold">→</span> <strong>Prototype pollution prevention</strong> for object sanitization</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <strong class="text-zudo-green">Core Principle:</strong> All security functions are pure, stateless, and can be used independently or composed into middleware pipelines.
+        </div>
+      </section>
+
+      <!-- Architecture Position -->
+      <section id="architecture-position" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">WHERE IT SITS</h2>
+        <div class="border-4 border-black p-6">
+          <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm">HTTP LAYER (@zudojs/http)</div>
+          <div class="grid grid-cols-2 gap-2 mt-2">
+            <div class="bg-black text-white p-3 font-bold text-center text-sm border-2 border-black">INPUT SANITIZATION</div>
+            <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm border-2 border-black">CORS</div>
+            <div class="bg-zudo-yellow text-black p-3 font-bold text-center text-sm border-2 border-black">CSRF</div>
+            <div class="bg-zudo-green text-black p-3 font-bold text-center text-sm border-2 border-black">RATE LIMIT</div>
+            <div class="bg-black text-white p-3 font-bold text-center text-sm border-2 border-black">HEADERS</div>
+            <div class="bg-zudo-red text-black p-3 font-bold text-center text-sm border-2 border-black">BODY</div>
+            <div class="bg-zudo-blue text-white p-3 font-bold text-center text-sm border-2 border-black">COOKIE</div>
+            <div class="bg-zudo-yellow text-black p-3 font-bold text-center text-sm border-2 border-black">URL</div>
+          </div>
+          <div class="bg-white border-4 border-black p-3 font-bold text-center text-sm mt-2">@zudojs/security</div>
+          <div class="grid grid-cols-2 gap-2 mt-2">
+            <div class="bg-black/10 p-3 font-bold text-center text-sm border-2 border-black/20">@zudojs/errors</div>
+            <div class="bg-black/10 p-3 font-bold text-center text-sm border-2 border-black/20">@zudojs/constants</div>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-black/60">
+          Security sits as a foundational layer between the HTTP transport and application logic. It depends only on @zudojs/errors and @zudojs/constants.
+        </p>
+      </section>
+
+      <!-- Dependencies -->
+      <section id="dependencies" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">DEPENDENCIES</h2>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Package</th>
+                <th class="p-3 text-left">Version</th>
+                <th class="p-3 text-left">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono text-sm">@zudojs/errors</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Validation errors, configuration errors, and error types used by security operations</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono text-sm">@zudojs/constants</td>
+                <td class="p-3">0.1.0</td>
+                <td class="p-3">Branded types and shared constants</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Types -->
+      <section id="types" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">TYPES</h2>
+        <p class="mb-4">All types are defined in <code class="bg-black/5 px-1">@zudojs/security/types</code>.</p>
+
+        <div class="code-block"><span class="cm">// Header validation</span>
+<span class="kw">interface</span> <span class="tp">HeaderSecurityConfig</span> {
+  <span class="kw">readonly</span> maxValueSize?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> maxHeaders?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> maxTotalSize?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> blockedHeaders?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}
+
+<span class="kw">interface</span> <span class="tp">HeaderValidationResult</span> {
+  <span class="kw">readonly</span> valid: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> errors: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}
+
+<span class="cm">// Body limits</span>
+<span class="kw">interface</span> <span class="tp">BodyLimitConfig</span> {
+  <span class="kw">readonly</span> maxSize: <span class="tp">number</span>;
+  <span class="kw">readonly</span> contentTypes?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}
+
+<span class="kw">interface</span> <span class="tp">BodyLimitPresets</span> {
+  <span class="kw">readonly</span> json: <span class="tp">number</span>;
+  <span class="kw">readonly</span> auth: <span class="tp">number</span>;
+  <span class="kw">readonly</span> upload: <span class="tp">number</span>;
+  <span class="kw">readonly</span> webhook: <span class="tp">number</span>;
+}
+
+<span class="cm">// URL validation</span>
+<span class="kw">interface</span> <span class="tp">UrlValidationConfig</span> {
+  <span class="kw">readonly</span> allowedProtocols?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> maxLength?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> normalizePaths?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> blockTraversal?: <span class="tp">boolean</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">UrlValidationResult</span> {
+  <span class="kw">readonly</span> valid: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> normalized?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> errors: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}
+
+<span class="cm">// Cookie security</span>
+<span class="kw">interface</span> <span class="tp">CookieSecurityConfig</span> {
+  <span class="kw">readonly</span> secure?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> httpOnly?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> sameSite?: <span class="str">"strict"</span> | <span class="str">"lax"</span> | <span class="str">"none"</span>;
+  <span class="kw">readonly</span> maxSize?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> maxCount?: <span class="tp">number</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">ParsedCookie</span> {
+  <span class="kw">readonly</span> name: <span class="tp">string</span>;
+  <span class="kw">readonly</span> value: <span class="tp">string</span>;
+  <span class="kw">readonly</span> secure?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> httpOnly?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> sameSite?: <span class="str">"strict"</span> | <span class="str">"lax"</span> | <span class="str">"none"</span>;
+  <span class="kw">readonly</span> path?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> domain?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> maxAge?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> expires?: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> partitioned?: <span class="tp">boolean</span>;
+}
+
+<span class="cm">// CORS</span>
+<span class="kw">interface</span> <span class="tp">CorsConfig</span> {
+  <span class="kw">readonly</span> origin?:
+    <span class="tp">string</span> | <span class="kw">readonly</span> <span class="tp">string</span>[] | <span class="tp">RegExp</span> | ((origin: <span class="tp">string</span>) =&gt; <span class="tp">boolean</span>);
+  <span class="kw">readonly</span> methods?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> allowedHeaders?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> exposedHeaders?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> credentials?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> maxAge?: <span class="tp">number</span>;
+}
+
+<span class="cm">// CSRF</span>
+<span class="kw">interface</span> <span class="tp">CsrfConfig</span> {
+  <span class="kw">readonly</span> secret: <span class="tp">string</span>;
+  <span class="kw">readonly</span> expiration?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> cookieName?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> headerName?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> methods?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+}
+
+<span class="cm">// Rate limiting</span>
+<span class="kw">interface</span> <span class="tp">RateLimitConfig</span> {
+  <span class="kw">readonly</span> max: <span class="tp">number</span>;
+  <span class="kw">readonly</span> windowMs: <span class="tp">number</span>;
+  <span class="kw">readonly</span> keyGenerator?: (request: <span class="tp">RateLimitRequest</span>) =&gt; <span class="tp">string</span>;
+  <span class="kw">readonly</span> handler?: (request: <span class="tp">RateLimitRequest</span>, response: <span class="tp">RateLimitResponse</span>) =&gt; <span class="tp">void</span>;
+  <span class="kw">readonly</span> skip?: (request: <span class="tp">RateLimitRequest</span>) =&gt; <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> message?: <span class="tp">string</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">RateLimitRequest</span> {
+  <span class="kw">readonly</span> ip?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> method?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> path?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> headers?: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span> | <span class="tp">string</span>[] | <span class="tp">undefined</span>&gt;;
+}
+
+<span class="kw">interface</span> <span class="tp">RateLimitResponse</span> {
+  statusCode: <span class="tp">number</span>;
+  headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;;
+  body?: <span class="tp">string</span>;
+}
+
+<span class="kw">interface</span> <span class="tp">RateLimitResult</span> {
+  <span class="kw">readonly</span> allowed: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> remaining: <span class="tp">number</span>;
+  <span class="kw">readonly</span> resetAt: <span class="tp">Date</span>;
+  <span class="kw">readonly</span> total: <span class="tp">number</span>;
+}
+
+<span class="cm">// Security headers</span>
+<span class="kw">interface</span> <span class="tp">SecurityHeadersConfig</span> {
+  <span class="kw">readonly</span> contentSecurityPolicy?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> contentTypeOptions?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> frameOptions?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> xssProtection?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> hsts?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> referrerPolicy?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> permissionsPolicy?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> dnsPrefetchControl?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> openerPolicy?: <span class="tp">string</span>;
+  <span class="kw">readonly</span> resourcePolicy?: <span class="tp">string</span>;
+}
+
+<span class="cm">// Request validation</span>
+<span class="kw">interface</span> <span class="tp">RequestValidationConfig</span> {
+  <span class="kw">readonly</span> allowedMethods?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> maxRequestLineSize?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> allowedHosts?: <span class="kw">readonly</span> <span class="tp">string</span>[];
+  <span class="kw">readonly</span> validateHost?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> validateContentLength?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> maxContentLength?: <span class="tp">number</span>;
+}
+
+<span class="cm">// Input sanitization</span>
+<span class="kw">interface</span> <span class="tp">InputSanitizationConfig</span> {
+  <span class="kw">readonly</span> stripNullBytes?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> normalizeUnicode?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> maxStringLength?: <span class="tp">number</span>;
+  <span class="kw">readonly</span> preventPrototypePollution?: <span class="tp">boolean</span>;
+  <span class="kw">readonly</span> customSanitizer?: (value: <span class="tp">string</span>) =&gt; <span class="tp">string</span>;
+}
+
+<span class="cm">// CORS response headers</span>
+<span class="kw">interface</span> <span class="tp">CorsHeaders</span> {
+  <span class="str">"Access-Control-Allow-Origin"</span>?: <span class="tp">string</span>;
+  <span class="str">"Access-Control-Allow-Methods"</span>?: <span class="tp">string</span>;
+  <span class="str">"Access-Control-Allow-Headers"</span>?: <span class="tp">string</span>;
+  <span class="str">"Access-Control-Expose-Headers"</span>?: <span class="tp">string</span>;
+  <span class="str">"Access-Control-Allow-Credentials"</span>?: <span class="tp">string</span>;
+  <span class="str">"Access-Control-Max-Age"</span>?: <span class="tp">string</span>;
+}</div>
+      </section>
+
+      <!-- Input Sanitization -->
+      <section id="input-sanitization" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">INPUT SANITIZATION</h2>
+        <p class="mb-4">Functions for detecting and preventing common attack patterns in user input.</p>
+
+        <h3 class="text-lg font-bold mb-3">containsSqlInjection</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">containsSqlInjection</span>(input: <span class="tp">string</span>): <span class="tp">boolean</span></div>
+        <p class="text-sm text-black/60 mb-4">Checks if a string contains SQL injection patterns (SELECT, DROP, UNION, comment sequences, etc.).</p>
+
+        <h3 class="text-lg font-bold mb-3">containsXss</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">containsXss</span>(input: <span class="tp">string</span>): <span class="tp">boolean</span></div>
+        <p class="text-sm text-black/60 mb-4">Checks if a string contains XSS patterns (script tags, event handlers, javascript: URIs, etc.).</p>
+
+        <h3 class="text-lg font-bold mb-3">containsPrototypePollution</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">containsPrototypePollution</span>(input: <span class="tp">string</span>): <span class="tp">boolean</span></div>
+        <p class="text-sm text-black/60 mb-4">Checks if a string matches prototype pollution keys (__proto__, constructor, prototype).</p>
+
+        <h3 class="text-lg font-bold mb-3">sanitizeString</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">sanitizeString</span>(
+  input: <span class="tp">string</span>,
+  config?: <span class="tp">InputSanitizationConfig</span>,
+): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Sanitizes a string by removing null bytes, control characters, truncating to max length, and applying custom sanitizer.</p>
+
+        <h3 class="text-lg font-bold mb-3">sanitizeObject</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">sanitizeObject</span>&lt;<span class="tp">T</span> <span class="kw">extends</span> <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">unknown</span>&gt;&gt;(
+  obj: <span class="tp">T</span>,
+  config?: <span class="tp">InputSanitizationConfig</span>,
+): <span class="tp">T</span></div>
+        <p class="text-sm text-black/60 mb-4">Recursively sanitizes an object: removes prototype pollution keys, sanitizes string values, and handles nested objects and arrays.</p>
+
+        <h3 class="text-lg font-bold mb-3">isSafeString</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">isSafeString</span>(input: <span class="tp">string</span>, allowedPattern?: <span class="tp">RegExp</span>): <span class="tp">boolean</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates that a string contains only safe characters (no null bytes, control characters, or pattern violations).</p>
+
+        <h3 class="text-lg font-bold mb-3">detectThreats</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">detectThreats</span>(input: <span class="tp">string</span>): <span class="tp">string</span>[]</div>
+        <p class="text-sm text-black/60 mb-4">Returns an array of detected threat types: "SQL_INJECTION", "XSS", "NULL_BYTE", "CONTROL_CHARACTERS".</p>
+
+        <h3 class="text-lg font-bold mb-3">escapeHtml</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">escapeHtml</span>(input: <span class="tp">string</span>): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">HTML-escapes &, &lt;, &gt;, ", and ' to prevent XSS in output.</p>
+
+        <h3 class="text-lg font-bold mb-3">stripHtml</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">stripHtml</span>(input: <span class="tp">string</span>): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Strips all HTML tags from a string, returning only the text content.</p>
+      </section>
+
+      <!-- CORS -->
+      <section id="cors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CORS</h2>
+        <p class="mb-4">Cross-Origin Resource Sharing validation and header generation. Exported as both individual functions and a <code class="bg-black/5 px-1">cors</code> namespace.</p>
+
+        <h3 class="text-lg font-bold mb-3">isOriginAllowed</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">isOriginAllowed</span>(
+  origin: <span class="tp">string</span> | <span class="tp">undefined</span>,
+  config: <span class="tp">CorsConfig</span>,
+): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Checks if a request origin is allowed by the CORS config. Returns the allowed origin string, or undefined if not allowed.</p>
+
+        <h3 class="text-lg font-bold mb-3">generatePreflightHeaders</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">generatePreflightHeaders</span>(
+  requestOrigin: <span class="tp">string</span> | <span class="tp">undefined</span>,
+  config: <span class="tp">CorsConfig</span>,
+): <span class="tp">CorsHeaders</span></div>
+        <p class="text-sm text-black/60 mb-4">Generates CORS headers for OPTIONS preflight requests, including Allow-Methods, Allow-Headers, Max-Age, and credentials.</p>
+
+        <h3 class="text-lg font-bold mb-3">generateSimpleHeaders</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">generateSimpleHeaders</span>(
+  requestOrigin: <span class="tp">string</span> | <span class="tp">undefined</span>,
+  config: <span class="tp">CorsConfig</span>,
+): <span class="tp">CorsHeaders</span></div>
+        <p class="text-sm text-black/60 mb-4">Generates CORS headers for simple (non-preflight) requests with Allow-Origin, credentials, and Expose-Headers.</p>
+
+        <h3 class="text-lg font-bold mb-3">isMethodAllowed</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">isMethodAllowed</span>(method: <span class="tp">string</span>, config: <span class="tp">CorsConfig</span>): <span class="tp">boolean</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates that an HTTP method is in the CORS allowed methods list.</p>
+
+        <h3 class="text-lg font-bold mb-3">getDisallowedHeaders</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">getDisallowedHeaders</span>(
+  headers: <span class="tp">string</span>[],
+  config: <span class="tp">CorsConfig</span>,
+): <span class="tp">string</span>[]</div>
+        <p class="text-sm text-black/60 mb-4">Returns an array of headers not in the CORS allowed headers list.</p>
+      </section>
+
+      <!-- CSRF -->
+      <section id="csrf" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CSRF</h2>
+        <p class="mb-4">Cross-Site Request Forgery token generation and validation using HMAC-SHA256 signatures.</p>
+
+        <h3 class="text-lg font-bold mb-3">generateCsrfToken</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">generateCsrfToken</span>(
+  secret: <span class="tp">string</span>,
+  expiration?: <span class="tp">number</span>,
+): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Generates a cryptographically secure CSRF token with expiry timestamp, random bytes, and HMAC-SHA256 signature. Default expiry: 3600s.</p>
+
+        <h3 class="text-lg font-bold mb-3">validateCsrfToken</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateCsrfToken</span>(
+  token: <span class="tp">string</span>,
+  secret: <span class="tp">string</span>,
+  expiration?: <span class="tp">number</span>,
+): <span class="tp">boolean</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates a CSRF token: checks format, expiration, and HMAC signature using constant-time comparison.</p>
+
+        <h3 class="text-lg font-bold mb-3">requiresCsrfProtection</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">requiresCsrfProtection</span>(
+  method: <span class="tp">string</span>,
+  config?: <span class="tp">CsrfConfig</span>,
+): <span class="tp">boolean</span></div>
+        <p class="text-sm text-black/60 mb-4">Returns true if the HTTP method requires CSRF protection (POST, PUT, PATCH, DELETE by default; GET, HEAD, OPTIONS, TRACE are safe).</p>
+
+        <h3 class="text-lg font-bold mb-3">extractCsrfTokenFromHeaders</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">extractCsrfTokenFromHeaders</span>(
+  headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span> | <span class="tp">string</span>[] | <span class="tp">undefined</span>&gt;,
+  headerName?: <span class="tp">string</span>,
+): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Extracts CSRF token from request headers. Default header: "x-csrf-token".</p>
+
+        <h3 class="text-lg font-bold mb-3">extractCsrfTokenFromCookies</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">extractCsrfTokenFromCookies</span>(
+  cookieHeader: <span class="tp">string</span>,
+  cookieName?: <span class="tp">string</span>,
+): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Extracts CSRF token from the raw Cookie header. Default cookie name: "_csrf".</p>
+
+        <h3 class="text-lg font-bold mb-3">generateCsrfCookie</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">generateCsrfCookie</span>(
+  token: <span class="tp">string</span>,
+  config?: <span class="tp">CsrfConfig</span>,
+): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Generates a Set-Cookie header value with HttpOnly, SameSite=Strict, and Max-Age attributes.</p>
+      </section>
+
+      <!-- Rate Limiting -->
+      <section id="rate-limiting" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">RATE LIMITING</h2>
+        <p class="mb-4">Sliding window rate limiting with in-memory storage. Exported as both individual functions and a <code class="bg-black/5 px-1">rateLimit</code> namespace.</p>
+
+        <h3 class="text-lg font-bold mb-3">createRateLimiter</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createRateLimiter</span>(config: <span class="tp">RateLimitConfig</span>): {
+  <span class="fn">check</span>(request: <span class="tp">RateLimitRequest</span>): <span class="tp">RateLimitResult</span>;
+  <span class="fn">middleware</span>(request: <span class="tp">RateLimitRequest</span>, response?: <span class="tp">RateLimitResponse</span>): <span class="tp">RateLimitResult</span>;
+  <span class="fn">reset</span>(key: <span class="tp">string</span>): <span class="tp">void</span>;
+  <span class="fn">clear</span>(): <span class="tp">void</span>;
+  <span class="fn">getCount</span>(key: <span class="tp">string</span>): <span class="tp">number</span>;
+  <span class="fn">destroy</span>(): <span class="tp">void</span>;
+}</div>
+        <p class="text-sm text-black/60 mb-4">Creates an in-memory rate limiter with sliding window. Returns an object with check, middleware, reset, clear, getCount, and destroy methods.</p>
+
+        <h3 class="text-lg font-bold mb-3">defaultKeyGenerator</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">defaultKeyGenerator</span>(request: <span class="tp">RateLimitRequest</span>): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Default key generator using the client IP address (falls back to "unknown").</p>
+
+        <h3 class="text-lg font-bold mb-3">defaultHandler</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">defaultHandler</span>(
+  _request: <span class="tp">RateLimitRequest</span>,
+  response: { statusCode: <span class="tp">number</span>; headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;; body?: <span class="tp">string</span> },
+): <span class="tp">void</span></div>
+        <p class="text-sm text-black/60 mb-4">Default handler when rate limit is exceeded. Sets status 429, Retry-After header, and JSON error body.</p>
+
+        <h3 class="text-lg font-bold mb-3">extractClientIp</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">extractClientIp</span>(
+  headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span> | <span class="tp">string</span>[] | <span class="tp">undefined</span>&gt;,
+): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Extracts client IP from X-Forwarded-For (first entry) or X-Real-IP headers. Falls back to "unknown".</p>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">createRateLimiter Return Methods</h3>
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Method</th>
+                <th class="p-3 text-left">Returns</th>
+                <th class="p-3 text-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">check(request)</td>
+                <td class="p-3">RateLimitResult</td>
+                <td class="p-3">Checks if request is allowed and updates the counter</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">middleware(request, response?)</td>
+                <td class="p-3">RateLimitResult</td>
+                <td class="p-3">Checks and optionally invokes handler when blocked</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">reset(key)</td>
+                <td class="p-3">void</td>
+                <td class="p-3">Resets the rate limit for a specific key</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">clear()</td>
+                <td class="p-3">void</td>
+                <td class="p-3">Clears all rate limit data</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">getCount(key)</td>
+                <td class="p-3">number</td>
+                <td class="p-3">Gets the current request count for a key</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">destroy()</td>
+                <td class="p-3">void</td>
+                <td class="p-3">Destroys the rate limiter and cleans up resources</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Security Headers -->
+      <section id="security-headers" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">SECURITY HEADERS</h2>
+        <p class="mb-4">Generates security-related HTTP response headers with secure defaults.</p>
+
+        <h3 class="text-lg font-bold mb-3">generateSecurityHeaders</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">generateSecurityHeaders</span>(
+  config?: <span class="tp">SecurityHeadersConfig</span>,
+): <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span>&gt;</div>
+        <p class="text-sm text-black/60 mb-4">Returns a record of security headers with secure defaults (nosniff, DENY, strict-origin-when-cross-origin, etc.).</p>
+
+        <h3 class="text-lg font-bold mb-3">getMissingSecurityHeaders</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">getMissingSecurityHeaders</span>(
+  headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span> | <span class="tp">string</span>[] | <span class="tp">undefined</span>&gt;,
+): <span class="tp">string</span>[]</div>
+        <p class="text-sm text-black/60 mb-4">Returns an array of security header names that are missing from the given response headers.</p>
+
+        <h3 class="text-lg font-bold mb-3">generateCspNonce</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">generateCspNonce</span>(nonceLength?: <span class="tp">number</span>): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Creates a base64-encoded CSP nonce for inline scripts. Default length: 16 bytes.</p>
+
+        <h3 class="text-lg font-bold mb-3">validateCspDirective</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateCspDirective</span>(directive: <span class="tp">string</span>): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates a CSP directive string. Returns a warning message for unsafe-inline, unsafe-eval, or unsafe-hashes.</p>
+
+        <h3 class="text-lg font-bold mb-3">SECURITY_HEADER_NAMES</h3>
+        <div class="code-block"><span class="kw">const</span> SECURITY_HEADER_NAMES: {
+  CONTENT_SECURITY_POLICY: <span class="str">"Content-Security-Policy"</span>;
+  CONTENT_TYPE_OPTIONS: <span class="str">"X-Content-Type-Options"</span>;
+  FRAME_OPTIONS: <span class="str">"X-Frame-Options"</span>;
+  XSS_PROTECTION: <span class="str">"X-XSS-Protection"</span>;
+  HSTS: <span class="str">"Strict-Transport-Security"</span>;
+  REFERRER_POLICY: <span class="str">"Referrer-Policy"</span>;
+  PERMISSIONS_POLICY: <span class="str">"Permissions-Policy"</span>;
+  DNS_PREFETCH_CONTROL: <span class="str">"X-DNS-Prefetch-Control"</span>;
+  OPENER_POLICY: <span class="str">"Cross-Origin-Opener-Policy"</span>;
+  RESOURCE_POLICY: <span class="str">"Cross-Origin-Resource-Policy"</span>;
+};</div>
+      </section>
+
+      <!-- Header Validation -->
+      <section id="header-validation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">HEADER VALIDATION</h2>
+        <p class="mb-4">Validates and sanitizes HTTP headers against injection attacks, size limits, and blocked names.</p>
+
+        <h3 class="text-lg font-bold mb-3">validateHeaderName</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateHeaderName</span>(name: <span class="tp">string</span>): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates a header name per RFC 7230 token rules. Returns an error message if invalid.</p>
+
+        <h3 class="text-lg font-bold mb-3">validateHeaderValue</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateHeaderValue</span>(
+  name: <span class="tp">string</span>,
+  value: <span class="tp">string</span>,
+  config?: <span class="tp">HeaderSecurityConfig</span>,
+): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Checks for CRLF injection, null bytes, and value size exceeding the configured maximum.</p>
+
+        <h3 class="text-lg font-bold mb-3">validateHeaders</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateHeaders</span>(
+  headers: <span class="tp">Record</span>&lt;<span class="tp">string</span>, <span class="tp">string</span> | <span class="tp">string</span>[] | <span class="tp">undefined</span>&gt;,
+  config?: <span class="tp">HeaderSecurityConfig</span>,
+): <span class="tp">HeaderValidationResult</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates all headers: count, total size, blocked headers, and individual name/value rules.</p>
+
+        <h3 class="text-lg font-bold mb-3">sanitizeHeaderValue</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">sanitizeHeaderValue</span>(value: <span class="tp">string</span>): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Strips null bytes and CRLF characters from a header value. Returns undefined if empty after sanitization.</p>
+
+        <h3 class="text-lg font-bold mb-3">isHopByHopHeader</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">isHopByHopHeader</span>(name: <span class="tp">string</span>): <span class="tp">boolean</span></div>
+        <p class="text-sm text-black/60 mb-4">Returns true for hop-by-hop headers (connection, keep-alive, proxy-authenticate, transfer-encoding, upgrade, etc.).</p>
+      </section>
+
+      <!-- Body Size Validation -->
+      <section id="body-size" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">BODY SIZE VALIDATION</h2>
+        <p class="mb-4">Validates request body size and content type against configurable limits.</p>
+
+        <h3 class="text-lg font-bold mb-3">validateContentLength</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateContentLength</span>(
+  contentLength: <span class="tp">string</span> | <span class="tp">undefined</span>,
+): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates the Content-Length header: must be a valid non-negative safe integer.</p>
+
+        <h3 class="text-lg font-bold mb-3">validateBodySize</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateBodySize</span>(
+  actualSize: <span class="tp">number</span>,
+  maxSize?: <span class="tp">number</span>,
+  contentType?: <span class="tp">string</span>,
+): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Checks if a body size is within the allowed limit. Default max: 1MB.</p>
+
+        <h3 class="text-lg font-bold mb-3">getBodyLimitForContentType</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">getBodyLimitForContentType</span>(
+  contentType: <span class="tp">string</span> | <span class="tp">undefined</span>,
+  presetLimits?: <span class="tp">Partial</span>&lt;<span class="tp">BodyLimitPresets</span>&gt;,
+): <span class="tp">number</span></div>
+        <p class="text-sm text-black/60 mb-4">Returns the appropriate body limit for a content type: JSON (1MB), auth (256KB), upload (100MB), webhook (2MB).</p>
+
+        <h3 class="text-lg font-bold mb-3">validateBodyLimitConfig</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateBodyLimitConfig</span>(config: <span class="tp">BodyLimitConfig</span>): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates a body limit config: maxSize must be positive and under 1GB.</p>
+
+        <h3 class="text-lg font-bold mb-3">createBodySizeChecker</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createBodySizeChecker</span>(
+  maxSize: <span class="tp">number</span>,
+  contentType?: <span class="tp">string</span>,
+): (size: <span class="tp">number</span>) =&gt; { allowed: <span class="tp">boolean</span>; error?: <span class="tp">string</span> }</div>
+        <p class="text-sm text-black/60 mb-4">Creates a reusable body size checker function for use in middleware.</p>
+
+        <h3 class="text-lg font-bold mb-3">DEFAULT_BODY_LIMITS</h3>
+        <div class="code-block"><span class="kw">const</span> DEFAULT_BODY_LIMITS: <span class="tp">BodyLimitPresets</span> = {
+  json: <span class="num">1_048_576</span>,     <span class="cm">// 1MB</span>
+  auth: <span class="num">262_144</span>,      <span class="cm">// 256KB</span>
+  upload: <span class="num">104_857_600</span>, <span class="cm">// 100MB</span>
+  webhook: <span class="num">2_097_152</span>,  <span class="cm">// 2MB</span>
+};</div>
+      </section>
+
+      <!-- Cookie Security -->
+      <section id="cookie-security" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">COOKIE SECURITY</h2>
+        <p class="mb-4">Parses, validates, and serializes HTTP cookies with security best practices.</p>
+
+        <h3 class="text-lg font-bold mb-3">parseCookieHeader</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">parseCookieHeader</span>(
+  cookieHeader: <span class="tp">string</span>,
+  config?: <span class="tp">CookieSecurityConfig</span>,
+): { cookies: <span class="tp">ParsedCookie</span>[]; errors: <span class="tp">string</span>[] }</div>
+        <p class="text-sm text-black/60 mb-4">Parses a raw Cookie header into individual cookies with size and count validation.</p>
+
+        <h3 class="text-lg font-bold mb-3">serializeCookie</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">serializeCookie</span>(
+  cookie: <span class="tp">ParsedCookie</span>,
+  config?: <span class="tp">CookieSecurityConfig</span>,
+): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Serializes a ParsedCookie into a Set-Cookie header value with security defaults (Secure, HttpOnly, SameSite=Lax).</p>
+
+        <h3 class="text-lg font-bold mb-3">createSecureCookie</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">createSecureCookie</span>(
+  name: <span class="tp">string</span>,
+  value: <span class="tp">string</span>,
+  options?: <span class="tp">Partial</span>&lt;<span class="tp">Omit</span>&lt;<span class="tp">ParsedCookie</span>, <span class="str">"name"</span> | <span class="str">"value"</span>&gt;&gt;,
+  config?: <span class="tp">CookieSecurityConfig</span>,
+): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Convenience function that creates a Set-Cookie header with secure defaults.</p>
+
+        <h3 class="text-lg font-bold mb-3">validateCookieName</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateCookieName</span>(name: <span class="tp">string</span>): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates cookie name per RFC 6265 (no spaces, commas, semicolons, or equals signs).</p>
+
+        <h3 class="text-lg font-bold mb-3">validateCookieValue</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateCookieValue</span>(value: <span class="tp">string</span>): <span class="tp">string</span> | <span class="tp">undefined</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates cookie value: no semicolons or control characters.</p>
+
+        <h3 class="text-lg font-bold mb-3">stripSensitiveCookies</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">stripSensitiveCookies</span>(
+  cookieHeader: <span class="tp">string</span>,
+  sensitiveNames?: <span class="kw">readonly</span> <span class="tp">string</span>[],
+): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Removes security-sensitive cookies (session, token, auth, jwt by default) from a cookie header.</p>
+      </section>
+
+      <!-- URL Validation -->
+      <section id="url-validation" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">URL VALIDATION</h2>
+        <p class="mb-4">Validates and normalizes URLs, prevents path traversal, and ensures request targets are safe.</p>
+
+        <h3 class="text-lg font-bold mb-3">validateUrl</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateUrl</span>(
+  url: <span class="tp">string</span>,
+  config?: <span class="tp">UrlValidationConfig</span>,
+): <span class="tp">UrlValidationResult</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates URL length, null bytes, percent encoding, protocol, and path traversal. Returns valid flag and errors.</p>
+
+        <h3 class="text-lg font-bold mb-3">normalizePath</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">normalizePath</span>(pathname: <span class="tp">string</span>): <span class="tp">string</span></div>
+        <p class="text-sm text-black/60 mb-4">Normalizes a URL path by resolving . and .. segments.</p>
+
+        <h3 class="text-lg font-bold mb-3">validateRequestTarget</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">validateRequestTarget</span>(
+  target: <span class="tp">string</span>,
+  config?: <span class="tp">UrlValidationConfig</span>,
+): <span class="tp">UrlValidationResult</span></div>
+        <p class="text-sm text-black/60 mb-4">Validates a request target (path + query) against null bytes, path traversal, and control characters.</p>
+
+        <h3 class="text-lg font-bold mb-3">isSafeUrl</h3>
+        <div class="code-block"><span class="kw">function</span> <span class="fn">isSafeUrl</span>(url: <span class="tp">string</span>): <span class="tp">boolean</span></div>
+        <p class="text-sm text-black/60 mb-4">Returns false for file:// protocol and internal network addresses (localhost, 127.0.0.1, 192.168.x, 10.x, 172.x).</p>
+      </section>
+
+      <!-- Constants -->
+      <section id="constants" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">CONSTANTS</h2>
+        <p class="mb-4">Shared constants for threat detection and security defaults.</p>
+
+        <h3 class="text-lg font-bold mb-3">PROTOTYPE_POLLUTION_KEYS</h3>
+        <div class="code-block"><span class="kw">const</span> PROTOTYPE_POLLUTION_KEYS = [
+  <span class="str">"__proto__"</span>,
+  <span class="str">"constructor"</span>,
+  <span class="str">"prototype"</span>,
+] <span class="kw">as const</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">SQL_INJECTION_PATTERNS</h3>
+        <div class="code-block"><span class="kw">const</span> SQL_INJECTION_PATTERNS = [
+  <span class="cm">/(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|UNION|FETCH|DECLARE|TRUNCATE|COMMENT)/i</span>,
+  <span class="cm">/(--|#|\/\*|\*\/)/</span>,
+  <span class="cm">/('\s*(OR|AND)\s*')/i</span>,
+  <span class="cm">/(;\s*(DROP|DELETE|INSERT|UPDATE))/i</span>,
+] <span class="kw">as const</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">XSS_PATTERNS</h3>
+        <div class="code-block"><span class="kw">const</span> XSS_PATTERNS = [
+  <span class="cm">/&lt;script\b[^&gt;]*&gt;[\s\S]*?&lt;\/script[^&gt;]*&gt;/gi</span>,
+  <span class="cm">/&lt;script\b[^&gt;]*&gt;/gi</span>,
+  <span class="cm">/&lt;\/script[^&gt;]*&gt;/gi</span>,
+  <span class="cm">/javascript:/gi</span>,
+  <span class="cm">/on\w+\s*=/gi</span>,
+  <span class="cm">/data:text\/html/gi</span>,
+  <span class="cm">/&lt;iframe\b[^&gt;]*&gt;/gi</span>,
+  <span class="cm">/&lt;object\b[^&gt;]*&gt;/gi</span>,
+  <span class="cm">/&lt;embed\b[^&gt;]*&gt;/gi</span>,
+] <span class="kw">as const</span>;</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">DEFAULT_BODY_LIMITS</h3>
+        <div class="code-block"><span class="kw">const</span> DEFAULT_BODY_LIMITS: <span class="tp">BodyLimitPresets</span> = {
+  json: <span class="num">1_048_576</span>,     <span class="cm">// 1MB</span>
+  auth: <span class="num">262_144</span>,      <span class="cm">// 256KB</span>
+  upload: <span class="num">104_857_600</span>, <span class="cm">// 100MB</span>
+  webhook: <span class="num">2_097_152</span>,  <span class="cm">// 2MB</span>
+};</div>
+
+        <h3 class="text-lg font-bold mb-3 mt-6">SECURITY_HEADER_NAMES</h3>
+        <div class="code-block"><span class="kw">const</span> SECURITY_HEADER_NAMES = {
+  CONTENT_SECURITY_POLICY: <span class="str">"Content-Security-Policy"</span>,
+  CONTENT_TYPE_OPTIONS: <span class="str">"X-Content-Type-Options"</span>,
+  FRAME_OPTIONS: <span class="str">"X-Frame-Options"</span>,
+  XSS_PROTECTION: <span class="str">"X-XSS-Protection"</span>,
+  HSTS: <span class="str">"Strict-Transport-Security"</span>,
+  REFERRER_POLICY: <span class="str">"Referrer-Policy"</span>,
+  PERMISSIONS_POLICY: <span class="str">"Permissions-Policy"</span>,
+  DNS_PREFETCH_CONTROL: <span class="str">"X-DNS-Prefetch-Control"</span>,
+  OPENER_POLICY: <span class="str">"Cross-Origin-Opener-Policy"</span>,
+  RESOURCE_POLICY: <span class="str">"Cross-Origin-Resource-Policy"</span>,
+} <span class="kw">as const</span>;</div>
+      </section>
+
+      <!-- Error Hierarchy -->
+      <section id="errors" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">ERROR HIERARCHY</h2>
+        <p class="mb-4">
+          Security operations use error types from <code class="bg-black/5 px-1">@zudojs/errors</code>. There is no dedicated SecurityError class.
+        </p>
+
+        <div class="border-4 border-black">
+          <table class="w-full text-sm">
+            <thead class="bg-black text-white">
+              <tr>
+                <th class="p-3 text-left">Error Type</th>
+                <th class="p-3 text-left">Used When</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">ValidationError</td>
+                <td class="p-3">Header, URL, body, cookie, or CSP validation fails</td>
+              </tr>
+              <tr class="border-b-2 border-black/10">
+                <td class="p-3 font-mono">ConfigurationError</td>
+                <td class="p-3">Invalid security configuration (e.g., body limit config)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono">RateLimitError</td>
+                <td class="p-3">Rate limit exceeded (can be used with custom handlers)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-note mt-4">
+          <strong class="text-zudo-blue">Design Note:</strong> Security functions are designed to be pure and return results rather than throwing. Use the returned error messages or result objects to handle failures in your middleware pipeline.
+        </div>
+      </section>
+
+      <!-- Full Integration Example -->
+      <section id="full-example" class="mb-12">
+        <h2 class="text-2xl font-black mb-4 border-b-4 border-black pb-2">FULL INTEGRATION EXAMPLE</h2>
+        <p class="mb-4">Complete example combining input sanitization, CORS, CSRF, rate limiting, security headers, cookie security, and URL validation.</p>
+
+        <div class="code-block"><span class="kw">import</span> {
+  <span class="cm">// Input sanitization</span>
+  <span class="fn">containsSqlInjection</span>,
+  <span class="fn">containsXss</span>,
+  <span class="fn">sanitizeString</span>,
+  <span class="fn">sanitizeObject</span>,
+  <span class="fn">detectThreats</span>,
+  <span class="fn">escapeHtml</span>,
+
+  <span class="cm">// CORS</span>
+  <span class="fn">isOriginAllowed</span>,
+  <span class="fn">generatePreflightHeaders</span>,
+  <span class="fn">generateSimpleHeaders</span>,
+  <span class="fn">isMethodAllowed</span>,
+
+  <span class="cm">// CSRF</span>
+  <span class="fn">generateCsrfToken</span>,
+  <span class="fn">validateCsrfToken</span>,
+  <span class="fn">requiresCsrfProtection</span>,
+  <span class="fn">extractCsrfTokenFromHeaders</span>,
+  <span class="fn">generateCsrfCookie</span>,
+
+  <span class="cm">// Rate limiting</span>
+  <span class="fn">createRateLimiter</span>,
+  <span class="fn">extractClientIp</span>,
+
+  <span class="cm">// Security headers</span>
+  <span class="fn">generateSecurityHeaders</span>,
+
+  <span class="cm">// Cookie security</span>
+  <span class="fn">createSecureCookie</span>,
+
+  <span class="cm">// URL validation</span>
+  <span class="fn">validateUrl</span>,
+  <span class="fn">normalizePath</span>,
+} <span class="kw">from</span> <span class="str">"@zudojs/security"</span>;
+
+<span class="kw">import type</span> { <span class="tp">CorsConfig</span>, <span class="tp">CsrfConfig</span> } <span class="kw">from</span> <span class="str">"@zudojs/security"</span>;
+
+<span class="cm">// ─── Configuration ─────────────────────────────────────────────</span>
+<span class="kw">const</span> corsConfig: <span class="tp">CorsConfig</span> = {
+  origin: [<span class="str">"https://app.example.com"</span>, <span class="str">"https://admin.example.com"</span>],
+  methods: [<span class="str">"GET"</span>, <span class="str">"POST"</span>, <span class="str">"PUT"</span>, <span class="str">"DELETE"</span>],
+  allowedHeaders: [<span class="str">"Content-Type"</span>, <span class="str">"Authorization"</span>, <span class="str">"X-CSRF-Token"</span>],
+  credentials: <span class="num">true</span>,
+  maxAge: <span class="num">86400</span>,
+};
+
+<span class="kw">const</span> csrfConfig: <span class="tp">CsrfConfig</span> = {
+  secret: process.env.<span class="tp">CSRF_SECRET</span>!,
+  expiration: <span class="num">3600</span>,
+  cookieName: <span class="str">"_csrf"</span>,
+  headerName: <span class="str">"x-csrf-token"</span>,
+};
+
+<span class="cm">// ─── Rate Limiter ─────────────────────────────────────────────</span>
+<span class="kw">const</span> limiter = <span class="fn">createRateLimiter</span>({
+  max: <span class="num">100</span>,
+  windowMs: <span class="num">60_000</span>,
+  keyGenerator: (req) =&gt; <span class="fn">extractClientIp</span>(req.headers ?? {}),
+  handler: (req, res) =&gt; {
+    res.statusCode = <span class="num">429</span>;
+    res.headers[<span class="str">"Retry-After"</span>] = <span class="str">"60"</span>;
+    res.body = JSON.<span class="fn">stringify</span>({
+      error: { code: <span class="str">"RATE_LIMIT_EXCEEDED"</span>, message: <span class="str">"Too many requests"</span> },
+    });
+  },
+});
+
+<span class="cm">// ─── Security Middleware ───────────────────────────────────────</span>
+<span class="kw">async function</span> <span class="fn">securityMiddleware</span>(request: <span class="tp">Request</span>): <span class="tp">Promise</span>&lt;<span class="tp">Response</span>&gt; {
+  <span class="cm">// 1. URL validation</span>
+  <span class="kw">const</span> urlResult = <span class="fn">validateUrl</span>(request.url);
+  <span class="kw">if</span> (!urlResult.valid) {
+    <span class="kw">return new</span> <span class="fn">Response</span>(<span class="str">"Bad Request"</span>, { status: <span class="num">400</span> });
+  }
+
+  <span class="cm">// 2. Rate limiting</span>
+  <span class="kw">const</span> rateResult = limiter.<span class="fn">check</span>({
+    ip: request.headers.<span class="fn">get</span>(<span class="str">"x-forwarded-for"</span>) ?? <span class="str">"unknown"</span>,
+    method: request.method,
+    path: <span class="kw">new</span> <span class="fn">URL</span>(request.url).pathname,
+  });
+  <span class="kw">if</span> (!rateResult.allowed) {
+    <span class="kw">return new</span> <span class="fn">Response</span>(<span class="str">"Too Many Requests"</span>, {
+      status: <span class="num">429</span>,
+      headers: { <span class="str">"Retry-After"</span>: <span class="str">"60"</span> },
+    });
+  }
+
+  <span class="cm">// 3. CORS headers</span>
+  <span class="kw">const</span> origin = request.headers.<span class="fn">get</span>(<span class="str">"origin"</span>) ?? <span class="kw">undefined</span>;
+  <span class="kw">const</span> isPreflight = request.method === <span class="str">"OPTIONS"</span>;
+  <span class="kw">const</span> corsHeaders = isPreflight
+    ? <span class="fn">generatePreflightHeaders</span>(origin, corsConfig)
+    : <span class="fn">generateSimpleHeaders</span>(origin, corsConfig);
+
+  <span class="kw">if</span> (isPreflight) {
+    <span class="kw">return new</span> <span class="fn">Response</span>(<span class="num">null</span>, { status: <span class="num">204</span>, headers: corsHeaders });
+  }
+
+  <span class="cm">// 4. CSRF protection for state-changing requests</span>
+  <span class="kw">if</span> (<span class="fn">requiresCsrfProtection</span>(request.method, csrfConfig)) {
+    <span class="kw">const</span> token = <span class="fn">extractCsrfTokenFromHeaders</span>(
+      Object.<span class="fn">fromEntries</span>(request.headers),
+    );
+    <span class="kw">if</span> (!token || !<span class="fn">validateCsrfToken</span>(token, csrfConfig.secret)) {
+      <span class="kw">return new</span> <span class="fn">Response</span>(<span class="str">"CSRF Token Invalid"</span>, { status: <span class="num">403</span> });
+    }
+  }
+
+  <span class="cm">// 5. Input sanitization</span>
+  <span class="kw">const</span> body = <span class="kw">await</span> request.<span class="fn">json</span>();
+  <span class="kw">const</span> sanitized = <span class="fn">sanitizeObject</span>(body);
+
+  <span class="cm">// 6. Threat detection</span>
+  <span class="kw">const</span> name = sanitized.name <span class="kw">as</span> <span class="tp">string</span>;
+  <span class="kw">const</span> threats = <span class="fn">detectThreats</span>(name);
+  <span class="kw">if</span> (threats.length &gt; <span class="num">0</span>) {
+    <span class="kw">return new</span> <span class="fn">Response</span>(<span class="str">"Suspicious Input"</span>, { status: <span class="num">400</span> });
+  }
+
+  <span class="cm">// 7. Security headers</span>
+  <span class="kw">const</span> securityHeaders = <span class="fn">generateSecurityHeaders</span>({
+    contentSecurityPolicy: <span class="str">"default-src 'self'"</span>,
+    hsts: <span class="str">"max-age=31536000; includeSubDomains"</span>,
+  });
+
+  <span class="cm">// 8. Secure cookie</span>
+  <span class="kw">const</span> sessionCookie = <span class="fn">createSecureCookie</span>(<span class="str">"session"</span>, <span class="str">"abc123"</span>, {
+    path: <span class="str">"/"</span>,
+    maxAge: <span class="num">3600</span>,
+    sameSite: <span class="str">"lax"</span>,
+  });
+
+  <span class="cm">// 9. Response</span>
+  <span class="kw">return new</span> <span class="fn">Response</span>(JSON.<span class="fn">stringify</span>({ success: <span class="num">true</span> }), {
+    status: <span class="num">200</span>,
+    headers: {
+      ...corsHeaders,
+      ...securityHeaders,
+      <span class="str">"Set-Cookie"</span>: sessionCookie,
+    },
+  });
+}</div>
+      </section>
+
+    </main>
+
+    <!-- TABLE OF CONTENTS -->
+    <aside class="doc-toc w-52 border-l-2 border-black/10 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto flex-shrink-0 py-8 px-4">
+      <div class="text-xs font-bold uppercase tracking-wider mb-4 text-black/40">On This Page</div>
+      <a href="#installation" class="toc-link">Installation</a>
+      <a href="#what-it-does" class="toc-link">What It Does</a>
+      <a href="#architecture-position" class="toc-link">Where It Sits</a>
+      <a href="#dependencies" class="toc-link">Dependencies</a>
+      <a href="#types" class="toc-link">Types</a>
+      <a href="#input-sanitization" class="toc-link">Input Sanitization</a>
+      <a href="#cors" class="toc-link">CORS</a>
+      <a href="#csrf" class="toc-link">CSRF</a>
+      <a href="#rate-limiting" class="toc-link">Rate Limiting</a>
+      <a href="#security-headers" class="toc-link">Security Headers</a>
+      <a href="#header-validation" class="toc-link">Header Validation</a>
+      <a href="#body-size" class="toc-link">Body Size</a>
+      <a href="#cookie-security" class="toc-link">Cookie Security</a>
+      <a href="#url-validation" class="toc-link">URL Validation</a>
+      <a href="#constants" class="toc-link">Constants</a>
+      <a href="#errors" class="toc-link">Errors</a>
+      <a href="#full-example" class="toc-link">Full Example</a>
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div id="zudo-footer"></div>
+
+  <script src="/js/toc.js"></script>
+
+  <script src="/js/components.js"></script>
+  <script src="/js/playground.js"></script>
+</body>
+</html>
