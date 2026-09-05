@@ -1,5 +1,5 @@
-/* Zudo Documentation — Package Page Styles */
-/* Brutalist Design System */
+/* Zudo Documentation — Redesigned for readability */
+/* Brutalist structure, soft palette */
 
 /* ==================== RESET ==================== */
 
@@ -13,9 +13,11 @@ html {
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #1A1A2E;
+  background: #FAFAF9;
 }
 
 /* ==================== TYPOGRAPHY ==================== */
@@ -23,14 +25,15 @@ body {
 .text-hero {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.1;
   letter-spacing: -0.02em;
 }
 
 .text-h1 {
   font-size: 2.25rem;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 .text-h2 {
@@ -48,100 +51,99 @@ body {
 .text-body {
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .text-small {
   font-size: 0.875rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
 .text-label {
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-}
-
-/* ==================== BORDERS ==================== */
-
-.border-brutalist {
-  border: 3px solid #000000;
-}
-
-.border-brutalist-white {
-  border: 3px solid #FFFFFF;
-}
-
-.border-brutalist-red {
-  border: 3px solid #FF0000;
-}
-
-.border-brutalist-blue {
-  border: 3px solid #0000FF;
-}
-
-.border-brutalist-yellow {
-  border: 3px solid #FFFF00;
-}
-
-.border-brutalist-green {
-  border: 3px solid #00FF00;
-}
-
-.border-brutalist-thin {
-  border: 1px solid #000000;
-}
-
-.border-brutalist-thick {
-  border: 4px solid #000000;
-}
-
-/* ==================== GRID LINES ==================== */
-
-.grid-lines {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-
-.grid-lines-dark {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
 }
 
 /* ==================== CODE BLOCKS ==================== */
 
 .code-block {
-  background: #1a1a1a;
-  color: #00FF00;
-  border: 2px solid #333333;
-  font-family: 'Courier New', monospace;
-  font-size: 0.875rem;
-  line-height: 1.6;
+  background: #1E1E2E;
+  color: #CDD6F4;
+  border: 2px solid #313244;
+  border-left: 4px solid #C0392B;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.85rem;
+  line-height: 1.8;
   overflow-x: auto;
-  padding: 1rem;
+  padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+  tab-size: 2;
+  white-space: pre;
+  position: relative;
 }
 
-.code-block .kw { color: #FF00FF; }
-.code-block .str { color: #FFFF00; }
-.code-block .cmt { color: #666666; }
-.code-block .fn { color: #0000FF; }
-.code-block .tp { color: #00FFFF; }
-.code-block .num { color: #FF0000; }
-.code-block .op { color: #FFFFFF; }
+.code-block .kw { color: #CBA6F7; font-weight: 600; }
+.code-block .str { color: #A6E3A1; }
+.code-block .cmt { color: #6C7086; font-style: italic; }
+.code-block .fn { color: #89B4FA; }
+.code-block .tp { color: #89DCEB; }
+.code-block .num { color: #FAB387; }
+.code-block .op { color: #94E2D5; }
+.code-block .const { color: #F38BA8; }
+.code-block .prop { color: #B4BEFE; }
+.code-block .param { color: #F5C2E7; }
+.code-block .punct { color: #9399B2; }
+.code-block .dec { color: #F9E2AF; }
+
+/* Line numbers */
+.code-block .line-num {
+  color: #45475A;
+  user-select: none;
+  display: inline-block;
+  width: 2.5em;
+  text-align: right;
+  margin-right: 1.5em;
+}
+
+/* Code block label */
+.code-block-label {
+  display: inline-block;
+  background: #313244;
+  color: #A6ADC8;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  margin-bottom: -2px;
+  border: 2px solid #313244;
+  border-bottom: none;
+  position: relative;
+  top: 2px;
+}
 
 .code-inline {
-  background: #1a1a1a;
-  color: #00FF00;
-  border: 1px solid #333333;
-  font-family: 'Courier New', monospace;
+  background: #313244;
+  color: #CBA6F7;
+  border: 1px solid #45475A;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 0.85em;
   padding: 2px 6px;
+  font-weight: 500;
+}
+
+/* Spacing between consecutive code blocks */
+.code-block + .code-block {
+  margin-top: -1px;
+  border-top: none;
+}
+
+/* Code block with label gets merged borders */
+.code-block-label + .code-block {
+  border-top-left-radius: 0;
 }
 
 /* ==================== NAVIGATION ==================== */
@@ -156,8 +158,9 @@ body {
   bottom: -2px;
   left: 0;
   width: 0;
-  height: 3px;
-  background: #FF0000;
+  height: 2px;
+  background: #C0392B;
+  transition: width 0.2s ease;
 }
 
 .nav-link:hover::after {
@@ -166,16 +169,16 @@ body {
 
 .nav-link-active::after {
   width: 100%;
-  background: #0000FF;
+  background: #2471A3;
 }
 
 /* ==================== COMPONENTS ==================== */
 
 /* Buttons */
 .btn-primary {
-  background: #FF0000;
-  color: #000000;
-  border: 3px solid #000000;
+  background: #C0392B;
+  color: #FFFFFF;
+  border: 2px solid #1A1A2E;
   padding: 12px 24px;
   font-weight: 700;
   font-size: 1rem;
@@ -183,8 +186,8 @@ body {
 }
 
 .btn-primary:hover {
-  background: #e60000;
-  box-shadow: 4px 4px 0px #000000;
+  background: #A93226;
+  box-shadow: 3px 3px 0px #1A1A2E;
 }
 
 .btn-primary:active {
@@ -193,8 +196,8 @@ body {
 
 .btn-secondary {
   background: transparent;
-  color: #0000FF;
-  border: 2px solid #0000FF;
+  color: #2471A3;
+  border: 2px solid #2471A3;
   padding: 12px 24px;
   font-weight: 700;
   font-size: 1rem;
@@ -202,13 +205,13 @@ body {
 }
 
 .btn-secondary:hover {
-  background: rgba(0, 0, 255, 0.08);
+  background: rgba(36, 113, 163, 0.08);
 }
 
 .btn-ghost {
   background: transparent;
-  color: #000000;
-  border: 2px solid #000000;
+  color: #1A1A2E;
+  border: 2px solid #D1D5DB;
   padding: 12px 24px;
   font-weight: 700;
   font-size: 1rem;
@@ -216,13 +219,14 @@ body {
 }
 
 .btn-ghost:hover {
-  background: #000000;
+  background: #1A1A2E;
   color: #FFFFFF;
+  border-color: #1A1A2E;
 }
 
 /* Focus States */
 *:focus-visible {
-  outline: 3px solid #0000FF;
+  outline: 3px solid #2471A3;
   outline-offset: 2px;
 }
 
@@ -231,11 +235,11 @@ body {
 .sidebar,
 .doc-sidebar {
   width: 260px;
-  border-right: 3px solid #000000;
+  border-right: 1px solid #E5E7EB;
   overflow-y: auto;
   position: sticky;
-  top: 60px;
-  height: calc(100vh - 60px);
+  top: 56px;
+  height: calc(100vh - 56px);
   background: #FFFFFF;
   flex-shrink: 0;
 }
@@ -246,38 +250,40 @@ body {
   font-size: 0.875rem;
   font-weight: 500;
   display: block;
-  color: #000000;
+  color: #4B5563;
   text-decoration: none;
 }
 
 .sidebar-item:hover {
-  background: rgba(0, 0, 0, 0.05);
-  border-left-color: #FF0000;
+  background: #F5F5F0;
+  border-left-color: #C0392B;
+  color: #1A1A2E;
 }
 
 .sidebar-item-active {
-  background: rgba(0, 255, 0, 0.05);
-  border-left-color: #00FF00;
+  background: #EFF6FF;
+  border-left-color: #2471A3;
   font-weight: 700;
+  color: #1A1A2E;
 }
 
 .sidebar-section {
   padding: 16px 16px 8px;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #FF0000;
+  letter-spacing: 0.06em;
+  color: #9CA3AF;
 }
 
 /* ==================== TABLE OF CONTENTS ==================== */
 
 .toc {
   width: 220px;
-  border-left: 2px solid #000000;
+  border-left: 1px solid #E5E7EB;
   position: sticky;
-  top: 60px;
-  height: calc(100vh - 60px);
+  top: 56px;
+  height: calc(100vh - 56px);
   overflow-y: auto;
   padding: 24px 16px;
   background: #FFFFFF;
@@ -286,7 +292,7 @@ body {
 .toc-item {
   padding: 4px 0;
   font-size: 0.75rem;
-  color: #666666;
+  color: #9CA3AF;
   border-left: 2px solid transparent;
   padding-left: 12px;
   display: block;
@@ -294,13 +300,13 @@ body {
 }
 
 .toc-item:hover {
-  color: #0000FF;
-  border-left-color: #0000FF;
+  color: #2471A3;
+  border-left-color: #2471A3;
 }
 
 .toc-item-active {
-  color: #FF0000;
-  border-left-color: #FF0000;
+  color: #C0392B;
+  border-left-color: #C0392B;
   font-weight: 700;
 }
 
@@ -312,28 +318,31 @@ body {
 
 .callout {
   border-left: 4px solid;
-  padding: 16px;
-  margin: 16px 0;
+  padding: 16px 20px;
+  margin: 20px 0;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-left: 4px solid;
 }
 
 .callout-note {
-  border-color: #0000FF;
-  background: rgba(0, 0, 255, 0.05);
+  border-left-color: #2471A3;
+  background: #EFF6FF;
 }
 
 .callout-warning {
-  border-color: #FFFF00;
-  background: rgba(255, 255, 0, 0.08);
+  border-left-color: #D4AC0D;
+  background: #FEF9E7;
 }
 
 .callout-danger {
-  border-color: #FF0000;
-  background: rgba(255, 0, 0, 0.05);
+  border-left-color: #C0392B;
+  background: #FDF2F2;
 }
 
 .callout-tip {
-  border-color: #00FF00;
-  background: rgba(0, 255, 0, 0.05);
+  border-left-color: #1E8449;
+  background: #F0FFF4;
 }
 
 /* ==================== TABLES ==================== */
@@ -341,14 +350,14 @@ body {
 .doc-table {
   width: 100%;
   border-collapse: collapse;
-  border: 2px solid #000000;
+  border: 2px solid #1A1A2E;
   font-size: 0.875rem;
 }
 
 .doc-table th {
-  background: #000000;
+  background: #1A1A2E;
   color: #FFFFFF;
-  padding: 10px 14px;
+  padding: 12px 16px;
   text-align: left;
   font-weight: 700;
   font-size: 0.75rem;
@@ -357,8 +366,8 @@ body {
 }
 
 .doc-table td {
-  padding: 10px 14px;
-  border-bottom: 1px solid #000000;
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
 }
 
 .doc-table tr:last-child td {
@@ -366,43 +375,44 @@ body {
 }
 
 .doc-table tbody tr:hover {
-  background: rgba(0, 0, 255, 0.03);
+  background: #F5F5F0;
 }
 
 /* ==================== SEARCH ==================== */
 
 .search-overlay {
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(26, 26, 46, 0.95);
   backdrop-filter: blur(4px);
 }
 
 .search-input {
-  background: #1a1a1a;
-  border: 3px solid #FFFFFF;
+  background: #313244;
+  border: 2px solid #45475A;
   color: #FFFFFF;
-  font-family: system-ui, monospace;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 1rem;
   padding: 12px 16px;
 }
 
 .search-input:focus {
-  outline: 3px solid #0000FF;
+  outline: 2px solid #2471A3;
   outline-offset: 0;
+  border-color: #2471A3;
 }
 
 .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: #6C7086;
 }
 
 .search-result {
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #45475A;
   padding: 12px 16px;
   cursor: pointer;
 }
 
 .search-result:hover {
-  background: #1a1a1a;
-  border-color: #FF0000;
+  background: #313244;
+  border-color: #C0392B;
 }
 
 /* ==================== TAG / BADGE ==================== */
@@ -414,28 +424,28 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border: 2px solid #000000;
+  border: 1px solid #D1D5DB;
 }
 
-.tag-red { background: #FF0000; color: #000000; }
-.tag-blue { background: #0000FF; color: #FFFFFF; }
-.tag-yellow { background: #FFFF00; color: #000000; }
-.tag-green { background: #00FF00; color: #000000; }
-.tag-black { background: #000000; color: #FFFFFF; }
+.tag-red { background: #FDF2F2; color: #C0392B; border-color: #C0392B; }
+.tag-blue { background: #EFF6FF; color: #2471A3; border-color: #2471A3; }
+.tag-yellow { background: #FEF9E7; color: #7D6608; border-color: #D4AC0D; }
+.tag-green { background: #F0FFF4; color: #1E8449; border-color: #1E8449; }
+.tag-black { background: #1A1A2E; color: #FFFFFF; border-color: #1A1A2E; }
 
-/* ==================== RESPONSE INDICATOR ==================== */
+/* ==================== STATUS ==================== */
 
 .status-badge {
   display: inline-block;
   padding: 4px 10px;
   font-size: 0.75rem;
   font-weight: 700;
-  border: 2px solid #000000;
+  border: 1px solid;
 }
 
-.status-success { background: #00FF00; color: #000000; }
-.status-error { background: #FF0000; color: #000000; }
-.status-info { background: #0000FF; color: #FFFFFF; }
+.status-success { background: #F0FFF4; color: #1E8449; border-color: #1E8449; }
+.status-error { background: #FDF2F2; color: #C0392B; border-color: #C0392B; }
+.status-info { background: #EFF6FF; color: #2471A3; border-color: #2471A3; }
 
 /* ==================== LAYOUT ==================== */
 
@@ -449,7 +459,7 @@ body {
   .sidebar {
     position: fixed;
     left: -260px;
-    top: 60px;
+    top: 56px;
     z-index: 40;
     background: #FFFFFF;
   }
@@ -482,14 +492,14 @@ body {
 
   body {
     font-size: 12pt;
-    color: #000000;
+    color: #1A1A2E;
     background: #FFFFFF;
   }
 
   .code-block {
-    border: 1px solid #CCCCCC;
-    background: #F5F5F5;
-    color: #000000;
+    border: 1px solid #D1D5DB;
+    background: #F5F5F0;
+    color: #1A1A2E;
   }
 }
 
@@ -497,111 +507,57 @@ body {
 
 .api-method {
   display: inline-block;
-  padding: 3px 10px;
+  padding: 2px 8px;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 2px solid #000000;
-  font-family: 'Courier New', monospace;
 }
 
-.api-method-get { background: #00FF00; color: #000000; }
-.api-method-post { background: #0000FF; color: #FFFFFF; }
-.api-method-define { background: #FF0000; color: #000000; }
-.api-method-class { background: #FFFF00; color: #000000; }
+.api-get { background: #EFF6FF; color: #2471A3; border: 1px solid #2471A3; }
+.api-post { background: #F0FFF4; color: #1E8449; border: 1px solid #1E8449; }
+.api-put { background: #FEF9E7; color: #7D6608; border: 1px solid #D4AC0D; }
+.api-delete { background: #FDF2F2; color: #C0392B; border: 1px solid #C0392B; }
 
 .api-signature {
-  background: #0f0f0f;
-  border: 2px solid #333;
-  padding: 16px;
-  font-family: 'Courier New', monospace;
+  background: #1E1E2E;
+  color: #CDD6F4;
+  border: 2px solid #313244;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
-  color: #e0e0e0;
+  padding: 16px;
   overflow-x: auto;
-  margin: 12px 0;
 }
 
-.api-signature .sig-keyword { color: #FF00FF; }
-.api-signature .sig-type { color: #00FFFF; }
-.api-signature .sig-string { color: #FFFF00; }
-.api-signature .sig-comment { color: #666; }
-.api-signature .sig-func { color: #0000FF; }
-
-/* ==================== COPY BUTTON ==================== */
-
+/* Copy button */
 .copy-btn {
   position: absolute;
   top: 8px;
   right: 8px;
   padding: 4px 10px;
-  font-size: 0.7rem;
+  background: #313244;
+  color: #A6ADC8;
+  border: 1px solid #45475A;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
   font-weight: 700;
-  background: rgba(0, 0, 0, 0.5);
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  font-family: system-ui, monospace;
+  z-index: 10;
 }
 
 .copy-btn:hover {
-  background: rgba(0, 255, 0, 0.8);
-  color: #000000;
-  border-color: #00FF00;
+  background: #45475A;
+  color: #FFFFFF;
 }
 
-/* ==================== VERSION BANNER ==================== */
-
-.version-banner {
-  background: #FFFF00;
-  color: #000000;
-  border: 2px solid #000000;
-  padding: 6px 12px;
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-/* ==================== DEPENDENCY CHAIN ==================== */
-
-.dep-chain {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  font-size: 0.85rem;
-}
-
-.dep-chain .dep-node {
-  padding: 4px 10px;
-  border: 2px solid #000000;
-  font-weight: 700;
-  font-family: 'Courier New', monospace;
-  font-size: 0.8rem;
-}
-
-.dep-chain .dep-arrow {
-  color: #FF0000;
-  font-weight: 900;
-}
-
-.dep-node-active {
-  background: #FF0000;
-  color: #000000;
-}
-
-.dep-node-dep {
-  background: #FFFFFF;
-  color: #000000;
-}
-
-/* ==================== ANCHOR LINK ==================== */
-
+/* Anchor link on headings */
 .anchor-link {
-  opacity: 0;
-  margin-left: 8px;
-  color: #0000FF;
+  color: #D1D5DB;
   text-decoration: none;
-  font-weight: 700;
+  margin-left: 8px;
+  font-weight: 400;
+  opacity: 0;
 }
 
 h2:hover .anchor-link,
@@ -610,16 +566,56 @@ h3:hover .anchor-link {
 }
 
 .anchor-link:hover {
-  color: #FF0000;
+  color: #C0392B;
 }
 
-/* ==================== RESPONSIVE ==================== */
+/* Section spacing */
+section {
+  margin-bottom: 3rem;
+}
 
-@media (max-width: 1024px) {
-  .doc-sidebar,
-  .sidebar,
-  .doc-toc,
-  .toc {
-    display: none;
-  }
+section h2 {
+  margin-bottom: 1rem;
+}
+
+/* Prose spacing */
+.prose > * + * {
+  margin-top: 1rem;
+}
+
+.prose > h2 + * {
+  margin-top: 0.5rem;
+}
+
+.prose > * + h2 {
+  margin-top: 2.5rem;
+}
+
+/* Code within prose */
+.prose code {
+  background: #313244;
+  color: #CBA6F7;
+  padding: 2px 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  border: 1px solid #45475A;
+}
+
+/* List styling */
+.prose ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.prose ul li {
+  padding-left: 1.5em;
+  position: relative;
+}
+
+.prose ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #C0392B;
+  font-weight: 700;
 }

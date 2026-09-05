@@ -158,10 +158,10 @@ class Search {
       return;
     }
     this.results.innerHTML = this.filtered.map((item, i) => `
-      <a href="${item.path}" class="search-result" style="display:block;margin-bottom:8px;${i === this.activeIndex ? 'border-color:#FF0000;background:#1a1a1a' : ''}">
+      <a href="${item.path}" class="search-result" style="display:block;margin-bottom:8px;${i === this.activeIndex ? 'border-color:#C0392B;background:#1a1a1a' : ''}">
         <div style="font-weight:700">${this.highlight(item.title, this.input.value)}</div>
         <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:4px">${this.highlight(item.excerpt, this.input.value)}</div>
-        <div style="font-size:0.75rem;color:#0000FF;margin-top:8px;font-family:monospace">${item.path}</div>
+        <div style="font-size:0.75rem;color:#2471A3;margin-top:8px;font-family:monospace">${item.path}</div>
       </a>
     `).join('');
   }
@@ -169,7 +169,7 @@ class Search {
   highlight(text, q) {
     if (!q) return text;
     const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-    return text.replace(re, '<span style="color:#FFFF00;font-weight:700">$1</span>');
+    return text.replace(re, '<span style="color:#F9E2AF;font-weight:700">$1</span>');
   }
 
   navigate(e) {
@@ -192,7 +192,7 @@ class Search {
   updateActive(items) {
     items.forEach((item, i) => {
       if (i === this.activeIndex) {
-        item.style.borderColor = '#FF0000';
+        item.style.borderColor = '#C0392B';
         item.style.background = '#1a1a1a';
         item.scrollIntoView({ block: 'nearest' });
       } else {
@@ -240,9 +240,9 @@ class CodeCopy {
         try {
           await navigator.clipboard.writeText(block.textContent);
           btn.textContent = 'COPIED';
-          btn.style.background = '#00FF00';
-          btn.style.color = '#000000';
-          btn.style.borderColor = '#00FF00';
+          btn.style.background = '#1E8449';
+          btn.style.color = '#FFFFFF';
+          btn.style.borderColor = '#1E8449';
           setTimeout(() => {
             btn.textContent = 'COPY';
             btn.style.background = '';

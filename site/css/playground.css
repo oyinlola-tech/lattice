@@ -1,4 +1,4 @@
-/* Zudo Code Playground — Floating Editor */
+/* Zudo Code Playground — Softened */
 
 .playground-toggle {
   position: fixed;
@@ -7,21 +7,21 @@
   z-index: 9999;
   width: 56px;
   height: 56px;
-  background: #000;
-  color: #FFF;
-  border: 3px solid #FF0000;
+  background: #1A1A2E;
+  color: #FFFFFF;
+  border: 2px solid #C0392B;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 1.25rem;
-  font-family: system-ui, monospace;
+  font-size: 1.1rem;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .playground-toggle:hover {
-  background: #FF0000;
-  color: #000;
+  background: #C0392B;
+  color: #FFFFFF;
 }
 
 .playground-panel {
@@ -31,13 +31,13 @@
   width: 520px;
   height: 55vh;
   max-height: 55vh;
-  background: #0D1117;
-  border-left: 3px solid #FF0000;
-  border-top: 3px solid #FF0000;
+  background: #1E1E2E;
+  border-left: 3px solid #C0392B;
+  border-top: 3px solid #C0392B;
   z-index: 10000;
   display: none;
   flex-direction: column;
-  font-family: 'Courier New', monospace;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .playground-panel.open {
@@ -49,13 +49,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  background: #161B22;
-  border-bottom: 2px solid #FF0000;
+  background: #181825;
+  border-bottom: 2px solid #313244;
   flex-shrink: 0;
 }
 
 .playground-header-title {
-  color: #FFF;
+  color: #CDD6F4;
   font-weight: 700;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -69,49 +69,49 @@
 
 .playground-btn {
   padding: 4px 12px;
-  border: 2px solid #FFF;
+  border: 2px solid #45475A;
   background: transparent;
-  color: #FFF;
+  color: #A6ADC8;
   font-weight: 700;
   font-size: 0.7rem;
   text-transform: uppercase;
   cursor: pointer;
-  font-family: system-ui, monospace;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 .playground-btn:hover {
-  background: #FFF;
-  color: #000;
+  background: #45475A;
+  color: #FFFFFF;
 }
 
 .playground-btn-run {
-  border-color: #00FF00;
-  color: #00FF00;
+  border-color: #A6E3A1;
+  color: #A6E3A1;
 }
 
 .playground-btn-run:hover {
-  background: #00FF00;
-  color: #000;
+  background: #A6E3A1;
+  color: #1E1E2E;
 }
 
 .playground-btn-clear {
-  border-color: #FF0000;
-  color: #FF0000;
+  border-color: #F38BA8;
+  color: #F38BA8;
 }
 
 .playground-btn-clear:hover {
-  background: #FF0000;
-  color: #000;
+  background: #F38BA8;
+  color: #1E1E2E;
 }
 
 .playground-btn-close {
-  border-color: #666;
-  color: #666;
+  border-color: #6C7086;
+  color: #6C7086;
 }
 
 .playground-btn-close:hover {
-  background: #666;
-  color: #000;
+  background: #6C7086;
+  color: #FFFFFF;
 }
 
 .playground-editor-wrap {
@@ -124,20 +124,20 @@
 .playground-editor {
   flex: 1;
   width: 100%;
-  background: #0D1117;
-  color: #00FF00;
+  background: #1E1E2E;
+  color: #CDD6F4;
   border: none;
   padding: 12px;
-  font-family: 'Courier New', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
-  line-height: 1.5;
+  line-height: 1.7;
   resize: none;
   outline: none;
   tab-size: 2;
 }
 
 .playground-output-wrap {
-  border-top: 2px solid #333;
+  border-top: 2px solid #313244;
   height: 140px;
   flex-shrink: 0;
 }
@@ -147,12 +147,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 4px 12px;
-  background: #161B22;
-  border-bottom: 1px solid #333;
+  background: #181825;
+  border-bottom: 1px solid #313244;
 }
 
 .playground-output-label {
-  color: #888;
+  color: #6C7086;
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -162,22 +162,22 @@
 .playground-output {
   width: 100%;
   height: calc(100% - 24px);
-  background: #0D1117;
-  color: #CCC;
+  background: #1E1E2E;
+  color: #CDD6F4;
   border: none;
   padding: 8px 12px;
-  font-family: 'Courier New', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
-  line-height: 1.4;
+  line-height: 1.5;
   resize: none;
   outline: none;
   overflow-y: auto;
 }
 
-.playground-output .log-error { color: #FF4444; }
-.playground-output .log-warn { color: #FFAA00; }
-.playground-output .log-info { color: #00AAFF; }
-.playground-output .log-result { color: #00FF00; }
+.playground-output .log-error { color: #F38BA8; }
+.playground-output .log-warn { color: #F9E2AF; }
+.playground-output .log-info { color: #89B4FA; }
+.playground-output .log-result { color: #A6E3A1; }
 
 @media (max-width: 640px) {
   .playground-panel {

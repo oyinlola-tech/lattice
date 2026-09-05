@@ -1,26 +1,28 @@
-/* Zudo Packages Page Styles */
+/* Zudo Packages Page — Filter Buttons */
 
 .filter-btn {
   padding: 6px 14px;
-  border: 2px solid #000;
+  border: 2px solid #D1D5DB;
   font-weight: 700;
   font-size: 0.8rem;
   cursor: pointer;
-  background: #fff;
-  color: #000;
+  background: #FFFFFF;
+  color: #4B5563;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 .filter-btn:hover {
-  background: #000;
-  color: #fff;
+  background: #1A1A2E;
+  color: #FFFFFF;
+  border-color: #1A1A2E;
 }
 
 .filter-btn.active {
-  background: #FF0000;
-  color: #000;
-  border-color: #000;
+  background: #C0392B;
+  color: #FFFFFF;
+  border-color: #C0392B;
 }
 
 .pkg-card {

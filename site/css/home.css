@@ -1,4 +1,4 @@
-/* Zudo Homepage Styles */
+/* Zudo Homepage — Softened Brutalist */
 
 * {
   border-radius: 0px !important;
@@ -6,38 +6,42 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1A1A2E;
+  background: #FAFAF9;
 }
 
 .brutalist-border {
-  border: 3px solid #000000;
+  border: 2px solid #1A1A2E;
 }
 
 .brutalist-border-white {
-  border: 3px solid #FFFFFF;
+  border: 2px solid #FFFFFF;
 }
 
 .brutalist-border-red {
-  border: 3px solid #FF0000;
+  border: 2px solid #C0392B;
 }
 
 .brutalist-border-blue {
-  border: 3px solid #0000FF;
+  border: 2px solid #2471A3;
 }
 
 .code-block {
-  background: #1a1a1a;
-  color: #00FF00;
-  border: 2px solid #333333;
-  font-family: 'Courier New', monospace;
-  font-size: 0.875rem;
+  background: #1E1E2E;
+  color: #CDD6F4;
+  border: 2px solid #313244;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
   overflow-x: auto;
+  padding: 1.25rem;
 }
 
-.code-block .keyword { color: #FF00FF; }
-.code-block .string { color: #FFFF00; }
-.code-block .comment { color: #666666; }
-.code-block .function { color: #0000FF; }
+.code-block .keyword { color: #CBA6F7; }
+.code-block .string { color: #A6E3A1; }
+.code-block .comment { color: #6C7086; }
+.code-block .function { color: #89B4FA; }
 
 .nav-link {
   position: relative;
@@ -49,23 +53,34 @@ body {
   bottom: -2px;
   left: 0;
   width: 0;
-  height: 3px;
-  background: #FF0000;
+  height: 2px;
+  background: #C0392B;
+  transition: width 0.2s ease;
 }
 
 .nav-link:hover::after {
   width: 100%;
 }
 
+.feature-card {
+  border: 2px solid #E5E7EB;
+  background: #FFFFFF;
+}
+
 .feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 8px 8px 0px #000000;
+  border-color: #1A1A2E;
+  box-shadow: 4px 4px 0px #1A1A2E;
+}
+
+.pkg-card {
+  border: 2px solid #E5E7EB;
+  background: #FFFFFF;
 }
 
 .pkg-card:hover {
-  background: #0000FF;
+  background: #2471A3;
   color: #FFFFFF;
-  border-color: #0000FF;
+  border-color: #2471A3;
 }
 
 .pkg-card:hover .pkg-arrow {
@@ -73,7 +88,7 @@ body {
 }
 
 .layer-box {
-  border: 3px solid #000000;
+  border: 2px solid #1A1A2E;
   position: relative;
 }
 
@@ -84,16 +99,16 @@ body {
   left: 4px;
   right: -4px;
   bottom: -4px;
-  border: 2px solid #FF0000;
+  border: 2px solid #C0392B;
   z-index: -1;
 }
 
 .step-number {
   width: 48px;
   height: 48px;
-  background: #FF0000;
-  color: #000000;
-  border: 3px solid #000000;
+  background: #C0392B;
+  color: #FFFFFF;
+  border: 2px solid #1A1A2E;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,24 +117,25 @@ body {
 }
 
 .search-overlay {
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(26, 26, 46, 0.95);
 }
 
 .search-input {
-  background: #1a1a1a;
-  border: 3px solid #FFFFFF;
+  background: #313244;
+  border: 2px solid #45475A;
   color: #FFFFFF;
-  font-family: system-ui, monospace;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 .search-input:focus {
-  outline: 3px solid #0000FF;
+  outline: 2px solid #2471A3;
   outline-offset: 0;
+  border-color: #2471A3;
 }
 
 .search-result:hover {
-  background: #1a1a1a;
-  border-color: #FF0000;
+  background: #313244;
+  border-color: #C0392B;
 }
 
 @media (max-width: 768px) {
@@ -130,8 +146,8 @@ body {
 
 .grid-lines {
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
@@ -140,4 +156,10 @@ body {
     linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 3px solid #2471A3;
+  outline-offset: 2px;
 }
